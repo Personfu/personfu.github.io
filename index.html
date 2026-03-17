@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLLC OS // CyberWorld Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --win-bg: #c0c0c0;
+        --win-light: #ffffff;
+        --win-dark: #808080;
+        --win-black: #000000;
+        --win-blue: #000080;
+        --cyber-cyan: #00e8ff;
+        --cyber-green: #00ff41;
+        --cyber-blue: #0044ff;
+        --dark-bg: #050a0f;
+    }
+
+    body {
+        background-color: #008080;
+        background-image: radial-gradient(#004d4d 1px, transparent 1px);
+        background-size: 20px 20px;
+        margin: 0;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* --- CRT OVERLAY --- */
+    #crt-filter {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+        background-size: 100% 3px;
+        z-index: 9999;
+        pointer-events: none;
+    }
+
+    /* --- DESKTOP ICONS --- */
+    #desktop {
+        flex: 1;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .icon {
+        width: 80px;
+        text-align: center;
+        color: white;
+        cursor: pointer;
+        font-size: 12px;
+        text-shadow: 1px 1px #000;
+    }
+    .icon img { width: 40px; height: 40px; margin-bottom: 5px; filter: drop-shadow(2px 2px 0px #000); }
+
+    /* --- BROWSER WINDOW --- */
+    .window {
+        background: var(--win-bg);
+        border: 2px solid;
+        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+        position: absolute;
+        top: 5%; left: 10%; width: 80%; height: 85%;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .title-bar {
+        background: linear-gradient(90deg, var(--win-blue), #1084d0);
+        color: white;
+        padding: 3px 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+    .title-controls button {
+        background: var(--win-bg);
+        border: 1px solid;
+        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+        width: 16px; height: 16px;
+        font-size: 10px; cursor: pointer; font-weight: bold;
+    }
+
+    .toolbar {
+        padding: 4px 8px; font-size: 12px;
+        border-bottom: 1px solid var(--win-dark);
+        display: flex; gap: 15px; align-items: center;
+    }
+
+    .address-bar { display: flex; flex: 1; gap: 5px; align-items: center; }
+    .address-bar input { flex: 1; border: 2px inset var(--win-light); padding: 2px; }
+
+    /* --- CYBERWORLD CONTENT --- */
+    .browser-content {
+        flex: 1;
+        background: var(--dark-bg);
+        border: 2px inset var(--win-light);
+        margin: 4px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        background-image: linear-gradient(rgba(0, 232, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 232, 255, 0.05) 1px, transparent 1px);
+        background-size: 30px 30px;
+    }
+
+    .cw-title {
+        font-family: 'Pixelify Sans', sans-serif;
+        color: var(--cyber-cyan);
+        font-size: 48px;
+        margin: 10px 0;
+        text-shadow: 0 0 10px var(--cyber-cyan);
+    }
+
+    /* --- ISOMETRIC FRAME --- */
+    .game-frame {
+        width: 85%; height: 60%;
+        background: var(--win-bg);
+        border: 2px solid;
+        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+        display: flex; flex-direction: column;
+        position: relative;
+    }
+
+    .game-title {
+        background: #000; color: var(--cyber-green);
+        text-align: center; font-family: 'VT323', monospace;
+        padding: 4px; font-size: 18px; border-bottom: 2px solid var(--win-dark);
+    }
+
+    .isometric-canvas {
+        flex: 1; background: #0a0a15; margin: 4px;
+        border: 2px inset var(--win-light);
+        position: relative; overflow: hidden;
+        background-image: repeating-linear-gradient(45deg, #12121a 25%, transparent 25%, transparent 75%, #12121a 75%, #12121a), repeating-linear-gradient(45deg, #12121a 25%, #0a0a15 25%, #0a0a15 75%, #12121a 75%, #12121a);
+        background-position: 0 0, 20px 20px; background-size: 40px 40px;
+        display: flex; justify-content: center; align-items: center;
+    }
+
+    .btn-play {
+        background: linear-gradient(180deg, #1084d0, var(--win-blue));
+        color: white; font-family: 'VT323', monospace; font-size: 32px;
+        padding: 10px 40px; border: 3px solid var(--cyber-cyan);
+        box-shadow: 0 0 15px var(--cyber-cyan); cursor: pointer; transition: 0.2s;
+    }
+    .btn-play:hover { background: var(--cyber-cyan); color: #000; }
+
+    /* --- CHAT WIDGET --- */
+    .chat-widget {
+        position: absolute; bottom: -20px; right: -20px;
+        width: 300px; height: 180px;
+        background: var(--win-bg); border: 2px solid;
+        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+        display: flex; flex-direction: column; z-index: 50;
+    }
+
+    .chat-log {
+        flex: 1; background: #fff; margin: 2px; border: 2px inset var(--win-light);
+        font-family: 'VT323', monospace; font-size: 16px; padding: 4px; overflow-y: auto;
+    }
+
+    .chat-input { display: flex; margin: 2px; }
+    .chat-input input { flex: 1; border: 2px inset var(--win-light); font-family: 'VT323'; }
+    .chat-input button { border: 1px solid var(--win-black); cursor: pointer; }
+
+    /* --- TASKBAR --- */
+    #taskbar {
+        height: 35px; background: var(--win-bg); border-top: 2px solid var(--win-light);
+        display: flex; align-items: center; padding: 0 5px; z-index: 1000;
+    }
+
+    .start-btn {
+        font-weight: bold; padding: 3px 8px; border: 2px solid;
+        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+        display: flex; align-items: center; cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div id="crt-filter"></div>
+
+<div id="desktop">
+    <div class="icon">
+        <img src="https://win98icons.alexmeub.com/icons/png/world-0.png" alt="World">
+        <br>CyberWorld
+    </div>
+    <div class="icon" onclick="window.location.href='https://fllc.net'">
+        <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png" alt="Network">
+        <br>FLLC.net
+    </div>
+    <div class="icon" onclick="window.location.href='https://fllc.net/shop'">
+        <img src="https://win98icons.alexmeub.com/icons/png/key_padlock.png" alt="Security">
+        <br>Auth Keys
+    </div>
+</div>
+
+<div class="window">
+    <div class="title-bar">
+        <span>CyberWorld - Common Web Browser</span>
+        <div class="title-controls">
+            <button>_</button><button>□</button><button>X</button>
+        </div>
+    </div>
+    
+    <div class="toolbar">
+        <span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span><span><u>H</u>elp</span>
+    </div>
+    
+    <div class="toolbar address-bar">
+        <span>Address:</span>
+        <input type="text" value="http://fllc.net/cyberworld/hub" readonly>
+        <button style="padding: 2px 10px;">Go</button>
+    </div>
+
+    <div class="browser-content">
+        <div class="cw-title">CyberWorld</div>
+        
+        <div class="game-frame">
+            <div class="game-title">WELCOME TO CYBERWORLD: ENTERPRISE HUB</div>
+            
+            <div class="isometric-canvas">
+                <button class="btn-play" onclick="window.location.href='rpg/index.html'">PLAY NOW</button>
+            </div>
+
+            <div class="chat-widget">
+                <div class="game-title" style="font-size: 14px; background: var(--win-blue);">SECURE CHAT</div>
+                <div class="chat-log" id="chat-log">
+                    <span style="color:var(--cyber-blue)">Agent_Zero:</span> Anyone know how to decrypt the firewall in Sector 4?<br>
+                    <span style="color:var(--cyber-blue)">FLLC_Admin:</span> You need a Premium Elite $50 key to bypass it.<br>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="chat-msg" placeholder="Type message...">
+                    <button onclick="sendChat()">✓</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 25px;">
+            <button onclick="window.location.href='https://fllc.net/shop'" style="font-family:VT323; font-size:18px; padding:5px 15px;">UPGRADE TIER</button>
+            <button onclick="window.location.href='https://fllc.net/solutions'" style="font-family:VT323; font-size:18px; padding:5px 15px;">IT SOLUTIONS</button>
+        </div>
+    </div>
+</div>
+
+<div id="taskbar">
+    <div class="start-btn">⊞ Start</div>
+    <div style="margin-left: 10px; border: 2px inset var(--win-light); padding: 3px 10px; font-size: 12px; background: #e0e0e0;">CyberWorld Browser</div>
+    <div style="flex: 1;"></div>
+    <div id="clock" style="border: 2px inset var(--win-light); padding: 3px 10px; font-size: 12px;">12:00 PM</div>
+</div>
+
+<script>
+    function updateClock() {
+        const now = new Date();
+        document.getElementById('clock').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+    setInterval(updateClock, 1000); updateClock();
+
+    function sendChat() {
+        const input = document.getElementById('chat-msg');
+        const log = document.getElementById('chat-log');
+        if(input.value.trim() !== "") {
+            log.innerHTML += `<span style="color:var(--cyber-green)">You:</span> ${input.value}<br>`;
+            input.value = "";
+            log.scrollTop = log.scrollHeight;
+        }
+    }
+    document.getElementById('chat-msg').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') sendChat();
+    });
+</script>
+
+</body>
+</html>
