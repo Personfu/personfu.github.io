@@ -82,6 +82,31 @@
     
     <div class="content-area">
         <h1>Global Threat Landscape (2026)</h1>
+
+        <div class="threat-card" style="background:#000; color:var(--cyber-green); padding:15px; border:2px solid var(--cyber-cyan);">
+            <div id="scan-status">SYNDICATE_MONITOR: [IDLE]</div>
+            <button onclick="startScan()" style="margin-top:10px; background:var(--win-bg); cursor:pointer;">SCAN_FACTION_STATUS</button>
+        </div>
+
+        <script>
+            function startScan() {
+                const el = document.getElementById('scan-status');
+                const factions = ['Spider', 'Bear', 'Chollima', 'Panda', 'Kitten', 'Jackal'];
+                el.innerText = 'INITIALIZING PULSE_SCAN...';
+                
+                let i = 0;
+                const iv = setInterval(() => {
+                    const f = factions[Math.floor(Math.random()*factions.length)];
+                    const status = Math.random() > 0.5 ? 'ACTIVE_OPS' : 'DORMANT';
+                    el.innerText = `SCANNING: ${f} Nexus... [${status}]`;
+                    i++;
+                    if (i > 10) {
+                        clearInterval(iv);
+                        el.innerText = `SCAN_COMPLETE: ${factions.length} Factions monitored. Critical Spiders detected.`;
+                    }
+                }, 200);
+            }
+        </script>
         
         <!-- SPIDERS -->
         <h2>The Spider Faction: Global eCrime Syndicates</h2>
