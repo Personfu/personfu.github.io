@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLLC OS // 2026 Adversary Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --win-bg: #c0c0c0;
+        --win-light: #ffffff;
+        --win-dark: #808080;
+        --win-black: #000000;
+        --win-blue: #000080;
+        --cyber-cyan: #00e8ff;
+        --cyber-green: #00ff41;
+        --cyber-red: #ff003c;
+        --dark-bg: #050a0f;
+    }
+
+    body {
+        background-color: #008080;
+        margin: 0;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .window {
+        background: var(--win-bg);
+        border: 2px solid;
+        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+        width: 90%; height: 90%;
+        display: flex; flex-direction: column;
+        box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .title-bar {
+        background: linear-gradient(90deg, var(--win-blue), #1084d0);
+        color: white; padding: 3px 6px; display: flex;
+        justify-content: space-between; align-items: center; font-weight: bold;
+    }
+
+    .title-controls button {
+        background: var(--win-bg); border: 1px solid;
+        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+        width: 16px; height: 16px; font-size: 10px; cursor: pointer; font-weight: bold;
+    }
+
+    .content-area {
+        flex: 1; padding: 15px; background: #fff;
+        border: 2px inset var(--win-light); margin: 5px;
+        overflow-y: auto; font-family: 'Courier New', Courier, monospace;
+    }
+
+    h1 { font-family: 'Pixelify Sans', sans-serif; color: var(--win-blue); border-bottom: 2px solid var(--win-dark); }
+    h2 { font-family: 'VT323', monospace; color: var(--cyber-red); font-size: 28px; margin-top: 20px; border-bottom: 1px dashed var(--win-dark); }
+    h3 { font-family: 'VT323', monospace; color: var(--win-blue); font-size: 22px; }
+    p { font-size: 14px; line-height: 1.5; }
+    .threat-card {
+        background: #f0f0f0; border: 1px solid var(--win-dark);
+        padding: 10px; margin-bottom: 10px; box-shadow: 2px 2px 0px var(--win-dark);
+    }
+    .faction-desc {
+        background: #e0e0e0; padding: 10px; border-left: 5px solid var(--win-blue);
+        margin-bottom: 20px; font-style: italic;
+    }
+    .tier-label { font-weight: bold; color: var(--cyber-red); }
+</style>
+</head>
+<body>
+
+<div class="window">
+    <div class="title-bar">
+        <span>CyberWorld MMORPG - 2026 Adversary Intelligence Database</span>
+        <div class="title-controls">
+            <button onclick="window.location.href='index.html'">X</button>
+        </div>
+    </div>
+    
+    <div class="content-area">
+        <h1>Global Threat Landscape (2026)</h1>
+        
+        <!-- SPIDERS -->
+        <h2>The Spider Faction: Global eCrime Syndicates</h2>
+        <div class="faction-desc">
+            The Spider faction represents the decentralized, profit-driven underbelly of global cybercrime, operating primarily as Ransomware-as-a-Service (RaaS) affiliates, Initial Access Brokers (IABs), and data extortionists. They employ robust quadruple extortion models and aggressive DDoS tactics.
+        </div>
+        <h3>High-Tier Spiders</h3>
+        <div class="threat-card"><span class="tier-label">BITWISE SPIDER:</span> (Ext) The apex predator of RaaS, targeting 44 industries. [LockBitSupp, Fox William Mulder]</div>
+        <div class="threat-card"><span class="tier-label">REVENANT SPIDER:</span> (Ext) Highly sophisticated rust-based payloads. [Stinkbug, Qilin]</div>
+        <div class="threat-card"><span class="tier-label">GRACEFUL SPIDER:</span> (High) Masters of zero-day mass exploitation. [Clop, FIN11]</div>
+        <div class="threat-card"><span class="tier-label">BRAIN SPIDER:</span> (High) Relentless and noisy data leaks. [8BASE, Phobos]</div>
+        <div class="threat-card"><span class="tier-label">TRAVELING SPIDER:</span> (High) Broad global reach, aggressive negotiations. [Nokoyawa]</div>
+
+        <!-- BEARS -->
+        <h2>The Bear Vanguard: Russian State-Sponsored Operations</h2>
+        <div class="faction-desc">
+            The Bear faction represents the absolute pinnacle of state-sponsored cyber warfare, emulating the deeply resourced intelligence services of the Russian Federation. They excel in PsyOps, critical infrastructure sabotage, and ultimate stealth.
+        </div>
+        <h3>High-Tier Bears</h3>
+        <div class="threat-card"><span class="tier-label">COZY BEAR:</span> (Ext) Ultimate stealth operators. Masters of supply chain compromises. [APT29, NOBELIUM]</div>
+        <div class="threat-card"><span class="tier-label">FANCY BEAR:</span> (Ext) Highly aggressive intelligence gatherers. [APT28, Sofacy]</div>
+        <div class="threat-card"><span class="tier-label">VENOMOUS BEAR:</span> (Ext) Multi-stage malware & satellite IP hijacks. [Turla]</div>
+        <div class="threat-card"><span class="tier-label">VOODOO BEAR:</span> (Ext) Premier sabotage unit, destructive wipers. [Sandworm]</div>
+
+        <!-- CHOLLIMAS -->
+        <h2>The Chollima Bureau: North Korean Hybrid Operations</h2>
+        <div class="faction-desc">
+            Unlike other state-sponsored groups, Chollima has a dual mandate: steal classified intelligence AND generate massive revenue to bypass global sanctions. You face nation-state zero-days mixed with the aggressive financial motivations of eCrime.
+        </div>
+        <h3>High-Tier Chollimas</h3>
+        <div class="threat-card"><span class="tier-label">LABYRINTH CHOLLIMA:</span> (Ext) Billion-dollar financial heists, complex supply chain compromises. [Lazarus Group]</div>
+        <div class="threat-card"><span class="tier-label">STARDUST CHOLLIMA:</span> (Ext) Exclusively focused on targeting global financial institutions & SWIFT. [APT38]</div>
+
+        <!-- PANDAS -->
+        <h2>The Panda Nexus: Chinese Cyber Espionage</h2>
+        <div class="faction-desc">
+            The ultimate vacuum cleaners of digital data, focused entirely on large-scale intellectual property theft, deep telecommunications surveillance, and securing strategic economic advantages.
+        </div>
+        <h3>High-Tier Pandas</h3>
+        <div class="threat-card"><span class="tier-label">MUSTANG PANDA:</span> (Ext) Lightning-fast exploitation of public vulnerabilities. [BRONZE PRESIDENT]</div>
+        <div class="threat-card"><span class="tier-label">HOLLOW PANDA:</span> (Ext) Long-term, deep-cover intelligence gathering.</div>
+
+        <!-- KITTENS -->
+        <h2>The Kitten Vanguard: Iranian State-Aligned Operations</h2>
+        <div class="faction-desc">
+            Highly aggressive, ideologically driven, and deeply disruptive. They frequently prioritize speed, psychological impact, and visible disruption over absolute stealth, often deploying devastating wiper malware.
+        </div>
+        <h3>High-Tier Kittens</h3>
+        <div class="threat-card"><span class="tier-label">BANISHED KITTEN:</span> (Ext) Devastating wiper attacks and psychological operations. [Homeland Justice]</div>
+        <div class="threat-card"><span class="tier-label">IMPERIAL KITTEN:</span> (High) Heavily focused on defense industrial base and IT logistics. [APT35, Tortoiseshell]</div>
+
+        <!-- JACKALS & EMERGENT -->
+        <h2>The Jackals & Emerging State Threats</h2>
+        <div class="faction-desc">
+            Ideologically driven hacktivist collectives (Jackals) providing pure chaos via DDoS and hack-and-leaks. Emerging APTS from developing nations (India, Pakistan, Belarus, Egypt) bring customized remote access trojans focused on regional targets.
+        </div>
+        <div class="threat-card"><span class="tier-label">PARTISAN JACKAL (Belarus):</span> (Destructive) Hacktivist group conducting highly impactful destructive operations. [Cyber Partisans]</div>
+        <div class="threat-card"><span class="tier-label">BOUNTY JACKAL (Russia):</span> (Heavy DDoS) Pro-state hacktivist group. [NoName057(16)]</div>
+        <div class="threat-card"><span class="tier-label">HAZY TIGER (India):</span> (Mid) Aggressive regional espionage. [Bitter APT]</div>
+        <div class="threat-card"><span class="tier-label">MYTHIC LEOPARD (Pakistan):</span> (Mid) Heavy focus on military espionage. [Transparent Tribe]</div>
+        
+    </div>
+</div>
+
+</body>
+</html>
