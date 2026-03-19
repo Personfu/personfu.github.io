@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FLLC OS // CyberWorld Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&display=swap" rel="stylesheet">
+<title>FLLC OS // CyberWorld SOC Portal — fllc.net</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
     :root {
         --win-bg: #c0c0c0;
@@ -15,306 +15,574 @@
         --cyber-cyan: #00e8ff;
         --cyber-green: #00ff41;
         --cyber-blue: #0044ff;
+        --cyber-purple: #9900ff;
+        --cyber-amber: #ffb300;
+        --cyber-red: #ff003c;
         --dark-bg: #050a0f;
     }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
         background-color: #050a0f;
-        background-image: 
-            radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-            radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-            radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
-            linear-gradient(rgba(0, 232, 255, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 232, 255, 0.05) 1px, transparent 1px);
-        background-size: 550px 550px, 350px 350px, 250px 250px, 40px 40px, 40px 40px;
-        background-position: 0 0, 40px 60px, 130px 270px, 0 0, 0 0;
-        margin: 0;
-        height: 100vh;
+        margin: 0; height: 100vh;
         font-family: Arial, sans-serif;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        animation: galaxy-scroll 100s linear infinite;
+        overflow: hidden; display: flex; flex-direction: column;
+        position: relative;
     }
-
-    @keyframes galaxy-scroll {
-        from { background-position: 0 0, 40px 60px, 130px 270px, 0 0, 0 0; }
-        to { background-position: 550px 550px, 390px 410px, 380px 820px, 40px 40px, 40px 40px; }
+    /* HIGHWAY CAM LAYER */
+    #cam-layer {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        z-index: 0; pointer-events: none;
     }
-
-    /* --- CRT OVERLAY --- */
-    #crt-filter {
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
-        background-size: 100% 3px;
-        z-index: 9999;
+    .cam-feed {
+        position: absolute; border: 1px solid rgba(0,232,255,0.3);
+        background: #000; overflow: hidden; opacity: 0.40;
+    }
+    .cam-feed canvas { width: 100%; height: 100%; display: block; }
+    .cam-label {
+        position: absolute; bottom: 2px; left: 4px;
+        color: var(--cyber-green); font-family: 'VT323', monospace;
+        font-size: 12px; text-shadow: 0 0 4px var(--cyber-green);
         pointer-events: none;
     }
-
-    /* --- DESKTOP ICONS --- */
+    .cam-rec {
+        position: absolute; top: 3px; right: 6px;
+        color: var(--cyber-red); font-family: 'VT323', monospace;
+        font-size: 11px; animation: blink-rec 1.2s step-start infinite;
+    }
+    @keyframes blink-rec { 0%,100%{opacity:1} 50%{opacity:0} }
+    /* Galaxy bg */
+    #galaxy-bg {
+        position: fixed; top:0; left:0; width:100%; height:100%;
+        background-image:
+            radial-gradient(white,rgba(255,255,255,.2) 2px,transparent 40px),
+            radial-gradient(white,rgba(255,255,255,.15) 1px,transparent 30px),
+            radial-gradient(white,rgba(255,255,255,.1) 2px,transparent 40px),
+            linear-gradient(rgba(0,232,255,0.04) 1px,transparent 1px),
+            linear-gradient(90deg,rgba(0,232,255,0.04) 1px,transparent 1px);
+        background-size: 550px 550px,350px 350px,250px 250px,40px 40px,40px 40px;
+        background-position: 0 0,40px 60px,130px 270px,0 0,0 0;
+        animation: galaxy-scroll 120s linear infinite;
+        z-index: 1; pointer-events: none;
+    }
+    @keyframes galaxy-scroll {
+        from { background-position: 0 0,40px 60px,130px 270px,0 0,0 0; }
+        to   { background-position: 550px 550px,390px 410px,380px 820px,40px 40px,40px 40px; }
+    }
+    /* CRT filter */
+    #crt-filter {
+        position: fixed; top:0; left:0; width:100%; height:100%;
+        background: linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,0.12) 50%);
+        background-size: 100% 3px; z-index: 9999; pointer-events: none;
+    }
+    /* UI layer */
+    #ui-layer { position: relative; z-index: 10; flex: 1; display: flex; flex-direction: column; }
     #desktop {
-        flex: 1;
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
+        padding: 35px 30px 10px 30px;
+        display: grid; grid-template-columns: repeat(auto-fill,90px);
+        gap: 22px; align-content: start;
     }
-
     .icon {
-        width: 80px;
-        text-align: center;
-        color: white;
-        cursor: pointer;
-        font-size: 12px;
-        text-shadow: 1px 1px #000;
+        width: 80px; text-align: center; color: white; cursor: pointer;
+        font-size: 11px; font-family: 'Share Tech Mono',monospace;
+        text-shadow: 1px 1px #000,0 0 6px var(--cyber-cyan);
+        line-height: 1.3; user-select: none;
     }
-    .icon img { width: 40px; height: 40px; margin-bottom: 5px; filter: drop-shadow(2px 2px 0px #000); }
-
-    /* --- BROWSER WINDOW --- */
+    .icon:hover { color: var(--cyber-cyan); }
+    .icon img {
+        width: 40px; height: 40px; margin-bottom: 4px;
+        filter: drop-shadow(2px 2px 0px #000) drop-shadow(0 0 4px var(--cyber-cyan));
+        display: block; margin-left: auto; margin-right: auto;
+    }
+    /* Main window */
     .window {
-        background: var(--win-bg);
-        border: 2px solid;
+        background: var(--win-bg); border: 2px solid;
         border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
-        position: absolute;
-        top: 5%; left: 10%; width: 80%; height: 85%;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+        position: absolute; top: 5%; left: 8%; width: 84%; height: 86%;
+        display: flex; flex-direction: column;
+        box-shadow: 5px 5px 20px rgba(0,0,0,0.7); z-index: 20;
     }
-
     .title-bar {
         background: linear-gradient(90deg, var(--win-blue), #1084d0);
-        color: white;
-        padding: 3px 6px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-weight: bold;
-        font-size: 14px;
+        color: white; padding: 3px 6px; display: flex;
+        justify-content: space-between; align-items: center;
+        font-weight: bold; font-size: 13px;
     }
-
     .title-controls button {
-        background: var(--win-bg);
-        border: 1px solid;
+        background: var(--win-bg); border: 1px solid;
         border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
-        width: 16px; height: 16px;
-        font-size: 10px; cursor: pointer; font-weight: bold;
+        width: 16px; height: 16px; font-size: 10px; cursor: pointer; font-weight: bold;
     }
-
     .toolbar {
         padding: 4px 8px; font-size: 12px;
         border-bottom: 1px solid var(--win-dark);
         display: flex; gap: 15px; align-items: center;
+        background: var(--win-bg);
     }
-
     .address-bar { display: flex; flex: 1; gap: 5px; align-items: center; }
-    .address-bar input { flex: 1; border: 2px inset var(--win-light); padding: 2px; }
-
-    /* --- CYBERWORLD CONTENT --- */
+    .address-bar input {
+        flex: 1; border: 2px inset var(--win-light);
+        padding: 2px 4px; font-family: 'Share Tech Mono',monospace; font-size: 12px;
+    }
     .browser-content {
-        flex: 1;
-        background: var(--dark-bg);
-        border: 2px inset var(--win-light);
-        margin: 4px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
-        background-image: linear-gradient(rgba(0, 232, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 232, 255, 0.05) 1px, transparent 1px);
+        flex: 1; background: var(--dark-bg); border: 2px inset var(--win-light);
+        margin: 4px; display: flex; flex-direction: column; align-items: center;
+        position: relative; overflow: auto;
+        background-image:
+            linear-gradient(rgba(0,232,255,0.04) 1px,transparent 1px),
+            linear-gradient(90deg,rgba(0,232,255,0.04) 1px,transparent 1px);
         background-size: 30px 30px;
     }
-
+    /* SOC Banner */
+    .soc-banner {
+        width: 100%; background: linear-gradient(90deg,#000 0%,#001a2e 40%,#000 100%);
+        border-bottom: 1px solid var(--cyber-cyan); padding: 4px 15px;
+        display: flex; align-items: center; gap: 20px;
+        font-family: 'VT323',monospace; font-size: 15px; color: var(--cyber-cyan);
+        overflow: hidden; flex-shrink: 0;
+    }
+    .soc-ticker { flex: 1; overflow: hidden; white-space: nowrap; }
+    .soc-ticker span { display: inline-block; animation: ticker-scroll 40s linear infinite; }
+    @keyframes ticker-scroll { 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
+    .threat-level { color: var(--cyber-red); font-weight: bold; animation: blink-rec 1s step-start infinite; }
+    /* Title */
     .cw-title {
-        font-family: 'Pixelify Sans', sans-serif;
-        color: var(--cyber-cyan);
-        font-size: 48px;
-        margin: 10px 0;
-        text-shadow: 0 0 10px var(--cyber-cyan);
+        font-family: 'Pixelify Sans',sans-serif; color: var(--cyber-cyan);
+        font-size: 42px; margin: 8px 0 4px 0;
+        text-shadow: 0 0 15px var(--cyber-cyan),0 0 30px rgba(0,232,255,0.4);
+        letter-spacing: 4px; flex-shrink: 0;
     }
-
-    /* --- ISOMETRIC FRAME --- */
+    .cw-subtitle {
+        font-family: 'VT323',monospace; color: var(--cyber-green);
+        font-size: 16px; letter-spacing: 3px;
+        text-shadow: 0 0 6px var(--cyber-green); flex-shrink: 0; margin-bottom: 10px;
+    }
+    /* Game frame */
     .game-frame {
-        width: 85%; height: 60%;
-        background: var(--win-bg);
-        border: 2px solid;
+        width: 90%; height: 55%; min-height: 260px;
+        background: var(--win-bg); border: 2px solid;
         border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
-        display: flex; flex-direction: column;
-        position: relative;
+        display: flex; flex-direction: column; position: relative; flex-shrink: 0;
     }
-
     .game-title {
         background: #000; color: var(--cyber-green);
-        text-align: center; font-family: 'VT323', monospace;
-        padding: 4px; font-size: 18px; border-bottom: 2px solid var(--win-dark);
+        text-align: center; font-family: 'VT323',monospace;
+        padding: 4px; font-size: 17px; border-bottom: 2px solid var(--win-dark); flex-shrink: 0;
     }
-
     .isometric-canvas {
         flex: 1; background: #0a0a15; margin: 4px;
         border: 2px inset var(--win-light);
         position: relative; overflow: hidden;
-        background-image: repeating-linear-gradient(45deg, #12121a 25%, transparent 25%, transparent 75%, #12121a 75%, #12121a), repeating-linear-gradient(45deg, #12121a 25%, #0a0a15 25%, #0a0a15 75%, #12121a 75%, #12121a);
-        background-position: 0 0, 20px 20px; background-size: 40px 40px;
         display: flex; justify-content: center; align-items: center;
     }
-
-    .btn-play {
-        background: linear-gradient(180deg, #1084d0, var(--win-blue));
-        color: white; font-family: 'VT323', monospace; font-size: 32px;
-        padding: 10px 40px; border: 3px solid var(--cyber-cyan);
-        box-shadow: 0 0 15px var(--cyber-cyan); cursor: pointer; transition: 0.2s;
+    /* SOC stats */
+    .soc-stats { display: flex; gap: 0; border-top: 1px solid var(--win-dark); flex-shrink: 0; }
+    .stat-cell {
+        flex: 1; padding: 3px 6px; font-family: 'VT323',monospace; font-size: 14px;
+        border-right: 1px solid var(--win-dark); background: #e0e0e0; text-align: center;
     }
-    .btn-play:hover { background: var(--cyber-cyan); color: #000; }
-
-    /* --- CHAT WIDGET --- */
+    .stat-cell:last-child { border-right: none; }
+    .stat-val { color: var(--win-blue); font-weight: bold; }
+    .stat-val.critical { color: var(--cyber-red); }
+    .btn-play {
+        background: linear-gradient(180deg,#1084d0,var(--win-blue));
+        color: white; font-family: 'VT323',monospace; font-size: 30px;
+        padding: 10px 40px; border: 3px solid var(--cyber-cyan);
+        box-shadow: 0 0 18px var(--cyber-cyan); cursor: pointer; transition: 0.2s;
+        letter-spacing: 2px;
+    }
+    .btn-play:hover { background: var(--cyber-cyan); color: #000; box-shadow: 0 0 30px var(--cyber-cyan); }
+    /* Chat widget */
     .chat-widget {
-        position: absolute; bottom: -20px; right: -20px;
-        width: 300px; height: 180px;
-        background: var(--win-bg); border: 2px solid;
+        position: absolute; bottom: -18px; right: -18px;
+        width: 290px; height: 180px; background: var(--win-bg); border: 2px solid;
         border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
         display: flex; flex-direction: column; z-index: 50;
     }
-
     .chat-log {
         flex: 1; background: #fff; margin: 2px; border: 2px inset var(--win-light);
-        font-family: 'VT323', monospace; font-size: 16px; padding: 4px; overflow-y: auto;
+        font-family: 'VT323',monospace; font-size: 15px; padding: 4px; overflow-y: auto;
     }
-
     .chat-input { display: flex; margin: 2px; }
-    .chat-input input { flex: 1; border: 2px inset var(--win-light); font-family: 'VT323'; }
-    .chat-input button { border: 1px solid var(--win-black); cursor: pointer; }
-
-    /* --- TASKBAR --- */
+    .chat-input input { flex: 1; border: 2px inset var(--win-light); font-family: 'VT323'; font-size: 14px; }
+    .chat-input button { border: 1px solid var(--win-black); cursor: pointer; font-size: 13px; }
+    /* Nav buttons */
+    .nav-buttons {
+        display: flex; gap: 8px; margin: 22px 0 8px 0;
+        flex-wrap: wrap; justify-content: center; flex-shrink: 0;
+    }
+    .nav-btn {
+        font-family: 'VT323',monospace; font-size: 16px; padding: 4px 14px;
+        background: var(--win-bg); border: 2px solid;
+        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+        cursor: pointer;
+    }
+    .nav-btn:hover { background: var(--win-blue); color: #fff; }
+    /* Taskbar */
     #taskbar {
         height: 35px; background: var(--win-bg); border-top: 2px solid var(--win-light);
-        display: flex; align-items: center; padding: 0 5px; z-index: 1000;
+        display: flex; align-items: center; padding: 0 5px; z-index: 1000; position: relative;
     }
-
     .start-btn {
-        font-weight: bold; padding: 3px 8px; border: 2px solid;
+        font-weight: bold; padding: 3px 10px; border: 2px solid;
         border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
-        display: flex; align-items: center; cursor: pointer;
+        display: flex; align-items: center; cursor: pointer; font-size: 13px; gap: 4px;
+        background: var(--win-bg);
     }
+    .start-btn:hover { background: var(--win-blue); color: #fff; }
+    /* Start menu */
+    #start-menu {
+        display: none; position: absolute; bottom: 35px; left: 0;
+        background: var(--win-bg); border: 2px solid;
+        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+        width: 230px; z-index: 5000; box-shadow: 3px 3px 8px rgba(0,0,0,0.5);
+    }
+    .start-menu-header {
+        background: linear-gradient(180deg, var(--win-blue), #1084d0); color: #fff;
+        font-weight: bold; font-family: 'Pixelify Sans',sans-serif; padding: 10px 8px;
+        font-size: 18px; letter-spacing: 1px; writing-mode: vertical-rl;
+        transform: rotate(180deg); height: 80px; float: left;
+    }
+    .start-menu-items { margin-left: 34px; padding: 4px 0; }
+    .start-item {
+        padding: 5px 10px; font-size: 13px; cursor: pointer;
+        display: flex; align-items: center; gap: 8px;
+    }
+    .start-item:hover { background: var(--win-blue); color: #fff; }
+    .start-item img { width: 20px; height: 20px; }
+    .tray-btn {
+        border: 2px inset var(--win-light); padding: 2px 8px; font-size: 12px;
+        background: #d4d0c8; cursor: pointer; margin-left: 4px;
+        font-family: 'Share Tech Mono',monospace;
+    }
+    .tray-btn.active { background: #a0a098; border-color: var(--win-black) var(--win-light) var(--win-light) var(--win-black); }
 </style>
 </head>
 <body>
 
+<!-- HIGHWAY CAM BACKGROUND -->
+<div id="cam-layer"></div>
+
+<!-- Galaxy stars -->
+<div id="galaxy-bg"></div>
+
+<!-- CRT Scanlines -->
 <div id="crt-filter"></div>
 
-<div id="desktop" style="display: grid; grid-template-columns: repeat(4, 90px); gap: 30px; padding: 40px;">
-    <div class="icon" onclick="window.location.href='index.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/world-0.png" alt="World">
-        <br>CyberWorld<br>[Home]
-    </div>
-    <div class="icon" onclick="window.location.href='temple.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png" alt="HolyOS">
-        <br>CYBERWORLD_OS<br>Generator
-    </div>
-    <div class="icon" onclick="window.location.href='adversaries.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/address_book_users.png" alt="Target DB">
-        <br>Adversary<br>Database
-    </div>
-    <div class="icon" onclick="window.location.href='https://fllc.net/intelligence'">
-        <img src="https://win98icons.alexmeub.com/icons/png/search_file-2.png" alt="Intel">
-        <br>FLLC<br>Intel Hub
-    </div>
-    <div class="icon" onclick="window.location.href='https://github.com/Personfu/Python'">
-        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Homework">
-        <br>Python<br>Homework
-    </div>
-    <div class="icon" onclick="window.location.href='https://github.com/Personfu/CYBERWORLDSOURCECODE'">
-        <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png" alt="OSINT">
-        <br>CYBERWORLD<br>CORE ENGINE
-    </div>
-    <div class="icon" onclick="window.location.href='https://github.com/Personfu/CYBERWORLDSOURCECODELITE'">
-        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Lite">
-        <br>CYBERWORLD<br>LITE OPS
-    </div>
-    <div class="icon" onclick="window.location.href='https://fllc.net'">
-        <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png" alt="Network">
-        <br>FURIOS-INT<br>Mainframe
-    </div>
-    <div class="icon" onclick="window.location.href='https://github.com/Personfu/REPORTS'">
-        <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-0.png" alt="Reports">
-        <br>CSET<br>REPORTS
+<!-- Start Menu (above taskbar) -->
+<div id="start-menu">
+    <div style="display:flex; min-height:120px;">
+        <div class="start-menu-header">FLLC OS</div>
+        <div class="start-menu-items">
+            <div class="start-item" onclick="window.location.href='index.html'">
+                <img src="https://win98icons.alexmeub.com/icons/png/world-0.png" alt=""> CyberWorld Home
+            </div>
+            <div class="start-item" onclick="window.location.href='temple.html'">
+                <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png" alt=""> CYBERWORLD_OS
+            </div>
+            <div class="start-item" onclick="window.location.href='adversaries.html'">
+                <img src="https://win98icons.alexmeub.com/icons/png/address_book_users.png" alt=""> Adversary DB
+            </div>
+            <div class="start-item" onclick="window.location.href='soc.html'">
+                <img src="https://win98icons.alexmeub.com/icons/png/monitor-0.png" alt=""> SOC Dashboard
+            </div>
+            <div class="start-item" onclick="window.location.href='rpg/index.html'">
+                <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png" alt=""> Enter CyberWorld
+            </div>
+            <div class="start-item" onclick="window.location.href='https://fllc.net'">
+                <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png" alt=""> FLLC.NET
+            </div>
+            <hr style="margin:4px 0;border-color:var(--win-dark);">
+            <div class="start-item" onclick="document.getElementById('start-menu').style.display='none'">
+                <img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-2.png" alt=""> Disconnect
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="window">
-    <div class="title-bar">
-        <span>CyberWorld - Common Web Browser</span>
-        <div class="title-controls">
-            <button>_</button><button>□</button><button>X</button>
+<!-- UI Layer (desktop icons behind window) -->
+<div id="ui-layer">
+    <div id="desktop">
+        <div class="icon" onclick="window.location.href='index.html'">
+            <img src="https://win98icons.alexmeub.com/icons/png/world-0.png" alt="World">
+            CyberWorld<br>[Home]
+        </div>
+        <div class="icon" onclick="window.location.href='temple.html'">
+            <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png" alt="OS">
+            CYBERWORLD_OS<br>Generator
+        </div>
+        <div class="icon" onclick="window.location.href='adversaries.html'">
+            <img src="https://win98icons.alexmeub.com/icons/png/address_book_users.png" alt="DB">
+            Adversary<br>Database
+        </div>
+        <div class="icon" onclick="window.location.href='soc.html'">
+            <img src="https://win98icons.alexmeub.com/icons/png/monitor-0.png" alt="SOC">
+            SOC<br>Dashboard
+        </div>
+        <div class="icon" onclick="window.location.href='https://fllc.net/intelligence'">
+            <img src="https://win98icons.alexmeub.com/icons/png/search_file-2.png" alt="Intel">
+            FLLC<br>Intel Hub
+        </div>
+        <div class="icon" onclick="window.location.href='https://github.com/Personfu/Python'">
+            <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Py">
+            Python<br>Scripts
+        </div>
+        <div class="icon" onclick="window.location.href='https://github.com/Personfu/CYBERWORLDSOURCECODE'">
+            <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png" alt="CW">
+            CYBERWORLD<br>CORE ENGINE
+        </div>
+        <div class="icon" onclick="window.location.href='https://github.com/Personfu/CYBERWORLDSOURCECODELITE'">
+            <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Lite">
+            CYBERWORLD<br>LITE OPS
+        </div>
+        <div class="icon" onclick="window.location.href='https://fllc.net'">
+            <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png" alt="Net">
+            FURIOS-INT<br>Mainframe
+        </div>
+        <div class="icon" onclick="window.location.href='https://github.com/Personfu/REPORTS'">
+            <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-0.png" alt="Rpt">
+            CSET<br>REPORTS
         </div>
     </div>
-    
-    <div class="toolbar">
-        <span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span><span><u>H</u>elp</span>
+</div>
+
+<!-- Main Browser Window -->
+<div class="window" id="main-window">
+    <div class="title-bar">
+        <span>🛡 FLLC CyberWorld SOC Portal — fllc.net // [CLASSIFIED: TOP SECRET]</span>
+        <div class="title-controls">
+            <button title="Minimize" onclick="document.getElementById('main-window').style.display='none'">_</button>
+            <button title="Maximize">□</button>
+            <button title="Close" onclick="window.location.reload()">X</button>
+        </div>
     </div>
-    
+    <div class="toolbar">
+        <span><u>F</u>ile</span>
+        <span><u>E</u>dit</span>
+        <span><u>V</u>iew</span>
+        <span><u>T</u>hreats</span>
+        <span><u>H</u>elp</span>
+    </div>
     <div class="toolbar address-bar">
         <span>Address:</span>
-        <input type="text" value="http://fllc.net/cyberworld/hub" readonly>
-        <button style="padding: 2px 10px;">Go</button>
+        <input type="text" value="https://fllc.net/cyberworld/soc-hub/2030" readonly>
+        <button style="padding:2px 10px;">Go</button>
+        <span style="margin-left:auto;font-family:'VT323';font-size:14px;color:var(--win-blue);">🔒 ENCRYPTED</span>
     </div>
-
     <div class="browser-content">
-        <div class="cw-title">CyberWorld</div>
-        
-        <div class="game-frame">
-            <div class="game-title">WELCOME TO CYBERWORLD: FLLC ENTERPRISE HUB</div>
-            
-            <div class="isometric-canvas">
-                <button class="btn-play" onclick="window.location.href='rpg/index.html'">ENTER OPERATIONS</button>
+        <!-- SOC Ticker -->
+        <div class="soc-banner">
+            <span class="threat-level">⚠ THREAT: CRITICAL</span>
+            <div class="soc-ticker">
+                <span>
+                    [ALERT] BITWISE SPIDER active IOCs on port 445 &nbsp;|&nbsp;
+                    COZY BEAR supply-chain probe — 3 targets &nbsp;|&nbsp;
+                    LABYRINTH CHOLLIMA SWIFT anomaly flagged &nbsp;|&nbsp;
+                    BANISHED KITTEN wiper signatures detected &nbsp;|&nbsp;
+                    MUSTANG PANDA CVE-2026-1138 weaponized &nbsp;|&nbsp;
+                    SOC COMPLIANCE 2030 — ALL SYSTEMS NOMINAL &nbsp;|&nbsp;
+                    FURIOS-INT relay synchronized — March 19 2026 &nbsp;|&nbsp;
+                    CyberWorld MMORPG engine v3.0 LIVE &nbsp;||&nbsp;
+                </span>
             </div>
+            <span style="color:var(--cyber-green);" id="soc-clock">07:44:25</span>
+        </div>
 
+        <div class="cw-title">CyberWorld</div>
+        <div class="cw-subtitle">FLLC.NET ✦ SOC OPERATIONS CENTER 2030 ✦ MIDNIGHT NEON GALAXY</div>
+
+        <div class="game-frame">
+            <div class="game-title">⚡ FLLC ENTERPRISE HUB — SECTOR ALPHA — ARASAKA ENTRY NODE ⚡</div>
+            <div class="isometric-canvas">
+                <button class="btn-play" onclick="window.location.href='rpg/index.html'">[ ENTER OPERATIONS ]</button>
+            </div>
+            <div class="soc-stats">
+                <div class="stat-cell">ACTIVE THREATS<br><span class="stat-val critical" id="stat-threats">14</span></div>
+                <div class="stat-cell">SOC ANALYSTS<br><span class="stat-val" id="stat-analysts">7</span></div>
+                <div class="stat-cell">ALERTS/HR<br><span class="stat-val" id="stat-alerts">2,847</span></div>
+                <div class="stat-cell">NODES ONLINE<br><span class="stat-val" id="stat-nodes">512</span></div>
+                <div class="stat-cell">COMPLIANCE<br><span class="stat-val" style="color:var(--cyber-green)">100%</span></div>
+            </div>
             <div class="chat-widget">
-                <div class="game-title" style="font-size: 14px; background: var(--win-blue);">SECURE CHAT</div>
+                <div class="game-title" style="font-size:13px;background:var(--win-blue);">🔐 SECURE CHAT // ENCRYPTED</div>
                 <div class="chat-log" id="chat-log">
-                    <span style="color:var(--cyber-blue)">FLIC:</span> Core and Lite sectors are synchronized to the CyberWorld stack.<br>
-                    <span style="color:var(--cyber-blue)">FLLC_Admin:</span> Original FLLC mission builds are now live in the local repos.<br>
+                    <span style="color:var(--cyber-blue)">FLIC:</span> Core and Lite sectors synchronized — CyberWorld stack active.<br>
+                    <span style="color:var(--cyber-blue)">SOC_OPS:</span> Threat intel feed updated. BITWISE SPIDER IOCs distributed.<br>
+                    <span style="color:var(--cyber-blue)">FLLC_Admin:</span> FURIOS-INT relay nominal. Highway cams LIVE.<br>
                 </div>
                 <div class="chat-input">
-                    <input type="text" id="chat-msg" placeholder="Type message...">
+                    <input type="text" id="chat-msg" placeholder="Secure msg...">
                     <button onclick="sendChat()">✓</button>
                 </div>
             </div>
         </div>
 
-        <div style="display: flex; gap: 10px; margin-top: 25px;">
-            <button onclick="window.location.href='https://fllc.net/shop'" style="font-family:VT323; font-size:18px; padding:5px 15px;">UPGRADE TIER</button>
-            <button onclick="window.location.href='https://fllc.net/solutions'" style="font-family:VT323; font-size:18px; padding:5px 15px;">IT SOLUTIONS</button>
+        <div class="nav-buttons">
+            <button class="nav-btn" onclick="window.location.href='adversaries.html'">🎯 ADVERSARY DB</button>
+            <button class="nav-btn" onclick="window.location.href='soc.html'">🛡 SOC DASHBOARD</button>
+            <button class="nav-btn" onclick="window.location.href='temple.html'">💻 OS GENERATOR</button>
+            <button class="nav-btn" onclick="window.location.href='rpg/index.html'">🕹 ENTER CYBERWORLD</button>
+            <button class="nav-btn" onclick="window.location.href='https://fllc.net'">🌐 FLLC.NET</button>
+            <button class="nav-btn" onclick="window.location.href='https://fllc.net/cyber-arsenal'">⚔ CYBER ARSENAL</button>
+            <button class="nav-btn" onclick="window.location.href='https://fllc.net/ops'">📡 OPS CENTER</button>
         </div>
     </div>
 </div>
 
+<!-- TASKBAR -->
 <div id="taskbar">
-    <div class="start-btn">⊞ Start</div>
-    <div style="margin-left: 10px; border: 2px inset var(--win-light); padding: 3px 10px; font-size: 12px; background: #e0e0e0;">CyberWorld Browser</div>
-    <div style="flex: 1;"></div>
-    <div id="clock" style="border: 2px inset var(--win-light); padding: 3px 10px; font-size: 12px;">12:00 PM</div>
+    <div class="start-btn" onclick="toggleStartMenu()">⊞ Start</div>
+    <div class="tray-btn active">🛡 CyberWorld SOC Portal</div>
+    <div class="tray-btn" onclick="window.location.href='adversaries.html'">⚠ Adversary DB</div>
+    <div class="tray-btn" onclick="window.location.href='soc.html'">📡 SOC</div>
+    <div style="flex:1;"></div>
+    <div style="font-family:'VT323';font-size:13px;border:2px inset var(--win-light);padding:2px 8px;background:#d4d0c8;color:var(--cyber-red);">⚠ THREAT ACTIVE</div>
+    <div id="clock" style="border:2px inset var(--win-light);padding:3px 10px;font-size:12px;font-family:'Share Tech Mono';background:#d4d0c8;margin-left:4px;">12:00 PM</div>
 </div>
 
 <script>
-    function updateClock() {
-        const now = new Date();
-        document.getElementById('clock').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
-    setInterval(updateClock, 1000); updateClock();
+// CLOCK
+function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').innerText = now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    const sc = document.getElementById('soc-clock');
+    if(sc) sc.innerText = now.toTimeString().slice(0,8);
+}
+setInterval(updateClock,1000); updateClock();
 
-    function sendChat() {
-        const input = document.getElementById('chat-msg');
-        const log = document.getElementById('chat-log');
-        if(input.value.trim() !== "") {
-            log.innerHTML += `<span style="color:var(--cyber-green)">You:</span> ${input.value}<br>`;
-            input.value = "";
-            log.scrollTop = log.scrollHeight;
+// CHAT
+function sendChat() {
+    const input = document.getElementById('chat-msg');
+    const log = document.getElementById('chat-log');
+    const val = input.value.trim();
+    if(val !== '') {
+        const escaped = val.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        log.innerHTML += '<span style="color:var(--cyber-green)">You:</span> ' + escaped + '<br>';
+        input.value = ''; log.scrollTop = log.scrollHeight;
+    }
+}
+document.getElementById('chat-msg').addEventListener('keypress',function(e){
+    if(e.key === 'Enter') sendChat();
+});
+
+// START MENU
+function toggleStartMenu() {
+    const m = document.getElementById('start-menu');
+    m.style.display = (m.style.display === 'block') ? 'none' : 'block';
+}
+document.addEventListener('click',function(e){
+    if(!e.target.closest('#start-menu') && !e.target.closest('.start-btn'))
+        document.getElementById('start-menu').style.display='none';
+});
+
+// SOC STATS TICKER
+function tickStats() {
+    const t = document.getElementById('stat-threats');
+    const a = document.getElementById('stat-alerts');
+    const n = document.getElementById('stat-nodes');
+    if(!t) return;
+    t.innerText = Math.floor(Math.random()*6+12);
+    a.innerText = (Math.floor(Math.random()*300+2700)).toLocaleString();
+    n.innerText = Math.floor(Math.random()*20+504);
+}
+setInterval(tickStats,3000);
+
+// HIGHWAY CAMERA FEEDS
+const CAM_DEFS = [
+    {id:'I-95N',  label:'I-95 NORTH — MILE 44',   x:12,   y:115, w:205, h:130},
+    {id:'I-495',  label:'I-495 — BELTWAY EXIT',    x:255,  y:75,  w:205, h:130},
+    {id:'I-270',  label:'I-270 — CHECKPOINT',      x:498,  y:125, w:205, h:130},
+    {id:'RT-50',  label:'RT-50 — OVERPASS CAM',    x:741,  y:65,  w:205, h:130},
+    {id:'I-66E',  label:'I-66 EAST — JUNCTION',    x:984,  y:115, w:205, h:130},
+    {id:'I-395',  label:'I-395 — PENTAGON',        x:12,   y:455, w:205, h:130},
+    {id:'MD-32',  label:'MD-32 — OVERPASS',        x:1180, y:85,  w:205, h:130},
+];
+
+const camLayer = document.getElementById('cam-layer');
+CAM_DEFS.forEach(function(cam) {
+    const wrap = document.createElement('div');
+    wrap.className = 'cam-feed';
+    wrap.style.cssText = 'left:'+cam.x+'px;top:'+cam.y+'px;width:'+cam.w+'px;height:'+cam.h+'px;';
+    const cnv = document.createElement('canvas');
+    cnv.width = cam.w; cnv.height = cam.h;
+    const rec = document.createElement('div');
+    rec.className = 'cam-rec'; rec.innerText = '● REC';
+    const lbl = document.createElement('div');
+    lbl.className = 'cam-label'; lbl.innerText = cam.label;
+    wrap.appendChild(cnv); wrap.appendChild(rec); wrap.appendChild(lbl);
+    camLayer.appendChild(wrap);
+    runCamSimulation(cnv, cam);
+});
+
+function runCamSimulation(cnv, cam) {
+    const ctx = cnv.getContext('2d');
+    const W = cnv.width, H = cnv.height;
+    const laneCount = 4;
+    const vanX = W / 2, vanY = H * 0.35;
+    const cars = [];
+    for(let i=0;i<6;i++) {
+        cars.push({
+            x: Math.random()*W,
+            lane: Math.floor(Math.random()*laneCount),
+            speed: 1.0 + Math.random()*2.5,
+            color: ['#fff','#ff0','#f00','#0ff','#f80','#aaa','#88f'][Math.floor(Math.random()*7)],
+            len: 16 + Math.random()*14
+        });
+    }
+    const noiseData = ctx.createImageData(W,H);
+    let frame = 0;
+
+    function renderCam() {
+        ctx.fillStyle='#080e08'; ctx.fillRect(0,0,W,H);
+        // Road
+        ctx.strokeStyle='rgba(80,80,80,0.7)'; ctx.lineWidth=1;
+        for(let l=0;l<=laneCount;l++) {
+            const bx=(W/laneCount)*l;
+            ctx.beginPath(); ctx.moveTo(vanX,vanY); ctx.lineTo(bx,H); ctx.stroke();
         }
+        ctx.setLineDash([10,12]);
+        ctx.strokeStyle='rgba(140,140,50,0.4)';
+        for(let l=1;l<laneCount;l++) {
+            const bx=(W/laneCount)*l;
+            ctx.beginPath(); ctx.moveTo(vanX,vanY); ctx.lineTo(bx,H); ctx.stroke();
+        }
+        ctx.setLineDash([]);
+        ctx.fillStyle='rgba(20,40,20,0.15)'; ctx.fillRect(0,H*0.35,W,H*0.65);
+        // Cars
+        cars.forEach(function(car) {
+            const scale=0.15+(car.x/W)*0.85;
+            const y=H*0.35+(H*0.65)*(car.x/W);
+            const laneW=W/laneCount;
+            const laneX=vanX+(car.lane-laneCount/2+0.5)*laneW*scale+(1-scale)*(vanX-W/2);
+            ctx.fillStyle=car.color; ctx.shadowColor=car.color; ctx.shadowBlur=8*scale;
+            ctx.fillRect(laneX-(car.len/2)*scale,y-6*scale,car.len*scale,6*scale);
+            ctx.fillStyle='rgba(255,255,200,0.85)';
+            ctx.fillRect(laneX+(car.len/2-3)*scale,y-5*scale,3*scale,2*scale);
+            ctx.fillRect(laneX+(car.len/2-3)*scale,y-2*scale,3*scale,2*scale);
+            ctx.shadowBlur=0;
+            car.x+=car.speed;
+            if(car.x>W){car.x=0;car.lane=Math.floor(Math.random()*laneCount);}
+        });
+        // Timestamp
+        const now=new Date();
+        const ts=now.toISOString().replace('T',' ').slice(0,19);
+        ctx.fillStyle='rgba(0,255,65,0.8)'; ctx.font='9px monospace';
+        ctx.fillText(ts,4,H-4);
+        ctx.fillStyle='rgba(0,232,255,0.65)'; ctx.fillText(cam.id,4,12);
+        // Noise
+        if(frame%5===0){
+            const d=noiseData.data;
+            for(let i=0;i<d.length;i+=4){
+                const v=Math.random()>0.97?40:0;
+                d[i]=v;d[i+1]=v;d[i+2]=v;d[i+3]=v>0?55:0;
+            }
+            ctx.putImageData(noiseData,0,0);
+        }
+        ctx.fillStyle='rgba(0,255,65,0.04)'; ctx.fillRect(0,0,W,H);
+        frame++;
+        requestAnimationFrame(renderCam);
     }
-    document.getElementById('chat-msg').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') sendChat();
-    });
+    renderCam();
+}
 </script>
-
 </body>
 </html>

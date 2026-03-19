@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FLASH HUNTER // CyberWorld Engine</title>
-<link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<title>CyberWorld MMORPG // FLLC SOC Engine v3.0</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&family=Pixelify+Sans&display=swap" rel="stylesheet">
 <style>
     :root {
         --win-bg: #c0c0c0;
@@ -118,7 +118,7 @@
 
 <div class="window">
     <div class="title-bar">
-        <span>CyberWorld.exe - FLLC Engine</span>
+        <span>&#9654; CyberWorld MMORPG v3.0 — FLLC SOC Engine // [CLASSIFIED]</span>
         <div class="title-controls">
             <button onclick="window.location.href='../index.html'">X</button>
         </div>
@@ -126,7 +126,7 @@
     
     <div class="toolbar address-bar">
         <span>Address:</span>
-        <input type="text" value="http://fllc.net/cyberworld/sector-1" readonly>
+        <input type="text" value="https://fllc.net/cyberworld/sector-1/arasaka-node" readonly>
     </div>
 
     <div class="browser-content">
@@ -136,18 +136,21 @@
                 <canvas id="gameCanvas"></canvas>
                 <div id="hud-overlay">
                     <div class="hud-text" id="hud-fps">FPS: 60</div>
-                    <div class="hud-text">SECTOR: Arasaka Entry Node</div>
-                    <div class="hud-text">STATUS: Undetected</div>
+                    <div class="hud-text" id="hud-sector">SECTOR: Arasaka Entry Node</div>
+                    <div class="hud-text" id="hud-status">STATUS: Undetected</div>
+                    <div class="hud-text" id="hud-cred">DARK CRED: 0</div>
+                    <div class="hud-text" id="hud-threat">THREAT ACTOR: None</div>
                 </div>
                 <div id="interaction-tooltip">[ TERMINAL IN RANGE - TYPE 'scan target' ]</div>
             </div>
 
             <div id="terminal-panel">
                 <div id="chat-log">
-                    <div class="log-sys">>> SYSTEM BOOT SEQUENCE INITIATED...</div>
-                    <div class="log-sys">>> CONNECTION SECURE.</div>
-                    <div class="log-sys">>> CLICK ON THE FLOOR TO WALK.</div>
-                    <div class="log-sys">>> APPROACH THE RED SERVER TERMINAL TO INTERACT.</div>
+                    <div class="log-sys">>> CYBERWORLD SOC ENGINE v3.0 — FLLC CLASSIFIED BOOT</div>
+                    <div class="log-sys">>> CONNECTION ENCRYPTED. SECTOR: ARASAKA ENTRY NODE.</div>
+                    <div class="log-sys">>> CLICK ON THE FLOOR TO WALK. APPROACH TERMINALS TO INTERACT.</div>
+                    <div class="log-sys">>> COMMANDS: help | shodan [target] | nmap [target] | extract | scan | whoami</div>
+                    <div class="log-sys">>> ADVERSARY INTEL ACTIVE. TYPE 'threat' FOR CURRENT FACTION STATUS.</div>
                 </div>
                 <div id="input-container">
                     <span id="input-prefix">root@fllc:~#</span>
@@ -185,6 +188,8 @@
 
     // --- GAME STATE ---
     let lastTime = 0;
+    let darkCred = 0;
+    let detectionLevel = 0;
     
     // Player Object
     const player = {
@@ -200,8 +205,10 @@
 
     // Environment Objects (Terminals)
     const objects = [
-        { id: 'server_alpha', x: 150, y: 150, width: 60, height: 80, color: '#ff3355', type: 'terminal', hacked: false },
-        { id: 'data_cache', x: canvas.width - 200, y: canvas.height - 150, width: 40, height: 40, color: '#ffb300', type: 'loot', hacked: false }
+        { id: 'server_alpha', x: 150, y: 150, width: 60, height: 80, color: '#ff3355', type: 'terminal', hacked: false, label: 'ARASAKA-SRV-01' },
+        { id: 'data_cache',   x: canvas.width - 200, y: canvas.height - 150, width: 40, height: 40, color: '#ffb300', type: 'loot', hacked: false, label: 'DATA CACHE' },
+        { id: 'spider_c2',   x: 80,  y: canvas.height - 120, width: 50, height: 50, color: '#ff003c', type: 'threat', hacked: false, label: 'SPIDER C2' },
+        { id: 'soc_console', x: canvas.width - 100, y: 80, width: 55, height: 70, color: '#9900ff', type: 'soc', hacked: false, label: 'SOC NODE' },
     ];
 
     let activeTarget = null; // What the player is standing next to
@@ -262,14 +269,25 @@
                 tooltip.style.top = (obj.y - 20) + 'px';
                 
                 if(obj.id === 'server_alpha' && !obj.hacked) {
-                    tooltip.innerText = "[ TERMINAL: Type 'shodan info' or 'nmap target' ]";
-                } else if(obj.id === 'data_cache') {
-                    tooltip.innerText = "[ CACHE: Type 'extract' ]";
+                    tooltip.innerText = "[ ARASAKA SERVER: Type 'shodan info' or 'nmap target' ]";
+                } else if(obj.id === 'data_cache' && !obj.hacked) {
+                    tooltip.innerText = "[ DATA CACHE: Type 'extract' ]";
+                } else if(obj.id === 'spider_c2' && !obj.hacked) {
+                    tooltip.innerText = "[ SPIDER C2: Type 'scan target' or 'trace' ]";
+                } else if(obj.id === 'soc_console') {
+                    tooltip.innerText = "[ SOC CONSOLE: Type 'whoami' or 'threat' ]";
                 } else {
                     tooltip.innerText = "[ COMPROMISED ]";
                 }
             }
         });
+
+        // Update HUD
+        document.getElementById('hud-cred').innerText = `DARK CRED: ${darkCred}`;
+        document.getElementById('hud-status').innerText = detectionLevel < 30 ? 'STATUS: Undetected'
+            : detectionLevel < 70 ? 'STATUS: SUSPICIOUS' : 'STATUS: !! DETECTED !!';
+        document.getElementById('hud-status').style.color = detectionLevel < 30 ? '#00ff41'
+            : detectionLevel < 70 ? '#ffb300' : '#ff003c';
     }
 
     // --- RENDERING ---
@@ -301,6 +319,12 @@
             ctx.lineWidth = 2;
             ctx.shadowBlur = 0;
             ctx.strokeRect(obj.x, obj.y, obj.width, obj.height);
+
+            // Object label
+            ctx.fillStyle = obj.hacked ? '#00ff41' : '#fff';
+            ctx.font = '10px Share Tech Mono';
+            ctx.shadowBlur = 0;
+            ctx.fillText(obj.label || obj.id, obj.x, obj.y - 4);
         });
 
         // Draw Player
@@ -365,16 +389,40 @@
         const cmd = parts[0];
         const arg = parts[1] || '';
 
+        const knownCmds = ['shodan','nmap','ping','extract','help','scan','trace','whoami','threat','ls','clear'];
+
         // Chat vs Commands
-        if (!['shodan', 'nmap', 'ping', 'extract', 'help'].includes(cmd)) {
-            // Treat as regular chat if it's not a reserved command
-            logMsg(`[Public] Runner_77: ${rawInput}`);
+        if (!knownCmds.includes(cmd)) {
+            logMsg(`[Sector Chat] Agent_${Math.floor(Math.random()*99+1)}: ${rawInput}`);
             return;
         }
 
-        // Command Logic
+        if (cmd === 'clear') { chatLog.innerHTML = ''; return; }
+
         if (cmd === 'help') {
-            logMsg('AVAILABLE COMMANDS: shodan [arg], nmap [arg], ping, extract', 'sys');
+            logMsg('COMMANDS: shodan [arg] | nmap [arg] | ping | extract | scan | trace | whoami | threat | ls | clear', 'sys');
+            return;
+        }
+
+        if (cmd === 'whoami') {
+            logMsg('USER: operator@fllc-soc-2030 | CLEARANCE: TS/SCI | SECTOR: ARASAKA ENTRY NODE', 'sys');
+            return;
+        }
+
+        if (cmd === 'threat') {
+            const threats = ['BITWISE SPIDER [ACTIVE]','COZY BEAR [ACTIVE]','LABYRINTH CHOLLIMA [DORMANT]','BANISHED KITTEN [ACTIVE]'];
+            threats.forEach(t => logMsg(`THREAT INTEL: ${t}`, 'sys'));
+            document.getElementById('hud-threat').innerText = `THREAT ACTOR: ${threats[0].split(' ')[0]} ${threats[0].split(' ')[1]}`;
+            return;
+        }
+
+        if (cmd === 'ls') {
+            logMsg('VISIBLE OBJECTS: ARASAKA-SRV-01 | DATA CACHE | SPIDER C2 | SOC NODE', 'sys');
+            return;
+        }
+
+        if (cmd === 'ping') {
+            logMsg('PING fllc.net [198.51.100.42] — Response: 4ms TTL=128', 'sys');
             return;
         }
 
@@ -387,11 +435,19 @@
         // Shodan Mechanics
         if (cmd === 'shodan') {
             if (activeTarget.id === 'server_alpha') {
-                logMsg(`Running Shodan query on ${activeTarget.id}...`, 'sys');
+                detectionLevel = Math.min(100, detectionLevel + 10);
+                logMsg(`Running Shodan query on ${activeTarget.label}...`, 'sys');
                 setTimeout(() => {
-                    logMsg('PORT 80: OPEN. SERVICE: FLLC-HTTP. VULNERABILITY FOUND.', 'sys');
+                    logMsg('PORT 22: OPEN [OpenSSH 8.9]. PORT 80: OPEN [FLLC-HTTP]. PORT 443: FILTERED.', 'sys');
+                    logMsg('CVE-2026-1138 VULNERABILITY DETECTED — Unpatched edge device.', 'cmd');
                     logMsg('Type "nmap target" to exploit.', 'cmd');
                 }, 1000);
+            } else if (activeTarget.id === 'spider_c2') {
+                logMsg('Shodan query: SPIDER C2 infrastructure detected.', 'sys');
+                setTimeout(() => {
+                    logMsg('C2 IP: 185.220.101.47 [TOR EXIT] — BITWISE SPIDER beacon pattern.', 'sys');
+                    logMsg('Type "trace" to begin attribution.', 'cmd');
+                }, 900);
             } else {
                 logMsg('Target does not respond to Shodan queries.', 'err');
             }
@@ -400,12 +456,44 @@
         // NMAP Mechanics
         else if (cmd === 'nmap') {
             if (activeTarget.id === 'server_alpha') {
-                logMsg('Initiating aggressive scan (-A)...', 'sys');
+                detectionLevel = Math.min(100, detectionLevel + 20);
+                logMsg('Initiating aggressive scan (-A -sV --script=exploit)...', 'sys');
                 setTimeout(() => {
                     activeTarget.hacked = true;
-                    logMsg('FIREWALL BREACHED. TERMINAL COMPROMISED.', 'sys');
-                    logMsg('You have unlocked the Enterprise IT Solutions directory.', 'cmd');
+                    logMsg('FIREWALL BREACHED. TERMINAL COMPROMISED. Root shell obtained.', 'sys');
+                    logMsg('UNLOCKED: Enterprise IT Solutions directory + 200 DARK CRED.', 'cmd');
+                    darkCred += 200;
                 }, 1500);
+            } else if (activeTarget.id === 'spider_c2') {
+                detectionLevel = Math.min(100, detectionLevel + 15);
+                logMsg('Scanning SPIDER C2 infrastructure...', 'sys');
+                setTimeout(() => {
+                    activeTarget.hacked = true;
+                    logMsg('C2 DISRUPTED. BITWISE SPIDER botnet command interrupted.', 'sys');
+                    logMsg('+500 DARK CRED. SOC CONTRIBUTION: CRITICAL.', 'cmd');
+                    darkCred += 500;
+                }, 1400);
+            }
+        }
+
+        // Scan Mechanics
+        else if (cmd === 'scan') {
+            logMsg(`Initiating deep scan on ${activeTarget.label || activeTarget.id}...`, 'sys');
+            setTimeout(() => {
+                logMsg('SCAN COMPLETE: No rootkits. 3 suspicious processes. Log evidence preserved.', 'sys');
+            }, 1200);
+        }
+
+        // Trace Mechanics
+        else if (cmd === 'trace') {
+            if (activeTarget.id === 'spider_c2') {
+                logMsg('Tracing C2 beacon through TOR relays...', 'sys');
+                setTimeout(() => {
+                    logMsg('HOP 1: 10.0.0.1 (local) -> HOP 2: 94.142.138.55 (RU) -> HOP 3: 185.220.101.47 (TOR)', 'sys');
+                    logMsg('ATTRIBUTION: BITWISE SPIDER (LockBit affiliate). Evidence logged.', 'cmd');
+                }, 1600);
+            } else {
+                logMsg('No traceable C2 traffic from this target.', 'err');
             }
         }
 
@@ -413,12 +501,23 @@
         else if (cmd === 'extract') {
             if (activeTarget.id === 'data_cache' && !activeTarget.hacked) {
                 activeTarget.hacked = true;
-                logMsg('Decrypting cache...', 'sys');
+                logMsg('Decrypting cache with FLLC-AES-256...', 'sys');
                 setTimeout(() => {
-                    logMsg('ACQUIRED: 500 DARK CRED.', 'sys');
+                    logMsg('ACQUIRED: 500 DARK CRED + CLASSIFIED: ADVERSARY TTP REPORT.', 'sys');
+                    logMsg('Upload to FURIOS-INT relay complete.', 'cmd');
+                    darkCred += 500;
                 }, 800);
+            } else if (activeTarget.id === 'soc_console') {
+                logMsg('Downloading SOC telemetry...', 'sys');
+                setTimeout(() => {
+                    logMsg('TELEMETRY: 14 active threats. 2847 alerts/hr. All nodes nominal.', 'sys');
+                    logMsg('+100 DARK CRED for SOC report extraction.', 'cmd');
+                    darkCred += 100;
+                }, 700);
+            } else if (activeTarget.hacked) {
+                logMsg('Target already extracted.', 'err');
             } else {
-                logMsg('Cache already empty.', 'err');
+                logMsg('ERROR: Insufficient access. Hack the terminal first.', 'err');
             }
         }
     }

@@ -3,173 +3,416 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FLLC OS // 2026 Adversary Intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&display=swap" rel="stylesheet">
+<title>FLLC OS // 2026 Adversary Intelligence Database</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
     :root {
-        --win-bg: #c0c0c0;
-        --win-light: #ffffff;
-        --win-dark: #808080;
-        --win-black: #000000;
-        --win-blue: #000080;
-        --cyber-cyan: #00e8ff;
-        --cyber-green: #00ff41;
-        --cyber-red: #ff003c;
-        --dark-bg: #050a0f;
+        --win-bg: #c0c0c0; --win-light: #ffffff; --win-dark: #808080;
+        --win-black: #000000; --win-blue: #000080; --cyber-cyan: #00e8ff;
+        --cyber-green: #00ff41; --cyber-red: #ff003c; --cyber-amber: #ffb300;
+        --cyber-purple: #9900ff; --dark-bg: #050a0f;
     }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-        background-color: #008080;
-        margin: 0;
-        height: 100vh;
+        background-color: #050a0f;
+        background-image:
+            radial-gradient(white,rgba(255,255,255,.15) 1px,transparent 30px),
+            linear-gradient(rgba(0,232,255,0.04) 1px,transparent 1px),
+            linear-gradient(90deg,rgba(0,232,255,0.04) 1px,transparent 1px);
+        background-size: 350px 350px,40px 40px,40px 40px;
+        margin: 0; height: 100vh;
         font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .window {
-        background: var(--win-bg);
-        border: 2px solid;
-        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
-        width: 90%; height: 90%;
         display: flex; flex-direction: column;
-        box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+        animation: galaxy-scroll 120s linear infinite;
     }
-
+    @keyframes galaxy-scroll {
+        from{background-position:0 0,0 0,0 0}
+        to{background-position:350px 350px,40px 40px,40px 40px}
+    }
+    #crt-filter {
+        position: fixed; top:0; left:0; width:100%; height:100%;
+        background: linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,0.1) 50%);
+        background-size: 100% 3px; z-index: 9999; pointer-events: none;
+    }
+    .window {
+        background: var(--win-bg); border: 2px solid;
+        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+        width: 92%; height: 92%; margin: auto;
+        display: flex; flex-direction: column;
+        box-shadow: 5px 5px 20px rgba(0,0,0,0.7); z-index: 10; position: relative;
+    }
     .title-bar {
-        background: linear-gradient(90deg, var(--win-blue), #1084d0);
+        background: linear-gradient(90deg,var(--win-blue),#1084d0);
         color: white; padding: 3px 6px; display: flex;
-        justify-content: space-between; align-items: center; font-weight: bold;
+        justify-content: space-between; align-items: center; font-weight: bold; font-size: 13px;
     }
-
     .title-controls button {
         background: var(--win-bg); border: 1px solid;
         border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
         width: 16px; height: 16px; font-size: 10px; cursor: pointer; font-weight: bold;
     }
-
+    .toolbar {
+        padding: 4px 8px; font-size: 12px; border-bottom: 1px solid var(--win-dark);
+        display: flex; gap: 15px; align-items: center; background: var(--win-bg);
+    }
     .content-area {
         flex: 1; padding: 15px; background: #fff;
         border: 2px inset var(--win-light); margin: 5px;
-        overflow-y: auto; font-family: 'Courier New', Courier, monospace;
+        overflow-y: auto; font-family: 'Share Tech Mono', Courier, monospace;
     }
-
-    h1 { font-family: 'Pixelify Sans', sans-serif; color: var(--win-blue); border-bottom: 2px solid var(--win-dark); }
-    h2 { font-family: 'VT323', monospace; color: var(--cyber-red); font-size: 28px; margin-top: 20px; border-bottom: 1px dashed var(--win-dark); }
-    h3 { font-family: 'VT323', monospace; color: var(--win-blue); font-size: 22px; }
-    p { font-size: 14px; line-height: 1.5; }
-    .threat-card {
-        background: #f0f0f0; border: 1px solid var(--win-dark);
-        padding: 10px; margin-bottom: 10px; box-shadow: 2px 2px 0px var(--win-dark);
+    h1 {
+        font-family: 'Pixelify Sans', sans-serif; color: var(--win-blue);
+        border-bottom: 3px solid var(--win-blue); padding-bottom: 6px; margin-bottom: 14px;
+        font-size: 22px;
     }
+    .faction-section { margin-bottom: 28px; }
+    .faction-header {
+        font-family: 'VT323', monospace; font-size: 28px; color: #fff;
+        padding: 8px 14px; margin-bottom: 10px; letter-spacing: 2px;
+        display: flex; align-items: center; gap: 10px;
+    }
+    .faction-spider   { background: linear-gradient(90deg,#2d0000,#5a0000); border-left: 4px solid var(--cyber-red); }
+    .faction-bear     { background: linear-gradient(90deg,#1a0020,#3d0050); border-left: 4px solid var(--cyber-purple); }
+    .faction-chollima { background: linear-gradient(90deg,#001a2e,#00335c); border-left: 4px solid var(--cyber-cyan); }
+    .faction-panda    { background: linear-gradient(90deg,#001a00,#003300); border-left: 4px solid var(--cyber-green); }
+    .faction-kitten   { background: linear-gradient(90deg,#1a1400,#3d2f00); border-left: 4px solid var(--cyber-amber); }
+    .faction-jackal   { background: linear-gradient(90deg,#0a0a0a,#222); border-left: 4px solid #888; }
     .faction-desc {
-        background: #e0e0e0; padding: 10px; border-left: 5px solid var(--win-blue);
-        margin-bottom: 20px; font-style: italic;
+        background: #f0f0f0; padding: 10px 14px;
+        border-left: 4px solid var(--win-blue); margin-bottom: 14px;
+        font-size: 12.5px; line-height: 1.55; color: #333; font-style: italic;
     }
-    .tier-label { font-weight: bold; color: var(--cyber-red); }
+    .tier-section { margin-bottom: 14px; }
+    .tier-label {
+        font-family: 'VT323', monospace; font-size: 20px; color: var(--win-blue);
+        background: #e0e0e0; padding: 2px 10px; margin-bottom: 8px;
+        border-bottom: 2px dashed var(--win-dark); display: block;
+    }
+    .threat-grid {
+        display: grid; grid-template-columns: repeat(auto-fill,minmax(320px,1fr)); gap: 8px;
+    }
+    .threat-card {
+        background: #f8f8f8; border: 1px solid var(--win-dark);
+        padding: 9px 12px; box-shadow: 2px 2px 0px var(--win-dark);
+        font-size: 12px; line-height: 1.4;
+    }
+    .threat-card:hover { background: #fffbf0; border-color: var(--cyber-amber); }
+    .threat-name { font-weight: bold; color: var(--cyber-red); font-size: 13px; }
+    .threat-aliases { color: #555; font-size: 11px; }
+    .threat-origin { color: var(--win-blue); font-size: 11px; }
+    .dead-extreme { color: #cc0000; font-weight: bold; font-size: 11.5px; }
+    .dead-high    { color: #cc6600; font-weight: bold; font-size: 11.5px; }
+    .dead-moderate{ color: #888800; font-weight: bold; font-size: 11.5px; }
+    .dead-niche   { color: #006600; font-size: 11.5px; }
+    .scan-widget {
+        background: #000; color: var(--cyber-green); padding: 12px;
+        border: 2px solid var(--cyber-cyan); margin-bottom: 18px;
+        font-family: 'VT323', monospace; font-size: 17px;
+    }
+    .scan-widget button {
+        margin-top: 8px; background: var(--win-bg); cursor: pointer;
+        border: 2px solid; border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+        padding: 3px 10px; font-family: 'VT323'; font-size: 17px;
+    }
+    .faction-count { font-family: 'VT323'; font-size: 14px; color: rgba(255,255,255,0.6); margin-left: auto; }
+    .filter-bar { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; align-items: center; }
+    .filter-btn {
+        font-family: 'VT323'; font-size: 16px; padding: 2px 12px; cursor: pointer;
+        background: var(--win-bg); border: 2px solid;
+        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+    }
+    .filter-btn.active,.filter-btn:hover { background: var(--win-blue); color: #fff; }
+    .threat-desc { margin-top: 3px; color: #333; }
 </style>
 </head>
 <body>
-
+<div id="crt-filter"></div>
+<div style="flex:1;display:flex;align-items:center;justify-content:center;height:100vh;">
 <div class="window">
     <div class="title-bar">
-        <span>CyberWorld MMORPG - 2026 Adversary Intelligence Database</span>
+        <span>&#9888; CyberWorld MMORPG &#8212; 2026 Adversary Intelligence Database // CLASSIFIED</span>
         <div class="title-controls">
             <button onclick="window.location.href='index.html'">X</button>
         </div>
     </div>
-    
+    <div class="toolbar">
+        <span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span>
+        <span><u>I</u>ntelligence</span>
+        <span style="margin-left:auto;font-family:'VT323';color:var(--win-blue);">
+            <a href="index.html" style="color:inherit;text-decoration:none;">&#8592; Home</a>
+            &nbsp;|&nbsp;
+            <a href="soc.html" style="color:inherit;text-decoration:none;">SOC Dashboard</a>
+        </span>
+    </div>
     <div class="content-area">
-        <h1>Global Threat Landscape (2026)</h1>
+        <h1>&#127760; Global Threat Landscape &#8212; 2026 Adversary Intelligence Database</h1>
 
-        <div class="threat-card" style="background:#000; color:var(--cyber-green); padding:15px; border:2px solid var(--cyber-cyan);">
-            <div id="scan-status">SYNDICATE_MONITOR: [IDLE]</div>
-            <button onclick="startScan()" style="margin-top:10px; background:var(--win-bg); cursor:pointer;">SCAN_FACTION_STATUS</button>
+        <div class="scan-widget">
+            <div id="scan-status">SYNDICATE_MONITOR: [IDLE] &#8212; SELECT FACTION TO SCAN</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
+                <button onclick="startScan('Spider')">SCAN SPIDERS</button>
+                <button onclick="startScan('Bear')">SCAN BEARS</button>
+                <button onclick="startScan('Chollima')">SCAN CHOLLIMAS</button>
+                <button onclick="startScan('Panda')">SCAN PANDAS</button>
+                <button onclick="startScan('Kitten')">SCAN KITTENS</button>
+                <button onclick="startScan('Jackal')">SCAN JACKALS</button>
+                <button onclick="startScan('ALL')">FULL SCAN</button>
+            </div>
         </div>
 
-        <script>
-            function startScan() {
-                const el = document.getElementById('scan-status');
-                const factions = ['Spider', 'Bear', 'Chollima', 'Panda', 'Kitten', 'Jackal'];
-                el.innerText = 'INITIALIZING PULSE_SCAN...';
-                
-                let i = 0;
-                const iv = setInterval(() => {
-                    const f = factions[Math.floor(Math.random()*factions.length)];
-                    const status = Math.random() > 0.5 ? 'ACTIVE_OPS' : 'DORMANT';
-                    el.innerText = `SCANNING: ${f} Nexus... [${status}]`;
-                    i++;
-                    if (i > 10) {
-                        clearInterval(iv);
-                        el.innerText = `SCAN_COMPLETE: ${factions.length} Factions monitored. Critical Spiders detected.`;
-                    }
-                }, 200);
-            }
-        </script>
-        
+        <div class="filter-bar">
+            <strong style="font-size:12px;">Filter:</strong>
+            <button class="filter-btn active" onclick="filterFaction('all',this)">ALL</button>
+            <button class="filter-btn" onclick="filterFaction('spider',this)">&#128375; Spiders</button>
+            <button class="filter-btn" onclick="filterFaction('bear',this)">&#128059; Bears</button>
+            <button class="filter-btn" onclick="filterFaction('chollima',this)">&#9889; Chollimas</button>
+            <button class="filter-btn" onclick="filterFaction('panda',this)">&#128060; Pandas</button>
+            <button class="filter-btn" onclick="filterFaction('kitten',this)">&#128049; Kittens</button>
+            <button class="filter-btn" onclick="filterFaction('jackal',this)">&#128058; Jackals</button>
+        </div>
+
         <!-- SPIDERS -->
-        <h2>The Spider Faction: Global eCrime Syndicates</h2>
-        <div class="faction-desc">
-            The Spider faction represents the decentralized, profit-driven underbelly of global cybercrime, operating primarily as Ransomware-as-a-Service (RaaS) affiliates, Initial Access Brokers (IABs), and data extortionists. They employ robust quadruple extortion models and aggressive DDoS tactics.
+        <div class="faction-section" data-faction="spider">
+            <div class="faction-header faction-spider">
+                &#128375; THE SPIDER FACTION: Global eCrime Syndicates
+                <span class="faction-count">30+ ACTORS</span>
+            </div>
+            <div class="faction-desc">The Spider faction represents the decentralized, profit-driven underbelly of global cybercrime, operating primarily as Ransomware-as-a-Service (RaaS) affiliates, Initial Access Brokers (IABs), and data extortionists. As of March 2026, they employ advanced quadruple extortion models, polymorphic payloads in Rust/Go, and custom EDR-bypass exfiltration frameworks. Analyzing cryptocurrency ledgers, tracking obfuscated transactions, and monitoring dark web forums are crucial for attribution.</div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; HIGH-TIER SPIDERS &#8212; Apex Extortion &amp; RaaS Operators</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">BITWISE SPIDER</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: LockBitSupp, Fox William Mulder, Syrphid, LockBit</div><div class="dead-extreme">&#9888; EXTREME</div><div class="threat-desc">Apex predator of RaaS, targeting 44 industries across 111 countries with rapid encryption and massive affiliate networks.</div></div>
+                    <div class="threat-card"><div class="threat-name">REVENANT SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: Stinkbug, Agenda, Qilin</div><div class="dead-extreme">&#9888; EXTREME</div><div class="threat-desc">Highly sophisticated Rust-based payloads targeting 59 industries and 90 countries.</div></div>
+                    <div class="threat-card"><div class="threat-name">GRACEFUL SPIDER</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: Snakefly, FIN11, Clop, Cl0p, CL0p</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Masters of zero-day mass exploitation (MOVEit, GoAnywhere), targeting 37 industries.</div></div>
+                    <div class="threat-card"><div class="threat-name">BRAIN SPIDER</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: 8BASE, Phobos, Dispossessor, REDTEAMDR</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Relentless and noisy, hitting 34 industries across 63 countries with rapid-fire data leaks.</div></div>
+                    <div class="threat-card"><div class="threat-name">TRAVELING SPIDER</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: GOLD MANSARD, Nokoyawa, Nemty, Nefilim, INC</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Broad global reach (59 countries), known for highly aggressive negotiation tactics.</div></div>
+                </div>
+            </div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; MID-TIER SPIDERS &#8212; Targeted Extortion &amp; Access Brokers</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">HOOK SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: pirat, Pirat-Networks, Big-Bro</div><div class="dead-high">&#9888; HIGH (66 countries)</div><div class="threat-desc">High volume, wide net operations across 66 countries.</div></div>
+                    <div class="threat-card"><div class="threat-name">PUNK SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: Akira, Storm-1567, REDBIKE, Darter</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Highly lethal against Cisco VPNs and VMware environments (45 countries).</div></div>
+                    <div class="threat-card"><div class="threat-name">RECESS SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: PlayCrypt, PLAY, Balloonfly</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Strong focus on custom exfiltration tools and double extortion (37 countries).</div></div>
+                    <div class="threat-card"><div class="threat-name">VICE SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: InterLock, Vice Society, Vanilla Tempest, Rhysida</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Notorious for targeting healthcare and education sectors (41 countries).</div></div>
+                    <div class="threat-card"><div class="threat-name">FROZEN SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: Medusa</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Aggressive public shaming and data leaks via dedicated blog (50 countries).</div></div>
+                    <div class="threat-card"><div class="threat-name">MASKED SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: BianLian, PEAR</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Shifted from encryption to pure data extortion and threat of release (34 countries).</div></div>
+                    <div class="threat-card"><div class="threat-name">ROYAL SPIDER</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: Royal, BlackSuit, Chaos</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Highly organized, utilizing custom intermittent encryption to evade detection.</div></div>
+                    <div class="threat-card"><div class="threat-name">INDRIK SPIDER</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: Dridex, WastedLocker, EvilCorp, Hades, BitPaymer</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Legacy heavyweight, heavily sanctioned, deeply embedded in banking trojans.</div></div>
+                    <div class="threat-card"><div class="threat-name">TUNNEL SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: Storm-0216</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Significant threat vector for initial access via exploit chains.</div></div>
+                    <div class="threat-card"><div class="threat-name">LIGHTNING SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: Apolog, Satacom</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Wide distribution via malicious browser extensions and software cracks.</div></div>
+                    <div class="threat-card"><div class="threat-name">SPRITE SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: Target777, Defray, Shifu, PyXie</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Targeted, highly customized attacks against high-value corporate networks.</div></div>
+                    <div class="threat-card"><div class="threat-name">WARLOCK SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: Storm-2603, GOLD SALEM</div><div class="dead-moderate">MID</div><div class="threat-desc">Mid-tier RaaS affiliate with consistent operational tempo.</div></div>
+                    <div class="threat-card"><div class="threat-name">SCION SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="dead-moderate">MID</div><div class="threat-desc">Broad targeting across 22 industries.</div></div>
+                    <div class="threat-card"><div class="threat-name">CURLY SPIDER</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: Storm-1811</div><div class="dead-moderate">MID</div><div class="threat-desc">Specialized extortion operations.</div></div>
+                    <div class="threat-card"><div class="threat-name">SLY SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="dead-moderate">MID</div><div class="threat-desc">Widespread impact across 40 countries.</div></div>
+                </div>
+            </div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; LOW-TIER SPIDERS &#8212; Commodity Malware, Niche Threats &amp; Enablers</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">RENAISSANCE SPIDER</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: UAC-0050, DaVinci</div><div class="dead-moderate">MODERATE</div><div class="threat-desc">Blends eCrime with state-aligned disruption.</div></div>
+                    <div class="threat-card"><div class="threat-name">CHATTY SPIDER</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: Silent Ransom Group, Luna Moth</div><div class="dead-moderate">MODERATE</div><div class="threat-desc">Callback phishing and pure extortion without payload deployment.</div></div>
+                    <div class="threat-card"><div class="threat-name">SCULLY SPIDER</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: DanaBot</div><div class="dead-moderate">MODERATE</div><div class="threat-desc">Malware-as-a-Service provider and banking trojan ecosystem.</div></div>
+                    <div class="threat-card"><div class="threat-name">PLUMP SPIDER</div><div class="threat-origin">Origin: Brazil/South America</div><div class="dead-moderate">MODERATE</div><div class="threat-desc">Highly localized banking trojans targeting Brazilian financial sector.</div></div>
+                    <div class="threat-card"><div class="threat-name">BLIND SPIDER</div><div class="threat-origin">Origin: Colombia/South America</div><div class="threat-aliases">Aliases: Blind Eagle, APT-C-36</div><div class="dead-moderate">MODERATE</div><div class="threat-desc">Regional focus utilizing commodity RATs.</div></div>
+                    <div class="threat-card"><div class="threat-name">ODYSSEY SPIDER</div><div class="threat-origin">Origin: Brazil/South America</div><div class="threat-aliases">Aliases: TA558</div><div class="dead-niche">LOW/NICHE</div><div class="threat-desc">Hospitality sector targeting via phishing campaigns.</div></div>
+                    <div class="threat-card"><div class="threat-name">SAMBA SPIDER</div><div class="threat-origin">Origin: Brazil/South America</div><div class="dead-niche">LOW/NICHE</div><div class="threat-desc">Regional financial targeting in South America.</div></div>
+                    <div class="threat-card"><div class="threat-name">AVIATOR SPIDER</div><div class="threat-origin">Origin: Nigeria/West Africa</div><div class="threat-aliases">Aliases: Operation Layover, TA2541</div><div class="dead-niche">LOW/NICHE</div><div class="threat-desc">Aviation and transport sector phishing campaigns.</div></div>
+                    <div class="threat-card"><div class="threat-name">IMPOSTER SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: SocGholish, FakeBrowserUpdates</div><div class="dead-moderate">MODERATE</div><div class="threat-desc">High-volume initial access via compromised websites and fake browser update popups.</div></div>
+                    <div class="threat-card"><div class="threat-name">COOKIE SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: Atomic MacOS Stealer, AMOS</div><div class="dead-moderate">MODERATE</div><div class="threat-desc">macOS-specific credential and crypto-wallet harvesting.</div></div>
+                    <div class="threat-card"><div class="threat-name">HAZARD SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: Amadey</div><div class="dead-niche">LOW/NICHE</div><div class="threat-desc">Botnet and infostealer distribution framework used by affiliates.</div></div>
+                    <div class="threat-card"><div class="threat-name">DEMON SPIDER</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: Matanbuchus</div><div class="dead-niche">LOW/NICHE</div><div class="threat-desc">Malware loader used by higher-tier affiliates as an enabler.</div></div>
+                    <div class="threat-card"><div class="threat-name">EMERGING SPIDER CLUSTER</div><div class="threat-aliases">PROPHET, SOLAR, SQUAB (FIN13), CORDIAL (BlackFile), LUXURY (Bentley), MUTANT, NIMBLE, NITRO (NitrogenSupp), SINFUL, CHEF, HERALD, BRASH (Rodrigo4), ROBOT (Fsociety)</div><div class="dead-niche">VARYING</div><div class="threat-desc">Varying degrees of localized eCrime, specialized tool distribution, or emerging affiliate activity.</div></div>
+                </div>
+            </div>
         </div>
-        <h3>High-Tier Spiders</h3>
-        <div class="threat-card"><span class="tier-label">BITWISE SPIDER:</span> (Ext) The apex predator of RaaS, targeting 44 industries. [LockBitSupp, Fox William Mulder]</div>
-        <div class="threat-card"><span class="tier-label">REVENANT SPIDER:</span> (Ext) Highly sophisticated rust-based payloads. [Stinkbug, Qilin]</div>
-        <div class="threat-card"><span class="tier-label">GRACEFUL SPIDER:</span> (High) Masters of zero-day mass exploitation. [Clop, FIN11]</div>
-        <div class="threat-card"><span class="tier-label">BRAIN SPIDER:</span> (High) Relentless and noisy data leaks. [8BASE, Phobos]</div>
-        <div class="threat-card"><span class="tier-label">TRAVELING SPIDER:</span> (High) Broad global reach, aggressive negotiations. [Nokoyawa]</div>
 
         <!-- BEARS -->
-        <h2>The Bear Vanguard: Russian State-Sponsored Operations</h2>
-        <div class="faction-desc">
-            The Bear faction represents the absolute pinnacle of state-sponsored cyber warfare, emulating the deeply resourced intelligence services of the Russian Federation. They excel in PsyOps, critical infrastructure sabotage, and ultimate stealth.
+        <div class="faction-section" data-faction="bear">
+            <div class="faction-header faction-bear">
+                &#128059; THE BEAR VANGUARD: Russian State-Sponsored Operations
+                <span class="faction-count">6+ ACTORS</span>
+            </div>
+            <div class="faction-desc">The Bear faction represents the absolute pinnacle of state-sponsored cyber warfare. Bears are unconcerned with financial gain; their objectives are rooted in geopolitical dominance, military espionage, and catastrophic disruption of critical infrastructure. Masters of "living off the land" (LotL) and memory-only payloads. A successful Bear intrusion often culminates in a devastating wiper attack designed to paralyze operations at the most strategically advantageous moment.</div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; HIGH-TIER BEARS &#8212; Apex Espionage &amp; Critical Infrastructure Threats</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">COZY BEAR</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: APT29, NOBELIUM, Midnight Blizzard, The Dukes</div><div class="dead-extreme">&#9888; EXTREME</div><div class="threat-desc">Ultimate stealth operators. Masters of supply chain compromises (SolarWinds) and forging authentication tokens to bypass cloud security.</div></div>
+                    <div class="threat-card"><div class="threat-name">FANCY BEAR</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: APT28, Sofacy, STRONTIUM, Forest Blizzard</div><div class="dead-extreme">&#9888; EXTREME</div><div class="threat-desc">Highly aggressive intelligence gatherers known for zero-day deployment, strategic data leaks, and targeting global military/political entities.</div></div>
+                    <div class="threat-card"><div class="threat-name">VENOMOUS BEAR</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: Turla, Uroboros, Secret Blizzard</div><div class="dead-extreme">&#9888; EXTREME</div><div class="threat-desc">Utilizes incredibly complex multi-stage malware and hijacks satellite IP connections to obscure C2 infrastructure.</div></div>
+                    <div class="threat-card"><div class="threat-name">VOODOO BEAR</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: Sandworm, BlackEnergy, Seashell Blizzard, Hades</div><div class="dead-extreme">&#9888; EXTREME/DESTRUCTIVE</div><div class="threat-desc">Premier sabotage unit, infamous for deploying destructive wipers against power grids and critical industrial control systems (ICS).</div></div>
+                </div>
+            </div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; MID-TIER BEARS &#8212; Tactical Intelligence &amp; Strategic Targeting</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">GOSSAMER BEAR</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: SEABORGIUM, Star Blizzard, Callisto</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Relentless and highly tailored spear-phishing campaigns targeting defense, academia, and intelligence sectors for credential theft.</div></div>
+                </div>
+            </div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; LOW-TIER BEARS &#8212; Regional &amp; High-Volume Operations</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">PRIMITIVE BEAR</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: Gamaredon, Shuckworm, Aqua Blizzard</div><div class="dead-moderate">MODERATE (High Volume)</div><div class="threat-desc">Rapid, noisy tactical intelligence gathering in specific regional conflicts via constantly shifting domains and simple VBScript malware.</div></div>
+                </div>
+            </div>
         </div>
-        <h3>High-Tier Bears</h3>
-        <div class="threat-card"><span class="tier-label">COZY BEAR:</span> (Ext) Ultimate stealth operators. Masters of supply chain compromises. [APT29, NOBELIUM]</div>
-        <div class="threat-card"><span class="tier-label">FANCY BEAR:</span> (Ext) Highly aggressive intelligence gatherers. [APT28, Sofacy]</div>
-        <div class="threat-card"><span class="tier-label">VENOMOUS BEAR:</span> (Ext) Multi-stage malware & satellite IP hijacks. [Turla]</div>
-        <div class="threat-card"><span class="tier-label">VOODOO BEAR:</span> (Ext) Premier sabotage unit, destructive wipers. [Sandworm]</div>
 
         <!-- CHOLLIMAS -->
-        <h2>The Chollima Bureau: North Korean Hybrid Operations</h2>
-        <div class="faction-desc">
-            Unlike other state-sponsored groups, Chollima has a dual mandate: steal classified intelligence AND generate massive revenue to bypass global sanctions. You face nation-state zero-days mixed with the aggressive financial motivations of eCrime.
+        <div class="faction-section" data-faction="chollima">
+            <div class="faction-header faction-chollima">
+                &#9889; THE CHOLLIMA BUREAU: North Korean Hybrid Operations
+                <span class="faction-count">5+ ACTORS</span>
+            </div>
+            <div class="faction-desc">The Chollima faction introduces a unique hybrid threat: nation-state zero-day capabilities combined with aggressive financial motivations. Their dual mandate &#8212; steal classified intelligence AND generate massive revenue to bypass sanctions &#8212; makes them uniquely dangerous. They are the undisputed masters of digital bank heists, cryptocurrency theft, and elaborate job-interview social engineering campaigns. They frequently deploy destructive wiper malware to erase forensic evidence after successful financial heists.</div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; HIGH-TIER CHOLLIMAS &#8212; Apex Financial Heists &amp; Supply Chain Attacks</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">LABYRINTH CHOLLIMA</div><div class="threat-origin">Origin: North Korea/East Asia</div><div class="threat-aliases">Aliases: Lazarus Group, BeagleBoyz, Diamond Sleet, Hidden Cobra</div><div class="dead-extreme">&#9888; EXTREME</div><div class="threat-desc">Elite tier responsible for massive billion-dollar financial heists, destructive wiper deployment, and highly complex supply chain compromises.</div></div>
+                    <div class="threat-card"><div class="threat-name">STARDUST CHOLLIMA</div><div class="threat-origin">Origin: North Korea/East Asia</div><div class="threat-aliases">Aliases: APT38, Bluenoroff, Sapphire Sleet</div><div class="dead-extreme">&#9888; EXTREME</div><div class="threat-desc">Highly specialized unit focused exclusively on targeting global financial institutions, SWIFT systems, and major cryptocurrency entities.</div></div>
+                </div>
+            </div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; MID-TIER CHOLLIMAS &#8212; Strategic Espionage &amp; Crypto-Targeting</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">FAMOUS CHOLLIMA</div><div class="threat-origin">Origin: North Korea/East Asia</div><div class="threat-aliases">Aliases: Contagious Interview, UNC5342, Coral Sleet</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Masters of complex social engineering &#8212; utilizing fake recruiter profiles and poisoned coding tests to infiltrate tech and crypto firms.</div></div>
+                    <div class="threat-card"><div class="threat-name">VELVET CHOLLIMA</div><div class="threat-origin">Origin: North Korea/East Asia</div><div class="threat-aliases">Aliases: Kimsuky, Thallium, Emerald Sleet, APT43</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Primarily focused on strategic intelligence regarding foreign policy, nuclear research, and defense using highly tailored spear-phishing.</div></div>
+                </div>
+            </div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; LOW-TIER CHOLLIMAS &#8212; Niche Tooling &amp; Specialized Campaigns</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">GOLDEN CHOLLIMA</div><div class="threat-origin">Origin: North Korea/East Asia</div><div class="threat-aliases">Aliases: AppleJeus, Citrine Sleet</div><div class="dead-niche">MODERATE/NICHE</div><div class="threat-desc">Focused entirely on creating, marketing, and distributing trojanized cryptocurrency trading applications to drain wallets.</div></div>
+                </div>
+            </div>
         </div>
-        <h3>High-Tier Chollimas</h3>
-        <div class="threat-card"><span class="tier-label">LABYRINTH CHOLLIMA:</span> (Ext) Billion-dollar financial heists, complex supply chain compromises. [Lazarus Group]</div>
-        <div class="threat-card"><span class="tier-label">STARDUST CHOLLIMA:</span> (Ext) Exclusively focused on targeting global financial institutions & SWIFT. [APT38]</div>
 
         <!-- PANDAS -->
-        <h2>The Panda Nexus: Chinese Cyber Espionage</h2>
-        <div class="faction-desc">
-            The ultimate vacuum cleaners of digital data, focused entirely on large-scale intellectual property theft, deep telecommunications surveillance, and securing strategic economic advantages.
+        <div class="faction-section" data-faction="panda">
+            <div class="faction-header faction-panda">
+                &#128060; THE PANDA NEXUS: Chinese Cyber Espionage
+                <span class="faction-count">6+ ACTORS</span>
+            </div>
+            <div class="faction-desc">The Panda faction embodies the vast, relentless cyber espionage apparatus of China. Pandas are the ultimate vacuum cleaners of digital data, focused entirely on large-scale intellectual property theft, deep telecommunications surveillance, and securing strategic economic advantages. They rapidly weaponize newly disclosed N-day vulnerabilities and heavily target edge devices &#8212; firewalls, VPN appliances, enterprise routers &#8212; to establish invisible footholds before defensive patches are applied.</div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; HIGH-TIER PANDAS &#8212; Apex Espionage &amp; Edge Device Exploitation</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">MUSTANG PANDA</div><div class="threat-origin">Origin: China/East Asia</div><div class="threat-aliases">Aliases: BRONZE PRESIDENT, HoneyMyte, Stately Taurus</div><div class="dead-extreme">&#9888; EXTREME</div><div class="threat-desc">Lightning-fast exploitation of public vulnerabilities, heavy use of customized malware (PlugX), relentless targeting of government and NGO entities globally.</div></div>
+                    <div class="threat-card"><div class="threat-name">HOLLOW PANDA</div><div class="threat-origin">Origin: China/East Asia</div><div class="dead-extreme">&#9888; EXTREME</div><div class="threat-desc">Highly capable state actor focused on long-term, deep-cover intelligence gathering. Targets 10 critical industries across 12 countries with exceptional stealth.</div></div>
+                </div>
+            </div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; MID-TIER PANDAS &#8212; Targeted Sector &amp; Telecommunications Surveillance</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">OVERCAST PANDA</div><div class="threat-origin">Origin: China/East Asia</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Specialized heavily in telecommunications and technology sector espionage to monitor global communications infrastructure.</div></div>
+                    <div class="threat-card"><div class="threat-name">HORDE PANDA</div><div class="threat-origin">Origin: China/East Asia</div><div class="threat-aliases">Aliases: STORM-0866, Sandman APT</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Highly targeted focus on specific telecom providers, utilizing novel Lua-based malware backdoors that are incredibly hard to detect.</div></div>
+                </div>
+            </div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; LOW-TIER PANDAS &#8212; Regional Focus &amp; Specific Mandates</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">VERTIGO PANDA</div><div class="threat-origin">Origin: China/East Asia</div><div class="threat-aliases">Aliases: RedDelta, Twill Typhoon</div><div class="dead-moderate">MODERATE</div><div class="threat-desc">Frequently targets religious, diplomatic, and regional NGOs for state-aligned surveillance and political monitoring.</div></div>
+                    <div class="threat-card"><div class="threat-name">VEILED PANDA</div><div class="threat-origin">Origin: China/East Asia</div><div class="dead-moderate">MODERATE</div><div class="threat-desc">Deep cover, niche operations targeting highly specific regional infrastructure and localized networks.</div></div>
+                </div>
+            </div>
         </div>
-        <h3>High-Tier Pandas</h3>
-        <div class="threat-card"><span class="tier-label">MUSTANG PANDA:</span> (Ext) Lightning-fast exploitation of public vulnerabilities. [BRONZE PRESIDENT]</div>
-        <div class="threat-card"><span class="tier-label">HOLLOW PANDA:</span> (Ext) Long-term, deep-cover intelligence gathering.</div>
 
         <!-- KITTENS -->
-        <h2>The Kitten Vanguard: Iranian State-Aligned Operations</h2>
-        <div class="faction-desc">
-            Highly aggressive, ideologically driven, and deeply disruptive. They frequently prioritize speed, psychological impact, and visible disruption over absolute stealth, often deploying devastating wiper malware.
+        <div class="faction-section" data-faction="kitten">
+            <div class="faction-header faction-kitten">
+                &#128049; THE KITTEN VANGUARD: Iranian State-Aligned Operations
+                <span class="faction-count">6+ ACTORS</span>
+            </div>
+            <div class="faction-desc">The Kitten faction models the highly aggressive, ideologically driven, and deeply disruptive cyber operations originating from Iran. Unlike the subtle espionage of Bears or Pandas, Kittens prioritize speed, psychological impact, and visible disruption over stealth. Relentless in password spraying, credential stuffing, and aggressive exploitation of publicly facing web applications. High-tier Kittens deploy devastating wiper malware &#8212; thinly disguised as ransomware &#8212; with the primary objective of permanently destroying critical data, bricking hardware, and paralyzing operations.</div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; HIGH-TIER KITTENS &#8212; Apex Disruption &amp; Wiper Deployment</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">BANISHED KITTEN</div><div class="threat-origin">Origin: Iran/Middle East</div><div class="threat-aliases">Aliases: Homeland Justice, Void Manticore, Red Sandstorm</div><div class="dead-extreme">&#9888; EXTREME</div><div class="threat-desc">Highly aggressive &#8212; known for devastating wiper attacks, psychological operations, and destructive campaigns against regional adversaries and critical infrastructure.</div></div>
+                    <div class="threat-card"><div class="threat-name">IMPERIAL KITTEN</div><div class="threat-origin">Origin: Iran/Middle East</div><div class="threat-aliases">Aliases: APT35, Tortoiseshell, Crimson Sandstorm</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Heavily focused on the defense industrial base, IT service providers, and logistics for complex supply chain compromises and strategic espionage.</div></div>
+                </div>
+            </div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; MID-TIER KITTENS &#8212; Social Engineering &amp; Strategic Access</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">CHARMING KITTEN</div><div class="threat-origin">Origin: Iran/Middle East</div><div class="threat-aliases">Aliases: APT35, Mint Sandstorm, TA453</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Absolute masters of elaborate, long-term social engineering, credential harvesting, and spear-phishing targeting high-profile individuals, journalists, and policymakers.</div></div>
+                    <div class="threat-card"><div class="threat-name">STATIC KITTEN</div><div class="threat-origin">Origin: Iran/Middle East</div><div class="threat-aliases">Aliases: MuddyWater, MERCURY, Mango Sandstorm</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Massive initial access and espionage hub, frequently compromising networks globally and sharing access with other Iranian state actors for destructive follow-on attacks.</div></div>
+                    <div class="threat-card"><div class="threat-name">HAYWIRE KITTEN</div><div class="threat-origin">Origin: Iran/Middle East</div><div class="threat-aliases">Aliases: Cotton Sandstorm, Black Magic</div><div class="dead-high">&#9888; HIGH</div><div class="threat-desc">Frequently engages in highly visible hack-and-leak operations, election interference, and digital psychological warfare.</div></div>
+                </div>
+            </div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; LOW-TIER KITTENS &#8212; Targeted Infrastructure &amp; Hacktivist Personas</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">HYDRO KITTEN</div><div class="threat-origin">Origin: Iran/Middle East</div><div class="threat-aliases">Aliases: Cyber Av3ngers, APT Iran</div><div class="dead-moderate">MODERATE</div><div class="threat-desc">Focuses on attacking critical infrastructure, particularly water and energy sectors, often operating under false-flag hacktivist personas to obscure state backing.</div></div>
+                </div>
+            </div>
         </div>
-        <h3>High-Tier Kittens</h3>
-        <div class="threat-card"><span class="tier-label">BANISHED KITTEN:</span> (Ext) Devastating wiper attacks and psychological operations. [Homeland Justice]</div>
-        <div class="threat-card"><span class="tier-label">IMPERIAL KITTEN:</span> (High) Heavily focused on defense industrial base and IT logistics. [APT35, Tortoiseshell]</div>
 
-        <!-- JACKALS & EMERGENT -->
-        <h2>The Jackals & Emerging State Threats</h2>
-        <div class="faction-desc">
-            Ideologically driven hacktivist collectives (Jackals) providing pure chaos via DDoS and hack-and-leaks. Emerging APTS from developing nations (India, Pakistan, Belarus, Egypt) bring customized remote access trojans focused on regional targets.
+        <!-- JACKALS -->
+        <div class="faction-section" data-faction="jackal">
+            <div class="faction-header faction-jackal">
+                &#128058; THE JACKALS &amp; EMERGING STATE THREATS
+                <span class="faction-count">10+ ACTORS</span>
+            </div>
+            <div class="faction-desc">Jackals are ideologically driven hacktivist collectives that compensate for their lack of zero-day arsenals with crowdsourced power, sheer volume, and relentless political dedication &#8212; primarily massive DDoS campaigns, public defacements, and devastating hack-and-leak operations. Emerging state threats from India, Pakistan, Belarus, and Egypt bring intense regional focus, customized RATs, and mobile spyware targeting military and government networks. These groups introduce high volatility and require a globally aware threat intelligence feed.</div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; JACKALS &#8212; Hacktivism &amp; Chaos Operations</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">BOUNTY JACKAL</div><div class="threat-origin">Origin: Russia/Eastern Europe</div><div class="threat-aliases">Aliases: NoName057(16)</div><div class="dead-high">&#9888; HIGH (Hacktivist)</div><div class="threat-desc">Highly active, pro-state hacktivist group utilizing crowdsourced DDoSia tool to relentlessly target nations perceived as hostile to their geopolitical interests.</div></div>
+                    <div class="threat-card"><div class="threat-name">PARTISAN JACKAL</div><div class="threat-origin">Origin: Belarus/Eastern Europe</div><div class="threat-aliases">Aliases: Cyber Partisans</div><div class="dead-high">&#9888; HIGH (Hacktivist)</div><div class="threat-desc">Sophisticated, highly organized hacktivist group conducting deeply impactful destructive operations (e.g., paralyzing railway networks) to achieve domestic political change.</div></div>
+                    <div class="threat-card"><div class="threat-name">RENEGADE JACKAL</div><div class="threat-origin">Origin: Palestine/Middle East</div><div class="threat-aliases">Aliases: Desert Falcons, APT-C-23</div><div class="dead-moderate">MID (Hybrid)</div><div class="threat-desc">Blends hacktivism and state espionage, relying heavily on sophisticated mobile malware targeting regional adversaries.</div></div>
+                    <div class="threat-card"><div class="threat-name">GHOST JACKAL</div><div class="threat-origin">Origin: Unknown</div><div class="threat-aliases">Aliases: AnonGhost</div><div class="dead-niche">LOW (Hacktivist)</div><div class="threat-desc">Classic ideological collective focused on widespread defacements, noisy data leaks, and disruptive activities against global corporate targets.</div></div>
+                </div>
+            </div>
+            <div class="tier-section">
+                <span class="tier-label">&#9658; EMERGING STATE THREATS &#8212; Regional Apex Predators</span>
+                <div class="threat-grid">
+                    <div class="threat-card"><div class="threat-name">HAZY TIGER</div><div class="threat-origin">Origin: India/South Asia</div><div class="threat-aliases">Aliases: Bitter APT, Orange Yali</div><div class="dead-moderate">MID</div><div class="threat-desc">Aggressive regional espionage focusing heavily on border nations and domestic telecommunications monitoring.</div></div>
+                    <div class="threat-card"><div class="threat-name">FABLE TIGER</div><div class="threat-origin">Origin: India/South Asia</div><div class="dead-moderate">MID</div><div class="threat-desc">State-aligned intelligence gathering with a rapidly evolving toolset for network infiltration.</div></div>
+                    <div class="threat-card"><div class="threat-name">MYTHIC LEOPARD</div><div class="threat-origin">Origin: Pakistan/South Asia</div><div class="threat-aliases">Aliases: Transparent Tribe, APT36</div><div class="dead-moderate">MID</div><div class="threat-desc">Heavy focus on military espionage, utilizing weaponized documents and social engineering tailored to defense personnel.</div></div>
+                    <div class="threat-card"><div class="threat-name">UMBRAL BISON</div><div class="threat-origin">Origin: Belarus/Eastern Europe</div><div class="threat-aliases">Aliases: UNC1151, Ghostwriter</div><div class="dead-moderate">MID</div><div class="threat-desc">Known for intense information operations, credential harvesting, and aligning with Bear factions during regional conflicts.</div></div>
+                    <div class="threat-card"><div class="threat-name">WATCHFUL SPHINX</div><div class="threat-origin">Origin: Egypt/North Africa</div><div class="threat-aliases">Aliases: NilePhish</div><div class="dead-niche">LOW/NICHE</div><div class="threat-desc">Highly localized, precise surveillance targeting domestic political entities and regional rivals.</div></div>
+                </div>
+            </div>
         </div>
-        <div class="threat-card"><span class="tier-label">PARTISAN JACKAL (Belarus):</span> (Destructive) Hacktivist group conducting highly impactful destructive operations. [Cyber Partisans]</div>
-        <div class="threat-card"><span class="tier-label">BOUNTY JACKAL (Russia):</span> (Heavy DDoS) Pro-state hacktivist group. [NoName057(16)]</div>
-        <div class="threat-card"><span class="tier-label">HAZY TIGER (India):</span> (Mid) Aggressive regional espionage. [Bitter APT]</div>
-        <div class="threat-card"><span class="tier-label">MYTHIC LEOPARD (Pakistan):</span> (Mid) Heavy focus on military espionage. [Transparent Tribe]</div>
-        
+
     </div>
 </div>
-
+</div>
+<script>
+function startScan(faction) {
+    var el = document.getElementById('scan-status');
+    var factionActors = {
+        Spider:   ['BITWISE','REVENANT','GRACEFUL','BRAIN','TRAVELING','HOOK','PUNK','RECESS','VICE','FROZEN','MASKED','ROYAL','INDRIK'],
+        Bear:     ['COZY BEAR','FANCY BEAR','VENOMOUS BEAR','VOODOO BEAR','GOSSAMER BEAR','PRIMITIVE BEAR'],
+        Chollima: ['LABYRINTH','STARDUST','FAMOUS CHOLLIMA','VELVET CHOLLIMA','GOLDEN CHOLLIMA'],
+        Panda:    ['MUSTANG PANDA','HOLLOW PANDA','OVERCAST PANDA','HORDE PANDA','VERTIGO PANDA','VEILED PANDA'],
+        Kitten:   ['BANISHED KITTEN','IMPERIAL KITTEN','CHARMING KITTEN','STATIC KITTEN','HAYWIRE KITTEN','HYDRO KITTEN'],
+        Jackal:   ['BOUNTY JACKAL','PARTISAN JACKAL','RENEGADE JACKAL','GHOST JACKAL','HAZY TIGER','MYTHIC LEOPARD','UMBRAL BISON']
+    };
+    var actors = faction === 'ALL' ?
+        [].concat.apply([], Object.values(factionActors)) :
+        (factionActors[faction] || []);
+    el.innerText = 'INITIALIZING PULSE_SCAN: ' + faction + '...';
+    var i = 0;
+    var iv = setInterval(function() {
+        var a = actors[Math.floor(Math.random()*actors.length)];
+        var s = Math.random() > 0.45 ? 'ACTIVE_OPS' : 'DORMANT';
+        el.innerText = 'SCANNING: ' + a + ' ... [' + s + ']';
+        i++;
+        if(i > 12) {
+            clearInterval(iv);
+            var active = Math.floor(actors.length * (0.4 + Math.random() * 0.3));
+            el.innerText = 'SCAN_COMPLETE: ' + actors.length + ' actors scanned. ' + active + ' ACTIVE. Threat level: CRITICAL.';
+        }
+    }, 175);
+}
+function filterFaction(faction, btn) {
+    document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
+    btn.classList.add('active');
+    document.querySelectorAll('.faction-section').forEach(function(s){
+        s.style.display = (faction === 'all' || s.dataset.faction === faction) ? '' : 'none';
+    });
+}
+</script>
 </body>
 </html>
