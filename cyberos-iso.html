@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberOS v2026.3 — FLLC Distribution ISO</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--cg:#00ff41;--cc:#00e8ff;--cr:#ff003c;--cb:#000080;--bg:#050a0f;--term:#0a1a0a}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--cg);font-family:'JetBrains Mono',monospace;overflow-x:hidden}
+.boot-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px}
+.logo-ascii{color:var(--cc);font-size:10px;line-height:1.1;white-space:pre;margin-bottom:20px;text-shadow:0 0 10px rgba(0,232,255,.5)}
+h1{font-family:'Pixelify Sans',sans-serif;font-size:48px;color:var(--cc);text-shadow:0 0 20px rgba(0,232,255,.4);margin:10px 0}
+h2{font-family:'VT323',monospace;font-size:28px;color:var(--cg);margin:5px 0}
+.subtitle{color:#888;font-size:14px;margin-bottom:30px}
+.iso-btn{display:inline-block;padding:12px 40px;margin:10px;font-family:'VT323',monospace;font-size:22px;background:transparent;border:2px solid var(--cc);color:var(--cc);cursor:pointer;text-decoration:none;transition:all .3s}
+.iso-btn:hover{background:var(--cc);color:#000;box-shadow:0 0 30px rgba(0,232,255,.5)}
+.iso-btn.primary{background:var(--cc);color:#000}
+.iso-btn.primary:hover{background:#fff;border-color:#fff}
+.section{padding:40px 20px;max-width:1200px;margin:0 auto}
+.section-title{font-family:'VT323',monospace;font-size:32px;color:var(--cc);border-bottom:1px dashed #333;padding-bottom:10px;margin-bottom:20px}
+.pkg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px}
+.pkg{background:#0d1117;border:1px solid #1a2332;padding:12px 16px;transition:all .3s;cursor:default}
+.pkg:hover{border-color:var(--cc);box-shadow:0 0 15px rgba(0,232,255,.15)}
+.pkg-name{font-size:16px;font-weight:700;color:var(--cc)}
+.pkg-meta{font-size:11px;color:#666;margin-top:4px}
+.pkg-desc{font-size:12px;color:#aaa;margin-top:6px;line-height:1.4}
+.pkg-tags{margin-top:6px;display:flex;flex-wrap:wrap;gap:4px}
+.tag{font-size:10px;padding:2px 6px;border:1px solid #333;color:#888}
+.tag.core{border-color:var(--cc);color:var(--cc)}
+.tag.security{border-color:var(--cr);color:var(--cr)}
+.tag.intel{border-color:#f0a;color:#f0a}
+.tag.game{border-color:#0f0;color:#0f0}
+.tag.tool{border-color:#fa0;color:#fa0}
+.tag.web{border-color:#08f;color:#08f}
+.terminal-box{background:var(--term);border:2px solid #1a3a1a;padding:20px;font-size:13px;line-height:1.8;max-width:900px;margin:30px auto;overflow-x:auto}
+.terminal-box .prompt{color:var(--cc)}
+.terminal-box .cmd{color:var(--cg)}
+.terminal-box .comment{color:#555}
+.terminal-box .success{color:#0f0}
+.terminal-box .warn{color:#fa0}
+.stats-bar{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;margin:30px 0;padding:15px;border:1px dashed #333}
+.stat{text-align:center}
+.stat-val{font-family:'VT323',monospace;font-size:36px;color:var(--cc);text-shadow:0 0 10px rgba(0,232,255,.3)}
+.stat-label{font-size:11px;color:#666;margin-top:2px}
+.categories{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0;justify-content:center}
+.cat-btn{padding:6px 16px;border:1px solid #333;background:transparent;color:#888;font-family:'VT323',monospace;font-size:16px;cursor:pointer;transition:all .2s}
+.cat-btn:hover,.cat-btn.active{border-color:var(--cc);color:var(--cc);background:rgba(0,232,255,.05)}
+footer{text-align:center;padding:40px;border-top:1px dashed #222;color:#444;font-size:12px}
+a{color:var(--cc);text-decoration:none}
+a:hover{text-decoration:underline}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.blink{animation:blink 1s infinite}
+.scanline{position:fixed;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:9999;
+background:linear-gradient(to bottom,rgba(18,16,16,0)50%,rgba(0,0,0,.03)50%);background-size:100% 4px;opacity:.3}
+</style>
+</head>
+<body>
+
+<div class="scanline"></div>
+
+<!-- ═══════════ BOOT SCREEN ═══════════ -->
+<div class="boot-screen">
+<pre class="logo-ascii">
+   ██████╗██╗   ██╗██████╗ ███████╗██████╗  ██████╗ ███████╗
+  ██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔════╝
+  ██║      ╚████╔╝ ██████╔╝█████╗  ██████╔╝██║   ██║███████╗
+  ██║       ╚██╔╝  ██╔══██╗██╔══╝  ██╔══██╗██║   ██║╚════██║
+  ╚██████╗   ██║   ██████╔╝███████╗██║  ██║╚██████╔╝███████║
+   ╚═════╝   ╚═╝   ╚═════╝ ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝
+</pre>
+<h1>CyberOS</h1>
+<h2>v2026.3-FLLC — Midnight Neon Galaxy Edition</h2>
+<p class="subtitle">A Debian-based cybersecurity operating system • 55+ integrated packages • OSINT · SOC · MMORPG Engine</p>
+
+<div class="stats-bar">
+    <div class="stat"><div class="stat-val">55+</div><div class="stat-label">PACKAGES</div></div>
+    <div class="stat"><div class="stat-val">6</div><div class="stat-label">CATEGORIES</div></div>
+    <div class="stat"><div class="stat-val">v2026.3</div><div class="stat-label">VERSION</div></div>
+    <div class="stat"><div class="stat-val">1.2GB</div><div class="stat-label">ISO SIZE</div></div>
+    <div class="stat"><div class="stat-val">GPL</div><div class="stat-label">LICENSE</div></div>
+</div>
+
+<div>
+    <a href="https://github.com/Personfu/CYBERWORLDSOURCECODE/archive/refs/heads/Stable.tar.gz" class="iso-btn primary">⬇ DOWNLOAD .TAR.GZ</a>
+    <a href="https://github.com/Personfu/personfu.github.io" class="iso-btn">📦 SOURCE</a>
+    <a href="adversaries.html" class="iso-btn">🛡 THREAT INTEL</a>
+    <a href="cyber.html" class="iso-btn">💻 BOOT CyberOS</a>
+</div>
+</div>
+
+<!-- ═══════════ INSTALL INSTRUCTIONS ═══════════ -->
+<div class="section">
+<div class="section-title">// INSTALLATION</div>
+<div class="terminal-box">
+<span class="comment"># ═══ CyberOS v2026.3 Installation ═══</span><br>
+<span class="comment"># System Requirements: Debian 12+ / Ubuntu 22.04+ / Kali 2024+</span><br><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">apt-get install build-essential debhelper bison check cmake flex groff \</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">libbsd-dev libcurl4-openssl-dev libmaxminddb-dev libgtk-3-dev libltdl-dev \</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">libluajit-5.1-dev libncurses5-dev libnet1-dev libpcap-dev libpcre2-dev libssl-dev</span><br><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">git clone https://github.com/Personfu/CYBERWORLDSOURCECODE.git /opt/cyberworld</span><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">cd /opt/cyberworld && pip install -r requirements.txt</span><br><br>
+<span class="comment"># Install all CyberOS packages</span><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">cyberos-install --all --category=security,intel,game,tools</span><br><br>
+<span class="comment"># Or install individual packages</span><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">cyberos-install fury fury0s1nt nmap ettercap metasploit</span><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">cyberos-install cyberworld discordbot fllc-web</span><br><br>
+<span class="success">[✓] CyberOS v2026.3 installed successfully</span><br>
+<span class="success">[✓] 55 packages configured</span><br>
+<span class="warn">[!] Run 'cyberos --boot' to launch the environment</span><br><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">sudo make install</span><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">cyberos --boot</span><br>
+<span class="blink">_</span>
+</div>
+</div>
+
+<!-- ═══════════ PACKAGE REPOSITORY ═══════════ -->
+<div class="section">
+<div class="section-title">// PACKAGE REPOSITORY — ALL MODULES</div>
+
+<div class="categories">
+    <button class="cat-btn active" onclick="filterPkgs('all')">ALL (55+)</button>
+    <button class="cat-btn" onclick="filterPkgs('core')">CORE</button>
+    <button class="cat-btn" onclick="filterPkgs('security')">SECURITY</button>
+    <button class="cat-btn" onclick="filterPkgs('intel')">INTEL</button>
+    <button class="cat-btn" onclick="filterPkgs('game')">GAME</button>
+    <button class="cat-btn" onclick="filterPkgs('tool')">TOOLS</button>
+    <button class="cat-btn" onclick="filterPkgs('web')">WEB</button>
+</div>
+
+<div class="pkg-grid" id="pkgGrid">
+    <!-- CORE -->
+    <div class="pkg" data-cat="core"><div class="pkg-name">cyberos-kernel</div><div class="pkg-meta">Personfu/personfu.github.io • HTML</div><div class="pkg-desc">CyberOS kernel and boot environment. The core operating system.</div><div class="pkg-tags"><span class="tag core">core</span></div></div>
+    <div class="pkg" data-cat="core"><div class="pkg-name">fllc-web</div><div class="pkg-meta">Personfu/FurulieLLC • TypeScript</div><div class="pkg-desc">Furulie LLC main website and SOC dashboard. Next.js 14 + Supabase.</div><div class="pkg-tags"><span class="tag core">core</span><span class="tag web">web</span></div></div>
+    <div class="pkg" data-cat="core"><div class="pkg-name">cyberos-profile</div><div class="pkg-meta">Personfu/Personfu • Markdown</div><div class="pkg-desc">GitHub profile configuration and identity module.</div><div class="pkg-tags"><span class="tag core">core</span></div></div>
+    <div class="pkg" data-cat="core"><div class="pkg-name">cyberos-profile-readme</div><div class="pkg-meta">Personfu/PrestonFurulie • TypeScript</div><div class="pkg-desc">Dynamic profile README generator with TypeScript.</div><div class="pkg-tags"><span class="tag core">core</span></div></div>
+
+    <!-- SECURITY -->
+    <div class="pkg" data-cat="security"><div class="pkg-name">fury</div><div class="pkg-meta">Personfu/FURY • Python</div><div class="pkg-desc">Custom Kali Linux project for offensive security operations.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">fury-osint</div><div class="pkg-meta">Personfu/FURY0s1nt • Python</div><div class="pkg-desc">OSINT reconnaissance and intelligence gathering toolkit.</div><div class="pkg-tags"><span class="tag security">security</span><span class="tag intel">intel</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">metasploit-framework</div><div class="pkg-meta">Personfu/metasploit-framework • Ruby</div><div class="pkg-desc">The world's most used penetration testing framework.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">ettercap</div><div class="pkg-meta">Personfu/ettercap • C</div><div class="pkg-desc">Comprehensive suite for man-in-the-middle attacks on LAN.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">nmap</div><div class="pkg-meta">Personfu/nmap • C++</div><div class="pkg-desc">The Network Mapper. Essential network discovery and security auditing.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">hacktools</div><div class="pkg-meta">Personfu/HackTools • TypeScript</div><div class="pkg-desc">All-in-one browser extension for offensive security professionals.</div><div class="pkg-tags"><span class="tag security">security</span><span class="tag tool">tool</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">empire</div><div class="pkg-meta">Personfu/Empire • PowerShell</div><div class="pkg-desc">Post-exploitation & adversary emulation framework for Red Teams.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">starkiller</div><div class="pkg-meta">Personfu/Starkiller • Vue</div><div class="pkg-desc">Frontend for PowerShell Empire post-exploitation framework.</div><div class="pkg-tags"><span class="tag security">security</span><span class="tag web">web</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">kali-nethunter</div><div class="pkg-meta">Personfu/kali-nethunter • Shell</div><div class="pkg-desc">The Kali NetHunter Project for mobile penetration testing.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">flipper-tools</div><div class="pkg-meta">Personfu/FlipperPF • Python</div><div class="pkg-desc">Playground and dump for Flipper Zero modifications.</div><div class="pkg-tags"><span class="tag security">security</span><span class="tag tool">tool</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">dockerpot</div><div class="pkg-meta">Personfu/dockerpot • Shell</div><div class="pkg-desc">Docker-based honeypot for intrusion detection.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">api-security</div><div class="pkg-meta">Personfu/API-Security • Dockerfile</div><div class="pkg-desc">OWASP API Security Project documentation and tools.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">cheatsheet-series</div><div class="pkg-meta">Personfu/CheatSheetSeries • Python</div><div class="pkg-desc">OWASP Cheat Sheet Series — application security references.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">flictest</div><div class="pkg-meta">Personfu/FLICTEST • Various</div><div class="pkg-desc">Pentest+PRO testing suite and certification prep.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">masscan-web-ui</div><div class="pkg-meta">Personfu/masscan-web-ui • PHP</div><div class="pkg-desc">MASSCAN Web UI for mass network scanning visualization.</div><div class="pkg-tags"><span class="tag security">security</span><span class="tag web">web</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">pen-testing-findings</div><div class="pkg-meta">Personfu/pen-testing-findings • Docs</div><div class="pkg-desc">AD, phishing, mobile, web, and wireless weakness collection.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">exploitdb</div><div class="pkg-meta">Personfu/exploitdb • Various</div><div class="pkg-desc">The Exploit Database — gold standard for public exploits.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">exploitdb-papers</div><div class="pkg-meta">Personfu/exploitdb-papers • Docs</div><div class="pkg-desc">The Exploit Database research paper repository.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">exploitdb-bin-sploits</div><div class="pkg-meta">Personfu/exploitdb-bin-sploits • Binary</div><div class="pkg-desc">Binary exploit repository from Offensive Security.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">tryhackme</div><div class="pkg-meta">Personfu/tryhackme • Markdown</div><div class="pkg-desc">TryHackMe challenges, writeups, and red team exercises.</div><div class="pkg-tags"><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="security"><div class="pkg-name">pyspider</div><div class="pkg-meta">Personfu/pyspider • Python</div><div class="pkg-desc">Powerful web crawler system for reconnaissance and data collection.</div><div class="pkg-tags"><span class="tag security">security</span><span class="tag tool">tool</span></div></div>
+
+    <!-- INTEL -->
+    <div class="pkg" data-cat="intel"><div class="pkg-name">govint</div><div class="pkg-meta">Personfu/GovINT • Markdown</div><div class="pkg-desc">Collection of public intel on foreign governments.</div><div class="pkg-tags"><span class="tag intel">intel</span></div></div>
+    <div class="pkg" data-cat="intel"><div class="pkg-name">dotgov-data</div><div class="pkg-meta">Personfu/dotgov-data • Shell</div><div class="pkg-desc">Official list of .gov domains from CISA.</div><div class="pkg-tags"><span class="tag intel">intel</span></div></div>
+    <div class="pkg" data-cat="intel"><div class="pkg-name">cset</div><div class="pkg-meta">Personfu/cset • TSQL</div><div class="pkg-desc">CISA Cybersecurity Evaluation Tool for federal assessments.</div><div class="pkg-tags"><span class="tag intel">intel</span><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="intel"><div class="pkg-name">worldmonitor</div><div class="pkg-meta">Personfu/worldmonitor • TypeScript</div><div class="pkg-desc">Real-time global intelligence dashboard with AI-powered monitoring.</div><div class="pkg-tags"><span class="tag intel">intel</span><span class="tag web">web</span></div></div>
+    <div class="pkg" data-cat="intel"><div class="pkg-name">redeye</div><div class="pkg-meta">Personfu/RedEye • TypeScript</div><div class="pkg-desc">Visual analytic tool supporting Red & Blue Team operations.</div><div class="pkg-tags"><span class="tag intel">intel</span><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="intel"><div class="pkg-name">gov-reports</div><div class="pkg-meta">Personfu/Government-Report • TeX</div><div class="pkg-desc">Government report generation and TeX document pipeline.</div><div class="pkg-tags"><span class="tag intel">intel</span></div></div>
+    <div class="pkg" data-cat="intel"><div class="pkg-name">reports-archive</div><div class="pkg-meta">Personfu/REPORTS • TeX</div><div class="pkg-desc">PDF outputs, CSET completions, automated report archival.</div><div class="pkg-tags"><span class="tag intel">intel</span></div></div>
+
+    <!-- GAME -->
+    <div class="pkg" data-cat="game"><div class="pkg-name">cyberworld-engine</div><div class="pkg-meta">Personfu/CyberWorld • TypeScript</div><div class="pkg-desc">CyberWorld MMORPG — Phaser 3 engine with cyberpunk hacker terminal.</div><div class="pkg-tags"><span class="tag game">game</span><span class="tag core">core</span></div></div>
+    <div class="pkg" data-cat="game"><div class="pkg-name">cyberworld-source</div><div class="pkg-meta">Personfu/CYBERWORLDSOURCECODE • C#</div><div class="pkg-desc">Full CyberWorld MMORPG engine. ClubPenguin fork → cyberpunk overhaul.</div><div class="pkg-tags"><span class="tag game">game</span></div></div>
+    <div class="pkg" data-cat="game"><div class="pkg-name">cyberworld-lite</div><div class="pkg-meta">Personfu/CYBERWORLDSOURCECODELITE • Java</div><div class="pkg-desc">CyberWorldLite client. RuneScape fork → cyberpunk OSINT theme.</div><div class="pkg-tags"><span class="tag game">game</span></div></div>
+    <div class="pkg" data-cat="game"><div class="pkg-name">cyberworld-soul</div><div class="pkg-meta">Personfu/CYBERWORLDSOULCODE • Various</div><div class="pkg-desc">CyberWorld creature collection. Pokémon fork → cyber entity system.</div><div class="pkg-tags"><span class="tag game">game</span></div></div>
+    <div class="pkg" data-cat="game"><div class="pkg-name">pygame-showcase</div><div class="pkg-meta">Personfu/pygame_showcase • Python</div><div class="pkg-desc">Polished games using Python 3.13+ and Pygame.</div><div class="pkg-tags"><span class="tag game">game</span></div></div>
+
+    <!-- TOOLS -->
+    <div class="pkg" data-cat="tool"><div class="pkg-name">discordbot</div><div class="pkg-meta">Personfu/DISCORDBOT • Python</div><div class="pkg-desc">Custom AI Discord bot with FBI intelligence persona integration.</div><div class="pkg-tags"><span class="tag tool">tool</span></div></div>
+    <div class="pkg" data-cat="tool"><div class="pkg-name">cyberchef</div><div class="pkg-meta">Personfu/CyberChef • JavaScript</div><div class="pkg-desc">The Cyber Swiss Army Knife — encryption, encoding, compression.</div><div class="pkg-tags"><span class="tag tool">tool</span><span class="tag security">security</span></div></div>
+    <div class="pkg" data-cat="tool"><div class="pkg-name">openmct</div><div class="pkg-meta">Personfu/openmct • JavaScript</div><div class="pkg-desc">NASA Open MCT — web-based mission control framework.</div><div class="pkg-tags"><span class="tag tool">tool</span></div></div>
+    <div class="pkg" data-cat="tool"><div class="pkg-name">elevenlabs-mcp</div><div class="pkg-meta">Personfu/elevenlabs-mcp • Python</div><div class="pkg-desc">Official ElevenLabs MCP server for AI voice synthesis.</div><div class="pkg-tags"><span class="tag tool">tool</span></div></div>
+    <div class="pkg" data-cat="tool"><div class="pkg-name">siteautomation</div><div class="pkg-meta">Personfu/SITEAUTOMATION • JavaScript</div><div class="pkg-desc">Site automation and deployment scripting toolkit.</div><div class="pkg-tags"><span class="tag tool">tool</span></div></div>
+    <div class="pkg" data-cat="tool"><div class="pkg-name">flic-vercelai</div><div class="pkg-meta">Personfu/FLIC-VercelAI • TypeScript</div><div class="pkg-desc">FLIC AI assistant powered by Vercel AI SDK.</div><div class="pkg-tags"><span class="tag tool">tool</span><span class="tag web">web</span></div></div>
+
+    <!-- WEB -->
+    <div class="pkg" data-cat="web"><div class="pkg-name">web-development</div><div class="pkg-meta">Personfu/WebDevelopment • TypeScript</div><div class="pkg-desc">Website framework for service, hiring, and selling portals.</div><div class="pkg-tags"><span class="tag web">web</span></div></div>
+    <div class="pkg" data-cat="web"><div class="pkg-name">nasa-ascend</div><div class="pkg-meta">Personfu/NASA-ASCEND-Website • HTML</div><div class="pkg-desc">ASCEND website for NASA project collaboration.</div><div class="pkg-tags"><span class="tag web">web</span></div></div>
+    <div class="pkg" data-cat="web"><div class="pkg-name">nextjs-supabase</div><div class="pkg-meta">Personfu/nextjs-with-supabase • TypeScript</div><div class="pkg-desc">Next.js + Supabase starter template.</div><div class="pkg-tags"><span class="tag web">web</span></div></div>
+    <div class="pkg" data-cat="web"><div class="pkg-name">nextjs-ai-chatbot</div><div class="pkg-meta">Personfu/nextjs-ai-chatbot • TypeScript</div><div class="pkg-desc">AI chatbot built with Next.js and LLM integration.</div><div class="pkg-tags"><span class="tag web">web</span><span class="tag tool">tool</span></div></div>
+    <div class="pkg" data-cat="web"><div class="pkg-name">subscription-starter</div><div class="pkg-meta">Personfu/subscription-starter • TypeScript</div><div class="pkg-desc">Stripe subscription starter with Next.js.</div><div class="pkg-tags"><span class="tag web">web</span></div></div>
+    <div class="pkg" data-cat="web"><div class="pkg-name">orr</div><div class="pkg-meta">Personfu/ORR • TypeScript</div><div class="pkg-desc">Custom Rock Replicas e-commerce platform.</div><div class="pkg-tags"><span class="tag web">web</span></div></div>
+    <div class="pkg" data-cat="web"><div class="pkg-name">aria-makeup</div><div class="pkg-meta">Personfu/AriaMakeup • Various</div><div class="pkg-desc">Aria Makeup brand showcase and storefront.</div><div class="pkg-tags"><span class="tag web">web</span></div></div>
+
+    <!-- COURSEWORK -->
+    <div class="pkg" data-cat="tool"><div class="pkg-name">python-core</div><div class="pkg-meta">Personfu/Python • Python</div><div class="pkg-desc">Python coursework, scripts, and automation toolkit.</div><div class="pkg-tags"><span class="tag tool">tool</span></div></div>
+    <div class="pkg" data-cat="tool"><div class="pkg-name">java-programming</div><div class="pkg-meta">Personfu/java-programming • Java</div><div class="pkg-desc">Java Programming 10e coursework and exercises.</div><div class="pkg-tags"><span class="tag tool">tool</span></div></div>
+    <div class="pkg" data-cat="tool"><div class="pkg-name">sql-essentials</div><div class="pkg-meta">Personfu/sql-essentials-* • PLpgSQL</div><div class="pkg-desc">SQL essentials for the real world microcourse.</div><div class="pkg-tags"><span class="tag tool">tool</span></div></div>
+    <div class="pkg" data-cat="web"><div class="pkg-name">mindtap</div><div class="pkg-meta">Personfu/MindTap • Various</div><div class="pkg-desc">MindTap coursework integration module.</div><div class="pkg-tags"><span class="tag web">web</span></div></div>
+    <div class="pkg" data-cat="web"><div class="pkg-name">website</div><div class="pkg-meta">Personfu/Website • Various</div><div class="pkg-desc">Personal website framework and templates.</div><div class="pkg-tags"><span class="tag web">web</span></div></div>
+</div>
+</div>
+
+<!-- ═══════════ BUILD FROM SOURCE ═══════════ -->
+<div class="section">
+<div class="section-title">// BUILD FROM SOURCE</div>
+<div class="terminal-box">
+<span class="comment"># ═══ Build CyberOS from source — like Terry Davis built TempleOS ═══</span><br><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">wget https://github.com/Personfu/CYBERWORLDSOURCECODE/archive/refs/heads/Stable.tar.gz</span><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">tar -xzf Stable.tar.gz && cd CYBERWORLDSOURCECODE-Stable</span><br><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">apt-get install build-essential debhelper bison check cmake flex groff \</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">libbsd-dev libcurl4-openssl-dev libmaxminddb-dev libgtk-3-dev libltdl-dev \</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">libluajit-5.1-dev libncurses5-dev libnet1-dev libpcap-dev libpcre2-dev libssl-dev</span><br><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">./configure --prefix=/opt/cyberos --enable-all-modules</span><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">make -j$(nproc)</span><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">sudo make install</span><br><br>
+<span class="comment"># Clone all CyberOS modules</span><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">for repo in FURY FURY0s1nt DISCORDBOT CyberWorld HackTools nmap ettercap; do</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="cmd">git clone https://github.com/Personfu/$repo.git /opt/cyberos/modules/$repo</span><br>
+<span class="cmd">done</span><br><br>
+<span class="success">[✓] CyberOS built from source</span><br>
+<span class="success">[✓] All modules installed to /opt/cyberos/modules/</span><br>
+<span class="prompt">root@cyberos:~$</span> <span class="cmd">cyberos --version</span><br>
+<span class="success">CyberOS v2026.3-FLLC (Midnight Neon Galaxy Edition)</span><br>
+<span class="blink">_</span>
+</div>
+</div>
+
+<footer>
+    <p>CyberOS v2026.3-FLLC • Built by <a href="https://github.com/Personfu">Personfu</a> • <a href="https://fllc.net">fllc.net</a></p>
+    <p style="margin-top:8px">Like Terry Davis built TempleOS — we built CyberOS for CyberWorld.</p>
+    <p style="margin-top:15px;color:#333">"In the beginning was the command line." — CyberOS Kernel v2026.3</p>
+</footer>
+
+<script>
+function filterPkgs(cat) {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    document.querySelectorAll('.pkg').forEach(p => {
+        if (cat === 'all' || p.dataset.cat === cat) {
+            p.style.display = '';
+        } else {
+            p.style.display = 'none';
+        }
+    });
+}
+</script>
+</body>
+</html>
