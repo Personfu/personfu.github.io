@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLLC OS // SOC Operations Dashboard 2030</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&family=Pixelify+Sans&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --win-bg: #c0c0c0; --win-light: #ffffff; --win-dark: #808080;
+        --win-black: #000000; --win-blue: #000080;
+        --cyber-cyan: #00e8ff; --cyber-green: #00ff41;
+        --cyber-red: #ff003c; --cyber-amber: #ffb300;
+        --cyber-purple: #9900ff; --dark-bg: #050a0f;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+        background: var(--dark-bg); margin: 0; height: 100vh;
+        font-family: 'Share Tech Mono', monospace;
+        display: flex; flex-direction: column; overflow: hidden;
+        background-image:
+            linear-gradient(rgba(0,232,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0,232,255,0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+    #crt-filter {
+        position: fixed; top:0; left:0; width:100%; height:100%;
+        background: linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,0.12) 50%);
+        background-size: 100% 3px; z-index: 9999; pointer-events: none;
+    }
+    /* Top bar */
+    .soc-topbar {
+        background: #000; border-bottom: 2px solid var(--cyber-cyan);
+        padding: 4px 14px; display: flex; align-items: center; gap: 20px;
+        font-family: 'VT323', monospace; font-size: 16px; color: var(--cyber-cyan);
+        flex-shrink: 0; z-index: 100; position: relative;
+    }
+    .soc-topbar .logo {
+        font-family: 'Pixelify Sans', sans-serif; font-size: 20px;
+        color: var(--cyber-cyan); letter-spacing: 2px;
+        text-shadow: 0 0 10px var(--cyber-cyan);
+    }
+    .topbar-links a {
+        color: var(--cyber-cyan); text-decoration: none; margin-left: 14px; font-size: 14px;
+    }
+    .topbar-links a:hover { color: #fff; }
+    .threat-badge {
+        background: var(--cyber-red); color: #fff;
+        padding: 2px 8px; font-weight: bold; font-size: 13px;
+        animation: blink 1s step-start infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    /* Main grid */
+    .soc-grid {
+        flex: 1; display: grid;
+        grid-template-columns: 220px 1fr 240px;
+        grid-template-rows: auto 1fr auto;
+        gap: 6px; padding: 6px; overflow: hidden;
+    }
+    /* Panels */
+    .panel {
+        background: rgba(0,10,20,0.85); border: 1px solid var(--cyber-cyan);
+        display: flex; flex-direction: column; overflow: hidden;
+        position: relative;
+    }
+    .panel-header {
+        background: linear-gradient(90deg,#000,#001a2e);
+        padding: 4px 10px; font-family: 'VT323', monospace; font-size: 16px;
+        color: var(--cyber-cyan); border-bottom: 1px solid var(--cyber-cyan);
+        flex-shrink: 0; letter-spacing: 1px;
+    }
+    .panel-body { flex: 1; padding: 8px; overflow-y: auto; font-size: 12px; color: var(--cyber-green); }
+    /* Stat cards */
+    .stat-row { display: flex; gap: 6px; grid-column: 1 / -1; }
+    .stat-card {
+        flex: 1; background: rgba(0,10,20,0.9); border: 1px solid;
+        padding: 8px 12px; text-align: center;
+    }
+    .stat-card.red   { border-color: var(--cyber-red); }
+    .stat-card.cyan  { border-color: var(--cyber-cyan); }
+    .stat-card.green { border-color: var(--cyber-green); }
+    .stat-card.amber { border-color: var(--cyber-amber); }
+    .stat-card.purple{ border-color: var(--cyber-purple); }
+    .stat-num {
+        font-family: 'VT323', monospace; font-size: 36px;
+        line-height: 1; text-shadow: 0 0 10px currentColor;
+    }
+    .stat-card.red   .stat-num { color: var(--cyber-red); }
+    .stat-card.cyan  .stat-num { color: var(--cyber-cyan); }
+    .stat-card.green .stat-num { color: var(--cyber-green); }
+    .stat-card.amber .stat-num { color: var(--cyber-amber); }
+    .stat-card.purple .stat-num { color: var(--cyber-purple); }
+    .stat-lbl { font-size: 10px; color: #888; letter-spacing: 1px; margin-top: 2px; }
+    /* Alert list */
+    .alert-item {
+        padding: 4px 0; border-bottom: 1px solid rgba(0,232,255,0.1);
+        font-size: 11.5px; display: flex; align-items: flex-start; gap: 6px;
+    }
+    .alert-item .sev { flex-shrink: 0; font-weight: bold; width: 50px; font-size: 11px; }
+    .sev-crit { color: var(--cyber-red); }
+    .sev-high { color: var(--cyber-amber); }
+    .sev-med  { color: #aaaa00; }
+    .sev-info { color: var(--cyber-cyan); }
+    /* Canvas panels */
+    #threat-map-canvas { width:100%; height:100%; display:block; }
+    #timeline-canvas { width:100%; height:100%; display:block; }
+    /* Log terminal */
+    .log-line { font-family: 'VT323', monospace; font-size: 15px; margin: 1px 0; }
+    .log-sys { color: var(--cyber-cyan); }
+    .log-warn{ color: var(--cyber-amber); }
+    .log-crit{ color: var(--cyber-red); }
+    .log-ok  { color: var(--cyber-green); }
+    /* Taskbar */
+    #taskbar {
+        height: 32px; background: var(--win-bg); border-top: 2px solid var(--win-light);
+        display: flex; align-items: center; padding: 0 5px; z-index: 1000; flex-shrink: 0;
+    }
+    .start-btn {
+        font-weight: bold; padding: 2px 8px; border: 2px solid;
+        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+        cursor: pointer; font-size: 12px;
+    }
+    .tray-btn {
+        border: 2px inset var(--win-light); padding: 1px 7px; font-size: 11px;
+        background: #d4d0c8; cursor: pointer; margin-left: 3px; font-family: 'Share Tech Mono';
+    }
+</style>
+</head>
+<body>
+<div id="crt-filter"></div>
+
+<div class="soc-topbar">
+    <span class="logo">&#128737; FLLC SOC 2030</span>
+    <span class="threat-badge">&#9888; THREAT LEVEL: CRITICAL</span>
+    <span id="soc-ts" style="color:var(--cyber-green);font-size:14px;"></span>
+    <div class="topbar-links" style="margin-left:auto;">
+        <a href="index.html">&#8592; Home</a>
+        <a href="adversaries.html">Adversary DB</a>
+        <a href="rpg/index.html">CyberWorld</a>
+        <a href="https://fllc.net">FLLC.NET</a>
+    </div>
+</div>
+
+<div class="soc-grid">
+    <!-- STAT ROW -->
+    <div class="stat-row">
+        <div class="stat-card red"><div class="stat-num" id="s-threats">14</div><div class="stat-lbl">ACTIVE THREATS</div></div>
+        <div class="stat-card amber"><div class="stat-num" id="s-alerts">2,847</div><div class="stat-lbl">ALERTS / HR</div></div>
+        <div class="stat-card cyan"><div class="stat-num" id="s-nodes">512</div><div class="stat-lbl">NODES ONLINE</div></div>
+        <div class="stat-card green"><div class="stat-num">100%</div><div class="stat-lbl">SOC COMPLIANCE</div></div>
+        <div class="stat-card purple"><div class="stat-num" id="s-blocked">341</div><div class="stat-lbl">BLOCKED TODAY</div></div>
+        <div class="stat-card cyan"><div class="stat-num" id="s-ioc">8,902</div><div class="stat-lbl">ACTIVE IOCs</div></div>
+        <div class="stat-card green"><div class="stat-num" id="s-analysts">7</div><div class="stat-lbl">ANALYSTS ONLINE</div></div>
+    </div>
+
+    <!-- LEFT: ALERT FEED -->
+    <div class="panel" style="grid-row: 2;">
+        <div class="panel-header">&#9888; LIVE ALERT FEED</div>
+        <div class="panel-body" id="alert-feed">
+            <div class="alert-item"><span class="sev sev-crit">[CRIT]</span><span>BITWISE SPIDER &#8212; Ransomware payload detected node-0x44</span></div>
+            <div class="alert-item"><span class="sev sev-crit">[CRIT]</span><span>COZY BEAR &#8212; OAuth token forge attempt — Azure AD</span></div>
+            <div class="alert-item"><span class="sev sev-high">[HIGH]</span><span>MUSTANG PANDA &#8212; CVE-2026-1138 probe on fw-edge-01</span></div>
+            <div class="alert-item"><span class="sev sev-high">[HIGH]</span><span>LABYRINTH CHOLLIMA &#8212; SWIFT anomaly detected</span></div>
+            <div class="alert-item"><span class="sev sev-high">[HIGH]</span><span>BANISHED KITTEN &#8212; Wiper signature match file:sysmon</span></div>
+            <div class="alert-item"><span class="sev sev-med">[MED]</span><span>STATIC KITTEN &#8212; Spear-phish link click — user@fllc.net</span></div>
+            <div class="alert-item"><span class="sev sev-med">[MED]</span><span>BOUNTY JACKAL &#8212; DDoS amplification — 40Gbps</span></div>
+            <div class="alert-item"><span class="sev sev-info">[INFO]</span><span>IOC feed updated — 312 new indicators ingested</span></div>
+        </div>
+    </div>
+
+    <!-- CENTER: THREAT MAP CANVAS -->
+    <div class="panel" style="grid-row: 2;">
+        <div class="panel-header">&#127760; GLOBAL THREAT MAP &#8212; LIVE ADVERSARY TELEMETRY</div>
+        <div class="panel-body" style="padding:0;">
+            <canvas id="threat-map-canvas"></canvas>
+        </div>
+    </div>
+
+    <!-- RIGHT: IOC/INTEL PANEL -->
+    <div class="panel" style="grid-row: 2;">
+        <div class="panel-header">&#128202; INTEL &amp; IOC TRACKER</div>
+        <div class="panel-body" id="ioc-panel">
+            <div style="color:var(--cyber-amber);font-size:11px;margin-bottom:6px;">RECENT IOCs:</div>
+            <div style="font-size:11px;line-height:1.7;color:#ccc;">
+                185.220.101.47 &#8212; TOR EXIT [SPIDER]<br>
+                94.142.138.0/24 &#8212; C2 RANGE [BEAR]<br>
+                sha256:a1b2c3...ff &#8212; WIPER [KITTEN]<br>
+                45.32.55.194 &#8212; SWIFT PROBE [CHOLLIMA]<br>
+                hxxp://cdn-update[.]ru &#8212; MALWARE DROP<br>
+                hxxps://login-secure[.]tk &#8212; PHISH KIT<br>
+                198.199.122.0/22 &#8212; BOT RANGE [JACKAL]<br>
+                103.43.12.0/22 &#8212; EDGE SCAN [PANDA]<br>
+            </div>
+            <div style="color:var(--cyber-amber);font-size:11px;margin:8px 0 4px 0;">ACTIVE FACTIONS:</div>
+            <div id="faction-status" style="font-size:11px;line-height:1.9;"></div>
+        </div>
+    </div>
+
+    <!-- BOTTOM: LOG TERMINAL -->
+    <div class="panel" style="grid-column: 1 / -1; height: 130px; flex-shrink: 0;">
+        <div class="panel-header">&#9654; SOC TERMINAL // root@fllc-soc-2030 &#8212; [CLASSIFIED]</div>
+        <div class="panel-body" id="soc-log" style="font-family:'VT323',monospace;font-size:15px;"></div>
+    </div>
+</div>
+
+<!-- TASKBAR -->
+<div id="taskbar">
+    <div class="start-btn" onclick="window.location.href='index.html'">&#8862; Start</div>
+    <div class="tray-btn" onclick="window.location.href='index.html'">&#127968; Home</div>
+    <div class="tray-btn active" style="background:#a0a098;border-color:var(--win-black) var(--win-light) var(--win-light) var(--win-black);">&#128737; SOC Dashboard</div>
+    <div class="tray-btn" onclick="window.location.href='adversaries.html'">&#9888; Adversary DB</div>
+    <div style="flex:1;"></div>
+    <div style="font-family:'VT323';font-size:13px;border:2px inset var(--win-light);padding:1px 7px;background:#d4d0c8;color:var(--cyber-red);">&#9888; CRITICAL</div>
+    <div id="clock" style="border:2px inset var(--win-light);padding:2px 8px;font-size:11px;background:#d4d0c8;margin-left:4px;font-family:'Share Tech Mono';">00:00</div>
+</div>
+
+<script>
+// CLOCK
+function updateClock() {
+    var now = new Date();
+    document.getElementById('clock').innerText = now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    document.getElementById('soc-ts').innerText = now.toISOString().replace('T',' ').slice(0,19) + ' UTC';
+}
+setInterval(updateClock,1000); updateClock();
+
+// STAT TICKER
+function tickStats() {
+    document.getElementById('s-threats').innerText = Math.floor(Math.random()*6+11);
+    document.getElementById('s-alerts').innerText  = (Math.floor(Math.random()*400+2600)).toLocaleString();
+    document.getElementById('s-nodes').innerText   = Math.floor(Math.random()*15+505);
+    document.getElementById('s-blocked').innerText = Math.floor(Math.random()*50+320);
+    document.getElementById('s-ioc').innerText     = (Math.floor(Math.random()*200+8800)).toLocaleString();
+    document.getElementById('s-analysts').innerText= Math.floor(Math.random()*3+6);
+}
+setInterval(tickStats, 2500);
+
+// FACTION STATUS
+var factions = [
+    {name:'BITWISE SPIDER',  color:'#ff003c'},
+    {name:'COZY BEAR',       color:'#9900ff'},
+    {name:'LABYRINTH CHOLLIMA',color:'#00e8ff'},
+    {name:'MUSTANG PANDA',   color:'#00ff41'},
+    {name:'BANISHED KITTEN', color:'#ffb300'},
+    {name:'BOUNTY JACKAL',   color:'#888'},
+];
+function updateFactionStatus() {
+    var el = document.getElementById('faction-status');
+    el.innerHTML = factions.map(function(f) {
+        var st = Math.random() > 0.4 ? 'ACTIVE' : 'DORMANT';
+        var col = st === 'ACTIVE' ? f.color : '#444';
+        return '<span style="color:'+col+'">'+f.name+' ['+st+']</span>';
+    }).join('<br>');
+}
+setInterval(updateFactionStatus, 3000); updateFactionStatus();
+
+// SOC LOG
+var logMsgs = [
+    {t:'sys',  m:'SOC_BOOT: All 14 detection modules online.'},
+    {t:'ok',   m:'EDR telemetry synced — 512 agents reporting.'},
+    {t:'warn', m:'ALERT: Suspicious PowerShell execution on WIN-01.'},
+    {t:'crit', m:'CRITICAL: Ransomware pre-cursor tools detected — isolating node.'},
+    {t:'sys',  m:'Threat intel feed refreshed — 8,902 active IOCs.'},
+    {t:'ok',   m:'Firewall rule pushed — blocking 185.220.101.0/24.'},
+    {t:'warn', m:'Anomalous DNS queries to *.onion relay — flagging.'},
+    {t:'crit', m:'WIPER signature match on endpoint ENG-WS-07 — quarantine initiated.'},
+    {t:'sys',  m:'SIEM correlation: 3 alerts linked to COZY BEAR TTPs.'},
+    {t:'ok',   m:'Threat hunt complete — no lateral movement detected.'},
+    {t:'warn', m:'Password spray attack from 94.142.138.55 — blocking.'},
+    {t:'crit', m:'SWIFT anomaly: transaction to 45.32.55.194 — escalating.'},
+    {t:'sys',  m:'Playbook PR-007 triggered: Ransomware Containment.'},
+    {t:'ok',   m:'Backup integrity verified — all 512 endpoints clean.'},
+    {t:'warn', m:'Phishing email campaign detected — 44 emails quarantined.'},
+    {t:'sys',  m:'Compliance check passed — SOC 2030 certification maintained.'},
+];
+var logIdx = 0;
+var logEl = document.getElementById('soc-log');
+function addLog() {
+    var msg = logMsgs[logIdx % logMsgs.length];
+    var cls = {sys:'log-sys',ok:'log-ok',warn:'log-warn',crit:'log-crit'}[msg.t] || 'log-sys';
+    var now = new Date().toTimeString().slice(0,8);
+    var div = document.createElement('div');
+    div.className = 'log-line ' + cls;
+    div.innerText = '[' + now + '] ' + msg.m;
+    logEl.appendChild(div);
+    logEl.scrollTop = logEl.scrollHeight;
+    logIdx++;
+    if(logEl.children.length > 40) logEl.removeChild(logEl.firstChild);
+}
+setInterval(addLog, 1400); addLog();
+
+// ALERT FEED auto-append
+var alertTemplates = [
+    {sev:'sev-crit',label:'[CRIT]',msgs:['VOODOO BEAR &#8212; ICS wiper probe on SCADA node','LABYRINTH CHOLLIMA &#8212; Crypto-drainer active','BITWISE SPIDER &#8212; Encryption started on share-04']},
+    {sev:'sev-high',label:'[HIGH]',msgs:['FANCY BEAR &#8212; Spear-phish targeting DoD contact','PUNK SPIDER &#8212; Cisco VPN exploit attempt','FROZEN SPIDER &#8212; Data exfil to paste site']},
+    {sev:'sev-med', label:'[MED]', msgs:['CHARMING KITTEN &#8212; LinkedIn recon detected','HORDE PANDA &#8212; Telecom BGP hijack attempt','GHOST JACKAL &#8212; Web defacement on test.fllc.net']},
+    {sev:'sev-info',label:'[INFO]',msgs:['IOC batch upload complete &#8212; 87 new hashes','Threat model updated &#8212; Bear TTPs refreshed','SOC analyst shift change &#8212; 2 analysts logged in']},
+];
+function addAlert() {
+    var tmpl = alertTemplates[Math.floor(Math.random()*alertTemplates.length)];
+    var msg  = tmpl.msgs[Math.floor(Math.random()*tmpl.msgs.length)];
+    var feed = document.getElementById('alert-feed');
+    var div  = document.createElement('div');
+    div.className = 'alert-item';
+    div.innerHTML = '<span class="sev '+tmpl.sev+'">'+tmpl.label+'</span><span>'+msg+'</span>';
+    feed.insertBefore(div, feed.firstChild);
+    if(feed.children.length > 25) feed.removeChild(feed.lastChild);
+}
+setInterval(addAlert, 2800);
+
+// THREAT MAP CANVAS
+var mapCnv = document.getElementById('threat-map-canvas');
+var mapCtx = mapCnv.getContext('2d');
+function resizeMap() {
+    mapCnv.width  = mapCnv.parentElement.clientWidth;
+    mapCnv.height = mapCnv.parentElement.clientHeight;
+}
+window.addEventListener('resize', resizeMap); resizeMap();
+
+// Threat nodes on world map (simplified lat/lon to canvas coords)
+var nodes = [
+    {name:'RU',  x:0.62, y:0.28, color:'#9900ff', active:true},
+    {name:'CN',  x:0.77, y:0.38, color:'#00ff41', active:true},
+    {name:'KP',  x:0.82, y:0.35, color:'#00e8ff', active:true},
+    {name:'IR',  x:0.60, y:0.42, color:'#ffb300', active:true},
+    {name:'US',  x:0.20, y:0.33, color:'#00e8ff', active:false, target:true},
+    {name:'EU',  x:0.51, y:0.28, color:'#00e8ff', active:false, target:true},
+    {name:'UK',  x:0.47, y:0.25, color:'#00e8ff', active:false, target:true},
+    {name:'JP',  x:0.85, y:0.34, color:'#00e8ff', active:false, target:true},
+    {name:'AU',  x:0.82, y:0.67, color:'#00e8ff', active:false, target:true},
+];
+var beams = [];
+function spawnBeam() {
+    var src = nodes.filter(function(n){return n.active;});
+    var tgt = nodes.filter(function(n){return n.target;});
+    if(!src.length || !tgt.length) return;
+    var s = src[Math.floor(Math.random()*src.length)];
+    var t = tgt[Math.floor(Math.random()*tgt.length)];
+    beams.push({sx:s.x, sy:s.y, tx:t.x, ty:t.y, prog:0, color:s.color, speed:0.008+Math.random()*0.012});
+}
+setInterval(spawnBeam, 900);
+
+function drawMap() {
+    var W = mapCnv.width, H = mapCnv.height;
+    mapCtx.clearRect(0,0,W,H);
+
+    // BG
+    mapCtx.fillStyle = '#020c14'; mapCtx.fillRect(0,0,W,H);
+
+    // Grid
+    mapCtx.strokeStyle = 'rgba(0,232,255,0.05)'; mapCtx.lineWidth = 0.5;
+    for(var i=0;i<W;i+=40){mapCtx.beginPath();mapCtx.moveTo(i,0);mapCtx.lineTo(i,H);mapCtx.stroke();}
+    for(var j=0;j<H;j+=40){mapCtx.beginPath();mapCtx.moveTo(0,j);mapCtx.lineTo(W,j);mapCtx.stroke();}
+
+    // Continent outlines (very simplified)
+    mapCtx.strokeStyle = 'rgba(0,232,255,0.15)'; mapCtx.lineWidth = 1;
+    // North America
+    mapCtx.strokeRect(W*0.05,H*0.15,W*0.22,H*0.45);
+    // South America
+    mapCtx.strokeRect(W*0.19,H*0.52,W*0.12,H*0.32);
+    // Europe
+    mapCtx.strokeRect(W*0.44,H*0.18,W*0.1,H*0.22);
+    // Africa
+    mapCtx.strokeRect(W*0.47,H*0.36,W*0.12,H*0.38);
+    // Asia
+    mapCtx.strokeRect(W*0.55,H*0.15,W*0.33,H*0.42);
+    // Australia
+    mapCtx.strokeRect(W*0.77,H*0.57,W*0.14,H*0.2);
+
+    // Beams
+    beams.forEach(function(b,idx) {
+        b.prog += b.speed;
+        if(b.prog >= 1) { beams.splice(idx,1); return; }
+        var cx = (b.sx + (b.tx-b.sx)*b.prog)*W;
+        var cy = (b.sy + (b.ty-b.sy)*b.prog)*H;
+        // Trail
+        mapCtx.beginPath();
+        mapCtx.moveTo(b.sx*W, b.sy*H);
+        mapCtx.lineTo(cx, cy);
+        mapCtx.strokeStyle = b.color.replace(')',',0.3)').replace('rgb','rgba').replace('#','rgba(').replace(/^rgba\(([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})/i,
+            function(m,r,g,bl){return 'rgba('+parseInt(r,16)+','+parseInt(g,16)+','+parseInt(bl,16);});
+        mapCtx.strokeStyle = b.color + '55';
+        mapCtx.lineWidth = 1.5;
+        mapCtx.stroke();
+        // Head dot
+        mapCtx.fillStyle = b.color;
+        mapCtx.shadowColor = b.color; mapCtx.shadowBlur = 8;
+        mapCtx.beginPath(); mapCtx.arc(cx,cy,3,0,Math.PI*2); mapCtx.fill();
+        mapCtx.shadowBlur = 0;
+    });
+
+    // Nodes
+    nodes.forEach(function(n) {
+        var x = n.x*W, y = n.y*H;
+        var col = n.active ? n.color : '#00e8ff';
+        mapCtx.fillStyle = col; mapCtx.shadowColor = col; mapCtx.shadowBlur = 12;
+        mapCtx.beginPath(); mapCtx.arc(x,y,n.active?5:4,0,Math.PI*2); mapCtx.fill();
+        mapCtx.shadowBlur = 0;
+        // Label
+        mapCtx.fillStyle = '#fff'; mapCtx.font = 'bold 10px Share Tech Mono';
+        mapCtx.fillText(n.name, x+7, y+4);
+        // Pulse ring for active nodes
+        if(n.active) {
+            var ring = (Date.now() % 1500) / 1500;
+            mapCtx.strokeStyle = col + '44';
+            mapCtx.lineWidth = 1;
+            mapCtx.beginPath(); mapCtx.arc(x,y,8+ring*16,0,Math.PI*2); mapCtx.stroke();
+        }
+    });
+
+    // Labels
+    mapCtx.fillStyle = 'rgba(0,232,255,0.5)'; mapCtx.font = '10px Share Tech Mono';
+    mapCtx.fillText('LIVE THREAT TELEMETRY', 6, H-6);
+
+    requestAnimationFrame(drawMap);
+}
+drawMap();
+</script>
+</body>
+</html>

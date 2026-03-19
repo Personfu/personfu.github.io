@@ -3,17 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HOLYOS_GENERATOR // MISSION_K_662</title>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <title>CYBERWORLD_OS GENERATOR // FURIOS-INT KERNEL v6.62</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <style>
-        body { background: #0000aa; color: #ffffff; font-family: 'VT323', monospace; margin: 0; padding: 20px; font-size: 20px; overflow: hidden; line-height: 1.2; }
-        #terminal { height: 90vh; overflow-y: auto; text-transform: uppercase; white-space: pre-wrap; }
-        .cursor { display: inline-block; width: 10px; height: 20px; background: #fff; animation: blink 0.5s infinite; vertical-align: bottom; }
+        body { background: #000; color: #00ff41; font-family: 'VT323', monospace; margin: 0; padding: 20px; font-size: 20px; overflow: hidden; line-height: 1.2; }
+        /* CRT scanlines */
+        body::after {
+            content:''; position:fixed; top:0;left:0;width:100%;height:100%;pointer-events:none;
+            background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);
+            z-index: 9999;
+        }
+        #header {
+            display:flex; justify-content:space-between; align-items:center;
+            border-bottom: 1px solid #00ff41; padding-bottom: 6px; margin-bottom: 10px;
+        }
+        #header a { color:#00e8ff; font-size:16px; text-decoration:none; }
+        #header a:hover { color:#fff; }
+        .logo { font-size:28px; color:#00e8ff; text-shadow:0 0 10px #00e8ff; letter-spacing:3px; }
+        #terminal { height: 80vh; overflow-y: auto; text-transform: uppercase; white-space: pre-wrap; }
+        .cursor { display: inline-block; width: 10px; height: 20px; background: #00ff41; animation: blink 0.5s infinite; vertical-align: bottom; }
         @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-        .code-block { color: #ffff00; margin: 10px 0; border-left: 2px solid #fff; padding-left: 10px; }
-        .success { color: #00ff00; font-weight: bold; }
-        #progress-bar { position: fixed; bottom: 0; left: 0; height: 30px; background: #fff; width: 0%; color: #000; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; color: #000; padding: 20px; border: 4px solid #888; display: none; z-index: 1000; width: 80%; max-width: 500px; text-align: center; }
+        .code-block { color: #ffff00; margin: 10px 0; border-left: 2px solid #00e8ff; padding-left: 10px; font-size:16px; }
+        .success { color: #00e8ff; font-weight: bold; }
+        .warn { color: #ffb300; }
+        .crit { color: #ff003c; }
+        #progress-bar {
+            position: fixed; bottom: 0; left: 0; height: 32px;
+            background: linear-gradient(90deg,#000080,#00e8ff); width: 0%;
+            color: #fff; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size:18px; border-top: 2px solid #00e8ff;
+            transition: width 0.2s;
+        }
+        .modal {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: #001a2e; color: #00ff41; padding: 24px;
+            border: 3px solid #00e8ff; box-shadow: 0 0 30px #00e8ff;
+            display: none; z-index: 1000; width: 80%; max-width: 520px; text-align: center;
+            font-family: 'VT323', monospace;
+        }
+        .modal h2 { color:#00e8ff; font-size:28px; letter-spacing:2px; margin-bottom:12px; }
+        .modal button {
+            margin:5px; padding: 8px 20px; border: 2px solid #00e8ff;
+            background: #000; color: #00e8ff; cursor: pointer;
+            font-family: 'VT323'; font-size: 20px;
+        }
+        .modal button:hover { background: #00e8ff; color: #000; }
     </style>
 </head>
 <body>
@@ -21,11 +55,16 @@
     <div id="progress-bar">GENERATING CYBERWORLD: 0%</div>
 
     <div id="boot-modal" class="modal">
-        <h2 style="margin-top: 0;">KERNEL_GENERATED_SUCCESSFULLY</h2>
-        <p>CyberWorld MMORPG (RuneScape + Club Penguin) has been cross-compiled at the kernel level.</p>
-        <div style="display: flex; gap: 10px; justify-content: center;">
-            <button onclick="window.location.href='index.html'" style="padding: 10px 20px; border: 2px solid #000; background: #ccc; cursor: pointer; font-family: 'VT323'; font-size: 20px;">LAUNCH_MAIN_OS</button>
-            <button onclick="window.location.reload()" style="padding: 10px 20px; border: 2px solid #000; background: #ccc; cursor: pointer; font-family: 'VT323'; font-size: 20px;">RUN_AGAIN</button>
+        <h2>&#9655; KERNEL_GENERATED_SUCCESSFULLY</h2>
+        <p style="color:#00ff41;font-size:17px;margin-bottom:14px;">
+            CyberWorld MMORPG — FLLC Cyberpunk SOC Edition — has been cross-compiled at the kernel level.<br>
+            FURIOS-INT relay nominal. All sectors online.
+        </p>
+        <div style="display: flex; gap: 10px; justify-content: center; flex-wrap:wrap;">
+            <button onclick="window.location.href='index.html'">LAUNCH_MAIN_OS</button>
+            <button onclick="window.location.href='rpg/index.html'">ENTER_CYBERWORLD</button>
+            <button onclick="window.location.href='soc.html'">SOC_DASHBOARD</button>
+            <button onclick="window.location.reload()">RUN_AGAIN</button>
         </div>
     </div>
 
@@ -34,20 +73,45 @@
         const progressBar = document.getElementById('progress-bar');
         const modal = document.getElementById('boot-modal');
 
+        // Header nav
+        const hdr = document.createElement('div');
+        hdr.id = 'header';
+        hdr.innerHTML = '<span class="logo">&#9632; CYBERWORLD_OS</span>' +
+            '<span>' +
+            '<a href="index.html">&#8592; Home</a> &nbsp;|&nbsp; ' +
+            '<a href="soc.html">SOC Dashboard</a> &nbsp;|&nbsp; ' +
+            '<a href="adversaries.html">Adversary DB</a>' +
+            '</span>';
+        document.body.insertBefore(hdr, terminal);
+
         const logs = [
-            "Initializing FURIOS-INT Kernel (V6.62)...",
-            "Allocating God's Memory (64-bit recursive stack)...",
-            "Mounting /dev/galaxy_soc...",
-            "Loading HolyC Compiler (simulation) [ID: T.A.D]...",
-            "Compiling src/core/physics.hc...",
-            "Generating Isometric Projections for CP_LITE...",
-            "Building Grid-Based World Logic for CW_CODE...",
-            "Injecting OSINT Payload into UI_SUBSYSTEM...",
-            "Synchronizing with FURIOS-INT Relay...",
-            "Optimizing Midnight Neon shaders (Pixelify SDK)...",
-            "Finalizing MMORPG Assets...",
-            "Linking Federal Intelligence Archives...",
-            "SYSTEM_READY() -> Executing Main Loop."
+            { t:'sys',  m:"Initializing FURIOS-INT Kernel (V6.62) — CyberWorld SOC Edition..." },
+            { t:'sys',  m:"Allocating secure memory regions (64-bit recursive stack)..." },
+            { t:'code', m:"" },
+            { t:'sys',  m:"Mounting /dev/galaxy_soc — Midnight Neon Galaxy filesystem..." },
+            { t:'sys',  m:"Loading OSINT subsystem — CrowdStrike Intel Feed v4.1..." },
+            { t:'warn', m:"WARNING: BITWISE SPIDER IOCs detected in threat feed. Isolating..." },
+            { t:'sys',  m:"Compiling CyberWorld Engine src/core/physics.c..." },
+            { t:'code', m:"" },
+            { t:'sys',  m:"Generating isometric world tiles — FLLC Cyberpunk Theme..." },
+            { t:'sys',  m:"Loading adversary database — 60+ faction actors indexed..." },
+            { t:'sys',  m:"Synchronizing with FURIOS-INT relay node..." },
+            { t:'sys',  m:"Optimizing Midnight Neon shaders (Pixelify SDK v2)..." },
+            { t:'warn', m:"ALERT: COZY BEAR supply-chain probe detected — hardening..." },
+            { t:'sys',  m:"Building SOC Dashboard — 14 detection modules loading..." },
+            { t:'sys',  m:"Linking Federal Intelligence Archives (FLLC Classified)..." },
+            { t:'sys',  m:"Initializing CyberWorld MMORPG assets — all sectors..." },
+            { t:'code', m:"" },
+            { t:'sys',  m:"Injecting OSINT payload into UI_SUBSYSTEM..." },
+            { t:'sys',  m:"HIGHWAY_CAM subsystem online — 7 feeds active..." },
+            { t:'ok',   m:"SOC COMPLIANCE 2030 — ALL MODULES VERIFIED." },
+            { t:'ok',   m:"SYSTEM_READY() -> Executing Main Loop. Welcome to CyberWorld." },
+        ];
+
+        const codeSnippets = [
+            'void kernel_init() {\n  mmap(SOC_SECTOR, 0x4000, PROT_READ|PROT_EXEC);\n  load_threat_db("/etc/fllc/adversaries.db");\n  spawn_cam_feeds(7);\n}',
+            'fn compile_cyberworld() {\n  let engine = CyberWorldEngine::new();\n  engine.load_sector("ARASAKA_ENTRY_NODE");\n  engine.run_soc_compliance_check(2030);\n}',
+            'class FuriOSKernel:\n  def boot(self):\n    self.soc.init_all()\n    self.threat_intel.sync()\n    self.galaxy_render.start()',
         ];
 
         let logIndex = 0;
@@ -55,27 +119,32 @@
 
         function addLog() {
             if (logIndex < logs.length) {
+                const entry = logs[logIndex];
                 const p = document.createElement('div');
-                p.textContent = `> ${logs[logIndex]}`;
-                terminal.appendChild(p);
-                
-                if (Math.random() > 0.5) {
+
+                if (entry.t === 'code') {
                     const code = document.createElement('div');
                     code.className = 'code-block';
-                    code.textContent = `U0 Main() {\n  I64 i;\n  for(i=0; i<8; i++) {\n    \"COMPILING_BLOCK_0x\" << Hex(i) << \"...\n\";\n    Sleep(50);\n  }\n}`;
+                    code.textContent = codeSnippets[Math.floor(logIndex / 6) % codeSnippets.length];
                     terminal.appendChild(code);
+                } else {
+                    const prefix = entry.t === 'ok' ? '<span class="success">[OK]</span> '
+                        : entry.t === 'warn' ? '<span class="warn">[WARN]</span> '
+                        : entry.t === 'crit' ? '<span class="crit">[CRIT]</span> '
+                        : '<span style="color:#00e8ff">[SYS]</span> ';
+                    p.innerHTML = prefix + entry.m;
+                    terminal.appendChild(p);
                 }
 
                 logIndex++;
-                progress += (100 / logs.length);
+                progress = (logIndex / logs.length) * 100;
                 progressBar.style.width = `${progress}%`;
                 progressBar.textContent = `GENERATING CYBERWORLD: ${Math.floor(progress)}%`;
-
                 terminal.scrollTop = terminal.scrollHeight;
-                setTimeout(addLog, 400 + Math.random() * 600);
+                setTimeout(addLog, 350 + Math.random() * 500);
             } else {
                 progressBar.style.width = '100%';
-                progressBar.textContent = 'MISSION_COMPLETE: 100%';
+                progressBar.textContent = 'MISSION_COMPLETE: 100% — CYBERWORLD ONLINE';
                 modal.style.display = 'block';
             }
         }
