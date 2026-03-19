@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBERWORLD-LITE // CP_RESTYLIZED // FURIOS-INT PENGUIN_HUB</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body { background: #e0faff; margin: 0; padding: 0; overflow: hidden; font-family: 'VT323', monospace; }
+        #game-container { border: 4px solid #000; box-shadow: 0 0 10px #000; }
+        #ui-overlay { position: absolute; top: 10px; left: 10px; color: #000; pointer-events: none; z-index: 100; font-weight: bold; }
+        #chat-bar { position: absolute; bottom: 0; left: 0; width: 100%; height: 40px; background: #fff; border-top: 2px solid #000; display: flex; align-items: center; padding: 0 10px; box-sizing: border-box; }
+        #chat-input { flex: 1; border: none; font-family: 'VT323'; font-size: 20px; outline: none; }
+    </style>
+</head>
+<body>
+    <div id="ui-overlay">
+        <div style="font-size: 24px;">PENGUIN_OPERATIVE_HUB</div>
+        <div>UPLINK: ACTIVE_ICEBERG</div>
+        <div style="margin-top: 10px;">CREDITS: 5,000 [SECURITY_TOKENS]</div>
+    </div>
+    <div id="game-container"></div>
+    <div id="chat-bar">
+        <span>></span>
+        <input type="text" id="chat-input" placeholder="Waddle and Hack...">
+    </div>
+    <script src="src/game.js" type="module"></script>
+</body>
+</html>

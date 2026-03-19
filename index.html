@@ -19,15 +19,27 @@
     }
 
     body {
-        background-color: #008080;
-        background-image: radial-gradient(#004d4d 1px, transparent 1px);
-        background-size: 20px 20px;
+        background-color: #050a0f;
+        background-image: 
+            radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+            radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+            radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+            linear-gradient(rgba(0, 232, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 232, 255, 0.05) 1px, transparent 1px);
+        background-size: 550px 550px, 350px 350px, 250px 250px, 40px 40px, 40px 40px;
+        background-position: 0 0, 40px 60px, 130px 270px, 0 0, 0 0;
         margin: 0;
         height: 100vh;
         font-family: Arial, sans-serif;
         overflow: hidden;
         display: flex;
         flex-direction: column;
+        animation: galaxy-scroll 100s linear infinite;
+    }
+
+    @keyframes galaxy-scroll {
+        from { background-position: 0 0, 40px 60px, 130px 270px, 0 0, 0 0; }
+        to { background-position: 550px 550px, 390px 410px, 380px 820px, 40px 40px, 40px 40px; }
     }
 
     /* --- CRT OVERLAY --- */
@@ -196,7 +208,7 @@
     </div>
     <div class="icon" onclick="window.location.href='temple.html'">
         <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png" alt="HolyOS">
-        <br>HOLYOS_BOOT<br>Generator
+        <br>CYBERWORLD_OS<br>Generator
     </div>
     <div class="icon" onclick="window.location.href='adversaries.html'">
         <img src="https://win98icons.alexmeub.com/icons/png/address_book_users.png" alt="Target DB">
@@ -212,7 +224,11 @@
     </div>
     <div class="icon" onclick="window.location.href='https://github.com/Personfu/CYBERWORLDSOURCECODE'">
         <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png" alt="OSINT">
-        <br>CYBERWORLD<br>ENGINE
+        <br>CYBERWORLD<br>CORE ENGINE
+    </div>
+    <div class="icon" onclick="window.location.href='https://github.com/Personfu/CYBERWORLDSOURCECODELITE'">
+        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png" alt="Lite">
+        <br>CYBERWORLD<br>LITE OPS
     </div>
     <div class="icon" onclick="window.location.href='https://fllc.net'">
         <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png" alt="Network">
@@ -246,17 +262,17 @@
         <div class="cw-title">CyberWorld</div>
         
         <div class="game-frame">
-            <div class="game-title">WELCOME TO CYBERWORLD: ENTERPRISE HUB</div>
+            <div class="game-title">WELCOME TO CYBERWORLD: FLLC ENTERPRISE HUB</div>
             
             <div class="isometric-canvas">
-                <button class="btn-play" onclick="window.location.href='rpg/index.html'">PLAY NOW</button>
+                <button class="btn-play" onclick="window.location.href='rpg/index.html'">ENTER OPERATIONS</button>
             </div>
 
             <div class="chat-widget">
                 <div class="game-title" style="font-size: 14px; background: var(--win-blue);">SECURE CHAT</div>
                 <div class="chat-log" id="chat-log">
-                    <span style="color:var(--cyber-blue)">Agent_Zero:</span> Anyone know how to decrypt the firewall in Sector 4?<br>
-                    <span style="color:var(--cyber-blue)">FLLC_Admin:</span> You need a Premium Elite $50 key to bypass it.<br>
+                    <span style="color:var(--cyber-blue)">FLIC:</span> Core and Lite sectors are synchronized to the CyberWorld stack.<br>
+                    <span style="color:var(--cyber-blue)">FLLC_Admin:</span> Original FLLC mission builds are now live in the local repos.<br>
                 </div>
                 <div class="chat-input">
                     <input type="text" id="chat-msg" placeholder="Type message...">
