@@ -63,6 +63,46 @@ background-image:radial-gradient(ellipse at 20% 50%,rgba(0,232,255,.03) 0%,trans
 .evo-flash{animation:evoFlash 1s infinite}
 @keyframes evoFlash{0%,100%{color:#00e8ff}50%{color:#ff00ff}}
 .close-btn{position:absolute;top:8px;right:12px;background:none;border:none;color:#ff003c;font-size:20px;cursor:pointer;font-family:'VT323'}
+
+/* ── MOBILE QUICK-CONTROLS ── */
+#mobileCtrl{display:none;position:fixed;bottom:100px;right:8px;z-index:150;flex-direction:column;gap:6px}
+.mctrl-btn{background:rgba(1,26,39,.92);border:1px solid #00e8ff;color:#00e8ff;font-family:'VT323';font-size:15px;padding:10px 14px;cursor:pointer;text-align:center;touch-action:manipulation;white-space:nowrap;border-radius:3px}
+.mctrl-btn:active{background:rgba(0,232,255,.3)}
+
+/* ── RESPONSIVE / MOBILE ── */
+@media(max-width:768px){
+  /* HUD top — compact, horizontally scrollable */
+  .hud-top{font-size:10px;padding:0 6px;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap}
+  .hud-top>div{white-space:nowrap;flex-shrink:0}
+  .hud-top .sector{margin-left:8px}
+  /* HUD bottom — scrollable tool strip */
+  .hud-bottom{height:auto;min-height:90px;padding:6px 8px}
+  .tools{overflow-x:auto;-webkit-overflow-scrolling:touch;flex-wrap:nowrap;padding-bottom:4px;scrollbar-width:none}
+  .tools::-webkit-scrollbar{display:none}
+  .tbtn{min-width:58px;font-size:10px;padding:5px 6px;flex-shrink:0;touch-action:manipulation}
+  .tbtn small{font-size:8px}
+  .console{width:140px;font-size:9px;height:75px;margin-left:4px}
+  /* Side nav */
+  .side-nav{width:auto;min-width:108px;max-width:140px}
+  .nbtn{font-size:12px;padding:7px 4px;touch-action:manipulation}
+  /* Overlays — full-width on phones */
+  .inv-overlay{width:95vw}
+  .deck-overlay{width:95vw}
+  .inv-grid{grid-template-columns:repeat(2,1fr)}
+  .inv-item{padding:8px;font-size:11px;touch-action:manipulation}
+  .script-btn{font-size:12px;padding:8px 6px;touch-action:manipulation}
+  /* Battle overlay */
+  .battle-field{flex-direction:column;gap:16px;align-items:center}
+  .battle-log{width:90vw;max-width:100%}
+  .combatant{min-width:140px}
+  .hp-bar{width:140px}
+  .move-btn{min-width:88px;font-size:14px;padding:10px 10px;touch-action:manipulation}
+  .battle-moves{gap:6px}
+  /* Boot text */
+  .boot-line{font-size:12px}
+  /* Show mobile quick-controls */
+  #mobileCtrl{display:flex !important}
+}
 </style>
 </head>
 <body>
@@ -153,6 +193,13 @@ background-image:radial-gradient(ellipse at 20% 50%,rgba(0,232,255,.03) 0%,trans
 <div class="evo-overlay" id="evoOvl">
 <h1 class="evo-flash" style="font-size:48px">RECONSTRUCTING...</h1>
 <p id="evoTxt" style="color:#fff;font-size:24px;margin-top:20px"></p>
+</div>
+
+<!-- MOBILE QUICK-CONTROLS (hidden on desktop, shown on mobile via CSS) -->
+<div id="mobileCtrl" role="group" aria-label="Mobile quick actions">
+<button class="mctrl-btn" onclick="toggleInv()" aria-label="Open inventory bag">📦 BAG</button>
+<button class="mctrl-btn" onclick="toggleDeck()" aria-label="Open cyber deck">💻 DECK</button>
+<button class="mctrl-btn" onclick="scanNetwork()" aria-label="Scan network">📡 SCAN</button>
 </div>
 
 <script>
@@ -367,7 +414,7 @@ const tx=Phaser.Math.Snap.To(p.x,64),ty=Phaser.Math.Snap.To(p.y,64);
 this.tweens.add({targets:[this.player,this.pLabel],x:tx,duration:350,ease:'Power2'});
 this.tweens.add({targets:this.player,y:ty,duration:350,ease:'Power2'});
 this.tweens.add({targets:this.pLabel,y:ty-30,duration:350,ease:'Power2'})});
-this.add.text(W/2,H-145,'CLICK=MOVE | ADVERSARIES=BATTLE | DAEMONS=CAPTURE | HUD TOOLS=SCAN',{fontFamily:'VT323',fontSize:'11px',color:'#00ff41',backgroundColor:'#000',padding:{x:6,y:3}}).setOrigin(.5).setAlpha(.6);
+this.add.text(W/2,H-145,'TAP/CLICK=MOVE | ADVERSARIES=BATTLE | DAEMONS=CAPTURE | HUD TOOLS=SCAN',{fontFamily:'VT323',fontSize:'11px',color:'#00ff41',backgroundColor:'#000',padding:{x:6,y:3}}).setOrigin(.5).setAlpha(.6);
 clog('[WORLD] Sector loaded — '+ADVERSARIES.length+' hostiles, '+DAEMONS.length+' daemons');}}
 
 new Phaser.Game({type:Phaser.AUTO,width:window.innerWidth,height:window.innerHeight,parent:'game-container',backgroundColor:'#050a0f',pixelArt:true,scale:{mode:Phaser.Scale.RESIZE,parent:'game-container'},physics:{default:'arcade',arcade:{gravity:{y:0},debug:false}},scene:[SceneSelect,SceneWorld]})
