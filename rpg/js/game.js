@@ -3,23 +3,21 @@ import { SceneLogin } from './scenes/SceneLogin.js';
 import { SceneCharacter } from './scenes/SceneCharacter.js';
 import { SceneOperationsDeck } from './scenes/SceneOperationsDeck.js';
 import { SceneLobby } from './scenes/SceneLobby.js';
+import { SceneWorldMap } from './scenes/SceneWorldMap.js';
+import { SceneMinigame } from './scenes/SceneMinigame.js';
 
 const config = {
     type: Phaser.AUTO,
-    width: 960,
-    height: 640,
+    width: 1024,
+    height: 768,
     parent: 'game-container',
-    backgroundColor: '#02050b',
-    pixelArt: true,
     physics: {
         default: 'arcade',
-        arcade: {
-            gravity: { y: 0 },
-            debug: false
-        }
+        arcade: { debug: false }
     },
-    scene: [SceneBoot, SceneLogin, SceneCharacter, SceneOperationsDeck, SceneLobby]
+    scene: [SceneBoot, SceneLogin, SceneCharacter, SceneOperationsDeck, SceneLobby, SceneWorldMap, SceneMinigame]
 };
 
 const game = new Phaser.Game(config);
+
 export default game;
