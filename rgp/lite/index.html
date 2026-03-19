@@ -1,30 +1,89 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CYBERWORLD-LITE // CP_RESTYLIZED // FURIOS-INT PENGUIN_HUB</title>
+    <title>CyberWorld Lite // FLLC Operations Deck</title>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
-        body { background: #e0faff; margin: 0; padding: 0; overflow: hidden; font-family: 'VT323', monospace; }
-        #game-container { border: 4px solid #000; box-shadow: 0 0 10px #000; }
-        #ui-overlay { position: absolute; top: 10px; left: 10px; color: #000; pointer-events: none; z-index: 100; font-weight: bold; }
-        #chat-bar { position: absolute; bottom: 0; left: 0; width: 100%; height: 40px; background: #fff; border-top: 2px solid #000; display: flex; align-items: center; padding: 0 10px; box-sizing: border-box; }
-        #chat-input { flex: 1; border: none; font-family: 'VT323'; font-size: 20px; outline: none; }
+        :root {
+            --bg: #030710;
+            --cyan: #00e8ff;
+            --lime: #59ff95;
+            --amber: #ffd166;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: 'VT323', monospace;
+            background: radial-gradient(circle at top left, #11244d 0%, #050813 35%, #02040b 100%);
+            color: #d6f9ff;
+        }
+
+        #desktop-shell {
+            width: min(96vw, 1180px);
+            height: min(92vh, 760px);
+            border: 3px solid var(--cyan);
+            background: #050813;
+            box-shadow: 0 0 25px rgba(0, 232, 255, 0.35), inset 0 0 24px rgba(0, 140, 255, 0.16);
+            position: relative;
+        }
+
+        #window-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(0, 232, 255, 0.38);
+            font-size: 24px;
+            color: var(--cyan);
+            background: linear-gradient(90deg, rgba(0, 32, 72, 0.95), rgba(8, 12, 24, 0.95));
+        }
+
+        #route-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            font-size: 20px;
+            color: #87e3ff;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        #game-container {
+            position: absolute;
+            inset: 78px 10px 10px 10px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 232, 255, 0.35);
+        }
+
+        #dock {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 22px;
+            color: #9deaff;
+        }
     </style>
 </head>
 <body>
-    <div id="ui-overlay">
-        <div style="font-size: 24px;">PENGUIN_OPERATIVE_HUB</div>
-        <div>UPLINK: ACTIVE_ICEBERG</div>
-        <div style="margin-top: 10px;">CREDITS: 5,000 [SECURITY_TOKENS]</div>
+    <div id="desktop-shell">
+        <div id="window-bar">
+            <div>CyberWorld Lite.exe</div>
+            <div>FLLC OPERATIONS CENTER</div>
+        </div>
+        <div id="route-bar">
+            <div>ADDRESS: http://fllc.net/cyberworld-lite/ops-deck</div>
+            <div>STACK: SOC / OSINT / RESPONSE</div>
+        </div>
+        <div id="game-container"></div>
     </div>
-    <div id="game-container"></div>
-    <div id="chat-bar">
-        <span>></span>
-        <input type="text" id="chat-input" placeholder="Waddle and Hack...">
-    </div>
+    <div id="dock">Move the operator to secure assets and simulate a compact FLLC mission loop.</div>
     <script src="src/game.js" type="module"></script>
 </body>
 </html>

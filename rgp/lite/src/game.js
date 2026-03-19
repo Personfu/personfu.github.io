@@ -1,12 +1,12 @@
-import { SceneBoot } from './scenes/SceneBoot.js';
-import { SceneIceberg } from './scenes/SceneIceberg.js';
+﻿import { SceneBoot } from './scenes/SceneBoot.js';
+import { SceneOperationsDeck } from './scenes/SceneOperationsDeck.js';
 
 const config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: 960,
+    height: 640,
     parent: 'game-container',
-    backgroundColor: '#fff',
+    backgroundColor: '#040914',
     pixelArt: true,
     physics: {
         default: 'arcade',
@@ -15,7 +15,7 @@ const config = {
             debug: false
         }
     },
-    scene: [SceneBoot, SceneIceberg]
+    scene: [SceneBoot, SceneOperationsDeck]
 };
 
 const game = new Phaser.Game(config);
