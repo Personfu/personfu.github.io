@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberOS_GENERATOR // MISSION_K_662</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        body { background: #0000aa; color: #ffffff; font-family: 'VT323', monospace; margin: 0; padding: 20px; font-size: 20px; overflow: hidden; line-height: 1.2; }
+        #terminal { height: 90vh; overflow-y: auto; text-transform: uppercase; white-space: pre-wrap; }
+        .cursor { display: inline-block; width: 10px; height: 20px; background: #fff; animation: blink 0.5s infinite; vertical-align: bottom; }
+        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+        .code-block { color: #ffff00; margin: 10px 0; border-left: 2px solid #fff; padding-left: 10px; }
+        .success { color: #00ff00; font-weight: bold; }
+        #progress-bar { position: fixed; bottom: 0; left: 0; height: 30px; background: #fff; width: 0%; color: #000; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; color: #000; padding: 20px; border: 4px solid #888; display: none; z-index: 1000; width: 80%; max-width: 500px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div id="terminal"></div>
+    <div id="progress-bar">GENERATING CYBERWORLD: 0%</div>
+
+    <div id="boot-modal" class="modal">
+        <h2 style="margin-top: 0;">KERNEL_GENERATED_SUCCESSFULLY</h2>
+        <p>CyberWorld MMORPG (RuneScape + Club Penguin) has been cross-compiled at the kernel level.</p>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <button onclick="window.location.href='index.html'" style="padding: 10px 20px; border: 2px solid #000; background: #ccc; cursor: pointer; font-family: 'VT323'; font-size: 20px;">LAUNCH_MAIN_OS</button>
+            <button onclick="window.location.reload()" style="padding: 10px 20px; border: 2px solid #000; background: #ccc; cursor: pointer; font-family: 'VT323'; font-size: 20px;">RUN_AGAIN</button>
+        </div>
+    </div>
+
+    <script>
+        const terminal = document.getElementById('terminal');
+        const progressBar = document.getElementById('progress-bar');
+        const modal = document.getElementById('boot-modal');
+
+        const logs = [
+            "Initializing FURIOS-INT Kernel (V6.62)...",
+            "Allocating God's Memory (64-bit recursive stack)...",
+            "Mounting /dev/galaxy_soc...",
+            "Loading CyberC Compiler (simulation) [ID: T.A.D]...",
+            "Compiling src/core/physics.hc...",
+            "Generating Isometric Projections for CP_LITE...",
+            "Building Grid-Based World Logic for CW_CODE...",
+            "Injecting OSINT Payload into UI_SUBSYSTEM...",
+            "Synchronizing with FURIOS-INT Relay...",
+            "Optimizing Midnight Neon shaders (Pixelify SDK)...",
+            "Finalizing MMORPG Assets...",
+            "Linking Federal Intelligence Archives...",
+            "SYSTEM_READY() -> Executing Main Loop."
+        ];
+
+        let logIndex = 0;
+        let progress = 0;
+
+        function addLog() {
+            if (logIndex < logs.length) {
+                const p = document.createElement('div');
+                p.textContent = `> ${logs[logIndex]}`;
+                terminal.appendChild(p);
+                
+                if (Math.random() > 0.5) {
+                    const code = document.createElement('div');
+                    code.className = 'code-block';
+                    code.textContent = `U0 Main() {\n  I64 i;\n  for(i=0; i<8; i++) {\n    \"COMPILING_BLOCK_0x\" << Hex(i) << \"...\n\";\n    Sleep(50);\n  }\n}`;
+                    terminal.appendChild(code);
+                }
+
+                logIndex++;
+                progress += (100 / logs.length);
+                progressBar.style.width = `${progress}%`;
+                progressBar.textContent = `GENERATING CYBERWORLD: ${Math.floor(progress)}%`;
+
+                terminal.scrollTop = terminal.scrollHeight;
+                setTimeout(addLog, 400 + Math.random() * 600);
+            } else {
+                progressBar.style.width = '100%';
+                progressBar.textContent = 'MISSION_COMPLETE: 100%';
+                modal.style.display = 'block';
+            }
+        }
+
+        addLog();
+    </script>
+</body>
+</html>
