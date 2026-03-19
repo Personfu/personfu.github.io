@@ -166,24 +166,6 @@
     }
     .btn-play:hover { background: var(--cyber-cyan); color: #000; }
 
-    /* --- CHAT WIDGET --- */
-    .chat-widget {
-        position: absolute; bottom: -20px; right: -20px;
-        width: 300px; height: 180px;
-        background: var(--win-bg); border: 2px solid;
-        border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
-        display: flex; flex-direction: column; z-index: 50;
-    }
-
-    .chat-log {
-        flex: 1; background: #fff; margin: 2px; border: 2px inset var(--win-light);
-        font-family: 'VT323', monospace; font-size: 16px; padding: 4px; overflow-y: auto;
-    }
-
-    .chat-input { display: flex; margin: 2px; }
-    .chat-input input { flex: 1; border: 2px inset var(--win-light); font-family: 'VT323'; }
-    .chat-input button { border: 1px solid var(--win-black); cursor: pointer; }
-
     /* --- TASKBAR --- */
     #taskbar {
         height: 35px; background: var(--win-bg); border-top: 2px solid var(--win-light);
@@ -194,6 +176,93 @@
         font-weight: bold; padding: 3px 8px; border: 2px solid;
         border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
         display: flex; align-items: center; cursor: pointer;
+    }
+
+    /* --- MOBILE UI --- */
+    #mobile-ui {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 16px;
+        gap: 14px;
+        overflow-y: auto;
+        height: 100vh;
+        background: var(--dark-bg);
+        background-image: linear-gradient(rgba(0,232,255,.05) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(0,232,255,.05) 1px, transparent 1px);
+        background-size: 30px 30px;
+    }
+
+    #mobile-ui .m-title {
+        font-family: 'Pixelify Sans', sans-serif;
+        color: var(--cyber-cyan);
+        font-size: 36px;
+        text-shadow: 0 0 10px var(--cyber-cyan);
+        letter-spacing: 2px;
+        text-align: center;
+    }
+
+    #mobile-ui .m-subtitle {
+        font-family: 'VT323', monospace;
+        color: var(--cyber-green);
+        font-size: 16px;
+        text-align: center;
+        margin-top: -10px;
+        opacity: 0.8;
+    }
+
+    #mobile-ui .m-enter-btn {
+        background: linear-gradient(180deg, #1084d0, var(--win-blue));
+        color: white;
+        font-family: 'VT323', monospace;
+        font-size: 28px;
+        padding: 12px 40px;
+        border: 3px solid var(--cyber-cyan);
+        box-shadow: 0 0 15px var(--cyber-cyan);
+        cursor: pointer;
+        width: 100%;
+        max-width: 340px;
+        transition: 0.2s;
+    }
+    #mobile-ui .m-enter-btn:active { background: var(--cyber-cyan); color: #000; }
+
+    .m-nav-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        width: 100%;
+        max-width: 380px;
+    }
+
+    .m-nav-btn {
+        background: rgba(0, 68, 255, 0.15);
+        border: 1px solid var(--cyber-cyan);
+        color: var(--cyber-cyan);
+        font-family: 'VT323', monospace;
+        font-size: 15px;
+        padding: 12px 8px;
+        cursor: pointer;
+        text-align: center;
+        line-height: 1.3;
+        transition: 0.15s;
+    }
+    .m-nav-btn:active { background: rgba(0, 232, 255, 0.25); }
+
+    .m-section-label {
+        font-family: 'VT323', monospace;
+        color: var(--cyber-green);
+        font-size: 14px;
+        align-self: flex-start;
+        max-width: 380px;
+        width: 100%;
+        border-bottom: 1px solid rgba(0,255,65,.3);
+        padding-bottom: 2px;
+    }
+
+    @media (max-width: 768px) {
+        body { overflow: auto; height: auto; }
+        #desktop, .window, #taskbar, #crt-filter { display: none !important; }
+        #mobile-ui { display: flex; }
     }
 </style>
 </head>
@@ -280,17 +349,7 @@
                 <button class="btn-play" onclick="window.location.href='rpg/index.html'">ENTER OPERATIONS</button>
             </div>
 
-            <div class="chat-widget">
-                <div class="game-title" style="font-size: 14px; background: var(--win-blue);">SECURE CHAT</div>
-                <div class="chat-log" id="chat-log">
-                    <span style="color:var(--cyber-blue)">FLIC:</span> Core and Lite sectors are synchronized to the CyberWorld stack.<br>
-                    <span style="color:var(--cyber-blue)">FLLC_Admin:</span> Original FLLC mission builds are now live in the local repos.<br>
-                </div>
-                <div class="chat-input">
-                    <input type="text" id="chat-msg" placeholder="Type message...">
-                    <button onclick="sendChat()">✓</button>
-                </div>
-            </div>
+
         </div>
 
         <div style="display: flex; gap: 10px; margin-top: 25px;">
@@ -314,19 +373,38 @@
     }
     setInterval(updateClock, 1000); updateClock();
 
-    function sendChat() {
-        const input = document.getElementById('chat-msg');
-        const log = document.getElementById('chat-log');
-        if(input.value.trim() !== "") {
-            log.innerHTML += `<span style="color:var(--cyber-green)">You:</span> ${input.value}<br>`;
-            input.value = "";
-            log.scrollTop = log.scrollHeight;
-        }
-    }
-    document.getElementById('chat-msg').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') sendChat();
-    });
+
 </script>
+
+<div id="mobile-ui">
+    <div class="m-title">CyberWorld</div>
+    <div class="m-subtitle">FLLC ENTERPRISE HUB // v2026.3</div>
+
+    <button class="m-enter-btn" onclick="window.location.href='rpg/index.html'">▶ ENTER OPERATIONS</button>
+
+    <div class="m-section-label">// NAVIGATION</div>
+    <div class="m-nav-grid">
+        <button class="m-nav-btn" onclick="window.location.href='index.html'">🌐 CyberWorld<br>Home</button>
+        <button class="m-nav-btn" onclick="window.location.href='cyber.html'">⚙ CyberOS<br>Generator</button>
+        <button class="m-nav-btn" onclick="window.location.href='adversaries.html'">🛡 Adversary<br>Database</button>
+        <button class="m-nav-btn" onclick="window.location.href='cyberos-iso.html'">💿 CyberOS<br>v2026.3 ISO</button>
+    </div>
+
+    <div class="m-section-label">// RESOURCES</div>
+    <div class="m-nav-grid">
+        <button class="m-nav-btn" onclick="window.location.href='https://fllc.net/intelligence'">🔍 FLLC<br>Intel Hub</button>
+        <button class="m-nav-btn" onclick="window.location.href='https://fllc.net'">🖧 FURIOS-INT<br>Mainframe</button>
+        <button class="m-nav-btn" onclick="window.location.href='https://github.com/Personfu/Python'">📁 Python<br>Homework</button>
+        <button class="m-nav-btn" onclick="window.location.href='https://github.com/Personfu/REPORTS'">📂 CSET<br>Reports</button>
+    </div>
+
+    <div class="m-section-label">// SOURCE</div>
+    <div class="m-nav-grid">
+        <button class="m-nav-btn" onclick="window.location.href='https://github.com/Personfu/CYBERWORLDSOURCECODE'">⌨ CW Core<br>Engine</button>
+        <button class="m-nav-btn" onclick="window.location.href='https://github.com/Personfu/CYBERWORLDSOURCECODELITE'">📄 CW Lite<br>Ops</button>
+    </div>
+</div>
+
 
 </body>
 </html>
