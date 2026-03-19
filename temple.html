@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holy OS - CyberWorld Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --holy-bg: #ffffff;
+            --holy-text: #0000aa;
+            --holy-red: #aa0000;
+            --holy-cyan: #00aaaa;
+            --holy-green: #00aa00;
+        }
+
+        body {
+            background-color: #000;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'VT323', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #monitor {
+            width: 800px;
+            height: 600px;
+            background-color: var(--holy-bg);
+            border: 10px solid #444;
+            position: relative;
+            box-shadow: 0 0 50px rgba(255,255,255,0.2);
+            overflow: hidden;
+        }
+
+        #crt-filter {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%);
+            background-size: 100% 4px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        #scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 170, 170, 0.1);
+            position: absolute;
+            top: 0;
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            from { top: 0; }
+            to { top: 100%; }
+        }
+
+        #terminal {
+            padding: 20px;
+            color: var(--holy-text);
+            font-size: 18px;
+            line-height: 1.2;
+        }
+
+        .line { margin-bottom: 2px; }
+        .prompt { color: var(--holy-red); font-weight: bold; }
+        .command { color: var(--holy-text); }
+        .output { color: var(--holy-cyan); }
+        .holy-c { color: var(--holy-green); font-style: italic; }
+
+        #cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background-color: var(--holy-text);
+            animation: blink 0.8s step-end infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        #boot-screen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            transition: opacity 1s;
+        }
+
+        #boot-logo {
+            font-size: 40px;
+            font-weight: bold;
+            color: var(--holy-text);
+            margin-bottom: 20px;
+        }
+
+        .hidden { display: none !important; }
+        
+        #generation-visual {
+            position: absolute;
+            bottom: 40px;
+            right: 40px;
+            width: 300px;
+            height: 200px;
+            border: 2px solid var(--holy-text);
+            background: #eee;
+            image-rendering: pixelated;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="monitor">
+        <div id="crt-filter"></div>
+        <div id="scanline"></div>
+
+        <div id="boot-screen">
+            <div id="boot-logo">HolyOS v1.0</div>
+            <div id="boot-status">BOOTING 64-BIT KERNEL...</div>
+        </div>
+
+        <div id="terminal">
+            <div class="line">HolyOS (C) 2026 - Preston Furulie</div>
+            <div class="line">T.A.D Compiler Ready. Graphics: 640x480x16.</div>
+            <div class="line">&nbsp;</div>
+            <div id="history"></div>
+            <div class="line">
+                <span class="prompt">HolyC></span>
+                <span id="input-buffer" class="command"></span><span id="cursor"></span>
+            </div>
+        </div>
+
+        <canvas id="generation-visual" class="hidden"></canvas>
+    </div>
+
+    <script>
+        const history = document.getElementById('history');
+        const inputBuffer = document.getElementById('input-buffer');
+        const bootScreen = document.getElementById('boot-screen');
+        const canvas = document.getElementById('generation-visual');
+        const ctx = canvas.getContext('2d');
+
+        let isBooted = false;
+        let commandIndex = 0;
+        const commands = [
+            "Uplink(MMO_NET);",
+            "Generate_World(SECTOR_MAIN);",
+            "Compile_Assets(CLUB_PENGUIN);",
+            "Mount(NASA_UPLINK);",
+            "Run_CyberWorld();"
+        ];
+
+        window.onload = () => {
+            setTimeout(() => {
+                bootScreen.style.opacity = '0';
+                setTimeout(() => {
+                    bootScreen.classList.add('hidden');
+                    isBooted = true;
+                    typeCommand();
+                }, 1000);
+            }, 2000);
+        };
+
+        function addLine(text, className = 'output') {
+            const div = document.createElement('div');
+            div.className = 'line ' + className;
+            div.innerHTML = text;
+            history.appendChild(div);
+        }
+
+        function typeCommand() {
+            if (commandIndex >= commands.length) {
+                addLine("SYSTEM: CyberWorld generated successfully.", "holy-c");
+                addLine("Redirecting to MMO Grid...", "output");
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 3000);
+                return;
+            }
+
+            const cmd = commands[commandIndex];
+            let charIndex = 0;
+            
+            const timer = setInterval(() => {
+                inputBuffer.innerText += cmd[charIndex];
+                charIndex++;
+                if (charIndex >= cmd.length) {
+                    clearInterval(timer);
+                    setTimeout(() => {
+                        processCommand(cmd);
+                    }, 500);
+                }
+            }, 100);
+        }
+
+        function processCommand(cmd) {
+            addLine(`<span class="prompt">HolyC></span> <span class="command">${cmd}</span>`);
+            inputBuffer.innerText = "";
+            
+            if (cmd.includes("Generate_World")) {
+                addLine("COMPILING DATA MESH...", "output");
+                canvas.classList.remove('hidden');
+                startGenerationAnim();
+            } else if (cmd.includes("Uplink")) {
+                addLine("CONNECTING TO FURIOS-INT NODE...", "output");
+            } else if (cmd.includes("Mount")) {
+                addLine("RESERVING NASA BUFFER...", "output");
+            } else {
+                addLine("EXECUTION SUCCESSFUL.", "output");
+            }
+
+            commandIndex++;
+            setTimeout(typeCommand, 1000);
+        }
+
+        function startGenerationAnim() {
+            let frame = 0;
+            const draw = () => {
+                if (frame > 100) return;
+                ctx.fillStyle = `rgb(${Math.random()*255},${Math.random()*255},255)`;
+                ctx.fillRect(Math.random()*300, Math.random()*200, 10, 10);
+                frame++;
+                requestAnimationFrame(draw);
+            };
+            draw();
+        }
+
+        // Keyboard support for immersion
+        document.addEventListener('keydown', (e) => {
+            if (!isBooted) return;
+            // Fake typing
+        });
+    </script>
+</body>
+</html>
