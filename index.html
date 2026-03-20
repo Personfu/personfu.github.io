@@ -8,26 +8,39 @@
 <link rel="stylesheet" href="css/os.css">
 <script src="https://unpkg.com/@discord/embedded-app-sdk@1.0.0/dist/index.global.js"></script>
 <style>
-    #desktop {
-        background-color: #008080;
-        background-image: radial-gradient(circle at 50% 50%, #004d4d 0%, #000000 100%);
-        overflow: hidden;
-    }
-    #matrix-bg {
-        position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.15; pointer-events: none;
-    }
-    .desktop-icon { position: relative; z-index: 10; cursor: pointer; }
+    body { background: #000; overflow: hidden; margin: 0; }
+    #desktop { background-color: #008080; background-image: radial-gradient(circle at 50% 50%, #004d4d 0%, #000000 100%); overflow: hidden; display: none; }
+    #matrix-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.15; pointer-events: none; }
     
-    .setup-wizard { padding: 40px; font-family: 'JetBrains Mono', monospace; text-align: center; color: #000; }
-    .setup-title { font-size: 24px; font-weight: bold; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
-    .setup-step { font-size: 14px; text-align: left; margin: 20px 0; background: #eee; padding: 15px; border: 2px inset #fff; }
-    .setup-step span { color: #000080; font-weight: bold; }
+    /* Boot Sequence Overlay */
+    #boot-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: #000; z-index: 1000000; display: flex; flex-direction: column;
+        padding: 40px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--cyber-green);
+        text-transform: uppercase; overflow-y: auto;
+    }
+    .boot-line { margin-bottom: 4px; }
+    .boot-line span { color: var(--cyber-cyan); }
+    .boot-cursor { display: inline-block; width: 8px; height: 16px; background: var(--cyber-green); animation: blink 1s infinite; }
+    @keyframes blink { 0%, 100% { opacity:1; } 50% { opacity:0; } }
+
+    .mem-map { display: grid; grid-template-columns: repeat(16, 1fr); gap: 2px; margin: 20px 0; max-width: 400px; }
+    .mem-block { height: 8px; background: #111; border: 1px solid #222; }
+    .mem-block.active { background: var(--cyber-cyan); box-shadow: 0 0 5px var(--cyber-cyan); }
 </style>
 </head>
 <body>
 
-<canvas id="matrix-bg"></canvas>
 <div id="crt-filter"></div>
+
+<!-- BOOT OVERLAY -->
+<div id="boot-overlay">
+    <div id="boot-log"></div>
+    <div class="mem-map" id="boot-mmap"></div>
+    <div id="boot-status" style="margin-top:20px;">SYSTEM_INITIALIZING... <div class="boot-cursor"></div></div>
+</div>
+
+<canvas id="matrix-bg"></canvas>
 
 <div id="start-menu">
     <div style="display:flex; height:100%;">
@@ -67,10 +80,6 @@
         <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png">
         <span>fllc.net (SOC_HUB)</span>
     </div>
-    <div class="desktop-icon" onclick="window.location.reload()">
-        <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-4.png">
-        <span>Clean Cache</span>
-    </div>
 </div>
 
 <div id="taskbar">
@@ -88,7 +97,58 @@
 
 <script src="js/os.js"></script>
 <script>
-    // Matrix Rain Effect
+    // --- BOOT SEQUENCE LOGIC ---
+    const bootLogs = [
+        "FURIOS-INT Kernel v22.3.1 Loading...",
+        "Memory Check: [0x0000 - 0xFFFF] Passed.",
+        "Mounting /dev/ram0... Success.",
+        "Loading CyberOS Workspace Modules...",
+        "U0 Main() { I64 i; for(i=0; i<100; i++) Yield(); }",
+        "Initializing Monitor Scanlines (Phosphor FX)...",
+        "Establishing Secure Uplink to FLLC.NET...",
+        "SYNC: Discord Activities Payload Verified.",
+        "KERNEL_READY: Initializing GUI Subsystem."
+    ];
+
+    function runBoot() {
+        const log = document.getElementById('boot-log');
+        const mmap = document.getElementById('boot-mmap');
+        for(let i=0; i<128; i++) {
+            const b = document.createElement('div');
+            b.className = 'mem-block';
+            b.id = 'mb-' + i;
+            mmap.appendChild(b);
+        }
+
+        let i = 0;
+        const iv = setInterval(() => {
+            if(i < bootLogs.length) {
+                const line = document.createElement('div');
+                line.className = 'boot-line';
+                line.innerHTML = `<span>[OK]</span> ${bootLogs[i]}`;
+                log.appendChild(line);
+                
+                // Colorize some blocks
+                for(let j=0; j<8; j++) {
+                    const block = document.getElementById('mb-' + (i*8 + j));
+                    if(block) block.classList.add('active');
+                }
+                
+                document.getElementById('boot-overlay').scrollTop = log.scrollHeight;
+                i++;
+            } else {
+                clearInterval(iv);
+                document.getElementById('boot-status').innerText = 'INITIALIZATION_COMPLETE. WELCOME OPERATIVE.';
+                setTimeout(() => {
+                    document.getElementById('boot-overlay').style.display = 'none';
+                    document.getElementById('desktop').style.display = 'grid';
+                    openWindow('setup');
+                }, 1000);
+            }
+        }, 300);
+    }
+
+    // --- DESKTOP LOGIC ---
     const canvas = document.getElementById('matrix-bg');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -117,33 +177,47 @@
         if(type === 'browser') {
             OS.createWindow('browser-win', 'CyberWorld Browser v2026.3', `
                 <div style="background:#000; height:100%; display:flex; flex-direction:column; overflow:hidden;">
-                    <div style="padding:4px; border-bottom:1px solid #1a2a3a; text-align:center;">
-                        <h1 style="font-family:'Pixelify Sans'; color:var(--cyber-cyan); font-size:24px; margin:0;">CyberWorld</h1>
-                        <p style="color:#00e8ff; font-family:'VT323'; font-size:10px; margin-top:2px;">FURIOS-INT // ENTERPRISE_HUB // UPLINK_READY</p>
+                    <div style="padding:10px; border-bottom:1px solid #1a2a3a; text-align:center; background:#111;">
+                        <h1 style="font-family:'Pixelify Sans'; color:var(--cyber-cyan); font-size:32px; margin:0; text-shadow: 0 0 10px var(--cyber-cyan);">CyberWorld</h1>
+                        <p style="color:#00ff41; font-family:'VT323'; font-size:12px; margin-top:4px; letter-spacing:2px;">[ FURIOS_INT // MISSION_CONTROL // LINK_STABLE ]</p>
                     </div>
-                    <div style="flex:1; display:flex; justify-content:center; align-items:center; background:radial-gradient(#050a0f, #000);">
-                        <button class="win98-btn" style="font-family:'VT323'; font-size:20px; padding:10px 40px;" onclick="window.location.href='rpg/index.html'">ENTER OPERATIONS</button>
+                    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; background:radial-gradient(#050a0f 0%, #000 100%); gap:20px;">
+                        <button class="win98-btn phosphor-glow" style="font-family:'VT323'; font-size:28px; padding:15px 60px; border:2px solid var(--cyber-cyan); background:rgba(0,232,255,0.1); color:var(--cyber-cyan); cursor:pointer;" onclick="window.location.href='rpg/index.html'">ENTER OPERATIONS</button>
+                        <div style="display:flex; gap:10px;">
+                            <button class="win98-btn" style="padding:4px 15px; font-size:11px;">UPGRADE TIER</button>
+                            <button class="win98-btn" style="padding:4px 15px; font-size:11px;">IT SOLUTIONS</button>
+                        </div>
+                    </div>
+                    <div style="padding:4px; background:#c0c0c0; border-top:1px solid #808080; font-size:10px; display:flex; justify-content:space-between;">
+                        <span>Zone: TRIPLE_NEON</span>
+                        <span>Uplink: ESTABLISHED</span>
                     </div>
                 </div>
-            `, { width: '80%', height: '80%', top: '10%', left: '10%', hasToolbar: true, hasAddressBar: true, url: 'http://cyberworld.fllc.net/mainframe', icon: 'https://win98icons.alexmeub.com/icons/png/world-0.png' });
+            `, { width: '80%', height: '80%', top: '5%', left: '10%', hasToolbar: true, hasAddressBar: true, url: 'http://cyberworld.fllc.net/ops_deck', icon: 'https://win98icons.alexmeub.com/icons/png/world-0.png' });
         }
 
         if(type === 'setup') {
             OS.createWindow('setup-win', 'CyberWorld MMORPG Setup - Mission_K_662', `
-                <div class="setup-wizard">
-                    <div class="setup-title">CyberWorld Initializer</div>
-                    <p style="font-size:11px; color:#555;">Welcome to the FURIOS-INT Onboarding Protocol.</p>
-                    <div class="setup-step">
-                        <span>STEP 1: IDENTITY_GEN</span><br>
-                        Boot into the RPG to configure your Operative Class (OSINT, Infiltrator, or SOC).
+                <div class="setup-wizard" style="background:#c0c0c0; height:100%; display:flex; flex-direction:column;">
+                    <div style="background:#000080; color:#fff; padding:4px 10px; font-size:12px; font-weight:bold;">Setup Wizard</div>
+                    <div style="padding:20px; flex:1;">
+                        <div class="setup-title">CyberWorld Initializer</div>
+                        <p style="font-size:11px; color:#555;">Welcome to the FURIOS-INT Onboarding Protocol.</p>
+                        <hr style="border:1px inset #fff;">
+                        <div class="setup-step">
+                            <span>MISSION_ALPHA:</span> Configure your Operative Identity in the Operations Deck.
+                        </div>
+                        <div class="setup-step">
+                            <span>MISSION_BETA:</span> Synchronize mission-logs with the FLLC Mainframe.
+                        </div>
+                        <div style="margin-top:20px; font-size:10px; font-style:italic; color:#000080;">[X] Secure Channel Enabled<br>[X] Discord Activities SDK Initialized</div>
                     </div>
-                    <div class="setup-step">
-                        <span>STEP 2: TRAINING_SIM</span><br>
-                        Complete the 'Operations Deck' tutorial to master movement and HUD tools.
+                    <div style="padding:10px; border-top:1px solid #808080; display:flex; justify-content:flex-end; gap:10px; background:#c0c0c0;">
+                        <button class="win98-btn" style="padding:4px 20px;" onclick="openWindow('browser')">Next ></button>
+                        <button class="win98-btn" style="padding:4px 20px;">Cancel</button>
                     </div>
-                    <button class="win98-btn" style="padding:6px 20px; font-weight:bold; margin-top:10px;" onclick="openWindow('browser')">LAUNCH_MISSION</button>
                 </div>
-            `, { width: '450px', height: '500px', top: '50px', left: '300px', icon: 'https://win98icons.alexmeub.com/icons/png/setup_file-2.png' });
+            `, { width: '450px', height: '520px', top: '40px', left: '250px', icon: 'https://win98icons.alexmeub.com/icons/png/setup_file-2.png' });
         }
     }
 
@@ -155,8 +229,7 @@
     }
 
     window.onload = () => {
-        openWindow('setup');
-        setTimeout(() => openWindow('browser'), 800);
+        runBoot();
     }
 </script>
 
