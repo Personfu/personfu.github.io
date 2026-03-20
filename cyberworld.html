@@ -1,406 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberWorld MMORPG // CyberOS v2026.3-FLLC</title>
-    <meta name="description" content="CyberWorld - The unified cybersecurity MMORPG combining ClubPenguin, RuneScape, Pokemon, Hacking & FLLC. Built by PERSON // CyberOS v2026.3">
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: #050a0f;
-            font-family: 'VT323', monospace;
-            overflow: hidden; height: 100vh;
-            background-image:
-                radial-gradient(ellipse at 20% 50%, rgba(0, 232, 255, 0.03) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 50%, rgba(255, 0, 60, 0.03) 0%, transparent 50%),
-                linear-gradient(rgba(0, 232, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 232, 255, 0.02) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
-        }
-        #game-container {
-            width: 100vw; height: 100vh;
-            position: relative;
-        }
-        .boot-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 9999;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            transition: opacity 0.8s; font-family: 'VT323', monospace;
-        }
-        .boot-overlay.hidden { opacity: 0; pointer-events: none; }
-        .boot-line { color: #00e8ff; font-size: 18px; margin: 4px 0; opacity: 0; animation: bootFade 0.3s forwards; }
-        .boot-line.green { color: #00ff41; }
-        .boot-line.red { color: #ff003c; }
-        .boot-line.yellow { color: #ffcc00; }
-        @keyframes bootFade { to { opacity: 1; } }
-        .scanline { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 10000;
-            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,232,255,0.015) 2px, rgba(0,232,255,0.015) 4px);
-        }
-        .hud-overlay {
-            position: fixed; bottom: 0; left: 0; right: 0; height: 140px;
-            background: linear-gradient(180deg, transparent, rgba(5,10,15,0.95) 30%);
-            z-index: 100; display: flex; align-items: flex-end; padding: 10px 20px;
-            font-family: 'VT323', monospace;
-        }
-        .tool-bar { display: flex; gap: 6px; flex: 1; }
-        .tool-btn {
-            background: rgba(1,26,39,0.9); border: 1px solid #00e8ff; color: #00e8ff;
-            padding: 8px 12px; cursor: pointer; font-family: 'VT323'; font-size: 13px;
-            transition: all 0.2s; text-align: center; min-width: 90px;
-        }
-        .tool-btn:hover { background: rgba(0,232,255,0.2); box-shadow: 0 0 10px rgba(0,232,255,0.3); }
-        .tool-btn small { display: block; color: #666; font-size: 10px; }
-        .console-panel {
-            width: 320px; background: rgba(0,0,0,0.85); border: 1px solid #00ff41;
-            padding: 8px; font-size: 11px; color: #00ff41; height: 120px;
-            overflow-y: auto; margin-left: 10px;
-        }
-        .console-panel .line { margin: 2px 0; }
-        .console-panel .line.warn { color: #ffcc00; }
-        .console-panel .line.err { color: #ff003c; }
-        .stats-bar {
-            position: fixed; top: 0; left: 0; right: 0; height: 36px;
-            background: rgba(5,10,15,0.9); border-bottom: 1px solid #00e8ff33;
-            z-index: 100; display: flex; align-items: center; padding: 0 20px;
-            font-family: 'VT323'; font-size: 14px; color: #00e8ff; gap: 20px;
-        }
-        .stats-bar .stat { display: flex; gap: 6px; }
-        .stats-bar .val { color: #00ff41; font-weight: bold; }
-        .stats-bar .sector { margin-left: auto; color: #ff003c; font-size: 12px; }
-        .class-badge {
-            background: rgba(0,232,255,0.1); border: 1px solid #00e8ff;
-            padding: 2px 8px; font-size: 11px;
-        }
-        .engine-status {
-            position: fixed; top: 40px; right: 10px; z-index: 100;
-            font-size: 10px; color: #444; text-align: right;
-        }
-        .engine-status span { color: #00ff41; }
-        .nav-panel {
-            position: fixed; top: 40px; left: 10px; z-index: 100;
-            background: rgba(5,10,15,0.85); border: 1px solid #00e8ff33;
-            padding: 8px; width: 140px;
-        }
-        .nav-btn {
-            display: block; width: 100%; background: none; border: 1px solid #00e8ff33;
-            color: #00e8ff; font-family: 'VT323'; font-size: 12px; padding: 4px;
-            margin: 3px 0; cursor: pointer; text-align: left;
-        }
-        .nav-btn:hover { background: rgba(0,232,255,0.15); border-color: #00e8ff; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberWorld MMORPG // FURIOS-INT UPLINK</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<style>
+    .game-viewport {
+        background: #000; width: 100%; height: 100%; position: relative;
+        display: flex; flex-direction: column; overflow: hidden;
+    }
+    .game-header { background: #050a0f; border-bottom: 2px solid #1a1a1a; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
+    .game-iframe { flex: 1; border: 0; width: 100%; height: 100%; }
+    .status-ping { display: flex; align-items: center; gap: 8px; font-family: 'VT323'; color: var(--cyber-green); font-size: 14px; }
+    .ping-dot { width: 8px; height: 8px; background: var(--cyber-green); border-radius: 50%; animation: pulse 1s infinite; }
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+</style>
 </head>
 <body>
-    <div class="scanline"></div>
 
-    <!-- BOOT SEQUENCE -->
-    <div class="boot-overlay" id="bootOverlay"></div>
+<div id="crt-filter"></div>
+<div id="desktop"></div>
 
-    <!-- STATS BAR -->
-    <div class="stats-bar" id="statsBar" style="display:none">
-        <div class="stat">NODE: <span class="val" id="statLevel">1</span></div>
-        <div class="stat">CREDITS: <span class="val" id="statCredits">0</span> F-COIN</div>
-        <div class="stat">HP: <span class="val" id="statHP">100</span>/100</div>
-        <div class="class-badge" id="statClass">AGENT</div>
-        <div class="sector">⚡ LIVE_INTEL</div>
-    </div>
+<div id="taskbar">
+    <div class="start-btn" onclick="window.location.href='index.html'">⊞ Start</div>
+    <div id="task-items" style="display: flex; gap: 4px; padding: 0 10px;"></div>
+    <div id="tray"><div id="clock">12:00 PM</div></div>
+</div>
 
-    <!-- ENGINE STATUS -->
-    <div class="engine-status" id="engineStatus" style="display:none">
-        <span>E1:CORE</span> ✓ <span>E2:OPS</span> ✓ <span>E3:LITE</span> ✓ <span>E4:SOUL</span> ✓<br>
-        CyberWorld v2026.3-FLLC<br>
-        Built by PERSON // fllc.net
-    </div>
-
-    <!-- NAV PANEL -->
-    <div class="nav-panel" id="navPanel" style="display:none">
-        <div style="color:#00e8ff;font-size:11px;margin-bottom:4px;font-weight:bold">WORLD_NAV</div>
-        <button class="nav-btn" onclick="changeSector('mainframe')">▸ MAINFRAME</button>
-        <button class="nav-btn" onclick="changeSector('lan_valley')">▸ LAN VALLEY</button>
-        <button class="nav-btn" onclick="changeSector('darknet')">▸ DARKNET</button>
-        <button class="nav-btn" onclick="changeSector('soc_tower')">▸ SOC TOWER</button>
-    </div>
-
-    <!-- GAME CONTAINER -->
-    <div id="game-container"></div>
-
-    <!-- HUD OVERLAY -->
-    <div class="hud-overlay" id="hudOverlay" style="display:none">
-        <div class="tool-bar">
-            <div class="tool-btn" onclick="useTool('NMAP')">NMAP<small>Scanner</small></div>
-            <div class="tool-btn" onclick="useTool('METASPLOIT')">METASPLOIT<small>Exploit</small></div>
-            <div class="tool-btn" onclick="useTool('WIRESHARK')">WIRESHARK<small>Packets</small></div>
-            <div class="tool-btn" onclick="useTool('HYDRA')">HYDRA<small>BruteForce</small></div>
-            <div class="tool-btn" onclick="useTool('FURY')">FURY<small>KaliOps</small></div>
-            <div class="tool-btn" onclick="useTool('CSET')">CSET<small>Federal</small></div>
-            <div class="tool-btn" onclick="useTool('OSINT')">OSINT<small>Recon</small></div>
-        </div>
-        <div class="console-panel" id="consolePanel">
-            <div class="line">╔═══ FURIOS-INT SOC CONSOLE ═══╗</div>
-            <div class="line">║ CyberWorld Unified Engine     ║</div>
-            <div class="line">║ All 4 engines: ONLINE         ║</div>
-            <div class="line">╚═══════════════════════════════╝</div>
-        </div>
-    </div>
-
-    <script>
-    // ═══════════════════════════════════════════════════════════════
-    // CYBERWORLD UNIFIED ENGINE — ALL SOURCE CODES COMPILED TO ONE
-    // ClubPenguin + RuneScape + Pokémon + Hacking + FLLC = CYBERWORLD
-    // Built by PERSON — CyberOS v2026.3-FLLC
-    // ═══════════════════════════════════════════════════════════════
-
-    let gameState = { level: 1, credits: 0, hp: 100, playerClass: 'AGENT', sector: 'MAINFRAME', daemons: [] };
-
-    // BOOT SEQUENCE
-    const bootLines = [
-        { text: '╔══════════════════════════════════════════╗', cls: '' },
-        { text: '║  CYBERWORLD UNIFIED ENGINE v2026.3-FLLC  ║', cls: '' },
-        { text: '╚══════════════════════════════════════════╝', cls: '' },
-        { text: '', cls: '' },
-        { text: 'BIOS: CyberOS Boot Manager v2026.3', cls: '' },
-        { text: 'RAM: 32768 MB OK', cls: 'green' },
-        { text: 'GPU: PHASER_3D_ACCEL... OK', cls: 'green' },
-        { text: '', cls: '' },
-        { text: 'Loading ENGINE 1: CORE MMO (ClubPenguin)...', cls: '' },
-        { text: '  → Avatar system, multiplayer, Colyseus RT', cls: 'green' },
-        { text: 'Loading ENGINE 2: SOURCECODE OPS (Hacking)...', cls: '' },
-        { text: '  → Adversary combat, cybersecurity tools HUD', cls: 'green' },
-        { text: 'Loading ENGINE 3: LITE OSINT (RuneScape)...', cls: '' },
-        { text: '  → Grid exploration, OSINT recon missions', cls: 'green' },
-        { text: 'Loading ENGINE 4: SOULCODE (Pokémon→Cyber)...', cls: '' },
-        { text: '  → Daemon capture, evolution, type matchups', cls: 'green' },
-        { text: '', cls: '' },
-        { text: 'Compiling adversary database... 85 threat groups loaded', cls: 'yellow' },
-        { text: 'Factions: SPIDER | BEAR | CHOLLIMA | PANDA | KITTEN | JACKAL', cls: 'yellow' },
-        { text: '', cls: '' },
-        { text: 'ALL ENGINES COMPILED ✓', cls: 'green' },
-        { text: 'FURIOS-INT UPLINK: ESTABLISHED', cls: 'green' },
-        { text: 'NEURAL LINK: ACTIVE — WELCOME TO CYBERWORLD', cls: 'green' },
-    ];
-
-    const bootOverlay = document.getElementById('bootOverlay');
-    bootLines.forEach((line, i) => {
-        setTimeout(() => {
-            const div = document.createElement('div');
-            div.className = 'boot-line ' + line.cls;
-            div.style.animationDelay = '0s';
-            div.textContent = line.text;
-            bootOverlay.appendChild(div);
-        }, i * 120);
-    });
-
-    setTimeout(() => {
-        bootOverlay.classList.add('hidden');
-        document.getElementById('statsBar').style.display = 'flex';
-        document.getElementById('engineStatus').style.display = 'block';
-        document.getElementById('navPanel').style.display = 'block';
-        document.getElementById('hudOverlay').style.display = 'flex';
-    }, bootLines.length * 120 + 800);
-
-    // CONSOLE LOG
-    function consoleLog(msg, type = '') {
-        const panel = document.getElementById('consolePanel');
-        const div = document.createElement('div');
-        div.className = 'line ' + type;
-        div.textContent = '> ' + msg;
-        panel.appendChild(div);
-        panel.scrollTop = panel.scrollHeight;
-        if (panel.children.length > 20) panel.removeChild(panel.children[0]);
+<script src="js/os.js"></script>
+<script>
+    function createGameContent() {
+        return `
+            <div class="game-viewport">
+                <div class="game-header">
+                    <div style="font-family: 'Pixelify Sans'; color: var(--cyber-cyan); font-size: 24px;">CyberWorld_MMORPG</div>
+                    <div class="status-ping">
+                        <div class="ping-dot"></div>
+                        UPLINK: MASTER_READY // 4096-BIT_RSA
+                    </div>
+                </div>
+                <iframe src="rpg/index.html" class="game-iframe"></iframe>
+            </div>
+        `;
     }
 
-    // TOOL USAGE
-    function useTool(tool) {
-        const targets = ['192.168.1.' + Math.floor(Math.random()*254), '10.0.0.' + Math.floor(Math.random()*254)];
-        const cves = ['CVE-2026-' + Math.floor(Math.random()*9999), 'CVE-2025-' + Math.floor(Math.random()*9999)];
-        consoleLog(`[EXEC] ${tool} initialized...`);
-        setTimeout(() => {
-            consoleLog(`[SCAN] Target: ${targets[0]} — Port 22,80,443,8080 OPEN`, 'warn');
-            consoleLog(`[VULN] ${cves[0]} detected [CRITICAL]`, 'err');
-            gameState.credits += 50;
-            updateStats();
-        }, 500);
-    }
-
-    // SECTOR CHANGE
-    function changeSector(sector) {
-        gameState.sector = sector.toUpperCase();
-        consoleLog(`[NAV] Sector transit: ${sector.toUpperCase()}`);
-        updateStats();
-    }
-
-    // UPDATE STATS UI
-    function updateStats() {
-        document.getElementById('statLevel').textContent = gameState.level;
-        document.getElementById('statCredits').textContent = gameState.credits;
-        document.getElementById('statHP').textContent = gameState.hp;
-        document.getElementById('statClass').textContent = gameState.playerClass;
-    }
-
-    // ═══════════════════════════════════════════════════════════════
-    // PHASER 3 GAME ENGINE
-    // ═══════════════════════════════════════════════════════════════
-
-    const ADVERSARIES = [
-        { name: 'FANCY_BEAR', faction: 'Bear', x: 200, y: 180, color: 0xff0000, type: 'APT28', tier: 'APEX', hp: 200 },
-        { name: 'COZY_BEAR', faction: 'Bear', x: 700, y: 350, color: 0xff4444, type: 'APT29', tier: 'APEX', hp: 250 },
-        { name: 'LAZARUS_GROUP', faction: 'Chollima', x: 800, y: 180, color: 0xff00ff, type: 'Chollima', tier: 'APEX', hp: 220 },
-        { name: 'BITWISE_SPIDER', faction: 'Spider', x: 300, y: 450, color: 0xff003c, type: 'RaaS', tier: 'HIGH', hp: 180 },
-        { name: 'MUSTANG_PANDA', faction: 'Panda', x: 150, y: 400, color: 0xffaa00, type: 'Espionage', tier: 'APEX', hp: 200 },
-        { name: 'CHARMING_KITTEN', faction: 'Kitten', x: 850, y: 300, color: 0x00ff88, type: 'APT35', tier: 'HIGH', hp: 160 },
-        { name: 'VOODOO_BEAR', faction: 'Bear', x: 500, y: 550, color: 0xff2222, type: 'Sandworm', tier: 'APEX', hp: 300 },
-        { name: 'BOUNTY_JACKAL', faction: 'Jackal', x: 600, y: 200, color: 0xcccccc, type: 'DDoS', tier: 'MID', hp: 120 },
-    ];
-
-    const DAEMONS = [
-        { name: 'ROOTKIT_v3', x: 600, y: 250, color: 0x00ffcc, type: 'MALWARE', level: 5, hp: 80 },
-        { name: 'WORM_SLITHER', x: 400, y: 300, color: 0x00ff41, type: 'WORM', level: 3, hp: 60 },
-        { name: 'TROJAN_GHOST', x: 650, y: 500, color: 0xff0088, type: 'TROJAN', level: 8, hp: 120 },
-        { name: 'BOTNET_SWARM', x: 250, y: 600, color: 0xffcc00, type: 'BOTNET', level: 12, hp: 180 },
-        { name: 'RANSOMWARE_X', x: 750, y: 450, color: 0xff003c, type: 'RANSOM', level: 15, hp: 200 },
-    ];
-
-    // ── SCENE: CHARACTER SELECT ──
-    class SceneCharSelect extends Phaser.Scene {
-        constructor() { super('SceneCharSelect'); }
-        create() {
-            this.add.grid(512, 384, 1024, 768, 32, 32, 0x050a0f, 1, 0x0044ff, 0.05);
-            this.add.text(512, 40, 'SELECT_OPERATIVE_CLASS', { fontFamily: 'VT323', fontSize: '36px', color: '#00e8ff' }).setOrigin(0.5);
-            this.add.text(512, 70, 'Each class unlocks unique CyberWorld engines and tools', { fontFamily: 'VT323', fontSize: '14px', color: '#808080' }).setOrigin(0.5);
-
-            const classes = [
-                { name: 'RED_TEAM', desc: 'Nmap, Metasploit, Hydra — Offensive Ops', engine: 'ENGINE 2: SOURCECODE', color: 0xff003c },
-                { name: 'BLUE_TEAM', desc: 'Wireshark, CSET, CyberChef — Defensive SOC', engine: 'ENGINE 3: LITE OSINT', color: 0x0088ff },
-                { name: 'OSINT_AGENT', desc: 'FURY0s1nt, RedEye, GovINT — Intelligence', engine: 'ENGINE 4: SOULCODE', color: 0xff00ff },
-                { name: 'FULL_STACK', desc: 'ALL ENGINES — Complete CyberWorld Master', engine: 'ENGINE 1-4: UNIFIED', color: 0x00ff41 },
-            ];
-
-            classes.forEach((c, i) => {
-                const y = 150 + i * 130;
-                const btn = this.add.rectangle(512, y, 650, 110, 0x011a27).setStrokeStyle(2, c.color).setInteractive({ useHandCursor: true });
-                this.add.text(220, y - 15, c.name, { fontFamily: 'VT323', fontSize: '26px', color: '#' + c.color.toString(16).padStart(6, '0') }).setOrigin(0, 0.5);
-                this.add.text(220, y + 15, c.desc, { fontFamily: 'VT323', fontSize: '14px', color: '#aaa' }).setOrigin(0, 0.5);
-                this.add.text(220, y + 35, '[' + c.engine + ']', { fontFamily: 'VT323', fontSize: '11px', color: '#555' }).setOrigin(0, 0.5);
-
-                btn.on('pointerover', () => btn.setFillStyle(c.color, 0.15));
-                btn.on('pointerout', () => btn.setFillStyle(0x011a27));
-                btn.on('pointerdown', () => {
-                    gameState.playerClass = c.name;
-                    document.getElementById('statClass').textContent = c.name;
-                    consoleLog('[AUTH] Class selected: ' + c.name);
-                    this.scene.start('SceneWorld');
-                });
-            });
-        }
-    }
-
-    // ── SCENE: WORLD ──
-    class SceneWorld extends Phaser.Scene {
-        constructor() { super('SceneWorld'); }
-
-        preload() {
-            // Generate textures
-            const gfx = this.make.graphics({ x: 0, y: 0 });
-            // Player avatar
-            gfx.fillStyle(0x00e8ff, 1); gfx.fillRoundedRect(0, 0, 32, 48, 8);
-            gfx.fillStyle(0x000000, 1); gfx.fillRect(4, 8, 24, 12);
-            gfx.fillStyle(0x00e8ff, 1); gfx.fillCircle(12, 12, 3); gfx.fillCircle(20, 12, 3);
-            gfx.generateTexture('avatar', 32, 48); gfx.clear();
-            // Enemy sprite
-            gfx.fillStyle(0xff003c, 1); gfx.fillTriangle(16, 0, 0, 32, 32, 32);
-            gfx.fillStyle(0xff003c, 0.5); gfx.fillCircle(16, 16, 12);
-            gfx.generateTexture('enemy', 32, 32); gfx.clear();
-            // Daemon sprite
-            gfx.lineStyle(2, 0x00ffcc, 1); gfx.strokeCircle(16, 16, 14);
-            gfx.fillStyle(0x00ffcc, 0.3); gfx.fillCircle(16, 16, 14);
-            gfx.generateTexture('daemon', 32, 32); gfx.clear();
-        }
-
-        create() {
-            // World grid
-            this.add.grid(512, 400, 4096, 3072, 64, 64, 0x011a27, 1, 0x0044ff, 0.06);
-
-            // Sector labels
-            [{ n: 'MAINFRAME', x: 512, y: 80, c: '#00e8ff' }, { n: 'LAN_VALLEY', x: 200, y: 250, c: '#00ff41' },
-             { n: 'DARKNET_DEPTHS', x: 800, y: 480, c: '#ff003c' }, { n: 'SOC_TOWER', x: 400, y: 580, c: '#ff00ff' }
-            ].forEach(s => {
-                this.add.text(s.x, s.y, '[' + s.n + ']', { fontFamily: 'VT323', fontSize: '14px', color: s.c, backgroundColor: '#000000aa', padding: { x: 6, y: 3 } }).setOrigin(0.5).setAlpha(0.6);
-            });
-
-            // Player
-            this.player = this.add.sprite(512, 384, 'avatar').setDepth(10);
-            this.playerLabel = this.add.text(512, 340, 'AGENT_' + Math.floor(Math.random() * 9999), {
-                fontFamily: 'VT323', fontSize: '12px', color: '#00e8ff', fontStyle: 'bold'
-            }).setOrigin(0.5).setDepth(10);
-
-            // Spawn adversaries
-            ADVERSARIES.forEach(a => {
-                const s = this.add.sprite(a.x, a.y, 'enemy').setTint(a.color).setInteractive({ useHandCursor: true }).setScale(1.2);
-                this.add.text(a.x, a.y - 28, '⚠ ' + a.name, { fontFamily: 'VT323', fontSize: '11px', color: '#fff', backgroundColor: '#' + a.color.toString(16).padStart(6, '0') + '99', padding: { x: 3, y: 1 } }).setOrigin(0.5);
-                this.add.text(a.x, a.y - 42, '[' + a.faction.toUpperCase() + ' / ' + a.tier + ']', { fontFamily: 'VT323', fontSize: '9px', color: '#888' }).setOrigin(0.5);
-
-                s.on('pointerdown', () => {
-                    this.cameras.main.shake(100, 0.01);
-                    consoleLog('[RECON] Scanning ' + a.name + ' (' + a.faction + ')...');
-                    setTimeout(() => consoleLog('[VULN] CVE-2026-' + Math.floor(Math.random()*9999) + ' [CRITICAL]', 'err'), 400);
-                    setTimeout(() => { consoleLog('[ATTACK] Meterpreter session opened on ' + a.type, 'warn'); gameState.credits += 100; gameState.level = Math.min(99, gameState.level + 1); updateStats(); }, 800);
-                });
-                this.tweens.add({ targets: s, y: a.y - 6, duration: 1500 + Math.random()*500, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
-            });
-
-            // Spawn daemons (capturable)
-            DAEMONS.forEach(d => {
-                const s = this.add.sprite(d.x, d.y, 'daemon').setTint(d.color).setInteractive({ useHandCursor: true });
-                this.add.text(d.x, d.y - 24, '◆ ' + d.name + ' V.' + d.level, { fontFamily: 'VT323', fontSize: '10px', color: '#' + d.color.toString(16).padStart(6, '0') }).setOrigin(0.5);
-                this.add.text(d.x, d.y - 36, '[' + d.type + ']', { fontFamily: 'VT323', fontSize: '9px', color: '#555' }).setOrigin(0.5);
-
-                s.on('pointerdown', () => {
-                    this.cameras.main.flash(200, 0, 255, 200);
-                    consoleLog('[SOULCODE] Encountered ' + d.name + ' V.' + d.level);
-                    setTimeout(() => { consoleLog('[CAPTURE] Containment protocol deployed...'); }, 300);
-                    setTimeout(() => { consoleLog('[SUCCESS] ' + d.name + ' added to daemon registry!', 'warn'); gameState.daemons.push(d.name); gameState.credits += 75; updateStats(); }, 700);
-                });
-                this.tweens.add({ targets: s, y: d.y - 10, duration: 1200 + Math.random()*400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
-            });
-
-            // Click to move (RuneScape grid snap)
-            this.input.on('pointerdown', (pointer) => {
-                if (pointer.y > 620) return;
-                const tx = Phaser.Math.Snap.To(pointer.worldX, 64);
-                const ty = Phaser.Math.Snap.To(pointer.worldY, 64);
-                this.tweens.add({ targets: [this.player, this.playerLabel], x: tx, y: ty, duration: 400, ease: 'Power2' });
-            });
-
-            // Tutorial
-            this.add.text(512, 660, 'CLICK GRID=MOVE | CLICK ADVERSARIES=SCAN | CLICK DAEMONS=CAPTURE | USE HUD TOOLS', {
-                fontFamily: 'VT323', fontSize: '13px', color: '#00ff41', backgroundColor: '#000', padding: { x: 8, y: 4 }
-            }).setOrigin(0.5).setAlpha(0.7);
-
-            consoleLog('[WORLD] Sector MAINFRAME loaded — ' + ADVERSARIES.length + ' hostiles detected');
-            consoleLog('[SOUL] ' + DAEMONS.length + ' wild daemons in range');
-        }
-    }
-
-    // LAUNCH GAME
-    setTimeout(() => {
-        const game = new Phaser.Game({
-            type: Phaser.AUTO,
-            width: window.innerWidth,
-            height: window.innerHeight,
-            parent: 'game-container',
-            backgroundColor: '#050a0f',
-            pixelArt: true,
-            scale: { mode: Phaser.Scale.RESIZE, parent: 'game-container' },
-            physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
-            scene: [SceneCharSelect, SceneWorld]
+    window.onload = () => {
+        OS.createWindow('mmorpg-win', 'CyberWorld MMORPG - Unified Engine v2026.3', createGameContent(), {
+            width: '95%', height: '90%', top: '2%', left: '2.5%',
+            hasToolbar: true, hasAddressBar: true,
+            url: 'http://mmorpg.fllc.net/sector_alpha'
         });
-    }, bootLines.length * 120 + 500);
+    };
+</script>
 
-    console.log('%c CYBERWORLD UNIFIED ENGINE v2026.3-FLLC ', 'background: #050a0f; color: #00e8ff; font-size: 16px; font-weight: bold; padding: 8px;');
-    console.log('%c All source codes compiled to ONE — Built by PERSON ', 'background: #011a27; color: #00ff41; font-size: 12px; padding: 4px;');
-    </script>
 </body>
 </html>

@@ -1,86 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CyberOS_GENERATOR // MISSION_K_662</title>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-    <style>
-        body { background: #0000aa; color: #ffffff; font-family: 'VT323', monospace; margin: 0; padding: 20px; font-size: 20px; overflow: hidden; line-height: 1.2; }
-        #terminal { height: 90vh; overflow-y: auto; text-transform: uppercase; white-space: pre-wrap; }
-        .cursor { display: inline-block; width: 10px; height: 20px; background: #fff; animation: blink 0.5s infinite; vertical-align: bottom; }
-        @keyframes blink { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-        .code-block { color: #ffff00; margin: 10px 0; border-left: 2px solid #fff; padding-left: 10px; }
-        .success { color: #00ff00; font-weight: bold; }
-        #progress-bar { position: fixed; bottom: 0; left: 0; height: 30px; background: #fff; width: 0%; color: #000; display: flex; align-items: center; justify-content: center; font-weight: bold; }
-        .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #fff; color: #000; padding: 20px; border: 4px solid #888; display: none; z-index: 1000; width: 80%; max-width: 500px; text-align: center; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberOS_GENERATOR // MISSION_K_662</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<style>
+    .terminal-inner { background: #000; color: var(--cyber-green); font-family: 'VT323'; font-size: 18px; line-height: 1.4; padding: 20px; height: 100%; overflow-y: auto; text-transform: uppercase; white-space: pre-wrap; position: relative; }
+    .terminal-progress { position: sticky; bottom: 0; left: 0; right: 0; background: #fff; color: #000; padding: 5px 15px; font-weight: bold; border-top: 2px solid #888; display: flex; justify-content: space-between; align-items: center; }
+    .progress-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--cyber-cyan); z-index: -1; width: 0%; transition: width 0.3s; }
+    .code-line { color: #ffff00; margin: 5px 0; border-left: 2px solid #fff; padding-left: 10px; font-size: 14px; opacity: 0.8; }
+</style>
 </head>
 <body>
-    <div id="terminal"></div>
-    <div id="progress-bar">GENERATING CYBERWORLD: 0%</div>
 
-    <div id="boot-modal" class="modal">
-        <h2 style="margin-top: 0;">KERNEL_GENERATED_SUCCESSFULLY</h2>
-        <p>CyberWorld MMORPG (RuneScape + Club Penguin) has been cross-compiled at the kernel level.</p>
-        <div style="display: flex; gap: 10px; justify-content: center;">
-            <button onclick="window.location.href='index.html'" style="padding: 10px 20px; border: 2px solid #000; background: #ccc; cursor: pointer; font-family: 'VT323'; font-size: 20px;">LAUNCH_MAIN_OS</button>
-            <button onclick="window.location.reload()" style="padding: 10px 20px; border: 2px solid #000; background: #ccc; cursor: pointer; font-family: 'VT323'; font-size: 20px;">RUN_AGAIN</button>
-        </div>
-    </div>
+<div id="crt-filter"></div>
+<div id="desktop"></div>
 
-    <script>
-        const terminal = document.getElementById('terminal');
-        const progressBar = document.getElementById('progress-bar');
-        const modal = document.getElementById('boot-modal');
+<div id="taskbar">
+    <div class="start-btn" onclick="window.location.href='index.html'">⊞ Start</div>
+    <div id="task-items" style="display: flex; gap: 4px; padding: 0 10px;"></div>
+    <div id="tray"><div id="clock">12:00 PM</div></div>
+</div>
 
-        const logs = [
-            "Initializing FURIOS-INT Kernel (V6.62)...",
-            "Allocating God's Memory (64-bit recursive stack)...",
-            "Mounting /dev/galaxy_soc...",
-            "Loading CyberC Compiler (simulation) [ID: T.A.D]...",
-            "Compiling src/core/physics.hc...",
-            "Generating Isometric Projections for CP_LITE...",
-            "Building Grid-Based World Logic for CW_CODE...",
-            "Injecting OSINT Payload into UI_SUBSYSTEM...",
-            "Synchronizing with FURIOS-INT Relay...",
-            "Optimizing Midnight Neon shaders (Pixelify SDK)...",
-            "Finalizing MMORPG Assets...",
-            "Linking Federal Intelligence Archives...",
-            "SYSTEM_READY() -> Executing Main Loop."
-        ];
+<script src="js/os.js"></script>
+<script>
+    const logs = [
+        "Initializing FURIOS-INT Kernel (V6.62)...",
+        "Allocating God's Memory (64-bit recursive stack)...",
+        "Mounting /dev/galaxy_soc...",
+        "Loading CyberC Compiler (simulation) [ID: T.A.D]...",
+        "Compiling src/core/physics.hc...",
+        "Generating Isometric Projections for CP_LITE...",
+        "Building Grid-Based World Logic for CW_CODE...",
+        "Injecting OSINT Payload into UI_SUBSYSTEM...",
+        "Synchronizing with FURIOS-INT Relay...",
+        "Optimizing Midnight Neon shaders (Pixelify SDK)...",
+        "Finalizing MMORPG Assets...",
+        "SYSTEM_READY() -> Executing Main Loop."
+    ];
 
-        let logIndex = 0;
-        let progress = 0;
+    function createContent() {
+        return `
+            <div class="terminal-inner" id="term">
+                <div id="log-container"></div>
+                <div class="terminal-progress">
+                    <div id="prog-fill" class="progress-fill"></div>
+                    <span id="prog-text">GENERATING_SYSTEM: 0%</span>
+                    <span id="status-text">INITIALIZING...</span>
+                </div>
+            </div>
+        `;
+    }
 
-        function addLog() {
-            if (logIndex < logs.length) {
-                const p = document.createElement('div');
-                p.textContent = `> ${logs[logIndex]}`;
-                terminal.appendChild(p);
-                
-                if (Math.random() > 0.5) {
-                    const code = document.createElement('div');
-                    code.className = 'code-block';
-                    code.textContent = `U0 Main() {\n  I64 i;\n  for(i=0; i<8; i++) {\n    \"COMPILING_BLOCK_0x\" << Hex(i) << \"...\n\";\n    Sleep(50);\n  }\n}`;
-                    terminal.appendChild(code);
-                }
+    let progress = 0;
+    let logIndex = 0;
 
-                logIndex++;
-                progress += (100 / logs.length);
-                progressBar.style.width = `${progress}%`;
-                progressBar.textContent = `GENERATING CYBERWORLD: ${Math.floor(progress)}%`;
+    function addLog() {
+        const container = document.getElementById('log-container');
+        if(!container) return;
+        
+        if (logIndex < logs.length) {
+            const line = document.createElement('div');
+            line.innerHTML = `<span style="color:var(--cyber-cyan)">></span> ${logs[logIndex]}`;
+            container.appendChild(line);
 
-                terminal.scrollTop = terminal.scrollHeight;
-                setTimeout(addLog, 400 + Math.random() * 600);
-            } else {
-                progressBar.style.width = '100%';
-                progressBar.textContent = 'MISSION_COMPLETE: 100%';
-                modal.style.display = 'block';
+            if (Math.random() > 0.6) {
+                const code = document.createElement('div');
+                code.className = 'code-line';
+                code.textContent = `U0 Main() {\n  I64 i; for(i=0; i<8; i++) { Print("COMPILING_BLOCK_0x%X\\n", i); Sleep(10); }\n}`;
+                container.appendChild(code);
             }
-        }
 
-        addLog();
-    </script>
+            logIndex++;
+            progress += (100 / logs.length);
+            document.getElementById('prog-fill').style.width = progress + '%';
+            document.getElementById('prog-text').innerText = `GENERATING_SYSTEM: ${Math.floor(progress)}%`;
+            
+            const term = document.getElementById('term');
+            term.scrollTop = term.scrollHeight;
+            
+            setTimeout(addLog, 400 + Math.random() * 800);
+        } else {
+            document.getElementById('status-text').innerText = 'SUCCESS // BOOTABLE';
+            document.getElementById('status-text').style.color = 'var(--cyber-green)';
+            setTimeout(() => {
+                alert("KERNEL_GENERATED: CyberWorld MMORPG is live.");
+                window.location.href = 'index.html';
+            }, 1000);
+        }
+    }
+
+    window.onload = () => {
+        OS.createWindow('gen-win', 'CyberOS System Generator - Mission_K_662', createContent(), {
+            width: '85%', height: '80%', top: '10%', left: '8%',
+            hasToolbar: true 
+        });
+        setTimeout(addLog, 1200);
+    };
+</script>
+
 </body>
 </html>

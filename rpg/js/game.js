@@ -1,6 +1,7 @@
 import { SceneBoot } from './scenes/SceneBoot.js';
 import { SceneLogin } from './scenes/SceneLogin.js';
 import { SceneCharacter } from './scenes/SceneCharacter.js';
+import { SceneTutorial } from './scenes/SceneTutorial.js';
 import { SceneOperationsDeck } from './scenes/SceneOperationsDeck.js';
 import { SceneLobby } from './scenes/SceneLobby.js';
 import { SceneWorldMap } from './scenes/SceneWorldMap.js';
@@ -15,7 +16,7 @@ const config = {
         default: 'arcade',
         arcade: { debug: false }
     },
-    scene: [SceneBoot, SceneLogin, SceneCharacter, SceneOperationsDeck, SceneLobby, SceneWorldMap, SceneMinigame]
+    scene: [SceneBoot, SceneLogin, SceneCharacter, SceneTutorial, SceneOperationsDeck, SceneLobby, SceneWorldMap, SceneMinigame]
 };
 
 const game = new Phaser.Game(config);
