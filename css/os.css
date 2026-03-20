@@ -113,20 +113,21 @@ body {
 .window-toolbar span:hover { background: #000080; color: #fff; }
 
 .address-bar {
-    padding: 2px 6px; border-bottom: 1px solid var(--win-dark);
-    display: flex; gap: 4px; align-items: center; font-size: 11px;
-    background: #e0e0e0;
+    padding: 1px 4px; border-bottom: 1px solid var(--win-dark);
+    display: flex; gap: 4px; align-items: center; font-size: 10px;
+    background: #e0e0e0; height: 18px; line-height: 1;
 }
 .address-bar input {
-    flex: 1; height: 18px; border: 2px inset var(--win-light);
-    padding: 0 4px; font-size: 11px; outline: none; background: #fff;
-    font-family: 'VT323', monospace;
+    flex: 1; height: 14px; border: 1px inset var(--win-light);
+    padding: 0 4px; font-size: 10px; outline: none; background: #fff;
+    font-family: 'JetBrains Mono', monospace; color: #000;
 }
 .go-btn {
-    border: 2px outset var(--win-light); background: #c0c0c0;
-    padding: 0 10px; font-size: 11px; font-weight: bold; height: 18px; display: flex; align-items: center; cursor: pointer;
+    border: 1px outset var(--win-light); background: #c0c0c0;
+    padding: 0 6px; font-size: 10px; font-weight: bold; height: 14px; 
+    display: flex; align-items: center; cursor: pointer;
 }
-.go-btn:active { border: 2px inset var(--win-light); }
+.go-btn:active { border: 1px inset var(--win-light); padding: 1px 5px 0 7px; }
 
 /* --- START MENU --- */
 #start-menu {

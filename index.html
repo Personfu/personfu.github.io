@@ -4,14 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FURIOS-INT // CyberOS v22.3.1 (STABLE_MISSION_CORE)</title>
-<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/os.css">
 <style>
     #desktop {
         background-color: #008080;
-        background-image: linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px);
-        background-size: 20px 20px;
+        background-image: radial-gradient(circle at 50% 50%, #004d4d 0%, #000000 100%);
+        overflow: hidden;
     }
+    #matrix-bg {
+        position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.15; pointer-events: none;
+    }
+    .desktop-icon { position: relative; z-index: 10; cursor: pointer; }
+    
     .setup-wizard { padding: 40px; font-family: 'JetBrains Mono', monospace; text-align: center; color: #000; }
     .setup-title { font-size: 24px; font-weight: bold; margin-bottom: 20px; border-bottom: 2px solid #000; padding-bottom: 10px; }
     .setup-step { font-size: 14px; text-align: left; margin: 20px 0; background: #eee; padding: 15px; border: 2px inset #fff; }
@@ -20,6 +25,7 @@
 </head>
 <body>
 
+<canvas id="matrix-bg"></canvas>
 <div id="crt-filter"></div>
 
 <div id="start-menu">
@@ -32,7 +38,9 @@
             <div class="start-divider"></div>
             <div class="start-item" onclick="window.location.href='cyberos-iso.html'"><img src="https://win98icons.alexmeub.com/icons/png/cd_drive-3.png"> <span>Distribution ISO</span></div>
             <div class="start-divider"></div>
-            <div class="start-item" onclick="OS.closeWindow(OS.focusedWindow)"><img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-0.png"> <span>Terminate Node</span></div>
+            <div class="start-item" onclick="window.location.href='https://fllc.net/auth'"><img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png"> <span>Log In / Register</span></div>
+            <div class="start-divider"></div>
+            <div class="start-item" onclick="location.reload()"><img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-0.png"> <span>Terminate Node</span></div>
         </div>
     </div>
 </div>
@@ -56,7 +64,7 @@
     </div>
     <div class="desktop-icon" onclick="window.location.href='https://fllc.net'">
         <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png">
-        <span>fllc.net</span>
+        <span>fllc.net (SOC_HUB)</span>
     </div>
     <div class="desktop-icon" onclick="window.location.reload()">
         <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-4.png">
@@ -79,20 +87,41 @@
 
 <script src="js/os.js"></script>
 <script>
+    // Matrix Rain Effect
+    const canvas = document.getElementById('matrix-bg');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const chars = "01010101ABCDEF".split("");
+    const drops = [];
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    for (let x = 0; x < columns; x++) drops[x] = 1;
+
+    function drawMatrix() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#00e8ff";
+        ctx.font = fontSize + "px 'JetBrains Mono'";
+        for (let i = 0; i < drops.length; i++) {
+            const text = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(drawMatrix, 50);
+
     function openWindow(type) {
         if(type === 'browser') {
             OS.createWindow('browser-win', 'CyberWorld Browser v2026.3', `
                 <div style="background:#000; height:100%; display:flex; flex-direction:column; overflow:hidden;">
-                    <div style="padding:10px; border-bottom:2px solid #1a2a3a; text-align:center;">
-                        <h1 style="font-family:'Pixelify Sans'; color:var(--cyber-cyan); font-size:48px; margin:0;">CyberWorld</h1>
-                        <p style="color:#00e8ff; font-family:'VT323'; font-size:12px; margin-top:5px;">FURIOS-INT // ENTERPRISE_HUB // UPLINK_READY</p>
+                    <div style="padding:4px; border-bottom:1px solid #1a2a3a; text-align:center;">
+                        <h1 style="font-family:'Pixelify Sans'; color:var(--cyber-cyan); font-size:24px; margin:0;">CyberWorld</h1>
+                        <p style="color:#00e8ff; font-family:'VT323'; font-size:10px; margin-top:2px;">FURIOS-INT // ENTERPRISE_HUB // UPLINK_READY</p>
                     </div>
                     <div style="flex:1; display:flex; justify-content:center; align-items:center; background:radial-gradient(#050a0f, #000);">
-                        <button style="font-family:'VT323'; font-size:32px; padding:15px 50px; background:transparent; border:2px solid var(--cyber-cyan); color:var(--cyber-cyan); box-shadow:0 0 15px var(--cyber-cyan); cursor:pointer;" onclick="window.location.href='rpg/index.html'">ENTER OPERATIONS</button>
-                    </div>
-                    <div style="padding:10px; background:var(--win-bg); border-top:2px solid var(--win-dark); display:flex; gap:10px;">
-                        <button class="win98-btn" style="padding:2px 10px;" onclick="window.location.href='https://fllc.net/shop'">UPGRADE</button>
-                        <button class="win98-btn" style="padding:2px 10px;" onclick="window.location.href='adversaries.html'">INTEL</button>
+                        <button class="win98-btn" style="font-family:'VT323'; font-size:20px; padding:10px 40px;" onclick="window.location.href='rpg/index.html'">ENTER OPERATIONS</button>
                     </div>
                 </div>
             `, { width: '80%', height: '80%', top: '10%', left: '10%', hasToolbar: true, hasAddressBar: true, url: 'http://cyberworld.fllc.net/mainframe', icon: 'https://win98icons.alexmeub.com/icons/png/world-0.png' });
@@ -101,8 +130,8 @@
         if(type === 'setup') {
             OS.createWindow('setup-win', 'CyberWorld MMORPG Setup - Mission_K_662', `
                 <div class="setup-wizard">
-                    <div class="setup-title">CyberWorld Initialization Wizard</div>
-                    <p style="font-size:12px; color:#555;">Welcome to the FURIOS-INT Onboarding Protocol.</p>
+                    <div class="setup-title">CyberWorld Initializer</div>
+                    <p style="font-size:11px; color:#555;">Welcome to the FURIOS-INT Onboarding Protocol.</p>
                     <div class="setup-step">
                         <span>STEP 1: IDENTITY_GEN</span><br>
                         Boot into the RPG to configure your Operative Class (OSINT, Infiltrator, or SOC).
@@ -111,13 +140,9 @@
                         <span>STEP 2: TRAINING_SIM</span><br>
                         Complete the 'Operations Deck' tutorial to master movement and HUD tools.
                     </div>
-                    <div class="setup-step">
-                        <span>STEP 3: NETWORK_SYNC</span><br>
-                        Enter the Data Bazaar to acquire mission-critical hardware.
-                    </div>
-                    <button class="win98-btn" style="padding:8px 30px; font-weight:bold; margin-top:10px;" onclick="openWindow('browser')">LAUNCH_MISSION</button>
+                    <button class="win98-btn" style="padding:6px 20px; font-weight:bold; margin-top:10px;" onclick="openWindow('browser')">LAUNCH_MISSION</button>
                 </div>
-            `, { width: '500px', height: '600px', top: '50px', left: '300px', icon: 'https://win98icons.alexmeub.com/icons/png/setup_file-2.png' });
+            `, { width: '450px', height: '500px', top: '50px', left: '300px', icon: 'https://win98icons.alexmeub.com/icons/png/setup_file-2.png' });
         }
     }
 

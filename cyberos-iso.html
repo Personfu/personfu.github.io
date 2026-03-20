@@ -7,164 +7,209 @@
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/os.css">
 <style>
-    body { background: #000; color: #fff; font-family: 'JetBrains Mono', monospace; }
+    body { background: #000; color: #fff; font-family: 'JetBrains Mono', monospace; overflow-x: hidden; }
+    #nebula-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; }
+    
     .os-iso-shell {
         max-width: 1200px; margin: 40px auto; padding: 40px;
-        background: radial-gradient(circle at 50% 50%, #050a14 0%, #000 100%);
-        border: 4px solid #1a2a3a; box-shadow: 0 0 50px rgba(0,232,255,0.1);
+        background: rgba(5, 10, 20, 0.85);
+        backdrop-filter: blur(10px);
+        border: 4px solid #1a2a3a; box-shadow: 0 0 50px rgba(0,232,255,0.2);
         position: relative; overflow: hidden;
     }
+    
     .os-iso-header { display: flex; justify-content: space-between; border-bottom: 2px solid var(--win-blue); padding-bottom: 20px; margin-bottom: 30px; }
     .os-iso-title { font-family: 'Pixelify Sans'; font-size: 48px; color: var(--cyber-cyan); text-shadow: 0 0 15px var(--cyber-cyan); }
     
     .grid-env { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; }
+    
     .kernel-visualizer {
-        background: #020508; border: 2px inset var(--win-light); padding: 30px;
-        min-height: 400px; position: relative;
+        background: rgba(0, 0, 0, 0.8); border: 2px inset var(--win-light); padding: 30px;
+        min-height: 400px; position: relative; overflow: hidden;
     }
+    
     .kernel-node {
         position: absolute; border: 1px solid var(--cyber-cyan); padding: 10px; font-size: 10px;
-        background: rgba(0,232,255,0.05); color: var(--cyber-cyan); border-radius: 4px;
-        text-align: center; width: 140px;
+        background: rgba(0,232,255,0.1); color: var(--cyber-cyan); border-radius: 4px;
+        text-align: center; width: 140px; z-index: 2; transition: 0.3s;
     }
-    .kernel-line { position: absolute; background: rgba(0,232,255,0.2); height: 1px; z-index: -1; }
+    .kernel-node:hover { background: var(--cyber-cyan); color: #000; box-shadow: 0 0 20px var(--cyber-cyan); }
+    
+    .kernel-line { position: absolute; background: rgba(0,232,255,0.3); z-index: 1; }
 
+    .sidebar-monitor { display: flex; flex-direction: column; gap: 20px; }
+    
     .specs-card {
-        background: var(--win-bg); color: #000; padding: 25px; border: 3px solid;
+        background: var(--win-bg); color: #000; padding: 20px; border: 3px solid;
         border-color: var(--win-light) #000 #000 var(--win-light); font-family: 'VT323';
     }
-    .specs-title { font-size: 24px; font-weight: bold; border-bottom: 2px solid #000; margin-bottom: 15px; }
-    .specs-item { display: flex; justify-content: space-between; font-size: 18px; margin: 5px 0; border-bottom: 1px dashed #888; }
+    .specs-title { font-size: 24px; font-weight: bold; border-bottom: 2px solid #000; margin-bottom: 10px; }
+    .specs-item { display: flex; justify-content: space-between; font-size: 18px; margin: 4px 0; border-bottom: 1px dashed #888; }
     .specs-item b { color: #000080; }
 
+    .hw-monitor {
+        background: #000; border: 2px solid #1a2a3a; padding: 15px; font-family: 'VT323';
+    }
+    .hw-bar-container { height: 10px; background: #222; margin-top: 5px; position: relative; }
+    .hw-bar-fill { height: 100%; background: var(--cyber-cyan); width: 40%; transition: width 0.5s; }
+
     .build-log {
-        background: #000; border: 2px inset #fff; padding: 20px; height: 180px; overflow-y: auto;
-        font-family: 'JetBrains Mono'; font-size: 11px; color: var(--cyber-green); margin-top: 30px;
+        background: #000; border: 2px inset #fff; padding: 15px; height: 180px; overflow-y: auto;
+        font-family: 'JetBrains Mono'; font-size: 10px; color: var(--cyber-green); margin-top: 20px;
     }
 
     .dl-btn {
-        margin-top: 30px; padding: 20px 60px; font-family: 'Pixelify Sans'; font-size: 32px;
+        margin-top: 20px; padding: 15px; font-family: 'Pixelify Sans'; font-size: 28px;
         background: #ffffff; color: #000; border: 4px solid #000080; cursor: pointer;
         width: 100%; transition: 0.3s;
     }
-    .dl-btn:hover { background: #000080; color: #fff; transform: scale(1.02); }
+    .dl-btn:hover { background: #000080; color: #fff; box-shadow: 0 0 20px rgba(0,232,255,0.5); }
 
-    .stat-ring {
-        position: fixed; top: 20px; right: 20px; font-size: 10px; color: #333;
-        text-align: right; font-family: monospace;
+    .manifest-grid {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 30px;
     }
-    .stat-ring span { color: var(--cyber-green); }
+    .manifest-item {
+        background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+        padding: 10px; font-size: 10px; color: #888;
+    }
+    .manifest-item span { color: var(--cyber-cyan); display: block; margin-bottom: 4px; }
 </style>
 </head>
 <body>
 
+<canvas id="nebula-canvas"></canvas>
 <div id="crt-filter"></div>
-
-<div class="stat-ring">
-    UPLINK: <span>STABLE</span><br>
-    THREAT: <span>LOW</span><br>
-    KERNEL: <span>FURIOS-v22.3</span>
-</div>
 
 <div class="os-iso-shell">
     <div class="os-iso-header">
         <div>
-            <h1 class="os-iso-title">CyberOS ISO_BUILD</h1>
-            <p style="font-size:12px; color:#555; letter-spacing:4px;">[ FURIOS-INT // MASS_DISTRIBUTION_PROTOCOL ]</p>
+            <h1 class="os-iso-title">CyberOS ISO_BUILDER</h1>
+            <p style="font-size:12px; color:#555; letter-spacing:4px; margin-top:5px;">[ FURIOS-INT // DISTRIBUTION_MANIFEST_v22.3 ]</p>
         </div>
         <div style="text-align:right;">
-            <div style="font-family:'VT323'; font-size:32px; color:var(--cyber-cyan);">v2026.3.1</div>
-            <div style="font-size:10px; color:#444;">HASH_SHA256: 0x8F2A...9C1D</div>
+            <div id="sys-clock" style="font-family:'VT323'; font-size:24px; color:var(--cyber-cyan);">00:00:00</div>
+            <div style="font-size:10px; color:#444;">KERNEL_NODE: SECURE</div>
         </div>
     </div>
 
     <div class="grid-env">
         <div class="kernel-visualizer" id="kernelMap">
-            <!-- Dynamic Nodes -->
-            <div class="kernel-node" style="top:20px; left:50%; transform:translateX(-50%)"><b>FURIOS_KERNEL_CORE</b><br>Ring-0 Access</div>
-            <div class="kernel-node" style="top:150px; left:10%"><b>OSINT_DATA_BUS</b><br>fury-osint Engine</div>
-            <div class="kernel-node" style="top:150px; right:10%"><b>GAME_RENDER_HL</b><br>Phaser GL Pipeline</div>
-            <div class="kernel-node" style="top:280px; left:30%"><b>SOC_MONITOR_v4</b><br>Active Defensive Pulse</div>
-            <div class="kernel-node" style="top:280px; right:30%"><b>SOULCODE_SYNC</b><br>Daemon Registry v1.2</div>
-            
-            <!-- Connector Lines (Visual Only) -->
-            <div class="kernel-line" style="top:60px; left:50%; width:1px; height:90px;"></div>
-            <div class="kernel-line" style="top:150px; left:50%; width:1px; height:130px;"></div>
+            <div style="position:absolute; top:10px; left:10px; font-size:10px; color:rgba(0,232,255,0.4);">CORE_ARCH_MAPPING</div>
+            <!-- Nodes -->
+            <div class="kernel-node" style="top:40px; left:50%; transform:translateX(-50%)"><b>FURIOS_v22</b><br>Ring-0 Kernel</div>
+            <div class="kernel-node" style="top:160px; left:10%"><b>SC_MMORPG</b><br>Phaser Engine</div>
+            <div class="kernel-node" style="top:160px; right:10%"><b>OD_TUTORIAL</b><br>Onboarding Sync</div>
+            <div class="kernel-node" style="top:280px; left:30%"><b>SOC_GALAXY</b><br>Defense Lattice</div>
+            <div class="kernel-node" style="top:280px; right:30%"><b>OSINT_RECON</b><br>FURY Search</div>
         </div>
 
-        <div>
+        <div class="sidebar-monitor">
             <div class="specs-card">
-                <div class="specs-title">MIN_SPECIFICATIONS</div>
-                <div class="specs-item">Processor: <b>12-Core Quantum</b></div>
-                <div class="specs-item">Memory: <b>64GB God RAM</b></div>
-                <div class="specs-item">Storage: <b>1.4TB NVMe.GEN6</b></div>
-                <div class="specs-item">Interface: <b>Neural Link v4.2</b></div>
-                <div class="specs-item">Kernel: <b>FURIOS-INT v22</b></div>
+                <div class="specs-title">MIN_HARDWARE</div>
+                <div class="specs-item">PROC: <b>QUANTUM_X8</b></div>
+                <div class="specs-item">RAM: <b>32PB_FURIOS</b></div>
+                <div class="specs-item">LINK: <b>NEURAL_v4.2</b></div>
             </div>
 
-            <button class="dl-btn" onclick="startBuild()">BUILD_CUSTOM_ISO</button>
-            
-            <div id="dlProgress" style="margin-top:20px; border:2px inset #fff; height:30px; position:relative; display:none;">
-                <div id="dlBar" style="height:100%; background:var(--cyber-cyan); width:0%;"></div>
-                <div id="dlText" style="position:absolute; top:5px; left:50%; transform:translateX(-50%); font-size:12px; color:#000; font-weight:bold;">0% COMPLETED</div>
+            <div class="hw-monitor">
+                <div style="font-size:10px; color:var(--cyber-cyan);">CPU_LOAD: <span id="cpu-val">42%</span></div>
+                <div class="hw-bar-container"><div id="cpu-bar" class="hw-bar-fill" style="width:42%"></div></div>
+                <div style="font-size:10px; color:var(--cyber-pink); margin-top:10px;">MEM_SYNC: <span id="mem-val">88%</span></div>
+                <div class="hw-bar-container"><div id="mem-bar" class="hw-bar-fill" style="width:88%; background:var(--cyber-pink);"></div></div>
             </div>
+
+            <button class="dl-btn" onclick="startBuild()">START_BUILD</button>
         </div>
     </div>
 
     <div class="build-log" id="buildLog">
-        [SYS] Waiting for operator initialization...
+        [SYS] Awaiting operative uplink...
+    </div>
+
+    <div class="manifest-grid">
+        <div class="manifest-item"><span>BASE_KERNEL</span>furios-core-v22.bin<br>SHA256: 8F2A...9C1D</div>
+        <div class="manifest-item"><span>SOC_LATTICE</span>security_node_v4.soc<br>STATUS: COMPILING</div>
+        <div class="manifest-item"><span>GALAXY_OSINT</span>intel_db_v3.idx<br>RECORDS: 1,442,091</div>
     </div>
 </div>
 
-<footer style="text-align:center; padding:40px; font-size:12px; color:#333;">
-    FURIOS-INT // CYBEROS DISTRO // <a href="index.html" style="color:#555;">RETURN_TO_MAINFRAME</a>
-</footer>
-
 <script>
-    const log = document.getElementById('buildLog');
+    // Nebula Background
+    const canvas = document.getElementById('nebula-canvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.onresize = resize; resize();
+
+    for(let i=0; i<100; i++) {
+        stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, s: Math.random()*0.05 });
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#00e8ff';
+        stars.forEach(s => {
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+            ctx.fill();
+            s.y += s.s;
+            if(s.y > canvas.height) s.y = 0;
+        });
+        requestAnimationFrame(draw);
+    }
+    draw();
+
+    // Clock
+    setInterval(() => {
+        document.getElementById('sys-clock').innerText = new Date().toLocaleTimeString('en-US', { hour12: false });
+    }, 1000);
+
+    // Build Sequence
     const logs = [
-        "Initializing FURIOS-INT Kernel (V22.3.1)...",
-        "Allocating Mission Memory (Sector 0x7F)...",
-        "Mounting OSINT Repositories (CSET, CIS, CYBER)...",
-        "Compiling CyberWorld Logic Assets (Phaser v3.6)...",
-        "Injecting Adversary Intelligence Database v4.2...",
-        "Hardening System Shell (Ring-0 Encryption)...",
-        "Finalizing ISO Manifest (1.4TB Data Payload)...",
-        "MISSION_COMPLETE: ISO Build ready for deployment."
+        "Initializing FURIOS-INT Kernel (Ring-0)...",
+        "Mounting SOC_LATTICE security nodes...",
+        "Linking OSINT_DATABASE via encrypted bridge...",
+        "Cross-compiling Phaser_GL graphics pipeline...",
+        "Injecting MMORPG core logic (SourceCode-v3)...",
+        "Sign-off SHA256 sum: verified.",
+        "ISO build complete: CyberOS_v22_3_1.iso ready."
     ];
 
     function startBuild() {
+        const log = document.getElementById('buildLog');
         const btn = document.querySelector('.dl-btn');
-        const prog = document.getElementById('dlProgress');
-        const bar = document.getElementById('dlBar');
-        const text = document.getElementById('dlText');
-        
         btn.disabled = true;
-        btn.innerText = "BUILDING_ISO...";
-        prog.style.display = "block";
+        btn.innerText = "BUILDING...";
         log.innerHTML = "";
-
-        let p = 0;
-        let l = 0;
-        const interval = setInterval(() => {
-            p += 1;
-            bar.style.width = p + "%";
-            text.innerText = p + "% COMPLETED (" + (p * 14).toFixed(1) + "GB / 1.4TB)";
-            
-            if (p % 12 === 0 && l < logs.length) {
-                log.innerHTML += "> " + logs[l++] + "<br>";
+        
+        let i = 0;
+        const iv = setInterval(() => {
+            if(i < logs.length) {
+                log.innerHTML += `> ${logs[i]}<br>`;
                 log.scrollTop = log.scrollHeight;
+                i++;
+            } else {
+                clearInterval(iv);
+                btn.innerText = "ISO_READY";
+                btn.onclick = () => window.location.href='index.html';
+                alert("DISTRIBUTION_READY: CyberOS instance compiled.");
             }
-
-            if(p >= 100) {
-                clearInterval(interval);
-                btn.innerText = "ISO_READY_FOR_BOOT";
-                btn.disabled = false;
-                btn.onclick = () => window.location.href = 'cyberWorld.html';
-                alert("SUCCESS: CyberOS ISO build complete. System is mission-ready.");
-            }
-        }, 120);
+        }, 800);
     }
+
+    // Hardware Fluctuations
+    setInterval(() => {
+        const cpu = 40 + Math.random()*20;
+        const mem = 85 + Math.random()*5;
+        document.getElementById('cpu-bar').style.width = cpu + '%';
+        document.getElementById('cpu-val').innerText = Math.floor(cpu) + '%';
+        document.getElementById('mem-bar').style.width = mem + '%';
+        document.getElementById('mem-val').innerText = Math.floor(mem) + '%';
+    }, 2000);
 </script>
 
 </body>
