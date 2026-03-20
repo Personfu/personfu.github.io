@@ -6,6 +6,7 @@
 <title>FURIOS-INT // CyberOS v22.3.1 (STABLE_MISSION_CORE)</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/os.css">
+<script src="https://unpkg.com/@discord/embedded-app-sdk@1.0.0/dist/index.global.js"></script>
 <style>
     #desktop {
         background-color: #008080;
@@ -144,6 +145,13 @@
                 </div>
             `, { width: '450px', height: '500px', top: '50px', left: '300px', icon: 'https://win98icons.alexmeub.com/icons/png/setup_file-2.png' });
         }
+    }
+
+    // Discord SDK Root Init
+    if (window.discordSdk) {
+        const { DiscordSDK } = window.discordSdk;
+        const discordSdk = new DiscordSDK('1170817211837992981');
+        discordSdk.ready().then(() => console.log('[DISCORD] Root Ready'));
     }
 
     window.onload = () => {
