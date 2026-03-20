@@ -82,19 +82,28 @@ body {
 /* --- WINDOW SYSTEM --- */
 .window {
     background: var(--win-bg); position: absolute;
-    border: 2px solid; border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
+    border: 3px solid; border-color: var(--win-light) var(--win-black) var(--win-black) var(--win-light);
     display: flex; flex-direction: column;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    box-shadow: 4px 4px 20px rgba(0,255,100,0.1), 0 0 10px rgba(0,232,255,0.05);
     z-index: 100; min-width: 300px; min-height: 200px;
 }
-.window.focused { z-index: 1000; }
-.window.minimized { display: none; }
+/* Monitor Bezel Effect */
+.window::before {
+    content: ""; position: absolute; top: -4px; left: -4px; right: -4px; bottom: -4px;
+    border: 2px solid #1a2a3a; pointer-events: none; z-index: 10;
+}
+.window.focused::after {
+    content: "UPLINK_STABLE"; position: absolute; top: 2px; right: 50px;
+    font-size: 8px; color: #ffff00; font-family: 'JetBrains Mono'; opacity: 0.6;
+}
+.window.focused { z-index: 1000; box-shadow: 0 0 30px rgba(0,232,255,0.2); }
+.window.maximized { border: none !important; width: 100vw !important; height: calc(100vh - 32px) !important; top: 0 !important; left: 0 !important; }
 
 .title-bar {
-    background: linear-gradient(90deg, var(--win-blue), #1084d0);
-    color: white; padding: 3px 8px; font-weight: bold; font-size: 13px;
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: white; padding: 2px 6px; font-weight: bold; font-size: 11px;
     display: flex; justify-content: space-between; align-items: center;
-    cursor: default; user-select: none;
+    cursor: default; user-select: none; border-bottom: 2px solid var(--win-dark);
 }
 .title-bar.active { background: linear-gradient(90deg, var(--win-blue), #1084d0); }
 .title-bar.inactive { background: linear-gradient(90deg, var(--win-dark), #b0b0b0); }
@@ -113,21 +122,27 @@ body {
 .window-toolbar span:hover { background: #000080; color: #fff; }
 
 .address-bar {
-    padding: 1px 4px; border-bottom: 1px solid var(--win-dark);
-    display: flex; gap: 4px; align-items: center; font-size: 10px;
-    background: #e0e0e0; height: 18px; line-height: 1;
+    padding: 1px 4px; border-bottom: 2px solid var(--win-dark);
+    display: flex; gap: 4px; align-items: center; font-size: 9px;
+    background: #e0e0e0; height: 16px; line-height: 1;
 }
 .address-bar input {
-    flex: 1; height: 14px; border: 1px inset var(--win-light);
-    padding: 0 4px; font-size: 10px; outline: none; background: #fff;
+    flex: 1; height: 12px; border: 1px inset var(--win-light);
+    padding: 0 4px; font-size: 9px; outline: none; background: #fff;
     font-family: 'JetBrains Mono', monospace; color: #000;
 }
 .go-btn {
     border: 1px outset var(--win-light); background: #c0c0c0;
-    padding: 0 6px; font-size: 10px; font-weight: bold; height: 14px; 
+    padding: 0 4px; font-size: 9px; font-weight: bold; height: 12px; 
     display: flex; align-items: center; cursor: pointer;
 }
-.go-btn:active { border: 1px inset var(--win-light); padding: 1px 5px 0 7px; }
+.go-btn:active { border: 1px inset var(--win-light); padding: 1px 3px 0 5px; }
+
+/* Resizer Handle */
+.resizer {
+    width: 10px; height: 10px; background: repeating-linear-gradient(135deg, transparent, transparent 1px, #555 1.5px);
+    position: absolute; right: 0; bottom: 0; cursor: nwse-resize; z-index: 11;
+}
 
 /* --- START MENU --- */
 #start-menu {
@@ -158,15 +173,25 @@ body {
     margin: 2px; overflow: auto; position: relative;
 }
 
-/* --- CRT FILTER (The Advanced Design) --- */
+/* --- ADVANCED MONITOR FEATURES --- */
 #crt-filter {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%);
-    background-size: 100% 4px; z-index: 99999; pointer-events: none; opacity: 0.3;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.01));
+    background-size: 100% 4px, 6px 100%; z-index: 99999; pointer-events: none; opacity: 0.3;
+}
+#crt-filter::before {
+    content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
+    background: url('https://grainy-gradients.vercel.app/noise.svg'); opacity: 0.05; z-index: 100000;
 }
 #crt-filter::after {
     content: " "; display: block; position: absolute; top: 0; left: 0; bottom: 0; right: 0;
     background: rgba(18, 16, 16, 0.03); opacity: 0; z-index: 99999; pointer-events: none;
-    animation: flicker 0.15s infinite;
+    animation: flicker 0.1s infinite;
 }
+@keyframes ticker { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
 @keyframes flicker { 0% { opacity: 0.1; } 50% { opacity: 0.2; } 100% { opacity: 0.1; } }
+
+.phosphor-glow {
+    filter: drop-shadow(0 0 5px var(--cyber-cyan));
+}

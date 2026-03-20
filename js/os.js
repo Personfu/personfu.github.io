@@ -13,7 +13,6 @@ class CyberOS {
             const winEl = e.target.closest('.window');
             if (winEl) this.focusWindow(winEl.id);
             
-            // Close start menu if clicked outside
             const startBtn = e.target.closest('.start-btn');
             const startMenu = e.target.closest('#start-menu');
             if (!startBtn && !startMenu && this.isStartOpen) {
@@ -30,10 +29,7 @@ class CyberOS {
             if (!winEl || winEl.classList.contains('maximized')) return;
 
             let isDragging = true;
-            let offset = {
-                x: e.clientX - winEl.offsetLeft,
-                y: e.clientY - winEl.offsetTop
-            };
+            let offset = { x: e.clientX - winEl.offsetLeft, y: e.clientY - winEl.offsetTop };
 
             const onMouseMove = (moveE) => {
                 if (!isDragging) return;
@@ -51,23 +47,47 @@ class CyberOS {
             document.addEventListener('mouseup', onMouseUp);
         });
 
-        // Initialize Start Button
+        // Universal resizer handler
+        document.addEventListener('mousedown', (e) => {
+            const resizer = e.target.closest('.resizer');
+            if (!resizer) return;
+            
+            const winEl = resizer.closest('.window');
+            if (!winEl || winEl.classList.contains('maximized')) return;
+
+            let isResizing = true;
+            let startSize = { width: winEl.offsetWidth, height: winEl.offsetHeight };
+            let startPos = { x: e.clientX, y: e.clientY };
+
+            const onMouseMove = (moveE) => {
+                if (!isResizing) return;
+                const newWidth = startSize.width + (moveE.clientX - startPos.x);
+                const newHeight = startSize.height + (moveE.clientY - startPos.y);
+                winEl.style.width = Math.max(newWidth, 200) + 'px';
+                winEl.style.height = Math.max(newHeight, 150) + 'px';
+            };
+
+            const onMouseUp = () => {
+                isResizing = false;
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            };
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+
         const startBtn = document.querySelector('.start-btn');
-        if (startBtn) {
-            startBtn.onclick = () => this.toggleStart();
-        }
+        if (startBtn) startBtn.onclick = () => this.toggleStart();
     }
 
     toggleStart(force) {
         this.isStartOpen = (force !== undefined) ? force : !this.isStartOpen;
         const menu = document.getElementById('start-menu');
-        if (menu) {
-            menu.style.display = this.isStartOpen ? 'flex' : 'none';
-        }
+        if (menu) menu.style.display = this.isStartOpen ? 'flex' : 'none';
     }
 
     createWindow(id, title, initialHTML, options = {}) {
-        // Prevent duplicate windows
         if (this.windows.find(w => w.id === id)) {
             this.restoreWindow(id);
             return;
@@ -96,28 +116,19 @@ class CyberOS {
             ${options.hasToolbar ? '<div class="window-toolbar"><span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>V</u>iew</span><span><u>H</u>elp</span></div>' : ''}
             ${options.hasAddressBar ? `
                 <div class="address-bar">
-                    <span style="color:#666">Address:</span>
+                    <span style="color:#666">URL:</span>
                     <input type="text" value="${options.url || 'http://'}" readonly>
                     <button class="go-btn">Go</button>
                 </div>` : ''}
             <div class="window-content">${initialHTML}</div>
+            <div class="resizer"></div>
         `;
 
         document.getElementById('desktop').appendChild(win);
         
-        // Setup control buttons
-        win.querySelector('.win-minimize').onclick = (e) => {
-            e.stopPropagation();
-            this.minimizeWindow(id);
-        };
-        win.querySelector('.win-maximize').onclick = (e) => {
-            e.stopPropagation();
-            this.toggleMaximize(id);
-        };
-        win.querySelector('.win-close').onclick = (e) => {
-            e.stopPropagation();
-            this.closeWindow(id);
-        };
+        win.querySelector('.win-minimize').onclick = (e) => { e.stopPropagation(); this.minimizeWindow(id); };
+        win.querySelector('.win-maximize').onclick = (e) => { e.stopPropagation(); this.toggleMaximize(id); };
+        win.querySelector('.win-close').onclick = (e) => { e.stopPropagation(); this.closeWindow(id); };
 
         this.windows.push({ id, title, element: win, minimized: false, maximized: false, options });
         this.updateTaskbar();
@@ -172,7 +183,7 @@ class CyberOS {
         const win = this.windows.find(w => w.id === id);
         if (win) {
             win.minimized = true;
-            win.element.classList.add('minimized');
+            win.element.style.display = 'none';
             this.updateTaskbar();
         }
     }
@@ -181,7 +192,7 @@ class CyberOS {
         const win = this.windows.find(w => w.id === id);
         if (win) {
             win.minimized = false;
-            win.element.classList.remove('minimized');
+            win.element.style.display = 'flex';
             this.focusWindow(id);
         }
     }
@@ -198,7 +209,6 @@ class CyberOS {
     updateTaskbar() {
         const container = document.getElementById('task-items');
         if (!container) return;
-        
         container.innerHTML = '';
         this.windows.forEach(w => {
             const btn = document.createElement('div');
@@ -219,7 +229,7 @@ function updateClock() {
     const clock = document.getElementById('clock');
     if (clock) {
         const now = new Date();
-        clock.innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        clock.innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
     }
 }
 setInterval(updateClock, 1000);
