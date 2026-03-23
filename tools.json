@@ -1,0 +1,119 @@
+{
+  "hardware": [
+    {"name": "FlipperPF", "path": "Personfu/FlipperPF", "description": "Playground of stuff for the Flipper Zero", "stars": "1"},
+    {"name": "flipperzero-firmware", "path": "flipperdevices/flipperzero-firmware", "description": "Flipper Zero firmware source code", "stars": "15711"},
+    {"name": "unleashed-firmware", "path": "DarkFlippers/unleashed-firmware", "description": "Flipper Zero Unleashed Firmware", "stars": "21276"},
+    {"name": "ProtoPirate", "path": "RocketGod-git/ProtoPirate", "description": "Flipper Zero Protocol Pirate", "stars": "464"},
+    {"name": "qFlipper", "path": "0dayCTF/qFlipper", "description": "Desktop app for updating Flipper Zero", "stars": "16"},
+    {"name": "Flipper", "path": "0dayCTF/Flipper", "description": "Flipper Zero additions", "stars": "94"},
+    {"name": "ESP32-Bus-Pirate", "path": "geo-tp/ESP32-Bus-Pirate", "description": "Hardware hacking tool with web CLI", "stars": "2983"},
+    {"name": "ESP32DualBandWardriver", "path": "justcallmekoko/ESP32DualBandWardriver", "description": "Wardriver based on ESP32-C5", "stars": "87"},
+    {"name": "SubGHz_Remote", "path": "DarkFlippers/SubGHz_Remote", "description": "SubGHz Remote for Flipper", "stars": "108"},
+    {"name": "Multi_Fuzzer", "path": "DarkFlippers/Multi_Fuzzer", "description": "RFID/iButton fuzzer for Flipper", "stars": "339"},
+    {"name": "Unleashed-Flipper-Android-App", "path": "DarkFlippers/Unleashed-Flipper-Android-App", "description": "Unofficial Android app for Flipper", "stars": "117"},
+    {"name": "qFlipper (Dark)", "path": "DarkFlippers/qFlipper", "description": "qFlipper for Unleashed", "stars": "36"},
+    {"name": "GNSS", "path": "Ringmast4r/GNSS", "description": "Real-time GPS satellite tracker", "stars": "45"},
+    {"name": "Bruce", "path": "bmorcelli/Bruce", "description": "Firmware for M5Stack Cardputer/StickC", "stars": "107"},
+    {"name": "fprime-arduino", "path": "fprime-community/fprime-arduino", "description": "fprime on Arduino devices", "stars": "30"},
+    {"name": "projectZero", "path": "C5Lab/projectZero", "description": "Evil twin and WPA3 overflow for ESP32C5", "stars": "104"},
+    {"name": "wifipineapplepager-payloads", "path": "hak5/wifipineapplepager-payloads", "description": "WiFi Pineapple payloads", "stars": "361"},
+    {"name": "usbrubberducky-payloads", "path": "hak5/usbrubberducky-payloads", "description": "USB Rubber Ducky payloads", "stars": "5604"},
+    {"name": "bashbunny-payloads", "path": "hak5/bashbunny-payloads", "description": "Bash Bunny payloads", "stars": "2897"},
+    {"name": "omg-payloads", "path": "hak5/omg-payloads", "description": "O.MG payload library", "stars": "1057"},
+    {"name": "HackRF-Treasure-Chest", "path": "RocketGod-git/HackRF-Treasure-Chest", "description": "HackRF software and captures", "stars": "689"}
+  ],
+  "osint": [
+    {"name": "waymore", "path": "xnl-h4ck3r/waymore", "description": "Extract waymore from Wayback Machine, etc.", "stars": "2571"},
+    {"name": "device-activity-tracker", "path": "gommzystudio/device-activity-tracker", "description": "Leak device activity via delivery receipts", "stars": "4804"},
+    {"name": "theHarvester", "path": "laramies/theHarvester", "description": "E-mails, subdomains and names harvester", "stars": "15870"},
+    {"name": "Epstein", "path": "Ringmast4r/Epstein", "description": "Monitoring DOJ Epstein Files", "stars": "39"},
+    {"name": "worldmonitor", "path": "Personfu/worldmonitor", "description": "AI geopolitical global intelligence dashboard", "stars": "1"},
+    {"name": "pyspider", "path": "Personfu/pyspider", "description": "Universal spider system in Python", "stars": "1"},
+    {"name": "ODINT", "path": "Ringmast4r/ODINT", "description": "Observatory for Digital Infrastructure Transparency", "stars": "37"},
+    {"name": "vecert-exposed", "path": "Ringmast4r/vecert-exposed", "description": "VECERT Security Labs OSINT investigation", "stars": "10"},
+    {"name": "DarkForumCTI", "path": "VECERTUSA/DarkForumCTI", "description": "Investigative framework for malicious dark forum actors", "stars": "74"},
+    {"name": "LeakBaseCTI", "path": "VECERTUSA/LeakBaseCTI", "description": "Investigative framework for LeakBase malicious actors", "stars": "68"},
+    {"name": "Analyzer_forums", "path": "VECERTUSA/Analyzer_forums", "description": "Forum content analyzer for threat intelligence", "stars": "5"},
+    {"name": "XSS.isCTI", "path": "VECERTUSA/XSS.isCTI", "description": "XSS forum malicious actor investigation", "stars": "40"},
+    {"name": "DarkEye", "path": "VECERTINC/DarkEye", "description": "Tool for obtaining OSINT via darkeye APIs", "stars": "3"},
+    {"name": "dnsteal", "path": "m57/dnsteal", "description": "DNS Exfiltration tool for sending files", "stars": "1734"}
+  ],
+  "recon": [
+    {"name": "osquery", "path": "osquery/osquery", "description": "SQL powered OS instrumentation and monitoring", "stars": "23173"},
+    {"name": "nmap", "path": "nmap/nmap", "description": "Network Mapper", "stars": "12588"},
+    {"name": "nmap-cheat-sheet", "path": "Werewolf-p/nmap-cheat-sheet", "description": "Nmap commands reference", "stars": "1"},
+    {"name": "node-dirbuster", "path": "daviddias/node-dirbuster", "description": "Node.js implementation of DirBuster", "stars": "192"},
+    {"name": "Tower-Hunter", "path": "Ringmast4r/Tower-Hunter", "description": "Cell tower logger and anomaly detector", "stars": "82"},
+    {"name": "NetExec", "path": "Pennyw0rth/NetExec", "description": "The Network Execution Tool", "stars": "5358"},
+    {"name": "SecLists", "path": "danielmiessler/SecLists", "description": "Collection of lists for security assessments", "stars": "69659"},
+    {"name": "Seatbelt", "path": "GhostPack/Seatbelt", "description": "C# security host-survey tool", "stars": "4512"},
+    {"name": "peass-ng", "path": "Personfu/peass-ng", "description": "Privilege Escalation Awesome Scripts", "stars": "1"},
+    {"name": "ldapnomnom", "path": "lkarlslund/ldapnomnom", "description": "LDAP Ping username bruteforce", "stars": "1080"},
+    {"name": "OUI-Master-Database", "path": "Ringmast4r/OUI-Master-Database", "description": "MAC address manufacturer database", "stars": "46"}
+  ],
+  "exploit": [
+    {"name": "hydra", "path": "hydralauncher/hydra", "description": "Open-source gaming platform / launcher", "stars": "15394"},
+    {"name": "PathFinder", "path": "Ringmast4r/PathFinder", "description": "Path traversal and directory enumeration", "stars": "27"},
+    {"name": "MS17-010", "path": "worawit/MS17-010", "description": "EternalBlue exploits", "stars": "2233"},
+    {"name": "evilginx2", "path": "kgretzky/evilginx2", "description": "Man-in-the-middle phishing framework", "stars": "14755"},
+    {"name": "Veil", "path": "Veil-Framework/Veil", "description": "Payload generator for skipping AV", "stars": "4216"},
+    {"name": "unicorn", "path": "trustedsec/unicorn", "description": "PowerShell shellcode injection", "stars": "3906"},
+    {"name": "pwntools", "path": "Gallopsled/pwntools", "description": "CTF framework and exploit library", "stars": "13328"},
+    {"name": "Havoc", "path": "HavocFramework/Havoc", "description": "Havoc Framework C2", "stars": "8253"},
+    {"name": "nishang", "path": "samratashok/nishang", "description": "Offensive PowerShell scripts", "stars": "9806"},
+    {"name": "PetitPotam", "path": "topotam/PetitPotam", "description": "NTLM relay and coercing", "stars": "2197"},
+    {"name": "UACME", "path": "hfiref0x/UACME", "description": "Defeating Windows UAC", "stars": "7442"},
+    {"name": "sliver", "path": "BishopFox/sliver", "description": "Adversary Emulation Framework", "stars": "10883"},
+    {"name": "mimikatz", "path": "gentilkiwi/mimikatz", "description": "Windows credentials dumping", "stars": "21356"},
+    {"name": "Empire", "path": "EmpireProject/Empire", "description": "Post-exploitation framework", "stars": "7831"},
+    {"name": "PowerSploit", "path": "PowerShellMafia/PowerSploit", "description": "PowerShell post-exploitation", "stars": "12918"},
+    {"name": "Rubeus", "path": "GhostPack/Rubeus", "description": "Kerberos interaction and abuse", "stars": "4937"},
+    {"name": "kerbrute", "path": "ropnop/kerbrute", "description": "Kerberos pre-auth bruteforcing", "stars": "3283"},
+    {"name": "wmiexec-Pro", "path": "XiaoliChan/wmiexec-Pro", "description": "WMI post-exploitation", "stars": "1274"},
+    {"name": "fileless-xec", "path": "ariary/fileless-xec", "description": "Stealth fileless dropper", "stars": "207"}
+  ],
+  "web": [
+    {"name": "skyvern", "path": "Skyvern-AI/skyvern", "description": "Automate browser workflows with AI", "stars": "20904"},
+    {"name": "ladybird", "path": "LadybirdBrowser/ladybird", "description": "Independent web browser", "stars": "61450"},
+    {"name": "XSStrike", "path": "s0md3v/XSStrike", "description": "Advanced XSS scanner", "stars": "14828"},
+    {"name": "beef", "path": "beefproject/beef", "description": "Browser Exploitation Framework", "stars": "10781"},
+    {"name": "toxssin", "path": "t3l3machus/toxssin", "description": "XSS exploitation CLI", "stars": "1420"},
+    {"name": "commix", "path": "commixproject/commix", "description": "OS command injection tool", "stars": "5685"},
+    {"name": "xsser", "path": "epsylon/xsser", "description": "Automatic XSS finder and exploiter", "stars": "1429"},
+    {"name": "jwt_tool", "path": "ticarpi/jwt_tool", "description": "JSON Web Token toolkit", "stars": "6448"}
+  ],
+  "forensic": [
+    {"name": "pspy", "path": "DominicBreuker/pspy", "description": "Monitor Linux processes without root", "stars": "5936"},
+    {"name": "creddump", "path": "moyix/creddump", "description": "Windows credentials dump", "stars": "281"},
+    {"name": "srum-dump", "path": "MarkBaggett/srum-dump", "description": "Forensic SRUM database converter", "stars": "741"},
+    {"name": "LaZagne", "path": "AlessandroZ/LaZagne", "description": "Credentials recovery project", "stars": "10731"}
+  ],
+  "network": [
+    {"name": "wireshark", "path": "wireshark/wireshark", "description": "Network protocol analyzer", "stars": "9096"},
+    {"name": "netcat", "path": "diegocr/netcat", "description": "NetCat for Windows", "stars": "885"},
+    {"name": "ettercap", "path": "Personfu/ettercap", "description": "MITM analysis and sniffing", "stars": "1"},
+    {"name": "Responder", "path": "SpiderLabs/Responder", "description": "LLMNR, NBT-NS and MDNS poisoner", "stars": "4848"},
+    {"name": "dnschef", "path": "iphelix/dnschef", "description": "DNS proxy for testers", "stars": "1048"},
+    {"name": "impacket", "path": "fortra/impacket", "description": "Python network protocol classes", "stars": "15570"},
+    {"name": "websploit", "path": "f4rih/websploit", "description": "Web security framework", "stars": "1234"},
+    {"name": "ligolo-ng", "path": "nicocha30/ligolo-ng", "description": "Advanced tunneling/pivoting tool", "stars": "4378"}
+  ],
+  "cloud": [
+    {"name": "ROADtools", "path": "dirkjanm/ROADtools", "description": "Azure AD/Entra security toolset", "stars": "2553"}
+  ],
+  "ai": [
+    {"name": "Memori", "path": "MemoriLabs/Memori", "description": "Memory Layer for LLMs", "stars": "12436"},
+    {"name": "opencode", "path": "anomalyco/opencode", "description": "Open source coding agent", "stars": "128256"},
+    {"name": "ModelForge", "path": "ForgeOpus/ModelForge", "description": "No-code toolkit for finetuning LLMs", "stars": "15"},
+    {"name": "MiroFish", "path": "666ghj/MiroFish", "description": "Swarm Intelligence Engine", "stars": "40047"}
+  ],
+  "misc": [
+    {"name": "awesome-cpp", "path": "fffaraz/awesome-cpp", "description": "Curated list of C++ resources", "stars": "70392"},
+    {"name": "public-apis", "path": "public-apis/public-apis", "description": "Collective list of free APIs", "stars": "414633"},
+    {"name": "spaceship-prompt", "path": "spaceship-prompt/spaceship-prompt", "description": "Customizable Zsh prompt", "stars": "20419"},
+    {"name": "bat", "path": "sharkdp/bat", "description": "Cat clone with syntax highlighting", "stars": "57800"},
+    {"name": "dwarfs", "path": "mhx/dwarfs", "description": "High-compression read-only filesystem", "stars": "2524"},
+    {"name": "CyberChef", "path": "gchq/CyberChef", "description": "The Cyber Swiss Army Knife", "stars": "34391"},
+    {"name": "FURY", "path": "Personfu/FURY", "description": "Custom Kalilinux Project", "stars": "1"}
+  ]
+}

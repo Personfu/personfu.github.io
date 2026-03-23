@@ -2,17 +2,27 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FURIOS-INT // CyberOS v22.3.1 (STABLE_MISSION_CORE)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>FURIOS-INT // CyberOS v2.6.5 (MISSION_CRITICAL)</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/os.css">
-<script src="https://unpkg.com/@discord/embedded-app-sdk@1.0.0/dist/index.global.js"></script>
 <style>
-    body { background: #000; overflow: hidden; margin: 0; }
-    #desktop { background-color: #008080; background-image: radial-gradient(circle at 50% 50%, #004d4d 0%, #000000 100%); overflow: hidden; display: none; }
-    #matrix-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.15; pointer-events: none; }
+    body { background: #000; overflow: hidden; margin: 0; font-family: 'JetBrains Mono', monospace; }
     
-    /* Boot Sequence Overlay */
+    /* Unified Background: Matrix + Deep Galaxy */
+    #desktop { 
+        position: relative; width: 100vw; height: 100vh;
+        background: radial-gradient(circle at 50% 50%, #050a14 0%, #000 100%);
+        display: none; grid-template-columns: repeat(auto-fill, 100px);
+        grid-template-rows: repeat(auto-fill, 100px);
+        padding: 20px; box-sizing: border-box; gap: 20px;
+        z-index: 10;
+    }
+    
+    #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.1; pointer-events: none; }
+    #nebula-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; opacity: 0.3; pointer-events: none; }
+
+    /* Boot Sequence */
     #boot-overlay {
         position: fixed; top: 0; left: 0; width: 100%; height: 100%;
         background: #000; z-index: 1000000; display: flex; flex-direction: column;
@@ -24,9 +34,39 @@
     .boot-cursor { display: inline-block; width: 8px; height: 16px; background: var(--cyber-green); animation: blink 1s infinite; }
     @keyframes blink { 0%, 100% { opacity:1; } 50% { opacity:0; } }
 
-    .mem-map { display: grid; grid-template-columns: repeat(16, 1fr); gap: 2px; margin: 20px 0; max-width: 400px; }
-    .mem-block { height: 8px; background: #111; border: 1px solid #222; }
-    .mem-block.active { background: var(--cyber-cyan); box-shadow: 0 0 5px var(--cyber-cyan); }
+    /* Desktop Icons */
+    .icon {
+        width: 80px; height: 90px; display: flex; flex-direction: column; align-items: center;
+        justify-content: center; text-align: center; cursor: pointer; transition: 0.2s;
+        padding: 10px; border: 1px solid transparent;
+    }
+    .icon:hover { background: rgba(0, 232, 255, 0.1); border-color: rgba(0, 232, 255, 0.3); }
+    .icon img { width: 48px; height: 48px; image-rendering: pixelated; margin-bottom: 5px; }
+    .icon span { color: #fff; font-size: 12px; text-shadow: 1px 1px 2px #000; font-family: 'VT323'; }
+
+    /* Start Menu */
+    #start-menu {
+        position: absolute; bottom: 42px; left: 0; width: 300px;
+        background: var(--win-bg); border: 2px solid;
+        border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
+        display: none; flex-direction: column; z-index: 2000; 
+        box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+    }
+    .start-item {
+        padding: 12px 15px; display: flex; align-items: center; gap: 15px;
+        cursor: pointer; font-size: 14px; color: #000; font-weight: bold;
+    }
+    .start-item:hover { background: var(--win-blue); color: #fff; }
+    .start-item img { width: 24px; height: 24px; }
+
+    /* Mobile Improvements */
+    @media (max-width: 600px) {
+        #desktop { grid-template-columns: repeat(auto-fill, 75px); gap: 10px; }
+        .icon { width: 65px; height: 75px; }
+        .icon img { width: 32px; height: 32px; }
+        .icon span { font-size: 10px; }
+        #start-menu { width: 80%; }
+    }
 </style>
 </head>
 <body>
@@ -36,96 +76,138 @@
 <!-- BOOT OVERLAY -->
 <div id="boot-overlay">
     <div id="boot-log"></div>
-    <div class="mem-map" id="boot-mmap"></div>
     <div id="boot-status" style="margin-top:20px;">SYSTEM_INITIALIZING... <div class="boot-cursor"></div></div>
 </div>
 
 <canvas id="matrix-bg"></canvas>
-
-<div id="start-menu">
-    <div style="display:flex; height:100%;">
-        <div class="start-sidebar"><div class="start-sidebar-text">CyberOS <span>2026</span></div></div>
-        <div class="start-items">
-            <div class="start-item" onclick="openWindow('browser')"><img src="https://win98icons.alexmeub.com/icons/png/world-0.png"> <span>Internet Explorer</span></div>
-            <div class="start-item" onclick="window.location.href='cyber.html'"><img src="https://win98icons.alexmeub.com/icons/png/msagent-0.png"> <span>OS Generator</span></div>
-            <div class="start-item" onclick="window.location.href='adversaries.html'"><img src="https://win98icons.alexmeub.com/icons/png/search_computer-0.png"> <span>Threat Database</span></div>
-            <div class="start-item" onclick="window.location.href='stars.html'"><img src="https://win98icons.alexmeub.com/icons/png/favorites-0.png"> <span>Starred Tools</span></div>
-            <div class="start-divider"></div>
-            <div class="start-item" onclick="window.location.href='cyberos-iso.html'"><img src="https://win98icons.alexmeub.com/icons/png/cd_drive-3.png"> <span>Distribution ISO</span></div>
-            <div class="start-divider"></div>
-            <div class="start-item" onclick="window.location.href='https://fllc.net/auth'"><img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png"> <span>Log In / Register</span></div>
-            <div class="start-divider"></div>
-            <div class="start-item" onclick="location.reload()"><img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-0.png"> <span>Terminate Node</span></div>
-        </div>
-    </div>
-</div>
+<canvas id="nebula-canvas"></canvas>
 
 <div id="desktop">
-    <div class="desktop-icon" onclick="openWindow('browser')">
-        <img src="https://win98icons.alexmeub.com/icons/png/world-3.png">
-        <span>CyberWorld Browser</span>
+    <div class="icon" onclick="window.location.href='rpg/index.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/game_solitaire-0.png">
+        <span>CyberWorld RPG</span>
     </div>
-    <div class="desktop-icon" onclick="openWindow('setup')">
-        <img src="https://win98icons.alexmeub.com/icons/png/setup_file-2.png">
-        <span>CyberWorld Setup</span>
-    </div>
-    <div class="desktop-icon" onclick="window.location.href='cyberos-iso.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/cd_drive-4.png">
-        <span>CyberOS.ISO</span>
-    </div>
-    <div class="desktop-icon" onclick="window.location.href='https://github.com/Personfu/REPORTS'">
-        <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png">
-        <span>CSET Reports</span>
-    </div>
-    <div class="desktop-icon" onclick="window.location.href='https://fllc.net'">
-        <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png">
-        <span>fllc.net (SOC_HUB)</span>
-    </div>
-    <div class="desktop-icon" onclick="window.location.href='stars.html'">
+    <div class="icon" onclick="window.location.href='stars.html'">
         <img src="https://win98icons.alexmeub.com/icons/png/favorites-2.png">
-        <span>Starred Tools</span>
+        <span>Cyber Arsenal</span>
+    </div>
+    <div class="icon" onclick="window.location.href='cyberos-iso.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/cd_drive-4.png">
+        <span>ISO Builder</span>
+    </div>
+    <div class="icon" onclick="window.location.href='https://github.com/Personfu/REPORTS'">
+        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png">
+        <span>Mission Reports</span>
+    </div>
+    <div class="icon" onclick="window.location.href='https://fllc.net'">
+        <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png">
+        <span>FLLC.NET</span>
+    </div>
+    <div class="icon" onclick="window.location.href='https://personfu.github.io/rpg/login.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png">
+        <span>Operative Login</span>
     </div>
 </div>
+
+<div id="start-menu">
+    <div class="start-item" onclick="window.location.href='rpg/index.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/game_solitaire-0.png"> CyberWorld_MMO
+    </div>
+    <div class="start-item" onclick="window.location.href='stars.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/favorites-0.png"> The_Arsenal
+    </div>
+    <div class="start-item" onclick="window.location.href='cyberos-iso.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/cd_drive-3.png"> Build_ISO_Node
+    </div>
+    <div style="border-top:2px solid #fff; border-bottom:2px solid #808080; margin:5px 0;"></div>
+    <div class="start-item" onclick="window.location.href='https://fllc.net/osint'">
+        <img src="https://win98icons.alexmeub.com/icons/png/earth-0.png"> Mission_Control
+    </div>
+    <div class="start-item" onclick="location.reload()">
+        <img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-0.png"> Terminate_Session
+    </div>
 </div>
 
 <div id="taskbar">
-    <div class="start-btn">
-        <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png">
-        Start
+    <div id="start-btn-trigger" class="start-btn" onclick="toggleStart()">
+        <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png"> Start
     </div>
-    <div id="task-items" style="display:flex; gap:4px; padding: 0 10px; flex:1; overflow:hidden;"></div>
+    <div id="task-items" style="flex:1;"></div>
     <div id="tray">
-        <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png" width="16">
-        <img src="https://win98icons.alexmeub.com/icons/png/loudspeaker_rays-0.png" width="16">
-        <div id="clock">12:00 PM</div>
+        <span id="clock" style="font-family:'VT323'; color:#000;">12:00 PM</span>
     </div>
 </div>
 
-<script src="js/os.js"></script>
 <script>
-    // --- BOOT SEQUENCE LOGIC ---
+    // System Clock
+    setInterval(() => {
+        document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit' });
+    }, 1000);
+
+    function toggleStart() {
+        const menu = document.getElementById('start-menu');
+        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    // Hide start menu on desktop click
+    document.getElementById('desktop').addEventListener('click', (e) => {
+        if(!e.target.closest('#start-btn-trigger')) {
+            document.getElementById('start-menu').style.display = 'none';
+        }
+    });
+
+    // Matrix Background
+    const mCanvas = document.getElementById('matrix-bg');
+    const mCtx = mCanvas.getContext('2d');
+    mCanvas.width = window.innerWidth;
+    mCanvas.height = window.innerHeight;
+    const mChars = "01010101ABCDEF".split("");
+    const mDrops = Array(Math.floor(mCanvas.width/14)).fill(1);
+
+    function drawMatrix() {
+        mCtx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        mCtx.fillRect(0, 0, mCanvas.width, mCanvas.height);
+        mCtx.fillStyle = "#00e8ff";
+        mCtx.font = "14px 'JetBrains Mono'";
+        mDrops.forEach((y, i) => {
+            const text = mChars[Math.floor(Math.random() * mChars.length)];
+            mCtx.fillText(text, i * 14, y * 14);
+            if (y * 14 > mCanvas.height && Math.random() > 0.975) mDrops[i] = 0;
+            mDrops[i]++;
+        });
+    }
+
+    // Nebula Background
+    const nCanvas = document.getElementById('nebula-canvas');
+    const nCtx = nCanvas.getContext('2d');
+    nCanvas.width = window.innerWidth;
+    nCanvas.height = window.innerHeight;
+    let nStars = Array(100).fill(0).map(() => ({ x: Math.random()*nCanvas.width, y: Math.random()*nCanvas.height, r: Math.random()*2, s: Math.random()*0.05 }));
+
+    function drawNebula() {
+        nCtx.clearRect(0, 0, nCanvas.width, nCanvas.height);
+        nCtx.fillStyle = '#00e8ff';
+        nStars.forEach(s => {
+            nCtx.beginPath();
+            nCtx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+            nCtx.fill();
+            s.y += s.s;
+            if(s.y > nCanvas.height) s.y = 0;
+        });
+    }
+
+    // Boot Sequence
     const bootLogs = [
-        "FURIOS-INT Kernel v22.3.1 Loading...",
-        "Memory Check: [0x0000 - 0xFFFF] Passed.",
-        "Mounting /dev/ram0... Success.",
-        "Loading CyberOS Workspace Modules...",
-        "U0 Main() { I64 i; for(i=0; i<100; i++) Yield(); }",
-        "Initializing Monitor Scanlines (Phosphor FX)...",
-        "Establishing Secure Uplink to FLLC.NET...",
-        "SYNC: Discord Activities Payload Verified.",
-        "KERNEL_READY: Initializing GUI Subsystem."
+        "FURIOS-INT Kernel v2.6.5 Loading...",
+        "Establishing Secure Uplink to FLLC_MAINFRAME...",
+        "Mounting /dev/galaxy0... Success.",
+        "Initializing Neural_Link UI (Resolution: 4K)...",
+        "Loading Mission Objectives for OPERATIVE_FURULIE...",
+        "KERNEL_STABLE: Booting GUI Subsystem."
     ];
 
     function runBoot() {
         const log = document.getElementById('boot-log');
-        const mmap = document.getElementById('boot-mmap');
-        for(let i=0; i<128; i++) {
-            const b = document.createElement('div');
-            b.className = 'mem-block';
-            b.id = 'mb-' + i;
-            mmap.appendChild(b);
-        }
-
         let i = 0;
         const iv = setInterval(() => {
             if(i < bootLogs.length) {
@@ -133,111 +215,22 @@
                 line.className = 'boot-line';
                 line.innerHTML = `<span>[OK]</span> ${bootLogs[i]}`;
                 log.appendChild(line);
-                
-                // Colorize some blocks
-                for(let j=0; j<8; j++) {
-                    const block = document.getElementById('mb-' + (i*8 + j));
-                    if(block) block.classList.add('active');
-                }
-                
-                document.getElementById('boot-overlay').scrollTop = log.scrollHeight;
                 i++;
             } else {
                 clearInterval(iv);
-                document.getElementById('boot-status').innerText = 'INITIALIZATION_COMPLETE. WELCOME OPERATIVE.';
                 setTimeout(() => {
                     document.getElementById('boot-overlay').style.display = 'none';
                     document.getElementById('desktop').style.display = 'grid';
-                    openWindow('setup');
                 }, 1000);
             }
-        }, 300);
-    }
-
-    // --- DESKTOP LOGIC ---
-    const canvas = document.getElementById('matrix-bg');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const chars = "01010101ABCDEF".split("");
-    const drops = [];
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
-    for (let x = 0; x < columns; x++) drops[x] = 1;
-
-    function drawMatrix() {
-        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "#00e8ff";
-        ctx.font = fontSize + "px 'JetBrains Mono'";
-        for (let i = 0; i < drops.length; i++) {
-            const text = chars[Math.floor(Math.random() * chars.length)];
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-            drops[i]++;
-        }
-    }
-    setInterval(drawMatrix, 50);
-
-    function openWindow(type) {
-        if(type === 'browser') {
-            OS.createWindow('browser-win', 'CyberWorld Browser v2026.3', `
-                <div style="background:#000; height:100%; display:flex; flex-direction:column; overflow:hidden;">
-                    <div style="padding:10px; border-bottom:1px solid #1a2a3a; text-align:center; background:#111;">
-                        <h1 style="font-family:'Pixelify Sans'; color:var(--cyber-cyan); font-size:32px; margin:0; text-shadow: 0 0 10px var(--cyber-cyan);">CyberWorld</h1>
-                        <p style="color:#00ff41; font-family:'VT323'; font-size:12px; margin-top:4px; letter-spacing:2px;">[ FURIOS_INT // MISSION_CONTROL // LINK_STABLE ]</p>
-                    </div>
-                    <div style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; background:radial-gradient(#050a0f 0%, #000 100%); gap:20px;">
-                        <button class="win98-btn phosphor-glow" style="font-family:'VT323'; font-size:28px; padding:15px 60px; border:2px solid var(--cyber-cyan); background:rgba(0,232,255,0.1); color:var(--cyber-cyan); cursor:pointer;" onclick="window.location.href='rpg/index.html'">ENTER OPERATIONS</button>
-                        <div style="display:flex; gap:10px;">
-                            <button class="win98-btn" style="padding:4px 15px; font-size:11px;">UPGRADE TIER</button>
-                            <button class="win98-btn" style="padding:4px 15px; font-size:11px;">IT SOLUTIONS</button>
-                        </div>
-                    </div>
-                    <div style="padding:4px; background:#c0c0c0; border-top:1px solid #808080; font-size:10px; display:flex; justify-content:space-between;">
-                        <span>Zone: TRIPLE_NEON</span>
-                        <span>Uplink: ESTABLISHED</span>
-                    </div>
-                </div>
-            `, { width: '80%', height: '80%', top: '5%', left: '10%', hasToolbar: true, hasAddressBar: true, url: 'http://cyberworld.fllc.net/ops_deck', icon: 'https://win98icons.alexmeub.com/icons/png/world-0.png' });
-        }
-
-        if(type === 'setup') {
-            OS.createWindow('setup-win', 'CyberWorld MMORPG Setup - Mission_K_662', `
-                <div class="setup-wizard" style="background:#c0c0c0; height:100%; display:flex; flex-direction:column;">
-                    <div style="background:#000080; color:#fff; padding:4px 10px; font-size:12px; font-weight:bold;">Setup Wizard</div>
-                    <div style="padding:20px; flex:1;">
-                        <div class="setup-title">CyberWorld Initializer</div>
-                        <p style="font-size:11px; color:#555;">Welcome to the FURIOS-INT Onboarding Protocol.</p>
-                        <hr style="border:1px inset #fff;">
-                        <div class="setup-step">
-                            <span>MISSION_ALPHA:</span> Configure your Operative Identity in the Operations Deck.
-                        </div>
-                        <div class="setup-step">
-                            <span>MISSION_BETA:</span> Synchronize mission-logs with the FLLC Mainframe.
-                        </div>
-                        <div style="margin-top:20px; font-size:10px; font-style:italic; color:#000080;">[X] Secure Channel Enabled<br>[X] Discord Activities SDK Initialized</div>
-                    </div>
-                    <div style="padding:10px; border-top:1px solid #808080; display:flex; justify-content:flex-end; gap:10px; background:#c0c0c0;">
-                        <button class="win98-btn" style="padding:4px 20px;" onclick="openWindow('browser')">Next ></button>
-                        <button class="win98-btn" style="padding:4px 20px;">Cancel</button>
-                    </div>
-                </div>
-            `, { width: '450px', height: '520px', top: '40px', left: '250px', icon: 'https://win98icons.alexmeub.com/icons/png/setup_file-2.png' });
-        }
-    }
-
-    // Discord SDK Root Init
-    if (window.discordSdk) {
-        const { DiscordSDK } = window.discordSdk;
-        const discordSdk = new DiscordSDK('1170817211837992981');
-        discordSdk.ready().then(() => console.log('[DISCORD] Root Ready'));
+        }, 400);
     }
 
     window.onload = () => {
         runBoot();
+        setInterval(drawMatrix, 50);
+        setInterval(drawNebula, 30);
     }
 </script>
-
 </body>
 </html>
