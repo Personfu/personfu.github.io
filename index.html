@@ -55,6 +55,8 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
 }
 .icon img { width:44px; height:44px; image-rendering:pixelated; margin-bottom:5px;
             filter:drop-shadow(0 0 5px rgba(0,232,255,0.6)); }
+.icon .icon-emoji { font-size:36px; display:block; margin-bottom:5px; line-height:1;
+                    filter:drop-shadow(0 0 5px rgba(0,232,255,0.6)); }
 .icon span { color:#fff; font-size:11px; font-family:'VT323'; line-height:1.15;
              text-shadow:1px 1px 2px #000, 0 0 8px rgba(0,232,255,0.3); }
 
@@ -88,7 +90,6 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
   -webkit-tap-highlight-color:transparent;
 }
 .sm-item:hover,.sm-item:active { background:rgba(0,232,255,0.12); color:var(--cyber-cyan); }
-.sm-item img { width:20px; height:20px; }
 .sm-sep { border-top:1px solid rgba(0,232,255,0.2); margin:3px 0; }
 
 /* ── Mobile ── */
@@ -96,6 +97,7 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
   #desktop { grid-template-columns:repeat(auto-fill,80px); gap:10px; padding:12px; }
   .icon { width:74px; height:80px; }
   .icon img { width:36px; height:36px; }
+  .icon .icon-emoji { font-size:28px; }
   .icon span { font-size:10px; }
   #start-menu { width:92%; max-width:310px; }
   #status-ticker { display:none; }
@@ -133,67 +135,67 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
 
 <div id="desktop">
   <div class="icon" onclick="nav('intel.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/radar-0.png">
+    <span class="icon-emoji">📡</span>
     <span>INTEL_HUB</span>
   </div>
   <div class="icon" onclick="nav('research.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png">
+    <span class="icon-emoji">📁</span>
     <span>RESEARCH</span>
   </div>
   <div class="icon" onclick="nav('wargames.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/shield-0.png">
+    <span class="icon-emoji">🛡️</span>
     <span>WAR_GAMES</span>
   </div>
   <div class="icon" onclick="nav('nodes.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png">
+    <span class="icon-emoji">🔗</span>
     <span>PERSON_NODES</span>
   </div>
   <div class="icon" onclick="nav('ai.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png">
+    <span class="icon-emoji">🤖</span>
     <span>AI_OVERSEER</span>
   </div>
   <div class="icon" onclick="nav('discuss.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png">
+    <span class="icon-emoji">💬</span>
     <span>DISCUSSION_BOARD</span>
   </div>
   <div class="icon" onclick="nav('cyberworld.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/game_solitaire-0.png">
+    <span class="icon-emoji">🌐</span>
     <span>CyberWorld RPG</span>
   </div>
   <div class="icon" onclick="nav('arcade.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/joystick-2.png">
+    <span class="icon-emoji">🕹️</span>
     <span>CYBER_ARCADE</span>
   </div>
   <div class="icon" onclick="nav('stars.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/favorites-2.png">
+    <span class="icon-emoji">⭐</span>
     <span>Cyber Arsenal</span>
   </div>
   <div class="icon" onclick="nav('cyberos-iso.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/cd_drive-4.png">
+    <span class="icon-emoji">💿</span>
     <span>ISO Builder</span>
   </div>
   <div class="icon" onclick="nav('https://github.com/Personfu/REPORTS')">
-    <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-0.png">
+    <span class="icon-emoji">📂</span>
     <span>Mission Reports</span>
   </div>
   <div class="icon" onclick="nav('https://fllc.net')">
-    <img src="https://win98icons.alexmeub.com/icons/png/earth-0.png">
+    <span class="icon-emoji">🌍</span>
     <span>FLLC.NET</span>
   </div>
   <div class="icon" onclick="nav('https://personfu.github.io/rpg/login.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png">
+    <span class="icon-emoji">🔑</span>
     <span>Operative Login</span>
   </div>
   <div class="icon" onclick="nav('adversaries.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/warning-0.png">
+    <span class="icon-emoji">⚠️</span>
     <span>ADVERSARY DB</span>
   </div>
   <div class="icon" onclick="nav('cyber.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-0.png">
+    <span class="icon-emoji">🖥️</span>
     <span>CyberOS GEN</span>
   </div>
   <div class="icon" onclick="nav('ctf-trail.html')">
-    <img src="https://win98icons.alexmeub.com/icons/png/joystick-0.png">
+    <span class="icon-emoji">🎮</span>
     <span>CTF TRAIL</span>
   </div>
 </div>
@@ -201,28 +203,28 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
 <!-- Start Menu -->
 <div id="start-menu">
   <div class="sm-header">⊞ FURIOS-INT v2.6.5</div>
-  <div class="sm-item" onclick="nav('intel.html')"><img src="https://win98icons.alexmeub.com/icons/png/radar-0.png"> INTEL_HUB</div>
-  <div class="sm-item" onclick="nav('research.html')"><img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png"> RESEARCH</div>
-  <div class="sm-item" onclick="nav('wargames.html')"><img src="https://win98icons.alexmeub.com/icons/png/shield-0.png"> WAR_GAMES</div>
-  <div class="sm-item" onclick="nav('nodes.html')"><img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png"> PERSON_NODES</div>
-  <div class="sm-item" onclick="nav('ai.html')"><img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png"> AI_OVERSEER</div>
-  <div class="sm-item" onclick="nav('discuss.html')"><img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png"> DISCUSSION_BOARD</div>
+  <div class="sm-item" onclick="nav('intel.html')">📡 INTEL_HUB</div>
+  <div class="sm-item" onclick="nav('research.html')">📁 RESEARCH</div>
+  <div class="sm-item" onclick="nav('wargames.html')">🛡️ WAR_GAMES</div>
+  <div class="sm-item" onclick="nav('nodes.html')">🔗 PERSON_NODES</div>
+  <div class="sm-item" onclick="nav('ai.html')">🤖 AI_OVERSEER</div>
+  <div class="sm-item" onclick="nav('discuss.html')">💬 DISCUSSION_BOARD</div>
   <div class="sm-sep"></div>
-  <div class="sm-item" onclick="nav('cyberworld.html')"><img src="https://win98icons.alexmeub.com/icons/png/game_solitaire-0.png"> CyberWorld_MMO</div>
-  <div class="sm-item" onclick="nav('arcade.html')"><img src="https://win98icons.alexmeub.com/icons/png/joystick-2.png"> CYBER_ARCADE</div>
-  <div class="sm-item" onclick="nav('stars.html')"><img src="https://win98icons.alexmeub.com/icons/png/favorites-0.png"> Cyber Arsenal</div>
-  <div class="sm-item" onclick="nav('adversaries.html')"><img src="https://win98icons.alexmeub.com/icons/png/warning-0.png"> ADVERSARY DB</div>
-  <div class="sm-item" onclick="nav('cyberos-iso.html')"><img src="https://win98icons.alexmeub.com/icons/png/cd_drive-3.png"> ISO Builder</div>
-  <div class="sm-item" onclick="nav('cyber.html')"><img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-0.png"> CyberOS GEN</div>
-  <div class="sm-item" onclick="nav('ctf-trail.html')"><img src="https://win98icons.alexmeub.com/icons/png/joystick-0.png"> CTF TRAIL</div>
+  <div class="sm-item" onclick="nav('cyberworld.html')">🌐 CyberWorld_MMO</div>
+  <div class="sm-item" onclick="nav('arcade.html')">🕹️ CYBER_ARCADE</div>
+  <div class="sm-item" onclick="nav('stars.html')">⭐ Cyber Arsenal</div>
+  <div class="sm-item" onclick="nav('adversaries.html')">⚠️ ADVERSARY DB</div>
+  <div class="sm-item" onclick="nav('cyberos-iso.html')">💿 ISO Builder</div>
+  <div class="sm-item" onclick="nav('cyber.html')">🖥️ CyberOS GEN</div>
+  <div class="sm-item" onclick="nav('ctf-trail.html')">🎮 CTF TRAIL</div>
   <div class="sm-sep"></div>
-  <div class="sm-item" onclick="nav('https://fllc.net')"><img src="https://win98icons.alexmeub.com/icons/png/earth-0.png"> FLLC.NET</div>
-  <div class="sm-item" onclick="location.reload()"><img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-0.png"> Terminate_Session</div>
+  <div class="sm-item" onclick="nav('https://fllc.net')">🌍 FLLC.NET</div>
+  <div class="sm-item" onclick="location.reload()">⏻ Terminate_Session</div>
 </div>
 
 <div id="taskbar">
   <div id="start-btn-trigger" class="start-btn" onclick="toggleStart()">
-    <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png"> Start
+    ⊞ Start
   </div>
   <div id="task-items" style="flex:1;"></div>
   <div id="tray">

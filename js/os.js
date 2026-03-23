@@ -104,7 +104,7 @@ class CyberOS {
         win.innerHTML = `
             <div class="title-bar">
                 <div class="title-text" style="display:flex; align-items:center; gap:6px;">
-                    <img src="${options.icon || 'https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png'}" width="16">
+                    ${options.icon ? `<img src="${options.icon}" width="16" onerror="this.style.display='none'">` : '<span style="font-size:14px;">🖥️</span>'}
                     ${title}
                 </div>
                 <div class="title-controls">
@@ -213,7 +213,7 @@ class CyberOS {
         this.windows.forEach(w => {
             const btn = document.createElement('div');
             btn.className = `task-btn ${this.focusedWindow === w.id && !w.minimized ? 'active' : ''}`;
-            btn.innerHTML = `<img src="${w.options.icon || 'https://win98icons.alexmeub.com/icons/png/computer_explorer-4.png'}" width="16"> <span>${w.title}</span>`;
+            btn.innerHTML = `${w.options.icon ? `<img src="${w.options.icon}" width="16" onerror="this.style.display='none'">` : '<span style="font-size:13px;">🖥️</span>'} <span>${w.title}</span>`;
             btn.onclick = () => {
                 if (w.minimized) this.restoreWindow(w.id);
                 else if (this.focusedWindow === w.id) this.minimizeWindow(w.id);
