@@ -195,9 +195,11 @@
                 i++;
             } else {
                 clearInterval(iv);
-                btn.innerText = "ISO_READY";
-                btn.onclick = () => window.location.href='index.html';
-                alert("DISTRIBUTION_READY: CyberOS instance compiled.");
+                btn.innerText = "ISO_READY ✓";
+                btn.style.background = '#00ff41';
+                log.innerHTML += `> <span style="color:#00ff41;font-weight:bold;">ISO BUILD COMPLETE: CyberOS_v22_3_1.iso ready for deployment.</span><br>`;
+                log.innerHTML += `> <a href="index.html" style="color:#00e8ff;">← Return to FURIOS-INT HQ</a> | <a href="cyberworld.html" style="color:#ff00ea;margin-left:10px;">Launch CyberWorld →</a><br>`;
+                log.scrollTop = log.scrollHeight;
             }
         }, 800);
     }

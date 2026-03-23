@@ -123,10 +123,12 @@
             setTimeout(addLog, 600 + Math.random()*1000);
         } else {
             document.getElementById('stat').innerText = 'SUCCESS';
-            setTimeout(() => {
-                alert("KERNEL_GENERATED: CyberWorld MMORPG instance initialized.");
-                window.location.href = 'index.html';
-            }, 1000);
+            const term = document.getElementById('term');
+            const success = document.createElement('div');
+            success.style.cssText = 'color:#00ff41;margin-top:16px;font-family:"JetBrains Mono",monospace;font-size:13px;border:1px solid #00ff41;padding:10px;';
+            success.innerHTML = '✓ KERNEL_GENERATED: CyberWorld MMORPG instance initialized.<br>✓ All subsystems online. Navigate to <a href="cyberworld.html" style="color:#00e8ff;">CyberWorld RPG</a> to launch.';
+            term.appendChild(success);
+            term.scrollTop = term.scrollHeight;
         }
     }
 
