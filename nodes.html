@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://win98icons.alexmeub.com https://discord.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self';">
+<title>PERSON_NODES // OPERATIVE_NETWORK — FURIOS-INT</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--cyber-cyan:#00e8ff;--cyber-green:#00ff41;--cyber-pink:#ff00ea;--discord:#5865f2;}
+body{background:#050505;color:var(--cyber-cyan);font-family:'JetBrains Mono',monospace;padding-bottom:48px;}
+#crt-filter{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 2px);z-index:9998;}
+#taskbar{position:fixed;bottom:0;left:0;width:100%;height:36px;background:#0a0a0a;border-top:1px solid var(--cyber-cyan);z-index:9999;display:flex;align-items:center;padding:0 16px;gap:20px;}
+#taskbar a{color:var(--cyber-cyan);text-decoration:none;font-family:'VT323';font-size:18px;-webkit-tap-highlight-color:transparent;}
+#taskbar a:hover{text-shadow:0 0 8px var(--cyber-cyan);}
+.top-nav{position:sticky;top:0;z-index:500;background:rgba(5,5,5,0.97);border-bottom:1px solid rgba(0,232,255,0.2);padding:8px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.top-nav a{color:var(--cyber-cyan);text-decoration:none;font-family:'VT323';font-size:20px;padding:5px 10px;border:1px solid transparent;transition:0.2s;white-space:nowrap;-webkit-tap-highlight-color:transparent;display:inline-block;min-height:44px;line-height:32px;}
+.top-nav a:hover,.top-nav a:active{border-color:var(--cyber-cyan);background:rgba(0,232,255,0.08);}
+.page-title{text-align:center;padding:28px 16px 12px;}
+.page-title h1{font-family:'Pixelify Sans';font-size:clamp(24px,6vw,56px);color:var(--cyber-cyan);text-shadow:0 0 30px rgba(0,232,255,0.5);}
+.page-title p{font-family:'VT323';font-size:clamp(14px,4vw,20px);color:var(--cyber-green);margin-top:6px;}
+.section{margin:20px 16px;border:1px solid rgba(0,232,255,0.25);background:#080808;}
+.sec-hdr{padding:10px 16px;background:#020e10;border-bottom:1px solid rgba(0,232,255,0.2);font-family:'Pixelify Sans';font-size:clamp(14px,4vw,20px);color:var(--cyber-cyan);text-shadow:0 0 8px var(--cyber-cyan);display:flex;align-items:center;gap:8px;}
+.sec-hdr::before{content:'▶';font-size:12px;}
+.sec-body{padding:16px;}
+/* DISCORD CARD */
+.discord-card{display:flex;flex-direction:column;gap:16px;background:#050505;border:2px solid var(--discord);padding:22px;box-shadow:0 0 24px rgba(88,101,242,0.25);}
+.dc-top{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+.dc-icon{width:72px;height:72px;background:linear-gradient(135deg,var(--discord),#4752c4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;flex-shrink:0;}
+.dc-info h2{font-family:'Pixelify Sans';font-size:24px;color:#fff;}
+.dc-info p{font-family:'VT323';font-size:17px;color:#aaa;margin-top:3px;}
+.dc-stats{display:flex;gap:16px;flex-wrap:wrap;margin-top:6px;}
+.dc-stat{font-family:'VT323';font-size:18px;}
+.dc-stat .num{color:var(--cyber-green);font-size:22px;font-weight:bold;}
+.dc-channels{background:#080808;border:1px solid rgba(88,101,242,0.3);padding:14px;}
+.dc-channel{padding:6px 10px;font-family:'VT323';font-size:17px;color:#ccc;display:flex;align-items:center;gap:8px;border-radius:2px;transition:0.15s;cursor:default;}
+.dc-channel:hover{background:rgba(88,101,242,0.12);color:#fff;}
+.dc-channel .ch-icon{color:#aaa;font-size:14px;}
+.dc-channel .ch-voice{color:var(--cyber-green);}
+.join-btn{min-height:48px;padding:12px 28px;background:var(--discord);color:#fff;border:none;font-family:'VT323';font-size:22px;cursor:pointer;letter-spacing:1px;transition:0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-top:8px;}
+.join-btn:hover{background:#4752c4;box-shadow:0 0 16px rgba(88,101,242,0.5);}
+/* OPERATIVE PROFILES */
+.profiles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
+.profile-card{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:16px;transition:0.2s;}
+.profile-card:hover{border-color:var(--cyber-cyan);box-shadow:0 0 12px rgba(0,232,255,0.15);}
+.prof-top{display:flex;align-items:center;gap:12px;margin-bottom:10px;}
+.prof-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#001020,#002040);border:2px solid;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.prof-name{font-family:'Pixelify Sans';font-size:16px;color:#fff;}
+.prof-rank{font-family:'VT323';font-size:14px;}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;}
+.status-online{background:var(--cyber-green);}
+.status-offline{background:#555;}
+.status-mission{background:#ffa500;animation:pulse 1.2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.prof-spec{font-size:11px;color:#aaa;margin-bottom:8px;}
+.prof-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;}
+.prof-tag{font-size:10px;padding:2px 6px;background:rgba(0,232,255,0.07);border:1px solid rgba(0,232,255,0.2);color:var(--cyber-cyan);}
+.prof-joined{font-size:11px;color:#555;}
+/* SIGNAL BOARD */
+.signal-list{display:flex;flex-direction:column;gap:10px;}
+.signal-msg{background:#050505;border:1px solid rgba(0,232,255,0.12);padding:14px;}
+.sig-header{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap;}
+.sig-op{font-family:'VT323';font-size:18px;color:var(--cyber-cyan);}
+.sig-time{font-size:11px;color:#555;}
+.sig-badge{font-size:10px;padding:2px 7px;background:rgba(0,232,255,0.1);border:1px solid rgba(0,232,255,0.25);color:var(--cyber-cyan);}
+.sig-body{font-size:13px;color:#ccc;line-height:1.55;}
+.sig-reactions{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;}
+.sig-react{font-size:12px;padding:3px 10px;background:rgba(0,232,255,0.06);border:1px solid rgba(0,232,255,0.15);cursor:pointer;color:#aaa;-webkit-tap-highlight-color:transparent;}
+.sig-react:hover{background:rgba(0,232,255,0.15);color:var(--cyber-cyan);}
+/* COMMUNITY STATS */
+.cstat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
+.cstat{background:#050505;border:1px solid rgba(0,232,255,0.15);padding:16px;text-align:center;}
+.cstat-num{font-family:'Pixelify Sans';font-size:36px;color:var(--cyber-cyan);text-shadow:0 0 12px rgba(0,232,255,0.4);}
+.cstat-lbl{font-family:'VT323';font-size:16px;color:#777;margin-top:4px;}
+@media(max-width:600px){
+  .profiles-grid{grid-template-columns:1fr 1fr;}
+  .dc-top{flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+<div id="crt-filter"></div>
+
+<nav class="top-nav">
+  <a href="index.html">&#8962; HOME</a>
+  <a href="#discord">DISCORD</a>
+  <a href="#operatives">OPERATIVES</a>
+  <a href="#signals">SIGNALS</a>
+  <a href="#stats">STATS</a>
+</nav>
+
+<div class="page-title">
+  <h1>PERSON_NODES // OPERATIVE_NETWORK</h1>
+  <p>:: SYNCHRONIZED OPERATIVE COORDINATION :: DISCORD-INTEGRATED COMMUNITY HUB ::</p>
+</div>
+
+<!-- COMMUNITY STATS -->
+<div class="section">
+  <div class="sec-hdr">:: COMMUNITY_METRICS ::</div>
+  <div class="sec-body">
+    <div class="cstat-grid">
+      <div class="cstat"><div class="cstat-num" id="stat-ops">2,847</div><div class="cstat-lbl">TOTAL OPERATIVES</div></div>
+      <div class="cstat"><div class="cstat-num" id="stat-online">183</div><div class="cstat-lbl">ONLINE NOW</div></div>
+      <div class="cstat"><div class="cstat-num">341</div><div class="cstat-lbl">ACTIVE MISSIONS</div></div>
+      <div class="cstat"><div class="cstat-num">1,247</div><div class="cstat-lbl">TOOLS SHARED</div></div>
+      <div class="cstat"><div class="cstat-num">89</div><div class="cstat-lbl">RESEARCH PAPERS</div></div>
+      <div class="cstat"><div class="cstat-num">24/7</div><div class="cstat-lbl">AI OVERSIGHT</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- DISCORD SERVER -->
+<div class="section" id="discord">
+  <div class="sec-hdr">:: FLLC_DISCORD_HUB ::</div>
+  <div class="sec-body">
+    <div class="discord-card">
+      <div class="dc-top">
+        <div class="dc-icon">⚡</div>
+        <div class="dc-info">
+          <h2>FLLC — CyberWorld Operations</h2>
+          <p>Official FLLC operative coordination server</p>
+          <div class="dc-stats">
+            <div class="dc-stat"><span class="num" id="dc-member-count">2,847</span> OPERATIVES</div>
+            <div class="dc-stat"><span class="num" id="dc-online-count">183</span> <span style="color:var(--cyber-green);">● ONLINE</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="dc-channels">
+        <div style="font-family:'VT323';font-size:14px;color:#555;margin-bottom:8px;letter-spacing:1px;">TEXT CHANNELS</div>
+        <div class="dc-channel"><span class="ch-icon">#</span>📢 announcements</div>
+        <div class="dc-channel"><span class="ch-icon">#</span>💬 general-ops</div>
+        <div class="dc-channel"><span class="ch-icon">#</span>🔍 intel-drops</div>
+        <div class="dc-channel"><span class="ch-icon">#</span>⚔️ war-games-debrief</div>
+        <div class="dc-channel"><span class="ch-icon">#</span>📖 research-share</div>
+        <div class="dc-channel"><span class="ch-icon">#</span>🛠️ tools-showcase</div>
+        <div class="dc-channel"><span class="ch-icon">#</span>🤖 ai-overseer-alerts</div>
+        <div class="dc-channel"><span class="ch-icon">#</span>🎮 cyberworld-rpg</div>
+        <div style="font-family:'VT323';font-size:14px;color:#555;margin:10px 0 8px;letter-spacing:1px;">VOICE CHANNELS</div>
+        <div class="dc-channel"><span class="ch-voice ch-icon">🔊</span> Ops Briefing Room</div>
+        <div class="dc-channel"><span class="ch-voice ch-icon">🔊</span> War Games Arena</div>
+        <div class="dc-channel"><span class="ch-voice ch-icon">🔊</span> Research Lab</div>
+        <div class="dc-channel"><span class="ch-voice ch-icon">🔒</span> CLASSIFIED (Level 5+)</div>
+      </div>
+      <a class="join-btn" href="https://discord.gg/fllc" target="_blank" rel="noopener noreferrer">
+        ⚡ JOIN_FLLC_SERVER
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- OPERATIVE PROFILES -->
+<div class="section" id="operatives">
+  <div class="sec-hdr">:: OPERATIVE_PROFILES ::</div>
+  <div class="sec-body">
+    <div class="profiles-grid" id="profiles-grid"></div>
+  </div>
+</div>
+
+<!-- SIGNAL BOARD -->
+<div class="section" id="signals">
+  <div class="sec-hdr">:: ENCRYPTED_SIGNAL_BOARD ::</div>
+  <div class="sec-body">
+    <div class="signal-list" id="signal-list"></div>
+  </div>
+</div>
+
+<div id="taskbar">
+  <a href="index.html">&#8962; HOME</a>
+  <span style="color:#444;font-size:12px;">|</span>
+  <a href="intel.html">INTEL</a>
+  <span style="color:#444;font-size:12px;">|</span>
+  <a href="wargames.html">WAR_GAMES</a>
+  <span style="margin-left:auto;color:#444;font-family:'VT323';font-size:16px;" id="tb-clock"></span>
+</div>
+
+<script>
+setInterval(function(){
+  var d=new Date();document.getElementById('tb-clock').textContent=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+},1000);
+
+// Animate counters
+setInterval(function(){
+  var o=160+Math.floor(Math.random()*40);
+  document.getElementById('stat-online').textContent=o;
+  document.getElementById('dc-online-count').textContent=o;
+},8000);
+
+var OPERATIVES=[
+  {name:'[R00T_K1NG]',rank:'ELITE',spec:'Binary Exploitation & Kernel Research',status:'mission',tags:['PWN','ROP','Kernel'],joined:'Jan 2024',color:'#ef4444'},
+  {name:'[PHANTOM_7]',rank:'VETERAN',spec:'OSINT & Social Engineering',status:'online',tags:['OSINT','SE','Recon'],joined:'Mar 2024',color:'#3b82f6'},
+  {name:'[CRYPTS3C]',rank:'VETERAN',spec:'Cryptography & Protocol Analysis',status:'online',tags:['Crypto','TLS','Math'],joined:'Feb 2024',color:'#a855f7'},
+  {name:'[NULL_BYTE]',rank:'OPERATIVE',spec:'Web Application Penetration Testing',status:'online',tags:['SQLi','XSS','API'],joined:'Apr 2024',color:'#f97316'},
+  {name:'[D4RK_FLUX]',rank:'OPERATIVE',spec:'Cloud Infrastructure & AWS Security',status:'offline',tags:['AWS','Azure','IAM'],joined:'May 2024',color:'#06b6d4'},
+  {name:'[GHOST_0PS]',rank:'OPERATIVE',spec:'Malware Analysis & Reverse Engineering',status:'mission',tags:['Malware','RE','IDA'],joined:'Jun 2024',color:'#ec4899'},
+  {name:'[WIRE_SHARK]',rank:'ROOKIE',spec:'Network Security & Packet Analysis',status:'online',tags:['Wireshark','PCAP','Net'],joined:'Aug 2024',color:'#10b981'},
+  {name:'[AI_HUNTER]',rank:'OPERATIVE',spec:'AI/LLM Security & Prompt Injection',status:'online',tags:['LLM','Garak','AI'],joined:'Sep 2024',color:'#fbbf24'}
+];
+
+var grid=document.getElementById('profiles-grid');
+OPERATIVES.forEach(function(op){
+  var statusClass=op.status==='online'?'status-online':op.status==='mission'?'status-mission':'status-offline';
+  var statusText=op.status==='online'?'ONLINE':op.status==='mission'?'ON MISSION':'OFFLINE';
+  var el=document.createElement('div');
+  el.className='profile-card';
+  el.innerHTML='<div class="prof-top">'
+    +'<div class="prof-avatar" style="border-color:'+op.color+'">'+op.name.slice(1,3).toUpperCase()+'</div>'
+    +'<div><div class="prof-name">'+op.name+'</div>'
+    +'<div class="prof-rank" style="color:'+op.color+'">'+op.rank+'</div></div></div>'
+    +'<div class="prof-spec">'+op.spec+'</div>'
+    +'<div class="prof-tags">'+op.tags.map(function(t){return'<span class="prof-tag">'+t+'</span>';}).join('')+'</div>'
+    +'<div style="display:flex;align-items:center;justify-content:space-between;">'
+    +'<div><span class="status-dot '+statusClass+'"></span><span style="font-size:11px;color:#aaa;">'+statusText+'</span></div>'
+    +'<div class="prof-joined">'+op.joined+'</div></div>';
+  grid.appendChild(el);
+});
+
+var SIGNALS=[
+  {op:'[R00T_K1NG]',badge:'INTEL',time:'14:22 UTC',body:'Dropped new BloodHound custom queries in #tools-showcase. Finds delegated admin paths 3x faster than default.',reactions:['⚡ 12','🔥 8','👀 5']},
+  {op:'[PHANTOM_7]',badge:'OSINT',time:'14:18 UTC',body:'Found 3 exposed .git directories on a Fortune 500 scope. Reporting via responsible disclosure. Full writeup coming.',reactions:['🎯 9','💯 7']},
+  {op:'[NULL_BYTE]',badge:'WEB',time:'14:09 UTC',body:'New XSS payload bypassing Cloudflare WAF. Tested on 5 targets. Polyglot: "><img src=x onerror=alert`XSS`>',reactions:['💥 15','🔥 11','⚡ 6']},
+  {op:'[CRYPTS3C]',badge:'CRYPTO',time:'13:55 UTC',body:'Weak PRNG in JWT implementation found in popular Node.js auth lib. CVE request submitted. Patch expected next week.',reactions:['🚨 14','💀 10','🙏 8']},
+  {op:'[D4RK_FLUX]',badge:'CLOUD',time:'13:41 UTC',body:'New Pacu module added for Lambda enumeration. Catches over-privileged execution roles automatically.',reactions:['☁️ 7','⚡ 5']},
+  {op:'[GHOST_0PS]',badge:'MALWARE',time:'13:28 UTC',body:'Sandboxed a new dropper sample. Uses Windows API hashing + indirect syscalls. AV detection: 2/72 on VirusTotal.',reactions:['☠️ 18','🔬 9','👁️ 7']},
+  {op:'[AI_HUNTER]',badge:'AI-SEC',time:'13:12 UTC',body:'Garak probe update: 3 new jailbreak vectors for GPT-4o discovered. Submitting to leondz/garak on GitHub.',reactions:['🤖 11','🎯 8']},
+  {op:'[WIRE_SHARK]',badge:'NETWORK',time:'12:58 UTC',body:'Responder capture in coffee shop lab — 4 NTLMv2 hashes in 10 minutes. Always use VPN + check your network trust.',reactions:['⚠️ 6','📡 4']}
+];
+
+var sl=document.getElementById('signal-list');
+SIGNALS.forEach(function(s){
+  var el=document.createElement('div');
+  el.className='signal-msg';
+  el.innerHTML='<div class="sig-header">'
+    +'<span class="sig-op">'+s.op+'</span>'
+    +'<span class="sig-badge">'+s.badge+'</span>'
+    +'<span class="sig-time">'+s.time+'</span></div>'
+    +'<div class="sig-body">'+s.body+'</div>'
+    +'<div class="sig-reactions">'+s.reactions.map(function(r){return'<span class="sig-react">'+r+'</span>';}).join('')+'</div>';
+  sl.appendChild(el);
+});
+</script>
+</body>
+</html>

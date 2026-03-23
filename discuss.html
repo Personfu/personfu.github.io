@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self';">
+<title>DISCUSSION_BOARD // OPERATIVE SIGNALS — FURIOS-INT</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;--yellow:#ffe700;--win-bg:#008080;--win-gray:#c0c0c0;--win-dark:#808080;--win-black:#000;--win-blue:#000080;--win-white:#fff;}
+body{background:var(--win-bg);font-family:'VT323',monospace;overflow-x:hidden;padding-bottom:48px;}
+/* CRT on top of Win98 */
+#crt-filter{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.06) 0px,rgba(0,0,0,0.06) 1px,transparent 1px,transparent 2px);z-index:9998;}
+/* TASKBAR */
+#win98-taskbar{position:fixed;bottom:0;left:0;width:100%;height:36px;background:var(--win-gray);border-top:2px solid var(--win-white);border-right:2px solid var(--win-dark);z-index:9999;display:flex;align-items:center;padding:2px 6px;gap:6px;}
+.win98-start{height:30px;min-width:84px;background:var(--win-gray);border-top:2px solid var(--win-white);border-left:2px solid var(--win-white);border-bottom:2px solid var(--win-dark);border-right:2px solid var(--win-dark);font-family:'VT323';font-size:18px;cursor:pointer;display:flex;align-items:center;gap:6px;padding:0 10px;-webkit-tap-highlight-color:transparent;}
+.win98-start:active{border-top:2px solid var(--win-dark);border-left:2px solid var(--win-dark);border-bottom:2px solid var(--win-white);border-right:2px solid var(--win-white);}
+.tb-window{height:28px;min-width:140px;max-width:200px;background:var(--win-blue);color:var(--win-white);border-top:2px solid var(--win-white);border-left:2px solid var(--win-white);border-bottom:2px solid var(--win-dark);border-right:2px solid var(--win-dark);font-family:'VT323';font-size:16px;display:flex;align-items:center;padding:0 8px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.tb-clock{margin-left:auto;min-width:60px;text-align:center;font-size:16px;color:var(--win-black);border-top:1px solid var(--win-dark);border-left:1px solid var(--win-dark);border-bottom:1px solid var(--win-white);border-right:1px solid var(--win-white);padding:2px 8px;background:var(--win-gray);}
+/* WINDOWS */
+.win98-window{background:var(--win-gray);border-top:2px solid var(--win-white);border-left:2px solid var(--win-white);border-bottom:2px solid var(--win-dark);border-right:2px solid var(--win-dark);margin:14px 10px;}
+.win98-titlebar{background:linear-gradient(90deg,var(--win-blue),#0040a0);padding:3px 6px;display:flex;align-items:center;justify-content:space-between;min-height:22px;}
+.win98-title{color:var(--win-white);font-family:'VT323';font-size:16px;font-weight:bold;}
+.win98-controls{display:flex;gap:2px;}
+.win98-btn{width:18px;height:16px;background:var(--win-gray);border-top:2px solid var(--win-white);border-left:2px solid var(--win-white);border-bottom:2px solid var(--win-dark);border-right:2px solid var(--win-dark);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;}
+.win98-btn:active{border-top:2px solid var(--win-dark);border-left:2px solid var(--win-dark);border-bottom:2px solid var(--win-white);border-right:2px solid var(--win-white);}
+.win98-menubar{display:flex;gap:0;padding:2px 4px;border-bottom:1px solid var(--win-dark);}
+.win98-menu-item{padding:2px 8px;font-size:16px;cursor:pointer;color:var(--win-black);}
+.win98-menu-item:hover{background:var(--win-blue);color:var(--win-white);}
+.win98-body{padding:10px;}
+/* BOARD */
+.board-categories{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0;border:2px inset var(--win-gray);}
+.board-cat{border-bottom:1px solid var(--win-dark);background:var(--win-white);}
+.board-cat-header{background:var(--win-blue);color:var(--win-white);padding:5px 12px;font-size:17px;display:flex;align-items:center;gap:8px;}
+.board-cat-header .icon{font-size:14px;}
+.board-forums{display:flex;flex-direction:column;}
+.board-forum{display:flex;align-items:center;padding:8px 12px;border-bottom:1px solid var(--win-gray);cursor:pointer;gap:10px;-webkit-tap-highlight-color:transparent;min-height:44px;}
+.board-forum:hover{background:#d4e8ff;}
+.forum-icon{font-size:20px;flex-shrink:0;}
+.forum-info{flex:1;}
+.forum-name{font-size:17px;color:var(--win-black);font-weight:bold;}
+.forum-desc{font-size:14px;color:var(--win-dark);}
+.forum-stats{text-align:right;font-size:13px;color:var(--win-dark);flex-shrink:0;}
+/* THREAD LIST */
+.thread-list{background:var(--win-white);border:2px inset var(--win-gray);}
+.thread-hdr{display:grid;grid-template-columns:24px 1fr 80px 80px 120px;padding:4px 8px;background:var(--win-gray);border-bottom:2px solid var(--win-dark);font-size:14px;color:var(--win-black);}
+.thread-row{display:grid;grid-template-columns:24px 1fr 80px 80px 120px;padding:6px 8px;border-bottom:1px solid #ddd;align-items:center;cursor:pointer;min-height:44px;-webkit-tap-highlight-color:transparent;}
+.thread-row:hover{background:#d4e8ff;}
+.thread-icon{font-size:16px;text-align:center;}
+.thread-subject{font-size:15px;color:var(--win-blue);}
+.thread-subject:hover{text-decoration:underline;}
+.thread-author{font-size:13px;color:var(--win-dark);}
+.thread-replies{font-size:13px;text-align:center;}
+.thread-views{font-size:13px;text-align:center;}
+.thread-last{font-size:12px;color:var(--win-dark);}
+.thread-sticky{background:#fffff0;}
+.thread-sticky .thread-subject::before{content:'📌 ';}
+.thread-hot .thread-icon::after{content:' 🔥';}
+/* POST AREA */
+.post-compose{background:var(--win-white);border:2px inset var(--win-gray);padding:10px;}
+.compose-label{font-size:16px;color:var(--win-black);margin-bottom:4px;display:block;}
+.compose-input{width:100%;border:2px inset var(--win-gray);padding:6px;font-family:'VT323';font-size:16px;color:var(--win-black);background:var(--win-white);outline:none;min-height:36px;}
+.compose-textarea{width:100%;height:100px;border:2px inset var(--win-gray);padding:6px;font-family:'VT323';font-size:15px;color:var(--win-black);background:var(--win-white);outline:none;resize:vertical;}
+.compose-btn{height:28px;min-width:80px;background:var(--win-gray);border-top:2px solid var(--win-white);border-left:2px solid var(--win-white);border-bottom:2px solid var(--win-dark);border-right:2px solid var(--win-dark);font-family:'VT323';font-size:17px;cursor:pointer;padding:0 12px;margin-top:8px;-webkit-tap-highlight-color:transparent;}
+.compose-btn:active{border-top:2px solid var(--win-dark);border-left:2px solid var(--win-dark);border-bottom:2px solid var(--win-white);border-right:2px solid var(--win-white);}
+/* POST THREAD VIEW */
+.post-thread{background:var(--win-white);border:2px inset var(--win-gray);}
+.post-item{display:flex;gap:0;border-bottom:2px solid var(--win-dark);}
+.post-sidebar{width:120px;min-width:90px;background:#e8e8e8;border-right:2px solid var(--win-dark);padding:8px;text-align:center;flex-shrink:0;}
+.post-avatar{font-size:32px;margin-bottom:4px;}
+.post-username{font-size:15px;color:var(--win-black);word-break:break-word;}
+.post-rank{font-size:12px;color:var(--win-dark);}
+.post-join{font-size:11px;color:var(--win-dark);margin-top:3px;}
+.post-body{flex:1;padding:10px;}
+.post-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;border-bottom:1px solid var(--win-dark);padding-bottom:4px;flex-wrap:wrap;gap:4px;}
+.post-date{font-size:13px;color:var(--win-dark);}
+.post-num{font-size:13px;color:var(--win-dark);}
+.post-content{font-size:15px;color:var(--win-black);line-height:1.55;}
+.post-sig{margin-top:10px;padding-top:8px;border-top:1px solid var(--win-dark);font-size:13px;color:var(--win-dark);}
+/* ENCRYPTED indicator */
+.enc-badge{background:var(--win-blue);color:var(--win-white);font-size:12px;padding:2px 6px;font-family:'VT323';}
+/* STATUS BAR */
+.win98-statusbar{background:var(--win-gray);border-top:2px solid var(--win-dark);padding:3px 8px;font-size:14px;color:var(--win-black);display:flex;gap:12px;}
+.statusbar-item{border-right:2px solid var(--win-dark);padding-right:8px;}
+@media(max-width:600px){
+  .thread-hdr,.thread-row{grid-template-columns:24px 1fr 60px;}
+  .thread-replies,.thread-views,.thread-last,.forum-stats{display:none;}
+  .post-sidebar{width:70px;min-width:60px;}
+  .post-avatar{font-size:22px;}
+  .board-categories{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div id="crt-filter"></div>
+
+<!-- Win98 WINDOWS -->
+
+<!-- WINDOW 1: BOARD MAIN -->
+<div class="win98-window" id="win-main">
+  <div class="win98-titlebar">
+    <span class="win98-title">💬 FLLC OPERATIVE BOARD — CyberOS Discussion System v98.1</span>
+    <div class="win98-controls">
+      <div class="win98-btn" title="Minimize">_</div>
+      <div class="win98-btn" title="Maximize">□</div>
+      <div class="win98-btn" onclick="document.getElementById('win-main').style.display='none'" title="Close">✕</div>
+    </div>
+  </div>
+  <div class="win98-menubar">
+    <span class="win98-menu-item">File</span>
+    <span class="win98-menu-item">Edit</span>
+    <span class="win98-menu-item">View</span>
+    <span class="win98-menu-item">Bookmark</span>
+    <span class="win98-menu-item">Help</span>
+  </div>
+  <div class="win98-body">
+    <div style="background:var(--win-blue);color:var(--win-white);padding:6px 12px;margin-bottom:8px;font-size:18px;display:flex;align-items:center;gap:8px;">
+      <span>📡</span>
+      <span>FLLC OPERATIVE DISCUSSION BOARD — <span id="total-posts">7,432</span> posts | <span id="total-members">2,847</span> members | <span id="online-now">183</span> online</span>
+    </div>
+    <div class="board-categories" id="board-categories"></div>
+  </div>
+  <div class="win98-statusbar">
+    <span class="statusbar-item" id="sb-online">● <span id="sb-oncount">183</span> users online</span>
+    <span class="statusbar-item">Last post: 2 min ago by [NULL_BYTE]</span>
+    <span class="statusbar-item"><span class="enc-badge">🔒 E2E</span> Encrypted</span>
+  </div>
+</div>
+
+<!-- WINDOW 2: ACTIVE THREAD -->
+<div class="win98-window" id="win-thread">
+  <div class="win98-titlebar">
+    <span class="win98-title">📖 [THREAD] BloodHound 5.0 AD Attack Path Tips — General Ops</span>
+    <div class="win98-controls">
+      <div class="win98-btn">_</div>
+      <div class="win98-btn">□</div>
+      <div class="win98-btn" onclick="document.getElementById('win-thread').style.display='none'">✕</div>
+    </div>
+  </div>
+  <div class="win98-menubar">
+    <span class="win98-menu-item" onclick="document.getElementById('win-main').style.display='block'">⬅ Back to Board</span>
+    <span class="win98-menu-item">Reply</span>
+    <span class="win98-menu-item">Subscribe</span>
+    <span class="win98-menu-item">Report</span>
+  </div>
+  <div class="win98-body">
+    <div class="post-thread" id="post-thread"></div>
+    <!-- REPLY FORM -->
+    <div style="margin-top:10px;">
+      <div class="win98-titlebar" style="margin-bottom:4px;"><span class="win98-title">✏️ Post Reply</span></div>
+      <div class="post-compose">
+        <label class="compose-label" for="reply-name">Operative Handle:</label>
+        <input class="compose-input" id="reply-name" type="text" maxlength="40" placeholder="[YOUR_HANDLE]" autocomplete="off">
+        <label class="compose-label" for="reply-body" style="margin-top:8px;display:block;">Message:</label>
+        <textarea class="compose-textarea" id="reply-body" maxlength="2000" placeholder="Type your message here..."></textarea>
+        <button class="compose-btn" onclick="postReply()">Post Reply</button>
+        <button class="compose-btn" style="margin-left:6px;" onclick="clearReply()">Clear</button>
+      </div>
+    </div>
+  </div>
+  <div class="win98-statusbar">
+    <span class="statusbar-item">14 replies | 342 views</span>
+    <span class="statusbar-item"><span class="enc-badge">🔒 E2E</span></span>
+  </div>
+</div>
+
+<!-- WINDOW 3: NEW THREAD -->
+<div class="win98-window" id="win-newthread">
+  <div class="win98-titlebar">
+    <span class="win98-title">📝 New Thread — FLLC Operative Board</span>
+    <div class="win98-controls">
+      <div class="win98-btn">_</div>
+      <div class="win98-btn">□</div>
+      <div class="win98-btn" onclick="document.getElementById('win-newthread').style.display='none'">✕</div>
+    </div>
+  </div>
+  <div class="win98-body">
+    <div class="post-compose">
+      <label class="compose-label" for="new-op">Operative Handle:</label>
+      <input class="compose-input" id="new-op" type="text" maxlength="40" placeholder="[YOUR_HANDLE]" autocomplete="off">
+      <label class="compose-label" for="new-subject" style="margin-top:8px;display:block;">Subject:</label>
+      <input class="compose-input" id="new-subject" type="text" maxlength="120" placeholder="Thread subject..." autocomplete="off">
+      <label class="compose-label" for="new-body" style="margin-top:8px;display:block;">Message:</label>
+      <textarea class="compose-textarea" id="new-body" maxlength="4000" placeholder="Describe your topic, question, or intel drop..."></textarea>
+      <button class="compose-btn" onclick="submitNewThread()">Post Thread</button>
+      <button class="compose-btn" style="margin-left:6px;" onclick="clearNewThread()">Clear</button>
+    </div>
+  </div>
+</div>
+
+<div id="win98-taskbar">
+  <button class="win98-start" onclick="document.getElementById('win-main').style.display='block'">🖥 START</button>
+  <div class="tb-window" onclick="document.getElementById('win-main').style.display='block'">💬 FLLC BOARD</div>
+  <div class="tb-window" style="display:none;" id="tb-thread">📖 Thread</div>
+  <div class="tb-window" onclick="window.location='index.html'">🏠 HOME</div>
+  <div class="tb-clock" id="tb-clock">--:--</div>
+</div>
+
+<script>
+// Sanitizer
+function sanitize(str){
+  return String(str).replace(/[&<>"'\/]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#x27;','/':'&#x2F;'}[c];
+  });
+}
+
+setInterval(function(){
+  var d=new Date();document.getElementById('tb-clock').textContent=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+},1000);
+setInterval(function(){
+  var o=170+Math.floor(Math.random()*25);
+  document.getElementById('online-now').textContent=o;
+  document.getElementById('sb-oncount').textContent=o;
+},10000);
+
+var CATEGORIES=[
+  {name:'🔴 INTEL_OPS',icon:'📡',forums:[
+    {icon:'📡',name:'INTEL_DROP',desc:'Post fresh threat intel, IOC drops, and adversary reports.',posts:1847,last:'[PHANTOM_7] — 2 min ago'},
+    {icon:'⚠️',name:'CVE_ALERT',desc:'Discuss new CVEs, PoCs, and patch analysis.',posts:943,last:'[CRYPTS3C] — 8 min ago'},
+    {icon:'🌐',name:'DARK_WEB_WATCH',desc:'Dark web monitoring, Tor discoveries, paste site dumps.',posts:612,last:'[D4RK_FLUX] — 15 min ago'}
+  ]},
+  {name:'⚔️ OPERATIONS',icon:'⚔️',forums:[
+    {icon:'⚔️',name:'WAR_GAMES_DEBRIEF',desc:'Post-mission debriefs, CTF writeups, and tactical analysis.',posts:2341,last:'[R00T_K1NG] — 4 min ago'},
+    {icon:'🛠️',name:'TOOLS_&_TECHNIQUES',desc:'Tool releases, custom scripts, tradecraft discussion.',posts:1456,last:'[NULL_BYTE] — 6 min ago'},
+    {icon:'🔴',name:'RED_TEAM_OPS',desc:'Red team methodology, campaign planning, evasion techniques.',posts:889,last:'[GHOST_0PS] — 20 min ago'}
+  ]},
+  {name:'📖 RESEARCH_LAB',icon:'📖',forums:[
+    {icon:'📖',name:'RESEARCH_PAPERS',desc:'Share and discuss cybersecurity research, whitepapers, and studies.',posts:534,last:'[AI_HUNTER] — 35 min ago'},
+    {icon:'🤖',name:'AI_&_LLM_SECURITY',desc:'AI red teaming, prompt injection, jailbreaks, model security.',posts:321,last:'[AI_HUNTER] — 40 min ago'},
+    {icon:'🎓',name:'STUDY_HALL',desc:'Certs, study guides, learning resources, mentorship.',posts:1103,last:'[WIRE_SHARK] — 1 hr ago'}
+  ]},
+  {name:'💬 GENERAL_HQ',icon:'💬',forums:[
+    {icon:'💬',name:'GENERAL_OPS',desc:'Open discussion, introductions, community announcements.',posts:3241,last:'[OPERATIVE_1] — 45 min ago'},
+    {icon:'🎮',name:'CYBERWORLD_RPG',desc:'CyberWorld game discussion, builds, strategies, and lore.',posts:876,last:'[D4RK_FLUX] — 1 hr ago'},
+    {icon:'🔒',name:'CLASSIFIED_[LVL5+]',desc:'[CLEARANCE REQUIRED] Restricted channel for senior operatives.',posts:'???',last:'[REDACTED]'}
+  ]}
+];
+
+var catEl=document.getElementById('board-categories');
+CATEGORIES.forEach(function(cat){
+  var div=document.createElement('div');
+  div.className='board-cat';
+  var hdr='<div class="board-cat-header"><span class="icon">'+cat.icon+'</span>'+sanitize(cat.name)+'</div><div class="board-forums">';
+  cat.forums.forEach(function(f){
+    hdr+='<div class="board-forum" onclick="openForum(\''+sanitize(f.name)+'\')">'
+      +'<span class="forum-icon">'+f.icon+'</span>'
+      +'<div class="forum-info"><div class="forum-name">'+sanitize(f.name)+'</div>'
+      +'<div class="forum-desc">'+sanitize(f.desc)+'</div></div>'
+      +'<div class="forum-stats"><div>'+f.posts+' posts</div><div style="font-size:11px;">'+sanitize(f.last)+'</div></div></div>';
+  });
+  hdr+='</div>';
+  div.innerHTML=hdr;
+  catEl.appendChild(div);
+});
+
+function openForum(name){
+  document.getElementById('win-thread').style.display='block';
+  document.getElementById('tb-thread').style.display='flex';
+  document.getElementById('win-thread').scrollIntoView({behavior:'smooth'});
+}
+
+// THREAD POSTS
+var POSTS=[
+  {user:'[R00T_K1NG]',avatar:'👑',rank:'ELITE Operative',joined:'Jan 2024',date:'Mar 23, 2026 — 12:04 UTC',num:'#1',
+   body:'BloodHound 5.0 dropped some serious upgrades. The new Custom Query builder is 🔥. \n\nHere\'s my go-to query to find all paths to DA via Kerberoastable accounts:\n\nMATCH p=shortestPath((u:User)-[*1..]->(g:Group{name:"Domain Admins@DOMAIN"}))\nWHERE u.hasspn=true\nRETURN p\n\nCombine this with the new "Tier Zero" assets view and you can map the entire domain attack surface in under 5 minutes.',
+   sig:'-- R00T_K1NG | FLLC Elite | 1337 flags captured'},
+  {user:'[PHANTOM_7]',avatar:'👁️',rank:'VETERAN Operative',joined:'Mar 2024',date:'Mar 23, 2026 — 12:18 UTC',num:'#2',
+   body:'Nice query. I\'d add a WHERE clause to exclude disabled accounts:\n\nWHERE u.hasspn=true AND u.enabled=true\n\nAlso the new attack path analysis for Azure AD is insane. Cross-tenant paths are now fully visualized. Found a path from on-prem compromise to Azure Global Admin through a synced service account last week.',
+   sig:'-- PHANTOM_7 | OSINT & Social Engineering Specialist'},
+  {user:'[CRYPTS3C]',avatar:'🔐',rank:'VETERAN Operative',joined:'Feb 2024',date:'Mar 23, 2026 — 12:35 UTC',num:'#3',
+   body:'Don\'t sleep on the new ACE analysis either. BloodHound 5 now surfaces GenericAll / WriteDACL edges with a single click to the escalation proof. \n\nFor Kerberoasting cleanup — run: impacket-GetUserSPNs -dc-ip <DC> DOMAIN/user:pass -outputfile hashes.txt\n\nThen hashcat -m 13100 hashes.txt /usr/share/wordlists/rockyou.txt\n\nWeak service account passwords get cracked in seconds.',
+   sig:'-- CRYPTS3C | Cryptography & Protocol Research'},
+  {user:'[NULL_BYTE]',avatar:'💥',rank:'OPERATIVE',joined:'Apr 2024',date:'Mar 23, 2026 — 13:02 UTC',num:'#4',
+   body:'For anyone doing this lab-side: remember to run BloodHound collector with stealth flags in real engagements:\n\nSharpHound.exe --CollectionMethod All --Stealth --RandomizeFilenames --EncryptZip\n\nAnd watch your DNS — LDAP queries stand out hard in well-monitored environments. Use the DCOnly collection method first to baseline.',
+   sig:'-- NULL_BYTE | Web AppSec & Red Team'},
+  {user:'[WIRE_SHARK]',avatar:'📡',rank:'ROOKIE',joined:'Aug 2024',date:'Mar 23, 2026 — 13:41 UTC',num:'#5',
+   body:'Super helpful thread. Quick question — when running BloodHound in a CTF vs. a real pentest, are the queries the same? Or do CTF AD labs typically simplify the trust relationships?\n\nAlso is there a good cheat sheet for the built-in queries? The FLLC stars.html tool page helped but looking for more AD-specific ones.',
+   sig:'-- WIRE_SHARK | Still learning 📡'},
+  {user:'[R00T_K1NG]',avatar:'👑',rank:'ELITE Operative',joined:'Jan 2024',date:'Mar 23, 2026 — 13:58 UTC',num:'#6',
+   body:'@WIRE_SHARK — CTF labs are simplified (usually 2-3 hops max, clean relationships). Real environments are way messier — nested groups, complex trusts, misconfigs everywhere.\n\nBest built-in query cheat sheet: https://hausec.com/2019/09/09/bloodhound-cypher-cheatsheet/\n\nAnd yes stars.html has solid recon tools linked but for AD specifically BloodHound CE (Community Edition) is the go-to. Check the FLLC research.html for the full AD attack path paper.',
+   sig:'-- R00T_K1NG | FLLC Elite | 1337 flags captured'}
+];
+
+var dynamicPosts=[...POSTS];
+
+function renderPosts(){
+  var container=document.getElementById('post-thread');
+  container.innerHTML='';
+  dynamicPosts.forEach(function(p){
+    var div=document.createElement('div');
+    div.className='post-item';
+    div.innerHTML='<div class="post-sidebar">'
+      +'<div class="post-avatar">'+p.avatar+'</div>'
+      +'<div class="post-username">'+sanitize(p.user)+'</div>'
+      +'<div class="post-rank">'+sanitize(p.rank)+'</div>'
+      +'<div class="post-join">Joined: '+sanitize(p.joined)+'</div></div>'
+      +'<div class="post-body">'
+      +'<div class="post-header"><span class="post-date">'+sanitize(p.date)+'</span>'
+      +'<span class="post-num">'+sanitize(p.num)+'</span></div>'
+      +'<div class="post-content">'+sanitize(p.body).replace(/\n/g,'<br>')+'</div>'
+      +(p.sig?'<div class="post-sig">'+sanitize(p.sig)+'</div>':'')+'</div>';
+    container.appendChild(div);
+  });
+}
+renderPosts();
+
+function postReply(){
+  var name=document.getElementById('reply-name').value.trim();
+  var body=document.getElementById('reply-body').value.trim();
+  if(!name||!body){alert('Please fill in both fields.');return;}
+  if(name.length>40){alert('Handle too long (max 40 chars).');return;}
+  if(body.length>2000){alert('Message too long (max 2000 chars).');return;}
+  var now=new Date();
+  var post={
+    user:'['+name.slice(0,38)+']',
+    avatar:'💬',
+    rank:'Operative',
+    joined:'2026',
+    date:now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+' — '+now.toUTCString().slice(17,22)+' UTC',
+    num:'#'+(dynamicPosts.length+1),
+    body:body,
+    sig:''
+  };
+  dynamicPosts.push(post);
+  document.getElementById('reply-name').value='';
+  document.getElementById('reply-body').value='';
+  renderPosts();
+  document.getElementById('post-thread').lastChild.scrollIntoView({behavior:'smooth'});
+}
+
+function clearReply(){
+  document.getElementById('reply-name').value='';
+  document.getElementById('reply-body').value='';
+}
+
+function submitNewThread(){
+  var op=document.getElementById('new-op').value.trim();
+  var subj=document.getElementById('new-subject').value.trim();
+  var body=document.getElementById('new-body').value.trim();
+  if(!op||!subj||!body){alert('Please fill in all fields.');return;}
+  if(op.length>40){alert('Handle too long.');return;}
+  if(subj.length>120){alert('Subject too long.');return;}
+  if(body.length>4000){alert('Message too long.');return;}
+  alert('Thread "'+subj+'" posted successfully! Visible after moderator approval.');
+  document.getElementById('new-op').value='';
+  document.getElementById('new-subject').value='';
+  document.getElementById('new-body').value='';
+}
+
+function clearNewThread(){
+  document.getElementById('new-op').value='';
+  document.getElementById('new-subject').value='';
+  document.getElementById('new-body').value='';
+}
+</script>
+</body>
+</html>

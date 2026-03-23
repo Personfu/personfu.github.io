@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self';">
+<title>AI_OVERSEER // AUTONOMOUS RECON AGENTS — FURIOS-INT</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--cyber-cyan:#00e8ff;--cyber-green:#00ff41;--cyber-pink:#ff00ea;--cyber-yellow:#ffe700;}
+body{background:#050505;color:var(--cyber-cyan);font-family:'JetBrains Mono',monospace;padding-bottom:48px;}
+#crt-filter{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 2px);z-index:9998;}
+#taskbar{position:fixed;bottom:0;left:0;width:100%;height:36px;background:#0a0a0a;border-top:1px solid var(--cyber-cyan);z-index:9999;display:flex;align-items:center;padding:0 16px;gap:20px;}
+#taskbar a{color:var(--cyber-cyan);text-decoration:none;font-family:'VT323';font-size:18px;-webkit-tap-highlight-color:transparent;}
+#taskbar a:hover{text-shadow:0 0 8px var(--cyber-cyan);}
+.top-nav{position:sticky;top:0;z-index:500;background:rgba(5,5,5,0.97);border-bottom:1px solid rgba(0,232,255,0.2);padding:8px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.top-nav a{color:var(--cyber-cyan);text-decoration:none;font-family:'VT323';font-size:20px;padding:5px 10px;border:1px solid transparent;transition:0.2s;white-space:nowrap;-webkit-tap-highlight-color:transparent;display:inline-block;min-height:44px;line-height:32px;}
+.top-nav a:hover,.top-nav a:active{border-color:var(--cyber-cyan);background:rgba(0,232,255,0.08);}
+.page-title{text-align:center;padding:28px 16px 12px;}
+.page-title h1{font-family:'Pixelify Sans';font-size:clamp(24px,6vw,56px);color:var(--cyber-pink);text-shadow:0 0 30px rgba(255,0,234,0.4);}
+.page-title p{font-family:'VT323';font-size:clamp(14px,4vw,20px);color:var(--cyber-cyan);margin-top:6px;}
+.section{margin:20px 16px;border:1px solid rgba(0,232,255,0.25);background:#080808;}
+.sec-hdr{padding:10px 16px;background:#090009;border-bottom:1px solid rgba(255,0,234,0.25);font-family:'Pixelify Sans';font-size:clamp(14px,4vw,20px);color:var(--cyber-pink);text-shadow:0 0 8px rgba(255,0,234,0.5);display:flex;align-items:center;gap:8px;}
+.sec-hdr::before{content:'▶';font-size:12px;}
+.sec-body{padding:16px;}
+/* AGENT CARDS */
+.agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;}
+.agent-card{background:#050505;border:1px solid rgba(255,0,234,0.2);padding:18px;transition:0.2s;position:relative;overflow:hidden;}
+.agent-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%;}
+.agent-card.active::before{background:var(--cyber-green);box-shadow:0 0 8px var(--cyber-green);}
+.agent-card.scanning::before{background:var(--cyber-yellow);animation:blink 1s step-start infinite;}
+.agent-card.idle::before{background:#555;}
+.agent-card.alert::before{background:#ff4444;box-shadow:0 0 8px #ff4444;animation:blink 0.6s step-start infinite;}
+.agent-card:hover{border-color:var(--cyber-pink);box-shadow:0 0 14px rgba(255,0,234,0.15);}
+.agent-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+.agent-name{font-family:'Pixelify Sans';font-size:18px;color:#fff;}
+.agent-status{font-family:'VT323';font-size:14px;padding:2px 8px;border:1px solid;}
+.status-active{color:var(--cyber-green);border-color:var(--cyber-green);}
+.status-scanning{color:var(--cyber-yellow);border-color:var(--cyber-yellow);}
+.status-idle{color:#555;border-color:#555;}
+.status-alert{color:#ff4444;border-color:#ff4444;}
+.agent-desc{font-size:11px;color:#aaa;line-height:1.5;margin-bottom:10px;}
+.agent-meta{display:flex;justify-content:space-between;font-size:11px;color:#555;margin-bottom:10px;}
+.agent-tasks{font-size:11px;color:var(--cyber-cyan);margin-bottom:8px;}
+.agent-progress{height:3px;background:#1a1a1a;overflow:hidden;margin-top:8px;}
+.agent-prog-inner{height:100%;background:var(--cyber-pink);transition:width 2s ease;}
+@keyframes blink{50%{opacity:0;}}
+/* ALERT FEED */
+.alert-feed{display:flex;flex-direction:column;gap:8px;max-height:400px;overflow-y:auto;}
+.alert-item{background:#050505;border:1px solid rgba(255,0,234,0.15);padding:12px;display:flex;gap:12px;align-items:flex-start;}
+.alert-sev{font-family:'VT323';font-size:14px;padding:2px 8px;border:1px solid;flex-shrink:0;min-width:70px;text-align:center;}
+.sev-critical{color:#ff4444;border-color:#ff4444;}
+.sev-high{color:#ff8800;border-color:#ff8800;}
+.sev-medium{color:var(--cyber-yellow);border-color:var(--cyber-yellow);}
+.sev-low{color:var(--cyber-green);border-color:var(--cyber-green);}
+.sev-info{color:var(--cyber-cyan);border-color:rgba(0,232,255,0.4);}
+.alert-content{flex:1;}
+.alert-agent{font-size:11px;color:var(--cyber-pink);margin-bottom:3px;}
+.alert-body{font-size:12px;color:#ccc;line-height:1.5;}
+.alert-time{font-size:10px;color:#444;margin-top:3px;}
+/* RECON MAP */
+#recon-canvas{width:100%;height:320px;background:#020202;border:1px solid rgba(255,0,234,0.2);display:block;}
+/* METRICS */
+.metrics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
+.metric{background:#050505;border:1px solid rgba(255,0,234,0.15);padding:16px;text-align:center;}
+.metric-num{font-family:'Pixelify Sans';font-size:36px;color:var(--cyber-pink);text-shadow:0 0 12px rgba(255,0,234,0.4);}
+.metric-lbl{font-family:'VT323';font-size:15px;color:#777;margin-top:4px;}
+/* LOG STREAM */
+#log-stream{height:260px;overflow-y:auto;font-size:12px;line-height:1.5;background:#000;border:1px solid rgba(255,0,234,0.15);padding:12px;}
+.log-line{color:var(--cyber-green);}
+.log-line.warn{color:var(--cyber-yellow);}
+.log-line.err{color:#ff4444;}
+.log-line.info{color:var(--cyber-pink);}
+@media(max-width:600px){
+  .agent-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div id="crt-filter"></div>
+
+<nav class="top-nav">
+  <a href="index.html">&#8962; HOME</a>
+  <a href="#agents">AGENTS</a>
+  <a href="#alerts">ALERTS</a>
+  <a href="#map">RECON_MAP</a>
+  <a href="#logs">LOGS</a>
+</nav>
+
+<div class="page-title">
+  <h1>AI_OVERSEER // AUTONOMOUS RECON</h1>
+  <p>:: 24/7 AUTONOMOUS INTELLIGENCE AGENTS :: CONTINUOUS SECURITY RECONNAISSANCE ::</p>
+</div>
+
+<!-- METRICS -->
+<div class="section">
+  <div class="sec-hdr">:: OVERSEER_METRICS ::</div>
+  <div class="sec-body">
+    <div class="metrics-grid">
+      <div class="metric"><div class="metric-num" id="m-scans">14,832</div><div class="metric-lbl">SCANS TODAY</div></div>
+      <div class="metric"><div class="metric-num" id="m-alerts">47</div><div class="metric-lbl">ALERTS FIRED</div></div>
+      <div class="metric"><div class="metric-num">12</div><div class="metric-lbl">ACTIVE AGENTS</div></div>
+      <div class="metric"><div class="metric-num">99.8%</div><div class="metric-lbl">UPTIME</div></div>
+      <div class="metric"><div class="metric-num" id="m-ips">3,421</div><div class="metric-lbl">IPs WATCHED</div></div>
+      <div class="metric"><div class="metric-num">24/7</div><div class="metric-lbl">OPERATION</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- AGENT GRID -->
+<div class="section" id="agents">
+  <div class="sec-hdr">:: ACTIVE_AGENTS ::</div>
+  <div class="sec-body">
+    <div class="agent-grid" id="agent-grid"></div>
+  </div>
+</div>
+
+<!-- ALERTS -->
+<div class="section" id="alerts">
+  <div class="sec-hdr">:: LIVE_ALERT_FEED ::</div>
+  <div class="sec-body">
+    <div class="alert-feed" id="alert-feed"></div>
+  </div>
+</div>
+
+<!-- RECON MAP -->
+<div class="section" id="map">
+  <div class="sec-hdr">:: GLOBAL_RECON_MAP ::</div>
+  <div class="sec-body" style="padding:8px;">
+    <canvas id="recon-canvas"></canvas>
+  </div>
+</div>
+
+<!-- LOG STREAM -->
+<div class="section" id="logs">
+  <div class="sec-hdr">:: AGENT_LOG_STREAM ::</div>
+  <div class="sec-body" style="padding:8px;">
+    <div id="log-stream"></div>
+  </div>
+</div>
+
+<div id="taskbar">
+  <a href="index.html">&#8962; HOME</a>
+  <span style="color:#444;font-size:12px;">|</span>
+  <a href="intel.html">INTEL</a>
+  <span style="color:#444;font-size:12px;">|</span>
+  <a href="nodes.html">NODES</a>
+  <span style="margin-left:auto;color:#444;font-family:'VT323';font-size:16px;" id="tb-clock"></span>
+</div>
+
+<script>
+setInterval(function(){
+  var d=new Date();document.getElementById('tb-clock').textContent=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+},1000);
+
+var AGENTS=[
+  {name:'SHODAN_CRAWLER',status:'active',desc:'Continuously scans internet-facing assets via Shodan API. Detects new open ports, exposed services, and misconfigured infrastructure.',tasks:'Scanning 3,421 monitored IPs | Last hit: exposed RDP on 203.x.x.x',cycle:'Every 6 hours',pct:72,model:'GPT-4o + Custom Rules'},
+  {name:'CVE_WATCHDOG',status:'scanning',desc:'Monitors NVD, CIRCL, and vendor advisories for new CVEs matching FLLC-tracked software stack. Triages by CVSS score.',tasks:'Fetching NVD feed... parsing 47 new entries since last run',cycle:'Every 2 hours',pct:45,model:'Claude 3 Haiku + NVD API'},
+  {name:'PHISH_DETECTOR',status:'active',desc:'Uses ML classifiers to detect phishing infrastructure targeting FLLC-affiliated domains. Cross-references Certificate Transparency logs.',tasks:'Monitoring CT logs | Flagged 2 lookalike domains today',cycle:'Continuous',pct:88,model:'BERT Classifier + CT Logs'},
+  {name:'DARKWEB_SENTINEL',status:'active',desc:'Tor-based agent monitoring dark web markets and paste sites for FLLC credential leaks, data dumps, and targeted threat actor chatter.',tasks:'Scanning 14 paste sites | 0 credential matches today',cycle:'Every 4 hours',pct:61,model:'Custom NLP + Tor Circuit'},
+  {name:'MALWARE_ANALYST',status:'alert',desc:'ALERT: Sandboxes suspicious binaries using Cuckoo. Detected new dropper sample using process hollowing. AV evasion confirmed.',tasks:'ANALYZING: sample_0x3AF7.exe — indirect syscalls detected',cycle:'On-demand + scheduled',pct:95,model:'Cuckoo Sandbox + YARA'},
+  {name:'OSINT_SPIDER',status:'active',desc:'Harvests OSINT from social media, GitHub, LinkedIn, and job postings to build adversary profiles and identify data exposure.',tasks:'Crawling GitHub for exposed keys | 3 new secrets found today',cycle:'Every 12 hours',pct:54,model:'theHarvester + SpiderFoot'},
+  {name:'NETWORK_IDS',status:'active',desc:'Suricata-based IDS agent watching for anomalous traffic patterns, C2 beaconing, lateral movement, and data exfiltration signatures.',tasks:'Processing 12.4 Gbps | 0 active intrusions | 3 blocked attempts',cycle:'Continuous',pct:99,model:'Suricata 7.x + ET Rules'},
+  {name:'AD_AUDITOR',status:'scanning',desc:'BloodHound-powered agent continuously auditing Active Directory environments for privilege escalation paths, Kerberoastable accounts, and delegation misconfigurations.',tasks:'Collecting AD data... mapping attack paths to Domain Admin',cycle:'Daily',pct:33,model:'BloodHound + Custom Queries'},
+  {name:'WAF_MONITOR',status:'idle',desc:'Monitors web application firewall logs for evasion attempts, zero-day pattern matches, and rule bypasses across FLLC-hosted applications.',tasks:'Idle — next scan in 2 hours',cycle:'Every 2 hours',pct:0,model:'ModSecurity + CRS 4.x'},
+  {name:'THREAT_INTEL_FUSION',status:'active',desc:'Aggregates threat intelligence from MISP, OpenCTI, and STIX/TAXII feeds. Correlates IOCs with observed network telemetry.',tasks:'Fusing 847 new IOCs | Correlating with SIEM events',cycle:'Every 1 hour',pct:78,model:'MISP + OpenCTI fusion'},
+  {name:'LLM_RED_TEAM',status:'scanning',desc:'Garak-powered agent continuously probing FLLC AI services for jailbreaks, prompt injection, data extraction, and model inversion attacks.',tasks:'Running Garak probes: dan, encoding, continuation... 34% done',cycle:'Daily',pct:34,model:'Garak + Custom Probes'},
+  {name:'CERT_MONITOR',status:'active',desc:'Watches Certificate Transparency logs for new certs issued for FLLC domains and lookalike typosquat domains. Flags suspicious issuances.',tasks:'Monitoring 6 root domains | Last alert: fllc-1ogin.com flagged',cycle:'Continuous',pct:82,model:'crt.sh API + Regex'}
+];
+
+var statusMap={active:'status-active',scanning:'status-scanning',idle:'status-idle',alert:'status-alert'};
+var cardMap={active:'active',scanning:'scanning',idle:'idle',alert:'alert'};
+var grid=document.getElementById('agent-grid');
+AGENTS.forEach(function(a){
+  var el=document.createElement('div');
+  el.className='agent-card '+cardMap[a.status];
+  el.innerHTML='<div class="agent-header">'
+    +'<div class="agent-name">'+a.name+'</div>'
+    +'<span class="agent-status '+statusMap[a.status]+'">'+a.status.toUpperCase()+'</span></div>'
+    +'<div class="agent-desc">'+a.desc+'</div>'
+    +'<div class="agent-tasks">⟳ '+a.tasks+'</div>'
+    +'<div class="agent-meta"><span>CYCLE: '+a.cycle+'</span><span>MODEL: '+a.model+'</span></div>'
+    +'<div class="agent-progress"><div class="agent-prog-inner" style="width:0%" data-pct="'+a.pct+'"></div></div>';
+  grid.appendChild(el);
+});
+setTimeout(function(){
+  document.querySelectorAll('.agent-prog-inner').forEach(function(b){b.style.width=b.dataset.pct+'%';});
+},400);
+
+var ALERTS=[
+  {sev:'CRITICAL',agent:'MALWARE_ANALYST',body:'New dropper sample detected using process hollowing + indirect syscalls. AV evasion: 2/72 detection. SHA256: a3f7b2c1d... File quarantined.',time:'14:28 UTC'},
+  {sev:'HIGH',agent:'DARKWEB_SENTINEL',body:'FLLC-adjacent domain "fllc-portal.onion" detected on Tor. Potential threat actor staging. Investigation underway.',time:'14:19 UTC'},
+  {sev:'HIGH',agent:'CVE_WATCHDOG',body:'CVE-2025-0311 (CVSS 9.1) — RCE in nginx 1.24.x. FLLC servers potentially affected. Patch available — action required.',time:'14:11 UTC'},
+  {sev:'MEDIUM',agent:'PHISH_DETECTOR',body:'Lookalike domain "fllc-1ogin.com" registered 2 hours ago. Valid Let\'s Encrypt cert issued. Phishing page suspected.',time:'13:58 UTC'},
+  {sev:'MEDIUM',agent:'SHODAN_CRAWLER',body:'Exposed Redis instance (no auth) found on monitored CIDR 192.168.x.x. Port 6379 open to world. Immediate action required.',time:'13:44 UTC'},
+  {sev:'LOW',agent:'OSINT_SPIDER',body:'3 API keys found in public GitHub repos by FLLC-affiliated accounts. Automated revocation triggered. Repos notified.',time:'13:31 UTC'},
+  {sev:'LOW',agent:'CERT_MONITOR',body:'New wildcard cert issued for *.personfu.github.io via ZeroSSL. Routine monitoring — no anomaly detected.',time:'13:20 UTC'},
+  {sev:'INFO',agent:'NETWORK_IDS',body:'Port scan (SYN) from 45.82.x.x against 3 monitored IPs. Blocked by firewall. Source added to blocklist.',time:'13:08 UTC'},
+  {sev:'INFO',agent:'THREAT_INTEL_FUSION',body:'847 new IOCs ingested from MISP. 12 matched against SIEM events — all historical. No active compromise detected.',time:'12:55 UTC'}
+];
+
+var sevMap={CRITICAL:'sev-critical',HIGH:'sev-high',MEDIUM:'sev-medium',LOW:'sev-low',INFO:'sev-info'};
+var af=document.getElementById('alert-feed');
+ALERTS.forEach(function(a){
+  var el=document.createElement('div');
+  el.className='alert-item';
+  el.innerHTML='<div class="alert-sev '+sevMap[a.sev]+'">'+a.sev+'</div>'
+    +'<div class="alert-content">'
+    +'<div class="alert-agent">'+a.agent+'</div>'
+    +'<div class="alert-body">'+a.body+'</div>'
+    +'<div class="alert-time">'+a.time+'</div></div>';
+  af.appendChild(el);
+});
+
+// RECON MAP
+(function(){
+  var canvas=document.getElementById('recon-canvas');
+  var ctx=canvas.getContext('2d');
+  var W,H;
+  function resize(){W=canvas.width=canvas.offsetWidth;H=canvas.height=320;}
+  resize();window.addEventListener('resize',resize);
+
+  var nodes=[];
+  for(var i=0;i<40;i++){
+    nodes.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-0.5)*0.4,vy:(Math.random()-0.5)*0.4,r:2+Math.random()*3,color:Math.random()<0.15?'#ff4444':Math.random()<0.3?'#ff00ea':'#00e8ff'});
+  }
+  var pulses=[];
+  setInterval(function(){
+    if(pulses.length<8){
+      var n=nodes[Math.floor(Math.random()*nodes.length)];
+      pulses.push({x:n.x,y:n.y,r:0,max:60,color:n.color,alpha:1});
+    }
+  },1200);
+
+  function draw(){
+    ctx.fillStyle='rgba(2,2,2,0.2)';ctx.fillRect(0,0,W,H);
+    // Grid
+    ctx.strokeStyle='rgba(0,232,255,0.04)';ctx.lineWidth=1;
+    for(var gx=0;gx<W;gx+=40){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,H);ctx.stroke();}
+    for(var gy=0;gy<H;gy+=40){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();}
+    // Connections
+    for(var i=0;i<nodes.length;i++){
+      for(var j=i+1;j<nodes.length;j++){
+        var dx=nodes[i].x-nodes[j].x,dy=nodes[i].y-nodes[j].y;
+        var dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<100){
+          ctx.strokeStyle='rgba(0,232,255,'+(0.15*(1-dist/100))+')';
+          ctx.lineWidth=0.5;
+          ctx.beginPath();ctx.moveTo(nodes[i].x,nodes[i].y);ctx.lineTo(nodes[j].x,nodes[j].y);ctx.stroke();
+        }
+      }
+    }
+    // Nodes
+    nodes.forEach(function(n){
+      n.x+=n.vx;n.y+=n.vy;
+      if(n.x<0||n.x>W)n.vx*=-1;
+      if(n.y<0||n.y>H)n.vy*=-1;
+      ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+      ctx.fillStyle=n.color;ctx.fill();
+      ctx.shadowColor=n.color;ctx.shadowBlur=6;ctx.fill();ctx.shadowBlur=0;
+    });
+    // Pulses
+    pulses.forEach(function(p,i){
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.strokeStyle=p.color.replace(')',','+p.alpha+')').replace('rgb','rgba');
+      ctx.lineWidth=1;ctx.stroke();
+      p.r+=1.5;p.alpha=1-p.r/p.max;
+    });
+    pulses=pulses.filter(function(p){return p.alpha>0;});
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// LOG STREAM
+var LOG_TEMPLATES=[
+  ['[SHODAN_CRAWLER] Scan batch 441/600 complete. 0 new critical exposures.','log-line'],
+  ['[CVE_WATCHDOG] Checking NVD API... 47 new CVEs in last 24h. Triaging by CVSS...','log-line'],
+  ['[MALWARE_ANALYST] ALERT: process hollowing detected in sample_0x3AF7.exe','log-line err'],
+  ['[NETWORK_IDS] Blocked SYN flood from 45.82.x.x — 4,200 packets dropped','log-line warn'],
+  ['[PHISH_DETECTOR] CT log scan: 12,840 new certs checked. 2 lookalikes flagged.','log-line'],
+  ['[OSINT_SPIDER] GitHub API scan: found exposed AWS key in repo commit history','log-line warn'],
+  ['[LLM_RED_TEAM] Garak probe DAN-7 complete. Jailbreak rate: 2.3%. Acceptable.','log-line'],
+  ['[THREAT_INTEL_FUSION] Ingested 847 new IOCs. Correlation engine running...','log-line info'],
+  ['[CERT_MONITOR] Monitoring 6 domains, 1,241 subdomains. No suspicious certs.','log-line'],
+  ['[AD_AUDITOR] BloodHound collection phase 1/3 complete. 3,241 objects found.','log-line'],
+  ['[DARKWEB_SENTINEL] Tor circuit refreshed. Scanning 14 paste sites...','log-line'],
+  ['[WAF_MONITOR] 0 rule bypasses in last 2h. 14 blocked SQLi attempts.','log-line']
+];
+var logEl=document.getElementById('log-stream');
+var logIdx=0;
+function appendLog(){
+  var t=LOG_TEMPLATES[logIdx%LOG_TEMPLATES.length];
+  logIdx++;
+  var d=document.createElement('div');
+  d.className=t[1];
+  d.textContent='['+new Date().toISOString().slice(11,19)+'] '+t[0];
+  logEl.appendChild(d);
+  logEl.scrollTop=logEl.scrollHeight;
+  if(logEl.children.length>200){logEl.removeChild(logEl.firstChild);}
+}
+appendLog();
+setInterval(appendLog,2200);
+
+// Metrics live update
+setInterval(function(){
+  document.getElementById('m-scans').textContent=(14000+Math.floor(Math.random()*2000)).toLocaleString();
+  document.getElementById('m-alerts').textContent=40+Math.floor(Math.random()*20);
+},12000);
+</script>
+</body>
+</html>
