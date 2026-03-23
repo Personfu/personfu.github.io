@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FURIOS-INT // Starred_Audit v1.0</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<style>
+    body { background: #000; color: var(--cyber-cyan); font-family: 'JetBrains Mono', monospace; }
+    #stars-container {
+        padding: 40px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 30px;
+        height: calc(100vh - 32px);
+        overflow-y: auto;
+        background: radial-gradient(circle at 50% 50%, #050a0f 0%, #000 100%);
+    }
+    .tool-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        padding: 15px;
+        border: 1px solid transparent;
+        transition: all 0.2s;
+    }
+    .tool-card:hover {
+        background: rgba(0, 232, 255, 0.1);
+        border-color: var(--cyber-cyan);
+        box-shadow: 0 0 15px rgba(0, 232, 255, 0.3);
+    }
+    .tool-card img {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 10px;
+        filter: drop-shadow(0 0 5px var(--cyber-cyan));
+    }
+    .tool-name {
+        font-size: 12px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* AKIRA MODAL STYLE */
+    #tool-modal {
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.9);
+        z-index: 10000;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+    .akira-window {
+        width: 900px;
+        max-width: 95%;
+        background: #000;
+        border: 2px solid var(--cyber-green);
+        padding: 20px;
+        position: relative;
+        box-shadow: 0 0 40px rgba(0, 255, 65, 0.2);
+    }
+    .akira-header {
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #000;
+        padding: 0 15px;
+        color: var(--cyber-green);
+        font-weight: bold;
+        border-left: 2px solid var(--cyber-green);
+        border-right: 2px solid var(--cyber-green);
+    }
+    .akira-content {
+        color: var(--cyber-green);
+        line-height: 1.6;
+        font-size: 16px;
+    }
+    .akira-title {
+        font-size: 48px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-shadow: 0 0 10px var(--cyber-green);
+    }
+    .akira-description {
+        margin-bottom: 30px;
+    }
+    .akira-commands {
+        margin-top: 40px;
+    }
+    .akira-command-line {
+        margin-bottom: 5px;
+        display: flex;
+    }
+    .akira-command-name {
+        width: 150px;
+        font-weight: bold;
+    }
+    .akira-cursor {
+        display: inline-block;
+        width: 10px;
+        height: 20px;
+        background: var(--cyber-green);
+        animation: blink 1s infinite;
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: var(--cyber-green);
+        cursor: pointer;
+        padding: 5px;
+    }
+</style>
+</head>
+<body>
+
+<div id="crt-filter"></div>
+
+<div id="stars-container">
+    <!-- Starred Tools will be injected here -->
+</div>
+
+<div id="tool-modal" onclick="closeModal(event)">
+    <div class="akira-window" onclick="event.stopPropagation()">
+        <div class="akira-header">[ <span id="modal-header-text">TOOL_NAME</span> ]</div>
+        <div class="close-btn" onclick="document.getElementById('tool-modal').style.display='none'">[X]</div>
+        <div class="akira-content">
+            <div class="akira-title" id="modal-title">TOOL_NAME</div>
+            <div class="akira-description" id="modal-desc">
+                Well, you are here. It means that you're interested in this tool right now. 
+                Think of our guide as an unscheduled deep dive into its capabilities.
+            </div>
+            <div id="modal-extra-content"></div>
+            
+            <div class="akira-commands">
+                <div class="akira-command-line">guest@operative:~$ help</div>
+                <div style="margin-top:10px;">List of resources:</div>
+                <div id="modal-links">
+                    <div class="akira-command-line">
+                        <span class="akira-command-name">guide</span>
+                        <span>— implementation guide</span>
+                    </div>
+                    <div class="akira-command-line">
+                        <span class="akira-command-name">dorks</span>
+                        <span>— search engine dorks for target discovery</span>
+                    </div>
+                    <div class="akira-command-line">
+                        <span class="akira-command-name">report</span>
+                        <span>— sample audit report output</span>
+                    </div>
+                </div>
+                <div class="akira-command-line" style="margin-top:20px;">
+                    guest@operative:~$ <span class="akira-cursor"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const starredTools = [
+        { 
+            name: "mimikatz", 
+            fullName: "gentilkiwi/mimikatz",
+            desc: "A little tool to play with Windows security. It's well known to extract plaintexts passwords, hash, PIN code and kerberos tickets from memory.",
+            guide: "Use sekurlsa::logonpasswords to extract credentials from LSASS. Use lsadump::sam for local hashes.",
+            dorks: "intitle:\"mimikatz\" filetype:log",
+            report: "Detected credential harvesting attempt via LSASS memory access. Source: 10.0.0.12. Severity: CRITICAL."
+        },
+        { 
+            name: "PEASS-ng", 
+            fullName: "peass-ng/PEASS-ng",
+            desc: "Privilege Escalation Awesome Scripts SUITE (with new generation). Local privilege escalation enumeration scripts for Linux, Windows and Mac.",
+            guide: "Run winPEAS.exe for Windows or linpeas.sh for Linux. Search for 'red' findings for high-probability vuln.",
+            dorks: "ext:sh \"linpeas.sh\"",
+            report: "Local enumeration completed. Found 12 possible exploit paths. SUID binaries detected: /usr/bin/find."
+        },
+        {
+            name: "DarkEye",
+            fullName: "VECERTINC/DarkEye",
+            desc: "Advanced OSINT and threat intelligence gathering tool for darknet monitoring and leak database analysis.",
+            guide: "Initialize DarkEye with API key. Query specific aliases or keywords across monitored forums.",
+            dorks: "inurl:darkeye forum leaks",
+            report: "Surface scan complete. Found 3 matches for target alias on onion forums."
+        },
+        {
+            name: "ROADtools",
+            fullName: "dirkjanm/ROADtools",
+            desc: "A collection of tools to interact with Azure AD from an offensive and defensive perspective.",
+            guide: "Use roadlib to interact with Graph API. roadrecon for tenant-wide enumeration.",
+            dorks: "site:login.microsoftonline.com",
+            report: "Azure AD dump complete. 124 users identified. 5 Global Admins found."
+        },
+        {
+            name: "ligolo-ng",
+            fullName: "nicocha30/ligolo-ng",
+            desc: "Ligolo-ng is a multiplexer/relaying tool that can be used to perform tunneling and pivoting.",
+            guide: "Start the proxy locally. Run the agent on the pivot host. Create a tunnel interface.",
+            dorks: "ligolo-ng agent download",
+            report: "Tunnel established on interface tun0. Internal network 192.168.1.0/24 reachable."
+        },
+        {
+            name: "kerbrute",
+            fullName: "ropnop/kerbrute",
+            desc: "A tool to quickly bruteforce and enumerate valid Active Directory users via Kerberos Pre-Authentication.",
+            guide: "kerbrute userenum --dc <DC_IP> -d <DOMAIN> <USER_LIST>",
+            dorks: "site:github.com ropnop kerbrute",
+            report: "Kerberos enumeration complete. 15 valid users found. 0 accounts locked out."
+        }
+    ];
+
+    const container = document.getElementById('stars-container');
+    starredTools.forEach(tool => {
+        const div = document.createElement('div');
+        div.className = 'tool-card';
+        div.innerHTML = `
+            <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png" alt="${tool.name}">
+            <div class="tool-name">${tool.name}</div>
+        `;
+        div.onclick = () => openModal(tool);
+        container.appendChild(div);
+    });
+
+    function openModal(tool) {
+        document.getElementById('modal-header-text').innerText = tool.name.toUpperCase();
+        document.getElementById('modal-title').innerText = tool.name.toUpperCase();
+        document.getElementById('modal-desc').innerHTML = tool.desc;
+        
+        // Add guide/dorks info
+        const extra = document.getElementById('modal-extra-content');
+        extra.innerHTML = `
+            <div style="margin-top:20px; border-left: 4px solid var(--cyber-green); padding-left: 15px; background: rgba(0,255,65,0.05);">
+                <div style="font-weight:bold; color:#fff;">[ GUIDE_FRAGMENT ]</div>
+                <div style="font-size:14px; margin-top:5px;">${tool.guide}</div>
+            </div>
+            <div style="margin-top:15px; color: #888; font-size:12px;">
+                DORKS: ${tool.dorks}
+            </div>
+        `;
+
+        document.getElementById('tool-modal').style.display = 'flex';
+    }
+
+    function closeModal(e) {
+        if(e.target.id === 'tool-modal') {
+            document.getElementById('tool-modal').style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>
