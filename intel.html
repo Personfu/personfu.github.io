@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INTEL_HUB — LIVE GLOBAL THREAT MONITOR</title>
+<link href="css/os.css" rel="stylesheet">
+<style>
+:root{--cyber-cyan:#00e8ff;--cyber-green:#00ff41;--cyber-pink:#ff00ea;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courier,monospace;padding-bottom:40px;}
+#crt-filter{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 2px);z-index:9998;}
+#taskbar{position:fixed;bottom:0;left:0;width:100%;height:32px;background:#0a0a0a;border-top:1px solid var(--cyber-cyan);z-index:9999;display:flex;align-items:center;padding:0 12px;}
+#taskbar a{color:var(--cyber-cyan);text-decoration:none;font-size:13px;letter-spacing:1px;}
+#taskbar a:hover{text-shadow:0 0 8px var(--cyber-cyan);}
+.page-title{text-align:center;padding:32px 16px 16px;font-size:clamp(16px,4vw,28px);letter-spacing:3px;text-shadow:0 0 16px var(--cyber-cyan),0 0 32px var(--cyber-cyan);color:var(--cyber-cyan);text-transform:uppercase;}
+.section{margin:24px 16px;border:1px solid var(--cyber-cyan);background:#0a0a0a;border-radius:2px;}
+.section-header{padding:10px 16px;background:#020e10;border-bottom:1px solid var(--cyber-cyan);font-size:13px;letter-spacing:2px;text-shadow:0 0 8px var(--cyber-cyan);color:var(--cyber-cyan);}
+.section-body{padding:16px;}
+/* CVE Feed */
+#cve-list{max-height:400px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;}
+.cve-entry{background:#050505;border:1px solid #1a1a2e;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;}
+.cve-id{color:var(--cyber-cyan);font-weight:bold;min-width:140px;}
+.cvss-red{color:#ff4444;font-weight:bold;}
+.cvss-orange{color:#ff8800;font-weight:bold;}
+.cvss-yellow{color:#ffdd00;font-weight:bold;}
+.cvss-low{color:var(--cyber-green);font-weight:bold;}
+.cve-product{color:var(--cyber-pink);min-width:120px;}
+.cve-desc{color:#aaa;flex:1;}
+/* Threat Gauge */
+#gauge-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;padding:16px;}
+#gauge-bar-outer{width:100%;max-width:500px;height:28px;background:#0d0d0d;border:1px solid var(--cyber-cyan);border-radius:2px;overflow:hidden;}
+#gauge-bar-inner{height:100%;width:0%;transition:width 0.6s ease,background 0.6s ease;}
+#gauge-label{font-size:22px;letter-spacing:4px;font-weight:bold;text-shadow:0 0 12px currentColor;}
+/* Camera */
+#cam-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;}
+#activate-btn,#capture-btn,#deactivate-btn{min-height:44px;padding:10px 28px;font-family:'Courier New',monospace;font-size:13px;letter-spacing:2px;cursor:pointer;border:none;border-radius:2px;}
+#activate-btn{background:var(--cyber-cyan);color:#000;}
+#capture-btn{background:var(--cyber-green);color:#000;display:none;}
+#deactivate-btn{background:#ff4444;color:#fff;display:none;}
+#video-frame{position:relative;display:none;border:2px solid var(--cyber-cyan);box-shadow:0 0 18px var(--cyber-cyan);}
+#cam-video{display:block;max-width:100%;width:480px;}
+#scan-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--cyber-cyan);font-size:18px;letter-spacing:3px;text-shadow:0 0 10px var(--cyber-cyan);animation:blink 1s step-start infinite;}
+@keyframes blink{50%{opacity:0;}}
+#cam-canvas{max-width:100%;border:2px solid var(--cyber-green);display:none;margin-top:8px;}
+#cam-error{color:#ff4444;display:none;margin-top:8px;}
+/* TTP Feed */
+#ttp-list{max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;}
+.ttp-entry{background:#050505;border:1px solid #1a1a2e;padding:10px 12px;font-size:12px;}
+.ttp-id{color:var(--cyber-pink);font-weight:bold;}
+.ttp-tactic{color:var(--cyber-cyan);}
+.ttp-desc{color:#aaa;}
+.ttp-time{color:var(--cyber-green);font-size:11px;}
+/* Ticker */
+#ticker-outer{overflow:hidden;white-space:nowrap;padding:10px 0;background:#020e10;}
+#ticker-inner{display:inline-block;animation:ticker 35s linear infinite;color:var(--cyber-cyan);font-size:13px;letter-spacing:1px;}
+@keyframes ticker{0%{transform:translateX(100vw);}100%{transform:translateX(-100%);}}
+@media(max-width:600px){
+  .page-title{padding-top:20px;}
+  .cve-entry{font-size:11px;}
+}
+</style>
+</head>
+<body>
+<div id="crt-filter"></div>
+
+<div class="page-title">◈ INTEL_HUB — LIVE GLOBAL THREAT MONITOR ◈</div>
+
+<!-- THREAT TICKER -->
+<div class="section">
+  <div class="section-header">▶ GLOBAL_THREAT_TICKER // LIVE INTEL STREAM</div>
+  <div id="ticker-outer">
+    <span id="ticker-inner">⚠ CRITICAL: APT29 ACTIVITY DETECTED IN EU NETWORKS // ⚠ HIGH: ZERO-DAY IN CISCO IOS UNDER ACTIVE EXPLOITATION // ⚠ LAZARUS GROUP TARGETING CRYPTO EXCHANGES // ⚠ RANSOMWARE SURGE: 340% INCREASE Q4 // ⚠ VOLT TYPHOON PERSISTENCE IN US CRITICAL INFRA // ⚠ CRITICAL: SUPPLY CHAIN ATTACK VIA NPM PACKAGE // ⚠ HIGH: COBALT STRIKE BEACON CLUSTER ACTIVE // ⚠ TURLA APT PHISHING CAMPAIGN ONGOING // ⚠ CRITICAL: IVANTI ZERO-DAY CVE-2024-21887 MASS EXPLOITATION // ⚠ FIN7 DEPLOYING NEW RANSOMWARE VARIANT //</span>
+  </div>
+</div>
+
+<!-- LIVE CVE FEED -->
+<div class="section">
+  <div class="section-header">▶ LIVE_CVE_FEED // NVD THREAT INTELLIGENCE</div>
+  <div class="section-body">
+    <div id="cve-list"></div>
+  </div>
+</div>
+
+<!-- THREAT LEVEL GAUGE -->
+<div class="section">
+  <div class="section-header">▶ THREAT_LEVEL_GAUGE // GLOBAL RISK INDEX</div>
+  <div class="section-body">
+    <div id="gauge-wrap">
+      <div id="gauge-bar-outer"><div id="gauge-bar-inner"></div></div>
+      <div id="gauge-label">LOADING...</div>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE CAMERA -->
+<div class="section">
+  <div class="section-header">▶ LIVE_CAMERA // OPTICAL_RECON</div>
+  <div class="section-body">
+    <div id="cam-wrap">
+      <button id="activate-btn">ACTIVATE_CAMERA</button>
+      <div id="video-frame">
+        <video id="cam-video" autoplay playsinline></video>
+        <div id="scan-overlay">SCANNING...</div>
+      </div>
+      <canvas id="cam-canvas"></canvas>
+      <div style="display:flex;gap:12px;">
+        <button id="capture-btn">CAPTURE_FRAME</button>
+        <button id="deactivate-btn">DEACTIVATE</button>
+      </div>
+      <div id="cam-error">⚠ CAMERA ACCESS DENIED — PERMISSION REQUIRED</div>
+    </div>
+  </div>
+</div>
+
+<!-- ADVERSARY TACTICS FEED -->
+<div class="section">
+  <div class="section-header">▶ ADVERSARY_TACTICS_FEED // MITRE ATT&amp;CK</div>
+  <div class="section-body">
+    <div id="ttp-list"></div>
+  </div>
+</div>
+
+<div id="taskbar"><a href="index.html">⌂ BACK TO HOME</a></div>
+
+<script>
+// ── CVE FEED ──────────────────────────────────────────────────────────────────
+const cvePool=[
+  {id:"CVE-2024-21762",cvss:9.8,product:"Fortinet FortiOS",desc:"Out-of-bounds write in SSL-VPN allowing unauthenticated RCE"},
+  {id:"CVE-2024-3400", cvss:10.0,product:"Palo Alto PAN-OS",desc:"OS command injection in GlobalProtect gateway"},
+  {id:"CVE-2024-21887",cvss:9.1,product:"Ivanti Connect Secure",desc:"Command injection in web components, exploited in wild"},
+  {id:"CVE-2024-27198",cvss:9.8,product:"JetBrains TeamCity",desc:"Authentication bypass allowing admin account creation"},
+  {id:"CVE-2024-1709", cvss:10.0,product:"ConnectWise ScreenConnect",desc:"Authentication bypass via path traversal in setup wizard"},
+  {id:"CVE-2024-6387", cvss:8.1,product:"OpenSSH",desc:"Race condition in signal handler leading to unauthenticated RCE"},
+  {id:"CVE-2024-38112",cvss:7.5,product:"Microsoft Windows MSHTML",desc:"Spoofing via disabled IE mode, used by APT actors"},
+  {id:"CVE-2024-4577", cvss:9.8,product:"PHP CGI",desc:"Argument injection vulnerability on Windows systems"},
+  {id:"CVE-2024-23113",cvss:9.8,product:"Fortinet FortiGate",desc:"Format string vulnerability in fgfmd daemon"},
+  {id:"CVE-2024-29988",cvss:8.8,product:"Microsoft SmartScreen",desc:"Security feature bypass in Windows Defender SmartScreen"},
+  {id:"CVE-2024-30051",cvss:7.8,product:"Windows DWM Core",desc:"Privilege escalation via heap buffer overflow"},
+  {id:"CVE-2024-26169",cvss:7.8,product:"Windows Error Reporting",desc:"Elevation of privilege in WER service"},
+  {id:"CVE-2024-21338",cvss:7.8,product:"Windows AppLocker",desc:"Kernel driver allows SYSTEM privilege escalation"},
+  {id:"CVE-2024-37085", cvss:6.8,product:"VMware ESXi",desc:"Authentication bypass in Active Directory integration"},
+  {id:"CVE-2024-20399",cvss:6.0,product:"Cisco NX-OS",desc:"OS command injection with admin credential access"},
+  {id:"CVE-2024-0204", cvss:9.8,product:"Fortra GoAnywhere MFT",desc:"Authentication bypass allowing admin user creation"},
+  {id:"CVE-2023-46805",cvss:8.2,product:"Ivanti ICS",desc:"Authentication bypass in web component, chained with 21887"},
+  {id:"CVE-2024-22024",cvss:9.1,product:"Ivanti ICS",desc:"XML external entity injection in SAML component"},
+  {id:"CVE-2024-24919",cvss:8.6,product:"Check Point Security Gateways",desc:"Information disclosure of password hash via path traversal"},
+  {id:"CVE-2024-5806", cvss:9.1,product:"MOVEit Transfer",desc:"Authentication bypass in SFTP module"},
+  {id:"CVE-2024-28986",cvss:9.0,product:"SolarWinds Web Help Desk",desc:"Java deserialization RCE vulnerability"},
+  {id:"CVE-2024-40711",cvss:9.8,product:"Veeam Backup & Replication",desc:"Deserialization of untrusted data enabling unauthenticated RCE"}
+];
+let cveIndex=0;
+const cveList=document.getElementById("cve-list");
+function cvssClass(s){if(s>=9)return"cvss-red";if(s>=7)return"cvss-orange";if(s>=4)return"cvss-yellow";return"cvss-low";}
+function addCVE(){
+  const e=cvePool[cveIndex%cvePool.length];cveIndex++;
+  const d=document.createElement("div");d.className="cve-entry";
+  d.innerHTML=`<span class="cve-id">${e.id}</span><span class="${cvssClass(e.cvss)}">CVSS:${e.cvss}</span><span class="cve-product">${e.product}</span><span class="cve-desc">${e.desc}</span>`;
+  cveList.insertBefore(d,cveList.firstChild);
+  while(cveList.children.length>50)cveList.removeChild(cveList.lastChild);
+}
+for(let i=0;i<8;i++)addCVE();
+setInterval(addCVE,3000);
+
+// ── THREAT GAUGE ──────────────────────────────────────────────────────────────
+const levels=[
+  {label:"CRITICAL",pct:95,color:"#ff2222"},
+  {label:"HIGH",    pct:72,color:"#ff8800"},
+  {label:"MEDIUM",  pct:45,color:"#ffdd00"},
+  {label:"LOW",     pct:18,color:"#00ff41"}
+];
+let lvlIdx=0;
+const bar=document.getElementById("gauge-bar-inner");
+const lbl=document.getElementById("gauge-label");
+function updateGauge(){
+  const l=levels[lvlIdx%levels.length];lvlIdx++;
+  bar.style.width=l.pct+"%";bar.style.background=l.color;
+  lbl.textContent=l.label;lbl.style.color=l.color;
+  lbl.style.textShadow="0 0 14px "+l.color;
+}
+updateGauge();
+setInterval(updateGauge,4000);
+
+// ── CAMERA ────────────────────────────────────────────────────────────────────
+let stream=null;
+const vid=document.getElementById("cam-video");
+const vframe=document.getElementById("video-frame");
+const cvs=document.getElementById("cam-canvas");
+const ctx=cvs.getContext("2d");
+document.getElementById("activate-btn").addEventListener("click",async()=>{
+  document.getElementById("cam-error").style.display="none";
+  try{
+    stream=await navigator.mediaDevices.getUserMedia({video:true});
+    vid.srcObject=stream;
+    vframe.style.display="block";
+    document.getElementById("capture-btn").style.display="inline-block";
+    document.getElementById("deactivate-btn").style.display="inline-block";
+    document.getElementById("activate-btn").style.display="none";
+  }catch(e){
+    document.getElementById("cam-error").style.display="block";
+  }
+});
+document.getElementById("capture-btn").addEventListener("click",()=>{
+  cvs.width=vid.videoWidth;cvs.height=vid.videoHeight;
+  ctx.drawImage(vid,0,0);cvs.style.display="block";
+});
+document.getElementById("deactivate-btn").addEventListener("click",()=>{
+  if(stream)stream.getTracks().forEach(t=>t.stop());
+  vid.srcObject=null;stream=null;
+  vframe.style.display="none";cvs.style.display="none";
+  document.getElementById("activate-btn").style.display="inline-block";
+  document.getElementById("capture-btn").style.display="none";
+  document.getElementById("deactivate-btn").style.display="none";
+});
+
+// ── TTP FEED ──────────────────────────────────────────────────────────────────
+const ttpPool=[
+  {id:"T1566.001",tactic:"Phishing",desc:"Spearphishing attachment delivering malicious macro payload"},
+  {id:"T1059.001",tactic:"Command & Scripting",desc:"PowerShell execution with encoded command bypassing AMSI"},
+  {id:"T1078",    tactic:"Valid Accounts",desc:"Compromised domain admin credentials used for lateral movement"},
+  {id:"T1486",    tactic:"Impact",desc:"Data encrypted for impact — ransomware deployment detected"},
+  {id:"T1055.012",tactic:"Process Injection",desc:"Process hollowing into svchost.exe detected on endpoint"},
+  {id:"T1027",    tactic:"Obfuscation",desc:"Heavily obfuscated JavaScript dropper in phishing email"},
+  {id:"T1071.001",tactic:"C2 over HTTP",desc:"Beacon traffic to C2 over HTTPS mimicking legitimate traffic"},
+  {id:"T1036.005",tactic:"Masquerading",desc:"Malware disguised as legitimate Windows system binary"},
+  {id:"T1547.001",tactic:"Persistence",desc:"Registry run key modification for persistence across reboots"},
+  {id:"T1003.001",tactic:"Credential Dumping",desc:"LSASS memory dump via MiniDump detected"},
+  {id:"T1021.002",tactic:"Lateral Movement",desc:"SMB/Windows Admin Shares used for lateral traversal"},
+  {id:"T1562.001",tactic:"Defense Evasion",desc:"Windows Defender real-time protection disabled via registry"},
+  {id:"T1190",    tactic:"Initial Access",desc:"Exploitation of public-facing VPN appliance for initial access"},
+  {id:"T1041",    tactic:"Exfiltration",desc:"Data exfiltrated over C2 channel using chunked HTTP POST"},
+  {id:"T1112",    tactic:"Registry Modification",desc:"Security tool configuration weakened via registry edit"},
+  {id:"T1569.002",tactic:"Service Execution",desc:"Malicious service created and started for code execution"},
+  {id:"T1204.002",tactic:"User Execution",desc:"Malicious file executed after social engineering lure"},
+];
+let ttpIdx=0;
+const ttpList=document.getElementById("ttp-list");
+function ts(){return new Date().toISOString().replace("T"," ").slice(0,19)+" UTC";}
+function addTTP(){
+  const e=ttpPool[ttpIdx%ttpPool.length];ttpIdx++;
+  const d=document.createElement("div");d.className="ttp-entry";
+  d.innerHTML=`<span class="ttp-id">${e.id}</span> <span class="ttp-tactic">[${e.tactic}]</span><br><span class="ttp-desc">${e.desc}</span><br><span class="ttp-time">DETECTED: ${ts()}</span>`;
+  ttpList.insertBefore(d,ttpList.firstChild);
+  while(ttpList.children.length>50)ttpList.removeChild(ttpList.lastChild);
+}
+for(let i=0;i<6;i++)addTTP();
+setInterval(addTTP,4000);
+</script>
+</body>
+</html>

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RESEARCH // ACADEMIC_CYBER_HUB</title>
+  <link href="css/os.css" rel="stylesheet">
+  <style>
+    :root {
+      --cyber-cyan: #00e8ff;
+      --cyber-green: #00ff41;
+      --cyber-pink: #ff00ea;
+      --bg: #050505;
+      --card-bg: #0d0d0d;
+      --border: #1a1a2e;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--bg);
+      color: #c0c0c0;
+      font-family: 'Courier New', Courier, monospace;
+      min-height: 100vh;
+      padding-bottom: 48px;
+    }
+    a { color: var(--cyber-cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* CRT Filter */
+    #crt-filter {
+      position: fixed;
+      pointer-events: none;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.18) 2px,
+        rgba(0,0,0,0.18) 4px
+      );
+      z-index: 9998;
+    }
+
+    /* Taskbar */
+    #taskbar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 32px;
+      background: #0a0a0a;
+      border-top: 1px solid var(--cyber-cyan);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 16px;
+      font-size: 11px;
+    }
+    #taskbar a {
+      color: var(--cyber-cyan);
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    #taskbar .clock { margin-left: auto; color: #888; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 48px 16px 24px;
+      border-bottom: 1px solid #1a1a2e;
+    }
+    .hero h1 {
+      font-size: clamp(1.4rem, 4vw, 2.6rem);
+      color: var(--cyber-cyan);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px var(--cyber-cyan);
+    }
+    .hero .tagline {
+      margin-top: 10px;
+      color: var(--cyber-green);
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+    }
+
+    /* Section wrapper */
+    .section {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+    .section-title {
+      font-size: 1rem;
+      letter-spacing: 3px;
+      color: var(--cyber-pink);
+      border-left: 3px solid var(--cyber-pink);
+      padding-left: 10px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    /* Paper cards */
+    .papers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .paper-card {
+      background: var(--card-bg);
+      border: 1px solid #1e2a3a;
+      border-radius: 4px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: box-shadow 0.2s;
+    }
+    .paper-card:hover {
+      box-shadow: 0 0 18px var(--cyber-cyan), 0 0 4px var(--cyber-cyan);
+      border-color: var(--cyber-cyan);
+    }
+    .paper-title {
+      font-size: 0.95rem;
+      color: #e0e0e0;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+    .paper-abstract {
+      font-size: 0.78rem;
+      color: #888;
+      line-height: 1.5;
+      flex: 1;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 0.68rem;
+      border-radius: 2px;
+      background: #0a1a2a;
+      border: 1px solid var(--cyber-cyan);
+      color: var(--cyber-cyan);
+      letter-spacing: 1px;
+      width: fit-content;
+    }
+    .paper-meta {
+      font-size: 0.72rem;
+      color: #555;
+    }
+    .btn-read {
+      display: block;
+      text-align: center;
+      padding: 0 12px;
+      min-height: 44px;
+      line-height: 44px;
+      border: 1px solid var(--cyber-cyan);
+      color: var(--cyber-cyan);
+      background: transparent;
+      cursor: pointer;
+      letter-spacing: 2px;
+      font-family: inherit;
+      font-size: 0.78rem;
+      transition: background 0.15s, color 0.15s;
+      text-transform: uppercase;
+    }
+    .btn-read:hover {
+      background: var(--cyber-cyan);
+      color: #050505;
+    }
+
+    /* Category tracks */
+    .tracks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .track-card {
+      background: var(--card-bg);
+      border: 1px solid #1e2a3a;
+      border-radius: 4px;
+      padding: 18px 14px;
+      cursor: pointer;
+      transition: box-shadow 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 44px;
+    }
+    .track-card:hover {
+      border-color: var(--cyber-green);
+      box-shadow: 0 0 14px var(--cyber-green);
+    }
+    .track-icon { font-size: 1.8rem; }
+    .track-name {
+      font-size: 0.82rem;
+      color: var(--cyber-green);
+      letter-spacing: 1px;
+      font-weight: bold;
+    }
+    .track-desc { font-size: 0.72rem; color: #666; line-height: 1.4; }
+
+    /* Missions */
+    .missions-list { display: flex; flex-direction: column; gap: 12px; }
+    .mission-card {
+      background: var(--card-bg);
+      border: 1px solid #1e2a3a;
+      border-radius: 4px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .mission-code {
+      font-size: 0.72rem;
+      color: var(--cyber-cyan);
+      letter-spacing: 2px;
+      white-space: nowrap;
+      min-width: 110px;
+    }
+    .mission-info { flex: 1; min-width: 180px; }
+    .mission-title { font-size: 0.88rem; color: #ddd; font-weight: bold; }
+    .mission-obj { font-size: 0.76rem; color: #777; margin-top: 4px; line-height: 1.4; }
+    .status-badge {
+      font-size: 0.68rem;
+      padding: 3px 10px;
+      border-radius: 2px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      align-self: flex-start;
+    }
+    .status-active   { background: #001a00; border: 1px solid var(--cyber-green); color: var(--cyber-green); }
+    .status-complete { background: #001a1a; border: 1px solid var(--cyber-cyan);  color: var(--cyber-cyan);  }
+    .status-class    { background: #1a0000; border: 1px solid #ff3333; color: #ff3333; }
+
+    /* Resources terminal */
+    .terminal-list {
+      background: #000;
+      border: 1px solid var(--cyber-green);
+      border-radius: 4px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .terminal-entry {
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+    .prompt { color: var(--cyber-green); font-size: 0.85rem; white-space: nowrap; }
+    .res-name { color: #e0e0e0; font-size: 0.85rem; font-weight: bold; min-width: 130px; }
+    .res-url  { color: var(--cyber-cyan); font-size: 0.78rem; white-space: nowrap; }
+    .res-desc { color: #666; font-size: 0.75rem; }
+
+    /* Submit form */
+    .submit-form {
+      background: var(--card-bg);
+      border: 1px solid #1e2a3a;
+      border-radius: 4px;
+      padding: 28px;
+      max-width: 680px;
+    }
+    .form-group { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 0.75rem; color: var(--cyber-cyan); letter-spacing: 2px; text-transform: uppercase; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: #060606;
+      border: 1px solid var(--cyber-cyan);
+      color: #c0c0c0;
+      font-family: inherit;
+      font-size: 0.85rem;
+      padding: 10px 12px;
+      border-radius: 2px;
+      outline: none;
+      min-height: 44px;
+      transition: box-shadow 0.15s;
+    }
+    .form-group textarea { min-height: 90px; resize: vertical; }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      box-shadow: 0 0 8px var(--cyber-cyan);
+    }
+    .form-group select option { background: #0d0d0d; }
+    .btn-submit {
+      min-height: 44px;
+      padding: 0 28px;
+      background: var(--cyber-cyan);
+      border: none;
+      color: #050505;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: opacity 0.15s;
+    }
+    .btn-submit:hover { opacity: 0.85; }
+
+    @media (max-width: 480px) {
+      .mission-card { flex-direction: column; }
+      .mission-code { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="crt-filter"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>RESEARCH // ACADEMIC_CYBER_HUB</h1>
+  <p class="tagline">The frontline of academic cyber exploration. Powered by FLLC.</p>
+</div>
+
+<!-- ===== RESEARCH PAPERS ===== -->
+<div class="section">
+  <div class="section-title">RESEARCH PAPERS</div>
+  <div class="papers-grid">
+
+    <div class="paper-card">
+      <span class="badge">Malware</span>
+      <div class="paper-title">Ransomware Evasion via Polymorphic Code Injection in Memory-Resident Payloads</div>
+      <div class="paper-abstract">This paper examines advanced ransomware strains that mutate their bytecode signatures at runtime to defeat static analysis engines. We propose a behavioral detection framework leveraging entropy heuristics and syscall tracing. Results show a 91% detection rate against novel variants.</div>
+      <div class="paper-meta">2024 &nbsp;|&nbsp; FLLC Operative PHANTOMHEX</div>
+      <button class="btn-read">READ_REPORT</button>
+    </div>
+
+    <div class="paper-card">
+      <span class="badge">OSINT</span>
+      <div class="paper-title">Automated OSINT Pipeline Construction Using Graph-Based Entity Resolution</div>
+      <div class="paper-abstract">We present OSINTFORGE, a modular automation framework for aggregating and correlating open-source intelligence across social media, WHOIS records, and certificate transparency logs. Entity resolution is performed via a probabilistic graph algorithm. The system reduces manual pivot time by 78%.</div>
+      <div class="paper-meta">2024 &nbsp;|&nbsp; FLLC Operative WRAITH_NODE</div>
+      <button class="btn-read">READ_REPORT</button>
+    </div>
+
+    <div class="paper-card">
+      <span class="badge">Cloud</span>
+      <div class="paper-title">Taxonomy of Cloud Misconfiguration Patterns Leading to Lateral Movement in AWS Environments</div>
+      <div class="paper-abstract">An analysis of 200+ real-world cloud breach post-mortems reveals recurring IAM over-permission patterns enabling attacker lateral movement. We classify 14 distinct misconfiguration archetypes and map each to ATT&amp;CK cloud techniques. Remediation blueprints are provided for each archetype.</div>
+      <div class="paper-meta">2024 &nbsp;|&nbsp; FLLC Operative CLOUDSHARD</div>
+      <button class="btn-read">READ_REPORT</button>
+    </div>
+
+    <div class="paper-card">
+      <span class="badge">AI Security</span>
+      <div class="paper-title">Prompt Injection Attacks Against LLM-Integrated Autonomous Agents: A Systematic Study</div>
+      <div class="paper-abstract">We systematically evaluate prompt injection vulnerabilities in LLM agents with tool-use capabilities, demonstrating exfiltration of system prompts and chained tool abuse. Twelve distinct injection categories are identified across five major agent frameworks. Defensive prompt hardening strategies are evaluated.</div>
+      <div class="paper-meta">2024 &nbsp;|&nbsp; FLLC Operative NEURALRIFT</div>
+      <button class="btn-read">READ_REPORT</button>
+    </div>
+
+    <div class="paper-card">
+      <span class="badge">Network</span>
+      <div class="paper-title">Zero-Trust Architecture Failure Modes: Exploiting Implicit Trust in Microsegmented Networks</div>
+      <div class="paper-abstract">Despite zero-trust adoption, residual implicit trust relationships in service mesh configurations create exploitable pivot paths. This paper identifies bypass techniques targeting mTLS certificate reuse and SPIFFE identity spoofing. A red-team methodology for ZTA validation is introduced.</div>
+      <div class="paper-meta">2024 &nbsp;|&nbsp; FLLC Operative NETGHOST</div>
+      <button class="btn-read">READ_REPORT</button>
+    </div>
+
+    <div class="paper-card">
+      <span class="badge">Exploit Dev</span>
+      <div class="paper-title">Kernel Exploit Development Under KASLR+SMEP: Bypassing Modern Linux Mitigations via Data-Only Attacks</div>
+      <div class="paper-abstract">This research details data-only kernel exploit primitives that bypass KASLR and SMEP without code injection, using controlled struct corruptions to escalate privileges. Proof-of-concept exploits are demonstrated on Linux 6.x kernels. Proposed kernel hardening patches are included.</div>
+      <div class="paper-meta">2024 &nbsp;|&nbsp; FLLC Operative KERNELPANIC</div>
+      <button class="btn-read">READ_REPORT</button>
+    </div>
+
+    <div class="paper-card">
+      <span class="badge">Cryptography</span>
+      <div class="paper-title">Transitioning to Post-Quantum Cryptography: Hybrid KEM Deployment Strategies in TLS 1.3</div>
+      <div class="paper-abstract">We evaluate the performance and security tradeoffs of hybrid key encapsulation mechanisms combining X25519 with CRYSTALS-Kyber in TLS 1.3 handshakes. Latency benchmarks across network conditions are presented alongside a migration roadmap for enterprise PKI. Compatibility with legacy clients is analyzed.</div>
+      <div class="paper-meta">2024 &nbsp;|&nbsp; FLLC Operative QUANTUMVEIL</div>
+      <button class="btn-read">READ_REPORT</button>
+    </div>
+
+    <div class="paper-card">
+      <span class="badge">Social Engineering</span>
+      <div class="paper-title">Deepfake-Augmented Spear Phishing: Measuring Susceptibility and Countermeasures in Enterprise Environments</div>
+      <div class="paper-abstract">Simulated spear phishing campaigns using AI-generated audio deepfakes of executives achieved a 67% credential submission rate versus 23% for text-only pretexts. We analyze psychological triggers exploited by deepfake social engineering and evaluate detection training programs. An awareness scoring rubric is proposed.</div>
+      <div class="paper-meta">2024 &nbsp;|&nbsp; FLLC Operative FACEMASK</div>
+      <button class="btn-read">READ_REPORT</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== RESEARCH CATEGORIES ===== -->
+<div class="section">
+  <div class="section-title">RESEARCH_TRACKS</div>
+  <div class="tracks-grid">
+
+    <div class="track-card">
+      <span class="track-icon">🦠</span>
+      <div class="track-name">Malware Analysis</div>
+      <div class="track-desc">Reverse-engineer and classify malicious software to understand attacker tradecraft.</div>
+    </div>
+
+    <div class="track-card">
+      <span class="track-icon">🔍</span>
+      <div class="track-name">Vulnerability Research</div>
+      <div class="track-desc">Discover and responsibly disclose security flaws in software and hardware systems.</div>
+    </div>
+
+    <div class="track-card">
+      <span class="track-icon">🕵️</span>
+      <div class="track-name">Threat Intelligence</div>
+      <div class="track-desc">Collect and correlate indicators to track threat actors and predict campaign activity.</div>
+    </div>
+
+    <div class="track-card">
+      <span class="track-icon">🤖</span>
+      <div class="track-name">AI Security</div>
+      <div class="track-desc">Probe machine learning models for adversarial robustness, data poisoning, and prompt attacks.</div>
+    </div>
+
+    <div class="track-card">
+      <span class="track-icon">☁️</span>
+      <div class="track-name">Cloud Security</div>
+      <div class="track-desc">Audit cloud-native architectures for misconfiguration, privilege escalation, and data exposure.</div>
+    </div>
+
+    <div class="track-card">
+      <span class="track-icon">📡</span>
+      <div class="track-name">OSINT</div>
+      <div class="track-desc">Automate open-source intelligence gathering and correlation across public data sources.</div>
+    </div>
+
+    <div class="track-card">
+      <span class="track-icon">🔐</span>
+      <div class="track-name">Cryptography</div>
+      <div class="track-desc">Analyze cryptographic protocols for weaknesses and advance post-quantum readiness.</div>
+    </div>
+
+    <div class="track-card">
+      <span class="track-icon">🎭</span>
+      <div class="track-name">Social Engineering</div>
+      <div class="track-desc">Study human manipulation tactics and design defenses against phishing and pretexting.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== ACTIVE RESEARCH MISSIONS ===== -->
+<div class="section">
+  <div class="section-title">ACTIVE_RESEARCH_MISSIONS</div>
+  <div class="missions-list">
+
+    <div class="mission-card">
+      <div class="mission-code">MISSION-001</div>
+      <div class="mission-info">
+        <div class="mission-title">Operation DARKNET_CARTOGRAPHY</div>
+        <div class="mission-obj">Map and enumerate onion service infrastructure to identify command-and-control nodes. Correlate findings with existing threat actor profiles from public reporting.</div>
+      </div>
+      <span class="status-badge status-active">ACTIVE</span>
+    </div>
+
+    <div class="mission-card">
+      <div class="mission-code">MISSION-002</div>
+      <div class="mission-info">
+        <div class="mission-title">LLM Red Team: AGENT_ZERO</div>
+        <div class="mission-obj">Systematically red-team autonomous LLM agents deployed in production SaaS platforms for prompt injection and tool-abuse primitives. Produce a public disclosure report.</div>
+      </div>
+      <span class="status-badge status-active">ACTIVE</span>
+    </div>
+
+    <div class="mission-card">
+      <div class="mission-code">MISSION-003</div>
+      <div class="mission-info">
+        <div class="mission-title">Post-Quantum Migration Feasibility Study</div>
+        <div class="mission-obj">Evaluate NIST PQC finalists for real-world deployment constraints in embedded IoT environments. Produce benchmarks and a go/no-go recommendation per algorithm.</div>
+      </div>
+      <span class="status-badge status-complete">COMPLETED</span>
+    </div>
+
+    <div class="mission-card">
+      <div class="mission-code">MISSION-004</div>
+      <div class="mission-info">
+        <div class="mission-title">Cloud Entitlement Attack Surface Mapping</div>
+        <div class="mission-obj">Enumerate abusable IAM permission combinations across AWS, Azure, and GCP that enable privilege escalation without explicit deny policies. Build an open-source scanning tool.</div>
+      </div>
+      <span class="status-badge status-active">ACTIVE</span>
+    </div>
+
+    <div class="mission-card">
+      <div class="mission-code">MISSION-005</div>
+      <div class="mission-info">
+        <div class="mission-title">Operation DEEPFAKE_SENTINEL</div>
+        <div class="mission-obj">Develop a real-time audio deepfake detection pipeline suitable for deployment in corporate telephony systems. Benchmark against state-of-the-art generative voice models.</div>
+      </div>
+      <span class="status-badge status-complete">COMPLETED</span>
+    </div>
+
+    <div class="mission-card">
+      <div class="mission-code">MISSION-006</div>
+      <div class="mission-info">
+        <div class="mission-title">GHOSTKERNEL // Kernel Hardening Initiative</div>
+        <div class="mission-obj">[DETAILS REDACTED] Scope involves low-level kernel subsystems and classified vulnerability data under coordinated disclosure embargo.</div>
+      </div>
+      <span class="status-badge status-class">🔒 CLASSIFIED</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== STUDENT RESOURCES ===== -->
+<div class="section">
+  <div class="section-title">OPERATIVE_RESOURCES // FREE_INTEL</div>
+  <div class="terminal-list">
+
+    <div class="terminal-entry">
+      <span class="prompt">$</span>
+      <span class="res-name">TryHackMe</span>
+      <a class="res-url" href="https://tryhackme.com" target="_blank" rel="noopener">https://tryhackme.com</a>
+      <span class="res-desc">// Guided learning paths and gamified CTF rooms for all skill levels.</span>
+    </div>
+
+    <div class="terminal-entry">
+      <span class="prompt">$</span>
+      <span class="res-name">HackTheBox</span>
+      <a class="res-url" href="https://www.hackthebox.com" target="_blank" rel="noopener">https://www.hackthebox.com</a>
+      <span class="res-desc">// Realistic pentesting labs and pro-level challenge machines.</span>
+    </div>
+
+    <div class="terminal-entry">
+      <span class="prompt">$</span>
+      <span class="res-name">PicoCTF</span>
+      <a class="res-url" href="https://picoctf.org" target="_blank" rel="noopener">https://picoctf.org</a>
+      <span class="res-desc">// Beginner-friendly CTF platform hosted by Carnegie Mellon University.</span>
+    </div>
+
+    <div class="terminal-entry">
+      <span class="prompt">$</span>
+      <span class="res-name">SANS Reading Room</span>
+      <a class="res-url" href="https://www.sans.org/white-papers/" target="_blank" rel="noopener">https://www.sans.org/white-papers/</a>
+      <span class="res-desc">// Thousands of free peer-reviewed security research white papers.</span>
+    </div>
+
+    <div class="terminal-entry">
+      <span class="prompt">$</span>
+      <span class="res-name">Cybrary</span>
+      <a class="res-url" href="https://www.cybrary.it" target="_blank" rel="noopener">https://www.cybrary.it</a>
+      <span class="res-desc">// Free and paid courses covering certifications and technical skills.</span>
+    </div>
+
+    <div class="terminal-entry">
+      <span class="prompt">$</span>
+      <span class="res-name">OWASP</span>
+      <a class="res-url" href="https://owasp.org" target="_blank" rel="noopener">https://owasp.org</a>
+      <span class="res-desc">// Open-source application security standards, tools, and documentation.</span>
+    </div>
+
+    <div class="terminal-entry">
+      <span class="prompt">$</span>
+      <span class="res-name">OverTheWire</span>
+      <a class="res-url" href="https://overthewire.org/wargames/" target="_blank" rel="noopener">https://overthewire.org/wargames/</a>
+      <span class="res-desc">// Terminal-based wargames teaching Linux, networking, and binary concepts.</span>
+    </div>
+
+    <div class="terminal-entry">
+      <span class="prompt">$</span>
+      <span class="res-name">CTFtime.org</span>
+      <a class="res-url" href="https://ctftime.org" target="_blank" rel="noopener">https://ctftime.org</a>
+      <span class="res-desc">// Comprehensive calendar and scoreboard for global CTF competitions.</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== SUBMIT RESEARCH ===== -->
+<div class="section">
+  <div class="section-title">SUBMIT_INTEL // CONTRIBUTE</div>
+  <div class="submit-form">
+    <form action="#" method="post">
+
+      <div class="form-group">
+        <label for="f-name">Name / Codename</label>
+        <input type="text" id="f-name" name="name" placeholder="e.g. FLLC Operative GHOSTBYTE" autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label for="f-title">Research Title</label>
+        <input type="text" id="f-title" name="research_title" placeholder="Enter your paper or research title">
+      </div>
+
+      <div class="form-group">
+        <label for="f-category">Category</label>
+        <select id="f-category" name="category">
+          <option value="">-- SELECT CATEGORY --</option>
+          <option value="malware">Malware</option>
+          <option value="osint">OSINT</option>
+          <option value="cloud">Cloud</option>
+          <option value="ai-security">AI Security</option>
+          <option value="network">Network</option>
+          <option value="exploit-dev">Exploit Dev</option>
+          <option value="cryptography">Cryptography</option>
+          <option value="social-engineering">Social Engineering</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="f-abstract">Abstract</label>
+        <textarea id="f-abstract" name="abstract" rows="4" placeholder="Summarize your research findings (minimum 3 sentences recommended)..."></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">TRANSMIT_RESEARCH</button>
+
+    </form>
+  </div>
+</div>
+
+<!-- TASKBAR -->
+<div id="taskbar">
+  <a href="index.html">&larr; HOME</a>
+  <span style="color:#444;">|</span>
+  <span style="color:#555;">RESEARCH // ACADEMIC_CYBER_HUB</span>
+  <span class="clock" id="tb-clock"></span>
+</div>
+
+<script>
+  (function(){
+    function tick(){
+      var d=new Date();
+      var h=String(d.getHours()).padStart(2,'0');
+      var m=String(d.getMinutes()).padStart(2,'0');
+      var s=String(d.getSeconds()).padStart(2,'0');
+      var el=document.getElementById('tb-clock');
+      if(el) el.textContent=h+':'+m+':'+s;
+    }
+    tick();
+    setInterval(tick,1000);
+  })();
+</script>
+
+</body>
+</html>

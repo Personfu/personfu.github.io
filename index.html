@@ -3,355 +3,528 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>FURIOS-INT // CyberOS v2.6.5 (MISSION_CRITICAL)</title>
+<title>FURIOS-INT // CyberOS v2.6.5</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/os.css">
 <style>
-    body { background: #000; overflow: hidden; margin: 0; font-family: 'JetBrains Mono', monospace; }
+* { box-sizing: border-box; }
+body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',monospace; }
 
-    /* Deep-space layered background */
-    #desktop {
-        position: relative; width: 100vw; height: 100vh;
-        background: radial-gradient(ellipse at 20% 30%, #0a0025 0%, #000 50%),
-                    radial-gradient(ellipse at 80% 70%, #001a0a 0%, transparent 60%);
-        display: none; grid-template-columns: repeat(auto-fill, 100px);
-        grid-template-rows: repeat(auto-fill, 100px);
-        padding: 20px; box-sizing: border-box; gap: 20px;
-        z-index: 10; overflow-y: auto;
-    }
+/* ── Layered background canvases ── */
+#pt-canvas   { position:fixed; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none; opacity:0.18; }
+#matrix-bg   { position:fixed; top:0; left:0; width:100%; height:100%; z-index:2; pointer-events:none; opacity:0.07; }
+#scan-line   { position:fixed; top:-4px; left:0; width:100%; height:6px;
+               background:linear-gradient(transparent,rgba(0,232,255,0.18),transparent);
+               z-index:4; pointer-events:none; animation:scanMove 7s linear infinite; }
+@keyframes scanMove { from{top:-6px} to{top:100vh} }
 
-    /* Background layers */
-    #matrix-bg    { position: fixed; top:0; left:0; width:100%; height:100%; z-index:1; opacity:0.12; pointer-events:none; }
-    #nebula-canvas { position: fixed; top:0; left:0; width:100%; height:100%; z-index:2; opacity:0.35; pointer-events:none; }
-    #hex-grid      { position: fixed; top:0; left:0; width:100%; height:100%; z-index:3; opacity:0.06; pointer-events:none;
-                     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V18L28 2l28 16v32z' fill='none' stroke='%2300e8ff' stroke-width='0.5'/%3E%3Cpath d='M28 100L0 84V52L28 36l28 16v32z' fill='none' stroke='%2300e8ff' stroke-width='0.5'/%3E%3Cpath d='M56 66L28 50V18L56 2' fill='none' stroke='%2300e8ff' stroke-width='0.5'/%3E%3C/svg%3E"); }
-    #scan-line     { position: fixed; top:0; left:0; width:100%; height:4px; background:linear-gradient(transparent,rgba(0,232,255,0.15),transparent);
-                     z-index:4; pointer-events:none; animation:scanMove 6s linear infinite; }
-    @keyframes scanMove { from { top:-4px; } to { top:100vh; } }
+/* ── Desktop ── */
+#desktop {
+  position:relative; width:100vw; height:calc(100vh - 32px);
+  display:none;
+  grid-template-columns: repeat(auto-fill, 96px);
+  grid-auto-rows: 100px;
+  padding:18px; gap:16px;
+  z-index:10; overflow-y:auto; align-content:start;
+}
 
-    /* Boot Sequence */
-    #boot-overlay {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: #000; z-index: 1000000; display: flex; flex-direction: column;
-        padding: 40px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--cyber-green);
-        text-transform: uppercase; overflow-y: auto;
-    }
-    .boot-line { margin-bottom: 4px; }
-    .boot-line span { color: var(--cyber-cyan); }
-    .boot-cursor { display: inline-block; width: 8px; height: 16px; background: var(--cyber-green); animation: blink 1s infinite; vertical-align: middle; }
-    @keyframes blink { 0%, 100% { opacity:1; } 50% { opacity:0; } }
+/* ── Boot overlay ── */
+#boot-overlay {
+  position:fixed; top:0; left:0; width:100%; height:100%; background:#000;
+  z-index:1000000; display:flex; flex-direction:column;
+  padding:40px 40px 80px; font-family:'JetBrains Mono'; font-size:13px;
+  color:var(--cyber-green); text-transform:uppercase; overflow-y:auto;
+}
+.boot-line { margin-bottom:3px; }
+.boot-line .ok  { color:var(--cyber-cyan); }
+.boot-line .err { color:#ff4444; }
+.boot-cursor { display:inline-block; width:8px; height:15px; background:var(--cyber-green); animation:blink 1s infinite; vertical-align:middle; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-    /* Desktop Icons */
-    .icon {
-        width: 90px; height: 100px; display: flex; flex-direction: column; align-items: center;
-        justify-content: center; text-align: center; cursor: pointer; transition: 0.2s;
-        padding: 10px; border: 1px solid transparent; z-index: 10; position: relative;
-        -webkit-tap-highlight-color: transparent;
-    }
-    .icon:hover, .icon:active { background: rgba(0,232,255,0.12); border-color: rgba(0,232,255,0.4); box-shadow: 0 0 12px rgba(0,232,255,0.2); }
-    .icon img { width: 48px; height: 48px; image-rendering: pixelated; margin-bottom: 6px; filter: drop-shadow(0 0 4px rgba(0,232,255,0.5)); }
-    .icon span { color: #fff; font-size: 11px; text-shadow: 1px 1px 2px #000, 0 0 6px rgba(0,232,255,0.3); font-family: 'VT323'; line-height: 1.2; }
+/* ── Desktop icon ── */
+.icon {
+  width:88px; height:92px; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; text-align:center;
+  cursor:pointer; transition:0.2s; padding:8px; border:1px solid transparent;
+  z-index:10; position:relative; -webkit-tap-highlight-color:transparent;
+}
+.icon:hover,.icon:active {
+  background:rgba(0,232,255,0.12); border-color:rgba(0,232,255,0.5);
+  box-shadow:0 0 14px rgba(0,232,255,0.25);
+}
+.icon img { width:44px; height:44px; image-rendering:pixelated; margin-bottom:5px;
+            filter:drop-shadow(0 0 5px rgba(0,232,255,0.6)); }
+.icon span { color:#fff; font-size:11px; font-family:'VT323'; line-height:1.15;
+             text-shadow:1px 1px 2px #000, 0 0 8px rgba(0,232,255,0.3); }
 
-    /* Status ticker */
-    #status-ticker {
-        position: fixed; bottom: 36px; left: 0; width: 100%; z-index: 5;
-        background: rgba(0,0,0,0.7); border-top: 1px solid rgba(0,232,255,0.2);
-        padding: 4px 0; overflow: hidden; pointer-events: none;
-    }
-    #ticker-inner {
-        display: inline-block; white-space: nowrap; font-family: 'VT323'; font-size: 18px;
-        color: var(--cyber-green); animation: tickerScroll 40s linear infinite;
-    }
-    @keyframes tickerScroll { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
+/* ── Status ticker ── */
+#status-ticker {
+  position:fixed; bottom:36px; left:0; width:100%; z-index:5;
+  background:rgba(0,0,0,0.8); border-top:1px solid rgba(0,232,255,0.15);
+  padding:3px 0; overflow:hidden; pointer-events:none;
+}
+#ticker-inner { display:inline-block; white-space:nowrap; font-family:'VT323'; font-size:17px;
+                color:var(--cyber-green); animation:tickerScroll 50s linear infinite; }
+@keyframes tickerScroll { from{transform:translateX(100vw)} to{transform:translateX(-100%)} }
 
-    /* Start Menu */
-    #start-menu {
-        position: fixed; bottom: 42px; left: 0; width: 320px;
-        background: linear-gradient(135deg, #0a0a1a 0%, #050510 100%);
-        border: 1px solid var(--cyber-cyan);
-        display: none; flex-direction: column; z-index: 2000;
-        box-shadow: 0 0 30px rgba(0,232,255,0.25), 10px 10px 30px rgba(0,0,0,0.7);
-    }
-    .start-header {
-        background: linear-gradient(90deg, #000080 0%, #0a0a2a 100%);
-        padding: 10px 15px; border-bottom: 1px solid var(--cyber-cyan);
-        font-family: 'Pixelify Sans'; color: var(--cyber-cyan); font-size: 18px;
-    }
-    .start-item {
-        padding: 10px 15px; display: flex; align-items: center; gap: 12px;
-        cursor: pointer; font-size: 13px; color: #ccc; font-family: 'VT323'; font-size: 18px;
-        border-bottom: 1px solid rgba(0,232,255,0.08); transition: 0.15s;
-        -webkit-tap-highlight-color: transparent;
-    }
-    .start-item:hover, .start-item:active { background: rgba(0,232,255,0.12); color: var(--cyber-cyan); }
-    .start-item img { width: 24px; height: 24px; }
-    .start-divider { border-top: 1px solid rgba(0,232,255,0.2); margin: 4px 0; }
+/* ── Start menu ── */
+#start-menu {
+  position:fixed; bottom:40px; left:0; width:310px;
+  background:linear-gradient(160deg,#08080f 0%,#050510 100%);
+  border:1px solid rgba(0,232,255,0.35);
+  display:none; flex-direction:column; z-index:20000;
+  box-shadow:0 0 30px rgba(0,232,255,0.2), 12px 12px 30px rgba(0,0,0,0.8);
+}
+.sm-header {
+  background:linear-gradient(90deg,#000080,#0a0a30);
+  padding:10px 16px; border-bottom:1px solid rgba(0,232,255,0.25);
+  font-family:'Pixelify Sans'; color:var(--cyber-cyan); font-size:17px;
+}
+.sm-item {
+  padding:9px 14px; display:flex; align-items:center; gap:12px;
+  cursor:pointer; font-family:'VT323'; font-size:19px; color:#ccc;
+  border-bottom:1px solid rgba(0,232,255,0.06); transition:0.15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.sm-item:hover,.sm-item:active { background:rgba(0,232,255,0.12); color:var(--cyber-cyan); }
+.sm-item img { width:20px; height:20px; }
+.sm-sep { border-top:1px solid rgba(0,232,255,0.2); margin:3px 0; }
 
-    /* Mobile */
-    @media (max-width: 600px) {
-        #desktop { grid-template-columns: repeat(auto-fill, 80px); gap: 10px; padding: 15px; }
-        .icon { width: 70px; height: 80px; }
-        .icon img { width: 36px; height: 36px; }
-        .icon span { font-size: 10px; }
-        #start-menu { width: 90%; max-width: 320px; }
-        #status-ticker { display: none; }
-    }
+/* ── Mobile ── */
+@media (max-width:600px) {
+  #desktop { grid-template-columns:repeat(auto-fill,80px); gap:10px; padding:12px; }
+  .icon { width:74px; height:80px; }
+  .icon img { width:36px; height:36px; }
+  .icon span { font-size:10px; }
+  #start-menu { width:92%; max-width:310px; }
+  #status-ticker { display:none; }
+}
 </style>
 </head>
 <body>
-
 <div id="crt-filter"></div>
-
-<!-- BOOT OVERLAY -->
 <div id="boot-overlay">
-    <div id="boot-log"></div>
-    <div id="boot-status" style="margin-top:20px;">SYSTEM_INITIALIZING... <div class="boot-cursor"></div></div>
+  <div id="boot-log"></div>
+  <div style="margin-top:18px;">SYSTEM_INIT... <div class="boot-cursor"></div></div>
 </div>
 
-<!-- Backgrounds -->
+<!-- backgrounds -->
+<canvas id="pt-canvas"></canvas>
 <canvas id="matrix-bg"></canvas>
-<canvas id="nebula-canvas"></canvas>
-<div id="hex-grid"></div>
 <div id="scan-line"></div>
 
-<!-- Status ticker -->
 <div id="status-ticker">
-    <span id="ticker-inner">
-        ⚡ FLLC_MAINFRAME UPLINK: STABLE &nbsp;|&nbsp; THREAT_LEVEL: ELEVATED &nbsp;|&nbsp; OPERATIVE_COUNT: 2,847 ONLINE &nbsp;|&nbsp;
-        CVE-2024-3400 [CRITICAL] PAN-OS Command Injection &nbsp;|&nbsp; CVE-2024-21887 [CRITICAL] Ivanti RCE &nbsp;|&nbsp;
-        WAR_GAMES_ARENA: 12 active sessions &nbsp;|&nbsp; AI_OVERSEER: 24/7 recon active &nbsp;|&nbsp;
-        NEW: CyberWorld v2.1 update deployed &nbsp;|&nbsp; FLLC RESEARCH: 3 new reports published &nbsp;|&nbsp;
-        ⚡ FLLC_MAINFRAME UPLINK: STABLE
-    </span>
+  <span id="ticker-inner">
+    ⚡ FLLC_MAINFRAME: UPLINK STABLE &nbsp;|&nbsp;
+    CVE-2024-3400 [CRITICAL] PAN-OS Cmd Injection &nbsp;|&nbsp;
+    CVE-2024-21887 [CRITICAL] Ivanti Connect Secure RCE &nbsp;|&nbsp;
+    CVE-2025-0282 [CRITICAL] Ivanti Stack BoF &nbsp;|&nbsp;
+    WAR_GAMES: 12 active sessions &nbsp;|&nbsp;
+    AI_OVERSEER: 24/7 recon active &nbsp;|&nbsp;
+    OPERATIVES ONLINE: 2,847 &nbsp;|&nbsp;
+    RESEARCH HUB: 3 new reports &nbsp;|&nbsp;
+    INTEL_HUB: LIVE THREAT FEED ACTIVE &nbsp;|&nbsp;
+    ⚡ FLLC_MAINFRAME: UPLINK STABLE
+  </span>
 </div>
 
 <div id="desktop">
-    <!-- Row 1 -->
-    <div class="icon" onclick="window.location.href='rpg/index.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/game_solitaire-0.png">
-        <span>CyberWorld RPG</span>
-    </div>
-    <div class="icon" onclick="window.location.href='stars.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/favorites-2.png">
-        <span>Cyber Arsenal</span>
-    </div>
-    <div class="icon" onclick="window.location.href='intel.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/radar-0.png">
-        <span>INTEL_HUB</span>
-    </div>
-    <div class="icon" onclick="window.location.href='research.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png">
-        <span>RESEARCH</span>
-    </div>
-    <div class="icon" onclick="window.location.href='wargames.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/shield-0.png">
-        <span>WAR_GAMES</span>
-    </div>
-    <div class="icon" onclick="window.location.href='nodes.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png">
-        <span>PERSON_NODES</span>
-    </div>
-    <div class="icon" onclick="window.location.href='ai.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png">
-        <span>AI_OVERSEER</span>
-    </div>
-    <div class="icon" onclick="window.location.href='discuss.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png">
-        <span>DISCUSSION_BOARD</span>
-    </div>
-    <!-- Row 2 -->
-    <div class="icon" onclick="window.location.href='cyberos-iso.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/cd_drive-4.png">
-        <span>ISO Builder</span>
-    </div>
-    <div class="icon" onclick="window.location.href='https://github.com/Personfu/REPORTS'">
-        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-0.png">
-        <span>Mission Reports</span>
-    </div>
-    <div class="icon" onclick="window.location.href='https://fllc.net'">
-        <img src="https://win98icons.alexmeub.com/icons/png/earth-0.png">
-        <span>FLLC.NET</span>
-    </div>
-    <div class="icon" onclick="window.location.href='https://personfu.github.io/rpg/login.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png">
-        <span>Operative Login</span>
-    </div>
+  <div class="icon" onclick="nav('intel.html')">
+    <img src="https://win98icons.alexmeub.com/icons/png/radar-0.png">
+    <span>INTEL_HUB</span>
+  </div>
+  <div class="icon" onclick="nav('research.html')">
+    <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png">
+    <span>RESEARCH</span>
+  </div>
+  <div class="icon" onclick="nav('wargames.html')">
+    <img src="https://win98icons.alexmeub.com/icons/png/shield-0.png">
+    <span>WAR_GAMES</span>
+  </div>
+  <div class="icon" onclick="nav('nodes.html')">
+    <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png">
+    <span>PERSON_NODES</span>
+  </div>
+  <div class="icon" onclick="nav('ai.html')">
+    <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png">
+    <span>AI_OVERSEER</span>
+  </div>
+  <div class="icon" onclick="nav('discuss.html')">
+    <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png">
+    <span>DISCUSSION_BOARD</span>
+  </div>
+  <div class="icon" onclick="nav('rpg/index.html')">
+    <img src="https://win98icons.alexmeub.com/icons/png/game_solitaire-0.png">
+    <span>CyberWorld RPG</span>
+  </div>
+  <div class="icon" onclick="nav('stars.html')">
+    <img src="https://win98icons.alexmeub.com/icons/png/favorites-2.png">
+    <span>Cyber Arsenal</span>
+  </div>
+  <div class="icon" onclick="nav('cyberos-iso.html')">
+    <img src="https://win98icons.alexmeub.com/icons/png/cd_drive-4.png">
+    <span>ISO Builder</span>
+  </div>
+  <div class="icon" onclick="nav('https://github.com/Personfu/REPORTS')">
+    <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-0.png">
+    <span>Mission Reports</span>
+  </div>
+  <div class="icon" onclick="nav('https://fllc.net')">
+    <img src="https://win98icons.alexmeub.com/icons/png/earth-0.png">
+    <span>FLLC.NET</span>
+  </div>
+  <div class="icon" onclick="nav('https://personfu.github.io/rpg/login.html')">
+    <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png">
+    <span>Operative Login</span>
+  </div>
 </div>
 
 <!-- Start Menu -->
 <div id="start-menu">
-    <div class="start-header">⊞ FURIOS-INT v2.6.5</div>
-    <div class="start-item" onclick="window.location.href='intel.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/radar-0.png"> INTEL_HUB
-    </div>
-    <div class="start-item" onclick="window.location.href='research.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png"> RESEARCH
-    </div>
-    <div class="start-item" onclick="window.location.href='wargames.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/shield-0.png"> WAR_GAMES
-    </div>
-    <div class="start-item" onclick="window.location.href='nodes.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png"> PERSON_NODES
-    </div>
-    <div class="start-item" onclick="window.location.href='ai.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png"> AI_OVERSEER
-    </div>
-    <div class="start-item" onclick="window.location.href='discuss.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png"> DISCUSSION_BOARD
-    </div>
-    <div class="start-divider"></div>
-    <div class="start-item" onclick="window.location.href='rpg/index.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/game_solitaire-0.png"> CyberWorld_MMO
-    </div>
-    <div class="start-item" onclick="window.location.href='stars.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/favorites-0.png"> The_Arsenal
-    </div>
-    <div class="start-item" onclick="window.location.href='cyberos-iso.html'">
-        <img src="https://win98icons.alexmeub.com/icons/png/cd_drive-3.png"> Build_ISO_Node
-    </div>
-    <div class="start-divider"></div>
-    <div class="start-item" onclick="window.location.href='https://fllc.net/osint'">
-        <img src="https://win98icons.alexmeub.com/icons/png/earth-0.png"> Mission_Control
-    </div>
-    <div class="start-item" onclick="location.reload()">
-        <img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-0.png"> Terminate_Session
-    </div>
+  <div class="sm-header">⊞ FURIOS-INT v2.6.5</div>
+  <div class="sm-item" onclick="nav('intel.html')"><img src="https://win98icons.alexmeub.com/icons/png/radar-0.png"> INTEL_HUB</div>
+  <div class="sm-item" onclick="nav('research.html')"><img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png"> RESEARCH</div>
+  <div class="sm-item" onclick="nav('wargames.html')"><img src="https://win98icons.alexmeub.com/icons/png/shield-0.png"> WAR_GAMES</div>
+  <div class="sm-item" onclick="nav('nodes.html')"><img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png"> PERSON_NODES</div>
+  <div class="sm-item" onclick="nav('ai.html')"><img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png"> AI_OVERSEER</div>
+  <div class="sm-item" onclick="nav('discuss.html')"><img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png"> DISCUSSION_BOARD</div>
+  <div class="sm-sep"></div>
+  <div class="sm-item" onclick="nav('rpg/index.html')"><img src="https://win98icons.alexmeub.com/icons/png/game_solitaire-0.png"> CyberWorld_MMO</div>
+  <div class="sm-item" onclick="nav('stars.html')"><img src="https://win98icons.alexmeub.com/icons/png/favorites-0.png"> Cyber Arsenal</div>
+  <div class="sm-item" onclick="nav('cyberos-iso.html')"><img src="https://win98icons.alexmeub.com/icons/png/cd_drive-3.png"> ISO Builder</div>
+  <div class="sm-sep"></div>
+  <div class="sm-item" onclick="nav('https://fllc.net')"><img src="https://win98icons.alexmeub.com/icons/png/earth-0.png"> FLLC.NET</div>
+  <div class="sm-item" onclick="location.reload()"><img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-0.png"> Terminate_Session</div>
 </div>
 
 <div id="taskbar">
-    <div id="start-btn-trigger" class="start-btn" onclick="toggleStart()">
-        <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png"> Start
-    </div>
-    <div id="task-items" style="flex:1;"></div>
-    <div id="tray">
-        <span style="font-family:'VT323'; color:var(--cyber-green); font-size:12px; margin-right:8px;" id="threat-level">⬤ THREAT: HIGH</span>
-        <span id="clock" style="font-family:'VT323'; color:#000;">12:00 PM</span>
-    </div>
+  <div id="start-btn-trigger" class="start-btn" onclick="toggleStart()">
+    <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png"> Start
+  </div>
+  <div id="task-items" style="flex:1;"></div>
+  <div id="tray">
+    <span style="font-family:'VT323';color:var(--cyber-green);font-size:12px;margin-right:8px;" id="threat-badge">⬤ THREAT:HIGH</span>
+    <span id="clock" style="font-family:'VT323';color:#000;">00:00</span>
+  </div>
 </div>
 
 <script>
-    // System Clock
-    setInterval(() => {
-        document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit' });
-    }, 1000);
+function nav(url){ window.location.href=url; }
 
-    function toggleStart() {
-        const menu = document.getElementById('start-menu');
-        menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-    }
+// Clock
+setInterval(()=>{
+  document.getElementById('clock').textContent =
+    new Date().toLocaleTimeString('en-US',{hour12:true,hour:'2-digit',minute:'2-digit'});
+},1000);
 
-    // Close start menu on outside click/tap
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('#start-btn-trigger') && !e.target.closest('#start-menu')) {
-            document.getElementById('start-menu').style.display = 'none';
-        }
+function toggleStart(){
+  var m=document.getElementById('start-menu');
+  m.style.display=m.style.display==='flex'?'none':'flex';
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('#start-btn-trigger')&&!e.target.closest('#start-menu'))
+    document.getElementById('start-menu').style.display='none';
+});
+
+/* ── FLLC PERIODIC TABLE BACKGROUND ── */
+(function(){
+  var C=document.getElementById('pt-canvas');
+  var ctx=C.getContext('2d');
+  var W,H,CW,CH,cols=18,rows=11,pad=2;
+
+  // FLLC Periodic Table elements [row, col, num, sym, name, cat, color]
+  var ELEMENTS=[
+    [0,0,1,'FL','FLLC','SP','#00e8ff'],
+    [0,17,2,'PT','Pentest','FR','#22c55e'],
+    [1,0,3,'Sh','Shodan','OS','#3b82f6'],
+    [1,12,4,'Sl','Sliver','EX','#ef4444'],
+    [1,13,5,'Sb','Seatbelt','PX','#a855f7'],
+    [1,14,6,'Au','Autorun','PX','#a855f7'],
+    [1,15,7,'RE','RemoteEx','PX','#a855f7'],
+    [1,16,8,'PS','PSpy','PX','#a855f7'],
+    [1,17,9,'MM','OSSTMM','FR','#22c55e'],
+    [2,0,10,'Wi','WHOIS','OS','#3b82f6'],
+    [2,1,11,'Dg','dig','OS','#3b82f6'],
+    [2,4,12,'MS','Metasploit','EX','#ef4444'],
+    [2,5,13,'Sq','SQLmap','EX','#ef4444'],
+    [2,6,14,'XS','XSStrike','WB','#f97316'],
+    [2,7,15,'BS','BurpSuite','WB','#f97316'],
+    [2,8,16,'NE','NetExec','EX','#ef4444'],
+    [2,9,17,'Mk','Mimikatz','PX','#a855f7'],
+    [2,10,18,'PE','LinPEAS','PX','#a855f7'],
+    [2,11,19,'BH','BloodHound','PX','#a855f7'],
+    [2,12,20,'EM','Empire','PX','#a855f7'],
+    [2,13,21,'PV','PowerView','PX','#a855f7'],
+    [2,14,22,'SC','SharpCradle','PX','#a855f7'],
+    [2,15,23,'OW','OWASP','FR','#22c55e'],
+    [2,16,24,'AT','ATT&CK','FR','#22c55e'],
+    [2,17,25,'IF','ISSAF','FR','#22c55e'],
+    [3,0,26,'Fp','FlipperZero','HW','#ec4899'],
+    [3,1,27,'Wy','Wayback','OS','#3b82f6'],
+    [3,2,28,'NM','Nmap','RE','#eab308'],
+    [3,3,29,'Nu','Nuclei','RE','#eab308'],
+    [3,4,30,'ff','ffuf','WB','#f97316'],
+    [3,5,31,'Gb','Gobuster','WB','#f97316'],
+    [3,6,32,'Hx','HTTPX','WB','#f97316'],
+    [3,7,33,'Rs','Responder','NW','#10b981'],
+    [3,8,34,'SC','ShellGen','EX','#ef4444'],
+    [3,9,35,'EG','Evilginx','EX','#ef4444'],
+    [3,10,36,'Ve','Veil','EX','#ef4444'],
+    [3,11,37,'UC','Unicorn','EX','#ef4444'],
+    [3,12,38,'Nc','Netcat','NW','#10b981'],
+    [3,13,39,'Ru','Rubeus','PX','#a855f7'],
+    [3,14,40,'Co','Covenant','EX','#ef4444'],
+    [3,15,41,'Cd','CredDump','PX','#a855f7'],
+    [3,16,42,'Ri','RiskAssess','FR','#22c55e'],
+    [3,17,43,'Rp','Reporting','FR','#22c55e'],
+    [4,0,44,'Hu','hunter.io','OS','#3b82f6'],
+    [4,1,45,'Vt','VirusTotal','OS','#3b82f6'],
+    [4,2,46,'Us','URLScan','OS','#3b82f6'],
+    [4,3,47,'Dx','DNSX','RE','#eab308'],
+    [4,4,48,'Am','Amass','RE','#eab308'],
+    [4,5,49,'Su','Sublist3r','RE','#eab308'],
+    [4,6,50,'Mc','Masscan','RE','#eab308'],
+    [4,7,51,'Pw','PwnTools','EX','#ef4444'],
+    [4,8,52,'Ro','Ropper','EX','#ef4444'],
+    [4,9,53,'BF','BeEF','WB','#f97316'],
+    [4,10,54,'Tx','Toxssin','WB','#f97316'],
+    [4,11,55,'Hv','Havoc','EX','#ef4444'],
+    [4,12,56,'Dc','DumpClear','PX','#a855f7'],
+    [4,13,57,'Fi','FilelessEx','PX','#a855f7'],
+    [4,14,58,'Kb','Kerbrute','PX','#a855f7'],
+    [4,15,59,'Lz','LaZagne','PX','#a855f7'],
+    [4,16,60,'TM','ThreatModel','FR','#22c55e'],
+    [4,17,61,'VA','VulnAssess','FR','#22c55e'],
+    [5,0,62,'Ma','Maltego','OS','#3b82f6'],
+    [5,1,63,'Fo','FOCA','OS','#3b82f6'],
+    [5,2,64,'ng','Recon-ng','OS','#3b82f6'],
+    [5,3,65,'Tc','TCPScan','NW','#10b981'],
+    [5,4,66,'Du','DNSEnum','RE','#eab308'],
+    [5,5,67,'na','Naabu','RE','#eab308'],
+    [5,6,68,'Ar','Arp-scan','NW','#10b981'],
+    [5,7,69,'ZM','ZMap','NW','#10b981'],
+    [5,8,70,'Iv','Invicti','WB','#f97316'],
+    [5,9,71,'Ni','Nishang','EX','#ef4444'],
+    [5,10,72,'SL','SecLists','FR','#22c55e'],
+    [5,11,73,'HT','HackTricks','FR','#22c55e'],
+    [5,12,74,'Rv','revshells','EX','#ef4444'],
+    [5,13,75,'Rp','NetRipper','PX','#a855f7'],
+    [5,14,76,'Fa','FastTrack','EX','#ef4444'],
+    [5,15,77,'Le','DataLeak','FR','#22c55e'],
+    [5,16,78,'SD','SecDevLC','FR','#22c55e'],
+    [5,17,79,'BT','BlueTeam','FR','#22c55e'],
+    [6,0,80,'TH','theHarvest','OS','#3b82f6'],
+    [6,1,81,'Cn','Censys','OS','#3b82f6'],
+    [6,2,82,'Bw','BuiltWith','OS','#3b82f6'],
+    [6,3,83,'mt','Metagoofil','OS','#3b82f6'],
+    [6,4,84,'RS','ReconSpidr','OS','#3b82f6'],
+    [6,5,85,'Ig','Infoga','OS','#3b82f6'],
+    [6,6,86,'nk','Nikto','WB','#f97316'],
+    [6,7,87,'Ss','SSLScan','NW','#10b981'],
+    [6,8,88,'Ns','OpenVAS','RE','#eab308'],
+    [6,9,89,'Cx','Commix','WB','#f97316'],
+    [6,10,90,'pP','PetitPotam','EX','#ef4444'],
+    [6,11,91,'On','Onschef','EX','#ef4444'],
+    [6,12,92,'Ip','impacket','NW','#10b981'],
+    [6,13,93,'Ps','PsExec','PX','#a855f7'],
+    [6,14,94,'WI','WMIExec','PX','#a855f7'],
+    [6,15,95,'Cs','CobaltStr','EX','#ef4444'],
+    [6,16,96,'AR','AuditReady','FR','#22c55e'],
+    [6,17,97,'Ti','TIBER-EU','FR','#22c55e'],
+    [7,0,98,'Ct','crt.sh','OS','#3b82f6'],
+    [7,1,99,'Ho','Holehe','OS','#3b82f6'],
+    [7,2,100,'SH','Sherlock','OS','#3b82f6'],
+    [7,3,101,'Sf','SpiderFoot','OS','#3b82f6'],
+    [7,4,102,'Ww','WhatWeb','WB','#f97316'],
+    [7,5,103,'Sw','SNMPwalk','NW','#10b981'],
+    [7,6,104,'E4','Enum4linux','RE','#eab308'],
+    [7,7,105,'Df','Dalfox','WB','#f97316'],
+    [7,8,106,'Hy','Hydra','EX','#ef4444'],
+    [7,9,107,'Ws','WebSploit','WB','#f97316'],
+    [7,10,108,'Xe','XSSer','WB','#f97316'],
+    [7,11,109,'UA','BypassUAC','PX','#a855f7'],
+    [7,12,110,'JW','JWTTool','WB','#f97316'],
+    [7,13,111,'RC','RunasCs','PX','#a855f7'],
+    [7,14,112,'Id','ldapnomnom','RE','#eab308'],
+    [7,15,113,'Vi','Villain','EX','#ef4444'],
+    [7,16,114,'Ki','KillChain','FR','#22c55e'],
+    [7,17,115,'CA','CAF-NCSC','FR','#22c55e'],
+    [9,2,116,'Mm','Memori','AI','#fbbf24'],
+    [9,3,117,'OC','OpenCode','AI','#fbbf24'],
+    [9,4,118,'MF','ModelForge','AI','#fbbf24'],
+    [9,5,119,'Mr','MiroFish','AI','#fbbf24'],
+    [9,6,120,'Gk','Garak','AI','#fbbf24'],
+    [9,7,121,'Pf','PromptFoo','AI','#fbbf24'],
+    [9,8,122,'LM','LlamaIndex','AI','#fbbf24'],
+    [9,9,123,'Lg','LangChain','AI','#fbbf24'],
+    [9,10,124,'Au','AutoGPT','AI','#fbbf24'],
+    [9,11,125,'Cr','CrewAI','AI','#fbbf24'],
+    [9,12,126,'Dp','DeepSeek','AI','#fbbf24'],
+    [9,13,127,'Ol','Ollama','AI','#fbbf24'],
+    [9,14,128,'Pr','PrivGPT','AI','#fbbf24'],
+    [9,15,129,'Co','CodeLlama','AI','#fbbf24'],
+    [9,16,130,'St','StableCode','AI','#fbbf24'],
+    [10,2,131,'PA','Pacu','CL','#06b6d4'],
+    [10,3,132,'RT','ROADtools','CL','#06b6d4'],
+    [10,4,133,'Sc','ScoutSuite','CL','#06b6d4'],
+    [10,5,134,'Pm','Prowler','CL','#06b6d4'],
+    [10,6,135,'CF','CloudFox','CL','#06b6d4'],
+    [10,7,136,'Tr','Trivy','CL','#06b6d4'],
+    [10,8,137,'Tk','Terrapin','CL','#06b6d4'],
+    [10,9,138,'FP','FlipperZero','HW','#ec4899'],
+    [10,10,139,'Bp','BusPirate','HW','#ec4899'],
+    [10,11,140,'WD','WiFiDeauth','HW','#ec4899'],
+    [10,12,141,'RF','RFCrack','HW','#ec4899'],
+    [10,13,142,'Ar','Arduino','HW','#ec4899'],
+    [10,14,143,'Pi','RPiAttack','HW','#ec4899'],
+    [10,15,144,'LN','LANTurtle','HW','#ec4899'],
+    [10,16,145,'BB','BashBunny','HW','#ec4899']
+  ];
+
+  function resize(){
+    W=C.width=window.innerWidth;
+    H=C.height=window.innerHeight;
+    CW=Math.floor((W-pad*(cols+1))/cols);
+    CH=Math.floor((H*0.88-pad*(rows+1))/rows);
+    draw();
+  }
+
+  function hexToRgb(hex,a){
+    var r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+    return 'rgba('+r+','+g+','+b+','+a+')';
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    // Title
+    ctx.font='bold '+(CW*0.6)+'px "Pixelify Sans", monospace';
+    ctx.fillStyle='rgba(0,232,255,0.5)';
+    ctx.textAlign='center';
+    ctx.fillText('FLLC PERIODIC TABLE OF CYBER OPERATIONS',W/2, CH*0.7);
+
+    ELEMENTS.forEach(function(el){
+      var row=el[0],col=el[1],num=el[2],sym=el[3],name=el[4],cat=el[5],color=el[6];
+      var gapRow=(row>=9)?row+1:row; // gap between row 7 and lanthanide
+      var x=pad+col*(CW+pad);
+      var y=pad*3+CH+gapRow*(CH+pad); // offset for title row
+      if(x+CW>W||y+CH>H) return;
+
+      // Cell bg
+      ctx.fillStyle=hexToRgb(color,0.12);
+      ctx.fillRect(x,y,CW,CH);
+      // Cell border
+      ctx.strokeStyle=hexToRgb(color,0.55);
+      ctx.lineWidth=1;
+      ctx.strokeRect(x,y,CW,CH);
+
+      // Number
+      var numSz=Math.max(8,CW*0.18);
+      ctx.font=numSz+'px "JetBrains Mono",monospace';
+      ctx.fillStyle=hexToRgb(color,0.7);
+      ctx.textAlign='left';
+      ctx.fillText(num,x+3,y+numSz+2);
+
+      // Symbol
+      var symSz=Math.max(12,CW*0.38);
+      ctx.font='bold '+symSz+'px "Pixelify Sans",sans-serif';
+      ctx.fillStyle=hexToRgb(color,0.9);
+      ctx.textAlign='center';
+      ctx.fillText(sym,x+CW/2,y+CH*0.62);
+
+      // Name
+      var nmSz=Math.max(7,CW*0.15);
+      ctx.font=nmSz+'px "JetBrains Mono",monospace';
+      ctx.fillStyle=hexToRgb(color,0.6);
+      ctx.textAlign='center';
+      var nm=name.length>9?name.slice(0,9):name;
+      ctx.fillText(nm,x+CW/2,y+CH-3);
     });
 
-    // Matrix Background
-    const mCanvas = document.getElementById('matrix-bg');
-    const mCtx = mCanvas.getContext('2d');
-    function resizeCanvases() {
-        mCanvas.width = window.innerWidth; mCanvas.height = window.innerHeight;
-        nCanvas.width = window.innerWidth; nCanvas.height = window.innerHeight;
-    }
-    const mChars = "01ABCDEFabcdef!@#$%^&*></?".split("");
-    let mDrops = [];
-    function initMatrix() {
-        mDrops = Array(Math.floor(mCanvas.width / 14)).fill(1);
-    }
-
-    function drawMatrix() {
-        mCtx.fillStyle = "rgba(0, 0, 0, 0.04)";
-        mCtx.fillRect(0, 0, mCanvas.width, mCanvas.height);
-        mDrops.forEach((y, i) => {
-            const bright = Math.random() > 0.9;
-            mCtx.fillStyle = bright ? "#ffffff" : "#00e8ff";
-            mCtx.font = "13px 'JetBrains Mono'";
-            mCtx.fillText(mChars[Math.floor(Math.random() * mChars.length)], i * 14, y * 14);
-            if (y * 14 > mCanvas.height && Math.random() > 0.975) mDrops[i] = 0;
-            mDrops[i]++;
-        });
-    }
-
-    // Nebula / Star field
-    const nCanvas = document.getElementById('nebula-canvas');
-    const nCtx = nCanvas.getContext('2d');
-    let nStars = [];
-    function initNebula() {
-        nStars = Array(180).fill(0).map(() => ({
-            x: Math.random() * nCanvas.width,
-            y: Math.random() * nCanvas.height,
-            r: Math.random() * 1.8 + 0.2,
-            s: Math.random() * 0.04 + 0.01,
-            hue: Math.random() > 0.85 ? 120 : 190  // mostly cyan, some green
-        }));
-    }
-
-    function drawNebula() {
-        nCtx.clearRect(0, 0, nCanvas.width, nCanvas.height);
-        nStars.forEach(s => {
-            nCtx.shadowBlur = s.r * 4;
-            nCtx.shadowColor = `hsl(${s.hue}, 100%, 60%)`;
-            nCtx.fillStyle = `hsl(${s.hue}, 100%, 70%)`;
-            nCtx.beginPath();
-            nCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-            nCtx.fill();
-            s.y += s.s;
-            if (s.y > nCanvas.height) { s.y = 0; s.x = Math.random() * nCanvas.width; }
-        });
-        nCtx.shadowBlur = 0;
-    }
-
-    // Boot Sequence
-    const bootLogs = [
-        "FURIOS-INT Kernel v2.6.5 Loading...",
-        "Verifying hardware root of trust... [PASS]",
-        "Establishing Secure Uplink to FLLC_MAINFRAME...",
-        "Mounting /dev/galaxy0... [OK]",
-        "Loading INTEL_HUB threat-stream connector...",
-        "Spawning AI_OVERSEER recon agents (x8)...",
-        "Initializing Neural_Link UI (Resolution: 4K)...",
-        "WAR_GAMES arena nodes: 12 online.",
-        "PERSON_NODES discord bridge: LINKED.",
-        "Loading Mission Objectives for OPERATIVE_FURULIE...",
-        "KERNEL_STABLE: Booting GUI Subsystem."
+    // Legend labels at bottom
+    var legendY=H*0.93;
+    var labels=[
+      {cat:'OS',label:'OSINT',color:'#3b82f6'},
+      {cat:'RE',label:'Recon',color:'#eab308'},
+      {cat:'EX',label:'Exploit',color:'#ef4444'},
+      {cat:'WB',label:'Web',color:'#f97316'},
+      {cat:'PX',label:'Post-Ex',color:'#a855f7'},
+      {cat:'NW',label:'Network',color:'#10b981'},
+      {cat:'CL',label:'Cloud',color:'#06b6d4'},
+      {cat:'AI',label:'AI/LLM',color:'#fbbf24'},
+      {cat:'HW',label:'Hardware',color:'#ec4899'},
+      {cat:'FR',label:'Frameworks',color:'#22c55e'},
     ];
-
-    function runBoot() {
-        const log = document.getElementById('boot-log');
-        let i = 0;
-        const iv = setInterval(() => {
-            if (i < bootLogs.length) {
-                const line = document.createElement('div');
-                line.className = 'boot-line';
-                line.innerHTML = `<span>[OK]</span> ${bootLogs[i]}`;
-                log.appendChild(line);
-                log.scrollTop = log.scrollHeight;
-                i++;
-            } else {
-                clearInterval(iv);
-                setTimeout(() => {
-                    document.getElementById('boot-overlay').style.display = 'none';
-                    document.getElementById('desktop').style.display = 'grid';
-                }, 800);
-            }
-        }, 350);
-    }
-
-    window.onload = () => {
-        resizeCanvases();
-        initMatrix();
-        initNebula();
-        runBoot();
-        setInterval(drawMatrix, 50);
-        setInterval(drawNebula, 30);
-    };
-
-    window.addEventListener('resize', () => {
-        resizeCanvases();
-        initMatrix();
-        initNebula();
+    var spacing=W/labels.length;
+    ctx.font='bold 12px "Pixelify Sans",sans-serif';
+    labels.forEach(function(lb,i){
+      ctx.fillStyle=hexToRgb(lb.color,0.7);
+      ctx.textAlign='center';
+      ctx.fillText(lb.label,spacing*i+spacing/2,legendY);
     });
+  }
+
+  window.addEventListener('resize',resize);
+  resize();
+})();
+
+/* ── Matrix rain ── */
+(function(){
+  var C=document.getElementById('matrix-bg'),ctx=C.getContext('2d');
+  var drops=[],chars='01ABCDEFabcdef!@#$%^'.split('');
+  function resize(){
+    C.width=window.innerWidth; C.height=window.innerHeight;
+    drops=Array(Math.floor(C.width/14)).fill(1);
+  }
+  function draw(){
+    ctx.fillStyle='rgba(0,0,0,0.04)';
+    ctx.fillRect(0,0,C.width,C.height);
+    ctx.fillStyle='#00e8ff'; ctx.font='13px monospace';
+    drops.forEach(function(y,i){
+      ctx.fillText(chars[Math.floor(Math.random()*chars.length)],i*14,y*14);
+      if(y*14>C.height&&Math.random()>0.975) drops[i]=0;
+      drops[i]++;
+    });
+  }
+  window.addEventListener('resize',resize);
+  resize();
+  setInterval(draw,60);
+})();
+
+/* ── Boot sequence ── */
+var bootLogs=[
+  ['ok','FURIOS-INT Kernel v2.6.5 — FLLC Edition loading...'],
+  ['ok','Rendering FLLC Periodic Table of Cyber Operations...'],
+  ['ok','Verifying hardware root of trust... [PASS]'],
+  ['ok','Establishing Secure Uplink to FLLC_MAINFRAME...'],
+  ['ok','INTEL_HUB threat-stream connector: ONLINE'],
+  ['ok','Spawning AI_OVERSEER recon agents (x8)...'],
+  ['ok','WAR_GAMES arena: 12 nodes online'],
+  ['ok','PERSON_NODES discord bridge: LINKED'],
+  ['ok','RESEARCH hub: 3 new reports available'],
+  ['ok','Neural_Link UI loaded — OPERATIVE_FURULIE cleared'],
+  ['ok','KERNEL STABLE — booting desktop...']
+];
+function runBoot(){
+  var log=document.getElementById('boot-log'),i=0;
+  var iv=setInterval(function(){
+    if(i<bootLogs.length){
+      var div=document.createElement('div');
+      div.className='boot-line';
+      var cls=bootLogs[i][0]==='ok'?'ok':'err';
+      div.innerHTML='<span class="'+cls+'">['+bootLogs[i][0].toUpperCase()+']</span> '+bootLogs[i][1];
+      log.appendChild(div);
+      log.scrollTop=log.scrollHeight;
+      i++;
+    }else{
+      clearInterval(iv);
+      setTimeout(function(){
+        document.getElementById('boot-overlay').style.display='none';
+        document.getElementById('desktop').style.display='grid';
+      },700);
+    }
+  },300);
+}
+window.onload=runBoot;
 </script>
 </body>
 </html>
