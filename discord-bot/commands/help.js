@@ -1,5 +1,5 @@
 /**
- * /help — FLLC CyberWorld command directory, cyberpunk themed (22 commands)
+ * /help — FLLC CyberWorld command directory, cyberpunk themed (24 commands)
  */
 const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 
@@ -16,7 +16,7 @@ module.exports = {
         '```\n' +
         '╔══════════════════════════════════════════════════╗\n' +
         '║  CYBERWORLD BOT  //  CyberOS v2026.3-FLLC       ║\n' +
-        '║  22 Commands  •  Application: 1170817211837992981║\n' +
+        '║  24 Commands  •  Application: 1170817211837992981║\n' +
         '║  Guild: FLLC CyberWorld Operations               ║\n' +
         '╚══════════════════════════════════════════════════╝\n' +
         '```'
@@ -69,8 +69,16 @@ module.exports = {
           inline: false,
         },
         {
+          name: '🚩 CTF / HACKATHON',
+          value: [
+            '`/ctf [category]` — Random CTF challenge by category (web, crypto, pwn, forensics, misc)',
+            '`/ctfguide [category]` — Step-by-step study guide for a CTF category',
+          ].join('\n'),
+          inline: false,
+        },
+        {
           name: '⚙️ Utility',
-          value: '`/help` — This menu  •  `22 total commands`',
+          value: '`/help` — This menu  •  `24 total commands`',
           inline: false,
         },
         {
@@ -80,6 +88,7 @@ module.exports = {
             `[🕹 Arcade](${SITE_URL}/arcade.html)`,
             `[📡 Intel Hub](${SITE_URL}/intel.html)`,
             `[⚔️ War Games](${SITE_URL}/wargames.html)`,
+            `[🚩 CTF Trail](${SITE_URL}/ctf-trail.html)`,
             `[🔑 Operative Login](${SITE_URL}/rpg/login.html)`,
             `[☠️ Adversary DB](${SITE_URL}/adversaries.html)`,
           ].join(' • '),
@@ -92,6 +101,7 @@ module.exports = {
     const row = new ActionRowBuilder().addComponents(
       new ButtonBuilder().setLabel('🌐 CyberWorld RPG').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/cyberworld.html`),
       new ButtonBuilder().setLabel('⚔️ War Games').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/wargames.html`),
+      new ButtonBuilder().setLabel('🚩 CTF Trail').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/ctf-trail.html`),
       new ButtonBuilder().setLabel('📡 Intel Hub').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/intel.html`),
     );
 
