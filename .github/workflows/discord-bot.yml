@@ -69,7 +69,7 @@ jobs:
 
       - name: Verify all bot command files present
         run: |
-          COMMANDS=(help intel cve adversary scan mission daemon profile daily leaderboard status)
+          COMMANDS=(help intel cve adversary scan mission daemon profile daily leaderboard status launch exploit defend ioc ttp)
           MISSING=0
           for cmd in "${COMMANDS[@]}"; do
             f="discord-bot/commands/${cmd}.js"
