@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FURIOS-INT // CyberOS v2.6.0 (MISSION_CRITICAL)</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<style>
+    body { background: #000; overflow: hidden; margin: 0; }
+    #desktop { background-color: #008080; background-image: radial-gradient(circle at 50% 50%, #050a14 0%, #000 100%); overflow: hidden; display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); padding: 20px; gap: 20px; }
+    #matrix-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.15; pointer-events: none; }
+    
+    #boot-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: #000; z-index: 1000000; display: flex; flex-direction: column;
+        padding: 40px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--cyber-green);
+        text-transform: uppercase; overflow-y: auto;
+    }
+</style>
+</head>
+<body>
+
+<canvas id="matrix-bg"></canvas>
+
+<div id="desktop">
+    <div class="desktop-icon" onclick="window.location.href='rpg/index.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/joystick-0.png">
+        <span>CYBERWORLD RPG</span>
+    </div>
+    <div class="desktop-icon" onclick="window.location.href='stars.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/favorites-2.png">
+        <span>CYBER ARSENAL</span>
+    </div>
+    <div class="desktop-icon" onclick="window.location.href='https://github.com/Personfu/REPORTS/blob/main/FLLC_Code_Book_2026.pdf'">
+        <img src="https://win98icons.alexmeub.com/icons/png/directory_closed-4.png">
+        <span>OFFICIAL REPORTS</span>
+    </div>
+    <div class="desktop-icon" onclick="window.location.href='https://fllc.net'">
+        <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png">
+        <span>FLLC MAINFRAME</span>
+    </div>
+</div>
+
+<div id="taskbar">
+    <div class="start-btn">
+        <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png">
+        FLLC_OS
+    </div>
+    <div id="tray">
+        <div id="clock">13:37</div>
+    </div>
+</div>
+
+<script src="js/os.js"></script>
+</body>
+</html>
