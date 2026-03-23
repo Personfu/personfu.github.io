@@ -129,6 +129,69 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
   #flag-row{flex-direction:column;}
   #flag-input{min-width:unset;}
 }
+/* GLITCH ANIMATION */
+@keyframes glitch{
+  0%,92%,100%{transform:translate(0);text-shadow:0 0 30px rgba(0,232,255,0.5);}
+  93%{transform:translate(-4px,1px);text-shadow:-3px 0 var(--pink),3px 0 var(--cyan);}
+  94%{transform:translate(4px,-1px);text-shadow:3px 0 var(--pink),-3px 0 var(--cyan);}
+  95%{transform:translate(-2px,2px);text-shadow:-2px 0 var(--green);}
+  96%{transform:translate(2px,-2px);}
+}
+@keyframes flicker{
+  0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;}
+  20%,24%,55%{opacity:0.75;}
+}
+@keyframes scanpulse{
+  0%,100%{box-shadow:0 0 8px rgba(0,232,255,0.2);}
+  50%{box-shadow:0 0 22px rgba(0,232,255,0.45);}
+}
+@keyframes neon-border{
+  0%,100%{border-color:rgba(0,232,255,0.35);}
+  50%{border-color:rgba(0,232,255,0.7);}
+}
+.glitch-title{animation:glitch 6s infinite;}
+/* XP PROGRESS BAR */
+#xp-bar-wrap{display:flex;align-items:center;gap:8px;flex:1;min-width:160px;}
+#xp-bar-outer{flex:1;height:8px;background:#111;border:1px solid rgba(0,232,255,0.25);overflow:hidden;border-radius:2px;}
+#xp-bar-inner{height:100%;background:linear-gradient(90deg,var(--cyan),var(--green));width:0%;transition:width 0.6s ease;border-radius:2px;}
+#xp-pct{font-family:'VT323';font-size:14px;color:var(--green);min-width:38px;}
+/* EXFIL VICTORY SCREEN */
+#exfil-screen{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,5,0,0.97);z-index:9990;flex-direction:column;align-items:center;
+  justify-content:center;gap:16px;padding:20px;text-align:center;
+  border:3px solid var(--green);box-shadow:inset 0 0 80px rgba(0,255,65,0.08);}
+#exfil-screen h1{font-family:'Pixelify Sans';font-size:clamp(30px,8vw,70px);color:var(--green);
+  text-shadow:0 0 40px rgba(0,255,65,0.8),0 0 80px rgba(0,255,65,0.4);animation:flicker 2.5s infinite;}
+.exfil-label{font-family:'VT323';font-size:clamp(14px,3.5vw,22px);color:var(--pink);
+  letter-spacing:5px;animation:flicker 4s infinite;}
+.exfil-sub{font-family:'VT323';font-size:clamp(14px,3.5vw,22px);color:var(--cyan);}
+.exfil-stats-grid{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;margin:8px 0;}
+.exfil-stat{text-align:center;background:#050505;border:1px solid rgba(0,255,65,0.25);
+  padding:16px 24px;min-width:100px;}
+.exfil-stat .es-val{font-family:'Pixelify Sans';font-size:clamp(26px,6vw,52px);color:var(--green);
+  text-shadow:0 0 20px rgba(0,255,65,0.6);}
+.exfil-stat .es-lbl{font-family:'VT323';font-size:16px;color:#666;margin-top:4px;}
+.exfil-code{font-family:'JetBrains Mono';font-size:11px;color:#444;max-width:480px;line-height:1.6;
+  border:1px solid #1a1a1a;padding:10px 14px;background:#000;}
+.exfil-close-btn{padding:12px 36px;background:transparent;color:var(--pink);border:2px solid var(--pink);
+  font-family:'VT323';font-size:22px;cursor:pointer;letter-spacing:2px;transition:0.2s;margin-top:6px;}
+.exfil-close-btn:hover{background:rgba(255,0,234,0.12);box-shadow:0 0 20px rgba(255,0,234,0.3);}
+/* TYPE-SPECIFIC CHALLENGE PANEL COLORS */
+#challenge-panel.type-ctf{border-color:var(--cyan);box-shadow:0 0 16px rgba(0,232,255,0.12);}
+#challenge-panel.type-hack{border-color:var(--pink);box-shadow:0 0 16px rgba(255,0,234,0.12);}
+#challenge-panel.type-boss{border-color:var(--orange);box-shadow:0 0 20px rgba(255,165,0,0.18);animation:scanpulse 2.5s ease-in-out infinite;}
+/* BOSS NODE STYLING */
+.trail-node.boss-node .node-icon{border-color:var(--orange);background:rgba(255,165,0,0.15);box-shadow:0 0 14px rgba(255,165,0,0.4);}
+.trail-node.boss-node .node-label{color:var(--orange);}
+/* ENHANCED CHALLENGE CARD */
+.chall-card .cc-type{font-family:'VT323';font-size:12px;padding:1px 6px;border:1px solid;margin-bottom:5px;display:inline-block;}
+.cc-type-ctf{color:var(--cyan);border-color:var(--cyan);}
+.cc-type-hack{color:var(--pink);border-color:var(--pink);}
+.cc-type-boss{color:var(--orange);border-color:var(--orange);}
+/* ANIMATED TERMINAL PROMPT */
+#chall-scenario .s-cmd::before{content:'> ';color:var(--green);opacity:0.7;}
+/* STATS BAR ENHANCEMENTS */
+#stats-bar{animation:neon-border 3s ease-in-out infinite;}
 </style>
 </head>
 <body>
@@ -143,7 +206,7 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
 </nav>
 
 <div class="page-title">
-  <h1>☠ CTF TRAIL</h1>
+  <h1 class="glitch-title">☠ CTF TRAIL</h1>
   <p>Oregon Trail-style Gauntlet // 10 CTF + 10 Hackathon Challenges // Survive to Exfil</p>
 </div>
 
@@ -166,9 +229,13 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
 <div id="stats-bar" style="display:none;">
   <div class="stat-item"><span class="stat-label">XP</span><span class="stat-val green" id="s-xp">0</span></div>
   <div class="stat-item"><span class="stat-label">FLAGS</span><span class="stat-val" id="s-flags">0/20</span></div>
-  <div class="stat-item"><span class="stat-label">HINTS USED</span><span class="stat-val orange" id="s-hints">0</span></div>
+  <div class="stat-item"><span class="stat-label">HINTS</span><span class="stat-val orange" id="s-hints">0</span></div>
   <div class="stat-item"><span class="stat-label">NODE</span><span class="stat-val pink" id="s-node">1/20</span></div>
   <div class="stat-item"><span class="stat-label">STATUS</span><span class="stat-val" id="s-status">ON_TRAIL</span></div>
+  <div id="xp-bar-wrap">
+    <div id="xp-bar-outer"><div id="xp-bar-inner"></div></div>
+    <span id="xp-pct">0%</span>
+  </div>
 </div>
 
 <!-- ACTIVE CHALLENGE PANEL -->
@@ -201,6 +268,25 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
 <div id="event-log" style="display:none;">
   <div id="log-hdr">📡 TRAIL_LOG // Event Stream</div>
   <div id="log-body"></div>
+</div>
+
+<!-- EXFIL VICTORY SCREEN -->
+<div id="exfil-screen">
+  <div class="exfil-label">⚡ MISSION COMPLETE ⚡</div>
+  <h1>🏆 EXFIL SUCCESSFUL</h1>
+  <div class="exfil-sub">All 20 nodes cleared — operative extracted from hostile cyberspace</div>
+  <div class="exfil-stats-grid">
+    <div class="exfil-stat"><div class="es-val" id="ef-xp">0</div><div class="es-lbl">TOTAL XP</div></div>
+    <div class="exfil-stat"><div class="es-val" id="ef-flags">20/20</div><div class="es-lbl">FLAGS CAPTURED</div></div>
+    <div class="exfil-stat"><div class="es-val" id="ef-hints">0</div><div class="es-lbl">HINTS USED</div></div>
+  </div>
+  <div class="exfil-code">
+    operative_status: EXFILTRATED<br>
+    threat_level: NEUTRALIZED<br>
+    ctf_trail: COMPLETED<br>
+    debrief: FURIOS-INT HQ pending
+  </div>
+  <button class="exfil-close-btn" onclick="document.getElementById('exfil-screen').style.display='none'">[ CLOSE DEBRIEF ]</button>
 </div>
 
 <!-- CHALLENGE LIST (overview) -->
@@ -412,8 +498,8 @@ const CHALLENGES = [
     narrative:`The target\'s search endpoint reflects input without sanitization. Inject a script tag to pop an alert containing the flag stored in a cookie. The judge inspects the alert value.`,
     scenario:[
       {t:'s-line', txt:'# URL: http://target/search?q=PAYLOAD'},
-      {t:'cmd', txt:'$ curl "http://target/search?q=<script>alert(document.cookie)</script>"'},
-      {t:'out', txt:'<!-- search results for <script>alert(document.cookie)</script> -->'},
+      {t:'cmd', txt:'$ curl "http://target/search?q=<script>alert(document.cookie)<\\/script>"'},
+      {t:'out', txt:'<!-- search results for <script>alert(document.cookie)<\\/script> -->'},
       {t:'out', txt:'(Browser pops alert: "FLAG{XSS_R3FL3CT3D}")'},
       {t:'flag', txt:'FLAG{XSS_R3FL3CT3D}'},
     ],
@@ -421,7 +507,7 @@ const CHALLENGES = [
     hint:'If angle brackets are filtered, try encoding: `%3Cscript%3E`. Also try event handlers: `"><img src=x onerror=alert(document.cookie)>`.',
     walkthrough:[
       {step:'Test for reflection: enter <code>TESTXSS</code> in the search box and check if it appears in the HTML source.'},
-      {step:'Try: <code><script>alert(1)</script></code> — if an alert fires, XSS is confirmed.'},
+      {step:'Try: <code>&lt;script&gt;alert(1)&lt;/script&gt;</code> — if an alert fires, XSS is confirmed.'},
       {step:'Replace 1 with <code>document.cookie</code> to exfiltrate the cookie.'},
       {step:'For bypassing filters: use <code>"><img src=x onerror="alert(document.cookie)"></code> or URL-encoded variants.'},
     ],
@@ -712,13 +798,15 @@ function buildTrailMap() {
     }
     const node = document.createElement('div');
     let cls = 'trail-node';
+    const isBoss = ch.id === 19 || ch.id === 20;
+    if (isBoss) cls += ' boss-node';
     if (STATE.solved.has(i)) cls += ' done';
     else if (i === STATE.current) cls += ' active';
     else cls += ' locked';
     node.className = cls;
     node.id = 'node-' + i;
     node.onclick = () => { if (STATE.solved.has(i) || i === STATE.current) loadChallenge(i); };
-    const icon = ch.type === 'CTF' ? '🔴' : ch.id === 19 || ch.id === 20 ? '🏆' : '🟣';
+    const icon = isBoss ? '🏆' : ch.type === 'CTF' ? '🔴' : '🟣';
     node.innerHTML = `<div class="node-icon">${icon}</div><div class="node-label">${ch.id}. ${ch.type}</div>`;
     map.appendChild(node);
   });
@@ -729,6 +817,7 @@ function refreshTrailMap() {
     const node = document.getElementById('node-' + i);
     if (!node) return;
     let cls = 'trail-node';
+    if (ch.id === 19 || ch.id === 20) cls += ' boss-node';
     if (STATE.solved.has(i)) cls += ' done';
     else if (i === STATE.current) cls += ' active';
     else cls += ' locked';
@@ -749,9 +838,13 @@ function buildChallengeGrid() {
     card.className = 'chall-card' + (STATE.solved.has(i) ? ' done-card' : '');
     card.id = 'cc-' + i;
     card.onclick = () => { if (STATE.solved.has(i) || i === STATE.current) loadChallenge(i); };
+    const isBossCard = ch.id === 19 || ch.id === 20;
+    const typeClass = isBossCard ? 'cc-type-boss' : (ch.type === 'CTF' ? 'cc-type-ctf' : 'cc-type-hack');
+    const typeLabel = isBossCard ? '🏆 BOSS' : (ch.type === 'CTF' ? '🔴 CTF' : '🟣 HACK');
     card.innerHTML = `
       ${STATE.solved.has(i) ? '<div class="done-overlay">✅</div>' : ''}
       <div class="cc-top"><span class="cc-name">${ch.title}</span><span class="cc-pts">+${ch.xp} XP</span></div>
+      <div><span class="cc-type ${typeClass}">${typeLabel}</span></div>
       <div class="cc-desc">${ch.narrative.substring(0,80)}…</div>
       <div class="cc-tags">${ch.tags.map(t=>`<span class="cc-tag">${t}</span>`).join('')}</div>
     `;
@@ -779,6 +872,11 @@ function loadChallenge(idx) {
   const ch = CHALLENGES[idx];
   document.getElementById('chall-num').textContent = `CHALLENGE ${idx+1} / 20`;
   document.getElementById('chall-title').textContent = ch.title;
+
+  // Set challenge panel color based on type
+  const panel = document.getElementById('challenge-panel');
+  const isBoss = ch.id === 19 || ch.id === 20;
+  panel.className = isBoss ? 'type-boss' : (ch.type === 'CTF' ? 'type-ctf' : 'type-hack');
 
   const typeBadge = ch.type === 'CTF' ? '<span class="badge badge-ctf">CTF</span>' : '<span class="badge badge-hack">HACKATHON</span>';
   const diffMap = {Rookie:'rookie',Operative:'operative',Elite:'elite',Classified:'classified'};
@@ -832,6 +930,7 @@ function checkFlag() {
       logEvent('🏆 ALL 20 CHALLENGES COMPLETE — EXFIL SUCCESSFUL', 'good');
       document.getElementById('s-status').textContent = 'EXFIL_SUCCESS';
       document.getElementById('s-status').style.color = 'var(--green)';
+      setTimeout(showExfilScreen, 800);
     }
   } else {
     res.className = 'flag-result wrong';
@@ -864,12 +963,23 @@ function nextChallenge() {
   else logEvent('You have reached the end of the trail!', 'info');
 }
 
+function showExfilScreen() {
+  document.getElementById('ef-xp').textContent = STATE.xp;
+  document.getElementById('ef-flags').textContent = `${STATE.solved.size}/20`;
+  document.getElementById('ef-hints').textContent = STATE.hints;
+  document.getElementById('exfil-screen').style.display = 'flex';
+}
+
 // ─── STATS ────────────────────────────────────────────────────────────────
+const MAX_XP = 4145;
 function updateStats() {
   document.getElementById('s-xp').textContent = STATE.xp;
   document.getElementById('s-flags').textContent = `${STATE.solved.size}/20`;
   document.getElementById('s-hints').textContent = STATE.hints;
   document.getElementById('s-node').textContent = `${STATE.current+1}/20`;
+  const pct = Math.min(100, (STATE.xp / MAX_XP * 100)).toFixed(1);
+  document.getElementById('xp-bar-inner').style.width = pct + '%';
+  document.getElementById('xp-pct').textContent = pct + '%';
 }
 
 // ─── LOG ─────────────────────────────────────────────────────────────────
@@ -895,8 +1005,7 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// Auto-start the trail on page load so the game is immediately visible
-window.addEventListener('load', startTrail);
+// Show intro panel on load — user clicks BEGIN TRAIL to start
 </script>
 </body>
 </html>
