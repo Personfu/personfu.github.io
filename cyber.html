@@ -23,6 +23,8 @@
 
     .term-footer { background: var(--win-bg); border-top: 2px solid var(--win-dark); padding: 5px 15px; color: #000; display: flex; justify-content: space-between; align-items: center; font-family: 'VT323'; height: 35px; }
     .prog-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--cyber-cyan); z-index: -1; transition: width 0.3s; }
+    .kernel-success { color: #00ff41; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px; border: 1px solid #00ff41; padding: 10px; }
+    .kernel-success a { color: #00e8ff; }
 </style>
 </head>
 <body>
@@ -125,8 +127,20 @@
             document.getElementById('stat').innerText = 'SUCCESS';
             const term = document.getElementById('term');
             const success = document.createElement('div');
-            success.style.cssText = 'color:#00ff41;margin-top:16px;font-family:"JetBrains Mono",monospace;font-size:13px;border:1px solid #00ff41;padding:10px;';
-            success.innerHTML = '✓ KERNEL_GENERATED: CyberWorld MMORPG instance initialized.<br>✓ All subsystems online. Navigate to <a href="cyberworld.html" style="color:#00e8ff;">CyberWorld RPG</a> to launch.';
+            success.className = 'kernel-success';
+            const link1 = document.createElement('a');
+            link1.href = 'cyberworld.html';
+            link1.textContent = 'CyberWorld RPG';
+            const link2 = document.createElement('a');
+            link2.href = 'index.html';
+            link2.textContent = '← FURIOS-INT HQ';
+            success.appendChild(document.createTextNode('✓ KERNEL_GENERATED: CyberWorld MMORPG instance initialized.'));
+            success.appendChild(document.createElement('br'));
+            success.appendChild(document.createTextNode('✓ All subsystems online. Navigate to '));
+            success.appendChild(link1);
+            success.appendChild(document.createTextNode(' or return to '));
+            success.appendChild(link2);
+            success.appendChild(document.createTextNode('.'));
             term.appendChild(success);
             term.scrollTop = term.scrollHeight;
         }
