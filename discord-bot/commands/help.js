@@ -59,7 +59,6 @@ module.exports = {
             '`/launch [game]` — Game invite with PLAY NOW buttons — works on mobile ✅',
             '`/mission [class]` — Randomized operative mission with objectives and loot',
             '`/daemon` — Encounter a SOULCODE daemon with lore, stats, and capture odds',
-            '`/apt [faction]` — Engage a CyberWorld APT faction for max XP and loot',
             '`/bounty [type]` — Active FLLC bounty board: APT takedowns, daemon captures, CTF',
             '`/rank` — Full rank progression chart: XP thresholds and perks',
             '`/leaderboard [filter]` — FLLC operative XP rankings by class',
