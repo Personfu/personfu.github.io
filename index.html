@@ -8,19 +8,26 @@
 <link rel="stylesheet" href="css/os.css">
 <style>
     body { background: #000; overflow: hidden; margin: 0; font-family: 'JetBrains Mono', monospace; }
-    
-    /* Unified Background: Matrix + Deep Galaxy */
-    #desktop { 
+
+    /* Deep-space layered background */
+    #desktop {
         position: relative; width: 100vw; height: 100vh;
-        background: radial-gradient(circle at 50% 50%, #050a14 0%, #000 100%);
+        background: radial-gradient(ellipse at 20% 30%, #0a0025 0%, #000 50%),
+                    radial-gradient(ellipse at 80% 70%, #001a0a 0%, transparent 60%);
         display: none; grid-template-columns: repeat(auto-fill, 100px);
         grid-template-rows: repeat(auto-fill, 100px);
         padding: 20px; box-sizing: border-box; gap: 20px;
-        z-index: 10;
+        z-index: 10; overflow-y: auto;
     }
-    
-    #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; opacity: 0.1; pointer-events: none; }
-    #nebula-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; opacity: 0.3; pointer-events: none; }
+
+    /* Background layers */
+    #matrix-bg    { position: fixed; top:0; left:0; width:100%; height:100%; z-index:1; opacity:0.12; pointer-events:none; }
+    #nebula-canvas { position: fixed; top:0; left:0; width:100%; height:100%; z-index:2; opacity:0.35; pointer-events:none; }
+    #hex-grid      { position: fixed; top:0; left:0; width:100%; height:100%; z-index:3; opacity:0.06; pointer-events:none;
+                     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V18L28 2l28 16v32z' fill='none' stroke='%2300e8ff' stroke-width='0.5'/%3E%3Cpath d='M28 100L0 84V52L28 36l28 16v32z' fill='none' stroke='%2300e8ff' stroke-width='0.5'/%3E%3Cpath d='M56 66L28 50V18L56 2' fill='none' stroke='%2300e8ff' stroke-width='0.5'/%3E%3C/svg%3E"); }
+    #scan-line     { position: fixed; top:0; left:0; width:100%; height:4px; background:linear-gradient(transparent,rgba(0,232,255,0.15),transparent);
+                     z-index:4; pointer-events:none; animation:scanMove 6s linear infinite; }
+    @keyframes scanMove { from { top:-4px; } to { top:100vh; } }
 
     /* Boot Sequence */
     #boot-overlay {
@@ -31,41 +38,63 @@
     }
     .boot-line { margin-bottom: 4px; }
     .boot-line span { color: var(--cyber-cyan); }
-    .boot-cursor { display: inline-block; width: 8px; height: 16px; background: var(--cyber-green); animation: blink 1s infinite; }
+    .boot-cursor { display: inline-block; width: 8px; height: 16px; background: var(--cyber-green); animation: blink 1s infinite; vertical-align: middle; }
     @keyframes blink { 0%, 100% { opacity:1; } 50% { opacity:0; } }
 
     /* Desktop Icons */
     .icon {
-        width: 80px; height: 90px; display: flex; flex-direction: column; align-items: center;
+        width: 90px; height: 100px; display: flex; flex-direction: column; align-items: center;
         justify-content: center; text-align: center; cursor: pointer; transition: 0.2s;
-        padding: 10px; border: 1px solid transparent;
+        padding: 10px; border: 1px solid transparent; z-index: 10; position: relative;
+        -webkit-tap-highlight-color: transparent;
     }
-    .icon:hover { background: rgba(0, 232, 255, 0.1); border-color: rgba(0, 232, 255, 0.3); }
-    .icon img { width: 48px; height: 48px; image-rendering: pixelated; margin-bottom: 5px; }
-    .icon span { color: #fff; font-size: 12px; text-shadow: 1px 1px 2px #000; font-family: 'VT323'; }
+    .icon:hover, .icon:active { background: rgba(0,232,255,0.12); border-color: rgba(0,232,255,0.4); box-shadow: 0 0 12px rgba(0,232,255,0.2); }
+    .icon img { width: 48px; height: 48px; image-rendering: pixelated; margin-bottom: 6px; filter: drop-shadow(0 0 4px rgba(0,232,255,0.5)); }
+    .icon span { color: #fff; font-size: 11px; text-shadow: 1px 1px 2px #000, 0 0 6px rgba(0,232,255,0.3); font-family: 'VT323'; line-height: 1.2; }
+
+    /* Status ticker */
+    #status-ticker {
+        position: fixed; bottom: 36px; left: 0; width: 100%; z-index: 5;
+        background: rgba(0,0,0,0.7); border-top: 1px solid rgba(0,232,255,0.2);
+        padding: 4px 0; overflow: hidden; pointer-events: none;
+    }
+    #ticker-inner {
+        display: inline-block; white-space: nowrap; font-family: 'VT323'; font-size: 18px;
+        color: var(--cyber-green); animation: tickerScroll 40s linear infinite;
+    }
+    @keyframes tickerScroll { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
 
     /* Start Menu */
     #start-menu {
-        position: absolute; bottom: 42px; left: 0; width: 300px;
-        background: var(--win-bg); border: 2px solid;
-        border-color: var(--win-light) var(--win-dark) var(--win-dark) var(--win-light);
-        display: none; flex-direction: column; z-index: 2000; 
-        box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+        position: fixed; bottom: 42px; left: 0; width: 320px;
+        background: linear-gradient(135deg, #0a0a1a 0%, #050510 100%);
+        border: 1px solid var(--cyber-cyan);
+        display: none; flex-direction: column; z-index: 2000;
+        box-shadow: 0 0 30px rgba(0,232,255,0.25), 10px 10px 30px rgba(0,0,0,0.7);
+    }
+    .start-header {
+        background: linear-gradient(90deg, #000080 0%, #0a0a2a 100%);
+        padding: 10px 15px; border-bottom: 1px solid var(--cyber-cyan);
+        font-family: 'Pixelify Sans'; color: var(--cyber-cyan); font-size: 18px;
     }
     .start-item {
-        padding: 12px 15px; display: flex; align-items: center; gap: 15px;
-        cursor: pointer; font-size: 14px; color: #000; font-weight: bold;
+        padding: 10px 15px; display: flex; align-items: center; gap: 12px;
+        cursor: pointer; font-size: 13px; color: #ccc; font-family: 'VT323'; font-size: 18px;
+        border-bottom: 1px solid rgba(0,232,255,0.08); transition: 0.15s;
+        -webkit-tap-highlight-color: transparent;
     }
-    .start-item:hover { background: var(--win-blue); color: #fff; }
+    .start-item:hover, .start-item:active { background: rgba(0,232,255,0.12); color: var(--cyber-cyan); }
     .start-item img { width: 24px; height: 24px; }
+    .start-divider { border-top: 1px solid rgba(0,232,255,0.2); margin: 4px 0; }
 
-    /* Mobile Improvements */
+    /* Mobile */
     @media (max-width: 600px) {
-        #desktop { grid-template-columns: repeat(auto-fill, 75px); gap: 10px; }
-        .icon { width: 65px; height: 75px; }
-        .icon img { width: 32px; height: 32px; }
+        #desktop { grid-template-columns: repeat(auto-fill, 80px); gap: 10px; padding: 15px; }
+        .icon { width: 70px; height: 80px; }
+        .icon img { width: 36px; height: 36px; }
         .icon span { font-size: 10px; }
-        #start-menu { width: 80%; }
+        #start-menu { width: 90%; max-width: 320px; }
+        #status-ticker { display: none; }
     }
 </style>
 </head>
@@ -79,10 +108,25 @@
     <div id="boot-status" style="margin-top:20px;">SYSTEM_INITIALIZING... <div class="boot-cursor"></div></div>
 </div>
 
+<!-- Backgrounds -->
 <canvas id="matrix-bg"></canvas>
 <canvas id="nebula-canvas"></canvas>
+<div id="hex-grid"></div>
+<div id="scan-line"></div>
+
+<!-- Status ticker -->
+<div id="status-ticker">
+    <span id="ticker-inner">
+        ⚡ FLLC_MAINFRAME UPLINK: STABLE &nbsp;|&nbsp; THREAT_LEVEL: ELEVATED &nbsp;|&nbsp; OPERATIVE_COUNT: 2,847 ONLINE &nbsp;|&nbsp;
+        CVE-2024-3400 [CRITICAL] PAN-OS Command Injection &nbsp;|&nbsp; CVE-2024-21887 [CRITICAL] Ivanti RCE &nbsp;|&nbsp;
+        WAR_GAMES_ARENA: 12 active sessions &nbsp;|&nbsp; AI_OVERSEER: 24/7 recon active &nbsp;|&nbsp;
+        NEW: CyberWorld v2.1 update deployed &nbsp;|&nbsp; FLLC RESEARCH: 3 new reports published &nbsp;|&nbsp;
+        ⚡ FLLC_MAINFRAME UPLINK: STABLE
+    </span>
+</div>
 
 <div id="desktop">
+    <!-- Row 1 -->
     <div class="icon" onclick="window.location.href='rpg/index.html'">
         <img src="https://win98icons.alexmeub.com/icons/png/game_solitaire-0.png">
         <span>CyberWorld RPG</span>
@@ -91,16 +135,41 @@
         <img src="https://win98icons.alexmeub.com/icons/png/favorites-2.png">
         <span>Cyber Arsenal</span>
     </div>
+    <div class="icon" onclick="window.location.href='intel.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/radar-0.png">
+        <span>INTEL_HUB</span>
+    </div>
+    <div class="icon" onclick="window.location.href='research.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png">
+        <span>RESEARCH</span>
+    </div>
+    <div class="icon" onclick="window.location.href='wargames.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/shield-0.png">
+        <span>WAR_GAMES</span>
+    </div>
+    <div class="icon" onclick="window.location.href='nodes.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png">
+        <span>PERSON_NODES</span>
+    </div>
+    <div class="icon" onclick="window.location.href='ai.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png">
+        <span>AI_OVERSEER</span>
+    </div>
+    <div class="icon" onclick="window.location.href='discuss.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png">
+        <span>DISCUSSION_BOARD</span>
+    </div>
+    <!-- Row 2 -->
     <div class="icon" onclick="window.location.href='cyberos-iso.html'">
         <img src="https://win98icons.alexmeub.com/icons/png/cd_drive-4.png">
         <span>ISO Builder</span>
     </div>
     <div class="icon" onclick="window.location.href='https://github.com/Personfu/REPORTS'">
-        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png">
+        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-0.png">
         <span>Mission Reports</span>
     </div>
     <div class="icon" onclick="window.location.href='https://fllc.net'">
-        <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png">
+        <img src="https://win98icons.alexmeub.com/icons/png/earth-0.png">
         <span>FLLC.NET</span>
     </div>
     <div class="icon" onclick="window.location.href='https://personfu.github.io/rpg/login.html'">
@@ -109,7 +178,28 @@
     </div>
 </div>
 
+<!-- Start Menu -->
 <div id="start-menu">
+    <div class="start-header">⊞ FURIOS-INT v2.6.5</div>
+    <div class="start-item" onclick="window.location.href='intel.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/radar-0.png"> INTEL_HUB
+    </div>
+    <div class="start-item" onclick="window.location.href='research.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/directory_open_file_mydocs-4.png"> RESEARCH
+    </div>
+    <div class="start-item" onclick="window.location.href='wargames.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/shield-0.png"> WAR_GAMES
+    </div>
+    <div class="start-item" onclick="window.location.href='nodes.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/network_internet_pcs_pc-0.png"> PERSON_NODES
+    </div>
+    <div class="start-item" onclick="window.location.href='ai.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/console_prompt-0.png"> AI_OVERSEER
+    </div>
+    <div class="start-item" onclick="window.location.href='discuss.html'">
+        <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png"> DISCUSSION_BOARD
+    </div>
+    <div class="start-divider"></div>
     <div class="start-item" onclick="window.location.href='rpg/index.html'">
         <img src="https://win98icons.alexmeub.com/icons/png/game_solitaire-0.png"> CyberWorld_MMO
     </div>
@@ -119,7 +209,7 @@
     <div class="start-item" onclick="window.location.href='cyberos-iso.html'">
         <img src="https://win98icons.alexmeub.com/icons/png/cd_drive-3.png"> Build_ISO_Node
     </div>
-    <div style="border-top:2px solid #fff; border-bottom:2px solid #808080; margin:5px 0;"></div>
+    <div class="start-divider"></div>
     <div class="start-item" onclick="window.location.href='https://fllc.net/osint'">
         <img src="https://win98icons.alexmeub.com/icons/png/earth-0.png"> Mission_Control
     </div>
@@ -134,6 +224,7 @@
     </div>
     <div id="task-items" style="flex:1;"></div>
     <div id="tray">
+        <span style="font-family:'VT323'; color:var(--cyber-green); font-size:12px; margin-right:8px;" id="threat-level">⬤ THREAT: HIGH</span>
         <span id="clock" style="font-family:'VT323'; color:#000;">12:00 PM</span>
     </div>
 </div>
@@ -149,9 +240,9 @@
         menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
     }
 
-    // Hide start menu on desktop click
-    document.getElementById('desktop').addEventListener('click', (e) => {
-        if(!e.target.closest('#start-btn-trigger')) {
+    // Close start menu on outside click/tap
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('#start-btn-trigger') && !e.target.closest('#start-menu')) {
             document.getElementById('start-menu').style.display = 'none';
         }
     });
@@ -159,49 +250,69 @@
     // Matrix Background
     const mCanvas = document.getElementById('matrix-bg');
     const mCtx = mCanvas.getContext('2d');
-    mCanvas.width = window.innerWidth;
-    mCanvas.height = window.innerHeight;
-    const mChars = "01010101ABCDEF".split("");
-    const mDrops = Array(Math.floor(mCanvas.width/14)).fill(1);
+    function resizeCanvases() {
+        mCanvas.width = window.innerWidth; mCanvas.height = window.innerHeight;
+        nCanvas.width = window.innerWidth; nCanvas.height = window.innerHeight;
+    }
+    const mChars = "01ABCDEFabcdef!@#$%^&*></?".split("");
+    let mDrops = [];
+    function initMatrix() {
+        mDrops = Array(Math.floor(mCanvas.width / 14)).fill(1);
+    }
 
     function drawMatrix() {
-        mCtx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        mCtx.fillStyle = "rgba(0, 0, 0, 0.04)";
         mCtx.fillRect(0, 0, mCanvas.width, mCanvas.height);
-        mCtx.fillStyle = "#00e8ff";
-        mCtx.font = "14px 'JetBrains Mono'";
         mDrops.forEach((y, i) => {
-            const text = mChars[Math.floor(Math.random() * mChars.length)];
-            mCtx.fillText(text, i * 14, y * 14);
+            const bright = Math.random() > 0.9;
+            mCtx.fillStyle = bright ? "#ffffff" : "#00e8ff";
+            mCtx.font = "13px 'JetBrains Mono'";
+            mCtx.fillText(mChars[Math.floor(Math.random() * mChars.length)], i * 14, y * 14);
             if (y * 14 > mCanvas.height && Math.random() > 0.975) mDrops[i] = 0;
             mDrops[i]++;
         });
     }
 
-    // Nebula Background
+    // Nebula / Star field
     const nCanvas = document.getElementById('nebula-canvas');
     const nCtx = nCanvas.getContext('2d');
-    nCanvas.width = window.innerWidth;
-    nCanvas.height = window.innerHeight;
-    let nStars = Array(100).fill(0).map(() => ({ x: Math.random()*nCanvas.width, y: Math.random()*nCanvas.height, r: Math.random()*2, s: Math.random()*0.05 }));
+    let nStars = [];
+    function initNebula() {
+        nStars = Array(180).fill(0).map(() => ({
+            x: Math.random() * nCanvas.width,
+            y: Math.random() * nCanvas.height,
+            r: Math.random() * 1.8 + 0.2,
+            s: Math.random() * 0.04 + 0.01,
+            hue: Math.random() > 0.85 ? 120 : 190  // mostly cyan, some green
+        }));
+    }
 
     function drawNebula() {
         nCtx.clearRect(0, 0, nCanvas.width, nCanvas.height);
-        nCtx.fillStyle = '#00e8ff';
         nStars.forEach(s => {
+            nCtx.shadowBlur = s.r * 4;
+            nCtx.shadowColor = `hsl(${s.hue}, 100%, 60%)`;
+            nCtx.fillStyle = `hsl(${s.hue}, 100%, 70%)`;
             nCtx.beginPath();
-            nCtx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+            nCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
             nCtx.fill();
             s.y += s.s;
-            if(s.y > nCanvas.height) s.y = 0;
+            if (s.y > nCanvas.height) { s.y = 0; s.x = Math.random() * nCanvas.width; }
         });
+        nCtx.shadowBlur = 0;
     }
 
     // Boot Sequence
     const bootLogs = [
         "FURIOS-INT Kernel v2.6.5 Loading...",
+        "Verifying hardware root of trust... [PASS]",
         "Establishing Secure Uplink to FLLC_MAINFRAME...",
-        "Mounting /dev/galaxy0... Success.",
+        "Mounting /dev/galaxy0... [OK]",
+        "Loading INTEL_HUB threat-stream connector...",
+        "Spawning AI_OVERSEER recon agents (x8)...",
         "Initializing Neural_Link UI (Resolution: 4K)...",
+        "WAR_GAMES arena nodes: 12 online.",
+        "PERSON_NODES discord bridge: LINKED.",
         "Loading Mission Objectives for OPERATIVE_FURULIE...",
         "KERNEL_STABLE: Booting GUI Subsystem."
     ];
@@ -210,27 +321,37 @@
         const log = document.getElementById('boot-log');
         let i = 0;
         const iv = setInterval(() => {
-            if(i < bootLogs.length) {
+            if (i < bootLogs.length) {
                 const line = document.createElement('div');
                 line.className = 'boot-line';
                 line.innerHTML = `<span>[OK]</span> ${bootLogs[i]}`;
                 log.appendChild(line);
+                log.scrollTop = log.scrollHeight;
                 i++;
             } else {
                 clearInterval(iv);
                 setTimeout(() => {
                     document.getElementById('boot-overlay').style.display = 'none';
                     document.getElementById('desktop').style.display = 'grid';
-                }, 1000);
+                }, 800);
             }
-        }, 400);
+        }, 350);
     }
 
     window.onload = () => {
+        resizeCanvases();
+        initMatrix();
+        initNebula();
         runBoot();
         setInterval(drawMatrix, 50);
         setInterval(drawNebula, 30);
-    }
+    };
+
+    window.addEventListener('resize', () => {
+        resizeCanvases();
+        initMatrix();
+        initNebula();
+    });
 </script>
 </body>
 </html>
