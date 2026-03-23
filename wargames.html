@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://win98icons.alexmeub.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self';">
+<title>WAR_GAMES // CYBER_ARENA — FURIOS-INT</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--cyber-cyan:#00e8ff;--cyber-green:#00ff41;--cyber-pink:#ff00ea;}
+body{background:#050505;color:var(--cyber-cyan);font-family:'JetBrains Mono',monospace;padding-bottom:48px;}
+#crt-filter{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 2px);z-index:9998;}
+/* TASKBAR */
+#taskbar{position:fixed;bottom:0;left:0;width:100%;height:36px;background:#0a0a0a;border-top:1px solid var(--cyber-cyan);z-index:9999;display:flex;align-items:center;padding:0 16px;gap:20px;}
+#taskbar a{color:var(--cyber-cyan);text-decoration:none;font-family:'VT323';font-size:18px;letter-spacing:1px;-webkit-tap-highlight-color:transparent;}
+#taskbar a:hover{text-shadow:0 0 8px var(--cyber-cyan);}
+/* NAV */
+.top-nav{position:sticky;top:0;z-index:500;background:rgba(5,5,5,0.97);border-bottom:1px solid rgba(0,232,255,0.2);padding:8px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.top-nav a{color:var(--cyber-cyan);text-decoration:none;font-family:'VT323';font-size:20px;padding:5px 10px;border:1px solid transparent;transition:0.2s;white-space:nowrap;-webkit-tap-highlight-color:transparent;display:inline-block;min-height:44px;line-height:32px;}
+.top-nav a:hover,.top-nav a:active{border-color:var(--cyber-cyan);background:rgba(0,232,255,0.08);}
+/* PAGE */
+.page-title{text-align:center;padding:28px 16px 12px;}
+.page-title h1{font-family:'Pixelify Sans';font-size:clamp(28px,7vw,60px);color:var(--cyber-cyan);text-shadow:0 0 30px rgba(0,232,255,0.5);}
+.page-title p{font-family:'VT323';font-size:clamp(14px,4vw,20px);color:var(--cyber-green);margin-top:6px;}
+.section{margin:20px 16px;border:1px solid rgba(0,232,255,0.25);background:#080808;}
+.sec-hdr{padding:10px 16px;background:#020e10;border-bottom:1px solid rgba(0,232,255,0.2);font-family:'Pixelify Sans';font-size:clamp(14px,4vw,20px);color:var(--cyber-cyan);text-shadow:0 0 8px var(--cyber-cyan);display:flex;align-items:center;gap:8px;}
+.sec-hdr::before{content:'▶';font-size:12px;}
+.sec-body{padding:16px;}
+/* MISSION CARDS */
+.mission-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.mission-card{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:18px;transition:0.2s;cursor:pointer;}
+.mission-card:hover{border-color:var(--cyber-cyan);box-shadow:0 0 16px rgba(0,232,255,0.2);}
+.mission-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.mission-name{font-family:'Pixelify Sans';font-size:18px;color:#fff;}
+.diff-badge{font-family:'VT323';font-size:16px;padding:3px 10px;border:1px solid;}
+.diff-rookie{color:#00ff41;border-color:#00ff41;}
+.diff-operative{color:#ffa500;border-color:#ffa500;}
+.diff-elite{color:#ff4444;border-color:#ff4444;}
+.diff-classified{color:var(--cyber-pink);border-color:var(--cyber-pink);}
+.mission-obj{font-size:12px;color:#aaa;line-height:1.5;margin-bottom:10px;}
+.skill-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px;}
+.skill-tag{font-size:10px;padding:2px 7px;background:rgba(0,232,255,0.08);border:1px solid rgba(0,232,255,0.2);color:var(--cyber-cyan);}
+.start-btn{width:100%;min-height:40px;background:var(--cyber-cyan);color:#000;border:none;font-family:'VT323';font-size:18px;cursor:pointer;letter-spacing:1px;transition:0.2s;}
+.start-btn:hover{background:#fff;}
+/* TERMINAL */
+#terminal-wrap{background:#000;border:2px solid var(--cyber-green);padding:0;overflow:hidden;}
+#term-titlebar{background:linear-gradient(90deg,#003300,#004400);padding:6px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--cyber-green);}
+#term-titlebar span{font-family:'VT323';color:var(--cyber-green);font-size:16px;}
+#term-out{height:320px;overflow-y:auto;padding:12px;font-size:13px;line-height:1.5;background:#000;}
+#term-out .line{color:var(--cyber-green);}
+#term-out .line.cmd{color:var(--cyber-cyan);}
+#term-out .line.err{color:#ff4444;}
+#term-out .line.info{color:#ffa500;}
+#term-input-row{display:flex;align-items:center;padding:8px 12px;border-top:1px solid #1a3a1a;gap:6px;background:#000;}
+#term-prompt{color:var(--cyber-green);font-family:'JetBrains Mono';font-size:13px;white-space:nowrap;}
+#term-input{flex:1;background:transparent;border:none;outline:none;color:var(--cyber-green);font-family:'JetBrains Mono';font-size:13px;caret-color:var(--cyber-green);min-height:36px;}
+#term-cursor{display:inline-block;width:9px;height:15px;background:var(--cyber-green);animation:blink 1s step-start infinite;vertical-align:middle;}
+@keyframes blink{50%{opacity:0;}}
+/* LEADERBOARD */
+.lb-table{width:100%;border-collapse:collapse;font-size:13px;}
+.lb-table th{color:var(--cyber-cyan);text-align:left;padding:8px 10px;border-bottom:1px solid rgba(0,232,255,0.2);font-size:12px;letter-spacing:1px;}
+.lb-table td{padding:7px 10px;border-bottom:1px solid rgba(0,232,255,0.06);color:#ccc;}
+.lb-table td:first-child{color:var(--cyber-cyan);font-weight:bold;}
+.rank-gold{color:#ffd700;}
+.rank-silver{color:#c0c0c0;}
+.rank-bronze{color:#cd7f32;}
+/* SKILL TREE */
+.skill-tree{display:flex;flex-wrap:wrap;gap:12px;}
+.skill-node{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:14px;width:160px;text-align:center;transition:0.2s;}
+.skill-node:hover{border-color:var(--cyber-cyan);transform:scale(1.03);}
+.skill-icon{font-size:28px;display:block;margin-bottom:6px;}
+.skill-name{font-family:'VT323';font-size:18px;color:var(--cyber-cyan);}
+.skill-lvl{font-size:11px;color:var(--cyber-green);margin-top:3px;}
+.skill-bar-outer{height:5px;background:#1a1a1a;border-radius:2px;margin-top:6px;overflow:hidden;}
+.skill-bar-inner{height:100%;background:var(--cyber-cyan);transition:width 1s ease;}
+/* ARENA STATUS */
+.arena-stats{display:flex;flex-wrap:wrap;gap:12px;}
+.astat{flex:1 1 140px;background:#050505;border:1px solid rgba(0,232,255,0.15);padding:14px;text-align:center;}
+.astat-num{font-family:'Pixelify Sans';font-size:32px;color:var(--cyber-cyan);}
+.astat-lbl{font-family:'VT323';font-size:15px;color:#777;}
+.pulse-dot{display:inline-block;width:10px;height:10px;background:var(--cyber-green);border-radius:50%;animation:pulse 1.2s infinite;margin-right:6px;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.8);}}
+@media(max-width:600px){
+  .mission-grid{grid-template-columns:1fr;}
+  #term-out{height:240px;}
+  .skill-node{width:120px;padding:10px;}
+}
+</style>
+</head>
+<body>
+<div id="crt-filter"></div>
+
+<nav class="top-nav">
+  <a href="index.html">&#8962; HOME</a>
+  <a href="arcade.html">🕹 ARCADE</a>
+  <a href="cyberworld.html">🌐 RPG</a>
+  <a href="#missions">MISSIONS</a>
+  <a href="#terminal">TERMINAL</a>
+  <a href="#leaderboard">LEADERBOARD</a>
+  <a href="#skilltree">SKILL_TREE</a>
+</nav>
+
+<div class="page-title">
+  <h1>WAR_GAMES // CYBER_ARENA</h1>
+  <p>:: INTERACTIVE HACKING SIMULATION BATTLEGROUND :: FLLC OPERATIVE TRAINING ::</p>
+</div>
+
+<!-- ARENA STATUS -->
+<div class="section" style="margin-top:0;">
+  <div class="sec-hdr">:: ARENA_STATUS ::</div>
+  <div class="sec-body">
+    <div class="arena-stats">
+      <div class="astat"><div class="astat-num" id="active-count">12</div><div class="astat-lbl"><span class="pulse-dot"></span>OPERATIVES ONLINE</div></div>
+      <div class="astat"><div class="astat-num">6</div><div class="astat-lbl">ACTIVE MISSIONS</div></div>
+      <div class="astat"><div class="astat-num">1,847</div><div class="astat-lbl">FLAGS CAPTURED</div></div>
+      <div class="astat"><div class="astat-num">99</div><div class="astat-lbl">MACHINES ONLINE</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MISSIONS -->
+<div class="section" id="missions">
+  <div class="sec-hdr">:: MISSION_SELECT ::</div>
+  <div class="sec-body">
+    <div class="mission-grid" id="mission-grid"></div>
+  </div>
+</div>
+
+<!-- TERMINAL -->
+<div class="section" id="terminal">
+  <div class="sec-hdr">:: INTERACTIVE_TERMINAL // OPERATIVE_CONSOLE ::</div>
+  <div class="sec-body" style="padding:0;">
+    <div id="terminal-wrap">
+      <div id="term-titlebar">
+        <span>operative@fllc-arena:~$</span>
+        <span style="font-size:13px;color:#aaa;">Type 'help' for commands</span>
+      </div>
+      <div id="term-out"></div>
+      <div id="term-input-row">
+        <span id="term-prompt">operative@fllc-arena:~$ </span>
+        <input id="term-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Terminal input">
+        <span id="term-cursor"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEADERBOARD -->
+<div class="section" id="leaderboard">
+  <div class="sec-hdr">:: OPERATIVE_LEADERBOARD ::</div>
+  <div class="sec-body">
+    <table class="lb-table">
+      <thead><tr><th>#</th><th>OPERATIVE</th><th>SCORE</th><th>FLAGS</th><th>RANK</th><th>LAST_ACTIVE</th></tr></thead>
+      <tbody id="lb-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SKILL TREE -->
+<div class="section" id="skilltree">
+  <div class="sec-hdr">:: SKILL_TREE // OPERATIVE_PROGRESSION ::</div>
+  <div class="sec-body">
+    <div class="skill-tree" id="skill-tree"></div>
+  </div>
+</div>
+
+<div id="taskbar">
+  <a href="index.html">&#8962; FURIOS-INT HOME</a>
+  <span style="color:#444;font-size:12px;">|</span>
+  <a href="stars.html">ARSENAL</a>
+  <span style="color:#444;font-size:12px;">|</span>
+  <a href="intel.html">INTEL</a>
+  <span style="margin-left:auto;color:#444;font-family:'VT323';font-size:16px;" id="tb-clock"></span>
+</div>
+
+<script>
+// ── Clock ──
+setInterval(function(){
+  var d=new Date();document.getElementById('tb-clock').textContent=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+},1000);
+
+// ── Arena counter randomise ──
+setInterval(function(){
+  document.getElementById('active-count').textContent = 10 + Math.floor(Math.random()*8);
+},5000);
+
+// ── Missions ──
+var MISSIONS = [
+  {name:'FIRST_CONTACT',diff:'rookie',obj:'Enumerate a target web server. Find the hidden directory, capture the flag.',skills:['Nmap','Gobuster','HTTP'],points:100},
+  {name:'SQL_INJECTION_101',diff:'rookie',obj:'Exploit a classic SQL injection vulnerability in a login form. Extract the admin password hash.',skills:['SQLMap','BurpSuite','SQL'],points:150},
+  {name:'PHISH_AND_CAPTURE',diff:'operative',obj:'Deploy a credential harvesting page. Capture 3 simulated user sessions using evilginx2.',skills:['Evilginx2','DNS','Social-Eng'],points:400},
+  {name:'BLOODHOUND_DOMAIN',diff:'operative',obj:'Enumerate an Active Directory environment. Map the attack path to Domain Admin using BloodHound.',skills:['BloodHound','AD','Recon'],points:500},
+  {name:'BINARY_PWNED',diff:'elite',obj:'Exploit a buffer overflow in a 64-bit Linux binary. Achieve RCE and read /root/flag.txt.',skills:['pwntools','ROP','GDB'],points:1000},
+  {name:'OPERATION_DARKNET',diff:'classified',obj:'[REDACTED] — Clearance Level ALPHA required. Contact FLLC Command for briefing.',skills:['CLASSIFIED'],points:9999}
+];
+
+var diffMap={rookie:'diff-rookie',operative:'diff-operative',elite:'diff-elite',classified:'diff-classified'};
+var grid=document.getElementById('mission-grid');
+MISSIONS.forEach(function(m){
+  var el=document.createElement('div');
+  el.className='mission-card';
+  var hidden=m.diff==='classified';
+  el.innerHTML='<div class="mission-top"><span class="mission-name">'+m.name+'</span>'
+    +'<span class="diff-badge '+diffMap[m.diff]+'">'+m.diff.toUpperCase()+'</span></div>'
+    +'<div class="mission-obj">'+m.obj+'</div>'
+    +'<div class="skill-tags">'+m.skills.map(function(s){return'<span class="skill-tag">'+s+'</span>';}).join('')+'</div>'
+    +'<div style="font-size:11px;color:var(--cyber-green);margin-bottom:10px;">⭐ '+m.points+' POINTS</div>'
+    +'<button class="start-btn" onclick="startMission(\''+m.name+'\')">'+(hidden?'[CLASSIFIED]':'START_MISSION')+'</button>';
+  grid.appendChild(el);
+});
+
+function startMission(name){
+  if(name==='OPERATION_DARKNET'){termPrint('ACCESS DENIED — Clearance level insufficient. Contact FLLC Command.','err');return;}
+  termPrint('[MISSION LOADED] '+name,'info');
+  termPrint('Connecting to FLLC arena node... OK','line');
+  termPrint('Type "scan" to begin initial enumeration.','line');
+  document.getElementById('terminal').scrollIntoView({behavior:'smooth'});
+  document.getElementById('term-input').focus();
+}
+
+// ── Terminal ──
+var MISSION_STATE = {scanned:false,port80:false,found_dir:false,flag_found:false};
+
+var CMDS = {
+  help: function(){
+    termPrint('Available commands:','info');
+    ['scan','nmap','gobuster','curl','ls','cat flag.txt','whoami','id','uname -a','ps aux','connect','status','clear','hint','exit'].forEach(function(c){
+      termPrint('  '+c,'line');
+    });
+  },
+  whoami: function(){termPrint('operative','line');},
+  id: function(){termPrint('uid=1000(operative) gid=1000(operative) groups=1000(operative),1337(fllc)','line');},
+  'uname -a': function(){termPrint('Linux fllc-arena 5.15.0-1337-fllc #1 SMP FLLC x86_64 GNU/Linux','line');},
+  'ps aux': function(){termPrint('USER       PID %CPU %MEM COMMAND','line');termPrint('root         1  0.0  0.1 /sbin/init','line');termPrint('www-data   443  0.1  0.5 nginx','line');termPrint('root       666  0.0  0.2 sshd','line');},
+  scan: function(){
+    MISSION_STATE.scanned=true;
+    termPrint('Running initial scan on 10.13.37.100...','info');
+    setTimeout(function(){termPrint('PORT   STATE SERVICE VERSION','line');},300);
+    setTimeout(function(){termPrint('22/tcp open  ssh     OpenSSH 8.2','line');},600);
+    setTimeout(function(){termPrint('80/tcp open  http    nginx 1.21.0','line');MISSION_STATE.port80=true;},900);
+    setTimeout(function(){termPrint('443/tcp open https   nginx 1.21.0','line');},1100);
+    setTimeout(function(){termPrint('[+] Scan complete. HTTP service detected on port 80.','info');},1400);
+  },
+  nmap: function(){
+    if(!MISSION_STATE.scanned){termPrint('Tip: Use "scan" for quick recon or full nmap syntax.','info');}
+    termPrint('nmap -sV -sC -p- 10.13.37.100','cmd');
+    setTimeout(function(){termPrint('Starting Nmap 7.94 ( https://nmap.org )','line');},200);
+    setTimeout(function(){termPrint('22/tcp  open  ssh      OpenSSH 8.2p1','line');},500);
+    setTimeout(function(){termPrint('80/tcp  open  http     nginx 1.21.0','line');MISSION_STATE.port80=true;},800);
+    setTimeout(function(){termPrint('443/tcp open  ssl/http  nginx 1.21.0','line');},1000);
+    setTimeout(function(){termPrint('[+] OS: Linux kernel 5.15','info');},1200);
+  },
+  gobuster: function(){
+    if(!MISSION_STATE.port80){termPrint('No HTTP service known yet. Run "scan" first.','err');return;}
+    termPrint('gobuster dir -u http://10.13.37.100 -w /usr/share/wordlists/common.txt','cmd');
+    setTimeout(function(){termPrint('/admin      (Status: 301)','info');},400);
+    setTimeout(function(){termPrint('/uploads    (Status: 403)','info');},700);
+    setTimeout(function(){termPrint('/backup     (Status: 200) [Size: 1337]','info');MISSION_STATE.found_dir=true;},1000);
+    setTimeout(function(){termPrint('[+] Found interesting directory: /backup','line');},1200);
+  },
+  curl: function(){
+    if(!MISSION_STATE.found_dir){termPrint('No target identified yet. Run gobuster first.','err');return;}
+    termPrint('curl http://10.13.37.100/backup/','cmd');
+    setTimeout(function(){termPrint('<!DOCTYPE html><html><body>','line');},300);
+    setTimeout(function(){termPrint('<a href="flag.txt">flag.txt</a>','info');},500);
+    setTimeout(function(){termPrint('</body></html>','line');},700);
+  },
+  'cat flag.txt': function(){
+    if(!MISSION_STATE.found_dir){termPrint('Permission denied. Find the target first.','err');return;}
+    termPrint('curl http://10.13.37.100/backup/flag.txt','cmd');
+    setTimeout(function(){
+      MISSION_STATE.flag_found=true;
+      termPrint('','line');
+      termPrint('  ███████╗██╗      █████╗  ██████╗ ██╗','line');
+      termPrint('  ██╔════╝██║     ██╔══██╗██╔════╝ ██║','line');
+      termPrint('  █████╗  ██║     ███████║██║  ███╗██║','line');
+      termPrint('  ██╔══╝  ██║     ██╔══██║██║   ██║╚═╝','line');
+      termPrint('  ██║     ███████╗██║  ██║╚██████╔╝██╗','line');
+      termPrint('  ╚═╝     ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝','line');
+      termPrint('','line');
+      termPrint('FLAG{FLLC_W4R_G4M3S_1337_0P3R4T1V3}','info');
+      termPrint('[+] 100 points awarded! Mission FIRST_CONTACT: COMPLETE','info');
+    },400);
+  },
+  ls: function(){termPrint('total 8','line');termPrint('drwxr-xr-x 2 operative operative 4096 Mar 23 14:00 .','line');termPrint('-rw-r--r-- 1 operative operative   37 Mar 23 13:55 mission_brief.txt','line');},
+  connect: function(){termPrint('Connecting to FLLC arena node 10.13.37.100...','info');setTimeout(function(){termPrint('[+] VPN tunnel established. Arena node reachable.','line');},800);},
+  status: function(){
+    termPrint('=== MISSION STATUS ===','info');
+    termPrint('Port scan: '+(MISSION_STATE.scanned?'[DONE]':'[PENDING]'),MISSION_STATE.scanned?'line':'err');
+    termPrint('HTTP found: '+(MISSION_STATE.port80?'[DONE]':'[PENDING]'),MISSION_STATE.port80?'line':'err');
+    termPrint('Dir found:  '+(MISSION_STATE.found_dir?'[DONE]':'[PENDING]'),MISSION_STATE.found_dir?'line':'err');
+    termPrint('Flag:       '+(MISSION_STATE.flag_found?'[CAPTURED]':'[PENDING]'),MISSION_STATE.flag_found?'info':'err');
+  },
+  clear: function(){document.getElementById('term-out').innerHTML='';},
+  hint: function(){
+    if(!MISSION_STATE.scanned){termPrint('HINT: Start with "scan" to discover open ports.','info');}
+    else if(!MISSION_STATE.found_dir){termPrint('HINT: Run "gobuster" to find hidden web directories.','info');}
+    else if(!MISSION_STATE.flag_found){termPrint('HINT: Use "curl" to explore the backup directory, then "cat flag.txt".','info');}
+    else{termPrint('HINT: You already captured the flag! Try another mission.','info');}
+  },
+  exit: function(){termPrint('Session terminated. Good work, operative.','info');}
+};
+
+function termPrint(text, cls){
+  var out=document.getElementById('term-out');
+  var div=document.createElement('div');
+  div.className='line '+(cls||'line');
+  div.textContent=text;
+  out.appendChild(div);
+  out.scrollTop=out.scrollHeight;
+}
+
+// Boot message
+termPrint('FLLC WAR_GAMES TERMINAL v2.6.5','info');
+termPrint('Connected to CYBER_ARENA simulation environment.','line');
+termPrint('Type "help" to see available commands.','line');
+termPrint('','line');
+
+var input=document.getElementById('term-input');
+input.addEventListener('keydown',function(e){
+  if(e.key==='Enter'){
+    var raw=input.value.trim();
+    if(!raw){return;}
+    // Sanitize: strip HTML
+    var sanitized=raw.replace(/[<>'"&]/g,function(c){return {'<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;','&':'&amp;'}[c];});
+    termPrint('operative@fllc-arena:~$ '+sanitized,'cmd');
+    var fn=CMDS[raw.toLowerCase()];
+    if(fn){fn();}
+    else{termPrint('Command not found: '+sanitized+'. Type "help".','err');}
+    input.value='';
+  }
+});
+
+// Keep focus on terminal click
+document.getElementById('terminal-wrap').addEventListener('click',function(){input.focus();});
+
+// ── Leaderboard ──
+var LB=[
+  {op:'[R00T_K1NG]',score:14750,flags:148,rank:'👑 ELITE',time:'2 min ago'},
+  {op:'[PHANTOM_7]',score:11200,flags:112,rank:'⚡ VETERAN',time:'5 min ago'},
+  {op:'[CRYPTS3C]',score:9800,flags:98,rank:'⚡ VETERAN',time:'8 min ago'},
+  {op:'[NULL_BYTE]',score:8450,flags:84,rank:'🔥 OPERATIVE',time:'12 min ago'},
+  {op:'[D4RK_FLUX]',score:7200,flags:72,rank:'🔥 OPERATIVE',time:'15 min ago'},
+  {op:'[GHOST_0PS]',score:6100,flags:61,rank:'🔥 OPERATIVE',time:'22 min ago'},
+  {op:'[WIRE_SHARK]',score:4300,flags:43,rank:'◆ ROOKIE',time:'31 min ago'},
+  {op:'[XSS_K1D]',score:2800,flags:28,rank:'◆ ROOKIE',time:'45 min ago'},
+  {op:'[FUZZY_LOGI]',score:1500,flags:15,rank:'◆ ROOKIE',time:'1 hr ago'},
+  {op:'[OPERATIVE_1]',score:100,flags:1,rank:'◇ RECRUIT',time:'2 hr ago'}
+];
+var tbody=document.getElementById('lb-tbody');
+LB.forEach(function(r,i){
+  var cls=i===0?'rank-gold':i===1?'rank-silver':i===2?'rank-bronze':'';
+  var tr=document.createElement('tr');
+  tr.innerHTML='<td class="'+cls+'">'+(i+1)+'</td><td>'+r.op+'</td><td>'+r.score.toLocaleString()+'</td><td>'+r.flags+'</td><td>'+r.rank+'</td><td>'+r.time+'</td>';
+  tbody.appendChild(tr);
+});
+
+// ── Skill Tree ──
+var SKILLS=[
+  {icon:'🔎',name:'RECON',lvl:'MASTERED',pct:100},
+  {icon:'🌐',name:'WEB_HACKING',lvl:'ADVANCED',pct:80},
+  {icon:'💥',name:'EXPLOITATION',lvl:'OPERATIVE',pct:60},
+  {icon:'🏴','name':'POST-EX',lvl:'OPERATIVE',pct:55},
+  {icon:'📡',name:'NETWORK',lvl:'ADVANCED',pct:75},
+  {icon:'☁️',name:'CLOUD',lvl:'ROOKIE',pct:30},
+  {icon:'🤖',name:'AI_SECURITY',lvl:'ROOKIE',pct:20},
+  {icon:'🔐',name:'CRYPTOGRAPHY',lvl:'OPERATIVE',pct:50},
+  {icon:'🔌',name:'HARDWARE',lvl:'ROOKIE',pct:25},
+  {icon:'🕵️',name:'OSINT',lvl:'MASTERED',pct:95}
+];
+var stree=document.getElementById('skill-tree');
+SKILLS.forEach(function(s){
+  var d=document.createElement('div');
+  d.className='skill-node';
+  d.innerHTML='<span class="skill-icon">'+s.icon+'</span>'
+    +'<div class="skill-name">'+s.name+'</div>'
+    +'<div class="skill-lvl">'+s.lvl+'</div>'
+    +'<div class="skill-bar-outer"><div class="skill-bar-inner" style="width:0%" data-pct="'+s.pct+'"></div></div>';
+  stree.appendChild(d);
+});
+setTimeout(function(){
+  document.querySelectorAll('.skill-bar-inner').forEach(function(b){
+    b.style.width=b.dataset.pct+'%';
+  });
+},400);
+</script>
+</body>
+</html>

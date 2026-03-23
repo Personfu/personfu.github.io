@@ -2,76 +2,451 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adversary Intelligence Database // Tier_Extreme</title>
-<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/os.css">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://win98icons.alexmeub.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self';">
+<title>ADVERSARY INTEL DB // FURIOS-INT OSINT ARCHIVE</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans:wght@400;700&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
 <style>
-    .threat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; padding: 20px; background: #fff; }
-    .threat-card { 
-        border: 2px solid var(--win-dark); background: #f0f0f0; padding: 15px; box-shadow: 2px 2px 0px var(--win-black); 
-        transition: 0.2s; cursor: pointer;
-    }
-    .threat-card:hover { border-color: var(--cyber-cyan); background: #ebfaff; transform: translateY(-2px); }
-    .threat-name { font-family: 'Pixelify Sans'; font-size: 20px; color: var(--win-blue); margin-bottom: 8px; border-bottom: 1px dashed var(--win-dark); }
-    .threat-tier { font-family: 'VT323'; color: #ff003c; font-weight: bold; font-size: 18px; }
-    .threat-desc { font-size: 11px; color: #444; line-height: 1.4; margin-top: 10px; font-family: 'Courier New', monospace; }
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;--red:#ff003c;--orange:#ff8800;--yellow:#ffe700;--bg:#020408;--card:#05080f;}
+body{background:var(--bg);color:var(--cyan);font-family:'JetBrains Mono',monospace;padding-bottom:52px;}
+#crt{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 3px);z-index:9000;}
+.top-nav{position:sticky;top:0;z-index:500;background:rgba(2,4,8,0.97);border-bottom:1px solid rgba(0,232,255,0.2);padding:8px 16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.top-nav a{color:var(--cyan);text-decoration:none;font-family:'VT323';font-size:20px;padding:4px 10px;border:1px solid transparent;transition:0.2s;white-space:nowrap;min-height:40px;line-height:30px;-webkit-tap-highlight-color:transparent;}
+.top-nav a:hover,.top-nav a:active{border-color:var(--cyan);background:rgba(0,232,255,0.08);}
+.page-hdr{text-align:center;padding:28px 16px 16px;border-bottom:1px solid rgba(0,232,255,0.1);}
+.page-hdr h1{font-family:'Pixelify Sans';font-size:clamp(22px,5vw,48px);color:var(--red);text-shadow:0 0 30px rgba(255,0,60,0.4);}
+.page-hdr p{font-family:'VT323';font-size:clamp(14px,3.5vw,20px);color:#666;margin-top:6px;}
+.tier-legend{display:flex;flex-wrap:wrap;gap:10px;padding:14px 16px;border-bottom:1px solid rgba(0,232,255,0.1);}
+.tier-badge{font-family:'VT323';font-size:16px;padding:4px 12px;border:1px solid;white-space:nowrap;}
+.controls{padding:12px 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+#search-box{flex:1;min-width:180px;background:#050505;border:1px solid rgba(0,232,255,0.3);color:var(--cyan);font-family:'JetBrains Mono';font-size:14px;padding:8px 14px;outline:none;min-height:44px;}
+#search-box:focus{border-color:var(--cyan);box-shadow:0 0 8px rgba(0,232,255,0.2);}
+.filter-btn{padding:8px 14px;background:#050505;border:1px solid rgba(0,232,255,0.25);color:#888;font-family:'VT323';font-size:16px;cursor:pointer;transition:0.2s;white-space:nowrap;min-height:44px;-webkit-tap-highlight-color:transparent;}
+.filter-btn:hover,.filter-btn.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,232,255,0.07);}
+#threat-count{font-family:'VT323';font-size:18px;color:#555;padding:0 4px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;padding:16px;}
+.apt-card{background:var(--card);border:1px solid rgba(0,232,255,0.15);padding:18px;cursor:pointer;transition:border-color 0.2s,box-shadow 0.2s;position:relative;}
+.apt-card:hover{border-color:var(--cyan);box-shadow:0 0 16px rgba(0,232,255,0.12);}
+.card-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;}
+.card-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:2px solid;}
+.card-name{font-family:'Pixelify Sans';font-size:17px;color:#fff;}
+.card-alias{font-family:'VT323';font-size:14px;color:#666;margin-top:2px;}
+.card-tier{font-family:'VT323';font-size:13px;font-weight:bold;padding:2px 8px;border:1px solid;display:inline-block;margin-top:4px;}
+.card-nation{font-family:'VT323';font-size:16px;margin:6px 0;}
+.card-desc{font-size:12px;color:#aaa;line-height:1.5;margin:8px 0;}
+.card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;}
+.tag{font-size:10px;padding:2px 7px;background:rgba(0,232,255,0.06);border:1px solid rgba(0,232,255,0.18);color:var(--cyan);}
+.card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px solid rgba(0,232,255,0.08);}
+.card-active{font-family:'VT323';font-size:14px;color:#555;}
+.threat-level{font-family:'VT323';font-size:13px;padding:2px 8px;background:rgba(255,0,60,0.1);border:1px solid rgba(255,0,60,0.3);color:var(--red);}
+/* Modal */
+.modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;overflow-y:auto;padding:20px;}
+.modal-bg.open{display:flex;align-items:flex-start;justify-content:center;}
+.modal{width:100%;max-width:680px;background:#020408;border:2px solid rgba(0,232,255,0.3);padding:24px;position:relative;margin:auto;}
+.modal-close{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--red);font-size:22px;cursor:pointer;font-family:'VT323';padding:4px 8px;-webkit-tap-highlight-color:transparent;}
+.modal-title{font-family:'Pixelify Sans';font-size:26px;margin-bottom:4px;}
+.modal-sub{font-family:'VT323';font-size:17px;color:#666;margin-bottom:16px;}
+.modal-section{margin-bottom:14px;}
+.modal-section h3{font-family:'VT323';font-size:18px;color:var(--green);letter-spacing:1px;margin-bottom:6px;border-bottom:1px solid rgba(0,255,65,0.15);padding-bottom:3px;}
+.modal-section p,.modal-section li{font-size:13px;color:#ccc;line-height:1.55;}
+.modal-section ul{padding-left:16px;}
+.code-tag{display:inline-block;font-size:11px;padding:2px 8px;background:rgba(0,232,255,0.07);border:1px solid rgba(0,232,255,0.2);color:var(--cyan);margin:2px;}
+.ioc-tag{display:inline-block;font-size:11px;padding:2px 8px;background:rgba(255,0,60,0.07);border:1px solid rgba(255,0,60,0.2);color:var(--red);margin:2px;font-family:'JetBrains Mono';}
+#taskbar{position:fixed;bottom:0;left:0;width:100%;height:36px;background:#020408;border-top:1px solid var(--cyan);z-index:8000;display:flex;align-items:center;padding:0 14px;gap:18px;}
+#taskbar a{color:var(--cyan);text-decoration:none;font-family:'VT323';font-size:17px;-webkit-tap-highlight-color:transparent;}
+#taskbar a:hover{text-shadow:0 0 8px var(--cyan);}
+#tb-clock{margin-left:auto;font-family:'VT323';font-size:16px;color:#555;}
+@media(max-width:600px){.grid{grid-template-columns:1fr;}.controls{flex-direction:column;}.filter-btn{width:100%;text-align:center;}}
 </style>
 </head>
 <body>
+<div id="crt"></div>
 
-<div id="crt-filter"></div>
+<nav class="top-nav">
+  <a href="index.html">⌂ HOME</a>
+  <a href="intel.html">📡 INTEL</a>
+  <a href="wargames.html">⚔️ WAR_GAMES</a>
+  <a href="cyberworld.html">🌐 RPG</a>
+  <a href="arcade.html">🕹 ARCADE</a>
+  <a href="ai.html">🤖 AI_OVERSEER</a>
+</nav>
 
-<div id="desktop"></div>
-
-<div id="taskbar">
-    <div class="start-btn" onclick="window.location.href='index.html'">⊞ Start</div>
-    <div id="task-items" style="display: flex; gap: 4px; padding: 0 10px;"></div>
-    <div id="tray">
-        <img src="https://win98icons.alexmeub.com/icons/png/key_padlock-0.png" width="16">
-        <div id="clock">12:00 PM</div>
-    </div>
+<div class="page-hdr">
+  <h1>☠️ ADVERSARY INTELLIGENCE DATABASE</h1>
+  <p>:: FURIOS-INT CLASSIFIED OSINT ARCHIVE // 30 THREAT ACTORS // TIER_EXTREME → TIER_LOW ::</p>
 </div>
 
-<script src="js/os.js"></script>
+<div class="tier-legend">
+  <span class="tier-badge" style="border-color:#ff003c;color:#ff003c;">💥 DESTRUCTIVE</span>
+  <span class="tier-badge" style="border-color:#ff4400;color:#ff4400;">🔴 EXTREME</span>
+  <span class="tier-badge" style="border-color:#ff8800;color:#ff8800;">🟠 HIGH</span>
+  <span class="tier-badge" style="border-color:#ffe700;color:#ffe700;">🟡 MEDIUM</span>
+  <span class="tier-badge" style="border-color:#00e8ff;color:#00e8ff;">🔵 LOW</span>
+</div>
+
+<div class="controls">
+  <input type="text" id="search-box" placeholder="🔍 Search actor, alias, tool, technique..." autocomplete="off" oninput="filterCards()">
+  <button class="filter-btn active" onclick="filterNation('ALL',this)">ALL</button>
+  <button class="filter-btn" onclick="filterNation('Russia',this)">🇷🇺 Russia</button>
+  <button class="filter-btn" onclick="filterNation('China',this)">🇨🇳 China</button>
+  <button class="filter-btn" onclick="filterNation('North Korea',this)">🇰🇵 DPRK</button>
+  <button class="filter-btn" onclick="filterNation('Iran',this)">🇮🇷 Iran</button>
+  <button class="filter-btn" onclick="filterNation('Crime',this)">💰 eCrime</button>
+  <span id="threat-count"></span>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<!-- Modal -->
+<div class="modal-bg" id="modal-bg" onclick="closeModal(event)">
+  <div class="modal" id="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕ CLOSE</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<div id="taskbar">
+  <a href="index.html">⌂ HOME</a>
+  <a href="intel.html">INTEL</a>
+  <a href="wargames.html">WAR_GAMES</a>
+  <a href="cyberworld.html">RPG</a>
+  <span id="tb-clock"></span>
+</div>
+
 <script>
-    const factions = [
-        { name: 'BITWISE SPIDER', tier: 'EXTREME', desc: 'Apex RaaS predator — 44 industries, 111 countries. Russia/EE based.' },
-        { name: 'COZY BEAR', tier: 'EXTREME', desc: 'Ultimate stealth. Supply chain master (SolarWinds). APT29/NOBELIUM.' },
-        { name: 'VOODOO BEAR', tier: '破壊的 (DESTRUCTIVE)', desc: 'Premier sabotage — power grids, ICS wipers. Sandworm/BlackEnergy.' },
-        { name: 'LABYRINTH CHOLLIMA', tier: 'HIGH', desc: 'Billion-dollar heists, wiper deployment. DPRK Lazarus Group.' },
-        { name: 'MUSTANG PANDA', tier: 'EXTREME', desc: 'Lightning-fast vulnerability exploitation. China based.' },
-        { name: 'VENOMOUS BEAR', tier: 'EXTREME', desc: 'Turla Team. Advanced satellite IP hijacking for C2.' },
-        { name: 'REVENANT SPIDER', tier: 'EXTREME', desc: 'Rust-based payloads — 59 industries, 90 countries. Qilin.' }
-    ];
+var APTS = [
+  { id:'FANCY_BEAR', name:'FANCY BEAR', aliases:['APT28','STRONTIUM','SOFACY','PAWN STORM','FOREST BLIZZARD'], nation:'Russia', flag:'🇷🇺', sponsor:'GRU Unit 26165', tier:'EXTREME', color:'#ff003c', active:'2004–present', icon:'🐻',
+    targets:['Government','Military','Political','Energy','Media','NATO'],
+    tools:['X-Agent','Sofacy','Zebrocy','LoJax (UEFI)','HeadLace','Graphite'],
+    techniques:['T1566 Spear-Phishing','T1078 Valid Accounts','T1059 Cmd Exec','T1190 Exploit Public App','T1547 Boot Autostart'],
+    desc:'Premier Russian military intelligence (GRU) cyber unit. Responsible for DNC breach (2016), WADA hack, and Bundestag infiltration. Known for UEFI-level persistence via LoJax — survives full OS reinstall. Rapid zero-day exploitation.',
+    campaigns:['DNC Breach 2016','WADA/USADA 2016','Bundestag 2015','French Election 2017','NATO Phishing 2022+','Infected Voice 2023'],
+    iocs:['185.220.101.x C2','*.locker-service[.]net','LoJax UEFI PE hashes','HeadLace staging URLs'],
+  },
+  { id:'COZY_BEAR', name:'COZY BEAR', aliases:['APT29','NOBELIUM','The Dukes','MIDNIGHT BLIZZARD','DARK HALO'], nation:'Russia', flag:'🇷🇺', sponsor:'SVR Foreign Intelligence', tier:'EXTREME', color:'#cc0000', active:'2008–present', icon:'🐻',
+    targets:['Government','Think Tanks','Healthcare','Tech','Supply Chain','Diplomatic'],
+    tools:['SUNBURST','WellMess','BEATDROP','MagicWeb','BOOMBOX','Cobalt Strike'],
+    techniques:['T1195 Supply Chain','T1550 Use Alt Auth','T1552 Unsecured Creds','T1567 Exfil to Cloud','T1621 MFA Bypass'],
+    desc:'Russian SVR unit behind the SolarWinds SUNBURST supply chain attack (2020) compromising 18,000+ organizations including US Treasury and DHS. Masters of OAuth token theft to bypass MFA. Extremely patient — avg dwell time: 287 days.',
+    campaigns:['SolarWinds SUNBURST 2020','Microsoft Midnight Blizzard 2024','Democratic Senate breach 2016','RNC targeting 2016','TeamViewer breach 2024'],
+    iocs:['avsvmcloud[.]com','*.microsoft-graph-services[.]com','MagicWeb DLL injection artifacts'],
+  },
+  { id:'SANDWORM', name:'SANDWORM', aliases:['Voodoo Bear','IRIDIUM','Seashell Blizzard','APT44','Electrum'], nation:'Russia', flag:'🇷🇺', sponsor:'GRU Unit 74455', tier:'DESTRUCTIVE', color:'#ff4400', active:'2009–present', icon:'🪱',
+    targets:['Critical Infrastructure','ICS/SCADA','Energy Grid','Government','Telecom'],
+    tools:['NotPetya','Industroyer/CRASHOVERRIDE','BlackEnergy','Industroyer2','CaddyWiper','AcidRain','Prestige'],
+    techniques:['T1489 Service Stop','T1485 Data Destruction','T1499 Endpoint DoS','T1190 Exploit Public App','T1561 Disk Wipe'],
+    desc:'The most destructive cyber unit in history. NotPetya caused $10B+ in collateral damage globally. Directly attacked Ukraine power grids in 2015 and 2016 causing real blackouts. Deployed 7 different wiper malware families since 2022 invasion.',
+    campaigns:['Ukraine Power Grid 2015+2016','NotPetya 2017 ($10B)','PyeongChang Olympics 2018','Viasat KA-SAT 2022','Prestige ransomware 2022'],
+    iocs:['Industroyer2 PE artifacts','CaddyWiper hashes','NotPetya MBR wiper signature','AcidRain router firmware'],
+  },
+  { id:'LAZARUS_GROUP', name:'LAZARUS GROUP', aliases:['Labyrinth Chollima','HIDDEN COBRA','APT38','Zinc','Sapphire Sleet'], nation:'North Korea', flag:'🇰🇵', sponsor:'RGB Bureau 121', tier:'EXTREME', color:'#ff00ea', active:'2009–present', icon:'💀',
+    targets:['Finance','Cryptocurrency','Defense','Media','Healthcare','Software Supply Chain'],
+    tools:['BLINDINGCAN','FALLCHILL','WannaCry','AppleJeus','MagicRAT','TraderTraitor','NineRAT'],
+    techniques:['T1059 Cmd Exec','T1105 Ingress Tool','T1071 App Layer Proto','T1485 Data Destruction','T1195 Supply Chain'],
+    desc:'DPRK state-sponsored group responsible for $3B+ in crypto heists used to fund nuclear program. Behind Sony Pictures hack, WannaCry global ransomware ($4B damage), and supply chain attacks via trojanized trading apps for macOS/Linux developers.',
+    campaigns:['Sony Pictures 2014','SWIFT Bangladesh $81M 2016','WannaCry 2017','Axie Infinity $625M 2022','TraderTraitor 3CX 2023','NineRAT 2024'],
+    iocs:['185.224.137.x','*.coinbase-oracle[.]com','TraderTraitor app hashes','AppleJeus macOS dropper'],
+  },
+  { id:'MUSTANG_PANDA', name:'MUSTANG PANDA', aliases:['Bronze President','TA416','Earth Preta','STATELY TAURUS','HoneyMyte'], nation:'China', flag:'🇨🇳', sponsor:'MSS/PLA affiliated', tier:'EXTREME', color:'#ffaa00', active:'2012–present', icon:'🐼',
+    targets:['Government','NGOs','Political Orgs','Europe','Southeast Asia','Africa','Pacific Islands'],
+    tools:['PlugX','TONESHELL','TONEINS','PUBLOAD','MQsTTang','HopperTick'],
+    techniques:['T1566.001 Spear-Phish Attach.','T1204 User Execution','T1027 Obfuscated Files','T1071 App Layer Proto','T1574 Hijack Exec Flow'],
+    desc:'Highly prolific Chinese espionage group targeting EU political organizations, Myanmar/Vietnam governments, and Pacific Island nations. Rapid PlugX variant deployer. Among fastest groups to weaponize new CVEs — median exploit time: 3 days.',
+    campaigns:['EU political parties 2023','Pacific Islands espionage 2022','Vatican network 2020','Myanmar government 2021','Ukraine-adjacent 2022'],
+    iocs:['*.topedition[.]org','*.kossymall[.]com','PlugX C2 on TCP 443/80','TONESHELL staging domains'],
+  },
+  { id:'VOLT_TYPHOON', name:'VOLT TYPHOON', aliases:['Bronze Silhouette','Vanguard Panda','VOLTZITE','KV Botnet'], nation:'China', flag:'🇨🇳', sponsor:'PLA/MSS pre-positioning', tier:'EXTREME', color:'#0088ff', active:'2021–present', icon:'⚡',
+    targets:['US Critical Infrastructure','Guam Military','Water/Power/Comms','Transportation'],
+    tools:['LOLbins (certutil/netsh/wmic)','FRP proxy','Impacket','SOHO router malware','custom KV-Botnet'],
+    techniques:['T1078 Valid Accounts','T1133 External Remote Svcs','T1003 OS Cred Dump','T1562 Impair Defenses','T1090 Proxy'],
+    desc:'PRC pre-positioning threat actor — not stealing data, burrowing into US critical infrastructure for potential wartime disruption. Uses only LOLbins; zero malware signatures. Active in Guam communications infrastructure. CISA advisory AA24-038A.',
+    campaigns:['US Critical Infra pre-positioning 2021+','Guam Telecom 2023','KV-Botnet SOHO router compromise 2023','CISA AA24-038A advisory'],
+    iocs:['LOLbin chains: certutil+netsh+wmic','SOHO router compromise via default creds','FRP proxy traffic on unusual ports'],
+  },
+  { id:'SALT_TYPHOON', name:'SALT TYPHOON', aliases:['GhostEmperor','FamousSparrow','UNC2286'], nation:'China', flag:'��🇳', sponsor:'MSS', tier:'EXTREME', color:'#00aaff', active:'2020–present', icon:'🌊',
+    targets:['US Telecom Carriers','ISPs','Government','Wiretap Infrastructure'],
+    tools:['SparrowDoor','ShadowPad','Demodex rootkit','TriangleDB-like implants'],
+    techniques:['T1190 Exploit Public App','T1078 Valid Accounts','T1566 Phishing','T1056 Input Capture','T1205 Traffic Signaling'],
+    desc:'Compromised AT&T, Verizon, Lumen, and 8+ other US telecom carriers (2024). Accessed US govt court-authorized wiretap infrastructure. Considered the most significant US telecom breach in history. 18-month dwell time before detection.',
+    campaigns:['AT&T/Verizon/Lumen breach 2023-2024','US Lawful Intercept System access','Congressional communications interception'],
+    iocs:['SparrowDoor backdoor variants','Demodex Windows rootkit','*.shadow-cdn[.]net'],
+  },
+  { id:'CHARMING_KITTEN', name:'CHARMING KITTEN', aliases:['APT35','Phosphorus','Mint Sandstorm','Yellow Garuda','TA453'], nation:'Iran', flag:'🇮🇷', sponsor:'IRGC', tier:'HIGH', color:'#00cc55', active:'2011–present', icon:'🐱',
+    targets:['Academia','Journalists','Nuclear Experts','Dissidents','Israel','US Government'],
+    tools:['CharmPower','HYPERSCRAPE','BellaCiao','Sponsor backdoor','NokNok macOS'],
+    techniques:['T1566 Phishing','T1539 Steal Web Session Cookie','T1598 Phishing for Info','T1071 App Layer Proto','T1583 Acquire Infrastructure'],
+    desc:'IRGC unit conducting prolonged credential phishing against nuclear negotiators, journalists, and political dissidents. Custom HYPERSCRAPE tool silently downloads all Gmail inbox contents. Avg spear-phishing campaign: 6+ months of trust-building.',
+    campaigns:['Nuclear deal negotiator phishing 2021','Israeli critical infrastructure 2022','US presidential campaign 2020','Journalists via fake podcast invites 2023'],
+    iocs:['accounts-google-recover[.]com','*.icloud-recover[.]info','HYPERSCRAPE PE artifacts','NokNok macOS dylib'],
+  },
+  { id:'APT33', name:'REFINED KITTEN', aliases:['APT33','Elfin','Peach Sandstorm','Magnallium'], nation:'Iran', flag:'🇮🇷', sponsor:'IRGC', tier:'HIGH', color:'#00aa44', active:'2013–present', icon:'🌸',
+    targets:['Aviation','Energy','Petrochemical','Saudi Arabia','US Defense'],
+    tools:['DROPSHOT/TURNEDUP','SHAPESHIFT wiper','DistTrack (Shamoon variant)','Tickler'],
+    techniques:['T1078 Valid Accounts','T1589 Gather Victim Identity Info','T1133 External Remote Svcs','T1566 Phishing'],
+    desc:'Iranian IRGC-affiliated group targeting defense contractors and energy/aviation sectors. Password-spray campaigns at scale (tens of thousands of orgs). Deployed SHAPESHIFT wiper against US defense contractors. Tickler backdoor uses Azure/OneDrive for C2.',
+    campaigns:['Saudi Aramco supply chain 2017','US defense contractor password spray 2023','Tickler C2-via-Azure campaign 2024'],
+    iocs:['Tickler DNS-over-HTTPS beacons','*.defender-update[.]net','SHAPESHIFT wiper PE signature'],
+  },
+  { id:'SCATTERED_SPIDER', name:'SCATTERED SPIDER', aliases:['UNC3944','Octo Tempest','0ktapus','Muddled Libra','Starfraud'], nation:'Crime', flag:'🌐', sponsor:'Anglophone cybercrime collective (US/UK/CA/AU)', tier:'EXTREME', color:'#9900ff', active:'2022–present', icon:'🕷️',
+    targets:['Telecom','Tech','Hospitality','Gaming','Cryptocurrency','Retail'],
+    tools:['POORTRY kernel driver','STONESTOP','ScreenConnect','Okta bypass kit','sim-swap tooling'],
+    techniques:['T1566 Vishing/SMS Phish','T1621 MFA Bypass','T1539 Cookie Theft','T1578 Cloud Infra Mod','T1556 Modify Auth Process'],
+    desc:'Native English-speaking Gen-Z threat actors — masters of social engineering. Bypassed Okta MFA at MGM Resorts (2023) via 10-minute IT help desk phone call. $110M+ in ransomware gains. Leverage SIM swaps, MFA fatigue, and deep knowledge of corporate IT workflows.',
+    campaigns:['Twilio SMS breach 2022','MGM Resorts $110M 2023','Caesars Entertainment 2023','Coinbase 2024','0ktapus 130+ orgs'],
+    iocs:['0ktapus phishing kit patterns','POORTRY driver signatures','*.okta-accounts-verify[.]com','Pulseway/AnyDesk abuse'],
+  },
+  { id:'LOCKBIT', name:'LOCKBIT / BITWISE SPIDER', aliases:['LockBit 3.0','LockBit Black','LockBit Green'], nation:'Crime', flag:'🌐', sponsor:'Russia/EE RaaS consortium', tier:'EXTREME', color:'#ff6600', active:'2019–present', icon:'🔒',
+    targets:['44 industries','111 countries','Healthcare','Legal','Finance','Manufacturing'],
+    tools:['LockBit 3.0 (UEFI)','Qilin (Rust)','StealBit exfiltrator','Cobalt Strike','Conti codebase'],
+    techniques:['T1486 Data Encrypted for Impact','T1490 Inhibit Recovery','T1048 Exfil','T1195 Supply Chain','T1491 Defacement'],
+    desc:'Most prolific ransomware-as-a-service operation ever — 44 industries, 111 countries. Introduced bug bounty program for their own malware. LockBit 3.0 borrowed Conti code. Survived Feb 2024 infrastructure takedown (Operation Cronos) and immediately rebounded.',
+    campaigns:['Royal Mail UK $80M 2023','Boeing 2023','ICBC ransomware 2023','Fulton County Georgia 2024','LockBit infrastructure seizure + rebrand 2024'],
+    iocs:['*.lockbit3-decryptor[.]com','StealBit mutex "Global\\Mutex_lockbit_stealer"','Qilin Rust binary hashes','LockBit 3.0 ransom note template'],
+  },
+  { id:'ALPHV_BLACKCAT', name:'ALPHV / BLACKCAT', aliases:['Noberus','ALPHV','BlackCat','Scattered Spider partner'], nation:'Crime', flag:'🌐', sponsor:'RaaS — believed Russia/EE operators', tier:'EXTREME', color:'#cc3300', active:'2021–present', icon:'🐈‍⬛',
+    targets:['Healthcare','Finance','Oil & Gas','IT Services','Law Firms'],
+    tools:['BlackCat ransomware (Rust)','ExMatter exfiltrator','Fendr','Cobalt Strike'],
+    techniques:['T1486 Data Encrypted','T1490 Inhibit Recovery','T1048 Exfil','T1219 Remote Access Tools'],
+    desc:'Most technically sophisticated ransomware written entirely in Rust — cross-platform (Windows/Linux/ESXi). Pioneered data leak site with search functionality. Worked with Scattered Spider on MGM attack. Change Healthcare attack disrupted US healthcare for weeks.',
+    campaigns:['MGM Resorts 2023 (with Scattered Spider)','Change Healthcare $22M 2024','Reddit 2023','MGM-Caesars dual attack 2023'],
+    iocs:['BlackCat Rust PE artifacts','ExMatter exfil C2 domains','*.ransom-data-leaks[.]onion stub domains'],
+  },
+  { id:'CLOP', name:'CLOP / TA505', aliases:['TA505','FIN11','Lace Tempest'], nation:'Crime', flag:'🌐', sponsor:'Russia/Ukraine cybercrime', tier:'EXTREME', color:'#dd4400', active:'2014–present', icon:'🪤',
+    targets:['Finance','Healthcare','Retail','Software Vendors','Supply Chain'],
+    tools:['Cl0p ransomware','SDBOT','FlawedAmmyy','Grace/FlawedGrace','GoAnywhere exploit'],
+    techniques:['T1190 Exploit Public App','T1486 Data Encrypted','T1105 Ingress Transfer','T1048 Exfil','T1195 Supply Chain'],
+    desc:'Responsible for exploiting MOVEit Transfer zero-day (CVE-2023-34362) to breach 2,000+ organizations including US federal agencies. Consistent supply chain attack strategy — find widely-deployed file transfer software, own it at scale.',
+    campaigns:['MOVEit Transfer 0-day 2023 (2000+ orgs)','GoAnywhere MFT 0-day 2023 (130 orgs)','Accellion FTA 0-day 2021','SolarWinds Serv-U 0-day 2021'],
+    iocs:['CVE-2023-34362 exploit artifacts','MOVEit web shell (health.aspx)','Cl0p ransom note template'],
+  },
+  { id:'FANCY_LAZARUS', name:'DARK EMBASSY', aliases:['BlueNoroff','APT38 subgroup','CryptoCore','NICKEL GLADSTONE'], nation:'North Korea', flag:'🇰🇵', sponsor:'RGB — financial ops unit', tier:'HIGH', color:'#dd00cc', active:'2016–present', icon:'🏦',
+    targets:['Cryptocurrency exchanges','DeFi protocols','VC firms','Fintech'],
+    tools:['AppleJeus macOS','FULLHOUSE.DOORED','TraderTraitor','ICONICSTEALER'],
+    techniques:['T1195 Supply Chain','T1204 User Execution','T1059 Cmd Exec','T1566.002 Spear-Phish Link'],
+    desc:'DPRK financial arm focused exclusively on cryptocurrency theft to evade sanctions. Distributes trojanized trading/blockchain apps. Responsible for the majority of the $3B+ attributed to DPRK from crypto theft since 2016.',
+    campaigns:['Atomic Wallet $100M 2023','Harmony $100M 2022','Ronin/Axie $625M 2022','TraderTraitor 3CX supply chain 2023'],
+    iocs:['AppleJeus macOS dylib hashes','*.blockchain-service[.]net','ICONICSTEALER memory artifacts'],
+  },
+  { id:'TURLA', name:'TURLA / VENOMOUS BEAR', aliases:['Snake','Uroburos','Waterbug','IRON HUNTER','Krypton'], nation:'Russia', flag:'🇷🇺', sponsor:'FSB Center 16', tier:'EXTREME', color:'#8800ff', active:'1996–present', icon:'🐍',
+    targets:['Government','Military','Defense Industry','Diplomatic Missions'],
+    tools:['Snake UEFI implant','ComRAT','TinyTurla','KopiLuwak','HyperStack','Gazer'],
+    techniques:['T1547 Boot Autostart','T1090.004 Domain Fronting','T1071 App Layer Proto','T1557 AiTM','T1205 Traffic Signaling'],
+    desc:'One of the world\'s oldest active APT groups (28+ year history). Snake UEFI implant survived 20+ years. Uses satellite internet IP hijacking for C2 to avoid geo-blocks. Average dwell time: 3-5 years. FBI PERSEUS operation disrupted Snake network (2023).',
+    campaigns:['US Dept of Defense breach (2008)','RUAG defense contractor (2014)','Comrat v4 espionage (2017-2020)','Snake/Uroburos FBI takedown 2023'],
+    iocs:['Snake UEFI artifacts','ComRAT v4 C2 domains','KopiLuwak JS implant fingerprint','*.sat-ip[.]net satellite C2'],
+  },
+  { id:'APT41', name:'DOUBLE DRAGON', aliases:['APT41','Winnti','Barium','WICKED PANDA','Brass Typhoon'], nation:'China', flag:'🇨🇳', sponsor:'MSS + independent profit motive', tier:'EXTREME', color:'#aa4400', active:'2012–present', icon:'🐉',
+    targets:['Healthcare','Telecoms','Media','Gaming','Financial','Supply Chain'],
+    tools:['ShadowPad','Winnti','POISONPLUG','Speculoos','SubZero','MESSAGETAP'],
+    techniques:['T1190 Exploit Public App','T1195 Supply Chain','T1486 Data Encrypted','T1059 Cmd Exec','T1055 Process Injection'],
+    desc:'Unique dual-mandate group conducting state-sponsored espionage AND financially-motivated crime simultaneously. Video game gold farming + source code theft + enterprise espionage. Exploited Citrix CVE-2019-19781 within hours of PoC release.',
+    campaigns:['CCleaner supply chain 2017','ASUS ShadowHammer 2019','Video game src theft (Blizzard/Valve/EA)','MESSAGETAP SS7 telecom 2019','COVID-19 vaccine research theft 2020'],
+    iocs:['ShadowPad loader signatures','Winnti x64 PE hashes','MESSAGETAP SS7 artifacts','SubZero Adobe exploit fingerprint'],
+  },
+  { id:'HAFNIUM', name:'HAFNIUM', aliases:['HAFNIUM','DEV-0401 adjacent','Silk Typhoon'], nation:'China', flag:'🇨🇳', sponsor:'MSS', tier:'EXTREME', color:'#0055cc', active:'2019–present', icon:'🪡',
+    targets:['US Defense','Law Firms','NGOs','Think Tanks','Infectious Disease Research'],
+    tools:['ProxyLogon webshells','China Chopper','ASPXSPY','Cobalt Strike','Nishang'],
+    techniques:['T1190 Exploit Public App','T1505.003 Web Shell','T1078 Valid Accounts','T1048 Exfil to Cloud'],
+    desc:'Responsible for the ProxyLogon MS Exchange Server 0-day (March 2021) — within days, 250,000+ Exchange servers were backdoored globally. HAFNIUM itself focused on US defense/NGOs; other groups pile-on. Zero-day was leaked/shared across Chinese APT ecosystem.',
+    campaigns:['ProxyLogon Exchange 0-day 2021 (250k servers)','US Defense Contractor intrusions 2020','Infectious disease research theft COVID-19'],
+    iocs:['ProxyLogon web shell hashes','China Chopper w/ HAFNIUM UserAgent','Nishang PowerShell reverse shell'],
+  },
+  { id:'KIMSUKY', name:'KIMSUKY', aliases:['Velvet Chollima','Black Banshee','Thallium','APT43'], nation:'North Korea', flag:'🇰🇵', sponsor:'RGB', tier:'HIGH', color:'#cc00aa', active:'2012–present', icon:'👻',
+    targets:['South Korea','US Government','Nuclear/Defense Think Tanks','Cryptocurrency'],
+    tools:['BabyShark','AppleSeed','PebbleDash','CSPY Downloader','RandomQuery'],
+    techniques:['T1566 Spear-Phishing','T1189 Drive-by Compromise','T1056 Input Capture','T1539 Cookie Theft'],
+    desc:'DPRK cyber-intelligence unit with laser focus on South Korean government, defectors, and nuclear policy experts. Known for elaborate persona-based spear-phishing — creating fake personas, building trust over weeks, then deploying BabyShark.',
+    campaigns:['SK Government espionage (ongoing)','US nuclear policy researcher phishing','UN Security Council member targeting 2023','Crypto farm operations for DPRK currency'],
+    iocs:['BabyShark VBScript fingerprint','AppleSeed C2 domain patterns','*.noreply-mail-account[.]com'],
+  },
+  { id:'APT10', name:'CLOUD HOPPER', aliases:['APT10','menuPass','Stone Panda','POTASSIUM'], nation:'China', flag:'🇨🇳', sponsor:'MSS Tianjin Bureau', tier:'HIGH', color:'#3388cc', active:'2009–present', icon:'☁️',
+    targets:['Managed Service Providers (MSPs)','Healthcare','Defense','Government','Aerospace'],
+    tools:['RedLeaves','QuasarRAT','PlugX','ChChes','Poison Ivy','UPPERCUT'],
+    techniques:['T1190 Exploit Public App','T1199 Trusted Relationship','T1078 Valid Accounts','T1071 App Layer Proto'],
+    desc:'Pioneered the MSP attack vector — compromise one managed service provider, get access to all of their clients simultaneously. Operation Cloud Hopper (2016-2017) compromised at least 45 MSPs giving access to 12+ global sectors.',
+    campaigns:['Operation Cloud Hopper 2016 (45+ MSPs)','ITAR defense contractor theft','Aerospace intellectual property exfil'],
+    iocs:['RedLeaves PE header artifacts','ChChes C2 HTTP patterns','*.microsoft-analytics[.]net'],
+  },
+  { id:'RAGNAR_LOCKER', name:'RAGNAR LOCKER', aliases:['Viking Spider'], nation:'Crime', flag:'🌐', sponsor:'Eastern European cybercrime', tier:'HIGH', color:'#994400', active:'2019–present', icon:'🪖',
+    targets:['Critical Infrastructure','Energy','Manufacturing','Law Enforcement'],
+    tools:['Ragnar Locker ransomware','Ragnar_Locker VM technique','Cobalt Strike'],
+    techniques:['T1486 Data Encrypted','T1490 Inhibit Recovery','T1069 Permission Groups Discovery'],
+    desc:'Notable for deploying ransomware inside Oracle VirtualBox VMs to evade endpoint protection — encrypts host drives from inside VM. Attacked critical infrastructure including fuel distributor CWT and attacked police departments to threaten releasing criminal informant data.',
+    campaigns:['EDP Energy Portugal $10M 2020','Dassault Aviation 2021','Police dept data leak threats','Law enforcement agency attacks'],
+    iocs:['Ragnar Locker VirtualBox PE artifacts','*.ransom-pay[.]onion domains','WMI lateral movement patterns'],
+  },
+  { id:'ELEPHANT_BEETLE', name:'ELEPHANT BEETLE', aliases:['TG2460','Sygnia APT'], nation:'Crime', flag:'🌐', sponsor:'Latin America-focused eCrime', tier:'MEDIUM', color:'#669900', active:'2018–present', icon:'🐘',
+    targets:['Financial','Retail','FinTech (US/LATAM)'],
+    tools:['JacaScript webshells','custom Java tools','SAP exploit tooling','modified Odat'],
+    techniques:['T1190 Exploit Public App','T1078 Valid Accounts','T1105 Ingress Tool','T1560 Archive Collected Data'],
+    desc:'Sophisticated financial fraud group targeting LATAM-focused financial institutions and retailers. Patient operators — spend months blending with legitimate transaction traffic before initiating fraudulent transfers. Stole $35M+ from a single target without triggering alerts.',
+    campaigns:['$35M financial fraud via SAP 2021','FinTech fraud (US/Mexico/Chile 2019-2022)'],
+    iocs:['SAP exploit HTTP parameters','JacaScript webshell fingerprint','JNDI injection artifacts'],
+  },
+  { id:'CARBANAK', name:'CARBANAK / COBALT GROUP', aliases:['FIN7 sibling','Anunak','Cobalt Group'], nation:'Crime', flag:'🌐', sponsor:'Ukraine/Russia cybercrime gang', tier:'EXTREME', color:'#ff5500', active:'2013–present', icon:'💳',
+    targets:['Banks','Financial Institutions','ATM Networks','POS Vendors'],
+    tools:['Carbanak malware','Cobalt Strike','Anunak','JScript','PowerShell Empire'],
+    techniques:['T1566 Spear-Phish','T1059 Cmd Exec','T1078 Valid Accounts','T1552 Unsecured Creds','T1486 Data Encrypted'],
+    desc:'Stole $1B+ from 100+ banks in 40+ countries by compromising bank networks and manipulating ATM and SWIFT systems. ATM jackpotting via video surveillance and remote control. One of the most financially successful criminal hacking groups in history.',
+    campaigns:['$1B from 100+ banks (2013-2018)','Bangladesh Bank $81M SWIFT (joint)','ATM jackpotting campaigns Europe/Asia','Carbanak leader arrested Ukraine 2018'],
+    iocs:['Carbanak C2 HTTP header patterns','Anunak PE hashes','SWIFT transaction manipulation scripts'],
+  },
+  { id:'FIN7', name:'FIN7 / SANGRIA TEMPEST', aliases:['Carbanak sibling','ELBRUS','Carbon Spider','GOLD NIAGARA'], nation:'Crime', flag:'🌐', sponsor:'Eastern European organized cybercrime', tier:'EXTREME', color:'#cc4400', active:'2015–present', icon:'🍷',
+    targets:['Restaurant/Hospitality','Retail','Casino','Healthcare POS'],
+    tools:['CARBANAK','BIRDWATCH','Pillowmint','PowerSploit','Mimikatz','Lizar/Tirion'],
+    techniques:['T1566 Spear-Phish','T1059 Cmd Exec','T1056 Input Capture','T1505 Server Software Compromise'],
+    desc:'Stole 15M+ credit cards from US restaurants, hotels, and casinos. Fake cybersecurity company (Combi Security) used to recruit unwitting pen testers. POS malware installed via spear-phishing attacks on restaurant chains including Chipotle, Wendy\'s, Red Robin.',
+    campaigns:['15M+ cards from US restaurants 2015-2018','BIRDWATCH ICS intrusions 2022','Microsoft Exchange exploit campaign 2023'],
+    iocs:['Pillowmint POS malware fingerprint','BIRDWATCH C2 domains','*.carbonspider-relay[.]net'],
+  },
+  { id:'TA453', name:'YELLOW GARUDA', aliases:['TA453','APT35 affiliate','Charming Kitten ops'], nation:'Iran', flag:'🇮🇷', sponsor:'IRGC Intel', tier:'HIGH', color:'#006633', active:'2021–present', icon:'🦅',
+    targets:['Security Researchers','Journalists','Activists','Academic Medicine'],
+    tools:['LimeLighter signed malware','GorjolEcho','PowerStar','NokNok macOS'],
+    techniques:['T1566 Phishing','T1204 User Execution','T1583 Acquire Infra','T1059 Cmd Exec'],
+    desc:'Sub-operation of Charming Kitten with focus on macOS implants (NokNok) targeting security researchers and journalists. Conducts multi-persona operations — coordinating multiple fake identities across email/Twitter/LinkedIn to build trust before deploying.',
+    campaigns:['macOS security researcher targeting 2023','NokNok macOS implant campaign','Academic medicine COVID research theft'],
+    iocs:['NokNok macOS dylib hashes','LimeLighter signed MSIX artifacts','*.info-researchgroup[.]com'],
+  },
+  { id:'LAPSUS', name:'LAPSUS$', aliases:['DEV-0537','Strawberry Tempest','Yankee Spider'], nation:'Crime', flag:'🌐', sponsor:'Teenage cybercrime collective (UK/Brazil)', tier:'HIGH', color:'#6600aa', active:'2021–2022', icon:'💊',
+    targets:['Tech Giants','Telecom','Semiconductor','Government'],
+    tools:['SIM swap','MFA fatigue push bombing','Redline Stealer','NordVPN+RDP'],
+    techniques:['T1621 MFA Bypass','T1078 Valid Accounts','T1530 Cloud Storage Access','T1566 Phishing'],
+    desc:'Teenage group that compromised Microsoft, Nvidia, Samsung, Okta, T-Mobile, and Uber in 2021-2022 with minimal technical tooling — relying entirely on SIM swaps and purchased credentials. 7 members arrested (UK, Brazil). Age 16-21.',
+    campaigns:['Nvidia $1B+ IP theft 2022','Microsoft Azure DevOps source code 2022','Okta customer data breach 2022','Uber hack 2022','T-Mobile repeat SIM swaps'],
+    iocs:['MFA fatigue push spike patterns','SIM swap via insider corruption','*.lapsus-files[.]com data leak domains'],
+  },
+  { id:'BUHTRAP', name:'BUHTRAP', aliases:['Ratopak','RTM Group'], nation:'Crime', flag:'🌐', sponsor:'Russia-based financial crime', tier:'MEDIUM', color:'#884400', active:'2014–present', icon:'🐀',
+    targets:['Russian/Eastern European Banks','Accounting Software Users'],
+    tools:['Buhtrap loader','Spy.Agent','NetWire','SFX archives','NSIS droppers'],
+    techniques:['T1566 Spear-Phish','T1059 Cmd Exec','T1078 Valid Accounts','T1056 Input Capture'],
+    desc:'Russian bank-targeting group that transitioned from eCrime to occasional state-directed espionage (rare APT crossover). Exploited previously unknown Windows kernel 0-day (CVE-2019-1132) — escalation privileges — to target Eastern European government agencies.',
+    campaigns:['$25M+ Russian bank fraud (2014-2016)','CVE-2019-1132 govt targeting','Accounting software users spear-phish'],
+    iocs:['Buhtrap loader PE artifacts','CVE-2019-1132 exploit code','*.rusupdate[.]net C2 domains'],
+  },
+  { id:'GAMAREDON', name:'GAMAREDON', aliases:['Armageddon','ACTINIUM','Primitive Bear','Shuckworm'], nation:'Russia', flag:'🇷🇺', sponsor:'FSB Crimea/Ukraine ops', tier:'HIGH', color:'#cc6600', active:'2013–present', icon:'🌊',
+    targets:['Ukraine Government','Military','Law Enforcement','NGOs','Journalists'],
+    tools:['Pterodo/Cyclops backdoor','Aqua','Gammasteel','LitterDrifter USB worm','GammaLoad'],
+    techniques:['T1566 Spear-Phish','T1091 Removable Media','T1059 Cmd Exec','T1105 Ingress Tool','T1027 Obfuscation'],
+    desc:'FSB-linked group conducting near-constant attacks against Ukrainian organizations — over 5,000 attacks documented since 2022 invasion. Deployed LitterDrifter USB worm (accidentally spread globally in 2023). Most active APT group targeting Ukraine by volume.',
+    campaigns:['Continuous Ukraine gov attacks (2022+)','LitterDrifter USB worm global spread 2023','Ukrainian law enforcement targeting','NGO credential harvesting'],
+    iocs:['Pterodo/Cyclops C2 HTTP patterns','LitterDrifter USB VBS script','*.pterodon-server[.]net'],
+  },
+  { id:'OWL_SPIDER', name:'OWL SPIDER', aliases:['ShadowBrokers affiliate','FruityArmor'], nation:'Crime', flag:'��', sponsor:'Unknown — likely Russia-linked', tier:'MEDIUM', color:'#555555', active:'2016–2019', icon:'🦉',
+    targets:['Windows Users via 0-day sale','NSA exploit buyers'],
+    tools:['EternalBlue','EternalRomance','DoublePulsar','FUZZBUNCH framework'],
+    techniques:['T1190 Exploit Public App','T1068 Exploit Privilege Esc','T1059 Cmd Exec'],
+    desc:'The ShadowBrokers — leaked the NSA\'s cyberweapon arsenal in 2016-2017. EternalBlue from their dump became the engine of WannaCry and NotPetya, two of the most destructive cyberattacks ever. Identity never confirmed. Disappeared after auctions.',
+    campaigns:['NSA arsenal leak 2016-2017','EternalBlue/DoublePulsar release (WannaCry/NotPetya engine)','Shadow Brokers "Lost in Translation" dump'],
+    iocs:['EternalBlue SMB exploit (MS17-010)','DoublePulsar kernel backdoor','FUZZBUNCH framework artifacts'],
+  },
+];
 
-    function createContent() {
-        let html = `
-            <div style="padding: 20px; border-bottom: 2px solid var(--win-blue); background: var(--win-bg);">
-                <h1 style="font-family: 'Pixelify Sans'; font-size: 32px; color: var(--win-blue); margin: 0;">ADVERSARY_INTEL_v4.2</h1>
-                <p style="font-family: 'VT323'; color: #ff003c; margin: 5px 0;">[ CLASSIFIED // FURIOS-INT OSINT ARCHIVE ]</p>
-            </div>
-            <div class="threat-grid">
-                ${factions.map(f => `
-                    <div class="threat-card">
-                        <div class="threat-name">${f.name}</div>
-                        <div class="threat-tier">TIER: ${f.tier}</div>
-                        <div class="threat-desc">${f.desc}</div>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-        return html;
-    }
+var currentNation = 'ALL';
+var currentSearch = '';
 
-    window.onload = () => {
-        OS.createWindow('intel-win', 'Adversary Intelligence Database - Secure Terminal', createContent(), {
-            width: '90%', height: '85%', top: '5%', left: '5%',
-            hasToolbar: true, hasAddressBar: true, 
-            url: 'http://osint.fllc.net/adversary/db'
-        });
-    };
+function renderCards(data) {
+  var grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  document.getElementById('threat-count').textContent = data.length + ' actors';
+  data.forEach(function(a) {
+    var card = document.createElement('div');
+    card.className = 'apt-card';
+    card.setAttribute('data-id', a.id);
+    card.onclick = function() { showModal(a); };
+
+    var tierIcon = a.tier === 'DESTRUCTIVE' ? '💥' : a.tier === 'EXTREME' ? '🔴' : a.tier === 'HIGH' ? '🟠' : a.tier === 'MEDIUM' ? '🟡' : '🔵';
+    var tags = a.tools.slice(0, 3).concat(a.targets.slice(0, 2));
+
+    card.innerHTML =
+      '<div class="card-top">' +
+        '<div class="card-icon" style="border-color:' + a.color + ';background:rgba(0,0,0,0.4)">' + a.icon + '</div>' +
+        '<div>' +
+          '<div class="card-name" style="color:' + a.color + '">' + a.name + '</div>' +
+          '<div class="card-alias">' + a.aliases.slice(0,2).join(' • ') + '</div>' +
+          '<span class="card-tier" style="border-color:' + a.color + ';color:' + a.color + '">' + tierIcon + ' TIER_' + a.tier + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="card-nation">' + a.flag + ' ' + a.sponsor + '</div>' +
+      '<div class="card-desc">' + a.desc.slice(0, 160) + '…</div>' +
+      '<div class="card-tags">' + tags.map(function(t){ return '<span class="tag">' + t + '</span>'; }).join('') + '</div>' +
+      '<div class="card-footer">' +
+        '<span class="card-active">Active: ' + a.active + '</span>' +
+        '<span class="threat-level">' + a.targets.length + ' sectors</span>' +
+      '</div>';
+
+    grid.appendChild(card);
+  });
+}
+
+function filterCards() {
+  currentSearch = document.getElementById('search-box').value.toLowerCase();
+  applyFilters();
+}
+
+function filterNation(nation, btn) {
+  currentNation = nation;
+  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function applyFilters() {
+  var filtered = APTS.filter(function(a) {
+    var nationMatch = currentNation === 'ALL'
+      || (currentNation === 'Crime' && a.nation === 'Crime')
+      || (currentNation !== 'Crime' && a.nation.includes(currentNation));
+    if (!nationMatch) return false;
+    if (!currentSearch) return true;
+    var haystack = [a.name, a.id, a.sponsor, a.desc, a.nation]
+      .concat(a.aliases).concat(a.tools).concat(a.targets).concat(a.techniques).join(' ').toLowerCase();
+    return haystack.includes(currentSearch);
+  });
+  renderCards(filtered);
+}
+
+function showModal(a) {
+  var body = document.getElementById('modal-body');
+  var tierIcon = a.tier === 'DESTRUCTIVE' ? '💥' : a.tier === 'EXTREME' ? '🔴' : a.tier === 'HIGH' ? '🟠' : '🟡';
+
+  var html = '<div class="modal-title" style="color:' + a.color + '">' + a.icon + ' ' + a.name + '</div>';
+  html += '<div class="modal-sub">' + a.aliases.join(' · ') + '</div>';
+  html += '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;">';
+  html += '<span class="card-tier" style="border-color:' + a.color + ';color:' + a.color + '">' + tierIcon + ' TIER_' + a.tier + '</span>';
+  html += '<span style="font-family:VT323;font-size:16px;color:#aaa;">' + a.flag + ' ' + a.sponsor + '</span>';
+  html += '<span style="font-family:VT323;font-size:16px;color:#555;">Active: ' + a.active + '</span>';
+  html += '</div>';
+
+  html += '<div class="modal-section"><h3>◉ THREAT ACTOR PROFILE</h3><p>' + a.desc + '</p></div>';
+
+  html += '<div class="modal-section"><h3>🎯 PRIMARY TARGETS</h3><p>' + a.targets.map(function(t){ return '<span class="code-tag">' + t + '</span>'; }).join('') + '</p></div>';
+
+  html += '<div class="modal-section"><h3>🛠️ KNOWN TOOLS & MALWARE</h3><p>' + a.tools.map(function(t){ return '<span class="code-tag">' + t + '</span>'; }).join('') + '</p></div>';
+
+  html += '<div class="modal-section"><h3>🗺️ MITRE ATT&CK TECHNIQUES</h3><ul>' + a.techniques.map(function(t){ return '<li><code>' + t + '</code></li>'; }).join('') + '</ul></div>';
+
+  html += '<div class="modal-section"><h3>📰 NOTABLE CAMPAIGNS</h3><ul>' + a.campaigns.map(function(c){ return '<li>' + c + '</li>'; }).join('') + '</ul></div>';
+
+  html += '<div class="modal-section"><h3>🔍 IOC SIGNATURES</h3><p>' + a.iocs.map(function(i){ return '<span class="ioc-tag">' + i + '</span>'; }).join('') + '</p></div>';
+
+  body.innerHTML = html;
+  document.getElementById('modal-bg').classList.add('open');
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById('modal-bg') || e.target.classList.contains('modal-close')) {
+    document.getElementById('modal-bg').classList.remove('open');
+  }
+}
+
+// Clock
+setInterval(function(){
+  var d = new Date();
+  document.getElementById('tb-clock').textContent = d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+}, 1000);
+
+// Initial render
+renderCards(APTS);
 </script>
-
 </body>
 </html>

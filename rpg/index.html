@@ -1,21 +1,1048 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CYBERWORLD // FLLC ENGINE // DISCORD_ACTIVITIES_v2.5</title>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
-    <script src="https://unpkg.com/@discord/embedded-app-sdk@1.0.0/dist/index.global.js"></script>
-    <style>
-        body { margin: 0; background: #000; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        #game-container { border: 4px solid #00e8ff; box-shadow: 0 0 20px #00e8ff; }
-        #crt-filter { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); background-size: 100% 3px; z-index: 9999; pointer-events: none; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>CYBERWORLD ENGINE v2026.3-FLLC</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  width: 100%; height: 100%;
+  background: #050a14;
+  display: flex; justify-content: center; align-items: center;
+  overflow: hidden;
+}
+#game-wrap { position: relative; display: inline-block; }
+#crt {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 10;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0,8,0,0.09) 0px, rgba(0,8,0,0.09) 1px,
+    transparent 1px, transparent 3px
+  );
+}
+canvas { display: block; }
+</style>
 </head>
 <body>
-    <div id="crt-filter"></div>
-    <div id="game-container"></div>
-    <script type="module" src="js/game.js"></script>
+<div id="game-wrap"><div id="crt"></div></div>
+<script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+<script>
+'use strict';
+
+// ============================================================
+//  GLOBALS & HELPERS
+// ============================================================
+const W = 1024, H = 768, WW = 2048, WH = 1536;
+
+function glow(size, color) {
+  return {
+    fontFamily: 'VT323, monospace',
+    fontSize:   size  || '20px',
+    color:      color || '#00e8ff',
+    shadow: { color: color || '#00e8ff', blur: 8, fill: true }
+  };
+}
+
+function hexStr(n) {
+  return '#' + ((n || 0) >>> 0).toString(16).padStart(6, '0');
+}
+
+// ============================================================
+//  SCENE BOOT  — generates all textures, shows boot sequence
+// ============================================================
+class SceneBoot extends Phaser.Scene {
+  constructor() { super({ key: 'SceneBoot' }); }
+
+  create() {
+    this.cameras.main.setBackgroundColor('#000000');
+    this._genTextures();
+
+    const lines = [
+      { t: 'CYBERWORLD ENGINE v2026.3-FLLC',        c: '#00e8ff', sz: '30px' },
+      { t: 'Loading ENGINE 1: CORE MMO...',           c: '#00ff41', sz: '22px' },
+      { t: 'Loading ENGINE 2: SOURCECODE...',         c: '#00ff41', sz: '22px' },
+      { t: 'Loading ENGINE 3: LITE...',               c: '#00ff41', sz: '22px' },
+      { t: 'Loading ENGINE 4: SOULCODE...',           c: '#00ff41', sz: '22px' },
+      { t: 'ALL ENGINES COMPILED \u2713',            c: '#00ff41', sz: '26px' },
+      { t: 'Initializing secure authentication...', c: '#ff00ea', sz: '20px' },
+    ];
+
+    const startY = H / 2 - lines.length * 18;
+    let delay = 200;
+    lines.forEach((line, i) => {
+      this.time.delayedCall(delay, () => {
+        const txt = this.add.text(W / 2, startY + i * 36, line.t, {
+          fontFamily: 'VT323, monospace', fontSize: line.sz,
+          color: line.c, shadow: { color: line.c, blur: 12, fill: true }
+        }).setOrigin(0.5).setAlpha(0);
+        this.tweens.add({ targets: txt, alpha: 1, duration: 300 });
+      });
+      delay += 380;
+    });
+
+    this.time.delayedCall(delay + 500, () => {
+      this.cameras.main.fadeOut(600, 0, 0, 0);
+      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('SceneLogin'));
+    });
+  }
+
+  _genTextures() {
+    // ── tx_player  28x36  blue operative
+    { const g = this.make.graphics({ x: 0, y: 0, add: false });
+      g.fillStyle(0x2244cc);             g.fillCircle(14, 9, 9);
+      g.fillStyle(0x00e8ff);             g.fillRect(7, 5, 14, 6);
+      g.fillStyle(0x1133aa);             g.fillRect(5, 18, 18, 13);
+      g.fillStyle(0x0d2266);             g.fillRect(5, 31, 7, 5); g.fillRect(16, 31, 7, 5);
+      g.fillStyle(0x00e8ff, 0.35);       g.fillRect(5, 18, 18, 2);
+      g.generateTexture('tx_player', 28, 36); g.destroy(); }
+
+    // ── tx_adversary  28x28  red angular threat
+    { const g = this.make.graphics({ x: 0, y: 0, add: false });
+      g.fillStyle(0xff003c);
+      g.fillTriangle(14, 1, 27, 14, 14, 27);
+      g.fillTriangle(14, 1,  1, 14, 14, 27);
+      g.fillStyle(0x880022); g.fillRect(10, 9, 8, 10);
+      g.fillStyle(0xff8888); g.fillCircle(14, 10, 4);
+      g.generateTexture('tx_adversary', 28, 28); g.destroy(); }
+
+    // ── tx_daemon  24x24  glowing diamond
+    { const g = this.make.graphics({ x: 0, y: 0, add: false });
+      g.fillStyle(0x002233);
+      g.fillTriangle(12, 1, 23, 12, 12, 23);
+      g.fillTriangle(12, 1,  1, 12, 12, 23);
+      g.fillStyle(0x00e8ff, 0.9);
+      g.fillTriangle(12, 3, 21, 12, 12, 21);
+      g.fillTriangle(12, 3,  3, 12, 12, 21);
+      g.fillStyle(0xffffff, 0.85); g.fillCircle(12, 12, 3);
+      g.generateTexture('tx_daemon', 24, 24); g.destroy(); }
+
+    // ── tx_terminal  40x36  blue terminal block
+    { const g = this.make.graphics({ x: 0, y: 0, add: false });
+      g.fillStyle(0x001133); g.fillRect(0, 0, 40, 36);
+      g.lineStyle(2, 0x00e8ff, 1); g.strokeRect(1, 1, 38, 34);
+      g.fillStyle(0x003366);       g.fillRect(1, 1, 38, 8);
+      g.fillStyle(0x00e8ff, 0.9);
+      g.fillRect(4, 14, 14, 2); g.fillRect(4, 19, 22, 2);
+      g.fillRect(4, 24, 18, 2); g.fillRect(4, 29, 20, 2);
+      g.generateTexture('tx_terminal', 40, 36); g.destroy(); }
+
+    // ── tx_cache  36x36  green cache cylinder
+    { const g = this.make.graphics({ x: 0, y: 0, add: false });
+      g.fillStyle(0x002200);
+      g.fillEllipse(18, 10, 34, 14); g.fillRect(1, 10, 34, 20);
+      g.fillStyle(0x00ff41); g.fillEllipse(18, 10, 34, 14);
+      g.lineStyle(2, 0x00ff41, 1);
+      g.strokeRect(1, 10, 34, 20); g.strokeEllipse(18, 30, 34, 14);
+      g.fillStyle(0x003300, 0.7); g.fillEllipse(18, 30, 34, 14);
+      g.generateTexture('tx_cache', 36, 36); g.destroy(); }
+
+    // ── tx_building  60x80  dark sector building with lit windows
+    { const g = this.make.graphics({ x: 0, y: 0, add: false });
+      g.fillStyle(0x050a14);
+      g.fillRect(0, 20, 60, 60); g.fillRect(15, 0, 30, 30);
+      g.lineStyle(2, 0x003366, 1);
+      g.strokeRect(0, 20, 60, 60); g.strokeRect(15, 0, 30, 30);
+      g.fillStyle(0x00e8ff, 0.6);
+      [[4,28],[18,28],[46,28],[4,40],[32,40],[46,40],[18,52],[32,52],[4,64],[46,64]]
+        .forEach(([wx, wy]) => g.fillRect(wx, wy, 8, 7));
+      g.generateTexture('tx_building', 60, 80); g.destroy(); }
+  }
+}
+
+// ============================================================
+//  SCENE LOGIN
+// ============================================================
+class SceneLogin extends Phaser.Scene {
+  constructor() { super({ key: 'SceneLogin' }); }
+
+  create() {
+    this.cameras.main.setBackgroundColor('#050a14');
+    this.cameras.main.fadeIn(400, 0, 0, 0);
+
+    // Grid background
+    const grid = this.add.graphics();
+    grid.lineStyle(1, 0x003366, 0.45);
+    for (let x = 0; x <= W; x += 32) grid.lineBetween(x, 0, x, H);
+    for (let y = 0; y <= H; y += 32) grid.lineBetween(0, y, W, y);
+
+    // Corner brackets
+    [[0, 0, 1, 1], [W, 0, -1, 1], [0, H, 1, -1], [W, H, -1, -1]].forEach(([cx, cy, sx, sy]) => {
+      const dg = this.add.graphics();
+      dg.lineStyle(2, 0x00e8ff, 0.7);
+      dg.lineBetween(cx, cy, cx + sx * 44, cy);
+      dg.lineBetween(cx, cy, cx, cy + sy * 44);
+    });
+
+    // Title
+    this.add.text(W / 2, 138, 'CYBERWORLD', {
+      fontFamily: 'VT323, monospace', fontSize: '84px', color: '#00e8ff',
+      shadow: { color: '#00e8ff', blur: 28, fill: true }
+    }).setOrigin(0.5);
+    this.add.text(W / 2, 220,
+      'ClubPenguin  +  RuneScape  +  Pok\u00e9mon  +  Hacking  +  FLLC',
+      glow('18px', '#00ff41')).setOrigin(0.5);
+    this.add.text(W / 2, 252, 'ENGINE v2026.3-FLLC', glow('18px', '#ff00ea')).setOrigin(0.5);
+
+    // Auto agent ID
+    const agentId = 'AGENT_' + Math.floor(1000 + Math.random() * 9000);
+    this.registry.set('agentId', agentId);
+
+    this.add.text(W / 2, 322, 'OPERATIVE_ID:', glow('18px', '#aabbcc')).setOrigin(0.5);
+    this.add.rectangle(W / 2, 360, 320, 48, 0x001133).setStrokeStyle(2, 0x00e8ff);
+    this.add.text(W / 2, 360, agentId, glow('28px', '#00ff41')).setOrigin(0.5);
+    const cursor = this.add.text(W / 2 + 78, 360, '_', glow('28px', '#00ff41')).setOrigin(0, 0.5);
+    this.tweens.add({ targets: cursor, alpha: 0, duration: 500, yoyo: true, repeat: -1 });
+
+    // Auth button
+    const btn = this.add.rectangle(W / 2, 450, 280, 54, 0x002244)
+      .setStrokeStyle(2, 0x00e8ff).setInteractive({ useHandCursor: true });
+    this.add.text(W / 2, 450, 'INITIALIZE_AUTH', glow('26px', '#00e8ff')).setOrigin(0.5);
+    btn.on('pointerover', () => btn.setFillStyle(0x003366));
+    btn.on('pointerout',  () => btn.setFillStyle(0x002244));
+    btn.on('pointerdown', () => {
+      this.cameras.main.fadeOut(400, 0, 0, 0);
+      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('SceneCharacter'));
+    });
+
+    this.add.text(W / 2, 543, '[ SECURE NEURAL LINK ESTABLISHED ]', glow('16px', '#003355')).setOrigin(0.5);
+    this.add.text(W / 2, 566, 'ENCRYPTION: AES-256  //  PROTOCOL: DARKNET_v7',
+      glow('14px', '#002244')).setOrigin(0.5);
+    this.add.text(W / 2, 598, '[v] IDENTITY_HASH: 4F2A9C1E7B83D56A0F',
+      glow('14px', '#002233')).setOrigin(0.5);
+
+    // Animated scan line
+    const scan = this.add.rectangle(W / 2, -2, W, 2, 0x00e8ff, 0.14);
+    this.tweens.add({ targets: scan, y: H + 2, duration: 3400, repeat: -1 });
+  }
+}
+
+// ============================================================
+//  SCENE CHARACTER
+// ============================================================
+class SceneCharacter extends Phaser.Scene {
+  constructor() { super({ key: 'SceneCharacter' }); }
+
+  create() {
+    this.cameras.main.setBackgroundColor('#050a14');
+    this.cameras.main.fadeIn(400, 0, 0, 0);
+
+    const grid = this.add.graphics();
+    grid.lineStyle(1, 0x001122, 0.8);
+    for (let x = 0; x <= W; x += 32) grid.lineBetween(x, 0, x, H);
+    for (let y = 0; y <= H; y += 32) grid.lineBetween(0, y, W, y);
+
+    this.add.text(W / 2, 56, 'SELECT_OPERATIVE_CLASS', glow('38px', '#00e8ff')).setOrigin(0.5);
+    this.add.text(W / 2, 94,
+      'Choose your specialization \u2014 defines loadout and engine access',
+      glow('17px', '#ff00ea')).setOrigin(0.5);
+
+    const classes = [
+      { id: 'RED_TEAM',    color: 0xff003c, hex: '#ff003c',
+        desc: 'Nmap, Metasploit, Hydra \u2014 Offensive Ops',            engine: 'ENGINE 2',   y: 190 },
+      { id: 'BLUE_TEAM',   color: 0x0088ff, hex: '#0088ff',
+        desc: 'Wireshark, CSET, Starkiller \u2014 Defensive SOC',        engine: 'ENGINE 3',   y: 302 },
+      { id: 'OSINT_AGENT', color: 0xff00ea, hex: '#ff00ea',
+        desc: 'FURY0s1nt, RedEye, GovINT \u2014 Intelligence Ops',       engine: 'ENGINE 4',   y: 414 },
+      { id: 'FULL_STACK',  color: 0x00ff41, hex: '#00ff41',
+        desc: 'ALL ENGINES UNLOCKED \u2014 Complete Operative Exp.',     engine: 'ENGINE 1-4', y: 526 },
+    ];
+
+    classes.forEach(cls => {
+      const card = this.add.rectangle(W / 2, cls.y, 650, 88, 0x050a14)
+        .setStrokeStyle(2, cls.color).setInteractive({ useHandCursor: true });
+      this.add.text(W / 2 - 300, cls.y - 16, cls.id, {
+        fontFamily: 'VT323, monospace', fontSize: '26px',
+        color: cls.hex, shadow: { color: cls.hex, blur: 10, fill: true }
+      }).setOrigin(0, 0.5);
+      this.add.text(W / 2 - 300, cls.y + 16, cls.desc, glow('16px', '#aabbcc')).setOrigin(0, 0.5);
+      this.add.text(W / 2 + 300, cls.y, cls.engine, glow('20px', cls.hex)).setOrigin(1, 0.5);
+
+      card.on('pointerover', () => card.setFillStyle(cls.color, 0.12));
+      card.on('pointerout',  () => card.setFillStyle(0x050a14));
+      card.on('pointerdown', () => {
+        this.registry.set('playerClass',     cls.id);
+        this.registry.set('classColor',      cls.color);
+        this.registry.set('playerHP',        100);
+        this.registry.set('playerMaxHP',     100);
+        this.registry.set('playerXP',        0);
+        this.registry.set('capturedDaemons', 0);
+        this.registry.set('hudLog',          []);
+        this.registry.set('hudLogVer',       0);
+        this.cameras.main.fadeOut(400, 0, 0, 0);
+        this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('SceneWorld'));
+      });
+    });
+
+    this.add.text(W / 2, 640,
+      'Class determines tool affinity, damage multipliers and faction reputation',
+      glow('16px', '#334455')).setOrigin(0.5);
+  }
+}
+
+// ============================================================
+//  SCENE WORLD  — main game loop
+// ============================================================
+class SceneWorld extends Phaser.Scene {
+  constructor() { super({ key: 'SceneWorld' }); }
+
+  create() {
+    this.cameras.main.setBackgroundColor('#050a14');
+    this.cameras.main.setBounds(0, 0, WW, WH);
+
+    this.playerHP            = this.registry.get('playerHP')    || 100;
+    this.playerMaxHP         = this.registry.get('playerMaxHP') || 100;
+    this.playerXP            = this.registry.get('playerXP')    || 0;
+    this.playerClass         = this.registry.get('playerClass') || 'FULL_STACK';
+    this.classColor          = this.registry.get('classColor')  || 0x00ff41;
+    this.moving              = false;
+    this.lastMoveTime        = 0;
+    this.defeatedAdversaries = {};
+    this.capturedDaemonsList = {};
+
+    this._buildTerrain();
+    this._buildSectors();
+    this._buildPlayer();
+    this._buildAdversaries();
+    this._buildDaemons();
+    this._setupInput();
+
+    this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
+    this.scene.launch('SceneHUD');
+    this.events.on('resume', this._onResume, this);
+
+    this.addLog('CYBERWORLD ONLINE. Welcome, ' + (this.registry.get('agentId') || 'OPERATIVE') + '.');
+    this.addLog('WASD / arrows or click-to-move. Approach targets within 150px to engage.');
+    this.addLog('Tool buttons run scans. Click daemons to attempt SOULCODE capture.');
+  }
+
+  // ── Terrain ─────────────────────────────────────────────────
+  _buildTerrain() {
+    const g = this.add.graphics().setDepth(0);
+    g.fillStyle(0x050a14, 1);
+    g.fillRect(0, 0, WW, WH);
+    g.lineStyle(1, 0x0a1a2e, 1);
+    for (let x = 0; x <= WW; x += 64) g.lineBetween(x, 0, x, WH);
+    for (let y = 0; y <= WH; y += 64) g.lineBetween(0, y, WW, y);
+  }
+
+  // ── Sectors ─────────────────────────────────────────────────
+  _buildSectors() {
+    const sectors = [
+      { name: 'MAINFRAME_CORE', x: 512,  y: 200,  w: 380, h: 260, color: 0x00e8ff },
+      { name: 'LAN_VALLEY',     x: 300,  y: 550,  w: 300, h: 240, color: 0x00ff41 },
+      { name: 'DARKNET_DEPTHS', x: 1400, y: 400,  w: 360, h: 280, color: 0xff003c },
+      { name: 'SOC_TOWER',      x: 900,  y: 1100, w: 340, h: 260, color: 0xff00ea },
+    ];
+    this.sectorData = sectors;
+
+    sectors.forEach(s => {
+      const g = this.add.graphics().setDepth(1);
+      g.fillStyle(s.color, 0.04);
+      g.fillRect(s.x - s.w / 2, s.y - s.h / 2, s.w, s.h);
+      g.lineStyle(1, s.color, 0.3);
+      g.strokeRect(s.x - s.w / 2, s.y - s.h / 2, s.w, s.h);
+
+      this.add.image(s.x, s.y, 'tx_building').setDepth(2).setTint(s.color).setScale(1.1);
+      this.add.image(s.x - 65, s.y + 45, 'tx_terminal').setDepth(2).setTint(s.color);
+      this.add.image(s.x + 72, s.y - 28, 'tx_cache').setDepth(2).setTint(s.color);
+
+      const label = this.add.text(s.x, s.y - s.h / 2 - 18, s.name, {
+        fontFamily: 'VT323, monospace', fontSize: '20px',
+        color: hexStr(s.color), shadow: { color: hexStr(s.color), blur: 12, fill: true }
+      }).setOrigin(0.5).setDepth(6);
+      this.tweens.add({
+        targets: label, alpha: 0.55,
+        duration: 1600 + Math.random() * 600,
+        yoyo: true, repeat: -1
+      });
+    });
+  }
+
+  // ── Player ──────────────────────────────────────────────────
+  _buildPlayer() {
+    const agentId = this.registry.get('agentId') || 'AGENT_0000';
+    const opName  = agentId.replace('AGENT_', 'OPERATIVE_');
+    this.player = this.add.image(512, 384, 'tx_player')
+      .setDepth(4).setTint(this.classColor).setScale(1.3);
+    this.playerLabel = this.add.text(512, 360, opName, {
+      fontFamily: 'VT323, monospace', fontSize: '14px', color: '#ffffff',
+      shadow: { color: '#00e8ff', blur: 6, fill: true }
+    }).setOrigin(0.5).setDepth(5);
+  }
+
+  // ── Adversaries ─────────────────────────────────────────────
+  _buildAdversaries() {
+    const advData = [
+      { name: 'FANCY_BEAR',      faction: 'APT28',    x: 250,  y: 300,  color: 0xff003c, hp: 80  },
+      { name: 'LAZARUS_GROUP',   faction: 'Chollima', x: 900,  y: 280,  color: 0xff00ea, hp: 100 },
+      { name: 'BITWISE_SPIDER',  faction: 'RaaS',     x: 400,  y: 700,  color: 0xff8800, hp: 70  },
+      { name: 'COZY_BEAR',       faction: 'APT29',    x: 1300, y: 350,  color: 0xcc2222, hp: 90  },
+      { name: 'MUSTANG_PANDA',   faction: 'TEMP.Hex', x: 200,  y: 900,  color: 0xffaa00, hp: 75  },
+      { name: 'CHARMING_KITTEN', faction: 'APT35',    x: 1500, y: 600,  color: 0x44ff44, hp: 85  },
+    ];
+    this.adversaries = [];
+
+    this.tooltip = this.add.text(0, 0, '', {
+      fontFamily: 'VT323, monospace', fontSize: '16px', color: '#ffffff',
+      backgroundColor: '#000a1a', padding: { x: 6, y: 4 },
+      shadow: { color: '#00e8ff', blur: 6, fill: true }
+    }).setDepth(10).setVisible(false);
+
+    advData.forEach(data => {
+      const sprite = this.add.image(data.x, data.y, 'tx_adversary')
+        .setDepth(3).setTint(data.color).setScale(1.6)
+        .setInteractive({ useHandCursor: true });
+      const label = this.add.text(data.x, data.y - 28, data.name, {
+        fontFamily: 'VT323, monospace', fontSize: '14px',
+        color: hexStr(data.color), shadow: { color: hexStr(data.color), blur: 4, fill: true }
+      }).setOrigin(0.5).setDepth(5);
+
+      this.tweens.add({
+        targets: [sprite, label], y: '-=10',
+        duration: 1100 + Math.random() * 500,
+        yoyo: true, repeat: -1, ease: 'Sine.easeInOut'
+      });
+
+      const adv = { ...data, sprite, label, currentHP: data.hp };
+      this.adversaries.push(adv);
+
+      sprite.on('pointerover', () =>
+        this.tooltip.setText(
+          data.name + '\n[' + data.faction + ']  HP: ' + adv.currentHP + '/' + data.hp
+        ).setVisible(true));
+      sprite.on('pointerout',  () => this.tooltip.setVisible(false));
+      sprite.on('pointerdown', (ptr, lx, ly, evt) => {
+        evt.stopPropagation();
+        this.tooltip.setVisible(false);
+        const dist = Phaser.Math.Distance.Between(this.player.x, this.player.y, adv.sprite.x, adv.sprite.y);
+        if (dist > 150) { this.addLog('Move closer to engage ' + data.name); return; }
+        this.cameras.main.flash(300, 255, 0, 0);
+        this.registry.set('currentAdversary', {
+          name: data.name, faction: data.faction,
+          hp: adv.currentHP, maxHP: data.hp, color: data.color
+        });
+        this.registry.set('playerHP', this.playerHP);
+        this.scene.launch('SceneBattle');
+        this.scene.pause('SceneHUD');
+        this.scene.pause('SceneWorld');
+      });
+    });
+  }
+
+  // ── Daemons ─────────────────────────────────────────────────
+  _buildDaemons() {
+    const daemonData = [
+      { name: 'ROOTKIT_v3',   type: 'MALWARE', x: 700,  y: 300,  color: 0x00e8ff, level: 5  },
+      { name: 'WORM_SLITHER', type: 'WORM',    x: 600,  y: 600,  color: 0x00ff41, level: 3  },
+      { name: 'TROJAN_GHOST', type: 'TROJAN',  x: 1100, y: 800,  color: 0xff88cc, level: 8  },
+      { name: 'BOTNET_SWARM', type: 'BOTNET',  x: 350,  y: 1100, color: 0xffff00, level: 12 },
+    ];
+    this.daemons = [];
+
+    daemonData.forEach(data => {
+      const sprite = this.add.image(data.x, data.y, 'tx_daemon')
+        .setDepth(2).setTint(data.color).setScale(1.7)
+        .setInteractive({ useHandCursor: true });
+      const label = this.add.text(data.x, data.y - 26, data.name, {
+        fontFamily: 'VT323, monospace', fontSize: '14px',
+        color: hexStr(data.color), shadow: { color: hexStr(data.color), blur: 6, fill: true }
+      }).setOrigin(0.5).setDepth(5);
+
+      this.tweens.add({
+        targets: sprite, alpha: 0.4, scale: 2.1,
+        duration: 900 + Math.random() * 300,
+        yoyo: true, repeat: -1, ease: 'Sine.easeInOut'
+      });
+
+      const dm = { ...data, sprite, label };
+      this.daemons.push(dm);
+
+      sprite.on('pointerdown', (ptr, lx, ly, evt) => {
+        evt.stopPropagation();
+        const dist = Phaser.Math.Distance.Between(this.player.x, this.player.y, data.x, data.y);
+        if (dist > 150) { this.addLog('Move closer to attempt capture of ' + data.name); return; }
+        this.registry.set('currentDaemon', {
+          name: data.name, type: data.type, level: data.level, color: data.color
+        });
+        this.scene.launch('SceneCapture');
+        this.scene.pause('SceneHUD');
+        this.scene.pause('SceneWorld');
+      });
+    });
+  }
+
+  // ── Input ────────────────────────────────────────────────────
+  _setupInput() {
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.wasd = this.input.keyboard.addKeys({
+      up:    Phaser.Input.Keyboard.KeyCodes.W,
+      down:  Phaser.Input.Keyboard.KeyCodes.S,
+      left:  Phaser.Input.Keyboard.KeyCodes.A,
+      right: Phaser.Input.Keyboard.KeyCodes.D,
+    });
+
+    this.input.on('pointerdown', (ptr, currentlyOver) => {
+      if (currentlyOver && currentlyOver.length > 0) return;
+      const sx = Phaser.Math.Clamp(Math.floor(ptr.worldX / 64) * 64 + 32, 32, WW - 32);
+      const sy = Phaser.Math.Clamp(Math.floor(ptr.worldY / 64) * 64 + 32, 32, WH - 32);
+      this._movePlayerTo(sx, sy);
+    });
+  }
+
+  _movePlayerTo(tx, ty) {
+    const dist = Phaser.Math.Distance.Between(this.player.x, this.player.y, tx, ty);
+    if (dist < 4) return;
+    const dur = Phaser.Math.Clamp(dist * 1.8, 120, 900);
+    this.moving = true;
+    this.tweens.killTweensOf(this.player);
+    this.tweens.add({
+      targets: this.player, x: tx, y: ty, duration: dur, ease: 'Linear',
+      onComplete: () => { this.moving = false; }
+    });
+  }
+
+  // ── Resume handler (after battle / capture) ──────────────────
+  _onResume() {
+    this.moving   = false;
+    this.playerHP = this.registry.get('playerHP') || this.playerHP;
+    this.playerXP = this.registry.get('playerXP') || this.playerXP;
+
+    const defeated = this.registry.get('defeatedAdversary');
+    if (defeated) {
+      const adv = this.adversaries.find(a => a.name === defeated);
+      if (adv) { adv.sprite.destroy(); adv.label.destroy(); }
+      this.adversaries = this.adversaries.filter(a => a.name !== defeated);
+      this.defeatedAdversaries[defeated] = true;
+      this.registry.set('defeatedAdversary', null);
+    }
+
+    const captured = this.registry.get('capturedDaemon');
+    if (captured) {
+      const dm = this.daemons.find(d => d.name === captured);
+      if (dm) { dm.sprite.destroy(); dm.label.destroy(); }
+      this.daemons = this.daemons.filter(d => d.name !== captured);
+      this.capturedDaemonsList[captured] = true;
+      this.registry.set('capturedDaemon', null);
+    }
+
+    this.addLog('Systems online. Operative status: ACTIVE.');
+  }
+
+  // ── Tool handler called from HUD ─────────────────────────────
+  runTool(toolName) {
+    let nearest = null, nearDist = Infinity;
+    this.adversaries.forEach(a => {
+      const d = Phaser.Math.Distance.Between(this.player.x, this.player.y, a.sprite.x, a.sprite.y);
+      if (d < nearDist) { nearDist = d; nearest = a; }
+    });
+    const msgs = {
+      NMAP:       'Port scan initiated on target subnet',
+      METASPLOIT: 'Exploit framework scanning CVE database',
+      WIRESHARK:  'Packet capture live on LAN segment',
+      HYDRA:      'Brute-force auth attack launched',
+      FURY:       'OSINT sweep aggregating target profile',
+      CSET:       'Cyber assessment framework engaged',
+    };
+    if (nearDist <= 150 && nearest) {
+      this.addLog('[' + toolName + '] vs ' + nearest.name + ': ' + (msgs[toolName] || 'Scan running'));
+    } else {
+      this.addLog('[' + toolName + '] No target in range \u2014 move within 150px');
+    }
+  }
+
+  addLog(msg) {
+    const logs = this.registry.get('hudLog') || [];
+    logs.push(msg);
+    if (logs.length > 30) logs.splice(0, logs.length - 30);
+    this.registry.set('hudLog',    logs);
+    this.registry.set('hudLogVer', (this.registry.get('hudLogVer') || 0) + 1);
+  }
+
+  // ── Update ──────────────────────────────────────────────────
+  update(time) {
+    this.playerLabel.setPosition(this.player.x, this.player.y - 24);
+
+    if (this.tooltip.visible) {
+      const ptr = this.input.activePointer;
+      this.tooltip.setPosition(ptr.worldX + 14, ptr.worldY - 14);
+    }
+
+    if (time > this.lastMoveTime + 155) {
+      let dx = 0, dy = 0;
+      if      (this.cursors.up.isDown    || this.wasd.up.isDown)    dy = -64;
+      else if (this.cursors.down.isDown  || this.wasd.down.isDown)  dy =  64;
+      else if (this.cursors.left.isDown  || this.wasd.left.isDown)  dx = -64;
+      else if (this.cursors.right.isDown || this.wasd.right.isDown) dx =  64;
+      if (dx !== 0 || dy !== 0) {
+        const nx = Phaser.Math.Clamp(this.player.x + dx, 32, WW - 32);
+        const ny = Phaser.Math.Clamp(this.player.y + dy, 32, WH - 32);
+        this._movePlayerTo(nx, ny);
+        this.lastMoveTime = time;
+      }
+    }
+
+    this.registry.set('playerWorldX', this.player.x);
+    this.registry.set('playerWorldY', this.player.y);
+    this.registry.set('playerHP',     this.playerHP);
+    this.registry.set('playerXP',     this.playerXP);
+  }
+}
+
+// ============================================================
+//  SCENE HUD  — runs in parallel with SceneWorld
+// ============================================================
+class SceneHUD extends Phaser.Scene {
+  constructor() { super({ key: 'SceneHUD' }); }
+
+  create() {
+    // Bottom toolbar BG
+    this.add.rectangle(W / 2, H - 30, W, 60, 0x000a14, 0.93).setScrollFactor(0).setDepth(0);
+    this.add.rectangle(W / 2, H - 30, W, 60, 0x000000, 0)
+      .setStrokeStyle(1, 0x003366).setScrollFactor(0).setDepth(1);
+
+    // ── HP / XP bars (top-left) ───────────────────────────────
+    this.add.text(12, 10, 'HP', glow('18px', '#ff003c')).setScrollFactor(0);
+    this.add.rectangle(94, 18, 154, 14, 0x220011).setOrigin(0, 0.5).setScrollFactor(0);
+    this.hpBar = this.add.rectangle(94, 18, 150, 12, 0xff003c).setOrigin(0, 0.5).setScrollFactor(0);
+
+    this.add.text(12, 30, 'XP', glow('18px', '#00e8ff')).setScrollFactor(0);
+    this.add.rectangle(94, 40, 154, 14, 0x001122).setOrigin(0, 0.5).setScrollFactor(0);
+    this.xpBar = this.add.rectangle(94, 40, 2, 12, 0x00e8ff).setOrigin(0, 0.5).setScrollFactor(0);
+
+    this.classLabel = this.add.text(12, 56, 'CLASS: ---', glow('15px', '#ff00ea')).setScrollFactor(0);
+
+    // ── Daemons count (top-right) ─────────────────────────────
+    this.daemonsLabel = this.add.text(W - 14, 10, 'DAEMONS: 0/4',
+      glow('18px', '#00e8ff')).setOrigin(1, 0).setScrollFactor(0);
+
+    // ── Minimap ───────────────────────────────────────────────
+    this.mmX = W - 134; this.mmY = 34; this.mmW = 120; this.mmH = 90;
+    this.add.rectangle(
+      this.mmX + this.mmW / 2, this.mmY + this.mmH / 2,
+      this.mmW, this.mmH, 0x000a1a, 0.88
+    ).setScrollFactor(0);
+    this.add.rectangle(
+      this.mmX + this.mmW / 2, this.mmY + this.mmH / 2,
+      this.mmW, this.mmH
+    ).setScrollFactor(0).setStrokeStyle(1, 0x00e8ff);
+    this.add.text(this.mmX + this.mmW / 2, this.mmY - 10, 'MINIMAP',
+      glow('13px', '#003355')).setOrigin(0.5).setScrollFactor(0);
+
+    // Sector dots on minimap
+    [
+      { x: 512,  y: 200,  c: 0x00e8ff },
+      { x: 300,  y: 550,  c: 0x00ff41 },
+      { x: 1400, y: 400,  c: 0xff003c },
+      { x: 900,  y: 1100, c: 0xff00ea },
+    ].forEach(s => this.add.circle(
+      this.mmX + (s.x / WW) * this.mmW,
+      this.mmY + (s.y / WH) * this.mmH,
+      3, s.c
+    ).setScrollFactor(0));
+
+    this.minimapDot = this.add.circle(0, 0, 3, 0xffffff).setScrollFactor(0);
+
+    // ── SOC Console (right side) ──────────────────────────────
+    this.add.text(W - 14, H / 2 - 96, 'SOC_CONSOLE',
+      glow('15px', '#00ff41')).setOrigin(1, 0.5).setScrollFactor(0);
+    this.logLines = [];
+    for (let i = 0; i < 5; i++) {
+      this.logLines.push(this.add.text(W - 14, H / 2 - 74 + i * 22, '', {
+        fontFamily: 'VT323, monospace', fontSize: '13px', color: '#00ff41',
+        backgroundColor: '#000a00', padding: { x: 3, y: 2 },
+        shadow: { color: '#00ff41', blur: 3, fill: true }
+      }).setOrigin(1, 0).setScrollFactor(0));
+    }
+
+    // ── Tool buttons (bottom bar) ─────────────────────────────
+    const tools = ['NMAP', 'METASPLOIT', 'WIRESHARK', 'HYDRA', 'FURY', 'CSET'];
+    const bW = 136, bH = 42, bY = H - 30;
+    tools.forEach((tool, i) => {
+      const bx = 74 + i * (bW + 6);
+      const bg = this.add.rectangle(bx, bY, bW, bH, 0x001133)
+        .setStrokeStyle(1, 0x00e8ff).setInteractive({ useHandCursor: true }).setScrollFactor(0);
+      this.add.text(bx, bY, tool, glow('17px', '#00e8ff')).setOrigin(0.5).setScrollFactor(0);
+      bg.on('pointerover', () => bg.setFillStyle(0x003355));
+      bg.on('pointerout',  () => bg.setFillStyle(0x001133));
+      bg.on('pointerdown', () => {
+        const ws = this.scene.get('SceneWorld');
+        if (ws && !ws.scene.isPaused()) {
+          ws.runTool(tool);
+          bg.setFillStyle(0x005577);
+          this.time.delayedCall(220, () => bg.setFillStyle(0x001133));
+        }
+      });
+    });
+
+    // ── Mobile D-Pad ─────────────────────────────────────────
+    if (this.sys.game.device.os.android || this.sys.game.device.os.iOS) {
+      this._buildDpad();
+    }
+
+    this._lastLogVer = -1;
+  }
+
+  _buildDpad() {
+    const cx = 86, cy = H - 132;
+    [{ dx: 0, dy: -1, lbl: '\u25b2' }, { dx: 0, dy: 1, lbl: '\u25bc' },
+     { dx: -1, dy: 0, lbl: '\u25c4' }, { dx: 1, dy: 0, lbl: '\u25ba' }]
+    .forEach(d => {
+      const bx = cx + d.dx * 52, by = cy + d.dy * 52;
+      const btn = this.add.circle(bx, by, 26, 0x002244, 0.82)
+        .setScrollFactor(0).setInteractive({ useHandCursor: true });
+      this.add.text(bx, by, d.lbl, glow('20px', '#00e8ff')).setOrigin(0.5).setScrollFactor(0);
+      btn.on('pointerdown', () => {
+        const ws = this.scene.get('SceneWorld');
+        if (ws && !ws.scene.isPaused()) {
+          const p = ws.player;
+          ws._movePlayerTo(
+            Phaser.Math.Clamp(p.x + d.dx * 64, 32, WW - 32),
+            Phaser.Math.Clamp(p.y + d.dy * 64, 32, WH - 32)
+          );
+        }
+      });
+    });
+  }
+
+  update() {
+    const hp   = this.registry.get('playerHP')        || 100;
+    const mhp  = this.registry.get('playerMaxHP')     || 100;
+    const xp   = this.registry.get('playerXP')        || 0;
+    const cls  = this.registry.get('playerClass')     || 'UNKNOWN';
+    const cap  = this.registry.get('capturedDaemons') || 0;
+    const ver  = this.registry.get('hudLogVer')       || 0;
+    const logs = this.registry.get('hudLog')          || [];
+
+    const hpRatio = hp / mhp;
+    this.hpBar.setSize(Math.max(2, 150 * hpRatio), 12);
+    this.hpBar.setFillStyle(hpRatio > 0.5 ? 0x00ff41 : hpRatio > 0.25 ? 0xffaa00 : 0xff003c);
+    this.xpBar.setSize(Math.max(2, 150 * Math.min(xp / 1000, 1)), 12);
+    this.classLabel.setText('CLASS: ' + cls);
+    this.daemonsLabel.setText('DAEMONS: ' + cap + '/4');
+
+    if (ver !== this._lastLogVer) {
+      const recent = logs.slice(-5);
+      this.logLines.forEach((l, i) =>
+        l.setText(i < recent.length ? '> ' + recent[i].substring(0, 27) : ''));
+      this._lastLogVer = ver;
+    }
+
+    const px = this.registry.get('playerWorldX') || 512;
+    const py = this.registry.get('playerWorldY') || 384;
+    this.minimapDot.setPosition(
+      this.mmX + (px / WW) * this.mmW,
+      this.mmY + (py / WH) * this.mmH
+    );
+  }
+}
+
+// ============================================================
+//  SCENE BATTLE
+// ============================================================
+class SceneBattle extends Phaser.Scene {
+  constructor() { super({ key: 'SceneBattle' }); }
+
+  create() {
+    this.adversaryData = this.registry.get('currentAdversary') ||
+      { name: 'UNKNOWN_THREAT', faction: 'APT0', hp: 50, maxHP: 50, color: 0xff003c };
+    this.playerHP    = this.registry.get('playerHP')    || 100;
+    this.playerMaxHP = this.registry.get('playerMaxHP') || 100;
+    this.advHP       = this.adversaryData.hp;
+    this.advMaxHP    = this.adversaryData.maxHP || 80;
+    this.battleOver  = false;
+    this.playerTurn  = true;
+    this._btns       = [];
+
+    // Full-screen dark cover
+    this.add.rectangle(W / 2, H / 2, W, H, 0x000a14, 0.97);
+
+    // ── Header ───────────────────────────────────────────────
+    this.add.text(W / 2, 27, '\u2694  COMBAT  ENGAGED  \u2694', glow('32px', '#ff003c')).setOrigin(0.5);
+    this.add.text(W / 2, 60,
+      this.adversaryData.name + '  [' + (this.adversaryData.faction || 'THREAT') + ']',
+      glow('20px', '#ff8800')).setOrigin(0.5);
+    this.add.line(W / 2, 79, -W / 2 + 20, 0, W / 2 - 20, 0, 0x003366).setLineWidth(1);
+
+    // ── Player side ──────────────────────────────────────────
+    this.add.text(210, 100, 'OPERATIVE', glow('22px', '#00e8ff')).setOrigin(0.5);
+    this.add.text(210, 124, this.registry.get('agentId') || 'AGENT_0000',
+      glow('16px', '#00ff41')).setOrigin(0.5);
+    this.add.image(210, 215, 'tx_player').setScale(3.2)
+      .setTint(this.registry.get('classColor') || 0x00e8ff);
+    this.add.text(100, 282, 'HP', glow('18px', '#ff003c')).setOrigin(0, 0.5);
+    this.add.rectangle(195, 282, 156, 16, 0x220011).setOrigin(0.5);
+    this.playerHPBar = this.add.rectangle(122, 282, 150, 14, 0xff003c).setOrigin(0, 0.5);
+    this.playerHPTxt = this.add.text(280, 282, this.playerHP + '/' + this.playerMaxHP,
+      glow('15px', '#ff003c')).setOrigin(0, 0.5);
+
+    // ── Adversary side ───────────────────────────────────────
+    const advHex = hexStr(this.adversaryData.color || 0xff003c);
+    this.add.text(W - 210, 100, 'THREAT_ACTOR', glow('22px', advHex)).setOrigin(0.5);
+    this.add.text(W - 210, 124, this.adversaryData.name, glow('16px', advHex)).setOrigin(0.5);
+    this.advSprite = this.add.image(W - 210, 215, 'tx_adversary')
+      .setScale(3.2).setTint(this.adversaryData.color || 0xff003c);
+    this.tweens.add({ targets: this.advSprite, y: '+=10', duration: 800, yoyo: true, repeat: -1 });
+    this.add.text(W - 316, 282, 'HP', glow('18px', '#ff6600')).setOrigin(0, 0.5);
+    this.add.rectangle(W - 213, 282, 156, 16, 0x220011).setOrigin(0.5);
+    this.advHPBar = this.add.rectangle(W - 290, 282, 150, 14, 0xff6600).setOrigin(0, 0.5);
+    this.advHPTxt = this.add.text(W - 133, 282, this.advHP + '/' + this.advMaxHP,
+      glow('15px', '#ff6600')).setOrigin(0, 0.5);
+
+    this.add.line(W / 2, 294, 0, -214, 0, 214, 0x003366).setLineWidth(1);
+
+    // ── Attack buttons ────────────────────────────────────────
+    this.add.text(W / 2, 323, 'SELECT_ATTACK', glow('22px', '#00e8ff')).setOrigin(0.5);
+    const attacks = [
+      { name: 'NMAP_SCAN',     dmg: 15, hit: 1.00, desc: 'Network enumeration',           color: 0x00e8ff },
+      { name: 'EXPLOIT_CHAIN', dmg: 30, hit: 1.00, desc: 'Chained CVE attack',             color: 0xff8800 },
+      { name: 'SOCIAL_ENG',    dmg: 20, hit: 1.00, desc: 'Phishing payload delivery',      color: 0xff00ea },
+      { name: 'ZERO_DAY',      dmg: 50, hit: 0.20, desc: '0-day critical strike (20% hit)',color: 0xff003c },
+    ];
+    attacks.forEach((atk, i) => {
+      const bx = 148 + (i % 2) * 360, by = 380 + Math.floor(i / 2) * 70;
+      const hexC = hexStr(atk.color);
+      const bg = this.add.rectangle(bx, by, 300, 58, 0x001122)
+        .setStrokeStyle(1, atk.color).setInteractive({ useHandCursor: true });
+      this.add.text(bx, by - 12, atk.name, {
+        fontFamily: 'VT323, monospace', fontSize: '20px',
+        color: hexC, shadow: { color: hexC, blur: 6, fill: true }
+      }).setOrigin(0.5);
+      this.add.text(bx, by + 12, atk.desc, glow('14px', '#aabbcc')).setOrigin(0.5);
+      bg.on('pointerover', () => bg.setFillStyle(atk.color, 0.15));
+      bg.on('pointerout',  () => bg.setFillStyle(0x001122));
+      bg.on('pointerdown', () => { if (!this.battleOver && this.playerTurn) this._playerAttack(atk); });
+      this._btns.push(bg);
+    });
+
+    // ── Battle log ────────────────────────────────────────────
+    this.add.rectangle(W / 2, H - 91, W - 40, 106, 0x000a14, 0.9).setStrokeStyle(1, 0x003366);
+    this.add.text(22, H - 138, 'BATTLE_LOG:', glow('15px', '#00ff41'));
+    this._blog = [];
+    for (let i = 0; i < 3; i++)
+      this._blog.push(this.add.text(22, H - 124 + i * 26, '', glow('15px', '#aabbcc')));
+
+    this.statusTxt = this.add.text(W / 2, H / 2 + 12, '', glow('36px', '#00ff41'))
+      .setOrigin(0.5).setAlpha(0);
+
+    this._log('BATTLE STARTED \u2014 ' + this.adversaryData.name + '  HP: ' + this.advHP);
+    this._log('Your turn \u2014 select an attack');
+  }
+
+  _playerAttack(atk) {
+    this.playerTurn = false;
+    this._btns.forEach(b => b.disableInteractive());
+    const hit = Math.random() < atk.hit;
+    if (!hit) {
+      this._log('ZERO_DAY MISSED \u2014 target evaded the exploit!');
+    } else {
+      this.advHP = Math.max(0, this.advHP - atk.dmg);
+      this._updateAdvHP();
+      this._log('You used ' + atk.name + '  \u2192  -' + atk.dmg + '  to ' + this.adversaryData.name);
+      this.tweens.add({ targets: this.advSprite, alpha: 0.25, duration: 80, yoyo: true, repeat: 3 });
+    }
+    if (this.advHP <= 0) { this._win(); return; }
+    this.time.delayedCall(1100, () => this._enemyAttack());
+  }
+
+  _enemyAttack() {
+    const dmg = Phaser.Math.Between(10, 25);
+    this.playerHP = Math.max(0, this.playerHP - dmg);
+    this._updatePlayerHP();
+    this._log(this.adversaryData.name + '  counterattacks for  ' + dmg + '  damage!');
+    if (this.playerHP <= 0) { this._lose(); return; }
+    this._log('Your turn \u2014 select an attack');
+    this.playerTurn = true;
+    this._btns.forEach(b => b.setInteractive({ useHandCursor: true }));
+  }
+
+  _updateAdvHP() {
+    this.advHPBar.setSize(Math.max(2, 150 * (this.advHP / this.advMaxHP)), 14);
+    this.advHPTxt.setText(this.advHP + '/' + this.advMaxHP);
+  }
+
+  _updatePlayerHP() {
+    this.playerHPBar.setSize(Math.max(2, 150 * (this.playerHP / this.playerMaxHP)), 14);
+    this.playerHPTxt.setText(this.playerHP + '/' + this.playerMaxHP);
+  }
+
+  _win() {
+    this.battleOver = true;
+    const xpGain = Phaser.Math.Between(60, 160);
+    this.registry.set('playerXP', (this.registry.get('playerXP') || 0) + xpGain);
+    this.registry.set('playerHP', this.playerHP);
+    this.registry.set('defeatedAdversary', this.adversaryData.name);
+    this.statusTxt.setText('ADVERSARY NEUTRALIZED\n+' + xpGain + ' XP GAINED')
+      .setStyle({ fontFamily: 'VT323, monospace', fontSize: '36px', color: '#00ff41',
+        shadow: { color: '#00ff41', blur: 14, fill: true }, align: 'center' })
+      .setAlpha(1);
+    this._log('VICTORY! ' + this.adversaryData.name + '  neutralized.  +' + xpGain + ' XP');
+    const ws = this.scene.get('SceneWorld');
+    if (ws) ws.addLog('COMBAT WON vs ' + this.adversaryData.name + '  +' + xpGain + 'XP');
+    this.time.delayedCall(2500, () => {
+      this.scene.stop('SceneBattle');
+      this.scene.resume('SceneHUD');
+      this.scene.resume('SceneWorld');
+    });
+  }
+
+  _lose() {
+    this.battleOver = true;
+    this.registry.set('playerHP', this.registry.get('playerMaxHP') || 100);
+    this.statusTxt.setText('OPERATIVE_KIA\nRespawning with full HP...')
+      .setStyle({ fontFamily: 'VT323, monospace', fontSize: '34px', color: '#ff003c',
+        shadow: { color: '#ff003c', blur: 12, fill: true }, align: 'center' })
+      .setAlpha(1);
+    this._log('OPERATIVE KIA \u2014 respawning with full HP.');
+    const ws = this.scene.get('SceneWorld');
+    if (ws) ws.addLog('KIA vs ' + this.adversaryData.name + ' \u2014 respawned.');
+    this.time.delayedCall(2500, () => {
+      this.scene.stop('SceneBattle');
+      this.scene.resume('SceneHUD');
+      this.scene.resume('SceneWorld');
+    });
+  }
+
+  _log(msg) {
+    for (let i = 0; i < this._blog.length - 1; i++)
+      this._blog[i].setText(this._blog[i + 1].text);
+    this._blog[this._blog.length - 1].setText('> ' + msg);
+  }
+}
+
+// ============================================================
+//  SCENE CAPTURE
+// ============================================================
+class SceneCapture extends Phaser.Scene {
+  constructor() { super({ key: 'SceneCapture' }); }
+
+  create() {
+    this.daemonData      = this.registry.get('currentDaemon') ||
+      { name: 'UNKNOWN', type: 'MALWARE', level: 1, color: 0x00e8ff };
+    this.captureProgress = 0;
+    this.captureComplete = false;
+    this.timeLeft        = 5000;
+    const hexC = hexStr(this.daemonData.color || 0x00e8ff);
+
+    // Dark cover
+    this.add.rectangle(W / 2, H / 2, W, H, 0x000a14, 0.97);
+
+    // ── Header ───────────────────────────────────────────────
+    this.add.text(W / 2, 36, '\u2b21  DAEMON  DETECTED  \u2b21', glow('36px', '#ff00ea')).setOrigin(0.5);
+    this.add.text(W / 2, 78, this.daemonData.name, {
+      fontFamily: 'VT323, monospace', fontSize: '32px',
+      color: hexC, shadow: { color: hexC, blur: 16, fill: true }
+    }).setOrigin(0.5);
+    this.add.text(W / 2, 114,
+      'TYPE: ' + this.daemonData.type + '  //  THREAT LEVEL: ' + this.daemonData.level,
+      glow('20px', '#ff8800')).setOrigin(0.5);
+
+    // Bouncing daemon sprite
+    this.daemonSpr = this.add.image(W / 2, 226, 'tx_daemon')
+      .setScale(5.2).setTint(this.daemonData.color || 0x00e8ff);
+    this.tweens.add({
+      targets: this.daemonSpr, y: '+=20', scale: 5.7,
+      duration: 520, yoyo: true, repeat: -1, ease: 'Bounce.easeOut'
+    });
+
+    // ── Capture bar ───────────────────────────────────────────
+    this.add.text(W / 2, 328, 'CAPTURE_BAR', glow('24px', '#ff00ea')).setOrigin(0.5);
+    this.add.rectangle(W / 2, 364, 406, 32, 0x001122).setStrokeStyle(2, 0xff00ea);
+    this.capBarFg = this.add.rectangle(W / 2 - 201, 364, 2, 28, 0xff00ea).setOrigin(0, 0.5);
+    this.capPct   = this.add.text(W / 2, 364, '0%', glow('20px', '#ffffff')).setOrigin(0.5);
+
+    // ── Timer ─────────────────────────────────────────────────
+    this.add.text(W / 2, 408, 'TIME REMAINING', glow('18px', '#ffaa00')).setOrigin(0.5);
+    this.timerTxt = this.add.text(W / 2, 438, '5.0s', glow('32px', '#ffaa00')).setOrigin(0.5);
+
+    // ── SCAN_DEPLOY button ────────────────────────────────────
+    this.add.text(W / 2, 492, 'CLICK RAPIDLY TO FILL THE CAPTURE BAR!',
+      glow('18px', '#aabbcc')).setOrigin(0.5);
+    this.scanBtn = this.add.rectangle(W / 2, 542, 330, 66, 0x001133)
+      .setStrokeStyle(2, 0xff00ea).setInteractive({ useHandCursor: true });
+    this.add.text(W / 2, 542, 'SCAN_DEPLOY', glow('30px', '#ff00ea')).setOrigin(0.5);
+    this.scanBtn.on('pointerdown', () => {
+      if (this.captureComplete || this.timeLeft <= 0) return;
+      this.captureProgress = Math.min(100, this.captureProgress + 8);
+      this._updateBar();
+      this.scanBtn.setFillStyle(0x220033);
+      this.time.delayedCall(100, () => this.scanBtn.setFillStyle(0x001133));
+      if (this.captureProgress >= 100) this._success();
+    });
+
+    this.statusTxt = this.add.text(W / 2, H / 2 + 22, '', glow('36px', '#00ff41'))
+      .setOrigin(0.5).setAlpha(0);
+    this.add.text(W / 2, H - 36, '+8% per click  //  reach 100% in 5 seconds to capture',
+      glow('16px', '#334455')).setOrigin(0.5);
+  }
+
+  _updateBar() {
+    this.capBarFg.setSize(Math.max(2, (this.captureProgress / 100) * 402), 28);
+    this.capPct.setText(Math.floor(this.captureProgress) + '%');
+  }
+
+  _success() {
+    if (this.captureComplete) return;
+    this.captureComplete = true;
+    this.registry.set('capturedDaemons', (this.registry.get('capturedDaemons') || 0) + 1);
+    this.registry.set('capturedDaemon',  this.daemonData.name);
+    this.registry.set('playerXP', (this.registry.get('playerXP') || 0) + 80);
+    const logs = this.registry.get('hudLog') || [];
+    logs.push('DAEMON CAPTURED: ' + this.daemonData.name + '  [' + this.daemonData.type + ']');
+    this.registry.set('hudLog', logs);
+    this.registry.set('hudLogVer', (this.registry.get('hudLogVer') || 0) + 1);
+    this.statusTxt.setText('DAEMON  CAPTURED!\n' + this.daemonData.name + '  added to CODEX')
+      .setStyle({ fontFamily: 'VT323, monospace', fontSize: '34px', color: '#00ff41',
+        shadow: { color: '#00ff41', blur: 14, fill: true }, align: 'center' })
+      .setAlpha(1);
+    this.time.delayedCall(2200, () => this._returnToWorld());
+  }
+
+  _fail() {
+    if (this.captureComplete) return;
+    this.captureComplete = true;
+    const logs = this.registry.get('hudLog') || [];
+    logs.push('CAPTURE FAILED: ' + this.daemonData.name + '  escaped containment');
+    this.registry.set('hudLog', logs);
+    this.registry.set('hudLogVer', (this.registry.get('hudLogVer') || 0) + 1);
+    this.statusTxt.setText('CAPTURE  FAILED\nDaemon escaped containment')
+      .setStyle({ fontFamily: 'VT323, monospace', fontSize: '34px', color: '#ff003c',
+        shadow: { color: '#ff003c', blur: 12, fill: true }, align: 'center' })
+      .setAlpha(1);
+    this.time.delayedCall(2200, () => this._returnToWorld());
+  }
+
+  _returnToWorld() {
+    this.scene.stop('SceneCapture');
+    this.scene.resume('SceneHUD');
+    this.scene.resume('SceneWorld');
+  }
+
+  update(time, delta) {
+    if (this.captureComplete) return;
+    this.timeLeft -= delta;
+    const t = Math.max(0, this.timeLeft / 1000);
+    this.timerTxt.setText(t.toFixed(1) + 's');
+    if      (this.timeLeft < 2000) this.timerTxt.setStyle(glow('32px', '#ff003c'));
+    else if (this.timeLeft < 3500) this.timerTxt.setStyle(glow('32px', '#ff8800'));
+    if (this.timeLeft <= 0 && this.captureProgress < 100) this._fail();
+  }
+}
+
+// ============================================================
+//  GAME INIT
+// ============================================================
+new Phaser.Game({
+  type:            Phaser.AUTO,
+  width:           W,
+  height:          H,
+  parent:          'game-wrap',
+  backgroundColor: '#050a14',
+  render:          { antialias: false },
+  scene: [SceneBoot, SceneLogin, SceneCharacter, SceneWorld, SceneHUD, SceneBattle, SceneCapture],
+});
+</script>
 </body>
 </html>

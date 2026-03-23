@@ -2,58 +2,127 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CyberWorld MMORPG // FURIOS-INT UPLINK</title>
-<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/os.css">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self';">
+<title>CYBERWORLD // FLLC MMORPG</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
 <style>
-    .game-viewport {
-        background: #000; width: 100%; height: 100%; position: relative;
-        display: flex; flex-direction: column; overflow: hidden;
-    }
-    .game-header { background: #050a0f; border-bottom: 2px solid #1a1a1a; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; }
-    .game-iframe { flex: 1; border: 0; width: 100%; height: 100%; }
-    .status-ping { display: flex; align-items: center; gap: 8px; font-family: 'VT323'; color: var(--cyber-green); font-size: 14px; }
-    .ping-dot { width: 8px; height: 8px; background: var(--cyber-green); border-radius: 50%; animation: pulse 1s infinite; }
-    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;}
+body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace;height:100vh;overflow:hidden;display:flex;flex-direction:column;}
+/* NAV */
+#topbar{height:40px;flex-shrink:0;background:rgba(2,4,8,0.97);border-bottom:1px solid rgba(0,232,255,0.2);
+  display:flex;align-items:center;padding:0 12px;gap:10px;z-index:100;}
+#topbar a{color:var(--cyan);text-decoration:none;font-family:'VT323';font-size:18px;padding:4px 10px;
+  border:1px solid transparent;transition:0.15s;-webkit-tap-highlight-color:transparent;}
+#topbar a:hover{border-color:var(--cyan);background:rgba(0,232,255,0.08);}
+.tbar-title{font-family:'Pixelify Sans';font-size:18px;color:var(--pink);text-shadow:0 0 10px rgba(255,0,234,0.4);margin-right:8px;}
+/* LAUNCH SCREEN */
+#launch{position:absolute;top:0;left:0;width:100%;height:100%;background:#020408;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;z-index:50;padding:20px;}
+#launch h1{font-family:'Pixelify Sans';font-size:clamp(32px,8vw,72px);color:var(--cyan);
+  text-shadow:0 0 30px rgba(0,232,255,0.5);text-align:center;}
+#launch p{font-family:'VT323';font-size:clamp(14px,4vw,22px);color:#aaa;text-align:center;max-width:600px;}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;width:100%;max-width:700px;}
+.feat{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:14px;text-align:center;}
+.feat-icon{font-size:28px;margin-bottom:6px;}
+.feat-name{font-family:'VT323';font-size:18px;color:var(--cyan);}
+.feat-desc{font-size:11px;color:#666;margin-top:3px;}
+.launch-btn{min-height:52px;padding:14px 40px;background:var(--pink);color:#fff;border:none;
+  font-family:'Pixelify Sans';font-size:24px;cursor:pointer;transition:0.2s;letter-spacing:2px;
+  text-shadow:0 0 8px rgba(255,0,234,0.5);box-shadow:0 0 20px rgba(255,0,234,0.3);}
+.launch-btn:hover{background:#c000b0;box-shadow:0 0 30px rgba(255,0,234,0.5);}
+.nav-links{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.nav-link{color:var(--cyan);text-decoration:none;font-family:'VT323';font-size:18px;padding:8px 16px;
+  border:1px solid rgba(0,232,255,0.3);-webkit-tap-highlight-color:transparent;}
+.nav-link:hover{background:rgba(0,232,255,0.08);border-color:var(--cyan);}
+/* GAME FRAME */
+#game-wrap{flex:1;position:relative;display:none;}
+#rpg-frame{width:100%;height:100%;border:none;display:block;background:#000;}
+#game-wrap .overlay-bar{position:absolute;top:0;left:0;right:0;height:32px;background:rgba(0,0,0,0.85);
+  border-bottom:1px solid rgba(0,232,255,0.2);display:flex;align-items:center;padding:0 10px;gap:12px;z-index:10;}
+#fullscreen-btn{padding:3px 10px;background:rgba(0,232,255,0.1);border:1px solid rgba(0,232,255,0.3);
+  color:var(--cyan);font-family:'VT323';font-size:16px;cursor:pointer;}
+#back-btn{padding:3px 10px;background:rgba(255,0,234,0.1);border:1px solid rgba(255,0,234,0.3);
+  color:var(--pink);font-family:'VT323';font-size:16px;cursor:pointer;}
+#status-bar{margin-left:auto;font-family:'VT323';font-size:16px;color:var(--green);}
+/* Scanline */
+#crt{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 3px);z-index:9999;}
+@media(max-width:600px){
+  .feature-grid{grid-template-columns:1fr 1fr;}
+  .feat-desc{display:none;}
+}
 </style>
 </head>
 <body>
-
-<div id="crt-filter"></div>
-<div id="desktop"></div>
-
-<div id="taskbar">
-    <div class="start-btn" onclick="window.location.href='index.html'">⊞ Start</div>
-    <div id="task-items" style="display: flex; gap: 4px; padding: 0 10px;"></div>
-    <div id="tray"><div id="clock">12:00 PM</div></div>
+<div id="crt"></div>
+<div id="topbar">
+  <span class="tbar-title">🌐 CYBERWORLD</span>
+  <a href="index.html">⌂ HOME</a>
+  <a href="arcade.html">🎮 ARCADE</a>
+  <a href="wargames.html">⚔ WAR_GAMES</a>
+  <a href="intel.html">📡 INTEL</a>
+  <a href="nodes.html">📡 NODES</a>
 </div>
 
-<script src="js/os.js"></script>
+<div id="launch">
+  <h1>⚡ CYBERWORLD RPG</h1>
+  <p>FLLC MMORPG ENGINE v2.6.5 · Phaser 3 · Discord Activities · Full operative simulation</p>
+
+  <div class="feature-grid">
+    <div class="feat"><div class="feat-icon">🗺️</div><div class="feat-name">WORLD_MAP</div><div class="feat-desc">Global sector navigation</div></div>
+    <div class="feat"><div class="feat-icon">🤖</div><div class="feat-name">NPC_DIALOG</div><div class="feat-desc">SENTINEL & mission bots</div></div>
+    <div class="feat"><div class="feat-icon">🎮</div><div class="feat-name">MINI_GAMES</div><div class="feat-desc">Galaxy Arcade vector run</div></div>
+    <div class="feat"><div class="feat-icon">👤</div><div class="feat-name">CHARACTERS</div><div class="feat-desc">Choose your operative role</div></div>
+    <div class="feat"><div class="feat-icon">⚔️</div><div class="feat-name">OPERATIONS_DECK</div><div class="feat-desc">Point-and-click missions</div></div>
+    <div class="feat"><div class="feat-icon">📡</div><div class="feat-name">DISCORD_READY</div><div class="feat-desc">Discord Activities SDK</div></div>
+  </div>
+
+  <button class="launch-btn" onclick="launchGame()">🚀 LAUNCH_CYBERWORLD</button>
+
+  <div class="nav-links">
+    <a class="nav-link" href="arcade.html">🕹 ARCADE GAMES</a>
+    <a class="nav-link" href="wargames.html">⚔ WAR_GAMES</a>
+    <a class="nav-link" href="index.html">⌂ HOME</a>
+  </div>
+</div>
+
+<div id="game-wrap">
+  <div class="overlay-bar">
+    <button id="back-btn" onclick="exitGame()">✕ EXIT</button>
+    <span style="font-family:'VT323';font-size:16px;color:var(--cyan);">CYBERWORLD_RPG // FURIOS-INT ENGINE v2.6.5</span>
+    <button id="fullscreen-btn" onclick="toggleFS()">⛶ FULLSCREEN</button>
+    <span id="status-bar">● CONNECTED</span>
+  </div>
+  <iframe id="rpg-frame" src="" title="CyberWorld RPG" allow="autoplay; fullscreen"
+    sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock"></iframe>
+</div>
+
 <script>
-    function createGameContent() {
-        return `
-            <div class="game-viewport">
-                <div class="game-header">
-                    <div style="font-family: 'Pixelify Sans'; color: var(--cyber-cyan); font-size: 24px;">CyberWorld_MMORPG</div>
-                    <div class="status-ping">
-                        <div class="ping-dot"></div>
-                        UPLINK: MASTER_READY // 4096-BIT_RSA
-                    </div>
-                </div>
-                <iframe src="rpg/index.html" class="game-iframe"></iframe>
-            </div>
-        `;
-    }
+function launchGame(){
+  var fr=document.getElementById('rpg-frame');
+  fr.src='rpg/index.html';
+  document.getElementById('launch').style.display='none';
+  document.getElementById('game-wrap').style.display='flex';
+  document.getElementById('game-wrap').style.flexDirection='column';
+}
 
-    window.onload = () => {
-        OS.createWindow('mmorpg-win', 'CyberWorld MMORPG - Unified Engine v2026.3', createGameContent(), {
-            width: '95%', height: '90%', top: '2%', left: '2.5%',
-            hasToolbar: true, hasAddressBar: true,
-            url: 'http://mmorpg.fllc.net/sector_alpha'
-        });
-    };
+function exitGame(){
+  var fr=document.getElementById('rpg-frame');
+  fr.src='';
+  document.getElementById('launch').style.display='flex';
+  document.getElementById('game-wrap').style.display='none';
+}
+
+function toggleFS(){
+  var el=document.getElementById('game-wrap');
+  if(!document.fullscreenElement){
+    el.requestFullscreen&&el.requestFullscreen();
+  }else{
+    document.exitFullscreen&&document.exitFullscreen();
+  }
+}
 </script>
-
 </body>
 </html>

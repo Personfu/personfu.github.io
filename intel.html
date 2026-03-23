@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://services.nvd.nist.gov https://cve.circl.lu;">
+<title>INTEL_HUB — LIVE GLOBAL THREAT MONITOR</title>
+<link href="css/os.css" rel="stylesheet">
+<style>
+:root{--cyber-cyan:#00e8ff;--cyber-green:#00ff41;--cyber-pink:#ff00ea;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courier,monospace;padding-bottom:40px;}
+#crt-filter{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 2px);z-index:9998;}
+#taskbar{position:fixed;bottom:0;left:0;width:100%;height:32px;background:#0a0a0a;border-top:1px solid var(--cyber-cyan);z-index:9999;display:flex;align-items:center;padding:0 12px;}
+#taskbar a{color:var(--cyber-cyan);text-decoration:none;font-size:13px;letter-spacing:1px;}
+#taskbar a:hover{text-shadow:0 0 8px var(--cyber-cyan);}
+.page-title{text-align:center;padding:32px 16px 16px;font-size:clamp(16px,4vw,28px);letter-spacing:3px;text-shadow:0 0 16px var(--cyber-cyan),0 0 32px var(--cyber-cyan);color:var(--cyber-cyan);text-transform:uppercase;}
+.section{margin:24px 16px;border:1px solid var(--cyber-cyan);background:#0a0a0a;border-radius:2px;}
+.section-header{padding:10px 16px;background:#020e10;border-bottom:1px solid var(--cyber-cyan);font-size:13px;letter-spacing:2px;text-shadow:0 0 8px var(--cyber-cyan);color:var(--cyber-cyan);}
+.section-body{padding:16px;}
+/* CVE Feed */
+#cve-list{max-height:400px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;}
+.cve-entry{background:#050505;border:1px solid #1a1a2e;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;}
+.cve-id{color:var(--cyber-cyan);font-weight:bold;min-width:140px;}
+.cvss-red{color:#ff4444;font-weight:bold;}
+.cvss-orange{color:#ff8800;font-weight:bold;}
+.cvss-yellow{color:#ffdd00;font-weight:bold;}
+.cvss-low{color:var(--cyber-green);font-weight:bold;}
+.cve-product{color:var(--cyber-pink);min-width:120px;}
+.cve-desc{color:#aaa;flex:1;}
+/* Threat Gauge */
+#gauge-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;padding:16px;}
+#gauge-bar-outer{width:100%;max-width:500px;height:28px;background:#0d0d0d;border:1px solid var(--cyber-cyan);border-radius:2px;overflow:hidden;}
+#gauge-bar-inner{height:100%;width:0%;transition:width 0.6s ease,background 0.6s ease;}
+#gauge-label{font-size:22px;letter-spacing:4px;font-weight:bold;text-shadow:0 0 12px currentColor;}
+/* Camera */
+#cam-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;}
+#activate-btn,#capture-btn,#deactivate-btn{min-height:44px;padding:10px 28px;font-family:'Courier New',monospace;font-size:13px;letter-spacing:2px;cursor:pointer;border:none;border-radius:2px;}
+#activate-btn{background:var(--cyber-cyan);color:#000;}
+#capture-btn{background:var(--cyber-green);color:#000;display:none;}
+#deactivate-btn{background:#ff4444;color:#fff;display:none;}
+#video-frame{position:relative;display:none;border:2px solid var(--cyber-cyan);box-shadow:0 0 18px var(--cyber-cyan);}
+#cam-video{display:block;max-width:100%;width:480px;}
+#scan-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--cyber-cyan);font-size:18px;letter-spacing:3px;text-shadow:0 0 10px var(--cyber-cyan);animation:blink 1s step-start infinite;}
+@keyframes blink{50%{opacity:0;}}
+#cam-canvas{max-width:100%;border:2px solid var(--cyber-green);display:none;margin-top:8px;}
+#cam-error{color:#ff4444;display:none;margin-top:8px;}
+/* TTP Feed */
+#ttp-list{max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;}
+.ttp-entry{background:#050505;border:1px solid #1a1a2e;padding:10px 12px;font-size:12px;}
+.ttp-id{color:var(--cyber-pink);font-weight:bold;}
+.ttp-tactic{color:var(--cyber-cyan);}
+.ttp-desc{color:#aaa;}
+.ttp-time{color:var(--cyber-green);font-size:11px;}
+/* Ticker */
+#ticker-outer{overflow:hidden;white-space:nowrap;padding:10px 0;background:#020e10;}
+#ticker-inner{display:inline-block;animation:ticker 35s linear infinite;color:var(--cyber-cyan);font-size:13px;letter-spacing:1px;}
+@keyframes ticker{0%{transform:translateX(100vw);}100%{transform:translateX(-100%);}}
+@media(max-width:600px){
+  .page-title{padding-top:20px;}
+  .cve-entry{font-size:11px;}
+}
+</style>
+</head>
+<body>
+<div id="crt-filter"></div>
+
+<div class="page-title">◈ INTEL_HUB — LIVE GLOBAL THREAT MONITOR ◈</div>
+
+<!-- THREAT TICKER -->
+<div class="section">
+  <div class="section-header">▶ GLOBAL_THREAT_TICKER // LIVE INTEL STREAM</div>
+  <div id="ticker-outer">
+    <span id="ticker-inner">⚠ CRITICAL: APT29 ACTIVITY DETECTED IN EU NETWORKS // ⚠ HIGH: ZERO-DAY IN CISCO IOS UNDER ACTIVE EXPLOITATION // ⚠ LAZARUS GROUP TARGETING CRYPTO EXCHANGES // ⚠ RANSOMWARE SURGE: 340% INCREASE Q4 // ⚠ VOLT TYPHOON PERSISTENCE IN US CRITICAL INFRA // ⚠ CRITICAL: SUPPLY CHAIN ATTACK VIA NPM PACKAGE // ⚠ HIGH: COBALT STRIKE BEACON CLUSTER ACTIVE // ⚠ TURLA APT PHISHING CAMPAIGN ONGOING // ⚠ CRITICAL: IVANTI ZERO-DAY CVE-2024-21887 MASS EXPLOITATION // ⚠ FIN7 DEPLOYING NEW RANSOMWARE VARIANT //</span>
+  </div>
+</div>
+
+<!-- LIVE CVE FEED -->
+<div class="section">
+  <div class="section-header">▶ LIVE_CVE_FEED // NVD THREAT INTELLIGENCE</div>
+  <div class="section-body">
+    <div style="font-size:12px;color:#aaa;margin-bottom:10px;">⟳ Fetching from NVD API (services.nvd.nist.gov). Displayed in real-time — newest first.</div>
+    <div id="nvd-status" style="font-size:12px;color:var(--cyber-yellow);margin-bottom:8px;"></div>
+    <div id="cve-list"></div>
+  </div>
+</div>
+
+<!-- CVE SEARCH + HISTORY (back to 2005) -->
+<div class="section">
+  <div class="section-header">▶ CVE_SEARCH // FULL DATABASE 2005–PRESENT</div>
+  <div class="section-body">
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
+      <input id="cve-search-q" type="search" placeholder="Search CVE ID, product, keyword (e.g. log4j, openssl, CVE-2014-0160)" 
+        style="flex:1;min-width:200px;background:#000;border:1px solid var(--cyber-cyan);color:var(--cyber-cyan);padding:9px 12px;font-family:'Courier New',monospace;font-size:13px;outline:none;" 
+        autocomplete="off" maxlength="120" aria-label="CVE search">
+      <select id="cve-search-year" 
+        style="background:#000;border:1px solid var(--cyber-cyan);color:var(--cyber-cyan);padding:9px 8px;font-family:'Courier New',monospace;font-size:13px;outline:none;" aria-label="Filter by year">
+        <option value="">ANY YEAR</option>
+      </select>
+      <select id="cve-search-sev"
+        style="background:#000;border:1px solid var(--cyber-cyan);color:var(--cyber-cyan);padding:9px 8px;font-family:'Courier New',monospace;font-size:13px;outline:none;" aria-label="Filter by severity">
+        <option value="">ANY SEVERITY</option>
+        <option value="CRITICAL">CRITICAL (9.0–10.0)</option>
+        <option value="HIGH">HIGH (7.0–8.9)</option>
+        <option value="MEDIUM">MEDIUM (4.0–6.9)</option>
+        <option value="LOW">LOW (0.1–3.9)</option>
+      </select>
+      <button id="cve-search-btn" 
+        style="min-height:40px;padding:8px 20px;background:var(--cyber-cyan);color:#000;border:none;font-family:'Courier New',monospace;font-size:13px;letter-spacing:1px;cursor:pointer;" aria-label="Search CVEs">SEARCH</button>
+    </div>
+    <div id="cve-search-status" style="font-size:12px;color:var(--cyber-yellow);margin-bottom:8px;display:none;"></div>
+    <div id="cve-search-results" style="max-height:500px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;"></div>
+    <div id="cve-search-pages" style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;"></div>
+    <!-- STATIC HIGHLIGHTS: famous CVEs 2005–2024 -->
+    <div id="cve-highlights" style="margin-top:18px;">
+      <div style="font-family:'Courier New';font-size:12px;color:var(--cyber-cyan);letter-spacing:2px;margin-bottom:10px;">── NOTABLE CVEs 2005–2024 ──</div>
+      <div id="highlights-list" style="display:flex;flex-direction:column;gap:5px;max-height:400px;overflow-y:auto;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- THREAT LEVEL GAUGE -->
+<div class="section">
+  <div class="section-header">▶ THREAT_LEVEL_GAUGE // GLOBAL RISK INDEX</div>
+  <div class="section-body">
+    <div id="gauge-wrap">
+      <div id="gauge-bar-outer"><div id="gauge-bar-inner"></div></div>
+      <div id="gauge-label">LOADING...</div>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE CAMERA -->
+<div class="section">
+  <div class="section-header">▶ LIVE_CAMERA // OPTICAL_RECON</div>
+  <div class="section-body">
+    <div id="cam-wrap">
+      <button id="activate-btn">ACTIVATE_CAMERA</button>
+      <div id="video-frame">
+        <video id="cam-video" autoplay playsinline></video>
+        <div id="scan-overlay">SCANNING...</div>
+      </div>
+      <canvas id="cam-canvas"></canvas>
+      <div style="display:flex;gap:12px;">
+        <button id="capture-btn">CAPTURE_FRAME</button>
+        <button id="deactivate-btn">DEACTIVATE</button>
+      </div>
+      <div id="cam-error">⚠ CAMERA ACCESS DENIED — PERMISSION REQUIRED</div>
+    </div>
+  </div>
+</div>
+
+<!-- ADVERSARY TACTICS FEED -->
+<div class="section">
+  <div class="section-header">▶ ADVERSARY_TACTICS_FEED // MITRE ATT&amp;CK</div>
+  <div class="section-body">
+    <div id="ttp-list"></div>
+  </div>
+</div>
+
+<div id="taskbar"><a href="index.html">⌂ BACK TO HOME</a></div>
+
+<script>
+// ── CVE FEED: NVD API + CIRCL fallback ─────────────────────────────────────
+// NVD public API (no key needed for moderate rate): https://services.nvd.nist.gov/rest/json/cves/2.0
+// CIRCL CVE Search (backup): https://cve.circl.lu/api/last/10
+
+const NVD_API  = "https://services.nvd.nist.gov/rest/json/cves/2.0";
+const CIRCL_API= "https://cve.circl.lu/api/last/10";
+const cvePool=[
+  {id:"CVE-2024-21762",cvss:9.8,product:"Fortinet FortiOS",desc:"Out-of-bounds write in SSL-VPN allowing unauthenticated RCE"},
+  {id:"CVE-2024-3400", cvss:10.0,product:"Palo Alto PAN-OS",desc:"OS command injection in GlobalProtect gateway"},
+  {id:"CVE-2024-21887",cvss:9.1,product:"Ivanti Connect Secure",desc:"Command injection in web components, exploited in wild"},
+  {id:"CVE-2024-27198",cvss:9.8,product:"JetBrains TeamCity",desc:"Authentication bypass allowing admin account creation"},
+  {id:"CVE-2024-1709", cvss:10.0,product:"ConnectWise ScreenConnect",desc:"Authentication bypass via path traversal in setup wizard"},
+  {id:"CVE-2024-6387", cvss:8.1,product:"OpenSSH",desc:"Race condition in signal handler leading to unauthenticated RCE"},
+  {id:"CVE-2024-38112",cvss:7.5,product:"Microsoft Windows MSHTML",desc:"Spoofing via disabled IE mode, used by APT actors"},
+  {id:"CVE-2024-4577", cvss:9.8,product:"PHP CGI",desc:"Argument injection vulnerability on Windows systems"},
+  {id:"CVE-2024-23113",cvss:9.8,product:"Fortinet FortiGate",desc:"Format string vulnerability in fgfmd daemon"},
+  {id:"CVE-2024-29988",cvss:8.8,product:"Microsoft SmartScreen",desc:"Security feature bypass in Windows Defender SmartScreen"},
+  {id:"CVE-2024-30051",cvss:7.8,product:"Windows DWM Core",desc:"Privilege escalation via heap buffer overflow"},
+  {id:"CVE-2024-26169",cvss:7.8,product:"Windows Error Reporting",desc:"Elevation of privilege in WER service"},
+  {id:"CVE-2024-21338",cvss:7.8,product:"Windows AppLocker",desc:"Kernel driver allows SYSTEM privilege escalation"},
+  {id:"CVE-2024-37085", cvss:6.8,product:"VMware ESXi",desc:"Authentication bypass in Active Directory integration"},
+  {id:"CVE-2024-20399",cvss:6.0,product:"Cisco NX-OS",desc:"OS command injection with admin credential access"},
+  {id:"CVE-2024-0204", cvss:9.8,product:"Fortra GoAnywhere MFT",desc:"Authentication bypass allowing admin user creation"},
+  {id:"CVE-2023-46805",cvss:8.2,product:"Ivanti ICS",desc:"Authentication bypass in web component, chained with 21887"},
+  {id:"CVE-2024-22024",cvss:9.1,product:"Ivanti ICS",desc:"XML external entity injection in SAML component"},
+  {id:"CVE-2024-24919",cvss:8.6,product:"Check Point Security Gateways",desc:"Information disclosure of password hash via path traversal"},
+  {id:"CVE-2024-5806", cvss:9.1,product:"MOVEit Transfer",desc:"Authentication bypass in SFTP module"},
+  {id:"CVE-2024-28986",cvss:9.0,product:"SolarWinds Web Help Desk",desc:"Java deserialization RCE vulnerability"},
+  {id:"CVE-2024-40711",cvss:9.8,product:"Veeam Backup & Replication",desc:"Deserialization of untrusted data enabling unauthenticated RCE"}
+];
+let cveIndex=0;
+const cveList=document.getElementById("cve-list");
+const nvdStatus=document.getElementById("nvd-status");
+function cvssClass(s){if(s>=9)return"cvss-red";if(s>=7)return"cvss-orange";if(s>=4)return"cvss-yellow";return"cvss-low";}
+
+function renderCVEEntry(e,container,prepend){
+  const d=document.createElement("div");d.className="cve-entry";
+  const cvssVal=e.cvss||"N/A";
+  const cls=typeof cvssVal==="number"?cvssClass(cvssVal):"cvss-low";
+  // Sanitize: use textContent for user-visible strings
+  const idSpan=document.createElement("span");idSpan.className="cve-id";idSpan.textContent=e.id||"";
+  const cvssSpan=document.createElement("span");cvssSpan.className=cls;cvssSpan.textContent="CVSS:"+(typeof cvssVal==="number"?cvssVal.toFixed(1):cvssVal);
+  const prodSpan=document.createElement("span");prodSpan.className="cve-product";prodSpan.textContent=e.product||"";
+  const descSpan=document.createElement("span");descSpan.className="cve-desc";descSpan.textContent=e.desc||"";
+  d.appendChild(idSpan);d.appendChild(cvssSpan);d.appendChild(prodSpan);d.appendChild(descSpan);
+  if(prepend)container.insertBefore(d,container.firstChild);else container.appendChild(d);
+  while(container.children.length>80)container.removeChild(prepend?container.lastChild:container.firstChild);
+}
+
+// Parse NVD API v2 response
+function parseNVDItems(items){
+  return items.map(function(item){
+    const vuln=item.cve||item;
+    const id=vuln.id||"";
+    let cvss="N/A";
+    try{
+      const m=vuln.metrics||{};
+      const v31=(m.cvssMetricV31||[])[0];
+      const v30=(m.cvssMetricV30||[])[0];
+      const v2=(m.cvssMetricV2||[])[0];
+      if(v31)cvss=v31.cvssData.baseScore;
+      else if(v30)cvss=v30.cvssData.baseScore;
+      else if(v2)cvss=parseFloat(v2.cvssData.baseScore)||"N/A";
+    }catch(e){}
+    let desc="No description available.";
+    try{
+      const descs=(vuln.descriptions||[]).filter(function(d){return d.lang==="en";});
+      if(descs.length)desc=descs[0].value;
+    }catch(e){}
+    let product="";
+    try{
+      const cpes=vuln.configurations||[];
+      if(cpes.length){
+        const node=(cpes[0].nodes||[])[0];
+        if(node){const m2=(node.cpeMatch||[])[0];if(m2){const parts=m2.criteria.split(":");product=parts[4]+" "+parts[5];product=product.trim();}}
+      }
+    }catch(e){}
+    return{id:id,cvss:cvss,product:product||"Unknown",desc:desc};
+  });
+}
+
+// Fetch latest CVEs from NVD
+async function fetchNVDLatest(){
+  nvdStatus.textContent="⟳ Fetching live CVEs from NVD API...";
+  try{
+    const url=NVD_API+"?resultsPerPage=10&startIndex=0";
+    const resp=await fetch(url,{headers:{"Accept":"application/json"}});
+    if(!resp.ok)throw new Error("HTTP "+resp.status);
+    const data=await resp.json();
+    const items=parseNVDItems(data.vulnerabilities||[]);
+    if(items.length){
+      cveList.innerHTML="";
+      items.forEach(function(e){renderCVEEntry(e,cveList,false);});
+      nvdStatus.textContent="✓ Live NVD data — "+items.length+" most recent CVEs. Updates every 5 min.";
+      nvdStatus.style.color="var(--cyber-green)";
+    }else{throw new Error("Empty");}
+  }catch(err){
+    nvdStatus.textContent="⚠ NVD API unavailable (CORS/rate limit). Trying CIRCL fallback...";
+    nvdStatus.style.color="var(--cyber-yellow)";
+    fetchCIRCL();
+  }
+}
+
+async function fetchCIRCL(){
+  try{
+    const resp=await fetch(CIRCL_API);
+    if(!resp.ok)throw new Error("HTTP "+resp.status);
+    const data=await resp.json();
+    const items=(data||[]).map(function(v){
+      return{id:v.id||v.cve_id||"",cvss:parseFloat(v.cvss)||"N/A",product:v.vendor||v.product||"",desc:v.summary||v.description||""};
+    });
+    if(items.length){
+      cveList.innerHTML="";
+      items.forEach(function(e){renderCVEEntry(e,cveList,false);});
+      nvdStatus.textContent="✓ CIRCL CVE feed loaded ("+items.length+" entries).";
+      nvdStatus.style.color="var(--cyber-green)";
+    }else{throw new Error("Empty");}
+  }catch(err){
+    nvdStatus.textContent="⚠ Live APIs unavailable. Displaying curated CVE data.";
+    nvdStatus.style.color="var(--cyber-yellow)";
+    for(let i=0;i<8;i++)renderCVEEntry(cvePool[i%cvePool.length],cveList,false);
+  }
+}
+
+// Initial load + refresh every 5 min
+fetchNVDLatest();
+setInterval(fetchNVDLatest,300000);
+
+// ── CVE SEARCH (NVD API v2 keyword/year search) ──────────────────────────────
+const HIGHLIGHTS=[
+  {id:"CVE-2005-0067",cvss:7.5,product:"TCP/IP (Various)",desc:"Sequence number guessing attack enabling TCP session hijacking"},
+  {id:"CVE-2006-3439",cvss:10.0,product:"Windows Server 2000/2003",desc:"Buffer overflow in Server Service allowing remote code execution without authentication"},
+  {id:"CVE-2007-0038",cvss:9.3,product:"Windows GDI",desc:"Animated cursor buffer overflow allowing remote code execution via crafted .ani file"},
+  {id:"CVE-2008-4250",cvss:10.0,product:"Windows Server Service",desc:"MS08-067: Buffer overflow exploited by Conficker worm — unauthenticated RCE"},
+  {id:"CVE-2009-3103",cvss:10.0,product:"Windows SMBv2",desc:"SMBv2 negotiation vulnerability allowing BSOD or remote code execution"},
+  {id:"CVE-2010-2568",cvss:9.3,product:"Windows Shell",desc:".LNK shortcut parsing exploited by Stuxnet for initial access via USB"},
+  {id:"CVE-2011-0609",cvss:9.3,product:"Adobe Flash Player",desc:"Flash SWF parsing vulnerability used in targeted APT attacks"},
+  {id:"CVE-2012-0158",cvss:9.3,product:"Microsoft Office MSCOMCTL.OCX",desc:"ActiveX control buffer overflow — most exploited office vuln of the year"},
+  {id:"CVE-2013-0422",cvss:10.0,product:"Java 7",desc:"Java sandbox escape used in drive-by-download campaigns within days of disclosure"},
+  {id:"CVE-2014-0160",cvss:5.0,product:"OpenSSL (Heartbleed)",desc:"Heartbleed: memory disclosure leaking private keys, passwords, and sensitive data — massive internet impact"},
+  {id:"CVE-2014-6271",cvss:10.0,product:"Bash (Shellshock)",desc:"Shellshock: environment variable injection executing arbitrary commands via CGI, DHCP, SSH"},
+  {id:"CVE-2015-0235",cvss:10.0,product:"glibc (GHOST)",desc:"GHOST: heap buffer overflow in glibc gethostbyname() functions enabling remote code execution"},
+  {id:"CVE-2016-0099",cvss:7.2,product:"Windows Secondary Logon",desc:"Privilege escalation exploited by numerous threat actors for post-exploitation elevation"},
+  {id:"CVE-2016-5195",cvss:7.2,product:"Linux Kernel (Dirty COW)",desc:"Dirty COW: race condition in copy-on-write mechanism allowing local privilege escalation to root"},
+  {id:"CVE-2017-0144",cvss:9.3,product:"Windows SMBv1 (EternalBlue)",desc:"EternalBlue: NSA-developed exploit leaked by Shadow Brokers, used in WannaCry and NotPetya ransomware"},
+  {id:"CVE-2017-0145",cvss:9.3,product:"Windows SMBv1 (EternalRomance)",desc:"EternalRomance: SMBv1 RCE vulnerability used in NotPetya wiper attack causing billions in damages"},
+  {id:"CVE-2018-11776",cvss:10.0,product:"Apache Struts 2",desc:"OGNL injection via namespace leading to RCE without authentication — PoC within 24 hours"},
+  {id:"CVE-2019-0708",cvss:9.8,product:"Windows RDP (BlueKeep)",desc:"BlueKeep: pre-auth RCE via Remote Desktop Protocol, wormable — patched before widespread exploitation"},
+  {id:"CVE-2020-1472",cvss:10.0,product:"Windows Netlogon (Zerologon)",desc:"Zerologon: cryptographic flaw in Netlogon enabling domain controller takeover in seconds"},
+  {id:"CVE-2021-44228",cvss:10.0,product:"Apache Log4j (Log4Shell)",desc:"Log4Shell: JNDI injection via log messages enabling unauthenticated RCE — most critical of the decade"},
+  {id:"CVE-2021-26855",cvss:9.8,product:"Microsoft Exchange (ProxyLogon)",desc:"ProxyLogon: SSRF leading to authentication bypass + RCE, exploited by HAFNIUM APT group"},
+  {id:"CVE-2022-30190",cvss:7.8,product:"Windows MSDT (Follina)",desc:"Follina: Office RCE via MSDT protocol handler, weaponized in wild before patch availability"},
+  {id:"CVE-2023-23397",cvss:9.8,product:"Microsoft Outlook",desc:"Zero-click NTLM hash theft via crafted meeting invite, exploited by APT28/Fancy Bear"},
+  {id:"CVE-2023-44487",cvss:7.5,product:"HTTP/2 (Rapid Reset)",desc:"Rapid Reset: HTTP/2 stream cancellation DDoS at unprecedented scale — Tbps-level attacks observed"},
+  {id:"CVE-2024-3400",cvss:10.0,product:"Palo Alto PAN-OS",desc:"OS command injection in GlobalProtect gateway, exploited as zero-day by UTA0218 threat actor"},
+  {id:"CVE-2024-21762",cvss:9.6,product:"Fortinet FortiOS SSL-VPN",desc:"Out-of-bounds write enabling unauthenticated remote code execution in SSL-VPN"},
+  {id:"CVE-2024-6387",cvss:8.1,product:"OpenSSH (regreSSHion)",desc:"Race condition in signal handler — first unauthenticated OpenSSH RCE in 18 years"}
+];
+
+const hlList=document.getElementById("highlights-list");
+HIGHLIGHTS.forEach(function(e){renderCVEEntry(e,hlList,false);});
+
+// Build year dropdown 2005–current
+const yearSel=document.getElementById("cve-search-year");
+const thisYear=new Date().getFullYear();
+for(let y=thisYear;y>=2005;y--){
+  const opt=document.createElement("option");opt.value=y;opt.textContent=y;yearSel.appendChild(opt);
+}
+
+let searchPage=0;
+const PAGE_SIZE=10;
+let lastSearchResults=[];
+
+function doSearch(page){
+  const raw=document.getElementById("cve-search-q").value.trim();
+  const year=document.getElementById("cve-search-year").value;
+  const sev=document.getElementById("cve-search-sev").value;
+  // Input validation
+  if(raw.length>120){alert("Search query too long.");return;}
+  searchPage=page||0;
+  const status=document.getElementById("cve-search-status");
+  const results=document.getElementById("cve-search-results");
+  const pages=document.getElementById("cve-search-pages");
+  results.innerHTML="";pages.innerHTML="";
+  status.style.display="block";
+  status.style.color="var(--cyber-yellow)";
+  status.textContent="⟳ Searching NVD API...";
+
+  // Build NVD query
+  let url=NVD_API+"?resultsPerPage="+PAGE_SIZE+"&startIndex="+(searchPage*PAGE_SIZE);
+  if(raw){
+    // If looks like CVE ID
+    if(/^CVE-\d{4}-\d+$/i.test(raw)){url=NVD_API+"?cveId="+encodeURIComponent(raw.toUpperCase());}
+    else{url+=("&keywordSearch="+encodeURIComponent(raw));}
+  }
+  if(year)url+="&pubStartDate="+year+"-01-01T00:00:00.000&pubEndDate="+year+"-12-31T23:59:59.999";
+  
+  fetch(url,{headers:{"Accept":"application/json"}})
+    .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
+    .then(function(data){
+      const total=data.totalResults||0;
+      const items=parseNVDItems(data.vulnerabilities||[]);
+      // Apply severity filter client-side
+      const filtered=sev?items.filter(function(e){
+        const s=typeof e.cvss==="number"?e.cvss:0;
+        if(sev==="CRITICAL")return s>=9.0;
+        if(sev==="HIGH")return s>=7.0&&s<9.0;
+        if(sev==="MEDIUM")return s>=4.0&&s<7.0;
+        if(sev==="LOW")return s>0&&s<4.0;
+        return true;
+      }):items;
+      lastSearchResults=filtered;
+      status.textContent="✓ Found "+total+" total results (showing "+PAGE_SIZE+" per page, page "+(searchPage+1)+")";
+      status.style.color="var(--cyber-green)";
+      if(!filtered.length){
+        const d=document.createElement("div");d.style.color="#aaa";d.style.fontSize="13px";d.style.padding="12px";
+        d.textContent="No results found for the current filters.";
+        results.appendChild(d);return;
+      }
+      filtered.forEach(function(e){renderCVEEntry(e,results,false);});
+      // Pagination
+      if(total>PAGE_SIZE){
+        const totalPages=Math.ceil(Math.min(total,1000)/PAGE_SIZE);
+        for(let p=Math.max(0,searchPage-2);p<=Math.min(totalPages-1,searchPage+4);p++){
+          const btn=document.createElement("button");
+          btn.textContent="Page "+(p+1);
+          btn.style.cssText="min-height:36px;padding:5px 14px;background:"+(p===searchPage?"var(--cyber-cyan)":"#000")+";color:"+(p===searchPage?"#000":"var(--cyber-cyan)")+";border:1px solid var(--cyber-cyan);font-family:'Courier New',monospace;font-size:12px;cursor:pointer;";
+          (function(pg){btn.onclick=function(){doSearch(pg);};})(p);
+          pages.appendChild(btn);
+        }
+      }
+    })
+    .catch(function(err){
+      status.textContent="⚠ NVD API error: "+err.message+". Try CIRCL or refine search.";
+      status.style.color="#ff4444";
+      // Fallback: search in local pool
+      const q=raw.toLowerCase();
+      const local=(q?HIGHLIGHTS.filter(function(e){return e.id.toLowerCase().includes(q)||e.product.toLowerCase().includes(q)||e.desc.toLowerCase().includes(q);}):HIGHLIGHTS).slice(0,10);
+      local.forEach(function(e){renderCVEEntry(e,results,false);});
+      if(local.length)status.textContent+=" Showing local highlights matching your query.";
+    });
+}
+
+document.getElementById("cve-search-btn").addEventListener("click",function(){doSearch(0);});
+document.getElementById("cve-search-q").addEventListener("keydown",function(e){if(e.key==="Enter")doSearch(0);});
+
+// ── THREAT GAUGE ──────────────────────────────────────────────────────────────
+const levels=[
+  {label:"CRITICAL",pct:95,color:"#ff2222"},
+  {label:"HIGH",    pct:72,color:"#ff8800"},
+  {label:"MEDIUM",  pct:45,color:"#ffdd00"},
+  {label:"LOW",     pct:18,color:"#00ff41"}
+];
+let lvlIdx=0;
+const bar=document.getElementById("gauge-bar-inner");
+const lbl=document.getElementById("gauge-label");
+function updateGauge(){
+  const l=levels[lvlIdx%levels.length];lvlIdx++;
+  bar.style.width=l.pct+"%";bar.style.background=l.color;
+  lbl.textContent=l.label;lbl.style.color=l.color;
+  lbl.style.textShadow="0 0 14px "+l.color;
+}
+updateGauge();
+setInterval(updateGauge,4000);
+
+// ── CAMERA ────────────────────────────────────────────────────────────────────
+let stream=null;
+const vid=document.getElementById("cam-video");
+const vframe=document.getElementById("video-frame");
+const cvs=document.getElementById("cam-canvas");
+const ctx=cvs.getContext("2d");
+document.getElementById("activate-btn").addEventListener("click",async()=>{
+  document.getElementById("cam-error").style.display="none";
+  try{
+    stream=await navigator.mediaDevices.getUserMedia({video:true});
+    vid.srcObject=stream;
+    vframe.style.display="block";
+    document.getElementById("capture-btn").style.display="inline-block";
+    document.getElementById("deactivate-btn").style.display="inline-block";
+    document.getElementById("activate-btn").style.display="none";
+  }catch(e){
+    document.getElementById("cam-error").style.display="block";
+  }
+});
+document.getElementById("capture-btn").addEventListener("click",()=>{
+  cvs.width=vid.videoWidth;cvs.height=vid.videoHeight;
+  ctx.drawImage(vid,0,0);cvs.style.display="block";
+});
+document.getElementById("deactivate-btn").addEventListener("click",()=>{
+  if(stream)stream.getTracks().forEach(t=>t.stop());
+  vid.srcObject=null;stream=null;
+  vframe.style.display="none";cvs.style.display="none";
+  document.getElementById("activate-btn").style.display="inline-block";
+  document.getElementById("capture-btn").style.display="none";
+  document.getElementById("deactivate-btn").style.display="none";
+});
+
+// ── TTP FEED ──────────────────────────────────────────────────────────────────
+const ttpPool=[
+  {id:"T1566.001",tactic:"Phishing",desc:"Spearphishing attachment delivering malicious macro payload"},
+  {id:"T1059.001",tactic:"Command & Scripting",desc:"PowerShell execution with encoded command bypassing AMSI"},
+  {id:"T1078",    tactic:"Valid Accounts",desc:"Compromised domain admin credentials used for lateral movement"},
+  {id:"T1486",    tactic:"Impact",desc:"Data encrypted for impact — ransomware deployment detected"},
+  {id:"T1055.012",tactic:"Process Injection",desc:"Process hollowing into svchost.exe detected on endpoint"},
+  {id:"T1027",    tactic:"Obfuscation",desc:"Heavily obfuscated JavaScript dropper in phishing email"},
+  {id:"T1071.001",tactic:"C2 over HTTP",desc:"Beacon traffic to C2 over HTTPS mimicking legitimate traffic"},
+  {id:"T1036.005",tactic:"Masquerading",desc:"Malware disguised as legitimate Windows system binary"},
+  {id:"T1547.001",tactic:"Persistence",desc:"Registry run key modification for persistence across reboots"},
+  {id:"T1003.001",tactic:"Credential Dumping",desc:"LSASS memory dump via MiniDump detected"},
+  {id:"T1021.002",tactic:"Lateral Movement",desc:"SMB/Windows Admin Shares used for lateral traversal"},
+  {id:"T1562.001",tactic:"Defense Evasion",desc:"Windows Defender real-time protection disabled via registry"},
+  {id:"T1190",    tactic:"Initial Access",desc:"Exploitation of public-facing VPN appliance for initial access"},
+  {id:"T1041",    tactic:"Exfiltration",desc:"Data exfiltrated over C2 channel using chunked HTTP POST"},
+  {id:"T1112",    tactic:"Registry Modification",desc:"Security tool configuration weakened via registry edit"},
+  {id:"T1569.002",tactic:"Service Execution",desc:"Malicious service created and started for code execution"},
+  {id:"T1204.002",tactic:"User Execution",desc:"Malicious file executed after social engineering lure"},
+];
+let ttpIdx=0;
+const ttpList=document.getElementById("ttp-list");
+function ts(){return new Date().toISOString().replace("T"," ").slice(0,19)+" UTC";}
+function addTTP(){
+  const e=ttpPool[ttpIdx%ttpPool.length];ttpIdx++;
+  const d=document.createElement("div");d.className="ttp-entry";
+  d.innerHTML=`<span class="ttp-id">${e.id}</span> <span class="ttp-tactic">[${e.tactic}]</span><br><span class="ttp-desc">${e.desc}</span><br><span class="ttp-time">DETECTED: ${ts()}</span>`;
+  ttpList.insertBefore(d,ttpList.firstChild);
+  while(ttpList.children.length>50)ttpList.removeChild(ttpList.lastChild);
+}
+for(let i=0;i<6;i++)addTTP();
+setInterval(addTTP,4000);
+</script>
+</body>
+</html>

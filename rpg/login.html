@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self';">
+<title>OPERATIVE LOGIN // CYBERWORLD FURIOS-INT</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;--yellow:#ffe700;}
+body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
+#crt{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.08) 0px,rgba(0,0,0,0.08) 1px,transparent 1px,transparent 3px);z-index:9000;}
+.login-wrap{width:100%;max-width:520px;}
+.login-logo{text-align:center;margin-bottom:28px;}
+.login-logo h1{font-family:'Pixelify Sans';font-size:clamp(28px,7vw,56px);color:var(--cyan);text-shadow:0 0 24px rgba(0,232,255,0.5);}
+.login-logo p{font-family:'VT323';font-size:18px;color:#666;margin-top:6px;}
+.login-box{background:#050505;border:2px solid rgba(0,232,255,0.3);padding:28px;box-shadow:0 0 40px rgba(0,232,255,0.1);}
+.login-box h2{font-family:'VT323';font-size:26px;color:var(--green);margin-bottom:20px;letter-spacing:2px;}
+.field{margin-bottom:16px;}
+.field label{display:block;font-family:'VT323';font-size:17px;color:#aaa;margin-bottom:5px;letter-spacing:1px;}
+.field input{width:100%;background:#020408;border:1px solid rgba(0,232,255,0.3);color:var(--cyan);font-family:'JetBrains Mono';font-size:15px;padding:10px 14px;outline:none;transition:border-color 0.2s;min-height:44px;}
+.field input:focus{border-color:var(--cyan);box-shadow:0 0 8px rgba(0,232,255,0.2);}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px;}
+.role-btn{padding:10px 8px;background:#020408;border:1px solid rgba(0,232,255,0.2);color:#888;font-family:'VT323';font-size:16px;cursor:pointer;transition:0.2s;text-align:center;min-height:48px;-webkit-tap-highlight-color:transparent;}
+.role-btn:hover,.role-btn.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,232,255,0.07);}
+.role-btn.active{box-shadow:0 0 10px rgba(0,232,255,0.2);}
+.submit-btn{width:100%;min-height:52px;background:var(--cyan);color:#000;border:none;font-family:'Pixelify Sans';font-size:22px;cursor:pointer;letter-spacing:2px;transition:0.2s;margin-top:4px;}
+.submit-btn:hover{background:#00c4d9;box-shadow:0 0 20px rgba(0,232,255,0.4);}
+.login-footer{text-align:center;margin-top:16px;font-family:'VT323';font-size:16px;color:#444;}
+.login-footer a{color:var(--cyan);text-decoration:none;}
+.login-footer a:hover{text-shadow:0 0 8px var(--cyan);}
+/* Profile panel (shown after login) */
+#profile-panel{display:none;width:100%;max-width:600px;}
+.profile-hdr{background:#050505;border:2px solid rgba(0,232,255,0.3);padding:20px;margin-bottom:12px;text-align:center;}
+.profile-hdr h2{font-family:'Pixelify Sans';font-size:28px;color:var(--cyan);}
+.profile-hdr .role-badge{display:inline-block;margin-top:6px;padding:4px 14px;background:rgba(0,232,255,0.1);border:1px solid var(--cyan);font-family:'VT323';font-size:18px;color:var(--cyan);}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:12px;}
+.stat-box{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:14px;text-align:center;}
+.stat-num{font-family:'Pixelify Sans';font-size:28px;color:var(--yellow);text-shadow:0 0 10px rgba(255,231,0,0.3);}
+.stat-lbl{font-family:'VT323';font-size:14px;color:#666;margin-top:3px;}
+.action-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.action-btn{min-height:52px;padding:12px;background:#050505;border:1px solid rgba(0,232,255,0.25);color:var(--cyan);font-family:'VT323';font-size:19px;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:8px;transition:0.2s;-webkit-tap-highlight-color:transparent;}
+.action-btn:hover{border-color:var(--cyan);background:rgba(0,232,255,0.07);box-shadow:0 0 10px rgba(0,232,255,0.15);}
+.action-btn.rpg{border-color:var(--pink);color:var(--pink);}
+.action-btn.rpg:hover{background:rgba(255,0,234,0.07);}
+.action-btn.arcade{border-color:var(--yellow);color:var(--yellow);}
+.action-btn.arcade:hover{background:rgba(255,231,0,0.07);}
+.logout-btn{width:100%;min-height:44px;margin-top:10px;background:transparent;border:1px solid rgba(255,0,60,0.3);color:#ff3c3c;font-family:'VT323';font-size:18px;cursor:pointer;transition:0.2s;}
+.logout-btn:hover{border-color:#ff3c3c;background:rgba(255,0,60,0.07);}
+.xp-bar-wrap{margin-bottom:6px;}
+.xp-bar-lbl{display:flex;justify-content:space-between;font-family:'VT323';font-size:16px;color:#888;margin-bottom:4px;}
+.xp-bar{height:8px;background:#111;border:1px solid rgba(0,232,255,0.2);}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width 1s;}
+@media(max-width:480px){.action-grid{grid-template-columns:1fr;}.role-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<div id="crt"></div>
+
+<!-- LOGIN PANEL -->
+<div class="login-wrap" id="login-panel">
+  <div class="login-logo">
+    <h1>⚡ CYBERWORLD</h1>
+    <p>FURIOS-INT OPERATIVE AUTHENTICATION PORTAL</p>
+  </div>
+  <div class="login-box">
+    <h2>INITIALIZE_AUTH //</h2>
+    <div class="field">
+      <label>OPERATIVE_CALLSIGN</label>
+      <input type="text" id="input-callsign" placeholder="e.g. [R00T_K1NG]" maxlength="32" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>PASSPHRASE</label>
+      <input type="password" id="input-pass" placeholder="••••••••••••••" maxlength="64" autocomplete="current-password">
+    </div>
+    <div style="font-family:'VT323';font-size:17px;color:#aaa;margin-bottom:10px;letter-spacing:1px;">SELECT_OPERATIVE_CLASS</div>
+    <div class="role-grid" id="role-grid">
+      <div class="role-btn active" data-role="RED_TEAM" onclick="selectRole(this)">⚔️ RED_TEAM</div>
+      <div class="role-btn" data-role="BLUE_TEAM" onclick="selectRole(this)">🛡️ BLUE_TEAM</div>
+      <div class="role-btn" data-role="OSINT_AGENT" onclick="selectRole(this)">🔍 OSINT_AGENT</div>
+      <div class="role-btn" data-role="FULL_STACK" onclick="selectRole(this)">🌐 FULL_STACK</div>
+    </div>
+    <button class="submit-btn" onclick="doLogin()">INITIALIZE_AUTH →</button>
+    <div id="login-err" style="color:#ff3c3c;font-family:'VT323';font-size:16px;text-align:center;margin-top:10px;min-height:20px;"></div>
+  </div>
+  <div class="login-footer">
+    <a href="../index.html">⌂ RETURN TO FLLC HQ</a> &nbsp;|&nbsp;
+    <a href="../cyberworld.html">🌐 LAUNCH RPG</a> &nbsp;|&nbsp;
+    <a href="../arcade.html">🕹 ARCADE</a>
+  </div>
+</div>
+
+<!-- PROFILE PANEL -->
+<div id="profile-panel">
+  <div class="profile-hdr">
+    <h2 id="pf-name">[OPERATIVE]</h2>
+    <div class="role-badge" id="pf-role">RED_TEAM</div>
+    <div style="font-family:'VT323';font-size:16px;color:#555;margin-top:8px;" id="pf-joined">JOINED: —</div>
+  </div>
+  <div class="xp-bar-wrap">
+    <div class="xp-bar-lbl"><span id="pf-level">LV.1 RECRUIT</span><span id="pf-xp">0 / 500 XP</span></div>
+    <div class="xp-bar"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+  </div>
+  <div class="stats-row" id="pf-stats"></div>
+  <div class="action-grid">
+    <a class="action-btn rpg" href="../cyberworld.html">🌐 ENTER_CYBERWORLD</a>
+    <a class="action-btn arcade" href="../arcade.html">🕹 CYBER_ARCADE</a>
+    <a class="action-btn" href="../wargames.html">⚔️ WAR_GAMES</a>
+    <a class="action-btn" href="../intel.html">📡 INTEL_HUB</a>
+    <a class="action-btn" href="../stars.html">★ CYBER_ARSENAL</a>
+    <a class="action-btn" href="../research.html">📖 RESEARCH</a>
+    <a class="action-btn" href="../adversaries.html">☠️ ADVERSARY_DB</a>
+    <a class="action-btn" href="../nodes.html">📡 PERSON_NODES</a>
+  </div>
+  <button class="logout-btn" onclick="doLogout()">TERMINATE_SESSION</button>
+</div>
+
+<script>
+var selectedRole = 'RED_TEAM';
+var ROLES = {
+  RED_TEAM:   { color:'#ff003c', icon:'⚔️', desc:'Offensive operations — Nmap, Metasploit, Hydra' },
+  BLUE_TEAM:  { color:'#0088ff', icon:'🛡️', desc:'Defensive SOC — Wireshark, CSET, Starkiller' },
+  OSINT_AGENT:{ color:'#ff00ea', icon:'🔍', desc:'Intelligence — FURY0s1nt, RedEye, GovINT' },
+  FULL_STACK: { color:'#00ff41', icon:'🌐', desc:'All engines unlocked — Complete CyberWorld' }
+};
+
+function selectRole(el) {
+  document.querySelectorAll('.role-btn').forEach(function(b){ b.classList.remove('active'); });
+  el.classList.add('active');
+  selectedRole = el.dataset.role;
+}
+
+function doLogin() {
+  var callsign = document.getElementById('input-callsign').value.trim();
+  var pass = document.getElementById('input-pass').value;
+  var err = document.getElementById('login-err');
+  err.textContent = '';
+  if (!callsign) { err.textContent = '⚠ CALLSIGN REQUIRED'; return; }
+  if (callsign.length < 3) { err.textContent = '⚠ CALLSIGN TOO SHORT (MIN 3 CHARS)'; return; }
+  if (!pass) { err.textContent = '⚠ PASSPHRASE REQUIRED'; return; }
+  // Sanitize display: use textContent only
+  var sanitized = callsign.replace(/[<>"'&]/g, '');
+  if (!sanitized) { err.textContent = '⚠ INVALID CHARACTERS IN CALLSIGN'; return; }
+  var profile = {
+    name: sanitized,
+    role: selectedRole,
+    joined: new Date().toLocaleDateString('en-US', {month:'short', year:'numeric'}),
+    xp: Math.floor(Math.random() * 400),
+    level: 1,
+    missions: Math.floor(Math.random() * 24),
+    daemons: Math.floor(Math.random() * 4),
+    tools: Math.floor(Math.random() * 80) + 20,
+    rank: 'RECRUIT'
+  };
+  try { localStorage.setItem('cw_profile', JSON.stringify(profile)); } catch(e) {}
+  showProfile(profile);
+}
+
+function showProfile(p) {
+  document.getElementById('login-panel').style.display = 'none';
+  var pp = document.getElementById('profile-panel');
+  pp.style.display = 'block';
+  var role = ROLES[p.role] || ROLES.RED_TEAM;
+  var nameEl = document.getElementById('pf-name');
+  nameEl.textContent = '[' + p.name.toUpperCase() + ']';
+  nameEl.style.color = role.color;
+  var roleEl = document.getElementById('pf-role');
+  roleEl.textContent = role.icon + ' ' + p.role;
+  roleEl.style.borderColor = role.color;
+  roleEl.style.color = role.color;
+  document.getElementById('pf-joined').textContent = 'OPERATIVE SINCE: ' + p.joined;
+  var xpCap = 500;
+  var xpPct = Math.min(100, Math.round((p.xp / xpCap) * 100));
+  document.getElementById('pf-level').textContent = 'LV.' + p.level + ' ' + p.rank;
+  document.getElementById('pf-xp').textContent = p.xp + ' / ' + xpCap + ' XP';
+  setTimeout(function(){ document.getElementById('xp-fill').style.width = xpPct + '%'; }, 100);
+  var stats = [
+    { num: p.missions, lbl: 'MISSIONS' },
+    { num: p.daemons + '/4', lbl: 'DAEMONS' },
+    { num: p.tools, lbl: 'TOOLS USED' },
+    { num: p.xp, lbl: 'TOTAL XP' }
+  ];
+  var sg = document.getElementById('pf-stats');
+  sg.innerHTML = '';
+  stats.forEach(function(s) {
+    var d = document.createElement('div');
+    d.className = 'stat-box';
+    var n = document.createElement('div');
+    n.className = 'stat-num';
+    n.textContent = s.num;
+    var l = document.createElement('div');
+    l.className = 'stat-lbl';
+    l.textContent = s.lbl;
+    d.appendChild(n);
+    d.appendChild(l);
+    sg.appendChild(d);
+  });
+}
+
+function doLogout() {
+  try { localStorage.removeItem('cw_profile'); } catch(e) {}
+  document.getElementById('profile-panel').style.display = 'none';
+  document.getElementById('login-panel').style.display = 'block';
+  document.getElementById('input-callsign').value = '';
+  document.getElementById('input-pass').value = '';
+}
+
+// Auto-restore saved session
+(function() {
+  try {
+    var saved = localStorage.getItem('cw_profile');
+    if (saved) {
+      var p = JSON.parse(saved);
+      if (p && p.name && p.role) { showProfile(p); return; }
+    }
+  } catch(e) {}
+  // Auto-fill a guest callsign
+  document.getElementById('input-callsign').value = 'AGENT_' + Math.floor(Math.random() * 9999);
+})();
+</script>
+</body>
+</html>
