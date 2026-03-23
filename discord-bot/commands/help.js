@@ -1,7 +1,7 @@
 /**
- * /help — FLLC CyberWorld command directory, cyberpunk themed
+ * /help — FLLC CyberWorld command directory, cyberpunk themed (22 commands)
  */
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -16,7 +16,7 @@ module.exports = {
         '```\n' +
         '╔══════════════════════════════════════════════════╗\n' +
         '║  CYBERWORLD BOT  //  CyberOS v2026.3-FLLC       ║\n' +
-        '║  Application: 1170817211837992981                ║\n' +
+        '║  22 Commands  •  Application: 1170817211837992981║\n' +
         '║  Guild: FLLC CyberWorld Operations               ║\n' +
         '╚══════════════════════════════════════════════════╝\n' +
         '```'
@@ -29,6 +29,7 @@ module.exports = {
             '`/cve <id>` — Deep-dive a specific CVE: CVSS, vectors, MITRE ATT&CK',
             '`/scan <tool>` — Simulate nmap / masscan / nikto / gobuster / hydra / wireshark',
             '`/exploit [chain]` — Adversarial kill-chain simulation with MITRE mapping',
+            '`/decrypt [type] [attempt]` — CTF-style decryption challenge (earn XP!)',
           ].join('\n'),
           inline: false,
         },
@@ -37,24 +38,30 @@ module.exports = {
           value: [
             '`/status` — Live health check: all FLLC site pages + engine status',
             '`/defend [scenario]` — Randomized defensive playbook: IR, hardening, detection',
-            '`/ioc [actor]` — Fresh IOCs: IPs, domains, hashes, YARA from threat intel feed',
+            '`/ioc [actor]` — Fresh IOCs: IPs, domains, hashes, YARA from threat intel',
+            '`/alert <severity> <title> <desc>` — Post custom threat alert with response actions',
           ].join('\n'),
           inline: false,
         },
         {
           name: '🟣 OSINT_AGENT — Intelligence Commands',
           value: [
-            '`/adversary <name>` — Deep-dive APT profile: TTPs, tools, campaigns, IOCs',
+            '`/adversary <name>` — Deep-dive real-world APT: TTPs, tools, campaigns, IOCs',
+            '`/apt [faction]` — CyberWorld APT faction: battle stats, territory, daemon roster',
             '`/ttp <technique>` — MITRE ATT&CK technique: detection, mitigation, examples',
+            '`/signal <type> <message>` — Send encrypted operative signal / OSINT surface ping',
           ].join('\n'),
           inline: false,
         },
         {
           name: '🟢 RPG / GAME Commands',
           value: [
-            '`/launch [game]` — Send a game invitation with Play links (works on mobile)',
+            '`/launch [game]` — Game invite with PLAY NOW buttons — works on mobile ✅',
             '`/mission [class]` — Randomized operative mission with objectives and loot',
             '`/daemon` — Encounter a SOULCODE daemon with lore, stats, and capture odds',
+            '`/apt [faction]` — Engage a CyberWorld APT faction for max XP and loot',
+            '`/bounty [type]` — Active FLLC bounty board: APT takedowns, daemon captures, CTF',
+            '`/rank` — Full rank progression chart: XP thresholds and perks',
             '`/leaderboard [filter]` — FLLC operative XP rankings by class',
             '`/profile [operative]` — Operative dossier: rank, XP, missions, daemons',
             '`/daily` — Claim daily XP ration + random intel drop (20h cooldown)',
@@ -63,7 +70,7 @@ module.exports = {
         },
         {
           name: '⚙️ Utility',
-          value: '`/help` — This menu',
+          value: '`/help` — This menu  •  `22 total commands`',
           inline: false,
         },
         {
@@ -82,6 +89,12 @@ module.exports = {
       .setFooter({ text: 'FURIOS-INT // FLLC CyberWorld Operations Center • Built by Preston Furulie' })
       .setTimestamp();
 
-    await interaction.reply({ embeds: [embed] });
+    const row = new ActionRowBuilder().addComponents(
+      new ButtonBuilder().setLabel('🌐 CyberWorld RPG').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/cyberworld.html`),
+      new ButtonBuilder().setLabel('⚔️ War Games').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/wargames.html`),
+      new ButtonBuilder().setLabel('📡 Intel Hub').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/intel.html`),
+    );
+
+    await interaction.reply({ embeds: [embed], components: [row] });
   },
 };

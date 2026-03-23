@@ -150,7 +150,7 @@ module.exports = {
       .setColor(set.color)
       .setTitle(`🔍 IOC FEED — ${set.actor}`)
       .setDescription(
-        `**Type:** \`${set.type}\`  **Confidence:** \`${set.confidence}\`  **${set.tlp}\`\n` +
+        `**Type:** \`${set.type}\`  **Confidence:** \`${set.confidence}\`  **TLP:** \`${set.tlp}\`\n` +
         '*Defang notation: `[.]` = dot — do NOT visit these domains/IPs outside authorized research*'
       )
       .addFields(

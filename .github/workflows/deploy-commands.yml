@@ -1,0 +1,84 @@
+name: Deploy Discord Slash Commands
+
+# ─── Triggers ────────────────────────────────────────────────────────────────
+on:
+  # Auto-deploy when any command file changes
+  push:
+    branches: [main, master]
+    paths:
+      - 'discord-bot/commands/**'
+      - 'discord-bot/deploy-commands.js'
+      - 'discord-bot/package.json'
+
+  # Manual deploy (e.g. to clear old/stale commands from Discord)
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual deploy'
+        required: false
+        default: 'Manual command registration update'
+
+jobs:
+  deploy-slash-commands:
+    name: Register Slash Commands with Discord
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: discord-bot/package.json
+
+      - name: Install dependencies
+        working-directory: discord-bot
+        run: npm ci --omit=dev
+
+      - name: Verify all command files present
+        run: |
+          COMMANDS=(help intel cve adversary scan mission daemon profile daily leaderboard status launch exploit defend ioc ttp apt rank decrypt bounty signal alert)
+          MISSING=0
+          for cmd in "${COMMANDS[@]}"; do
+            f="discord-bot/commands/${cmd}.js"
+            if [ -f "$f" ]; then
+              echo "✓ /${cmd}"
+            else
+              echo "✗ MISSING: $f"
+              MISSING=$((MISSING+1))
+            fi
+          done
+          if [ "$MISSING" -gt 0 ]; then
+            echo "ERROR: $MISSING command file(s) missing — aborting deploy."
+            exit 1
+          fi
+          echo ""
+          echo "✓ All ${#COMMANDS[@]} commands verified. Proceeding with deploy."
+
+      - name: Deploy slash commands to Discord (overwrites guild commands)
+        working-directory: discord-bot
+        env:
+          DISCORD_TOKEN:     ${{ secrets.DISCORD_TOKEN }}
+          DISCORD_CLIENT_ID: ${{ vars.DISCORD_CLIENT_ID || '1170817211837992981' }}
+          DISCORD_GUILD_ID:  ${{ vars.DISCORD_GUILD_ID  || '1159996494691188765' }}
+        run: |
+          echo "Deploying to guild $DISCORD_GUILD_ID as app $DISCORD_CLIENT_ID..."
+          node deploy-commands.js
+          echo "✓ Slash commands registered. They will appear in Discord within ~1 hour."
+
+      - name: Log deploy summary
+        run: |
+          echo "═══════════════════════════════════════════════"
+          echo "  FLLC CyberWorld Bot — Command Deploy Complete"
+          echo "  22 slash commands registered"
+          echo "  Guild: 1159996494691188765"
+          echo "  Trigger: ${{ github.event_name }}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "  Reason: ${{ github.event.inputs.reason }}"
+          fi
+          echo "═══════════════════════════════════════════════"
