@@ -3,181 +3,575 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FURIOS-INT // Cyber Arsenal v2.6.0</title>
+<title>FLLC // CYBER ARSENAL // CyberWorld Armory v3.0</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/os.css">
 <style>
-    body { background: #000; color: var(--cyber-cyan); font-family: 'JetBrains Mono', monospace; margin: 0; padding: 0; }
-    #crt-filter { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); background-size: 100% 3px; z-index: 9999; pointer-events: none; }
-    
+    :root {
+        --cyber-cyan: #00e8ff;
+        --cyber-green: #00ff41;
+        --cyber-pink: #ff00ea;
+        --cyber-blue: #0044ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+        background: #000;
+        color: var(--cyber-cyan);
+        font-family: 'JetBrains Mono', monospace;
+        margin: 0; padding: 0;
+        overflow-x: hidden;
+    }
+
+    /* ── MATRIX CANVAS ── */
+    #matrix-bg {
+        position: fixed; top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 0; opacity: 0.18;
+        pointer-events: none;
+    }
+
+    /* ── CRT FILTER ── */
+    #crt-filter {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 2px,
+            rgba(0,0,0,0.08) 2px,
+            rgba(0,0,0,0.08) 4px
+        );
+        z-index: 9998; pointer-events: none;
+        animation: scanMove 8s linear infinite;
+    }
+    @keyframes scanMove {
+        0%   { background-position: 0 0; }
+        100% { background-position: 0 100vh; }
+    }
+
+    /* ── MAIN CONTAINER ── */
     #stars-container {
-        padding: 40px;
-        height: 100vh;
+        position: relative;
+        z-index: 1;
+        padding: 30px 40px 60px;
+        min-height: 100vh;
         overflow-y: auto;
-        background: radial-gradient(circle at 50% 50%, #050a14 0%, #000 100%);
-        box-sizing: border-box;
     }
 
-    .tools-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        gap: 20px;
-        margin-bottom: 60px;
+    /* ── BACK BUTTON ── */
+    #back-btn {
+        display: inline-block;
+        font-family: 'VT323', monospace;
+        font-size: 18px;
+        color: var(--cyber-green);
+        border: 1px solid var(--cyber-green);
+        padding: 4px 16px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: 0.2s;
+        margin-bottom: 20px;
+    }
+    #back-btn:hover { background: var(--cyber-green); color: #000; }
+
+    /* ── GLITCH TITLE ── */
+    .glitch-title {
+        font-family: 'Pixelify Sans', sans-serif;
+        font-size: clamp(36px, 7vw, 80px);
+        color: var(--cyber-cyan);
+        text-shadow:
+            0 0 10px var(--cyber-cyan),
+            0 0 30px var(--cyber-cyan),
+            0 0 60px rgba(0,232,255,0.4);
+        position: relative;
+        display: inline-block;
+        animation: glitch 4s infinite;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+    }
+    @keyframes glitch {
+        0%, 90%, 100% { text-shadow: 0 0 10px var(--cyber-cyan), 0 0 30px var(--cyber-cyan); clip-path: none; transform: none; }
+        91%  { clip-path: polygon(0 20%, 100% 20%, 100% 30%, 0 30%); transform: translate(-3px, 0); text-shadow: 3px 0 var(--cyber-pink), -3px 0 var(--cyber-green); }
+        92%  { clip-path: polygon(0 60%, 100% 60%, 100% 75%, 0 75%); transform: translate(3px, 0); }
+        93%  { clip-path: none; transform: none; }
+        95%  { clip-path: polygon(0 40%, 100% 40%, 100% 45%, 0 45%); transform: translate(-2px, 0); }
+        96%  { clip-path: none; transform: none; }
     }
 
+    /* ── HEADER SECTION ── */
+    #arsenal-header {
+        text-align: center;
+        padding: 20px 0 30px;
+        border-bottom: 1px solid rgba(0,232,255,0.3);
+        margin-bottom: 30px;
+    }
+    .header-subtitle {
+        font-family: 'VT323', monospace;
+        font-size: clamp(14px, 2vw, 22px);
+        color: var(--cyber-green);
+        margin: 10px 0;
+        letter-spacing: 2px;
+    }
+    .header-classification {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        color: var(--cyber-pink);
+        opacity: 0.8;
+        margin-top: 8px;
+    }
+
+    /* ── STATUS TICKER ── */
+    #status-ticker {
+        background: rgba(0,232,255,0.06);
+        border: 1px solid rgba(0,232,255,0.25);
+        border-left: 3px solid var(--cyber-cyan);
+        padding: 8px 0;
+        overflow: hidden;
+        position: relative;
+        margin: 16px 0 24px;
+    }
+    #ticker-inner {
+        display: inline-block;
+        white-space: nowrap;
+        font-family: 'VT323', monospace;
+        font-size: 18px;
+        color: var(--cyber-cyan);
+        animation: tickerScroll 28s linear infinite;
+        padding-left: 100%;
+    }
+    @keyframes tickerScroll {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+
+    /* ── FILTER NAV ── */
+    #filter-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 30px;
+        padding: 14px;
+        background: rgba(0,0,0,0.6);
+        border: 1px solid rgba(0,232,255,0.2);
+    }
+    .filter-btn {
+        font-family: 'VT323', monospace;
+        font-size: 16px;
+        padding: 4px 14px;
+        border: 1px solid rgba(0,232,255,0.4);
+        background: transparent;
+        color: var(--cyber-cyan);
+        cursor: pointer;
+        transition: 0.2s;
+        text-transform: uppercase;
+    }
+    .filter-btn:hover, .filter-btn.active {
+        background: var(--cyber-cyan);
+        color: #000;
+        border-color: var(--cyber-cyan);
+    }
+
+    /* ── CATEGORY HEADERS ── */
     .category-header {
         color: var(--cyber-cyan);
-        font-size: 28px;
-        margin: 40px 0 20px 0;
+        font-size: clamp(20px, 3vw, 30px);
+        margin: 48px 0 18px;
         border-bottom: 2px solid var(--cyber-cyan);
-        padding-bottom: 10px;
+        padding-bottom: 8px;
         text-transform: uppercase;
         font-family: 'Pixelify Sans', sans-serif;
-        text-shadow: 0 0 10px var(--cyber-cyan);
+        text-shadow: 0 0 12px var(--cyber-cyan), 0 0 24px rgba(0,232,255,0.3);
+        letter-spacing: 3px;
     }
 
+    /* ── TOOL GRID ── */
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    /* ── TOOL CARD ── */
     .tool-card {
-        background: rgba(0, 232, 255, 0.05);
-        border: 1px solid rgba(0, 232, 255, 0.2);
-        padding: 20px;
+        background: rgba(0, 232, 255, 0.04);
+        border: 1px solid rgba(0, 232, 255, 0.18);
+        padding: 18px 14px;
         cursor: pointer;
-        transition: all 0.3s;
+        transition: all 0.25s;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
+        position: relative;
+        overflow: hidden;
     }
-
+    .tool-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 100%; height: 2px;
+        background: linear-gradient(90deg, transparent, var(--cyber-cyan), transparent);
+        transition: left 0.4s;
+    }
+    .tool-card:hover::before { left: 100%; }
     .tool-card:hover {
-        background: rgba(0, 232, 255, 0.15);
+        background: rgba(0, 232, 255, 0.12);
         border-color: var(--cyber-cyan);
-        transform: translateY(-5px);
-        box-shadow: 0 0 20px rgba(0, 232, 255, 0.3);
+        transform: translateY(-4px);
+        box-shadow: 0 0 24px rgba(0, 232, 255, 0.25), inset 0 0 12px rgba(0,232,255,0.05);
     }
 
+    .tool-icon { margin-bottom: 12px; }
     .tool-icon img {
-        width: 48px;
-        height: 48px;
-        margin-bottom: 15px;
-        filter: drop-shadow(0 0 5px var(--cyber-cyan));
+        width: 48px; height: 48px;
+        filter: drop-shadow(0 0 6px var(--cyber-cyan));
+        image-rendering: pixelated;
+    }
+    .tool-name {
+        font-size: 14px;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 6px;
+        font-family: 'JetBrains Mono', monospace;
+        word-break: break-word;
+    }
+    .tool-meta {
+        font-size: 11px;
+        color: var(--cyber-green);
+        font-family: 'VT323', monospace;
+        font-size: 14px;
+        line-height: 1.2;
+    }
+    .tool-badge {
+        display: inline-block;
+        font-size: 9px;
+        font-family: 'JetBrains Mono', monospace;
+        color: var(--cyber-pink);
+        border: 1px solid var(--cyber-pink);
+        padding: 1px 5px;
+        margin-top: 5px;
+        letter-spacing: 1px;
     }
 
-    .tool-name { font-size: 16px; font-weight: bold; color: #fff; margin-bottom: 5px; }
-    .tool-meta { font-size: 11px; color: var(--cyber-green); }
-
-    /* AKIRA MODAL */
+    /* ── AKIRA MODAL ── */
     #tool-modal {
         position: fixed;
         top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.95);
+        background: rgba(0,0,0,0.96);
         z-index: 10000;
         display: none;
         justify-content: center;
         align-items: center;
         padding: 20px;
-        box-sizing: border-box;
     }
-
     .akira-window {
-        width: 800px;
+        width: 840px;
         max-width: 95%;
-        background: #000;
+        max-height: 90vh;
+        overflow-y: auto;
+        background: #020a0d;
         border: 2px solid var(--cyber-cyan);
-        padding: 30px;
+        padding: 40px 30px 30px;
         position: relative;
-        box-shadow: 0 0 50px rgba(0, 232, 255, 0.2);
+        box-shadow:
+            0 0 60px rgba(0,232,255,0.15),
+            0 0 120px rgba(0,232,255,0.05),
+            inset 0 0 40px rgba(0,0,0,0.8);
         font-family: 'JetBrains Mono', monospace;
     }
-
     .akira-header {
         position: absolute;
         top: -15px; left: 50%;
         transform: translateX(-50%);
-        background: #000;
-        padding: 0 20px;
+        background: #020a0d;
+        padding: 2px 24px;
         color: var(--cyber-cyan);
+        font-family: 'VT323', monospace;
+        font-size: 22px;
         font-weight: bold;
         border: 1px solid var(--cyber-cyan);
+        white-space: nowrap;
+        text-shadow: 0 0 8px var(--cyber-cyan);
     }
+    .akira-stamps {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+    }
+    .akira-stamp {
+        font-family: 'VT323', monospace;
+        font-size: 14px;
+        border: 1px solid;
+        padding: 2px 10px;
+        letter-spacing: 1px;
+    }
+    .stamp-red   { color: #ff4444; border-color: #ff4444; }
+    .stamp-green { color: var(--cyber-green); border-color: var(--cyber-green); }
+    .stamp-pink  { color: var(--cyber-pink); border-color: var(--cyber-pink); }
+    .akira-title {
+        font-size: clamp(28px, 5vw, 48px);
+        color: var(--cyber-cyan);
+        margin-bottom: 6px;
+        font-family: 'Pixelify Sans', sans-serif;
+        text-shadow: 0 0 12px var(--cyber-cyan);
+        word-break: break-word;
+    }
+    .akira-path {
+        font-size: 13px;
+        color: rgba(0,232,255,0.5);
+        margin-bottom: 16px;
+        font-family: 'JetBrains Mono', monospace;
+    }
+    .akira-desc {
+        font-size: 15px;
+        color: #ccc;
+        line-height: 1.7;
+        margin-bottom: 24px;
+        border-left: 3px solid rgba(0,232,255,0.3);
+        padding-left: 14px;
+    }
+    .modal-section {
+        border-left: 3px solid;
+        padding-left: 16px;
+        margin-bottom: 18px;
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+    .modal-section.green  { border-color: var(--cyber-green); background: rgba(0,255,65,0.04); }
+    .modal-section.pink   { border-color: var(--cyber-pink);  background: rgba(255,0,234,0.04); }
+    .modal-section-label  {
+        font-size: 11px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        margin-bottom: 6px;
+        font-family: 'VT323', monospace;
+        font-size: 16px;
+    }
+    .modal-section.green .modal-section-label { color: var(--cyber-green); }
+    .modal-section.pink  .modal-section-label { color: var(--cyber-pink); }
+    .modal-section-body  { font-size: 13px; color: #ddd; line-height: 1.6; }
+    .modal-section.pink .modal-section-body { color: #ff99cc; font-family: 'JetBrains Mono'; }
 
-    .akira-title { font-size: 42px; color: var(--cyber-cyan); margin-bottom: 20px; font-family: 'Pixelify Sans'; }
-    .akira-desc { font-size: 16px; color: #ccc; line-height: 1.6; margin-bottom: 30px; }
-    
-    .btn-group { display: flex; gap: 15px; margin-top: 30px; }
+    .btn-group { display: flex; gap: 14px; margin-top: 24px; flex-wrap: wrap; }
     .cyber-btn {
-        padding: 12px 30px;
+        padding: 10px 26px;
         border: 1px solid var(--cyber-cyan);
         background: transparent;
         color: var(--cyber-cyan);
-        font-family: 'VT323';
+        font-family: 'VT323', monospace;
         font-size: 20px;
         cursor: pointer;
         transition: 0.2s;
+        letter-spacing: 1px;
     }
     .cyber-btn:hover { background: var(--cyber-cyan); color: #000; }
     .cyber-btn.primary { background: var(--cyber-cyan); color: #000; }
+    .close-btn {
+        position: absolute; top: 14px; right: 14px;
+        color: var(--cyber-cyan); cursor: pointer;
+        font-family: 'VT323', monospace; font-size: 26px;
+        transition: 0.2s;
+    }
+    .close-btn:hover { color: var(--cyber-pink); }
 
-    .close-btn { position: absolute; top: 15px; right: 15px; color: var(--cyber-cyan); cursor: pointer; font-family: 'VT323'; font-size: 24px; }
+    /* ── FOOTER ── */
+    #arsenal-footer {
+        margin-top: 80px;
+        border-top: 1px solid rgba(0,232,255,0.2);
+        padding: 30px 0;
+        text-align: center;
+    }
+    .footer-line1 {
+        font-family: 'Pixelify Sans', sans-serif;
+        font-size: clamp(12px, 2vw, 18px);
+        color: var(--cyber-cyan);
+        text-shadow: 0 0 8px var(--cyber-cyan);
+        letter-spacing: 2px;
+        margin-bottom: 8px;
+    }
+    .footer-line2 {
+        font-family: 'VT323', monospace;
+        font-size: 16px;
+        color: rgba(255,0,234,0.7);
+        margin-bottom: 20px;
+    }
+    #return-btn {
+        display: inline-block;
+        font-family: 'VT323', monospace;
+        font-size: 20px;
+        color: var(--cyber-green);
+        border: 1px solid var(--cyber-green);
+        padding: 6px 24px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+    #return-btn:hover { background: var(--cyber-green); color: #000; }
+
+    /* ── HIDDEN CATEGORY ── */
+    .cat-section { display: block; }
+    .cat-section.hidden { display: none; }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: var(--cyber-cyan); }
 </style>
 </head>
 <body>
 
+<canvas id="matrix-bg"></canvas>
 <div id="crt-filter"></div>
 
 <div id="stars-container">
-    <div style="text-align:center; margin-bottom: 40px;">
-        <h1 style="font-family:'Pixelify Sans'; font-size:72px; color:var(--cyber-cyan); margin:0;">THE CYBER ARSENAL</h1>
-        <p style="font-family:'VT323'; font-size:24px; color:var(--cyber-green);">:: FLLC_OFFICIAL_DISTRIBUTION_VAULT ::</p>
+
+    <!-- Back Button -->
+    <a href="index.html" id="back-btn">&#9668; RETURN_TO_CYBEROS</a>
+
+    <!-- Header -->
+    <div id="arsenal-header">
+        <div class="glitch-title">FLLC CYBER ARSENAL</div>
+        <div class="header-subtitle">:: FLLC_CYBERSECURITY_DIVISION :: CYBERWORLD_ARMORY :: CLASSIFIED_DISTRIBUTION_VAULT ::</div>
+        <div class="header-classification">CLEARANCE REQUIRED &nbsp;|&nbsp; CYBERWORLD ARMORY v3.0 &nbsp;|&nbsp; FLLC_NODE: ACTIVE</div>
+
+        <!-- Status Ticker -->
+        <div id="status-ticker">
+            <span id="ticker-inner">
+                UPLINK: SECURE &nbsp;&#9474;&nbsp; OPERATIVES ONLINE: 47 &nbsp;&#9474;&nbsp; THREAT_LEVEL: ELEVATED &nbsp;&#9474;&nbsp; FLLC_NODE: ACTIVE &nbsp;&#9474;&nbsp; ASSETS LOADED: <span id="asset-count">—</span> &nbsp;&#9474;&nbsp; CYBERWORLD_ARMORY v3.0 ONLINE &nbsp;&#9474;&nbsp; FLLC CYBERSECURITY DIVISION AUTHORIZED &nbsp;&#9474;&nbsp; OPERATIVE_STATUS: STANDBY &nbsp;&#9474;&nbsp; RECON_SWEEP: COMPLETE &nbsp;&#9474;&nbsp; CLASSIFIED INTEL: READY &nbsp;&#9474;&nbsp;
+            </span>
+        </div>
     </div>
-    
-    <div id="tools-mounting-point">
-        <!-- Tools will be loaded here -->
+
+    <!-- Filter Nav -->
+    <div id="filter-nav">
+        <button class="filter-btn active" data-cat="ALL" onclick="filterCat(this,'ALL')">ALL</button>
+        <button class="filter-btn" data-cat="AI" onclick="filterCat(this,'AI')">AI</button>
+        <button class="filter-btn" data-cat="CLOUD" onclick="filterCat(this,'CLOUD')">CLOUD</button>
+        <button class="filter-btn" data-cat="EXPLOIT" onclick="filterCat(this,'EXPLOIT')">EXPLOIT</button>
+        <button class="filter-btn" data-cat="FORENSIC" onclick="filterCat(this,'FORENSIC')">FORENSIC</button>
+        <button class="filter-btn" data-cat="HARDWARE" onclick="filterCat(this,'HARDWARE')">HARDWARE</button>
+        <button class="filter-btn" data-cat="MISC" onclick="filterCat(this,'MISC')">MISC</button>
+        <button class="filter-btn" data-cat="NETWORK" onclick="filterCat(this,'NETWORK')">NETWORK</button>
+        <button class="filter-btn" data-cat="OSINT" onclick="filterCat(this,'OSINT')">OSINT</button>
+        <button class="filter-btn" data-cat="RECON" onclick="filterCat(this,'RECON')">RECON</button>
+        <button class="filter-btn" data-cat="WEB" onclick="filterCat(this,'WEB')">WEB</button>
+        <button class="filter-btn" data-cat="WIRELESS" onclick="filterCat(this,'WIRELESS')">WIRELESS</button>
+        <button class="filter-btn" data-cat="PASSWORD" onclick="filterCat(this,'PASSWORD')">PASSWORD</button>
+        <button class="filter-btn" data-cat="SOCIAL_ENGINEERING" onclick="filterCat(this,'SOCIAL_ENGINEERING')">SOC_ENG</button>
+        <button class="filter-btn" data-cat="MALWARE_ANALYSIS" onclick="filterCat(this,'MALWARE_ANALYSIS')">MALWARE</button>
+        <button class="filter-btn" data-cat="DEFENSE_EVASION" onclick="filterCat(this,'DEFENSE_EVASION')">DEF_EVA</button>
+        <button class="filter-btn" data-cat="CRYPTOGRAPHY" onclick="filterCat(this,'CRYPTOGRAPHY')">CRYPTO</button>
     </div>
+
+    <!-- Tools Mount -->
+    <div id="tools-mounting-point"></div>
+
+    <!-- Footer -->
+    <div id="arsenal-footer">
+        <div class="footer-line1">FLLC CYBERSECURITY DIVISION — CYBERWORLD ARMORY — ALL ASSETS FLLC_CERTIFIED</div>
+        <div class="footer-line2">OPERATIVE CLEARANCE REQUIRED — UNAUTHORIZED ACCESS WILL BE TRACED</div>
+        <a href="index.html" id="return-btn">[ RETURN_TO_CYBEROS_DESKTOP ]</a>
+    </div>
+
 </div>
 
+<!-- AKIRA Mission Briefing Modal -->
 <div id="tool-modal" onclick="if(event.target.id==='tool-modal') closeModal()">
     <div class="akira-window">
-        <div class="akira-header">[ MISSION_OBJECTIVE ]</div>
+        <div class="akira-header">[ FLLC_MISSION_BRIEFING ]</div>
         <div class="close-btn" onclick="closeModal()">[X]</div>
-        <div class="akira-title" id="m-title">TOOL_NAME</div>
-        <div class="akira-desc" id="m-desc">TOOL_DESCRIPTION</div>
-        
-        <div id="m-extra" style="border-left: 3px solid var(--cyber-green); padding-left: 20px; background: rgba(0,255,100,0.05); margin-bottom: 20px;">
-            <div style="color:var(--cyber-green); font-weight:bold; font-size:12px;">[ GUIDE_PROTOCOL ]</div>
-            <div style="font-size:14px; color:#fff; margin-top:5px;" id="m-guide">Clone, Audit, and Integrate.</div>
+
+        <div class="akira-stamps">
+            <span class="akira-stamp stamp-red">CLASSIFICATION: FLLC_LEVEL_3</span>
+            <span class="akira-stamp stamp-green">OPERATIVE_CLEARANCE: GRANTED</span>
+            <span class="akira-stamp stamp-pink">CYBERWORLD_ARMORY</span>
         </div>
 
-        <div id="m-dork" style="border-left: 3px solid var(--cyber-pink); padding-left: 20px; background: rgba(255,0,100,0.05); margin-bottom: 20px;">
-            <div style="color:var(--cyber-pink); font-weight:bold; font-size:12px;">[ DORKING_SNIPPET ]</div>
-            <div style="font-size:12px; color:#ff66aa; font-family:'JetBrains Mono'; margin-top:5px;" id="m-dork-text">N/A</div>
+        <div class="akira-title" id="m-title">TOOL_NAME</div>
+        <div class="akira-path" id="m-path">github.com/—</div>
+        <div class="akira-desc" id="m-desc">TOOL_DESCRIPTION</div>
+
+        <div class="modal-section green">
+            <div class="modal-section-label">[ FLLC_TACTICAL_PROTOCOL ]</div>
+            <div class="modal-section-body" id="m-guide">Clone, Audit, and Integrate.</div>
+        </div>
+
+        <div class="modal-section pink">
+            <div class="modal-section-label">[ FLLC_RECON_QUERY ]</div>
+            <div class="modal-section-body" id="m-dork-text">N/A</div>
         </div>
 
         <div class="btn-group">
-            <button class="cyber-btn primary" id="m-zip">DOWNLOAD_ZIP_ARCHIVE</button>
-            <button class="cyber-btn" id="m-repo">SOURCE_REPO</button>
+            <button class="cyber-btn primary" id="m-zip">DEPLOY_ASSET</button>
+            <button class="cyber-btn" id="m-repo">SOURCE_INTEL</button>
         </div>
     </div>
 </div>
 
 <script>
+    /* ── Matrix Rain ── */
+    (function(){
+        const canvas = document.getElementById('matrix-bg');
+        const ctx = canvas.getContext('2d');
+        let W, H, cols, drops;
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()_+-=[]{}|;:<>?/FLLC';
+        function resize(){
+            W = canvas.width  = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+            cols = Math.floor(W / 16);
+            drops = Array(cols).fill(1);
+        }
+        window.addEventListener('resize', resize);
+        resize();
+        function draw(){
+            ctx.fillStyle = 'rgba(0,0,0,0.04)';
+            ctx.fillRect(0,0,W,H);
+            ctx.fillStyle = '#00e8ff';
+            ctx.font = '14px JetBrains Mono, monospace';
+            for(let i=0;i<drops.length;i++){
+                const ch = chars[Math.floor(Math.random()*chars.length)];
+                ctx.fillText(ch, i*16, drops[i]*16);
+                if(drops[i]*16 > H && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 45);
+    })();
+
+    /* ── Arsenal Loader ── */
     async function initArsenal() {
         const mount = document.getElementById('tools-mounting-point');
         try {
             const resp = await fetch('tools_fragment.html');
             if(resp.ok) {
                 mount.innerHTML = await resp.text();
+                const count = mount.querySelectorAll('.tool-card').length;
+                const el = document.getElementById('asset-count');
+                if(el) el.textContent = count;
             } else {
-                mount.innerHTML = '<div style="color:red; text-align:center; padding:50px;">ERROR: FILESYSTEM_MOUNT_FAILED... ACCESS_DENIED.</div>';
+                mount.innerHTML = '<div style="color:red;text-align:center;padding:50px;font-family:VT323,monospace;font-size:24px;">ERROR: FILESYSTEM_MOUNT_FAILED // ACCESS_DENIED</div>';
             }
         } catch(e) { console.error(e); }
     }
 
+    /* ── Filter ── */
+    function filterCat(btn, cat) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.cat-section').forEach(s => {
+            if(cat === 'ALL' || s.dataset.cat === cat) s.classList.remove('hidden');
+            else s.classList.add('hidden');
+        });
+    }
+
+    /* ── Modal ── */
     function showToolDetail(name, path, desc, zip, guide, dork) {
-        document.getElementById('m-title').innerText = name.toUpperCase();
-        document.getElementById('m-desc').innerText = desc;
-        document.getElementById('m-guide').innerText = guide;
-        document.getElementById('m-dork-text').innerText = dork;
-        document.getElementById('m-zip').onclick = () => window.open(zip);
+        document.getElementById('m-title').textContent   = name.toUpperCase();
+        document.getElementById('m-path').textContent    = 'github.com/' + path;
+        document.getElementById('m-desc').textContent    = desc;
+        document.getElementById('m-guide').textContent   = guide;
+        document.getElementById('m-dork-text').textContent = dork;
+        document.getElementById('m-zip').onclick  = () => window.open(zip);
         document.getElementById('m-repo').onclick = () => window.open('https://github.com/' + path);
         document.getElementById('tool-modal').style.display = 'flex';
     }
