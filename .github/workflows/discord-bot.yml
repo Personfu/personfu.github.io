@@ -1,0 +1,97 @@
+name: Discord Bot — Daily FLLC Briefing Post
+
+on:
+  schedule:
+    # Post daily briefing at 09:00 UTC every day
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Manual trigger reason'
+        required: false
+        default: 'Manual FLLC broadcast'
+
+jobs:
+  daily-briefing:
+    name: Post Daily Briefing to Discord
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: discord-bot/package.json
+
+      - name: Install Discord bot dependencies
+        working-directory: discord-bot
+        run: npm ci --omit=dev
+
+      - name: Deploy slash commands (idempotent)
+        working-directory: discord-bot
+        env:
+          DISCORD_TOKEN:     ${{ secrets.DISCORD_TOKEN }}
+          DISCORD_CLIENT_ID: ${{ vars.DISCORD_CLIENT_ID || '1170817211837992981' }}
+          DISCORD_GUILD_ID:  ${{ vars.DISCORD_GUILD_ID  || '1159996494691188765' }}
+        run: node deploy-commands.js
+
+      - name: Post daily FLLC briefing
+        working-directory: discord-bot
+        env:
+          DISCORD_TOKEN:         ${{ secrets.DISCORD_TOKEN }}
+          DISCORD_CLIENT_ID:     ${{ vars.DISCORD_CLIENT_ID || '1170817211837992981' }}
+          DISCORD_GUILD_ID:      ${{ vars.DISCORD_GUILD_ID  || '1159996494691188765' }}
+          CHANNEL_ANNOUNCEMENTS: ${{ secrets.CHANNEL_ANNOUNCEMENTS }}
+          CHANNEL_CVE_ALERTS:    ${{ secrets.CHANNEL_CVE_ALERTS }}
+          CHANNEL_GENERAL:       ${{ secrets.CHANNEL_GENERAL }}
+          CHANNEL_INTEL:         ${{ secrets.CHANNEL_INTEL }}
+          NVD_API_KEY:           ${{ secrets.NVD_API_KEY }}
+          SITE_URL:              'https://personfu.github.io'
+          # CI-only mode: post briefing then exit (don't run persistent cron loop)
+          CI_MODE:               'true'
+        run: node ci-post.js
+
+  link-integrity:
+    name: Verify Discord Bot Files Intact
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify all bot command files present
+        run: |
+          COMMANDS=(help intel cve adversary scan mission daemon profile daily leaderboard status)
+          MISSING=0
+          for cmd in "${COMMANDS[@]}"; do
+            f="discord-bot/commands/${cmd}.js"
+            if [ -f "$f" ]; then
+              echo "✓ /${cmd}  ($(wc -l < $f) lines)"
+            else
+              echo "✗ MISSING: $f"
+              MISSING=$((MISSING+1))
+            fi
+          done
+          if [ "$MISSING" -gt 0 ]; then
+            echo "ERROR: $MISSING command file(s) missing."
+            exit 1
+          fi
+          echo "All ${#COMMANDS[@]} commands present."
+
+      - name: Check no secrets in bot files
+        run: |
+          if grep -rn --include="*.js" --include="*.json" \
+            -E '(token|secret|password)\s*[:=]\s*['\''"][A-Za-z0-9._\-]{20,}['\''"]' \
+            discord-bot/ 2>/dev/null | grep -vi 'example\|placeholder\|YOUR_\|process\.env'; then
+            echo "ERROR: Possible hardcoded secret in bot source."
+            exit 1
+          fi
+          echo "✓ No hardcoded secrets detected."
