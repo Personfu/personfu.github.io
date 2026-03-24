@@ -57,6 +57,11 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
 .badge-classified{color:var(--pink);border-color:var(--pink);}
 #chall-body{padding:20px;}
 #chall-narrative{font-size:13px;line-height:1.7;color:#ccc;margin-bottom:16px;border-left:3px solid rgba(0,232,255,0.3);padding-left:14px;}
+#mission-intel{margin-bottom:14px;padding:10px 12px;background:#050505;border:1px solid rgba(0,232,255,0.2);font-size:11px;line-height:1.6;color:#a8c8cf;}
+#mission-intel strong{color:var(--orange);}
+#mission-intel .mi-adv{color:var(--pink);}
+#mission-intel .mi-cve{color:var(--cyan);}
+#legacy-notice{margin-top:12px;padding:10px 12px;border:1px solid rgba(255,165,0,0.35);background:rgba(255,165,0,0.08);font-size:12px;line-height:1.6;color:#d7c9a5;}
 #chall-scenario{background:#000;border:1px solid #1a3a3a;padding:14px;margin-bottom:16px;font-size:12px;line-height:1.6;color:var(--green);font-family:'JetBrains Mono';}
 #chall-scenario .s-line{color:#888;}
 #chall-scenario .s-cmd{color:var(--cyan);}
@@ -214,6 +219,10 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
 <div id="intro-panel">
   <h2>⚡ Welcome to the CTF TRAIL</h2>
   <p>You are an operative deep in hostile cyberspace. The trail ahead is riddled with 20 challenges — 10 CTF nodes and 10 Hackathon waypoints. Solve challenges to earn XP, unlock narrative walkthroughs, and survive to the final exfil point. Every challenge has full hints and a step-by-step walkthrough so you always learn.</p>
+  <div id="legacy-notice">
+    This page is the guided path version. For interactive command gameplay with terminal input, use
+    <a href="cyberworld-game.html" style="color:var(--cyan);">cyberworld-game.html</a>.
+  </div>
   <div class="trail-legend">
     <span><span class="legend-dot ld-ctf"></span> CTF Node</span>
     <span><span class="legend-dot ld-hack"></span> Hackathon Node</span>
@@ -249,6 +258,7 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
   </div>
   <div id="chall-body">
     <div id="chall-narrative"></div>
+    <div id="mission-intel"></div>
     <div id="chall-scenario"></div>
     <div id="flag-row">
       <input id="flag-input" type="text" placeholder="Enter flag: FLAG{...}" autocomplete="off" spellcheck="false">
@@ -258,6 +268,7 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
     <div id="chall-actions" style="margin-top:12px;">
       <button class="action-btn hint" onclick="showHint()">💡 HINT</button>
       <button class="action-btn primary" onclick="showWalkthrough()">📖 WALKTHROUGH</button>
+      <a class="action-btn primary" style="display:inline-flex;align-items:center;text-decoration:none;" href="cyberworld-game.html">🖥 OPEN TERMINAL MODE</a>
       <button class="action-btn next" id="next-btn" style="display:none;" onclick="nextChallenge()">NEXT NODE ▶</button>
     </div>
     <div id="walkthrough"></div>
@@ -770,9 +781,71 @@ const STATE = {
   hints: 0,
 };
 
+const CTF_PROGRESS_KEY = 'cyberworld-ctf-progress';
+const ADVERSARY_MOTIVE = {
+  BLACK_SPECTER: 'Targets civic infrastructure to create dependence on black-market access channels.',
+  GRAY_FANG: 'Runs extortion pipelines using ransomware and stealth exfiltration.',
+  CINDER_VEIL: 'Blends breaches with disinformation to trigger social and operational chaos.',
+};
+const NODE_INTEL = {
+  1: { adversary: 'BLACK_SPECTER', cves: ['CVE-2021-41773'], story: 'Signal drift was seeded as a covert command path.' },
+  7: { adversary: 'GRAY_FANG', cves: ['CVE-2023-34362'], story: 'SQL auth bypass chain mirrors recent mass exploitation patterns.' },
+  12: { adversary: 'CINDER_VEIL', cves: ['CVE-2024-3400', 'CVE-2024-21887'], story: 'CVE intelligence dashboards are used to weaponize fresh exposures quickly.' },
+  19: { adversary: 'GRAY_FANG', cves: ['CVE-2022-0543'], story: 'SSRF -> Redis -> RCE chain matches Gray Fang tradecraft.' },
+  20: { adversary: 'BLACK_SPECTER', cves: ['CVE-2021-44228'], story: 'Platform compromise and challenge tampering fund adversary operations.' },
+};
+
+function persistCrossProgress() {
+  const solved = Array.from(STATE.solved.values());
+  const payload = {
+    solvedNodes: solved,
+    solvedCount: solved.length,
+    totalNodes: CHALLENGES.length,
+    xp: STATE.xp,
+    hintsUsed: STATE.hints,
+    updatedAt: new Date().toISOString(),
+    completed: solved.length === CHALLENGES.length,
+  };
+  localStorage.setItem(CTF_PROGRESS_KEY, JSON.stringify(payload));
+}
+
+function hydrateProgress() {
+  const raw = localStorage.getItem(CTF_PROGRESS_KEY);
+  if (!raw) return;
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed.solvedNodes)) STATE.solved = new Set(parsed.solvedNodes);
+    if (typeof parsed.xp === 'number') STATE.xp = parsed.xp;
+    if (typeof parsed.hintsUsed === 'number') STATE.hints = parsed.hintsUsed;
+    if (STATE.solved.size > 0) {
+      STATE.current = Math.min(STATE.solved.size, CHALLENGES.length - 1);
+    }
+  } catch (e) {
+    // Ignore malformed saved progress
+  }
+}
+
+function renderMissionIntel(ch) {
+  const intel = NODE_INTEL[ch.id] || {
+    adversary: 'UNKNOWN_CELL',
+    cves: ['CVE-2021-44228'],
+    story: 'Actor profile unresolved. Continue telemetry capture through this node.',
+  };
+  const motive = ADVERSARY_MOTIVE[intel.adversary] || 'Unknown motive.';
+  const el = document.getElementById('mission-intel');
+  if (!el) return;
+  el.innerHTML =
+    '<strong>MISSION_INTEL</strong> // ' +
+    'Adversary: <span class="mi-adv">' + intel.adversary + '</span> // ' +
+    'CVEs: <span class="mi-cve">' + intel.cves.join(', ') + '</span><br>' +
+    'Motive: ' + motive + '<br>' +
+    'Story: ' + intel.story;
+}
+
 // ─── TRAIL START ─────────────────────────────────────────────────────────
 function startTrail() {
   STATE.started = true;
+  hydrateProgress();
   document.getElementById('intro-panel').style.display = 'none';
   document.getElementById('trail-map').style.display = 'flex';
   document.getElementById('stats-bar').style.display = 'flex';
@@ -782,6 +855,7 @@ function startTrail() {
   buildTrailMap();
   buildChallengeGrid();
   loadChallenge(0);
+  if (STATE.current > 0 || STATE.solved.size > 0) loadChallenge(STATE.current);
   logEvent('Trail started. Good luck, operative.', 'info');
 }
 
@@ -885,6 +959,7 @@ function loadChallenge(idx) {
   document.getElementById('chall-meta').innerHTML = typeBadge + diffBadge + xpBadge;
 
   document.getElementById('chall-narrative').textContent = ch.narrative;
+  renderMissionIntel(ch);
 
   // scenario
   const sc = document.getElementById('chall-scenario');
@@ -921,6 +996,7 @@ function checkFlag() {
       STATE.solved.add(STATE.current);
       STATE.xp += ch.xp;
       logEvent(`Flag captured: ${ch.title} (+${ch.xp} XP)`, 'good');
+      persistCrossProgress();
     }
     document.getElementById('next-btn').style.display = 'inline-flex';
     updateStats();
@@ -945,6 +1021,7 @@ function showHint() {
   updateStats();
   logEvent(`Hint used on: ${ch.title}`, 'warn');
   alert('💡 HINT: ' + ch.hint);
+  persistCrossProgress();
 }
 
 function showWalkthrough() {
@@ -968,6 +1045,7 @@ function showExfilScreen() {
   document.getElementById('ef-flags').textContent = `${STATE.solved.size}/20`;
   document.getElementById('ef-hints').textContent = STATE.hints;
   document.getElementById('exfil-screen').style.display = 'flex';
+  persistCrossProgress();
 }
 
 // ─── STATS ────────────────────────────────────────────────────────────────

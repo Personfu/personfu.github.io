@@ -9,7 +9,8 @@
 <style>
 :root{--cyber-cyan:#00e8ff;--cyber-green:#00ff41;--cyber-pink:#ff00ea;}
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courier,monospace;padding-bottom:40px;}
+html,body{height:auto;min-height:100%;overflow-x:hidden;scroll-behavior:smooth;}
+body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courier,monospace;padding-bottom:58px;-webkit-overflow-scrolling:touch;}
 #crt-filter{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 2px);z-index:9998;}
 #taskbar{position:fixed;bottom:0;left:0;width:100%;height:32px;background:#0a0a0a;border-top:1px solid var(--cyber-cyan);z-index:9999;display:flex;align-items:center;padding:0 12px;}
 #taskbar a{color:var(--cyber-cyan);text-decoration:none;font-size:13px;letter-spacing:1px;}
@@ -19,7 +20,7 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
 .section-header{padding:10px 16px;background:#020e10;border-bottom:1px solid var(--cyber-cyan);font-size:13px;letter-spacing:2px;text-shadow:0 0 8px var(--cyber-cyan);color:var(--cyber-cyan);}
 .section-body{padding:16px;}
 /* CVE Feed */
-#cve-list{max-height:400px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;}
+#cve-list{display:flex;flex-direction:column;gap:6px;}
 .cve-entry{background:#050505;border:1px solid #1a1a2e;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;}
 .cve-id{color:var(--cyber-cyan);font-weight:bold;min-width:140px;}
 .cvss-red{color:#ff4444;font-weight:bold;}
@@ -46,7 +47,7 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
 #cam-canvas{max-width:100%;border:2px solid var(--cyber-green);display:none;margin-top:8px;}
 #cam-error{color:#ff4444;display:none;margin-top:8px;}
 /* TTP Feed */
-#ttp-list{max-height:380px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;}
+#ttp-list{display:flex;flex-direction:column;gap:6px;}
 .ttp-entry{background:#050505;border:1px solid #1a1a2e;padding:10px 12px;font-size:12px;}
 .ttp-id{color:var(--cyber-pink);font-weight:bold;}
 .ttp-tactic{color:var(--cyber-cyan);}
@@ -59,6 +60,10 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
 @media(max-width:600px){
   .page-title{padding-top:20px;}
   .cve-entry{font-size:11px;}
+}
+
+@media(min-width:1100px){
+  #cve-list,#ttp-list,#cve-search-results,#highlights-list{max-height:540px;overflow-y:auto;}
 }
 </style>
 </head>
@@ -109,12 +114,12 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
         style="min-height:40px;padding:8px 20px;background:var(--cyber-cyan);color:#000;border:none;font-family:'Courier New',monospace;font-size:13px;letter-spacing:1px;cursor:pointer;" aria-label="Search CVEs">SEARCH</button>
     </div>
     <div id="cve-search-status" style="font-size:12px;color:var(--cyber-yellow);margin-bottom:8px;display:none;"></div>
-    <div id="cve-search-results" style="max-height:500px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;"></div>
+    <div id="cve-search-results" style="display:flex;flex-direction:column;gap:6px;"></div>
     <div id="cve-search-pages" style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;"></div>
     <!-- STATIC HIGHLIGHTS: famous CVEs 2005–2024 -->
     <div id="cve-highlights" style="margin-top:18px;">
       <div style="font-family:'Courier New';font-size:12px;color:var(--cyber-cyan);letter-spacing:2px;margin-bottom:10px;">── NOTABLE CVEs 2005–2024 ──</div>
-      <div id="highlights-list" style="display:flex;flex-direction:column;gap:5px;max-height:400px;overflow-y:auto;"></div>
+      <div id="highlights-list" style="display:flex;flex-direction:column;gap:5px;"></div>
     </div>
   </div>
 </div>
