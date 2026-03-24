@@ -1,28 +1,121 @@
 {
   "locations": [
     {
-      "id": "home-node",
-      "name": "HOME_NODE",
-      "type": "sanctuary",
-      "storyRole": "Mission coordination and recovery"
+      "id": "nexus",
+      "name": "The Nexus",
+      "status": "Stable",
+      "ownerFaction": "fllc",
+      "riskLevel": "Low",
+      "associatedCampaignMission": "signal_drift",
+      "connectedAdversaries": [
+        "fancy-bear"
+      ],
+      "availableActivities": [
+        "Faction Hall",
+        "Mission Briefing",
+        "Market Trading"
+      ]
     },
     {
-      "id": "mission-board",
-      "name": "MISSION_BOARD",
-      "type": "command",
-      "storyRole": "Campaign chapter assignments and threat updates"
+      "id": "black-market",
+      "name": "Black Market",
+      "status": "Volatile",
+      "ownerFaction": "corsair",
+      "riskLevel": "High",
+      "associatedCampaignMission": "dead_drop",
+      "connectedAdversaries": [
+        "lazarus-group"
+      ],
+      "availableActivities": [
+        "Tool Crafting",
+        "Route Token Trading",
+        "Intel Auctions"
+      ]
     },
     {
-      "id": "ctf-trail",
-      "name": "CTF_TRAIL",
-      "type": "escort-route",
-      "storyRole": "Guided launch-chain escort across 20 hostile nodes"
+      "id": "codice-zone",
+      "name": "Codice Zone",
+      "status": "Contested",
+      "ownerFaction": "ghostline",
+      "riskLevel": "Medium",
+      "associatedCampaignMission": "subdomain_enum",
+      "connectedAdversaries": [
+        "salt-typhoon",
+        "volt-typhoon"
+      ],
+      "availableActivities": [
+        "Stealth Contracts",
+        "Signal Mapping",
+        "Companion Stabilization"
+      ]
     },
     {
-      "id": "war-games",
-      "name": "WAR_GAMES ARENA",
-      "type": "training",
-      "storyRole": "Simulation environment for rapid adversary-response drills"
+      "id": "relay-graveyard",
+      "name": "Relay Graveyard",
+      "status": "Unstable",
+      "ownerFaction": "unclaimed",
+      "riskLevel": "High",
+      "associatedCampaignMission": "neon_beacon",
+      "connectedAdversaries": [
+        "volt-typhoon"
+      ],
+      "availableActivities": [
+        "Node Salvage",
+        "Telemetry Recovery",
+        "Scanner Calibration"
+      ]
+    },
+    {
+      "id": "govarchive",
+      "name": "GovArchive Mirror",
+      "status": "Degraded",
+      "ownerFaction": "sentinel",
+      "riskLevel": "Critical",
+      "associatedCampaignMission": "memory_vault",
+      "connectedAdversaries": [
+        "sandworm",
+        "fancy-bear"
+      ],
+      "availableActivities": [
+        "Forensics Sweep",
+        "Artifact Recovery",
+        "Incident Response"
+      ]
+    },
+    {
+      "id": "orbital-uplink",
+      "name": "Orbital Uplink",
+      "status": "Armed",
+      "ownerFaction": "fllc",
+      "riskLevel": "Critical",
+      "associatedCampaignMission": "final_node",
+      "connectedAdversaries": [
+        "sandworm",
+        "lazarus-group",
+        "volt-typhoon"
+      ],
+      "availableActivities": [
+        "Convoy Escort",
+        "Launch Validation",
+        "Final Uplink Defense"
+      ]
+    },
+    {
+      "id": "starshield-rail",
+      "name": "Starshield Launch Rail",
+      "status": "Launch Window Active",
+      "ownerFaction": "fllc",
+      "riskLevel": "Critical",
+      "associatedCampaignMission": "exfil_apex",
+      "connectedAdversaries": [
+        "sandworm",
+        "salt-typhoon"
+      ],
+      "availableActivities": [
+        "Countdown Operations",
+        "Payload Integrity Check",
+        "Emergency Route Override"
+      ]
     }
   ]
 }

@@ -1,38 +1,84 @@
 {
+  "title": "Operation Starshield",
+  "premise": "A world-saving rocket carrying humanity's continuity archive is preparing to launch. Hostile actors are attempting to corrupt the launch chain across CyberWorld.",
   "operation": {
     "id": "operation-starshield",
     "name": "Operation Starshield",
-    "chapter": "Chapter 3 / Launch Chain Defense",
-    "threatLevel": "SEVERE",
-    "primaryObjective": "Protect launch-critical payload fragments across compromised relay nodes",
-    "launchStatus": "CONVOY IN TRANSIT",
-    "brief": "Adversary coalitions are attacking uplink relays to block Starshield deployment. Every page reflects one surface of the same operation.",
+    "chapter": "Chapter 1 / Signal Drift",
+    "threatLevel": "CRITICAL",
+    "primaryObjective": "Recover the first launch-auth fragments and stabilize the convoy route to the Starshield uplink.",
+    "launchStatus": "T-MINUS 6 DAYS",
+    "brief": "The Starshield launch chain is under active multi-actor interference. Every recovered fragment feeds the final rocket uplink.",
     "ticker": [
-      "STARSHIELD CONVOY: ROUTE INTEGRITY 84%",
-      "BLACK SPECTER: ACTIVE AGAINST EDGE RELAYS",
-      "GRAY FANG: RANSOMWARE PRESSURE IN CIVIC STACK",
-      "CINDER VEIL: SYNTHETIC INFLUENCE CAMPAIGN DETECTED",
-      "FLLC OPERATIVES: ESCORTING PAYLOAD THROUGH HOSTILE NODES"
+      "STARSHIELD UPLINK STABLE AT 82%",
+      "VOLT TYPHOON PRE-POSITIONING DETECTED IN RELAY LAYER",
+      "LAZARUS ACTIVITY SURGING NEAR ESCROW VAULTS",
+      "SANDWORM SIGNATURES OBSERVED IN TELEMETRY MIRROR",
+      "FLLC REQUEST: ALL OPERATIVES REPORT TO THE NEXUS"
     ]
   },
   "chapters": [
     {
-      "id": "ch-01",
-      "title": "Glass Harbor Breach",
-      "focus": "Entry vector containment",
-      "status": "completed"
+      "id": "chapter_1",
+      "title": "Signal Drift",
+      "summary": "A degraded broadcast from a dying node contains the first fragment of the Starshield launch-auth package.",
+      "missions": [
+        "signal_drift",
+        "neon_beacon",
+        "dead_drop"
+      ]
     },
     {
-      "id": "ch-02",
-      "title": "Nexus Hospital Blackout",
-      "focus": "Persistence disruption",
-      "status": "in-progress"
+      "id": "chapter_2",
+      "title": "Broken Routes",
+      "summary": "FLLC operatives trace the convoy path through compromised relays and legacy infrastructure.",
+      "missions": [
+        "honeypot",
+        "steg",
+        "sql_bypass",
+        "subdomain_enum"
+      ]
     },
     {
-      "id": "ch-03",
-      "title": "Aurora Relay Exfil",
-      "focus": "Counter-exfil and convoy escort",
-      "status": "in-progress"
+      "id": "chapter_3",
+      "title": "Launch Chain",
+      "summary": "Adversaries converge on telemetry relays, trust anchors, and validator nodes tied to the Starshield rocket.",
+      "missions": [
+        "memory_vault",
+        "reverse_engineer",
+        "cve_dashboard",
+        "threat_model"
+      ]
+    },
+    {
+      "id": "chapter_4",
+      "title": "Final Ascent",
+      "summary": "Secure the final uplink and prevent corruption of Starshield launch validation before ignition.",
+      "missions": [
+        "buffer_overflow",
+        "advanced_sniffer",
+        "incident_response",
+        "final_node",
+        "exfil_apex"
+      ]
     }
-  ]
+  ],
+  "worldStatus": {
+    "currentChapterId": "chapter_1",
+    "currentThreatState": "Multi-front adversary pressure across relay, telecom, and archive infrastructure.",
+    "currentMissionObjective": "Recover and verify launch-auth fragment A1 before relay collapse.",
+    "factionReputationEffects": "Sentinel reputation improves defensive mission rewards. Corsair reputation unlocks risky shortcut routes. Ghostline reputation lowers detection during escort runs.",
+    "launchMetrics": {
+      "launchWindow": "T-6 DAYS",
+      "uplinkIntegrity": 82,
+      "relayTrust": 68,
+      "adversaryPressure": 74
+    },
+    "worldEvents": [
+      "Telemetry drift detected over GovArchive mirror cluster.",
+      "Lazarus wallets funding proxy operators in escrow corridors.",
+      "Volt Typhoon signatures found in dormant relay firmware.",
+      "Nexus command requests additional scanner toolsmith volunteers."
+    ]
+  }
 }

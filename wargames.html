@@ -105,7 +105,7 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'JetBrains Mono',mon
 
 <div class="page-title">
   <h1>WAR_GAMES // <span data-story="operation-name">CYBER_ARENA</span></h1>
-  <p data-story="page-role">:: INTERACTIVE HACKING SIMULATION BATTLEGROUND :: FLLC OPERATIVE TRAINING ::</p>
+  <p>HIGH-RISK OPS BOARD: seasonal incidents, red-team rehearsals, launch-compromise simulations, and raid-style events.</p>
 </div>
 
 <!-- ARENA STATUS -->
@@ -189,12 +189,12 @@ setInterval(function(){
 
 // ── Missions ──
 var MISSIONS = [
-  {name:'FIRST_CONTACT',diff:'rookie',obj:'Enumerate a target web server. Find the hidden directory, capture the flag.',skills:['Nmap','Gobuster','HTTP'],points:100},
-  {name:'SQL_INJECTION_101',diff:'rookie',obj:'Exploit a classic SQL injection vulnerability in a login form. Extract the admin password hash.',skills:['SQLMap','BurpSuite','SQL'],points:150},
-  {name:'PHISH_AND_CAPTURE',diff:'operative',obj:'Deploy a credential harvesting page. Capture 3 simulated user sessions using evilginx2.',skills:['Evilginx2','DNS','Social-Eng'],points:400},
-  {name:'BLOODHOUND_DOMAIN',diff:'operative',obj:'Enumerate an Active Directory environment. Map the attack path to Domain Admin using BloodHound.',skills:['BloodHound','AD','Recon'],points:500},
-  {name:'BINARY_PWNED',diff:'elite',obj:'Exploit a buffer overflow in a 64-bit Linux binary. Achieve RCE and read /root/flag.txt.',skills:['pwntools','ROP','GDB'],points:1000},
-  {name:'OPERATION_DARKNET',diff:'classified',obj:'[REDACTED] — Clearance Level ALPHA required. Contact FLLC Command for briefing.',skills:['CLASSIFIED'],points:9999}
+  {name:'SALT_TYPHOON_BLACKOUT',diff:'rookie',obj:'Telecom blackout simulation: restore message relay paths before trust collapse.',skills:['Nmap','DNS','PacketTrace'],points:120},
+  {name:'LAUNCH_REHEARSAL_COMPROMISED',diff:'rookie',obj:'Identify poisoned validator inputs during a Starshield dry-run and isolate the fault chain.',skills:['SQLMap','LogDiff','Validation'],points:180},
+  {name:'BLACKCAT_RANSOM_SURGE',diff:'operative',obj:'Contain simulated extortion spread across launch support systems and preserve backup integrity.',skills:['Evilginx2','IR','Recovery'],points:420},
+  {name:'VOLT_TYPHOON_PREPOSITION',diff:'operative',obj:'Hunt stealth persistence in power and telecom relay infrastructure using behavior-led triage.',skills:['BloodHound','AD','Recon'],points:520},
+  {name:'SANDWORM_TELEMETRY_SABOTAGE',diff:'elite',obj:'Reverse a layered telemetry sabotage chain before final ascent window closes.',skills:['pwntools','ROP','Forensics'],points:1050},
+  {name:'OPERATION_STARSHIELD_RAID',diff:'classified',obj:'Multi-team final rehearsal for convoy escort and launch uplink defense.',skills:['CLASSIFIED'],points:9999}
 ];
 
 var diffMap={rookie:'diff-rookie',operative:'diff-operative',elite:'diff-elite',classified:'diff-classified'};

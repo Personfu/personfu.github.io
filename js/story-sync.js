@@ -9,6 +9,19 @@
     });
   }
 
+  function setList(selector, values, formatter) {
+    var nodes = document.querySelectorAll(selector);
+    if (!nodes.length) return;
+    nodes.forEach(function (node) {
+      node.innerHTML = '';
+      (values || []).forEach(function (item) {
+        var li = document.createElement('li');
+        li.textContent = formatter ? formatter(item) : String(item);
+        node.appendChild(li);
+      });
+    });
+  }
+
   function joinTicker(items) {
     if (!Array.isArray(items) || !items.length) return '';
     return items.join(' | ');
@@ -18,6 +31,15 @@
     if (!Array.isArray(adversaries) || !adversaries.length) return '';
     var names = adversaries.map(function (a) { return a.name; }).join(', ');
     return 'ACTIVE STARSHIELD ADVERSARIES: ' + names;
+  }
+
+  function buildIntelMissionImpact(adversaries) {
+    if (!Array.isArray(adversaries) || !adversaries.length) return '';
+    var lines = adversaries.map(function (item) {
+      var nodes = Array.isArray(item.affectedMissionNodes) ? item.affectedMissionNodes.join(', ') : 'unknown nodes';
+      return item.name + ' -> ' + nodes;
+    });
+    return 'MISSION NODE IMPACT: ' + lines.join(' | ');
   }
 
   function applyStory(context) {
@@ -33,6 +55,18 @@
     setText('[data-story="campaign-brief"]', op.brief);
     setText('[data-story="ticker"]', joinTicker(op.ticker || []));
     setText('[data-story="page-role"]', role);
+    setText('[data-story="current-chapter-title"]', context.currentChapterTitle || op.chapter || 'Signal Drift');
+    setText('[data-story="current-threat-state"]', context.currentThreatState || 'Threat feed syncing...');
+    setText('[data-story="current-mission-objective"]', context.currentMissionObjective || op.primaryObjective || 'Objective syncing...');
+    setText('[data-story="faction-reputation-effects"]', context.factionReputationEffects || 'Faction effects syncing...');
+
+    var metrics = context.launchMetrics || {};
+    setText('[data-story="launch-window"]', metrics.launchWindow || op.launchStatus || 'T-UNKNOWN');
+    setText('[data-story="uplink-integrity"]', (metrics.uplinkIntegrity !== undefined ? metrics.uplinkIntegrity : 0) + '%');
+    setText('[data-story="relay-trust"]', (metrics.relayTrust !== undefined ? metrics.relayTrust : 0) + '%');
+    setText('[data-story="adversary-pressure"]', (metrics.adversaryPressure !== undefined ? metrics.adversaryPressure : 0) + '%');
+
+    setList('[data-story="world-events"]', context.worldEvents || []);
 
     var solved = context.runtime && typeof context.runtime.nodesSolved === 'number'
       ? context.runtime.nodesSolved
@@ -41,6 +75,7 @@
 
     if (document.body.getAttribute('data-story-page') === 'intel') {
       setText('[data-story="intel-adversaries"]', buildIntelAdversaryLine(context.adversaries));
+      setText('[data-story="intel-mission-impact"]', buildIntelMissionImpact(context.adversaries));
     }
 
     if (document.body.getAttribute('data-story-page') === 'adversaries') {

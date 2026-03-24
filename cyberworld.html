@@ -237,9 +237,9 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
       <div class="section-header">📜 ACTIVE_QUESTS</div>
       <div id="quest-list">
         <div class="quest">
-          <div class="quest-title">Tutorial: First Steps</div>
-          <div class="quest-status">In Progress</div>
-          <div class="quest-progress">Complete character customization</div>
+          <div class="quest-title">CURRENT OPERATION: STARSHIELD</div>
+          <div class="quest-status" data-story="launch-status">Syncing launch status...</div>
+          <div class="quest-progress" data-story="current-mission-objective">Syncing mission objective...</div>
         </div>
       </div>
     </div>
@@ -255,11 +255,13 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
   <!-- CENTER: MAIN WORLD VIEW -->
   <div id="main-content">
     <div class="world-map">
-      <div class="map-title">📡 CURRENT LOCATION: HOME_NODE // <span data-story="campaign-chapter">Chapter Sync Pending</span></div>
+      <div class="map-title">📡 THE NEXUS // <span data-story="current-chapter-title">Chapter Sync Pending</span></div>
       <div class="map-description">
-        You awaken in the HOME_NODE, a neutral sanctuary within the Nexus—a massive data fortress designed by the legendary FLLC collective to shelter operatives during missions into hostile cyberspace.
+        You are inside The Nexus, the social heart of CyberWorld and the last trusted staging ground for Operation Starshield.
         <br><br>
-        Towering holographic displays project real-time threat feeds, market data, and faction standings. The air hums with the collective processing power of thousands of connected systems. You are not alone here.
+        FLLC confirms hostile activity across relay, telecom, archive, and validator layers. Your character matters because every recovered fragment feeds the launch chain. Reputation, tools, and faction trust change which routes survive.
+        <br><br>
+        <strong>Threat State:</strong> <span data-story="current-threat-state">Syncing threat state...</span>
       </div>
       <div class="map-actions" id="location-actions">
         <button class="map-btn" onclick="loadWorld('mission-board')">MISSION_BOARD</button>
@@ -282,21 +284,23 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
         <div class="rep-bar"><div class="rep-fill" style="width:0%;"></div></div>
       </div>
       <div style="font-size:10px;line-height:1.6;color:#666;">
-        <strong>Nomads:</strong> Independent operatives valuing freedom over loyalty. No faction bonds, maximum autonomy.
+        <strong>Faction Effects:</strong> <span data-story="faction-reputation-effects">Faction effects syncing...</span>
       </div>
     </div>
 
     <div class="sidebar-section">
       <div class="section-header">📰 WORLD_EVENTS</div>
       <div class="lore-box">
-        <div class="lore-title">Data Breach Detected</div>
-        <div class="lore-date">2030-03-24</div>
-        <div class="lore-text">Unknown threat actor infiltrated GovArchive. Rumors of powerful artifacts in vault. Reward pool: 50,000 credits.</div>
+        <div class="lore-title">Launch Metrics</div>
+        <div class="lore-date" data-story="launch-window">T-UNKNOWN</div>
+        <div class="lore-text">Uplink Integrity: <span data-story="uplink-integrity">0%</span> | Relay Trust: <span data-story="relay-trust">0%</span> | Adversary Pressure: <span data-story="adversary-pressure">0%</span></div>
       </div>
       <div class="lore-box">
-        <div class="lore-title">Corsair Fleet Active</div>
-        <div class="lore-date">2030-03-23</div>
-        <div class="lore-text">Corsair raiders detected in outer zones. Market prices spike. Intel sellers in high demand.</div>
+        <div class="lore-title">Live World Events</div>
+        <div class="lore-date">FLLC Event Feed</div>
+        <div class="lore-text">
+          <ul data-story="world-events" style="padding-left:14px;margin:0;"></ul>
+        </div>
       </div>
     </div>
 

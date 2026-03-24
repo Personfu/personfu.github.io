@@ -1,21 +1,158 @@
 {
   "adversaries": [
     {
-      "id": "black-specter",
-      "name": "BLACK_SPECTER",
-      "pressure": "Exploits edge CVEs to force launch delay windows",
-      "priority": "critical"
-    },
-    {
-      "id": "gray-fang",
-      "name": "GRAY_FANG",
-      "pressure": "Runs double-extortion operations against logistics providers",
+      "id": "fancy-bear",
+      "name": "Fancy Bear",
+      "firstSeen": "2004",
+      "factionAlignment": "state-espionage",
+      "preferredAttackSurface": "credential phishing and political document supply chains",
+      "campaignAppearances": [
+        "signal_drift",
+        "dead_drop",
+        "sql_bypass"
+      ],
+      "knownWeaknesses": "Infrastructure reuse and repeated lure themes",
+      "affectedMissionNodes": [
+        "signal_drift",
+        "dead_drop"
+      ],
+      "recommendedTools": [
+        "neon_beacon_scanner",
+        "document_sandbox"
+      ],
+      "attackBehavior": [
+        "T1566",
+        "T1078",
+        "T1204"
+      ],
+      "relatedCVEs": [
+        "CVE-2024-3400",
+        "CVE-2024-27198"
+      ],
       "priority": "high"
     },
     {
-      "id": "cinder-veil",
-      "name": "CINDER_VEIL",
-      "pressure": "Injects influence narratives to degrade operator trust",
+      "id": "sandworm",
+      "name": "Sandworm",
+      "firstSeen": "2009",
+      "factionAlignment": "infrastructure-sabotage",
+      "preferredAttackSurface": "industrial and launch telemetry infrastructure",
+      "campaignAppearances": [
+        "memory_vault",
+        "final_node",
+        "exfil_apex"
+      ],
+      "knownWeaknesses": "Noisy destructive tradecraft under time pressure",
+      "affectedMissionNodes": [
+        "memory_vault",
+        "final_node"
+      ],
+      "recommendedTools": [
+        "integrity_monitor",
+        "forensic_diff_probe"
+      ],
+      "attackBehavior": [
+        "T1485",
+        "T1490",
+        "T1190"
+      ],
+      "relatedCVEs": [
+        "CVE-2024-21887",
+        "CVE-2024-24919"
+      ],
+      "priority": "critical"
+    },
+    {
+      "id": "lazarus-group",
+      "name": "Lazarus Group",
+      "firstSeen": "2009",
+      "factionAlignment": "financial-and-supply-chain",
+      "preferredAttackSurface": "crypto funding rails and package supply chains",
+      "campaignAppearances": [
+        "neon_beacon",
+        "cve_dashboard",
+        "launch_chain"
+      ],
+      "knownWeaknesses": "Wallet tracing and predictable laundering pivots",
+      "affectedMissionNodes": [
+        "neon_beacon",
+        "cve_dashboard"
+      ],
+      "recommendedTools": [
+        "wallet_tracer",
+        "dependency_audit_kit"
+      ],
+      "attackBehavior": [
+        "T1195",
+        "T1105",
+        "T1071"
+      ],
+      "relatedCVEs": [
+        "CVE-2024-1709",
+        "CVE-2024-5806"
+      ],
+      "priority": "high"
+    },
+    {
+      "id": "volt-typhoon",
+      "name": "Volt Typhoon",
+      "firstSeen": "2021",
+      "factionAlignment": "stealth-prepositioning",
+      "preferredAttackSurface": "telecom and power relay persistence",
+      "campaignAppearances": [
+        "broken_routes",
+        "advanced_sniffer",
+        "final_ascent"
+      ],
+      "knownWeaknesses": "Dependency on valid credentials and living-off-the-land artifacts",
+      "affectedMissionNodes": [
+        "advanced_sniffer",
+        "incident_response"
+      ],
+      "recommendedTools": [
+        "credential_anomaly_scanner",
+        "relay_path_diff"
+      ],
+      "attackBehavior": [
+        "T1078",
+        "T1090",
+        "T1133"
+      ],
+      "relatedCVEs": [
+        "CVE-2024-4577",
+        "CVE-2024-6387"
+      ],
+      "priority": "critical"
+    },
+    {
+      "id": "salt-typhoon",
+      "name": "Salt Typhoon",
+      "firstSeen": "2020",
+      "factionAlignment": "telecom-intercept",
+      "preferredAttackSurface": "carrier core and lawful-intercept systems",
+      "campaignAppearances": [
+        "signal_drift",
+        "subdomain_enum",
+        "launch_chain"
+      ],
+      "knownWeaknesses": "Operational dependence on telecom control-plane access",
+      "affectedMissionNodes": [
+        "signal_drift",
+        "subdomain_enum"
+      ],
+      "recommendedTools": [
+        "ss7_watcher",
+        "intercept_log_audit"
+      ],
+      "attackBehavior": [
+        "T1190",
+        "T1056",
+        "T1205"
+      ],
+      "relatedCVEs": [
+        "CVE-2024-23113",
+        "CVE-2024-20399"
+      ],
       "priority": "high"
     }
   ]

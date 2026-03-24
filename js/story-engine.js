@@ -46,6 +46,34 @@
       });
   }
 
+  function normalizeCampaign(context) {
+    if (!context) return context;
+    var chapters = Array.isArray(context.chapters) ? context.chapters : [];
+    var worldStatus = context.worldStatus || {};
+    var currentId = worldStatus.currentChapterId;
+    var chapter = null;
+
+    if (currentId) {
+      chapter = chapters.find(function (item) { return item.id === currentId; }) || null;
+    }
+    if (!chapter && chapters.length) {
+      chapter = chapters[0];
+    }
+
+    if (chapter && chapter.title) {
+      context.operation.chapter = 'Chapter: ' + chapter.title;
+      context.currentChapterTitle = chapter.title;
+    }
+
+    context.currentThreatState = worldStatus.currentThreatState || '';
+    context.currentMissionObjective = worldStatus.currentMissionObjective || context.operation.primaryObjective || '';
+    context.factionReputationEffects = worldStatus.factionReputationEffects || '';
+    context.launchMetrics = worldStatus.launchMetrics || {};
+    context.worldEvents = Array.isArray(worldStatus.worldEvents) ? worldStatus.worldEvents : [];
+
+    return context;
+  }
+
   function deriveStatus(context) {
     var progress = safeJsonParse(localStorage.getItem(CTF_PROGRESS_KEY), null);
     if (!progress) return context;
@@ -53,20 +81,20 @@
     var solved = Number(progress.solvedCount || progress.solved || 0);
     if (solved >= 20) {
       context.operation.launchStatus = 'PAYLOAD DELIVERED';
-      context.operation.chapter = 'Chapter 4 / Debrief and Reinforcement';
       context.operation.threatLevel = 'ELEVATED';
+      context.currentThreatState = 'Launch chain secured. Residual adversary probes remain active in fringe sectors.';
     } else if (solved >= 12) {
       context.operation.launchStatus = 'FINAL RELAY WINDOW';
-      context.operation.chapter = 'Chapter 3 / Launch Chain Defense';
       context.operation.threatLevel = 'HIGH';
+      context.currentThreatState = 'Coordinated pressure on validators and telemetry mirrors nearing launch threshold.';
     } else if (solved >= 6) {
       context.operation.launchStatus = 'CONVOY IN TRANSIT';
-      context.operation.chapter = 'Chapter 2 / Persistence Hunt';
       context.operation.threatLevel = 'SEVERE';
+      context.currentThreatState = 'Relay-route contention rising across telecom and escrow pathways.';
     } else if (solved > 0) {
       context.operation.launchStatus = 'ENTRY RELAY LOCKED';
-      context.operation.chapter = 'Chapter 1 / Entry Vector';
       context.operation.threatLevel = 'CRITICAL';
+      context.currentThreatState = 'Initial hostile interference confirmed around the first Starshield fragments.';
     }
 
     context.runtime = context.runtime || {};
@@ -98,6 +126,7 @@
 
         var saved = safeJsonParse(localStorage.getItem(STORY_STATE_KEY), {});
         deepMerge(context, saved);
+        normalizeCampaign(context);
         return deriveStatus(context);
       });
     }

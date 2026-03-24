@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://services.nvd.nist.gov https://cve.circl.lu;">
-<title>INTEL_HUB — LIVE GLOBAL THREAT MONITOR</title>
+<title>FLLC INTEL HUB — STARSHIELD WATCH</title>
 <link href="css/os.css" rel="stylesheet">
 <style>
 :root{--cyber-cyan:#00e8ff;--cyber-green:#00ff41;--cyber-pink:#ff00ea;}
@@ -70,13 +70,13 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
 <body data-story-page="intel">
 <div id="crt-filter"></div>
 
-<div class="page-title">◈ INTEL_HUB — LIVE GLOBAL THREAT MONITOR ◈</div>
+<div class="page-title">◈ FLLC INTEL HUB — STARSHIELD WATCH ◈</div>
 
 <!-- THREAT TICKER -->
 <div class="section">
   <div class="section-header">▶ GLOBAL_THREAT_TICKER // LIVE INTEL STREAM</div>
   <div id="ticker-outer">
-    <span id="ticker-inner">⚠ CRITICAL: APT29 ACTIVITY DETECTED IN EU NETWORKS // ⚠ HIGH: ZERO-DAY IN CISCO IOS UNDER ACTIVE EXPLOITATION // ⚠ LAZARUS GROUP TARGETING CRYPTO EXCHANGES // ⚠ RANSOMWARE SURGE: 340% INCREASE Q4 // ⚠ VOLT TYPHOON PERSISTENCE IN US CRITICAL INFRA // ⚠ CRITICAL: SUPPLY CHAIN ATTACK VIA NPM PACKAGE // ⚠ HIGH: COBALT STRIKE BEACON CLUSTER ACTIVE // ⚠ TURLA APT PHISHING CAMPAIGN ONGOING // ⚠ CRITICAL: IVANTI ZERO-DAY CVE-2024-21887 MASS EXPLOITATION // ⚠ FIN7 DEPLOYING NEW RANSOMWARE VARIANT //</span>
+    <span id="ticker-inner" data-story="ticker">STARSHIELD FEED SYNCING...</span>
   </div>
 </div>
 
@@ -85,6 +85,9 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
   <div class="section-header">▶ LIVE_CVE_FEED // NVD THREAT INTELLIGENCE</div>
   <div class="section-body">
     <div style="font-size:12px;color:var(--cyber-green);margin-bottom:10px;" data-story="intel-adversaries">ACTIVE STARSHIELD ADVERSARIES: SYNCING...</div>
+    <div style="font-size:12px;color:var(--cyber-pink);margin-bottom:10px;" data-story="intel-mission-impact">MISSION NODE IMPACT: SYNCING...</div>
+    <div style="font-size:12px;color:#9cc; margin-bottom:10px;">LAUNCH WINDOW: <span data-story="launch-window">T-UNKNOWN</span> | UPLINK: <span data-story="uplink-integrity">0%</span> | RELAY TRUST: <span data-story="relay-trust">0%</span> | ADVERSARY PRESSURE: <span data-story="adversary-pressure">0%</span></div>
+    <div style="font-size:12px;color:#bbb;margin-bottom:10px;">The battlefield updates even when you are offline: correlate active actors, affected mission nodes, ATT&CK behavior, and CVEs before committing your route.</div>
     <div style="font-size:12px;color:#aaa;margin-bottom:10px;">⟳ Fetching from NVD API (services.nvd.nist.gov). Displayed in real-time — newest first.</div>
     <div id="nvd-status" style="font-size:12px;color:var(--cyber-yellow);margin-bottom:8px;"></div>
     <div id="cve-list"></div>

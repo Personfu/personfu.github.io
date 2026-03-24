@@ -116,6 +116,40 @@
     {"name": "CyberChef", "path": "gchq/CyberChef", "description": "The Cyber Swiss Army Knife", "stars": "34391", "story_tag": "decode"},
     {"name": "FURY", "path": "Personfu/FURY", "description": "Custom Kalilinux Project", "stars": "1", "story_tag": "operations"}
   ],
+  "story_tools": [
+    {
+      "id": "scanner_v1",
+      "name": "Neon Beacon Scanner",
+      "type": "recon",
+      "description": "FLLC-built subnet mapper used to trace relay-safe paths for the Starshield convoy.",
+      "unlockMission": "neon_beacon",
+      "storyTag": "launch_route"
+    },
+    {
+      "id": "relay_patch_kit",
+      "name": "Relay Patch Kit",
+      "type": "defense",
+      "description": "Rapid validation and patch package for compromised telemetry relays before countdown lock.",
+      "unlockMission": "memory_vault",
+      "storyTag": "launch_integrity"
+    },
+    {
+      "id": "escrow_probe",
+      "name": "Escrow Trust Probe",
+      "type": "forensics",
+      "description": "Verifies trust-anchor escrow signatures against known Starshield chain-of-custody snapshots.",
+      "unlockMission": "dead_drop",
+      "storyTag": "trust_anchor"
+    },
+    {
+      "id": "uplink_guardian",
+      "name": "Uplink Guardian",
+      "type": "incident-response",
+      "description": "Final-stage uplink validator used during Starshield launch defense operations.",
+      "unlockMission": "final_node",
+      "storyTag": "uplink_defense"
+    }
+  ],
   "story_meta": {
     "campaign": "operation-starshield",
     "unlock_examples": {

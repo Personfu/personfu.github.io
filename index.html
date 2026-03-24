@@ -11,6 +11,61 @@
 * { box-sizing: border-box; }
 body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',monospace; }
 
+.ops-hero {
+  grid-column: 1 / -1;
+  border: 1px solid rgba(0,232,255,0.45);
+  background: linear-gradient(135deg, rgba(0,20,32,0.82) 0%, rgba(8,8,20,0.86) 100%);
+  padding: 16px 18px;
+  box-shadow: 0 0 28px rgba(0,232,255,0.18);
+}
+.ops-hero h1 {
+  font-family:'Pixelify Sans';
+  font-size: clamp(20px, 3.2vw, 42px);
+  color: var(--cyber-cyan);
+  margin: 0 0 8px;
+  letter-spacing: 1px;
+}
+.ops-hero p {
+  color: #c7f8ff;
+  font-size: 12px;
+  line-height: 1.55;
+  margin-bottom: 10px;
+}
+.ops-panels {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
+  gap: 10px;
+}
+.ops-panel {
+  border: 1px solid rgba(0,232,255,0.3);
+  background: rgba(0,0,0,0.45);
+  padding: 10px;
+}
+.ops-panel .k {
+  font-family:'VT323';
+  font-size: 18px;
+  color: var(--cyber-green);
+}
+.ops-panel .v {
+  font-size: 11px;
+  color: #abd5dc;
+}
+.ops-meters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  font-family:'VT323';
+  color: var(--cyber-cyan);
+}
+.ops-meters span { font-size: 16px; }
+.ops-events {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #8cb3b9;
+}
+.ops-events ul { margin-top: 4px; padding-left: 18px; }
+
 /* ── Layered background canvases ── */
 #pt-canvas   { position:fixed; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none; opacity:0.18; }
 #matrix-bg   { position:fixed; top:0; left:0; width:100%; height:100%; z-index:2; pointer-events:none; opacity:0.07; }
@@ -95,6 +150,7 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
 /* ── Mobile ── */
 @media (max-width:600px) {
   #desktop { grid-template-columns:repeat(auto-fill,80px); gap:10px; padding:12px; }
+  .ops-panels { grid-template-columns: 1fr; }
   .icon { width:74px; height:80px; }
   .icon img { width:36px; height:36px; }
   .icon .icon-emoji { font-size:28px; }
@@ -123,6 +179,39 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
 </div>
 
 <div id="desktop">
+  <section class="ops-hero">
+    <h1>CYBERWORLD: OPERATION STARSHIELD</h1>
+    <p>
+      The world&apos;s last uncontaminated archive is preparing to leave orbit aboard the Starshield rocket.
+      Adversaries are moving across CyberWorld to corrupt the launch chain before ignition.
+      Enter The Nexus, join FLLC, and escort the data that could save humanity&apos;s future.
+    </p>
+    <div class="ops-panels">
+      <article class="ops-panel">
+        <div class="k">Enter The Nexus</div>
+        <div class="v">Find your faction, gather intel, and prep with allies before each route.</div>
+      </article>
+      <article class="ops-panel">
+        <div class="k">Escort the Launch Data</div>
+        <div class="v">Recover launch-auth fragments and move them through hostile relays.</div>
+      </article>
+      <article class="ops-panel">
+        <div class="k">Stop the Adversaries</div>
+        <div class="v">Disrupt sabotage chains before telemetry and trust anchors collapse.</div>
+      </article>
+    </div>
+    <div class="ops-meters">
+      <span>LAUNCH WINDOW: <strong data-story="launch-window">T-UNKNOWN</strong></span>
+      <span>UPLINK INTEGRITY: <strong data-story="uplink-integrity">0%</strong></span>
+      <span>RELAY TRUST: <strong data-story="relay-trust">0%</strong></span>
+      <span>ADVERSARY PRESSURE: <strong data-story="adversary-pressure">0%</strong></span>
+    </div>
+    <div class="ops-events">
+      WORLD EVENTS
+      <ul data-story="world-events"></ul>
+    </div>
+  </section>
+
   <div class="icon" onclick="nav('intel.html')">
     <span class="icon-emoji">📡</span>
     <span>INTEL_HUB</span>

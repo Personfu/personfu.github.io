@@ -3,20 +3,30 @@
     {
       "id": "fllc",
       "name": "FLLC Collective",
-      "alignment": "defender",
-      "role": "Coordinates recovery operations and launch-chain escort missions"
+      "alignment": "neutral-command",
+      "role": "Coordinates Operation Starshield from The Nexus and maintains launch-chain trust anchors.",
+      "reputationEffects": "High trust with FLLC unlocks emergency validators, reduced market fees, and launch-priority contracts."
     },
     {
-      "id": "nomad",
-      "name": "Nomad Collective",
-      "alignment": "neutral",
-      "role": "Independent operators offering route intelligence and temporary relay access"
+      "id": "sentinel",
+      "name": "Sentinel Directorate",
+      "alignment": "defender",
+      "role": "Defensive incident-response specialists focused on relay integrity and infrastructure hardening.",
+      "reputationEffects": "Improves defensive rewards, grants patch automation modules, and lowers integrity decay during incidents."
     },
     {
       "id": "corsair",
-      "name": "Corsair Brokers",
-      "alignment": "opportunist",
-      "role": "Trades volatile intel and access tokens in contested markets"
+      "name": "Corsair Guild",
+      "alignment": "offense-opportunist",
+      "role": "Route-runners and exploit brokers controlling fast but dangerous convoy shortcuts.",
+      "reputationEffects": "Unlocks black-market route tokens and high-risk contracts with faster mission completion paths."
+    },
+    {
+      "id": "ghostline",
+      "name": "Ghostline Network",
+      "alignment": "stealth-recon",
+      "role": "Stealth reconnaissance operators specializing in dark relays, silent pivots, and signal masking.",
+      "reputationEffects": "Reduces detection pressure, opens hidden intel contracts, and improves adversary trace previews."
     }
   ]
 }

@@ -74,6 +74,10 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'JetBrains Mono',mon
 .cstat{background:#050505;border:1px solid rgba(0,232,255,0.15);padding:16px;text-align:center;}
 .cstat-num{font-family:'Pixelify Sans';font-size:36px;color:var(--cyber-cyan);text-shadow:0 0 12px rgba(0,232,255,0.4);}
 .cstat-lbl{font-family:'VT323';font-size:16px;color:#777;margin-top:4px;}
+.atlas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.atlas-card{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:14px;}
+.atlas-name{font-family:'Pixelify Sans';font-size:17px;color:#fff;margin-bottom:6px;}
+.atlas-meta{font-size:11px;color:#9abec3;line-height:1.5;}
 @media(max-width:600px){
   .profiles-grid{grid-template-columns:1fr 1fr;}
   .dc-top{flex-direction:column;text-align:center;}
@@ -95,7 +99,15 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'JetBrains Mono',mon
 
 <div class="page-title">
   <h1>PERSON_NODES // <span data-story="operation-name">OPERATIVE_NETWORK</span></h1>
-  <p data-story="page-role">:: SYNCHRONIZED OPERATIVE COORDINATION :: DISCORD-INTEGRATED COMMUNITY HUB ::</p>
+  <p>NETWORK ATLAS: Nexus, markets, relay graveyards, archives, uplinks, and the Starshield launch rail.</p>
+</div>
+
+<!-- NETWORK ATLAS -->
+<div class="section">
+  <div class="sec-hdr">:: NETWORK_ATLAS ::</div>
+  <div class="sec-body">
+    <div class="atlas-grid" id="atlas-grid"></div>
+  </div>
 </div>
 
 <!-- COMMUNITY STATS -->
@@ -241,6 +253,28 @@ SIGNALS.forEach(function(s){
     +'<div class="sig-reactions">'+s.reactions.map(function(r){return'<span class="sig-react">'+r+'</span>';}).join('')+'</div>';
   sl.appendChild(el);
 });
+
+fetch('data/locations.json', { cache: 'no-cache' })
+  .then(function (r) { return r.ok ? r.json() : null; })
+  .then(function (data) {
+    if (!data || !Array.isArray(data.locations)) return;
+    var gridEl = document.getElementById('atlas-grid');
+    if (!gridEl) return;
+    data.locations.forEach(function (loc) {
+      var card = document.createElement('article');
+      card.className = 'atlas-card';
+      card.innerHTML =
+        '<div class="atlas-name">' + loc.name + '</div>' +
+        '<div class="atlas-meta">STATUS: ' + loc.status + '</div>' +
+        '<div class="atlas-meta">OWNER/FACTION: ' + loc.ownerFaction + '</div>' +
+        '<div class="atlas-meta">RISK LEVEL: ' + loc.riskLevel + '</div>' +
+        '<div class="atlas-meta">MISSION LINK: ' + loc.associatedCampaignMission + '</div>' +
+        '<div class="atlas-meta">ADVERSARIES: ' + (loc.connectedAdversaries || []).join(', ') + '</div>' +
+        '<div class="atlas-meta">ACTIVITIES: ' + (loc.availableActivities || []).join(' | ') + '</div>';
+      gridEl.appendChild(card);
+    });
+  })
+  .catch(function () {});
 </script>
 <script src="js/story-data.js"></script>
 <script src="js/story-engine.js"></script>

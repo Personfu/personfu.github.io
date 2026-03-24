@@ -212,7 +212,7 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
 
 <div class="page-title">
   <h1 class="glitch-title">☠ CTF TRAIL // <span data-story="operation-name">Operation Starshield</span></h1>
-  <p data-story="primary-objective">Escort Launch-Critical Data Through 20 Hostile Nodes</p>
+  <p>MISSION ROUTE: STARSHIELD CONVOY // Recover fragments. Build tools. Trace adversaries. Preserve integrity.</p>
 </div>
 
 <!-- INTRO PANEL -->
@@ -245,6 +245,13 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
     <div id="xp-bar-outer"><div id="xp-bar-inner"></div></div>
     <span id="xp-pct">0%</span>
   </div>
+</div>
+
+<div id="op-metrics" style="display:none;margin:0 16px 10px;padding:10px 14px;border:1px solid rgba(0,232,255,0.2);background:#060b0d;font-family:'VT323';font-size:16px;color:var(--cyan);">
+  LAUNCH WINDOW: <span data-story="launch-window">T-UNKNOWN</span>
+  &nbsp;|&nbsp; UPLINK: <span data-story="uplink-integrity">0%</span>
+  &nbsp;|&nbsp; RELAY TRUST: <span data-story="relay-trust">0%</span>
+  &nbsp;|&nbsp; ADVERSARY PRESSURE: <span data-story="adversary-pressure">0%</span>
 </div>
 
 <!-- ACTIVE CHALLENGE PANEL -->
@@ -320,7 +327,7 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
 const CHALLENGES = [
   // ── CTF 1
   {
-    id:1, type:'CTF', title:'FIRST CONTACT — Base64 Intercept',
+    id:1, type:'CTF', title:'FIRST CONTACT — SIGNAL DRIFT',
     diff:'Rookie', xp:100,
     narrative:`Your comms crackle. A hostile node just broadcast an encoded transmission across port 4444. SIGINT has pulled a raw base64 blob. Decode it and extract the flag before the session times out.`,
     scenario:[
@@ -459,7 +466,7 @@ const CHALLENGES = [
   },
   // ── CTF 4
   {
-    id:7, type:'CTF', title:'SQL INJECTION — Login Bypass',
+    id:7, type:'CTF', title:'SQL JUNCTION — LOGIN BYPASS',
     diff:'Operative', xp:170,
     narrative:`A legacy login form at /login.php runs unsanitized SQL. Bypass auth using a classic injection payload to log in as admin and capture the flag from the dashboard.`,
     scenario:[
@@ -748,7 +755,7 @@ const CHALLENGES = [
   },
   // ── HACKATHON 10 / BOSS
   {
-    id:20, type:'HACK', title:'EXFIL COMPLETE — Full CTF Platform in One Hour',
+    id:20, type:'HACK', title:'EXFIL APEX — Emergency Launch Platform Rebuild',
     diff:'Classified', xp:350,
     narrative:`Final hackathon boss. Build a mini CTF platform: a Flask web app with user registration, challenge listing (3 hardcoded challenges), flag submission, and a scoreboard. Judge deploys it locally and tests all features.`,
     scenario:[
@@ -783,9 +790,10 @@ const STATE = {
 
 const CTF_PROGRESS_KEY = 'cyberworld-ctf-progress';
 const ADVERSARY_MOTIVE = {
-  BLACK_SPECTER: 'Targets civic infrastructure to create dependence on black-market access channels.',
-  GRAY_FANG: 'Runs extortion pipelines using ransomware and stealth exfiltration.',
-  CINDER_VEIL: 'Blends breaches with disinformation to trigger social and operational chaos.',
+  'FANCY BEAR': 'Targets dead-drop trust and credential surfaces to poison route decisions.',
+  'SANDWORM': 'Attempts launch-chain infrastructure sabotage and telemetry corruption.',
+  'LAZARUS GROUP': 'Targets escrow paths and supply chains to reroute launch-critical assets.',
+  'VOLT TYPHOON': 'Pre-positions quietly in relay and telecom infrastructure for timed disruption.',
 };
 const NODE_INTEL = {
   1: { adversary: 'BLACK_SPECTER', cves: ['CVE-2021-41773'], story: 'Signal drift was seeded as a covert command path.' },
@@ -849,6 +857,7 @@ function startTrail() {
   document.getElementById('intro-panel').style.display = 'none';
   document.getElementById('trail-map').style.display = 'flex';
   document.getElementById('stats-bar').style.display = 'flex';
+  document.getElementById('op-metrics').style.display = 'block';
   document.getElementById('challenge-panel').style.display = 'block';
   document.getElementById('event-log').style.display = 'block';
   document.getElementById('all-challenges-section').style.display = 'block';
