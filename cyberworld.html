@@ -328,6 +328,8 @@ const GAME = {
   currentLocation: 'home-node',
 };
 
+const CTF_PROGRESS_KEY = 'cyberworld-ctf-progress';
+
 const ADVERSARY_DOSSIERS = [
   { name: 'BLACK_SPECTER', motive: 'Weaponizes zero-days against civic infrastructure to force black-market dependency.' },
   { name: 'GRAY_FANG', motive: 'Builds extortion pipelines using ransomware and double-exfil pressure tactics.' },
@@ -399,6 +401,14 @@ const ROLE_BONUSES = {
   ANALYST: { intelligence: 20, social: 10 },
   OPERATOR: { combat: 20, engineering: 10 },
 };
+
+function getCtfProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(CTF_PROGRESS_KEY) || '{}');
+  } catch (e) {
+    return {};
+  }
+}
 
 // ─── BOOT SEQUENCE ───────────────────────────────────────────────────────
 function runBootSequence() {
@@ -590,9 +600,36 @@ function finishCharacterCreation() {
 
 // ─── GAME INITIALIZATION ───────────────────────────────────────────────────────
 function initializeGame() {
+  syncFromCtfProgress();
   updatePlayerMenu();
   updateSidebars();
   loadWorld('home-node');
+}
+
+function syncFromCtfProgress() {
+  if (!GAME.player) return;
+  const ctf = getCtfProgress();
+  if (!Object.keys(ctf).length) return;
+  try {
+    const solved = ctf.solvedCount || 0;
+    const progressPercent = Math.min(100, Math.round((solved / 20) * 100));
+    GAME.player.storyProgress = Math.max(GAME.player.storyProgress || 0, progressPercent);
+
+    if (solved >= 14) GAME.player.activeCampaign = 'arc-03';
+    else if (solved >= 7) GAME.player.activeCampaign = 'arc-02';
+    else GAME.player.activeCampaign = 'arc-01';
+
+    GAME.player.xp = Math.max(GAME.player.xp || 0, Math.floor((ctf.xp || 0) * 0.35));
+    GAME.player.level = Math.max(1, Math.floor((GAME.player.xp || 0) / 1000) + 1);
+    GAME.player.reputation[GAME.player.faction] = Math.max(
+      GAME.player.reputation[GAME.player.faction] || 0,
+      100 + solved * 22
+    );
+
+    localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
+  } catch (e) {
+    // Ignore malformed cross-game data and continue
+  }
 }
 
 function updatePlayerMenu() {
@@ -617,6 +654,24 @@ function updateSidebars() {
     <div style="font-size:10px;opacity:0.8;">Reputation: ${rep}/10000</div>
     <div class="rep-bar"><div class="rep-fill" style="width:${Math.min(100, rep / 100)}%;"></div></div>
   `;
+
+  const ctf = getCtfProgress();
+  const solved = ctf.solvedCount || 0;
+  const questList = document.getElementById('quest-list');
+  if (questList) {
+    questList.innerHTML = `
+      <div class="quest">
+        <div class="quest-title">Campaign: ${CAMPAIGNS.find(c => c.id === GAME.player.activeCampaign)?.title || 'Unknown Arc'}</div>
+        <div class="quest-status">Story Progress: ${GAME.player.storyProgress || 0}%</div>
+        <div class="quest-progress">CTF Nodes Cleared: ${solved}/20</div>
+      </div>
+      <div class="quest">
+        <div class="quest-title">Faction Standing</div>
+        <div class="quest-status">${factionData.name}</div>
+        <div class="quest-progress">Reputation ${rep}/10000</div>
+      </div>
+    `;
+  }
 }
 
 // ─── WORLD NAVIGATION ───────────────────────────────────────────────────────
@@ -823,8 +878,10 @@ function showCharacterSheet() {
 function setCampaign(campaignId) {
   GAME.player.activeCampaign = campaignId;
   GAME.player.storyProgress = Math.min(100, (GAME.player.storyProgress || 0) + 10);
+  GAME.player.reputation[GAME.player.faction] = Math.min(10000, (GAME.player.reputation[GAME.player.faction] || 0) + 75);
   localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
   alert('Campaign tracking updated. Story progress +10%.');
+  updateSidebars();
   loadWorld('home-node');
 }
 
@@ -844,6 +901,16 @@ function showLogin() {
 
 // ─── INITIALIZATION ───────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', runBootSequence);
+
+window.addEventListener('storage', (e) => {
+  if (e.key !== CTF_PROGRESS_KEY || !GAME.player) return;
+  syncFromCtfProgress();
+  updatePlayerMenu();
+  updateSidebars();
+  if (GAME.currentLocation === 'home-node' || GAME.currentLocation === 'mission-board') {
+    loadWorld(GAME.currentLocation);
+  }
+});
 
 </script>
 

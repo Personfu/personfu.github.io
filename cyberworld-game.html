@@ -911,6 +911,8 @@ const NODE_INTEL = {
   19: { adversary: 'GRAY_FANG', cves: ['CVE-2022-0543', 'CVE-2021-41773'], story: 'SSRF and Redis persistence chain powers Gray Fang footholds across underfunded sectors.' },
 };
 
+const CTF_PROGRESS_KEY = 'cyberworld-ctf-progress';
+
 // ─── HELPER FUNCTIONS ───────────────────────────────────────────────────────
 function generateSessionFlags() {
   GAME_STATE.sessionFlags = {};
@@ -954,6 +956,35 @@ function logEvent(msg, type = 'info') {
   line.textContent = '[' + ts + '] ' + msg;
   logBody.appendChild(line);
   logBody.scrollTop = logBody.scrollHeight;
+}
+
+function persistCrossProgress() {
+  const solved = Array.from(GAME_STATE.nodesSolved.values());
+  const payload = {
+    solvedNodes: solved,
+    solvedCount: solved.length,
+    totalNodes: CHALLENGES.length,
+    xp: GAME_STATE.xp,
+    hintsUsed: GAME_STATE.hintsUsed,
+    updatedAt: new Date().toISOString(),
+    completed: solved.length === CHALLENGES.length,
+  };
+  localStorage.setItem(CTF_PROGRESS_KEY, JSON.stringify(payload));
+}
+
+function hydrateProgress() {
+  const raw = localStorage.getItem(CTF_PROGRESS_KEY);
+  if (!raw) return;
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed.solvedNodes)) {
+      GAME_STATE.nodesSolved = new Set(parsed.solvedNodes);
+    }
+    if (typeof parsed.xp === 'number') GAME_STATE.xp = parsed.xp;
+    if (typeof parsed.hintsUsed === 'number') GAME_STATE.hintsUsed = parsed.hintsUsed;
+  } catch (e) {
+    logEvent('⚠ Failed to load previous cross-session progress', 'warn');
+  }
 }
 
 function appendTerminalLine(text, type = 'info') {
@@ -1087,6 +1118,71 @@ function handleNodeOneCommand(rawCmd, lowerCmd, ch) {
   return false;
 }
 
+function handleNodeSpecificCommand(rawCmd, lowerCmd, ch) {
+  if (ch.id === 6) {
+    if (lowerCmd.includes("admin'--") || lowerCmd.includes('or 1=1')) {
+      GAME_STATE.terminal.nodeStage = 1;
+      appendTerminalLine('Location: /dashboard', 'good');
+      updateTerminalNodeStatus('AUTH BYPASS');
+      return true;
+    }
+    if (GAME_STATE.terminal.nodeStage >= 1 && lowerCmd.includes('dashboard')) {
+      GAME_STATE.terminal.nodeStage = 2;
+      appendTerminalLine('Admin panel opened. Session token valid.', 'good');
+      setRecoveredFlag(GAME_STATE.sessionFlags[ch.id]);
+      return true;
+    }
+  }
+
+  if (ch.id === 19) {
+    if (lowerCmd.includes('dict://') && lowerCmd.includes('6379') && lowerCmd.includes('ping')) {
+      GAME_STATE.terminal.nodeStage = 1;
+      appendTerminalLine('+PONG', 'good');
+      updateTerminalNodeStatus('REDIS REACHABLE');
+      return true;
+    }
+    if (GAME_STATE.terminal.nodeStage >= 1 && lowerCmd.includes('config set dir')) {
+      GAME_STATE.terminal.nodeStage = 2;
+      appendTerminalLine('OK', 'good');
+      appendTerminalLine('Redis write dir updated.', 'info');
+      return true;
+    }
+    if (GAME_STATE.terminal.nodeStage >= 2 && lowerCmd.includes('bgsave')) {
+      GAME_STATE.terminal.nodeStage = 3;
+      appendTerminalLine('Background saving started', 'good');
+      updateTerminalNodeStatus('PAYLOAD PERSISTED');
+      return true;
+    }
+    if (GAME_STATE.terminal.nodeStage >= 3 && (lowerCmd.includes('shell.php') || lowerCmd.includes('flag.txt'))) {
+      setRecoveredFlag(GAME_STATE.sessionFlags[ch.id]);
+      updateTerminalNodeStatus('RCE COMPLETE');
+      return true;
+    }
+  }
+
+  if (ch.id === 20) {
+    if (lowerCmd.includes('python3 ctfplatform.py')) {
+      GAME_STATE.terminal.nodeStage = 1;
+      appendTerminalLine('[*] CTF Platform running on localhost:5000', 'good');
+      appendTerminalLine('Routes: / /register /challenges /submit', 'info');
+      return true;
+    }
+    if (GAME_STATE.terminal.nodeStage >= 1 && (lowerCmd.includes('register') || lowerCmd.includes('/register'))) {
+      GAME_STATE.terminal.nodeStage = 2;
+      appendTerminalLine('[+] User registered', 'good');
+      return true;
+    }
+    if (GAME_STATE.terminal.nodeStage >= 2 && (lowerCmd.includes('submit') || lowerCmd.includes('/submit'))) {
+      GAME_STATE.terminal.nodeStage = 3;
+      setRecoveredFlag(GAME_STATE.sessionFlags[ch.id]);
+      updateTerminalNodeStatus('PLATFORM VALIDATED');
+      return true;
+    }
+  }
+
+  return false;
+}
+
 function runTerminalInput() {
   const inputEl = document.getElementById('terminal-input');
   if (!inputEl) return;
@@ -1103,7 +1199,23 @@ function runTerminalInput() {
   const lowerCmd = rawCmd.toLowerCase();
 
   if (lowerCmd === 'help') {
-    appendTerminalLine('Commands: help, mission, intel, cve, story, recon, exploit, build, analyze, connect 4444, nc -nlvp 4444, decode <payload>, extract flag, submit FLAG{...}', 'info');
+    appendTerminalLine('Commands: help, status, mission, intel, cve, story, recon, exploit, build, analyze, connect 4444, nc -nlvp 4444, decode <payload>, extract flag, submit FLAG{...}', 'info');
+    return;
+  }
+
+  if (lowerCmd === 'status') {
+    appendTerminalLine('BW:' + Math.round(GAME_STATE.bandwidth) + '% COG:' + Math.round(GAME_STATE.cognitive) + '% DET:' + Math.round(GAME_STATE.detection) + '% INT:' + Math.round(GAME_STATE.integrity) + '%', 'info');
+    appendTerminalLine('Solved Nodes: ' + GAME_STATE.nodesSolved.size + '/' + CHALLENGES.length, 'info');
+    return;
+  }
+
+  if (lowerCmd.startsWith('connect ') && lowerCmd.includes('4444')) {
+    if (ch.id === 1) {
+      handleNodeOneCommand(rawCmd, 'nc -nlvp 4444', ch);
+    } else {
+      appendTerminalLine('[ERROR] Port 4444 endpoint unavailable on this node.', 'error');
+      punishBadCommand();
+    }
     return;
   }
 
@@ -1118,6 +1230,10 @@ function runTerminalInput() {
   }
 
   if (ch.id === 1 && handleNodeOneCommand(rawCmd, lowerCmd, ch)) {
+    return;
+  }
+
+  if (handleNodeSpecificCommand(rawCmd, lowerCmd, ch)) {
     return;
   }
 
@@ -1182,6 +1298,7 @@ function submitFlag() {
       GAME_STATE.xp += ch.xp;
       GAME_STATE.detection += 5; // Slight detection when flag extracted
       logEvent(`✅ ${ch.name} CLEARED | +${ch.xp} XP`, 'good');
+      persistCrossProgress();
     }
     document.getElementById('next-btn').style.display = 'inline-block';
     if (GAME_STATE.nodesSolved.size === 20) showVictory();
@@ -1205,6 +1322,7 @@ function showHint() {
   logEvent(`💡 Hint used on ${ch.name}`, 'warn');
   alert('[HINT]\n\n' + ch.hint);
   updateStatsBar();
+  persistCrossProgress();
 }
 
 function nextChallenge() {
@@ -1273,6 +1391,7 @@ function showVictory() {
   document.getElementById('vic-hints').textContent = GAME_STATE.hintsUsed;
   document.getElementById('victory-overlay').style.display = 'flex';
   logEvent('🏆 ALL 20 NODES CLEARED — EXFIL SUCCESSFUL', 'good');
+  persistCrossProgress();
 }
 
 function triggerDetectionBlock() {
@@ -1295,6 +1414,7 @@ function triggerCognitiveBreakdown() {
 // ─── INIT ───────────────────────────────────────────────────────────────────
 window.addEventListener('load', () => {
   generateSessionFlags();
+  hydrateProgress();
   loadChallenge(0);
   updateResourceMeters();
   updateStatsBar();
