@@ -3,290 +3,722 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net https://unpkg.com; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self';">
-<title>CYBERWORLD // FLLC — CTF · HACKATHON · OREGON TRAIL · RPG</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:;">
+<title>🌐 CYBERWORLD MMORPG — FLLC Operative Network</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;--orange:#ffa500;--red:#ff4444;--yellow:#ffe700;}
-body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden;}
-/* CRT */
-#crt{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;
-  background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 3px);z-index:9999;}
-/* TOP BAR */
-#topbar{height:44px;flex-shrink:0;background:rgba(2,4,8,0.98);border-bottom:2px solid rgba(0,232,255,0.3);
-  display:flex;align-items:center;padding:0 14px;gap:8px;z-index:1000;flex-wrap:wrap;}
-#topbar a{color:var(--cyan);text-decoration:none;font-family:'VT323';font-size:18px;padding:4px 10px;
-  border:1px solid transparent;transition:0.15s;-webkit-tap-highlight-color:transparent;min-height:36px;line-height:26px;display:inline-flex;align-items:center;}
-#topbar a:hover{border-color:var(--cyan);background:rgba(0,232,255,0.08);}
-.tbar-title{font-family:'Pixelify Sans';font-size:20px;color:var(--pink);text-shadow:0 0 12px rgba(255,0,234,0.5);margin-right:6px;white-space:nowrap;}
-/* MODE TABS */
-#mode-bar{background:#08080f;border-bottom:1px solid rgba(0,232,255,0.18);display:flex;overflow-x:auto;scrollbar-width:none;flex-shrink:0;}
-#mode-bar::-webkit-scrollbar{display:none;}
-.mode-tab{padding:12px 20px;font-family:'VT323';font-size:20px;color:#666;cursor:pointer;
-  border-bottom:2px solid transparent;white-space:nowrap;transition:0.2s;-webkit-tap-highlight-color:transparent;
-  display:flex;align-items:center;gap:6px;min-height:48px;}
-.mode-tab:hover{color:var(--cyan);background:rgba(0,232,255,0.05);}
-.mode-tab.active{color:var(--cyan);border-bottom-color:var(--cyan);background:rgba(0,232,255,0.08);}
-.mode-tab.ctf.active{color:var(--cyan);border-bottom-color:var(--cyan);}
-.mode-tab.wargames.active{color:var(--green);border-bottom-color:var(--green);}
-.mode-tab.arcade.active{color:var(--yellow);border-bottom-color:var(--yellow);}
-.mode-tab.rpg.active{color:var(--pink);border-bottom-color:var(--pink);}
-/* CONTENT AREA */
-#content-area{flex:1;display:flex;flex-direction:column;position:relative;min-height:0;}
-/* IFRAME WRAPPER */
-.mode-frame{display:none;flex:1;width:100%;height:100%;min-height:calc(100vh - 93px);border:none;}
-.mode-frame.active{display:block;}
-/* HUB / LANDING VIEW */
-#hub-view{display:flex;flex-direction:column;align-items:center;padding:30px 16px 60px;min-height:calc(100vh - 93px);overflow-y:auto;}
-#hub-view.hidden{display:none;}
-/* HERO */
-.hub-hero{text-align:center;margin-bottom:28px;}
-.hub-hero h1{font-family:'Pixelify Sans';font-size:clamp(32px,7vw,68px);color:var(--cyan);
-  text-shadow:0 0 30px rgba(0,232,255,0.5);animation:glitch 7s infinite;}
-.hub-hero .sub{font-family:'VT323';font-size:clamp(14px,3.5vw,22px);color:var(--green);margin-top:8px;}
-.hub-hero .desc{font-size:12px;color:#777;margin-top:10px;max-width:620px;line-height:1.7;}
-/* SECTION GRID */
-.mode-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;width:100%;max-width:1100px;margin-bottom:28px;}
-.mode-card{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:20px;cursor:pointer;
-  transition:0.2s;position:relative;overflow:hidden;}
-.mode-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,currentColor,transparent);opacity:0.5;}
-.mode-card.ctf-card{color:var(--cyan);}
-.mode-card.ctf-card::before{background:linear-gradient(90deg,transparent,var(--cyan),transparent);}
-.mode-card.wargames-card{color:var(--green);}
-.mode-card.wargames-card::before{background:linear-gradient(90deg,transparent,var(--green),transparent);}
-.mode-card.arcade-card{color:var(--yellow);}
-.mode-card.arcade-card::before{background:linear-gradient(90deg,transparent,var(--yellow),transparent);}
-.mode-card.rpg-card{color:var(--pink);}
-.mode-card.rpg-card::before{background:linear-gradient(90deg,transparent,var(--pink),transparent);}
-.mode-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.5);}
-.mode-card.ctf-card:hover{border-color:var(--cyan);box-shadow:0 0 20px rgba(0,232,255,0.2);}
-.mode-card.wargames-card:hover{border-color:var(--green);box-shadow:0 0 20px rgba(0,255,65,0.15);}
-.mode-card.arcade-card:hover{border-color:var(--yellow);box-shadow:0 0 20px rgba(255,231,0,0.15);}
-.mode-card.rpg-card:hover{border-color:var(--pink);box-shadow:0 0 20px rgba(255,0,234,0.15);}
-.mode-icon{font-size:40px;margin-bottom:12px;display:block;}
-.mode-name{font-family:'Pixelify Sans';font-size:22px;color:#fff;margin-bottom:6px;}
-.mode-desc{font-size:12px;color:#888;line-height:1.6;margin-bottom:14px;}
-.mode-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:14px;}
-.mode-tag{font-size:10px;padding:2px 6px;border:1px solid;border-radius:2px;opacity:0.7;}
-.launch-mode-btn{width:100%;min-height:38px;border:1px solid;background:transparent;
-  font-family:'VT323';font-size:18px;cursor:pointer;letter-spacing:1px;transition:0.2s;}
-.ctf-card .launch-mode-btn{border-color:var(--cyan);color:var(--cyan);}
-.ctf-card .launch-mode-btn:hover{background:rgba(0,232,255,0.1);}
-.wargames-card .launch-mode-btn{border-color:var(--green);color:var(--green);}
-.wargames-card .launch-mode-btn:hover{background:rgba(0,255,65,0.1);}
-.arcade-card .launch-mode-btn{border-color:var(--yellow);color:var(--yellow);}
-.arcade-card .launch-mode-btn:hover{background:rgba(255,231,0,0.1);}
-.rpg-card .launch-mode-btn{border-color:var(--pink);color:var(--pink);}
-.rpg-card .launch-mode-btn:hover{background:rgba(255,0,234,0.1);}
-/* FEATURED STATS */
-.hub-stats{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:20px;width:100%;max-width:1100px;}
-.hub-stat{flex:1;min-width:120px;max-width:180px;background:#050505;border:1px solid rgba(0,232,255,0.15);
-  padding:14px;text-align:center;}
-.hs-val{font-family:'Pixelify Sans';font-size:28px;color:var(--cyan);}
-.hs-lbl{font-family:'VT323';font-size:15px;color:#555;margin-top:4px;}
-/* LORE BOX */
-.lore-box{background:#050505;border:1px solid rgba(0,232,255,0.15);padding:18px;max-width:700px;width:100%;margin-bottom:20px;}
-.lore-box h3{font-family:'Pixelify Sans';font-size:18px;color:var(--orange);margin-bottom:10px;}
-.lore-box p{font-size:11px;color:#888;line-height:1.8;}
-/* GLITCH */
-@keyframes glitch{
-  0%,92%,100%{transform:translate(0);text-shadow:0 0 30px rgba(0,232,255,0.5);}
-  93%{transform:translate(-3px,1px);text-shadow:-3px 0 var(--pink),3px 0 var(--cyan);}
-  94%{transform:translate(3px,-1px);text-shadow:3px 0 var(--pink),-3px 0 var(--cyan);}
-  95%{transform:translate(-2px,2px);text-shadow:-2px 0 var(--green);}
-  96%{transform:translate(2px,-2px);}
-}
+:root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;--orange:#ffa500;--red:#ff4444;}
+html,body{width:100%;height:100%;}
+body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace;overflow-x:hidden;line-height:1.4;}
+
+/* ═════ CRT EFFECT ═════ */
+#crt{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.08) 0px,rgba(0,0,0,0.08) 1px,transparent 1px,transparent 2px);z-index:9998;}
+
+/* ═════ BOOT SEQUENCE ═════ */
+#boot-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:10000;display:flex;flex-direction:column;justify-content:center;padding:40px;font-family:'JetBrains Mono';font-size:13px;color:var(--green);overflow-y:auto;}
+#boot-screen.hidden{display:none;}
+.boot-line{margin-bottom:4px;opacity:0;animation:bootFade 0.2s ease forwards;}
+@keyframes bootFade{to{opacity:1;}}
+.boot-cursor{display:inline-block;width:8px;height:14px;background:var(--green);margin-left:4px;animation:blink 1s infinite;}
+@keyframes blink{0%,49%{opacity:1;}50%,100%{opacity:0;}}
+
+/* ═════ HEADER / TOP NAV ═════ */
+#header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(2,4,8,0.98);border-bottom:2px solid rgba(0,232,255,0.3);padding:14px 20px;height:auto;}
+.header-content{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+.header-left{display:flex;align-items:center;gap:16px;}
+.header-title{font-family:'Pixelify Sans';font-size:22px;color:var(--cyan);text-shadow:0 0 10px rgba(0,232,255,0.6);}
+.header-subtitle{font-family:'VT323';font-size:11px;color:#666;margin-top:-2px;}
+.header-nav{display:flex;gap:10px;}
+.nav-btn{padding:6px 12px;border:1px solid var(--cyan);background:transparent;color:var(--cyan);font-family:'VT323';font-size:13px;cursor:pointer;transition:0.2s;}
+.nav-btn:hover{background:rgba(0,232,255,0.1);}
+.player-menu{display:flex;gap:12px;align-items:center;}
+.player-status{text-align:right;font-size:11px;}
+.player-level{color:var(--pink);font-weight:bold;}
+.player-faction{color:var(--orange);font-size:10px;}
+
+/* ═════ CHARACTER CREATION / LOGIN ═════ */
+#auth-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:5000;display:flex;align-items:center;justify-content:center;padding:20px;}
+#auth-overlay.hidden{display:none;}
+.auth-panel{background:#040d0e;border:2px solid var(--cyan);padding:30px;max-width:600px;width:100%;box-shadow:0 0 40px rgba(0,232,255,0.2);}
+.auth-title{font-family:'Pixelify Sans';font-size:28px;color:var(--cyan);margin-bottom:20px;text-align:center;}
+.auth-subtitle{font-size:12px;color:#888;text-align:center;margin-bottom:20px;}
+
+/* Character Creation Forms */
+.form-group{margin-bottom:16px;}
+.form-label{font-family:'VT323';font-size:12px;color:var(--green);margin-bottom:6px;display:block;}
+.form-input,.form-select{width:100%;padding:10px;background:#000;border:1px solid rgba(0,232,255,0.3);color:var(--cyan);font-family:'JetBrains Mono';font-size:12px;outline:none;}
+.form-input:focus,.form-select:focus{border-color:var(--cyan);box-shadow:0 0 8px rgba(0,232,255,0.2);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-row-full{grid-column:1/-1;}
+
+.faction-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;}
+.faction-card{padding:12px;border:1px solid rgba(0,232,255,0.2);background:#050505;cursor:pointer;transition:0.2s;text-align:center;}
+.faction-card:hover{border-color:var(--cyan);background:rgba(0,232,255,0.08);}
+.faction-card.selected{border-color:var(--green);background:rgba(0,255,65,0.1);}
+.faction-icon{font-size:28px;margin-bottom:6px;}
+.faction-name{font-size:12px;font-weight:bold;color:#fff;}
+.faction-desc{font-size:10px;color:#666;margin-top:4px;}
+
+.form-buttons{display:flex;gap:10px;margin-top:20px;}
+.btn{flex:1;padding:12px;border:1px solid;background:transparent;font-family:'VT323';font-size:14px;cursor:pointer;transition:0.2s;}
+.btn-primary{border-color:var(--cyan);color:var(--cyan);}
+.btn-primary:hover{background:rgba(0,232,255,0.1);}
+.btn-secondary{border-color:var(--green);color:var(--green);}
+.btn-secondary:hover{background:rgba(0,255,65,0.1);}
+
+/* ═════ MAIN WORLD VIEW ═════ */
+#world-container{position:fixed;top:50px;left:0;right:0;bottom:0;display:grid;grid-template-columns:300px 1fr 280px;gap:0;}
+#sidebar-left{background:#080810;border-right:1px solid rgba(0,232,255,0.15);overflow-y:auto;padding:16px;}
+#main-content{background:#050508;overflow-y:auto;padding:20px;}
+#sidebar-right{background:#080810;border-left:1px solid rgba(0,232,255,0.15);overflow-y:auto;padding:16px;}
+
+.sidebar-section{margin-bottom:20px;}
+.section-header{font-family:'Pixelify Sans';font-size:14px;color:var(--cyan);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(0,232,255,0.15);}
+.section-body{font-size:11px;line-height:1.6;}
+
+/* PLAYER PROFILE CARD */
+.player-card{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:12px;margin-bottom:12px;border-radius:3px;}
+.player-name{font-weight:bold;color:#fff;font-size:13px;}
+.player-title{color:var(--green);font-size:10px;}
+.player-stats{margin-top:8px;font-size:10px;}
+.stat-row{display:flex;justify-content:space-between;margin-bottom:3px;}
+.stat-label{color:#666;}
+.stat-val{color:var(--cyan);font-weight:bold;}
+
+/* CHARACTER SHEET */
+.char-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid rgba(0,232,255,0.2);}
+.char-title{font-family:'Pixelify Sans';font-size:26px;color:#fff;}
+.char-badge{display:inline-block;padding:4px 10px;border:1px solid;font-size:11px;border-radius:3px;}
+.char-badge.faction-nomad{border-color:var(--cyan);color:var(--cyan);}
+.char-badge.faction-corsair{border-color:var(--pink);color:var(--pink);}
+.char-badge.faction-specter{border-color:var(--green);color:var(--green);}
+
+.char-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px;}
+.char-stat-box{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:14px;border-radius:3px;}
+.char-stat-label{font-size:10px;color:#666;margin-bottom:4px;}
+.char-stat-value{font-family:'Pixelify Sans';font-size:24px;color:var(--cyan);}
+.char-stat-subval{font-size:11px;color:#888;margin-top:2px;}
+
+/* PROGRESSION & SKILLS */
+.skill-item{background:#050505;border-left:2px solid var(--cyan);padding:10px;margin-bottom:8px;border-radius:2px;}
+.skill-name{font-weight:bold;color:#fff;font-size:12px;}
+.skill-level{font-size:10px;color:var(--green);margin-top:2px;}
+.skill-progress{height:4px;background:#111;margin-top:4px;border-radius:2px;overflow:hidden;}
+.skill-bar{height:100%;background:linear-gradient(90deg,var(--cyan),var(--green));width:65%;}
+
+/* WORLD MAP */
+.world-map{background:#000;border:1px solid rgba(0,232,255,0.2);padding:16px;margin-bottom:20px;border-radius:3px;}
+.map-title{font-size:13px;font-weight:bold;color:var(--cyan);margin-bottom:10px;}
+.map-description{font-size:11px;color:#888;line-height:1.6;}
+.map-actions{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;}
+.map-btn{padding:8px 12px;border:1px solid var(--cyan);background:transparent;color:var(--cyan);font-family:'VT323';font-size:11px;cursor:pointer;transition:0.2s;border-radius:2px;}
+.map-btn:hover{background:rgba(0,232,255,0.1);}
+
+/* FACTION SYSTEM */
+.faction-status{background:#050505;border:1px solid;padding:12px;margin-bottom:12px;border-radius:3px;}
+.faction-status.nomad{border-color:var(--cyan);color:var(--cyan);}
+.faction-status.corsair{border-color:var(--pink);color:var(--pink);}
+.faction-status.specter{border-color:var(--green);color:var(--green);}
+.rep-bar{height:6px;background:#111;margin-top:6px;border-radius:1px;overflow:hidden;}
+.rep-fill{height:100%;background:currentColor;width:60%;}
+
+/* QUEST LOG */
+.quest{background:#050505;border-left:3px solid var(--orange);padding:10px;margin-bottom:8px;border-radius:2px;}
+.quest-title{font-weight:bold;color:#fff;font-size:12px;}
+.quest-status{font-size:10px;color:var(--orange);margin-top:2px;}
+.quest-progress{font-size:10px;color:#666;margin-top:2px;}
+
+/* LORE / WORLD EVENTS */
+.lore-box{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:14px;margin-bottom:12px;border-radius:3px;}
+.lore-title{font-size:12px;font-weight:bold;color:var(--cyan);}
+.lore-date{font-size:9px;color:#666;margin-bottom:6px;}
+.lore-text{font-size:11px;color:#aaa;line-height:1.6;}
+
+/* MARKET / ITEMS */
+.item-card{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:10px;margin-bottom:8px;border-radius:3px;display:flex;justify-content:space-between;align-items:center;}
+.item-name{font-size:12px;font-weight:bold;color:#fff;}
+.item-price{font-size:11px;color:var(--green);}
+
 /* RESPONSIVE */
-@media(max-width:600px){
-  #topbar{height:auto;min-height:44px;}
-  .mode-tab{font-size:17px;padding:10px 14px;}
-  .mode-grid{grid-template-columns:1fr 1fr;}
-  .mode-card{padding:14px;}
-  .mode-icon{font-size:28px;}
-  .mode-name{font-size:18px;}
+@media(max-width:1024px){
+  #world-container{grid-template-columns:1fr 200px;}
+  #sidebar-left{display:none;}
 }
+@media(max-width:768px){
+  #world-container{grid-template-columns:1fr;}
+  #sidebar-right{display:none;}
+  .char-grid{grid-template-columns:1fr;}
+}
+
+/* ANIMATIONS */
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.7;}}
+@keyframes glitch{0%,100%{transform:translate(0);}5%{transform:translate(-2px,2px);}10%{transform:translate(2px,-2px);}}
+.pulse{animation:pulse 2s infinite;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:8px;}
+::-webkit-scrollbar-track{background:#050505;}
+::-webkit-scrollbar-thumb{background:rgba(0,232,255,0.3);border-radius:4px;}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,232,255,0.6);}
+
 </style>
 </head>
 <body>
+
 <div id="crt"></div>
 
-<div id="topbar">
-  <span class="tbar-title">🌐 CYBERWORLD</span>
-  <a href="index.html">⌂ HOME</a>
-  <a href="intel.html">📡 INTEL</a>
-  <a href="wargames.html">⚔ WAR_GAMES</a>
-  <a href="arcade.html">🕹 ARCADE</a>
-  <a href="ctf-trail.html">☠ CTF_TRAIL</a>
+<!-- ════════ BOOT SEQUENCE ════════ -->
+<div id="boot-screen">
+  <div id="boot-log"></div>
+  <div style="margin-top:20px;">SYSTEM INITIALIZED <span class="boot-cursor"></span></div>
 </div>
 
-<div id="mode-bar">
-  <div class="mode-tab ctf active" id="tab-hub" onclick="switchMode('hub')">🌐 HUB</div>
-  <div class="mode-tab ctf" id="tab-ctf" onclick="switchMode('ctf')">☠ CTF_TRAIL</div>
-  <div class="mode-tab wargames" id="tab-wargames" onclick="switchMode('wargames')">⚔️ WAR_GAMES</div>
-  <div class="mode-tab arcade" id="tab-arcade" onclick="switchMode('arcade')">🕹️ ARCADE</div>
-  <div class="mode-tab rpg" id="tab-rpg" onclick="switchMode('rpg')">🚀 RPG_WORLD</div>
+<!-- ════════ AUTHENTICATION / CHARACTER CREATION ════════ -->
+<div id="auth-overlay">
+  <div class="auth-panel" id="auth-content">
+    <!-- Filled by JS -->
+  </div>
 </div>
 
-<div id="content-area">
-
-  <!-- HUB / PORTAL VIEW -->
-  <div id="hub-view">
-    <div class="hub-hero">
-      <h1>⚡ CYBERWORLD</h1>
-      <div class="sub">FLLC OPERATIVE PLATFORM · CTF · HACKATHON · OREGON TRAIL · MMORPG</div>
-      <div class="desc">You are an operative inside hostile cyberspace. Choose your mission: survive the CTF Trail gauntlet, run War Games in the hacking terminal, hit the Arcade, or enter the full MMORPG world. All systems operational.</div>
+<!-- ════════ HEADER ════════ -->
+<div id="header">
+  <div class="header-content">
+    <div class="header-left">
+      <div>
+        <div class="header-title">🌐 CYBERWORLD MMORPG</div>
+        <div class="header-subtitle">FLLC Network | 2030 Hostile Cyberspace</div>
+      </div>
     </div>
-
-    <div class="hub-stats">
-      <div class="hub-stat"><div class="hs-val">20</div><div class="hs-lbl">CTF CHALLENGES</div></div>
-      <div class="hub-stat"><div class="hs-val">10</div><div class="hs-lbl">HACKATHONS</div></div>
-      <div class="hub-stat"><div class="hs-val">4</div><div class="hs-lbl">ARCADE GAMES</div></div>
-      <div class="hub-stat"><div class="hs-val">6</div><div class="hs-lbl">RPG MISSIONS</div></div>
-      <div class="hub-stat"><div class="hs-val" id="live-count">12</div><div class="hs-lbl">OPERATIVES ONLINE</div></div>
+    <div class="header-nav">
+      <button class="nav-btn" onclick="loadWorld('codice-zone')">CODICE_ZONE</button>
+      <button class="nav-btn" onclick="loadWorld('market')">🏪 MARKET</button>
+      <button class="nav-btn" onclick="loadWorld('guild')">⚔️ GUILD_HALL</button>
+      <button class="nav-btn" onclick="showCharacterSheet()">📊 CHARACTER</button>
     </div>
+    <div class="player-menu">
+      <span class="player-status">
+        <div class="player-level" id="player-level">LVL 1</div>
+        <div class="player-faction" id="player-faction">UNALIGNED</div>
+      </span>
+    </div>
+  </div>
+</div>
 
-    <div class="mode-grid">
-      <!-- CTF TRAIL -->
-      <div class="mode-card ctf-card">
-        <span class="mode-icon">☠</span>
-        <div class="mode-name">CTF TRAIL</div>
-        <div class="mode-desc">Oregon Trail-style gauntlet through hostile cyberspace. 10 CTF nodes + 10 Hackathon waypoints. Solve challenges, earn XP, unlock walkthroughs. Survive to exfil. Every challenge has hints and step-by-step solutions.</div>
-        <div class="mode-tags">
-          <span class="mode-tag" style="color:var(--cyan);border-color:var(--cyan);">CTF</span>
-          <span class="mode-tag" style="color:var(--pink);border-color:var(--pink);">HACKATHON</span>
-          <span class="mode-tag" style="color:var(--orange);border-color:var(--orange);">OREGON TRAIL</span>
-          <span class="mode-tag" style="color:var(--green);border-color:var(--green);">20 NODES</span>
+<!-- ════════ MAIN WORLD ════════ -->
+<div id="world-container">
+  
+  <!-- LEFT SIDEBAR: PLAYER PROFILE & QUESTS -->
+  <div id="sidebar-left">
+    <div class="sidebar-section">
+      <div class="section-header">⚡ YOUR_PROFILE</div>
+      <div class="player-card">
+        <div class="player-name" id="profile-name">Operative</div>
+        <div class="player-title" id="profile-title">Unranked</div>
+        <div class="player-stats">
+          <div class="stat-row"><span class="stat-label">Health:</span><span class="stat-val" id="prof-hp">100/100</span></div>
+          <div class="stat-row"><span class="stat-label">Mana:</span><span class="stat-val" id="prof-mana">0/0</span></div>
+          <div class="stat-row"><span class="stat-label">XP:</span><span class="stat-val" id="prof-xp">0%</span></div>
         </div>
-        <button class="launch-mode-btn" onclick="switchMode('ctf')">▶ ENTER CTF TRAIL</button>
-      </div>
-
-      <!-- WAR GAMES -->
-      <div class="mode-card wargames-card">
-        <span class="mode-icon">⚔️</span>
-        <div class="mode-name">WAR GAMES</div>
-        <div class="mode-desc">Interactive hacking simulation battleground. Real terminal simulator with mission-driven recon, exploitation chains and a leaderboard. Operative training arena — scan, pivot, pwn, exfil.</div>
-        <div class="mode-tags">
-          <span class="mode-tag" style="color:var(--green);border-color:var(--green);">TERMINAL</span>
-          <span class="mode-tag" style="color:var(--green);border-color:var(--green);">MISSIONS</span>
-          <span class="mode-tag" style="color:var(--green);border-color:var(--green);">LEADERBOARD</span>
-        </div>
-        <button class="launch-mode-btn" onclick="switchMode('wargames')">▶ ENTER WAR GAMES</button>
-      </div>
-
-      <!-- ARCADE -->
-      <div class="mode-card arcade-card">
-        <span class="mode-icon">🕹️</span>
-        <div class="mode-name">CYBER ARCADE</div>
-        <div class="mode-desc">Four retro-cyberpunk games: Cyber Snake, Packet Defender, Hex Breaker, and Wire Runner. All built with native Canvas. Touch-friendly. High scores tracked locally. Pure operative downtime.</div>
-        <div class="mode-tags">
-          <span class="mode-tag" style="color:var(--yellow);border-color:var(--yellow);">SNAKE</span>
-          <span class="mode-tag" style="color:var(--yellow);border-color:var(--yellow);">SHOOTER</span>
-          <span class="mode-tag" style="color:var(--yellow);border-color:var(--yellow);">BREAKOUT</span>
-          <span class="mode-tag" style="color:var(--yellow);border-color:var(--yellow);">RUNNER</span>
-        </div>
-        <button class="launch-mode-btn" onclick="switchMode('arcade')">▶ ENTER ARCADE</button>
-      </div>
-
-      <!-- RPG -->
-      <div class="mode-card rpg-card">
-        <span class="mode-icon">🚀</span>
-        <div class="mode-name">RPG WORLD</div>
-        <div class="mode-desc">Full MMORPG engine built with Phaser 3. Explore a 2D top-down cyberpunk world with NPC dialogue, Operations Deck missions, character selection, minigames, and a world map. Discord Activities ready.</div>
-        <div class="mode-tags">
-          <span class="mode-tag" style="color:var(--pink);border-color:var(--pink);">PHASER 3</span>
-          <span class="mode-tag" style="color:var(--pink);border-color:var(--pink);">MMORPG</span>
-          <span class="mode-tag" style="color:var(--pink);border-color:var(--pink);">NPC</span>
-          <span class="mode-tag" style="color:var(--pink);border-color:var(--pink);">WORLD MAP</span>
-        </div>
-        <button class="launch-mode-btn" onclick="switchMode('rpg')">▶ ENTER RPG WORLD</button>
       </div>
     </div>
 
-    <div class="lore-box">
-      <h3>// OPERATIVE BRIEFING</h3>
-      <p>
-        Welcome to <strong style="color:var(--cyan)">CYBERWORLD</strong> — the unified FLLC operative platform. 
-        This is where the <strong style="color:var(--orange)">Oregon Trail</strong> meets cybersecurity: you traverse a hostile network, 
-        node by node, solving real CTF and Hackathon challenges to earn XP and survive to the final exfil point.<br><br>
-        The platform combines the <strong style="color:var(--cyan)">CTF Trail</strong> gauntlet (10 CTF + 10 Hackathon challenges), 
-        the <strong style="color:var(--green)">War Games</strong> training terminal, the <strong style="color:var(--yellow)">Cyber Arcade</strong> mini-games, 
-        and the full <strong style="color:var(--pink)">RPG World</strong> MMORPG — all under one roof. 
-        Every challenge has hints, walkthroughs, and real-world cybersecurity education built in.<br><br>
-        <em style="color:var(--green)">Choose your mode. Stay frosty. FLLC operatives never leave a flag behind.</em>
-      </p>
+    <div class="sidebar-section">
+      <div class="section-header">📜 ACTIVE_QUESTS</div>
+      <div id="quest-list">
+        <div class="quest">
+          <div class="quest-title">Tutorial: First Steps</div>
+          <div class="quest-status">In Progress</div>
+          <div class="quest-progress">Complete character customization</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-header">🗺️ FAST_TRAVEL</div>
+      <button class="map-btn" style="width:100%" onclick="loadWorld('home-node')">HOME_NODE</button>
+      <button class="map-btn" style="width:100%;margin-top:6px;" onclick="loadWorld('market')">BLACK_MARKET</button>
+      <button class="map-btn" style="width:100%;margin-top:6px;" onclick="loadWorld('codice')">CODICE_ZONE</button>
     </div>
   </div>
 
-  <!-- CTF TRAIL IFRAME -->
-  <iframe id="frame-ctf" class="mode-frame" src="" title="CTF Trail"
-    sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
+  <!-- CENTER: MAIN WORLD VIEW -->
+  <div id="main-content">
+    <div class="world-map">
+      <div class="map-title">📡 CURRENT LOCATION: HOME_NODE</div>
+      <div class="map-description">
+        You awaken in the HOME_NODE, a neutral sanctuary within the Nexus—a massive data fortress designed by the legendary FLLC collective to shelter operatives during missions into hostile cyberspace.
+        <br><br>
+        Towering holographic displays project real-time threat feeds, market data, and faction standings. The air hums with the collective processing power of thousands of connected systems. You are not alone here.
+      </div>
+      <div class="map-actions" id="location-actions">
+        <button class="map-btn" onclick="loadWorld('mission-board')">MISSION_BOARD</button>
+        <button class="map-btn" onclick="loadWorld('market')">MARKET</button>
+        <button class="map-btn" onclick="loadWorld('codice')">ENTER_CODICE</button>
+      </div>
+    </div>
 
-  <!-- WAR GAMES IFRAME -->
-  <iframe id="frame-wargames" class="mode-frame" src="" title="War Games"
-    sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+    <!-- PRIMARY CONTENT AREA -->
+    <div id="main-view" style="min-height:600px;"></div>
+  </div>
 
-  <!-- ARCADE IFRAME -->
-  <iframe id="frame-arcade" class="mode-frame" src="" title="Cyber Arcade"
-    sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock"></iframe>
+  <!-- RIGHT SIDEBAR: FACTION & WORLD INFO -->
+  <div id="sidebar-right">
+    <div class="sidebar-section">
+      <div class="section-header">⚔️ FACTION_STATUS</div>
+      <div class="faction-status nomad">
+        <div style="font-weight:bold;">NOMAD_COLLECTIVE</div>
+        <div style="font-size:10px;opacity:0.8;">Reputation: 0/1000</div>
+        <div class="rep-bar"><div class="rep-fill" style="width:0%;"></div></div>
+      </div>
+      <div style="font-size:10px;line-height:1.6;color:#666;">
+        <strong>Nomads:</strong> Independent operatives valuing freedom over loyalty. No faction bonds, maximum autonomy.
+      </div>
+    </div>
 
-  <!-- RPG IFRAME -->
-  <iframe id="frame-rpg" class="mode-frame" src="" title="RPG World"
-    sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock"></iframe>
+    <div class="sidebar-section">
+      <div class="section-header">📰 WORLD_EVENTS</div>
+      <div class="lore-box">
+        <div class="lore-title">Data Breach Detected</div>
+        <div class="lore-date">2030-03-24</div>
+        <div class="lore-text">Unknown threat actor infiltrated GovArchive. Rumors of powerful artifacts in vault. Reward pool: 50,000 credits.</div>
+      </div>
+      <div class="lore-box">
+        <div class="lore-title">Corsair Fleet Active</div>
+        <div class="lore-date">2030-03-23</div>
+        <div class="lore-text">Corsair raiders detected in outer zones. Market prices spike. Intel sellers in high demand.</div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-header">📊 ONLINE</div>
+      <div style="font-size:11px;color:var(--green);">
+        <div>🟢 2,847 Operatives</div>
+        <div style="font-size:10px;color:#666;margin-top:4px;">
+          <div>⚔️ 342 in Combat</div>
+          <div>💰 512 Trading</div>
+          <div>🗣️ 1,993 in Guild_Halls</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
 <script>
-var currentMode = 'hub';
-var frameLoaded = {};
+// ═══════════════════════════════════════════════════════════════════════════
+// CYBERWORLD MMORPG - COMPLETE GAME ENGINE
+// ═══════════════════════════════════════════════════════════════════════════
 
-var FRAME_SRCS = {
-  ctf:      'ctf-trail.html',
-  wargames: 'wargames.html',
-  arcade:   'arcade.html',
-  rpg:      'rpg/index.html'
+// ─── GLOBAL STATE ───────────────────────────────────────────────────────
+const GAME = {
+  player: null,
+  world: {},
+  isAuthenticated: false,
+  currentLocation: 'home-node',
 };
 
-function switchMode(mode) {
-  // Deactivate all tabs and frames
-  document.querySelectorAll('.mode-tab').forEach(function(t){ t.classList.remove('active'); });
-  document.querySelectorAll('.mode-frame').forEach(function(f){ f.classList.remove('active'); });
-  document.getElementById('hub-view').classList.remove('hidden');
+const FACTIONS = {
+  nomad: {
+    name: 'NOMAD_COLLECTIVE',
+    icon: '🌍',
+    description: 'Independent. No allegiance. Pure freedom.',
+    color: 'var(--cyan)',
+    bonuses: { autonomy: +20, stealth: +15 },
+    quests: [],
+  },
+  corsair: {
+    name: 'CORSAIR_GUILD',
+    icon: '⚓',
+    description: 'Raiders of the data stream. Wealth through conquest.',
+    color: 'var(--pink)',
+    bonuses: { damage: +15, charisma: +10, resourceGain: +25 },
+    quests: [],
+  },
+  specter: {
+    name: 'SPECTER_COLLECTIVE',
+    icon: '👁️',
+    description: 'Information brokers. Power through knowledge.',
+    color: 'var(--green)',
+    bonuses: { intelligence: +20, hacking: +25, detection: -10 },
+    quests: [],
+  },
+};
 
-  var tabMap = {hub:'tab-hub',ctf:'tab-ctf',wargames:'tab-wargames',arcade:'tab-arcade',rpg:'tab-rpg'};
-  var tabEl = document.getElementById(tabMap[mode]);
-  if(tabEl) tabEl.classList.add('active');
+const SKILLS = [
+  { name: 'HACKING', level: 1, maxLevel: 99, xp: 0, description: 'Break into systems, extract data' },
+  { name: 'SOCIAL', level: 1, maxLevel: 99, xp: 0, description: 'Persuade NPCs, negotiate deals' },
+  { name: 'COMBAT', level: 1, maxLevel: 99, xp: 0, description: 'Fight in cyber battles' },
+  { name: 'STEALTH', level: 1, maxLevel: 99, xp: 0, description: 'Evade detection systems' },
+  { name: 'ENGINEERING', level: 1, maxLevel: 99, xp: 0, description: 'Build and repair gear' },
+];
 
-  currentMode = mode;
+// ─── BOOT SEQUENCE ───────────────────────────────────────────────────────
+function runBootSequence() {
+  const bootLog = document.getElementById('boot-log');
+  const logs = [
+    '[SYSTEM] CYBERWORLD NEXUS v2030.03.24.1',
+    '[INIT] Core processors initializing...',
+    '[VERIFY] FLLC authentication servers: ONLINE',
+    '[LOAD] Faction databases loaded (3 factions)',
+    '[LOAD] World zones loaded (12 regions)',
+    '[LOAD] Player skill trees initialized',
+    '[WARNING] Unauthorized activity detected in outer zones',
+    '[STATUS] All systems operational',
+    '[READY] Awaiting operative login...',
+  ];
+  
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i < logs.length) {
+      const line = document.createElement('div');
+      line.className = 'boot-line';
+      line.style.animationDelay = (i * 0.1) + 's';
+      line.textContent = logs[i];
+      bootLog.appendChild(line);
+      i++;
+    } else {
+      clearInterval(interval);
+      setTimeout(() => {
+        document.getElementById('boot-screen').classList.add('hidden');
+        showAuthScreen();
+      }, 500);
+    }
+  }, 150);
+}
 
-  if(mode === 'hub'){
-    document.getElementById('hub-view').classList.remove('hidden');
+// ─── AUTHENTICATION SYSTEM ───────────────────────────────────────────────────────
+function showAuthScreen() {
+  const authContent = document.getElementById('auth-content');
+  
+  // Check if player exists in localStorage
+  const saved = localStorage.getItem('cyberworld-player');
+  if (saved) {
+    GAME.player = JSON.parse(saved);
+    GAME.isAuthenticated = true;
+    document.getElementById('auth-overlay').classList.add('hidden');
+    initializeGame();
     return;
   }
+  
+  // Show character creation
+  authContent.innerHTML = `
+    <div class="auth-title">⚡ JOIN CYBERWORLD</div>
+    <div class="auth-subtitle">Create your operative identity or reconnect</div>
+    
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
+      <button class="btn btn-secondary" onclick="showLogin()">LOGIN · RETURNING_OP</button>
+      <button class="btn btn-primary" onclick="showCharacterCreation()">NEW_OPERATIVE</button>
+    </div>
+  `;
+}
 
-  document.getElementById('hub-view').classList.add('hidden');
+function showCharacterCreation() {
+  const authContent = document.getElementById('auth-content');
+  
+  authContent.innerHTML = `
+    <div class="auth-title">⚡ CREATE OPERATIVE</div>
+    <div class="auth-subtitle">Define your identity in hostile cyberspace</div>
+    
+    <div class="form-group">
+      <label class="form-label">OPERATIVE_NAME</label>
+      <input type="text" id="char-name" class="form-input" placeholder="Your operative codename" maxlength="20">
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">SELECT_FACTION</label>
+      <div class="faction-selector">
+        <div class="faction-card" onclick="selectFaction('nomad',this)">
+          <div class="faction-icon">🌍</div>
+          <div class="faction-name">NOMAD</div>
+          <div class="faction-desc">Free Agent</div>
+        </div>
+        <div class="faction-card" onclick="selectFaction('corsair',this)">
+          <div class="faction-icon">⚓</div>
+          <div class="faction-name">CORSAIR</div>
+          <div class="faction-desc">Raider</div>
+        </div>
+        <div class="faction-card" onclick="selectFaction('specter',this)">
+          <div class="faction-icon">👁️</div>
+          <div class="faction-name">SPECTER</div>
+          <div class="faction-desc">Intel Broker</div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="faction-info" style="margin-top:16px;padding:12px;background:#050505;border:1px solid rgba(0,232,255,0.2);border-radius:3px;font-size:11px;color:#888;line-height:1.6;">
+      Select a faction to begin.
+    </div>
+    
+    <div class="form-buttons">
+      <button class="btn btn-secondary" onclick="showAuthScreen()">BACK</button>
+      <button class="btn btn-primary" onclick="finishCharacterCreation()">CREATE_OP</button>
+    </div>
+  `;
+}
 
-  var frame = document.getElementById('frame-' + mode);
-  if(frame){
-    frame.classList.add('active');
-    // Lazy-load iframe src
-    if(!frameLoaded[mode]){
-      frameLoaded[mode] = true;
-      frame.src = FRAME_SRCS[mode];
-    }
+let selectedFaction = null;
+function selectFaction(faction, elem) {
+  selectedFaction = faction;
+  document.querySelectorAll('.faction-card').forEach(e => e.classList.remove('selected'));
+  elem.classList.add('selected');
+  
+  const factionData = FACTIONS[faction];
+  const info = document.getElementById('faction-info');
+  info.innerHTML = `
+    <strong>${factionData.name}</strong>
+    <div style="margin-top:6px;">${factionData.description}</div>
+    <div style="margin-top:6px;font-size:10px;">
+      Bonuses: 
+      ${Object.entries(factionData.bonuses).map(([k,v]) => `${k} +${v}`).join(', ')}
+    </div>
+  `;
+}
+
+function finishCharacterCreation() {
+  const name = document.getElementById('char-name').value.trim();
+  if (!name) { alert('Enter operative name'); return; }
+  if (!selectedFaction) { alert('Select faction'); return; }
+  
+  GAME.player = {
+    name: name,
+    level: 1,
+    xp: 0,
+    faction: selectedFaction,
+    hp: 100,
+    maxHp: 100,
+    credits: 1000,
+    reputation: {},
+    skills: SKILLS.map(s => ({...s})),
+    inventory: [],
+    joinedAt: new Date().toISOString(),
+  };
+  
+  Object.keys(FACTIONS).forEach(f => {
+    GAME.player.reputation[f] = f === selectedFaction ? 100 : 0;
+  });
+  
+  localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
+  GAME.isAuthenticated = true;
+  document.getElementById('auth-overlay').classList.add('hidden');
+  initializeGame();
+}
+
+// ─── GAME INITIALIZATION ───────────────────────────────────────────────────────
+function initializeGame() {
+  updatePlayerMenu();
+  updateSidebars();
+  loadWorld('home-node');
+}
+
+function updatePlayerMenu() {
+  document.getElementById('player-level').textContent = `LVL ${GAME.player.level}`;
+  document.getElementById('player-faction').textContent = FACTIONS[GAME.player.faction].name;
+  document.getElementById('profile-name').textContent = GAME.player.name;
+  document.getElementById('profile-title').textContent = FACTIONS[GAME.player.faction].name;
+}
+
+function updateSidebars() {
+  document.getElementById('prof-hp').textContent = `${GAME.player.hp}/${GAME.player.maxHp}`;
+  document.getElementById('prof-mana').textContent = `${GAME.player.credits} CREDITS`;
+  document.getElementById('prof-xp').textContent = (GAME.player.xp % 1000) + '%';
+  
+  const factionStatus = document.querySelector('.faction-status');
+  const faction = GAME.player.faction;
+  factionStatus.className = 'faction-status ' + faction;
+  const factionData = FACTIONS[faction];
+  const rep = GAME.player.reputation[faction] || 0;
+  factionStatus.innerHTML = `
+    <div style="font-weight:bold;">${factionData.name}</div>
+    <div style="font-size:10px;opacity:0.8;">Reputation: ${rep}/10000</div>
+    <div class="rep-bar"><div class="rep-fill" style="width:${Math.min(100, rep / 100)}%;"></div></div>
+  `;
+}
+
+// ─── WORLD NAVIGATION ───────────────────────────────────────────────────────
+function loadWorld(location) {
+  GAME.currentLocation = location;
+  const mainView = document.getElementById('main-view');
+  
+  if (location === 'home-node') {
+    mainView.innerHTML = `
+      <div style="max-width:900px;">
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">HOME_NODE — THE NEXUS</h2>
+        <p style="color:#aaa;line-height:1.8;margin-bottom:16px;">
+          The Nexus is a neutral digital sanctuary maintained by the legendary FLLC collective. Here, operatives from all factions can rest, trade, and receive missions without fear of ambush.
+        </p>
+        <p style="color:#aaa;line-height:1.8;margin-bottom:20px;">
+          Real-time threat feeds display on crystalline holo-displays. Market traders shout prices. Mission brokers stand ready with contracts. This is where your story truly begins.
+        </p>
+        <div style="border:1px solid rgba(0,232,255,0.2);padding:16px;margin-bottom:20px;">
+          <div style="font-weight:bold;color:var(--cyan);margin-bottom:10px;">AVAILABLE_ACTIONS</div>
+          <button class="map-btn" style="margin-right:8px;" onclick="loadWorld('mission-board')">📋 MISSION_BOARD</button>
+          <button class="map-btn" style="margin-right:8px;" onclick="loadWorld('market')">💰 MARKET</button>
+          <button class="map-btn" style="margin-right:8px;" onclick="loadWorld('codice')">🔴 ENTER_CODICE_ZONE</button>
+          <button class="map-btn" onclick="loadWorld('guild')">⚔️ GUILD_HALL</button>
+        </div>
+      </div>
+    `;
+  } else if (location === 'mission-board') {
+    mainView.innerHTML = `
+      <div style="max-width:900px;">
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">MISSION_BOARD</h2>
+        <p style="color:#aaa;margin-bottom:20px;">Available contracts for operatives of all skill levels.</p>
+        
+        <div class="quest" style="border-left-color:var(--green);background:#050505;padding:14px;margin-bottom:16px;">
+          <div class="quest-title" style="color:var(--green);">RECON: Industrial Archive</div>
+          <div style="font-size:11px;color:#aaa;margin-top:6px;">Infiltrate old data vault, locate tech specs, exfil safely.</div>
+          <div style="font-size:10px;color:var(--green);margin-top:8px;">📊 Reward: 5,000 Credits + 250 XP</div>
+          <button class="map-btn" style="margin-top:10px;" onclick="acceptMission()">ACCEPT</button>
+        </div>
+
+        <div class="quest" style="border-left-color:var(--orange);background:#050505;padding:14px;margin-bottom:16px;">
+          <div class="quest-title" style="color:var(--orange);">COMBAT: Corsair Incursion</div>
+          <div style="font-size:11px;color:#aaa;margin-top:6px;">Defend Black Market traders from corsair raid. Difficulty: INTENSE.</div>
+          <div style="font-size:10px;color:var(--orange);margin-top:8px;">📊 Reward: 10,000 Credits + 500 XP</div>
+          <button class="map-btn" style="margin-top:10px;" onclick="acceptMission()">ACCEPT</button>
+        </div>
+      </div>
+    `;
+  } else if (location === 'market') {
+    mainView.innerHTML = `
+      <div style="max-width:900px;">
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">BLACK_MARKET</h2>
+        <p style="color:#aaa;margin-bottom:20px;">Trade, buy, and sell rare artifacts and upgrades.</p>
+        
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;">
+          <div class="item-card">
+            <div>
+              <div class="item-name">STEALTH_MASK_V3</div>
+              <div style="font-size:10px;color:#666;margin-top:4px;">Evade detection +15%</div>
+            </div>
+            <div class="item-price">2,500¢</div>
+          </div>
+          <div class="item-card">
+            <div>
+              <div class="item-name">HACKER_KIT_ELITE</div>
+              <div style="font-size:10px;color:#666;margin-top:4px;">Hacking speed +20%</div>
+            </div>
+            <div class="item-price">5,000¢</div>
+          </div>
+          <div class="item-card">
+            <div>
+              <div class="item-name">COMBAT_PROTOCOL_LV5</div>
+              <div style="font-size:10px;color:#666;margin-top:4px;">Damage +10%</div>
+            </div>
+            <div class="item-price">3,500¢</div>
+          </div>
+        </div>
+      </div>
+    `;
+  } else if (location === 'codice') {
+    mainView.innerHTML = `
+      <div style="max-width:900px;">
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">⚔️ CODICE_ZONE — HOSTILE TERRITORY</h2>
+        <p style="color:#aaa;line-height:1.8;margin-bottom:16px;">
+          CODICE Zone is a deeply corrupted region of cyberspace where government firewalls are offline and defense AI has been compromised. Fortunes are made here—and operatives disappear without trace.
+        </p>
+        <p style="color:var(--red);font-size:12px;font-weight:bold;margin-bottom:20px;">
+          ⚠️ WARNING: PvP ENABLED · PERMADEATH POSSIBLE · DETECTION SYSTEMS ACTIVE
+        </p>
+        <div style="border:1px solid rgba(255,68,68,0.3);padding:16px;background:rgba(255,68,68,0.05);">
+          <div style="color:var(--red);font-weight:bold;margin-bottom:10px;">THREAT ASSESSMENT</div>
+          <div style="font-size:11px;color:#aaa;line-height:1.6;">
+            <div>🔴 AI Defense Matrix: COMPROMISED</div>
+            <div>🔴 Corsair Patrols: 7 ACTIVE</div>
+            <div>🔴 Reputation Loss on Defeat: 500 PTS</div>
+            <div style="margin-top:10px;"><strong>Ready to enter?</strong></div>
+          </div>
+          <button class="map-btn" style="margin-top:12px;border-color:var(--red);color:var(--red);" onclick="enterCodice()">ENTER_CODICE_ZONE</button>
+        </div>
+      </div>
+    `;
+  } else if (location === 'guild') {
+    mainView.innerHTML = `
+      <div style="max-width:900px;">
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">⚔️ GUILD_HALL</h2>
+        <p style="color:#aaa;margin-bottom:20px;">Connect with other operatives, form teams, and compete on the leaderboard.</p>
+        
+        <div style="background:#050505;border:1px solid rgba(0,232,255,0.2);padding:14px;margin-bottom:16px;">
+          <div style="font-weight:bold;color:var(--cyan);margin-bottom:10px;">TOP_100_OPERATIVES</div>
+          <div style="font-size:10px;color:#888;line-height:1.8;">
+            <div>1️⃣  SPECTRE_KING (LVL 87) — Credit Balance: 2,500,000</div>
+            <div>2️⃣  CORSAIR_NOMAD (LVL 81) — Credit Balance: 1,800,000</div>
+            <div>3️⃣  HACKER_SILENCEQ (LVL 79) — Credit Balance: 1,600,000</div>
+          </div>
+        </div>
+      </div>
+    `;
   }
 }
 
-// Keep live count animated
-setInterval(function(){
-  var el = document.getElementById('live-count');
-  if(el) el.textContent = 10 + Math.floor(Math.random() * 8);
-}, 5000);
+function showCharacterSheet() {
+  const mainView = document.getElementById('main-view');
+  const p = GAME.player;
+  const faction = FACTIONS[p.faction];
+  
+  mainView.innerHTML = `
+    <div style="max-width:1000px;">
+      <div class="char-header">
+        <div>
+          <div class="char-title">${p.name}</div>
+          <div style="margin-top:8px;">
+            <span class="char-badge faction-${p.faction}">${faction.name}</span>
+            <span class="char-badge faction-nomad" style="margin-left:8px;">LEVEL ${p.level}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="char-grid">
+        <div class="char-stat-box">
+          <div class="char-stat-label">TOTAL_XP</div>
+          <div class="char-stat-value">${p.xp}</div>
+          <div class="char-stat-subval">Level Progress: ${p.xp % 1000}/1000</div>
+        </div>
+        <div class="char-stat-box">
+          <div class="char-stat-label">CREDITS</div>
+          <div class="char-stat-value">${p.credits}</div>
+          <div class="char-stat-subval">Available funds</div>
+        </div>
+        <div class="char-stat-box">
+          <div class="char-stat-label">REPUTATION</div>
+          <div class="char-stat-value">${p.reputation[p.faction]}</div>
+          <div class="char-stat-subval">${faction.name}</div>
+        </div>
+      </div>
+      
+      <div style="margin-bottom:20px;">
+        <div style="font-family:'Pixelify Sans';font-size:16px;color:var(--cyan);margin-bottom:12px;">SKILLS</div>
+        ${p.skills.map(s => `
+          <div class="skill-item">
+            <div class="skill-name">${s.name} ${s.maxLevel > 1 ? '[' + s.level + '/' + s.maxLevel + ']' : ''}</div>
+            <div class="skill-level">${s.description}</div>
+            <div class="skill-progress"><div class="skill-bar" style="width:${s.xp}%;"></div></div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
 
-// Handle message from iframes (e.g., back-to-hub signal)
-window.addEventListener('message', function(e){
-  if(e.data === 'cyberworld:hub') switchMode('hub');
-});
+function acceptMission() {
+  alert('Mission accepted! Check your quest log.');
+  GAME.player.xp += 100;
+  updateSidebars();
+}
+
+function enterCodice() {
+  alert('🔴 ENTERING HOSTILE ZONE... [Coming soon: Dynamic PvP battles]');
+}
+
+function showLogin() {
+  alert('Login system coming soon. For now, create a new operative!');
+}
+
+// ─── INITIALIZATION ───────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', runBootSequence);
+
 </script>
+
 </body>
 </html>

