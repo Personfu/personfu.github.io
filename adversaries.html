@@ -40,6 +40,12 @@ body{background:var(--bg);color:var(--cyan);font-family:'JetBrains Mono',monospa
 .card-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:8px;border-top:1px solid rgba(0,232,255,0.08);}
 .card-active{font-family:'VT323';font-size:14px;color:#555;}
 .threat-level{font-family:'VT323';font-size:13px;padding:2px 8px;background:rgba(255,0,60,0.1);border:1px solid rgba(255,0,60,0.3);color:var(--red);}
+.registry-wrap{padding:14px 16px 4px;}
+.registry-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;}
+.registry-card{background:#05080f;border:1px solid rgba(0,232,255,0.18);padding:12px;}
+.registry-card h3{font-size:14px;color:#fff;margin-bottom:6px;font-family:'Pixelify Sans';}
+.registry-line{font-size:11px;color:#b8d4da;line-height:1.6;}
+.registry-line strong{color:var(--cyan);}
 /* Modal */
 .modal-bg{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);z-index:9999;overflow-y:auto;padding:20px;}
 .modal-bg.open{display:flex;align-items:flex-start;justify-content:center;}
@@ -79,6 +85,11 @@ body{background:var(--bg);color:var(--cyan);font-family:'JetBrains Mono',monospa
 
 <div style="padding:8px 16px;color:#9bb3bf;font-size:12px;line-height:1.6;">
   Registry fields tracked per actor: <strong>first seen</strong>, <strong>faction alignment</strong>, <strong>preferred attack surface</strong>, <strong>campaign appearances</strong>, <strong>known weaknesses</strong>, and <strong>discovered by player</strong> state.
+</div>
+
+<div class="registry-wrap">
+  <div style="font-family:'VT323';font-size:18px;color:var(--cyan);margin-bottom:10px;">CURRENT CAMPAIGN REGISTRY // OPERATION STARSHIELD</div>
+  <div class="registry-grid" data-story="adversary-registry"></div>
 </div>
 
 <div class="tier-legend">

@@ -16,17 +16,44 @@ const APP_ORIGIN = process.env.APP_ORIGIN || '*';
 const STRIPE_CHECKOUT_URL = process.env.STRIPE_CHECKOUT_URL || '';
 const DB_FILE = path.join(__dirname, 'db.json');
 
+function parseAllowedOrigins(value) {
+  if (!value || value.trim() === '*') {
+    return ['*'];
+  }
+
+  return value
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+const ALLOWED_ORIGINS = parseAllowedOrigins(APP_ORIGIN);
+
+function isOriginAllowed(origin) {
+  if (!origin) return true;
+  if (ALLOWED_ORIGINS.includes('*')) return true;
+  return ALLOWED_ORIGINS.includes(origin);
+}
+
+function corsOriginHandler(origin, callback) {
+  if (isOriginAllowed(origin)) {
+    callback(null, true);
+    return;
+  }
+  callback(new Error('Origin not allowed by CyberWorld CORS policy'));
+}
+
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: APP_ORIGIN === '*' ? true : APP_ORIGIN,
+    origin: ALLOWED_ORIGINS.includes('*') ? true : ALLOWED_ORIGINS,
     methods: ['GET', 'POST']
   }
 });
 
 app.use(express.json());
-app.use(cors({ origin: APP_ORIGIN === '*' ? true : APP_ORIGIN, credentials: true }));
+app.use(cors({ origin: corsOriginHandler, credentials: true }));
 
 function ensureDb() {
   if (!fs.existsSync(DB_FILE)) {

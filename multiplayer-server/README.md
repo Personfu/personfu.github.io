@@ -19,7 +19,7 @@ Backend service for Operation Starshield multiplayer progression, email login, a
 1. Copy `.env.example` to `.env`
 2. Set values:
    - `JWT_SECRET`
-   - `APP_ORIGIN` (your local static host origin)
+  - `APP_ORIGIN` (comma-separated allowed origins, for example `http://127.0.0.1:5500,https://personfu.github.io,https://fllc.net`)
    - optionally `STRIPE_CHECKOUT_URL`
 
 3. Install and run:
@@ -47,6 +47,8 @@ Server starts on `http://localhost:8787` by default.
 ## Hosting Starter Notes
 
 - Deploy this service to a managed Node host (Render, Railway, Fly.io, Azure App Service, etc.)
-- Put your production URL into `APP_ORIGIN`
+- Put every production frontend origin into `APP_ORIGIN`
 - Replace mock subscription endpoints with Stripe Checkout + webhook updates
 - Migrate `db.json` to a managed SQL DB before production launch
+
+For GitHub Pages + custom domain setups, allow both origins in `APP_ORIGIN` so the same backend can serve `personfu.github.io` and `fllc.net`.

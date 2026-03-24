@@ -42,6 +42,108 @@
     return 'MISSION NODE IMPACT: ' + lines.join(' | ');
   }
 
+  function renderListCards(selector, items) {
+    var nodes = document.querySelectorAll(selector);
+    if (!nodes.length) return;
+
+    nodes.forEach(function (node) {
+      node.innerHTML = '';
+      (items || []).forEach(function (item) {
+        var li = document.createElement('li');
+        li.textContent = item;
+        node.appendChild(li);
+      });
+    });
+  }
+
+  function renderIndexSupport(context) {
+    var factions = Array.isArray(context.factions) ? context.factions : [];
+    var locations = Array.isArray(context.locations) ? context.locations : [];
+    var adversaries = Array.isArray(context.adversaries) ? context.adversaries : [];
+
+    renderListCards('[data-story="faction-cards"]', factions.slice(0, 3).map(function (faction) {
+      return faction.name + ': ' + faction.role;
+    }));
+
+    renderListCards('[data-story="route-cards"]', locations.slice(0, 4).map(function (location) {
+      return location.name + ' -> ' + location.associatedCampaignMission + ' [' + location.riskLevel + ']';
+    }));
+
+    renderListCards('[data-story="critical-sectors"]', adversaries.slice(0, 4).map(function (adversary) {
+      return adversary.name + ': ' + adversary.preferredAttackSurface;
+    }));
+  }
+
+  function renderIntelWatch(context) {
+    var grids = document.querySelectorAll('[data-story="intel-watch-grid"]');
+    if (!grids.length) return;
+
+    grids.forEach(function (grid) {
+      grid.innerHTML = '';
+      (context.adversaries || []).forEach(function (adversary) {
+        var card = document.createElement('article');
+        card.className = 'watch-card';
+
+        var title = document.createElement('div');
+        title.className = 'watch-title';
+        title.textContent = adversary.name + ' [' + String(adversary.priority || 'tracked').toUpperCase() + ']';
+        card.appendChild(title);
+
+        [
+          ['Sector Activity', adversary.preferredAttackSurface],
+          ['Mission Nodes', (adversary.affectedMissionNodes || []).join(', ')],
+          ['Recommended Tools', (adversary.recommendedTools || []).join(', ')],
+          ['ATT&CK', (adversary.attackBehavior || []).join(', ')],
+          ['Related CVEs', (adversary.relatedCVEs || []).join(', ')]
+        ].forEach(function (line) {
+          var row = document.createElement('div');
+          row.className = 'watch-line';
+          row.innerHTML = '<strong>' + line[0] + ':</strong> ' + (line[1] || 'None logged');
+          card.appendChild(row);
+        });
+
+        grid.appendChild(card);
+      });
+    });
+  }
+
+  function renderAdversaryRegistry(context) {
+    var registries = document.querySelectorAll('[data-story="adversary-registry"]');
+    if (!registries.length) return;
+
+    var solved = context.runtime && typeof context.runtime.nodesSolved === 'number'
+      ? context.runtime.nodesSolved
+      : 0;
+
+    registries.forEach(function (registry) {
+      registry.innerHTML = '';
+      (context.adversaries || []).forEach(function (adversary, index) {
+        var card = document.createElement('article');
+        card.className = 'registry-card';
+
+        var title = document.createElement('h3');
+        title.textContent = adversary.name;
+        card.appendChild(title);
+
+        [
+          ['First Seen', adversary.firstSeen],
+          ['Alignment', adversary.factionAlignment],
+          ['Attack Surface', adversary.preferredAttackSurface],
+          ['Campaign Appearances', (adversary.campaignAppearances || []).join(', ')],
+          ['Known Weaknesses', adversary.knownWeaknesses],
+          ['Discovered by Player', solved > index ? 'YES' : 'NO']
+        ].forEach(function (line) {
+          var row = document.createElement('div');
+          row.className = 'registry-line';
+          row.innerHTML = '<strong>' + line[0] + ':</strong> ' + (line[1] || 'Unknown');
+          card.appendChild(row);
+        });
+
+        registry.appendChild(card);
+      });
+    });
+  }
+
   function applyStory(context) {
     var op = context.operation || {};
     var pageKey = document.body.getAttribute('data-story-page') || '';
@@ -83,6 +185,18 @@
         ? 'DISCOVERED_BY_PLAYER: ' + solved + ' nodes cleared in current operation.'
         : 'DISCOVERED_BY_PLAYER: Awaiting first node clear.';
       setText('[data-story="adversary-discovery"]', discovery);
+    }
+
+    if (document.body.getAttribute('data-story-page') === 'index') {
+      renderIndexSupport(context);
+    }
+
+    if (document.body.getAttribute('data-story-page') === 'intel') {
+      renderIntelWatch(context);
+    }
+
+    if (document.body.getAttribute('data-story-page') === 'adversaries') {
+      renderAdversaryRegistry(context);
     }
   }
 

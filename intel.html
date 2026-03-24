@@ -57,6 +57,11 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
 #ticker-outer{overflow:hidden;white-space:nowrap;padding:10px 0;background:#020e10;}
 #ticker-inner{display:inline-block;animation:ticker 35s linear infinite;color:var(--cyber-cyan);font-size:13px;letter-spacing:1px;}
 @keyframes ticker{0%{transform:translateX(100vw);}100%{transform:translateX(-100%);}}
+.watch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;}
+.watch-card{background:#050505;border:1px solid rgba(0,232,255,0.18);padding:12px;}
+.watch-title{font-size:12px;color:var(--cyber-cyan);font-weight:bold;margin-bottom:6px;}
+.watch-line{font-size:11px;color:#b7cfd3;line-height:1.6;margin-bottom:4px;}
+.watch-line strong{color:var(--cyber-green);}
 @media(max-width:600px){
   .page-title{padding-top:20px;}
   .cve-entry{font-size:11px;}
@@ -77,6 +82,14 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
   <div class="section-header">▶ GLOBAL_THREAT_TICKER // LIVE INTEL STREAM</div>
   <div id="ticker-outer">
     <span id="ticker-inner" data-story="ticker">STARSHIELD FEED SYNCING...</span>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">▶ STARSHIELD_OPERATION_BOARD // ACTIVE ADVERSARIES</div>
+  <div class="section-body">
+    <div style="font-size:12px;color:#aaa;margin-bottom:12px;">Track which actors are shaping the current battlefield, what sectors they pressure, which mission nodes they touch, and what tools FLLC recommends before you leave The Nexus.</div>
+    <div class="watch-grid" data-story="intel-watch-grid"></div>
   </div>
 </div>
 

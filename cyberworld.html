@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' http://localhost:8787 https://fllc.net;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' http://localhost:8787 http://127.0.0.1:8787 ws://localhost:8787 ws://127.0.0.1:8787 https://*.onrender.com wss://*.onrender.com https://personfu.github.io https://fllc.net;">
 <title>🌐 CYBERWORLD — Operation Starshield</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
 <script src="js/multiplayer-client.js"></script>
@@ -323,7 +323,7 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
       <div class="section-header">🌐 MULTIPLAYER_LINK</div>
       <div class="lore-box">
         <div class="lore-title">Backend Status</div>
-        <div class="lore-date" id="mp-backend-url">http://localhost:8787</div>
+        <div class="lore-date" id="mp-backend-url">AUTO-DETECTING MULTIPLAYER ENDPOINT</div>
         <div class="lore-text" id="mp-status">Checking multiplayer service...</div>
       </div>
       <div class="lore-box">
@@ -517,7 +517,12 @@ function renderAuthChooser(authContent) {
 
     <div class="form-group">
       <label class="form-label">MULTIPLAYER_API_BASE</label>
-      <input type="text" id="mp-api-base" class="form-input" placeholder="http://localhost:8787" value="${MP ? MP.getApiBase() : 'http://localhost:8787'}">
+      <input type="text" id="mp-api-base" class="form-input" placeholder="https://your-render-service.onrender.com" value="${MP ? MP.getApiBase() : window.location.origin}">
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">DEPLOY NOTE</div>
+      <div style="font-size:11px;color:#7ea8af;line-height:1.6;">Local development defaults to <strong>localhost:8787</strong>. Hosted builds can use a Render backend, a reverse proxy on your domain, or any API base passed with <strong>?api=</strong>.</div>
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">

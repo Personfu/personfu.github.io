@@ -13,6 +13,6 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: APP_ORIGIN
-        value: https://personfu.github.io
+        value: https://personfu.github.io,https://fllc.net
       - key: STRIPE_CHECKOUT_URL
         sync: false

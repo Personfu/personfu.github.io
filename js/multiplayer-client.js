@@ -3,15 +3,41 @@
 
   var TOKEN_KEY = 'cyberworld-auth-token';
   var API_KEY = 'cyberworld-api-base';
-  var DEFAULT_API_BASE = localStorage.getItem(API_KEY) || 'http://localhost:8787';
+
+  function trimBase(base) {
+    return String(base || '').replace(/\/$/, '');
+  }
+
+  function readConfiguredBase() {
+    var stored = localStorage.getItem(API_KEY);
+    if (stored) return trimBase(stored);
+
+    var query = new URLSearchParams(window.location.search).get('api');
+    if (query) return trimBase(query);
+
+    if (window.CYBERWORLD_MULTIPLAYER_API) {
+      return trimBase(window.CYBERWORLD_MULTIPLAYER_API);
+    }
+
+    var meta = document.querySelector('meta[name="cyberworld-api-base"]');
+    if (meta && meta.content) return trimBase(meta.content);
+
+    if (/^(localhost|127\.0\.0\.1)$/i.test(window.location.hostname)) {
+      return 'http://localhost:8787';
+    }
+
+    return trimBase(window.location.origin);
+  }
+
+  var DEFAULT_API_BASE = readConfiguredBase();
 
   function getApiBase() {
-    return (localStorage.getItem(API_KEY) || DEFAULT_API_BASE).replace(/\/$/, '');
+    return trimBase(localStorage.getItem(API_KEY) || DEFAULT_API_BASE);
   }
 
   function setApiBase(base) {
     if (!base) return;
-    localStorage.setItem(API_KEY, String(base).replace(/\/$/, ''));
+    localStorage.setItem(API_KEY, trimBase(base));
   }
 
   function getToken() {
@@ -43,17 +69,24 @@
       body: opts.body && typeof opts.body === 'object' ? JSON.stringify(opts.body) : opts.body
     };
 
-    return fetch(getApiBase() + path, fetchOptions).then(function (resp) {
-      return resp.json().catch(function () { return {}; }).then(function (json) {
-        if (!resp.ok) {
-          var err = new Error(json.error || ('Request failed: ' + resp.status));
-          err.status = resp.status;
-          err.payload = json;
-          throw err;
-        }
-        return json;
+    return fetch(getApiBase() + path, fetchOptions)
+      .catch(function (error) {
+        var networkError = new Error('Unable to reach multiplayer service at ' + getApiBase() + '.');
+        networkError.status = 0;
+        networkError.payload = { error: error && error.message ? error.message : 'Network request failed' };
+        throw networkError;
+      })
+      .then(function (resp) {
+        return resp.json().catch(function () { return {}; }).then(function (json) {
+          if (!resp.ok) {
+            var err = new Error(json.error || ('Request failed: ' + resp.status));
+            err.status = resp.status;
+            err.payload = json;
+            throw err;
+          }
+          return json;
+        });
       });
-    });
   }
 
   function register(email, password, displayName) {
