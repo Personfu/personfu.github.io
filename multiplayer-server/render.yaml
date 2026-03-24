@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: cyberworld-multiplayer
+    runtime: node
+    region: oregon
+    plan: starter
+    rootDir: multiplayer-server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 8787
+      - key: JWT_SECRET
+        generateValue: true
+      - key: APP_ORIGIN
+        value: https://personfu.github.io
+      - key: STRIPE_CHECKOUT_URL
+        sync: false

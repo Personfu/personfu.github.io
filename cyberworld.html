@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' http://localhost:8787 https://fllc.net;">
 <title>🌐 CYBERWORLD — Operation Starshield</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<script src="js/multiplayer-client.js"></script>
+<script src="js/scene-expansion.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;--orange:#ffa500;--red:#ff4444;}
@@ -210,6 +212,7 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
       <span class="player-status">
         <div class="player-level" id="player-level">LVL 1</div>
         <div class="player-faction" id="player-faction">UNALIGNED</div>
+        <div class="player-faction" id="player-tier">TIER: GUEST</div>
       </span>
     </div>
   </div>
@@ -307,13 +310,29 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
     <div class="sidebar-section">
       <div class="section-header">📊 ONLINE</div>
       <div style="font-size:11px;color:var(--green);">
-        <div>🟢 2,847 Operatives</div>
+        <div id="mp-online-count">🟢 2,847 Operatives</div>
         <div style="font-size:10px;color:#666;margin-top:4px;">
           <div>⚔️ 342 in Combat</div>
           <div>💰 512 Trading</div>
           <div>🗣️ 1,993 in Guild_Halls</div>
         </div>
       </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-header">🌐 MULTIPLAYER_LINK</div>
+      <div class="lore-box">
+        <div class="lore-title">Backend Status</div>
+        <div class="lore-date" id="mp-backend-url">http://localhost:8787</div>
+        <div class="lore-text" id="mp-status">Checking multiplayer service...</div>
+      </div>
+      <div class="lore-box">
+        <div class="lore-title">Chapter Gate</div>
+        <div class="lore-date">Policy</div>
+        <div class="lore-text">Ch 1-3: open. Ch 4: email login required. Ch 5+: basic subscription required.</div>
+      </div>
+      <button class="map-btn" style="width:100%;" onclick="openSubscriptionFlow()">UPGRADE TO BASIC</button>
+      <button class="map-btn" style="width:100%;margin-top:6px;" onclick="activateMockBasic()">ACTIVATE MOCK BASIC</button>
     </div>
   </div>
 
@@ -333,6 +352,7 @@ const GAME = {
 };
 
 const CTF_PROGRESS_KEY = 'cyberworld-ctf-progress';
+const MP = window.CyberworldMP;
 
 const ADVERSARY_DOSSIERS = [
   { name: 'BLACK_SPECTER', motive: 'Weaponizes zero-days against civic infrastructure to force black-market dependency.' },
@@ -451,27 +471,91 @@ function runBootSequence() {
 // ─── AUTHENTICATION SYSTEM ───────────────────────────────────────────────────────
 function showAuthScreen() {
   const authContent = document.getElementById('auth-content');
-  
-  // Check if player exists in localStorage
-  const saved = localStorage.getItem('cyberworld-player');
-  if (saved) {
-    GAME.player = JSON.parse(saved);
-    GAME.isAuthenticated = true;
-    document.getElementById('auth-overlay').classList.add('hidden');
-    initializeGame();
+
+  if (MP && MP.getToken()) {
+    MP.me().then((resp) => {
+      const user = resp.user;
+      const saved = localStorage.getItem('cyberworld-player');
+      GAME.player = saved ? JSON.parse(saved) : {
+        name: user.displayName || user.email.split('@')[0],
+        level: 1,
+        xp: 0,
+        faction: 'nomad',
+        role: 'ANALYST',
+        origin: 'fllc-apprentice',
+        hp: 100,
+        maxHp: 100,
+        credits: 1000,
+        reputation: { nomad: 100, corsair: 0, specter: 0 },
+        skills: SKILLS.map(s => ({...s})),
+        inventory: [],
+        activeCampaign: CAMPAIGNS[0].id,
+        storyProgress: 0,
+        joinedAt: new Date().toISOString(),
+      };
+      GAME.player.subscriptionTier = user.subscriptionTier || 'free';
+      GAME.isAuthenticated = true;
+      localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
+      document.getElementById('auth-overlay').classList.add('hidden');
+      initializeGame();
+    }).catch(() => {
+      MP.setToken('');
+      renderAuthChooser(authContent);
+    });
     return;
   }
+
+  renderAuthChooser(authContent);
+}
+
+function renderAuthChooser(authContent) {
   
   // Show character creation
   authContent.innerHTML = `
     <div class="auth-title">⚡ JOIN CYBERWORLD</div>
-    <div class="auth-subtitle">Create your operative identity or reconnect</div>
-    
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px;">
-      <button class="btn btn-secondary" onclick="showLogin()">LOGIN · RETURNING_OP</button>
-      <button class="btn btn-primary" onclick="showCharacterCreation()">NEW_OPERATIVE</button>
+    <div class="auth-subtitle">Use email login to unlock Chapter 4 and multiplayer progression</div>
+
+    <div class="form-group">
+      <label class="form-label">MULTIPLAYER_API_BASE</label>
+      <input type="text" id="mp-api-base" class="form-input" placeholder="http://localhost:8787" value="${MP ? MP.getApiBase() : 'http://localhost:8787'}">
     </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+      <button class="btn btn-secondary" onclick="showLogin()">LOGIN · RETURNING_OP</button>
+      <button class="btn btn-primary" onclick="showCharacterCreation()">REGISTER · NEW_OP</button>
+    </div>
+
+    <button class="btn btn-secondary" style="width:100%;" onclick="continueAsGuest()">CONTINUE AS GUEST (CHAPTERS 1-3)</button>
   `;
+
+  const apiInput = document.getElementById('mp-api-base');
+  if (apiInput && MP) {
+    apiInput.addEventListener('change', () => MP.setApiBase(apiInput.value.trim()));
+  }
+}
+
+function continueAsGuest() {
+  GAME.player = {
+    name: 'Guest Operative',
+    level: 1,
+    xp: 0,
+    faction: 'nomad',
+    role: 'ANALYST',
+    origin: 'district9',
+    hp: 100,
+    maxHp: 100,
+    credits: 700,
+    reputation: { nomad: 100, corsair: 0, specter: 0 },
+    skills: SKILLS.map(s => ({...s})),
+    inventory: [],
+    activeCampaign: CAMPAIGNS[0].id,
+    storyProgress: 0,
+    joinedAt: new Date().toISOString(),
+    subscriptionTier: 'guest'
+  };
+  GAME.isAuthenticated = false;
+  document.getElementById('auth-overlay').classList.add('hidden');
+  initializeGame();
 }
 
 function showCharacterCreation() {
@@ -480,6 +564,17 @@ function showCharacterCreation() {
   authContent.innerHTML = `
     <div class="auth-title">⚡ CREATE OPERATIVE</div>
     <div class="auth-subtitle">Define your identity in hostile cyberspace</div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">EMAIL</label>
+        <input type="email" id="auth-email" class="form-input" placeholder="operative@fllc.net" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label">PASSWORD</label>
+        <input type="password" id="auth-password" class="form-input" placeholder="Create password" autocomplete="new-password">
+      </div>
+    </div>
     
     <div class="form-group">
       <label class="form-label">OPERATIVE_NAME</label>
@@ -566,40 +661,53 @@ function selectFaction(faction, elem) {
 
 function finishCharacterCreation() {
   const name = document.getElementById('char-name').value.trim();
+  const email = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-password').value.trim();
   const origin = document.getElementById('char-origin').value;
   if (!name) { alert('Enter operative name'); return; }
+  if (!email || !password) { alert('Email and password are required'); return; }
   if (!selectedFaction) { alert('Select faction'); return; }
   if (!selectedRole) { alert('Select operative class'); return; }
-  
-  GAME.player = {
-    name: name,
-    level: 1,
-    xp: 0,
-    faction: selectedFaction,
-    role: selectedRole,
-    origin: origin,
-    hp: 100,
-    maxHp: 100,
-    credits: 1000,
-    reputation: {},
-    skills: SKILLS.map(s => ({...s})),
-    inventory: [],
-    activeCampaign: CAMPAIGNS[0].id,
-    storyProgress: 0,
-    joinedAt: new Date().toISOString(),
-  };
-  
-  Object.keys(FACTIONS).forEach(f => {
-    GAME.player.reputation[f] = f === selectedFaction ? 100 : 0;
-  });
 
-  const roleBonus = ROLE_BONUSES[selectedRole] || {};
-  GAME.player.roleBonus = roleBonus;
-  
-  localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
-  GAME.isAuthenticated = true;
-  document.getElementById('auth-overlay').classList.add('hidden');
-  initializeGame();
+  if (!MP) {
+    alert('Multiplayer client unavailable.');
+    return;
+  }
+
+  MP.register(email, password, name).then((resp) => {
+    GAME.player = {
+      name: name,
+      level: 1,
+      xp: 0,
+      faction: selectedFaction,
+      role: selectedRole,
+      origin: origin,
+      hp: 100,
+      maxHp: 100,
+      credits: 1000,
+      reputation: {},
+      skills: SKILLS.map(s => ({...s})),
+      inventory: [],
+      activeCampaign: CAMPAIGNS[0].id,
+      storyProgress: 0,
+      joinedAt: new Date().toISOString(),
+      subscriptionTier: (resp.user && resp.user.subscriptionTier) || 'free'
+    };
+
+    Object.keys(FACTIONS).forEach(f => {
+      GAME.player.reputation[f] = f === selectedFaction ? 100 : 0;
+    });
+
+    const roleBonus = ROLE_BONUSES[selectedRole] || {};
+    GAME.player.roleBonus = roleBonus;
+
+    localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
+    GAME.isAuthenticated = true;
+    document.getElementById('auth-overlay').classList.add('hidden');
+    initializeGame();
+  }).catch((err) => {
+    alert('Registration failed: ' + (err.message || 'unknown error'));
+  });
 }
 
 // ─── GAME INITIALIZATION ───────────────────────────────────────────────────────
@@ -607,6 +715,7 @@ function initializeGame() {
   syncFromCtfProgress();
   updatePlayerMenu();
   updateSidebars();
+  refreshMultiplayerStatus();
   loadWorld('home-node');
 }
 
@@ -639,6 +748,7 @@ function syncFromCtfProgress() {
 function updatePlayerMenu() {
   document.getElementById('player-level').textContent = `LVL ${GAME.player.level}`;
   document.getElementById('player-faction').textContent = FACTIONS[GAME.player.faction].name;
+  document.getElementById('player-tier').textContent = `TIER: ${(GAME.player.subscriptionTier || 'guest').toUpperCase()}`;
   document.getElementById('profile-name').textContent = GAME.player.name;
   document.getElementById('profile-title').textContent = GAME.player.role + ' · ' + FACTIONS[GAME.player.faction].name;
 }
@@ -685,6 +795,7 @@ function loadWorld(location) {
   
   if (location === 'home-node') {
     const active = CAMPAIGNS.find(c => c.id === GAME.player.activeCampaign) || CAMPAIGNS[0];
+    const expanded = window.CYBERWORLD_EXPANDED || { nexusDistricts: [], companionCatalog: [], worldIncidents: [] };
     mainView.innerHTML = `
       <div style="max-width:900px;">
         <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">HOME_NODE — THE NEXUS</h2>
@@ -711,9 +822,25 @@ function loadWorld(location) {
           <div class="campaign-meta">${active.chapter} | CVEs: ${active.cves.join(', ')}</div>
           <div class="campaign-story">${active.story}</div>
         </div>
+
+        <div class="campaign-card">
+          <div class="campaign-title">NEXUS DISTRICTS</div>
+          <div class="campaign-story">${expanded.nexusDistricts.map(d => `<div><strong>${d.name}:</strong> ${d.theme}</div>`).join('')}</div>
+        </div>
+
+        <div class="campaign-card">
+          <div class="campaign-title">COMPANION FIELD GUIDE</div>
+          <div class="campaign-story">${expanded.companionCatalog.map(c => `<div><strong>${c.tier} · ${c.name}</strong> — ${c.bonus}</div>`).join('')}</div>
+        </div>
+
+        <div class="campaign-card">
+          <div class="campaign-title">LIVE WORLD INCIDENTS</div>
+          <div class="campaign-story">${expanded.worldIncidents.map(i => `<div>• ${i}</div>`).join('')}</div>
+        </div>
       </div>
     `;
   } else if (location === 'mission-board') {
+    const expanded = window.CYBERWORLD_EXPANDED || { contracts: [], chapterBreakdown: [], premiumOps: [] };
     mainView.innerHTML = `
       <div style="max-width:900px;">
         <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">MISSION_BOARD // STARSHIELD OPS</h2>
@@ -733,6 +860,21 @@ function loadWorld(location) {
             <button class="map-btn" style="margin-top:10px;" onclick="setCampaign('${c.id}')">TRACK_CAMPAIGN</button>
           </div>
         `).join('')}
+
+        <div class="campaign-card">
+          <div class="campaign-title">CHAPTER ROADMAP</div>
+          <div class="campaign-story">${expanded.chapterBreakdown.map(ch => `<div><strong>Chapter ${ch.id}: ${ch.title}</strong> — ${ch.pitch}<br><em>${ch.gameplay}</em></div>`).join('<br>')}</div>
+        </div>
+
+        <div class="campaign-card">
+          <div class="campaign-title">EXPANDED CONTRACTS</div>
+          <div class="campaign-story">${expanded.contracts.map(ct => `<div><strong>${ct.code} (${ct.type})</strong> — ${ct.text} <span style="color:var(--green)">[${ct.reward}]</span></div>`).join('')}</div>
+        </div>
+
+        <div class="campaign-card">
+          <div class="campaign-title">PREMIUM OPERATIONS (CHAPTER 5+)</div>
+          <div class="campaign-story">${expanded.premiumOps.map(op => `<div><strong>${op.name}</strong> — ${op.detail} <span style="color:var(--orange)">(${op.rule})</span></div>`).join('')}</div>
+        </div>
         
         <div class="quest" style="border-left-color:var(--green);background:#050505;padding:14px;margin-bottom:16px;">
           <div class="quest-title" style="color:var(--green);">RECON: Industrial Archive</div>
@@ -911,7 +1053,117 @@ function enterCodice() {
 }
 
 function showLogin() {
-  alert('Login system coming soon. For now, create a new operative!');
+  const authContent = document.getElementById('auth-content');
+  authContent.innerHTML = `
+    <div class="auth-title">⚡ RETURNING OPERATIVE</div>
+    <div class="auth-subtitle">Email login unlocks Chapter 4 and multiplayer progression</div>
+    <div class="form-group">
+      <label class="form-label">EMAIL</label>
+      <input id="login-email" type="email" class="form-input" placeholder="operative@fllc.net" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label class="form-label">PASSWORD</label>
+      <input id="login-password" type="password" class="form-input" placeholder="Password" autocomplete="current-password">
+    </div>
+    <div class="form-buttons">
+      <button class="btn btn-secondary" onclick="showAuthScreen()">BACK</button>
+      <button class="btn btn-primary" onclick="loginOperative()">LOGIN</button>
+    </div>
+  `;
+}
+
+function loginOperative() {
+  if (!MP) {
+    alert('Multiplayer client unavailable.');
+    return;
+  }
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value.trim();
+  if (!email || !password) {
+    alert('Email and password required.');
+    return;
+  }
+
+  MP.login(email, password).then((resp) => {
+    const user = resp.user;
+    const saved = localStorage.getItem('cyberworld-player');
+    GAME.player = saved ? JSON.parse(saved) : {
+      name: user.displayName || user.email.split('@')[0],
+      level: 1,
+      xp: 0,
+      faction: 'nomad',
+      role: 'ANALYST',
+      origin: 'fllc-apprentice',
+      hp: 100,
+      maxHp: 100,
+      credits: 1000,
+      reputation: { nomad: 100, corsair: 0, specter: 0 },
+      skills: SKILLS.map(s => ({...s})),
+      inventory: [],
+      activeCampaign: CAMPAIGNS[0].id,
+      storyProgress: 0,
+      joinedAt: new Date().toISOString(),
+    };
+    GAME.player.subscriptionTier = user.subscriptionTier || 'free';
+    localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
+    GAME.isAuthenticated = true;
+    document.getElementById('auth-overlay').classList.add('hidden');
+    initializeGame();
+  }).catch((err) => {
+    alert('Login failed: ' + (err.message || 'unknown error'));
+  });
+}
+
+function openSubscriptionFlow() {
+  if (!MP || !MP.getToken()) {
+    alert('Login required before subscription checkout.');
+    return;
+  }
+  MP.createCheckout().then((resp) => {
+    if (resp.checkoutUrl && resp.mode === 'external') {
+      window.location.href = resp.checkoutUrl;
+      return;
+    }
+    alert('Checkout stub ready. Use ACTIVATE MOCK BASIC for local testing.');
+  }).catch((err) => {
+    alert('Checkout failed: ' + (err.message || 'unknown error'));
+  });
+}
+
+function activateMockBasic() {
+  if (!MP || !MP.getToken()) {
+    alert('Login required before subscription activation.');
+    return;
+  }
+  MP.activateBasicMock().then(() => {
+    GAME.player.subscriptionTier = 'basic';
+    localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
+    updatePlayerMenu();
+    alert('Basic subscription active. Chapter 5+ premium ops unlocked.');
+  }).catch((err) => {
+    alert('Activation failed: ' + (err.message || 'unknown error'));
+  });
+}
+
+function refreshMultiplayerStatus() {
+  if (!MP) return;
+  const status = document.getElementById('mp-status');
+  const backendUrl = document.getElementById('mp-backend-url');
+  const online = document.getElementById('mp-online-count');
+  if (backendUrl) backendUrl.textContent = MP.getApiBase();
+
+  MP.worldState().then((world) => {
+    if (status) {
+      status.textContent = 'ONLINE: ' + world.globalThreat + ' threat, ' + (world.activeLobbies || []).length + ' active lobbies.';
+    }
+    if (online) {
+      online.textContent = '🟢 ' + (world.onlineCount || 0) + ' Operatives';
+    }
+  }).catch(() => {
+    if (status) {
+      status.textContent = 'Offline/unreachable. Start multiplayer-server for auth, chapter gate, and lobbies.';
+    }
+  });
 }
 
 // ─── INITIALIZATION ───────────────────────────────────────────────────────

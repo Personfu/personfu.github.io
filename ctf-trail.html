@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
 <title>CTF TRAIL // Operation Starshield — FURIOS-INT</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<script src="js/multiplayer-client.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;--orange:#ffa500;--red:#ff4444;}
@@ -789,6 +790,7 @@ const STATE = {
 };
 
 const CTF_PROGRESS_KEY = 'cyberworld-ctf-progress';
+const MP = window.CyberworldMP;
 const ADVERSARY_MOTIVE = {
   'FANCY BEAR': 'Targets dead-drop trust and credential surfaces to poison route decisions.',
   'SANDWORM': 'Attempts launch-chain infrastructure sabotage and telemetry corruption.',
@@ -796,11 +798,11 @@ const ADVERSARY_MOTIVE = {
   'VOLT TYPHOON': 'Pre-positions quietly in relay and telecom infrastructure for timed disruption.',
 };
 const NODE_INTEL = {
-  1: { adversary: 'BLACK_SPECTER', cves: ['CVE-2021-41773'], story: 'Signal drift was seeded as a covert command path.' },
-  7: { adversary: 'GRAY_FANG', cves: ['CVE-2023-34362'], story: 'SQL auth bypass chain mirrors recent mass exploitation patterns.' },
-  12: { adversary: 'CINDER_VEIL', cves: ['CVE-2024-3400', 'CVE-2024-21887'], story: 'CVE intelligence dashboards are used to weaponize fresh exposures quickly.' },
-  19: { adversary: 'GRAY_FANG', cves: ['CVE-2022-0543'], story: 'SSRF -> Redis -> RCE chain matches Gray Fang tradecraft.' },
-  20: { adversary: 'BLACK_SPECTER', cves: ['CVE-2021-44228'], story: 'Platform compromise and challenge tampering fund adversary operations.' },
+  1: { adversary: 'FANCY BEAR', cves: ['CVE-2021-41773'], story: 'Signal drift was seeded as a covert command path.' },
+  7: { adversary: 'LAZARUS GROUP', cves: ['CVE-2023-34362'], story: 'SQL auth bypass chain mirrors recent mass exploitation patterns.' },
+  12: { adversary: 'VOLT TYPHOON', cves: ['CVE-2024-3400', 'CVE-2024-21887'], story: 'CVE intelligence dashboards are used to weaponize fresh exposures quickly.' },
+  19: { adversary: 'SANDWORM', cves: ['CVE-2022-0543'], story: 'SSRF -> Redis -> RCE chain matches infrastructure sabotage tradecraft.' },
+  20: { adversary: 'FANCY BEAR', cves: ['CVE-2021-44228'], story: 'Platform compromise and challenge tampering fund adversary operations.' },
 };
 
 function persistCrossProgress() {
@@ -951,6 +953,21 @@ function refreshChallengeGrid() {
 
 // ─── LOAD CHALLENGE ───────────────────────────────────────────────────────
 function loadChallenge(idx) {
+  const chapter = Math.floor(idx / 5) + 1;
+  if (!isChapterLocallyAllowed(chapter)) {
+    showChapterGateMessage(chapter);
+    return;
+  }
+  checkChapterGateRemote(chapter).then((allowed) => {
+    if (!allowed) {
+      showChapterGateMessage(chapter);
+      return;
+    }
+    loadChallengeInternal(idx);
+  });
+}
+
+function loadChallengeInternal(idx) {
   STATE.current = idx;
   const ch = CHALLENGES[idx];
   document.getElementById('chall-num').textContent = `CHALLENGE ${idx+1} / 20`;
@@ -990,6 +1007,37 @@ function loadChallenge(idx) {
   updateStats();
   refreshTrailMap();
   document.getElementById('challenge-panel').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function isChapterLocallyAllowed(chapter) {
+  const token = MP && MP.getToken ? MP.getToken() : '';
+  const tier = (JSON.parse(localStorage.getItem('cyberworld-player') || '{}').subscriptionTier || 'guest').toLowerCase();
+  if (chapter <= 3) return true;
+  if (chapter === 4) return Boolean(token);
+  if (chapter >= 5) return tier === 'basic' || tier === 'pro';
+  return false;
+}
+
+function checkChapterGateRemote(chapter) {
+  if (!MP) return Promise.resolve(isChapterLocallyAllowed(chapter));
+  return MP.gate(chapter)
+    .then((gate) => {
+      const statusEl = document.getElementById('s-status');
+      if (statusEl) {
+        statusEl.textContent = gate.allowed ? 'ON_TRAIL' : 'GATE_LOCKED';
+        statusEl.style.color = gate.allowed ? 'var(--cyan)' : 'var(--orange)';
+      }
+      return !!gate.allowed;
+    })
+    .catch(() => Promise.resolve(isChapterLocallyAllowed(chapter)));
+}
+
+function showChapterGateMessage(chapter) {
+  if (chapter === 4) {
+    alert('Chapter 4 requires email login. Authenticate from cyberworld.html to continue this convoy route.');
+  } else {
+    alert('Chapter ' + chapter + ' requires Basic subscription. Upgrade in cyberworld.html multiplayer panel.');
+  }
 }
 
 // ─── FLAG CHECK ───────────────────────────────────────────────────────────

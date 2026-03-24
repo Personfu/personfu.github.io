@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
 <title>🌐 CYBERWORLD — Operation Starshield</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<script src="js/multiplayer-client.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;--orange:#ffa500;--red:#ff4444;--dark:#050505;--darker:#020202;}
@@ -223,6 +224,7 @@ body{background:var(--dark);color:var(--cyan);font-family:'JetBrains Mono',monos
   <div class="stat-item"><span class="stat-label">XP:</span><span class="stat-val" id="s-xp">0</span></div>
   <div class="stat-item"><span class="stat-label">HINTS_USED:</span><span class="stat-val" id="s-hints">0</span></div>
   <div class="stat-item"><span class="stat-label">STATUS:</span><span class="stat-val" id="s-status">STANDBY</span></div>
+  <div class="stat-item"><span class="stat-label">CHAPTER_GATE:</span><span class="stat-val" id="s-gate">SYNCING</span></div>
 </div>
 
 <!-- MAIN GAME AREA -->
@@ -912,6 +914,7 @@ const NODE_INTEL = {
 };
 
 const CTF_PROGRESS_KEY = 'cyberworld-ctf-progress';
+const MP = window.CyberworldMP;
 
 // ─── HELPER FUNCTIONS ───────────────────────────────────────────────────────
 function generateSessionFlags() {
@@ -1331,6 +1334,22 @@ function nextChallenge() {
 }
 
 function loadChallenge(idx) {
+  const chapter = Math.floor(idx / 5) + 1;
+  if (!isChapterLocallyAllowed(chapter)) {
+    showGateBlock(chapter);
+    return;
+  }
+
+  checkChapterGateRemote(chapter).then((allowed) => {
+    if (!allowed) {
+      showGateBlock(chapter);
+      return;
+    }
+    loadChallengeInternal(idx);
+  });
+}
+
+function loadChallengeInternal(idx) {
   GAME_STATE.currentNode = idx;
   const ch = CHALLENGES[idx];
   
@@ -1365,6 +1384,37 @@ function loadChallenge(idx) {
   resetTerminalForNode(ch);
   
   buildNetworkMap();
+}
+
+function isChapterLocallyAllowed(chapter) {
+  const token = MP && MP.getToken ? MP.getToken() : '';
+  const tier = (JSON.parse(localStorage.getItem('cyberworld-player') || '{}').subscriptionTier || 'guest').toLowerCase();
+  if (chapter <= 3) return true;
+  if (chapter === 4) return Boolean(token);
+  if (chapter >= 5) return tier === 'basic' || tier === 'pro';
+  return false;
+}
+
+function checkChapterGateRemote(chapter) {
+  if (!MP) return Promise.resolve(isChapterLocallyAllowed(chapter));
+  return MP.gate(chapter)
+    .then((gate) => {
+      const gateEl = document.getElementById('s-gate');
+      if (gateEl) {
+        gateEl.textContent = gate.allowed ? ('OPEN_CH' + chapter) : ('LOCKED_CH' + chapter);
+        gateEl.style.color = gate.allowed ? 'var(--green)' : 'var(--orange)';
+      }
+      return !!gate.allowed;
+    })
+    .catch(() => Promise.resolve(isChapterLocallyAllowed(chapter)));
+}
+
+function showGateBlock(chapter) {
+  if (chapter === 4) {
+    alert('Chapter 4 requires email login. Authenticate in cyberworld.html and return.');
+  } else {
+    alert('Chapter ' + chapter + ' requires Basic subscription. Upgrade in cyberworld.html multiplayer panel.');
+  }
 }
 
 function buildNetworkMap() {
@@ -1419,6 +1469,7 @@ window.addEventListener('load', () => {
   updateResourceMeters();
   updateStatsBar();
   logEvent('🎬 MISSION START: Operation Starshield initialized', 'info');
+  checkChapterGateRemote(Math.floor((GAME_STATE.currentNode || 0) / 5) + 1);
   const terminalInput = document.getElementById('terminal-input');
   if (terminalInput) {
     terminalInput.addEventListener('keydown', (e) => {
