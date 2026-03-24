@@ -118,20 +118,22 @@
   ],
   "story_tools": [
     {
+      "id": "signal_intercept",
+      "name": "Signal Drift Intercept",
+      "type": "recon",
+      "description": "Captures degraded transmissions from dying relay nodes to recover launch-auth fragments.",
+      "unlockMission": "signal_drift",
+      "storyTag": "fragment_recovery",
+      "faction": "ghostline"
+    },
+    {
       "id": "scanner_v1",
       "name": "Neon Beacon Scanner",
       "type": "recon",
       "description": "FLLC-built subnet mapper used to trace relay-safe paths for the Starshield convoy.",
       "unlockMission": "neon_beacon",
-      "storyTag": "launch_route"
-    },
-    {
-      "id": "relay_patch_kit",
-      "name": "Relay Patch Kit",
-      "type": "defense",
-      "description": "Rapid validation and patch package for compromised telemetry relays before countdown lock.",
-      "unlockMission": "memory_vault",
-      "storyTag": "launch_integrity"
+      "storyTag": "launch_route",
+      "faction": "sentinel"
     },
     {
       "id": "escrow_probe",
@@ -139,7 +141,107 @@
       "type": "forensics",
       "description": "Verifies trust-anchor escrow signatures against known Starshield chain-of-custody snapshots.",
       "unlockMission": "dead_drop",
-      "storyTag": "trust_anchor"
+      "storyTag": "trust_anchor",
+      "faction": "corsair"
+    },
+    {
+      "id": "honeypot_builder",
+      "name": "Lure Engine",
+      "type": "defense",
+      "description": "Deploys deception services to identify adversaries probing the Starshield convoy route.",
+      "unlockMission": "honeypot",
+      "storyTag": "deception_ops",
+      "faction": "sentinel"
+    },
+    {
+      "id": "steg_decoder",
+      "name": "Orbital Steg Extractor",
+      "type": "crypto",
+      "description": "Recovers hidden orbital timing coordinates embedded in carrier images across dead relays.",
+      "unlockMission": "steg",
+      "storyTag": "timing_data",
+      "faction": "ghostline"
+    },
+    {
+      "id": "sql_injector",
+      "name": "Junction Bypass Kit",
+      "type": "exploit",
+      "description": "Recovers stale relay credentials from legacy launch-telemetry databases via injection.",
+      "unlockMission": "sql_bypass",
+      "storyTag": "credential_recovery",
+      "faction": "corsair"
+    },
+    {
+      "id": "subdomain_mapper",
+      "name": "Route Enumerator",
+      "type": "recon",
+      "description": "Enumerates hidden sub-routes and shadow endpoints across compromised telecom infrastructure.",
+      "unlockMission": "subdomain_enum",
+      "storyTag": "route_mapping",
+      "faction": "ghostline"
+    },
+    {
+      "id": "relay_patch_kit",
+      "name": "Relay Patch Kit",
+      "type": "defense",
+      "description": "Rapid validation and patch package for compromised telemetry relays before countdown lock.",
+      "unlockMission": "memory_vault",
+      "storyTag": "launch_integrity",
+      "faction": "sentinel"
+    },
+    {
+      "id": "binary_disassembler",
+      "name": "Guidance Reverser",
+      "type": "reverse-engineering",
+      "description": "Reverse-engineers compromised binaries to explain why Starshield guidance checks are failing.",
+      "unlockMission": "reverse_engineer",
+      "storyTag": "guidance_analysis",
+      "faction": "fllc"
+    },
+    {
+      "id": "cve_correlator",
+      "name": "Vuln Pulse Monitor",
+      "type": "intel",
+      "description": "Correlates live CVE feeds against relay node behavior to identify active exploitation.",
+      "unlockMission": "cve_dashboard",
+      "storyTag": "threat_correlation",
+      "faction": "sentinel"
+    },
+    {
+      "id": "threat_modeler",
+      "name": "Interference Pattern Analyzer",
+      "type": "intel",
+      "description": "Maps adversary interference patterns to reveal coordinated campaigns against Starshield.",
+      "unlockMission": "threat_model",
+      "storyTag": "campaign_analysis",
+      "faction": "fllc"
+    },
+    {
+      "id": "overflow_exploit",
+      "name": "Buffer Breach Lance",
+      "type": "exploit",
+      "description": "Exploits memory vulnerabilities in hardened validators to regain control of corrupted nodes.",
+      "unlockMission": "buffer_overflow",
+      "storyTag": "validator_exploit",
+      "faction": "corsair"
+    },
+    {
+      "id": "packet_sniffer",
+      "name": "Advanced Relay Sniffer",
+      "type": "network",
+      "description": "Deep packet inspection tool calibrated for Starshield uplink traffic anomaly detection.",
+      "unlockMission": "advanced_sniffer",
+      "storyTag": "telemetry_intercept",
+      "faction": "ghostline"
+    },
+    {
+      "id": "ir_toolkit",
+      "name": "Incident Response Suite",
+      "type": "incident-response",
+      "description": "Full containment and recovery toolkit for active compromises on launch-critical nodes.",
+      "unlockMission": "incident_response",
+      "storyTag": "containment",
+      "faction": "sentinel"
     },
     {
       "id": "uplink_guardian",
@@ -147,11 +249,70 @@
       "type": "incident-response",
       "description": "Final-stage uplink validator used during Starshield launch defense operations.",
       "unlockMission": "final_node",
-      "storyTag": "uplink_defense"
+      "storyTag": "uplink_defense",
+      "faction": "fllc"
+    },
+    {
+      "id": "exfil_platform",
+      "name": "Exfil Apex Platform",
+      "type": "operations",
+      "description": "Emergency launch platform stack for rebuilding mission control when primary systems fail.",
+      "unlockMission": "exfil_apex",
+      "storyTag": "launch_platform",
+      "faction": "fllc"
+    }
+  ],
+  "companions": [
+    {
+      "id": "recon_daemon",
+      "name": "Echo",
+      "species": "Recon Daemon",
+      "description": "A scanning companion recovered from a dead relay. Grants passive subnet mapping.",
+      "rarity": "common",
+      "ability": "Reveal hidden network nodes within 2 hops.",
+      "discoverMission": "signal_drift"
+    },
+    {
+      "id": "signal_hound",
+      "name": "Pulse",
+      "species": "Signal Hound",
+      "description": "A polymorphic packet familiar stabilized from a corruption storm. Grants stealth buffs.",
+      "rarity": "rare",
+      "ability": "Reduce detection pressure by 15% during escort runs.",
+      "discoverMission": "advanced_sniffer"
+    },
+    {
+      "id": "archive_construct",
+      "name": "Cipher",
+      "species": "Archival Construct",
+      "description": "A legendary AI fragment tied to an FLLC founder. Grants data integrity verification.",
+      "rarity": "legendary",
+      "ability": "Auto-verify trust anchors and detect tampered launch payloads.",
+      "discoverMission": "exfil_apex"
+    },
+    {
+      "id": "firewall_sprite",
+      "name": "Bastion",
+      "species": "Firewall Sprite",
+      "description": "A defensive sprite that hardens perimeter systems during active incidents.",
+      "rarity": "uncommon",
+      "ability": "Increase relay trust by 5% during incident response missions.",
+      "discoverMission": "honeypot"
+    },
+    {
+      "id": "crypto_ghost",
+      "name": "Wraith",
+      "species": "Crypto Ghost",
+      "description": "An encrypted phantom process that masks operative movements through dark relays.",
+      "rarity": "rare",
+      "ability": "Enable passage through adversary-controlled nodes without triggering alerts.",
+      "discoverMission": "steg"
     }
   ],
   "story_meta": {
     "campaign": "operation-starshield",
+    "toolCount": 16,
+    "companionCount": 5,
     "unlock_examples": {
       "decode": "ctf-node-01",
       "operations": "mission-board"

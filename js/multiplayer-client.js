@@ -3,6 +3,8 @@
 
   var TOKEN_KEY = 'cyberworld-auth-token';
   var API_KEY = 'cyberworld-api-base';
+  // Production backend — update this after deploying to Railway, Render, or your custom domain
+  var PRODUCTION_API = 'https://cyberworld-api.up.railway.app';
 
   function trimBase(base) {
     return String(base || '').replace(/\/$/, '');
@@ -22,11 +24,12 @@
     var meta = document.querySelector('meta[name="cyberworld-api-base"]');
     if (meta && meta.content) return trimBase(meta.content);
 
+    // Only fall back to localhost when running locally
     if (/^(localhost|127\.0\.0\.1)$/i.test(window.location.hostname)) {
       return 'http://localhost:8787';
     }
 
-    return trimBase(window.location.origin);
+    return PRODUCTION_API;
   }
 
   var DEFAULT_API_BASE = readConfiguredBase();
@@ -126,7 +129,12 @@
   }
 
   function createCheckout() {
-    return request('/api/subscription/create-checkout', { method: 'POST' });
+    return request('/api/subscription/create-checkout', { method: 'POST' }).then(function (result) {
+      if (result.checkoutUrl && result.mode !== 'mock') {
+        window.location.href = result.checkoutUrl;
+      }
+      return result;
+    });
   }
 
   function activateBasicMock() {

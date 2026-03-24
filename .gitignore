@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Environment secrets — NEVER commit these
+.env
+.env.local
+.env.production
+*.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Build artifacts
+dist/
+build/
+
+# Local database files (dev only)
+multiplayer-server/db.json
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

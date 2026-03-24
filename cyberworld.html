@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' http://localhost:8787 http://127.0.0.1:8787 ws://localhost:8787 ws://127.0.0.1:8787 https://*.onrender.com wss://*.onrender.com https://personfu.github.io https://fllc.net;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' http://localhost:8787 http://127.0.0.1:8787 ws://localhost:8787 ws://127.0.0.1:8787 https://cyberworld-api.up.railway.app wss://cyberworld-api.up.railway.app https://personfu.github.io https://fllc.net;">
+<meta name="cyberworld-api-base" content="https://cyberworld-api.up.railway.app">
 <title>🌐 CYBERWORLD — Operation Starshield</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
 <script src="js/multiplayer-client.js"></script>
@@ -793,6 +794,67 @@ function updateSidebars() {
   }
 }
 
+// ─── DATA BAZAAR (MARKET) ────────────────────────────────────────────────────
+function renderDataBazaar(container) {
+  fetch('tools.json').then(r => r.json()).then(data => {
+    const tools = data.story_tools || [];
+    const companions = data.companions || [];
+    const progress = JSON.parse(localStorage.getItem('cyberworld-ctf-progress') || '{}');
+    const solved = Object.keys(progress).filter(k => progress[k]);
+
+    let toolCards = tools.map(t => {
+      const unlocked = solved.includes(t.unlockMission);
+      return `<div class="item-card" style="opacity:${unlocked ? 1 : 0.45};border-color:${unlocked ? 'var(--green)' : 'rgba(0,232,255,0.15)'};">
+        <div>
+          <div class="item-name">${unlocked ? t.name : '??? LOCKED ???'}</div>
+          <div style="font-size:10px;color:#888;margin-top:4px;">${unlocked ? t.description : 'Complete mission: ' + t.unlockMission.replace(/_/g,' ')}</div>
+          <div style="font-size:9px;color:var(--orange);margin-top:4px;">TYPE: ${t.type.toUpperCase()} · FACTION: ${t.faction.toUpperCase()}</div>
+        </div>
+        <div class="item-price" style="color:${unlocked ? 'var(--green)' : '#555'};">${unlocked ? '✓ OWNED' : '🔒'}</div>
+      </div>`;
+    }).join('');
+
+    let companionCards = companions.map(c => {
+      const found = solved.includes(c.discoverMission);
+      const rarityColor = {common:'#aaa',uncommon:'var(--green)',rare:'var(--cyan)',legendary:'var(--pink)'}[c.rarity] || '#aaa';
+      return `<div class="item-card" style="opacity:${found ? 1 : 0.45};border-color:${found ? rarityColor : 'rgba(0,232,255,0.15)'};">
+        <div>
+          <div class="item-name" style="color:${rarityColor};">${found ? c.name + ' — ' + c.species : '??? UNKNOWN COMPANION ???'}</div>
+          <div style="font-size:10px;color:#888;margin-top:4px;">${found ? c.description : 'Discover on mission: ' + c.discoverMission.replace(/_/g,' ')}</div>
+          ${found ? '<div style="font-size:9px;color:var(--cyan);margin-top:4px;">⚡ ' + c.ability + '</div>' : ''}
+          <div style="font-size:9px;color:${rarityColor};margin-top:4px;">RARITY: ${c.rarity.toUpperCase()}</div>
+        </div>
+        <div class="item-price" style="color:${found ? rarityColor : '#555'};">${found ? '✓ BONDED' : '🔒'}</div>
+      </div>`;
+    }).join('');
+
+    container.innerHTML = `
+      <div style="max-width:900px;">
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:8px;">🏪 THE DATA BAZAAR — BLACK MARKET</h2>
+        <p style="color:#aaa;margin-bottom:6px;">Acquire tools and companions by completing CTF missions. Unlocked gear syncs to your operative profile.</p>
+        <p style="color:var(--green);font-size:11px;margin-bottom:20px;">UNLOCKED: ${solved.length} / ${tools.length} tools · ${companions.filter(c => solved.includes(c.discoverMission)).length} / ${companions.length} companions</p>
+
+        <h3 style="font-family:'Pixelify Sans';font-size:16px;color:var(--orange);margin-bottom:12px;">🔧 OPERATIVE TOOLS</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-bottom:30px;">
+          ${toolCards}
+        </div>
+
+        <h3 style="font-family:'Pixelify Sans';font-size:16px;color:var(--pink);margin-bottom:12px;">🐾 COMPANIONS</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;">
+          ${companionCards}
+        </div>
+      </div>
+    `;
+  }).catch(() => {
+    container.innerHTML = `
+      <div style="max-width:900px;">
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">🏪 BLACK_MARKET</h2>
+        <p style="color:var(--red);">Failed to load market data. Retry later.</p>
+      </div>
+    `;
+  });
+}
+
 // ─── WORLD NAVIGATION ───────────────────────────────────────────────────────
 function loadWorld(location) {
   GAME.currentLocation = location;
@@ -897,36 +959,7 @@ function loadWorld(location) {
       </div>
     `;
   } else if (location === 'market') {
-    mainView.innerHTML = `
-      <div style="max-width:900px;">
-        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">BLACK_MARKET</h2>
-        <p style="color:#aaa;margin-bottom:20px;">Trade, buy, and sell rare artifacts and upgrades.</p>
-        
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;">
-          <div class="item-card">
-            <div>
-              <div class="item-name">STEALTH_MASK_V3</div>
-              <div style="font-size:10px;color:#666;margin-top:4px;">Evade detection +15%</div>
-            </div>
-            <div class="item-price">2,500¢</div>
-          </div>
-          <div class="item-card">
-            <div>
-              <div class="item-name">HACKER_KIT_ELITE</div>
-              <div style="font-size:10px;color:#666;margin-top:4px;">Hacking speed +20%</div>
-            </div>
-            <div class="item-price">5,000¢</div>
-          </div>
-          <div class="item-card">
-            <div>
-              <div class="item-name">COMBAT_PROTOCOL_LV5</div>
-              <div style="font-size:10px;color:#666;margin-top:4px;">Damage +10%</div>
-            </div>
-            <div class="item-price">3,500¢</div>
-          </div>
-        </div>
-      </div>
-    `;
+    renderDataBazaar(mainView);
   } else if (location === 'codice') {
     mainView.innerHTML = `
       <div style="max-width:900px;">

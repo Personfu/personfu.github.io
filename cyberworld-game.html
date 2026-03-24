@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
 <title>🌐 CYBERWORLD — Operation Starshield</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<meta name="cyberworld-api-base" content="https://cyberworld-api.up.railway.app">
 <script src="js/multiplayer-client.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -174,6 +175,7 @@ body{background:var(--dark);color:var(--cyan);font-family:'JetBrains Mono',monos
 @keyframes scanline{0%{top:-10px;}100%{top:100vh;}}
 .glitch-text{animation:glitch 0.3s;}
 .pulse{animation:pulse 1s infinite;}
+@keyframes rewardSlide{from{transform:translateX(100%);opacity:0;}to{transform:translateX(0);opacity:1;}}
 
 </style>
 </head>
@@ -916,6 +918,30 @@ const NODE_INTEL = {
 const CTF_PROGRESS_KEY = 'cyberworld-ctf-progress';
 const MP = window.CyberworldMP;
 
+// Map challenge IDs to backend mission IDs (must match MISSION_REWARDS keys in server.js)
+const CHALLENGE_TO_MISSION = {
+  1: 'signal_drift',
+  2: 'neon_beacon',
+  3: 'dead_drop',
+  4: 'honeypot',
+  5: 'steg',
+  6: 'sql_bypass',
+  7: 'subdomain_enum',
+  8: null,           // cipher breach — XP only
+  9: null,           // packet echo — XP only
+  10: 'memory_vault',
+  11: 'cve_dashboard',
+  12: 'reverse_engineer',
+  13: null,          // file monitor — XP only
+  14: 'threat_model',
+  15: 'buffer_overflow',
+  16: 'advanced_sniffer',
+  17: null,          // obfuscation breach — XP only
+  18: 'incident_response',
+  19: 'final_node',
+  20: 'exfil_apex',
+};
+
 // ─── HELPER FUNCTIONS ───────────────────────────────────────────────────────
 function generateSessionFlags() {
   GAME_STATE.sessionFlags = {};
@@ -1299,11 +1325,13 @@ function submitFlag() {
     if (!GAME_STATE.nodesSolved.has(GAME_STATE.currentNode)) {
       GAME_STATE.nodesSolved.add(GAME_STATE.currentNode);
       GAME_STATE.xp += ch.xp;
-      GAME_STATE.detection += 5; // Slight detection when flag extracted
+      GAME_STATE.detection += 5;
       logEvent(`✅ ${ch.name} CLEARED | +${ch.xp} XP`, 'good');
       persistCrossProgress();
+      syncMissionToBackend(ch);
     }
     document.getElementById('next-btn').style.display = 'inline-block';
+    updateToolsGrid();
     if (GAME_STATE.nodesSolved.size === 20) showVictory();
   } else {
     resultEl.className = 'wrong';
@@ -1461,6 +1489,72 @@ function triggerCognitiveBreakdown() {
   GAME_STATE.cognitive = 60;
 }
 
+// ─── BACKEND SYNC & TOOLS GRID ──────────────────────────────────────────
+function syncMissionToBackend(ch) {
+  if (!MP || !MP.getToken()) return;
+  var missionId = CHALLENGE_TO_MISSION[ch.id];
+  var chapter = Math.floor((ch.id - 1) / 5) + 1;
+  MP.saveProgress({ chapter: chapter, missionId: missionId, xpDelta: missionId ? 0 : ch.xp })
+    .then(function (resp) {
+      if (resp.rewards) {
+        showRewardToast(resp.rewards, ch);
+      }
+      logEvent('📡 Progress synced to server', 'info');
+    })
+    .catch(function () {
+      logEvent('⚠ Backend sync failed — progress saved locally', 'warn');
+    });
+}
+
+function showRewardToast(rewards, ch) {
+  var parts = [];
+  if (rewards.xp) parts.push('+' + rewards.xp + ' XP');
+  if (rewards.tool) parts.push('🔧 Tool: ' + rewards.tool);
+  if (rewards.companion) parts.push('🐾 Companion: ' + rewards.companion);
+  if (rewards.factionRep) {
+    Object.entries(rewards.factionRep).forEach(function (e) { parts.push('⭐ ' + e[0] + ' +' + e[1]); });
+  }
+  if (!parts.length) return;
+
+  logEvent('🎁 REWARDS: ' + parts.join(' | '), 'good');
+
+  // Show a visual reward toast overlay
+  var toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;top:80px;right:20px;z-index:10001;background:#040d0e;border:2px solid var(--green);padding:16px 20px;max-width:360px;font-family:"VT323";font-size:14px;color:var(--green);box-shadow:0 0 30px rgba(0,255,65,0.3);animation:rewardSlide 0.3s ease;';
+  toast.innerHTML = '<div style="color:var(--cyan);font-size:16px;margin-bottom:8px;">⚡ MISSION REWARDS</div>' +
+    parts.map(function (p) { return '<div style="margin-bottom:4px;">' + p + '</div>'; }).join('');
+  document.body.appendChild(toast);
+  setTimeout(function () { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.5s'; }, 4000);
+  setTimeout(function () { toast.remove(); }, 4600);
+}
+
+function updateToolsGrid() {
+  var grid = document.getElementById('tools-grid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  // Build list of tools from all solved challenges
+  var toolsList = [];
+  var lockedTools = [];
+  CHALLENGES.forEach(function (ch, idx) {
+    var missionId = CHALLENGE_TO_MISSION[ch.id];
+    var toolName = missionId ? missionId.replace(/_/g, ' ').toUpperCase() : ch.name.split('—')[0].trim();
+    var unlocked = GAME_STATE.nodesSolved.has(idx);
+    var entry = { name: toolName, unlocked: unlocked, tier: ch.tier };
+    if (unlocked) toolsList.push(entry);
+    else lockedTools.push(entry);
+  });
+
+  toolsList.concat(lockedTools).forEach(function (tool) {
+    var card = document.createElement('div');
+    card.className = 'tool-card ' + (tool.unlocked ? 'unlocked' : 'locked');
+    card.innerHTML = '<div style="font-size:16px;margin-bottom:4px;">' + (tool.unlocked ? '🔓' : '🔒') + '</div>' +
+      '<div>' + tool.name + '</div>' +
+      '<div style="font-size:9px;color:#666;margin-top:2px;">' + tool.tier.toUpperCase() + '</div>';
+    grid.appendChild(card);
+  });
+}
+
 // ─── INIT ───────────────────────────────────────────────────────────────────
 window.addEventListener('load', () => {
   generateSessionFlags();
@@ -1468,6 +1562,7 @@ window.addEventListener('load', () => {
   loadChallenge(0);
   updateResourceMeters();
   updateStatsBar();
+  updateToolsGrid();
   logEvent('🎬 MISSION START: Operation Starshield initialized', 'info');
   checkChapterGateRemote(Math.floor((GAME_STATE.currentNode || 0) / 5) + 1);
   const terminalInput = document.getElementById('terminal-input');

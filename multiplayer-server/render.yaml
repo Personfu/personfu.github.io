@@ -1,3 +1,5 @@
+# Render deployment config (backup provider — primary is Railway)
+# To deploy: connect repo at https://dashboard.render.com/blueprints
 services:
   - type: web
     name: cyberworld-multiplayer
@@ -14,5 +16,11 @@ services:
         generateValue: true
       - key: APP_ORIGIN
         value: https://personfu.github.io,https://fllc.net
-      - key: STRIPE_CHECKOUT_URL
+      - key: DATABASE_URL
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: STRIPE_PRICE_ID
         sync: false
