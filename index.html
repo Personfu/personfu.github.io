@@ -11,83 +11,7 @@
 * { box-sizing: border-box; }
 body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',monospace; }
 
-.ops-hero {
-  grid-column: 1 / -1;
-  border: 1px solid rgba(0,232,255,0.45);
-  background: linear-gradient(135deg, rgba(0,20,32,0.82) 0%, rgba(8,8,20,0.86) 100%);
-  padding: 16px 18px;
-  box-shadow: 0 0 28px rgba(0,232,255,0.18);
-}
-.ops-hero h1 {
-  font-family:'Pixelify Sans';
-  font-size: clamp(20px, 3.2vw, 42px);
-  color: var(--cyber-cyan);
-  margin: 0 0 8px;
-  letter-spacing: 1px;
-}
-.ops-hero p {
-  color: #c7f8ff;
-  font-size: 12px;
-  line-height: 1.55;
-  margin-bottom: 10px;
-}
-.ops-panels {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(160px, 1fr));
-  gap: 10px;
-}
-.ops-panel {
-  border: 1px solid rgba(0,232,255,0.3);
-  background: rgba(0,0,0,0.45);
-  padding: 10px;
-}
-.ops-panel .k {
-  font-family:'VT323';
-  font-size: 18px;
-  color: var(--cyber-green);
-}
-.ops-panel .v {
-  font-size: 11px;
-  color: #abd5dc;
-}
-.ops-meters {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 10px;
-  font-family:'VT323';
-  color: var(--cyber-cyan);
-}
-.ops-meters span { font-size: 16px; }
-.ops-events {
-  margin-top: 8px;
-  font-size: 11px;
-  color: #8cb3b9;
-}
-.ops-events ul { margin-top: 4px; padding-left: 18px; }
-.ops-support-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(170px, 1fr));
-  gap: 10px;
-  margin-top: 12px;
-}
-.ops-support-card {
-  border: 1px solid rgba(0,232,255,0.22);
-  background: rgba(3, 6, 12, 0.55);
-  padding: 12px;
-}
-.ops-support-card h3 {
-  font-family:'VT323';
-  font-size: 18px;
-  color: var(--cyber-cyan);
-  margin-bottom: 6px;
-}
-.ops-support-card ul {
-  padding-left: 18px;
-  color: #a9ccd2;
-  font-size: 11px;
-  line-height: 1.6;
-}
+
 
 /* ── Layered background canvases ── */
 #pt-canvas   { position:fixed; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none; opacity:0.18; }
@@ -175,8 +99,7 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
 /* ── Mobile ── */
 @media (max-width:600px) {
   #desktop { grid-template-columns:repeat(auto-fill,80px); gap:10px; padding:12px; }
-  .ops-panels { grid-template-columns: 1fr; }
-  .ops-support-grid { grid-template-columns: 1fr; }
+
   .icon { width:74px; height:80px; }
   .icon img { width:36px; height:36px; }
   .icon .icon-emoji { font-size:28px; }
@@ -199,59 +122,12 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
 <div id="scan-line"></div>
 
 <div id="status-ticker">
-  <span id="ticker-inner" data-story="ticker">
-    STARSHIELD FEED INITIALIZING...
+  <span id="ticker-inner">
+    ⬤ FURIOS-INT v2.6.5 ONLINE ⬤ FLLC PERIODIC TABLE OF CYBER OPERATIONS LOADED ⬤ THREAT FEEDS ACTIVE ⬤ WAR_GAMES 12 NODES LIVE ⬤ CTF TRAIL 20 CHALLENGES AVAILABLE ⬤ INTEL_HUB MONITORING ⬤ AI_OVERSEER 8 RECON AGENTS DEPLOYED ⬤
   </span>
 </div>
 
 <div id="desktop">
-  <section class="ops-hero">
-    <h1>CYBERWORLD: OPERATION STARSHIELD</h1>
-    <p>
-      The world&apos;s last uncontaminated archive is preparing to leave orbit aboard the Starshield rocket.
-      Adversaries are moving across CyberWorld to corrupt the launch chain before ignition.
-      Enter The Nexus, join FLLC, and escort the data that could save humanity&apos;s future.
-    </p>
-    <div class="ops-panels">
-      <article class="ops-panel">
-        <div class="k">Enter The Nexus</div>
-        <div class="v">Find your faction, gather intel, and prep with allies before each route.</div>
-      </article>
-      <article class="ops-panel">
-        <div class="k">Escort the Launch Data</div>
-        <div class="v">Recover launch-auth fragments and move them through hostile relays.</div>
-      </article>
-      <article class="ops-panel">
-        <div class="k">Stop the Adversaries</div>
-        <div class="v">Disrupt sabotage chains before telemetry and trust anchors collapse.</div>
-      </article>
-    </div>
-    <div class="ops-meters">
-      <span>LAUNCH WINDOW: <strong data-story="launch-window">T-UNKNOWN</strong></span>
-      <span>UPLINK INTEGRITY: <strong data-story="uplink-integrity">0%</strong></span>
-      <span>RELAY TRUST: <strong data-story="relay-trust">0%</strong></span>
-      <span>ADVERSARY PRESSURE: <strong data-story="adversary-pressure">0%</strong></span>
-    </div>
-    <div class="ops-events">
-      WORLD EVENTS
-      <ul data-story="world-events"></ul>
-    </div>
-    <div class="ops-support-grid">
-      <article class="ops-support-card">
-        <h3>Faction Pressure</h3>
-        <ul data-story="faction-cards"></ul>
-      </article>
-      <article class="ops-support-card">
-        <h3>Launch Route Chain</h3>
-        <ul data-story="route-cards"></ul>
-      </article>
-      <article class="ops-support-card">
-        <h3>Critical Sectors</h3>
-        <ul data-story="critical-sectors"></ul>
-      </article>
-    </div>
-  </section>
-
   <div class="icon" onclick="nav('intel.html')">
     <span class="icon-emoji">📡</span>
     <span>INTEL_HUB</span>
@@ -351,7 +227,7 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
   </div>
   <div id="task-items" style="flex:1;"></div>
   <div id="tray">
-    <span style="font-family:'VT323';color:var(--cyber-green);font-size:12px;margin-right:8px;" id="threat-badge">⬤ THREAT:<span data-story="threat-level">HIGH</span></span>
+    <span style="font-family:'VT323';color:var(--cyber-green);font-size:12px;margin-right:8px;" id="threat-badge">⬤ SECURE</span>
     <span id="clock" style="font-family:'VT323';color:#000;">00:00</span>
   </div>
 </div>
@@ -674,8 +550,5 @@ function runBoot(){
 }
 window.onload=runBoot;
 </script>
-<script src="js/story-data.js"></script>
-<script src="js/story-engine.js"></script>
-<script src="js/story-sync.js"></script>
 </body>
 </html>
