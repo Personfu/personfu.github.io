@@ -102,7 +102,9 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
   position:relative; width:100vw; height:calc(100vh - 32px);
   display:none;
   grid-template-columns: repeat(auto-fill, 96px);
-  grid-auto-rows: 100px;
+  grid-template-rows: none;
+  grid-auto-rows: minmax(100px, auto);
+  grid-auto-flow: row;
   padding:18px; gap:16px;
   z-index:10; overflow-y:auto; align-content:start;
 }

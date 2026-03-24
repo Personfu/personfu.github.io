@@ -175,6 +175,8 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
 ::-webkit-scrollbar-thumb{background:rgba(0,232,255,0.3);border-radius:4px;}
 ::-webkit-scrollbar-thumb:hover{background:rgba(0,232,255,0.6);}
 
+@keyframes fadeSlide{0%{opacity:1;transform:translateY(0);}70%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(-20px);}}
+
 </style>
 </head>
 <body data-story-page="cyberworld">
@@ -1081,13 +1083,63 @@ function setCampaign(campaignId) {
 }
 
 function acceptMission() {
-  alert('Mission accepted! Check your quest log.');
   GAME.player.xp += 100;
+  GAME.player.credits += 2000;
   updateSidebars();
+  loadWorld('mission-board');
+  var toast = document.createElement('div');
+  toast.style.cssText='position:fixed;top:60px;right:20px;background:rgba(0,255,65,0.15);border:1px solid var(--green);color:var(--green);padding:14px 20px;font-family:VT323;font-size:16px;z-index:99999;animation:fadeSlide 3s forwards;';
+  toast.textContent='✅ MISSION ACCEPTED — +100 XP  +2,000¢';
+  document.body.appendChild(toast);
+  setTimeout(function(){ toast.remove(); }, 3000);
 }
 
 function enterCodice() {
-  alert('🔴 ENTERING HOSTILE ZONE... [Coming soon: Dynamic PvP battles]');
+  GAME.currentLocation = 'codice';
+  var mainView = document.getElementById('main-view');
+  mainView.innerHTML = `
+    <div style="max-width:900px;">
+      <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--red);margin-bottom:16px;">⚔️ CODICE_ZONE — ACTIVE</h2>
+      <p style="color:#aaa;line-height:1.8;margin-bottom:16px;">You have entered the most dangerous sector of CyberWorld. AI defenses are offline. Corsair patrols sweep every 30 seconds.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+        <div style="border:1px solid rgba(255,68,68,0.3);padding:14px;background:rgba(255,68,68,0.05);">
+          <div style="color:var(--red);font-weight:bold;margin-bottom:8px;">THREAT SCANNER</div>
+          <div style="font-size:11px;color:#aaa;">🔴 Corsair Patrol Alpha — 2 nodes away</div>
+          <div style="font-size:11px;color:#aaa;">🔴 Rogue AI Fragment — adjacent sector</div>
+          <div style="font-size:11px;color:#aaa;">🟡 Encrypted Cache — hackable</div>
+        </div>
+        <div style="border:1px solid rgba(0,232,255,0.3);padding:14px;background:rgba(0,232,255,0.05);">
+          <div style="color:var(--cyan);font-weight:bold;margin-bottom:8px;">YOUR STATUS</div>
+          <div style="font-size:11px;color:#aaa;">Stealth: ACTIVE</div>
+          <div style="font-size:11px;color:#aaa;">Detection Level: LOW</div>
+          <div style="font-size:11px;color:#aaa;">Escape Routes: 2 available</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="map-btn" onclick="codiceAction('scan')">🔍 DEEP SCAN</button>
+        <button class="map-btn" onclick="codiceAction('hack')">💻 HACK CACHE</button>
+        <button class="map-btn" onclick="codiceAction('evade')">🏃 EVADE PATROL</button>
+        <button class="map-btn" style="border-color:var(--green);color:var(--green);" onclick="loadWorld('home-node')">🚪 EXTRACT</button>
+      </div>
+    </div>
+  `;
+}
+
+function codiceAction(action) {
+  var outcomes = {
+    scan: { msg:'Deep scan complete. Found encrypted data shard (+500 XP).', xp:500 },
+    hack: { msg:'Cache decrypted! Retrieved relay coordinates (+1,000¢, +300 XP).', xp:300, credits:1000 },
+    evade: { msg:'Patrol evaded. Stealth bonus applied (+200 XP).', xp:200 }
+  };
+  var result = outcomes[action] || { msg:'Unknown action.', xp:0 };
+  GAME.player.xp += result.xp || 0;
+  GAME.player.credits += result.credits || 0;
+  updateSidebars();
+  var toast = document.createElement('div');
+  toast.style.cssText='position:fixed;top:60px;right:20px;background:rgba(0,232,255,0.15);border:1px solid var(--cyan);color:var(--cyan);padding:14px 20px;font-family:VT323;font-size:14px;z-index:99999;animation:fadeSlide 3s forwards;';
+  toast.textContent=result.msg;
+  document.body.appendChild(toast);
+  setTimeout(function(){ toast.remove(); }, 3000);
 }
 
 function showLogin() {
