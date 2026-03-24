@@ -51,6 +51,9 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
 .form-input:focus,.form-select:focus{border-color:var(--cyan);box-shadow:0 0 8px rgba(0,232,255,0.2);}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
 .form-row-full{grid-column:1/-1;}
+.role-chip-wrap{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.role-chip{padding:6px 9px;border:1px solid rgba(0,232,255,0.3);font-size:10px;color:var(--cyan);background:#040404;cursor:pointer;}
+.role-chip.selected{border-color:var(--green);color:var(--green);background:rgba(0,255,65,0.08);}
 
 .faction-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;}
 .faction-card{padding:12px;border:1px solid rgba(0,232,255,0.2);background:#050505;cursor:pointer;transition:0.2s;text-align:center;}
@@ -139,6 +142,13 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
 .item-card{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:10px;margin-bottom:8px;border-radius:3px;display:flex;justify-content:space-between;align-items:center;}
 .item-name{font-size:12px;font-weight:bold;color:#fff;}
 .item-price{font-size:11px;color:var(--green);}
+.campaign-card{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:14px;margin-bottom:12px;border-radius:3px;}
+.campaign-title{font-size:13px;font-weight:bold;color:var(--cyan);margin-bottom:5px;}
+.campaign-meta{font-size:10px;color:#777;margin-bottom:6px;}
+.campaign-story{font-size:11px;color:#aaa;line-height:1.6;}
+.dossier{background:#050505;border-left:3px solid var(--red);padding:10px;margin-bottom:10px;}
+.dossier-name{font-size:12px;color:#fff;font-weight:bold;}
+.dossier-motive{font-size:10px;color:#aaa;margin-top:4px;line-height:1.5;}
 
 /* RESPONSIVE */
 @media(max-width:1024px){
@@ -191,7 +201,7 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
       </div>
     </div>
     <div class="header-nav">
-      <button class="nav-btn" onclick="loadWorld('codice-zone')">CODICE_ZONE</button>
+      <button class="nav-btn" onclick="loadWorld('codice')">CODICE_ZONE</button>
       <button class="nav-btn" onclick="loadWorld('market')">🏪 MARKET</button>
       <button class="nav-btn" onclick="loadWorld('guild')">⚔️ GUILD_HALL</button>
       <button class="nav-btn" onclick="showCharacterSheet()">📊 CHARACTER</button>
@@ -318,6 +328,36 @@ const GAME = {
   currentLocation: 'home-node',
 };
 
+const ADVERSARY_DOSSIERS = [
+  { name: 'BLACK_SPECTER', motive: 'Weaponizes zero-days against civic infrastructure to force black-market dependency.' },
+  { name: 'GRAY_FANG', motive: 'Builds extortion pipelines using ransomware and double-exfil pressure tactics.' },
+  { name: 'CINDER_VEIL', motive: 'Coordinates influence operations by blending breach data with synthetic narratives.' },
+];
+
+const CAMPAIGNS = [
+  {
+    id: 'arc-01',
+    title: 'Glass Harbor Breach',
+    chapter: 'Chapter 1 / Entry Vector',
+    cves: ['CVE-2024-3400', 'CVE-2024-21887'],
+    story: 'Palo and edge auth bypasses were chained to pivot into maritime customs. Your mission is to recover shipment manifests before Gray Fang sells route intelligence.',
+  },
+  {
+    id: 'arc-02',
+    title: 'Nexus Hospital Blackout',
+    chapter: 'Chapter 2 / Persistence Hunt',
+    cves: ['CVE-2023-34362', 'CVE-2021-41773'],
+    story: 'Critical care systems went dark after a stealth webshell deployment. You must map persistence and restore command channels without triggering panic broadcasts.',
+  },
+  {
+    id: 'arc-03',
+    title: 'Aurora Relay Exfil',
+    chapter: 'Chapter 3 / Counter-Exfil',
+    cves: ['CVE-2022-0543'],
+    story: 'Black Specter routed encrypted archives through a Redis SSRF chain. Intercept exfil blocks and frame-bust their operator network before dawn.',
+  },
+];
+
 const FACTIONS = {
   nomad: {
     name: 'NOMAD_COLLECTIVE',
@@ -352,6 +392,13 @@ const SKILLS = [
   { name: 'STEALTH', level: 1, maxLevel: 99, xp: 0, description: 'Evade detection systems' },
   { name: 'ENGINEERING', level: 1, maxLevel: 99, xp: 0, description: 'Build and repair gear' },
 ];
+
+const ROLE_BONUSES = {
+  HACKER: { hacking: 20, engineering: 10 },
+  INFILTRATOR: { stealth: 20, social: 10 },
+  ANALYST: { intelligence: 20, social: 10 },
+  OPERATOR: { combat: 20, engineering: 10 },
+};
 
 // ─── BOOT SEQUENCE ───────────────────────────────────────────────────────
 function runBootSequence() {
@@ -424,6 +471,26 @@ function showCharacterCreation() {
       <label class="form-label">OPERATIVE_NAME</label>
       <input type="text" id="char-name" class="form-input" placeholder="Your operative codename" maxlength="20">
     </div>
+
+    <div class="form-group">
+      <label class="form-label">OPERATIVE_CLASS</label>
+      <div class="role-chip-wrap" id="role-selector">
+        <button class="role-chip" onclick="selectRole('HACKER', this)">HACKER</button>
+        <button class="role-chip" onclick="selectRole('INFILTRATOR', this)">INFILTRATOR</button>
+        <button class="role-chip" onclick="selectRole('ANALYST', this)">ANALYST</button>
+        <button class="role-chip" onclick="selectRole('OPERATOR', this)">OPERATOR</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">BACKGROUND_ORIGIN</label>
+      <select id="char-origin" class="form-select">
+        <option value="district9">District-9 Refugee Network</option>
+        <option value="blackclinic">Black Clinic Red Team</option>
+        <option value="fllc-apprentice">FLLC Apprentice Program</option>
+        <option value="signal-cartel">Signal Cartel Defector</option>
+      </select>
+    </div>
     
     <div class="form-group">
       <label class="form-label">SELECT_FACTION</label>
@@ -447,7 +514,7 @@ function showCharacterCreation() {
     </div>
     
     <div id="faction-info" style="margin-top:16px;padding:12px;background:#050505;border:1px solid rgba(0,232,255,0.2);border-radius:3px;font-size:11px;color:#888;line-height:1.6;">
-      Select a faction to begin.
+      Select a faction and class to begin.
     </div>
     
     <div class="form-buttons">
@@ -458,6 +525,14 @@ function showCharacterCreation() {
 }
 
 let selectedFaction = null;
+let selectedRole = null;
+
+function selectRole(role, elem) {
+  selectedRole = role;
+  document.querySelectorAll('.role-chip').forEach(e => e.classList.remove('selected'));
+  elem.classList.add('selected');
+}
+
 function selectFaction(faction, elem) {
   selectedFaction = faction;
   document.querySelectorAll('.faction-card').forEach(e => e.classList.remove('selected'));
@@ -477,26 +552,35 @@ function selectFaction(faction, elem) {
 
 function finishCharacterCreation() {
   const name = document.getElementById('char-name').value.trim();
+  const origin = document.getElementById('char-origin').value;
   if (!name) { alert('Enter operative name'); return; }
   if (!selectedFaction) { alert('Select faction'); return; }
+  if (!selectedRole) { alert('Select operative class'); return; }
   
   GAME.player = {
     name: name,
     level: 1,
     xp: 0,
     faction: selectedFaction,
+    role: selectedRole,
+    origin: origin,
     hp: 100,
     maxHp: 100,
     credits: 1000,
     reputation: {},
     skills: SKILLS.map(s => ({...s})),
     inventory: [],
+    activeCampaign: CAMPAIGNS[0].id,
+    storyProgress: 0,
     joinedAt: new Date().toISOString(),
   };
   
   Object.keys(FACTIONS).forEach(f => {
     GAME.player.reputation[f] = f === selectedFaction ? 100 : 0;
   });
+
+  const roleBonus = ROLE_BONUSES[selectedRole] || {};
+  GAME.player.roleBonus = roleBonus;
   
   localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
   GAME.isAuthenticated = true;
@@ -515,7 +599,7 @@ function updatePlayerMenu() {
   document.getElementById('player-level').textContent = `LVL ${GAME.player.level}`;
   document.getElementById('player-faction').textContent = FACTIONS[GAME.player.faction].name;
   document.getElementById('profile-name').textContent = GAME.player.name;
-  document.getElementById('profile-title').textContent = FACTIONS[GAME.player.faction].name;
+  document.getElementById('profile-title').textContent = GAME.player.role + ' · ' + FACTIONS[GAME.player.faction].name;
 }
 
 function updateSidebars() {
@@ -541,6 +625,7 @@ function loadWorld(location) {
   const mainView = document.getElementById('main-view');
   
   if (location === 'home-node') {
+    const active = CAMPAIGNS.find(c => c.id === GAME.player.activeCampaign) || CAMPAIGNS[0];
     mainView.innerHTML = `
       <div style="max-width:900px;">
         <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">HOME_NODE — THE NEXUS</h2>
@@ -557,13 +642,27 @@ function loadWorld(location) {
           <button class="map-btn" style="margin-right:8px;" onclick="loadWorld('codice')">🔴 ENTER_CODICE_ZONE</button>
           <button class="map-btn" onclick="loadWorld('guild')">⚔️ GUILD_HALL</button>
         </div>
+        <div class="campaign-card">
+          <div class="campaign-title">ACTIVE_CAMPAIGN: ${active.title}</div>
+          <div class="campaign-meta">${active.chapter} | CVEs: ${active.cves.join(', ')}</div>
+          <div class="campaign-story">${active.story}</div>
+        </div>
       </div>
     `;
   } else if (location === 'mission-board') {
     mainView.innerHTML = `
       <div style="max-width:900px;">
         <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">MISSION_BOARD</h2>
-        <p style="color:#aaa;margin-bottom:20px;">Available contracts for operatives of all skill levels.</p>
+        <p style="color:#aaa;margin-bottom:20px;">Story contracts tied to live adversary tactics and known CVE exploitation chains.</p>
+
+        ${CAMPAIGNS.map(c => `
+          <div class="campaign-card">
+            <div class="campaign-title">${c.title}</div>
+            <div class="campaign-meta">${c.chapter} | CVE_CHAIN: ${c.cves.join(', ')}</div>
+            <div class="campaign-story">${c.story}</div>
+            <button class="map-btn" style="margin-top:10px;" onclick="setCampaign('${c.id}')">TRACK_CAMPAIGN</button>
+          </div>
+        `).join('')}
         
         <div class="quest" style="border-left-color:var(--green);background:#050505;padding:14px;margin-bottom:16px;">
           <div class="quest-title" style="color:var(--green);">RECON: Industrial Archive</div>
@@ -685,6 +784,11 @@ function showCharacterSheet() {
           <div class="char-stat-value">${p.reputation[p.faction]}</div>
           <div class="char-stat-subval">${faction.name}</div>
         </div>
+        <div class="char-stat-box">
+          <div class="char-stat-label">ROLE</div>
+          <div class="char-stat-value" style="font-size:18px;">${p.role}</div>
+          <div class="char-stat-subval">Origin: ${p.origin}</div>
+        </div>
       </div>
       
       <div style="margin-bottom:20px;">
@@ -697,8 +801,31 @@ function showCharacterSheet() {
           </div>
         `).join('')}
       </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-family:'Pixelify Sans';font-size:16px;color:var(--cyan);margin-bottom:12px;">ROLE BONUSES</div>
+        <div class="lore-box">${Object.entries(p.roleBonus || {}).map(([k,v]) => `${k.toUpperCase()} +${v}`).join(' | ') || 'No role bonus loaded'}</div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-family:'Pixelify Sans';font-size:16px;color:var(--cyan);margin-bottom:12px;">ADVERSARY DOSSIERS</div>
+        ${ADVERSARY_DOSSIERS.map(d => `
+          <div class="dossier">
+            <div class="dossier-name">${d.name}</div>
+            <div class="dossier-motive">${d.motive}</div>
+          </div>
+        `).join('')}
+      </div>
     </div>
   `;
+}
+
+function setCampaign(campaignId) {
+  GAME.player.activeCampaign = campaignId;
+  GAME.player.storyProgress = Math.min(100, (GAME.player.storyProgress || 0) + 10);
+  localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
+  alert('Campaign tracking updated. Story progress +10%.');
+  loadWorld('home-node');
 }
 
 function acceptMission() {

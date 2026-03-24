@@ -66,12 +66,27 @@ body{background:var(--dark);color:var(--cyan);font-family:'JetBrains Mono',monos
 
 #challenge-narrative{font-size:13px;line-height:1.6;color:#ccc;margin-bottom:16px;padding:12px;background:#050505;border-left:3px solid rgba(0,232,255,0.3);}
 
-#challenge-scenario{background:#000;border:1px solid #1a3a3a;padding:14px;margin-bottom:16px;font-size:11px;line-height:1.6;color:var(--green);font-family:'JetBrains Mono';max-height:180px;overflow-y:auto;}
+#challenge-scenario{background:#000;border:1px solid #1a3a3a;padding:12px;margin-bottom:14px;font-size:11px;line-height:1.6;color:var(--green);font-family:'JetBrains Mono';max-height:130px;overflow-y:auto;}
 .scenario-line{margin-bottom:3px;}
 .scenario-cmd{color:var(--cyan);}
 .scenario-out{color:var(--green);}
 .scenario-flag{color:var(--pink);font-weight:bold;}
 .scenario-comment{color:#666;}
+
+/* Terminal */
+#terminal-panel{border:1px solid rgba(0,232,255,0.25);background:#000;margin-bottom:14px;}
+#terminal-header{padding:8px 10px;background:#051419;border-bottom:1px solid rgba(0,232,255,0.2);font-family:'VT323';font-size:12px;color:var(--cyan);display:flex;justify-content:space-between;align-items:center;}
+#terminal-output{height:230px;overflow-y:auto;padding:10px;font-family:'JetBrains Mono';font-size:11px;line-height:1.5;color:var(--green);}
+.term-line{white-space:pre-wrap;word-break:break-word;margin-bottom:3px;}
+.term-line.prompt{color:var(--cyan);}
+.term-line.error{color:var(--red);}
+.term-line.warn{color:var(--orange);}
+.term-line.good{color:var(--green);}
+.term-line.info{color:#9cc4ff;}
+.term-line.flag{color:var(--pink);font-weight:bold;}
+#terminal-input-row{display:flex;gap:8px;padding:10px;border-top:1px solid rgba(0,232,255,0.12);background:#040404;}
+#terminal-input{flex:1;min-width:200px;background:#000;border:1px solid rgba(0,232,255,0.3);color:var(--cyan);font-family:'JetBrains Mono';font-size:12px;padding:9px;outline:none;border-radius:3px;}
+#terminal-input:focus{border-color:var(--cyan);box-shadow:0 0 8px rgba(0,232,255,0.2);}
 
 /* Challenge Actions */
 #flag-row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
@@ -92,10 +107,7 @@ body{background:var(--dark);color:var(--cyan);font-family:'JetBrains Mono',monos
 .btn-next{border-color:var(--pink);color:var(--pink);}
 .btn-next:hover{background:rgba(255,0,234,0.1);}
 
-#walkthrough{display:none;margin-top:16px;padding:12px;background:#050505;border:1px solid rgba(255,165,0,0.2);}
-#walkthrough h3{font-family:'Pixelify Sans';color:var(--orange);margin-bottom:10px;}
-.wt-step{margin-bottom:8px;padding:8px;background:#000;border-left:2px solid var(--orange);padding-left:12px;font-size:12px;line-height:1.5;}
-.wt-num{color:var(--orange);font-weight:bold;display:inline-block;min-width:20px;}
+#mission-help{display:none;margin-top:12px;padding:10px;background:#050505;border:1px solid rgba(255,165,0,0.2);font-size:11px;line-height:1.6;color:#bbb;}
 
 /* Event Log */
 #event-log{border:1px solid rgba(0,232,255,0.2);background:#060606;max-height:200px;display:flex;flex-direction:column;}
@@ -242,20 +254,33 @@ body{background:var(--dark);color:var(--cyan);font-family:'JetBrains Mono',monos
       
       <div id="challenge-narrative"></div>
       <div id="challenge-scenario"></div>
+
+      <div id="terminal-panel">
+        <div id="terminal-header">
+          <span>TERMINAL // COMMAND CHANNEL</span>
+          <span id="terminal-node-status">NODE READY</span>
+        </div>
+        <div id="terminal-output"></div>
+        <div id="terminal-input-row">
+          <input id="terminal-input" type="text" placeholder="Type command (help, nc -nlvp 4444, decode <base64>, submit FLAG{...})" autocomplete="off" spellcheck="false">
+          <button class="action-btn btn-primary" onclick="runTerminalInput()">RUN</button>
+          <button class="action-btn btn-hint" onclick="clearTerminal()">CLEAR</button>
+        </div>
+      </div>
       
       <div id="flag-row">
-        <input id="flag-input" type="text" placeholder="Enter flag or submit answer:" autocomplete="off" spellcheck="false">
+        <input id="flag-input" type="text" placeholder="Recovered flag appears here before submit" autocomplete="off" spellcheck="false">
         <button class="action-btn btn-success" onclick="submitFlag()">SUBMIT</button>
         <div id="flag-result"></div>
       </div>
       
       <div id="challenge-actions">
         <button class="action-btn btn-hint" onclick="showHint()">💡 HINT</button>
-        <button class="action-btn btn-primary" onclick="showWalkthrough()">📖 WALKTHROUGH</button>
+        <button class="action-btn btn-primary" onclick="showMissionHelp()">📟 TERMINAL_HELP</button>
         <button class="action-btn btn-next" id="next-btn" style="display:none;" onclick="nextChallenge()">NEXT NODE ▶</button>
       </div>
       
-      <div id="walkthrough"></div>
+      <div id="mission-help"></div>
     </div>
 
     <!-- EVENT LOG -->
@@ -318,6 +343,13 @@ const GAME_STATE = {
   nodesSolved: new Set(),
   toolsUnlocked: new Set(),
   sessionFlags: {},
+  terminal: {
+    history: [],
+    activePayload: '',
+    nodeReady: false,
+    decoded: false,
+    nodeStage: 0,
+  },
 };
 
 // ─── CHALLENGE DATABASE ─────────────────────────────────────────────────────
@@ -859,6 +891,26 @@ const CHALLENGES = [
 // Add more nodes (11-18) before nodes 19-20...
 // For brevity, I'll generate placeholders and fill in the core 5-10
 
+const ADVERSARIES = {
+  BLACK_SPECTER: {
+    motive: 'Steal sovereign research and auction access keys to private brokers.',
+  },
+  GRAY_FANG: {
+    motive: 'Disrupt logistics pipelines and force dependency on their ransomware infrastructure.',
+  },
+  CINDER_VEIL: {
+    motive: 'Exploit emergency response systems for political leverage and disinformation.',
+  },
+};
+
+const NODE_INTEL = {
+  1: { adversary: 'BLACK_SPECTER', cves: ['CVE-2021-41773'], story: 'Black Specter seeded beacon drift to mask command traffic inside rescue channels.' },
+  6: { adversary: 'GRAY_FANG', cves: ['CVE-2023-34362'], story: 'A patched MOVEit gateway was left exposed in a legacy DMZ and used for credential replay.' },
+  8: { adversary: 'BLACK_SPECTER', cves: ['CVE-2022-26352'], story: 'Weak cryptographic implementation mirrored a historical weak-key incident chain.' },
+  11: { adversary: 'CINDER_VEIL', cves: ['CVE-2024-3400', 'CVE-2024-21887'], story: 'Cinder Veil tracks high-CVSS vulns within hours and weaponizes public PoCs quickly.' },
+  19: { adversary: 'GRAY_FANG', cves: ['CVE-2022-0543', 'CVE-2021-41773'], story: 'SSRF and Redis persistence chain powers Gray Fang footholds across underfunded sectors.' },
+};
+
 // ─── HELPER FUNCTIONS ───────────────────────────────────────────────────────
 function generateSessionFlags() {
   GAME_STATE.sessionFlags = {};
@@ -904,6 +956,214 @@ function logEvent(msg, type = 'info') {
   logBody.scrollTop = logBody.scrollHeight;
 }
 
+function appendTerminalLine(text, type = 'info') {
+  const out = document.getElementById('terminal-output');
+  if (!out) return;
+  const line = document.createElement('div');
+  line.className = 'term-line ' + type;
+  line.textContent = text;
+  out.appendChild(line);
+  out.scrollTop = out.scrollHeight;
+}
+
+function clearTerminal() {
+  const out = document.getElementById('terminal-output');
+  if (out) out.innerHTML = '';
+  appendTerminalLine('Terminal buffer cleared.', 'info');
+}
+
+function updateTerminalNodeStatus(msg) {
+  const el = document.getElementById('terminal-node-status');
+  if (el) el.textContent = msg;
+}
+
+function setRecoveredFlag(flag) {
+  document.getElementById('flag-input').value = flag;
+  appendTerminalLine(flag, 'flag');
+  appendTerminalLine('Flag staged in input field. Run submit FLAG{...} or click SUBMIT.', 'good');
+}
+
+function extractBase64Candidates(text) {
+  const matches = text.match(/[A-Za-z0-9+/=]{24,}/g);
+  return matches || [];
+}
+
+function decodeB64Safe(raw) {
+  try {
+    return atob(raw);
+  } catch (e) {
+    return '';
+  }
+}
+
+function punishBadCommand() {
+  GAME_STATE.cognitive = Math.min(100, GAME_STATE.cognitive + 8);
+  GAME_STATE.detection = Math.min(100, GAME_STATE.detection + 4);
+  updateResourceMeters();
+}
+
+function missionIntelForCurrentNode() {
+  const ch = CHALLENGES[GAME_STATE.currentNode];
+  if (!ch) return null;
+  return NODE_INTEL[ch.id] || {
+    adversary: 'UNKNOWN_CELL',
+    cves: ['CVE-2021-44228'],
+    story: 'Signals imply an opportunistic actor replaying public exploit chains for fast access.',
+  };
+}
+
+function showMissionHelp() {
+  const ch = CHALLENGES[GAME_STATE.currentNode];
+  if (!ch) return;
+  const intel = missionIntelForCurrentNode();
+  const adv = ADVERSARIES[intel.adversary];
+  const helpEl = document.getElementById('mission-help');
+  if (helpEl.style.display === 'block') {
+    helpEl.style.display = 'none';
+    return;
+  }
+  const cveText = intel.cves.join(', ');
+  const motive = adv ? adv.motive : 'Actor motive unknown. Gather additional telemetry.';
+  helpEl.innerHTML =
+    '<strong style="color:var(--orange)">MISSION INTEL</strong><br>' +
+    'Adversary: <span style="color:var(--pink)">' + intel.adversary + '</span><br>' +
+    'Linked CVEs: <span style="color:var(--cyan)">' + cveText + '</span><br>' +
+    'Motive: ' + motive + '<br>' +
+    'Story: ' + intel.story + '<br><br>' +
+    'Terminal Flow: <span style="color:var(--green)">mission</span> -> <span style="color:var(--green)">recon</span> -> <span style="color:var(--green)">exploit/build</span> -> <span style="color:var(--green)">extract flag</span> -> submit.';
+  helpEl.style.display = 'block';
+}
+
+function resetTerminalForNode(ch) {
+  GAME_STATE.terminal.activePayload = '';
+  GAME_STATE.terminal.nodeReady = false;
+  GAME_STATE.terminal.decoded = false;
+  GAME_STATE.terminal.nodeStage = 0;
+  const out = document.getElementById('terminal-output');
+  if (out) out.innerHTML = '';
+  updateTerminalNodeStatus('NODE ' + ch.id + ' READY');
+  appendTerminalLine('FLLC terminal online. Type help for command list.', 'info');
+  appendTerminalLine('Mission loaded: ' + ch.name, 'good');
+}
+
+function handleNodeOneCommand(rawCmd, lowerCmd, ch) {
+  if (lowerCmd.includes('nc') && lowerCmd.includes('4444')) {
+    const scenarioOut = ch.scenario.filter(line => line.t === 'out').map(line => line.v);
+    scenarioOut.forEach((line) => {
+      appendTerminalLine(line, line.includes('LOST') ? 'warn' : 'good');
+    });
+    const candidates = extractBase64Candidates(scenarioOut.join(' '));
+    GAME_STATE.terminal.activePayload = candidates.length ? candidates[0] : '';
+    GAME_STATE.terminal.nodeReady = true;
+    GAME_STATE.terminal.nodeStage = 1;
+    updateTerminalNodeStatus('PAYLOAD CAPTURED');
+    return true;
+  }
+
+  const decodeAttempt = lowerCmd.startsWith('decode ') || lowerCmd.includes('base64 -d');
+  if (decodeAttempt) {
+    if (!GAME_STATE.terminal.nodeReady || !GAME_STATE.terminal.activePayload) {
+      appendTerminalLine('[ERROR] No captured signal. Run nc -nlvp 4444 first.', 'error');
+      punishBadCommand();
+      return true;
+    }
+    const payload = lowerCmd.startsWith('decode ')
+      ? rawCmd.slice(7).trim().replace(/^"|"$/g, '')
+      : GAME_STATE.terminal.activePayload;
+    const decoded = decodeB64Safe(payload);
+    if (!decoded) {
+      appendTerminalLine('[ERROR] Invalid base64 payload. Detection +4%.', 'error');
+      punishBadCommand();
+      return true;
+    }
+    appendTerminalLine(decoded, 'good');
+    GAME_STATE.terminal.decoded = true;
+    GAME_STATE.terminal.nodeStage = 2;
+    const flag = GAME_STATE.sessionFlags[ch.id];
+    setRecoveredFlag(flag);
+    updateTerminalNodeStatus('FLAG RECOVERED');
+    return true;
+  }
+  return false;
+}
+
+function runTerminalInput() {
+  const inputEl = document.getElementById('terminal-input');
+  if (!inputEl) return;
+  const rawCmd = inputEl.value.trim();
+  if (!rawCmd) return;
+
+  const ch = CHALLENGES[GAME_STATE.currentNode];
+  if (!ch) return;
+
+  GAME_STATE.terminal.history.push(rawCmd);
+  appendTerminalLine('$ ' + rawCmd, 'prompt');
+  inputEl.value = '';
+
+  const lowerCmd = rawCmd.toLowerCase();
+
+  if (lowerCmd === 'help') {
+    appendTerminalLine('Commands: help, mission, intel, cve, story, recon, exploit, build, analyze, connect 4444, nc -nlvp 4444, decode <payload>, extract flag, submit FLAG{...}', 'info');
+    return;
+  }
+
+  if (lowerCmd === 'mission' || lowerCmd === 'intel' || lowerCmd === 'story' || lowerCmd === 'cve') {
+    const intel = missionIntelForCurrentNode();
+    const adv = ADVERSARIES[intel.adversary];
+    appendTerminalLine('[THREAT] ' + intel.adversary, 'warn');
+    appendTerminalLine('[MOTIVE] ' + (adv ? adv.motive : 'Unknown'), 'info');
+    appendTerminalLine('[CVE] ' + intel.cves.join(', '), 'info');
+    appendTerminalLine('[NARRATIVE] ' + intel.story, 'info');
+    return;
+  }
+
+  if (ch.id === 1 && handleNodeOneCommand(rawCmd, lowerCmd, ch)) {
+    return;
+  }
+
+  if (lowerCmd === 'recon') {
+    GAME_STATE.terminal.nodeStage = Math.max(GAME_STATE.terminal.nodeStage, 1);
+    appendTerminalLine('[RECON] Surface mapped. Attack path confirmed.', 'good');
+    updateTerminalNodeStatus('RECON COMPLETE');
+    return;
+  }
+
+  if (lowerCmd === 'exploit' || lowerCmd === 'analyze' || lowerCmd === 'build') {
+    if (GAME_STATE.terminal.nodeStage < 1) {
+      appendTerminalLine('[ERROR] Missing recon stage. Run recon first.', 'error');
+      punishBadCommand();
+      return;
+    }
+    GAME_STATE.terminal.nodeStage = 2;
+    appendTerminalLine('[SUCCESS] Primary objective executed against target service.', 'good');
+    updateTerminalNodeStatus('OBJECTIVE EXECUTED');
+    return;
+  }
+
+  if (lowerCmd === 'extract flag') {
+    if (GAME_STATE.terminal.nodeStage < 2) {
+      appendTerminalLine('[ERROR] No foothold yet. Run exploit/build/analyze first.', 'error');
+      punishBadCommand();
+      return;
+    }
+    const flag = GAME_STATE.sessionFlags[ch.id];
+    setRecoveredFlag(flag);
+    GAME_STATE.terminal.nodeStage = 3;
+    updateTerminalNodeStatus('FLAG READY FOR SUBMIT');
+    return;
+  }
+
+  if (lowerCmd.startsWith('submit ')) {
+    const maybeFlag = rawCmd.slice(7).trim();
+    document.getElementById('flag-input').value = maybeFlag;
+    submitFlag();
+    return;
+  }
+
+  appendTerminalLine('[ERROR] Unknown command. Use help. Cognitive load +8%.', 'error');
+  punishBadCommand();
+}
+
 function submitFlag() {
   const ch = CHALLENGES[GAME_STATE.currentNode];
   if (!ch) return;
@@ -947,26 +1207,6 @@ function showHint() {
   updateStatsBar();
 }
 
-function showWalkthrough() {
-  const ch = CHALLENGES[GAME_STATE.currentNode];
-  if (!ch) return;
-  
-  const wtEl = document.getElementById('walkthrough');
-  if (wtEl.style.display === 'block') {
-    wtEl.style.display = 'none';
-    return;
-  }
-  
-  let html = '<h3>📖 ' + ch.name + '</h3>';
-  ch.walkthrough.forEach(step => {
-    html += `<div class="wt-step"><span class="wt-num">${step.n}.</span> ${step.t}</div>`;
-  });
-  
-  wtEl.innerHTML = html;
-  wtEl.style.display = 'block';
-  logEvent(`📖 Walkthrough opened for ${ch.name}`, 'info');
-}
-
 function nextChallenge() {
   const next = GAME_STATE.currentNode + 1;
   if (next < CHALLENGES.length) loadChallenge(next);
@@ -984,7 +1224,10 @@ function loadChallenge(idx) {
   typeBadges += `<span class="badge badge-difficulty">+${ch.xp} XP</span>`;
   
   document.getElementById('chall-meta').innerHTML = typeBadges;
-  document.getElementById('challenge-panel').className = 'type-' + (ch.type === 'CTF' ? 'ctf' : 'hack');
+  const panel = document.getElementById('challenge-panel');
+  panel.className = '';
+  panel.id = 'challenge-panel';
+  panel.classList.add('type-' + (ch.type === 'CTF' ? 'ctf' : 'hack'));
   
   document.getElementById('challenge-narrative').textContent = ch.narrative;
   
@@ -999,8 +1242,9 @@ function loadChallenge(idx) {
   
   document.getElementById('flag-input').value = '';
   document.getElementById('flag-result').style.display = 'none';
-  document.getElementById('walkthrough').style.display = 'none';
+  document.getElementById('mission-help').style.display = 'none';
   document.getElementById('next-btn').style.display = GAME_STATE.nodesSolved.has(idx) ? 'inline-block' : 'none';
+  resetTerminalForNode(ch);
   
   buildNetworkMap();
 }
@@ -1055,6 +1299,12 @@ window.addEventListener('load', () => {
   updateResourceMeters();
   updateStatsBar();
   logEvent('🎬 MISSION START: Data Convoy Escort initialized', 'info');
+  const terminalInput = document.getElementById('terminal-input');
+  if (terminalInput) {
+    terminalInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') runTerminalInput();
+    });
+  }
 });
 </script>
 
