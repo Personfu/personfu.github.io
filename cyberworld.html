@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:;">
-<title>🌐 CYBERWORLD MMORPG — FLLC Operative Network</title>
+<title>🌐 CYBERWORLD — Operation Starshield</title>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -196,8 +196,8 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
   <div class="header-content">
     <div class="header-left">
       <div>
-        <div class="header-title">🌐 CYBERWORLD MMORPG</div>
-        <div class="header-subtitle">FLLC Network | 2030 Hostile Cyberspace</div>
+        <div class="header-title">🌐 CYBERWORLD // Operation Starshield</div>
+        <div class="header-subtitle">FLLC Nexus | 2030 Hostile Cyberspace | Launch Chain Under Attack</div>
       </div>
     </div>
     <div class="header-nav">
@@ -685,11 +685,16 @@ function loadWorld(location) {
       <div style="max-width:900px;">
         <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">HOME_NODE — THE NEXUS</h2>
         <p style="color:#aaa;line-height:1.8;margin-bottom:16px;">
-          The Nexus is a neutral digital sanctuary maintained by the legendary FLLC collective. Here, operatives from all factions can rest, trade, and receive missions without fear of ambush.
+          In 2030, the internet is a battlespace. The Nexus is FLLC's neutral sanctuary where operatives gather, trade modules, train companions, and prepare for deep-route missions.
         </p>
         <p style="color:#aaa;line-height:1.8;margin-bottom:20px;">
-          Real-time threat feeds display on crystalline holo-displays. Market traders shout prices. Mission brokers stand ready with contracts. This is where your story truly begins.
+          Starshield is waiting on a private launch rail. Its payload is a continuity archive for civilization. Adversaries do not need to destroy the rocket; they only need to poison the launch chain. Every recovered fragment in CyberWorld pushes launch integrity back toward green.
         </p>
+        <div style="border:1px solid rgba(255,165,0,0.35);padding:14px;margin-bottom:18px;background:rgba(255,165,0,0.08);font-size:12px;line-height:1.6;color:#d9c5a4;">
+          <strong style="color:var(--orange);">STARSHIELD PRIORITY ALERT</strong><br>
+          The rocket launches soon. Its payload can rebuild the world. Its launch chain is under attack.<br>
+          Enter The Nexus. Build your tools. Trust your faction. Escort the data. Defend the launch.
+        </div>
         <div style="border:1px solid rgba(0,232,255,0.2);padding:16px;margin-bottom:20px;">
           <div style="font-weight:bold;color:var(--cyan);margin-bottom:10px;">AVAILABLE_ACTIONS</div>
           <button class="map-btn" style="margin-right:8px;" onclick="loadWorld('mission-board')">📋 MISSION_BOARD</button>
@@ -707,8 +712,14 @@ function loadWorld(location) {
   } else if (location === 'mission-board') {
     mainView.innerHTML = `
       <div style="max-width:900px;">
-        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">MISSION_BOARD</h2>
-        <p style="color:#aaa;margin-bottom:20px;">Story contracts tied to live adversary tactics and known CVE exploitation chains.</p>
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">MISSION_BOARD // STARSHIELD OPS</h2>
+        <p style="color:#aaa;margin-bottom:20px;">Contracts are tied to active threat actors, live CVE chains, and launch-route integrity for Operation Starshield.</p>
+
+        <div style="border:1px solid rgba(255,68,68,0.35);padding:14px;background:rgba(255,68,68,0.08);margin-bottom:14px;font-size:12px;line-height:1.6;color:#e8b2b2;">
+          <strong style="color:var(--red);">STARSHIELD PRIORITY ALERT</strong><br>
+          World archive launch sequence compromised. Threat actors detected across relay, telecom, archive, and infrastructure layers.
+          All available FLLC operatives report to The Nexus. The route will not hold itself.
+        </div>
 
         ${CAMPAIGNS.map(c => `
           <div class="campaign-card">
