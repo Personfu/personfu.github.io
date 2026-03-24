@@ -1,0 +1,38 @@
+{
+  "operation": {
+    "id": "operation-starshield",
+    "name": "Operation Starshield",
+    "chapter": "Chapter 3 / Launch Chain Defense",
+    "threatLevel": "SEVERE",
+    "primaryObjective": "Protect launch-critical payload fragments across compromised relay nodes",
+    "launchStatus": "CONVOY IN TRANSIT",
+    "brief": "Adversary coalitions are attacking uplink relays to block Starshield deployment. Every page reflects one surface of the same operation.",
+    "ticker": [
+      "STARSHIELD CONVOY: ROUTE INTEGRITY 84%",
+      "BLACK SPECTER: ACTIVE AGAINST EDGE RELAYS",
+      "GRAY FANG: RANSOMWARE PRESSURE IN CIVIC STACK",
+      "CINDER VEIL: SYNTHETIC INFLUENCE CAMPAIGN DETECTED",
+      "FLLC OPERATIVES: ESCORTING PAYLOAD THROUGH HOSTILE NODES"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "ch-01",
+      "title": "Glass Harbor Breach",
+      "focus": "Entry vector containment",
+      "status": "completed"
+    },
+    {
+      "id": "ch-02",
+      "title": "Nexus Hospital Blackout",
+      "focus": "Persistence disruption",
+      "status": "in-progress"
+    },
+    {
+      "id": "ch-03",
+      "title": "Aurora Relay Exfil",
+      "focus": "Counter-exfil and convoy escort",
+      "status": "in-progress"
+    }
+  ]
+}

@@ -174,7 +174,7 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
 
 </style>
 </head>
-<body>
+<body data-story-page="cyberworld">
 
 <div id="crt"></div>
 
@@ -196,8 +196,8 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
   <div class="header-content">
     <div class="header-left">
       <div>
-        <div class="header-title">🌐 CYBERWORLD // Operation Starshield</div>
-        <div class="header-subtitle">FLLC Nexus | 2030 Hostile Cyberspace | Launch Chain Under Attack</div>
+        <div class="header-title">🌐 CYBERWORLD // <span data-story="operation-name">Operation Starshield</span></div>
+        <div class="header-subtitle"><span data-story="campaign-brief">FLLC Nexus | 2030 Hostile Cyberspace | Launch Chain Under Attack</span></div>
       </div>
     </div>
     <div class="header-nav">
@@ -255,7 +255,7 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
   <!-- CENTER: MAIN WORLD VIEW -->
   <div id="main-content">
     <div class="world-map">
-      <div class="map-title">📡 CURRENT LOCATION: HOME_NODE</div>
+      <div class="map-title">📡 CURRENT LOCATION: HOME_NODE // <span data-story="campaign-chapter">Chapter Sync Pending</span></div>
       <div class="map-description">
         You awaken in the HOME_NODE, a neutral sanctuary within the Nexus—a massive data fortress designed by the legendary FLLC collective to shelter operatives during missions into hostile cyberspace.
         <br><br>
@@ -924,6 +924,9 @@ window.addEventListener('storage', (e) => {
 });
 
 </script>
+<script src="js/story-data.js"></script>
+<script src="js/story-engine.js"></script>
+<script src="js/story-sync.js"></script>
 
 </body>
 </html>

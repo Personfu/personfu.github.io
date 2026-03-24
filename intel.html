@@ -67,7 +67,7 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
 }
 </style>
 </head>
-<body>
+<body data-story-page="intel">
 <div id="crt-filter"></div>
 
 <div class="page-title">◈ INTEL_HUB — LIVE GLOBAL THREAT MONITOR ◈</div>
@@ -84,6 +84,7 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
 <div class="section">
   <div class="section-header">▶ LIVE_CVE_FEED // NVD THREAT INTELLIGENCE</div>
   <div class="section-body">
+    <div style="font-size:12px;color:var(--cyber-green);margin-bottom:10px;" data-story="intel-adversaries">ACTIVE STARSHIELD ADVERSARIES: SYNCING...</div>
     <div style="font-size:12px;color:#aaa;margin-bottom:10px;">⟳ Fetching from NVD API (services.nvd.nist.gov). Displayed in real-time — newest first.</div>
     <div id="nvd-status" style="font-size:12px;color:var(--cyber-yellow);margin-bottom:8px;"></div>
     <div id="cve-list"></div>
@@ -496,5 +497,8 @@ function addTTP(){
 for(let i=0;i<6;i++)addTTP();
 setInterval(addTTP,4000);
 </script>
+<script src="js/story-data.js"></script>
+<script src="js/story-engine.js"></script>
+<script src="js/story-sync.js"></script>
 </body>
 </html>

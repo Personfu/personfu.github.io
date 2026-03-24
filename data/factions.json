@@ -1,0 +1,22 @@
+{
+  "factions": [
+    {
+      "id": "fllc",
+      "name": "FLLC Collective",
+      "alignment": "defender",
+      "role": "Coordinates recovery operations and launch-chain escort missions"
+    },
+    {
+      "id": "nomad",
+      "name": "Nomad Collective",
+      "alignment": "neutral",
+      "role": "Independent operators offering route intelligence and temporary relay access"
+    },
+    {
+      "id": "corsair",
+      "name": "Corsair Brokers",
+      "alignment": "opportunist",
+      "role": "Trades volatile intel and access tokens in contested markets"
+    }
+  ]
+}

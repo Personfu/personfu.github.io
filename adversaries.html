@@ -60,7 +60,7 @@ body{background:var(--bg);color:var(--cyan);font-family:'JetBrains Mono',monospa
 @media(max-width:600px){.grid{grid-template-columns:1fr;}.controls{flex-direction:column;}.filter-btn{width:100%;text-align:center;}}
 </style>
 </head>
-<body>
+<body data-story-page="adversaries">
 <div id="crt"></div>
 
 <nav class="top-nav">
@@ -73,8 +73,8 @@ body{background:var(--bg);color:var(--cyan);font-family:'JetBrains Mono',monospa
 </nav>
 
 <div class="page-hdr">
-  <h1>☠️ ADVERSARY INTELLIGENCE DATABASE</h1>
-  <p>:: FURIOS-INT CLASSIFIED OSINT ARCHIVE // 30 THREAT ACTORS // TIER_EXTREME → TIER_LOW ::</p>
+  <h1>☠️ ADVERSARY INTELLIGENCE DATABASE // <span data-story="operation-name">STARSHIELD</span></h1>
+  <p data-story="adversary-discovery">:: FURIOS-INT CLASSIFIED OSINT ARCHIVE // 30 THREAT ACTORS // TIER_EXTREME → TIER_LOW ::</p>
 </div>
 
 <div class="tier-legend">
@@ -448,5 +448,8 @@ setInterval(function(){
 // Initial render
 renderCards(APTS);
 </script>
+<script src="js/story-data.js"></script>
+<script src="js/story-engine.js"></script>
+<script src="js/story-sync.js"></script>
 </body>
 </html>

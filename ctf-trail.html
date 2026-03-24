@@ -199,7 +199,7 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
 #stats-bar{animation:neon-border 3s ease-in-out infinite;}
 </style>
 </head>
-<body>
+<body data-story-page="ctf-trail">
 <div id="crt"></div>
 
 <nav class="top-nav">
@@ -211,13 +211,13 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
 </nav>
 
 <div class="page-title">
-  <h1 class="glitch-title">☠ CTF TRAIL</h1>
-  <p>Operation Starshield // Escort Launch-Critical Data Through 20 Hostile Nodes</p>
+  <h1 class="glitch-title">☠ CTF TRAIL // <span data-story="operation-name">Operation Starshield</span></h1>
+  <p data-story="primary-objective">Escort Launch-Critical Data Through 20 Hostile Nodes</p>
 </div>
 
 <!-- INTRO PANEL -->
 <div id="intro-panel">
-  <h2>⚡ Welcome to the CTF TRAIL</h2>
+  <h2>⚡ Welcome to the CTF TRAIL // <span data-story="campaign-chapter">Chapter Sync Pending</span></h2>
   <p>In 2030, the launch chain for Starshield is under coordinated attack. You are an FLLC operative tasked with escorting launch-critical payload fragments through 20 hostile nodes. Each challenge is a story beat in a larger operation: recover trust anchors, patch compromised relays, and keep the route alive until exfil reaches uplink.</p>
   <div id="legacy-notice">
     Guided mission path enabled. For full command-line simulation with terminal input and consequence-based routing, use
@@ -1085,5 +1085,8 @@ document.addEventListener('keydown', e => {
 
 // Show intro panel on load — user clicks BEGIN TRAIL to start
 </script>
+<script src="js/story-data.js"></script>
+<script src="js/story-engine.js"></script>
+<script src="js/story-sync.js"></script>
 </body>
 </html>

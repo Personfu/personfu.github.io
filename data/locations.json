@@ -1,0 +1,28 @@
+{
+  "locations": [
+    {
+      "id": "home-node",
+      "name": "HOME_NODE",
+      "type": "sanctuary",
+      "storyRole": "Mission coordination and recovery"
+    },
+    {
+      "id": "mission-board",
+      "name": "MISSION_BOARD",
+      "type": "command",
+      "storyRole": "Campaign chapter assignments and threat updates"
+    },
+    {
+      "id": "ctf-trail",
+      "name": "CTF_TRAIL",
+      "type": "escort-route",
+      "storyRole": "Guided launch-chain escort across 20 hostile nodes"
+    },
+    {
+      "id": "war-games",
+      "name": "WAR_GAMES ARENA",
+      "type": "training",
+      "storyRole": "Simulation environment for rapid adversary-response drills"
+    }
+  ]
+}

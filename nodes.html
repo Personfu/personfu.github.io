@@ -80,7 +80,7 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'JetBrains Mono',mon
 }
 </style>
 </head>
-<body>
+<body data-story-page="nodes">
 <div id="crt-filter"></div>
 
 <nav class="top-nav">
@@ -94,8 +94,8 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'JetBrains Mono',mon
 </nav>
 
 <div class="page-title">
-  <h1>PERSON_NODES // OPERATIVE_NETWORK</h1>
-  <p>:: SYNCHRONIZED OPERATIVE COORDINATION :: DISCORD-INTEGRATED COMMUNITY HUB ::</p>
+  <h1>PERSON_NODES // <span data-story="operation-name">OPERATIVE_NETWORK</span></h1>
+  <p data-story="page-role">:: SYNCHRONIZED OPERATIVE COORDINATION :: DISCORD-INTEGRATED COMMUNITY HUB ::</p>
 </div>
 
 <!-- COMMUNITY STATS -->
@@ -242,5 +242,8 @@ SIGNALS.forEach(function(s){
   sl.appendChild(el);
 });
 </script>
+<script src="js/story-data.js"></script>
+<script src="js/story-engine.js"></script>
+<script src="js/story-sync.js"></script>
 </body>
 </html>

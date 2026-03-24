@@ -176,14 +176,14 @@ body{background:var(--dark);color:var(--cyan);font-family:'JetBrains Mono',monos
 
 </style>
 </head>
-<body>
+<body data-story-page="cyberworld-game">
 
 <div id="crt"></div>
 
 <!-- HEADER -->
 <div class="header">
-  <div class="header-title">🌐 CYBERWORLD — OPERATION: STARSHIELD</div>
-  <div class="header-subtitle">FLLC Launch Defense Grid | Windows 98 Cyberpunk v2030 | Secure Uplink: ONLINE</div>
+  <div class="header-title">🌐 CYBERWORLD — <span data-story="operation-name">OPERATION: STARSHIELD</span></div>
+  <div class="header-subtitle"><span data-story="campaign-chapter">Chapter Sync Pending</span> | Launch Status: <span data-story="launch-status">ONLINE</span></div>
 </div>
 
 <!-- RESOURCE METERS -->
@@ -246,7 +246,7 @@ body{background:var(--dark);color:var(--cyan);font-family:'JetBrains Mono',monos
     <div id="challenge-panel">
       <div class="challenge-header">
         <div class="challenge-title">
-          <h2 id="chall-title">CYBERWORLD: Starshield Launch Escort</h2>
+          <h2 id="chall-title">CYBERWORLD: <span data-story="primary-objective">Starshield Launch Escort</span></h2>
           <div id="chall-num" style="font-family:'VT323';font-size:12px;color:#666;">Awaiting mission briefing...</div>
         </div>
         <div id="chall-meta" class="challenge-meta"></div>
@@ -1427,6 +1427,9 @@ window.addEventListener('load', () => {
   }
 });
 </script>
+<script src="js/story-data.js"></script>
+<script src="js/story-engine.js"></script>
+<script src="js/story-sync.js"></script>
 
 </body>
 </html>

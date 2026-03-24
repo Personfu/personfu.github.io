@@ -75,7 +75,7 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
 }
 </style>
 </head>
-<body>
+<body data-story-page="arcade">
 <div id="crt"></div>
 
 <nav class="nav">
@@ -89,8 +89,8 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
 </nav>
 
 <div class="hero">
-  <h1>🕹 CYBER_ARCADE</h1>
-  <p>:: FLLC OPERATIVE GAMING HUB :: SELECT A GAME TO BEGIN ::</p>
+  <h1>🕹 CYBER_ARCADE // <span data-story="operation-name">STARSHIELD</span></h1>
+  <p data-story="page-role">:: FLLC OPERATIVE GAMING HUB :: SELECT A GAME TO BEGIN ::</p>
 </div>
 
 <div class="game-selector">
@@ -861,5 +861,8 @@ function renderScores(){
 switchGame('snake');
 renderScores();
 </script>
+<script src="js/story-data.js"></script>
+<script src="js/story-engine.js"></script>
+<script src="js/story-sync.js"></script>
 </body>
 </html>

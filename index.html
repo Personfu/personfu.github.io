@@ -104,7 +104,7 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
 }
 </style>
 </head>
-<body>
+<body data-story-page="index">
 <div id="crt-filter"></div>
 <div id="boot-overlay">
   <div id="boot-log"></div>
@@ -117,20 +117,8 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
 <div id="scan-line"></div>
 
 <div id="status-ticker">
-  <span id="ticker-inner">
-    ⚡ FLLC_MAINFRAME: UPLINK STABLE &nbsp;|&nbsp;
-    CVE-2024-3400 [CRITICAL] PAN-OS Cmd Injection &nbsp;|&nbsp;
-    CVE-2024-21887 [CRITICAL] Ivanti Connect Secure RCE &nbsp;|&nbsp;
-    CVE-2025-0282 [CRITICAL] Ivanti Stack BoF &nbsp;|&nbsp;
-    WAR_GAMES: 12 active sessions &nbsp;|&nbsp;
-    AI_OVERSEER: 24/7 recon active &nbsp;|&nbsp;
-    CYBER_ARCADE: 4 GAMES LIVE &nbsp;|&nbsp;
-    CYBERWORLD: Oregon Trail-style CTF survival game LIVE &nbsp;|&nbsp;
-    CTF_TRAIL: 20 CHALLENGES · ORIGINAL MODE &nbsp;|&nbsp;
-    OPERATIVES ONLINE: 2,847 &nbsp;|&nbsp;
-    RESEARCH HUB: 3 new reports &nbsp;|&nbsp;
-    INTEL_HUB: LIVE THREAT FEED ACTIVE &nbsp;|&nbsp;
-    ⚡ FLLC_MAINFRAME: UPLINK STABLE
+  <span id="ticker-inner" data-story="ticker">
+    STARSHIELD FEED INITIALIZING...
   </span>
 </div>
 
@@ -234,7 +222,7 @@ body { background:#000; overflow:hidden; margin:0; font-family:'JetBrains Mono',
   </div>
   <div id="task-items" style="flex:1;"></div>
   <div id="tray">
-    <span style="font-family:'VT323';color:var(--cyber-green);font-size:12px;margin-right:8px;" id="threat-badge">⬤ THREAT:HIGH</span>
+    <span style="font-family:'VT323';color:var(--cyber-green);font-size:12px;margin-right:8px;" id="threat-badge">⬤ THREAT:<span data-story="threat-level">HIGH</span></span>
     <span id="clock" style="font-family:'VT323';color:#000;">00:00</span>
   </div>
 </div>
@@ -557,5 +545,8 @@ function runBoot(){
 }
 window.onload=runBoot;
 </script>
+<script src="js/story-data.js"></script>
+<script src="js/story-engine.js"></script>
+<script src="js/story-sync.js"></script>
 </body>
 </html>

@@ -307,14 +307,14 @@
     }
   </style>
 </head>
-<body>
+<body data-story-page="research">
 
 <div id="crt-filter"></div>
 
 <!-- HERO -->
 <div class="hero">
-  <h1>RESEARCH // ACADEMIC_CYBER_HUB</h1>
-  <p class="tagline">The frontline of academic cyber exploration. Powered by FLLC.</p>
+  <h1>RESEARCH // <span data-story="operation-name">ACADEMIC_CYBER_HUB</span></h1>
+  <p class="tagline" data-story="page-role">The frontline of academic cyber exploration. Powered by FLLC.</p>
 </div>
 
 <!-- ===== RESEARCH PAPERS ===== -->
@@ -635,6 +635,9 @@
     setInterval(tick,1000);
   })();
 </script>
+<script src="js/story-data.js"></script>
+<script src="js/story-engine.js"></script>
+<script src="js/story-sync.js"></script>
 
 </body>
 </html>

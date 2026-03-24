@@ -1,0 +1,22 @@
+{
+  "adversaries": [
+    {
+      "id": "black-specter",
+      "name": "BLACK_SPECTER",
+      "pressure": "Exploits edge CVEs to force launch delay windows",
+      "priority": "critical"
+    },
+    {
+      "id": "gray-fang",
+      "name": "GRAY_FANG",
+      "pressure": "Runs double-extortion operations against logistics providers",
+      "priority": "high"
+    },
+    {
+      "id": "cinder-veil",
+      "name": "CINDER_VEIL",
+      "pressure": "Injects influence narratives to degrade operator trust",
+      "priority": "high"
+    }
+  ]
+}

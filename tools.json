@@ -113,7 +113,14 @@
     {"name": "spaceship-prompt", "path": "spaceship-prompt/spaceship-prompt", "description": "Customizable Zsh prompt", "stars": "20419"},
     {"name": "bat", "path": "sharkdp/bat", "description": "Cat clone with syntax highlighting", "stars": "57800"},
     {"name": "dwarfs", "path": "mhx/dwarfs", "description": "High-compression read-only filesystem", "stars": "2524"},
-    {"name": "CyberChef", "path": "gchq/CyberChef", "description": "The Cyber Swiss Army Knife", "stars": "34391"},
-    {"name": "FURY", "path": "Personfu/FURY", "description": "Custom Kalilinux Project", "stars": "1"}
-  ]
+    {"name": "CyberChef", "path": "gchq/CyberChef", "description": "The Cyber Swiss Army Knife", "stars": "34391", "story_tag": "decode"},
+    {"name": "FURY", "path": "Personfu/FURY", "description": "Custom Kalilinux Project", "stars": "1", "story_tag": "operations"}
+  ],
+  "story_meta": {
+    "campaign": "operation-starshield",
+    "unlock_examples": {
+      "decode": "ctf-node-01",
+      "operations": "mission-board"
+    }
+  }
 }

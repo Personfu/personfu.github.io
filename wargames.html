@@ -89,7 +89,7 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'JetBrains Mono',mon
 }
 </style>
 </head>
-<body>
+<body data-story-page="wargames">
 <div id="crt-filter"></div>
 
 <nav class="top-nav">
@@ -104,8 +104,8 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'JetBrains Mono',mon
 </nav>
 
 <div class="page-title">
-  <h1>WAR_GAMES // CYBER_ARENA</h1>
-  <p>:: INTERACTIVE HACKING SIMULATION BATTLEGROUND :: FLLC OPERATIVE TRAINING ::</p>
+  <h1>WAR_GAMES // <span data-story="operation-name">CYBER_ARENA</span></h1>
+  <p data-story="page-role">:: INTERACTIVE HACKING SIMULATION BATTLEGROUND :: FLLC OPERATIVE TRAINING ::</p>
 </div>
 
 <!-- ARENA STATUS -->
@@ -387,5 +387,8 @@ setTimeout(function(){
   });
 },400);
 </script>
+<script src="js/story-data.js"></script>
+<script src="js/story-engine.js"></script>
+<script src="js/story-sync.js"></script>
 </body>
 </html>
