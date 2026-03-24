@@ -4,7 +4,7 @@
   var TOKEN_KEY = 'cyberworld-auth-token';
   var API_KEY = 'cyberworld-api-base';
   // Production backend — update this after deploying to Railway, Render, or your custom domain
-  var PRODUCTION_API = 'https://cyberworld-api.up.railway.app';
+  var PRODUCTION_API = 'https://personfugithubio-production.up.railway.app';
 
   function trimBase(base) {
     return String(base || '').replace(/\/$/, '');

@@ -4,5 +4,5 @@ COPY package*.json ./
 RUN npm install --omit=dev
 COPY . .
 ENV PORT=8787
-EXPOSE ${PORT}
+EXPOSE 8787
 CMD ["npm", "start"]
