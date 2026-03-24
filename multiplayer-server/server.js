@@ -657,9 +657,14 @@ io.on('connection', (socket) => {
 
 // ── Startup ──
 (async () => {
-  await ensureSchema();
-  server.listen(PORT, () => {
-    console.log(`CyberWorld multiplayer server listening on http://localhost:${PORT}`);
+  try {
+    await ensureSchema();
+  } catch (err) {
+    console.error('[DB] Schema init failed (server will start without DB):', err.message);
+    usePostgres = false;
+  }
+  server.listen(PORT, '0.0.0.0', () => {
+    console.log(`CyberWorld multiplayer server listening on 0.0.0.0:${PORT}`);
     if (usePostgres) console.log('[DB] Connected to PostgreSQL');
     if (stripe) console.log('[Stripe] Webhook endpoint: POST /api/stripe/webhook');
   });
