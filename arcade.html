@@ -71,74 +71,15 @@
 </head>
 <body>
   <!-- Floating Overlay Toggle Button -->
-  <button id="overlay-toggle" class="btn" aria-controls="rubric-overlay tutorial-overlay" aria-expanded="false" style="position:fixed;top:24px;right:24px;z-index:1001;background:#ff00ea;color:#fff;box-shadow:0 0 18px #ff00ea88;">Show Rubric / Tutorial</button>
-  <!-- Rubric Overlay -->
-  <div id="rubric-overlay" class="overlay-panel" role="dialog" aria-modal="true" aria-label="Rubric Mapping" tabindex="-1" style="display:none;">
-    <h2 style="color:#ffe700;">Rubric Mapping</h2>
-    <ul style="font-size:18px;line-height:1.7;">
-      <li><b>Five major Python competencies</b> are demonstrated in both the web and Python versions.</li>
-          /* Animated Neon Nav Bar */
-          .personal-nav .nav-link {
-            padding: 6px 18px;
-            border-radius: 8px;
-            box-shadow: 0 0 8px #00e8ff44;
-            position: relative;
-            background: rgba(0,232,255,0.04);
-            margin-bottom: 2px;
-          }
-          .personal-nav .nav-link:hover, .personal-nav .nav-link:focus {
-            color: #fff;
-            background: #00e8ff;
-            box-shadow: 0 0 18px #00e8ff, 0 0 4px #ff00ea;
-            outline: 2px solid #ffe700;
-            text-shadow: 0 0 8px #ffe700, 0 0 2px #00ff41;
-          }
-          /* Animated CRT Scanlines */
-          body:before {
-            content: '';
-            pointer-events: none;
-            position: fixed; left:0; top:0; width:100vw; height:100vh;
-            background: repeating-linear-gradient(180deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.13) 2px,transparent 4px,transparent 8px);
-            z-index: 998;
-            mix-blend-mode: multiply;
-            animation: scanlines 1.2s linear infinite;
-          }
-          @keyframes scanlines {
-            0% { background-position-y: 0; }
-            100% { background-position-y: 8px; }
-          }
-          /* Footer polish */
-          .footer {
-            margin: 48px 0 0 0;
-            text-align: center;
-            color: #666;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-            border-top: 2px solid #00e8ff33;
-            padding-top: 18px;
-            background: linear-gradient(90deg,rgba(0,232,255,0.04),rgba(255,0,234,0.04));
-            box-shadow: 0 -2px 18px #00e8ff22;
-          }
-          /* Accessibility: focus ring for all interactive elements */
-          button:focus, a:focus, .btn:focus {
-            outline: 2px solid #ffe700 !important;
-            outline-offset: 2px;
-            box-shadow: 0 0 8px #ffe70099;
-          }
-      <li><b>All code is original</b>, with professional comments and clear instructions.</li>
-      <li><b>Lesson/tutorial</b> is included and fully explains all concepts and usage.</li>
-      <li><b>Application is flawless</b> and easy to use, with a modern, engaging CyberWorld theme.</li>
-    </ul>
-    <button class="btn" onclick="hideOverlay()" style="margin-top:18px;">Close</button>
-  </div>
+  <button id="overlay-toggle" class="btn" aria-controls="tutorial-overlay" aria-expanded="false" style="position:fixed;top:24px;right:24px;z-index:1001;background:#ff00ea;color:#fff;box-shadow:0 0 18px #ff00ea88;">Show Tutorial</button>
   <!-- Tutorial Overlay -->
   <div id="tutorial-overlay" class="overlay-panel" role="dialog" aria-modal="true" aria-label="Interactive Tutorial" tabindex="-1" style="display:none;max-width:700px;">
-    <h2 style="color:#00ff41;">Interactive Tutorial</h2>
+    <h2 style="color:#00ff41;">How to Crush This Project</h2>
     <ol style="font-size:17px;line-height:1.7;">
-      <li>Play the game above or download the Python version.</li>
-      <li>Read the <a href="final_project_tutorial.html" style="color:#ff00ea;text-decoration:underline;">full tutorial & lesson here</a>.</li>
-      <li>Review the code comments for explanations of each Python concept.</li>
-      <li>Try modifying the code to create your own CyberWorld adventure!</li>
+      <li>Play the game above or grab the Python version to run on your own machine.</li>
+      <li>Check out the <a href="final_project_tutorial.html" style="color:#ff00ea;text-decoration:underline;">step-by-step tutorial</a> for a full walkthrough.</li>
+      <li>Read the code comments—they’re written for real people, not robots.</li>
+      <li>Want to flex? Try changing the code or adding your own twist!</li>
     </ol>
     <button class="btn" onclick="hideOverlay()" style="margin-top:18px;">Close</button>
   </div>
@@ -147,16 +88,16 @@
     <section class="personal-section" style="margin:36px auto 0 auto;max-width:900px;padding:24px 18px 18px 18px;background:rgba(0,232,255,0.04);border-radius:16px;box-shadow:0 0 18px #00e8ff22;">
       <h2 style="color:#ff00ea;font-family:'Pixelify Sans';margin-top:0;">👾 About Me</h2>
       <div style="font-family:'VT323';font-size:20px;color:#00e8ff;line-height:1.6;max-width:700px;">
-        Hi! I'm Preston Furulie, a creative coder, game designer, and digital explorer. This site is my playground for fun projects, experiments, and learning adventures.<br>
-        <b>Interests:</b> Python, JavaScript, AI, retro games, pixel art, cyberpunk, and building cool things for the web.<br>
-        <b>Fun Fact:</b> I love blending art and code to make interactive stories and games!
+        Hi! I'm <b>Person</b>, a CIS student and creative coder. This site is my playground for fun projects, experiments, and learning adventures for my CIS class and beyond.<br>
+        <b>Interests:</b> Python, JavaScript, cybersecurity, retro games, pixel art, and building cool things for the web.<br>
+        <b>Fun Fact:</b> I love blending art and code to make interactive stories, games, and tutorials that help others learn!
       </div>
       <h2 style="color:#00ff41;font-family:'Pixelify Sans';margin-top:32px;">🖼️ CyberWorld Gallery</h2>
       <div style="display:flex;flex-wrap:wrap;gap:18px;margin-bottom:18px;">
         <div style="flex:1 1 220px;min-width:220px;background:#08080f;border:2px solid #00e8ff;border-radius:10px;padding:14px;box-shadow:0 0 12px #00e8ff33;">
           <h3 style="color:#ffe700;margin:0 0 8px 0;">Pixel Art: Neon City</h3>
           <img src="https://personfu.github.io/assets/neoncity.png" alt="Neon City Pixel Art" style="width:100%;border-radius:6px;box-shadow:0 0 8px #00e8ff55;">
-          <div style="font-size:15px;color:#00e8ff;margin-top:6px;">A tiny cityscape made in Aseprite. Click to see more soon!</div>
+          <div style="font-size:15px;color:#00e8ff;margin-top:6px;">A tiny cityscape made in Aseprite. (More art coming soon!)</div>
         </div>
         <div style="flex:1 1 220px;min-width:220px;background:#08080f;border:2px solid #ff00ea;border-radius:10px;padding:14px;box-shadow:0 0 12px #ff00ea33;">
           <h3 style="color:#ff00ea;margin:0 0 8px 0;">Mini Game: Glitch Snake</h3>
@@ -169,12 +110,12 @@
           <div style="font-size:15px;color:#ffe700;margin-top:6px;">AI-generated art inspired by cybernetic dreams.</div>
         </div>
       </div>
-      <h2 style="color:#00e8ff;font-family:'Pixelify Sans';margin-top:32px;">📰 What's New</h2>
+      <h2 style="color:#00e8ff;font-family:'Pixelify Sans';margin-top:32px;">📰 What’s New</h2>
       <div style="font-family:'VT323';font-size:17px;color:#00e8ff;max-width:700px;">
-        <b>April 2026:</b> Launched the CyberWorld Survival Game and interactive tutorial for my Python final!<br>
+        <b>April 2026:</b> Launched the CyberWorld Survival Game and interactive tutorial for my CIS Python final!<br>
         <b>March 2026:</b> Added new pixel art and started work on Glitch Snake.<br>
         <b>February 2026:</b> Experimented with AI art and generative code.<br>
-        <i>Check back for more fun projects and updates!</i>
+        <i>Check back for more CIS projects and updates!</i>
       </div>
     </section>
     <h1>🌐 CyberWorld Survival Game</h1>
@@ -190,84 +131,81 @@
         <a class="download-link" href="CyberWorldRunner.py" download>Download Python Version</a>
       </div>
     </div>
-    <h2>📋 Rubric Mapping</h2>
-    <div class="rubric">
+    <h2>🗝️ My CIS Python Final Project</h2>
+    <div class="rubric" style="background:rgba(0,232,255,0.08);border:2px solid #00e8ff;">
+      <b>For my final, I’m building a totally original arcade-style game right here on <a href="https://personfu.github.io/arcade.html" style="color:#00e8ff;">personfu.github.io/arcade.html</a> using Python and Pygame.</b> The vibe: simple, interactive, and fun. You control a character, collect stuff, dodge obstacles, and the challenge ramps up as you go. All the code is mine—no copy-paste, no recycled projects, and every line is commented so you know what’s up.<br><br>
+      <b>Here’s what I’m showing off:</b>
       <ul style="font-size:17px;line-height:1.7;">
-        <li><b>Five major Python competencies</b> are demonstrated in both the web and Python versions.</li>
-        <li><b>All code is original</b>, with professional comments and clear instructions.</li>
-        <li><b>Lesson/tutorial</b> is included and fully explains all concepts and usage.</li>
-        <li><b>Application is flawless</b> and easy to use, with a modern, engaging CyberWorld theme.</li>
+        <li><b>Control structures</b> (<code>if/else</code>, <code>for</code>, <code>while</code>) for game logic, movement, and checking for collisions or game over.</li>
+        <li><b>Functions</b> to keep the code organized—starting the game, handling input, updating everything, drawing the world.</li>
+        <li><b>Classes & objects</b> for the player, items, and obstacles (object-oriented style, both in JS and Python).</li>
+        <li><b>Error handling</b> with <code>try/except</code> for stuff like file loading or weird user input.</li>
+        <li><b>Lists (arrays)</b> to track all the items and obstacles, and to add, remove, or update them as the game runs.</li>
       </ul>
+      <b>The tutorial (linked below) breaks down:</b>
+      <ul style="font-size:17px;line-height:1.7;">
+        <li>How the game works</li>
+        <li>How to run it (web & Python)</li>
+        <li>Where each Python topic shows up in the code</li>
+        <li>How you can remix or add your own features</li>
+      </ul>
+      Everything here is 100% original and made just for this class. All code is clearly commented so you can follow along or build your own version.
     </div>
     <h2>💡 Python Concepts in Action</h2>
     <table class="concepts-table">
-      <tr><th>Concept</th><th>How It's Used</th></tr>
-      <tr><td>Control Structures</td><td>Main game loop, event choices, win/lose logic</td></tr>
-      <tr><td>Error Handling</td><td>Input validation, safe resource management</td></tr>
-      <tr><td>Classes & Methods</td><td>Player, Node, and Game classes (JS & Python)</td></tr>
-      <tr><td>Recursion</td><td>Path/maze generation, random event chains</td></tr>
-      <tr><td>Array Processing</td><td>Resource/event lists, node history, scoreboards</td></tr>
+      <tr><th>Concept</th><th>How I Use It</th></tr>
+      <tr><td>Control Structures</td><td>Game loop, event choices, win/lose logic</td></tr>
+      <tr><td>Error Handling</td><td>Input checks, resource fails, keeping the game from crashing</td></tr>
+      <tr><td>Classes & Objects</td><td>Player, Node, and Game classes (in both JS & Python)</td></tr>
+      <tr><td>Recursion</td><td>Random event chains, path/maze generation</td></tr>
+      <tr><td>List/Array Processing</td><td>Lists for resources, node history, and scoreboards</td></tr>
     </table>
       <!-- Python Concepts Overlay Buttons -->
       <div style="margin:18px 0 0 0;display:flex;flex-wrap:wrap;gap:12px;">
-        <button class="btn" onclick="showConcept('control')">Show Control Structures Example</button>
-        <button class="btn" onclick="showConcept('error')">Show Error Handling Example</button>
-        <button class="btn" onclick="showConcept('class')">Show Classes & Methods Example</button>
-        <button class="btn" onclick="showConcept('recursion')">Show Recursion Example</button>
-        <button class="btn" onclick="showConcept('array')">Show Array Processing Example</button>
+        <button class="btn" onclick="showConcept('control')">Control Structures Example</button>
+        <button class="btn" onclick="showConcept('error')">Error Handling Example</button>
+        <button class="btn" onclick="showConcept('class')">Classes & Objects Example</button>
+        <button class="btn" onclick="showConcept('recursion')">Recursion Example</button>
+        <button class="btn" onclick="showConcept('array')">List/Array Example</button>
       </div>
       <!-- Python Concepts Overlays -->
       <div id="concept-overlay" class="overlay-panel" role="dialog" aria-modal="true" aria-label="Python Concept Example" tabindex="-1" style="display:none;max-width:700px;"></div>
     <h2>📝 Interactive Tutorial & Documentation</h2>
     <div style="font-family:'VT323';font-size:18px;color:#00e8ff;margin:12px 0 18px 0;">
-      <b>Step 1:</b> Play the game above or download the Python version.<br>
-      <b>Step 2:</b> Read the <a href="final_project_tutorial.html" style="color:#ff00ea;text-decoration:underline;">full tutorial & lesson here</a>.<br>
-      <b>Step 3:</b> Review the code comments for explanations of each Python concept.<br>
-      <b>Step 4:</b> Try modifying the code to create your own CyberWorld adventure!
+      <b>Step 1:</b> Play the game or download the Python version.<br>
+      <b>Step 2:</b> Read the <a href="final_project_tutorial.html" style="color:#ff00ea;text-decoration:underline;">tutorial & walkthrough</a>.<br>
+      <b>Step 3:</b> Check the code comments for real explanations.<br>
+      <b>Step 4:</b> Remix the code or add your own features—make it yours!
     </div>
     <h2>❓ FAQ & Help</h2>
     <div class="faq">
       <details><summary>How do I play?</summary><div>Click "Start New Game" and use the arrow keys. Survive all 10 nodes by making smart choices and managing your resources.</div></details>
       <details><summary>How do I run the Python version?</summary><div>Download <b>CyberWorldRunner.py</b> and run it with Python 3.8+ using <code>python CyberWorldRunner.py</code> in your terminal.</div></details>
-      <details><summary>Where can I find explanations for each Python concept?</summary><div>See the <a href="final_project_tutorial.html" style="color:#ff00ea;text-decoration:underline;">Final Project Tutorial</a> for detailed explanations, code samples, and a breakdown of all five competencies.</div></details>
-      <details><summary>Can I use this project as a template for my own?</summary><div>Yes! This project is free for educational use. Please credit the original author and make your own changes to demonstrate your learning.</div></details>
+      <details><summary>Where are the Python explanations?</summary><div>See the <a href="final_project_tutorial.html" style="color:#ff00ea;text-decoration:underline;">tutorial</a> for code breakdowns and real talk on each concept.</div></details>
+      <details><summary>Can I remix this project?</summary><div>Absolutely! This is for learning—make it your own, just give a shoutout to the original if you share it.</div></details>
     </div>
   </main>
   <footer class="footer">Created by Preston Furulie · Python Final Project · All code original and professionally commented · Free for educational use</footer>
     <script>
-      // Overlay logic
+      // Overlay logic (no rubric)
       const overlayToggle = document.getElementById('overlay-toggle');
-      const rubricOverlay = document.getElementById('rubric-overlay');
       const tutorialOverlay = document.getElementById('tutorial-overlay');
-      let overlayState = 0;
+      let overlayOpen = false;
       overlayToggle.addEventListener('click',()=>{
-        overlayState = (overlayState+1)%3;
-        if(overlayState===1){
-          rubricOverlay.style.display='block';
-          tutorialOverlay.style.display='none';
-          overlayToggle.setAttribute('aria-expanded','true');
-          rubricOverlay.focus();
-        }else if(overlayState===2){
-          rubricOverlay.style.display='none';
-          tutorialOverlay.style.display='block';
-          overlayToggle.setAttribute('aria-expanded','true');
-          tutorialOverlay.focus();
-        }else{
-          rubricOverlay.style.display='none';
-          tutorialOverlay.style.display='none';
-          overlayToggle.setAttribute('aria-expanded','false');
-        }
+        overlayOpen = !overlayOpen;
+        tutorialOverlay.style.display = overlayOpen ? 'block' : 'none';
+        overlayToggle.setAttribute('aria-expanded', overlayOpen ? 'true' : 'false');
+        if(overlayOpen) tutorialOverlay.focus();
       });
       function hideOverlay(){
-        rubricOverlay.style.display='none';
         tutorialOverlay.style.display='none';
         overlayToggle.setAttribute('aria-expanded','false');
-        overlayState=0;
+        overlayOpen=false;
         overlayToggle.focus();
       }
-      // Keyboard accessibility: ESC closes overlays
+      // Keyboard accessibility: ESC closes overlay
       document.addEventListener('keydown',e=>{
-        if((rubricOverlay.style.display==='block'||tutorialOverlay.style.display==='block')&&e.key==='Escape'){
+        if(tutorialOverlay.style.display==='block'&&e.key==='Escape'){
           hideOverlay();
         }
       });
