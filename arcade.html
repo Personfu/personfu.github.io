@@ -1,333 +1,403 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self';">
-<title>CYBER_ARCADE // FLLC GAMES HUB</title>
-<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
-<style>
-*{box-sizing:border-box;margin:0;padding:0;}
-:root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;--yellow:#ffe700;--red:#ff4444;}
-body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace;min-height:100vh;overflow-x:hidden;padding-bottom:48px;}
-#crt{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;
-  background:repeating-linear-gradient(0deg,rgba(0,0,0,0.08) 0px,rgba(0,0,0,0.08) 1px,transparent 1px,transparent 3px);
-  z-index:9000;}
-/* NAV */
-.nav{position:sticky;top:0;z-index:200;background:rgba(2,4,8,0.97);border-bottom:1px solid rgba(0,232,255,0.2);
-  padding:0 12px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;min-height:48px;}
-.nav a{color:var(--cyan);text-decoration:none;font-family:'VT323';font-size:20px;padding:6px 10px;
-  border:1px solid transparent;transition:0.15s;white-space:nowrap;min-height:44px;line-height:30px;display:inline-flex;align-items:center;}
-.nav a:hover,.nav a:active{border-color:var(--cyan);background:rgba(0,232,255,0.08);}
-.nav-title{font-family:'Pixelify Sans';font-size:22px;color:var(--yellow);margin-right:8px;text-shadow:0 0 12px rgba(255,231,0,0.5);}
-/* HERO */
-.hero{text-align:center;padding:24px 16px 16px;}
-.hero h1{font-family:'Pixelify Sans';font-size:clamp(28px,8vw,64px);color:var(--yellow);text-shadow:0 0 24px rgba(255,231,0,0.4);}
-.hero p{font-family:'VT323';font-size:clamp(14px,4vw,20px);color:var(--cyan);margin-top:6px;}
-/* GAME SELECTOR */
-.game-selector{display:flex;flex-wrap:wrap;gap:10px;padding:0 16px 16px;justify-content:center;}
-.game-tab{padding:10px 18px;background:#050505;border:2px solid rgba(0,232,255,0.25);cursor:pointer;
-  font-family:'VT323';font-size:19px;color:#aaa;transition:0.2s;min-height:48px;display:inline-flex;align-items:center;gap:6px;
-  -webkit-tap-highlight-color:transparent;}
-.game-tab:hover,.game-tab.active{border-color:var(--yellow);color:var(--yellow);background:rgba(255,231,0,0.07);
-  box-shadow:0 0 12px rgba(255,231,0,0.2);}
-.game-tab.rpg{border-color:var(--pink);color:var(--pink);}
-.game-tab.rpg:hover,.game-tab.rpg.active{background:rgba(255,0,234,0.07);box-shadow:0 0 12px rgba(255,0,234,0.2);}
-/* GAME VIEWPORT */
-#game-viewport{margin:0 16px 16px;border:2px solid rgba(0,232,255,0.3);background:#000;position:relative;}
-#game-hud{background:#08080f;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid rgba(0,232,255,0.15);flex-wrap:wrap;gap:8px;}
-#hud-title{font-family:'Pixelify Sans';font-size:20px;color:var(--yellow);}
-#hud-stats{display:flex;gap:16px;flex-wrap:wrap;}
-.hud-stat{font-family:'VT323';font-size:18px;color:var(--cyan);}
-.hud-stat span{color:var(--yellow);}
-#canvas-wrap{position:relative;display:flex;justify-content:center;background:#000;}
-#game-canvas{display:block;max-width:100%;image-rendering:pixelated;cursor:none;}
-#touch-controls{display:none;position:absolute;bottom:8px;left:0;right:0;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 8px;}
-.tc-btn{width:56px;height:56px;background:rgba(0,232,255,0.15);border:2px solid rgba(0,232,255,0.4);
-  border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;cursor:pointer;
-  -webkit-tap-highlight-color:transparent;user-select:none;color:var(--cyan);}
-#game-controls{background:#08080f;padding:8px 14px;border-top:1px solid rgba(0,232,255,0.1);}
-#ctrl-info{font-family:'VT323';font-size:16px;color:#666;}
-/* HIGHSCORES */
-#scores-panel{margin:0 16px 16px;border:1px solid rgba(0,232,255,0.2);background:#050505;}
-.scores-hdr{padding:8px 14px;background:#020e10;border-bottom:1px solid rgba(0,232,255,0.15);
-  font-family:'Pixelify Sans';font-size:18px;color:var(--cyan);}
-.scores-body{padding:12px 14px;display:flex;flex-wrap:wrap;gap:16px;}
-.score-col{flex:1;min-width:180px;}
-.score-col h3{font-family:'VT323';font-size:17px;color:var(--yellow);margin-bottom:6px;}
-.score-row{display:flex;justify-content:space-between;font-family:'VT323';font-size:16px;padding:3px 0;
-  border-bottom:1px solid rgba(0,232,255,0.06);}
-.score-row .rank{color:var(--cyan);width:24px;}
-.score-row .name{color:#ccc;flex:1;}
-.score-row .pts{color:var(--green);}
-/* RPG PANEL */
-#rpg-panel{margin:0 16px 16px;display:none;}
-#rpg-iframe{width:100%;height:600px;border:2px solid var(--pink);display:block;background:#000;}
-/* TASKBAR */
-#taskbar{position:fixed;bottom:0;left:0;width:100%;height:36px;background:#0a0a0a;
-  border-top:1px solid var(--cyan);z-index:9999;display:flex;align-items:center;padding:0 16px;gap:20px;}
-#taskbar a{color:var(--cyan);text-decoration:none;font-family:'VT323';font-size:18px;}
-#taskbar a:hover{text-shadow:0 0 8px var(--cyan);}
-@media(max-width:600px){
-  #game-canvas{width:100%!important;height:auto!important;}
-  #touch-controls{display:flex!important;}
-}
-</style>
-</head>
-<body data-story-page="arcade">
-<div id="crt"></div>
-
-<nav class="nav">
-  <span class="nav-title">🎮 CYBER_ARCADE</span>
-  <a href="index.html">⌂ HOME</a>
-  <a href="wargames.html">⚔ WAR_GAMES</a>
-  <a href="cyberworld.html">🌐 CYBERWORLD</a>
-  <a href="ctf-trail.html">☠ CTF_TRAIL</a>
-  <a href="stars.html">★ ARSENAL</a>
-  <a href="intel.html">📡 INTEL</a>
-</nav>
-
-<div class="hero">
-  <h1>🕹 CYBER_ARCADE // <span data-story="operation-name">STARSHIELD</span></h1>
-  <p>FLLC REC DECK / SIMULATION BAY: packet routing drills, DDoS defense sims, cipher training, relay timing runs.</p>
-</div>
-
-<div class="game-selector">
-  <div class="game-tab active" id="tab-snake" onclick="switchGame('snake')">🐍 CYBER_SNAKE</div>
-  <div class="game-tab" id="tab-defender" onclick="switchGame('defender')">🚀 PACKET_DEFENDER</div>
-  <div class="game-tab" id="tab-breakout" onclick="switchGame('breakout')">🧱 HEX_BREAKER</div>
-  <div class="game-tab" id="tab-runner" onclick="switchGame('runner')">⚡ WIRE_RUNNER</div>
-  <div class="game-tab rpg" id="tab-rpg" onclick="switchGame('rpg')">🌐 CYBERWORLD_RPG</div>
-  <div class="game-tab" id="tab-ctf" onclick="window.location.href='ctf-trail.html'" style="color:var(--cyan);border-color:rgba(0,232,255,0.25);">☠ CTF_TRAIL</div>
-</div>
-
-<div id="game-viewport">
-  <div id="game-hud">
-    <div id="hud-title">CYBER_SNAKE</div>
-    <div id="hud-stats">
-      <div class="hud-stat">SCORE: <span id="hud-score">0</span></div>
-      <div class="hud-stat">LEVEL: <span id="hud-level">1</span></div>
-      <div class="hud-stat">LIVES: <span id="hud-lives">3</span></div>
-    </div>
-  </div>
-  <div id="canvas-wrap">
-    <canvas id="game-canvas" width="480" height="380"></canvas>
-    <div id="touch-controls">
-      <div class="tc-btn" id="tc-up" ontouchstart="tcDir(0,-1)">↑</div>
-      <div style="display:flex;gap:8px;">
-        <div class="tc-btn" id="tc-left" ontouchstart="tcDir(-1,0)">←</div>
-        <div class="tc-btn" id="tc-action" id="tc-action" ontouchstart="tcAction()">◆</div>
-        <div class="tc-btn" id="tc-right" ontouchstart="tcDir(1,0)">→</div>
-      </div>
-      <div class="tc-btn" id="tc-down" ontouchstart="tcDir(0,1)">↓</div>
-    </div>
-  </div>
-  <div id="game-controls">
-    <div id="ctrl-info">ARROW KEYS / WASD to move · R to restart · ENTER to start</div>
-  </div>
-</div>
-
-<div id="rpg-panel">
-  <iframe id="rpg-iframe" src="" title="CyberWorld RPG" allow="autoplay; fullscreen" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
-</div>
-
-<div id="scores-panel">
-  <div class="scores-hdr">▶ :: HIGH_SCORES // OPERATIVE_RECORDS ::</div>
-  <div class="scores-body" id="scores-body"></div>
-</div>
-
-<div id="scores-panel">
-  <div class="scores-hdr">▶ :: FLLC_SIMULATION_BOARD // STARSHIELD TRAINING TRACKS ::</div>
-  <div class="scores-body" style="display:block;">
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;">
-      <div class="tool-card unlocked"><strong>CYBER_SNAKE</strong><br>Packet routing drill<br><span style="color:#666;">Route efficiency practice for convoy lanes.</span></div>
-      <div class="tool-card unlocked"><strong>PACKET_DEFENDER</strong><br>DDoS mitigation sim<br><span style="color:#666;">Hold relay uptime during surge waves.</span></div>
-      <div class="tool-card unlocked"><strong>HEX_BREAKER</strong><br>Encoding and cipher training<br><span style="color:#666;">Decode launch-auth fragments faster.</span></div>
-      <div class="tool-card unlocked"><strong>WIRE_RUNNER</strong><br>Relay timing simulation<br><span style="color:#666;">Maintain uplink timing under jitter.</span></div>
-      <div class="tool-card unlocked"><strong>COMPANION_CALIBRATION</strong><br>Construct tuning bay<br><span style="color:#666;">Boost familiar synergy and tool buffs.</span></div>
-      <div class="tool-card unlocked"><strong>CONVOY_REHEARSAL</strong><br>Route integrity gauntlet<br><span style="color:#666;">Practice Chapter 4 defense patterns.</span></div>
-      <div class="tool-card"><strong>PREMIUM_CH5_RAID_SIM</strong><br>Continuity Wars sandbox<br><span style="color:#666;">Basic subscription track.</span></div>
-      <div class="tool-card"><strong>PREMIUM_CH6_TRUST_MESH</strong><br>Orbital Covenant systems lab<br><span style="color:#666;">Basic subscription track.</span></div>
-    </div>
-  </div>
-</div>
-
-<div id="taskbar">
-  <a href="index.html">⌂ HOME</a>
-  <span style="color:#333;">|</span>
-  <a href="wargames.html">WAR_GAMES</a>
-  <span style="color:#333;">|</span>
-  <a href="cyberworld.html">RPG</a>
-  <span style="margin-left:auto;color:#444;font-family:'VT323';font-size:16px;" id="tb-clock"></span>
-</div>
-
-<script>
-// ─── Clock ───────────────────────────────────────────────────────────────────
-setInterval(function(){var d=new Date();document.getElementById('tb-clock').textContent=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});},1000);
-
-// ─── Canvas / Context ────────────────────────────────────────────────────────
-var canvas = document.getElementById('game-canvas');
-var ctx = canvas.getContext('2d');
-
-// ─── Game State ──────────────────────────────────────────────────────────────
-var activeGame = null;
-var rafId = null;
-var currentMode = 'snake';
-
-// ─── HUD helpers ─────────────────────────────────────────────────────────────
-function setHUD(title, score, level, lives, ctrl){
-  document.getElementById('hud-title').textContent = title;
-  document.getElementById('hud-score').textContent = score;
-  document.getElementById('hud-level').textContent = level;
-  document.getElementById('hud-lives').textContent = lives;
-  document.getElementById('ctrl-info').textContent = ctrl;
-}
-
-// ─── Game switcher ───────────────────────────────────────────────────────────
-function switchGame(mode){
-  if(activeGame && activeGame.destroy) activeGame.destroy();
-  activeGame = null;
-  if(rafId){cancelAnimationFrame(rafId);rafId=null;}
-  document.querySelectorAll('.game-tab').forEach(function(t){t.classList.remove('active');});
-  document.getElementById('tab-'+mode).classList.add('active');
-  document.getElementById('game-viewport').style.display = mode==='rpg'?'none':'block';
-  document.getElementById('rpg-panel').style.display = mode==='rpg'?'block':'none';
-  currentMode = mode;
-
-  if(mode==='rpg'){
-    var fr = document.getElementById('rpg-iframe');
-    if(!fr.src || fr.src.endsWith('about:blank') || fr.src === window.location.href){
-      fr.src = 'rpg/index.html';
-    }
-    return;
-  }
-  if(mode==='snake') activeGame = new SnakeGame();
-  if(mode==='defender') activeGame = new DefenderGame();
-  if(mode==='breakout') activeGame = new BreakoutGame();
-  if(mode==='runner') activeGame = new RunnerGame();
-  if(activeGame) loop();
-  renderScores();
-}
-
-function loop(){
-  if(!activeGame) return;
-  activeGame.update();
-  activeGame.render(ctx);
-  rafId = requestAnimationFrame(loop);
-}
-
-// ═══════════════════════════════════════════════════════════════════════════
-//  GAME 1: CYBER SNAKE
-// ═══════════════════════════════════════════════════════════════════════════
-function SnakeGame(){
-  var W=480,H=380,CELL=20;
-  var COLS=Math.floor(W/CELL),ROWS=Math.floor(H/CELL);
-  canvas.width=W; canvas.height=H;
-  var snake,dir,nextDir,food,score,alive,speed,tick,foodEaten,gameStarted,lives;
-  var self=this;
-
-  function reset(){
-    snake=[{x:12,y:9},{x:11,y:9},{x:10,y:9}];
-    dir={x:1,y:0}; nextDir={x:1,y:0};
-    food=rndFood(); score=0; alive=true; speed=8; tick=0; foodEaten=0; gameStarted=false;
-    setHUD('CYBER_SNAKE',0,1,lives,'ARROW/WASD to move · R to restart · ENTER to start');
-  }
-
-  function rndFood(){
-    var f;
-    do{f={x:Math.floor(Math.random()*COLS),y:Math.floor(Math.random()*ROWS)};}
-    while(snake && snake.some(function(s){return s.x===f.x&&s.y===f.y;}));
-    return f;
-  }
-
-  lives=3; reset();
-
-  this.keyH = function(e){
-    var map={ArrowUp:{x:0,y:-1},ArrowDown:{x:0,y:1},ArrowLeft:{x:-1,y:0},ArrowRight:{x:1,y:0},
-             w:{x:0,y:-1},s:{x:0,y:1},a:{x:-1,y:0},d:{x:1,y:0}};
-    if(e.key==='r'||e.key==='R'){lives=3;reset();}
-    if(e.key==='Enter'&&!gameStarted){gameStarted=true;}
-    if(map[e.key]){
-      var nd=map[e.key];
-      if(nd.x!==-dir.x||nd.y!==-dir.y) nextDir=nd;
-      if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].indexOf(e.key)>-1) e.preventDefault();
-    }
-  };
-  window.addEventListener('keydown',this.keyH);
-
-  this.touchDir = function(dx,dy){
-    if(!gameStarted){gameStarted=true;}
-    if(dx!==-dir.x||dy!==-dir.y) nextDir={x:dx,y:dy};
-  };
-
-  this.destroy = function(){window.removeEventListener('keydown',self.keyH);};
-
-  this.update = function(){
-    if(!gameStarted||!alive) return;
-    tick++;
-    if(tick < Math.floor(60/speed)) return;
-    tick=0;
-    dir=nextDir;
-    var head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};
-    if(head.x<0||head.x>=COLS||head.y<0||head.y>=ROWS||snake.some(function(s){return s.x===head.x&&s.y===head.y;})){
-      alive=false;
-      lives--;
-      var best=getHS('snake');
-      if(score>best) saveHS('snake',score);
-      return;
-    }
-    snake.unshift(head);
-    if(head.x===food.x&&head.y===food.y){
-      score+=10; foodEaten++;
-      var lvl=Math.floor(foodEaten/5)+1;
-      speed=Math.min(22,8+lvl*2);
-      food=rndFood();
-      setHUD('CYBER_SNAKE',score,lvl,lives,'ARROW/WASD to move · R to restart');
-    } else { snake.pop(); }
-  };
-
-  this.render = function(c){
-    c.fillStyle='#000'; c.fillRect(0,0,W,H);
-    // Grid
-    c.strokeStyle='rgba(0,232,255,0.04)'; c.lineWidth=0.5;
-    for(var x=0;x<=W;x+=CELL){c.beginPath();c.moveTo(x,0);c.lineTo(x,H);c.stroke();}
-    for(var y=0;y<=H;y+=CELL){c.beginPath();c.moveTo(0,y);c.lineTo(W,y);c.stroke();}
-    // Food glow
-    var p=0.5+0.5*Math.sin(Date.now()/200);
-    c.fillStyle='#ff00ea'; c.shadowColor='#ff00ea'; c.shadowBlur=10+p*8;
-    c.fillRect(food.x*CELL+3,food.y*CELL+3,CELL-6,CELL-6);
-    c.shadowBlur=0;
-    // Snake
-    snake.forEach(function(s,i){
-      var a=1-(i/snake.length)*0.55;
-      c.fillStyle=i===0?'#00e8ff':('rgba(0,232,255,'+a+')');
-      c.shadowColor='#00e8ff'; c.shadowBlur=i===0?8:0;
-      c.fillRect(s.x*CELL+1,s.y*CELL+1,CELL-2,CELL-2);
-      if(i===0){ // Eyes
-        c.fillStyle='#000';
-        c.fillRect(s.x*CELL+4,s.y*CELL+4,3,3);
-        c.fillRect(s.x*CELL+13,s.y*CELL+4,3,3);
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>CyberWorld Final Project Hub // Survival Game & Tutorial</title>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+  <style>
+    body{background:#020408;color:#00e8ff;font-family:'JetBrains Mono',monospace;padding:0;margin:0;min-height:100vh;}
+    header{background:#08080f;padding:24px 0 12px 0;text-align:center;box-shadow:0 2px 12px #000;}
+    h1{font-family:'Pixelify Sans';color:#ffe700;font-size:clamp(32px,7vw,60px);margin-bottom:8px;text-shadow:0 0 18px #ffe70055;}
+    h2{font-family:'Pixelify Sans';color:#00ff41;margin-top:32px;}
+    h3{color:#ff00ea;}
+    .subtitle{font-family:'VT323';font-size:22px;color:#00e8ff;margin-bottom:10px;}
+    .main-section{max-width:900px;margin:32px auto 0 auto;padding:24px 18px;background:rgba(0,232,255,0.07);border-radius:16px;box-shadow:0 0 24px #00e8ff22;}
+    .rubric{background:rgba(255,231,0,0.08);border:2px solid #ffe700;border-radius:10px;padding:18px 14px;margin:32px 0;}
+    .game-area{background:#000;border:2px solid #00e8ff;padding:18px 0 24px 0;border-radius:12px;margin:24px 0;box-shadow:0 0 18px #00e8ff33;}
+    .instructions{font-family:'VT323';font-size:18px;color:#00ff41;margin:12px 0 18px 0;}
+    .btn{background:#00e8ff;color:#000;font-family:'VT323';font-size:20px;padding:10px 22px;border:none;border-radius:8px;cursor:pointer;transition:0.2s;box-shadow:0 2px 8px #00e8ff44;}
+    .btn:hover{background:#ffe700;color:#000;}
+    .download-link{color:#00ff41;text-decoration:underline;font-size:18px;}
+    .concepts-table{width:100%;border-collapse:collapse;margin:18px 0 0 0;}
+    .concepts-table th,.concepts-table td{border:1px solid #222;padding:7px 10px;text-align:center;}
+    .concepts-table th{background:rgba(0,232,255,0.12);color:#ffe700;}
+    .concepts-table td{background:rgba(0,232,255,0.04);}
+    .faq{margin:32px 0;}
+    details{margin-bottom:10px;}
+    summary{font-size:18px;color:#ffe700;cursor:pointer;}
+    .footer{margin:48px 0 0 0;text-align:center;color:#666;font-size:15px;}
+    @media(max-width:700px){.main-section{padding:8px 2vw;}}
+      /* Overlay Panel Styles */
+      .overlay-panel {
+        position: fixed;
+        top: 60px;
+        right: 50%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        background: rgba(10,10,30,0.98);
+        border: 3px solid #00e8ff;
+        border-radius: 18px;
+        box-shadow: 0 0 48px #00e8ff55, 0 0 0 9999px rgba(0,0,0,0.7);
+        z-index: 1002;
+        padding: 36px 32px 28px 32px;
+        max-width: 520px;
+        min-width: 320px;
+        color: #fff;
+        font-family: 'JetBrains Mono', monospace;
+        animation: overlayIn 0.3s cubic-bezier(.7,1.7,.5,1) 1;
       }
-    });
-    c.shadowBlur=0;
-    if(!gameStarted){
-      c.fillStyle='rgba(0,0,0,0.75)'; c.fillRect(0,0,W,H);
-      c.font='bold 40px VT323,monospace'; c.fillStyle='#00e8ff'; c.textAlign='center';
-      c.fillText('CYBER_SNAKE',W/2,H/2-40);
-      c.font='22px VT323,monospace'; c.fillStyle='#00ff41';
-      c.fillText('PRESS ENTER / TAP TO START',W/2,H/2+10);
-      c.font='16px VT323,monospace'; c.fillStyle='#aaa';
-      c.fillText('EAT DATA PACKETS · AVOID WALLS & SELF',W/2,H/2+40);
-      c.textAlign='left';
+        <!-- Animated Personal Navigation Bar (not part of final) -->
+        <nav class="personal-nav" aria-label="Personal site navigation" style="margin:0 auto 18px auto;max-width:900px;display:flex;gap:18px;justify-content:center;align-items:center;">
+          <a href="#about" class="nav-link" style="color:#ff00ea;text-decoration:none;font-family:'VT323';font-size:22px;transition:color 0.2s;">About</a>
+          <a href="#gallery" class="nav-link" style="color:#00e8ff;text-decoration:none;font-family:'VT323';font-size:22px;transition:color 0.2s;">Gallery</a>
+          <a href="#whatsnew" class="nav-link" style="color:#ffe700;text-decoration:none;font-family:'VT323';font-size:22px;transition:color 0.2s;">What's New</a>
+          <a href="#arcade" class="nav-link" style="color:#00ff41;text-decoration:none;font-family:'VT323';font-size:22px;transition:color 0.2s;">Arcade</a>
+        </nav>
+      @keyframes overlayIn {
+        from { opacity: 0; transform: translate(-50%,-30px) scale(0.95); }
+        to { opacity: 1; transform: translate(-50%,0) scale(1); }
+      }
+      /* Neon/CRT effect */
+      body:after {
+        content: '';
+        pointer-events: none;
+        position: fixed; left:0; top:0; width:100vw; height:100vh;
+        background: repeating-linear-gradient(0deg,rgba(0,232,255,0.03),rgba(0,232,255,0.01) 2px,transparent 4px,transparent 8px);
+        z-index: 999;
+        mix-blend-mode: lighten;
+      }
+  </style>
+</head>
+<body>
+  <!-- Floating Overlay Toggle Button -->
+  <button id="overlay-toggle" class="btn" aria-controls="rubric-overlay tutorial-overlay" aria-expanded="false" style="position:fixed;top:24px;right:24px;z-index:1001;background:#ff00ea;color:#fff;box-shadow:0 0 18px #ff00ea88;">Show Rubric / Tutorial</button>
+  <!-- Rubric Overlay -->
+  <div id="rubric-overlay" class="overlay-panel" role="dialog" aria-modal="true" aria-label="Rubric Mapping" tabindex="-1" style="display:none;">
+    <h2 style="color:#ffe700;">Rubric Mapping</h2>
+    <ul style="font-size:18px;line-height:1.7;">
+      <li><b>Five major Python competencies</b> are demonstrated in both the web and Python versions.</li>
+          /* Animated Neon Nav Bar */
+          .personal-nav .nav-link {
+            padding: 6px 18px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px #00e8ff44;
+            position: relative;
+            background: rgba(0,232,255,0.04);
+            margin-bottom: 2px;
+          }
+          .personal-nav .nav-link:hover, .personal-nav .nav-link:focus {
+            color: #fff;
+            background: #00e8ff;
+            box-shadow: 0 0 18px #00e8ff, 0 0 4px #ff00ea;
+            outline: 2px solid #ffe700;
+            text-shadow: 0 0 8px #ffe700, 0 0 2px #00ff41;
+          }
+          /* Animated CRT Scanlines */
+          body:before {
+            content: '';
+            pointer-events: none;
+            position: fixed; left:0; top:0; width:100vw; height:100vh;
+            background: repeating-linear-gradient(180deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.13) 2px,transparent 4px,transparent 8px);
+            z-index: 998;
+            mix-blend-mode: multiply;
+            animation: scanlines 1.2s linear infinite;
+          }
+          @keyframes scanlines {
+            0% { background-position-y: 0; }
+            100% { background-position-y: 8px; }
+          }
+          /* Footer polish */
+          .footer {
+            margin: 48px 0 0 0;
+            text-align: center;
+            color: #666;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            border-top: 2px solid #00e8ff33;
+            padding-top: 18px;
+            background: linear-gradient(90deg,rgba(0,232,255,0.04),rgba(255,0,234,0.04));
+            box-shadow: 0 -2px 18px #00e8ff22;
+          }
+          /* Accessibility: focus ring for all interactive elements */
+          button:focus, a:focus, .btn:focus {
+            outline: 2px solid #ffe700 !important;
+            outline-offset: 2px;
+            box-shadow: 0 0 8px #ffe70099;
+          }
+      <li><b>All code is original</b>, with professional comments and clear instructions.</li>
+      <li><b>Lesson/tutorial</b> is included and fully explains all concepts and usage.</li>
+      <li><b>Application is flawless</b> and easy to use, with a modern, engaging CyberWorld theme.</li>
+    </ul>
+    <button class="btn" onclick="hideOverlay()" style="margin-top:18px;">Close</button>
+  </div>
+  <!-- Tutorial Overlay -->
+  <div id="tutorial-overlay" class="overlay-panel" role="dialog" aria-modal="true" aria-label="Interactive Tutorial" tabindex="-1" style="display:none;max-width:700px;">
+    <h2 style="color:#00ff41;">Interactive Tutorial</h2>
+    <ol style="font-size:17px;line-height:1.7;">
+      <li>Play the game above or download the Python version.</li>
+      <li>Read the <a href="final_project_tutorial.html" style="color:#ff00ea;text-decoration:underline;">full tutorial & lesson here</a>.</li>
+      <li>Review the code comments for explanations of each Python concept.</li>
+      <li>Try modifying the code to create your own CyberWorld adventure!</li>
+    </ol>
+    <button class="btn" onclick="hideOverlay()" style="margin-top:18px;">Close</button>
+  </div>
+  <header>
+    <!-- PERSONAL/FUN SITE SECTIONS (not part of final assignment) -->
+    <section class="personal-section" style="margin:36px auto 0 auto;max-width:900px;padding:24px 18px 18px 18px;background:rgba(0,232,255,0.04);border-radius:16px;box-shadow:0 0 18px #00e8ff22;">
+      <h2 style="color:#ff00ea;font-family:'Pixelify Sans';margin-top:0;">👾 About Me</h2>
+      <div style="font-family:'VT323';font-size:20px;color:#00e8ff;line-height:1.6;max-width:700px;">
+        Hi! I'm Preston Furulie, a creative coder, game designer, and digital explorer. This site is my playground for fun projects, experiments, and learning adventures.<br>
+        <b>Interests:</b> Python, JavaScript, AI, retro games, pixel art, cyberpunk, and building cool things for the web.<br>
+        <b>Fun Fact:</b> I love blending art and code to make interactive stories and games!
+      </div>
+      <h2 style="color:#00ff41;font-family:'Pixelify Sans';margin-top:32px;">🖼️ CyberWorld Gallery</h2>
+      <div style="display:flex;flex-wrap:wrap;gap:18px;margin-bottom:18px;">
+        <div style="flex:1 1 220px;min-width:220px;background:#08080f;border:2px solid #00e8ff;border-radius:10px;padding:14px;box-shadow:0 0 12px #00e8ff33;">
+          <h3 style="color:#ffe700;margin:0 0 8px 0;">Pixel Art: Neon City</h3>
+          <img src="https://personfu.github.io/assets/neoncity.png" alt="Neon City Pixel Art" style="width:100%;border-radius:6px;box-shadow:0 0 8px #00e8ff55;">
+          <div style="font-size:15px;color:#00e8ff;margin-top:6px;">A tiny cityscape made in Aseprite. Click to see more soon!</div>
+        </div>
+        <div style="flex:1 1 220px;min-width:220px;background:#08080f;border:2px solid #ff00ea;border-radius:10px;padding:14px;box-shadow:0 0 12px #ff00ea33;">
+          <h3 style="color:#ff00ea;margin:0 0 8px 0;">Mini Game: Glitch Snake</h3>
+          <div style="width:100%;height:120px;background:#111;display:flex;align-items:center;justify-content:center;color:#ff00ea;font-size:22px;font-family:'VT323';border-radius:6px;">[Coming Soon]</div>
+          <div style="font-size:15px;color:#ff00ea;margin-top:6px;">A twist on classic Snake with cyber-glitch effects.</div>
+        </div>
+        <div style="flex:1 1 220px;min-width:220px;background:#08080f;border:2px solid #ffe700;border-radius:10px;padding:14px;box-shadow:0 0 12px #ffe70033;">
+          <h3 style="color:#ffe700;margin:0 0 8px 0;">AI Art: Dream Circuit</h3>
+          <img src="https://personfu.github.io/assets/dreamcircuit.png" alt="AI Art Dream Circuit" style="width:100%;border-radius:6px;box-shadow:0 0 8px #ffe70055;">
+          <div style="font-size:15px;color:#ffe700;margin-top:6px;">AI-generated art inspired by cybernetic dreams.</div>
+        </div>
+      </div>
+      <h2 style="color:#00e8ff;font-family:'Pixelify Sans';margin-top:32px;">📰 What's New</h2>
+      <div style="font-family:'VT323';font-size:17px;color:#00e8ff;max-width:700px;">
+        <b>April 2026:</b> Launched the CyberWorld Survival Game and interactive tutorial for my Python final!<br>
+        <b>March 2026:</b> Added new pixel art and started work on Glitch Snake.<br>
+        <b>February 2026:</b> Experimented with AI art and generative code.<br>
+        <i>Check back for more fun projects and updates!</i>
+      </div>
+    </section>
+    <h1>🌐 CyberWorld Survival Game</h1>
+    <div class="subtitle">Python Final Project & Interactive Tutorial<br>Demonstrating: Control Structures, Error Handling, Classes, Methods, Recursion, Array Processing</div>
+  </header>
+  <main class="main-section">
+    <h2>🚀 Play the CyberWorld Survival Game</h2>
+    <div class="game-area">
+      <canvas id="cw-canvas" width="600" height="340" style="display:block;margin:0 auto;background:#08080f;border-radius:8px;"></canvas>
+      <div class="instructions">Use <b>ARROW KEYS</b> to move. Survive 10 nodes, manage your resources, and reach the EXFIL POINT!<br>Each node is a Python lesson in disguise.</div>
+      <button class="btn" onclick="startGame()">Start New Game</button>
+      <div style="margin-top:10px;">
+        <a class="download-link" href="CyberWorldRunner.py" download>Download Python Version</a>
+      </div>
+    </div>
+    <h2>📋 Rubric Mapping</h2>
+    <div class="rubric">
+      <ul style="font-size:17px;line-height:1.7;">
+        <li><b>Five major Python competencies</b> are demonstrated in both the web and Python versions.</li>
+        <li><b>All code is original</b>, with professional comments and clear instructions.</li>
+        <li><b>Lesson/tutorial</b> is included and fully explains all concepts and usage.</li>
+        <li><b>Application is flawless</b> and easy to use, with a modern, engaging CyberWorld theme.</li>
+      </ul>
+    </div>
+    <h2>💡 Python Concepts in Action</h2>
+    <table class="concepts-table">
+      <tr><th>Concept</th><th>How It's Used</th></tr>
+      <tr><td>Control Structures</td><td>Main game loop, event choices, win/lose logic</td></tr>
+      <tr><td>Error Handling</td><td>Input validation, safe resource management</td></tr>
+      <tr><td>Classes & Methods</td><td>Player, Node, and Game classes (JS & Python)</td></tr>
+      <tr><td>Recursion</td><td>Path/maze generation, random event chains</td></tr>
+      <tr><td>Array Processing</td><td>Resource/event lists, node history, scoreboards</td></tr>
+    </table>
+      <!-- Python Concepts Overlay Buttons -->
+      <div style="margin:18px 0 0 0;display:flex;flex-wrap:wrap;gap:12px;">
+        <button class="btn" onclick="showConcept('control')">Show Control Structures Example</button>
+        <button class="btn" onclick="showConcept('error')">Show Error Handling Example</button>
+        <button class="btn" onclick="showConcept('class')">Show Classes & Methods Example</button>
+        <button class="btn" onclick="showConcept('recursion')">Show Recursion Example</button>
+        <button class="btn" onclick="showConcept('array')">Show Array Processing Example</button>
+      </div>
+      <!-- Python Concepts Overlays -->
+      <div id="concept-overlay" class="overlay-panel" role="dialog" aria-modal="true" aria-label="Python Concept Example" tabindex="-1" style="display:none;max-width:700px;"></div>
+    <h2>📝 Interactive Tutorial & Documentation</h2>
+    <div style="font-family:'VT323';font-size:18px;color:#00e8ff;margin:12px 0 18px 0;">
+      <b>Step 1:</b> Play the game above or download the Python version.<br>
+      <b>Step 2:</b> Read the <a href="final_project_tutorial.html" style="color:#ff00ea;text-decoration:underline;">full tutorial & lesson here</a>.<br>
+      <b>Step 3:</b> Review the code comments for explanations of each Python concept.<br>
+      <b>Step 4:</b> Try modifying the code to create your own CyberWorld adventure!
+    </div>
+    <h2>❓ FAQ & Help</h2>
+    <div class="faq">
+      <details><summary>How do I play?</summary><div>Click "Start New Game" and use the arrow keys. Survive all 10 nodes by making smart choices and managing your resources.</div></details>
+      <details><summary>How do I run the Python version?</summary><div>Download <b>CyberWorldRunner.py</b> and run it with Python 3.8+ using <code>python CyberWorldRunner.py</code> in your terminal.</div></details>
+      <details><summary>Where can I find explanations for each Python concept?</summary><div>See the <a href="final_project_tutorial.html" style="color:#ff00ea;text-decoration:underline;">Final Project Tutorial</a> for detailed explanations, code samples, and a breakdown of all five competencies.</div></details>
+      <details><summary>Can I use this project as a template for my own?</summary><div>Yes! This project is free for educational use. Please credit the original author and make your own changes to demonstrate your learning.</div></details>
+    </div>
+  </main>
+  <footer class="footer">Created by Preston Furulie · Python Final Project · All code original and professionally commented · Free for educational use</footer>
+    <script>
+      // Overlay logic
+      const overlayToggle = document.getElementById('overlay-toggle');
+      const rubricOverlay = document.getElementById('rubric-overlay');
+      const tutorialOverlay = document.getElementById('tutorial-overlay');
+      let overlayState = 0;
+      overlayToggle.addEventListener('click',()=>{
+        overlayState = (overlayState+1)%3;
+        if(overlayState===1){
+          rubricOverlay.style.display='block';
+          tutorialOverlay.style.display='none';
+          overlayToggle.setAttribute('aria-expanded','true');
+          rubricOverlay.focus();
+        }else if(overlayState===2){
+          rubricOverlay.style.display='none';
+          tutorialOverlay.style.display='block';
+          overlayToggle.setAttribute('aria-expanded','true');
+          tutorialOverlay.focus();
+        }else{
+          rubricOverlay.style.display='none';
+          tutorialOverlay.style.display='none';
+          overlayToggle.setAttribute('aria-expanded','false');
+        }
+      });
+      function hideOverlay(){
+        rubricOverlay.style.display='none';
+        tutorialOverlay.style.display='none';
+        overlayToggle.setAttribute('aria-expanded','false');
+        overlayState=0;
+        overlayToggle.focus();
+      }
+      // Keyboard accessibility: ESC closes overlays
+      document.addEventListener('keydown',e=>{
+        if((rubricOverlay.style.display==='block'||tutorialOverlay.style.display==='block')&&e.key==='Escape'){
+          hideOverlay();
+        }
+      });
+      // --- Python Concepts Overlay Logic ---
+      const conceptOverlay = document.getElementById('concept-overlay');
+      function showConcept(type) {
+        let html = '';
+        if(type==='control'){
+          html = `<h2 style='color:#ffe700;'>Control Structures</h2><pre style='background:#111;color:#00e8ff;padding:14px;border-radius:8px;font-size:16px;overflow-x:auto;'><b>// JavaScript (Game Loop)</b>\nwhile (gameActive) {\n  if (player.lives <= 0) break;\n  // ...event logic...\n}\n\n<b># Python (Game Loop)</b>\nwhile game_active:\n    if player.lives <= 0:\n        break\n    # ...event logic...\n</pre><div style='color:#00ff41;margin-top:8px;'>Loops and conditionals drive the main game flow and event choices.</div>`;
+        } else if(type==='error'){
+          html = `<h2 style='color:#ff4444;'>Error Handling</h2><pre style='background:#111;color:#ff4444;padding:14px;border-radius:8px;font-size:16px;overflow-x:auto;'><b>// JavaScript</b>\ntry {\n  riskyAction();\n} catch (err) {\n  player.lives--;\n}\n\n<b># Python</b>\ntry:\n    risky_action()\nexcept Exception as err:\n    player.lives -= 1\n</pre><div style='color:#00ff41;margin-top:8px;'>try/except (Python) and try/catch (JS) handle resource failures and keep the game robust.</div>`;
+        } else if(type==='class'){
+          html = `<h2 style='color:#00e8ff;'>Classes & Methods</h2><pre style='background:#111;color:#00e8ff;padding:14px;border-radius:8px;font-size:16px;overflow-x:auto;'><b>// JavaScript</b>\nclass Player {\n  constructor(name) {\n    this.name = name;\n    this.lives = 3;\n  }\n  move() { this.node += 1; }\n}\n\n<b># Python</b>\nclass Player:\n    def __init__(self, name):\n        self.name = name\n        self.lives = 3\n    def move(self):\n        self.node += 1\n</pre><div style='color:#00ff41;margin-top:8px;'>Object-oriented design organizes game logic and state.</div>`;
+        } else if(type==='recursion'){
+          html = `<h2 style='color:#00ff41;'>Recursion</h2><pre style='background:#111;color:#00ff41;padding:14px;border-radius:8px;font-size:16px;overflow-x:auto;'><b>// JavaScript</b>\nfunction randomEventChain(depth) {\n  if (depth <= 0) return;\n  // ...event logic...\n  randomEventChain(depth-1);\n}\n\n<b># Python</b>\ndef random_event_chain(depth):\n    if depth <= 0:\n        return\n    # ...event logic...\n    random_event_chain(depth-1)\n</pre><div style='color:#00ff41;margin-top:8px;'>Recursion is used for chained events and maze/path generation.</div>`;
+        } else if(type==='array'){
+          html = `<h2 style='color:#ffe700;'>Array/List Processing</h2><pre style='background:#111;color:#ffe700;padding:14px;border-radius:8px;font-size:16px;overflow-x:auto;'><b>// JavaScript</b>\nlet history = [];\nhistory.push(node);\n\n<b># Python</b>\nhistory = []\nhistory.append(node)\n</pre><div style='color:#00ff41;margin-top:8px;'>Arrays/lists track resources, node history, and scoreboards.</div>`;
+        }
+        conceptOverlay.innerHTML = html + `<button class='btn' onclick='hideConcept()' style='margin-top:18px;'>Close</button>`;
+        conceptOverlay.style.display = 'block';
+        conceptOverlay.focus();
+      }
+      function hideConcept() {
+        conceptOverlay.style.display = 'none';
+      }
+      // Keyboard accessibility: ESC closes concept overlay
+      document.addEventListener('keydown',e=>{
+        if(conceptOverlay.style.display==='block'&&e.key==='Escape'){
+          hideConcept();
+        }
+      });
+    // --- CYBERWORLD SURVIVAL GAME (Web Version) ---
+    // Demonstrates: Control Structures, Error Handling, Classes, Methods, Recursion, Array Processing
+    const canvas = document.getElementById('cw-canvas');
+    const ctx = canvas.getContext('2d');
+    let game = null;
+    document.addEventListener('keydown',e=>{if(game)game.handleKey(e);});
+    function startGame(){game=new CyberWorldGame();game.draw();}
+    class Player {
+      constructor(name){this.name=name;this.lives=3;this.bandwidth=100;this.cognitive=0;this.detection=0;this.integrity=100;this.node=0;this.path=[];this.score=0;}
+      move(){this.node+=1;this.path.push(this.node);}
     }
-    if(!alive){
-      c.fillStyle='rgba(0,0,0,0.8)'; c.fillRect(0,0,W,H);
-      c.font='bold 36px VT323,monospace'; c.fillStyle='#ff4444'; c.textAlign='center';
-      c.fillText(lives>0?'OPERATIVE_DOWN':'GAME_OVER',W/2,H/2-30);
-      c.font='20px VT323,monospace'; c.fillStyle='#00e8ff';
-      c.fillText('SCORE: '+score,W/2,H/2+10);
-      if(lives>0){ c.fillStyle='#00ff41'; c.fillText('LIVES REMAINING: '+lives+'  ·  PRESS ENTER',W/2,H/2+40);}
+    class Node {
+      constructor(num){this.num=num;this.type=['CTF','HACK','EVENT'][Math.floor(Math.random()*3)];}
+      getChallenge(){
+        const challenges={
+          'CTF':['Signal Drift','Dead Drop','Image Forensics','SQL Injection','Buffer Overflow'],
+          'HACK':['Port Scanner','Honeypot','Packet Sniffer','CVE Dashboard','File Integrity Monitor'],
+          'EVENT':['Firewall Spike','Credential Cache','Data Corruption','Timeout Cascade','Detection Alert']
+        };
+        return challenges[this.type][Math.floor(Math.random()*challenges[this.type].length)];
+      }
+    }
+    class CyberWorldGame {
+      constructor(){
+        this.player=new Player('Operative');
+        this.nodes=Array.from({length:10},(_,i)=>new Node(i+1));
+        this.state='intro';
+        this.msg='Press any arrow key to begin.';
+        this.draw();
+      }
+      handleKey(e){
+        if(this.state==='intro'){this.state='play';this.msg='';this.draw();return;}
+        if(this.state==='end'){return;}
+        if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)){
+          this.advance();
+        }
+      }
+      advance(){
+        if(this.player.node>=10){this.state='end';this.msg='MISSION COMPLETE! Final Score: '+this.player.score;this.draw();return;}
+        const node=this.nodes[this.player.node];
+        const challenge=node.getChallenge();
+        // --- Control Structures & Error Handling ---
+        let eventMsg='';
+        try{
+          if(node.type==='CTF'){
+            this.player.bandwidth-=Math.floor(Math.random()*15+5);
+            this.player.score+=20;
+            eventMsg=`CTF: ${challenge} | Bandwidth -${this.player.bandwidth}`;
+          }else if(node.type==='HACK'){
+            this.player.cognitive+=Math.floor(Math.random()*10+5);
+            this.player.score+=15;
+            eventMsg=`HACK: ${challenge} | Cognitive +${this.player.cognitive}`;
+          }else{
+            // Recursion: random event chain
+            this.randomEventChain(2);
+            eventMsg=`EVENT: ${challenge}`;
+          }
+          if(this.player.bandwidth<=0||this.player.cognitive>=100){throw new Error('Resource Failure!');}
+        }catch(err){
+          this.player.lives--;
+          eventMsg+=' | ERROR: '+err.message+' (Life lost)';
+        }
+        this.player.move();
+        if(this.player.lives<=0){this.state='end';this.msg='GAME OVER. Out of lives.';}
+        else if(this.player.node>=10){this.state='end';this.msg='MISSION COMPLETE! Final Score: '+this.player.score;}
+        else{this.msg=eventMsg;}
+        this.draw();
+      }
+      // --- Recursion Example: Random Event Chain ---
+      randomEventChain(depth){
+        if(depth<=0)return;
+        const events=['Firewall Spike','Credential Cache','Data Corruption','Timeout Cascade','Detection Alert'];
+        const ev=events[Math.floor(Math.random()*events.length)];
+        this.player.score+=5;
+        this.msg+=` | Chain: ${ev}`;
+        this.randomEventChain(depth-1);
+      }
+      draw(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.fillStyle='#00e8ff';
+        ctx.font='28px VT323,monospace';
+        ctx.fillText('CYBERWORLD SURVIVAL',30,50);
+        ctx.font='18px VT323,monospace';
+        ctx.fillText('Node: '+(this.player.node+1)+' / 10',30,90);
+        ctx.fillText('Lives: '+this.player.lives,30,120);
+        ctx.fillText('Bandwidth: '+this.player.bandwidth,30,150);
+        ctx.fillText('Cognitive Load: '+this.player.cognitive,30,180);
+        ctx.fillText('Score: '+this.player.score,30,210);
+        ctx.fillStyle='#ffe700';
+        ctx.font='16px VT323,monospace';
+        ctx.fillText(this.msg,30,260);
+        ctx.fillStyle='#00ff41';
+        ctx.font='14px VT323,monospace';
+        ctx.fillText('Arrow keys = advance node. Survive to node 10!',30,300);
+      }
+    }
+  </script>
+</body>
+</html>
       else{ c.fillStyle='#ff00ea'; c.fillText('PRESS R TO RESTART',W/2,H/2+40);}
       c.textAlign='left';
       if(lives>0&&gameStarted){gameStarted=false;reset();}

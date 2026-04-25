@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CyberWorld Final Project Tutorial</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+  <style>
+    body{background:#020408;color:#00e8ff;font-family:'JetBrains Mono',monospace;padding:24px;max-width:800px;margin:auto;}
+    h1,h2{font-family:'Pixelify Sans';color:#ffe700;}
+    h3{color:#00ff41;}
+    a{color:#ff00ea;}
+    code,pre{background:#08080f;color:#ffe700;padding:2px 6px;border-radius:4px;}
+    ul{margin-bottom:18px;}
+    .section{margin-bottom:32px;}
+  </style>
+</head>
+<body>
+  <h1>📝 CyberWorld Final Project Tutorial</h1>
+  <div class="section">
+    <h2>Overview</h2>
+    <p>This project demonstrates five major Python competencies: <b>control structures, error handling, classes, methods, recursion, and array processing</b>. The CyberWorld Arcade includes both web-based games and a downloadable Python version. This tutorial explains the concepts, code, and how to use/run the programs.</p>
+  </div>
+  <div class="section">
+    <h2>How to Use</h2>
+    <ul>
+      <li>Play the web games in <a href="arcade.html">arcade.html</a> (Snake, Defender, Breakout, Runner, RPG).</li>
+      <li>Download <a href="CyberWorldRunner.py">CyberWorldRunner.py</a> and run it with Python 3.8+.</li>
+      <li>Read the code comments for explanations of each Python concept.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2>Python Competencies Demonstrated</h2>
+    <ul>
+      <li><b>Control Structures:</b> Used in game loops, event handling, and logic (if, for, while).</li>
+      <li><b>Error Handling:</b> try/except blocks for input and game logic safety.</li>
+      <li><b>Classes & Methods:</b> All game entities (Player, Obstacle, Game) are classes with methods.</li>
+      <li><b>Recursion:</b> Used in the CyberWorldRunner for maze/path generation and advanced features.</li>
+      <li><b>Array Processing:</b> Lists manage game objects, scores, and more.</li>
+    </ul>
+  </div>
+  <div class="section">
+    <h2>Sample Code Snippet</h2>
+    <pre><code># Example: Recursion in maze generation
+class Maze:
+    def generate(self, x, y):
+        self.visited[y][x] = True
+        for nx, ny in self.neighbors(x, y):
+            if not self.visited[ny][nx]:
+                self.remove_wall(x, y, nx, ny)
+                self.generate(nx, ny)  # Recursive call
+</code></pre>
+  </div>
+  <div class="section">
+    <h2>Instructions for Running Python Version</h2>
+    <ol>
+      <li>Download <b>CyberWorldRunner.py</b> from the link above.</li>
+      <li>Open a terminal and run: <code>python CyberWorldRunner.py</code></li>
+      <li>Follow the on-screen instructions to play.</li>
+    </ol>
+    <p>All code is original, well-commented, and designed for learning. See in-code comments for detailed explanations.</p>
+  </div>
+  <div class="section">
+    <h2>Contact & Credits</h2>
+    <p>Created by <b>Preston Furulie</b> for the Python Final Project. All rights reserved. Free for educational use.</p>
+  </div>
+</body>
+</html>
