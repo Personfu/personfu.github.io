@@ -10,10 +10,10 @@ A CyberWorld-themed arcade game demonstrating five major Python competencies:
 Original, well-commented code for educational use.
 """
 import random
-import sys
 import time
 
 # --- Classes & Methods ---
+# This class shows how objects store state and behavior for game entities.
 class Player:
     def __init__(self, name):
         self.name = name
@@ -60,6 +60,14 @@ def random_event():
     print(f"Random Event: {event[0]} (Effect: {event[1]})")
     return event[1]
 
+# --- File I/O and Error Handling Example ---
+def save_high_score(player):
+    try:
+        with open("high_scores.txt", "a") as file:
+            file.write(f"{player.name}:{player.score}\n")
+    except IOError:
+        print("Warning: Unable to save the high score file. Continuing without saving.")
+
 # --- Error Handling Example ---
 def get_int_input(prompt, min_val, max_val):
     while True:
@@ -99,8 +107,10 @@ def main():
             print("You rest and recover. No progress this turn.")
         time.sleep(0.5)
     if player.lives > 0:
+        save_high_score(player)
         print(f"\nMission Complete! Final Score: {player.score}")
     else:
+        save_high_score(player)
         print("\nGame Over. Better luck next time!")
 
 if __name__ == "__main__":
