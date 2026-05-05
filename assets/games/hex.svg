@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" shape-rendering="crispEdges">
+  <rect width="240" height="160" fill="#020408"/>
+  <rect x="3" y="3" width="234" height="154" fill="none" stroke="#ff00ea" stroke-width="2"/>
+  <g font-family="monospace" font-weight="700">
+    <text x="120" y="32" font-size="22" fill="#ff00ea" text-anchor="middle" letter-spacing="2">HEX_BREAKER</text>
+  </g>
+  <g font-family="monospace" font-size="11" font-weight="700">
+    <text x="20" y="60" fill="#00ff41">7F 3A 9C E0 41 D2</text>
+    <text x="20" y="78" fill="#00e8ff">B2 C9 15 7B 88 2E</text>
+    <text x="20" y="96" fill="#ffe700">A1 4F 66 8A 0D 19</text>
+    <text x="20" y="114" fill="#ff00ea">8E D2 F3 2C 5B 77</text>
+    <text x="20" y="132" fill="#9d4eff">10 23 C4 B9 E5 6F</text>
+  </g>
+  <rect x="68" y="50" width="20" height="14" fill="none" stroke="#ff4444" stroke-width="2"/>
+  <g font-family="monospace" font-size="9" fill="#ffe700">
+    <text x="14" y="150">[XOR][ROT][BASE64][CAESAR]</text>
+  </g>
+</svg>

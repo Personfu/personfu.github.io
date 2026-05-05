@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" shape-rendering="crispEdges">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a0408"/>
+      <stop offset="100%" stop-color="#020408"/>
+    </linearGradient>
+  </defs>
+  <rect width="240" height="160" fill="url(#bg)"/>
+  <rect x="3" y="3" width="234" height="154" fill="none" stroke="#ff4444" stroke-width="2"/>
+  <rect x="7" y="7" width="226" height="146" fill="none" stroke="#ff00ea" stroke-width="1" stroke-dasharray="4 3"/>
+  <g font-family="monospace" font-weight="700">
+    <text x="120" y="48" font-size="30" fill="#ff4444" text-anchor="middle" letter-spacing="4">RED_OPS_RANGE</text>
+    <text x="120" y="68" font-size="11" fill="#ff00ea" text-anchor="middle">// RECON > FOOTHOLD > LATERAL > LOOT</text>
+  </g>
+  <g stroke="#ff4444" stroke-width="1.5" fill="none">
+    <circle cx="34" cy="116" r="6"/>
+    <circle cx="74" cy="116" r="6"/>
+    <circle cx="114" cy="116" r="6" fill="#ff4444"/>
+    <circle cx="154" cy="116" r="6"/>
+    <circle cx="194" cy="116" r="6"/>
+    <path d="M40 116 L68 116"/>
+    <path d="M80 116 L108 116"/>
+    <path d="M120 116 L148 116"/>
+    <path d="M160 116 L188 116"/>
+  </g>
+  <g font-family="monospace" font-size="8" fill="#ffe700" text-anchor="middle">
+    <text x="34" y="100">RECON</text>
+    <text x="74" y="100">EXPLOIT</text>
+    <text x="114" y="100">ESCALATE</text>
+    <text x="154" y="100">PIVOT</text>
+    <text x="194" y="100">EXFIL</text>
+  </g>
+  <g font-family="monospace" font-size="9" fill="#ff4444">
+    <text x="14" y="148">[KILLCHAIN_ACTIVE]</text>
+    <text x="170" y="148">[12 CONTRACTS]</text>
+  </g>
+</svg>

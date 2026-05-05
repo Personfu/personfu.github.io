@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" shape-rendering="crispEdges">
+  <rect width="200" height="240" fill="#020408"/>
+  <rect x="3" y="3" width="194" height="234" fill="none" stroke="#ffa500" stroke-width="2"/>
+  <rect x="7" y="7" width="186" height="226" fill="none" stroke="#ff4444" stroke-width="1" stroke-dasharray="3 2"/>
+  <g font-family="monospace" font-weight="700">
+    <text x="100" y="22" font-size="9" fill="#ffa500" text-anchor="middle">[ACTIVE][THREAT:HIGH]</text>
+  </g>
+  <rect x="40" y="40" width="120" height="140" fill="#0a0a0a" stroke="#ffa500" stroke-width="1"/>
+  <g stroke="#ffa500" stroke-width="2" fill="none">
+    <path d="M62 132 Q62 68 100 60 Q138 68 138 132"/>
+    <path d="M70 132 Q70 76 100 72 Q130 76 130 132"/>
+  </g>
+  <g fill="#ff4444">
+    <circle cx="86" cy="100" r="3"/>
+    <circle cx="114" cy="100" r="3"/>
+  </g>
+  <g stroke="#ff4444" stroke-width="1.5">
+    <path d="M82 96 L90 100"/>
+    <path d="M118 96 L110 100"/>
+  </g>
+  <path d="M86 124 L114 124" stroke="#ffa500" stroke-width="1.5"/>
+  <g stroke="#ffa500" stroke-width="1" opacity="0.7">
+    <path d="M62 70 L82 86"/>
+    <path d="M138 70 L118 86"/>
+  </g>
+  <g font-family="monospace" font-weight="700" text-anchor="middle">
+    <text x="100" y="200" font-size="14" fill="#ffa500" letter-spacing="3">CINDER_VEIL</text>
+    <text x="100" y="214" font-size="8" fill="#ffe700">// RANSOMWARE OPERATOR</text>
+    <text x="100" y="226" font-size="7" fill="#666">[CARTEL:CINDER][CVE_BROKER]</text>
+  </g>
+</svg>

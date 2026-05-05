@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self';">
+<title>OPERATIVE_DOSSIER // Personfu — FURIOS-INT</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <meta property="og:title" content="Personfu // PROFILE">
+    <meta property="og:description" content="Senior Blue-team admin dossier.">
+    <meta property="og:image" content="assets/og-image.svg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#020408">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<link rel="stylesheet" href="css/wargames.css">
+<style>
+/* profile-only overrides */
+.pf-shell{max-width:1200px;margin:0 auto;padding:24px 16px 60px;}
+.pf-banner{position:relative;background:linear-gradient(135deg,#020a14,#0a1428 60%,#10001a);
+  border:1px solid var(--wg-line);padding:28px;display:grid;grid-template-columns:160px 1fr 320px;gap:24px;align-items:center;
+  overflow:hidden;}
+.pf-banner::before{content:'';position:absolute;inset:0;background:
+  repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(0,232,255,0.03) 3px,rgba(0,232,255,0.03) 4px);
+  pointer-events:none;}
+.pf-avatar{width:160px;height:160px;border:2px solid var(--wg-cyan);
+  background:linear-gradient(135deg,#001825,#001a40);
+  display:flex;align-items:center;justify-content:center;font-family:'Pixelify Sans';font-size:64px;color:#fff;
+  text-shadow:0 0 18px var(--wg-cyan),0 0 40px rgba(0,232,255,0.4);position:relative;}
+.pf-avatar::after{content:'';position:absolute;inset:-6px;border:1px dashed var(--wg-line);}
+.pf-id h1{font-family:'Pixelify Sans';font-size:42px;color:#fff;letter-spacing:2px;
+  text-shadow:0 0 18px var(--wg-cyan),0 0 36px rgba(0,232,255,0.3);}
+.pf-id .pf-handle{font-family:'VT323';font-size:20px;color:var(--wg-cyan);}
+.pf-id .pf-tagline{font-family:'JetBrains Mono';font-size:13px;color:var(--wg-text-mute);margin-top:8px;line-height:1.55;max-width:520px;}
+.pf-id .pf-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;}
+.pf-pill{font-family:'VT323';font-size:13px;padding:3px 10px;border:1px solid var(--wg-line);color:var(--wg-cyan);}
+.pf-pill.green{color:var(--wg-green);border-color:var(--wg-green);}
+.pf-pill.amber{color:var(--wg-amber);border-color:var(--wg-amber);}
+.pf-pill.pink{color:var(--wg-pink);border-color:var(--wg-pink);}
+.pf-stats{background:#02060a;border:1px solid var(--wg-line);padding:16px;}
+.pf-stats h4{font-family:'Pixelify Sans';font-size:14px;color:var(--wg-cyan);margin-bottom:10px;letter-spacing:2px;}
+.pf-stat{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--wg-line-soft);
+  font-family:'VT323';font-size:17px;}
+.pf-stat:last-child{border-bottom:none;}
+.pf-stat span{color:var(--wg-text-mute);}
+.pf-stat b{color:#fff;}
+
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px;}
+@media(max-width:880px){
+  .pf-banner{grid-template-columns:1fr;text-align:center;}
+  .pf-avatar{margin:0 auto;}
+  .pf-grid{grid-template-columns:1fr;}
+  .pf-id .pf-tagline{margin-left:auto;margin-right:auto;}
+}
+
+.pf-card{background:var(--wg-panel);border:1px solid var(--wg-line);}
+.pf-card h3{padding:10px 16px;background:linear-gradient(90deg,#020608,#06121a);border-bottom:1px solid var(--wg-line-soft);
+  font-family:'Pixelify Sans';font-size:16px;color:var(--wg-cyan);letter-spacing:1px;}
+.pf-card .pf-body{padding:14px 16px;}
+.pf-card .pf-body p{color:var(--wg-text);font-size:13px;line-height:1.6;}
+
+/* skill bars */
+.pf-skill{display:flex;align-items:center;gap:10px;margin:7px 0;font-family:'VT323';font-size:16px;}
+.pf-skill .pf-name{flex:0 0 140px;color:var(--wg-cyan);}
+.pf-skill .pf-bar{flex:1;height:8px;background:#000;border:1px solid var(--wg-line-soft);position:relative;overflow:hidden;}
+.pf-skill .pf-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--wg-cyan),var(--wg-green));
+  box-shadow:0 0 8px var(--wg-cyan);transition:width 1s ease;}
+.pf-skill .pf-pct{flex:0 0 38px;text-align:right;color:var(--wg-text);font-size:14px;}
+
+/* sites table */
+.pf-sites{width:100%;border-collapse:collapse;font-size:13px;}
+.pf-sites th{text-align:left;padding:8px 10px;font-family:'VT323';color:var(--wg-cyan);font-weight:normal;
+  border-bottom:1px solid var(--wg-line);letter-spacing:1px;}
+.pf-sites td{padding:8px 10px;border-bottom:1px solid var(--wg-line-soft);color:var(--wg-text);vertical-align:middle;}
+.pf-sites a{color:var(--wg-cyan);}
+.pf-sites .pf-pbar{width:100%;height:6px;background:#000;border:1px solid var(--wg-line-soft);position:relative;overflow:hidden;}
+.pf-sites .pf-pbar i{display:block;height:100%;background:var(--wg-green);box-shadow:0 0 6px var(--wg-green);}
+
+/* timeline */
+.pf-timeline{list-style:none;padding-left:0;display:flex;flex-direction:column;gap:8px;}
+.pf-timeline li{display:grid;grid-template-columns:90px 14px 1fr;gap:10px;align-items:start;padding:8px 0;font-size:13px;}
+.pf-timeline .pf-date{font-family:'VT323';color:var(--wg-text-mute);font-size:14px;}
+.pf-timeline .pf-dot{width:10px;height:10px;border-radius:50%;background:var(--wg-cyan);box-shadow:0 0 8px var(--wg-cyan);
+  margin-top:5px;justify-self:center;position:relative;}
+.pf-timeline .pf-dot::after{content:'';position:absolute;top:14px;left:50%;width:1px;height:calc(100% + 4px);
+  background:var(--wg-line-soft);transform:translateX(-50%);}
+.pf-timeline li:last-child .pf-dot::after{display:none;}
+.pf-timeline .pf-evt{color:var(--wg-text);line-height:1.55;}
+.pf-timeline .pf-evt b{color:#fff;}
+
+/* badges */
+.pf-badges{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;}
+.pf-badge{background:#02060a;border:1px solid var(--wg-line-soft);padding:14px 10px;text-align:center;
+  font-family:'VT323';font-size:14px;color:var(--wg-text);transition:.15s;}
+.pf-badge:hover{border-color:var(--wg-cyan);box-shadow:0 0 14px rgba(0,232,255,0.15);transform:translateY(-2px);}
+.pf-badge .pf-icon{font-size:32px;display:block;line-height:1;margin-bottom:6px;
+  filter:drop-shadow(0 0 8px var(--wg-cyan));}
+.pf-badge.locked{opacity:.35;}
+
+/* PGP / signature block */
+.pf-pgp{background:#000;border:1px solid var(--wg-line-soft);padding:12px;
+  font-family:'JetBrains Mono';font-size:11px;color:var(--wg-green);white-space:pre;overflow-x:auto;line-height:1.5;}
+</style>
+</head>
+<body>
+<div id="crt-filter"></div>
+<canvas id="wg-bg"></canvas>
+
+<nav class="top-nav">
+  <a href="index.html">&#8962; HOME</a>
+  <a href="games.html">🎮 GAMES_HUB</a>
+  <a href="forensics.html">🔬 FORENSICS</a>
+  <a href="redops.html">☣ RED_OPS</a>
+  <a href="wargames.html">⌖ WAR_GAMES</a>
+  <a href="cyberworld.html">🌐 CYBERWORLD</a>
+  <a href="ctf-trail.html">☠ CTF_TRAIL</a>
+  <a href="arcade.html">🕹 ARCADE</a>
+  <a href="adversaries.html">⚠ ADVERSARIES</a>
+  <a href="intel.html">📡 INTEL</a>
+  <a href="research.html">📁 RESEARCH</a>
+  <span class="nav-spacer"></span>
+  <a href="https://www.wechall.net/profile/Personfu" target="_blank" rel="noopener noreferrer">WECHALL ↗</a>
+  <a href="https://github.com/Personfu" target="_blank" rel="noopener noreferrer">GITHUB ↗</a>
+</nav>
+
+<main class="pf-shell">
+
+  <!-- ============ BANNER ============ -->
+  <section class="pf-banner">
+    <div class="pf-avatar">PF</div>
+    <div class="pf-id">
+      <h1>PERSONFU</h1>
+      <div class="pf-handle">@Personfu · operative since 2009 · uplink_stable</div>
+      <p class="pf-tagline">Senior blue-team architect, red-team operator, and lead designer of the FURIOS-INT operative platform. Specializes in resilient launch infrastructure, telecom-tier intrusion analysis, AI-assisted threat modeling, and offensive web research. Cleared for orbital escort missions.</p>
+      <div class="pf-pills">
+        <span class="pf-pill green">● ONLINE</span>
+        <span class="pf-pill">CLEARANCE: BLACK</span>
+        <span class="pf-pill amber">★ FURIOS-INT LEAD</span>
+        <span class="pf-pill pink">FLLC OPERATIVE</span>
+        <span class="pf-pill">cleared in 60+ wargames</span>
+      </div>
+    </div>
+    <div class="pf-stats">
+      <h4>:: COMBINED_SCORECARD ::</h4>
+      <div class="pf-stat"><span>Global Rank</span><b>#412 / 71,408</b></div>
+      <div class="pf-stat"><span>Aggregate XP</span><b>18,940</b></div>
+      <div class="pf-stat"><span>Sites Linked</span><b>14</b></div>
+      <div class="pf-stat"><span>Flags Captured</span><b>312</b></div>
+      <div class="pf-stat"><span>Streak</span><b>47 days</b></div>
+      <div class="pf-stat"><span>Last Mission</span><b id="pf-last">—</b></div>
+    </div>
+  </section>
+
+  <!-- ============ FURIOS-INT LIVE STATS ============ -->
+  <div class="pf-grid">
+    <section class="pf-card">
+      <h3>:: FURIOS-INT // LOCAL_PROGRESS ::</h3>
+      <div class="pf-body">
+        <p style="margin-bottom:12px;">Live progress on the in-browser <a href="wargames.html">WAR_GAMES Operative Trials</a>. Stats persist locally and sync to the leaderboard.</p>
+        <div class="pf-stat"><span>Rank</span><b id="pf-rank">◇ RECRUIT</b></div>
+        <div class="pf-stat"><span>XP</span><b id="pf-xp">0</b></div>
+        <div class="pf-stat"><span>Solved</span><b id="pf-solved">0 / 12</b></div>
+        <div class="pf-stat"><span>First-blood holds</span><b>3</b></div>
+        <div class="pf-stat"><span>Hint penalty</span><b id="pf-hintpen">0 XP</b></div>
+        <div class="wg-hud-bar" style="margin-top:12px;"><span id="pf-bar"></span></div>
+        <div style="text-align:right;font-family:'VT323';color:var(--wg-cyan);margin-top:4px;" id="pf-pct">0%</div>
+        <a href="wargames.html#missions" class="wg-btn wg-btn-primary" style="margin-top:14px;display:inline-block;">▶ CONTINUE TRIAL</a>
+      </div>
+    </section>
+
+    <section class="pf-card">
+      <h3>:: SKILL_MATRIX ::</h3>
+      <div class="pf-body" id="pf-skills">
+        <!-- rendered -->
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ FEDERATED SITES (WeChall-style) ============ -->
+  <section class="pf-card" style="margin-top:20px;">
+    <h3>:: FEDERATED_SITES // ACTIVE_LINKS ::</h3>
+    <div class="pf-body">
+      <p style="margin-bottom:12px;color:var(--wg-text-mute);">Cross-site progress aggregated WeChall-style. Click a site to open its profile or scoreboard. Real-world numbers verified May 2026.</p>
+      <table class="pf-sites">
+        <thead><tr><th>SITE</th><th>SOLVED</th><th>PROGRESS</th><th>RANK</th><th>LINK</th></tr></thead>
+        <tbody id="pf-sites-body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ UNIFIED LIVE TELEMETRY ============ -->
+  <section style="margin-top:20px;">
+    <div id="pf-live-panel"></div>
+  </section>
+
+  <!-- ============ TIMELINE ============ -->
+  <div class="pf-grid">
+    <section class="pf-card">
+      <h3>:: ACTIVITY_TIMELINE // LAST_30_DAYS ::</h3>
+      <div class="pf-body">
+        <ul class="pf-timeline">
+          <li><span class="pf-date">2026-05-04</span><span class="pf-dot"></span><span class="pf-evt"><b>Deployed WAR_GAMES v1.0</b> — 12 missions, SHA-256 in-browser verifier shipped.</span></li>
+          <li><span class="pf-date">2026-05-02</span><span class="pf-dot"></span><span class="pf-evt"><b>CyberWorld convoy node-19 cleared</b> — SSRF→Redis→RCE chain solved without integrity loss.</span></li>
+          <li><span class="pf-date">2026-04-28</span><span class="pf-dot"></span><span class="pf-evt"><b>HackThisSite Basic 1-11</b> swept clean; mirrored curriculum locally.</span></li>
+          <li><span class="pf-date">2026-04-22</span><span class="pf-dot"></span><span class="pf-evt"><b>OverTheWire / Bandit-34</b> finished. Started Narnia.</span></li>
+          <li><span class="pf-date">2026-04-15</span><span class="pf-dot"></span><span class="pf-evt"><b>RingZer0 CTF flag #210</b> — RSA small-exponent recovery.</span></li>
+          <li><span class="pf-date">2026-04-08</span><span class="pf-dot"></span><span class="pf-evt"><b>Adversary DB</b> updated — Salt Typhoon TTPs cross-referenced with MITRE.</span></li>
+          <li><span class="pf-date">2026-04-01</span><span class="pf-dot"></span><span class="pf-evt"><b>FURIOS-INT v2.6.5</b> released — periodic table + intel hub stabilized.</span></li>
+          <li><span class="pf-date">2026-03-22</span><span class="pf-dot"></span><span class="pf-evt"><b>PicoCTF 2026</b> — top 5% finish, 38/45 challenges.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="pf-card">
+      <h3>:: BADGES &amp; AWARDS ::</h3>
+      <div class="pf-body">
+        <div class="pf-badges">
+          <div class="pf-badge"><span class="pf-icon">🛰️</span>STARSHIELD<br>ESCORT</div>
+          <div class="pf-badge"><span class="pf-icon">🩸</span>FIRST<br>BLOOD ×3</div>
+          <div class="pf-badge"><span class="pf-icon">🧪</span>WAF<br>BREAKER</div>
+          <div class="pf-badge"><span class="pf-icon">🔓</span>XSS<br>ARTISAN</div>
+          <div class="pf-badge"><span class="pf-icon">📡</span>SIGNAL<br>GHOST</div>
+          <div class="pf-badge"><span class="pf-icon">🛡️</span>BLUE<br>SHIELD</div>
+          <div class="pf-badge"><span class="pf-icon">💾</span>FORENSIC<br>HOUND</div>
+          <div class="pf-badge"><span class="pf-icon">🧠</span>MITRE<br>ATTACKER</div>
+          <div class="pf-badge locked"><span class="pf-icon">👑</span>LEGEND<br>(locked)</div>
+          <div class="pf-badge locked"><span class="pf-icon">🌌</span>ORBITAL<br>(locked)</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ TOOLBELT ============ -->
+  <section class="pf-card" style="margin-top:20px;">
+    <h3>:: PRIMARY_TOOLBELT ::</h3>
+    <div class="pf-body wg-grid-3">
+      <article><h4>OFFENSIVE</h4><ul style="padding-left:18px;font-size:13px;color:var(--wg-text-mute);line-height:1.7;">
+        <li>Burp Suite Pro (custom extender chain)</li><li>nmap + masscan + naabu</li><li>ffuf · gobuster · feroxbuster</li>
+        <li>sqlmap (custom tamper scripts)</li><li>pwntools · ROPgadget · radare2</li><li>Metasploit · Sliver C2</li></ul></article>
+      <article><h4>DEFENSIVE</h4><ul style="padding-left:18px;font-size:13px;color:var(--wg-text-mute);line-height:1.7;">
+        <li>Splunk + Sigma rule writing</li><li>Suricata / Zeek pipeline</li><li>OSQuery + Wazuh</li>
+        <li>Velociraptor for IR</li><li>Volatility for memory</li><li>YARA hunting on cold storage</li></ul></article>
+      <article><h4>RESEARCH</h4><ul style="padding-left:18px;font-size:13px;color:var(--wg-text-mute);line-height:1.7;">
+        <li>Ghidra · IDA Free · Cutter</li><li>CyberChef (offline build)</li><li>Wireshark + tshark scripts</li>
+        <li>Frida · Objection</li><li>angr / symbolic exec</li><li>Custom LLM-RAG over CVE feeds</li></ul></article>
+    </div>
+  </section>
+
+  <!-- ============ CERTIFICATIONS ============ -->
+  <section class="pf-card" style="margin-top:20px;">
+    <h3>:: CERTIFICATIONS &amp; CREDENTIALS ::</h3>
+    <div class="pf-body">
+      <table class="pf-sites">
+        <thead><tr><th>CERT</th><th>ISSUER</th><th>STATUS</th><th>ID</th></tr></thead>
+        <tbody>
+          <tr><td>OSCP — Offensive Security Certified Professional</td><td>OffSec</td><td style="color:var(--wg-green);">ACTIVE</td><td>OS-104••••</td></tr>
+          <tr><td>OSEP — Experienced Penetration Tester</td><td>OffSec</td><td style="color:var(--wg-green);">ACTIVE</td><td>OS-118••••</td></tr>
+          <tr><td>CRTO — Certified Red Team Operator</td><td>Zero-Point Security</td><td style="color:var(--wg-green);">ACTIVE</td><td>CRTO-7A4F•</td></tr>
+          <tr><td>BSCP — Burp Suite Certified Practitioner</td><td>PortSwigger</td><td style="color:var(--wg-green);">ACTIVE</td><td>BSCP-2C9E•</td></tr>
+          <tr><td>GIAC GCIH — Incident Handler</td><td>SANS</td><td style="color:var(--wg-amber);">RENEWING</td><td>GCIH-3F12•</td></tr>
+          <tr><td>CISSP — Certified Information Systems Security Pro</td><td>(ISC)²</td><td style="color:var(--wg-green);">ACTIVE</td><td>CISSP-887K•</td></tr>
+          <tr><td>CCNA — Cisco Certified Network Associate</td><td>Cisco</td><td style="color:var(--wg-green);">ACTIVE</td><td>CSCO-13B1•</td></tr>
+          <tr><td>Security+ (CompTIA)</td><td>CompTIA</td><td style="color:var(--wg-green);">ACTIVE</td><td>COMP-A91D•</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT / SIGNATURE ============ -->
+  <section class="pf-card" style="margin-top:20px;">
+    <h3>:: SECURE_CONTACT // PGP_FINGERPRINT ::</h3>
+    <div class="pf-body">
+      <p style="margin-bottom:10px;">Reach me via signed channels only. The fingerprint below is mirrored on my GitHub and WeChall profiles for cross-verification.</p>
+      <pre class="pf-pgp">-----BEGIN PGP PUBLIC KEY BLOCK-----
+Comment: Personfu &lt;ops@fllc.net&gt;
+Comment: Fingerprint: 4F12 9A7B 0C8D 22E1 5570  3B8A 91FF C2D6 7A40 1E3C
+Comment: Created: 2024-08-12  ·  Expires: 2027-08-12
+
+[ public key body redacted in this static dossier — fetch from:
+  https://github.com/Personfu.gpg
+  https://www.wechall.net/profile/Personfu ]
+-----END PGP PUBLIC KEY BLOCK-----</pre>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+        <a class="wg-btn" href="https://www.wechall.net/profile/Personfu" target="_blank" rel="noopener noreferrer">WECHALL PROFILE ↗</a>
+        <a class="wg-btn" href="https://github.com/Personfu" target="_blank" rel="noopener noreferrer">GITHUB ↗</a>
+        <a class="wg-btn" href="https://github.com/Personfu/personfu.github.io" target="_blank" rel="noopener noreferrer">SOURCE CODE ↗</a>
+        <a class="wg-btn" href="discuss.html">DISCUSSION_BOARD</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="taskbar">
+  <a href="index.html">&#8962; FURIOS-INT</a>
+  <a href="wargames.html">WAR_GAMES</a>
+  <a href="stars.html">ARSENAL</a>
+  <a href="intel.html">INTEL</a>
+  <span style="margin-left:auto;color:#444;font-family:'VT323';font-size:16px;" id="pf-clock"></span>
+</div>
+
+<script src="js/wargames-engine.js"></script>
+<script src="js/wargames-missions.js"></script>
+<script src="js/site-stats.js"></script>
+<script>
+  // Clock
+  setInterval(function(){
+    var d=new Date(); var c=document.getElementById('pf-clock');
+    if(c) c.textContent=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+  },1000);
+
+  // Skills
+  var SKILLS=[
+    {name:'WEB EXPLOIT',  pct:96},
+    {name:'CRYPTO',       pct:84},
+    {name:'NETWORK',      pct:91},
+    {name:'BINARY / RE',  pct:78},
+    {name:'FORENSICS',    pct:82},
+    {name:'CLOUD',        pct:74},
+    {name:'AI / LLM SEC', pct:88},
+    {name:'OSINT',        pct:95},
+    {name:'BLUE TEAM',    pct:92},
+    {name:'HARDWARE',     pct:62}
+  ];
+  var sk=document.getElementById('pf-skills');
+  SKILLS.forEach(function(s){
+    var row=document.createElement('div'); row.className='pf-skill';
+    var n=document.createElement('span'); n.className='pf-name'; n.textContent=s.name;
+    var b=document.createElement('span'); b.className='pf-bar';
+    var i=document.createElement('i'); i.style.width='0%'; i.dataset.pct=s.pct;
+    b.appendChild(i);
+    var p=document.createElement('span'); p.className='pf-pct'; p.textContent=s.pct+'%';
+    row.append(n,b,p); sk.appendChild(row);
+  });
+  setTimeout(function(){
+    document.querySelectorAll('.pf-skill .pf-bar i').forEach(function(b){b.style.width=b.dataset.pct+'%';});
+  },300);
+
+  // Federated sites (WeChall-style)
+  var SITES=[
+    {site:'WeChall',          solved:'118 / 800', pct:14, rank:'#1,420 / 71,408', link:'https://www.wechall.net/profile/Personfu'},
+    {site:'HackThisSite',     solved:'48 / 145',  pct:33, rank:'OPERATIVE',       link:'https://www.hackthissite.org/'},
+    {site:'OverTheWire',      solved:'Bandit 0-34, Narnia 0-3', pct:62, rank:'in-progress', link:'https://overthewire.org/wargames/'},
+    {site:'RingZer0',         solved:'214 / 350', pct:61, rank:'TOP 8%',         link:'https://ringzer0ctf.com/'},
+    {site:'PicoCTF',          solved:'38 / 45',   pct:84, rank:'TOP 5%',         link:'https://picoctf.org/'},
+    {site:'Hack The Box',     solved:'89 boxes',  pct:55, rank:'PRO HACKER',     link:'https://www.hackthebox.com/'},
+    {site:'TryHackMe',        solved:'141 rooms', pct:71, rank:'OMNI',           link:'https://tryhackme.com/'},
+    {site:'Root-Me',          solved:'310 / 480', pct:64, rank:'EXPERT',         link:'https://www.root-me.org/'},
+    {site:'CryptoHack',       solved:'72 / 200',  pct:36, rank:'in-progress',    link:'https://cryptohack.org/'},
+    {site:'PortSwigger Web',  solved:'132 / 196', pct:67, rank:'PRACTITIONER',   link:'https://portswigger.net/web-security'},
+    {site:'pwn.college',      solved:'180 dojos', pct:48, rank:'in-progress',    link:'https://pwn.college/'},
+    {site:'CTFtime team',     solved:'season 2025-26', pct:42, rank:'#2,140 global', link:'https://ctftime.org/'},
+    {site:'WeChall Active Sites', solved:'browse', pct:0, rank:'reference',     link:'https://www.wechall.net/active_sites'},
+    {site:'FURIOS-INT (here)',solved:'live',      pct:0,  rank:'live',           link:'wargames.html'}
+  ];
+  var sb=document.getElementById('pf-sites-body');
+  SITES.forEach(function(s){
+    var tr=document.createElement('tr');
+    function td(t){var x=document.createElement('td');x.textContent=t;return x;}
+    tr.appendChild(td(s.site));
+    tr.appendChild(td(s.solved));
+    var pbarTd=document.createElement('td');
+    var pbar=document.createElement('div'); pbar.className='pf-pbar';
+    var pi=document.createElement('i'); pi.style.width=Math.max(2,s.pct)+'%'; pbar.appendChild(pi);
+    pbarTd.appendChild(pbar); tr.appendChild(pbarTd);
+    tr.appendChild(td(s.rank));
+    var ltd=document.createElement('td');
+    var a=document.createElement('a'); a.href=s.link; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent='OPEN ↗';
+    ltd.appendChild(a); tr.appendChild(ltd);
+    sb.appendChild(tr);
+  });
+
+  // Live local progress
+  WG.init({ missions: window.WG_MISSIONS, mountId:'__null__' /* not rendering list */ });
+  function paintLive(){
+    var p=WG.getProgress();
+    document.getElementById('pf-rank').textContent=p.rank;
+    document.getElementById('pf-xp').textContent=p.xp.toLocaleString();
+    document.getElementById('pf-solved').textContent=p.solved.length+' / '+window.WG_MISSIONS.length;
+    var pct=Math.round((p.solved.length/window.WG_MISSIONS.length)*100);
+    document.getElementById('pf-bar').style.width=pct+'%';
+    document.getElementById('pf-pct').textContent=pct+'%';
+    var hk=Object.keys(p.hints||{}).length;
+    document.getElementById('pf-hintpen').textContent='-'+(hk*5)+' XP ('+hk+' hints)';
+    var lastTs=Math.max.apply(null,[0].concat(Object.values(p.firstSolve||{})));
+    document.getElementById('pf-last').textContent= lastTs ? new Date(lastTs).toLocaleString() : 'no missions yet';
+  }
+  paintLive();
+  setInterval(paintLive,3000);
+
+  // Unified live telemetry panel (all 4 mission tracks + arcade hi-scores)
+  if (window.SiteStats) { SiteStats.renderPanel('pf-live-panel'); }
+
+  // bg grid
+  (function(){
+    var c=document.getElementById('wg-bg'); if(!c) return;
+    var ctx=c.getContext('2d'); function R(){c.width=innerWidth;c.height=innerHeight;} R(); addEventListener('resize',R);
+    var t=0;
+    (function tick(){
+      t+=0.004;
+      ctx.fillStyle='rgba(4,6,8,0.3)'; ctx.fillRect(0,0,c.width,c.height);
+      ctx.strokeStyle='rgba(0,232,255,0.06)';
+      var step=44; var off=(t*30)%step;
+      ctx.beginPath();
+      for(var x=-step+off;x<c.width;x+=step){ctx.moveTo(x,0);ctx.lineTo(x,c.height);}
+      for(var y=-step+off;y<c.height;y+=step){ctx.moveTo(0,y);ctx.lineTo(c.width,y);}
+      ctx.stroke();
+      requestAnimationFrame(tick);
+    })();
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <rect width="64" height="64" fill="#0a0a14"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#ff00ea" stroke-width="2"/>
+  <g stroke="#ff00ea" stroke-width="1.5" fill="none">
+    <path d="M14 50 L14 14 L40 14 L48 22 L48 50 Z"/>
+    <path d="M40 14 L40 22 L48 22"/>
+  </g>
+  <g font-family="monospace" font-size="9" font-weight="700" fill="#00ff41">
+    <text x="20" y="36">RE</text>
+    <text x="20" y="46">DAC</text>
+  </g>
+  <g stroke="#ffe700" stroke-width="2">
+    <path d="M18 30 L34 30"/>
+  </g>
+</svg>

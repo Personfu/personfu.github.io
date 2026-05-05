@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://win98icons.alexmeub.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self';">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberOS_GENERATOR // MISSION_K_662</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <meta property="og:title" content="CYBER">
+    <meta property="og:description" content="Front-of-house cyber landing.">
+    <meta property="og:image" content="assets/og-image.svg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#020408">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;700&family=Pixelify+Sans&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<style>
+    body { background: #000; overflow: hidden; }
+    .term-window { background: #000; height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+    .term-header { background: #000080; color: #fff; padding: 2px 10px; font-size: 11px; display: flex; justify-content: space-between; border-bottom: 2px solid #fff; }
+    
+    .term-body { flex: 1; padding: 15px; overflow-y: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--cyber-cyan); line-height: 1.4; text-transform: uppercase; }
+    .holyc-code { color: #ffff00; font-family: 'VT323', monospace; font-size: 14px; margin: 8px 0; border-left: 2px solid #fff; padding-left: 10px; opacity: 0.9; }
+    .mem-map { display: grid; grid-template-columns: repeat(16, 1fr); gap: 2px; margin: 15px 0; border: 1px solid #333; padding: 4px; }
+    .mem-block { height: 10px; background: #111; }
+    .mem-block.active { background: var(--cyber-pink); box-shadow: 0 0 5px var(--cyber-pink); }
+    .mem-block.compiling { background: var(--cyber-cyan); animation: pulse 0.5s infinite; }
+
+    @keyframes pulse { 0% { opacity: 0.2; } 50% { opacity: 1; } 100% { opacity: 0.2; } }
+
+    .term-footer { background: var(--win-bg); border-top: 2px solid var(--win-dark); padding: 5px 15px; color: #000; display: flex; justify-content: space-between; align-items: center; font-family: 'VT323'; height: 35px; }
+    .prog-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--cyber-cyan); z-index: -1; transition: width 0.3s; }
+    .kernel-success { color: #00ff41; margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 13px; border: 1px solid #00ff41; padding: 10px; }
+    .kernel-success a { color: #00e8ff; }
+</style>
+</head>
+<body>
+
+<div id="crt-filter"></div>
+<div id="desktop"></div>
+
+<div id="taskbar">
+    <div class="start-btn" onclick="window.location.href='index.html'">⊞ Start</div>
+    <div id="task-items" style="display: flex; gap: 4px; padding: 0 10px; flex: 1;"></div>
+    <div id="tray"><div id="clock">00:00:00</div></div>
+</div>
+
+<script src="js/os.js"></script>
+<script>
+    const logs = [
+        "FURIOS-INT Kernel Loader v6.62 Initialization...",
+        "Allocating memory pools [0x00000000 - 0xFFFFFFFF]...",
+        "Mounting SC_PHYSICS engine at /dev/shm/cyberworld...",
+        "Compiling HOLYC_CORE subsystems...",
+        "HolyC: U0 Main() { I64 i; for(i=0; i<1024; i++) { Yield(); } }",
+        "Loading CyberOS_LITE isometric projections...",
+        "Injecting OSINT Payload into SOC_LAYER_4...",
+        "Syncing DataBazaar registry with main server...",
+        "SYSTEM_READY() - Executing CyberWorld instance."
+    ];
+
+    const holycSnippets = [
+        "U0 DrawGrid() { I64 x,y; for(y=0; y<64; y++) for(x=0; x<64; x++) Plot(x,y, WHITE); }",
+        "I64 GetHash(U8 *str) { I64 h=0; while(*str) h = (h<<5) - h + *str++; return h; }",
+        "U0 BootKernel() { MemSet(0, 0, 0x100000); SetVideoMode(MODE_320x240_8BIT); }"
+    ];
+
+    function createContent() {
+        return `
+            <div class="term-window">
+                <div class="term-header"><span>CYBEROS_KERNEL_GEN_v22.3</span><span>Node: 0x7F</span></div>
+                <div class="term-body" id="term">
+                    <div id="log-anchor"></div>
+                    <div class="mem-map" id="mmap"></div>
+                </div>
+                <div class="term-footer">
+                    <div id="p-bar" style="position:relative; flex:1; height:18px; border:2px inset #fff; margin-right:20px; overflow:hidden;">
+                        <div id="p-fill" class="prog-fill" style="width:0%"></div>
+                        <span id="p-text" style="position:relative; z-index:1; padding-left:10px; font-weight:bold; font-size:12px;">SYSTEM_GENERATION: 0%</span>
+                    </div>
+                    <span id="stat" style="font-weight:bold; color:#000;">IDLE</span>
+                </div>
+            </div>
+        `;
+    }
+
+    let progress = 0;
+    let logIdx = 0;
+
+    function initMemMap() {
+        const m = document.getElementById('mmap');
+        if(!m) return;
+        for(let i=0; i<256; i++) {
+            const b = document.createElement('div');
+            b.className = 'mem-block';
+            b.id = 'block-' + i;
+            m.appendChild(b);
+        }
+    }
+
+    function addLog() {
+        const term = document.getElementById('term');
+        const anchor = document.getElementById('log-anchor');
+        if(!term) return;
+
+        if(logIdx < logs.length) {
+            const line = document.createElement('div');
+            line.innerHTML = `<span style="color:#ffff00">></span> ${logs[logIdx]}`;
+            term.insertBefore(line, anchor);
+
+            if(Math.random() > 0.6) {
+                const code = document.createElement('div');
+                code.className = 'holyc-code';
+                code.innerText = holycSnippets[Math.floor(Math.random()*holycSnippets.length)];
+                term.insertBefore(code, anchor);
+            }
+
+            // Animate memory blocks
+            const block = document.getElementById('block-' + Math.floor(progress * 2.5));
+            if(block) {
+                block.className = 'mem-block compiling';
+                setTimeout(() => block.className = 'mem-block active', 1000);
+            }
+
+            logIdx++;
+            progress += (100 / logs.length);
+            document.getElementById('p-fill').style.width = progress + '%';
+            document.getElementById('p-text').innerText = `SYSTEM_GENERATION: ${Math.floor(progress)}%`;
+            document.getElementById('stat').innerText = 'COMPILING_READY';
+            
+            term.scrollTop = term.scrollHeight;
+            setTimeout(addLog, 600 + Math.random()*1000);
+        } else {
+            document.getElementById('stat').innerText = 'SUCCESS';
+            const term = document.getElementById('term');
+            const success = document.createElement('div');
+            success.className = 'kernel-success';
+            const link1 = document.createElement('a');
+            link1.href = 'cyberworld.html';
+            link1.textContent = 'CyberWorld RPG';
+            const link2 = document.createElement('a');
+            link2.href = 'index.html';
+            link2.textContent = '← FURIOS-INT HQ';
+            success.appendChild(document.createTextNode('✓ KERNEL_GENERATED: CyberWorld MMORPG instance initialized.'));
+            success.appendChild(document.createElement('br'));
+            success.appendChild(document.createTextNode('✓ All subsystems online. Navigate to '));
+            success.appendChild(link1);
+            success.appendChild(document.createTextNode(' or return to '));
+            success.appendChild(link2);
+            success.appendChild(document.createTextNode('.'));
+            term.appendChild(success);
+            term.scrollTop = term.scrollHeight;
+        }
+    }
+
+    window.onload = () => {
+        OS.createWindow('gen-window', 'CyberOS Kernel Engine - Mission_K_662', createContent(), {
+            width: '90%', height: '85%', top: '5%', left: '5%'
+        });
+        initMemMap();
+        setTimeout(addLog, 1000);
+    };
+
+    setInterval(() => {
+        document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-US', { hour12: false });
+    }, 1000);
+</script>
+
+</body>
+</html>

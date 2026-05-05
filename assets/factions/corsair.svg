@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" shape-rendering="crispEdges">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#1a0a04"/>
+      <stop offset="100%" stop-color="#020408"/>
+    </radialGradient>
+  </defs>
+  <rect width="128" height="128" fill="url(#g)"/>
+  <rect x="4" y="4" width="120" height="120" fill="none" stroke="#ffa500" stroke-width="2"/>
+  <rect x="8" y="8" width="112" height="112" fill="none" stroke="#ff4444" stroke-width="1" stroke-dasharray="4 2"/>
+  <g fill="none" stroke="#ffa500" stroke-width="3">
+    <circle cx="64" cy="44" r="6"/>
+    <path d="M64 50 L64 84"/>
+    <path d="M48 84 Q64 96 80 84"/>
+    <path d="M40 84 L88 84"/>
+    <path d="M64 64 L52 76"/>
+    <path d="M64 64 L76 76"/>
+  </g>
+  <g fill="#ff4444">
+    <circle cx="64" cy="44" r="2"/>
+  </g>
+  <g font-family="monospace" font-weight="700" text-anchor="middle">
+    <text x="64" y="116" font-size="10" fill="#ffa500">// CORSAIR_GUILD</text>
+    <text x="64" y="20" font-size="7" fill="#ff4444">[OFFENSIVE][TIER:RED]</text>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <rect width="64" height="64" fill="#0a0a14"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#00e8ff" stroke-width="2"/>
+  <g stroke="#00ff41" stroke-width="1.5" fill="none">
+    <path d="M8 32 L18 32 L22 22 L30 42 L36 28 L42 36 L46 32 L56 32"/>
+  </g>
+  <g fill="#ff00ea">
+    <circle cx="22" cy="22" r="2"/>
+    <circle cx="30" cy="42" r="2"/>
+    <circle cx="36" cy="28" r="2"/>
+    <circle cx="42" cy="36" r="2"/>
+  </g>
+  <g font-family="monospace" font-size="5" fill="#ffe700">
+    <text x="8" y="14">PCAP</text>
+    <text x="40" y="58">SNIFF</text>
+  </g>
+</svg>

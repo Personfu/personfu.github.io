@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" shape-rendering="crispEdges">
+  <rect width="240" height="160" fill="#020408"/>
+  <rect x="3" y="3" width="234" height="154" fill="none" stroke="#00ff41" stroke-width="2"/>
+  <g stroke="#00ff41" stroke-width="0.4" opacity="0.3">
+    <path d="M16 16 L224 16 M16 32 L224 32 M16 48 L224 48 M16 64 L224 64 M16 80 L224 80 M16 96 L224 96 M16 112 L224 112 M16 128 L224 128 M16 144 L224 144"/>
+    <path d="M16 16 L16 144 M32 16 L32 144 M48 16 L48 144 M64 16 L64 144 M80 16 L80 144 M96 16 L96 144 M112 16 L112 144 M128 16 L128 144 M144 16 L144 144 M160 16 L160 144 M176 16 L176 144 M192 16 L192 144 M208 16 L208 144 M224 16 L224 144"/>
+  </g>
+  <g fill="#00ff41">
+    <rect x="48" y="64" width="14" height="14"/>
+    <rect x="64" y="64" width="14" height="14"/>
+    <rect x="80" y="64" width="14" height="14"/>
+    <rect x="80" y="80" width="14" height="14"/>
+    <rect x="80" y="96" width="14" height="14"/>
+  </g>
+  <rect x="160" y="80" width="14" height="14" fill="#ff00ea"/>
+  <g font-family="monospace" font-weight="700" text-anchor="middle">
+    <text x="120" y="34" font-size="20" fill="#00ff41" letter-spacing="3">CYBER_SNAKE</text>
+    <text x="120" y="148" font-size="9" fill="#ffe700">[ARCADE][HISCORE]</text>
+  </g>
+</svg>

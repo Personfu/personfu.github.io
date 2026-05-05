@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <rect width="64" height="64" fill="#0a0a14"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#9d4eff" stroke-width="2"/>
+  <g fill="#9d4eff">
+    <rect x="20" y="14" width="4" height="36"/>
+    <rect x="40" y="14" width="4" height="36"/>
+    <rect x="14" y="14" width="36" height="4"/>
+    <rect x="14" y="46" width="36" height="4"/>
+  </g>
+  <g fill="#00ff41" font-family="monospace" font-size="14" font-weight="700" text-anchor="middle">
+    <text x="32" y="38">AI</text>
+  </g>
+</svg>

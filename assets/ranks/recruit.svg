@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" shape-rendering="crispEdges">
+  <rect width="96" height="96" fill="#0a0a14"/>
+  <rect x="3" y="3" width="90" height="90" fill="none" stroke="#666" stroke-width="2"/>
+  <g fill="none" stroke="#aaaaaa" stroke-width="3">
+    <path d="M24 50 L48 38 L72 50"/>
+  </g>
+  <g font-family="monospace" font-weight="700" text-anchor="middle">
+    <text x="48" y="72" font-size="11" fill="#aaaaaa">RECRUIT</text>
+    <text x="48" y="84" font-size="7" fill="#666">XP &gt;= 0</text>
+    <text x="48" y="22" font-size="7" fill="#666">[T0]</text>
+  </g>
+</svg>

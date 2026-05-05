@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <rect width="64" height="64" fill="#0a0a14"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#00ff41" stroke-width="2"/>
+  <g fill="none" stroke="#00ff41" stroke-width="1.5">
+    <rect x="20" y="14" width="24" height="36" rx="2"/>
+    <rect x="22" y="18" width="20" height="24" fill="#020408"/>
+    <circle cx="32" cy="46" r="2"/>
+  </g>
+  <g font-family="monospace" font-size="5" fill="#00ff41">
+    <text x="24" y="26">CONFIG</text>
+    <text x="24" y="32">..LOCK</text>
+    <text x="24" y="38">..PIN_</text>
+  </g>
+</svg>

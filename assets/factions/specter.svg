@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" shape-rendering="crispEdges">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#150a1a"/>
+      <stop offset="100%" stop-color="#020408"/>
+    </radialGradient>
+  </defs>
+  <rect width="128" height="128" fill="url(#g)"/>
+  <rect x="4" y="4" width="120" height="120" fill="none" stroke="#9d4eff" stroke-width="2"/>
+  <rect x="8" y="8" width="112" height="112" fill="none" stroke="#ff00ea" stroke-width="1" stroke-dasharray="4 2"/>
+  <g fill="none" stroke="#9d4eff" stroke-width="2.5">
+    <path d="M28 64 Q64 36 100 64 Q64 92 28 64 Z"/>
+  </g>
+  <circle cx="64" cy="64" r="14" fill="#020408" stroke="#ff00ea" stroke-width="2"/>
+  <circle cx="64" cy="64" r="5" fill="#ff00ea"/>
+  <circle cx="65" cy="62" r="2" fill="#020408"/>
+  <g stroke="#9d4eff" stroke-width="1" opacity="0.6">
+    <path d="M28 64 L20 56"/>
+    <path d="M100 64 L108 56"/>
+    <path d="M28 64 L20 72"/>
+    <path d="M100 64 L108 72"/>
+  </g>
+  <g font-family="monospace" font-weight="700" text-anchor="middle">
+    <text x="64" y="116" font-size="10" fill="#9d4eff">// SPECTER_COLLECTIVE</text>
+    <text x="64" y="20" font-size="7" fill="#ff00ea">[OBSERVE][TIER:GHOST]</text>
+  </g>
+</svg>

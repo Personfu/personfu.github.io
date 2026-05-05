@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' http://localhost:8787 http://127.0.0.1:8787 ws://localhost:8787 ws://127.0.0.1:8787 https://personfugithubio-production.up.railway.app wss://personfugithubio-production.up.railway.app https://personfu.github.io https://fllc.net;">
+<meta name="cyberworld-api-base" content="https://personfugithubio-production.up.railway.app">
+<title>🌐 CYBERWORLD — Operation Starshield</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <meta property="og:title" content="CYBERWORLD // NEXUS">
+    <meta property="og:description" content="Persistent multiplayer cyber MMORPG.">
+    <meta property="og:image" content="assets/og-image.svg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#020408">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<script src="js/multiplayer-client.js"></script>
+<script src="js/scene-expansion.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;--orange:#ffa500;--red:#ff4444;}
+html,body{width:100%;height:100%;}
+body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace;overflow-x:hidden;line-height:1.4;}
+
+/* ═════ CRT EFFECT ═════ */
+#crt{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.08) 0px,rgba(0,0,0,0.08) 1px,transparent 1px,transparent 2px);z-index:9998;}
+
+/* ═════ BOOT SEQUENCE ═════ */
+#boot-screen{position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:10000;display:flex;flex-direction:column;justify-content:center;padding:40px;font-family:'JetBrains Mono';font-size:13px;color:var(--green);overflow-y:auto;}
+#boot-screen.hidden{display:none;}
+.boot-line{margin-bottom:4px;opacity:0;animation:bootFade 0.2s ease forwards;}
+@keyframes bootFade{to{opacity:1;}}
+.boot-cursor{display:inline-block;width:8px;height:14px;background:var(--green);margin-left:4px;animation:blink 1s infinite;}
+@keyframes blink{0%,49%{opacity:1;}50%,100%{opacity:0;}}
+
+/* ═════ HEADER / TOP NAV ═════ */
+#header{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(2,4,8,0.98);border-bottom:2px solid rgba(0,232,255,0.3);padding:14px 20px;height:auto;}
+.header-content{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+.header-left{display:flex;align-items:center;gap:16px;}
+.header-title{font-family:'Pixelify Sans';font-size:22px;color:var(--cyan);text-shadow:0 0 10px rgba(0,232,255,0.6);}
+.header-subtitle{font-family:'VT323';font-size:11px;color:#666;margin-top:-2px;}
+.header-nav{display:flex;gap:10px;}
+.nav-btn{padding:6px 12px;border:1px solid var(--cyan);background:transparent;color:var(--cyan);font-family:'VT323';font-size:13px;cursor:pointer;transition:0.2s;}
+.nav-btn:hover{background:rgba(0,232,255,0.1);}
+.player-menu{display:flex;gap:12px;align-items:center;}
+.player-status{text-align:right;font-size:11px;}
+.player-level{color:var(--pink);font-weight:bold;}
+.player-faction{color:var(--orange);font-size:10px;}
+
+/* ═════ CHARACTER CREATION / LOGIN ═════ */
+#auth-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:5000;display:flex;align-items:center;justify-content:center;padding:20px;}
+#auth-overlay.hidden{display:none;}
+.auth-panel{background:#040d0e;border:2px solid var(--cyan);padding:30px;max-width:600px;width:100%;box-shadow:0 0 40px rgba(0,232,255,0.2);}
+.auth-title{font-family:'Pixelify Sans';font-size:28px;color:var(--cyan);margin-bottom:20px;text-align:center;}
+.auth-subtitle{font-size:12px;color:#888;text-align:center;margin-bottom:20px;}
+
+/* Character Creation Forms */
+.form-group{margin-bottom:16px;}
+.form-label{font-family:'VT323';font-size:12px;color:var(--green);margin-bottom:6px;display:block;}
+.form-input,.form-select{width:100%;padding:10px;background:#000;border:1px solid rgba(0,232,255,0.3);color:var(--cyan);font-family:'JetBrains Mono';font-size:12px;outline:none;}
+.form-input:focus,.form-select:focus{border-color:var(--cyan);box-shadow:0 0 8px rgba(0,232,255,0.2);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.form-row-full{grid-column:1/-1;}
+.role-chip-wrap{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.role-chip{padding:6px 9px;border:1px solid rgba(0,232,255,0.3);font-size:10px;color:var(--cyan);background:#040404;cursor:pointer;}
+.role-chip.selected{border-color:var(--green);color:var(--green);background:rgba(0,255,65,0.08);}
+
+.faction-selector{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;}
+.faction-card{padding:12px;border:1px solid rgba(0,232,255,0.2);background:#050505;cursor:pointer;transition:0.2s;text-align:center;}
+.faction-card:hover{border-color:var(--cyan);background:rgba(0,232,255,0.08);}
+.faction-card.selected{border-color:var(--green);background:rgba(0,255,65,0.1);}
+.faction-icon{font-size:28px;margin-bottom:6px;}
+.faction-name{font-size:12px;font-weight:bold;color:#fff;}
+.faction-desc{font-size:10px;color:#666;margin-top:4px;}
+
+.form-buttons{display:flex;gap:10px;margin-top:20px;}
+.btn{flex:1;padding:12px;border:1px solid;background:transparent;font-family:'VT323';font-size:14px;cursor:pointer;transition:0.2s;}
+.btn-primary{border-color:var(--cyan);color:var(--cyan);}
+.btn-primary:hover{background:rgba(0,232,255,0.1);}
+.btn-secondary{border-color:var(--green);color:var(--green);}
+.btn-secondary:hover{background:rgba(0,255,65,0.1);}
+
+/* ═════ MAIN WORLD VIEW ═════ */
+#world-container{position:fixed;top:50px;left:0;right:0;bottom:0;display:grid;grid-template-columns:300px 1fr 280px;gap:0;}
+#sidebar-left{background:#080810;border-right:1px solid rgba(0,232,255,0.15);overflow-y:auto;padding:16px;}
+#main-content{background:#050508;overflow-y:auto;padding:20px;}
+#sidebar-right{background:#080810;border-left:1px solid rgba(0,232,255,0.15);overflow-y:auto;padding:16px;}
+
+.sidebar-section{margin-bottom:20px;}
+.section-header{font-family:'Pixelify Sans';font-size:14px;color:var(--cyan);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(0,232,255,0.15);}
+.section-body{font-size:11px;line-height:1.6;}
+
+/* PLAYER PROFILE CARD */
+.player-card{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:12px;margin-bottom:12px;border-radius:3px;}
+.player-name{font-weight:bold;color:#fff;font-size:13px;}
+.player-title{color:var(--green);font-size:10px;}
+.player-stats{margin-top:8px;font-size:10px;}
+.stat-row{display:flex;justify-content:space-between;margin-bottom:3px;}
+.stat-label{color:#666;}
+.stat-val{color:var(--cyan);font-weight:bold;}
+
+/* CHARACTER SHEET */
+.char-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid rgba(0,232,255,0.2);}
+.char-title{font-family:'Pixelify Sans';font-size:26px;color:#fff;}
+.char-badge{display:inline-block;padding:4px 10px;border:1px solid;font-size:11px;border-radius:3px;}
+.char-badge.faction-nomad{border-color:var(--cyan);color:var(--cyan);}
+.char-badge.faction-corsair{border-color:var(--pink);color:var(--pink);}
+.char-badge.faction-specter{border-color:var(--green);color:var(--green);}
+
+.char-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:20px;}
+.char-stat-box{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:14px;border-radius:3px;}
+.char-stat-label{font-size:10px;color:#666;margin-bottom:4px;}
+.char-stat-value{font-family:'Pixelify Sans';font-size:24px;color:var(--cyan);}
+.char-stat-subval{font-size:11px;color:#888;margin-top:2px;}
+
+/* PROGRESSION & SKILLS */
+.skill-item{background:#050505;border-left:2px solid var(--cyan);padding:10px;margin-bottom:8px;border-radius:2px;}
+.skill-name{font-weight:bold;color:#fff;font-size:12px;}
+.skill-level{font-size:10px;color:var(--green);margin-top:2px;}
+.skill-progress{height:4px;background:#111;margin-top:4px;border-radius:2px;overflow:hidden;}
+.skill-bar{height:100%;background:linear-gradient(90deg,var(--cyan),var(--green));width:65%;}
+
+/* WORLD MAP */
+.world-map{background:#000;border:1px solid rgba(0,232,255,0.2);padding:16px;margin-bottom:20px;border-radius:3px;}
+.map-title{font-size:13px;font-weight:bold;color:var(--cyan);margin-bottom:10px;}
+.map-description{font-size:11px;color:#888;line-height:1.6;}
+.map-actions{margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;}
+.map-btn{padding:8px 12px;border:1px solid var(--cyan);background:transparent;color:var(--cyan);font-family:'VT323';font-size:11px;cursor:pointer;transition:0.2s;border-radius:2px;}
+.map-btn:hover{background:rgba(0,232,255,0.1);}
+
+/* FACTION SYSTEM */
+.faction-status{background:#050505;border:1px solid;padding:12px;margin-bottom:12px;border-radius:3px;}
+.faction-status.nomad{border-color:var(--cyan);color:var(--cyan);}
+.faction-status.corsair{border-color:var(--pink);color:var(--pink);}
+.faction-status.specter{border-color:var(--green);color:var(--green);}
+.rep-bar{height:6px;background:#111;margin-top:6px;border-radius:1px;overflow:hidden;}
+.rep-fill{height:100%;background:currentColor;width:60%;}
+
+/* QUEST LOG */
+.quest{background:#050505;border-left:3px solid var(--orange);padding:10px;margin-bottom:8px;border-radius:2px;}
+.quest-title{font-weight:bold;color:#fff;font-size:12px;}
+.quest-status{font-size:10px;color:var(--orange);margin-top:2px;}
+.quest-progress{font-size:10px;color:#666;margin-top:2px;}
+
+/* LORE / WORLD EVENTS */
+.lore-box{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:14px;margin-bottom:12px;border-radius:3px;}
+.lore-title{font-size:12px;font-weight:bold;color:var(--cyan);}
+.lore-date{font-size:9px;color:#666;margin-bottom:6px;}
+.lore-text{font-size:11px;color:#aaa;line-height:1.6;}
+
+/* MARKET / ITEMS */
+.item-card{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:10px;margin-bottom:8px;border-radius:3px;display:flex;justify-content:space-between;align-items:center;}
+.item-name{font-size:12px;font-weight:bold;color:#fff;}
+.item-price{font-size:11px;color:var(--green);}
+.campaign-card{background:#050505;border:1px solid rgba(0,232,255,0.2);padding:14px;margin-bottom:12px;border-radius:3px;}
+.campaign-title{font-size:13px;font-weight:bold;color:var(--cyan);margin-bottom:5px;}
+.campaign-meta{font-size:10px;color:#777;margin-bottom:6px;}
+.campaign-story{font-size:11px;color:#aaa;line-height:1.6;}
+.dossier{background:#050505;border-left:3px solid var(--red);padding:10px;margin-bottom:10px;}
+.dossier-name{font-size:12px;color:#fff;font-weight:bold;}
+.dossier-motive{font-size:10px;color:#aaa;margin-top:4px;line-height:1.5;}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  #world-container{grid-template-columns:1fr 200px;}
+  #sidebar-left{display:none;}
+}
+@media(max-width:768px){
+  #world-container{grid-template-columns:1fr;}
+  #sidebar-right{display:none;}
+  .char-grid{grid-template-columns:1fr;}
+}
+
+/* ANIMATIONS */
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.7;}}
+@keyframes glitch{0%,100%{transform:translate(0);}5%{transform:translate(-2px,2px);}10%{transform:translate(2px,-2px);}}
+.pulse{animation:pulse 2s infinite;}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:8px;}
+::-webkit-scrollbar-track{background:#050505;}
+::-webkit-scrollbar-thumb{background:rgba(0,232,255,0.3);border-radius:4px;}
+::-webkit-scrollbar-thumb:hover{background:rgba(0,232,255,0.6);}
+
+@keyframes fadeSlide{0%{opacity:1;transform:translateY(0);}70%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(-20px);}}
+
+</style>
+</head>
+<body data-story-page="cyberworld">
+
+<div id="crt"></div>
+
+<!-- ════════ BOOT SEQUENCE ════════ -->
+<div id="boot-screen">
+  <div id="boot-log"></div>
+  <div style="margin-top:20px;">SYSTEM INITIALIZED <span class="boot-cursor"></span></div>
+</div>
+
+<!-- ════════ AUTHENTICATION / CHARACTER CREATION ════════ -->
+<div id="auth-overlay">
+  <div class="auth-panel" id="auth-content">
+    <!-- Filled by JS -->
+  </div>
+</div>
+
+<!-- ════════ HEADER ════════ -->
+<div id="header">
+  <div class="header-content">
+    <div class="header-left">
+      <div>
+        <div class="header-title">🌐 CYBERWORLD // <span data-story="operation-name">Operation Starshield</span></div>
+        <div class="header-subtitle"><span data-story="campaign-brief">FLLC Nexus | 2030 Hostile Cyberspace | Launch Chain Under Attack</span></div>
+      </div>
+    </div>
+    <div class="header-nav">
+      <button class="nav-btn" onclick="loadWorld('codice')">CODICE_ZONE</button>
+      <button class="nav-btn" onclick="loadWorld('market')">🏪 MARKET</button>
+      <button class="nav-btn" onclick="loadWorld('guild')">⚔️ GUILD_HALL</button>
+      <button class="nav-btn" onclick="showCharacterSheet()">📊 CHARACTER</button>
+      <button class="nav-btn" onclick="cwToggleGameMenu()" style="border-color:#ffe700;color:#ffe700;">🎮 GAMES</button>
+      <a class="nav-btn" href="games.html" style="text-decoration:none;border-color:#ff00ea;color:#ff00ea;">⌂ HUB</a>
+    </div>
+    <div class="player-menu">
+      <span class="player-status">
+        <div class="player-level" id="player-level">LVL 1</div>
+        <div class="player-faction" id="player-faction"><img id="player-faction-img" src="" alt="" style="height:14px;vertical-align:middle;display:none;margin-right:4px;">UNALIGNED</div>
+        <div class="player-faction" id="player-tier">TIER: GUEST</div>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ MAIN WORLD ════════ -->
+<div id="world-container">
+  
+  <!-- LEFT SIDEBAR: PLAYER PROFILE & QUESTS -->
+  <div id="sidebar-left">
+    <div class="sidebar-section">
+      <div class="section-header">⚡ YOUR_PROFILE</div>
+      <div class="player-card">
+        <div class="player-name" id="profile-name">Operative</div>
+        <div class="player-title" id="profile-title">Unranked</div>
+        <div class="player-stats">
+          <div class="stat-row"><span class="stat-label">Health:</span><span class="stat-val" id="prof-hp">100/100</span></div>
+          <div class="stat-row"><span class="stat-label">Mana:</span><span class="stat-val" id="prof-mana">0/0</span></div>
+          <div class="stat-row"><span class="stat-label">XP:</span><span class="stat-val" id="prof-xp">0%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-header">📜 ACTIVE_QUESTS</div>
+      <div id="quest-list">
+        <div class="quest">
+          <div class="quest-title">CURRENT OPERATION: STARSHIELD</div>
+          <div class="quest-status" data-story="launch-status">Syncing launch status...</div>
+          <div class="quest-progress" data-story="current-mission-objective">Syncing mission objective...</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-header">🗺️ FAST_TRAVEL</div>
+      <button class="map-btn" style="width:100%" onclick="loadWorld('home-node')">HOME_NODE</button>
+      <button class="map-btn" style="width:100%;margin-top:6px;" onclick="loadWorld('market')">BLACK_MARKET</button>
+      <button class="map-btn" style="width:100%;margin-top:6px;" onclick="loadWorld('codice')">CODICE_ZONE</button>
+    </div>
+  </div>
+
+  <!-- CENTER: MAIN WORLD VIEW -->
+  <div id="main-content">
+    <div class="world-map">
+      <div class="map-title">📡 THE NEXUS // <span data-story="current-chapter-title">Chapter Sync Pending</span></div>
+      <div class="map-description">
+        You are inside The Nexus, the social heart of CyberWorld and the last trusted staging ground for Operation Starshield.
+        <br><br>
+        FLLC confirms hostile activity across relay, telecom, archive, and validator layers. Your character matters because every recovered fragment feeds the launch chain. Reputation, tools, and faction trust change which routes survive.
+        <br><br>
+        <strong>Threat State:</strong> <span data-story="current-threat-state">Syncing threat state...</span>
+      </div>
+      <div class="map-actions" id="location-actions">
+        <button class="map-btn" onclick="loadWorld('mission-board')">MISSION_BOARD</button>
+        <button class="map-btn" onclick="loadWorld('market')">MARKET</button>
+        <button class="map-btn" onclick="loadWorld('codice')">ENTER_CODICE</button>
+      </div>
+    </div>
+
+    <!-- PRIMARY CONTENT AREA -->
+    <div id="main-view" style="min-height:600px;"></div>
+  </div>
+
+  <!-- RIGHT SIDEBAR: FACTION & WORLD INFO -->
+  <div id="sidebar-right">
+    <div class="sidebar-section">
+      <div class="section-header">⚔️ FACTION_STATUS</div>
+      <div class="faction-status nomad">
+        <div style="font-weight:bold;">NOMAD_COLLECTIVE</div>
+        <div style="font-size:10px;opacity:0.8;">Reputation: 0/1000</div>
+        <div class="rep-bar"><div class="rep-fill" style="width:0%;"></div></div>
+      </div>
+      <div style="font-size:10px;line-height:1.6;color:#666;">
+        <strong>Faction Effects:</strong> <span data-story="faction-reputation-effects">Faction effects syncing...</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-header">📰 WORLD_EVENTS</div>
+      <div class="lore-box">
+        <div class="lore-title">Launch Metrics</div>
+        <div class="lore-date" data-story="launch-window">T-UNKNOWN</div>
+        <div class="lore-text">Uplink Integrity: <span data-story="uplink-integrity">0%</span> | Relay Trust: <span data-story="relay-trust">0%</span> | Adversary Pressure: <span data-story="adversary-pressure">0%</span></div>
+      </div>
+      <div class="lore-box">
+        <div class="lore-title">Live World Events</div>
+        <div class="lore-date">FLLC Event Feed</div>
+        <div class="lore-text">
+          <ul data-story="world-events" style="padding-left:14px;margin:0;"></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-header">📊 ONLINE</div>
+      <div style="font-size:11px;color:var(--green);">
+        <div id="mp-online-count">🟢 2,847 Operatives</div>
+        <div style="font-size:10px;color:#666;margin-top:4px;">
+          <div>⚔️ 342 in Combat</div>
+          <div>💰 512 Trading</div>
+          <div>🗣️ 1,993 in Guild_Halls</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-header">🌐 MULTIPLAYER_LINK</div>
+      <div class="lore-box">
+        <div class="lore-title">Backend Status</div>
+        <div class="lore-date" id="mp-backend-url">AUTO-DETECTING MULTIPLAYER ENDPOINT</div>
+        <div class="lore-text" id="mp-status">Checking multiplayer service...</div>
+      </div>
+      <div class="lore-box">
+        <div class="lore-title">Chapter Gate</div>
+        <div class="lore-date">Policy</div>
+        <div class="lore-text">Ch 1-3: open. Ch 4: email login required. Ch 5+: basic subscription required.</div>
+      </div>
+      <button class="map-btn" style="width:100%;" onclick="openSubscriptionFlow()">UPGRADE TO BASIC</button>
+      <button class="map-btn" style="width:100%;margin-top:6px;" onclick="activateMockBasic()">ACTIVATE MOCK BASIC</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// CYBERWORLD MMORPG - COMPLETE GAME ENGINE
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ─── GLOBAL STATE ───────────────────────────────────────────────────────
+const GAME = {
+  player: null,
+  world: {},
+  isAuthenticated: false,
+  currentLocation: 'home-node',
+};
+
+const CTF_PROGRESS_KEY = 'cyberworld-ctf-progress';
+const MP = window.CyberworldMP;
+
+const ADVERSARY_DOSSIERS = [
+  { name: 'BLACK_SPECTER', motive: 'Weaponizes zero-days against civic infrastructure to force black-market dependency.' },
+  { name: 'GRAY_FANG', motive: 'Builds extortion pipelines using ransomware and double-exfil pressure tactics.' },
+  { name: 'CINDER_VEIL', motive: 'Coordinates influence operations by blending breach data with synthetic narratives.' },
+];
+
+const CAMPAIGNS = [
+  {
+    id: 'arc-01',
+    title: 'Glass Harbor Breach',
+    chapter: 'Chapter 1 / Entry Vector',
+    cves: ['CVE-2024-3400', 'CVE-2024-21887'],
+    story: 'Palo and edge auth bypasses were chained to pivot into maritime customs. Your mission is to recover shipment manifests before Gray Fang sells route intelligence.',
+  },
+  {
+    id: 'arc-02',
+    title: 'Nexus Hospital Blackout',
+    chapter: 'Chapter 2 / Persistence Hunt',
+    cves: ['CVE-2023-34362', 'CVE-2021-41773'],
+    story: 'Critical care systems went dark after a stealth webshell deployment. You must map persistence and restore command channels without triggering panic broadcasts.',
+  },
+  {
+    id: 'arc-03',
+    title: 'Aurora Relay Exfil',
+    chapter: 'Chapter 3 / Counter-Exfil',
+    cves: ['CVE-2022-0543'],
+    story: 'Black Specter routed encrypted archives through a Redis SSRF chain. Intercept exfil blocks and frame-bust their operator network before dawn.',
+  },
+];
+
+const FACTIONS = {
+  nomad: {
+    name: 'NOMAD_COLLECTIVE',
+    icon: '🌍',
+    description: 'Independent. No allegiance. Pure freedom.',
+    color: 'var(--cyan)',
+    bonuses: { autonomy: +20, stealth: +15 },
+    quests: [],
+  },
+  corsair: {
+    name: 'CORSAIR_GUILD',
+    icon: '⚓',
+    description: 'Raiders of the data stream. Wealth through conquest.',
+    color: 'var(--pink)',
+    bonuses: { damage: +15, charisma: +10, resourceGain: +25 },
+    quests: [],
+  },
+  specter: {
+    name: 'SPECTER_COLLECTIVE',
+    icon: '👁️',
+    description: 'Information brokers. Power through knowledge.',
+    color: 'var(--green)',
+    bonuses: { intelligence: +20, hacking: +25, detection: -10 },
+    quests: [],
+  },
+};
+
+const SKILLS = [
+  { name: 'HACKING', level: 1, maxLevel: 99, xp: 0, description: 'Break into systems, extract data' },
+  { name: 'SOCIAL', level: 1, maxLevel: 99, xp: 0, description: 'Persuade NPCs, negotiate deals' },
+  { name: 'COMBAT', level: 1, maxLevel: 99, xp: 0, description: 'Fight in cyber battles' },
+  { name: 'STEALTH', level: 1, maxLevel: 99, xp: 0, description: 'Evade detection systems' },
+  { name: 'ENGINEERING', level: 1, maxLevel: 99, xp: 0, description: 'Build and repair gear' },
+];
+
+const ROLE_BONUSES = {
+  HACKER: { hacking: 20, engineering: 10 },
+  INFILTRATOR: { stealth: 20, social: 10 },
+  ANALYST: { intelligence: 20, social: 10 },
+  OPERATOR: { combat: 20, engineering: 10 },
+};
+
+function getCtfProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(CTF_PROGRESS_KEY) || '{}');
+  } catch (e) {
+    return {};
+  }
+}
+
+// ─── BOOT SEQUENCE ───────────────────────────────────────────────────────
+function runBootSequence() {
+  const bootLog = document.getElementById('boot-log');
+  const logs = [
+    '[SYSTEM] CYBERWORLD NEXUS v2030.03.24.1',
+    '[INIT] Core processors initializing...',
+    '[VERIFY] FLLC authentication servers: ONLINE',
+    '[LOAD] Faction databases loaded (3 factions)',
+    '[LOAD] World zones loaded (12 regions)',
+    '[LOAD] Player skill trees initialized',
+    '[WARNING] Unauthorized activity detected in outer zones',
+    '[STATUS] All systems operational',
+    '[READY] Awaiting operative login...',
+  ];
+  
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i < logs.length) {
+      const line = document.createElement('div');
+      line.className = 'boot-line';
+      line.style.animationDelay = (i * 0.1) + 's';
+      line.textContent = logs[i];
+      bootLog.appendChild(line);
+      i++;
+    } else {
+      clearInterval(interval);
+      setTimeout(() => {
+        document.getElementById('boot-screen').classList.add('hidden');
+        showAuthScreen();
+      }, 500);
+    }
+  }, 150);
+}
+
+// ─── AUTHENTICATION SYSTEM ───────────────────────────────────────────────────────
+function showAuthScreen() {
+  const authContent = document.getElementById('auth-content');
+
+  if (MP && MP.getToken()) {
+    MP.me().then((resp) => {
+      const user = resp.user;
+      const saved = localStorage.getItem('cyberworld-player');
+      GAME.player = saved ? JSON.parse(saved) : {
+        name: user.displayName || user.email.split('@')[0],
+        level: 1,
+        xp: 0,
+        faction: 'nomad',
+        role: 'ANALYST',
+        origin: 'fllc-apprentice',
+        hp: 100,
+        maxHp: 100,
+        credits: 1000,
+        reputation: { nomad: 100, corsair: 0, specter: 0 },
+        skills: SKILLS.map(s => ({...s})),
+        inventory: [],
+        activeCampaign: CAMPAIGNS[0].id,
+        storyProgress: 0,
+        joinedAt: new Date().toISOString(),
+      };
+      GAME.player.subscriptionTier = user.subscriptionTier || 'free';
+      GAME.isAuthenticated = true;
+      localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
+      document.getElementById('auth-overlay').classList.add('hidden');
+      initializeGame();
+    }).catch(() => {
+      MP.setToken('');
+      renderAuthChooser(authContent);
+    });
+    return;
+  }
+
+  renderAuthChooser(authContent);
+}
+
+function renderAuthChooser(authContent) {
+  
+  // Show character creation
+  authContent.innerHTML = `
+    <div class="auth-title">⚡ JOIN CYBERWORLD</div>
+    <div class="auth-subtitle">Use email login to unlock Chapter 4 and multiplayer progression</div>
+
+    <div class="form-group">
+      <label class="form-label">MULTIPLAYER_API_BASE</label>
+      <input type="text" id="mp-api-base" class="form-input" placeholder="https://your-render-service.onrender.com" value="${MP ? MP.getApiBase() : window.location.origin}">
+    </div>
+
+    <div class="form-group">
+      <div class="form-label">DEPLOY NOTE</div>
+      <div style="font-size:11px;color:#7ea8af;line-height:1.6;">Local development defaults to <strong>localhost:8787</strong>. Hosted builds can use a Render backend, a reverse proxy on your domain, or any API base passed with <strong>?api=</strong>.</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;">
+      <button class="btn btn-secondary" onclick="showLogin()">LOGIN · RETURNING_OP</button>
+      <button class="btn btn-primary" onclick="showCharacterCreation()">REGISTER · NEW_OP</button>
+    </div>
+
+    <button class="btn btn-secondary" style="width:100%;" onclick="continueAsGuest()">CONTINUE AS GUEST (CHAPTERS 1-3)</button>
+  `;
+
+  const apiInput = document.getElementById('mp-api-base');
+  if (apiInput && MP) {
+    apiInput.addEventListener('change', () => MP.setApiBase(apiInput.value.trim()));
+  }
+}
+
+function continueAsGuest() {
+  GAME.player = {
+    name: 'Guest Operative',
+    level: 1,
+    xp: 0,
+    faction: 'nomad',
+    role: 'ANALYST',
+    origin: 'district9',
+    hp: 100,
+    maxHp: 100,
+    credits: 700,
+    reputation: { nomad: 100, corsair: 0, specter: 0 },
+    skills: SKILLS.map(s => ({...s})),
+    inventory: [],
+    activeCampaign: CAMPAIGNS[0].id,
+    storyProgress: 0,
+    joinedAt: new Date().toISOString(),
+    subscriptionTier: 'guest'
+  };
+  GAME.isAuthenticated = false;
+  document.getElementById('auth-overlay').classList.add('hidden');
+  initializeGame();
+}
+
+function showCharacterCreation() {
+  const authContent = document.getElementById('auth-content');
+  
+  authContent.innerHTML = `
+    <div class="auth-title">⚡ CREATE OPERATIVE</div>
+    <div class="auth-subtitle">Define your identity in hostile cyberspace</div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">EMAIL</label>
+        <input type="email" id="auth-email" class="form-input" placeholder="operative@fllc.net" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label">PASSWORD</label>
+        <input type="password" id="auth-password" class="form-input" placeholder="Create password" autocomplete="new-password">
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">OPERATIVE_NAME</label>
+      <input type="text" id="char-name" class="form-input" placeholder="Your operative codename" maxlength="20">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">OPERATIVE_CLASS</label>
+      <div class="role-chip-wrap" id="role-selector">
+        <button class="role-chip" onclick="selectRole('HACKER', this)">HACKER</button>
+        <button class="role-chip" onclick="selectRole('INFILTRATOR', this)">INFILTRATOR</button>
+        <button class="role-chip" onclick="selectRole('ANALYST', this)">ANALYST</button>
+        <button class="role-chip" onclick="selectRole('OPERATOR', this)">OPERATOR</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">BACKGROUND_ORIGIN</label>
+      <select id="char-origin" class="form-select">
+        <option value="district9">District-9 Refugee Network</option>
+        <option value="blackclinic">Black Clinic Red Team</option>
+        <option value="fllc-apprentice">FLLC Apprentice Program</option>
+        <option value="signal-cartel">Signal Cartel Defector</option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">SELECT_FACTION</label>
+      <div class="faction-selector">
+        <div class="faction-card" onclick="selectFaction('nomad',this)">
+          <div class="faction-icon">🌍</div>
+          <div class="faction-name">NOMAD</div>
+          <div class="faction-desc">Free Agent</div>
+        </div>
+        <div class="faction-card" onclick="selectFaction('corsair',this)">
+          <div class="faction-icon">⚓</div>
+          <div class="faction-name">CORSAIR</div>
+          <div class="faction-desc">Raider</div>
+        </div>
+        <div class="faction-card" onclick="selectFaction('specter',this)">
+          <div class="faction-icon">👁️</div>
+          <div class="faction-name">SPECTER</div>
+          <div class="faction-desc">Intel Broker</div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="faction-info" style="margin-top:16px;padding:12px;background:#050505;border:1px solid rgba(0,232,255,0.2);border-radius:3px;font-size:11px;color:#888;line-height:1.6;">
+      Select a faction and class to begin.
+    </div>
+    
+    <div class="form-buttons">
+      <button class="btn btn-secondary" onclick="showAuthScreen()">BACK</button>
+      <button class="btn btn-primary" onclick="finishCharacterCreation()">CREATE_OP</button>
+    </div>
+  `;
+}
+
+let selectedFaction = null;
+let selectedRole = null;
+
+function selectRole(role, elem) {
+  selectedRole = role;
+  document.querySelectorAll('.role-chip').forEach(e => e.classList.remove('selected'));
+  elem.classList.add('selected');
+}
+
+function selectFaction(faction, elem) {
+  selectedFaction = faction;
+  document.querySelectorAll('.faction-card').forEach(e => e.classList.remove('selected'));
+  elem.classList.add('selected');
+  
+  const factionData = FACTIONS[faction];
+  const info = document.getElementById('faction-info');
+  info.innerHTML = `
+    <strong>${factionData.name}</strong>
+    <div style="margin-top:6px;">${factionData.description}</div>
+    <div style="margin-top:6px;font-size:10px;">
+      Bonuses: 
+      ${Object.entries(factionData.bonuses).map(([k,v]) => `${k} +${v}`).join(', ')}
+    </div>
+  `;
+}
+
+function finishCharacterCreation() {
+  const name = document.getElementById('char-name').value.trim();
+  const email = document.getElementById('auth-email').value.trim();
+  const password = document.getElementById('auth-password').value.trim();
+  const origin = document.getElementById('char-origin').value;
+  if (!name) { alert('Enter operative name'); return; }
+  if (!email || !password) { alert('Email and password are required'); return; }
+  if (!selectedFaction) { alert('Select faction'); return; }
+  if (!selectedRole) { alert('Select operative class'); return; }
+
+  if (!MP) {
+    alert('Multiplayer client unavailable.');
+    return;
+  }
+
+  MP.register(email, password, name).then((resp) => {
+    GAME.player = {
+      name: name,
+      level: 1,
+      xp: 0,
+      faction: selectedFaction,
+      role: selectedRole,
+      origin: origin,
+      hp: 100,
+      maxHp: 100,
+      credits: 1000,
+      reputation: {},
+      skills: SKILLS.map(s => ({...s})),
+      inventory: [],
+      activeCampaign: CAMPAIGNS[0].id,
+      storyProgress: 0,
+      joinedAt: new Date().toISOString(),
+      subscriptionTier: (resp.user && resp.user.subscriptionTier) || 'free'
+    };
+
+    Object.keys(FACTIONS).forEach(f => {
+      GAME.player.reputation[f] = f === selectedFaction ? 100 : 0;
+    });
+
+    const roleBonus = ROLE_BONUSES[selectedRole] || {};
+    GAME.player.roleBonus = roleBonus;
+
+    localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
+    GAME.isAuthenticated = true;
+    document.getElementById('auth-overlay').classList.add('hidden');
+    initializeGame();
+  }).catch((err) => {
+    alert('Registration failed: ' + (err.message || 'unknown error'));
+  });
+}
+
+// ─── GAME INITIALIZATION ───────────────────────────────────────────────────────
+function initializeGame() {
+  syncFromCtfProgress();
+  updatePlayerMenu();
+  updateSidebars();
+  refreshMultiplayerStatus();
+  loadWorld('home-node');
+}
+
+function syncFromCtfProgress() {
+  if (!GAME.player) return;
+  const ctf = getCtfProgress();
+  if (!Object.keys(ctf).length) return;
+  try {
+    const solved = ctf.solvedCount || 0;
+    const progressPercent = Math.min(100, Math.round((solved / 20) * 100));
+    GAME.player.storyProgress = Math.max(GAME.player.storyProgress || 0, progressPercent);
+
+    if (solved >= 14) GAME.player.activeCampaign = 'arc-03';
+    else if (solved >= 7) GAME.player.activeCampaign = 'arc-02';
+    else GAME.player.activeCampaign = 'arc-01';
+
+    GAME.player.xp = Math.max(GAME.player.xp || 0, Math.floor((ctf.xp || 0) * 0.35));
+    GAME.player.level = Math.max(1, Math.floor((GAME.player.xp || 0) / 1000) + 1);
+    GAME.player.reputation[GAME.player.faction] = Math.max(
+      GAME.player.reputation[GAME.player.faction] || 0,
+      100 + solved * 22
+    );
+
+    localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
+  } catch (e) {
+    // Ignore malformed cross-game data and continue
+  }
+}
+
+function updatePlayerMenu() {
+  document.getElementById('player-level').textContent = `LVL ${GAME.player.level}`;
+  var pf = document.getElementById('player-faction');
+  var img = document.getElementById('player-faction-img');
+  var fkey = (GAME.player.faction || '').toLowerCase();
+  var faction_imgs = { nomad:'assets/factions/nomad.svg', corsair:'assets/factions/corsair.svg', specter:'assets/factions/specter.svg' };
+  if (faction_imgs[fkey]) { img.src = faction_imgs[fkey]; img.style.display = 'inline-block'; img.alt = fkey; }
+  else { img.style.display = 'none'; }
+  // preserve image, set text node only
+  var label = FACTIONS[GAME.player.faction] ? FACTIONS[GAME.player.faction].name : 'UNALIGNED';
+  // replace text node after img
+  while (pf.lastChild && pf.lastChild !== img) pf.removeChild(pf.lastChild);
+  pf.appendChild(document.createTextNode(' ' + label));
+  document.getElementById('player-tier').textContent = `TIER: ${(GAME.player.subscriptionTier || 'guest').toUpperCase()}`;
+  document.getElementById('profile-name').textContent = GAME.player.name;
+  document.getElementById('profile-title').textContent = GAME.player.role + ' · ' + (FACTIONS[GAME.player.faction] ? FACTIONS[GAME.player.faction].name : 'UNALIGNED');
+}
+
+function updateSidebars() {
+  document.getElementById('prof-hp').textContent = `${GAME.player.hp}/${GAME.player.maxHp}`;
+  document.getElementById('prof-mana').textContent = `${GAME.player.credits} CREDITS`;
+  document.getElementById('prof-xp').textContent = (GAME.player.xp % 1000) + '%';
+  
+  const factionStatus = document.querySelector('.faction-status');
+  const faction = GAME.player.faction;
+  factionStatus.className = 'faction-status ' + faction;
+  const factionData = FACTIONS[faction];
+  const rep = GAME.player.reputation[faction] || 0;
+  factionStatus.innerHTML = `
+    <div style="font-weight:bold;">${factionData.name}</div>
+    <div style="font-size:10px;opacity:0.8;">Reputation: ${rep}/10000</div>
+    <div class="rep-bar"><div class="rep-fill" style="width:${Math.min(100, rep / 100)}%;"></div></div>
+  `;
+
+  const ctf = getCtfProgress();
+  const solved = ctf.solvedCount || 0;
+  const questList = document.getElementById('quest-list');
+  if (questList) {
+    questList.innerHTML = `
+      <div class="quest">
+        <div class="quest-title">Campaign: ${CAMPAIGNS.find(c => c.id === GAME.player.activeCampaign)?.title || 'Unknown Arc'}</div>
+        <div class="quest-status">Story Progress: ${GAME.player.storyProgress || 0}%</div>
+        <div class="quest-progress">CTF Nodes Cleared: ${solved}/20</div>
+      </div>
+      <div class="quest">
+        <div class="quest-title">Faction Standing</div>
+        <div class="quest-status">${factionData.name}</div>
+        <div class="quest-progress">Reputation ${rep}/10000</div>
+      </div>
+    `;
+  }
+}
+
+// ─── DATA BAZAAR (MARKET) ────────────────────────────────────────────────────
+function renderDataBazaar(container) {
+  fetch('tools.json').then(r => r.json()).then(data => {
+    const tools = data.story_tools || [];
+    const companions = data.companions || [];
+    const progress = JSON.parse(localStorage.getItem('cyberworld-ctf-progress') || '{}');
+    const solved = Object.keys(progress).filter(k => progress[k]);
+
+    let toolCards = tools.map(t => {
+      const unlocked = solved.includes(t.unlockMission);
+      return `<div class="item-card" style="opacity:${unlocked ? 1 : 0.45};border-color:${unlocked ? 'var(--green)' : 'rgba(0,232,255,0.15)'};">
+        <div>
+          <div class="item-name">${unlocked ? t.name : '??? LOCKED ???'}</div>
+          <div style="font-size:10px;color:#888;margin-top:4px;">${unlocked ? t.description : 'Complete mission: ' + t.unlockMission.replace(/_/g,' ')}</div>
+          <div style="font-size:9px;color:var(--orange);margin-top:4px;">TYPE: ${t.type.toUpperCase()} · FACTION: ${t.faction.toUpperCase()}</div>
+        </div>
+        <div class="item-price" style="color:${unlocked ? 'var(--green)' : '#555'};">${unlocked ? '✓ OWNED' : '🔒'}</div>
+      </div>`;
+    }).join('');
+
+    let companionCards = companions.map(c => {
+      const found = solved.includes(c.discoverMission);
+      const rarityColor = {common:'#aaa',uncommon:'var(--green)',rare:'var(--cyan)',legendary:'var(--pink)'}[c.rarity] || '#aaa';
+      return `<div class="item-card" style="opacity:${found ? 1 : 0.45};border-color:${found ? rarityColor : 'rgba(0,232,255,0.15)'};">
+        <div>
+          <div class="item-name" style="color:${rarityColor};">${found ? c.name + ' — ' + c.species : '??? UNKNOWN COMPANION ???'}</div>
+          <div style="font-size:10px;color:#888;margin-top:4px;">${found ? c.description : 'Discover on mission: ' + c.discoverMission.replace(/_/g,' ')}</div>
+          ${found ? '<div style="font-size:9px;color:var(--cyan);margin-top:4px;">⚡ ' + c.ability + '</div>' : ''}
+          <div style="font-size:9px;color:${rarityColor};margin-top:4px;">RARITY: ${c.rarity.toUpperCase()}</div>
+        </div>
+        <div class="item-price" style="color:${found ? rarityColor : '#555'};">${found ? '✓ BONDED' : '🔒'}</div>
+      </div>`;
+    }).join('');
+
+    container.innerHTML = `
+      <div style="max-width:900px;">
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:8px;">🏪 THE DATA BAZAAR — BLACK MARKET</h2>
+        <p style="color:#aaa;margin-bottom:6px;">Acquire tools and companions by completing CTF missions. Unlocked gear syncs to your operative profile.</p>
+        <p style="color:var(--green);font-size:11px;margin-bottom:20px;">UNLOCKED: ${solved.length} / ${tools.length} tools · ${companions.filter(c => solved.includes(c.discoverMission)).length} / ${companions.length} companions</p>
+
+        <h3 style="font-family:'Pixelify Sans';font-size:16px;color:var(--orange);margin-bottom:12px;">🔧 OPERATIVE TOOLS</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-bottom:30px;">
+          ${toolCards}
+        </div>
+
+        <h3 style="font-family:'Pixelify Sans';font-size:16px;color:var(--pink);margin-bottom:12px;">🐾 COMPANIONS</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;">
+          ${companionCards}
+        </div>
+      </div>
+    `;
+  }).catch(() => {
+    container.innerHTML = `
+      <div style="max-width:900px;">
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">🏪 BLACK_MARKET</h2>
+        <p style="color:var(--red);">Failed to load market data. Retry later.</p>
+      </div>
+    `;
+  });
+}
+
+// ─── WORLD NAVIGATION ───────────────────────────────────────────────────────
+function loadWorld(location) {
+  GAME.currentLocation = location;
+  const mainView = document.getElementById('main-view');
+  
+  if (location === 'home-node') {
+    const active = CAMPAIGNS.find(c => c.id === GAME.player.activeCampaign) || CAMPAIGNS[0];
+    const expanded = window.CYBERWORLD_EXPANDED || { nexusDistricts: [], companionCatalog: [], worldIncidents: [] };
+    mainView.innerHTML = `
+      <div style="max-width:900px;">
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">HOME_NODE — THE NEXUS</h2>
+        <p style="color:#aaa;line-height:1.8;margin-bottom:16px;">
+          In 2030, the internet is a battlespace. The Nexus is FLLC's neutral sanctuary where operatives gather, trade modules, train companions, and prepare for deep-route missions.
+        </p>
+        <p style="color:#aaa;line-height:1.8;margin-bottom:20px;">
+          Starshield is waiting on a private launch rail. Its payload is a continuity archive for civilization. Adversaries do not need to destroy the rocket; they only need to poison the launch chain. Every recovered fragment in CyberWorld pushes launch integrity back toward green.
+        </p>
+        <div style="border:1px solid rgba(255,165,0,0.35);padding:14px;margin-bottom:18px;background:rgba(255,165,0,0.08);font-size:12px;line-height:1.6;color:#d9c5a4;">
+          <strong style="color:var(--orange);">STARSHIELD PRIORITY ALERT</strong><br>
+          The rocket launches soon. Its payload can rebuild the world. Its launch chain is under attack.<br>
+          Enter The Nexus. Build your tools. Trust your faction. Escort the data. Defend the launch.
+        </div>
+        <div style="border:1px solid rgba(0,232,255,0.2);padding:16px;margin-bottom:20px;">
+          <div style="font-weight:bold;color:var(--cyan);margin-bottom:10px;">AVAILABLE_ACTIONS</div>
+          <button class="map-btn" style="margin-right:8px;" onclick="loadWorld('mission-board')">📋 MISSION_BOARD</button>
+          <button class="map-btn" style="margin-right:8px;" onclick="loadWorld('market')">💰 MARKET</button>
+          <button class="map-btn" style="margin-right:8px;" onclick="loadWorld('codice')">🔴 ENTER_CODICE_ZONE</button>
+          <button class="map-btn" onclick="loadWorld('guild')">⚔️ GUILD_HALL</button>
+        </div>
+        <div class="campaign-card">
+          <div class="campaign-title">ACTIVE_CAMPAIGN: ${active.title}</div>
+          <div class="campaign-meta">${active.chapter} | CVEs: ${active.cves.join(', ')}</div>
+          <div class="campaign-story">${active.story}</div>
+        </div>
+
+        <div class="campaign-card">
+          <div class="campaign-title">NEXUS DISTRICTS</div>
+          <div class="campaign-story">${expanded.nexusDistricts.map(d => `<div><strong>${d.name}:</strong> ${d.theme}</div>`).join('')}</div>
+        </div>
+
+        <div class="campaign-card">
+          <div class="campaign-title">COMPANION FIELD GUIDE</div>
+          <div class="campaign-story">${expanded.companionCatalog.map(c => `<div><strong>${c.tier} · ${c.name}</strong> — ${c.bonus}</div>`).join('')}</div>
+        </div>
+
+        <div class="campaign-card">
+          <div class="campaign-title">LIVE WORLD INCIDENTS</div>
+          <div class="campaign-story">${expanded.worldIncidents.map(i => `<div>• ${i}</div>`).join('')}</div>
+        </div>
+      </div>
+    `;
+  } else if (location === 'mission-board') {
+    const expanded = window.CYBERWORLD_EXPANDED || { contracts: [], chapterBreakdown: [], premiumOps: [] };
+    mainView.innerHTML = `
+      <div style="max-width:900px;">
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">MISSION_BOARD // STARSHIELD OPS</h2>
+        <p style="color:#aaa;margin-bottom:20px;">Contracts are tied to active threat actors, live CVE chains, and launch-route integrity for Operation Starshield.</p>
+
+        <div style="border:1px solid rgba(255,68,68,0.35);padding:14px;background:rgba(255,68,68,0.08);margin-bottom:14px;font-size:12px;line-height:1.6;color:#e8b2b2;">
+          <strong style="color:var(--red);">STARSHIELD PRIORITY ALERT</strong><br>
+          World archive launch sequence compromised. Threat actors detected across relay, telecom, archive, and infrastructure layers.
+          All available FLLC operatives report to The Nexus. The route will not hold itself.
+        </div>
+
+        ${CAMPAIGNS.map(c => `
+          <div class="campaign-card">
+            <div class="campaign-title">${c.title}</div>
+            <div class="campaign-meta">${c.chapter} | CVE_CHAIN: ${c.cves.join(', ')}</div>
+            <div class="campaign-story">${c.story}</div>
+            <button class="map-btn" style="margin-top:10px;" onclick="setCampaign('${c.id}')">TRACK_CAMPAIGN</button>
+          </div>
+        `).join('')}
+
+        <div class="campaign-card">
+          <div class="campaign-title">CHAPTER ROADMAP</div>
+          <div class="campaign-story">${expanded.chapterBreakdown.map(ch => `<div><strong>Chapter ${ch.id}: ${ch.title}</strong> — ${ch.pitch}<br><em>${ch.gameplay}</em></div>`).join('<br>')}</div>
+        </div>
+
+        <div class="campaign-card">
+          <div class="campaign-title">EXPANDED CONTRACTS</div>
+          <div class="campaign-story">${expanded.contracts.map(ct => `<div><strong>${ct.code} (${ct.type})</strong> — ${ct.text} <span style="color:var(--green)">[${ct.reward}]</span></div>`).join('')}</div>
+        </div>
+
+        <div class="campaign-card">
+          <div class="campaign-title">PREMIUM OPERATIONS (CHAPTER 5+)</div>
+          <div class="campaign-story">${expanded.premiumOps.map(op => `<div><strong>${op.name}</strong> — ${op.detail} <span style="color:var(--orange)">(${op.rule})</span></div>`).join('')}</div>
+        </div>
+        
+        <div class="quest" style="border-left-color:var(--green);background:#050505;padding:14px;margin-bottom:16px;">
+          <div class="quest-title" style="color:var(--green);">RECON: Industrial Archive</div>
+          <div style="font-size:11px;color:#aaa;margin-top:6px;">Infiltrate old data vault, locate tech specs, exfil safely.</div>
+          <div style="font-size:10px;color:var(--green);margin-top:8px;">📊 Reward: 5,000 Credits + 250 XP</div>
+          <button class="map-btn" style="margin-top:10px;" onclick="acceptMission()">ACCEPT</button>
+        </div>
+
+        <div class="quest" style="border-left-color:var(--orange);background:#050505;padding:14px;margin-bottom:16px;">
+          <div class="quest-title" style="color:var(--orange);">COMBAT: Corsair Incursion</div>
+          <div style="font-size:11px;color:#aaa;margin-top:6px;">Defend Black Market traders from corsair raid. Difficulty: INTENSE.</div>
+          <div style="font-size:10px;color:var(--orange);margin-top:8px;">📊 Reward: 10,000 Credits + 500 XP</div>
+          <button class="map-btn" style="margin-top:10px;" onclick="acceptMission()">ACCEPT</button>
+        </div>
+      </div>
+    `;
+  } else if (location === 'market') {
+    renderDataBazaar(mainView);
+  } else if (location === 'codice') {
+    mainView.innerHTML = `
+      <div style="max-width:900px;">
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">⚔️ CODICE_ZONE — HOSTILE TERRITORY</h2>
+        <p style="color:#aaa;line-height:1.8;margin-bottom:16px;">
+          CODICE Zone is a deeply corrupted region of cyberspace where government firewalls are offline and defense AI has been compromised. Fortunes are made here—and operatives disappear without trace.
+        </p>
+        <p style="color:var(--red);font-size:12px;font-weight:bold;margin-bottom:20px;">
+          ⚠️ WARNING: PvP ENABLED · PERMADEATH POSSIBLE · DETECTION SYSTEMS ACTIVE
+        </p>
+        <div style="border:1px solid rgba(255,68,68,0.3);padding:16px;background:rgba(255,68,68,0.05);">
+          <div style="color:var(--red);font-weight:bold;margin-bottom:10px;">THREAT ASSESSMENT</div>
+          <div style="font-size:11px;color:#aaa;line-height:1.6;">
+            <div>🔴 AI Defense Matrix: COMPROMISED</div>
+            <div>🔴 Corsair Patrols: 7 ACTIVE</div>
+            <div>🔴 Reputation Loss on Defeat: 500 PTS</div>
+            <div style="margin-top:10px;"><strong>Ready to enter?</strong></div>
+          </div>
+          <button class="map-btn" style="margin-top:12px;border-color:var(--red);color:var(--red);" onclick="enterCodice()">ENTER_CODICE_ZONE</button>
+        </div>
+      </div>
+    `;
+  } else if (location === 'guild') {
+    mainView.innerHTML = `
+      <div style="max-width:900px;">
+        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">⚔️ GUILD_HALL</h2>
+        <p style="color:#aaa;margin-bottom:20px;">Connect with other operatives, form teams, and compete on the leaderboard.</p>
+        
+        <div style="background:#050505;border:1px solid rgba(0,232,255,0.2);padding:14px;margin-bottom:16px;">
+          <div style="font-weight:bold;color:var(--cyan);margin-bottom:10px;">TOP_100_OPERATIVES</div>
+          <div style="font-size:10px;color:#888;line-height:1.8;">
+            <div>1️⃣  SPECTRE_KING (LVL 87) — Credit Balance: 2,500,000</div>
+            <div>2️⃣  CORSAIR_NOMAD (LVL 81) — Credit Balance: 1,800,000</div>
+            <div>3️⃣  HACKER_SILENCEQ (LVL 79) — Credit Balance: 1,600,000</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function showCharacterSheet() {
+  const mainView = document.getElementById('main-view');
+  const p = GAME.player;
+  const faction = FACTIONS[p.faction];
+  
+  mainView.innerHTML = `
+    <div style="max-width:1000px;">
+      <div class="char-header">
+        <div>
+          <div class="char-title">${p.name}</div>
+          <div style="margin-top:8px;">
+            <span class="char-badge faction-${p.faction}">${faction.name}</span>
+            <span class="char-badge faction-nomad" style="margin-left:8px;">LEVEL ${p.level}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="char-grid">
+        <div class="char-stat-box">
+          <div class="char-stat-label">TOTAL_XP</div>
+          <div class="char-stat-value">${p.xp}</div>
+          <div class="char-stat-subval">Level Progress: ${p.xp % 1000}/1000</div>
+        </div>
+        <div class="char-stat-box">
+          <div class="char-stat-label">CREDITS</div>
+          <div class="char-stat-value">${p.credits}</div>
+          <div class="char-stat-subval">Available funds</div>
+        </div>
+        <div class="char-stat-box">
+          <div class="char-stat-label">REPUTATION</div>
+          <div class="char-stat-value">${p.reputation[p.faction]}</div>
+          <div class="char-stat-subval">${faction.name}</div>
+        </div>
+        <div class="char-stat-box">
+          <div class="char-stat-label">ROLE</div>
+          <div class="char-stat-value" style="font-size:18px;">${p.role}</div>
+          <div class="char-stat-subval">Origin: ${p.origin}</div>
+        </div>
+      </div>
+      
+      <div style="margin-bottom:20px;">
+        <div style="font-family:'Pixelify Sans';font-size:16px;color:var(--cyan);margin-bottom:12px;">SKILLS</div>
+        ${p.skills.map(s => `
+          <div class="skill-item">
+            <div class="skill-name">${s.name} ${s.maxLevel > 1 ? '[' + s.level + '/' + s.maxLevel + ']' : ''}</div>
+            <div class="skill-level">${s.description}</div>
+            <div class="skill-progress"><div class="skill-bar" style="width:${s.xp}%;"></div></div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-family:'Pixelify Sans';font-size:16px;color:var(--cyan);margin-bottom:12px;">ROLE BONUSES</div>
+        <div class="lore-box">${Object.entries(p.roleBonus || {}).map(([k,v]) => `${k.toUpperCase()} +${v}`).join(' | ') || 'No role bonus loaded'}</div>
+      </div>
+
+      <div style="margin-bottom:20px;">
+        <div style="font-family:'Pixelify Sans';font-size:16px;color:var(--cyan);margin-bottom:12px;">ADVERSARY DOSSIERS</div>
+        ${ADVERSARY_DOSSIERS.map(d => `
+          <div class="dossier">
+            <div class="dossier-name">${d.name}</div>
+            <div class="dossier-motive">${d.motive}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function setCampaign(campaignId) {
+  GAME.player.activeCampaign = campaignId;
+  GAME.player.storyProgress = Math.min(100, (GAME.player.storyProgress || 0) + 10);
+  GAME.player.reputation[GAME.player.faction] = Math.min(10000, (GAME.player.reputation[GAME.player.faction] || 0) + 75);
+  localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
+  alert('Campaign tracking updated. Story progress +10%.');
+  updateSidebars();
+  loadWorld('home-node');
+}
+
+function acceptMission() {
+  GAME.player.xp += 100;
+  GAME.player.credits += 2000;
+  updateSidebars();
+  loadWorld('mission-board');
+  var toast = document.createElement('div');
+  toast.style.cssText='position:fixed;top:60px;right:20px;background:rgba(0,255,65,0.15);border:1px solid var(--green);color:var(--green);padding:14px 20px;font-family:VT323;font-size:16px;z-index:99999;animation:fadeSlide 3s forwards;';
+  toast.textContent='✅ MISSION ACCEPTED — +100 XP  +2,000¢';
+  document.body.appendChild(toast);
+  setTimeout(function(){ toast.remove(); }, 3000);
+}
+
+function enterCodice() {
+  GAME.currentLocation = 'codice';
+  var mainView = document.getElementById('main-view');
+  mainView.innerHTML = `
+    <div style="max-width:900px;">
+      <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--red);margin-bottom:16px;">⚔️ CODICE_ZONE — ACTIVE</h2>
+      <p style="color:#aaa;line-height:1.8;margin-bottom:16px;">You have entered the most dangerous sector of CyberWorld. AI defenses are offline. Corsair patrols sweep every 30 seconds.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+        <div style="border:1px solid rgba(255,68,68,0.3);padding:14px;background:rgba(255,68,68,0.05);">
+          <div style="color:var(--red);font-weight:bold;margin-bottom:8px;">THREAT SCANNER</div>
+          <div style="font-size:11px;color:#aaa;">🔴 Corsair Patrol Alpha — 2 nodes away</div>
+          <div style="font-size:11px;color:#aaa;">🔴 Rogue AI Fragment — adjacent sector</div>
+          <div style="font-size:11px;color:#aaa;">🟡 Encrypted Cache — hackable</div>
+        </div>
+        <div style="border:1px solid rgba(0,232,255,0.3);padding:14px;background:rgba(0,232,255,0.05);">
+          <div style="color:var(--cyan);font-weight:bold;margin-bottom:8px;">YOUR STATUS</div>
+          <div style="font-size:11px;color:#aaa;">Stealth: ACTIVE</div>
+          <div style="font-size:11px;color:#aaa;">Detection Level: LOW</div>
+          <div style="font-size:11px;color:#aaa;">Escape Routes: 2 available</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="map-btn" onclick="codiceAction('scan')">🔍 DEEP SCAN</button>
+        <button class="map-btn" onclick="codiceAction('hack')">💻 HACK CACHE</button>
+        <button class="map-btn" onclick="codiceAction('evade')">🏃 EVADE PATROL</button>
+        <button class="map-btn" style="border-color:var(--green);color:var(--green);" onclick="loadWorld('home-node')">🚪 EXTRACT</button>
+      </div>
+    </div>
+  `;
+}
+
+function codiceAction(action) {
+  var outcomes = {
+    scan: { msg:'Deep scan complete. Found encrypted data shard (+500 XP).', xp:500 },
+    hack: { msg:'Cache decrypted! Retrieved relay coordinates (+1,000¢, +300 XP).', xp:300, credits:1000 },
+    evade: { msg:'Patrol evaded. Stealth bonus applied (+200 XP).', xp:200 }
+  };
+  var result = outcomes[action] || { msg:'Unknown action.', xp:0 };
+  GAME.player.xp += result.xp || 0;
+  GAME.player.credits += result.credits || 0;
+  updateSidebars();
+  var toast = document.createElement('div');
+  toast.style.cssText='position:fixed;top:60px;right:20px;background:rgba(0,232,255,0.15);border:1px solid var(--cyan);color:var(--cyan);padding:14px 20px;font-family:VT323;font-size:14px;z-index:99999;animation:fadeSlide 3s forwards;';
+  toast.textContent=result.msg;
+  document.body.appendChild(toast);
+  setTimeout(function(){ toast.remove(); }, 3000);
+}
+
+function showLogin() {
+  const authContent = document.getElementById('auth-content');
+  authContent.innerHTML = `
+    <div class="auth-title">⚡ RETURNING OPERATIVE</div>
+    <div class="auth-subtitle">Email login unlocks Chapter 4 and multiplayer progression</div>
+    <div class="form-group">
+      <label class="form-label">EMAIL</label>
+      <input id="login-email" type="email" class="form-input" placeholder="operative@fllc.net" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label class="form-label">PASSWORD</label>
+      <input id="login-password" type="password" class="form-input" placeholder="Password" autocomplete="current-password">
+    </div>
+    <div class="form-buttons">
+      <button class="btn btn-secondary" onclick="showAuthScreen()">BACK</button>
+      <button class="btn btn-primary" onclick="loginOperative()">LOGIN</button>
+    </div>
+  `;
+}
+
+function loginOperative() {
+  if (!MP) {
+    alert('Multiplayer client unavailable.');
+    return;
+  }
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value.trim();
+  if (!email || !password) {
+    alert('Email and password required.');
+    return;
+  }
+
+  MP.login(email, password).then((resp) => {
+    const user = resp.user;
+    const saved = localStorage.getItem('cyberworld-player');
+    GAME.player = saved ? JSON.parse(saved) : {
+      name: user.displayName || user.email.split('@')[0],
+      level: 1,
+      xp: 0,
+      faction: 'nomad',
+      role: 'ANALYST',
+      origin: 'fllc-apprentice',
+      hp: 100,
+      maxHp: 100,
+      credits: 1000,
+      reputation: { nomad: 100, corsair: 0, specter: 0 },
+      skills: SKILLS.map(s => ({...s})),
+      inventory: [],
+      activeCampaign: CAMPAIGNS[0].id,
+      storyProgress: 0,
+      joinedAt: new Date().toISOString(),
+    };
+    GAME.player.subscriptionTier = user.subscriptionTier || 'free';
+    localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
+    GAME.isAuthenticated = true;
+    document.getElementById('auth-overlay').classList.add('hidden');
+    initializeGame();
+  }).catch((err) => {
+    alert('Login failed: ' + (err.message || 'unknown error'));
+  });
+}
+
+function openSubscriptionFlow() {
+  if (!MP || !MP.getToken()) {
+    alert('Login required before subscription checkout.');
+    return;
+  }
+  MP.createCheckout().then((resp) => {
+    if (resp.checkoutUrl && resp.mode === 'external') {
+      window.location.href = resp.checkoutUrl;
+      return;
+    }
+    alert('Checkout stub ready. Use ACTIVATE MOCK BASIC for local testing.');
+  }).catch((err) => {
+    alert('Checkout failed: ' + (err.message || 'unknown error'));
+  });
+}
+
+function activateMockBasic() {
+  if (!MP || !MP.getToken()) {
+    alert('Login required before subscription activation.');
+    return;
+  }
+  MP.activateBasicMock().then(() => {
+    GAME.player.subscriptionTier = 'basic';
+    localStorage.setItem('cyberworld-player', JSON.stringify(GAME.player));
+    updatePlayerMenu();
+    alert('Basic subscription active. Chapter 5+ premium ops unlocked.');
+  }).catch((err) => {
+    alert('Activation failed: ' + (err.message || 'unknown error'));
+  });
+}
+
+function refreshMultiplayerStatus() {
+  if (!MP) return;
+  const status = document.getElementById('mp-status');
+  const backendUrl = document.getElementById('mp-backend-url');
+  const online = document.getElementById('mp-online-count');
+  if (backendUrl) backendUrl.textContent = MP.getApiBase();
+
+  MP.worldState().then((world) => {
+    if (status) {
+      status.textContent = 'ONLINE: ' + world.globalThreat + ' threat, ' + (world.activeLobbies || []).length + ' active lobbies.';
+    }
+    if (online) {
+      online.textContent = '🟢 ' + (world.onlineCount || 0) + ' Operatives';
+    }
+  }).catch(() => {
+    if (status) {
+      status.textContent = 'Offline/unreachable. Start multiplayer-server for auth, chapter gate, and lobbies.';
+    }
+  });
+}
+
+// ─── INITIALIZATION ───────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', runBootSequence);
+
+window.addEventListener('storage', (e) => {
+  if (e.key !== CTF_PROGRESS_KEY || !GAME.player) return;
+  syncFromCtfProgress();
+  updatePlayerMenu();
+  updateSidebars();
+  if (GAME.currentLocation === 'home-node' || GAME.currentLocation === 'mission-board') {
+    loadWorld(GAME.currentLocation);
+  }
+});
+
+</script>
+<script src="js/story-data.js"></script>
+<script src="js/story-engine.js"></script>
+<script src="js/story-sync.js"></script>
+
+<!-- ════════ IN-GAME MODE MENU (injected v2.6.6) ════════ -->
+<style>
+#cw-gm-overlay{position:fixed;inset:0;background:rgba(2,4,8,0.88);z-index:9500;display:none;
+  align-items:flex-start;justify-content:center;padding:60px 20px;backdrop-filter:blur(4px);}
+#cw-gm-overlay.open{display:flex;}
+#cw-gm-panel{background:#02060a;border:1px solid #00e8ff;width:100%;max-width:920px;
+  box-shadow:0 0 60px rgba(0,232,255,0.25);font-family:'JetBrains Mono',monospace;color:#cfe7ee;
+  position:relative;}
+#cw-gm-panel::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(0,232,255,0.04) 3px,rgba(0,232,255,0.04) 4px);}
+.cw-gm-hdr{background:linear-gradient(90deg,#001220,#020b14);border-bottom:1px solid rgba(0,232,255,0.25);
+  padding:12px 18px;display:flex;align-items:center;justify-content:space-between;}
+.cw-gm-hdr h2{font-family:'Pixelify Sans';font-size:18px;color:#ffe700;letter-spacing:2px;text-shadow:0 0 12px rgba(255,231,0,0.4);}
+.cw-gm-x{background:transparent;border:1px solid rgba(255,58,79,0.5);color:#ff5c6e;padding:5px 10px;
+  font-family:'VT323';font-size:14px;cursor:pointer;letter-spacing:1px;}
+.cw-gm-x:hover{background:rgba(255,58,79,0.15);color:#fff;}
+.cw-gm-body{padding:20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
+.cw-gm-card{background:#040a14;border:1px solid rgba(0,232,255,0.25);padding:14px;
+  display:flex;flex-direction:column;text-decoration:none;color:#cfe7ee;transition:.15s;cursor:pointer;}
+.cw-gm-card:hover{border-color:#00e8ff;box-shadow:0 0 18px rgba(0,232,255,0.20);transform:translateY(-2px);}
+.cw-gm-card .cw-gm-ic{font-size:28px;margin-bottom:6px;}
+.cw-gm-card h3{font-family:'Pixelify Sans';font-size:14px;color:#fff;margin-bottom:4px;}
+.cw-gm-card p{font-family:'VT323';font-size:14px;color:#9ab;line-height:1.5;flex:1;}
+.cw-gm-card .cw-gm-tag{margin-top:8px;font-family:'VT323';font-size:11px;letter-spacing:1px;color:#00e8ff;}
+.cw-gm-card.live{border-color:#00ff7a;}
+.cw-gm-card.live .cw-gm-tag{color:#00ff7a;}
+.cw-gm-card.warn{border-color:#ff00ea;}
+.cw-gm-card.warn .cw-gm-tag{color:#ff00ea;}
+.cw-gm-foot{padding:10px 18px;border-top:1px solid rgba(0,232,255,0.15);font-family:'VT323';font-size:14px;color:#789;}
+.cw-gm-kbd{display:inline-block;font-family:'JetBrains Mono';font-size:11px;padding:1px 6px;
+  border:1px solid #345;border-radius:3px;color:#ffe700;background:#020608;}
+</style>
+<div id="cw-gm-overlay" role="dialog" aria-label="Game mode selector">
+  <div id="cw-gm-panel">
+    <div class="cw-gm-hdr">
+      <h2>:: GAME_MODE_SELECTOR ::</h2>
+      <button class="cw-gm-x" onclick="cwToggleGameMenu(false)">CLOSE [ESC]</button>
+    </div>
+    <div id="cw-gm-stats" style="padding:0 18px 4px;"></div>
+    <div class="cw-gm-body">
+
+      <a class="cw-gm-card live" onclick="cwToggleGameMenu(false);return true;" href="cyberworld.html">
+        <div class="cw-gm-ic">🌐</div>
+        <h3>FREE_ROAM (current)</h3>
+        <p>Open-world MMORPG. Districts, faction missions, raids, social hub.</p>
+        <div class="cw-gm-tag">▸ MMORPG · LIVE</div>
+      </a>
+
+      <a class="cw-gm-card warn" href="cyberworld-game.html">
+        <div class="cw-gm-ic">🛡️</div>
+        <h3>CONVOY_RUN</h3>
+        <p>20-node data-escort survival run. Manage Bandwidth, Cog-Load, Detection, Integrity.</p>
+        <div class="cw-gm-tag">▸ ROGUELIKE · 20-30 min</div>
+      </a>
+
+      <a class="cw-gm-card" href="ctf-trail.html">
+        <div class="cw-gm-ic">☠</div>
+        <h3>CTF_TRAIL</h3>
+        <p>Linear curriculum. 20 tuned challenges across crypto, web, RE, forensics.</p>
+        <div class="cw-gm-tag">▸ CTF · PROGRESSIVE</div>
+      </a>
+
+      <a class="cw-gm-card" href="wargames.html">
+        <div class="cw-gm-ic">⌖</div>
+        <h3>WAR_GAMES</h3>
+        <p>12 secure pen-test missions. SHA-256 verifier. Hints &amp; walkthroughs.</p>
+        <div class="cw-gm-tag">▸ LAB · CLIENT-SIDE</div>
+      </a>
+
+      <a class="cw-gm-card" href="arcade.html">
+        <div class="cw-gm-ic">🕹</div>
+        <h3>ARCADE</h3>
+        <p>Cyber Snake · Packet Defender · Hex Breaker · Wire Runner.</p>
+        <div class="cw-gm-tag">▸ ARCADE · CASUAL</div>
+      </a>
+
+      <a class="cw-gm-card" href="adversaries.html">
+        <div class="cw-gm-ic">⚠</div>
+        <h3>ADVERSARY_CODEX</h3>
+        <p>Boss atlas: Salt Typhoon, Volt, Sandworm, BlackCat, Lazarus.</p>
+        <div class="cw-gm-tag">▸ REFERENCE</div>
+      </a>
+
+      <a class="cw-gm-card" href="stars.html">
+        <div class="cw-gm-ic">★</div>
+        <h3>CYBER_ARSENAL</h3>
+        <p>Loadout crafter. Weapons, exploits, defenders. Syncs to MMORPG inventory.</p>
+        <div class="cw-gm-tag">▸ CRAFTING</div>
+      </a>
+
+      <a class="cw-gm-card" href="profile.html">
+        <div class="cw-gm-ic">⌧</div>
+        <h3>OPERATIVE_DOSSIER</h3>
+        <p>WeChall-style profile. Live stats, badges, federated sites, certs.</p>
+        <div class="cw-gm-tag">▸ PROFILE</div>
+      </a>
+
+      <a class="cw-gm-card" href="cyberworld-codex.html">
+        <div class="cw-gm-ic">📖</div>
+        <h3>CODEX</h3>
+        <p>Encyclopedia: factions, classes, districts, NPCs, raids, items, lore.</p>
+        <div class="cw-gm-tag">▸ LORE</div>
+      </a>
+
+      <a class="cw-gm-card" href="forensics.html">
+        <div class="cw-gm-ic">🔬</div>
+        <h3>FORENSICS_LAB</h3>
+        <p>12 DFIR puzzles: pcap, NTFS, memory dumps, malware RE, YARA. Secure SHA-256 verifier.</p>
+        <div class="cw-gm-tag">▸ DFIR</div>
+      </a>
+
+      <a class="cw-gm-card" href="redops.html">
+        <div class="cw-gm-ic">☣</div>
+        <h3>RED_OPS_RANGE</h3>
+        <p>12 offensive scenarios: IDOR, JWT, SSRF, XXE, SQLi, SSTI, RCE, Log4Shell, pickle, Kerberoast.</p>
+        <div class="cw-gm-tag">▸ OFFENSE</div>
+      </a>
+
+      <a class="cw-gm-card" href="games.html">
+        <div class="cw-gm-ic">⌂</div>
+        <h3>GAMES_HUB</h3>
+        <p>Return to the master command bridge. All games, news, roadmap.</p>
+        <div class="cw-gm-tag">▸ HUB</div>
+      </a>
+
+    </div>
+    <div class="cw-gm-foot">
+      Tip: press <span class="cw-gm-kbd">G</span> in free-roam to reopen this menu.
+      Cross-progression: WAR_GAMES XP → OPSEC stat. Convoy clears → cosmetic skins.
+    </div>
+  </div>
+</div>
+<script>
+  (function(){
+    window.cwToggleGameMenu = function(force){
+      var o = document.getElementById('cw-gm-overlay'); if(!o) return;
+      var open = (force===undefined) ? !o.classList.contains('open') : !!force;
+      o.classList.toggle('open', open);
+    };
+    document.addEventListener('keydown', function(e){
+      var o = document.getElementById('cw-gm-overlay');
+      if(!o) return;
+      var isOpen = o.classList.contains('open');
+      if(e.key === 'Escape' && isOpen){ cwToggleGameMenu(false); }
+      // 'g' to open from free-roam (don't trigger inside inputs)
+      if((e.key === 'g' || e.key === 'G') && !isOpen){
+        var t = e.target; var tag = t && t.tagName;
+        if(tag === 'INPUT' || tag === 'TEXTAREA' || (t && t.isContentEditable)) return;
+        cwToggleGameMenu(true);
+      }
+    });
+    // close on backdrop click
+    document.getElementById('cw-gm-overlay').addEventListener('click', function(e){
+      if(e.target.id === 'cw-gm-overlay'){ cwToggleGameMenu(false); }
+    });
+  })();
+</script>
+
+<script src="js/site-stats.js"></script>
+<script>document.addEventListener('DOMContentLoaded',function(){if(window.SiteStats)SiteStats.renderStrip('cw-gm-stats');});</script>
+
+</body>
+</html>

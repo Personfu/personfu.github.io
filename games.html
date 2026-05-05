@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self';">
+<title>GAMES_HUB // Operation Starshield Command — FURIOS-INT</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <meta property="og:title" content="FLLC // GAMES">
+    <meta property="og:description" content="Browse all FLLC training games.">
+    <meta property="og:image" content="assets/og-image.svg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#020408">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<link rel="stylesheet" href="css/wargames.css">
+<style>
+:root{--gh-yellow:#ffe700;--gh-violet:#8a5cff;}
+
+/* ============================================================
+   GAMES_HUB layout — 90s OS Cyberpunk command bridge
+   ============================================================ */
+.gh-shell{max-width:1280px;margin:0 auto;padding:24px 16px 60px;}
+
+/* HEADLINE */
+.gh-headline{position:relative;border:1px solid var(--wg-cyan);
+  background:linear-gradient(135deg,#02060a 0%,#02101a 50%,#0b002a 100%);padding:36px 32px;
+  display:grid;grid-template-columns:1.5fr 1fr;gap:28px;overflow:hidden;}
+.gh-headline::before{content:'';position:absolute;inset:0;background:
+  radial-gradient(circle at 80% 20%,rgba(255,231,0,0.10),transparent 60%),
+  radial-gradient(circle at 10% 90%,rgba(0,232,255,0.10),transparent 50%);pointer-events:none;}
+.gh-headline::after{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(0,232,255,0.04) 3px,rgba(0,232,255,0.04) 4px);
+  pointer-events:none;mix-blend-mode:screen;}
+.gh-tag{font-family:'VT323';color:var(--wg-green);letter-spacing:2px;font-size:14px;}
+.gh-headline h1{font-family:'Pixelify Sans';font-size:clamp(36px,6vw,68px);color:#fff;line-height:1;margin:8px 0;
+  text-shadow:0 0 20px rgba(0,232,255,0.5),0 0 60px rgba(255,231,0,0.18);letter-spacing:1px;}
+.gh-headline h1 b{color:var(--gh-yellow);}
+.gh-sub{color:var(--wg-text-mute);font-size:15px;line-height:1.7;max-width:560px;margin-top:14px;}
+.gh-cta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;}
+
+/* mini status panel */
+.gh-status{background:rgba(2,6,10,0.85);border:1px solid var(--wg-line);padding:16px;backdrop-filter:blur(2px);}
+.gh-status h3{font-family:'Pixelify Sans';font-size:14px;color:var(--wg-cyan);letter-spacing:2px;margin-bottom:10px;}
+.gh-status .gh-row{display:flex;justify-content:space-between;font-family:'VT323';font-size:17px;
+  padding:5px 0;border-bottom:1px dashed var(--wg-line-soft);}
+.gh-status .gh-row:last-child{border-bottom:none;}
+.gh-status span{color:var(--wg-text-mute);}
+.gh-status b{color:#fff;font-weight:normal;}
+.gh-status .gh-pulse b{color:var(--wg-green);text-shadow:0 0 6px var(--wg-green);}
+
+/* BIG CARD (CyberWorld MMORPG) */
+.gh-bigcard{margin-top:24px;background:var(--wg-panel);border:1px solid var(--wg-cyan);
+  display:grid;grid-template-columns:340px 1fr;gap:0;overflow:hidden;
+  box-shadow:0 0 30px rgba(0,232,255,0.15);}
+.gh-poster{background:
+  radial-gradient(circle at 30% 30%,rgba(255,0,234,0.25),transparent 50%),
+  radial-gradient(circle at 70% 70%,rgba(0,232,255,0.30),transparent 55%),
+  linear-gradient(135deg,#10001a,#001a2a);
+  border-right:1px solid var(--wg-line);position:relative;min-height:280px;
+  display:flex;align-items:center;justify-content:center;}
+.gh-poster::before{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg,rgba(0,232,255,0.05) 0,rgba(0,232,255,0.05) 1px,transparent 1px,transparent 24px),
+             repeating-linear-gradient(0deg,rgba(0,232,255,0.05) 0,rgba(0,232,255,0.05) 1px,transparent 1px,transparent 24px);}
+.gh-poster .gh-icon{font-size:120px;text-shadow:0 0 32px var(--wg-cyan),0 0 80px rgba(255,0,234,0.4);}
+.gh-poster .gh-watermark{position:absolute;bottom:10px;left:14px;font-family:'VT323';color:rgba(0,232,255,0.5);letter-spacing:2px;font-size:12px;}
+.gh-bigbody{padding:24px 28px;}
+.gh-bigbody .gh-pre{font-family:'VT323';font-size:14px;color:var(--wg-green);letter-spacing:2px;margin-bottom:6px;}
+.gh-bigbody h2{font-family:'Pixelify Sans';font-size:34px;color:#fff;letter-spacing:1px;text-shadow:0 0 20px rgba(0,232,255,0.4);}
+.gh-bigbody .gh-meta{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px;}
+.gh-bigbody .gh-meta span{font-family:'VT323';font-size:13px;padding:2px 10px;border:1px solid var(--wg-line);color:var(--wg-cyan);}
+.gh-bigbody p{color:var(--wg-text);font-size:14px;line-height:1.7;margin-bottom:12px;}
+.gh-bigbody .gh-feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:6px 16px;
+  font-family:'VT323';font-size:15px;color:var(--wg-text);margin:8px 0 16px;}
+.gh-bigbody .gh-feat span::before{content:'▸ ';color:var(--wg-cyan);}
+.gh-bigbody .gh-actions{display:flex;flex-wrap:wrap;gap:10px;}
+
+/* Slot grid (sub-games) */
+.gh-grid-title{margin:36px 0 12px;font-family:'Pixelify Sans';font-size:22px;color:var(--wg-cyan);
+  letter-spacing:2px;text-shadow:0 0 12px rgba(0,232,255,0.45);
+  border-bottom:1px solid var(--wg-line);padding-bottom:8px;}
+.gh-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.gh-card{background:var(--wg-panel);border:1px solid var(--wg-line);padding:0;display:flex;flex-direction:column;
+  position:relative;transition:.18s;overflow:hidden;text-decoration:none;color:var(--wg-text);}
+.gh-card:hover{border-color:var(--wg-cyan);box-shadow:0 0 24px rgba(0,232,255,0.18);transform:translateY(-3px);}
+.gh-card .gh-art{height:120px;display:flex;align-items:center;justify-content:center;font-size:64px;
+  background:linear-gradient(135deg,#040a14,#0a1428);border-bottom:1px solid var(--wg-line-soft);position:relative;}
+.gh-card .gh-art::after{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(0,232,255,0.05) 3px,rgba(0,232,255,0.05) 4px);}
+.gh-card .gh-tag{position:absolute;top:8px;left:8px;font-family:'VT323';font-size:11px;color:#fff;
+  background:rgba(0,0,0,0.55);padding:2px 7px;border:1px solid var(--wg-line);}
+.gh-card.cyan   .gh-art{background:linear-gradient(135deg,#001a2a,#003040);}
+.gh-card.pink   .gh-art{background:linear-gradient(135deg,#1a0030,#400028);}
+.gh-card.yellow .gh-art{background:linear-gradient(135deg,#1a1500,#2a2300);}
+.gh-card.green  .gh-art{background:linear-gradient(135deg,#001a10,#002818);}
+.gh-card.violet .gh-art{background:linear-gradient(135deg,#0c0030,#1a0050);}
+.gh-card .gh-info{padding:12px 14px 14px;flex:1;display:flex;flex-direction:column;}
+.gh-card h4{font-family:'Pixelify Sans';font-size:15px;color:#fff;margin-bottom:3px;}
+.gh-card .gh-genre{font-family:'VT323';font-size:13px;color:var(--wg-text-mute);margin-bottom:8px;letter-spacing:1px;}
+.gh-card p{font-size:12px;color:var(--wg-text-mute);line-height:1.55;flex:1;}
+.gh-card .gh-stat{margin-top:8px;display:flex;justify-content:space-between;font-family:'VT323';font-size:13px;color:var(--wg-cyan);}
+
+/* difficulty pill */
+.gh-diff{display:inline-block;font-family:'VT323';font-size:12px;padding:1px 7px;border:1px solid;letter-spacing:1px;}
+.gh-diff.easy{color:#5cf08a;border-color:#5cf08a;}
+.gh-diff.med {color:#ffd166;border-color:#ffd166;}
+.gh-diff.hard{color:#ff7e6b;border-color:#ff7e6b;}
+.gh-diff.exp {color:#ff5cf0;border-color:#ff5cf0;}
+
+/* Side-by-side panels */
+.gh-twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:30px;}
+@media(max-width:880px){
+  .gh-headline,.gh-bigcard,.gh-twocol{grid-template-columns:1fr;}
+  .gh-poster{min-height:160px;}
+}
+
+/* Quest log / news ticker */
+.gh-news{background:var(--wg-panel);border:1px solid var(--wg-line);}
+.gh-news h3{padding:10px 14px;background:linear-gradient(90deg,#020608,#06121a);border-bottom:1px solid var(--wg-line-soft);
+  font-family:'Pixelify Sans';font-size:15px;color:var(--wg-cyan);letter-spacing:1px;}
+.gh-news .gh-newsbody{padding:6px 0;}
+.gh-news ul{list-style:none;padding:0;}
+.gh-news li{padding:8px 14px;border-bottom:1px dashed var(--wg-line-soft);font-size:13px;color:var(--wg-text);
+  display:grid;grid-template-columns:80px 1fr;gap:10px;}
+.gh-news li:last-child{border-bottom:none;}
+.gh-news .gh-when{font-family:'VT323';color:var(--wg-text-mute);font-size:14px;}
+.gh-news .gh-what b{color:#fff;}
+
+/* faction ribbon */
+.gh-factions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.gh-fac{background:#02060a;border:1px solid var(--wg-line);padding:14px;text-align:center;transition:.15s;cursor:default;}
+.gh-fac:hover{border-color:var(--wg-cyan);box-shadow:0 0 14px rgba(0,232,255,0.18);}
+.gh-fac .gh-flag{font-size:34px;line-height:1;filter:drop-shadow(0 0 10px var(--wg-cyan));}
+.gh-fac h4{font-family:'Pixelify Sans';font-size:14px;color:#fff;margin:6px 0 4px;}
+.gh-fac p{font-size:11px;color:var(--wg-text-mute);line-height:1.5;}
+.gh-fac.nomad   {border-color:#00e8ff;}.gh-fac.nomad   .gh-flag{color:#00e8ff;}
+.gh-fac.corsair {border-color:#ff00ea;}.gh-fac.corsair .gh-flag{color:#ff00ea;}
+.gh-fac.specter {border-color:#00ff7a;}.gh-fac.specter .gh-flag{color:#00ff7a;}
+
+/* roadmap mini */
+.gh-rm{list-style:none;padding:0;}
+.gh-rm li{padding:9px 12px;background:#02060a;border-left:3px solid var(--wg-cyan);margin-bottom:6px;
+  font-size:13px;line-height:1.55;color:var(--wg-text);}
+.gh-rm li.done{border-left-color:var(--wg-green);}
+.gh-rm li.wip {border-left-color:var(--wg-amber);}
+.gh-rm li.queue{border-left-color:#7a8d94;}
+.gh-rm li b{color:#fff;}
+
+/* tab strip - quick launcher (sticky) */
+.gh-quick{position:sticky;top:48px;z-index:200;background:rgba(4,6,8,0.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--wg-line-soft);padding:8px 16px;display:flex;gap:8px;flex-wrap:wrap;}
+.gh-quick a{font-family:'VT323';font-size:16px;padding:5px 11px;border:1px solid var(--wg-line);color:var(--wg-cyan);text-decoration:none;}
+.gh-quick a:hover{background:rgba(0,232,255,0.08);}
+.gh-quick a.hot{border-color:var(--gh-yellow);color:var(--gh-yellow);}
+
+/* tooltip-ish "live ops" badge */
+.gh-live{display:inline-block;font-family:'VT323';font-size:12px;color:#000;background:var(--wg-green);
+  padding:2px 8px;letter-spacing:1px;animation:gh-pulse 1.6s infinite;margin-right:6px;}
+@keyframes gh-pulse{0%,100%{box-shadow:0 0 6px var(--wg-green);}50%{box-shadow:0 0 14px var(--wg-green);}}
+</style>
+</head>
+<body>
+<div id="crt-filter"></div>
+<canvas id="wg-bg"></canvas>
+
+<nav class="top-nav">
+  <a href="index.html">&#8962; HOME</a>
+  <a href="games.html">🎮 GAMES_HUB</a>
+  <a href="forensics.html">🔬 FORENSICS</a>
+  <a href="redops.html">☣ RED_OPS</a>
+  <a href="cyberworld.html">🌐 CYBERWORLD</a>
+  <a href="wargames.html">⌖ WAR_GAMES</a>
+  <a href="ctf-trail.html">☠ CTF_TRAIL</a>
+  <a href="arcade.html">🕹 ARCADE</a>
+  <a href="profile.html">⌧ PROFILE</a>
+  <a href="adversaries.html">⚠ ADVERSARIES</a>
+  <a href="intel.html">📡 INTEL</a>
+</nav>
+
+<div class="gh-quick">
+  <a class="hot" href="cyberworld.html">▶ LAUNCH MMORPG</a>
+  <a href="cyberworld-game.html">▶ CONVOY MODE</a>
+  <a href="ctf-trail.html">▶ CTF TRAIL</a>
+  <a href="wargames.html">▶ WAR_GAMES</a>
+  <a href="arcade.html">▶ ARCADE CABINETS</a>
+  <a href="#roadmap">▶ ROADMAP</a>
+</div>
+
+<main class="gh-shell">
+
+  <!-- ============ HEADLINE ============ -->
+  <section class="gh-headline">
+    <div>
+      <div class="gh-tag">// OPERATIONS_DECK / GAMES_NETWORK / CLEARANCE: PUBLIC //</div>
+      <h1>OPERATION <b>STARSHIELD</b></h1>
+      <p class="gh-sub">A live cyberpunk MMORPG, a 20-node convoy survival run, a 12-mission war-games arena, a 20-node CTF trail, and a full arcade cabinet — one persistent operative, one shared HUD, one signed save file. Welcome to the games command bridge.</p>
+      <div class="gh-cta">
+        <a class="wg-btn wg-btn-primary" href="cyberworld.html">▶ ENTER CYBERWORLD MMORPG</a>
+        <a class="wg-btn" href="cyberworld-game.html">CONVOY MODE</a>
+        <a class="wg-btn" href="profile.html">VIEW DOSSIER</a>
+      </div>
+    </div>
+    <div class="gh-status">
+      <h3>:: NETWORK_STATUS ::</h3>
+      <div class="gh-row gh-pulse"><span>Cyberworld realm</span><b id="gh-realm">▶ ONLINE</b></div>
+      <div class="gh-row"><span>Operatives logged</span><b id="gh-ops">— calculating</b></div>
+      <div class="gh-row"><span>Active convoys</span><b id="gh-conv">3</b></div>
+      <div class="gh-row"><span>WeChall sync</span><b>OK</b></div>
+      <div class="gh-row"><span>WAR_GAMES verifier</span><b>SHA-256 / OK</b></div>
+      <div class="gh-row"><span>Build</span><b>v2.6.6 · 2026-05-04</b></div>
+    </div>
+  </section>
+
+  <!-- ============ LIVE STATS STRIP ============ -->
+  <section style="margin-top:18px;">
+    <div id="ss-strip"></div>
+  </section>
+
+  <!-- ============ HEADLINE GAME ============ -->
+  <section class="gh-bigcard">
+    <div class="gh-poster">
+      <div class="gh-icon">🌐</div>
+      <div class="gh-watermark">// MMORPG // PERSISTENT_REALM // FACTION_PVPVE //</div>
+    </div>
+    <div class="gh-bigbody">
+      <div class="gh-pre"><span class="gh-live">LIVE OPS</span>OPERATION STARSHIELD · CHAPTER 5+</div>
+      <h2>CYBERWORLD MMORPG</h2>
+      <div class="gh-meta">
+        <span>FACTIONS · 3</span>
+        <span>CLASSES · 6</span>
+        <span>LEVEL CAP · 60</span>
+        <span>SUBSCRIPTION · OPTIONAL</span>
+        <span>MULTIPLAYER · SOCKET</span>
+        <span>SECURE · CSP-LOCKED</span>
+      </div>
+      <p>You are an operative inside a fragile post-launch internet. Three factions wage proxy war over the orbital trust mesh. Pick your class, build your loadout, and run live raids against APT simulations — Salt Typhoon, Volt Typhoon, Sandworm, Lazarus and BlackCat. Persistent character, federated scoring, true multiplayer.</p>
+      <div class="gh-feat">
+        <span>Open-world hub: 14 districts</span>
+        <span>Live raid quest pipeline</span>
+        <span>Guilds &amp; faction wars</span>
+        <span>Crafting via Cyber Arsenal</span>
+        <span>Voice/Discord uplink</span>
+        <span>Cross-progression with WAR_GAMES</span>
+        <span>Seasonal incident rotations</span>
+        <span>Convoy mode embedded as questline</span>
+      </div>
+      <div class="gh-actions">
+        <a class="wg-btn wg-btn-primary" href="cyberworld.html">▶ ENTER REALM</a>
+        <a class="wg-btn" href="cyberworld-game.html">CONVOY (sub-game)</a>
+        <a class="wg-btn" href="rpg/login.html">OPERATIVE LOGIN</a>
+        <a class="wg-btn" href="cyberworld-design.md">DESIGN DOC</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FACTION RIBBON ============ -->
+  <section style="margin-top:30px;">
+    <h3 class="gh-grid-title">▶ CHOOSE YOUR FACTION</h3>
+    <div class="gh-factions">
+      <div class="gh-fac nomad"><div class="gh-flag">◈</div><h4>NOMAD COLLECTIVE</h4>
+        <p>Recon-first analysts. Bonus to OSINT, signal triangulation and stealth. Light armor; high movement. Default starter faction.</p></div>
+      <div class="gh-fac corsair"><div class="gh-flag">✶</div><h4>CORSAIR SYNDICATE</h4>
+        <p>Aggressive web/exploit operators. Bonus to payload damage and stored-XSS persistence. Loud and lethal in raid contexts.</p></div>
+      <div class="gh-fac specter"><div class="gh-flag">◇</div><h4>SPECTER PROTOCOL</h4>
+        <p>Blue-team specialists. Bonus to threat-hunt, audit and incident-response. Best for support/defender raid roles.</p></div>
+    </div>
+  </section>
+
+  <!-- ============ SUB-GAMES GRID ============ -->
+  <section style="margin-top:30px;">
+    <h3 class="gh-grid-title">▶ ALL GAMES &middot; QUICK LAUNCH</h3>
+    <div class="gh-grid">
+
+      <a class="gh-card cyan" href="cyberworld.html">
+        <div class="gh-art"><span class="gh-tag">MMORPG</span>🌐</div>
+        <div class="gh-info">
+          <h4>CyberWorld — Operation Starshield</h4>
+          <div class="gh-genre">MMORPG · MULTIPLAYER</div>
+          <p>Persistent open-world realm. 3 factions, 6 classes, raids vs APT bosses, faction warfare, guilds, crafting and social hub.</p>
+          <div class="gh-stat"><span>★ 60 lvl cap</span><span class="gh-diff exp">EXPERT</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card violet" href="cyberworld-game.html">
+        <div class="gh-art"><span class="gh-tag">SURVIVAL</span>🛡️</div>
+        <div class="gh-info">
+          <h4>Convoy Mode — Data Escort</h4>
+          <div class="gh-genre">OREGON-TRAIL CTF · ROGUELIKE</div>
+          <p>Escort a fragile data convoy across 20 hostile network nodes. Manage Bandwidth · Cognitive Load · Detection · Integrity.</p>
+          <div class="gh-stat"><span>20 nodes · 4 tiers</span><span class="gh-diff hard">HARD</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card green" href="ctf-trail.html">
+        <div class="gh-art"><span class="gh-tag">CTF</span>☠</div>
+        <div class="gh-info">
+          <h4>CTF Trail — Linear Curriculum</h4>
+          <div class="gh-genre">CTF · PROGRESSIVE · SHA-256</div>
+          <p>20 hand-tuned challenges in a single track. Crypto, web, forensics, RE. Now upgraded to SHA-256 hashed flag verification — no plaintext flags in source. Walkthroughs sealed until solve.</p>
+          <div class="gh-stat"><span>20 flags</span><span class="gh-diff med">SECURE</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card pink" href="wargames.html">
+        <div class="gh-art"><span class="gh-tag">SECURE</span>⌖</div>
+        <div class="gh-info">
+          <h4>WAR_GAMES — Operative Trials</h4>
+          <div class="gh-genre">PEN-TEST LAB · CLIENT-SIDE</div>
+          <p>12 missions inspired by HackThisSite Basic. SHA-256 in-browser flag verifier. Hints, walkthroughs, no telemetry.</p>
+          <div class="gh-stat"><span id="gh-wg-prog">0 / 12 solved</span><span class="gh-diff easy">EASY → HARD</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card yellow" href="arcade.html">
+        <div class="gh-art"><span class="gh-tag">ARCADE</span>🕹</div>
+        <div class="gh-info">
+          <h4>Cyber Arcade — Cabinet Hub</h4>
+          <div class="gh-genre">ARCADE · SHORT-LOOP</div>
+          <p>Cyber Snake · Packet Defender · Hex Breaker · Wire Runner. Pixel-perfect cabinets. High-score local persistence.</p>
+          <div class="gh-stat"><span>4 cabinets</span><span class="gh-diff easy">CASUAL</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card yellow" href="cyberworld-codex.html">
+        <div class="gh-art"><span class="gh-tag">CODEX</span>📖</div>
+        <div class="gh-info">
+          <h4>CyberWorld Codex</h4>
+          <div class="gh-genre">LORE · ENCYCLOPEDIA</div>
+          <p>Complete reference: 14 districts, 16 NPCs, 7 raids, 20 main quests, 30 side quests, 120+ items, full skill tree.</p>
+          <div class="gh-stat"><span>10k+ words</span><span class="gh-diff easy">REF</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card pink" href="forensics.html">
+        <div class="gh-art"><span class="gh-tag">LAB</span>🔬</div>
+        <div class="gh-info">
+          <h4>Forensics Lab</h4>
+          <div class="gh-genre">DFIR · SHA-256 VERIFIER</div>
+          <p>12 hand-tuned forensics puzzles. Memory dumps, pcap, NTFS, SQLite, malware RE, YARA. Same secure engine as WAR_GAMES.</p>
+          <div class="gh-stat"><span>12 missions</span><span class="gh-diff hard">RAMP</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card pink" href="redops.html">
+        <div class="gh-art"><span class="gh-tag">RANGE</span>☣</div>
+        <div class="gh-info">
+          <h4>Red_Ops Range</h4>
+          <div class="gh-genre">OFFENSIVE · OWASP · AD</div>
+          <p>12 simulated targets: IDOR, JWT, SSRF, XXE, SQLi, SSTI, command injection, prototype pollution, Log4Shell, pickle, Kerberoast. Each mission paired with a defensive doctrine.</p>
+          <div class="gh-stat"><span>12 targets</span><span class="gh-diff exp">EXPERT</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card cyan" href="adversaries.html">
+        <div class="gh-art"><span class="gh-tag">DOSSIER</span>⚠</div>
+        <div class="gh-info">
+          <h4>Adversary Codex</h4>
+          <div class="gh-genre">REFERENCE · MMORPG_BOSS_ATLAS</div>
+          <p>Salt Typhoon, Volt Typhoon, Sandworm, BlackCat, Lazarus. TTPs cross-mapped to raids. Used by the MMORPG quest engine.</p>
+          <div class="gh-stat"><span>14 dossiers</span><span class="gh-diff med">REF</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card violet" href="stars.html">
+        <div class="gh-art"><span class="gh-tag">CRAFTING</span>★</div>
+        <div class="gh-info">
+          <h4>Cyber Arsenal</h4>
+          <div class="gh-genre">CRAFTING · PROGRESSION</div>
+          <p>Loadout builder. Weapons, exploits, defensive modules. Loot drops sync into your MMORPG inventory.</p>
+          <div class="gh-stat"><span>120+ items</span><span class="gh-diff med">MEDIUM</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card green" href="intel.html">
+        <div class="gh-art"><span class="gh-tag">SUPPORT</span>📡</div>
+        <div class="gh-info">
+          <h4>Intel Hub</h4>
+          <div class="gh-genre">RECON · LIVE_FEED</div>
+          <p>Live threat feeds, CVE scrolls, IOC packs. Powers MMORPG mission generation and convoy random events.</p>
+          <div class="gh-stat"><span>live feed</span><span class="gh-diff easy">SUPPORT</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card pink" href="ai.html">
+        <div class="gh-art"><span class="gh-tag">AI</span>🤖</div>
+        <div class="gh-info">
+          <h4>AI Overseer</h4>
+          <div class="gh-genre">AI ASSIST · NPC_ENGINE</div>
+          <p>8 recon agents. Powers MMORPG NPC dialogue, dynamic quest hooks and adaptive enemy behavior.</p>
+          <div class="gh-stat"><span>8 agents</span><span class="gh-diff hard">EXPERIMENTAL</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card yellow" href="cyberos-iso.html">
+        <div class="gh-art"><span class="gh-tag">META</span>💿</div>
+        <div class="gh-info">
+          <h4>CyberOS ISO Builder</h4>
+          <div class="gh-genre">META · OS_GEN</div>
+          <p>Generate a Fedora-flavored ops ISO with your loadout pre-baked. Bridge the game to a real lab.</p>
+          <div class="gh-stat"><span>builds</span><span class="gh-diff exp">EXPERT</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card cyan" href="discuss.html">
+        <div class="gh-art"><span class="gh-tag">SOCIAL</span>💬</div>
+        <div class="gh-info">
+          <h4>Discussion Board</h4>
+          <div class="gh-genre">SOCIAL · GUILD_RECRUITMENT</div>
+          <p>Find a faction, join a raid, post write-ups, recruit officers. Federates with Discord uplink.</p>
+          <div class="gh-stat"><span>multi-channel</span><span class="gh-diff easy">OPEN</span></div>
+        </div>
+      </a>
+
+      <a class="gh-card violet" href="research.html">
+        <div class="gh-art"><span class="gh-tag">CODEX</span>📁</div>
+        <div class="gh-info">
+          <h4>Research Codex</h4>
+          <div class="gh-genre">LIBRARY · PERIODIC_TABLE</div>
+          <p>FLLC periodic table of cyber operations. Tool-of-the-day, lab notes, rotation schedule.</p>
+          <div class="gh-stat"><span>120+ tools</span><span class="gh-diff med">REF</span></div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ============ TWO COL: LIVE OPS NEWS + ROADMAP ============ -->
+  <section class="gh-twocol" id="roadmap">
+    <div class="gh-news">
+      <h3>:: LIVE_OPS &middot; SEASONAL_ROTATION ::</h3>
+      <div class="gh-newsbody">
+        <ul>
+          <li><span class="gh-when">2026-W18</span><span class="gh-what"><b>Salt Typhoon Telecom Blackout</b> — relay lattice raid, 8-man weekly. Modifier: +25% detection, -10% bandwidth.</span></li>
+          <li><span class="gh-when">2026-W18</span><span class="gh-what"><b>Volt Typhoon Pre-Position Hunt</b> — patrol energy &amp; telecom gridlines for low-noise persistence.</span></li>
+          <li><span class="gh-when">2026-W17</span><span class="gh-what"><b>BlackCat Ransom Surge</b> — 6-man containment raid. Cleared by Specter Protocol guild &lt;FURIOS-1&gt;.</span></li>
+          <li><span class="gh-when">2026-W16</span><span class="gh-what"><b>Sandworm Mirror Breach</b> — validator timeline drift event. Multi-faction objective.</span></li>
+          <li><span class="gh-when">2026-W15</span><span class="gh-what"><b>Lazarus Escrow Heist</b> — Corsair-favored crypto-proxy retrieval mission.</span></li>
+          <li><span class="gh-when">DAILY</span><span class="gh-what"><b>Daily Convoy</b> — single-run convoy with rotating modifier (DARK_NET / RAIN / FIREWALL_SPIKE).</span></li>
+          <li><span class="gh-when">PVP</span><span class="gh-what"><b>Faction war: Orbital Trust Mesh</b> — Nomad vs Corsair vs Specter, 24h territory cycle.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="gh-news">
+      <h3>:: ROADMAP &middot; ENGINE_PHASES ::</h3>
+      <div class="gh-newsbody" style="padding:14px;">
+        <ol class="gh-rm">
+          <li class="done"><b>v2.6.6 (LIVE 2026-05)</b> — GAMES_HUB launcher, profile dossier, secure WAR_GAMES v1.0 with SHA-256 verifier, in-game menu inside MMORPG.</li>
+          <li class="done"><b>v2.6.x</b> — Adversary codex, 14 districts, 6 classes, faction picker.</li>
+          <li class="wip"><b>v2.7 (in flight)</b> — Convoy run integrated as MMORPG questline; daily rotation modifier; guild raid scheduler.</li>
+          <li class="wip"><b>v2.8</b> — Forensics tier in WAR_GAMES (memory dumps, pcap analysis); Ghidra-lite RE missions.</li>
+          <li class="queue"><b>v3.0</b> — Federated WeChall scoring; cross-progression (WAR_GAMES XP → MMORPG levels).</li>
+          <li class="queue"><b>v3.1</b> — Crafting expansion (Cyber Arsenal v2), live trade post, faction reputation curve.</li>
+          <li class="queue"><b>v3.2</b> — Voice uplink (WebRTC), in-raid command radio, ICE-locked ops channels.</li>
+          <li class="queue"><b>v4.0</b> — Subscriber tier: 80+ advanced nodes, APT simulation chains, real CVE-2026 emulation labs.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DIFFICULTY RAMP TABLE ============ -->
+  <section style="margin-top:30px;">
+    <h3 class="gh-grid-title">▶ DIFFICULTY RAMP &middot; SUGGESTED RUN ORDER</h3>
+    <div class="gh-news">
+      <div class="gh-newsbody">
+        <table class="pf-sites" style="width:100%;">
+          <thead><tr><th>STEP</th><th>GAME</th><th>WHAT YOU LEARN</th><th>EST TIME</th><th>DIFFICULTY</th></tr></thead>
+          <tbody>
+            <tr><td>01</td><td><a href="arcade.html">Cyber Arcade</a></td><td>Reflex, scoring, basic UI fluency.</td><td>15 min</td><td><span class="gh-diff easy">EASY</span></td></tr>
+            <tr><td>02</td><td><a href="wargames.html#missions">WAR_GAMES M01–M03</a></td><td>Source review, broken auth, LFI.</td><td>45 min</td><td><span class="gh-diff easy">ROOKIE</span></td></tr>
+            <tr><td>03</td><td><a href="ctf-trail.html">CTF Trail nodes 1–5</a></td><td>Crypto warm-ups, encoding chains.</td><td>1 hr</td><td><span class="gh-diff med">OPERATIVE</span></td></tr>
+            <tr><td>04</td><td><a href="cyberworld-game.html">Convoy run (rookie tier)</a></td><td>Resource economy, tool-unlock loop.</td><td>30 min</td><td><span class="gh-diff med">MEDIUM</span></td></tr>
+            <tr><td>05</td><td><a href="wargames.html#missions">WAR_GAMES M04–M09</a></td><td>JS leaks, XOR, redirect chains, SSI, cookie auth.</td><td>2 hr</td><td><span class="gh-diff hard">ELITE</span></td></tr>
+            <tr><td>06</td><td><a href="cyberworld.html">CyberWorld MMORPG levels 1–20</a></td><td>Faction selection, district recon, group play.</td><td>4–8 hr</td><td><span class="gh-diff hard">HARD</span></td></tr>
+            <tr><td>07</td><td><a href="wargames.html#missions">WAR_GAMES M10–M12</a></td><td>WAF bypass, config bleed, stored XSS.</td><td>2 hr</td><td><span class="gh-diff exp">CLASSIFIED</span></td></tr>
+            <tr><td>08</td><td><a href="cyberworld.html">CyberWorld raids (Salt Typhoon)</a></td><td>Multi-operative coordination, APT TTP emulation.</td><td>8h+ weekly</td><td><span class="gh-diff exp">EXPERT</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MMORPG QUICK FACTS ============ -->
+  <section style="margin-top:30px;">
+    <h3 class="gh-grid-title">▶ MMORPG QUICK FACTS</h3>
+    <div class="wg-grid-3">
+      <article class="gh-news"><h3>SAFE BY DEFAULT</h3><div class="gh-newsbody" style="padding:14px;font-size:13px;color:var(--wg-text);line-height:1.6;">All clients lock down with a strict CSP. The MMORPG socket allows only the canonical Railway endpoint. No third-party trackers. No analytics. No remote code injection. Source is fully auditable on GitHub.</div></article>
+      <article class="gh-news"><h3>CROSS-PROGRESSION</h3><div class="gh-newsbody" style="padding:14px;font-size:13px;color:var(--wg-text);line-height:1.6;">Solving WAR_GAMES missions awards XP that mirrors into your MMORPG character&rsquo;s OPSEC stat. Convoy completions unlock cosmetic skins. CTF Trail flags grant signature title tags.</div></article>
+      <article class="gh-news"><h3>ROLE FLEXIBILITY</h3><div class="gh-newsbody" style="padding:14px;font-size:13px;color:var(--wg-text);line-height:1.6;">Switch between Red, Blue and Recon stances mid-raid. Each stance retunes your skill tree. Loadout presets stored locally; export/import as a signed JSON for cross-device sync.</div></article>
+      <article class="gh-news"><h3>SEASONS &amp; LIVE OPS</h3><div class="gh-newsbody" style="padding:14px;font-size:13px;color:var(--wg-text);line-height:1.6;">Each calendar quarter rotates a major incident. Daily/weekly modifiers shift difficulty. Seasonal flags grant unique badges visible on the WeChall-style dossier.</div></article>
+      <article class="gh-news"><h3>OPEN SOURCE</h3><div class="gh-newsbody" style="padding:14px;font-size:13px;color:var(--wg-text);line-height:1.6;">Every script, every mission hash and every CSS rule lives at github.com/Personfu/personfu.github.io. Issues and PRs encouraged. Designed for educational reuse.</div></article>
+      <article class="gh-news"><h3>EDUCATOR TOOLKIT</h3><div class="gh-newsbody" style="padding:14px;font-size:13px;color:var(--wg-text);line-height:1.6;">Use any game as a classroom drop-in. The Convoy mode comes with a CIS215 / final-project rubric mapping and inline Python topic tags.</div></article>
+    </div>
+  </section>
+
+</main>
+
+<div id="taskbar">
+  <a href="index.html">&#8962; FURIOS-INT</a>
+  <a href="profile.html">PROFILE</a>
+  <a href="wargames.html">WAR_GAMES</a>
+  <a href="cyberworld.html">CYBERWORLD</a>
+  <a href="ctf-trail.html">CTF_TRAIL</a>
+  <span style="margin-left:auto;color:#444;font-family:'VT323';font-size:16px;" id="gh-clock"></span>
+</div>
+
+<script src="js/wargames-engine.js"></script>
+<script src="js/wargames-missions.js"></script>
+<script>
+  // clock
+  setInterval(function(){
+    var c=document.getElementById('gh-clock'); if(!c) return;
+    c.textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+  },1000);
+
+  // sim live ops counters
+  function tickOps(){
+    var ops=document.getElementById('gh-ops'); if(ops) ops.textContent=(842+Math.floor(Math.random()*40)).toLocaleString();
+    var con=document.getElementById('gh-conv'); if(con) con.textContent=2+Math.floor(Math.random()*5);
+  }
+  tickOps(); setInterval(tickOps, 4500);
+
+  // pull WG progress
+  WG.init({ missions: window.WG_MISSIONS, mountId:'__nope__' });
+  function paintProg(){
+    var p=WG.getProgress(); var el=document.getElementById('gh-wg-prog');
+    if(el) el.textContent = p.solved.length+' / '+window.WG_MISSIONS.length+' solved';
+  }
+  paintProg(); setInterval(paintProg, 2500);
+
+  // grid bg
+  (function(){
+    var c=document.getElementById('wg-bg'); if(!c) return;
+    var ctx=c.getContext('2d');
+    function R(){c.width=innerWidth;c.height=innerHeight;} R(); addEventListener('resize',R);
+    var t=0;
+    (function tick(){
+      t+=0.004;
+      ctx.fillStyle='rgba(4,6,8,0.3)'; ctx.fillRect(0,0,c.width,c.height);
+      ctx.strokeStyle='rgba(0,232,255,0.06)';
+      var step=44; var off=(t*30)%step;
+      ctx.beginPath();
+      for(var x=-step+off;x<c.width;x+=step){ctx.moveTo(x,0);ctx.lineTo(x,c.height);}
+      for(var y=-step+off;y<c.height;y+=step){ctx.moveTo(0,y);ctx.lineTo(c.width,y);}
+      ctx.stroke();
+      requestAnimationFrame(tick);
+    })();
+  })();
+</script>
+<script src="js/site-stats.js"></script>
+<script>SiteStats.renderStrip('ss-strip');</script>
+</body>
+</html>

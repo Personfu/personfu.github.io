@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <rect width="64" height="64" fill="#0a0a14"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#00e8ff" stroke-width="2"/>
+  <g stroke="#00e8ff" stroke-width="1.5" fill="none">
+    <rect x="10" y="22" width="44" height="12"/>
+    <rect x="10" y="38" width="44" height="12"/>
+    <circle cx="14" cy="28" r="2" fill="#00ff41"/>
+    <circle cx="14" cy="44" r="2" fill="#ff00ea"/>
+  </g>
+  <g fill="#00ff41" font-family="monospace" font-size="6">
+    <text x="22" y="30">SERVER_01</text>
+    <text x="22" y="46">SERVER_02</text>
+  </g>
+</svg>

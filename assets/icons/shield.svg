@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <rect width="64" height="64" fill="#0a0a14"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#ff00ea" stroke-width="2"/>
+  <g stroke="#00e8ff" stroke-width="1.5" fill="none">
+    <path d="M32 8 L52 18 L52 38 Q32 56 32 56 Q12 46 12 38 L12 18 Z"/>
+    <path d="M32 8 L32 56" opacity="0.4"/>
+    <path d="M12 32 L52 32" opacity="0.4"/>
+  </g>
+  <g font-family="monospace" font-weight="700" font-size="14" fill="#00ff41" text-anchor="middle">
+    <text x="32" y="40">F</text>
+  </g>
+  <g stroke="#ff00ea" stroke-width="1" fill="none" opacity="0.7">
+    <path d="M22 22 L42 22"/>
+    <path d="M20 26 L44 26"/>
+  </g>
+</svg>

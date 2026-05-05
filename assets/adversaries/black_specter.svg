@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" shape-rendering="crispEdges">
+  <rect width="200" height="240" fill="#020408"/>
+  <rect x="3" y="3" width="194" height="234" fill="none" stroke="#ff4444" stroke-width="2"/>
+  <rect x="7" y="7" width="186" height="226" fill="none" stroke="#666" stroke-width="1" stroke-dasharray="3 2"/>
+  <g font-family="monospace" font-weight="700">
+    <text x="100" y="22" font-size="9" fill="#ff4444" text-anchor="middle">[CLASSIFIED][THREAT:CRITICAL]</text>
+  </g>
+  <rect x="40" y="40" width="120" height="140" fill="#0a0a0a" stroke="#ff4444" stroke-width="1"/>
+  <g stroke="#ff4444" stroke-width="2" fill="none">
+    <ellipse cx="100" cy="92" rx="34" ry="42"/>
+    <path d="M70 82 L82 90"/>
+    <path d="M118 90 L130 82"/>
+    <path d="M86 92 L94 92"/>
+    <path d="M106 92 L114 92"/>
+  </g>
+  <g fill="#ff4444">
+    <rect x="86" y="90" width="8" height="4"/>
+    <rect x="106" y="90" width="8" height="4"/>
+  </g>
+  <path d="M82 116 L118 116" stroke="#ff4444" stroke-width="2"/>
+  <g stroke="#ff4444" stroke-width="1" fill="none">
+    <path d="M76 134 L100 142 L124 134"/>
+    <path d="M70 150 L100 158 L130 150"/>
+  </g>
+  <g font-family="monospace" font-weight="700" text-anchor="middle">
+    <text x="100" y="200" font-size="14" fill="#ff4444" letter-spacing="3">BLACK_SPECTER</text>
+    <text x="100" y="214" font-size="8" fill="#ffe700">// APEX-TIER ADVERSARY</text>
+    <text x="100" y="226" font-size="7" fill="#666">[ALIAS:NULL][LAST_SEEN:2030.04]</text>
+  </g>
+</svg>

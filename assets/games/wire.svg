@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" shape-rendering="crispEdges">
+  <rect width="240" height="160" fill="#020408"/>
+  <rect x="3" y="3" width="234" height="154" fill="none" stroke="#ffe700" stroke-width="2"/>
+  <g font-family="monospace" font-weight="700">
+    <text x="120" y="32" font-size="22" fill="#ffe700" text-anchor="middle" letter-spacing="2">WIRE_RUNNER</text>
+  </g>
+  <g stroke="#00e8ff" stroke-width="3" fill="none">
+    <path d="M20 80 L60 80 L60 110 L120 110 L120 70 L180 70 L180 100 L220 100"/>
+  </g>
+  <g stroke="#ff00ea" stroke-width="2" fill="none">
+    <path d="M20 110 L80 110 L80 80 L140 80 L140 130 L220 130"/>
+  </g>
+  <g fill="#00ff41">
+    <rect x="58" y="78" width="6" height="6"/>
+    <rect x="118" y="68" width="6" height="6"/>
+    <rect x="178" y="68" width="6" height="6"/>
+    <rect x="78" y="108" width="6" height="6"/>
+    <rect x="138" y="78" width="6" height="6"/>
+  </g>
+  <g font-family="monospace" font-size="9" fill="#ffe700">
+    <text x="14" y="150">[ROUTE_TIMING][PUZZLE]</text>
+  </g>
+</svg>

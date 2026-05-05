@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" shape-rendering="crispEdges">
+  <defs>
+    <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe700"/>
+      <stop offset="50%" stop-color="#ff00ea"/>
+      <stop offset="100%" stop-color="#00e8ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="96" height="96" fill="#020408"/>
+  <rect x="3" y="3" width="90" height="90" fill="none" stroke="url(#lg)" stroke-width="2"/>
+  <rect x="7" y="7" width="82" height="82" fill="none" stroke="#ffe700" stroke-width="1" stroke-dasharray="2 2"/>
+  <g fill="none" stroke="url(#lg)" stroke-width="3">
+    <path d="M22 26 L48 14 L74 26"/>
+    <path d="M22 38 L48 26 L74 38"/>
+    <path d="M22 50 L48 38 L74 50"/>
+    <path d="M22 62 L48 50 L74 62"/>
+  </g>
+  <g fill="#ffe700">
+    <path d="M48 66 L52 74 L60 74 L54 79 L57 87 L48 82 L39 87 L42 79 L36 74 L44 74 Z"/>
+  </g>
+  <g font-family="monospace" font-weight="700" text-anchor="middle">
+    <text x="48" y="22" font-size="7" fill="#ffe700">[T4][LEGEND]</text>
+  </g>
+</svg>

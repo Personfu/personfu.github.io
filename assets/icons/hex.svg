@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" shape-rendering="crispEdges">
+  <rect width="64" height="64" fill="#0a0a14"/>
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#ff00ea" stroke-width="2"/>
+  <g fill="#00ff41" font-family="monospace" font-size="7" font-weight="700">
+    <text x="8" y="20">7F 3A</text>
+    <text x="8" y="32">B2 C9</text>
+    <text x="8" y="44">A1 4F</text>
+    <text x="8" y="56">8E D2</text>
+  </g>
+  <g fill="#00e8ff" font-family="monospace" font-size="7" font-weight="700">
+    <text x="36" y="20">9C E0</text>
+    <text x="36" y="32">15 7B</text>
+    <text x="36" y="44">66 8A</text>
+    <text x="36" y="56">F3 2C</text>
+  </g>
+</svg>

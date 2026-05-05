@@ -1,0 +1,30 @@
+[
+  {
+    "id": "survival",
+    "name": "CyberWorld Survival",
+    "description": "Survive 10 nodes, collect resources, and reach the exfil point!",
+    "instructions": "Use arrow keys to move. Make smart choices to survive each node.",
+    "highScore": 0
+  },
+  {
+    "id": "snake",
+    "name": "Glitch Snake",
+    "description": "Classic snake with a cyber twist!",
+    "instructions": "Use arrow keys to control the snake. Eat to grow, avoid walls and yourself.",
+    "highScore": 0
+  },
+  {
+    "id": "breakout",
+    "name": "Hex Breaker",
+    "description": "Break all the encrypted blocks!",
+    "instructions": "Move paddle with mouse or touch. Bounce the ball to break blocks.",
+    "highScore": 0
+  },
+  {
+    "id": "runner",
+    "name": "Wire Runner",
+    "description": "Endless runner in a neon cyber world!",
+    "instructions": "Press space or tap to jump. Dodge obstacles and go for distance!",
+    "highScore": 0
+  }
+]

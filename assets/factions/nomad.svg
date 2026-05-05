@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" shape-rendering="crispEdges">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#001a1f"/>
+      <stop offset="100%" stop-color="#020408"/>
+    </radialGradient>
+  </defs>
+  <rect width="128" height="128" fill="url(#g)"/>
+  <rect x="4" y="4" width="120" height="120" fill="none" stroke="#00e8ff" stroke-width="2"/>
+  <rect x="8" y="8" width="112" height="112" fill="none" stroke="#00ff41" stroke-width="1" stroke-dasharray="4 2"/>
+  <g fill="none" stroke="#00ff41" stroke-width="2">
+    <circle cx="64" cy="64" r="36"/>
+    <ellipse cx="64" cy="64" rx="36" ry="14"/>
+    <ellipse cx="64" cy="64" rx="14" ry="36"/>
+    <path d="M28 64 L100 64"/>
+  </g>
+  <g fill="#ff00ea">
+    <circle cx="48" cy="46" r="2"/>
+    <circle cx="80" cy="44" r="2"/>
+    <circle cx="84" cy="78" r="2"/>
+    <circle cx="46" cy="80" r="2"/>
+  </g>
+  <g font-family="monospace" font-weight="700" text-anchor="middle">
+    <text x="64" y="116" font-size="10" fill="#00e8ff">// NOMAD_COLLECTIVE</text>
+    <text x="64" y="20" font-size="7" fill="#ffe700">[GLOBAL][TIER:NEUTRAL]</text>
+  </g>
+</svg>

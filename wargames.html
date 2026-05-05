@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self';">
+<title>WAR_GAMES // OPERATIVE_TRIALS — FURIOS-INT</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <meta property="og:title" content="WAR_GAMES">
+    <meta property="og:description" content="12 secure missions w/ SHA-256 flag verification.">
+    <meta property="og:image" content="assets/og-image.svg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#020408">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<link rel="stylesheet" href="css/wargames.css">
+</head>
+<body data-story-page="wargames">
+<div id="crt-filter"></div>
+<canvas id="wg-bg"></canvas>
+
+<nav class="top-nav">
+  <a href="index.html">&#8962; HOME</a>
+  <a href="games.html">🎮 GAMES_HUB</a>
+  <a href="forensics.html">🔬 FORENSICS</a>
+  <a href="redops.html">☣ RED_OPS</a>
+  <a href="profile.html">⌧ PROFILE</a>
+  <a href="cyberworld.html">🌐 CYBERWORLD</a>
+  <a href="ctf-trail.html">☠ CTF_TRAIL</a>
+  <a href="arcade.html">🕹 ARCADE</a>
+  <a href="adversaries.html">⚠ ADVERSARIES</a>
+  <a href="intel.html">📡 INTEL</a>
+  <span class="nav-spacer"></span>
+  <a href="#missions">MISSIONS</a>
+  <a href="#leaderboard">LEADERBOARD</a>
+  <a href="#dossier">DOSSIER</a>
+</nav>
+
+<header class="wg-hero">
+  <div class="wg-hero-grid">
+    <div class="wg-hero-left">
+      <div class="wg-tag">// FURIOS-INT // SECURE LAB // CLASSIFICATION: CONFIDENTIAL</div>
+      <h1>WAR_GAMES <span class="wg-flicker">::</span> OPERATIVE TRIALS</h1>
+      <p class="wg-sub">12 sequenced missions. Real techniques. Flags verified by SHA-256 in your browser — answers never leave your device.</p>
+      <div class="wg-hero-actions">
+        <a href="#missions" class="wg-btn wg-btn-primary">▶ ENTER FIRST MISSION</a>
+        <a href="profile.html" class="wg-btn">VIEW DOSSIER</a>
+        <button id="wg-reset" class="wg-btn wg-btn-danger" type="button">RESET PROGRESS</button>
+      </div>
+    </div>
+    <div class="wg-hero-right">
+      <div class="wg-hud">
+        <div class="wg-hud-row"><span>OPERATIVE</span><b>Personfu</b></div>
+        <div class="wg-hud-row"><span>RANK</span><b id="wg-rank">◇ RECRUIT</b></div>
+        <div class="wg-hud-row"><span>XP</span><b id="wg-xp">0</b></div>
+        <div class="wg-hud-row"><span>SOLVED</span><b id="wg-solved">0 / 12</b></div>
+        <div class="wg-hud-bar"><span id="wg-progressbar"></span></div>
+        <div class="wg-hud-pct" id="wg-pct">0%</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="wg-ribbon">
+  <span><i class="dot ok"></i>ARENA: <b>ONLINE</b></span>
+  <span><i class="dot warn"></i>OPERATIVES: <b id="wg-online">14</b></span>
+  <span><i class="dot ok"></i>FLAG VERIFIER: <b>SHA-256 / SubtleCrypto</b></span>
+  <span><i class="dot ok"></i>NO TELEMETRY · NO BACKEND · 100% CLIENT</span>
+</section>
+
+<section class="wg-section">
+  <div id="ss-strip"></div>
+</section>
+
+<section class="wg-section" id="how">
+  <div class="wg-shdr">▶ HOW THE TRIAL WORKS</div>
+  <div class="wg-sbody wg-grid-3">
+    <article><h4>1. Read the dossier</h4><p>Every mission ships with a scenario, a simulated lab, source artifacts and three escalating hints. No cheat-sheets, just real tradecraft.</p></article>
+    <article><h4>2. Solve in your head</h4><p>Each lab is reproducible offline. Use your terminal, browser DevTools, CyberChef — whatever you bring. The lab snippets give you everything you need.</p></article>
+    <article><h4>3. Submit the flag</h4><p>Your answer is hashed in-browser and checked against an embedded SHA-256. We never see your guesses; flags never appear in source.</p></article>
+  </div>
+</section>
+
+<section class="wg-section" id="missions">
+  <div class="wg-shdr">▶ MISSION_QUEUE :: 12 ACTIVE TRIALS</div>
+  <div class="wg-sbody">
+    <div class="wg-tier-legend">
+      <span class="wg-d-rookie">ROOKIE</span>
+      <span class="wg-d-operative">OPERATIVE</span>
+      <span class="wg-d-elite">ELITE</span>
+      <span class="wg-d-classified">CLASSIFIED</span>
+    </div>
+    <div id="wg-mission-mount" class="wg-mlist"></div>
+  </div>
+</section>
+
+<section class="wg-section" id="dossier">
+  <div class="wg-shdr">▶ EXTERNAL_CIRCUIT // VERIFIED_PROFILES</div>
+  <div class="wg-sbody wg-grid-2">
+    <a class="wg-ext" href="https://www.wechall.net/profile/Personfu" target="_blank" rel="noopener noreferrer">
+      <h4>WeChall · Personfu</h4>
+      <p>Cross-site CTF aggregator. WeChall federates scoring across HackThisSite, OverTheWire, RingZer0 and 80+ active sites.</p>
+      <span class="wg-ext-host">wechall.net/profile/Personfu</span>
+    </a>
+    <a class="wg-ext" href="https://www.wechall.net/active_sites" target="_blank" rel="noopener noreferrer">
+      <h4>WeChall · Active Sites</h4>
+      <p>Reference list of active hacking sites. Use it to plan your training rotation; FURIOS-INT mirrors the same difficulty curve.</p>
+      <span class="wg-ext-host">wechall.net/active_sites</span>
+    </a>
+    <a class="wg-ext" href="https://medium.com/@AG0x01/hackthissite-basic-missions-a-pentesters-walkthrough-levels-1-11-0a63c2065646" target="_blank" rel="noopener noreferrer">
+      <h4>HackThisSite Basic 1-11 · AG0x01 walkthrough</h4>
+      <p>Pentester-style write-up of the canonical Basic missions. Compare your solutions after you clear our parallel curriculum.</p>
+      <span class="wg-ext-host">medium.com / @AG0x01</span>
+    </a>
+    <a class="wg-ext" href="https://github.com/Personfu/personfu.github.io" target="_blank" rel="noopener noreferrer">
+      <h4>Source Code · personfu.github.io</h4>
+      <p>This entire platform is open source. Audit the engine, file issues, send PRs. Mission flag-hashes live in <code>js/wargames-missions.js</code>.</p>
+      <span class="wg-ext-host">github.com/Personfu/personfu.github.io</span>
+    </a>
+  </div>
+</section>
+
+<section class="wg-section" id="leaderboard">
+  <div class="wg-shdr">▶ LEADERBOARD :: SEASONAL</div>
+  <div class="wg-sbody">
+    <table class="wg-lb">
+      <thead><tr><th>#</th><th>OPERATIVE</th><th>SCORE</th><th>FLAGS</th><th>RANK</th><th>LAST SEEN</th></tr></thead>
+      <tbody id="wg-lb-body"></tbody>
+    </table>
+    <p class="wg-lb-note">* Local leaderboard simulated for demo. Federate to WeChall by linking your profile.</p>
+  </div>
+</section>
+
+<section class="wg-section" id="dojo">
+  <div class="wg-shdr">▶ TRAINING_DOJO :: WHAT YOU WILL LEARN</div>
+  <div class="wg-sbody wg-grid-3">
+    <article><h4>WEB EXPLOITATION</h4><ul><li>Source review · LFI / RFI</li><li>Open redirect chains</li><li>Stored & reflected XSS</li><li>SQLi & WAF bypass</li><li>SSI / SSTI / SSRF</li></ul></article>
+    <article><h4>CRYPTO &amp; ENCODING</h4><ul><li>Substitution / ROT</li><li>XOR &amp; key-reuse breaks</li><li>Base-N decoding chains</li><li>RSA small-exponent</li><li>HMAC validation flaws</li></ul></article>
+    <article><h4>OPSEC &amp; RECON</h4><ul><li>Browser DevTools fluency</li><li>HTTP headers + cookies</li><li>Burp / curl interception</li><li>Shodan-style fingerprinting</li><li>OSINT pivoting</li></ul></article>
+    <article><h4>BLUE TEAM SHIFT</h4><ul><li>CSP hardening</li><li>Output encoding by context</li><li>Parameterized queries</li><li>Vault-based secrets</li><li>WAF as compensating control</li></ul></article>
+    <article><h4>AUTH &amp; SESSIONS</h4><ul><li>HttpOnly+Secure+SameSite</li><li>Server-side authz</li><li>Session rotation / TTL</li><li>JWT pitfalls</li><li>OAuth flow review</li></ul></article>
+    <article><h4>BUILD MUSCLE</h4><ul><li>Read source first</li><li>Hypothesize before exploit</li><li>Document every finding</li><li>Write the patch yourself</li><li>Teach what you broke</li></ul></article>
+  </div>
+</section>
+
+<section class="wg-section" id="roadmap">
+  <div class="wg-shdr">▶ ROADMAP :: NEXT_PHASES</div>
+  <div class="wg-sbody">
+    <ol class="wg-roadmap">
+      <li><b>v1.0 (LIVE)</b> — 12 missions across 4 tiers · in-browser SHA-256 verifier · post-solve walkthroughs.</li>
+      <li><b>v1.1</b> — Federated WeChall scoring · per-mission write-up uploader · daily rotation flag.</li>
+      <li><b>v1.2</b> — Forensics tier (memory dumps, pcap analysis) · 8 new missions.</li>
+      <li><b>v1.3</b> — Reverse engineering tier (Ghidra-lite in-browser disassembler).</li>
+      <li><b>v2.0</b> — Multi-stage red-team chains tied into the CyberWorld convoy storyline.</li>
+    </ol>
+  </div>
+</section>
+
+<div id="wg-mission-dialog" class="wg-modal" role="dialog" aria-modal="true" aria-labelledby="wg-md-title">
+  <div class="wg-modal-card">
+    <header class="wg-modal-head">
+      <span class="wg-mdiff" data-f="tier"></span>
+      <h2 data-f="title" id="wg-md-title"></h2>
+      <button class="wg-x" type="button" aria-label="close" onclick="document.getElementById('wg-mission-dialog').classList.remove('open')">×</button>
+    </header>
+    <div class="wg-modal-meta">
+      <span data-f="skill"></span>
+      <span data-f="points"></span>
+    </div>
+    <div class="wg-modal-body">
+      <h4>BRIEF</h4>          <p data-f="brief"></p>
+      <h4>SCENARIO</h4>       <p data-f="scenario"></p>
+      <h4>LAB ARTIFACTS</h4>  <div data-f="lab"></div>
+      <h4>HINTS</h4>          <div data-f="hints" class="wg-hints"></div>
+      <h4>FLAG SUBMISSION</h4>
+      <div class="wg-flag-row">
+        <input data-f="input" type="text" placeholder="enter recovered flag…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <button data-f="submit" type="button" class="wg-btn wg-btn-primary">VERIFY ▶</button>
+      </div>
+      <div data-f="status" class="wg-status"></div>
+      <h4>POST-MORTEM</h4>     <div data-f="walkthrough"></div>
+    </div>
+  </div>
+</div>
+
+<div id="taskbar">
+  <a href="index.html">&#8962; FURIOS-INT</a>
+  <a href="profile.html">PROFILE</a>
+  <a href="stars.html">ARSENAL</a>
+  <a href="intel.html">INTEL</a>
+  <span style="margin-left:auto;color:#444;font-family:'VT323';font-size:16px;" id="wg-clock"></span>
+</div>
+
+<script src="js/wargames-engine.js"></script>
+<script src="js/wargames-missions.js"></script>
+<script src="js/site-stats.js"></script>
+<script src="js/mission-extras.js"></script>
+<script>
+  setInterval(function(){
+    var d=new Date(); var c=document.getElementById('wg-clock');
+    if (c) c.textContent=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+  },1000);
+
+  setInterval(function(){
+    var el=document.getElementById('wg-online');
+    if (el) el.textContent = 12 + Math.floor(Math.random()*9);
+  }, 5500);
+
+  document.getElementById('wg-reset').addEventListener('click', function(){
+    if (confirm('Wipe local progress? This cannot be undone.')) WG.resetProgress();
+  });
+
+  WG.init({
+    missions: window.WG_MISSIONS,
+    mountId: 'wg-mission-mount',
+    onComplete: function(m, st){ console.log('[WG] solved', m.id, 'xp=', st.xp); }
+  });
+
+  var LB = [
+    {op:'Personfu',     score:'live',    flags:'live',  rank:'live',         time:'now'},
+    {op:'r00t_kai',     score:14750,     flags:148,     rank:'👑 LEGEND',    time:'2 min ago'},
+    {op:'phantom_07',   score:11200,     flags:112,     rank:'⚡ ELITE',     time:'5 min ago'},
+    {op:'crypts3c',     score:9800,      flags:98,      rank:'⚡ ELITE',     time:'8 min ago'},
+    {op:'null_byte',    score:8450,      flags:84,      rank:'🔥 OPERATIVE', time:'12 min ago'},
+    {op:'d4rk_flux',    score:7200,      flags:72,      rank:'🔥 OPERATIVE', time:'15 min ago'},
+    {op:'ghost_0ps',    score:6100,      flags:61,      rank:'🔥 OPERATIVE', time:'22 min ago'},
+    {op:'wire_shark',   score:4300,      flags:43,      rank:'◆ ROOKIE',     time:'31 min ago'},
+    {op:'xss_kid',      score:2800,      flags:28,      rank:'◆ ROOKIE',     time:'45 min ago'},
+    {op:'fuzzy_logi',   score:1500,      flags:15,      rank:'◆ ROOKIE',     time:'1 hr ago'}
+  ];
+  function paintLB() {
+    var tb = document.getElementById('wg-lb-body'); if(!tb) return;
+    var p = WG.getProgress();
+    tb.innerHTML='';
+    LB.forEach(function(r,i){
+      var tr=document.createElement('tr');
+      var rankCls = i===0?'rank-gold':i===1?'rank-silver':i===2?'rank-bronze':'';
+      function cell(t,c){ var td=document.createElement('td'); td.textContent=t; if(c) td.className=c; return td; }
+      tr.appendChild(cell(i+1, rankCls));
+      tr.appendChild(cell(r.op));
+      if (r.score==='live') {
+        tr.appendChild(cell(p.xp.toLocaleString()));
+        tr.appendChild(cell(p.solved.length));
+        tr.appendChild(cell(p.rank));
+        tr.appendChild(cell('YOU', 'rank-gold'));
+        tr.classList.add('wg-lb-self');
+      } else {
+        tr.appendChild(cell(r.score.toLocaleString()));
+        tr.appendChild(cell(r.flags));
+        tr.appendChild(cell(r.rank));
+        tr.appendChild(cell(r.time));
+      }
+      tb.appendChild(tr);
+    });
+  }
+  paintLB();
+  setInterval(paintLB, 4000);
+
+  if (window.SiteStats) SiteStats.renderStrip('ss-strip');
+
+  (function(){
+    var c=document.getElementById('wg-bg'); if(!c) return;
+    var ctx=c.getContext('2d');
+    function R(){c.width=innerWidth;c.height=innerHeight;} R(); addEventListener('resize',R);
+    var t=0;
+    (function tick(){
+      t+=0.005;
+      ctx.fillStyle='rgba(5,5,5,0.25)'; ctx.fillRect(0,0,c.width,c.height);
+      ctx.strokeStyle='rgba(0,232,255,0.07)'; ctx.lineWidth=1;
+      var step=48; var off=(t*40)%step;
+      ctx.beginPath();
+      for(var x=-step+off;x<c.width;x+=step){ctx.moveTo(x,0);ctx.lineTo(x+c.height*0.3,c.height);}
+      for(var y=-step+off;y<c.height;y+=step){ctx.moveTo(0,y);ctx.lineTo(c.width,y+c.width*0.05);}
+      ctx.stroke();
+      requestAnimationFrame(tick);
+    })();
+  })();
+</script>
+</body>
+</html>

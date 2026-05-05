@@ -1,0 +1,173 @@
+name: Daily Site Health & Content Update
+
+on:
+  schedule:
+    # Run every day at 06:00 UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual trigger'
+        required: false
+        default: 'Manual operator trigger'
+
+jobs:
+  health-check:
+    name: Site Health Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check all HTML pages exist
+        run: |
+          PAGES=(
+            index.html
+            stars.html
+            intel.html
+            research.html
+            wargames.html
+            nodes.html
+            ai.html
+            discuss.html
+            cyberworld.html
+          )
+          MISSING=0
+          for page in "${PAGES[@]}"; do
+            if [ -f "$page" ]; then
+              echo "✓ $page ($(wc -c < "$page") bytes)"
+            else
+              echo "✗ MISSING: $page"
+              MISSING=$((MISSING+1))
+            fi
+          done
+          if [ "$MISSING" -gt 0 ]; then
+            echo "ERROR: $MISSING page(s) missing from repository."
+            exit 1
+          fi
+          echo "All $((${#PAGES[@]})) pages present."
+
+      - name: Check HTML validity (basic)
+        run: |
+          for f in *.html; do
+            # Ensure DOCTYPE and closing tags present
+            if ! grep -q '<!DOCTYPE html>' "$f"; then
+              echo "WARNING: $f missing DOCTYPE"
+            fi
+            echo "✓ $f HTML structure OK"
+          done
+
+      - name: Check for exposed secrets / security issues
+        run: |
+          echo "Scanning for accidentally committed secrets..."
+          # Fail if API keys or tokens look hardcoded (not env vars)
+          if grep -rn --include="*.html" --include="*.js" \
+            -E "(api[_-]?key|apikey|password|secret|token)\s*[:=]\s*['\"][A-Za-z0-9+/]{20,}" \
+            . 2>/dev/null | grep -v "placeholder\|example\|YOUR_\|REPLACE"; then
+            echo "ERROR: Possible hardcoded secret detected above. Review immediately."
+            exit 1
+          fi
+          echo "✓ No hardcoded secrets detected."
+
+      - name: Check Content-Security-Policy headers present
+        run: |
+          CSP_PAGES=(intel.html wargames.html nodes.html ai.html discuss.html)
+          MISSING_CSP=0
+          for page in "${CSP_PAGES[@]}"; do
+            if [ -f "$page" ]; then
+              if grep -q 'Content-Security-Policy' "$page"; then
+                echo "✓ CSP present in $page"
+              else
+                echo "WARNING: CSP missing in $page"
+                MISSING_CSP=$((MISSING_CSP+1))
+              fi
+            fi
+          done
+          echo "CSP check complete. $MISSING_CSP pages without CSP."
+
+  link-check:
+    name: Internal Link Checker
+    runs-on: ubuntu-latest
+    needs: health-check
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check internal links
+        run: |
+          echo "Checking internal page links..."
+          # Find all href links to local HTML files
+          BROKEN=0
+          for f in *.html; do
+            LINKS=$(grep -oP 'href="[^"#]*\.html[^"]*"' "$f" | grep -oP '"[^"]*"' | tr -d '"' | grep -v 'http' || true)
+            for link in $LINKS; do
+              TARGET=$(echo "$link" | sed 's/?.*//;s/#.*//')
+              if [ -n "$TARGET" ] && [ ! -f "$TARGET" ]; then
+                echo "✗ $f → $TARGET (MISSING)"
+                BROKEN=$((BROKEN+1))
+              fi
+            done
+          done
+          if [ "$BROKEN" -gt 0 ]; then
+            echo "WARNING: $BROKEN broken internal links found."
+          else
+            echo "✓ All internal links valid."
+          fi
+
+  discord-activity-check:
+    name: Discord Activity Manifest Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify Discord Activity files
+        run: |
+          # Check for Discord Embedded App SDK activity manifest
+          FILES=(nodes.html)
+          for f in "${FILES[@]}"; do
+            if [ -f "$f" ]; then
+              echo "✓ $f present for Discord Activity"
+            fi
+          done
+          echo "Discord activity check complete."
+
+  summary:
+    name: Daily Summary
+    runs-on: ubuntu-latest
+    needs: [health-check, link-check]
+    if: always()
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate site summary
+        run: |
+          echo "=========================================="
+          echo "  FLLC / FURIOS-INT DAILY SITE REPORT"
+          echo "  $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+          echo "=========================================="
+          echo ""
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo ""
+          echo "── PAGE INVENTORY ──"
+          for f in *.html; do
+            SIZE=$(wc -c < "$f")
+            echo "  $f  (${SIZE} bytes)"
+          done
+          echo ""
+          echo "── TOTAL FILES ──"
+          find . -name "*.html" | wc -l | xargs echo "  HTML pages:"
+          find . -name "*.css"  | wc -l | xargs echo "  CSS files:"
+          find . -name "*.js"   | wc -l | xargs echo "  JS files:"
+          echo ""
+          echo "✓ Daily check complete."

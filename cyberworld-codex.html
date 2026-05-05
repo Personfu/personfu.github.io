@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self';">
+<title>CYBERWORLD_CODEX // OPERATION_STARSHIELD ENCYCLOPEDIA</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <meta property="og:title" content="CYBERWORLD // CODEX">
+    <meta property="og:description" content="Lore, factions and adversaries.">
+    <meta property="og:image" content="assets/og-image.svg">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="theme-color" content="#020408">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/os.css">
+<link rel="stylesheet" href="css/wargames.css">
+<style>
+:root{--cdx-yellow:#ffe700;--cdx-violet:#8a5cff;}
+.cdx-shell{max-width:1280px;margin:0 auto;padding:24px 16px 80px;}
+.cdx-hero{position:relative;border:1px solid var(--wg-cyan);background:linear-gradient(135deg,#02060a,#001a2a 60%,#1a002a);
+  padding:30px 28px;overflow:hidden;}
+.cdx-hero::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(0,232,255,0.04) 3px,rgba(0,232,255,0.04) 4px);}
+.cdx-hero h1{font-family:'Pixelify Sans';font-size:clamp(30px,5vw,56px);color:#fff;
+  text-shadow:0 0 18px rgba(0,232,255,0.4),0 0 50px rgba(255,231,0,0.18);}
+.cdx-hero h1 b{color:var(--cdx-yellow);}
+.cdx-hero p{color:var(--wg-text-mute);font-size:14px;line-height:1.7;max-width:780px;margin-top:12px;}
+.cdx-hero .cdx-tags{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px;}
+.cdx-hero .cdx-tags span{font-family:'VT323';font-size:13px;padding:2px 9px;border:1px solid var(--wg-line);color:var(--wg-cyan);}
+
+/* TOC */
+.cdx-toc{position:sticky;top:48px;background:rgba(4,6,8,0.94);backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--wg-line-soft);padding:8px 16px;display:flex;gap:6px;flex-wrap:wrap;z-index:300;margin:0 -16px;}
+.cdx-toc a{font-family:'VT323';font-size:15px;padding:4px 10px;border:1px solid var(--wg-line);color:var(--wg-cyan);text-decoration:none;}
+.cdx-toc a:hover{background:rgba(0,232,255,0.08);color:#fff;}
+
+/* Section blocks */
+.cdx-h2{margin:36px 0 12px;font-family:'Pixelify Sans';font-size:22px;color:var(--wg-cyan);
+  letter-spacing:2px;border-bottom:1px solid var(--wg-line);padding-bottom:8px;
+  text-shadow:0 0 12px rgba(0,232,255,0.3);}
+.cdx-h2 small{font-family:'VT323';font-size:14px;color:var(--wg-text-mute);float:right;letter-spacing:1px;margin-top:6px;}
+
+.cdx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;}
+.cdx-grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:12px;}
+.cdx-grid-1{display:grid;grid-template-columns:1fr;gap:10px;}
+
+.cdx-card{background:var(--wg-panel);border:1px solid var(--wg-line);padding:14px 16px;position:relative;}
+.cdx-card.accent-cy{border-left:3px solid var(--wg-cyan);}
+.cdx-card.accent-pk{border-left:3px solid var(--wg-pink);}
+.cdx-card.accent-gn{border-left:3px solid var(--wg-green);}
+.cdx-card.accent-am{border-left:3px solid var(--wg-amber);}
+.cdx-card.accent-rd{border-left:3px solid var(--wg-red);}
+.cdx-card.accent-vi{border-left:3px solid var(--cdx-violet);}
+.cdx-card h3{font-family:'Pixelify Sans';font-size:16px;color:#fff;margin-bottom:3px;}
+.cdx-card .cdx-sub{font-family:'VT323';font-size:13px;color:var(--wg-text-mute);letter-spacing:1px;margin-bottom:8px;}
+.cdx-card p{font-size:12px;color:var(--wg-text);line-height:1.6;margin-bottom:6px;}
+.cdx-card ul{list-style:none;padding:0;margin:6px 0;}
+.cdx-card ul li{font-size:12px;color:var(--wg-text);padding:2px 0 2px 12px;position:relative;line-height:1.55;}
+.cdx-card ul li::before{content:'▸';position:absolute;left:0;color:var(--wg-cyan);}
+.cdx-card .cdx-stat{display:flex;justify-content:space-between;font-family:'VT323';font-size:13px;color:var(--wg-cyan);
+  margin-top:6px;padding-top:6px;border-top:1px dashed var(--wg-line-soft);}
+.cdx-pill{display:inline-block;font-family:'VT323';font-size:11px;padding:1px 7px;border:1px solid;letter-spacing:1px;margin-right:4px;}
+.cdx-pill.r{color:var(--wg-red);border-color:var(--wg-red);}
+.cdx-pill.b{color:var(--wg-cyan);border-color:var(--wg-cyan);}
+.cdx-pill.g{color:var(--wg-green);border-color:var(--wg-green);}
+.cdx-pill.a{color:var(--wg-amber);border-color:var(--wg-amber);}
+.cdx-pill.p{color:var(--wg-pink);border-color:var(--wg-pink);}
+.cdx-pill.v{color:var(--cdx-violet);border-color:var(--cdx-violet);}
+
+/* Skill tree visual */
+.cdx-tree{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;margin-top:8px;}
+.cdx-node{background:#02060a;border:1px solid var(--wg-line);padding:8px 10px;
+  font-family:'VT323';font-size:13px;color:var(--wg-text);}
+.cdx-node b{color:#fff;display:block;font-size:14px;}
+.cdx-node small{color:var(--wg-text-mute);font-size:11px;}
+
+/* Tables */
+.cdx-table{width:100%;border-collapse:collapse;font-size:12px;}
+.cdx-table th{font-family:'VT323';font-size:14px;text-align:left;padding:6px 10px;
+  background:#020e10;color:var(--wg-cyan);border-bottom:1px solid var(--wg-line);letter-spacing:1px;}
+.cdx-table td{padding:6px 10px;border-bottom:1px dashed var(--wg-line-soft);color:var(--wg-text);vertical-align:top;}
+.cdx-table tr:hover td{background:rgba(0,232,255,0.04);}
+.cdx-table td b{color:#fff;}
+
+/* Lore block */
+.cdx-lore{background:linear-gradient(180deg,#02060a,#06121a);border-left:3px solid var(--wg-amber);
+  padding:14px 18px;font-family:'VT323';font-size:16px;line-height:1.7;color:#cfe7ee;}
+.cdx-lore::before{content:'>> TRANSMISSION_LOG / DECRYPTED // ';color:var(--wg-amber);font-size:12px;letter-spacing:2px;}
+.cdx-lore em{color:var(--wg-cyan);font-style:normal;}
+
+/* mini icon */
+.cdx-ic{font-size:22px;line-height:1;margin-right:8px;}
+</style>
+</head>
+<body>
+<div id="crt-filter"></div>
+<canvas id="wg-bg"></canvas>
+
+<nav class="top-nav">
+  <a href="index.html">&#8962; HOME</a>
+  <a href="games.html">🎮 GAMES_HUB</a>
+  <a href="forensics.html">🔬 FORENSICS</a>
+  <a href="redops.html">☣ RED_OPS</a>
+  <a href="cyberworld.html">🌐 CYBERWORLD</a>
+  <a href="cyberworld-game.html">🛡️ CONVOY</a>
+  <a href="wargames.html">⌖ WAR_GAMES</a>
+  <a href="ctf-trail.html">☠ CTF_TRAIL</a>
+  <a href="profile.html">⌧ PROFILE</a>
+  <a href="adversaries.html">⚠ ADVERSARIES</a>
+  <a href="intel.html">📡 INTEL</a>
+</nav>
+
+<main class="cdx-shell">
+
+<section class="cdx-hero">
+  <div class="cdx-tags"><span>// LORE_BIBLE</span><span>// CHAPTER 5+</span><span>// LIVE_OPS</span><span>// CLEARANCE: PUBLIC</span></div>
+  <h1>CYBERWORLD <b>CODEX</b></h1>
+  <p>The complete encyclopedia for <em>Operation Starshield</em>: factions, classes, districts, NPCs, raids, world bosses, items, crafting recipes and lore. Every entry below is canonical and consumed live by the MMORPG quest engine. Use the table of contents to jump.</p>
+</section>
+
+<nav class="cdx-toc">
+  <a href="#timeline">▸ TIMELINE</a>
+  <a href="#factions">▸ FACTIONS</a>
+  <a href="#classes">▸ CLASSES</a>
+  <a href="#skilltree">▸ SKILL TREE</a>
+  <a href="#districts">▸ DISTRICTS</a>
+  <a href="#npcs">▸ NPCs</a>
+  <a href="#mainquest">▸ MAIN QUEST</a>
+  <a href="#sidequests">▸ SIDE QUESTS</a>
+  <a href="#raids">▸ RAIDS</a>
+  <a href="#worldbosses">▸ WORLD BOSSES</a>
+  <a href="#items">▸ ITEMS</a>
+  <a href="#crafting">▸ CRAFTING</a>
+  <a href="#economy">▸ ECONOMY</a>
+  <a href="#convoy">▸ CONVOY MODE</a>
+  <a href="#endgame">▸ ENDGAME</a>
+</nav>
+
+<!-- ============ TIMELINE ============ -->
+<h2 id="timeline" class="cdx-h2">TIMELINE — THE FALL OF THE TRUST MESH<small>chapters 1 → 6</small></h2>
+<div class="cdx-grid-1">
+  <div class="cdx-lore">
+    <em>2027.</em> The orbital trust mesh — a planet-wide certificate authority federation — collapses after the <em>Validator Mirror Breach</em>. Three actors emerge from the fallout: the Nomad Collective (recon analysts who refused to sign forged certs), the Corsair Syndicate (former lawful pen-testers turned for-hire offensive operators), and the Specter Protocol (a coalition of national-CSIRT defenders). The fragile internet limps on under their split governance.<br><br>
+    <em>2028.</em> Salt Typhoon's telecom relay lattice goes operational. Volt Typhoon pre-positions in 9 utility ICS clusters. BlackCat ransom strikes punish the unaligned. <em>FURIOS-INT</em> declares Operation Starshield: re-sign the mesh by sundown, by any means.<br><br>
+    <em>2030 (now).</em> Chapter 5+ live. You boot in.
+  </div>
+</div>
+<div class="cdx-grid-2" style="margin-top:14px;">
+  <div class="cdx-card accent-cy">
+    <h3>CHAPTER 1 · THE SIGNAL FIRE</h3>
+    <div class="cdx-sub">LEVEL 1 → 8 · SOLO</div>
+    <p>Wake in <b>Codice Zone</b>. Your handler — <em>VEX-7</em> — pings you over a dying relay. Pick a faction, recover your initial loadout, and survive your first three street encounters.</p>
+    <ul><li>Tutorial mission: <i>Cold Boot</i></li><li>First boss: <b>Drift</b> (rogue auto-fuzzer)</li><li>Reward: 1× Rookie Kit, faction stipend.</li></ul>
+  </div>
+  <div class="cdx-card accent-pk">
+    <h3>CHAPTER 2 · THE MARKET DRIFT</h3>
+    <div class="cdx-sub">LEVEL 8 → 18 · SOLO/DUO</div>
+    <p>The Black Market is rigged. A vendor named <em>SILK-04</em> is leaking forged loot into the supply curve. Investigate, audit, and decide whether to expose her or pocket the kickback.</p>
+    <ul><li>Major branch: <i>Audit / Conspire / Burn</i></li><li>First reputation choice — sets faction modifiers permanently.</li><li>Unlocks <b>Crafting Tier 1</b>.</li></ul>
+  </div>
+  <div class="cdx-card accent-am">
+    <h3>CHAPTER 3 · THE GUILD WAR</h3>
+    <div class="cdx-sub">LEVEL 18 → 30 · 5-MAN</div>
+    <p>Three guilds detonate a turf war over the <b>Codice Spire</b>. You are summoned to broker — or end — the conflict. Introduces small-group raid mechanics.</p>
+    <ul><li>Mini-raid: <i>Spire Foothold</i> (5-man, 30min).</li><li>Unlocks: party finder, voice radio.</li><li>First epic drop chance.</li></ul>
+  </div>
+  <div class="cdx-card accent-gn">
+    <h3>CHAPTER 4 · THE COLD INDEX</h3>
+    <div class="cdx-sub">LEVEL 30 → 42 · SOLO/RAID</div>
+    <p>An archived directory of <em>every</em> CVE since 1999 is found buried in a derelict relay. Owning it means power; protecting it means responsibility. Major lore turn.</p>
+    <ul><li>Solo dungeon: <i>The Archive</i>.</li><li>Multi-faction objective: <i>Cold Index Custody</i>.</li><li>Unlocks <b>OPSEC stat</b> bonuses tied to WAR_GAMES.</li></ul>
+  </div>
+  <div class="cdx-card accent-rd">
+    <h3>CHAPTER 5 · STARSHIELD (LIVE)</h3>
+    <div class="cdx-sub">LEVEL 42 → 60 · 8-MAN</div>
+    <p>Re-sign the orbital trust mesh while five APT actors actively contest the launch chain. Weekly rotating modifiers. Best-in-slot drops. Faction territory at stake.</p>
+    <ul><li>Raid 1: <i>Salt Typhoon Relay Lattice</i></li><li>Raid 2: <i>Volt Pre-Position Hunt</i></li><li>Raid 3: <i>BlackCat Ransom Surge</i></li><li>Hard Mode: <i>Lazarus Escrow Heist</i></li><li>Boss Council: <i>Sandworm Mirror Breach</i></li></ul>
+  </div>
+  <div class="cdx-card accent-vi">
+    <h3>CHAPTER 6 · ECHO PROTOCOL (Q3 2026)</h3>
+    <div class="cdx-sub">LEVEL 60 · ENDGAME</div>
+    <p>Subscriber-tier expansion. Eighty advanced nodes simulating real-CVE 2026 emulation labs. Cross-progression with WAR_GAMES classified tier.</p>
+    <ul><li>Endgame raid 8/12-man: <i>Echo Protocol</i>.</li><li>New class: <b>Cipher Witness</b>.</li><li>New region: <b>The Memory Vault</b>.</li></ul>
+  </div>
+</div>
+
+<!-- ============ FACTIONS ============ -->
+<h2 id="factions" class="cdx-h2">FACTIONS — THREE GOVERNING POWERS<small>pick one at character creation</small></h2>
+<div class="cdx-grid">
+  <div class="cdx-card accent-cy">
+    <h3><span class="cdx-ic">◈</span>NOMAD COLLECTIVE</h3>
+    <div class="cdx-sub">RECON-FIRST · BLUE-LEANING · LIGHT</div>
+    <p><em>"We saw the breach coming. We left."</em> Travelling analysts, signals intelligence specialists, and OSINT historians.</p>
+    <ul>
+      <li><b>Bonuses:</b> +15% OSINT speed, +10% stealth, +1 to Recon skill.</li>
+      <li><b>Faction quest:</b> <i>The Cartographer's Trail</i> — map 14 relay graveyards.</li>
+      <li><b>Capital:</b> Codice Zone — Quadrant North.</li>
+      <li><b>Allies:</b> Specter Protocol (formal), unaligned operatives (informal).</li>
+      <li><b>Rivals:</b> Corsair Syndicate.</li>
+    </ul>
+    <div class="cdx-stat"><span>FLAG: ◈</span><span>POP: 41% of operatives</span></div>
+  </div>
+  <div class="cdx-card accent-pk">
+    <h3><span class="cdx-ic">✶</span>CORSAIR SYNDICATE</h3>
+    <div class="cdx-sub">OFFENSIVE · RED · LOUD</div>
+    <p><em>"The cert authority sold us out. We invoice."</em> Aggressive contract operators, exploit brokers, payload artists.</p>
+    <ul>
+      <li><b>Bonuses:</b> +20% payload damage, +15% persistence on stored XSS, -10% stealth.</li>
+      <li><b>Faction quest:</b> <i>The Black Audit</i> — siphon 5 corrupt vendor accounts.</li>
+      <li><b>Capital:</b> Black Market — Quadrant South.</li>
+      <li><b>Allies:</b> Zero-day brokers, mercenary guilds.</li>
+      <li><b>Rivals:</b> Nomad Collective, Specter Protocol.</li>
+    </ul>
+    <div class="cdx-stat"><span>FLAG: ✶</span><span>POP: 33% of operatives</span></div>
+  </div>
+  <div class="cdx-card accent-gn">
+    <h3><span class="cdx-ic">◇</span>SPECTER PROTOCOL</h3>
+    <div class="cdx-sub">DEFENSIVE · BLUE · DISCIPLINED</div>
+    <p><em>"We do incident response on time."</em> Former national-CSIRT, threat-hunters, audit-engineers.</p>
+    <ul>
+      <li><b>Bonuses:</b> +20% threat-hunt speed, +25% audit yield, +1 to IR skill.</li>
+      <li><b>Faction quest:</b> <i>Containment Standard</i> — close 7 active incidents.</li>
+      <li><b>Capital:</b> Spire — Quadrant Center.</li>
+      <li><b>Allies:</b> Nomad Collective.</li>
+      <li><b>Rivals:</b> Corsair Syndicate, all APT actors.</li>
+    </ul>
+    <div class="cdx-stat"><span>FLAG: ◇</span><span>POP: 26% of operatives</span></div>
+  </div>
+</div>
+
+<!-- ============ CLASSES ============ -->
+<h2 id="classes" class="cdx-h2">CLASSES — SIX STARTER ARCHETYPES<small>+1 endgame class chapter 6</small></h2>
+<div class="cdx-grid">
+  <div class="cdx-card accent-cy"><h3>RECON ANALYST</h3><div class="cdx-sub">DPS · OSINT · SCOUT</div>
+    <p>Expert at signals collection, relay enumeration, target enrichment. Solo-friendly.</p>
+    <ul><li>Primary stat: <b>INSIGHT</b></li><li>Signature: <i>Trace-back ping</i> (reveals enemy network for 8s).</li><li>Survives by knowing first.</li></ul></div>
+  <div class="cdx-card accent-pk"><h3>EXPLOIT BROKER</h3><div class="cdx-sub">DPS · OFFENSIVE · LOUD</div>
+    <p>Carries authored payloads. High burst, low persistence. Best paired with Recon.</p>
+    <ul><li>Primary stat: <b>PRESSURE</b></li><li>Signature: <i>Chained POC</i> (3-stage exploit combo).</li><li>Punishes mistakes immediately.</li></ul></div>
+  <div class="cdx-card accent-gn"><h3>INCIDENT_HANDLER</h3><div class="cdx-sub">TANK · DEFENSE · IR</div>
+    <p>Holds the perimeter. Restores fallen operatives. Mandatory in 8-man raids.</p>
+    <ul><li>Primary stat: <b>RESILIENCE</b></li><li>Signature: <i>Containment Net</i> (AoE damage soak).</li><li>Cannot be silenced.</li></ul></div>
+  <div class="cdx-card accent-am"><h3>HUNT_ENGINEER</h3><div class="cdx-sub">SUPPORT · DETECTION · DPS</div>
+    <p>Detects stealth APT actors. Drops Sigma rules. Force-multiplies the team.</p>
+    <ul><li>Primary stat: <b>FOCUS</b></li><li>Signature: <i>Sigma Beacon</i> (illuminates hidden enemies).</li><li>Rewarded for patience.</li></ul></div>
+  <div class="cdx-card accent-vi"><h3>DEEP_AUDITOR</h3><div class="cdx-sub">UTILITY · CRAFT · ECON</div>
+    <p>Crafting specialist. Reads contracts. Re-rolls loot affixes. Best gold-makers.</p>
+    <ul><li>Primary stat: <b>DISCIPLINE</b></li><li>Signature: <i>Re-roll</i> (consumes 1 token to reforge stat).</li><li>Solo crafting tycoons.</li></ul></div>
+  <div class="cdx-card accent-rd"><h3>SOCIAL_OPERATOR</h3><div class="cdx-sub">DPS · DEBUFF · MIND-GAME</div>
+    <p>Specializes in pretexting NPCs and turning enemies. High-skill, high-reward.</p>
+    <ul><li>Primary stat: <b>POISE</b></li><li>Signature: <i>Pretext</i> (turn one minor enemy for 12s).</li><li>Hard cap: 1 active conversion.</li></ul></div>
+  <div class="cdx-card accent-cy" style="border-color:var(--cdx-violet);">
+    <h3>CIPHER WITNESS <span class="cdx-pill v">CH6 ENDGAME</span></h3><div class="cdx-sub">UTILITY · TIME · LORE</div>
+    <p>Subscriber-tier class. Manipulates timeline echoes; refuses to die — once per raid.</p>
+    <ul><li>Primary stat: <b>RESONANCE</b></li><li>Signature: <i>Replay</i> (rewind 3s of one ally).</li><li>Locked behind chapter 6.</li></ul></div>
+</div>
+
+<!-- ============ SKILL TREE ============ -->
+<h2 id="skilltree" class="cdx-h2">UNIFIED SKILL TREE<small>WAR_GAMES feeds OPSEC stat directly</small></h2>
+<div class="cdx-grid-2">
+  <div class="cdx-card accent-cy"><h3>OFFENSIVE BRANCH</h3>
+    <div class="cdx-tree">
+      <div class="cdx-node"><b>Web Exploitation</b><small>SQLi · XSS · SSRF · IDOR</small></div>
+      <div class="cdx-node"><b>Network Pivot</b><small>tunnels, port-fwd, SOCKS</small></div>
+      <div class="cdx-node"><b>Binary Pwn</b><small>BOF · ROP · heap</small></div>
+      <div class="cdx-node"><b>Phishing Craft</b><small>pretext, lure, harvest</small></div>
+      <div class="cdx-node"><b>C2 Operations</b><small>callbacks, sleep, jitter</small></div>
+      <div class="cdx-node"><b>Privilege Climb</b><small>SUID, kerberoast, DCSync</small></div>
+    </div></div>
+  <div class="cdx-card accent-gn"><h3>DEFENSIVE BRANCH</h3>
+    <div class="cdx-tree">
+      <div class="cdx-node"><b>Threat Hunt</b><small>Sigma · MITRE coverage</small></div>
+      <div class="cdx-node"><b>IR Containment</b><small>quarantine, image, scope</small></div>
+      <div class="cdx-node"><b>Hardening</b><small>STIG, baseline, drift</small></div>
+      <div class="cdx-node"><b>Forensics</b><small>memory, disk, pcap</small></div>
+      <div class="cdx-node"><b>Detection Eng</b><small>EDR rules, telem</small></div>
+      <div class="cdx-node"><b>Audit</b><small>config, IAM, code</small></div>
+    </div></div>
+  <div class="cdx-card accent-am"><h3>RECON BRANCH</h3>
+    <div class="cdx-tree">
+      <div class="cdx-node"><b>OSINT</b><small>WHOIS, BGP, leak corpus</small></div>
+      <div class="cdx-node"><b>Subdomain Map</b><small>perm, brute, passive</small></div>
+      <div class="cdx-node"><b>Cert Analysis</b><small>CT logs, mis-issue</small></div>
+      <div class="cdx-node"><b>Signal Triangulate</b><small>WiFi, BLE, RF</small></div>
+      <div class="cdx-node"><b>Adversary Profile</b><small>TTP fingerprinting</small></div>
+      <div class="cdx-node"><b>Geo-locate</b><small>EXIF, photo, sun-angle</small></div>
+    </div></div>
+  <div class="cdx-card accent-vi"><h3>UTILITY BRANCH</h3>
+    <div class="cdx-tree">
+      <div class="cdx-node"><b>Crafting</b><small>3 tiers, recipes</small></div>
+      <div class="cdx-node"><b>Economy</b><small>arbitrage, vendor cycle</small></div>
+      <div class="cdx-node"><b>Reputation</b><small>3 faction bars</small></div>
+      <div class="cdx-node"><b>Mentor</b><small>buff lower-level allies</small></div>
+      <div class="cdx-node"><b>Voice Uplink</b><small>radio range +20%</small></div>
+      <div class="cdx-node"><b>Cipher</b><small>endgame; Ch6+ only</small></div>
+    </div></div>
+</div>
+
+<!-- ============ DISTRICTS ============ -->
+<h2 id="districts" class="cdx-h2">DISTRICTS — 14 EXPLORABLE ZONES<small>open-world hub</small></h2>
+<table class="cdx-table">
+  <thead><tr><th>#</th><th>Name</th><th>Lvl</th><th>Faction</th><th>Description</th><th>Notable</th></tr></thead>
+  <tbody>
+    <tr><td>01</td><td><b>Codice Zone</b></td><td>1-15</td><td><span class="cdx-pill b">Nomad</span></td><td>Tutorial city. Neon market alleys, abandoned ISP relay yard.</td><td>VEX-7 (handler), starter dungeon.</td></tr>
+    <tr><td>02</td><td><b>Black Market</b></td><td>8-25</td><td><span class="cdx-pill p">Corsair</span></td><td>Vendor-driven sprawl. Crafting matter is cheap; trust is not.</td><td>SILK-04, exploit broker stalls.</td></tr>
+    <tr><td>03</td><td><b>The Spire</b></td><td>20-40</td><td><span class="cdx-pill g">Specter</span></td><td>Defensive citadel. Glass-steel CSIRT command floors.</td><td>Auditor's Atrium, raid hall.</td></tr>
+    <tr><td>04</td><td><b>Relay Graveyard</b></td><td>15-30</td><td>—</td><td>Disused telecom relays. Loot-rich, signal-rich, hostile.</td><td>Drift (rogue fuzzer), CT log archive.</td></tr>
+    <tr><td>05</td><td><b>The Cold Index</b></td><td>30-42</td><td>—</td><td>Buried directory of every CVE since 1999. Library, then weapon.</td><td>Index Wraith, custody event.</td></tr>
+    <tr><td>06</td><td><b>Orbital Trust Mesh</b></td><td>45-60</td><td>ALL</td><td>Endgame raid environment. Re-sign the certs before sundown.</td><td>Salt Typhoon, Volt, Sandworm.</td></tr>
+    <tr><td>07</td><td><b>Validator Shoals</b></td><td>40-55</td><td>—</td><td>Floating data archipelago. Mirror-breach event spawns here.</td><td>Mirror Breach, timeline drift.</td></tr>
+    <tr><td>08</td><td><b>Telco Lattice</b></td><td>50-58</td><td><span class="cdx-pill r">Hostile</span></td><td>Salt Typhoon's home turf. SS7 storm hazard.</td><td>Lattice Custodian boss.</td></tr>
+    <tr><td>09</td><td><b>The Substation</b></td><td>50-58</td><td><span class="cdx-pill r">Hostile</span></td><td>Volt Typhoon pre-position cluster. Energy grid puzzles.</td><td>Volt Wright, ICS chess raid.</td></tr>
+    <tr><td>10</td><td><b>The Vault</b></td><td>55-60</td><td>—</td><td>Memory archive. Subscriber-tier endgame. Echo Protocol.</td><td>Echo, Mnemosyne, the Witness.</td></tr>
+    <tr><td>11</td><td><b>Drift Plaza</b></td><td>10-20</td><td>OPEN</td><td>Social hub. Bulletin boards, daily kiosks, recruiters.</td><td>Quest board, party finder.</td></tr>
+    <tr><td>12</td><td><b>Codice Spire</b></td><td>18-30</td><td>—</td><td>Disputed turf. Site of Chapter 3 guild war.</td><td>5-man foothold raid.</td></tr>
+    <tr><td>13</td><td><b>Lazarus Front</b></td><td>52-60</td><td><span class="cdx-pill r">Hostile</span></td><td>Crypto-proxy escrow front. Lazarus territory. Heist arena.</td><td>Lazarus Escrow Heist (HM).</td></tr>
+    <tr><td>14</td><td><b>BlackCat Catacombs</b></td><td>48-58</td><td><span class="cdx-pill r">Hostile</span></td><td>Ransom-strike instance. Negotiation mini-game.</td><td>BlackCat Ransom Surge raid.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============ NPCs ============ -->
+<h2 id="npcs" class="cdx-h2">NPCs — KEY OPERATIVES<small>16 named characters</small></h2>
+<div class="cdx-grid">
+  <div class="cdx-card accent-cy"><h3>VEX-7</h3><div class="cdx-sub">HANDLER · NOMAD</div><p>Your default handler. Direct, pragmatic, never gives unnecessary words. Voice you trust.</p><ul><li>Quest-giver Ch1, Ch4, Ch5.</li><li>Killable in dark route (Corsair lock-out).</li></ul></div>
+  <div class="cdx-card accent-pk"><h3>SILK-04</h3><div class="cdx-sub">VENDOR · CORSAIR</div><p>Black Market matriarch. Rigs the loot supply curve. Charming, untrustworthy, occasionally honest.</p><ul><li>Branch-defining Ch2 NPC.</li><li>Discount unlock if Audit route.</li></ul></div>
+  <div class="cdx-card accent-gn"><h3>WARDEN PRYCE</h3><div class="cdx-sub">CSIRT · SPECTER</div><p>The Spire's IR commander. Holds the line. Audits everything you submit; expects discipline.</p><ul><li>Faction quest chain.</li><li>Trains Incident_Handler tier 3+.</li></ul></div>
+  <div class="cdx-card accent-am"><h3>ARCH-N</h3><div class="cdx-sub">LIBRARIAN · NEUTRAL</div><p>Custodian of the Cold Index. Speaks only in citation IDs. Will trade lore for archive access.</p><ul><li>Lore drops 80+ entries.</li><li>Endgame quest unlock.</li></ul></div>
+  <div class="cdx-card accent-vi"><h3>RIVET</h3><div class="cdx-sub">CRAFTER · NEUTRAL</div><p>Walking forge. Re-rolls affixes. Drinks too much. Best craft prices in the realm.</p><ul><li>Drift Plaza fixture.</li><li>Daily quest: <i>Forge Backlog</i>.</li></ul></div>
+  <div class="cdx-card accent-cy"><h3>HALCYON</h3><div class="cdx-sub">QUARTERMASTER · NOMAD</div><p>Mobile vendor, crosses all districts. Carries the cheapest signal triangulation gear.</p><ul><li>Rotating inventory daily.</li><li>Faction-only discount.</li></ul></div>
+  <div class="cdx-card accent-rd"><h3>NULLA</h3><div class="cdx-sub">RIVAL · UNALIGNED</div><p>Mirror operative. Same face, opposite stance. Reflects your faction choices back at you.</p><ul><li>Recurring duel encounter.</li><li>Refuses to die permanently.</li></ul></div>
+  <div class="cdx-card accent-pk"><h3>OBOL</h3><div class="cdx-sub">EXPLOIT BROKER · CORSAIR</div><p>Sells 0day from a velvet-lined stall. Will sell you out for the right price.</p><ul><li>Daily 0day rotation.</li><li>Tier 3+ recipes.</li></ul></div>
+  <div class="cdx-card accent-gn"><h3>HEX-MA</h3><div class="cdx-sub">CONTRACTOR · SPECTER</div><p>Gives bounty contracts against Salt Typhoon assets. Pays well; pays late.</p><ul><li>Daily &amp; weekly bounty board.</li><li>Reputation unlocks raid keys.</li></ul></div>
+  <div class="cdx-card accent-am"><h3>UMBRA</h3><div class="cdx-sub">FIXER · ALL</div><p>The fixer everyone owes a favor. Delivers contracts faction-blind. Lethal if crossed.</p><ul><li>Hub of side-quests Ch2-5.</li><li>Owns three safehouses.</li></ul></div>
+  <div class="cdx-card accent-vi"><h3>MNEMOSYNE</h3><div class="cdx-sub">ARCHIVIST · ENDGAME</div><p>Lives in the Vault. Knows every operative who ever logged in. Speaks in past tense.</p><ul><li>Endgame quest-giver.</li><li>Reveals deep lore for Ch6.</li></ul></div>
+  <div class="cdx-card accent-cy"><h3>STILL-IRIS</h3><div class="cdx-sub">RECON CAPTAIN · NOMAD</div><p>Leads the Cartographer's Trail chain. Maps the relay graveyards alongside you.</p><ul><li>Repeatable nomad chain.</li><li>Unlocks fast travel nodes.</li></ul></div>
+  <div class="cdx-card accent-pk"><h3>VARGAS</h3><div class="cdx-sub">SYNDIC · CORSAIR</div><p>Corsair faction lead. Doesn't blink. Pays in 0day and stolen identities.</p><ul><li>Corsair faction-quest chain.</li><li>Boss in betrayal route.</li></ul></div>
+  <div class="cdx-card accent-gn"><h3>WARDLINE</h3><div class="cdx-sub">SPECTER LEAD · SPECTER</div><p>Specter faction commander. Scarred. Veteran of the Validator Mirror Breach.</p><ul><li>Specter faction-quest chain.</li><li>Issues raid keys.</li></ul></div>
+  <div class="cdx-card accent-rd"><h3>DRIFT</h3><div class="cdx-sub">BOSS · ROGUE</div><p>The first major boss. Auto-fuzzer that grew teeth. Lurks in Codice's relay yard.</p><ul><li>Ch1 climax encounter.</li><li>Drops <i>Drift Token</i>.</li></ul></div>
+  <div class="cdx-card accent-am"><h3>CHRYSALIS</h3><div class="cdx-sub">SECRET · UNKNOWN</div><p>Unidentified operative who ghosts every faction's logs. Found only in 1% world events.</p><ul><li>Triggers the <i>Glass Threshold</i> scenario.</li><li>Lore-only; no combat.</li></ul></div>
+</div>
+
+<!-- ============ MAIN QUEST ============ -->
+<h2 id="mainquest" class="cdx-h2">MAIN QUEST CHAIN — STARSHIELD<small>20 chapters · ~30 hr</small></h2>
+<table class="cdx-table">
+  <thead><tr><th>#</th><th>Quest</th><th>Lvl</th><th>Type</th><th>Reward</th></tr></thead>
+  <tbody>
+    <tr><td>MQ01</td><td><b>Cold Boot</b> — wake, get a name, get a faction, exit Codice.</td><td>1</td><td>Tutorial</td><td>Rookie Kit, 50 XP</td></tr>
+    <tr><td>MQ02</td><td><b>Signal Fire</b> — light the relay, survive the response.</td><td>3</td><td>Solo</td><td>Faction stipend</td></tr>
+    <tr><td>MQ03</td><td><b>Drift Run</b> — clear Drift the rogue fuzzer.</td><td>5</td><td>Boss</td><td>Drift Token, 250 XP</td></tr>
+    <tr><td>MQ04</td><td><b>Vendor Audit</b> — investigate SILK-04.</td><td>10</td><td>Branch</td><td>Branch lock</td></tr>
+    <tr><td>MQ05</td><td><b>The Black Audit</b> — Corsair-aligned route.</td><td>12</td><td>Solo</td><td>Tier-1 craft kit</td></tr>
+    <tr><td>MQ06</td><td><b>Containment Standard</b> — Specter-aligned route.</td><td>12</td><td>Solo</td><td>Tier-1 craft kit</td></tr>
+    <tr><td>MQ07</td><td><b>Cartographer's Trail</b> — Nomad-aligned route.</td><td>12</td><td>Solo</td><td>Tier-1 craft kit</td></tr>
+    <tr><td>MQ08</td><td><b>Spire Foothold</b> — first 5-man raid.</td><td>22</td><td>Raid</td><td>Epic loot table A</td></tr>
+    <tr><td>MQ09</td><td><b>Cold Index Discovery</b> — find the buried directory.</td><td>30</td><td>Solo</td><td>Lore unlock</td></tr>
+    <tr><td>MQ10</td><td><b>Cold Index Custody</b> — multi-faction objective.</td><td>34</td><td>Open</td><td>Faction reward</td></tr>
+    <tr><td>MQ11</td><td><b>Tomorrow's Treaty</b> — choose how to use the Index.</td><td>40</td><td>Branch</td><td>Title</td></tr>
+    <tr><td>MQ12</td><td><b>Mesh Ascent</b> — reach the orbital trust mesh.</td><td>42</td><td>Solo</td><td>Endgame access</td></tr>
+    <tr><td>MQ13</td><td><b>Salt Typhoon Strike</b> — hit the Telco Lattice.</td><td>45</td><td>Raid 8</td><td>BiS gloves</td></tr>
+    <tr><td>MQ14</td><td><b>Volt Pre-Position Hunt</b> — purge ICS clusters.</td><td>48</td><td>Raid 8</td><td>BiS chest</td></tr>
+    <tr><td>MQ15</td><td><b>BlackCat Surge</b> — break the ransom surge.</td><td>52</td><td>Raid 6</td><td>BiS rings</td></tr>
+    <tr><td>MQ16</td><td><b>Lazarus Escrow Heist</b> — retrieve the proxy keys.</td><td>55</td><td>Hard 6</td><td>BiS weapon</td></tr>
+    <tr><td>MQ17</td><td><b>Sandworm Mirror Breach</b> — boss council.</td><td>57</td><td>Raid 8</td><td>BiS helm</td></tr>
+    <tr><td>MQ18</td><td><b>Re-Signing</b> — rebuild the trust mesh signature chain.</td><td>59</td><td>Solo</td><td>Title: <i>Re-Signer</i></td></tr>
+    <tr><td>MQ19</td><td><b>Sundown</b> — final main raid; defend the new mesh for 30 min.</td><td>60</td><td>Raid 8</td><td>Mythic shoulders</td></tr>
+    <tr><td>MQ20</td><td><b>Echo Protocol</b> — endgame teaser; sets up Ch6.</td><td>60</td><td>Solo</td><td>Lore + cosmetic</td></tr>
+  </tbody>
+</table>
+
+<!-- ============ SIDE QUESTS ============ -->
+<h2 id="sidequests" class="cdx-h2">SIDE QUESTS — 30 NOTABLE<small>more available daily</small></h2>
+<div class="cdx-grid">
+  <div class="cdx-card accent-cy"><h3>SQ01 · Photon Brief</h3><p>Recover OSINT photos from a downed drone. Easy intro to recon.</p><div class="cdx-stat"><span>L 2</span><span>15 min</span></div></div>
+  <div class="cdx-card accent-pk"><h3>SQ02 · Forged Coupon</h3><p>Audit SILK-04's coupon ledger. Easy crypto warm-up.</p><div class="cdx-stat"><span>L 8</span><span>20 min</span></div></div>
+  <div class="cdx-card accent-gn"><h3>SQ03 · Quiet Window</h3><p>Hunt down the source of late-night beacons in Drift Plaza.</p><div class="cdx-stat"><span>L 12</span><span>30 min</span></div></div>
+  <div class="cdx-card accent-am"><h3>SQ04 · Shadow Inventory</h3><p>Stock-take 3 unauthorized vendor stalls.</p><div class="cdx-stat"><span>L 14</span><span>25 min</span></div></div>
+  <div class="cdx-card accent-vi"><h3>SQ05 · Forge Backlog</h3><p>Help Rivet clear the daily craft order queue.</p><div class="cdx-stat"><span>L 1+</span><span>daily</span></div></div>
+  <div class="cdx-card accent-cy"><h3>SQ06 · Lighthouse</h3><p>Restore a Nomad relay; Still-Iris will guide you.</p><div class="cdx-stat"><span>L 16</span><span>40 min</span></div></div>
+  <div class="cdx-card accent-pk"><h3>SQ07 · Velvet Stall</h3><p>Run an errand for OBOL — and decide if you tip him off.</p><div class="cdx-stat"><span>L 18</span><span>30 min</span></div></div>
+  <div class="cdx-card accent-gn"><h3>SQ08 · Containment Drill</h3><p>Specter PvE: extinguish a simulated incident.</p><div class="cdx-stat"><span>L 20</span><span>30 min</span></div></div>
+  <div class="cdx-card accent-am"><h3>SQ09 · The Wraith of Index</h3><p>Survive the Cold Index's first wraith spawn.</p><div class="cdx-stat"><span>L 30</span><span>50 min</span></div></div>
+  <div class="cdx-card accent-vi"><h3>SQ10 · Bounty: Pale Hand</h3><p>Hex-Ma issues a bounty against a known Corsair smuggler.</p><div class="cdx-stat"><span>L 28</span><span>1 hr</span></div></div>
+  <div class="cdx-card accent-cy"><h3>SQ11 · Long Echo</h3><p>Map a new fast-travel node. Repeatable.</p><div class="cdx-stat"><span>L 12</span><span>varies</span></div></div>
+  <div class="cdx-card accent-pk"><h3>SQ12 · Stack Smash</h3><p>Buffer-overflow puzzle. Tutorial for Binary Pwn skill.</p><div class="cdx-stat"><span>L 22</span><span>45 min</span></div></div>
+  <div class="cdx-card accent-gn"><h3>SQ13 · Sigma Calibration</h3><p>Tune three Sigma rules against live telem.</p><div class="cdx-stat"><span>L 24</span><span>30 min</span></div></div>
+  <div class="cdx-card accent-am"><h3>SQ14 · Cartographer's Sketch</h3><p>Discover a hidden relay graveyard fragment.</p><div class="cdx-stat"><span>L 18</span><span>35 min</span></div></div>
+  <div class="cdx-card accent-vi"><h3>SQ15 · Re-Forge</h3><p>Re-roll affixes on three legendary items. Crafting test.</p><div class="cdx-stat"><span>L 30</span><span>30 min</span></div></div>
+  <div class="cdx-card accent-cy"><h3>SQ16 · Cipher Lullaby</h3><p>Endgame teaser. Hidden audio puzzle in the Vault.</p><div class="cdx-stat"><span>L 60</span><span>1 hr</span></div></div>
+  <div class="cdx-card accent-pk"><h3>SQ17 · Black Tariff</h3><p>Run contraband for Vargas across two districts.</p><div class="cdx-stat"><span>L 32</span><span>1 hr</span></div></div>
+  <div class="cdx-card accent-gn"><h3>SQ18 · Mirror Drill</h3><p>Specter PvE; resists a simulated Sandworm timeline drift.</p><div class="cdx-stat"><span>L 38</span><span>40 min</span></div></div>
+  <div class="cdx-card accent-am"><h3>SQ19 · Cold Citation</h3><p>Bring Arch-N a citation he's missing from 2009.</p><div class="cdx-stat"><span>L 30</span><span>40 min</span></div></div>
+  <div class="cdx-card accent-vi"><h3>SQ20 · Velvet Receipts</h3><p>Audit OBOL's ledger discreetly. High reward, high risk.</p><div class="cdx-stat"><span>L 28</span><span>50 min</span></div></div>
+  <div class="cdx-card accent-cy"><h3>SQ21 · Chasing Drift</h3><p>Track Drift's spawn pattern across 3 nights.</p><div class="cdx-stat"><span>L 8</span><span>weekly</span></div></div>
+  <div class="cdx-card accent-pk"><h3>SQ22 · Loud Coup</h3><p>Corsair leadership challenge. PvP-flagged.</p><div class="cdx-stat"><span>L 40</span><span>1 hr</span></div></div>
+  <div class="cdx-card accent-gn"><h3>SQ23 · Watch Floor</h3><p>Specter shadow-shift; manage a 30-min on-call rotation.</p><div class="cdx-stat"><span>L 26</span><span>30 min</span></div></div>
+  <div class="cdx-card accent-am"><h3>SQ24 · Beacon Salvage</h3><p>Recover lost beacons from the Validator Shoals.</p><div class="cdx-stat"><span>L 44</span><span>1 hr</span></div></div>
+  <div class="cdx-card accent-vi"><h3>SQ25 · Fixer's Favor</h3><p>Deliver an unmarked package for UMBRA. Don't open it.</p><div class="cdx-stat"><span>L varies</span><span>30 min</span></div></div>
+  <div class="cdx-card accent-cy"><h3>SQ26 · Long Halt</h3><p>Gather signals during a 4-hour blackout window.</p><div class="cdx-stat"><span>L 30</span><span>weekly</span></div></div>
+  <div class="cdx-card accent-pk"><h3>SQ27 · Stolen Chair</h3><p>Recover a piece of furniture from a Lazarus front.</p><div class="cdx-stat"><span>L 50</span><span>30 min</span></div></div>
+  <div class="cdx-card accent-gn"><h3>SQ28 · Audit Marathon</h3><p>Complete 20 micro-audits in 60 minutes. Speed test.</p><div class="cdx-stat"><span>L 36</span><span>1 hr</span></div></div>
+  <div class="cdx-card accent-am"><h3>SQ29 · Lost Ledger</h3><p>Find the missing ledger of the Cold Index's first decade.</p><div class="cdx-stat"><span>L 38</span><span>1.5 hr</span></div></div>
+  <div class="cdx-card accent-vi"><h3>SQ30 · Glass Threshold</h3><p>1% world event. Find Chrysalis. No combat — just listen.</p><div class="cdx-stat"><span>L any</span><span>rare</span></div></div>
+</div>
+
+<!-- ============ RAIDS ============ -->
+<h2 id="raids" class="cdx-h2">RAIDS — INSTANCED ENCOUNTERS<small>5 / 6 / 8-man</small></h2>
+<div class="cdx-grid-2">
+  <div class="cdx-card accent-cy"><h3>SPIRE FOOTHOLD <span class="cdx-pill b">5-MAN · 30 MIN</span></h3>
+    <p>Tutorial raid. Three checkpoint defenses, one mid-boss (<em>Foothold Warden</em>), one final-boss (<em>Spire Captain</em>). Drops Tier-1 epics.</p>
+    <ul><li>Mech: stack-then-spread, telegraph timer 4s.</li><li>Wipe risk: low.</li><li>Rotates: weekly modifiers.</li></ul></div>
+  <div class="cdx-card accent-pk"><h3>SALT TYPHOON RELAY LATTICE <span class="cdx-pill r">8-MAN · 60 MIN</span></h3>
+    <p>SS7 storm hazard. Players triangulate 3 relay anchors before the lattice fires. Boss: <em>Lattice Custodian</em>.</p>
+    <ul><li>Mech: rotating signal beacons, do not stack.</li><li>Wipe risk: medium-high.</li><li>BiS: gloves, signal cloak.</li></ul></div>
+  <div class="cdx-card accent-am"><h3>VOLT PRE-POSITION HUNT <span class="cdx-pill r">8-MAN · 75 MIN</span></h3>
+    <p>ICS chess. Audit nine substation gridlines and disarm dormant payloads. Boss: <em>Volt Wright</em>.</p>
+    <ul><li>Mech: parallel debuff cleanse + grid-line sequencing.</li><li>Wipe risk: high; needs Hunt_Engineer.</li><li>BiS: chest, audit ring.</li></ul></div>
+  <div class="cdx-card accent-rd"><h3>BLACKCAT RANSOM SURGE <span class="cdx-pill r">6-MAN · 45 MIN</span></h3>
+    <p>Containment raid. Negotiation mini-game gates final-boss <em>BlackCat Operator</em>. Failed negotiation = enrage.</p>
+    <ul><li>Mech: rotation roles tank/heal/dps; mini-game player.</li><li>Wipe risk: medium.</li><li>BiS: rings, wallet, persuasion talisman.</li></ul></div>
+  <div class="cdx-card accent-vi"><h3>LAZARUS ESCROW HEIST <span class="cdx-pill p">6-MAN · 60 MIN · HARD</span></h3>
+    <p>Precision crypto-proxy retrieval. Three vault layers. Boss: <em>Lazarus Lieutenant</em>.</p>
+    <ul><li>Mech: time-attack vault breach.</li><li>Wipe risk: very high.</li><li>BiS: weapon (only drop).</li></ul></div>
+  <div class="cdx-card accent-gn"><h3>SANDWORM MIRROR BREACH <span class="cdx-pill r">8-MAN · 90 MIN</span></h3>
+    <p>Boss council. Three sub-bosses simulating timeline drift. Final boss: <em>Sandworm Echo</em>.</p>
+    <ul><li>Mech: mirror tile mechanics + add management.</li><li>Wipe risk: extreme.</li><li>BiS: helm, shoulders.</li></ul></div>
+  <div class="cdx-card accent-cy" style="border-color:var(--cdx-violet);"><h3>ECHO PROTOCOL <span class="cdx-pill v">8/12-MAN · ENDGAME</span></h3>
+    <p>Subscriber-tier endgame. The Vault opens. Boss: <em>The Witness</em>. Multi-stage retro-causality fight.</p>
+    <ul><li>Mech: replay-window puzzles + DPS check.</li><li>Wipe risk: extreme.</li><li>BiS: mythic-tier full set.</li></ul></div>
+</div>
+
+<!-- ============ WORLD BOSSES ============ -->
+<h2 id="worldbosses" class="cdx-h2">WORLD BOSSES<small>open-world spawns</small></h2>
+<table class="cdx-table">
+  <thead><tr><th>Name</th><th>Where</th><th>Lvl</th><th>Mechanics</th><th>Drop</th></tr></thead>
+  <tbody>
+    <tr><td><b>DRIFT</b></td><td>Codice Relay Yard</td><td>5</td><td>Auto-fuzzer; learns your moves.</td><td>Drift Token (always)</td></tr>
+    <tr><td><b>INDEX WRAITH</b></td><td>Cold Index</td><td>34</td><td>Citation-based attacks. Bring archives.</td><td>Wraith's Sigil (rare)</td></tr>
+    <tr><td><b>NULLA</b></td><td>roving</td><td>scaled</td><td>Mirrors your build; can't crit you.</td><td>Mirror Coin (always)</td></tr>
+    <tr><td><b>MIRROR HERALD</b></td><td>Validator Shoals</td><td>50</td><td>Spawns timeline echoes. AoE.</td><td>Herald's Pulse (rare)</td></tr>
+    <tr><td><b>TELCO MAW</b></td><td>Telco Lattice</td><td>55</td><td>SS7 storm channel; interrupt mandatory.</td><td>SS7 Sigil (rare)</td></tr>
+    <tr><td><b>GRID ORACLE</b></td><td>The Substation</td><td>56</td><td>ICS chess board; sequence required.</td><td>Oracle's Switch (rare)</td></tr>
+    <tr><td><b>VAULT KEEPER</b></td><td>The Vault</td><td>60</td><td>Endgame; recall-window mechanics.</td><td>Mythic shard (very rare)</td></tr>
+  </tbody>
+</table>
+
+<!-- ============ ITEMS ============ -->
+<h2 id="items" class="cdx-h2">ITEMS — TIERS &amp; SAMPLE DROPS<small>120+ in DB</small></h2>
+<table class="cdx-table">
+  <thead><tr><th>Tier</th><th>Color</th><th>Source</th><th>Affixes</th><th>Examples</th></tr></thead>
+  <tbody>
+    <tr><td>Common</td><td><span class="cdx-pill b">CY</span></td><td>vendor / trash</td><td>0-1</td><td>Cracked Probe, Plain Capacitor</td></tr>
+    <tr><td>Uncommon</td><td><span class="cdx-pill g">GN</span></td><td>elite mob</td><td>1-2</td><td>Tuned Probe, Flux Capacitor</td></tr>
+    <tr><td>Rare</td><td><span class="cdx-pill v">VI</span></td><td>rare mob / SQ</td><td>2-3</td><td>Anodyne Knife, Echo Capacitor</td></tr>
+    <tr><td>Epic</td><td><span class="cdx-pill p">PK</span></td><td>raid / boss</td><td>3-4 + signature</td><td>Lattice Glove, Wraith's Sigil</td></tr>
+    <tr><td>Legendary</td><td><span class="cdx-pill a">AM</span></td><td>raid HM / Lazarus</td><td>4 + 1 unique mech</td><td>Lazarus Razor, Mirror Coin Set</td></tr>
+    <tr><td>Mythic</td><td><span class="cdx-pill r">RD</span></td><td>endgame / Echo</td><td>4 + 2 unique + cosmetic</td><td>Witness's Lens, Replay Cloak</td></tr>
+  </tbody>
+</table>
+
+<!-- ============ CRAFTING ============ -->
+<h2 id="crafting" class="cdx-h2">CRAFTING — RIVET'S FORGE<small>3 tiers · 30 recipes</small></h2>
+<div class="cdx-grid-2">
+  <div class="cdx-card accent-cy"><h3>TIER 1 · INTRO</h3>
+    <p>10 recipes; uncommon &amp; rare results. Materials sourced from Codice Zone &amp; Drift Plaza.</p>
+    <ul><li>Tuned Probe (uncommon)</li><li>Soft Cloak (uncommon)</li><li>Pocket Beacon (rare)</li><li>Plain Sigma (rare)</li><li>Field Auditor (rare)</li></ul>
+  </div>
+  <div class="cdx-card accent-pk"><h3>TIER 2 · MARKET</h3>
+    <p>10 recipes; rare &amp; epic results. Black Market access required. Faction discount applies.</p>
+    <ul><li>Anodyne Knife (rare)</li><li>Echo Capacitor (rare)</li><li>Lattice Glove (epic)</li><li>Containment Net (epic)</li><li>Cipher Wedge (epic)</li></ul>
+  </div>
+  <div class="cdx-card accent-am"><h3>TIER 3 · SPIRE</h3>
+    <p>10 recipes; legendary results. Auditor's Atrium gated; needs Specter rep tier 3+ OR raid completion.</p>
+    <ul><li>Lazarus Razor (legendary)</li><li>Wraith's Sigil-set (legendary)</li><li>Sundown Halberd (legendary)</li><li>Re-Sign Glove (legendary)</li><li>Mirror Halo (legendary)</li></ul>
+  </div>
+  <div class="cdx-card accent-vi"><h3>RE-ROLL TOKENS</h3>
+    <p>Drop from raids and events. Spend on existing items via Rivet to re-roll one affix; Deep_Auditor gets a 25% material rebate.</p>
+    <ul><li>Common token: 1 affix re-roll</li><li>Rare token: 2 affixes re-roll</li><li>Mythic token: full re-roll (no swap)</li></ul>
+  </div>
+</div>
+
+<!-- ============ ECONOMY ============ -->
+<h2 id="economy" class="cdx-h2">ECONOMY<small>credits · favors · rep</small></h2>
+<div class="cdx-grid">
+  <div class="cdx-card accent-cy"><h3>CREDITS (¢)</h3>
+    <p>Universal currency. Drops from mobs, paid by quests. Not faction-bound.</p>
+    <ul><li>Average mob drop: 12-180¢</li><li>Daily quest: 800-3,200¢</li><li>Raid clear: 9,000-25,000¢</li></ul></div>
+  <div class="cdx-card accent-pk"><h3>FAVORS</h3>
+    <p>Special currency for fixers (UMBRA, OBOL). Cannot be bought, only earned.</p>
+    <ul><li>Side-quest: +1 favor</li><li>Daily: rare drop</li><li>Spend at safehouses for unique recipes.</li></ul></div>
+  <div class="cdx-card accent-gn"><h3>REPUTATION</h3>
+    <p>Three independent bars (Nomad / Corsair / Specter). Decays slowly if neglected.</p>
+    <ul><li>Tier 0 → 5 each</li><li>Tier 3 = raid keys</li><li>Tier 5 = legendary discount + cosmetic</li></ul></div>
+  <div class="cdx-card accent-am"><h3>VENDORS</h3>
+    <p>14 named vendors across districts. Inventory rotates daily at 04:00 UTC.</p>
+    <ul><li>HALCYON (mobile)</li><li>OBOL (0day)</li><li>RIVET (forge)</li><li>SILK-04 (loot)</li></ul></div>
+</div>
+
+<!-- ============ CONVOY MODE ============ -->
+<h2 id="convoy" class="cdx-h2">CONVOY MODE — SUB-GAME<small>20 nodes · roguelike</small></h2>
+<div class="cdx-card accent-vi" style="margin-bottom:14px;">
+  <p style="font-size:13px;line-height:1.7;">Convoy Mode is the embedded sub-game inside CyberWorld. Escort a fragile data convoy across 20 hostile network nodes. Manage four resources — <b>Bandwidth</b>, <b>Cognitive Load</b>, <b>Detection</b>, and <b>Data Integrity</b> — while making node-by-node decisions. Tools unlock from successful HACK nodes. Random events between nodes. <a href="cyberworld-game.html" style="color:var(--wg-cyan);">▶ LAUNCH CONVOY</a></p>
+</div>
+<table class="cdx-table">
+  <thead><tr><th>Tier</th><th>Nodes</th><th>Difficulty</th><th>Sample events</th></tr></thead>
+  <tbody>
+    <tr><td>ROOKIE</td><td>1-5</td><td>Easy</td><td>Stalled VPN · friendly relay · Wi-Fi pool</td></tr>
+    <tr><td>OPERATIVE</td><td>6-10</td><td>Medium</td><td>Sandbox echo · firewall spike · double-honeypot</td></tr>
+    <tr><td>ELITE</td><td>11-15</td><td>Hard</td><td>SS7 storm · BGP leak · DPI checkpoint</td></tr>
+    <tr><td>CLASSIFIED</td><td>16-20</td><td>Punishing</td><td>Mirror Breach · Validator pinch · Witness echo</td></tr>
+  </tbody>
+</table>
+
+<!-- ============ ENDGAME ============ -->
+<h2 id="endgame" class="cdx-h2">ENDGAME &amp; LIVE OPS<small>weekly · seasonal</small></h2>
+<div class="cdx-grid-2">
+  <div class="cdx-card accent-cy"><h3>WEEKLY ROTATIONS</h3>
+    <ul>
+      <li>Mon: <b>Salt Typhoon Relay Lattice</b> — modifier +25% detection</li>
+      <li>Tue: <b>Volt Pre-Position Hunt</b> — modifier -10% bandwidth</li>
+      <li>Wed: <b>BlackCat Ransom Surge</b> — modifier negotiation enrage</li>
+      <li>Thu: <b>Sandworm Mirror Breach</b> — modifier timeline drift</li>
+      <li>Fri: <b>Lazarus Escrow Heist (HM)</b> — modifier escrow expiry</li>
+      <li>Sat: <b>Sundown</b> — full main raid lockout reset</li>
+      <li>Sun: <b>Echo Protocol (sub)</b> — chapter-6 teaser</li>
+    </ul>
+  </div>
+  <div class="cdx-card accent-pk"><h3>FACTION WAR</h3>
+    <ul>
+      <li>Territory cycle: <b>24h</b>.</li>
+      <li>4 contested districts: Drift Plaza · Codice Spire · Validator Shoals · Telco Lattice.</li>
+      <li>Holding territory grants +5% gold &amp; rep gain to faction members.</li>
+      <li>Open PvP only inside contested zones during cycle window.</li>
+    </ul>
+  </div>
+  <div class="cdx-card accent-gn"><h3>DAILY OPS</h3>
+    <ul>
+      <li>Daily Convoy: rotating modifier (DARK_NET / RAIN / FIREWALL_SPIKE).</li>
+      <li>Daily bounty board (HEX-MA): 3 contracts.</li>
+      <li>Daily forge backlog (RIVET): clear queue for craft tokens.</li>
+      <li>Daily fast-travel restoration (STILL-IRIS).</li>
+    </ul>
+  </div>
+  <div class="cdx-card accent-am"><h3>SEASONS</h3>
+    <ul>
+      <li>S1 — <b>Long Echo</b> (active): focus on timeline events.</li>
+      <li>S2 — <b>Cold Citation</b> (Q3): focus on Cold Index lore.</li>
+      <li>S3 — <b>Glass Threshold</b> (Q4): Chrysalis arc.</li>
+      <li>S4 — <b>Re-Signing</b> (Q1 27): main-quest finale rerun + new modifier.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="cdx-lore" style="margin-top:24px;">
+  <em>End of codex.</em> All entries here are canonical and may change with engine patches. Maintain operational silence outside the discussion board. — <em>VEX-7</em>
+</div>
+
+</main>
+
+<div id="taskbar">
+  <a href="index.html">&#8962; FURIOS-INT</a>
+  <a href="games.html">GAMES_HUB</a>
+  <a href="cyberworld.html">CYBERWORLD</a>
+  <a href="profile.html">PROFILE</a>
+  <span style="margin-left:auto;color:#444;font-family:'VT323';font-size:16px;" id="cdx-clock"></span>
+</div>
+
+<script>
+setInterval(function(){
+  var c=document.getElementById('cdx-clock'); if(!c) return;
+  c.textContent=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+},1000);
+// grid bg
+(function(){
+  var c=document.getElementById('wg-bg'); if(!c) return;
+  var ctx=c.getContext('2d');
+  function R(){c.width=innerWidth;c.height=innerHeight;} R(); addEventListener('resize',R);
+  var t=0;
+  (function tick(){
+    t+=0.003;
+    ctx.fillStyle='rgba(4,6,8,0.3)'; ctx.fillRect(0,0,c.width,c.height);
+    ctx.strokeStyle='rgba(0,232,255,0.05)';
+    var step=42; var off=(t*30)%step;
+    ctx.beginPath();
+    for(var x=-step+off;x<c.width;x+=step){ctx.moveTo(x,0);ctx.lineTo(x,c.height);}
+    for(var y=-step+off;y<c.height;y+=step){ctx.moveTo(0,y);ctx.lineTo(c.width,y);}
+    ctx.stroke();
+    requestAnimationFrame(tick);
+  })();
+})();
+</script>
+</body>
+</html>

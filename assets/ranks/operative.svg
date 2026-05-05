@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" shape-rendering="crispEdges">
+  <rect width="96" height="96" fill="#0a0a14"/>
+  <rect x="3" y="3" width="90" height="90" fill="none" stroke="#00ff41" stroke-width="2"/>
+  <g fill="none" stroke="#00ff41" stroke-width="3">
+    <path d="M24 38 L48 26 L72 38"/>
+    <path d="M24 50 L48 38 L72 50"/>
+    <path d="M24 62 L48 50 L72 62"/>
+  </g>
+  <g font-family="monospace" font-weight="700" text-anchor="middle">
+    <text x="48" y="80" font-size="9" fill="#00ff41">OPERATIVE</text>
+    <text x="48" y="90" font-size="6" fill="#00e8ff">XP &gt;= 1000</text>
+    <text x="48" y="22" font-size="7" fill="#ffe700">[T2]</text>
+  </g>
+</svg>
