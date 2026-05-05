@@ -178,6 +178,12 @@
 </header>
 
 <nav class="toc" aria-label="Lab modules">
+  <a href="#mod-hypertorus">HYPERTORUS_4D</a>
+  <a href="#mod-lorenz">LORENZ_ATTRACTOR</a>
+  <a href="#mod-ecc">ECC_CURVE</a>
+  <a href="#mod-prime">PRIME_SPIRAL</a>
+  <a href="#mod-flow">FLOW_FIELD</a>
+  <a href="#mod-ifs">CHAOS_IFS</a>
   <a href="#mod-rsa">RSA_TRACE</a>
   <a href="#mod-xor">XOR_CIPHER</a>
   <a href="#mod-hash">HASH_AVALANCHE</a>
@@ -189,6 +195,181 @@
 </nav>
 
 <main class="lab">
+
+  <!-- ============================ HYPERTORUS 4D ============================ -->
+  <section class="module pink" id="mod-hypertorus">
+    <header class="mod-head">
+      <h2>// HYPERTORUS_4D &mdash; Clifford torus stereographic projection</h2>
+      <span class="tag">topology &middot; 4D rotation</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:440px;">
+        <canvas id="htor-canvas" width="800" height="440"></canvas>
+        <div class="hud" id="htor-hud">rotating in S&sup3; &rarr; R&sup3; &rarr; R&sup2;</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>XY plane (rad/s)</label><div class="row"><input id="htor-xy" type="range" min="-100" max="100" step="1" value="30"><span class="val" id="htor-xy-v">0.30</span></div></div>
+        <div class="ctl"><label>ZW plane (rad/s)</label><div class="row"><input id="htor-zw" type="range" min="-100" max="100" step="1" value="50"><span class="val" id="htor-zw-v">0.50</span></div></div>
+        <div class="ctl"><label>XZ plane (rad/s)</label><div class="row"><input id="htor-xz" type="range" min="-100" max="100" step="1" value="15"><span class="val" id="htor-xz-v">0.15</span></div></div>
+        <div class="ctl"><label>YW plane (rad/s)</label><div class="row"><input id="htor-yw" type="range" min="-100" max="100" step="1" value="22"><span class="val" id="htor-yw-v">0.22</span></div></div>
+        <div class="ctl"><label>resolution</label><div class="row"><input id="htor-res" type="range" min="12" max="48" step="2" value="24"><span class="val" id="htor-res-v">24</span></div></div>
+        <div class="ctl"><label>palette</label>
+          <select id="htor-pal">
+            <option value="cyber">CYBER (cyan-pink)</option>
+            <option value="matrix">MATRIX_GREEN</option>
+            <option value="plasma">PLASMA</option>
+            <option value="amber">AMBER_CRT</option>
+          </select>
+        </div>
+        <button class="btn pink" id="htor-pause">PAUSE</button>
+        <div class="readout" id="htor-out">vertices: 0 &middot; t: 0.0s</div>
+        <div class="legend">Clifford torus on S&sup3; ⊂ R&#x2074;: <code>(cos&theta;,sin&theta;,cos&phi;,sin&phi;)/&radic;2</code>. 4D rotations applied via 6-plane bivector matrix, then stereographic projection R&#x2074;→R&sup3; via <code>x&#x2032;=x/(1-w)</code>, depth-shaded, projected to canvas.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ LORENZ ============================ -->
+  <section class="module green" id="mod-lorenz">
+    <header class="mod-head">
+      <h2>// LORENZ_ATTRACTOR &mdash; deterministic chaos</h2>
+      <span class="tag">dynamical systems &middot; ODE</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:420px;">
+        <canvas id="lor-canvas" width="800" height="420"></canvas>
+        <div class="hud" id="lor-hud">integrating</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>&sigma; (sigma)</label><div class="row"><input id="lor-sigma" type="range" min="1" max="20" step="1" value="10"><span class="val" id="lor-sigma-v">10</span></div></div>
+        <div class="ctl"><label>&rho; (rho)</label><div class="row"><input id="lor-rho" type="range" min="1" max="60" step="1" value="28"><span class="val" id="lor-rho-v">28</span></div></div>
+        <div class="ctl"><label>&beta; (beta)</label><div class="row"><input id="lor-beta" type="range" min="1" max="50" step="1" value="27"><span class="val" id="lor-beta-v">2.67</span></div></div>
+        <div class="ctl"><label>particles</label><div class="row"><input id="lor-n" type="range" min="1" max="24" step="1" value="6"><span class="val" id="lor-n-v">6</span></div></div>
+        <button class="btn green" id="lor-reset">SHOCK_RESEED</button>
+        <div class="readout" id="lor-out">x,y,z: ...</div>
+        <div class="legend">Edward Lorenz 1963: <code>dx/dt=&sigma;(y-x)</code>, <code>dy/dt=x(&rho;-z)-y</code>, <code>dz/dt=xy-&beta;z</code>. Two-lobe strange attractor &mdash; the original “butterfly effect”, sensitive dependence on initial conditions.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ ECC ============================ -->
+  <section class="module cyan" id="mod-ecc">
+    <header class="mod-head">
+      <h2>// ECC_CURVE &mdash; elliptic curve point addition</h2>
+      <span class="tag">cryptography &middot; finite fields</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:420px;">
+        <canvas id="ecc-canvas" width="800" height="420"></canvas>
+        <div class="hud" id="ecc-hud">y&sup2; = x&sup3; + ax + b</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>a</label><div class="row"><input id="ecc-a" type="range" min="-7" max="7" step="1" value="-1"><span class="val" id="ecc-a-v">-1</span></div></div>
+        <div class="ctl"><label>b</label><div class="row"><input id="ecc-b" type="range" min="-7" max="7" step="1" value="1"><span class="val" id="ecc-b-v">1</span></div></div>
+        <div class="ctl"><label>scalar k (P + kP chain)</label><div class="row"><input id="ecc-k" type="range" min="1" max="24" step="1" value="5"><span class="val" id="ecc-k-v">5</span></div></div>
+        <div class="ctl"><label>mode</label>
+          <select id="ecc-mode">
+            <option value="real">REAL (R)</option>
+            <option value="finite">FINITE_FIELD (F&#x2099;)</option>
+          </select>
+        </div>
+        <div class="ctl"><label>p (when finite)</label><div class="row"><input id="ecc-p" type="range" min="5" max="127" step="1" value="31"><span class="val" id="ecc-p-v">31</span></div></div>
+        <button class="btn" id="ecc-redraw">RECOMPUTE</button>
+        <div class="readout" id="ecc-out">P: -- &middot; 2P: -- &middot; kP: --</div>
+        <div class="legend">Discrete-log over E(F&#x2099;) underpins ECDSA / X25519 / secp256k1. Geometric add: line through P,Q hits curve at -R; reflect over x-axis &rarr; R = P+Q. Doubling uses tangent at P.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ PRIME SPIRAL ============================ -->
+  <section class="module yellow" id="mod-prime">
+    <header class="mod-head">
+      <h2>// PRIME_SPIRAL &mdash; Ulam &amp; Sacks distribution</h2>
+      <span class="tag">number theory</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:480px;">
+        <canvas id="prime-canvas" width="800" height="480"></canvas>
+        <div class="hud" id="prime-hud">sieve seeded</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>integers (N)</label><div class="row"><input id="prime-n" type="range" min="500" max="20000" step="500" value="6000"><span class="val" id="prime-n-v">6000</span></div></div>
+        <div class="ctl"><label>spiral type</label>
+          <select id="prime-type">
+            <option value="ulam">ULAM (square)</option>
+            <option value="sacks">SACKS (archimedean)</option>
+            <option value="vogel">VOGEL (golden angle)</option>
+          </select>
+        </div>
+        <div class="ctl"><label>highlight twin primes</label>
+          <select id="prime-twin"><option value="0">OFF</option><option value="1">ON</option></select>
+        </div>
+        <button class="btn" id="prime-redraw" style="border-color:var(--yellow);color:var(--yellow);">SIEVE_AND_PLOT</button>
+        <div class="readout" id="prime-out">primes &lt;= N: --</div>
+        <div class="legend">Ulam (1963) noticed primes align on diagonal lines &mdash; visible polynomial prime-rich sequences (e.g. <code>n&sup2;-n+41</code>). Sacks coils Ulam continuously; Vogel (sunflower) uses the golden angle <code>&pi;(3-&radic;5)</code>.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ FLOW FIELD ============================ -->
+  <section class="module cyan" id="mod-flow">
+    <header class="mod-head">
+      <h2>// FLOW_FIELD &mdash; Perlin-noise vector advection</h2>
+      <span class="tag">procedural &middot; vector calculus</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:420px;">
+        <canvas id="flow-canvas" width="800" height="420"></canvas>
+        <div class="hud" id="flow-hud">streaming</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>particles</label><div class="row"><input id="flow-n" type="range" min="100" max="3000" step="100" value="1200"><span class="val" id="flow-n-v">1200</span></div></div>
+        <div class="ctl"><label>noise scale</label><div class="row"><input id="flow-scale" type="range" min="1" max="40" step="1" value="8"><span class="val" id="flow-scale-v">0.08</span></div></div>
+        <div class="ctl"><label>flow speed</label><div class="row"><input id="flow-speed" type="range" min="1" max="30" step="1" value="10"><span class="val" id="flow-speed-v">1.0</span></div></div>
+        <div class="ctl"><label>fade</label><div class="row"><input id="flow-fade" type="range" min="1" max="30" step="1" value="6"><span class="val" id="flow-fade-v">0.06</span></div></div>
+        <div class="ctl"><label>palette</label>
+          <select id="flow-pal">
+            <option value="cyber">CYBER</option>
+            <option value="matrix">MATRIX</option>
+            <option value="amber">AMBER</option>
+            <option value="rainbow">SPECTRUM</option>
+          </select>
+        </div>
+        <button class="btn" id="flow-reseed">RESEED_FIELD</button>
+        <div class="readout" id="flow-out">fps: -- &middot; live: 0</div>
+        <div class="legend">Each particle samples a 2D Perlin-style hash gradient and steps along <code>v = (cos&theta;, sin&theta;)</code> where <code>&theta; = 2&pi; &middot; noise(x,y,t)</code>. Used in shader-based fluid sim, smoke, and packet-flow visualizers.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ CHAOS IFS ============================ -->
+  <section class="module orange" id="mod-ifs">
+    <header class="mod-head">
+      <h2>// CHAOS_IFS &mdash; iterated function systems</h2>
+      <span class="tag">fractal geometry</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:480px;">
+        <canvas id="ifs-canvas" width="800" height="480"></canvas>
+        <div class="hud" id="ifs-hud">chaos game</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>system</label>
+          <select id="ifs-sys">
+            <option value="sierpinski">SIERPINSKI_TRIANGLE</option>
+            <option value="carpet">SIERPINSKI_CARPET</option>
+            <option value="fern">BARNSLEY_FERN</option>
+            <option value="dragon">HEIGHWAY_DRAGON</option>
+            <option value="tree">FRACTAL_TREE</option>
+            <option value="koch">KOCH_SNOWFLAKE</option>
+          </select>
+        </div>
+        <div class="ctl"><label>iterations</label><div class="row"><input id="ifs-iter" type="range" min="1000" max="200000" step="1000" value="60000"><span class="val" id="ifs-iter-v">60000</span></div></div>
+        <button class="btn" id="ifs-go" style="border-color:var(--orange);color:var(--orange);">RUN_IFS</button>
+        <div class="readout" id="ifs-out">points plotted: 0</div>
+        <div class="legend">Random walk weighted by affine maps <code>f&#x1d62;(x,y) = A&#x1d62;[x,y]&#x1d40; + b&#x1d62;</code>. Convergence to attractor regardless of seed (Hutchinson 1981).</div>
+      </div>
+    </div>
+  </section>
 
   <!-- ============================== RSA ============================== -->
   <section class="module cyan" id="mod-rsa">
@@ -415,6 +596,7 @@
 </div>
 
 <script src="js/signal-lab.js"></script>
+<script src="js/signal-lab-extra.js"></script>
 <script>
   (function(){
     function tick(){
