@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self';">
+  <title>SIGNAL_LAB // INTERACTIVE MATH &amp; CRYPTO VISUALIZER</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <meta property="og:title" content="SIGNAL LAB">
+  <meta property="og:description" content="Interactive cryptography, fractal, and graph-theory visualizations rendered in pure ES5 + Canvas.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#020408">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cyan:#00e8ff; --green:#00ff41; --pink:#ff00ea; --orange:#ffa500;
+      --red:#ff4444; --yellow:#ffe700; --bg:#020408; --card:#0a0d14;
+      --border:#1a2436; --muted:#7a8aa6;
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html,body { background:var(--bg); color:#c0d4e0; font-family:'JetBrains Mono','Courier New',monospace; min-height:100vh; padding-bottom:48px; }
+    a { color:var(--cyan); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+
+    #crt-filter {
+      position:fixed; pointer-events:none; inset:0;
+      background:repeating-linear-gradient(to bottom, transparent, transparent 2px, rgba(0,0,0,.18) 2px, rgba(0,0,0,.18) 4px);
+      z-index:9998;
+    }
+
+    .hero {
+      text-align:center; padding:56px 16px 28px;
+      border-bottom:1px solid var(--border);
+      background:radial-gradient(circle at 50% 0%, rgba(0,232,255,.08), transparent 60%);
+    }
+    .hero h1 {
+      font-family:'Pixelify Sans',sans-serif;
+      font-size:clamp(1.6rem,4.5vw,2.8rem);
+      color:var(--cyan);
+      letter-spacing:6px;
+      text-transform:uppercase;
+      text-shadow:0 0 24px var(--cyan), 0 0 4px #fff;
+    }
+    .hero .tagline { margin-top:10px; color:var(--green); font-size:.85rem; letter-spacing:2.5px; font-family:'VT323',monospace; }
+    .hero .meta { margin-top:8px; color:var(--muted); font-size:.75rem; letter-spacing:1.5px; }
+
+    .toc {
+      max-width:1200px; margin:24px auto 0; padding:0 16px;
+      display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+    }
+    .toc a {
+      padding:6px 12px; border:1px solid var(--border); border-radius:2px;
+      background:rgba(0,232,255,.04); color:var(--cyan);
+      font-size:.75rem; letter-spacing:1.5px; text-transform:uppercase;
+    }
+    .toc a:hover { background:var(--cyan); color:#000; text-decoration:none; box-shadow:0 0 12px var(--cyan); }
+
+    .lab {
+      max-width:1200px; margin:36px auto;
+      padding:0 16px;
+    }
+    .module {
+      background:var(--card);
+      border:1px solid var(--border);
+      border-left:3px solid var(--pink);
+      border-radius:4px;
+      margin-bottom:32px;
+      overflow:hidden;
+    }
+    .module.cyan   { border-left-color:var(--cyan); }
+    .module.green  { border-left-color:var(--green); }
+    .module.orange { border-left-color:var(--orange); }
+    .module.yellow { border-left-color:var(--yellow); }
+    .module.pink   { border-left-color:var(--pink); }
+
+    .mod-head {
+      padding:14px 18px; border-bottom:1px solid var(--border);
+      background:linear-gradient(90deg, rgba(255,255,255,.02), transparent);
+      display:flex; flex-wrap:wrap; gap:8px; align-items:baseline; justify-content:space-between;
+    }
+    .mod-head h2 {
+      font-family:'Pixelify Sans',sans-serif;
+      font-size:1.05rem; letter-spacing:3px; text-transform:uppercase;
+      color:var(--cyan);
+    }
+    .mod-head .tag {
+      font-size:.7rem; color:var(--muted); letter-spacing:1.5px;
+    }
+    .mod-body { padding:18px; display:grid; gap:14px; grid-template-columns:1fr; }
+    @media (min-width: 880px) {
+      .mod-body.split { grid-template-columns: minmax(0,1fr) 320px; }
+    }
+    .canvas-wrap {
+      background:#000; border:1px solid #11202c;
+      border-radius:3px; overflow:hidden; position:relative;
+      min-height:240px;
+    }
+    canvas { display:block; width:100%; height:100%; image-rendering:pixelated; }
+    .canvas-wrap .hud {
+      position:absolute; top:6px; left:8px;
+      font-family:'VT323',monospace; font-size:.85rem; color:var(--green);
+      text-shadow:0 0 4px var(--green); pointer-events:none;
+    }
+
+    .controls { display:flex; flex-direction:column; gap:10px; font-size:.78rem; }
+    .ctl { display:flex; flex-direction:column; gap:4px; }
+    .ctl label {
+      color:var(--muted); letter-spacing:1.5px; text-transform:uppercase; font-size:.7rem;
+    }
+    .ctl input[type="text"], .ctl input[type="number"], .ctl textarea, .ctl select {
+      background:#06090f; color:var(--green);
+      border:1px solid var(--border); border-radius:2px;
+      padding:6px 8px; font-family:'JetBrains Mono',monospace; font-size:.78rem;
+      outline:none;
+    }
+    .ctl textarea { resize:vertical; min-height:60px; }
+    .ctl input[type="text"]:focus, .ctl textarea:focus, .ctl input[type="number"]:focus, .ctl select:focus {
+      border-color:var(--cyan); box-shadow:0 0 6px rgba(0,232,255,.5);
+    }
+    .ctl input[type="range"] { accent-color:var(--cyan); width:100%; }
+    .ctl .row { display:flex; gap:6px; align-items:center; }
+    .ctl .row .val { color:var(--cyan); min-width:48px; text-align:right; font-size:.75rem; }
+
+    .btn {
+      display:inline-block; padding:7px 14px; border:1px solid var(--cyan);
+      background:transparent; color:var(--cyan);
+      font-family:'JetBrains Mono',monospace; font-size:.72rem;
+      letter-spacing:2px; text-transform:uppercase; cursor:pointer;
+      border-radius:2px; transition:.15s;
+    }
+    .btn:hover { background:var(--cyan); color:#000; box-shadow:0 0 12px var(--cyan); }
+    .btn.green   { border-color:var(--green); color:var(--green); }
+    .btn.green:hover { background:var(--green); color:#000; box-shadow:0 0 12px var(--green); }
+    .btn.pink    { border-color:var(--pink); color:var(--pink); }
+    .btn.pink:hover { background:var(--pink); color:#000; box-shadow:0 0 12px var(--pink); }
+
+    .readout {
+      background:#06090f; border:1px solid var(--border); border-radius:2px;
+      padding:8px 10px; font-family:'JetBrains Mono',monospace; font-size:.72rem;
+      color:var(--green); min-height:28px; overflow-x:auto; white-space:pre-wrap; word-break:break-all;
+    }
+    .readout .k { color:var(--muted); }
+    .readout .v { color:var(--cyan); }
+    .readout .h { color:var(--orange); }
+
+    .legend {
+      font-size:.7rem; color:var(--muted); line-height:1.6;
+      border-top:1px dashed var(--border); padding-top:8px; margin-top:6px;
+    }
+    .legend code { color:var(--yellow); }
+
+    /* Taskbar */
+    #taskbar {
+      position:fixed; bottom:0; left:0; right:0; height:32px;
+      background:#0a0a0a; border-top:1px solid var(--cyan);
+      z-index:9999; display:flex; align-items:center; padding:0 12px;
+      gap:16px; font-size:11px;
+    }
+    #taskbar a { color:var(--cyan); font-weight:bold; letter-spacing:1px; }
+    #taskbar .clock { margin-left:auto; color:#888; }
+
+    /* prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .canvas-wrap canvas { animation:none !important; }
+    }
+  </style>
+</head>
+<body data-story-page="signal-lab">
+
+<div id="crt-filter"></div>
+
+<header class="hero">
+  <h1>SIGNAL_LAB</h1>
+  <div class="tagline">// INTERACTIVE MATH &middot; CRYPTOGRAPHY &middot; CHAOS_THEORY //</div>
+  <div class="meta">RENDERED CLIENT-SIDE &middot; ZERO DEPS &middot; CSP-STRICT &middot; v1.0</div>
+</header>
+
+<nav class="toc" aria-label="Lab modules">
+  <a href="#mod-rsa">RSA_TRACE</a>
+  <a href="#mod-xor">XOR_CIPHER</a>
+  <a href="#mod-hash">HASH_AVALANCHE</a>
+  <a href="#mod-mandel">MANDELBROT</a>
+  <a href="#mod-life">CELLULAR_LIFE</a>
+  <a href="#mod-graph">FORCE_GRAPH</a>
+  <a href="#mod-fft">SPECTRUM_FFT</a>
+  <a href="#mod-bezier">BEZIER_PROBE</a>
+</nav>
+
+<main class="lab">
+
+  <!-- ============================== RSA ============================== -->
+  <section class="module cyan" id="mod-rsa">
+    <header class="mod-head">
+      <h2>// RSA_TRACE &mdash; toy modular exponentiation</h2>
+      <span class="tag">cryptography &middot; number theory</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:300px;">
+        <canvas id="rsa-canvas" width="800" height="300"></canvas>
+        <div class="hud" id="rsa-hud">awaiting params</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>p (prime)</label><input id="rsa-p" type="number" value="61" min="3" max="1019"></div>
+        <div class="ctl"><label>q (prime)</label><input id="rsa-q" type="number" value="53" min="3" max="1019"></div>
+        <div class="ctl"><label>e (public exp)</label><input id="rsa-e" type="number" value="17" min="3"></div>
+        <div class="ctl"><label>plaintext (0..n-1)</label><input id="rsa-m" type="number" value="123"></div>
+        <button class="btn" id="rsa-go">EXECUTE_TRACE</button>
+        <div class="readout" id="rsa-out">click EXECUTE_TRACE</div>
+        <div class="legend">Square-and-multiply ladder. <code>n = p*q</code>, <code>&phi;=(p-1)(q-1)</code>, <code>d = e&#x207B;&#xB9; mod &phi;</code>. Educational primes only.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== XOR ============================== -->
+  <section class="module green" id="mod-xor">
+    <header class="mod-head">
+      <h2>// XOR_CIPHER &mdash; repeating-key stream</h2>
+      <span class="tag">classical crypto</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:240px;">
+        <canvas id="xor-canvas" width="800" height="240"></canvas>
+        <div class="hud" id="xor-hud">stream idle</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>plaintext</label><textarea id="xor-pt">attack at dawn</textarea></div>
+        <div class="ctl"><label>key</label><input id="xor-k" type="text" value="ICE"></div>
+        <button class="btn green" id="xor-go">ENCIPHER</button>
+        <div class="readout" id="xor-out">awaiting input</div>
+        <div class="legend">XOR is its own inverse. Reusing key + known-plaintext = trivial break (Vigen&egrave;re-style frequency).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ HASH AVAL ============================ -->
+  <section class="module orange" id="mod-hash">
+    <header class="mod-head">
+      <h2>// HASH_AVALANCHE &mdash; SHA-256 bit diffusion</h2>
+      <span class="tag">cryptography &middot; subtle.crypto</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:260px;">
+        <canvas id="hash-canvas" width="800" height="260"></canvas>
+        <div class="hud" id="hash-hud">enter input</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>input A</label><input id="hash-a" type="text" value="cyberworld"></div>
+        <div class="ctl"><label>input B (1-bit flip auto)</label><input id="hash-b" type="text" value="cyberxorld"></div>
+        <button class="btn" id="hash-go" style="border-color:var(--orange);color:var(--orange);">DIGEST_BOTH</button>
+        <div class="readout" id="hash-out">awaiting digest</div>
+        <div class="legend">Avalanche effect: ~50% of output bits should flip on a single-bit input change. Red bars = differing bits.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== MANDELBROT =========================== -->
+  <section class="module pink" id="mod-mandel">
+    <header class="mod-head">
+      <h2>// MANDELBROT &mdash; escape-time fractal</h2>
+      <span class="tag">complex dynamics</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:420px;">
+        <canvas id="mandel-canvas" width="600" height="420"></canvas>
+        <div class="hud" id="mandel-hud">drag to pan &middot; wheel to zoom</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>max iterations</label>
+          <div class="row"><input id="mandel-iter" type="range" min="32" max="512" step="16" value="128"><span class="val" id="mandel-iter-v">128</span></div>
+        </div>
+        <div class="ctl"><label>palette</label>
+          <select id="mandel-pal">
+            <option value="cyber">CYBER (cyan-pink)</option>
+            <option value="matrix">MATRIX (green)</option>
+            <option value="amber">AMBER_CRT</option>
+            <option value="solar">SOLAR_FLARE</option>
+          </select>
+        </div>
+        <button class="btn pink" id="mandel-reset">RESET_VIEW</button>
+        <div class="readout" id="mandel-out">center: (-0.5, 0)</div>
+        <div class="legend">Iterates <code>z &rarr; z&sup2;+c</code> per pixel until |z| &gt; 2 or iteration cap reached.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== GAME OF LIFE =========================== -->
+  <section class="module green" id="mod-life">
+    <header class="mod-head">
+      <h2>// CELLULAR_LIFE &mdash; Conway&rsquo;s automaton</h2>
+      <span class="tag">emergent systems</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:320px;">
+        <canvas id="life-canvas" width="640" height="320"></canvas>
+        <div class="hud" id="life-hud">click cells to toggle</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>tick rate</label>
+          <div class="row"><input id="life-rate" type="range" min="1" max="30" step="1" value="10"><span class="val" id="life-rate-v">10 hz</span></div>
+        </div>
+        <div class="ctl"><label>seed</label>
+          <select id="life-seed">
+            <option value="random">RANDOM (40%)</option>
+            <option value="glider">GLIDER_GUN</option>
+            <option value="pulsar">PULSAR</option>
+            <option value="acorn">ACORN</option>
+          </select>
+        </div>
+        <div class="row" style="gap:6px;">
+          <button class="btn green" id="life-start">START</button>
+          <button class="btn green" id="life-stop">STOP</button>
+          <button class="btn green" id="life-step">STEP</button>
+          <button class="btn green" id="life-clear">CLEAR</button>
+        </div>
+        <div class="readout" id="life-out">gen: 0 &middot; pop: 0</div>
+        <div class="legend">B3/S23 rules. Underpopulation, overcrowding, and reproduction model pandemic spread &amp; mesh networks.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== FORCE GRAPH =========================== -->
+  <section class="module yellow" id="mod-graph">
+    <header class="mod-head">
+      <h2>// FORCE_GRAPH &mdash; network topology simulator</h2>
+      <span class="tag">graph theory &middot; physics</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:380px;">
+        <canvas id="graph-canvas" width="800" height="380"></canvas>
+        <div class="hud" id="graph-hud">drag nodes</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>nodes</label>
+          <div class="row"><input id="graph-n" type="range" min="6" max="60" step="2" value="24"><span class="val" id="graph-n-v">24</span></div>
+        </div>
+        <div class="ctl"><label>topology</label>
+          <select id="graph-topo">
+            <option value="random">RANDOM_MESH</option>
+            <option value="ring">RING</option>
+            <option value="star">STAR (HUB)</option>
+            <option value="grid">GRID</option>
+            <option value="scale">SCALE_FREE</option>
+          </select>
+        </div>
+        <button class="btn" id="graph-rebuild" style="border-color:var(--yellow);color:var(--yellow);">REBUILD</button>
+        <div class="readout" id="graph-out">edges: 0 &middot; avg deg: 0</div>
+        <div class="legend">Spring-electrical model: edges = Hooke springs, nodes = mutually-repulsive charges. SCALE_FREE seeds preferential attachment.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== FFT SPECTRUM =========================== -->
+  <section class="module cyan" id="mod-fft">
+    <header class="mod-head">
+      <h2>// SPECTRUM_FFT &mdash; sum-of-sines analyzer</h2>
+      <span class="tag">DSP &middot; fourier</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:360px;">
+        <canvas id="fft-canvas" width="800" height="360"></canvas>
+        <div class="hud" id="fft-hud">live</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>f1 (Hz)</label><div class="row"><input id="fft-f1" type="range" min="1" max="80" step="1" value="6"><span class="val" id="fft-f1-v">6</span></div></div>
+        <div class="ctl"><label>f2 (Hz)</label><div class="row"><input id="fft-f2" type="range" min="0" max="80" step="1" value="17"><span class="val" id="fft-f2-v">17</span></div></div>
+        <div class="ctl"><label>f3 (Hz)</label><div class="row"><input id="fft-f3" type="range" min="0" max="80" step="1" value="0"><span class="val" id="fft-f3-v">0</span></div></div>
+        <div class="ctl"><label>noise</label><div class="row"><input id="fft-n" type="range" min="0" max="100" step="1" value="10"><span class="val" id="fft-n-v">10%</span></div></div>
+        <div class="readout" id="fft-out">peaks: --</div>
+        <div class="legend">Naive 256-pt DFT in O(N&sup2;). Peaks = dominant frequencies; demonstrates basis decomposition used in TLS side-channels &amp; SDR.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================== BEZIER =========================== -->
+  <section class="module orange" id="mod-bezier">
+    <header class="mod-head">
+      <h2>// BEZIER_PROBE &mdash; De Casteljau visualizer</h2>
+      <span class="tag">geometry &middot; rendering</span>
+    </header>
+    <div class="mod-body split">
+      <div class="canvas-wrap" style="height:320px;">
+        <canvas id="bez-canvas" width="800" height="320"></canvas>
+        <div class="hud" id="bez-hud">drag control points</div>
+      </div>
+      <div class="controls">
+        <div class="ctl"><label>parameter t</label>
+          <div class="row"><input id="bez-t" type="range" min="0" max="1000" step="1" value="500"><span class="val" id="bez-t-v">0.500</span></div>
+        </div>
+        <div class="ctl"><label>order</label>
+          <select id="bez-order">
+            <option value="2">QUADRATIC (3 pts)</option>
+            <option value="3" selected>CUBIC (4 pts)</option>
+            <option value="4">QUARTIC (5 pts)</option>
+          </select>
+        </div>
+        <button class="btn" id="bez-randomize" style="border-color:var(--orange);color:var(--orange);">RANDOMIZE</button>
+        <div class="readout" id="bez-out">B(t): --</div>
+        <div class="legend">De Casteljau&rsquo;s algorithm: recursive linear interpolation. Foundation of TrueType, SVG, and PostScript glyph rasterization.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="taskbar">
+  <a href="index.html">&larr; HOME</a>
+  <span style="color:#444;">|</span>
+  <a href="research.html">RESEARCH</a>
+  <span style="color:#444;">|</span>
+  <a href="cyberworld.html">CYBERWORLD</a>
+  <span style="color:#555;"> &middot; SIGNAL_LAB // INTERACTIVE_MATH</span>
+  <span class="clock" id="tb-clock"></span>
+</div>
+
+<script src="js/signal-lab.js"></script>
+<script>
+  (function(){
+    function tick(){
+      var d=new Date();
+      var pad=function(n){return String(n).padStart(2,'0');};
+      var el=document.getElementById('tb-clock');
+      if(el) el.textContent=pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());
+    }
+    tick(); setInterval(tick,1000);
+  })();
+</script>
+</body>
+</html>

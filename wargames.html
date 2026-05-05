@@ -51,7 +51,7 @@
     </div>
     <div class="wg-hero-right">
       <div class="wg-hud">
-        <div class="wg-hud-row"><span>OPERATIVE</span><b>Personfu</b></div>
+        <div class="wg-hud-row"><span>OPERATIVE</span><b id="wg-operative">Guest Operative</b></div>
         <div class="wg-hud-row"><span>RANK</span><b id="wg-rank">◇ RECRUIT</b></div>
         <div class="wg-hud-row"><span>XP</span><b id="wg-xp">0</b></div>
         <div class="wg-hud-row"><span>SOLVED</span><b id="wg-solved">0 / 12</b></div>
@@ -217,40 +217,52 @@
     onComplete: function(m, st){ console.log('[WG] solved', m.id, 'xp=', st.xp); }
   });
 
-  var LB = [
-    {op:'Personfu',     score:'live',    flags:'live',  rank:'live',         time:'now'},
-    {op:'r00t_kai',     score:14750,     flags:148,     rank:'👑 LEGEND',    time:'2 min ago'},
-    {op:'phantom_07',   score:11200,     flags:112,     rank:'⚡ ELITE',     time:'5 min ago'},
-    {op:'crypts3c',     score:9800,      flags:98,      rank:'⚡ ELITE',     time:'8 min ago'},
-    {op:'null_byte',    score:8450,      flags:84,      rank:'🔥 OPERATIVE', time:'12 min ago'},
-    {op:'d4rk_flux',    score:7200,      flags:72,      rank:'🔥 OPERATIVE', time:'15 min ago'},
-    {op:'ghost_0ps',    score:6100,      flags:61,      rank:'🔥 OPERATIVE', time:'22 min ago'},
-    {op:'wire_shark',   score:4300,      flags:43,      rank:'◆ ROOKIE',     time:'31 min ago'},
-    {op:'xss_kid',      score:2800,      flags:28,      rank:'◆ ROOKIE',     time:'45 min ago'},
-    {op:'fuzzy_logi',   score:1500,      flags:15,      rank:'◆ ROOKIE',     time:'1 hr ago'}
+  // Bots are sorted by score; the live user (you) is inserted into the correct
+  // rank position dynamically based on current XP / flags solved.
+  var LB_BOTS = [
+    {op:'r00t_kai',     score:14750, flags:148, rank:'👑 LEGEND',    time:'2 min ago'},
+    {op:'phantom_07',   score:11200, flags:112, rank:'⚡ ELITE',     time:'5 min ago'},
+    {op:'crypts3c',     score:9800,  flags:98,  rank:'⚡ ELITE',     time:'8 min ago'},
+    {op:'null_byte',    score:8450,  flags:84,  rank:'🔥 OPERATIVE', time:'12 min ago'},
+    {op:'d4rk_flux',    score:7200,  flags:72,  rank:'🔥 OPERATIVE', time:'15 min ago'},
+    {op:'ghost_0ps',    score:6100,  flags:61,  rank:'🔥 OPERATIVE', time:'22 min ago'},
+    {op:'wire_shark',   score:4300,  flags:43,  rank:'◆ ROOKIE',     time:'31 min ago'},
+    {op:'xss_kid',      score:2800,  flags:28,  rank:'◆ ROOKIE',     time:'45 min ago'},
+    {op:'fuzzy_logi',   score:1500,  flags:15,  rank:'◆ ROOKIE',     time:'1 hr ago'},
+    {op:'sigsegv',      score:980,   flags:9,   rank:'◇ RECRUIT',    time:'3 hr ago'},
+    {op:'bitflip',      score:420,   flags:4,   rank:'◇ RECRUIT',    time:'6 hr ago'}
   ];
+  function getOperativeName(){
+    try {
+      var raw = localStorage.getItem('cyberworld-player');
+      if (raw) {
+        var p = JSON.parse(raw);
+        if (p && p.displayName) return String(p.displayName);
+        if (p && p.handle)      return String(p.handle);
+      }
+    } catch(_){}
+    return 'Guest Operative';
+  }
   function paintLB() {
     var tb = document.getElementById('wg-lb-body'); if(!tb) return;
     var p = WG.getProgress();
+    var name = getOperativeName();
+    var opEl = document.getElementById('wg-operative');
+    if (opEl) opEl.textContent = name;
+    var you = { op:name, score:p.xp|0, flags:p.solved.length, rank:p.rank, time:'now', _self:true };
+    var rows = LB_BOTS.slice().concat([you]).sort(function(a,b){ return (b.score||0) - (a.score||0); });
     tb.innerHTML='';
-    LB.forEach(function(r,i){
+    rows.forEach(function(r,i){
       var tr=document.createElement('tr');
       var rankCls = i===0?'rank-gold':i===1?'rank-silver':i===2?'rank-bronze':'';
       function cell(t,c){ var td=document.createElement('td'); td.textContent=t; if(c) td.className=c; return td; }
       tr.appendChild(cell(i+1, rankCls));
       tr.appendChild(cell(r.op));
-      if (r.score==='live') {
-        tr.appendChild(cell(p.xp.toLocaleString()));
-        tr.appendChild(cell(p.solved.length));
-        tr.appendChild(cell(p.rank));
-        tr.appendChild(cell('YOU', 'rank-gold'));
-        tr.classList.add('wg-lb-self');
-      } else {
-        tr.appendChild(cell(r.score.toLocaleString()));
-        tr.appendChild(cell(r.flags));
-        tr.appendChild(cell(r.rank));
-        tr.appendChild(cell(r.time));
-      }
+      tr.appendChild(cell((r.score||0).toLocaleString()));
+      tr.appendChild(cell(r.flags));
+      tr.appendChild(cell(r.rank));
+      tr.appendChild(cell(r._self ? 'YOU' : r.time, r._self ? 'rank-gold' : ''));
+      if (r._self) tr.classList.add('wg-lb-self');
       tb.appendChild(tr);
     });
   }

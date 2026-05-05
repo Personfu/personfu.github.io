@@ -14,15 +14,19 @@ export class SceneBoot extends Phaser.Scene {
 
         this.cameras.main.setBackgroundColor('#02050b');
 
-        // Discord SDK Initialization (Optional)
+        // Discord SDK Initialization (Optional, browser-safe)
         if (window.discordSdk) {
             try {
                 const { DiscordSDK } = window.discordSdk;
-                const discordSdk = new DiscordSDK(process.env.DISCORD_CLIENT_ID || '1170817211837992981');
+                const clientId =
+                    (typeof window !== 'undefined' && window.DISCORD_CLIENT_ID) ||
+                    (typeof globalThis !== 'undefined' && globalThis.DISCORD_CLIENT_ID) ||
+                    '1170817211837992981';
+                const discordSdk = new DiscordSDK(clientId);
                 await discordSdk.ready();
                 console.log('[DISCORD] SDK Operational');
             } catch (e) {
-                console.warn('[DISCORD] SDK init failed:', e.message);
+                console.warn('[DISCORD] SDK init failed:', e && e.message);
             }
         }
 
