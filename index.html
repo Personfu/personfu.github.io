@@ -589,6 +589,8 @@ function runBoot(){
   },300);
 }
 window.onload=runBoot;
+// Service worker — offline & public play
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}
 </script>
 </body>
 </html>

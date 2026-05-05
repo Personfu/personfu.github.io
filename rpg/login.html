@@ -83,8 +83,11 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
     </div>
     <button class="submit-btn" onclick="doLogin()">INITIALIZE_AUTH →</button>
     <div id="login-err" style="color:#ff3c3c;font-family:'VT323';font-size:16px;text-align:center;margin-top:10px;min-height:20px;"></div>
+    <div style="text-align:center;margin-top:14px;font-family:'VT323';font-size:15px;color:#555;">NO ACCOUNT? NO PROBLEM.</div>
+    <button class="submit-btn" onclick="doGuestPlay()" style="background:transparent;border:2px solid rgba(0,255,65,0.5);color:#00ff41;margin-top:6px;font-size:18px;">⚡ PLAY AS GUEST — NO SIGNUP</button>
   </div>
   <div class="login-footer">
+    <span style="color:#334;font-family:'VT323';font-size:14px;">FREE TO PLAY · OFFLINE READY · NO ADS · NO PAY-TO-WIN</span><br>
     <a href="../index.html">⌂ RETURN TO FLLC HQ</a> &nbsp;|&nbsp;
     <a href="../cyberworld.html">🌐 LAUNCH RPG</a> &nbsp;|&nbsp;
     <a href="../arcade.html">🕹 ARCADE</a>
@@ -196,6 +199,23 @@ function showProfile(p) {
     d.appendChild(l);
     sg.appendChild(d);
   });
+}
+
+function doGuestPlay() {
+  var adj  = ['ROGUE','GHOST','VECTOR','CIPHER','DELTA','NEXUS','PROXY','VIPER','NEON','STORM'];
+  var noun = ['KNIFE','SURGE','ZERO','TRACE','LOCK','SEVEN','BYTE','PHASE','WIRE','NODE'];
+  var auto = adj[Math.floor(Math.random()*adj.length)] + '_' + noun[Math.floor(Math.random()*noun.length)] + '_' + (Math.floor(Math.random()*900)+100);
+  var roleKeys = Object.keys(ROLES);
+  var roleId   = roleKeys[Math.floor(Math.random() * roleKeys.length)];
+  var profile = {
+    name: auto, role: roleId, guest: true,
+    joined: new Date().toLocaleDateString('en-US',{month:'short',year:'numeric'}),
+    xp: 0, level: 1, missions: 0, daemons: 0, tools: 12, rank: 'RECRUIT'
+  };
+  try { localStorage.setItem('cw_profile', JSON.stringify(profile)); } catch(e) {}
+  // Also write cyberworld-player so all pages share the same identity
+  try { localStorage.setItem('cyberworld-player', JSON.stringify({ name: profile.name, role: roleId, xp: 0, credits: 100, guest: true })); } catch(e) {}
+  showProfile(profile);
 }
 
 function doLogout() {

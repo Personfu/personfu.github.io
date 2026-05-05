@@ -213,10 +213,13 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
       </div>
     </div>
     <div class="header-nav">
-      <button class="nav-btn" onclick="loadWorld('codice')">CODICE_ZONE</button>
+      <button class="nav-btn" onclick="loadWorld('home-node')">🌐 NEXUS</button>
+      <button class="nav-btn" onclick="loadWorld('world-map')">🗺 MAP</button>
+      <button class="nav-btn" onclick="loadWorld('mission-board')">📋 MISSIONS</button>
       <button class="nav-btn" onclick="loadWorld('market')">🏪 MARKET</button>
-      <button class="nav-btn" onclick="loadWorld('guild')">⚔️ GUILD_HALL</button>
-      <button class="nav-btn" onclick="showCharacterSheet()">📊 CHARACTER</button>
+      <button class="nav-btn" onclick="loadWorld('guild')">⚔️ GUILD</button>
+      <button class="nav-btn" onclick="loadWorld('codice')" style="border-color:#ff4444;color:#ff4444;">☣ CODICE</button>
+      <button class="nav-btn" onclick="showCharacterSheet()">📊 CHAR</button>
       <button class="nav-btn" onclick="cwToggleGameMenu()" style="border-color:#ffe700;color:#ffe700;">🎮 GAMES</button>
       <a class="nav-btn" href="games.html" style="text-decoration:none;border-color:#ff00ea;color:#ff00ea;">⌂ HUB</a>
     </div>
@@ -279,9 +282,13 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
         <strong>Threat State:</strong> <span data-story="current-threat-state">Syncing threat state...</span>
       </div>
       <div class="map-actions" id="location-actions">
-        <button class="map-btn" onclick="loadWorld('mission-board')">MISSION_BOARD</button>
-        <button class="map-btn" onclick="loadWorld('market')">MARKET</button>
-        <button class="map-btn" onclick="loadWorld('codice')">ENTER_CODICE</button>
+        <button class="map-btn" onclick="loadWorld('world-map')">🗺 WORLD_MAP</button>
+        <button class="map-btn" onclick="loadWorld('mission-board')">📋 MISSIONS</button>
+        <button class="map-btn" onclick="loadWorld('market')">🏪 MARKET</button>
+        <button class="map-btn" onclick="loadWorld('signal')">📡 SIGNAL_LAB</button>
+        <button class="map-btn" onclick="loadWorld('relay')">📶 RELAY</button>
+        <button class="map-btn" onclick="loadWorld('codice')" style="border-color:#ff4444;color:#ff4444;">☣ CODICE</button>
+        <button class="map-btn" onclick="loadWorld('guild')">⚔️ GUILD</button>
       </div>
     </div>
 
@@ -315,6 +322,7 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
         <div class="lore-date">FLLC Event Feed</div>
         <div class="lore-text">
           <ul data-story="world-events" style="padding-left:14px;margin:0;"></ul>
+          <div id="cw-world-ticker" style="margin-top:4px;"></div>
         </div>
       </div>
     </div>
@@ -881,52 +889,78 @@ function loadWorld(location) {
   GAME.currentLocation = location;
   const mainView = document.getElementById('main-view');
   
-  if (location === 'home-node') {
-    const active = CAMPAIGNS.find(c => c.id === GAME.player.activeCampaign) || CAMPAIGNS[0];
-    const expanded = window.CYBERWORLD_EXPANDED || { nexusDistricts: [], companionCatalog: [], worldIncidents: [] };
-    mainView.innerHTML = `
-      <div style="max-width:900px;">
-        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">HOME_NODE — THE NEXUS</h2>
-        <p style="color:#aaa;line-height:1.8;margin-bottom:16px;">
-          In 2030, the internet is a battlespace. The Nexus is FLLC's neutral sanctuary where operatives gather, trade modules, train companions, and prepare for deep-route missions.
-        </p>
-        <p style="color:#aaa;line-height:1.8;margin-bottom:20px;">
-          Starshield is waiting on a private launch rail. Its payload is a continuity archive for civilization. Adversaries do not need to destroy the rocket; they only need to poison the launch chain. Every recovered fragment in CyberWorld pushes launch integrity back toward green.
-        </p>
-        <div style="border:1px solid rgba(255,165,0,0.35);padding:14px;margin-bottom:18px;background:rgba(255,165,0,0.08);font-size:12px;line-height:1.6;color:#d9c5a4;">
-          <strong style="color:var(--orange);">STARSHIELD PRIORITY ALERT</strong><br>
-          The rocket launches soon. Its payload can rebuild the world. Its launch chain is under attack.<br>
-          Enter The Nexus. Build your tools. Trust your faction. Escort the data. Defend the launch.
-        </div>
-        <div style="border:1px solid rgba(0,232,255,0.2);padding:16px;margin-bottom:20px;">
-          <div style="font-weight:bold;color:var(--cyan);margin-bottom:10px;">AVAILABLE_ACTIONS</div>
-          <button class="map-btn" style="margin-right:8px;" onclick="loadWorld('mission-board')">📋 MISSION_BOARD</button>
-          <button class="map-btn" style="margin-right:8px;" onclick="loadWorld('market')">💰 MARKET</button>
-          <button class="map-btn" style="margin-right:8px;" onclick="loadWorld('codice')">🔴 ENTER_CODICE_ZONE</button>
-          <button class="map-btn" onclick="loadWorld('guild')">⚔️ GUILD_HALL</button>
-        </div>
-        <div class="campaign-card">
-          <div class="campaign-title">ACTIVE_CAMPAIGN: ${active.title}</div>
-          <div class="campaign-meta">${active.chapter} | CVEs: ${active.cves.join(', ')}</div>
-          <div class="campaign-story">${active.story}</div>
-        </div>
-
-        <div class="campaign-card">
-          <div class="campaign-title">NEXUS DISTRICTS</div>
-          <div class="campaign-story">${expanded.nexusDistricts.map(d => `<div><strong>${d.name}:</strong> ${d.theme}</div>`).join('')}</div>
-        </div>
-
-        <div class="campaign-card">
-          <div class="campaign-title">COMPANION FIELD GUIDE</div>
-          <div class="campaign-story">${expanded.companionCatalog.map(c => `<div><strong>${c.tier} · ${c.name}</strong> — ${c.bonus}</div>`).join('')}</div>
-        </div>
-
-        <div class="campaign-card">
-          <div class="campaign-title">LIVE WORLD INCIDENTS</div>
-          <div class="campaign-story">${expanded.worldIncidents.map(i => `<div>• ${i}</div>`).join('')}</div>
-        </div>
-      </div>
-    `;
+  if (location === 'home-node' || location === 'nexus') {
+    while (mainView.firstChild) mainView.removeChild(mainView.firstChild);
+    var homeWrap = document.createElement('div');
+    homeWrap.style.cssText = 'padding:0;';
+    /* Alert banner */
+    var alertBanner = document.createElement('div');
+    alertBanner.style.cssText = 'padding:10px 14px;background:rgba(255,68,68,0.08);border-left:3px solid #ff4444;font-family:VT323,monospace;font-size:14px;color:#e8b2b2;margin-bottom:14px;letter-spacing:1px;';
+    alertBanner.textContent = '⚠ STARSHIELD PRIORITY ALERT — Launch chain under attack. Report to The Nexus. Escort the payload. Defend the route.';
+    homeWrap.appendChild(alertBanner);
+    /* World map heading */
+    var wmHdr = document.createElement('div');
+    wmHdr.style.cssText = 'font-family:Pixelify Sans,sans-serif;color:#00e8ff;font-size:16px;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;';
+    var wmTitle = document.createElement('span'); wmTitle.textContent = '🗺 WORLD MAP — OPERATION STARSHIELD';
+    var wmFull = document.createElement('button'); wmFull.className='map-btn'; wmFull.style.fontSize='11px'; wmFull.textContent='FULL MAP ▸'; wmFull.onclick=function(){loadWorld('world-map');};
+    wmHdr.appendChild(wmTitle); wmHdr.appendChild(wmFull);
+    homeWrap.appendChild(wmHdr);
+    /* World map canvas */
+    var wmDiv = document.createElement('div');
+    wmDiv.style.cssText = 'height:480px;margin-bottom:16px;';
+    homeWrap.appendChild(wmDiv);
+    mainView.appendChild(homeWrap);
+    if (window.CWWorld) {
+      CWWorld.buildWorldMap(wmDiv, 'nexus', function (zone) { navigateZone(zone.id); });
+    }
+    /* Active campaign card (DOM-safe) */
+    var active = CAMPAIGNS.find(function(c){return c.id===GAME.player.activeCampaign;})||CAMPAIGNS[0];
+    var campCard = document.createElement('div');
+    campCard.className = 'campaign-card';
+    var ct = document.createElement('div'); ct.className='campaign-title'; ct.textContent='ACTIVE_CAMPAIGN: '+active.title;
+    var cm = document.createElement('div'); cm.className='campaign-meta'; cm.textContent=active.chapter+' | CVE_CHAIN: '+active.cves.join(', ');
+    var cs = document.createElement('div'); cs.className='campaign-story'; cs.textContent=active.story;
+    campCard.appendChild(ct); campCard.appendChild(cm); campCard.appendChild(cs);
+    homeWrap.appendChild(campCard);
+    /* Quick-travel grid */
+    var qNav = document.createElement('div');
+    qNav.style.cssText = 'margin-top:14px;padding:14px;border:1px solid rgba(0,232,255,0.15);background:#020408;';
+    var qLabel = document.createElement('div'); qLabel.style.cssText='font-family:VT323,monospace;font-size:12px;color:#334;letter-spacing:2px;margin-bottom:8px;'; qLabel.textContent='QUICK_TRAVEL:';
+    qNav.appendChild(qLabel);
+    var qRow = document.createElement('div'); qRow.style.cssText='display:flex;flex-wrap:wrap;gap:8px;';
+    [
+      {id:'signal',   label:'📡 SIGNAL_LAB',    color:'#00ff41'},
+      {id:'relay',    label:'📶 RELAY_STATION',  color:'#ffe700'},
+      {id:'codice',   label:'☣ CODICE_ZONE',     color:'#ff4444'},
+      {id:'guild',    label:'⚔️ GUILD_HALL',      color:'#ff00ea'},
+      {id:'archive',  label:'🗄️ DATA_ARCHIVE',    color:'#c084fc'},
+      {id:'bunker',   label:'🏰 CMD_BUNKER',       color:'#00e8ff'},
+      {id:'market',   label:'🏪 BLACK_MARKET',    color:'#ffa500'},
+      {id:'mission-board', label:'📋 MISSION_BOARD', color:'#00e8ff'}
+    ].forEach(function(z){
+      var btn = document.createElement('button'); btn.className='map-btn';
+      btn.style.cssText='border-color:'+z.color+';color:'+z.color+'font-size:12px;';
+      btn.textContent=z.label;
+      btn.onclick=(function(zid){return function(){loadWorld(zid);};})(z.id);
+      qRow.appendChild(btn);
+    });
+    qNav.appendChild(qRow);
+    homeWrap.appendChild(qNav);
+  } else if (location === 'world-map') {
+    while (mainView.firstChild) mainView.removeChild(mainView.firstChild);
+    var wmWrap = document.createElement('div'); wmWrap.style.padding='16px';
+    var wmH = document.createElement('h2'); wmH.style.cssText='font-family:Pixelify Sans,sans-serif;color:#00e8ff;font-size:20px;margin-bottom:14px;'; wmH.textContent='🗺 WORLD MAP — OPERATION STARSHIELD';
+    var wmC = document.createElement('div'); wmC.style.height='540px';
+    wmWrap.appendChild(wmH); wmWrap.appendChild(wmC);
+    mainView.appendChild(wmWrap);
+    if (window.CWWorld) CWWorld.buildWorldMap(wmC, GAME.currentLocation, function(zone){navigateZone(zone.id);});
+  } else if (location === 'signal' || location === 'relay' || location === 'archive' || location === 'bunker') {
+    while (mainView.firstChild) mainView.removeChild(mainView.firstChild);
+    if (window.CWWorld) {
+      CWWorld.renderZone(location, mainView, GAME.player, navigateZone,
+        function(loot){onZoneCombatWin(loot,location);},
+        function(died){onZoneCombatLose(died);});
+    }
   } else if (location === 'mission-board') {
     const expanded = window.CYBERWORLD_EXPANDED || { contracts: [], chapterBreakdown: [], premiumOps: [] };
     mainView.innerHTML = `
@@ -982,44 +1016,47 @@ function loadWorld(location) {
   } else if (location === 'market') {
     renderDataBazaar(mainView);
   } else if (location === 'codice') {
-    mainView.innerHTML = `
-      <div style="max-width:900px;">
-        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">⚔️ CODICE_ZONE — HOSTILE TERRITORY</h2>
-        <p style="color:#aaa;line-height:1.8;margin-bottom:16px;">
-          CODICE Zone is a deeply corrupted region of cyberspace where government firewalls are offline and defense AI has been compromised. Fortunes are made here—and operatives disappear without trace.
-        </p>
-        <p style="color:var(--red);font-size:12px;font-weight:bold;margin-bottom:20px;">
-          ⚠️ WARNING: PvP ENABLED · PERMADEATH POSSIBLE · DETECTION SYSTEMS ACTIVE
-        </p>
-        <div style="border:1px solid rgba(255,68,68,0.3);padding:16px;background:rgba(255,68,68,0.05);">
-          <div style="color:var(--red);font-weight:bold;margin-bottom:10px;">THREAT ASSESSMENT</div>
-          <div style="font-size:11px;color:#aaa;line-height:1.6;">
-            <div>🔴 AI Defense Matrix: COMPROMISED</div>
-            <div>🔴 Corsair Patrols: 7 ACTIVE</div>
-            <div>🔴 Reputation Loss on Defeat: 500 PTS</div>
-            <div style="margin-top:10px;"><strong>Ready to enter?</strong></div>
-          </div>
-          <button class="map-btn" style="margin-top:12px;border-color:var(--red);color:var(--red);" onclick="enterCodice()">ENTER_CODICE_ZONE</button>
-        </div>
-      </div>
-    `;
+    while (mainView.firstChild) mainView.removeChild(mainView.firstChild);
+    if (window.CWWorld) {
+      CWWorld.renderZone('codice', mainView, GAME.player, navigateZone,
+        function(loot){onZoneCombatWin(loot,'codice');},
+        function(died){onZoneCombatLose(died);});
+    } else {
+      enterCodice();
+    }
   } else if (location === 'guild') {
-    mainView.innerHTML = `
-      <div style="max-width:900px;">
-        <h2 style="font-family:'Pixelify Sans';font-size:20px;color:var(--cyan);margin-bottom:16px;">⚔️ GUILD_HALL</h2>
-        <p style="color:#aaa;margin-bottom:20px;">Connect with other operatives, form teams, and compete on the leaderboard.</p>
-        
-        <div style="background:#050505;border:1px solid rgba(0,232,255,0.2);padding:14px;margin-bottom:16px;">
-          <div style="font-weight:bold;color:var(--cyan);margin-bottom:10px;">TOP_100_OPERATIVES</div>
-          <div style="font-size:10px;color:#888;line-height:1.8;">
-            <div>1️⃣  SPECTRE_KING (LVL 87) — Credit Balance: 2,500,000</div>
-            <div>2️⃣  CORSAIR_NOMAD (LVL 81) — Credit Balance: 1,800,000</div>
-            <div>3️⃣  HACKER_SILENCEQ (LVL 79) — Credit Balance: 1,600,000</div>
-          </div>
-        </div>
-      </div>
-    `;
+    while (mainView.firstChild) mainView.removeChild(mainView.firstChild);
+    if (window.CWWorld) {
+      CWWorld.renderZone('guild', mainView, GAME.player, navigateZone, null, null);
+    }
+    mainView.appendChild(buildGuildLeaderboard());
   }
+}
+
+function buildGuildLeaderboard() {
+  var board = [
+    {rank:1, name:'SPECTRE_KING',    lvl:87,faction:'specter',creds:'2.5M', kills:412},
+    {rank:2, name:'CORSAIR_NOMAD',   lvl:81,faction:'corsair',creds:'1.8M', kills:387},
+    {rank:3, name:'HACKER_SILENCEQ', lvl:79,faction:'specter',creds:'1.6M', kills:331},
+    {rank:4, name:'SHADOW_WRAITH',   lvl:76,faction:'nomad',  creds:'1.2M', kills:298},
+    {rank:5, name:'GRAYSEC_RAVEN',   lvl:74,faction:'corsair',creds:'1.1M', kills:275},
+    {rank:6, name:'NULL_POINTER',    lvl:71,faction:'specter',creds:'980K', kills:249},
+    {rank:7, name:'CIPHER_VOID',     lvl:68,faction:'nomad',  creds:'860K', kills:231},
+    {rank:8, name:'FLUX_TERMINAL',   lvl:65,faction:'corsair',creds:'740K', kills:210},
+    {rank:9, name:'r00t_kai',        lvl:62,faction:'nomad',  creds:'650K', kills:189},
+    {rank:10,name:'OBSIDIAN_TRACE',  lvl:60,faction:'specter',creds:'540K', kills:174},
+  ];
+  var fc = {nomad:'#00e8ff',corsair:'#ff00ea',specter:'#00ff41'};
+  var wrap = document.createElement('div'); wrap.style.cssText='max-width:800px;margin-top:20px;';
+  var h3 = document.createElement('h3'); h3.style.cssText='font-family:Pixelify Sans,sans-serif;color:#ff00ea;font-size:16px;margin-bottom:10px;'; h3.textContent='🏆 GUILD LEADERBOARD — TOP OPERATIVES'; wrap.appendChild(h3);
+  var hdr = document.createElement('div'); hdr.style.cssText='display:grid;grid-template-columns:40px 180px 70px 80px 70px 90px;gap:6px;padding:6px 12px;font-family:JetBrains Mono,monospace;font-size:10px;color:#333;letter-spacing:1px;border-bottom:1px solid #1a2436;';
+  ['RANK','OPERATIVE','LVL','CREDITS','KILLS','FACTION'].forEach(function(c){var d=document.createElement('div');d.textContent=c;hdr.appendChild(d);}); wrap.appendChild(hdr);
+  board.forEach(function(op){
+    var row=document.createElement('div'); row.style.cssText='display:grid;grid-template-columns:40px 180px 70px 80px 70px 90px;gap:6px;padding:8px 12px;border-bottom:1px solid #0a1020;font-family:JetBrains Mono,monospace;font-size:11px;background:'+(op.rank<=3?'rgba(255,231,0,0.03)':'transparent');
+    [{t:'#'+op.rank,c:op.rank<=3?'#ffe700':'#444'},{t:op.name,c:fc[op.faction]||'#aaa'},{t:''+op.lvl,c:'#aaa'},{t:op.creds,c:'#00ff41'},{t:op.kills+'K',c:'#ff4444'},{t:op.faction.toUpperCase(),c:fc[op.faction]||'#aaa'}].forEach(function(cell){var d=document.createElement('div');d.style.color=cell.c;d.textContent=cell.t;row.appendChild(d);});
+    wrap.appendChild(row);
+  });
+  return wrap;
 }
 
 function showCharacterSheet() {
@@ -1289,6 +1326,7 @@ window.addEventListener('storage', (e) => {
 });
 
 </script>
+<script src="js/cyberworld-world.js"></script>
 <script src="js/story-data.js"></script>
 <script src="js/story-engine.js"></script>
 <script src="js/story-sync.js"></script>
@@ -1453,6 +1491,7 @@ window.addEventListener('storage', (e) => {
 
 <script src="js/site-stats.js"></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.SiteStats)SiteStats.renderStrip('cw-gm-stats');});</script>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 
 </body>
 </html>
