@@ -153,9 +153,7 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'JetBrains Mono',mon
 </div>
 
 <script>
-setInterval(function(){
-  var d=new Date();document.getElementById('tb-clock').textContent=d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
-},1000);
+// Clock now handled by pf-clock in page-footer
 
 var AGENTS=[
   {name:'SHODAN_CRAWLER',status:'active',desc:'Continuously scans internet-facing assets via Shodan API. Detects new open ports, exposed services, and misconfigured infrastructure.',tasks:'Scanning 3,421 monitored IPs | Last hit: exposed RDP on 203.x.x.x',cycle:'Every 6 hours',pct:72,model:'GPT-4o + Custom Rules'},
