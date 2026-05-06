@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -13,12 +13,13 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#020408">
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/cyber-shared.css">
 <link rel="stylesheet" href="css/os.css">
 <link rel="stylesheet" href="css/wargames.css">
 </head>
 <body data-story-page="wargames">
+<canvas id="cyber-bg-canvas"></canvas>
 <div id="crt-filter"></div>
-<canvas id="wg-bg"></canvas>
 
 <nav class="top-nav">
   <a href="index.html">&#8962; HOME</a>
@@ -184,14 +185,6 @@
   </div>
 </div>
 
-<div id="taskbar">
-  <a href="index.html">&#8962; FURIOS-INT</a>
-  <a href="profile.html">PROFILE</a>
-  <a href="stars.html">ARSENAL</a>
-  <a href="intel.html">INTEL</a>
-  <span style="margin-left:auto;color:#444;font-family:'VT323';font-size:16px;" id="wg-clock"></span>
-</div>
-
 <script src="js/wargames-engine.js"></script>
 <script src="js/wargames-missions.js"></script>
 <script src="js/site-stats.js"></script>
@@ -270,24 +263,20 @@
   setInterval(paintLB, 4000);
 
   if (window.SiteStats) SiteStats.renderStrip('ss-strip');
-
-  (function(){
-    var c=document.getElementById('wg-bg'); if(!c) return;
-    var ctx=c.getContext('2d');
-    function R(){c.width=innerWidth;c.height=innerHeight;} R(); addEventListener('resize',R);
-    var t=0;
-    (function tick(){
-      t+=0.005;
-      ctx.fillStyle='rgba(5,5,5,0.25)'; ctx.fillRect(0,0,c.width,c.height);
-      ctx.strokeStyle='rgba(0,232,255,0.07)'; ctx.lineWidth=1;
-      var step=48; var off=(t*40)%step;
-      ctx.beginPath();
-      for(var x=-step+off;x<c.width;x+=step){ctx.moveTo(x,0);ctx.lineTo(x+c.height*0.3,c.height);}
-      for(var y=-step+off;y<c.height;y+=step){ctx.moveTo(0,y);ctx.lineTo(c.width,y+c.width*0.05);}
-      ctx.stroke();
-      requestAnimationFrame(tick);
-    })();
-  })();
 </script>
+<footer class="page-footer">
+  <a class="pf-home" href="index.html">&#x2302; HOME</a>
+  <span class="pf-sep"></span>
+  <a href="wargames.html">WAR_GAMES</a>
+  <a href="forensics.html">FORENSICS</a>
+  <a href="redops.html">RED_OPS</a>
+  <a href="intel.html">INTEL</a>
+  <a href="cyberworld.html">CYBERWORLD</a>
+  <a href="profile.html">DOSSIER</a>
+  <span class="pf-sep"></span>
+  <span class="pf-status">&#9679; ONLINE</span>
+  <span class="pf-clock" id="pf-clock"></span>
+</footer>
+<script>setInterval(function(){var e=document.getElementById('pf-clock');if(e)e.textContent=new Date().toLocaleTimeString('en-US',{hour12:true,hour:'2-digit',minute:'2-digit'});},1000);</script><script src="js/cyber-bg.js" defer></script>
 </body>
 </html>

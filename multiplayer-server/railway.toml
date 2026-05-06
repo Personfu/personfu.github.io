@@ -1,8 +1,24 @@
 [build]
 builder = "nixpacks"
+buildCommand = "npm install"
 
 [deploy]
 startCommand = "node server.js"
 healthcheckPath = "/health"
+healthcheckTimeout = 60
 restartPolicyType = "on_failure"
-restartPolicyMaxRetries = 3
+restartPolicyMaxRetries = 5
+
+# ── Required environment variables ────────────────────────────────
+# Set these in Railway → Service → Variables:
+#
+#   JWT_SECRET        (required) — random 64-char hex string for signing JWTs
+#                                  Generate: openssl rand -hex 48
+#   APP_ORIGIN        (optional) — comma-separated allowed origins, default *
+#                                  e.g. https://personfu.github.io,https://fllc.net
+#   DATABASE_URL      (optional) — PostgreSQL connection string (Railway Postgres add-on)
+#                                  Without this the server uses a local db.json file
+#   STRIPE_SECRET_KEY (optional) — sk_live_... for billing
+#   STRIPE_WEBHOOK_SECRET (optional) — whsec_... from Stripe dashboard
+#   STRIPE_PRICE_ID   (optional) — price_... for the basic subscription plan
+# ─────────────────────────────────────────────────────────────────

@@ -11,7 +11,6 @@ const { Server } = require('socket.io');
 dotenv.config();
 
 const PORT = Number(process.env.PORT || 8787);
-const JWT_SECRET = process.env.JWT_SECRET || '';
 const APP_ORIGIN = process.env.APP_ORIGIN || '*';
 const DATABASE_URL = process.env.DATABASE_URL || '';
 const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || '';
@@ -19,9 +18,18 @@ const STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || '';
 const STRIPE_PRICE_ID = process.env.STRIPE_PRICE_ID || '';
 const DB_FILE = path.join(__dirname, 'db.json');
 
+// JWT_SECRET: use env var in production. If missing, generate an ephemeral secret
+// so the server starts, but warn loudly — tokens will invalidate on restart.
+let JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {
-  console.error('[FATAL] JWT_SECRET is not set. Set it in your environment variables.');
-  process.exit(1);
+  const crypto = require('crypto');
+  JWT_SECRET = crypto.randomBytes(48).toString('hex');
+  console.warn('╔══════════════════════════════════════════════════════════╗');
+  console.warn('║  WARNING: JWT_SECRET not set in environment variables.   ║');
+  console.warn('║  Using an ephemeral random secret — all tokens will be  ║');
+  console.warn('║  invalidated on server restart. Set JWT_SECRET in your  ║');
+  console.warn('║  Railway service environment variables for production.   ║');
+  console.warn('╚══════════════════════════════════════════════════════════╝');
 }
 
 function parseAllowedOrigins(value) {

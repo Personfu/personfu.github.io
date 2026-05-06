@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -13,6 +13,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#020408">
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/cyber-shared.css">
 <link rel="stylesheet" href="css/os.css">
 <link rel="stylesheet" href="css/wargames.css">
 <style>
@@ -94,6 +95,7 @@
 </style>
 </head>
 <body>
+<canvas id="cyber-bg-canvas"></canvas>
 <div id="crt-filter"></div>
 <canvas id="wg-bg"></canvas>
 
@@ -557,14 +559,6 @@
 
 </main>
 
-<div id="taskbar">
-  <a href="index.html">&#8962; FURIOS-INT</a>
-  <a href="games.html">GAMES_HUB</a>
-  <a href="cyberworld.html">CYBERWORLD</a>
-  <a href="profile.html">PROFILE</a>
-  <span style="margin-left:auto;color:#444;font-family:'VT323';font-size:16px;" id="cdx-clock"></span>
-</div>
-
 <script>
 setInterval(function(){
   var c=document.getElementById('cdx-clock'); if(!c) return;
@@ -589,5 +583,7 @@ setInterval(function(){
   })();
 })();
 </script>
+<footer class="page-footer"><a class="pf-home" href="index.html">&#x2302; HOME</a><span class="pf-sep"></span><a href="wargames.html">WAR_GAMES</a><a href="forensics.html">FORENSICS</a><a href="redops.html">RED_OPS</a><a href="intel.html">INTEL</a><a href="cyberworld.html">CYBERWORLD</a><a href="profile.html">DOSSIER</a><span class="pf-sep"></span><span class="pf-status">&#9679; ONLINE</span><span class="pf-clock" id="pf-clock"></span></footer><script>setInterval(function(){var e=document.getElementById("pf-clock");if(e)e.textContent=new Date().toLocaleTimeString("en-US",{hour12:true,hour:"2-digit",minute:"2-digit"});},1000);</script>
+<script src="js/cyber-bg.js" defer></script>
 </body>
 </html>

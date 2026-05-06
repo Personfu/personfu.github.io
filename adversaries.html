@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -72,8 +72,10 @@ body{background:var(--bg);color:var(--cyan);font-family:'JetBrains Mono',monospa
 #tb-clock{margin-left:auto;font-family:'VT323';font-size:16px;color:#555;}
 @media(max-width:600px){.grid{grid-template-columns:1fr;}.controls{flex-direction:column;}.filter-btn{width:100%;text-align:center;}}
 </style>
+<link rel="stylesheet" href="css/cyber-shared.css">
 </head>
 <body data-story-page="adversaries">
+<canvas id="cyber-bg-canvas"></canvas>
 <div id="crt"></div>
 
 <nav class="top-nav">
@@ -188,14 +190,6 @@ body{background:var(--bg);color:var(--cyan);font-family:'JetBrains Mono',monospa
     <button class="modal-close" onclick="closeModal()">✕ CLOSE</button>
     <div id="modal-body"></div>
   </div>
-</div>
-
-<div id="taskbar">
-  <a href="index.html">⌂ HOME</a>
-  <a href="intel.html">INTEL</a>
-  <a href="wargames.html">WAR_GAMES</a>
-  <a href="cyberworld.html">RPG</a>
-  <span id="tb-clock"></span>
 </div>
 
 <script>
@@ -535,5 +529,19 @@ renderCards(APTS);
 <script src="js/story-data.js"></script>
 <script src="js/story-engine.js"></script>
 <script src="js/story-sync.js"></script>
+<footer class="page-footer">
+  <a class="pf-home" href="index.html">&#x2302; HOME</a>
+  <span class="pf-sep"></span>
+  <a href="wargames.html">WAR_GAMES</a>
+  <a href="forensics.html">FORENSICS</a>
+  <a href="redops.html">RED_OPS</a>
+  <a href="intel.html">INTEL</a>
+  <a href="cyberworld.html">CYBERWORLD</a>
+  <a href="profile.html">DOSSIER</a>
+  <span class="pf-sep"></span>
+  <span class="pf-status">&#9679; ONLINE</span>
+  <span class="pf-clock" id="pf-clock"></span>
+</footer>
+<script>setInterval(function(){var e=document.getElementById('pf-clock');if(e)e.textContent=new Date().toLocaleTimeString('en-US',{hour12:true,hour:'2-digit',minute:'2-digit'});},1000);</script><script src="js/cyber-bg.js" defer></script>
 </body>
 </html>

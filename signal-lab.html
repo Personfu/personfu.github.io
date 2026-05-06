@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -152,22 +152,42 @@
     .legend code { color:var(--yellow); }
 
     /* Taskbar */
-    #taskbar {
-      position:fixed; bottom:0; left:0; right:0; height:32px;
-      background:#0a0a0a; border-top:1px solid var(--cyan);
-      z-index:9999; display:flex; align-items:center; padding:0 12px;
-      gap:16px; font-size:11px;
-    }
-    #taskbar a { color:var(--cyan); font-weight:bold; letter-spacing:1px; }
-    #taskbar .clock { margin-left:auto; color:#888; }
+    /* CHALLENGE CARDS */
+    .sl-intro{color:var(--muted);font-size:.8rem;line-height:1.8;margin-bottom:20px;padding:10px 14px;border-left:3px solid var(--pink);}
+    .sl-challenge-grid{display:flex;flex-direction:column;gap:20px;}
+    .sl-chall{border:1px solid rgba(0,232,255,0.25);background:rgba(4,8,16,0.6);border-radius:2px;overflow:hidden;transition:.2s;}
+    .sl-chall.solved{border-color:var(--green)!important;}
+    .sl-chall-head{display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(0,0,0,0.4);border-bottom:1px solid rgba(0,232,255,0.15);flex-wrap:wrap;}
+    .sl-tier{font-family:'VT323',monospace;font-size:.85rem;padding:2px 8px;border:1px solid;border-radius:1px;}
+    .sl-tier.rookie{color:var(--green);border-color:var(--green);}
+    .sl-tier.operative{color:var(--orange);border-color:var(--orange);}
+    .sl-tier.elite{color:var(--red);border-color:var(--red);}
+    .sl-title{color:var(--cyan);font-size:.85rem;flex:1;}
+    .sl-xp{color:#ffe700;font-family:'VT323',monospace;font-size:.9rem;margin-left:auto;}
+    .sl-body{padding:14px;}
+    .sl-scenario{margin-bottom:14px;}
+    .sl-label{color:var(--muted);font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;display:block;}
+    .sl-hex{font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--cyan);background:#000;border:1px solid rgba(0,232,255,0.2);padding:10px 12px;margin-bottom:8px;white-space:pre-wrap;word-break:break-all;line-height:1.6;}
+    .sl-mission{font-size:.78rem;color:#aabbc5;line-height:1.7;}
+    .sl-hint{background:rgba(255,176,0,0.08);border:1px solid rgba(255,176,0,0.3);padding:10px 12px;font-size:.75rem;color:var(--orange);line-height:1.6;margin:10px 0;}
+    .sl-flag-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:12px;}
+    .sl-flag-row .sl-label{flex-basis:100%;}
+    .sl-input{flex:1;min-width:200px;background:#060a10;color:var(--cyan);border:1px solid rgba(0,232,255,0.3);padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:.78rem;outline:none;}
+    .sl-input:focus{border-color:var(--cyan);box-shadow:0 0 6px rgba(0,232,255,.4);}
+    .sl-status{font-family:'VT323',monospace;font-size:1rem;margin-top:8px;padding:4px 8px;min-height:28px;}
+    .sl-status.ok{color:var(--green);}
+    .sl-status.err{color:var(--red);}
 
     /* prefers-reduced-motion */
     @media (prefers-reduced-motion: reduce) {
       .canvas-wrap canvas { animation:none !important; }
     }
   </style>
+<link rel="stylesheet" href="css/cyber-shared.css">
 </head>
 <body data-story-page="signal-lab">
+<canvas id="cyber-bg-canvas"></canvas>
+<nav class="top-nav"><a href="index.html">&#8962; HOME</a><a href="wargames.html">WAR_GAMES</a><a href="forensics.html">FORENSICS</a><a href="redops.html">RED_OPS</a><a href="intel.html">INTEL</a><a href="cyberworld.html">CYBERWORLD</a><a href="profile.html">DOSSIER</a></nav>
 
 <div id="crt-filter"></div>
 
@@ -178,6 +198,7 @@
 </header>
 
 <nav class="toc" aria-label="Lab modules">
+  <a href="#mod-challenges" style="color:var(--pink);font-weight:700;">◈ CHALLENGES</a>
   <a href="#mod-hypertorus">HYPERTORUS_4D</a>
   <a href="#mod-lorenz">LORENZ_ATTRACTOR</a>
   <a href="#mod-ecc">ECC_CURVE</a>
@@ -195,6 +216,145 @@
 </nav>
 
 <main class="lab">
+
+  <!-- ========================= CRYPTO CHALLENGES ========================= -->
+  <section class="module" id="mod-challenges" style="border-color:var(--pink);">
+    <header class="mod-head">
+      <h2>// CRYPTO_CHALLENGES &mdash; break real cipher systems to earn XP</h2>
+      <span class="tag">SHA-256 verified &middot; client-side &middot; no tracking</span>
+    </header>
+    <div class="mod-body">
+      <p class="sl-intro">Each challenge presents an intercepted signal or encrypted artefact. Analyse it, crack it, submit the flag. Use the interactive labs below to understand the underlying mathematics. Progress is saved locally.</p>
+      <div class="sl-challenge-grid">
+
+        <!-- C1: XOR -->
+        <div class="sl-chall" id="slc-1" data-hash="833e27db851c65c252b8b20130df2bb01bd82f956a3d8fc677681195f43a5c45">
+          <div class="sl-chall-head">
+            <span class="sl-tier rookie">ROOKIE</span>
+            <span class="sl-title">SIGNAL_XOR_01 &mdash; Single-Byte XOR Intercept</span>
+            <span class="sl-xp">+150 XP</span>
+          </div>
+          <div class="sl-body">
+            <div class="sl-scenario">
+              <span class="sl-label">INTERCEPTED TRANSMISSION (hex):</span>
+              <div class="sl-hex">1b 37 37 33 31 36 3c 78 39 78 28 37 2d 36 25 1b
+2e 33 61 3c 35 2e 28 37 2e 35 2e 27 2e 37 31 28 37</div>
+              <p class="sl-mission">A single byte was XOR&rsquo;d repeatedly with a plaintext English phrase. Recover the key byte. The plaintext is a food-related sentence. Frequency analysis: XOR the most frequent ciphertext byte with ASCII space (0x20) and common English letters until you get readable output.</p>
+            </div>
+            <div class="sl-hint" id="slc-1-hint" style="display:none;">Most frequent byte in ciphertext is 0x37. English text is dominated by spaces (0x20). So key candidate = 0x37 XOR 0x20 = 0x17... that doesn&rsquo;t look right. Try other frequent characters. The answer is 0x58 (&lsquo;X&rsquo;). Plaintext: &ldquo;Cooking MC&rsquo;s like a pound of bacon&rdquo;</div>
+            <div class="sl-flag-row">
+              <span class="sl-label">FLAG FORMAT: FLAG{xor_key_0x??} &mdash; replace ?? with the hex byte</span>
+              <input class="sl-input" id="slc-1-input" type="text" placeholder="FLAG{xor_key_0x??}" autocomplete="off" spellcheck="false">
+              <button class="btn pink" onclick="slVerify(1)">VERIFY &#9654;</button>
+              <button class="btn" onclick="slHint(1)">HINT</button>
+            </div>
+            <div class="sl-status" id="slc-1-status"></div>
+          </div>
+        </div>
+
+        <!-- C2: ROT-13 -->
+        <div class="sl-chall" id="slc-2" data-hash="59c330bf77ef4d1763b8a0ad6dc9b6779aa1b9431c4da1745e340958137e7324">
+          <div class="sl-chall-head">
+            <span class="sl-tier rookie">ROOKIE</span>
+            <span class="sl-title">SIGNAL_ROT_02 &mdash; Caesar / ROT-13 Intercept</span>
+            <span class="sl-xp">+100 XP</span>
+          </div>
+          <div class="sl-body">
+            <div class="sl-scenario">
+              <span class="sl-label">INTERCEPTED MESSAGE:</span>
+              <div class="sl-hex">SYNT{ebg13_furyy_pbqr}</div>
+              <p class="sl-mission">A low-OPSEC operative used a classic Caesar cipher (shift 13) for &ldquo;secure&rdquo; comms. The message above is the flag, ROT-13 encoded. Decode it. Each letter shifts by 13 positions: A&harr;N, B&harr;O, C&harr;P &hellip; Z&harr;M. Non-alpha characters pass through unchanged.</p>
+            </div>
+            <div class="sl-hint" id="slc-2-hint" style="display:none;">S&rarr;F, Y&rarr;L, N&rarr;A, T&rarr;G gives FLAG. Then: e&rarr;r, b&rarr;o, t&rarr;g, 1&rarr;1, 3&rarr;3, _&rarr;_, f&rarr;s, u&rarr;h, r&rarr;e, y&rarr;l, y&rarr;l, _&rarr;_, p&rarr;c, b&rarr;o, q&rarr;d, r&rarr;e</div>
+            <div class="sl-flag-row">
+              <span class="sl-label">FLAG FORMAT: FLAG{...} &mdash; submit the decoded flag</span>
+              <input class="sl-input" id="slc-2-input" type="text" placeholder="FLAG{...}" autocomplete="off" spellcheck="false">
+              <button class="btn pink" onclick="slVerify(2)">VERIFY &#9654;</button>
+              <button class="btn" onclick="slHint(2)">HINT</button>
+            </div>
+            <div class="sl-status" id="slc-2-status"></div>
+          </div>
+        </div>
+
+        <!-- C3: RSA -->
+        <div class="sl-chall" id="slc-3" data-hash="7715b676f3bdf566aefb4dbea11a00943f37e0af84ea8896b34550d03bbcb235">
+          <div class="sl-chall-head">
+            <span class="sl-tier operative">OPERATIVE</span>
+            <span class="sl-title">SIGNAL_RSA_03 &mdash; Toy RSA Factorization &amp; Decryption</span>
+            <span class="sl-xp">+250 XP</span>
+          </div>
+          <div class="sl-body">
+            <div class="sl-scenario">
+              <span class="sl-label">TARGET RSA PARAMETERS:</span>
+              <div class="sl-hex">n = 3233   (public modulus)
+e = 17     (public exponent)
+c = 2557   (ciphertext — an encrypted integer)</div>
+              <p class="sl-mission">Factor n into p &times; q. Compute Euler&rsquo;s totient &phi;(n)=(p&minus;1)(q&minus;1). Find d = e&minus;&sup1; mod &phi;(n) using the Extended Euclidean Algorithm. Decrypt: m = c^d mod n. The plaintext m is a small positive integer &mdash; that integer IS the flag&rsquo;s numeric component.</p>
+            </div>
+            <div class="sl-hint" id="slc-3-hint" style="display:none;">n = 3233 = 61 &times; 53. &phi; = 60 &times; 52 = 3120. Extended Euclidean: 17 &times; 2753 &equiv; 1 (mod 3120), so d = 2753. m = 2557^2753 mod 3233. The answer to life, the universe, and everything.</div>
+            <div class="sl-flag-row">
+              <span class="sl-label">FLAG FORMAT: FLAG{rsa_m_equals_??} &mdash; replace ?? with the decrypted integer</span>
+              <input class="sl-input" id="slc-3-input" type="text" placeholder="FLAG{rsa_m_equals_??}" autocomplete="off" spellcheck="false">
+              <button class="btn pink" onclick="slVerify(3)">VERIFY &#9654;</button>
+              <button class="btn" onclick="slHint(3)">HINT</button>
+            </div>
+            <div class="sl-status" id="slc-3-status"></div>
+          </div>
+        </div>
+
+        <!-- C4: Vigenere -->
+        <div class="sl-chall" id="slc-4" data-hash="c495c0c03a71bca24af1a55bd4f9343fb21326882f5b767cdb5f63fbaa17a50a">
+          <div class="sl-chall-head">
+            <span class="sl-tier operative">OPERATIVE</span>
+            <span class="sl-title">SIGNAL_VIG_04 &mdash; Vigen&egrave;re Known-Plaintext Attack</span>
+            <span class="sl-xp">+300 XP</span>
+          </div>
+          <div class="sl-body">
+            <div class="sl-scenario">
+              <span class="sl-label">INTERCEPTED VIGEN&Egrave;RE CIPHERTEXT:</span>
+              <div class="sl-hex">IVXIEOIVHIYR</div>
+              <p class="sl-mission">Known-plaintext attack: the first 3 ciphertext characters decode to &ldquo;att&rdquo;. Use this to recover each byte of the 3-letter key (key[i] = C[i] &minus; P[i] mod 26, indexing A=0). Then verify by decrypting the full ciphertext. The 3-letter key in lowercase IS the flag content.</p>
+            </div>
+            <div class="sl-hint" id="slc-4-hint" style="display:none;">I(8)&minus;a(0)=8=I, V(21)&minus;t(19)=2=C, X(23)&minus;t(19)=4=E. Key=&ldquo;ICE&rdquo;. Full decrypt of IVXIEOIVHIYR with key ICE gives &ldquo;attackatdawn&rdquo;.</div>
+            <div class="sl-flag-row">
+              <span class="sl-label">FLAG FORMAT: FLAG{vigenere_key_???} &mdash; replace ??? with the key in lowercase</span>
+              <input class="sl-input" id="slc-4-input" type="text" placeholder="FLAG{vigenere_key_???}" autocomplete="off" spellcheck="false">
+              <button class="btn pink" onclick="slVerify(4)">VERIFY &#9654;</button>
+              <button class="btn" onclick="slHint(4)">HINT</button>
+            </div>
+            <div class="sl-status" id="slc-4-status"></div>
+          </div>
+        </div>
+
+        <!-- C5: Entropy -->
+        <div class="sl-chall" id="slc-5" data-hash="5b88269c7b1008e14d33bd0bc80c0ccd501ae715e1be2881e6ef7fe006795b35">
+          <div class="sl-chall-head">
+            <span class="sl-tier elite">ELITE</span>
+            <span class="sl-title">SIGNAL_ENT_05 &mdash; Shannon Entropy Oracle</span>
+            <span class="sl-xp">+400 XP</span>
+          </div>
+          <div class="sl-body">
+            <div class="sl-scenario">
+              <span class="sl-label">SIGNAL CAPTURE STATISTICS:</span>
+              <div class="sl-hex">Distribution: 10 distinct symbols
+Each symbol probability: p = 0.10 (10%)
+Formula: H(X) = &minus;&sum; p(x) log&#8322; p(x)</div>
+              <p class="sl-mission">Calculate the Shannon entropy of this uniform 10-symbol source in bits. Round to 2 decimal places. High entropy &asymp; encrypted or compressed data. Low entropy &asymp; structured/human-readable data. Your calculated value IS the flag&rsquo;s numeric component.</p>
+            </div>
+            <div class="sl-hint" id="slc-5-hint" style="display:none;">H = &minus;10 &times; (0.1 &times; log&#8322;(0.1)) = &minus;10 &times; (0.1 &times; &minus;3.32193&hellip;) = 10 &times; 0.332193 &asymp; 3.32 bits. This equals log&#8322;(10) &mdash; maximum entropy for 10 equally-likely symbols.</div>
+            <div class="sl-flag-row">
+              <span class="sl-label">FLAG FORMAT: FLAG{entropy_?point??} &mdash; e.g. FLAG{entropy_3point32}</span>
+              <input class="sl-input" id="slc-5-input" type="text" placeholder="FLAG{entropy_?point??}" autocomplete="off" spellcheck="false">
+              <button class="btn pink" onclick="slVerify(5)">VERIFY &#9654;</button>
+              <button class="btn" onclick="slHint(5)">HINT</button>
+            </div>
+            <div class="sl-status" id="slc-5-status"></div>
+          </div>
+        </div>
+
+      </div><!-- /.sl-challenge-grid -->
+    </div>
+  </section>
 
   <!-- ============================ HYPERTORUS 4D ============================ -->
   <section class="module pink" id="mod-hypertorus">
@@ -585,28 +745,86 @@
 
 </main>
 
-<div id="taskbar">
-  <a href="index.html">&larr; HOME</a>
-  <span style="color:#444;">|</span>
-  <a href="research.html">RESEARCH</a>
-  <span style="color:#444;">|</span>
-  <a href="cyberworld.html">CYBERWORLD</a>
-  <span style="color:#555;"> &middot; SIGNAL_LAB // INTERACTIVE_MATH</span>
-  <span class="clock" id="tb-clock"></span>
-</div>
+<script>
+/* ── SIGNAL LAB CHALLENGE ENGINE ── */
+var SL_HASHES = {
+  1:'833e27db851c65c252b8b20130df2bb01bd82f956a3d8fc677681195f43a5c45',
+  2:'59c330bf77ef4d1763b8a0ad6dc9b6779aa1b9431c4da1745e340958137e7324',
+  3:'7715b676f3bdf566aefb4dbea11a00943f37e0af84ea8896b34550d03bbcb235',
+  4:'c495c0c03a71bca24af1a55bd4f9343fb21326882f5b767cdb5f63fbaa17a50a',
+  5:'5b88269c7b1008e14d33bd0bc80c0ccd501ae715e1be2881e6ef7fe006795b35'
+};
+var SL_XP = {1:150, 2:100, 3:250, 4:300, 5:400};
+var _slRateLimit = {};
+async function slVerify(id) {
+  var now = Date.now();
+  if (_slRateLimit[id] && now - _slRateLimit[id] < 250) return;
+  _slRateLimit[id] = now;
+  var input = document.getElementById('slc-'+id+'-input');
+  var status = document.getElementById('slc-'+id+'-status');
+  var val = (input.value||'').trim();
+  if (!val) { status.textContent = '[ enter flag ]'; status.className = 'sl-status err'; return; }
+  try {
+    var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(val));
+    var hex = Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+    if (hex === SL_HASHES[id]) {
+      status.textContent = '\u2714 CORRECT \u2014 Flag accepted! +' + SL_XP[id] + ' XP awarded.';
+      status.className = 'sl-status ok';
+      document.getElementById('slc-'+id).classList.add('solved');
+      try {
+        var store = JSON.parse(localStorage.getItem('sl.xp')||'{}');
+        if (!store[id]) { store[id] = SL_XP[id]; localStorage.setItem('sl.xp', JSON.stringify(store)); }
+      } catch(e) {}
+    } else {
+      status.textContent = '\u2717 INCORRECT \u2014 Hash mismatch. Analyse further.';
+      status.className = 'sl-status err';
+    }
+  } catch(e) {
+    status.textContent = '[ crypto.subtle unavailable — use HTTPS ]';
+    status.className = 'sl-status err';
+  }
+}
+function slHint(id) {
+  var h = document.getElementById('slc-'+id+'-hint');
+  if (h) h.style.display = h.style.display === 'none' ? 'block' : 'none';
+}
+// Enter key submits
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter') return;
+  var el = document.activeElement;
+  for (var i = 1; i <= 5; i++) {
+    if (el === document.getElementById('slc-'+i+'-input')) { slVerify(i); break; }
+  }
+});
+// Restore solved state from localStorage
+(function(){
+  try {
+    var store = JSON.parse(localStorage.getItem('sl.xp')||'{}');
+    Object.keys(store).forEach(function(id){
+      var card = document.getElementById('slc-'+id);
+      if (card) card.classList.add('solved');
+      var st = document.getElementById('slc-'+id+'-status');
+      if (st) { st.textContent = '\u2714 SOLVED \u2014 +' + store[id] + ' XP'; st.className = 'sl-status ok'; }
+    });
+  } catch(e) {}
+})();
+</script>
 
 <script src="js/signal-lab.js"></script>
 <script src="js/signal-lab-extra.js"></script>
-<script>
-  (function(){
-    function tick(){
-      var d=new Date();
-      var pad=function(n){return String(n).padStart(2,'0');};
-      var el=document.getElementById('tb-clock');
-      if(el) el.textContent=pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());
-    }
-    tick(); setInterval(tick,1000);
-  })();
-</script>
+<footer class="page-footer">
+  <a class="pf-home" href="index.html">&#x2302; HOME</a>
+  <span class="pf-sep"></span>
+  <a href="wargames.html">WAR_GAMES</a>
+  <a href="forensics.html">FORENSICS</a>
+  <a href="redops.html">RED_OPS</a>
+  <a href="intel.html">INTEL</a>
+  <a href="cyberworld.html">CYBERWORLD</a>
+  <a href="profile.html">DOSSIER</a>
+  <span class="pf-sep"></span>
+  <span class="pf-status">&#9679; ONLINE</span>
+  <span class="pf-clock" id="pf-clock"></span>
+</footer>
+<script>setInterval(function(){var e=document.getElementById('pf-clock');if(e)e.textContent=new Date().toLocaleTimeString('en-US',{hour12:true,hour:'2-digit',minute:'2-digit'});},1000);</script><script src="js/cyber-bg.js" defer></script>
 </body>
 </html>

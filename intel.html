@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://services.nvd.nist.gov https://cve.circl.lu;">
-<title>FLLC INTEL HUB — STARSHIELD WATCH</title>
+<title>FLLC INTEL HUB — STARSHIELD WATCH // MAY 2026</title>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <meta property="og:title" content="INTEL">
     <meta property="og:description" content="Threat intel feed and dossiers.">
@@ -78,11 +78,24 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
   #cve-list,#ttp-list,#cve-search-results,#highlights-list{max-height:540px;overflow-y:auto;}
 }
 </style>
+<link rel="stylesheet" href="css/cyber-shared.css">
 </head>
 <body data-story-page="intel">
+<canvas id="cyber-bg-canvas"></canvas>
 <div id="crt-filter"></div>
 
-<div class="page-title">◈ FLLC INTEL HUB — STARSHIELD WATCH ◈</div>
+<nav class="top-nav">
+  <a href="index.html">&#8962; HOME</a>
+  <a href="wargames.html">WAR_GAMES</a>
+  <a href="forensics.html">FORENSICS</a>
+  <a href="redops.html">RED_OPS</a>
+  <a href="adversaries.html">ADVERSARIES</a>
+  <a href="profile.html">DOSSIER</a>
+  <a href="cyberworld.html">CYBERWORLD</a>
+  <a href="games.html">ARCADE</a>
+</nav>
+
+<div class="page-title">◈ FLLC INTEL HUB — STARSHIELD WATCH ◈<br><span style="font-size:13px;color:var(--cyber-green);letter-spacing:2px;">// MAY 2026 // NVD · CISA · NSA · MITRE ATT&amp;CK LIVE FEEDS //</span></div>
 
 <!-- THREAT TICKER -->
 <div class="section">
@@ -216,8 +229,6 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
   </div>
 </div>
 
-<div id="taskbar"><a href="index.html">⌂ BACK TO HOME</a></div>
-
 <script>
 // ── CVE FEED: NVD API + CIRCL fallback ─────────────────────────────────────
 // NVD public API (no key needed for moderate rate): https://services.nvd.nist.gov/rest/json/cves/2.0
@@ -247,7 +258,18 @@ const cvePool=[
   {id:"CVE-2024-24919",cvss:8.6,product:"Check Point Security Gateways",desc:"Information disclosure of password hash via path traversal"},
   {id:"CVE-2024-5806", cvss:9.1,product:"MOVEit Transfer",desc:"Authentication bypass in SFTP module"},
   {id:"CVE-2024-28986",cvss:9.0,product:"SolarWinds Web Help Desk",desc:"Java deserialization RCE vulnerability"},
-  {id:"CVE-2024-40711",cvss:9.8,product:"Veeam Backup & Replication",desc:"Deserialization of untrusted data enabling unauthenticated RCE"}
+  {id:"CVE-2024-40711",cvss:9.8,product:"Veeam Backup & Replication",desc:"Deserialization of untrusted data enabling unauthenticated RCE"},
+  // 2025 CVEs
+  {id:"CVE-2025-21333",cvss:7.8,product:"Windows Hyper-V NT Kernel VSP",desc:"Heap buffer overflow enabling local privilege escalation to SYSTEM — exploited in the wild"},
+  {id:"CVE-2025-29824",cvss:7.8,product:"Windows CLFS Driver",desc:"Use-after-free enabling privilege escalation — exploited by RansomEXX ransomware gang"},
+  {id:"CVE-2025-30397",cvss:7.5,product:"Windows Scripting Engine",desc:"Type confusion enabling RCE via crafted web content — active exploitation observed"},
+  {id:"CVE-2025-24054",cvss:6.5,product:"Windows NTLM",desc:"Hash disclosure via crafted .library-ms file — NTLM relay attack vector"},
+  {id:"CVE-2025-71279",cvss:9.8,product:"XenForo",desc:"Passkey authentication bypass — unauthenticated full account takeover, no user interaction required"},
+  {id:"CVE-2025-71281",cvss:9.8,product:"XenForo",desc:"Template engine method call restriction bypass — remote code execution via crafted template callback"},
+  // 2026 CVEs
+  {id:"CVE-2025-13855",cvss:8.8,product:"IBM Storage Protect Server 8.2.0",desc:"SQL injection allowing authenticated remote attacker to read, modify, or delete backend database"},
+  {id:"CVE-2026-4668",cvss:6.5,product:"WordPress Amelia Plugin ≤2.1.2",desc:"ORDER BY clause SQL injection via sort parameter in payments endpoint — time-based blind, no nonce validation"},
+  {id:"CVE-2026-5238",cvss:7.3,product:"Payroll Management System 1.0",desc:"SQL injection via ID parameter in view_employee.php — exploit publicly available, unauthenticated access"}
 ];
 let cveIndex=0;
 const cveList=document.getElementById("cve-list");
@@ -302,9 +324,10 @@ function parseNVDItems(items){
 
 // Fetch latest CVEs from NVD
 async function fetchNVDLatest(){
-  nvdStatus.textContent="⟳ Fetching live CVEs from NVD API...";
+  nvdStatus.textContent="⟳ Fetching live CVEs from NVD API (2026 publications)...";
   try{
-    const url=NVD_API+"?resultsPerPage=10&startIndex=0";
+    const yr=new Date().getFullYear();
+    const url=NVD_API+"?resultsPerPage=20&pubStartDate="+yr+"-01-01T00:00:00.000";
     const resp=await fetch(url,{headers:{"Accept":"application/json"}});
     if(!resp.ok)throw new Error("HTTP "+resp.status);
     const data=await resp.json();
@@ -312,7 +335,7 @@ async function fetchNVDLatest(){
     if(items.length){
       cveList.innerHTML="";
       items.forEach(function(e){renderCVEEntry(e,cveList,false);});
-      nvdStatus.textContent="✓ Live NVD data — "+items.length+" most recent CVEs. Updates every 5 min.";
+      nvdStatus.textContent="✓ Live NVD data — "+items.length+" CVEs published in "+yr+". Total in DB: "+(data.totalResults||'?')+". Auto-refresh: 5 min.";
       nvdStatus.style.color="var(--cyber-green)";
     }else{throw new Error("Empty");}
   }catch(err){
@@ -347,6 +370,21 @@ async function fetchCIRCL(){
 fetchNVDLatest();
 setInterval(fetchNVDLatest,300000);
 
+// CISA KEV live count banner
+(function(){
+  var cisakev=document.getElementById('nvd-status');
+  fetch('https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json')
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(d){
+      if(d&&d.count){
+        var banner=document.createElement('div');
+        banner.style.cssText='font-size:11px;color:#ffb000;margin-top:5px;';
+        banner.textContent='● CISA KEV: '+d.count+' actively exploited vulnerabilities as of '+d.dateReleased;
+        if(cisakev&&cisakev.parentNode)cisakev.parentNode.insertBefore(banner,cisakev.nextSibling);
+      }
+    }).catch(function(){});
+})();
+
 // ── CVE SEARCH (NVD API v2 keyword/year search) ──────────────────────────────
 const HIGHLIGHTS=[
   {id:"CVE-2005-0067",cvss:7.5,product:"TCP/IP (Various)",desc:"Sequence number guessing attack enabling TCP session hijacking"},
@@ -375,7 +413,23 @@ const HIGHLIGHTS=[
   {id:"CVE-2023-44487",cvss:7.5,product:"HTTP/2 (Rapid Reset)",desc:"Rapid Reset: HTTP/2 stream cancellation DDoS at unprecedented scale — Tbps-level attacks observed"},
   {id:"CVE-2024-3400",cvss:10.0,product:"Palo Alto PAN-OS",desc:"OS command injection in GlobalProtect gateway, exploited as zero-day by UTA0218 threat actor"},
   {id:"CVE-2024-21762",cvss:9.6,product:"Fortinet FortiOS SSL-VPN",desc:"Out-of-bounds write enabling unauthenticated remote code execution in SSL-VPN"},
-  {id:"CVE-2024-6387",cvss:8.1,product:"OpenSSH (regreSSHion)",desc:"Race condition in signal handler — first unauthenticated OpenSSH RCE in 18 years"}
+  {id:"CVE-2024-6387",cvss:8.1,product:"OpenSSH (regreSSHion)",desc:"Race condition in signal handler — first unauthenticated OpenSSH RCE in 18 years"},
+  // 2024 late-year
+  {id:"CVE-2024-49138",cvss:7.8,product:"Windows CLFS Driver",desc:"Heap-based buffer overflow in Common Log File System driver exploited as zero-day in the wild"},
+  {id:"CVE-2024-38112",cvss:7.0,product:"Windows MSHTML (MHTML)",desc:"Internet Explorer spoofing via disabled IE mode — weaponized by APT actors in targeted campaigns"},
+  {id:"CVE-2024-9680",cvss:9.8,product:"Mozilla Firefox",desc:"Use-after-free in Animation timelines — zero-day exploited in wild, patched via emergency update"},
+  {id:"CVE-2024-44068",cvss:8.8,product:"Samsung Mobile Exynos",desc:"Use-after-free in m2m scaler driver enabling kernel privilege escalation — in-the-wild exploitation confirmed"},
+  // 2025
+  {id:"CVE-2025-21333",cvss:7.8,product:"Windows Hyper-V NT Kernel VSP",desc:"Heap overflow enabling SYSTEM privilege escalation — exploited in the wild as zero-day, Jan 2025"},
+  {id:"CVE-2025-29824",cvss:7.8,product:"Windows CLFS Driver",desc:"Use-after-free enabling privilege escalation to SYSTEM — exploited by RansomEXX ransomware, April 2025"},
+  {id:"CVE-2025-30397",cvss:7.5,product:"Windows Scripting Engine",desc:"Type confusion enabling RCE via crafted URL — requires user to click link, active exploitation confirmed"},
+  {id:"CVE-2025-0282",cvss:9.0,product:"Ivanti Connect Secure",desc:"Stack-based buffer overflow enabling unauthenticated RCE — exploited as zero-day before patch release"},
+  {id:"CVE-2025-24054",cvss:6.5,product:"Windows NTLM",desc:"NTLM hash disclosure via crafted .library-ms file — relay attack vector, minimal user interaction"},
+  {id:"CVE-2025-71279",cvss:9.8,product:"XenForo",desc:"Passkey authentication bypass — unauthenticated full account takeover without user interaction"},
+  {id:"CVE-2025-71281",cvss:9.8,product:"XenForo",desc:"Template method restriction bypass — loose prefix match instead of strict first-word match enables RCE via template callbacks"},
+  // 2026
+  {id:"CVE-2025-13855",cvss:8.8,product:"IBM Storage Protect Server 8.2.0",desc:"SQL injection allowing authenticated remote attacker to view, add, modify, or delete backend database contents"},
+  {id:"CVE-2026-4668",cvss:6.5,product:"WordPress Amelia Plugin ≤2.1.2",desc:"Time-based blind SQL injection in ORDER BY clause of payments endpoint — GET requests bypass nonce validation entirely"}
 ];
 
 const hlList=document.getElementById("highlights-list");
@@ -552,5 +606,19 @@ setInterval(addTTP,4000);
 <script src="js/story-data.js"></script>
 <script src="js/story-engine.js"></script>
 <script src="js/story-sync.js"></script>
+<footer class="page-footer">
+  <a class="pf-home" href="index.html">&#x2302; HOME</a>
+  <span class="pf-sep"></span>
+  <a href="wargames.html">WAR_GAMES</a>
+  <a href="forensics.html">FORENSICS</a>
+  <a href="redops.html">RED_OPS</a>
+  <a href="intel.html">INTEL</a>
+  <a href="cyberworld.html">CYBERWORLD</a>
+  <a href="profile.html">DOSSIER</a>
+  <span class="pf-sep"></span>
+  <span class="pf-status">&#9679; ONLINE</span>
+  <span class="pf-clock" id="pf-clock"></span>
+</footer>
+<script>setInterval(function(){var e=document.getElementById('pf-clock');if(e)e.textContent=new Date().toLocaleTimeString('en-US',{hour12:true,hour:'2-digit',minute:'2-digit'});},1000);</script><script src="js/cyber-bg.js" defer></script>
 </body>
 </html>

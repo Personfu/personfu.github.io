@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -13,6 +13,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#020408">
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/cyber-shared.css">
 <link rel="stylesheet" href="css/os.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -86,6 +87,7 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'JetBrains Mono',mon
 </style>
 </head>
 <body>
+<canvas id="cyber-bg-canvas"></canvas>
 <div id="crt-filter"></div>
 
 <nav class="top-nav">
@@ -148,15 +150,6 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'JetBrains Mono',mon
   <div class="sec-body" style="padding:8px;">
     <div id="log-stream"></div>
   </div>
-</div>
-
-<div id="taskbar">
-  <a href="index.html">&#8962; HOME</a>
-  <span style="color:#444;font-size:12px;">|</span>
-  <a href="intel.html">INTEL</a>
-  <span style="color:#444;font-size:12px;">|</span>
-  <a href="nodes.html">NODES</a>
-  <span style="margin-left:auto;color:#444;font-family:'VT323';font-size:16px;" id="tb-clock"></span>
 </div>
 
 <script>
@@ -319,5 +312,19 @@ setInterval(function(){
   document.getElementById('m-alerts').textContent=40+Math.floor(Math.random()*20);
 },12000);
 </script>
+<footer class="page-footer">
+  <a class="pf-home" href="index.html">&#x2302; HOME</a>
+  <span class="pf-sep"></span>
+  <a href="wargames.html">WAR_GAMES</a>
+  <a href="forensics.html">FORENSICS</a>
+  <a href="redops.html">RED_OPS</a>
+  <a href="intel.html">INTEL</a>
+  <a href="cyberworld.html">CYBERWORLD</a>
+  <a href="profile.html">DOSSIER</a>
+  <span class="pf-sep"></span>
+  <span class="pf-status">&#9679; ONLINE</span>
+  <span class="pf-clock" id="pf-clock"></span>
+</footer>
+<script>setInterval(function(){var e=document.getElementById('pf-clock');if(e)e.textContent=new Date().toLocaleTimeString('en-US',{hour12:true,hour:'2-digit',minute:'2-digit'});},1000);</script><script src="js/cyber-bg.js" defer></script>
 </body>
 </html>

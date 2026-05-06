@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -18,11 +18,7 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{--cyan:#00e8ff;--green:#00ff41;--pink:#ff00ea;--orange:#ffa500;--red:#ff4444;}
 body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace;padding-bottom:52px;}
-#crt{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 2px);z-index:9998;}
-/* TASKBAR */
-#taskbar{position:fixed;bottom:0;left:0;width:100%;height:36px;background:#0a0a0a;border-top:1px solid var(--cyan);z-index:9999;display:flex;align-items:center;padding:0 16px;gap:20px;}
-#taskbar a{color:var(--cyan);text-decoration:none;font-family:'VT323';font-size:18px;letter-spacing:1px;}
-#taskbar a:hover{text-shadow:0 0 8px var(--cyan);}
+#crt-filter{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 2px);z-index:9998;}
 /* NAV */
 .top-nav{position:sticky;top:0;z-index:500;background:rgba(5,5,5,0.97);border-bottom:1px solid rgba(0,232,255,0.2);padding:8px 16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
 .top-nav a{color:var(--cyan);text-decoration:none;font-family:'VT323';font-size:20px;padding:5px 10px;border:1px solid transparent;transition:0.2s;white-space:nowrap;display:inline-block;min-height:44px;line-height:32px;}
@@ -207,9 +203,11 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
 /* STATS BAR ENHANCEMENTS */
 #stats-bar{animation:neon-border 3s ease-in-out infinite;}
 </style>
+<link rel="stylesheet" href="css/cyber-shared.css">
 </head>
 <body data-story-page="ctf-trail">
-<div id="crt"></div>
+<canvas id="cyber-bg-canvas"></canvas>
+<div id="crt-filter"></div>
 
 <nav class="top-nav">
   <a href="index.html">⊞ HOME</a>
@@ -328,13 +326,6 @@ body{background:#050505;color:var(--cyan);font-family:'JetBrains Mono',monospace
   <div class="sec-body">
     <div class="chall-grid" id="chall-grid"></div>
   </div>
-</div>
-
-<div id="taskbar">
-  <a href="index.html">⊞ HOME</a>
-  <a href="wargames.html">WAR_GAMES</a>
-  <a href="cyberworld.html">CyberWorld</a>
-  <a href="arcade.html">ARCADE</a>
 </div>
 
 <script>
@@ -1184,5 +1175,19 @@ document.addEventListener('keydown', e => {
 <script src="js/site-stats.js"></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.SiteStats)SiteStats.renderStrip('ss-strip');});</script>
 <script src="js/story-sync.js"></script>
+<footer class="page-footer">
+  <a class="pf-home" href="index.html">&#x2302; HOME</a>
+  <span class="pf-sep"></span>
+  <a href="wargames.html">WAR_GAMES</a>
+  <a href="forensics.html">FORENSICS</a>
+  <a href="redops.html">RED_OPS</a>
+  <a href="intel.html">INTEL</a>
+  <a href="cyberworld.html">CYBERWORLD</a>
+  <a href="profile.html">DOSSIER</a>
+  <span class="pf-sep"></span>
+  <span class="pf-status">&#9679; ONLINE</span>
+  <span class="pf-clock" id="pf-clock"></span>
+</footer>
+<script>setInterval(function(){var e=document.getElementById('pf-clock');if(e)e.textContent=new Date().toLocaleTimeString('en-US',{hour12:true,hour:'2-digit',minute:'2-digit'});},1000);</script><script src="js/cyber-bg.js" defer></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -86,8 +86,11 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
   #touch-controls{display:flex!important;}
 }
 </style>
+<link rel="stylesheet" href="css/cyber-shared.css">
 </head>
 <body>
+<canvas id="cyber-bg-canvas"></canvas>
+<nav class="top-nav"><a href="index.html">&#8962; HOME</a><a href="wargames.html">WAR_GAMES</a><a href="forensics.html">FORENSICS</a><a href="redops.html">RED_OPS</a><a href="intel.html">INTEL</a><a href="cyberworld.html">CYBERWORLD</a><a href="profile.html">DOSSIER</a></nav>
 <div id="crt"></div>
 
 <nav class="nav">
@@ -258,15 +261,6 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
   </div>
   <div style="padding:8px 14px;border-top:1px solid rgba(0,232,255,0.15);color:#555;font-size:11px;font-family:'VT323';letter-spacing:1px;">// 100% client-side · scores persisted in localStorage · no telemetry · no backend</div>
 </section>
-
-<div id="taskbar">
-  <a href="index.html">⌂  HOME</a>
-  <span style="color:#333;">|</span>
-  <a href="wargames.html">WAR_GAMES</a>
-  <span style="color:#333;">|</span>
-  <a href="cyberworld.html">RPG</a>
-  <span style="margin-left:auto;color:#444;font-family:'VT323';font-size:16px;" id="tb-clock"></span>
-</div>
 
 <script>
 // Clock
@@ -1274,6 +1268,8 @@ renderScores();
 <script src="js/site-stats.js"></script>
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.SiteStats)SiteStats.renderStrip('ss-strip');});</script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
+<footer class="page-footer"><a class="pf-home" href="index.html">&#x2302; HOME</a><span class="pf-sep"></span><a href="wargames.html">WAR_GAMES</a><a href="forensics.html">FORENSICS</a><a href="redops.html">RED_OPS</a><a href="intel.html">INTEL</a><a href="cyberworld.html">CYBERWORLD</a><a href="profile.html">DOSSIER</a><span class="pf-sep"></span><span class="pf-status">&#9679; ONLINE</span><span class="pf-clock" id="pf-clock"></span></footer><script>setInterval(function(){var e=document.getElementById("pf-clock");if(e)e.textContent=new Date().toLocaleTimeString("en-US",{hour12:true,hour:"2-digit",minute:"2-digit"});},1000);</script>
+<script src="js/cyber-bg.js" defer></script>
 </body>
 </html>
 

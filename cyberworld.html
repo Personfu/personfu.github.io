@@ -185,8 +185,10 @@ body{background:#020408;color:var(--cyan);font-family:'JetBrains Mono',monospace
 @keyframes fadeSlide{0%{opacity:1;transform:translateY(0);}70%{opacity:1;transform:translateY(0);}100%{opacity:0;transform:translateY(-20px);}}
 
 </style>
+<link rel="stylesheet" href="css/cyber-shared.css">
 </head>
-<body data-story-page="cyberworld">
+<body data-story-page="cyberworld"><canvas id="cyber-bg-canvas"></canvas>
+<nav class="top-nav"><a href="index.html">&#8962; HOME</a><a href="wargames.html">WAR_GAMES</a><a href="forensics.html">FORENSICS</a><a href="redops.html">RED_OPS</a><a href="intel.html">INTEL</a><a href="cyberworld.html">CYBERWORLD</a><a href="profile.html">DOSSIER</a></nav>
 
 <div id="crt"></div>
 
@@ -1493,5 +1495,7 @@ window.addEventListener('storage', (e) => {
 <script>document.addEventListener('DOMContentLoaded',function(){if(window.SiteStats)SiteStats.renderStrip('cw-gm-stats');});</script>
 <script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}</script>
 
+<footer class="page-footer"><a class="pf-home" href="index.html">&#x2302; HOME</a><span class="pf-sep"></span><a href="wargames.html">WAR_GAMES</a><a href="forensics.html">FORENSICS</a><a href="redops.html">RED_OPS</a><a href="intel.html">INTEL</a><a href="cyberworld.html">CYBERWORLD</a><a href="profile.html">DOSSIER</a><span class="pf-sep"></span><span class="pf-status">&#9679; ONLINE</span><span class="pf-clock" id="pf-clock"></span></footer><script>setInterval(function(){var e=document.getElementById("pf-clock");if(e)e.textContent=new Date().toLocaleTimeString("en-US",{hour12:true,hour:"2-digit",minute:"2-digit"});},1000);</script>
+<script src="js/cyber-bg.js" defer></script>
 </body>
 </html>

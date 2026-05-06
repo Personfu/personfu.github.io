@@ -14,6 +14,7 @@
     <meta name="theme-color" content="#020408">
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans&family=JetBrains+Mono:wght@300;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/os.css">
+<link rel="stylesheet" href="css/cyber-shared.css">
 <style>
     body { background: #000; color: #fff; font-family: 'JetBrains Mono', monospace; overflow-x: hidden; }
     #nebula-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; }
@@ -84,9 +85,9 @@
 </style>
 </head>
 <body>
-
-<canvas id="nebula-canvas"></canvas>
+<canvas id="cyber-bg-canvas"></canvas>
 <div id="crt-filter"></div>
+<nav class="top-nav"><a href="index.html">&#8962; HOME</a><a href="cyber.html">CyberOS</a><a href="wargames.html">WAR_GAMES</a><a href="intel.html">INTEL</a><a href="cyberworld.html">CYBERWORLD</a><a href="profile.html">DOSSIER</a></nav>
 
 <div class="os-iso-shell">
     <div class="os-iso-header">
@@ -142,35 +143,6 @@
 </div>
 
 <script>
-    // Nebula Background
-    const canvas = document.getElementById('nebula-canvas');
-    const ctx = canvas.getContext('2d');
-    let stars = [];
-
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    window.onresize = resize; resize();
-
-    for(let i=0; i<100; i++) {
-        stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*2, s: Math.random()*0.05 });
-    }
-
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#00e8ff';
-        stars.forEach(s => {
-            ctx.beginPath();
-            ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-            ctx.fill();
-            s.y += s.s;
-            if(s.y > canvas.height) s.y = 0;
-        });
-        requestAnimationFrame(draw);
-    }
-    draw();
-
     // Clock
     setInterval(() => {
         document.getElementById('sys-clock').innerText = new Date().toLocaleTimeString('en-US', { hour12: false });
@@ -221,6 +193,20 @@
         document.getElementById('mem-val').innerText = Math.floor(mem) + '%';
     }, 2000);
 </script>
+
+<footer class="page-footer">
+  <a class="pf-home" href="index.html">&#x2302; HOME</a>
+  <span class="pf-sep"></span>
+  <a href="wargames.html">WAR_GAMES</a>
+  <a href="forensics.html">FORENSICS</a>
+  <a href="intel.html">INTEL</a>
+  <a href="cyberworld.html">CYBERWORLD</a>
+  <a href="profile.html">DOSSIER</a>
+  <span class="pf-sep"></span>
+  <span class="pf-status">&#9679; ONLINE</span>
+  <span class="pf-clock" id="pf-clock"></span>
+</footer>
+<script>setInterval(function(){var e=document.getElementById('pf-clock');if(e)e.textContent=new Date().toLocaleTimeString('en-US',{hour12:true,hour:'2-digit',minute:'2-digit'});},1000);</script><script src="js/cyber-bg.js" defer></script>
 
 </body>
 </html>
