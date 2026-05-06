@@ -38,7 +38,6 @@
 </head>
 <body>
 <canvas id="cyber-bg-canvas"></canvas>
-<nav class="top-nav"><a href="index.html">&#8962; HOME</a><a href="wargames.html">WAR_GAMES</a><a href="forensics.html">FORENSICS</a><a href="redops.html">RED_OPS</a><a href="intel.html">INTEL</a><a href="cyberworld.html">CYBERWORLD</a><a href="profile.html">DOSSIER</a></nav>
 <div id="crt-filter"></div>
 <div id="desktop"></div>
 
@@ -153,6 +152,15 @@
             success.appendChild(document.createTextNode('.'));
             term.appendChild(success);
             term.scrollTop = term.scrollHeight;
+            // Wipe to cyberworld after 3 seconds
+            setTimeout(function(){
+                var wipe = document.createElement('div');
+                wipe.style.cssText = 'position:fixed;inset:0;background:#000802;z-index:9999;opacity:0;transition:opacity 0.8s ease;pointer-events:none;display:flex;align-items:center;justify-content:center;font-family:"VT323",monospace;font-size:28px;color:#00ff41;letter-spacing:3px;';
+                wipe.textContent = 'LOADING CYBERWORLD...';
+                document.body.appendChild(wipe);
+                requestAnimationFrame(function(){ wipe.style.opacity = '1'; });
+                setTimeout(function(){ window.location.href = 'cyberworld.html'; }, 900);
+            }, 2500);
         }
     }
 
@@ -169,20 +177,6 @@
     }, 1000);
 </script>
 
-<footer class="page-footer">
-  <a class="pf-home" href="index.html">&#x2302; HOME</a>
-  <span class="pf-sep"></span>
-  <a href="wargames.html">WAR_GAMES</a>
-  <a href="forensics.html">FORENSICS</a>
-  <a href="redops.html">RED_OPS</a>
-  <a href="intel.html">INTEL</a>
-  <a href="cyberworld.html">CYBERWORLD</a>
-  <a href="profile.html">DOSSIER</a>
-  <span class="pf-sep"></span>
-  <span class="pf-status">&#9679; ONLINE</span>
-  <span class="pf-clock" id="pf-clock"></span>
-</footer>
-<script>setInterval(function(){var e=document.getElementById('pf-clock');if(e)e.textContent=new Date().toLocaleTimeString('en-US',{hour12:true,hour:'2-digit',minute:'2-digit'});},1000);</script>
 <script src="js/cyber-bg.js" defer></script>
 </body>
 </html>

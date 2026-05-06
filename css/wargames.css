@@ -18,7 +18,7 @@
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{background:var(--wg-bg);color:var(--wg-text);font-family:'JetBrains Mono',monospace;overflow:hidden auto;padding-bottom:56px;}
 #wg-bg{position:fixed;inset:0;z-index:0;pointer-events:none;}
-body > *:not(#crt-filter):not(#wg-bg){position:relative;z-index:1;}
+body > *:not(#crt-filter):not(#wg-bg):not(#cyber-bg-canvas){position:relative;z-index:1;}
 a{color:var(--wg-cyan);text-decoration:none;}
 code{background:#000;padding:1px 6px;border:1px solid var(--wg-line-soft);color:var(--wg-green);font-size:12px;}
 
