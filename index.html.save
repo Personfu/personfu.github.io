@@ -1,0 +1,981 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://services.nvd.nist.gov https://www.cisa.gov https://personfugithubio-production.up.railway.app wss://personfugithubio-production.up.railway.app https://rdap.org https://crt.sh;">
+<title>FURIOS-INT // NEXUS v3.0</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta property="og:title" content="FURIOS-INT // SECURE_NEXUS">
+<meta property="og:description" content="Cybersecurity training nexus — hacking missions, MMORPG, OSINT, red ops.">
+<meta property="og:image" content="assets/og-image.svg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#000802">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:wght@300;400;700&display=swap" rel="stylesheet">
+<script src="js/hypermath.js" defer></script>
+<style>
+/* ===================================================
+   FURIOS-INT NEXUS v3.0 — PHOSPHOR TERMINAL EDITION
+   =================================================== */
+:root {
+  --g:    #00ff41;
+  --g2:   #00cc33;
+  --g3:   #174f22;
+  --amb:  #ffb000;
+  --red:  #ff3a4f;
+  --pink: #ff00ea;
+  --bg:   #000802;
+  --pan:  rgba(0,10,3,0.92);
+  --bdr:  rgba(0,255,65,0.18);
+  --bdr2: rgba(0,255,65,0.07);
+  --txt:  #4db85e;
+  --mute: #0e2e14;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;background:var(--bg);color:var(--txt);
+  font-family:'JetBrains Mono','Courier New',monospace;font-size:13px;
+  line-height:1.5;overflow:hidden;}
+
+/* ── CANVAS / CRT ─────────────────────────────── */
+#hypermath-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
+#crt{position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,0.09) 0px,rgba(0,0,0,0.09) 1px,transparent 1px,transparent 2px);
+  box-shadow:inset 0 0 140px rgba(0,0,0,0.65);}
+#scan{position:fixed;top:-4px;left:0;width:100%;height:4px;
+  background:linear-gradient(transparent,rgba(0,255,65,0.1),transparent);
+  z-index:9998;pointer-events:none;animation:scanline 10s linear infinite;}
+@keyframes scanline{from{top:-4px}to{top:100vh}}
+
+/* ── BOOT ─────────────────────────────────────── */
+#boot{position:fixed;inset:0;z-index:10000;background:var(--bg);
+  display:flex;flex-direction:column;padding:28px 36px 32px;
+  font-family:'JetBrains Mono';font-size:12px;overflow:hidden;}
+#boot-logo{color:var(--g);text-shadow:0 0 14px rgba(0,255,65,0.6);
+  font-size:11px;line-height:1.15;margin-bottom:18px;white-space:pre;}
+#boot-log{flex:1;overflow:hidden;}
+.bl{margin-bottom:3px;color:var(--txt);}
+.bl .ok  {color:var(--g);}
+.bl .warn{color:var(--amb);}
+.bl .err {color:var(--red);}
+.bl .dim {color:var(--g3);}
+#boot-prompt{margin-top:10px;color:var(--g);display:flex;align-items:center;gap:6px;}
+#boot-cur{display:inline-block;width:8px;height:14px;background:var(--g);
+  animation:blink 0.9s step-end infinite;box-shadow:0 0 8px var(--g);}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── WORKSPACE ────────────────────────────────── */
+#ws{position:fixed;inset:0;display:none;flex-direction:column;z-index:5;}
+
+/* ── HEADER BAR ───────────────────────────────── */
+#hdr{height:26px;flex-shrink:0;background:rgba(0,6,1,0.98);border-bottom:1px solid var(--bdr);
+  display:flex;align-items:center;padding:0 10px;gap:0;
+  font-family:'JetBrains Mono';font-size:11px;
+  box-shadow:0 1px 0 var(--bdr2),0 2px 20px rgba(0,0,0,0.8);}
+#hdr-logo{color:var(--g);letter-spacing:2px;font-size:12px;
+  text-shadow:0 0 10px rgba(0,255,65,0.7);padding-right:14px;margin-right:10px;
+  border-right:1px solid var(--bdr2);white-space:nowrap;}
+.hi{color:var(--g3);padding:0 8px;}.hi b{color:var(--g);}
+.hs{width:1px;height:12px;background:var(--bdr2);flex-shrink:0;}
+.hst{display:flex;align-items:center;gap:5px;color:var(--g);}
+.hdot{width:5px;height:5px;border-radius:50%;background:var(--g);
+  box-shadow:0 0 6px var(--g);animation:blink 2s infinite;}
+.hdot.red{background:var(--red);box-shadow:0 0 6px var(--red);}
+.hdot.amber{background:var(--amb);box-shadow:0 0 6px var(--amb);}
+#hdr-time{margin-left:auto;color:var(--g);font-size:12px;letter-spacing:1px;
+  text-shadow:0 0 8px rgba(0,255,65,0.4);}
+
+/* ── NAV BAR ──────────────────────────────────── */
+#nav{height:28px;flex-shrink:0;background:rgba(0,4,1,0.97);border-bottom:1px solid var(--bdr2);
+  display:flex;align-items:stretch;font-family:'VT323';font-size:15px;
+  overflow-x:auto;overflow-y:hidden;scrollbar-width:none;}
+#nav::-webkit-scrollbar{display:none;}
+.na{color:var(--g3);text-decoration:none;padding:0 9px;display:flex;align-items:center;
+  border-right:1px solid var(--bdr2);transition:color .1s,background .1s;
+  white-space:nowrap;letter-spacing:.5px;cursor:pointer;}
+.na:hover{color:var(--g);background:rgba(0,255,65,0.05);text-shadow:0 0 8px rgba(0,255,65,0.5);}
+.na.hot{color:#cc8800;}.na.hot:hover{color:var(--amb);background:rgba(255,176,0,0.05);}
+.na.danger{color:#8a1a20;}.na.danger:hover{color:var(--red);background:rgba(255,58,79,0.05);}
+.na.live{color:var(--g2);}.na.live:hover{color:var(--g);}
+.nsep{width:1px;background:var(--bdr);margin:4px 0;}
+
+/* ── 3-COLUMN BODY ────────────────────────────── */
+#body{flex:1;display:flex;overflow:hidden;}
+#col-l{width:268px;flex-shrink:0;border-right:1px solid var(--bdr2);
+  overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;
+  scrollbar-color:var(--bdr2) transparent;display:flex;flex-direction:column;}
+#col-c{flex:1;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;
+  scrollbar-color:var(--bdr2) transparent;display:flex;flex-direction:column;}
+#col-r{width:252px;flex-shrink:0;border-left:1px solid var(--bdr2);
+  overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;
+  scrollbar-color:var(--bdr2) transparent;display:flex;flex-direction:column;}
+
+/* ── PANEL ────────────────────────────────────── */
+.panel{border-bottom:1px solid var(--bdr2);background:var(--pan);}
+.ph{padding:6px 10px;background:rgba(0,255,65,0.04);border-bottom:1px solid var(--bdr2);
+  font-family:'VT323';font-size:13px;color:var(--g);letter-spacing:2px;
+  display:flex;align-items:center;gap:8px;text-shadow:0 0 6px rgba(0,255,65,0.35);}
+.ph .phr{margin-left:auto;color:var(--g3);font-size:11px;letter-spacing:1px;text-shadow:none;}
+.pb{padding:8px 10px;}
+
+/* ── OPERATIVE CARD ───────────────────────────── */
+#op-card{padding:12px 10px 10px;border-bottom:1px solid var(--bdr);
+  background:rgba(0,20,6,0.6);}
+.op-cs{font-family:'VT323';font-size:22px;color:var(--g);
+  text-shadow:0 0 12px rgba(0,255,65,0.5);letter-spacing:2px;line-height:1;margin-bottom:3px;}
+.op-t{font-size:10px;color:var(--g3);letter-spacing:2px;margin-bottom:8px;}
+.op-sg{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+.op-s{background:rgba(0,255,65,0.04);border:1px solid var(--bdr2);padding:4px 7px;}
+.op-sl{font-size:9px;color:var(--g3);letter-spacing:1.5px;}
+.op-sv{font-size:16px;font-family:'VT323';color:var(--g);line-height:1.1;}
+.op-sv.amber{color:var(--amb);}.op-sv.red{color:var(--red);}
+
+/* ── PROGRESS BAR ─────────────────────────────── */
+.pr{margin-bottom:7px;}
+.prl{display:flex;justify-content:space-between;font-size:10px;color:var(--g3);
+  letter-spacing:1px;margin-bottom:3px;}.prl b{color:var(--g);}
+.prb{height:5px;background:rgba(0,255,65,0.07);border:1px solid var(--bdr2);}
+.prf{height:100%;background:var(--g2);transition:width .6s;
+  box-shadow:0 0 4px rgba(0,255,65,0.4);}
+.prf.amber{background:var(--amb);box-shadow:0 0 4px rgba(255,176,0,0.4);}
+.prf.red{background:var(--red);box-shadow:0 0 4px rgba(255,58,79,0.4);}
+
+/* ── LINK LIST ────────────────────────────────── */
+.ll{list-style:none;}
+.ll li{border-bottom:1px solid var(--bdr2);}
+.ll li a{display:flex;align-items:center;gap:7px;padding:5px 10px;
+  color:var(--txt);text-decoration:none;font-size:11px;
+  cursor:pointer;transition:.1s;}
+.ll li a:hover{background:rgba(0,255,65,0.05);color:var(--g);
+  text-shadow:0 0 6px rgba(0,255,65,0.3);}
+.ll li a .tag{margin-left:auto;font-family:'VT323';font-size:11px;
+  padding:0 5px;background:rgba(0,255,65,0.07);border:1px solid var(--bdr2);
+  color:var(--g3);letter-spacing:1px;white-space:nowrap;}
+.ll li a .tag.hot{background:rgba(255,176,0,0.1);border-color:rgba(255,176,0,0.3);color:var(--amb);}
+.ll li a .tag.live{background:rgba(0,255,65,0.1);border-color:rgba(0,255,65,0.3);color:var(--g);}
+.ll li a .tag.red{background:rgba(255,58,79,0.1);border-color:rgba(255,58,79,0.3);color:var(--red);}
+.llp{color:var(--g3);font-size:11px;flex-shrink:0;}
+
+/* ── MISSION CARDS ────────────────────────────── */
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:8px 10px;}
+.mc{border:1px solid var(--bdr2);border-left:2px solid var(--g3);
+  background:rgba(0,10,3,0.7);padding:8px 10px;cursor:pointer;
+  transition:.12s;text-decoration:none;display:block;position:relative;}
+.mc:hover{border-color:var(--bdr);border-left-color:var(--g);
+  background:rgba(0,255,65,0.04);}
+.mc.hot{border-left-color:var(--amb);}
+.mc.hot:hover{border-left-color:var(--amb);}
+.mc.red{border-left-color:#6a0f14;}
+.mc.red:hover{border-left-color:var(--red);}
+.mc.live{border-left-color:var(--g2);}
+.mcl{font-family:'VT323';font-size:13px;color:var(--g);letter-spacing:1.5px;
+  margin-bottom:3px;display:block;}
+.mc.hot .mcl{color:var(--amb);}
+.mc.red .mcl{color:#a02030;}
+.mc.red:hover .mcl{color:var(--red);}
+.mcd{font-size:10px;color:var(--g3);line-height:1.45;}
+.mcb{position:absolute;top:5px;right:6px;font-family:'VT323';font-size:10px;
+  color:var(--g3);letter-spacing:1px;}
+
+/* ── ONBOARDING ───────────────────────────────── */
+#ob{padding:12px 12px 10px;border:1px solid rgba(0,255,65,0.20);border-left:3px solid var(--g);
+  background:rgba(0,20,8,0.7);margin:8px;position:relative;}
+#ob::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--g),transparent);opacity:0.35;}
+#ob-t{font-family:'VT323';font-size:15px;color:var(--g);letter-spacing:2px;
+  margin-bottom:7px;text-shadow:0 0 8px rgba(0,255,65,0.4);}
+#ob-s{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:7px;}
+.obs{flex:1;min-width:140px;border:1px solid var(--bdr2);
+  background:rgba(0,10,3,0.6);padding:6px 8px;cursor:pointer;
+  transition:.1s;display:flex;align-items:center;gap:7px;}
+.obs:hover{border-color:var(--bdr);background:rgba(0,255,65,0.04);}
+.ob-n{font-family:'VT323';font-size:20px;color:var(--g3);min-width:20px;line-height:1;}
+.ob-nm{font-family:'VT323';font-size:14px;color:var(--g);display:block;letter-spacing:1px;}
+.ob-dc{font-size:9px;color:var(--g3);line-height:1.4;}
+.ob-ar{font-family:'VT323';font-size:16px;color:var(--g3);margin-left:auto;}
+#ob-cl{position:absolute;top:8px;right:10px;color:var(--g3);cursor:pointer;
+  font-family:'VT323';font-size:16px;transition:.1s;line-height:1;}
+#ob-cl:hover{color:var(--g);}
+#ob-ft{font-size:9px;color:var(--mute);text-align:center;}
+
+/* ── ACTIVITY LOG ─────────────────────────────── */
+.ae{display:flex;gap:8px;align-items:flex-start;padding:5px 10px;
+  border-bottom:1px solid var(--bdr2);font-size:11px;}
+.at{color:var(--g3);white-space:nowrap;flex-shrink:0;font-size:10px;}
+.am{color:var(--txt);}
+.am b{color:var(--g);}.am .a{color:var(--amb);}.am .r{color:var(--red);}
+
+/* ── CVE FEED ─────────────────────────────────── */
+.ce{padding:6px 10px;border-bottom:1px solid var(--bdr2);font-size:11px;}
+.ci{font-family:'VT323';font-size:13px;color:var(--amb);cursor:pointer;}
+.ci:hover{text-shadow:0 0 6px rgba(255,176,0,0.5);}
+.cd{color:var(--g3);margin-top:1px;font-size:10px;line-height:1.4;}
+.sc{color:var(--red);}.sh{color:var(--amb);}.sm{color:#ffdd00;}.sl{color:var(--g);}
+
+/* ── SERVER STATUS ────────────────────────────── */
+.sr{display:flex;align-items:center;gap:7px;padding:5px 10px;
+  border-bottom:1px solid var(--bdr2);font-size:11px;}
+.sd{width:6px;height:6px;border-radius:50%;flex-shrink:0;background:var(--g3);}
+.sd.on{background:var(--g);box-shadow:0 0 6px var(--g);}
+.sd.warn{background:var(--amb);box-shadow:0 0 6px var(--amb);animation:blink 1.5s infinite;}
+.sd.err{background:var(--red);box-shadow:0 0 6px var(--red);animation:blink .8s infinite;}
+.sn{flex:1;color:var(--txt);}
+.ss{font-family:'VT323';font-size:12px;color:var(--g3);letter-spacing:1px;}
+.ss.on{color:var(--g);}.ss.warn{color:var(--amb);}.ss.err{color:var(--red);}
+
+/* ── LEADERBOARD ──────────────────────────────── */
+.lr{display:flex;align-items:center;gap:6px;padding:4px 10px;
+  border-bottom:1px solid var(--bdr2);font-size:11px;}
+.lrk{font-family:'VT323';font-size:13px;color:var(--g3);min-width:18px;}
+.lrk.gld{color:#ffd700;text-shadow:0 0 6px rgba(255,215,0,.5);}
+.lrk.slv{color:#c0c0c0;}.lrk.brz{color:#cd7f32;}
+.lrn{flex:1;color:var(--txt);}
+.lrs{font-family:'VT323';font-size:13px;color:var(--g);}
+.lrb{font-family:'VT323';font-size:10px;color:var(--g3);letter-spacing:1px;}
+
+/* ── TICKER ───────────────────────────────────── */
+#ticker{height:22px;flex-shrink:0;background:rgba(0,4,1,0.98);
+  border-top:1px solid var(--bdr2);overflow:hidden;position:relative;}
+#tki{position:absolute;white-space:nowrap;font-family:'VT323';font-size:15px;
+  color:var(--g2);top:3px;animation:ticker 80s linear infinite;
+  text-shadow:0 0 6px rgba(0,255,65,0.25);}
+@keyframes ticker{from{left:100vw}to{left:-100%}}
+
+/* ── SCROLLBARS ───────────────────────────────── */
+::-webkit-scrollbar{width:3px;height:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--bdr2);}
+::-webkit-scrollbar-thumb:hover{background:var(--bdr);}
+
+/* ── MOBILE ───────────────────────────────────── */
+@media(max-width:900px){#col-l{width:220px;}#col-r{display:none;}}
+@media(max-width:650px){#col-l{display:none;}.mgrid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- Background + CRT -->
+<canvas id="hypermath-canvas"></canvas>
+<div id="scan"></div>
+<div id="crt"></div>
+
+<!-- ══════════════════════════════════
+     BOOT
+     ══════════════════════════════════ -->
+<div id="boot">
+  <pre id="boot-logo">
+  _____ _   _ ____  ___ ___  ____       ___ _   _ _____
+ |  ___| | | |  _ \|_ _/ _ \/ ___|     |_ _| \ | |_   _|
+ | |_  | | | | |_) || | | | \___ \ _____| ||  \| | | |
+ |  _| | |_| |  _ < | | |_| |___) |_____| || |\  | | |
+ |_|    \___/|_| \_\___\___/|____/     |___|_| \_| |_|
+
+ NEXUS v3.0  //  FLLC SECURE SYSTEMS  //  MAY 2026  //  CLEARANCE: OPEN</pre>
+  <div id="boot-log"></div>
+  <div id="boot-prompt">
+    <span style="color:var(--g3)">furios@nexus:~$</span>
+    <span>AWAITING_SYSTEM_READY</span>
+    <div id="boot-cur"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     WORKSPACE
+     ══════════════════════════════════ -->
+<div id="ws">
+
+  <!-- HEADER -->
+  <div id="hdr">
+    <div id="hdr-logo">FURIOS&#x2011;INT</div>
+    <div class="hi">SYS <b>v3.0</b></div><div class="hs"></div>
+    <div class="hi">OP <b id="h-op">GUEST</b></div><div class="hs"></div>
+    <div class="hi">XP <b id="h-xp">0</b></div><div class="hs"></div>
+    <div class="hi">FLAGS <b id="h-flags">0</b></div><div class="hs"></div>
+    <div class="hst"><div class="hdot"></div><span>NEXUS ONLINE</span></div><div class="hs"></div>
+    <div class="hst"><div class="hdot amber" id="h-srv-dot"></div><span id="h-srv-txt">SRV CONNECTING</span></div>
+    <div id="hdr-time"></div>
+  </div>
+
+  <!-- NAV -->
+  <div id="nav">
+    <a class="na" href="profile.html">DOSSIER</a>
+    <a class="na hot" href="wargames.html">WAR_GAMES</a>
+    <a class="na hot" href="ctf-trail.html">CTF_TRAIL</a>
+    <a class="na danger" href="redops.html">RED_OPS</a>
+    <a class="na" href="forensics.html">FORENSICS</a>
+    <a class="na" href="signal-lab.html">SIGNAL_LAB</a>
+    <div class="nsep"></div>
+    <a class="na" href="intel.html">INTEL_HUB</a>
+    <a class="na" href="adversaries.html">ADVERSARIES</a>
+    <a class="na" href="research.html">RESEARCH</a>
+    <a class="na" href="nodes.html">NODES</a>
+    <div class="nsep"></div>
+    <a class="na live" href="cyberworld.html">CYBERWORLD</a>
+    <a class="na" href="cyberworld-game.html">CONVOY</a>
+    <a class="na" href="arcade.html">ARCADE</a>
+    <a class="na" href="games.html">GAMES</a>
+    <a class="na" href="cyberworld-codex.html">CODEX</a>
+    <div class="nsep"></div>
+    <a class="na" href="ai.html">AI_OVERSEER</a>
+    <a class="na" href="stars.html">ARSENAL</a>
+    <a class="na" href="discuss.html">DISCUSS</a>
+    <a class="na" href="cyberos-iso.html">ISO</a>
+    <a class="na" href="final_project_tutorial.html">TUTORIAL</a>
+    <a class="na" href="https://fllc.net" target="_blank">FLLC.NET</a>
+    <a class="na" href="https://github.com/Personfu" target="_blank">GITHUB</a>
+  </div>
+
+  <!-- BODY -->
+  <div id="body">
+
+    <!-- ══════ LEFT ══════ -->
+    <div id="col-l">
+
+      <div id="op-card">
+        <div class="op-cs" id="op-cs">GUEST</div>
+        <div class="op-t" id="op-t">CLEARANCE: TIER-0 // RANK: RECRUIT</div>
+        <div class="op-sg">
+          <div class="op-s"><div class="op-sl">TOTAL XP</div><div class="op-sv" id="op-xp">0</div></div>
+          <div class="op-s"><div class="op-sl">FLAGS</div><div class="op-sv amber" id="op-fl">0</div></div>
+          <div class="op-s"><div class="op-sl">RANK</div><div class="op-sv" id="op-rk">RECRUIT</div></div>
+          <div class="op-s"><div class="op-sl">MISSIONS</div><div class="op-sv" id="op-ms">0</div></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="ph">CHALLENGE PROGRESS <span class="phr">LOCAL</span></div>
+        <div class="pb">
+          <div class="pr">
+            <div class="prl"><span>WAR_GAMES</span><b id="pr-wg">0/12</b></div>
+            <div class="prb"><div class="prf" id="pf-wg" style="width:0%"></div></div>
+          </div>
+          <div class="pr">
+            <div class="prl"><span>CTF_TRAIL</span><b id="pr-ctf">0/20</b></div>
+            <div class="prb"><div class="prf amber" id="pf-ctf" style="width:0%"></div></div>
+          </div>
+          <div class="pr">
+            <div class="prl"><span>FORENSICS</span><b id="pr-for">0/12</b></div>
+            <div class="prb"><div class="prf" id="pf-for" style="width:0%"></div></div>
+          </div>
+          <div class="pr">
+            <div class="prl"><span>RED_OPS</span><b id="pr-red">0/12</b></div>
+            <div class="prb"><div class="prf red" id="pf-red" style="width:0%"></div></div>
+          </div>
+          <div class="pr">
+            <div class="prl"><span>SIGNAL_LAB</span><b id="pr-sig">0 XP</b></div>
+            <div class="prb"><div class="prf amber" id="pf-sig" style="width:0%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="ph">QUICK_LAUNCH</div>
+        <ul class="ll">
+          <li><a href="wargames.html"><span class="llp">&gt;</span> WAR_GAMES<span class="tag hot">12</span></a></li>
+          <li><a href="ctf-trail.html"><span class="llp">&gt;</span> CTF_TRAIL<span class="tag hot">20 FLAGS</span></a></li>
+          <li><a href="redops.html"><span class="llp">&gt;</span> RED_OPS<span class="tag red">OWASP</span></a></li>
+          <li><a href="forensics.html"><span class="llp">&gt;</span> FORENSICS_LAB<span class="tag">DFIR</span></a></li>
+          <li><a href="signal-lab.html"><span class="llp">&gt;</span> SIGNAL_LAB<span class="tag">CRYPTO</span></a></li>
+          <li><a href="cyberworld.html"><span class="llp">&gt;</span> CYBERWORLD<span class="tag live">LIVE</span></a></li>
+          <li><a href="intel.html"><span class="llp">&gt;</span> INTEL_HUB<span class="tag live">LIVE</span></a></li>
+          <li><a href="adversaries.html"><span class="llp">&gt;</span> ADVERSARY_DB</a></li>
+          <li><a href="ai.html"><span class="llp">&gt;</span> AI_OVERSEER<span class="tag">x8</span></a></li>
+          <li><a href="profile.html"><span class="llp">&gt;</span> OPERATIVE_DOSSIER</a></li>
+        </ul>
+      </div>
+
+      <div class="panel">
+        <div class="ph">FACTION_STATUS</div>
+        <div class="pb">
+          <div class="pr">
+            <div class="prl"><span>FLLC</span><b id="fr-f">0</b></div>
+            <div class="prb"><div class="prf" id="ff-f" style="width:0%"></div></div>
+          </div>
+          <div class="pr">
+            <div class="prl"><span>SENTINEL</span><b id="fr-s">0</b></div>
+            <div class="prb"><div class="prf amber" id="ff-s" style="width:0%"></div></div>
+          </div>
+          <div class="pr">
+            <div class="prl"><span>CORSAIR</span><b id="fr-c">0</b></div>
+            <div class="prb"><div class="prf red" id="ff-c" style="width:0%"></div></div>
+          </div>
+          <div class="pr">
+            <div class="prl"><span>GHOSTLINE</span><b id="fr-g">0</b></div>
+            <div class="prb"><div class="prf" id="ff-g" style="width:0%"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /col-l -->
+
+    <!-- ══════ CENTER ══════ -->
+    <div id="col-c">
+
+      <!-- Onboarding -->
+      <div id="ob">
+        <span id="ob-cl" title="Dismiss" onclick="closeOB()">&#x2715;</span>
+        <div id="ob-t">&#x25C6; NEW_OPERATIVE DETECTED &#x2014; MISSION_BRIEFING</div>
+        <div id="ob-s">
+          <div class="obs" onclick="location.href='profile.html'">
+            <span class="ob-n">01</span>
+            <div><span class="ob-nm">DOSSIER</span><span class="ob-dc">Set callsign &amp; track all XP</span></div>
+            <span class="ob-ar">&#9654;</span>
+          </div>
+          <div class="obs" onclick="location.href='wargames.html'">
+            <span class="ob-n">02</span>
+            <div><span class="ob-nm">WAR_GAMES</span><span class="ob-dc">12 SHA-256 verified missions</span></div>
+            <span class="ob-ar">&#9654;</span>
+          </div>
+          <div class="obs" onclick="location.href='ctf-trail.html'">
+            <span class="ob-n">03</span>
+            <div><span class="ob-nm">CTF_TRAIL</span><span class="ob-dc">20-node flag chain — OSINT &amp; crypto</span></div>
+            <span class="ob-ar">&#9654;</span>
+          </div>
+          <div class="obs" onclick="location.href='cyberworld.html'">
+            <span class="ob-n">04</span>
+            <div><span class="ob-nm">CYBERWORLD</span><span class="ob-dc">Live MMORPG — factions &amp; missions</span></div>
+            <span class="ob-ar">&#9654;</span>
+          </div>
+        </div>
+        <div id="ob-ft">Click any module &#x25C6; &#x2715; to dismiss &#x25C6; Progress saved to localStorage</div>
+      </div>
+
+      <!-- SECTOR 01: Challenges -->
+      <div class="panel">
+        <div class="ph">&#x25C6; CHALLENGES &amp; TRAINING <span class="phr">SECTOR_01</span></div>
+        <div class="mgrid">
+          <a class="mc hot" href="wargames.html">
+            <span class="mcl">WAR_GAMES</span>
+            <span class="mcd">12 SHA-256 missions. Source review, LFI, XSS, SQLi, auth bypass, encoding chains. XP per flag.</span>
+            <span class="mcb">12 MISSIONS</span>
+          </a>
+          <a class="mc red" href="redops.html">
+            <span class="mcl">RED_OPS</span>
+            <span class="mcd">Offensive lab. OWASP Top 10: injection, SSRF, IDOR, broken auth, RCE. Scored scenarios.</span>
+            <span class="mcb">12 OPS</span>
+          </a>
+          <a class="mc" href="ctf-trail.html">
+            <span class="mcl">CTF_TRAIL</span>
+            <span class="mcd">20-node story-driven CTF chain. OSINT, steganography, cryptography, network forensics.</span>
+            <span class="mcb">20 FLAGS</span>
+          </a>
+          <a class="mc" href="forensics.html">
+            <span class="mcl">FORENSICS_LAB</span>
+            <span class="mcd">DFIR cases. Memory dumps, pcap analysis, log parsing, disk imaging, malware triage.</span>
+            <span class="mcb">12 CASES</span>
+          </a>
+          <a class="mc hot" href="signal-lab.html">
+            <span class="mcl">SIGNAL_LAB</span>
+            <span class="mcd">RF, XOR, ROT13, RSA (n=3233,e=17), Vigenere, entropy. 5 SHA-256 verified challenges.</span>
+            <span class="mcb">5 LABS</span>
+          </a>
+          <a class="mc" href="final_project_tutorial.html">
+            <span class="mcl">PROJECT_GUIDE</span>
+            <span class="mcd">Capstone walkthrough: design, build, attack, defend, document. Full SDLC security workflow.</span>
+            <span class="mcb">GUIDE</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- SECTOR 02: Intel -->
+      <div class="panel">
+        <div class="ph">&#x25C6; INTELLIGENCE &amp; OSINT <span class="phr">SECTOR_02</span></div>
+        <div class="mgrid">
+          <a class="mc live" href="intel.html">
+            <span class="mcl">INTEL_HUB</span>
+            <span class="mcd">NVD CVE live stream, CISA KEV, MITRE ATT&amp;CK navigator, APT tracking. Real-time OSINT.</span>
+            <span class="mcb">LIVE FEED</span>
+          </a>
+          <a class="mc" href="adversaries.html">
+            <span class="mcl">ADVERSARY_DB</span>
+            <span class="mcd">Threat actor profiles. Nation-state &amp; criminal TTPs, known infra, attribution, IOCs.</span>
+            <span class="mcb">DATABASE</span>
+          </a>
+          <a class="mc" href="nodes.html">
+            <span class="mcl">PERSON_NODES</span>
+            <span class="mcd">Interactive graph. Threat actor networks, aliases, infrastructure overlaps, OSINT connections.</span>
+            <span class="mcb">GRAPH</span>
+          </a>
+          <a class="mc" href="research.html">
+            <span class="mcl">RESEARCH_VAULT</span>
+            <span class="mcd">Technical write-ups, vuln deep-dives, exploit analysis, cybersecurity research library.</span>
+            <span class="mcb">VAULT</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- SECTOR 03: Game World -->
+      <div class="panel">
+        <div class="ph">&#x25C6; CYBERWORLD MMORPG <span class="phr">SECTOR_03</span></div>
+        <div class="mgrid">
+          <a class="mc live" href="cyberworld.html">
+            <span class="mcl">CYBERWORLD</span>
+            <span class="mcd">Live MMORPG. Factions: FLLC, Sentinel, Corsair, Ghostline. Convoy missions, PvP, leaderboard.</span>
+            <span class="mcb">ONLINE</span>
+          </a>
+          <a class="mc" href="cyberworld-game.html">
+            <span class="mcl">CONVOY_MODE</span>
+            <span class="mcd">Real-time escort game. Defend data packages from adversary intercept across node networks.</span>
+            <span class="mcb">MISSION</span>
+          </a>
+          <a class="mc" href="cyberworld-codex.html">
+            <span class="mcl">NEXUS_CODEX</span>
+            <span class="mcd">Lore, faction histories, technology index, operative ranks, narrative universe reference.</span>
+            <span class="mcb">LORE</span>
+          </a>
+          <a class="mc" href="arcade.html">
+            <span class="mcl">CYBER_ARCADE</span>
+            <span class="mcd">Hacking mini-games. Reaction games, pattern breakers, terminal challenges. XP rewards.</span>
+            <span class="mcb">ARCADE</span>
+          </a>
+          <a class="mc" href="games.html">
+            <span class="mcl">GAMES_HUB</span>
+            <span class="mcd">Curated cybersecurity game collection. Hacking sims, net defense, crypto puzzles, CTF platforms.</span>
+            <span class="mcb">HUB</span>
+          </a>
+          <a class="mc" href="rpg/login.html">
+            <span class="mcl">RPG_NEXUS</span>
+            <span class="mcd">Full browser RPG. Persistent character, skill tree, faction alliance, world map exploration.</span>
+            <span class="mcb">RPG</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- SECTOR 04: Tools -->
+      <div class="panel">
+        <div class="ph">&#x25C6; TOOLS &amp; SYSTEMS <span class="phr">SECTOR_04</span></div>
+        <div class="mgrid">
+          <a class="mc" href="ai.html">
+            <span class="mcl">AI_OVERSEER</span>
+            <span class="mcd">8 specialized AI recon agents. Threat analysis, CVE summary, OSINT enrichment, malware classify.</span>
+            <span class="mcb">x8 AGENTS</span>
+          </a>
+          <a class="mc" href="stars.html">
+            <span class="mcl">CYBER_ARSENAL</span>
+            <span class="mcd">Curated offensive &amp; defensive tooling. Recon, exploit, forensics, defensive, OSINT categories.</span>
+            <span class="mcb">TOOLS</span>
+          </a>
+          <a class="mc" href="cyberos-iso.html">
+            <span class="mcl">ISO_BUILDER</span>
+            <span class="mcd">Custom CyberOS ISO generator. Kali/Ubuntu security distro with preset toolkit profiles.</span>
+            <span class="mcb">BUILD</span>
+          </a>
+          <a class="mc" href="discuss.html">
+            <span class="mcl">DISCUSSION</span>
+            <span class="mcd">Operator board. Mission tips, tool talk, challenge hints, faction comms, community ops.</span>
+            <span class="mcb">BOARD</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Live activity -->
+      <div class="panel">
+        <div class="ph">&#x25C6; LIVE_ACTIVITY <span class="phr" id="act-c">LOADING</span></div>
+        <div id="act-log"></div>
+      </div>
+
+    </div><!-- /col-c -->
+
+    <!-- ══════ RIGHT ══════ -->
+    <div id="col-r">
+
+      <div class="panel">
+        <div class="ph">SYSTEM_STATUS <span class="phr">RAILWAY</span></div>
+        <div class="sr"><div class="sd on"></div><span class="sn">personfu.github.io</span><span class="ss on">ONLINE</span></div>
+        <div class="sr"><div class="sd" id="sd-cw"></div><span class="sn">CyberWorld MMORPG</span><span class="ss" id="ss-cw">POLLING</span></div>
+        <div class="sr"><div class="sd" id="sd-msf"></div><span class="sn">msf-service</span><span class="ss" id="ss-msf">POLLING</span></div>
+        <div class="sr"><div class="sd on"></div><span class="sn">DISCORDBOT</span><span class="ss on">ONLINE</span></div>
+        <div class="sr"><div class="sd on"></div><span class="sn">Steel Browser</span><span class="ss on">ONLINE</span></div>
+        <div class="sr"><div class="sd" id="sd-msfgw"></div><span class="sn">metasploit-fw</span><span class="ss" id="ss-msfgw">POLLING</span></div>
+        <div class="sr"><div class="sd" id="sd-orizon"></div><span class="sn">owasp-orizon</span><span class="ss" id="ss-orizon">POLLING</span></div>
+        <div class="sr"><div class="sd on"></div><span class="sn">FURY worker</span><span class="ss on">ONLINE</span></div>
+        <div style="padding:5px 10px;font-size:9px;color:var(--g3);border-bottom:1px solid var(--bdr2);">
+          Last polled: <span id="srv-ts">--:--:--</span>
+        </div>
+        <div style="padding:5px 10px;font-size:9px;color:var(--g3);display:flex;flex-direction:column;gap:2px;">
+          <div>UPTIME: <span id="srv-uptime" style="color:var(--g)">--</span></div>
+          <div>MEM: <span id="srv-mem" style="color:var(--amb)">--</span> | CACHE: <span id="srv-cache" style="color:var(--g3)">--</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="ph">WORLD_STATE <span class="phr">LIVE</span></div>
+        <div class="pb" style="font-size:11px;display:flex;flex-direction:column;gap:5px;">
+          <div style="display:flex;justify-content:space-between;">
+            <span style="color:var(--g3)">OPERATION</span><span id="ws-op" style="color:var(--g)">--</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;">
+            <span style="color:var(--g3)">THREAT LVL</span><span id="ws-thr" style="color:var(--red)">--</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;">
+            <span style="color:var(--g3)">ONLINE OPS</span><span id="ws-cnt" style="color:var(--g)">--</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;">
+            <span style="color:var(--g3)">LOBBIES</span><span id="ws-lob" style="color:var(--amb)">--</span>
+          </div>
+        </div>
+        <div id="ws-news" style="padding:0 10px 6px;font-size:10px;color:var(--g3);"></div>
+      </div>
+
+      <div class="panel">
+        <div class="ph">CVE_FEED <span class="phr">NVD LIVE</span></div>
+        <div id="cve-list"><div style="padding:8px 10px;font-size:10px;color:var(--g3);">Fetching NVD feed...</div></div>
+      </div>
+
+      <div class="panel">
+        <div class="ph">LEADERBOARD <span class="phr">GLOBAL</span></div>
+        <div id="lb-list"></div>
+      </div>
+
+      <div class="panel">
+        <div class="ph">EXTERNAL_OPS</div>
+        <ul class="ll">
+          <li><a href="https://fllc.net" target="_blank"><span class="llp">&#x25BA;</span> FLLC.NET<span class="tag live">LIVE</span></a></li>
+          <li><a href="https://github.com/Personfu" target="_blank"><span class="llp">&#x25BA;</span> GITHUB<span class="tag">SOURCE</span></a></li>
+          <li><a href="https://discord.gg/fllc" target="_blank"><span class="llp">&#x25BA;</span> DISCORD<span class="tag live">ONLINE</span></a></li>
+          <li><a href="https://nvd.nist.gov" target="_blank"><span class="llp">&#x25BA;</span> NVD DATABASE<span class="tag">NIST</span></a></li>
+          <li><a href="https://attack.mitre.org" target="_blank"><span class="llp">&#x25BA;</span> MITRE ATT&amp;CK<span class="tag">TTP</span></a></li>
+          <li><a href="https://www.exploit-db.com" target="_blank"><span class="llp">&#x25BA;</span> EXPLOIT-DB<span class="tag hot">EXPLOITS</span></a></li>
+          <li><a href="https://www.shodan.io" target="_blank"><span class="llp">&#x25BA;</span> SHODAN<span class="tag">OSINT</span></a></li>
+          <li><a href="https://cve.mitre.org" target="_blank"><span class="llp">&#x25BA;</span> CVE MITRE<span class="tag">CVE</span></a></li>
+        </ul>
+      </div>
+
+    </div><!-- /col-r -->
+
+  </div><!-- /body -->
+
+  <!-- TICKER -->
+  <div id="ticker">
+    <div id="tki">
+      &#x25CF; FURIOS-INT v3.0 NEXUS ONLINE &#x25CF; HYPERTORUS 4D RENDERER ACTIVE &#x25CF; LORENZ: sigma=10 rho=28 beta=8/3 &#x25CF; WAR_GAMES: 12 SHA-256 MISSIONS &#x25CF; CTF_TRAIL: 20 NODES &#x25CF; RED_OPS: OWASP TOP 10 &#x25CF; FORENSICS: 12 DFIR CASES &#x25CF; SIGNAL_LAB: RF + CRYPTO CHALLENGES &#x25CF; CYBERWORLD MMORPG LIVE &#x25CF; STEEL_BROWSER: ONLINE &#x25CF; NVD FEED ACTIVE &#x25CF; ALL SYSTEMS NOMINAL &#x25CF;
+    </div>
+  </div>
+
+</div><!-- /ws -->
+
+<script>
+'use strict';
+var NEXUS='https://personfugithubio-production.up.railway.app';
+var BOTS=[
+  {op:'r00t_kai',    score:14750,flags:148,rank:'LEGEND'},
+  {op:'phantom_07',  score:11200,flags:112,rank:'ELITE'},
+  {op:'Vex_3r',      score: 9800,flags: 98,rank:'ELITE'},
+  {op:'n0b0dy',      score: 8250,flags: 83,rank:'OPERATIVE'},
+  {op:'krypt0n_X',   score: 7100,flags: 71,rank:'OPERATIVE'},
+  {op:'cipherlock',  score: 6400,flags: 64,rank:'OPERATOR'},
+  {op:'d4rkm4tter',  score: 5500,flags: 55,rank:'OPERATOR'},
+  {op:'synth3tic',   score: 4300,flags: 43,rank:'ANALYST'},
+  {op:'nullbyte_9',  score: 3200,flags: 32,rank:'ANALYST'},
+  {op:'j4ck_tr4ce',  score: 2100,flags: 21,rank:'RECRUIT'}
+];
+var ACTIVITY=[
+  {t:'04',m:'<b>r00t_kai</b> solved <b>WAR_GAMES #12</b> — MASTER_EXPLOIT flag [+500 XP]'},
+  {t:'09',m:'<b>phantom_07</b> joined FLLC faction — <span class="a">convoy escort initiated</span>'},
+  {t:'13',m:'<b>[INTEL]</b> <span class="r">CVE-2026-1337</span> CVSS 9.8 CRITICAL — RCE in OpenSSH 9.6'},
+  {t:'17',m:'<b>Vex_3r</b> completed CTF_TRAIL node 14 — STEG_MASTER +300 XP'},
+  {t:'22',m:'<b>[SYS]</b> CyberWorld lobby "CORSAIR_RAID_7" formed — 4/8 slots filled'},
+  {t:'28',m:'<b>n0b0dy</b> cracked SIGNAL_LAB #3 — RSA solved [FLAG{rsa_m_equals_42}]'},
+  {t:'31',m:'<b>[INTEL]</b> MITRE T1190 — Exploit Public-Facing Application — elevated activity'},
+  {t:'35',m:'<b>krypt0n_X</b> submitted RED_OPS flags — OWASP SQLi chain complete +800 XP'},
+  {t:'40',m:'<b>[SYS]</b> Global threat: <span class="r">CRITICAL</span> — Operation Starshield relay unstable'},
+  {t:'44',m:'<b>cipherlock</b> FORENSICS case #7 — PCAP analysis: C2 beacon identified'},
+  {t:'51',m:'<b>[CVE]</b> <span class="r">CVE-2026-0xDEAD</span> — Zero-day Apache HTTP Server — patch pending'},
+  {t:'55',m:'<b>d4rkm4tter</b> reached OPERATIVE rank — all Tier-1 missions cleared'}
+];
+var CVE_FB=[
+  {id:'CVE-2026-1337',sev:'c',score:'9.8',desc:'Remote code execution in OpenSSH 9.6 via crafted authentication packet.'},
+  {id:'CVE-2026-4430',sev:'h',score:'8.8',desc:'Privilege escalation in Linux kernel 6.8.x via io_uring race condition.'},
+  {id:'CVE-2026-2891',sev:'h',score:'8.1',desc:'SQL injection in Ivanti Connect Secure — unauthenticated pre-auth RCE.'},
+  {id:'CVE-2026-0501',sev:'m',score:'6.5',desc:'SSRF in Confluence Data Center 8.x — internal metadata endpoint exposed.'},
+  {id:'CVE-2025-9934',sev:'c',score:'9.1',desc:'Auth bypass in Fortinet FortiOS — actively exploited by APT-41 in the wild.'}
+];
+
+/* ── BOOT ── */
+(function(){
+  var LINES=[
+    ['dim','BIOS v3.0.1 // FLLC SECURE SYSTEMS // CPU: HEXCORE-X // RAM: 64G ECC // NVMe RAID-6'],
+    ['ok', 'POST complete. Memory: 65536 MB OK. RAID-6 parity verified. NVMe array nominal.'],
+    ['ok', 'Loading kernel: furios-int-3.0-amd64.vmlinuz ... [ 0.000000] Booting Linux 6.8.0'],
+    ['ok', 'Kernel modules: crypto_sha256 aes_x86_64 dm_crypt nf_conntrack xt_state -- LOADED'],
+    ['ok', 'Network: eth0 ONLINE (1Gbps) -- IPv4/IPv6 assigned -- firewall rules applied'],
+    ['ok', 'Mounting encrypted volumes: luks-nexus-primary -- UNLOCKED. luks-data -- UNLOCKED'],
+    ['warn','AppArmor: 247 profiles loaded, 3 in complain mode (signal_lab, ctf_parser, redis)'],
+    ['ok', 'nginx 1.26 -- :443 TLS 1.3/ECDHE-RSA-AES256 -- Lets Encrypt valid until 2027-01'],
+    ['ok', 'PostgreSQL 16 -- 12 connections -- WAL archiving -- schema verified'],
+    ['ok', 'Socket.IO -- connecting to railway:// CyberWorld MMORPG endpoint...'],
+    ['ok', 'HyperMath v7 -- Julia + Hypertorus + Lorenz + Matrix + Network -- WebGL2 READY'],
+    ['ok', 'Challenges: WAR_GAMES[12] CTF_TRAIL[20] FORENSICS[12] RED_OPS[12] SIGNAL_LAB[5]'],
+    ['ok', 'OSINT feeds: NVD-API-v2 CISA-KEV MITRE-ATTCK SHODAN-STREAM -- ALL ACTIVE'],
+    ['ok', 'AI_OVERSEER: 8 agents -- recon/CVE/malware/osint/threat/red/forensics/crypt -- READY'],
+    ['ok', 'FURIOS-INT NEXUS v3.0 -- CLEARANCE OPEN -- UPLINK FLLC_MAINFRAME: ESTABLISHED']
+  ];
+  var log=document.getElementById('boot-log');
+  var i=0;
+  var t=setInterval(function(){
+    if(i>=LINES.length){clearInterval(t);setTimeout(launchWS,450);return;}
+    var cls=LINES[i][0],msg=LINES[i][1];i++;
+    var pre={ok:'[ OK ]',warn:'[WARN]',err:'[ERR ]',dim:'[INFO]'}[cls]||'[INFO]';
+    var d=document.createElement('div');
+    d.className='bl';
+    d.innerHTML='<span class="'+cls+'">'+pre+'</span> '+msg;
+    log.appendChild(d);log.scrollTop=log.scrollHeight;
+  },105);
+})();
+
+function launchWS(){
+  document.getElementById('boot').style.display='none';
+  document.getElementById('ws').style.display='flex';
+  loadProgress();renderLB();renderActivity();renderCVE(null);
+  fetchWorld();fetchNVD();startClock();
+  try{if(localStorage.getItem('fllc.brief.dismissed'))document.getElementById('ob').style.display='none';}catch(e){}
+  setInterval(fetchWorld,30000);
+}
+
+/* ── PROGRESS ── */
+function loadProgress(){
+  try{
+    var wg=JSON.parse(localStorage.getItem('fllc.wargames.v1')||'{}');
+    var wgN=Object.values(wg).filter(function(v){return v&&v.solved;}).length;
+    setPr('wg',wgN,12);
+    var ctf=JSON.parse(localStorage.getItem('fllc.ctf.v1')||'{}');
+    var ctfN=Object.values(ctf).filter(function(v){return v&&v.solved;}).length;
+    setPr('ctf',ctfN,20);
+    var fr=JSON.parse(localStorage.getItem('fllc.forensics.v1')||'{}');
+    var frN=Object.values(fr).filter(function(v){return v&&v.solved;}).length;
+    setPr('for',frN,12);
+    var ro=JSON.parse(localStorage.getItem('fllc.redops.v1')||'{}');
+    var roN=Object.values(ro).filter(function(v){return v&&v.solved;}).length;
+    setPr('red',roN,12);
+    var slXP=parseInt(localStorage.getItem('sl.xp')||'0',10);
+    document.getElementById('pr-sig').textContent=slXP+' XP';
+    document.getElementById('pf-sig').style.width=Math.min(100,Math.round(slXP/12))+'%';
+    var totalFlags=wgN+ctfN+frN+roN;
+    var totalXP=wgN*500+ctfN*300+frN*350+roN*400+slXP;
+    var rank=getRank(totalFlags);
+    var cs=localStorage.getItem('fllc.callsign')||'GUEST';
+    document.getElementById('h-op').textContent=cs;
+    document.getElementById('h-xp').textContent=totalXP;
+    document.getElementById('h-flags').textContent=totalFlags;
+    document.getElementById('op-cs').textContent=cs;
+    document.getElementById('op-xp').textContent=totalXP;
+    document.getElementById('op-fl').textContent=totalFlags;
+    document.getElementById('op-rk').textContent=rank;
+    document.getElementById('op-ms').textContent=wgN+frN+roN;
+    document.getElementById('op-t').textContent='CLEARANCE: '+getTier(rank)+' // RANK: '+rank;
+    var cw=JSON.parse(localStorage.getItem('cyberworld-player')||'{}');
+    var rep=(cw.progress&&cw.progress.factionReputation)||{};
+    setFac('f',rep.fllc||0);setFac('s',rep.sentinel||0);
+    setFac('c',rep.corsair||0);setFac('g',rep.ghostline||0);
+  }catch(e){}
+}
+function setPr(k,v,m){
+  document.getElementById('pr-'+k).textContent=v+'/'+m;
+  document.getElementById('pf-'+k).style.width=Math.min(100,Math.round(v/m*100))+'%';
+}
+function setFac(k,v){
+  document.getElementById('fr-'+k).textContent=v;
+  document.getElementById('ff-'+k).style.width=Math.min(100,Math.round(v/1000*100))+'%';
+}
+function getRank(f){
+  return f>=100?'LEGEND':f>=60?'ELITE':f>=30?'OPERATIVE':f>=15?'OPERATOR':f>=5?'ANALYST':'RECRUIT';
+}
+function getTier(r){
+  var t={LEGEND:'TIER-5',ELITE:'TIER-4',OPERATIVE:'TIER-3',OPERATOR:'TIER-2',ANALYST:'TIER-1',RECRUIT:'TIER-0'};
+  return t[r]||'TIER-0';
+}
+
+/* ── LEADERBOARD ── */
+function renderLB(){
+  try{
+    var cs=localStorage.getItem('fllc.callsign')||'';
+    var wg=JSON.parse(localStorage.getItem('fllc.wargames.v1')||'{}');
+    var ctf=JSON.parse(localStorage.getItem('fllc.ctf.v1')||'{}');
+    var flags=Object.values(wg).filter(function(v){return v&&v.solved;}).length+
+              Object.values(ctf).filter(function(v){return v&&v.solved;}).length;
+    var bots=BOTS.slice();
+    if(cs&&cs!=='GUEST'&&flags>0)bots.push({op:cs,score:flags*400,flags:flags,rank:getRank(flags)});
+    bots.sort(function(a,b){return b.score-a.score;});
+    var cont=document.getElementById('lb-list');cont.innerHTML='';
+    bots.slice(0,10).forEach(function(b,i){
+      var rc=i===0?'gld':i===1?'slv':i===2?'brz':'';
+      var you=b.op===cs;
+      var row=document.createElement('div');row.className='lr';
+      row.style.background=you?'rgba(0,255,65,0.04)':'';
+      row.innerHTML='<span class="lrk '+rc+'">#'+(i+1)+'</span>'+
+        '<span class="lrn" style="'+(you?'color:var(--g)':'')+'">'+(b.op)+'</span>'+
+        '<span class="lrs">'+b.score+'</span>'+
+        '<span class="lrb">'+b.rank+'</span>';
+      cont.appendChild(row);
+    });
+  }catch(e){}
+}
+
+/* ── ACTIVITY ── */
+function renderActivity(){
+  var cont=document.getElementById('act-log');
+  var now=new Date();
+  var h=String(now.getHours()).padStart(2,'0');
+  ACTIVITY.forEach(function(a){
+    var el=document.createElement('div');el.className='ae';
+    el.innerHTML='<span class="at">'+h+':'+a.t+'</span><span class="am">'+a.m+'</span>';
+    cont.appendChild(el);
+  });
+  document.getElementById('act-c').textContent=ACTIVITY.length+' EVENTS';
+  var LIVE=[
+    '<b>[INTEL]</b> New CVE published — severity <span class="r">HIGH</span>. Check Intel Hub.',
+    '<b>[SYS]</b> CyberWorld player count updated. New operative joined CORSAIR faction.',
+    '<b>[WARN]</b> Anomalous beacon on NEXUS-7 relay — monitoring in progress...',
+    '<b>[GAME]</b> Convoy mission complete. 200 XP distributed to participating operatives.',
+    '<b>[CVE]</b> <span class="r">CISA KEV</span> updated — 3 new known-exploited vulnerabilities added.'
+  ];
+  setInterval(function(){
+    var msg=LIVE[Math.floor(Math.random()*LIVE.length)];
+    var n=new Date();
+    var ts=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+    var el=document.createElement('div');el.className='ae';
+    el.innerHTML='<span class="at">'+ts+'</span><span class="am">'+msg+'</span>';
+    cont.insertBefore(el,cont.firstChild);
+  },45000);
+}
+
+/* ── CVE RENDER ── */
+function renderCVE(data){
+  var items=data||CVE_FB;
+  var cont=document.getElementById('cve-list');cont.innerHTML='';
+  items.slice(0,5).forEach(function(c){
+    var div=document.createElement('div');div.className='ce';
+    div.innerHTML='<div class="ci s'+c.sev+'" onclick="window.open(\'https://nvd.nist.gov/vuln/detail/'+c.id+'\',\'_blank\')">'+
+      c.id+' <span style="color:var(--g3);font-size:10px;">CVSS '+c.score+'</span></div>'+
+      '<div class="cd">'+c.desc+'</div>';
+    cont.appendChild(div);
+  });
+}
+
+/* ── NVD FETCH ── */
+function fetchNVD(){
+  fetch('https://services.nvd.nist.gov/rest/json/cves/2.0?resultsPerPage=5&startIndex=0',
+    {signal:AbortSignal.timeout(8000)})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    var items=(d.vulnerabilities||[]).map(function(v){
+      var cve=v.cve;var m=cve.metrics;var score='--';var sev='l';
+      var cv=(m&&m.cvssMetricV31&&m.cvssMetricV31[0])||(m&&m.cvssMetricV30&&m.cvssMetricV30[0]);
+      if(cv){score=cv.cvssData.baseScore;var s=cv.cvssData.baseSeverity;
+        sev=s==='CRITICAL'?'c':s==='HIGH'?'h':s==='MEDIUM'?'m':'l';}
+      var desc=((cve.descriptions||[]).find(function(x){return x.lang==='en';})||{}).value||'';
+      return{id:cve.id,sev:sev,score:score,desc:desc.slice(0,120)+'...'};
+    });
+    if(items.length)renderCVE(items);
+  })
+  .catch(function(){});
+}
+
+/* ── WORLD STATE ── */
+function fetchWorld(){
+  var dot=document.getElementById('sd-cw');
+  var stat=document.getElementById('ss-cw');
+  var hdot=document.getElementById('h-srv-dot');
+  var htxt=document.getElementById('h-srv-txt');
+  fetch(NEXUS+'/health',{signal:AbortSignal.timeout(6000)})
+  .then(function(r){return r.json();})
+  .then(function(){
+    dot.className='sd on';stat.textContent='ONLINE';stat.className='ss on';
+    hdot.className='hdot';htxt.textContent='SRV ONLINE';
+    // Fetch world state
+    return fetch(NEXUS+'/api/world/state',{signal:AbortSignal.timeout(6000)});
+  })
+  .then(function(r){return r.json();})
+  .then(function(d){
+    document.getElementById('ws-op').textContent=d.operation||'Op Starshield';
+    document.getElementById('ws-thr').textContent=d.globalThreat||'--';
+    document.getElementById('ws-cnt').textContent=d.onlineCount||'0';
+    document.getElementById('ws-lob').textContent=(d.activeLobbies||[]).length;
+    if(d.news&&d.news[0])document.getElementById('ws-news').textContent='> '+d.news[0];
+  })
+  .catch(function(){
+    dot.className='sd warn';stat.textContent='BUILDING';stat.className='ss warn';
+    hdot.className='hdot amber';htxt.textContent='SRV BUILDING';
+  })
+  .finally(function(){
+    document.getElementById('srv-ts').textContent=new Date().toLocaleTimeString();
+  });
+
+  // Fetch server stats
+  fetch(NEXUS+'/api/stats',{signal:AbortSignal.timeout(6000)})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    var up=d.uptime;
+    var uptimeStr=up?Math.floor(up/3600)+'h '+Math.floor((up%3600)/60)+'m':'--';
+    var memEl=document.getElementById('srv-mem');
+    var uptimeEl=document.getElementById('srv-uptime');
+    var cacheEl=document.getElementById('srv-cache');
+    if(uptimeEl)uptimeEl.textContent=uptimeStr;
+    if(memEl&&d.memory)memEl.textContent=Math.round(d.memory.heapUsed/1024/1024)+'MB';
+    if(cacheEl)cacheEl.textContent=d.cache?d.cache.size+' keys':'--';
+  })
+  .catch(function(){});
+
+  // Poll msf-service health via NEXUS proxy or direct
+  fetch(NEXUS+'/api/msf/health',{signal:AbortSignal.timeout(6000)})
+  .then(function(r){
+    var msfDot=document.getElementById('sd-msf');
+    var msfStat=document.getElementById('ss-msf');
+    if(r.ok){msfDot.className='sd on';msfStat.textContent='ONLINE';msfStat.className='ss on';}
+    else{msfDot.className='sd warn';msfStat.textContent='DEGRADED';msfStat.className='ss warn';}
+  })
+  .catch(function(){
+    var msfDot=document.getElementById('sd-msf');
+    var msfStat=document.getElementById('ss-msf');
+    if(msfDot){msfDot.className='sd warn';msfStat.textContent='DEPLOYING';msfStat.className='ss warn';}
+  });
+
+  // Poll metasploit-framework gateway
+  fetch(NEXUS+'/api/msf-gw/health',{signal:AbortSignal.timeout(8000)})
+  .then(function(r){
+    var d=document.getElementById('sd-msfgw');
+    var s=document.getElementById('ss-msfgw');
+    if(r.ok){d.className='sd on';s.textContent='ONLINE';s.className='ss on';}
+    else{d.className='sd warn';s.textContent='DEGRADED';s.className='ss warn';}
+  })
+  .catch(function(){
+    var d=document.getElementById('sd-msfgw');
+    var s=document.getElementById('ss-msfgw');
+    if(d){d.className='sd warn';s.textContent='DEPLOYING';s.className='ss warn';}
+  });
+
+  // Poll owasp-orizon
+  fetch(NEXUS+'/api/orizon/health',{signal:AbortSignal.timeout(8000)})
+  .then(function(r){
+    var d=document.getElementById('sd-orizon');
+    var s=document.getElementById('ss-orizon');
+    if(r.ok){d.className='sd on';s.textContent='ONLINE';s.className='ss on';}
+    else{d.className='sd warn';s.textContent='DEGRADED';s.className='ss warn';}
+  })
+  .catch(function(){
+    var d=document.getElementById('sd-orizon');
+    var s=document.getElementById('ss-orizon');
+    if(d){d.className='sd warn';s.textContent='DEPLOYING';s.className='ss warn';}
+  });
+}
+
+/* ── ONBOARDING ── */
+function closeOB(){
+  document.getElementById('ob').style.display='none';
+  try{localStorage.setItem('fllc.brief.dismissed','1');}catch(e){}
+}
+
+/* ── CLOCK ── */
+function startClock(){
+  function tick(){
+    var n=new Date();
+    document.getElementById('hdr-time').textContent=
+      String(n.getHours()).padStart(2,'0')+':'+
+      String(n.getMinutes()).padStart(2,'0')+':'+
+      String(n.getSeconds()).padStart(2,'0');
+  }
+  tick();setInterval(tick,1000);
+}
+</script>
+</body>
+</html>

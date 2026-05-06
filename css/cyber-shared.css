@@ -335,3 +335,36 @@ body > *:not(#cyber-bg-canvas):not(#crt-filter):not(#wg-bg) {
   .hero-actions { flex-direction: column; }
   .btn { font-size: 16px; padding: 8px 14px; }
 }
+
+/* ── RETURN-TO-GAME BANNER ─────────────────────────────────────── */
+#return-to-game-banner {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 99000;
+  height: 40px;
+  background: linear-gradient(90deg, #000a00, #001a00, #000a00);
+  border-bottom: 2px solid #00ff41;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  font-family: 'VT323', monospace;
+  font-size: 17px;
+  box-shadow: 0 2px 12px rgba(0,255,65,0.3);
+}
+#return-to-game-banner.show { display: flex; }
+#return-game-link {
+  color: #00ff41;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#return-game-link:hover { color: #00ff88; text-shadow: 0 0 8px #00ff41; }
+#return-banner-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: #00aa33;
+  letter-spacing: 2px;
+}
+body.has-game-banner { padding-top: 40px; }

@@ -508,5 +508,20 @@ paintHud(); setInterval(paintHud, 1500);
   <span class="pf-clock" id="pf-clock"></span>
 </footer>
 <script>setInterval(function(){var e=document.getElementById('pf-clock');if(e)e.textContent=new Date().toLocaleTimeString('en-US',{hour12:true,hour:'2-digit',minute:'2-digit'});},1000);</script><script src="js/cyber-bg.js" defer></script>
+<div id="return-to-game-banner">
+  <a id="return-game-link" href="rpg/index.html">◀&nbsp;&nbsp;RETURN TO CYBERWORLD</a>
+  <span id="return-banner-tag">LAUNCHED FROM MMORPG</span>
+</div>
+<script>
+(function(){
+  try{
+    if(new URLSearchParams(window.location.search).get('ref')==='game'){
+      document.getElementById('return-to-game-banner').classList.add('show');
+      document.body.classList.add('has-game-banner');
+    }
+  }catch(e){}
+})();
+</script>
+<div id="return-to-game-banner"><a id="return-game-link" href="rpg/index.html">&#9664;&#160;&#160;RETURN TO CYBERWORLD</a><span id="return-banner-tag">LAUNCHED FROM MMORPG</span></div><script>(function(){try{if(new URLSearchParams(window.location.search).get('ref')=='game'){document.getElementById('return-to-game-banner').classList.add('show');document.body.classList.add('has-game-banner');}}catch(e){}})();</script>
 </body>
 </html>

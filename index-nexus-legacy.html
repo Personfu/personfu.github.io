@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://services.nvd.nist.gov https://www.cisa.gov https://personfugithubio-production.up.railway.app wss://personfugithubio-production.up.railway.app;">
+<title>FURIOS-INT // NEXUS OS</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta property="og:title" content="FURIOS-INT // NEXUS OS">
+<meta property="og:description" content="Cybersecurity training nexus — MMORPG, hacking missions, OSINT, red ops, forensics.">
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:wght@300;400;700&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════
+   NEXUS OS — FURIOS-INT DESKTOP
+   Win98-style desktop with phosphor terminal aesthetic
+   ══════════════════════════════════════════════════════════ */
+:root {
+  --g:    #00ff41;
+  --g2:   #00cc33;
+  --g3:   #174f22;
+  --amb:  #ffb000;
+  --red:  #ff3a4f;
+  --cyan: #00e8ff;
+  --pink: #ff00ea;
+  --bg:   #000802;
+  --win98-blue: #000080;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);}
+
+/* ══ BOOT SEQUENCE ══════════════════════════════════════ */
+#boot{
+  position:fixed;inset:0;z-index:10000;background:var(--bg);
+  display:flex;flex-direction:column;padding:28px 36px 32px;
+  font-family:'JetBrains Mono','Courier New',monospace;font-size:12px;overflow:hidden;
+}
+#boot-logo{
+  color:var(--g);text-shadow:0 0 14px rgba(0,255,65,0.6);
+  font-size:10px;line-height:1.15;margin-bottom:18px;white-space:pre;
+  font-family:'JetBrains Mono',monospace;
+}
+#boot-log{flex:1;overflow:hidden;}
+.bl{margin-bottom:3px;color:#4db85e;}
+.bl .ok  {color:var(--g);}
+.bl .warn{color:var(--amb);}
+.bl .err {color:var(--red);}
+.bl .dim {color:var(--g3);}
+#boot-prompt{margin-top:10px;color:var(--g);display:flex;align-items:center;gap:6px;font-family:'JetBrains Mono',monospace;}
+#boot-cur{display:inline-block;width:8px;height:14px;background:var(--g);animation:cur-blink 0.9s step-end infinite;box-shadow:0 0 8px var(--g);}
+@keyframes cur-blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ══ CRT EFFECT ═════════════════════════════════════════ */
+#crt{position:fixed;inset:0;z-index:9999;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,0.08) 0px,rgba(0,0,0,0.08) 1px,transparent 1px,transparent 2px);
+  box-shadow:inset 0 0 120px rgba(0,0,0,0.5);}
+#scanline{position:fixed;top:-4px;left:0;width:100%;height:4px;
+  background:linear-gradient(transparent,rgba(0,255,65,0.08),transparent);
+  z-index:9998;pointer-events:none;animation:scandown 12s linear infinite;}
+@keyframes scandown{from{top:-4px}to{top:100vh}}
+
+/* ══ DESKTOP ════════════════════════════════════════════ */
+#desktop{
+  position:fixed;inset:0 0 40px 0;
+  display:none;
+  overflow:hidden;
+}
+
+/* ── PERIODIC TABLE WALLPAPER ─────────────────────────── */
+#wallpaper{
+  position:absolute;inset:0;
+  background:#020a04;
+  display:grid;
+  grid-template-columns:repeat(18,1fr);
+  grid-template-rows:repeat(7,1fr);
+  gap:2px;padding:4px;
+  overflow:hidden;
+}
+.el{
+  background:rgba(0,0,0,0.55);
+  border:1px solid rgba(0,255,65,0.12);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:2px;font-family:'JetBrains Mono',monospace;
+  position:relative;transition:background .15s;overflow:hidden;
+}
+.el:hover{background:rgba(0,255,65,0.06);border-color:rgba(0,255,65,0.35);}
+.el-num{font-size:6px;color:rgba(0,255,65,0.35);position:absolute;top:2px;left:3px;}
+.el-sym{font-size:clamp(7px,1.1vw,13px);font-weight:700;color:var(--el-c,#00ff41);line-height:1;text-shadow:0 0 6px var(--el-c,#00ff41);}
+.el-name{font-size:clamp(3px,0.5vw,6px);color:rgba(255,255,255,0.3);margin-top:1px;text-align:center;line-height:1.1;}
+.el.cat-recon   {--el-c:#00e8ff;}
+.el.cat-exploit {--el-c:#ff3a4f;}
+.el.cat-privesc {--el-c:#ff8c00;}
+.el.cat-persist {--el-c:#ff00ea;}
+.el.cat-crypto  {--el-c:#ffe700;}
+.el.cat-network {--el-c:#00ff41;}
+.el.cat-dfir    {--el-c:#c084fc;}
+.el.cat-social  {--el-c:#ff6b35;}
+.el.cat-web     {--el-c:#00ffcc;}
+.el.cat-malware {--el-c:#ff1a1a;}
+.el.cat-tools   {--el-c:#7fff00;}
+.el.gap{background:transparent;border:none;}
+
+/* ══ DESKTOP ICONS ══════════════════════════════════════ */
+#icon-layer{
+  position:absolute;inset:0;
+  padding:16px 20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,90px);
+  grid-auto-rows:100px;
+  align-content:start;
+  gap:8px 4px;
+  pointer-events:none;
+}
+.dicon{
+  display:flex;flex-direction:column;align-items:center;
+  gap:4px;cursor:pointer;pointer-events:all;
+  padding:6px 4px;
+  border:1px solid transparent;
+  transition:background .1s,border .1s;
+  user-select:none;-webkit-user-select:none;
+  text-align:center;width:90px;
+}
+.dicon:hover{background:rgba(0,255,65,0.1);border-color:rgba(0,255,65,0.4);}
+.dicon:active{background:rgba(0,255,65,0.2);}
+.dicon-img{
+  width:48px;height:48px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:28px;
+  background:rgba(0,0,0,0.6);
+  border:2px solid rgba(0,255,65,0.3);
+  box-shadow:0 0 8px rgba(0,255,65,0.15);
+  position:relative;
+}
+.dicon-img .badge{
+  position:absolute;top:-6px;right:-6px;
+  background:var(--red);color:#fff;font-size:8px;
+  padding:1px 4px;font-family:'JetBrains Mono',monospace;
+}
+.dicon-lbl{
+  font-family:'VT323',monospace;font-size:13px;
+  color:#c8ffc8;
+  text-shadow:1px 1px 0 #000,0 0 8px rgba(0,255,65,0.4);
+  line-height:1.2;max-width:86px;word-break:break-word;
+}
+.dicon.selected .dicon-img{border-color:var(--g);box-shadow:0 0 12px rgba(0,255,65,0.4);}
+.dicon.selected{background:rgba(0,255,65,0.15);border-color:rgba(0,255,65,0.5);}
+
+/* ══ TASKBAR ════════════════════════════════════════════ */
+#taskbar{
+  position:fixed;bottom:0;left:0;right:0;height:40px;
+  background:linear-gradient(to bottom,#2a2a2a,#1a1a1a);
+  border-top:2px solid #444;
+  display:flex;align-items:center;
+  gap:2px;padding:0 4px;
+  z-index:5000;font-family:'VT323',monospace;
+}
+#start-btn{
+  height:32px;padding:0 12px;
+  background:linear-gradient(to bottom,#3a3a3a,#222);
+  border:2px outset #666;
+  color:var(--g);font-family:'VT323',monospace;font-size:17px;
+  letter-spacing:1px;cursor:pointer;
+  display:flex;align-items:center;gap:6px;
+  white-space:nowrap;flex-shrink:0;
+  user-select:none;
+}
+#start-btn:active{border-style:inset;}
+#start-btn:hover{background:linear-gradient(to bottom,#444,#2a2a2a);color:#00ff88;}
+#taskbar-tasks{display:flex;gap:3px;flex:1;overflow:hidden;}
+.tb-task{
+  height:30px;min-width:120px;max-width:180px;
+  padding:0 10px;
+  background:linear-gradient(to bottom,#2a2a2a,#222);
+  border:2px outset #555;
+  color:#ccc;font-family:'VT323',monospace;font-size:14px;
+  cursor:pointer;display:flex;align-items:center;gap:6px;
+  overflow:hidden;white-space:nowrap;transition:color .1s;
+}
+.tb-task:hover{color:#fff;}
+.tb-task.active{border-style:inset;background:linear-gradient(to bottom,#1a1a1a,#2a2a2a);color:var(--g);}
+#tray{
+  height:34px;padding:0 10px;
+  background:linear-gradient(to bottom,#1a1a1a,#222);
+  border:2px inset #444;
+  display:flex;align-items:center;gap:10px;flex-shrink:0;
+}
+#tb-clock{color:var(--g);font-family:'VT323',monospace;font-size:16px;letter-spacing:1px;}
+#tb-net{width:8px;height:8px;border-radius:50%;background:var(--g);box-shadow:0 0 5px var(--g);animation:cur-blink 2s infinite;}
+
+/* ══ START MENU ═════════════════════════════════════════ */
+#start-menu{
+  position:fixed;bottom:40px;left:4px;
+  width:260px;
+  background:linear-gradient(to right,var(--win98-blue) 40px,#1a1a1a 40px);
+  border:2px outset #666;
+  display:none;flex-direction:column;
+  z-index:6000;box-shadow:4px 4px 0 rgba(0,0,0,0.5);
+}
+#start-menu.open{display:flex;}
+.sm-sidebar{
+  position:absolute;left:0;top:0;bottom:0;width:40px;
+  background:var(--win98-blue);
+  display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;
+}
+.sm-sidebar span{
+  font-family:'VT323',monospace;font-size:13px;color:rgba(255,255,255,0.5);
+  writing-mode:vertical-rl;letter-spacing:3px;
+}
+.sm-items{margin-left:40px;display:flex;flex-direction:column;}
+.sm-sep{height:1px;background:#444;margin:3px 0;}
+.sm-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 12px;font-family:'VT323',monospace;font-size:17px;
+  color:#ddd;cursor:pointer;transition:background .1s;
+  text-decoration:none;
+}
+.sm-item:hover{background:var(--win98-blue);color:#fff;}
+.sm-item .sm-ico{font-size:18px;width:24px;text-align:center;}
+
+/* ══ CONTEXT MENU ═══════════════════════════════════════ */
+#ctx-menu{
+  position:fixed;background:#1a1a1a;
+  border:1px solid #444;border-bottom:2px solid #000;border-right:2px solid #000;
+  min-width:160px;z-index:8000;display:none;
+  font-family:'VT323',monospace;font-size:16px;
+  box-shadow:3px 3px 0 rgba(0,0,0,0.4);
+}
+.cm-item{padding:5px 16px;color:#ddd;cursor:pointer;transition:background .1s;}
+.cm-item:hover{background:var(--win98-blue);color:#fff;}
+.cm-sep{height:1px;background:#444;margin:2px 0;}
+
+/* ══ WIN98 WINDOWS ══════════════════════════════════════ */
+.win98-window{
+  position:fixed;
+  background:#1a1a1a;
+  border:2px outset #555;
+  min-width:300px;min-height:200px;
+  z-index:4000;
+  display:none;flex-direction:column;
+  box-shadow:4px 4px 0 rgba(0,0,0,0.5);
+  resize:both;overflow:hidden;
+}
+.win98-window.open{display:flex;}
+.win-titlebar{
+  height:26px;
+  background:linear-gradient(to right,var(--win98-blue),#3a3aa8);
+  display:flex;align-items:center;padding:0 4px;gap:6px;
+  cursor:move;flex-shrink:0;user-select:none;-webkit-user-select:none;
+}
+.win-icon{font-size:13px;}
+.win-title{flex:1;color:#fff;font-family:'VT323',monospace;font-size:16px;letter-spacing:1px;white-space:nowrap;overflow:hidden;}
+.win-btn{
+  width:18px;height:18px;
+  background:linear-gradient(to bottom,#ddd,#999);
+  border:2px outset #aaa;color:#000;font-size:10px;font-weight:bold;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-family:Arial,sans-serif;
+}
+.win-btn:hover{background:linear-gradient(to bottom,#eee,#bbb);}
+.win-btn:active{border-style:inset;}
+.win-body{flex:1;overflow:auto;padding:4px;background:#020a04;display:flex;flex-direction:column;}
+.win-menubar{
+  height:24px;background:#111;border-bottom:1px solid #333;
+  display:flex;align-items:center;padding:0 8px;gap:16px;
+  font-family:'VT323',monospace;font-size:14px;color:#aaa;flex-shrink:0;
+}
+.win-menubar span{cursor:pointer;padding:2px 6px;}
+.win-menubar span:hover{background:var(--win98-blue);color:#fff;}
+.win-statusbar{
+  height:22px;background:#111;border-top:1px solid #333;
+  display:flex;align-items:center;padding:0 8px;gap:8px;
+  font-family:'JetBrains Mono',monospace;font-size:9px;color:#666;flex-shrink:0;
+}
+
+/* ══ CHALLENGE WINDOW CARDS ══════════════════════════════ */
+#ch-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  padding:10px;flex:1;overflow:auto;
+}
+.ch-card{
+  border:1px solid rgba(0,255,65,0.2);
+  background:#000;padding:12px;cursor:pointer;
+  transition:.15s;display:flex;flex-direction:column;gap:6px;
+  text-decoration:none;
+}
+.ch-card:hover{border-color:var(--el-c,#00ff41);background:rgba(0,255,65,0.05);box-shadow:0 0 10px rgba(0,255,65,0.1);}
+.ch-card.exploit{--el-c:#ff3a4f;}
+.ch-card.recon  {--el-c:#00e8ff;}
+.ch-card.dfir   {--el-c:#c084fc;}
+.ch-card.crypto {--el-c:#ffe700;}
+.ch-card.red    {--el-c:#ff8c00;}
+.ch-card.intel  {--el-c:#00ffcc;}
+.ch-title{font-family:'VT323',monospace;font-size:20px;color:var(--el-c,#00ff41);letter-spacing:2px;}
+.ch-desc{font-family:'JetBrains Mono',monospace;font-size:9px;color:#6a8c6a;line-height:1.5;}
+.ch-meta{display:flex;gap:6px;flex-wrap:wrap;}
+.ch-badge{padding:1px 6px;border:1px solid var(--el-c,#00ff41);color:var(--el-c,#00ff41);font-family:'VT323',monospace;font-size:12px;}
+
+/* ══ GLITCH LAUNCH ══════════════════════════════════════ */
+@keyframes glitch{
+  0%{transform:translate(0);}20%{transform:translate(-2px,1px);}
+  40%{transform:translate(2px,-1px);}60%{transform:translate(-1px,2px);}
+  80%{transform:translate(1px,-2px);}100%{transform:translate(0);}
+}
+.dicon.launching .dicon-img{animation:glitch .18s 3;}
+</style>
+</head>
+<body>
+
+<!-- CRT overlays -->
+<div id="crt"></div>
+<div id="scanline"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     BOOT SEQUENCE
+     ══════════════════════════════════════════════════════ -->
+<div id="boot">
+  <pre id="boot-logo">
+ _   _ _______  ___   _ _____        ___  ____
+| \ | | ____\ \/ / | | |_   _|      / _ \/ ___|
+|  \| |  _|  \  /| | | | | |       | | | \___ \
+| |\  | |___ /  \| |_| | | |       | |_| |___) |
+|_| \_|_____/_/\_\\___/  |_|        \___/|____/
+
+ FURIOS-INT v3.0  //  NEXUS OS  //  MAY 2026  //  CLEARANCE: OPEN</pre>
+  <div id="boot-log"></div>
+  <div id="boot-prompt">
+    <span style="color:#174f22">furios@nexus:~$</span>
+    <span id="boot-cmd">&nbsp;loading desktop...</span>
+    <div id="boot-cur"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     DESKTOP
+     ══════════════════════════════════════════════════════ -->
+<div id="desktop">
+
+  <!-- WALLPAPER: Periodic Table of Hacking -->
+  <div id="wallpaper">
+    <!-- Row 1: Network Layer (18 cells) -->
+    <div class="el cat-network"><span class="el-num">1</span><span class="el-sym">TCP</span><span class="el-name">Transport</span></div>
+    <div class="el cat-network"><span class="el-num">2</span><span class="el-sym">UDP</span><span class="el-name">Datagram</span></div>
+    <div class="el gap"></div><div class="el gap"></div><div class="el gap"></div><div class="el gap"></div>
+    <div class="el gap"></div><div class="el gap"></div><div class="el gap"></div><div class="el gap"></div>
+    <div class="el gap"></div><div class="el gap"></div>
+    <div class="el cat-network"><span class="el-num">13</span><span class="el-sym">TLS</span><span class="el-name">Encrypt</span></div>
+    <div class="el cat-network"><span class="el-num">14</span><span class="el-sym">DNS</span><span class="el-name">Resolver</span></div>
+    <div class="el cat-network"><span class="el-num">15</span><span class="el-sym">ARP</span><span class="el-name">Link Layer</span></div>
+    <div class="el cat-network"><span class="el-num">16</span><span class="el-sym">BGP</span><span class="el-name">Routing</span></div>
+    <div class="el cat-network"><span class="el-num">17</span><span class="el-sym">SSH</span><span class="el-name">SecureShell</span></div>
+    <div class="el cat-network"><span class="el-num">18</span><span class="el-sym">VPN</span><span class="el-name">Tunnel</span></div>
+    <!-- Row 2: Recon -->
+    <div class="el cat-recon"><span class="el-num">19</span><span class="el-sym">OSI</span><span class="el-name">OSINT</span></div>
+    <div class="el cat-recon"><span class="el-num">20</span><span class="el-sym">NMP</span><span class="el-name">Nmap</span></div>
+    <div class="el gap"></div><div class="el gap"></div><div class="el gap"></div><div class="el gap"></div>
+    <div class="el gap"></div><div class="el gap"></div><div class="el gap"></div><div class="el gap"></div>
+    <div class="el gap"></div><div class="el gap"></div>
+    <div class="el cat-recon"><span class="el-num">31</span><span class="el-sym">SHO</span><span class="el-name">Shodan</span></div>
+    <div class="el cat-recon"><span class="el-num">32</span><span class="el-sym">WHI</span><span class="el-name">WHOIS</span></div>
+    <div class="el cat-recon"><span class="el-num">33</span><span class="el-sym">CRT</span><span class="el-name">CertTransp</span></div>
+    <div class="el cat-recon"><span class="el-num">34</span><span class="el-sym">WFZ</span><span class="el-name">Wfuzz</span></div>
+    <div class="el cat-recon"><span class="el-num">35</span><span class="el-sym">FRB</span><span class="el-name">Feroxbrst</span></div>
+    <div class="el cat-recon"><span class="el-num">36</span><span class="el-sym">AMX</span><span class="el-name">Amass</span></div>
+    <!-- Row 3: Web Exploitation (full 18) -->
+    <div class="el cat-web"><span class="el-num">37</span><span class="el-sym">SQLi</span><span class="el-name">Injection</span></div>
+    <div class="el cat-web"><span class="el-num">38</span><span class="el-sym">XSS</span><span class="el-name">Cross-Site</span></div>
+    <div class="el cat-web"><span class="el-num">39</span><span class="el-sym">LFI</span><span class="el-name">File Incl</span></div>
+    <div class="el cat-web"><span class="el-num">40</span><span class="el-sym">RFI</span><span class="el-name">RemoteFile</span></div>
+    <div class="el cat-web"><span class="el-num">41</span><span class="el-sym">RCE</span><span class="el-name">RemoteExec</span></div>
+    <div class="el cat-web"><span class="el-num">42</span><span class="el-sym">XXE</span><span class="el-name">XMLEntity</span></div>
+    <div class="el cat-web"><span class="el-num">43</span><span class="el-sym">SRF</span><span class="el-name">SSRF</span></div>
+    <div class="el cat-web"><span class="el-num">44</span><span class="el-sym">IDR</span><span class="el-name">IDOR</span></div>
+    <div class="el cat-web"><span class="el-num">45</span><span class="el-sym">CSR</span><span class="el-name">CSRF</span></div>
+    <div class="el cat-web"><span class="el-num">46</span><span class="el-sym">HPP</span><span class="el-name">HTTP Poll</span></div>
+    <div class="el cat-web"><span class="el-num">47</span><span class="el-sym">JWK</span><span class="el-name">JWT Attack</span></div>
+    <div class="el cat-web"><span class="el-num">48</span><span class="el-sym">DES</span><span class="el-name">Deserial</span></div>
+    <div class="el cat-web"><span class="el-num">49</span><span class="el-sym">TMP</span><span class="el-name">Template</span></div>
+    <div class="el cat-web"><span class="el-num">50</span><span class="el-sym">OPN</span><span class="el-name">OpenRedir</span></div>
+    <div class="el cat-web"><span class="el-num">51</span><span class="el-sym">CLI</span><span class="el-name">Clickjack</span></div>
+    <div class="el cat-web"><span class="el-num">52</span><span class="el-sym">WSK</span><span class="el-name">WebSocket</span></div>
+    <div class="el cat-web"><span class="el-num">53</span><span class="el-sym">HRS</span><span class="el-name">HTTPSmuggl</span></div>
+    <div class="el cat-web"><span class="el-num">54</span><span class="el-sym">COR</span><span class="el-name">CORS</span></div>
+    <!-- Row 4: Binary Exploitation + PrivEsc -->
+    <div class="el cat-exploit"><span class="el-num">55</span><span class="el-sym">BOF</span><span class="el-name">BufferOvfl</span></div>
+    <div class="el cat-exploit"><span class="el-num">56</span><span class="el-sym">UAF</span><span class="el-name">Use-After-Free</span></div>
+    <div class="el cat-exploit"><span class="el-num">57</span><span class="el-sym">ROP</span><span class="el-name">ROPChain</span></div>
+    <div class="el cat-exploit"><span class="el-num">58</span><span class="el-sym">HOP</span><span class="el-name">HeapOvfl</span></div>
+    <div class="el cat-exploit"><span class="el-num">59</span><span class="el-sym">FST</span><span class="el-name">FormatStr</span></div>
+    <div class="el cat-exploit"><span class="el-num">60</span><span class="el-sym">INJ</span><span class="el-name">CMDInject</span></div>
+    <div class="el cat-privesc"><span class="el-num">61</span><span class="el-sym">SUD</span><span class="el-name">SudoPrivEsc</span></div>
+    <div class="el cat-privesc"><span class="el-num">62</span><span class="el-sym">SGD</span><span class="el-name">SUID/GUID</span></div>
+    <div class="el cat-privesc"><span class="el-num">63</span><span class="el-sym">CRN</span><span class="el-name">CronAbuse</span></div>
+    <div class="el cat-privesc"><span class="el-num">64</span><span class="el-sym">WRE</span><span class="el-name">WorldWrite</span></div>
+    <div class="el cat-privesc"><span class="el-num">65</span><span class="el-sym">CPN</span><span class="el-name">Capabilts</span></div>
+    <div class="el cat-privesc"><span class="el-num">66</span><span class="el-sym">TKN</span><span class="el-name">TokenImprs</span></div>
+    <div class="el cat-privesc"><span class="el-num">67</span><span class="el-sym">DLL</span><span class="el-name">DLLHijack</span></div>
+    <div class="el cat-privesc"><span class="el-num">68</span><span class="el-sym">SRV</span><span class="el-name">SvcExploit</span></div>
+    <div class="el cat-privesc"><span class="el-num">69</span><span class="el-sym">KRN</span><span class="el-name">KernelVuln</span></div>
+    <div class="el cat-privesc"><span class="el-num">70</span><span class="el-sym">EVR</span><span class="el-name">EnvHijack</span></div>
+    <div class="el cat-persist"><span class="el-num">71</span><span class="el-sym">REG</span><span class="el-name">Registry</span></div>
+    <div class="el cat-persist"><span class="el-num">72</span><span class="el-sym">SCH</span><span class="el-name">SchedTask</span></div>
+    <!-- Row 5: Persistence + Malware -->
+    <div class="el cat-persist"><span class="el-num">73</span><span class="el-sym">BDR</span><span class="el-name">Backdoor</span></div>
+    <div class="el cat-persist"><span class="el-num">74</span><span class="el-sym">BOT</span><span class="el-name">Botnet</span></div>
+    <div class="el cat-persist"><span class="el-num">75</span><span class="el-sym">RKT</span><span class="el-name">Rootkit</span></div>
+    <div class="el cat-persist"><span class="el-num">76</span><span class="el-sym">WRM</span><span class="el-name">Worm</span></div>
+    <div class="el cat-malware"><span class="el-num">77</span><span class="el-sym">RNS</span><span class="el-name">Ransomware</span></div>
+    <div class="el cat-malware"><span class="el-num">78</span><span class="el-sym">SPY</span><span class="el-name">Spyware</span></div>
+    <div class="el cat-malware"><span class="el-num">79</span><span class="el-sym">TRJ</span><span class="el-name">Trojan</span></div>
+    <div class="el cat-malware"><span class="el-num">80</span><span class="el-sym">RAT</span><span class="el-name">RemAccTool</span></div>
+    <div class="el cat-malware"><span class="el-num">81</span><span class="el-sym">PLD</span><span class="el-name">Payload</span></div>
+    <div class="el cat-malware"><span class="el-num">82</span><span class="el-sym">SHC</span><span class="el-name">Shellcode</span></div>
+    <div class="el cat-malware"><span class="el-num">83</span><span class="el-sym">OBF</span><span class="el-name">Obfuscate</span></div>
+    <div class="el cat-malware"><span class="el-num">84</span><span class="el-sym">PKD</span><span class="el-name">Packer</span></div>
+    <div class="el cat-dfir"><span class="el-num">85</span><span class="el-sym">MEM</span><span class="el-name">MemDump</span></div>
+    <div class="el cat-dfir"><span class="el-num">86</span><span class="el-sym">VOL</span><span class="el-name">Volatility</span></div>
+    <div class="el cat-dfir"><span class="el-num">87</span><span class="el-sym">LOG</span><span class="el-name">LogAnalysis</span></div>
+    <div class="el cat-dfir"><span class="el-num">88</span><span class="el-sym">PCK</span><span class="el-name">PCAP</span></div>
+    <div class="el cat-dfir"><span class="el-num">89</span><span class="el-sym">FRK</span><span class="el-name">ForensicKit</span></div>
+    <div class="el cat-dfir"><span class="el-num">90</span><span class="el-sym">IOC</span><span class="el-name">Indicators</span></div>
+    <!-- Row 6: Crypto + Social Engineering -->
+    <div class="el cat-crypto"><span class="el-num">91</span><span class="el-sym">AES</span><span class="el-name">Symmetric</span></div>
+    <div class="el cat-crypto"><span class="el-num">92</span><span class="el-sym">RSA</span><span class="el-name">Asymmetric</span></div>
+    <div class="el cat-crypto"><span class="el-num">93</span><span class="el-sym">ECC</span><span class="el-name">EllipticCrv</span></div>
+    <div class="el cat-crypto"><span class="el-num">94</span><span class="el-sym">HSH</span><span class="el-name">HashFunc</span></div>
+    <div class="el cat-crypto"><span class="el-num">95</span><span class="el-sym">XOR</span><span class="el-name">XORCipher</span></div>
+    <div class="el cat-crypto"><span class="el-num">96</span><span class="el-sym">B64</span><span class="el-name">Base64</span></div>
+    <div class="el cat-social"><span class="el-num">97</span><span class="el-sym">PHI</span><span class="el-name">Phishing</span></div>
+    <div class="el cat-social"><span class="el-num">98</span><span class="el-sym">VIS</span><span class="el-name">Vishing</span></div>
+    <div class="el cat-social"><span class="el-num">99</span><span class="el-sym">PRT</span><span class="el-name">Pretexting</span></div>
+    <div class="el cat-social"><span class="el-num">100</span><span class="el-sym">BIT</span><span class="el-name">Baiting</span></div>
+    <div class="el cat-social"><span class="el-num">101</span><span class="el-sym">QPQ</span><span class="el-name">QuoProQuo</span></div>
+    <div class="el cat-tools"><span class="el-num">102</span><span class="el-sym">MSF</span><span class="el-name">Metasploit</span></div>
+    <div class="el cat-tools"><span class="el-num">103</span><span class="el-sym">BRP</span><span class="el-name">BurpSuite</span></div>
+    <div class="el cat-tools"><span class="el-num">104</span><span class="el-sym">GTF</span><span class="el-name">GTFOBins</span></div>
+    <div class="el cat-tools"><span class="el-num">105</span><span class="el-sym">JHN</span><span class="el-name">JohnRipper</span></div>
+    <div class="el cat-tools"><span class="el-num">106</span><span class="el-sym">HSC</span><span class="el-name">Hashcat</span></div>
+    <div class="el cat-tools"><span class="el-num">107</span><span class="el-sym">NKT</span><span class="el-name">Netcat</span></div>
+    <div class="el cat-tools"><span class="el-num">108</span><span class="el-sym">CRK</span><span class="el-name">CrackMapEx</span></div>
+    <!-- Row 7: OPSEC, Evasion, Cloud -->
+    <div class="el cat-recon"><span class="el-num">109</span><span class="el-sym">TOR</span><span class="el-name">Anonymity</span></div>
+    <div class="el cat-recon"><span class="el-num">110</span><span class="el-sym">PRX</span><span class="el-name">ProxyChain</span></div>
+    <div class="el cat-persist"><span class="el-num">111</span><span class="el-sym">C2</span><span class="el-name">C2Server</span></div>
+    <div class="el cat-persist"><span class="el-num">112</span><span class="el-sym">LAT</span><span class="el-name">LateralMv</span></div>
+    <div class="el cat-persist"><span class="el-num">113</span><span class="el-sym">PVT</span><span class="el-name">Pivoting</span></div>
+    <div class="el cat-exploit"><span class="el-num">114</span><span class="el-sym">0DY</span><span class="el-name">Zero-Day</span></div>
+    <div class="el cat-exploit"><span class="el-num">115</span><span class="el-sym">APT</span><span class="el-name">AdvPersist</span></div>
+    <div class="el cat-dfir"><span class="el-num">116</span><span class="el-sym">YAR</span><span class="el-name">YARARules</span></div>
+    <div class="el cat-dfir"><span class="el-num">117</span><span class="el-sym">SEM</span><span class="el-name">SIEM</span></div>
+    <div class="el cat-dfir"><span class="el-num">118</span><span class="el-sym">SOC</span><span class="el-name">SOCOps</span></div>
+    <div class="el cat-network"><span class="el-num">119</span><span class="el-sym">IDS</span><span class="el-name">IntrusionDt</span></div>
+    <div class="el cat-network"><span class="el-num">120</span><span class="el-sym">FWL</span><span class="el-name">Firewall</span></div>
+    <div class="el cat-tools"><span class="el-num">121</span><span class="el-sym">LNX</span><span class="el-name">Linux</span></div>
+    <div class="el cat-tools"><span class="el-num">122</span><span class="el-sym">GIT</span><span class="el-name">Git</span></div>
+    <div class="el cat-tools"><span class="el-num">123</span><span class="el-sym">DOK</span><span class="el-name">Docker</span></div>
+    <div class="el cat-tools"><span class="el-num">124</span><span class="el-sym">K8S</span><span class="el-name">Kubernetes</span></div>
+    <div class="el cat-crypto"><span class="el-num">125</span><span class="el-sym">ZKP</span><span class="el-name">Zero-Knwldg</span></div>
+    <div class="el cat-crypto"><span class="el-num">126</span><span class="el-sym">PQC</span><span class="el-name">Post-Quant</span></div>
+  </div>
+
+  <!-- DESKTOP ICONS LAYER -->
+  <div id="icon-layer">
+    <!-- Primary: CyberWorld MMORPG -->
+    <div class="dicon" id="icon-mmorpg" ondblclick="launchGame()" onclick="selectIcon(this)" title="Enter CyberWorld MMORPG">
+      <div class="dicon-img" style="font-size:30px;background:linear-gradient(135deg,#001a0a,#003010);border-color:#00ff41;">🌐<span class="badge">HOT</span></div>
+      <div class="dicon-lbl">CYBERWORLD MMORPG</div>
+    </div>
+    <div class="dicon" ondblclick="openChallengeWindow()" onclick="selectIcon(this)" title="Challenge Terminal">
+      <div class="dicon-img" style="font-size:30px;border-color:rgba(255,176,0,0.5);">⚡</div>
+      <div class="dicon-lbl">CHALLENGE TERMINAL</div>
+    </div>
+    <div class="dicon" ondblclick="launchPage('wargames.html')" onclick="selectIcon(this)" title="War Games — 12 Missions">
+      <div class="dicon-img" style="font-size:28px;border-color:rgba(255,176,0,0.4);">⚔️</div>
+      <div class="dicon-lbl">WAR_GAMES</div>
+    </div>
+    <div class="dicon" ondblclick="launchPage('ctf-trail.html')" onclick="selectIcon(this)" title="CTF Trail — 20 Flags">
+      <div class="dicon-img" style="font-size:28px;border-color:rgba(0,232,255,0.4);">🏁</div>
+      <div class="dicon-lbl">CTF_TRAIL</div>
+    </div>
+    <div class="dicon" ondblclick="launchPage('forensics.html')" onclick="selectIcon(this)" title="Forensics Lab">
+      <div class="dicon-img" style="font-size:28px;border-color:rgba(192,132,252,0.4);">🔬</div>
+      <div class="dicon-lbl">FORENSICS LAB</div>
+    </div>
+    <div class="dicon" ondblclick="launchPage('redops.html')" onclick="selectIcon(this)" title="Red Ops Range">
+      <div class="dicon-img" style="font-size:28px;border-color:rgba(255,58,79,0.4);">💀</div>
+      <div class="dicon-lbl">RED_OPS</div>
+    </div>
+    <div class="dicon" ondblclick="launchPage('signal-lab.html')" onclick="selectIcon(this)" title="Signal Lab — Crypto">
+      <div class="dicon-img" style="font-size:28px;border-color:rgba(255,231,0,0.4);">📡</div>
+      <div class="dicon-lbl">SIGNAL_LAB</div>
+    </div>
+    <div class="dicon" ondblclick="launchPage('intel.html')" onclick="selectIcon(this)" title="Intel Hub — Live Feeds">
+      <div class="dicon-img" style="font-size:28px;border-color:rgba(0,255,204,0.4);">📊</div>
+      <div class="dicon-lbl">INTEL_HUB</div>
+    </div>
+    <div class="dicon" ondblclick="launchPage('adversaries.html')" onclick="selectIcon(this)" title="Adversary Database">
+      <div class="dicon-img" style="font-size:28px;border-color:rgba(255,0,234,0.4);">🕵️</div>
+      <div class="dicon-lbl">ADVERSARY_DB</div>
+    </div>
+    <div class="dicon" ondblclick="launchPage('profile.html')" onclick="selectIcon(this)" title="Operative Dossier">
+      <div class="dicon-img" style="font-size:28px;">🪪</div>
+      <div class="dicon-lbl">DOSSIER</div>
+    </div>
+    <div class="dicon" ondblclick="launchPage('research.html')" onclick="selectIcon(this)" title="Research Vault">
+      <div class="dicon-img" style="font-size:28px;">📚</div>
+      <div class="dicon-lbl">RESEARCH</div>
+    </div>
+    <div class="dicon" ondblclick="launchPage('ai.html')" onclick="selectIcon(this)" title="AI Overseer — 8 Agents">
+      <div class="dicon-img" style="font-size:28px;border-color:rgba(0,232,255,0.3);">🤖</div>
+      <div class="dicon-lbl">AI_OVERSEER</div>
+    </div>
+    <div class="dicon" ondblclick="launchPage('nodes.html')" onclick="selectIcon(this)" title="Threat Node Graph">
+      <div class="dicon-img" style="font-size:28px;">🕸️</div>
+      <div class="dicon-lbl">NODE_GRAPH</div>
+    </div>
+    <div class="dicon" ondblclick="launchPage('discuss.html')" onclick="selectIcon(this)" title="Community Hub">
+      <div class="dicon-img" style="font-size:28px;">💬</div>
+      <div class="dicon-lbl">DISCUSS</div>
+    </div>
+  </div>
+
+</div><!-- /desktop -->
+
+<!-- ══════════════════════════════════════════════════════
+     TASKBAR (shown after boot)
+     ══════════════════════════════════════════════════════ -->
+<div id="taskbar" style="display:none">
+  <div id="start-btn" onclick="toggleStart()">🖥️ &nbsp;START</div>
+  <div id="taskbar-tasks"></div>
+  <div id="tray">
+    <div id="tb-net" title="NEXUS ONLINE"></div>
+    <div id="tb-clock">00:00</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     START MENU
+     ══════════════════════════════════════════════════════ -->
+<div id="start-menu">
+  <div class="sm-sidebar"><span>FURIOS&#x2011;INT</span></div>
+  <div class="sm-items">
+    <a class="sm-item" onclick="launchGame();toggleStart()"><span class="sm-ico">🌐</span> CyberWorld MMORPG</a>
+    <a class="sm-item" onclick="openChallengeWindow();toggleStart()"><span class="sm-ico">⚡</span> Challenge Terminal</a>
+    <div class="sm-sep"></div>
+    <a class="sm-item" href="intel.html"><span class="sm-ico">📊</span> Intel Hub</a>
+    <a class="sm-item" href="profile.html"><span class="sm-ico">🪪</span> Operative Dossier</a>
+    <a class="sm-item" href="research.html"><span class="sm-ico">📚</span> Research Vault</a>
+    <a class="sm-item" href="adversaries.html"><span class="sm-ico">🕵️</span> Adversary DB</a>
+    <div class="sm-sep"></div>
+    <a class="sm-item" href="https://github.com/Personfu/personfu.github.io" target="_blank" rel="noopener noreferrer"><span class="sm-ico">💻</span> GitHub</a>
+    <a class="sm-item" href="https://discord.gg/fllc" target="_blank" rel="noopener noreferrer"><span class="sm-ico">💬</span> Discord</a>
+    <div class="sm-sep"></div>
+    <a class="sm-item" onclick="showAbout();toggleStart()"><span class="sm-ico">ℹ️</span> About NEXUS OS</a>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     CONTEXT MENU
+     ══════════════════════════════════════════════════════ -->
+<div id="ctx-menu">
+  <div class="cm-item" onclick="openChallengeWindow();closeCtx()">⚡ Challenge Terminal</div>
+  <div class="cm-item" onclick="launchGame();closeCtx()">🌐 Enter CyberWorld</div>
+  <div class="cm-sep"></div>
+  <div class="cm-item" onclick="closeCtx()">🔃 Refresh Desktop</div>
+  <div class="cm-item" onclick="showAbout();closeCtx()">ℹ️ About NEXUS OS</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     CHALLENGE TERMINAL WINDOW
+     ══════════════════════════════════════════════════════ -->
+<div class="win98-window" id="challenge-window" style="width:700px;height:490px;left:100px;top:50px;">
+  <div class="win-titlebar" id="cw-drag">
+    <span class="win-icon">⚡</span>
+    <span class="win-title">CHALLENGE_TERMINAL — FLLC OPERATIVE TRAINING SYSTEM v3.0</span>
+    <div class="win-btn" onclick="minimizeWin('challenge-window')" title="Minimize">_</div>
+    <div class="win-btn" onclick="maximizeWin('challenge-window')" title="Maximize">□</div>
+    <div class="win-btn" onclick="closeWin('challenge-window')" style="color:#900;font-weight:bold;" title="Close">✕</div>
+  </div>
+  <div class="win-menubar">
+    <span>File</span><span>View</span><span>Help</span>
+  </div>
+  <div id="ch-grid">
+    <a class="ch-card exploit" href="wargames.html">
+      <div class="ch-title">WAR_GAMES</div>
+      <div class="ch-desc">12 SHA-256 verified hacking missions. Source review, LFI, XSS, SQLi, auth bypass, encoding chains. Password vault at the end.</div>
+      <div class="ch-meta"><span class="ch-badge">12 MISSIONS</span><span class="ch-badge">XP REWARDS</span><span class="ch-badge">INTERMEDIATE</span></div>
+    </a>
+    <a class="ch-card red" href="redops.html">
+      <div class="ch-title">RED_OPS</div>
+      <div class="ch-desc">Offensive lab arena. OWASP Top 10 attack scenarios: injection, SSRF, IDOR, broken auth, RCE escalation chains.</div>
+      <div class="ch-meta"><span class="ch-badge">12 OPS</span><span class="ch-badge">OWASP</span><span class="ch-badge">ADVANCED</span></div>
+    </a>
+    <a class="ch-card recon" href="ctf-trail.html">
+      <div class="ch-title">CTF_TRAIL</div>
+      <div class="ch-desc">20-node story-driven CTF chain. OSINT, steganography, cryptography, network forensics, and binary analysis.</div>
+      <div class="ch-meta"><span class="ch-badge">20 FLAGS</span><span class="ch-badge">STORY</span><span class="ch-badge">BEGINNER+</span></div>
+    </a>
+    <a class="ch-card dfir" href="forensics.html">
+      <div class="ch-title">FORENSICS_LAB</div>
+      <div class="ch-desc">DFIR investigation cases. Memory dumps, pcap analysis, log parsing, disk imaging, malware triage workflows.</div>
+      <div class="ch-meta"><span class="ch-badge">12 CASES</span><span class="ch-badge">DFIR</span><span class="ch-badge">INTERMEDIATE</span></div>
+    </a>
+    <a class="ch-card crypto" href="signal-lab.html">
+      <div class="ch-title">SIGNAL_LAB</div>
+      <div class="ch-desc">RF signal decode, XOR cipher, ROT13, RSA (n=3233), Vigenere, entropy analysis. 5 SHA-256 verified challenges.</div>
+      <div class="ch-meta"><span class="ch-badge">5 LABS</span><span class="ch-badge">CRYPTO</span><span class="ch-badge">ALL LEVELS</span></div>
+    </a>
+    <a class="ch-card intel" href="intel.html">
+      <div class="ch-title">INTEL_HUB</div>
+      <div class="ch-desc">Live NVD CVE stream, CISA KEV, MITRE ATT&amp;CK feed, OSINT lookups, threat gauge, OWASP scanner.</div>
+      <div class="ch-meta"><span class="ch-badge">LIVE FEEDS</span><span class="ch-badge">OSINT</span><span class="ch-badge">RESEARCH</span></div>
+    </a>
+  </div>
+  <div class="win-statusbar">
+    <span>6 challenge modules active</span>
+    <span style="margin-left:auto;">FURIOS-INT NEXUS OS // BUILD 3.0.1</span>
+  </div>
+</div>
+
+<!-- ABOUT WINDOW -->
+<div class="win98-window" id="about-window" style="width:420px;height:290px;left:220px;top:120px;">
+  <div class="win-titlebar" id="aw-drag">
+    <span class="win-icon">ℹ️</span>
+    <span class="win-title">About NEXUS OS</span>
+    <div class="win-btn" onclick="closeWin('about-window')" style="color:#900;font-weight:bold;" title="Close">✕</div>
+  </div>
+  <div class="win-body" style="padding:20px;font-family:'JetBrains Mono',monospace;font-size:11px;color:#7da;line-height:1.8;display:block;">
+    <div style="font-family:'VT323',monospace;font-size:26px;color:#00ff41;margin-bottom:10px;text-shadow:0 0 10px #00ff41;">NEXUS OS v3.0</div>
+    <div><span style="color:#00e8ff;">FURIOS-INT</span> Cybersecurity Training Platform</div>
+    <div>Faction: <span style="color:#ff00ea;">FLLC // FULL LIFE CYCLE</span></div>
+    <div>Build: <span style="color:#ffb000;">MAY 2026 // STARSHIELD EDITION</span></div>
+    <div style="margin-top:12px;color:#4a7c4a;">Inspired by the golden age of hacking.<br>Win98 meets cyberpunk meets the grid.</div>
+    <div style="margin-top:14px;">
+      <a href="https://github.com/Personfu/personfu.github.io" target="_blank" rel="noopener noreferrer" style="color:#00e8ff;">github.com/Personfu</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     SCRIPTS
+     ══════════════════════════════════════════════════════ -->
+<script>
+'use strict';
+
+/* ── BOOT SEQUENCE ──────────────────────────────────────── */
+var BOOT_LINES = [
+  ['dim',  'BIOS v3.0.1 // FLLC SECURE SYSTEMS // CPU: HEXCORE-X9 // RAM: 64G ECC // NVMe RAID-6'],
+  ['ok',   'POST complete. Memory 65536 MB OK. RAID-6 parity verified. NVMe array nominal.'],
+  ['ok',   'Loading NEXUS kernel 6.8.0-furios... [    0.000000] Decompressing Linux...'],
+  ['ok',   'Kernel modules: crypto_sha256 aes_x86_64 dm_crypt nf_conntrack — LOADED'],
+  ['ok',   'Network: eth0 ONLINE (1Gbps) — IPv4/IPv6 assigned — firewall active (7 rules)'],
+  ['ok',   'Mounting encrypted volumes: luks-nexus-primary UNLOCKED // luks-data UNLOCKED'],
+  ['warn', 'AppArmor: 247 profiles loaded, 3 in complain mode (signal_lab, ctf_parser, redis)'],
+  ['ok',   'nginx 1.26.3 — :443 TLS 1.3/ECDHE-RSA-AES256 — cert valid 2027-01'],
+  ['ok',   'CyberWorld MMORPG: Socket.IO v4.8 — factions FLLC / Sentinel / Corsair / Ghostline'],
+  ['ok',   'Challenges: WAR_GAMES[12] CTF_TRAIL[20] FORENSICS[12] RED_OPS[12] SIGNAL_LAB[5]'],
+  ['ok',   'OSINT feeds: NVD-API-v2 CISA-KEV MITRE-ATT&CK — ALL ACTIVE'],
+  ['ok',   'Starting NEXUS Desktop Environment... loading wallpaper engine...'],
+  ['ok',   'FURIOS-INT NEXUS OS v3.0 — CLEARANCE: OPEN — DESKTOP READY']
+];
+
+(function bootSequence(){
+  var log  = document.getElementById('boot-log');
+  var cmd  = document.getElementById('boot-cmd');
+  var i    = 0;
+  var prefixes = {ok:'[ OK ]', warn:'[WARN]', err:'[ERR ]', dim:'[INFO]'};
+
+  var t = setInterval(function(){
+    if(i >= BOOT_LINES.length){ clearInterval(t); setTimeout(launchDesktop, 380); return; }
+    var cls = BOOT_LINES[i][0], msg = BOOT_LINES[i][1]; i++;
+    var div = document.createElement('div');
+    div.className = 'bl';
+    div.innerHTML = '<span class="' + cls + '">' + (prefixes[cls]||'[INFO]') + '</span> ' + msg;
+    log.appendChild(div);
+    log.scrollTop = log.scrollHeight;
+    cmd.textContent = '\u00a0' + msg.slice(0,52) + '...';
+  }, 108);
+})();
+
+function launchDesktop(){
+  var boot = document.getElementById('boot');
+  boot.style.opacity = '1';
+  boot.style.transition = 'opacity 0.3s';
+  boot.style.opacity = '0';
+  setTimeout(function(){
+    boot.style.display = 'none';
+    document.getElementById('desktop').style.display = 'block';
+    document.getElementById('taskbar').style.display = 'flex';
+    startClock();
+  }, 300);
+}
+
+/* ── CLOCK ────────────────────────────────────────────── */
+function startClock(){
+  function tick(){
+    var n = new Date();
+    document.getElementById('tb-clock').textContent =
+      String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 1000);
+}
+
+/* ── ICON SELECTION ─────────────────────────────────── */
+var selectedIcon = null;
+function selectIcon(el){
+  if(selectedIcon) selectedIcon.classList.remove('selected');
+  selectedIcon = el;
+  el.classList.add('selected');
+}
+
+/* Click on empty desktop — deselect */
+document.getElementById('desktop').addEventListener('click', function(e){
+  if(!e.target.closest('.dicon') && !e.target.closest('.win98-window')){
+    if(selectedIcon){ selectedIcon.classList.remove('selected'); selectedIcon = null; }
+  }
+});
+
+/* ── LAUNCH HELPERS ─────────────────────────────────── */
+function launchGame(){
+  var icon = document.getElementById('icon-mmorpg');
+  if(icon) icon.classList.add('launching');
+  setTimeout(function(){ window.location.href = 'rpg/index.html'; }, 350);
+}
+
+function launchPage(url){
+  window.location.href = url;
+}
+
+/* ── WINDOWS MANAGEMENT ─────────────────────────────── */
+var winZ = 4000;
+
+function bringToFront(id){
+  winZ++;
+  var el = document.getElementById(id);
+  if(el) el.style.zIndex = String(winZ);
+}
+
+function openChallengeWindow(){
+  var w = document.getElementById('challenge-window');
+  w.classList.add('open');
+  bringToFront('challenge-window');
+  addTaskbarTask('challenge-window', '⚡ CHALLENGE_TERMINAL');
+}
+
+function closeWin(id){
+  var w = document.getElementById(id);
+  if(w) w.classList.remove('open');
+  removeTaskbarTask(id);
+}
+
+function minimizeWin(id){
+  var w = document.getElementById(id);
+  if(w){ w.classList.remove('open'); }
+  var btn = document.getElementById('tbt-' + id);
+  if(btn) btn.classList.remove('active');
+}
+
+function maximizeWin(id){
+  var w = document.getElementById(id);
+  if(!w) return;
+  if(w.dataset.maximized === '1'){
+    w.style.cssText = w.dataset.prevStyle;
+    w.dataset.maximized = '0';
+  } else {
+    w.dataset.prevStyle = w.style.cssText;
+    winZ++;
+    w.style.cssText = 'position:fixed;inset:0 0 40px 0;width:100%;z-index:'+winZ+';display:flex;flex-direction:column;background:#1a1a1a;border:2px outset #555;resize:none;overflow:hidden;';
+    w.dataset.maximized = '1';
+  }
+}
+
+function showAbout(){
+  var w = document.getElementById('about-window');
+  w.classList.add('open');
+  bringToFront('about-window');
+}
+
+/* ── WINDOW DRAGGING ───────────────────────────────── */
+(function(){
+  var drag = null, ox = 0, oy = 0;
+  document.addEventListener('mousedown', function(e){
+    var tb = e.target.closest('.win-titlebar');
+    if(!tb) return;
+    var win = tb.closest('.win98-window');
+    if(!win || win.dataset.maximized === '1') return;
+    drag = win;
+    bringToFront(win.id);
+    var r = win.getBoundingClientRect();
+    ox = e.clientX - r.left;
+    oy = e.clientY - r.top;
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e){
+    if(!drag) return;
+    drag.style.left   = (e.clientX - ox) + 'px';
+    drag.style.top    = (e.clientY - oy) + 'px';
+    drag.style.right  = 'auto';
+    drag.style.bottom = 'auto';
+  });
+  document.addEventListener('mouseup', function(){ drag = null; });
+})();
+
+/* ── TASKBAR TASKS ─────────────────────────────────── */
+function addTaskbarTask(id, label){
+  var tasks = document.getElementById('taskbar-tasks');
+  if(document.getElementById('tbt-'+id)) return;
+  var btn = document.createElement('div');
+  btn.className = 'tb-task active';
+  btn.id = 'tbt-'+id;
+  btn.textContent = label;
+  btn.addEventListener('click', function(){
+    var w = document.getElementById(id);
+    if(!w) return;
+    if(w.classList.contains('open')){
+      w.classList.remove('open');
+      btn.classList.remove('active');
+    } else {
+      w.classList.add('open');
+      bringToFront(id);
+      btn.classList.add('active');
+    }
+  });
+  tasks.appendChild(btn);
+}
+
+function removeTaskbarTask(id){
+  var btn = document.getElementById('tbt-'+id);
+  if(btn) btn.remove();
+}
+
+/* ── START MENU ─────────────────────────────────────── */
+function toggleStart(){
+  document.getElementById('start-menu').classList.toggle('open');
+}
+document.addEventListener('click', function(e){
+  if(!e.target.closest('#start-menu') && !e.target.closest('#start-btn')){
+    document.getElementById('start-menu').classList.remove('open');
+  }
+});
+
+/* ── CONTEXT MENU ───────────────────────────────────── */
+var ctxMenu = document.getElementById('ctx-menu');
+document.getElementById('desktop').addEventListener('contextmenu', function(e){
+  if(e.target.closest('.win98-window')) return;
+  e.preventDefault();
+  ctxMenu.style.display = 'block';
+  ctxMenu.style.left = Math.min(e.clientX, window.innerWidth  - 170) + 'px';
+  ctxMenu.style.top  = Math.min(e.clientY, window.innerHeight - 120) + 'px';
+});
+document.addEventListener('click', closeCtx);
+function closeCtx(){ ctxMenu.style.display = 'none'; }
+
+/* ── KEYBOARD SHORTCUTS ─────────────────────────────── */
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){ closeCtx(); document.getElementById('start-menu').classList.remove('open'); }
+  if(e.key === 'Enter' && selectedIcon){ selectedIcon.dispatchEvent(new MouseEvent('dblclick')); }
+});
+</script>
+</body>
+</html>

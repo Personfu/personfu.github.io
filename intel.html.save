@@ -12,90 +12,234 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="theme-color" content="#020408">
-<link href="css/os.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=JetBrains+Mono:wght@400;700&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/cyber-shared.css">
 <style>
-:root{--cyber-cyan:#00e8ff;--cyber-green:#00ff41;--cyber-pink:#ff00ea;}
-*{box-sizing:border-box;margin:0;padding:0;}
-html,body{height:auto;min-height:100%;overflow-x:hidden;scroll-behavior:smooth;}
-body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courier,monospace;padding-bottom:58px;-webkit-overflow-scrolling:touch;}
-#crt-filter{position:fixed;pointer-events:none;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.07) 0px,rgba(0,0,0,0.07) 1px,transparent 1px,transparent 2px);z-index:9998;}
-#taskbar{position:fixed;bottom:0;left:0;width:100%;height:32px;background:#0a0a0a;border-top:1px solid var(--cyber-cyan);z-index:9999;display:flex;align-items:center;padding:0 12px;}
-#taskbar a{color:var(--cyber-cyan);text-decoration:none;font-size:13px;letter-spacing:1px;}
-#taskbar a:hover{text-shadow:0 0 8px var(--cyber-cyan);}
-.page-title{text-align:center;padding:32px 16px 16px;font-size:clamp(16px,4vw,28px);letter-spacing:3px;text-shadow:0 0 16px var(--cyber-cyan),0 0 32px var(--cyber-cyan);color:var(--cyber-cyan);text-transform:uppercase;}
-.section{margin:24px 16px;border:1px solid var(--cyber-cyan);background:#0a0a0a;border-radius:2px;}
-.section-header{padding:10px 16px;background:#020e10;border-bottom:1px solid var(--cyber-cyan);font-size:13px;letter-spacing:2px;text-shadow:0 0 8px var(--cyber-cyan);color:var(--cyber-cyan);}
-.section-body{padding:16px;}
-/* CVE Feed */
-#cve-list{display:flex;flex-direction:column;gap:6px;}
-.cve-entry{background:#050505;border:1px solid #1a1a2e;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;}
-.cve-id{color:var(--cyber-cyan);font-weight:bold;min-width:140px;}
-.cvss-red{color:#ff4444;font-weight:bold;}
-.cvss-orange{color:#ff8800;font-weight:bold;}
-.cvss-yellow{color:#ffdd00;font-weight:bold;}
-.cvss-low{color:var(--cyber-green);font-weight:bold;}
-.cve-product{color:var(--cyber-pink);min-width:120px;}
-.cve-desc{color:#aaa;flex:1;}
-/* Threat Gauge */
-#gauge-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;padding:16px;}
-#gauge-bar-outer{width:100%;max-width:500px;height:28px;background:#0d0d0d;border:1px solid var(--cyber-cyan);border-radius:2px;overflow:hidden;}
-#gauge-bar-inner{height:100%;width:0%;transition:width 0.6s ease,background 0.6s ease;}
-#gauge-label{font-size:22px;letter-spacing:4px;font-weight:bold;text-shadow:0 0 12px currentColor;}
-/* Camera */
-#cam-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;}
-#activate-btn,#capture-btn,#deactivate-btn{min-height:44px;padding:10px 28px;font-family:'Courier New',monospace;font-size:13px;letter-spacing:2px;cursor:pointer;border:none;border-radius:2px;}
-#activate-btn{background:var(--cyber-cyan);color:#000;}
-#capture-btn{background:var(--cyber-green);color:#000;display:none;}
-#deactivate-btn{background:#ff4444;color:#fff;display:none;}
-#video-frame{position:relative;display:none;border:2px solid var(--cyber-cyan);box-shadow:0 0 18px var(--cyber-cyan);}
-#cam-video{display:block;max-width:100%;width:480px;}
-#scan-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--cyber-cyan);font-size:18px;letter-spacing:3px;text-shadow:0 0 10px var(--cyber-cyan);animation:blink 1s step-start infinite;}
-@keyframes blink{50%{opacity:0;}}
-#cam-canvas{max-width:100%;border:2px solid var(--cyber-green);display:none;margin-top:8px;}
-#cam-error{color:#ff4444;display:none;margin-top:8px;}
-/* TTP Feed */
-#ttp-list{display:flex;flex-direction:column;gap:6px;}
-.ttp-entry{background:#050505;border:1px solid #1a1a2e;padding:10px 12px;font-size:12px;}
-.ttp-id{color:var(--cyber-pink);font-weight:bold;}
-.ttp-tactic{color:var(--cyber-cyan);}
-.ttp-desc{color:#aaa;}
-.ttp-time{color:var(--cyber-green);font-size:11px;}
-/* Ticker */
-#ticker-outer{overflow:hidden;white-space:nowrap;padding:10px 0;background:#020e10;}
-#ticker-inner{display:inline-block;animation:ticker 35s linear infinite;color:var(--cyber-cyan);font-size:13px;letter-spacing:1px;}
-@keyframes ticker{0%{transform:translateX(100vw);}100%{transform:translateX(-100%);}}
-.watch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px;}
-.watch-card{background:#050505;border:1px solid rgba(0,232,255,0.18);padding:12px;}
-.watch-title{font-size:12px;color:var(--cyber-cyan);font-weight:bold;margin-bottom:6px;}
-.watch-line{font-size:11px;color:#b7cfd3;line-height:1.6;margin-bottom:4px;}
-.watch-line strong{color:var(--cyber-green);}
-@media(max-width:600px){
-  .page-title{padding-top:20px;}
-  .cve-entry{font-size:11px;}
+/* ── INTEL PAGE OVERRIDES ─────────────────────────────────────────── */
+body{padding-bottom:64px;}
+
+/* PAGE HERO */
+.intel-hero{
+  text-align:center;
+  padding:clamp(60px,8vw,80px) 16px 20px;
+  position:relative;
+}
+.intel-hero h1{
+  font-family:'Pixelify Sans',monospace;
+  font-size:clamp(22px,5vw,42px);
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:var(--c-cyan);
+  text-shadow:0 0 18px var(--c-cyan),0 0 40px rgba(0,255,65,0.3);
+  margin-bottom:8px;
+}
+.intel-hero .sub{
+  font-family:'JetBrains Mono',monospace;
+  font-size:clamp(10px,1.5vw,13px);
+  color:var(--c-green);
+  letter-spacing:3px;
+  opacity:.85;
 }
 
+/* SECTION PANELS */
+.intel-panel{
+  margin:0 16px 20px;
+  border:1px solid rgba(0,255,65,0.35);
+  background:#020a04;
+  position:relative;
+}
+.intel-panel::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(0,255,65,0.03) 0%,transparent 60%);
+  pointer-events:none;
+}
+.intel-panel-hdr{
+  padding:9px 16px;
+  background:#010d03;
+  border-bottom:1px solid rgba(0,255,65,0.35);
+  font-family:'VT323',monospace;
+  font-size:18px;
+  letter-spacing:3px;
+  color:var(--c-cyan);
+  text-shadow:0 0 8px var(--c-cyan);
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.intel-panel-body{padding:16px;}
+
+/* TICKER */
+#ticker-outer{overflow:hidden;white-space:nowrap;padding:8px 0;background:#010d03;}
+#ticker-inner{
+  display:inline-block;
+  animation:ticker 40s linear infinite;
+  color:var(--c-cyan);
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  letter-spacing:1px;
+}
+@keyframes ticker{0%{transform:translateX(100vw);}100%{transform:translateX(-100%);}}
+
+/* WATCH GRID */
+.watch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;}
+.watch-card{
+  background:#000;
+  border:1px solid rgba(0,255,65,0.2);
+  padding:14px;
+  transition:border-color .2s,box-shadow .2s;
+}
+.watch-card:hover{border-color:var(--c-cyan);box-shadow:0 0 12px rgba(0,255,65,0.15);}
+.watch-title{
+  font-family:'VT323',monospace;
+  font-size:17px;
+  letter-spacing:2px;
+  color:var(--c-cyan);
+  margin-bottom:8px;
+  text-transform:uppercase;
+}
+.watch-line{font-size:11.5px;color:#8fb89a;line-height:1.7;margin-bottom:3px;font-family:'JetBrains Mono',monospace;}
+.watch-line strong{color:var(--c-green);}
+
+/* CVE / KEV ENTRIES */
+#cve-list,#ttp-list,#kev-list{display:flex;flex-direction:column;gap:5px;}
+.cve-entry,.kev-entry{
+  background:#000;
+  border:1px solid rgba(0,255,65,0.12);
+  border-left:3px solid rgba(0,255,65,0.3);
+  padding:9px 12px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;
+  transition:border-color .15s,background .15s;
+}
+.cve-entry:hover,.kev-entry:hover{background:#010902;border-color:rgba(0,255,65,0.4);}
+.cve-id{color:var(--c-cyan);font-weight:700;min-width:150px;letter-spacing:.5px;}
+.cvss-red{color:#ff3a4f;font-weight:700;}
+.cvss-orange{color:var(--c-amber);font-weight:700;}
+.cvss-yellow{color:#ffe055;font-weight:700;}
+.cvss-low{color:var(--c-green);font-weight:700;}
+.cve-product{color:#c06bff;min-width:130px;}
+.cve-desc{color:#7a9c83;flex:1;}
+.kev-id{color:var(--c-amber);font-weight:700;min-width:150px;}
+.kev-vendor{color:#c06bff;min-width:100px;}
+.kev-product{color:var(--c-cyan);}
+.kev-due{color:var(--c-red);font-size:10.5px;}
+.kev-desc{color:#7a9c83;flex:1;}
+
+/* TTP ENTRIES */
+.ttp-entry{
+  background:#000;
+  border:1px solid rgba(0,255,65,0.12);
+  border-left:3px solid rgba(192,107,255,0.4);
+  padding:9px 12px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11.5px;
+  transition:border-color .15s;
+}
+.ttp-entry:hover{border-color:rgba(192,107,255,0.7);}
+.ttp-id{color:#c06bff;font-weight:700;}
+.ttp-tactic{color:var(--c-cyan);}
+.ttp-desc{color:#7a9c83;}
+.ttp-time{color:var(--c-green);font-size:10.5px;}
+
+/* THREAT GAUGE */
+#gauge-wrap{display:flex;flex-direction:column;align-items:center;gap:18px;padding:20px;}
+#gauge-bar-outer{
+  width:100%;max-width:540px;height:32px;
+  background:#000;
+  border:1px solid rgba(0,255,65,0.4);
+  overflow:hidden;
+}
+#gauge-bar-inner{height:100%;width:0%;transition:width .7s ease,background .7s ease;}
+#gauge-label{
+  font-family:'VT323',monospace;
+  font-size:28px;
+  letter-spacing:5px;
+  text-shadow:0 0 14px currentColor;
+}
+
+/* CAMERA */
+#cam-wrap{display:flex;flex-direction:column;align-items:center;gap:12px;}
+#activate-btn,#capture-btn,#deactivate-btn{
+  min-height:44px;padding:10px 28px;
+  font-family:'VT323',monospace;font-size:20px;letter-spacing:3px;
+  cursor:pointer;border:none;
+}
+#activate-btn{background:var(--c-cyan);color:#000;}
+#capture-btn{background:var(--c-green);color:#000;display:none;}
+#deactivate-btn{background:var(--c-red);color:#fff;display:none;}
+#video-frame{position:relative;display:none;border:2px solid var(--c-cyan);box-shadow:0 0 20px rgba(0,255,65,0.3);}
+#cam-video{display:block;max-width:100%;width:480px;}
+#scan-overlay{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  color:var(--c-cyan);font-family:'VT323',monospace;font-size:22px;letter-spacing:4px;
+  text-shadow:0 0 10px var(--c-cyan);animation:blink 1s step-start infinite;
+}
+@keyframes blink{50%{opacity:0;}}
+#cam-canvas{max-width:100%;border:2px solid var(--c-green);display:none;margin-top:8px;}
+#cam-error{color:var(--c-red);display:none;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:12px;}
+
+/* OSINT FORM */
+.osint-form{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.osint-input,.osint-select{
+  background:#000;
+  border:1px solid rgba(0,255,65,0.4);
+  color:var(--c-cyan);
+  padding:9px 12px;
+  font-family:'JetBrains Mono',monospace;font-size:12.5px;
+  outline:none;
+  transition:border-color .2s;
+}
+.osint-input{flex:1;min-width:200px;}
+.osint-input:focus,.osint-select:focus{border-color:var(--c-cyan);box-shadow:0 0 8px rgba(0,255,65,0.2);}
+.osint-btn{
+  min-height:40px;padding:8px 22px;
+  background:var(--c-cyan);color:#000;border:none;
+  font-family:'VT323',monospace;font-size:20px;letter-spacing:2px;
+  cursor:pointer;transition:box-shadow .2s;
+}
+.osint-btn:hover{box-shadow:0 0 14px rgba(0,255,65,0.5);}
+.osint-btn:disabled{opacity:.45;cursor:default;}
+#osint-output{
+  background:#000;border:1px solid rgba(0,255,65,0.2);padding:14px;
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:#7df0a0;line-height:1.7;white-space:pre-wrap;word-break:break-all;
+  max-height:380px;overflow-y:auto;display:none;
+}
+#osint-status,#kev-status,#nvd-status,#cve-search-status,#owasp-status{
+  font-size:11.5px;font-family:'JetBrains Mono',monospace;margin-bottom:8px;
+}
+
+/* Inline selects/inputs font override */
+select,textarea,input[type=text],input[type=search]{
+  font-family:'JetBrains Mono',monospace !important;
+}
+
+/* HIGHLIGHTS header */
+#cve-highlights > div:first-child{
+  font-family:'VT323',monospace !important;
+  font-size:18px !important;
+  letter-spacing:3px;
+  color:var(--c-cyan) !important;
+  margin-bottom:10px;
+}
+
+@media(max-width:600px){
+  .intel-hero h1{letter-spacing:2px;}
+  .cve-entry,.kev-entry{font-size:10.5px;}
+}
 @media(min-width:1100px){
   #cve-list,#ttp-list,#cve-search-results,#highlights-list{max-height:540px;overflow-y:auto;}
 }
-
-/* OSINT Lookup */
-.osint-form{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
-.osint-input{flex:1;min-width:200px;background:#000;border:1px solid var(--cyber-cyan);color:var(--cyber-cyan);padding:9px 12px;font-family:'Courier New',monospace;font-size:13px;outline:none;}
-.osint-select{background:#000;border:1px solid var(--cyber-cyan);color:var(--cyber-cyan);padding:9px 8px;font-family:'Courier New',monospace;font-size:13px;outline:none;}
-.osint-btn{min-height:40px;padding:8px 20px;background:var(--cyber-cyan);color:#000;border:none;font-family:'Courier New',monospace;font-size:13px;letter-spacing:1px;cursor:pointer;}
-.osint-btn:disabled{opacity:.5;cursor:default;}
-#osint-output{background:#000;border:1px solid #1a2a1a;padding:14px;font-family:'JetBrains Mono','Courier New',monospace;font-size:11.5px;color:#b0ffb0;line-height:1.6;white-space:pre-wrap;word-break:break-all;max-height:380px;overflow-y:auto;display:none;}
-#osint-status{font-size:12px;color:var(--cyber-yellow);margin-bottom:8px;display:none;}
-
-/* CISA KEV */
-.kev-entry{background:#050505;border:1px solid #2a1a00;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;margin-bottom:4px;}
-.kev-id{color:#ff8800;font-weight:bold;min-width:140px;}
-.kev-vendor{color:var(--cyber-pink);min-width:100px;}
-.kev-product{color:var(--cyber-cyan);}
-.kev-due{color:#ff4444;font-size:11px;}
-.kev-desc{color:#aaa;flex:1;}
 </style>
-<link rel="stylesheet" href="css/cyber-shared.css">
 </head>
 <body data-story-page="intel">
 <canvas id="cyber-bg-canvas"></canvas>
@@ -112,27 +256,30 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
   <a href="games.html">ARCADE</a>
 </nav>
 
-<div class="page-title">◈ FLLC INTEL HUB — STARSHIELD WATCH ◈<br><span style="font-size:13px;color:var(--cyber-green);letter-spacing:2px;">// MAY 2026 // NVD · CISA · NSA · MITRE ATT&amp;CK LIVE FEEDS //</span></div>
+<div class="intel-hero">
+  <h1>◈ FLLC INTEL HUB — STARSHIELD WATCH ◈</h1>
+  <div class="sub">// MAY 2026 // NVD · CISA · NSA · MITRE ATT&amp;CK LIVE FEEDS //</div>
+</div>
 
 <!-- THREAT TICKER -->
-<div class="section">
-  <div class="section-header">▶ GLOBAL_THREAT_TICKER // LIVE INTEL STREAM</div>
+<div class="intel-panel">
+  <div class="intel-panel-hdr">▶ GLOBAL_THREAT_TICKER // LIVE INTEL STREAM</div>
   <div id="ticker-outer">
     <span id="ticker-inner" data-story="ticker">STARSHIELD FEED SYNCING...</span>
   </div>
 </div>
 
-<div class="section">
-  <div class="section-header">▶ STARSHIELD_OPERATION_BOARD // ACTIVE ADVERSARIES</div>
-  <div class="section-body">
+<div class="intel-panel">
+  <div class="intel-panel-hdr">▶ STARSHIELD_OPERATION_BOARD // ACTIVE ADVERSARIES</div>
+  <div class="intel-panel-body">
     <div style="font-size:12px;color:#aaa;margin-bottom:12px;">Track which actors are shaping the current battlefield, what sectors they pressure, which mission nodes they touch, and what tools FLLC recommends before you leave The Nexus.</div>
     <div class="watch-grid" data-story="intel-watch-grid"></div>
   </div>
 </div>
 
-<div class="section">
-  <div class="section-header">▶ GLOBAL_OSINT_SNAPSHOT // TRANSPARENCY MONITOR</div>
-  <div class="section-body">
+<div class="intel-panel">
+  <div class="intel-panel-hdr">▶ GLOBAL_OSINT_SNAPSHOT // TRANSPARENCY MONITOR</div>
+  <div class="intel-panel-body">
     <div style="font-size:12px;color:#aaa;margin-bottom:12px;">Open-source intelligence is gathered from public disclosures, infrastructure datasets, transparency reports, and verified threat signals. This snapshot is informational and intended for research and awareness.</div>
     <div class="watch-grid">
       <div class="watch-card">
@@ -160,9 +307,9 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
 </div>
 
 <!-- OSINT LOOKUP TOOL -->
-<div class="section">
-  <div class="section-header">▶ OSINT_LOOKUP // DOMAIN · IP · CERT RECON</div>
-  <div class="section-body">
+<div class="intel-panel">
+  <div class="intel-panel-hdr">▶ OSINT_LOOKUP // DOMAIN · IP · CERT RECON</div>
+  <div class="intel-panel-body">
     <div style="font-size:12px;color:#aaa;margin-bottom:12px;">Query domain registration (RDAP), DNS records, IP geolocation, and SSL certificate transparency against the FURIOS-INT backend. For educational and authorized research use only.</div>
     <div class="osint-form">
       <input id="osint-target" type="text" class="osint-input" placeholder="Domain, IP, or hostname (e.g. example.com, 1.1.1.1)" maxlength="253" autocomplete="off" spellcheck="false" aria-label="OSINT target">
@@ -180,9 +327,9 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
 </div>
 
 <!-- CISA KEV FEED -->
-<div class="section">
-  <div class="section-header">▶ CISA_KEV_FEED // KNOWN EXPLOITED VULNERABILITIES</div>
-  <div class="section-body">
+<div class="intel-panel">
+  <div class="intel-panel-hdr">▶ CISA_KEV_FEED // KNOWN EXPLOITED VULNERABILITIES</div>
+  <div class="intel-panel-body">
     <div style="font-size:12px;color:#aaa;margin-bottom:10px;">CISA's Known Exploited Vulnerabilities catalog — vulnerabilities with confirmed exploitation in the wild. Federal agencies are required to remediate these. <span id="kev-meta" style="color:#ff8800;"></span></div>
     <div id="kev-list"></div>
     <div id="kev-status" style="font-size:12px;color:var(--cyber-yellow);margin-top:8px;"></div>
@@ -190,9 +337,9 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
 </div>
 
 <!-- OWASP VULNERABILITY SCANNER -->
-<div class="section">
-  <div class="section-header">▶ OWASP_SCANNER // VULNERABILITY PATTERN ANALYSIS</div>
-  <div class="section-body">
+<div class="intel-panel">
+  <div class="intel-panel-hdr">▶ OWASP_SCANNER // VULNERABILITY PATTERN ANALYSIS</div>
+  <div class="intel-panel-body">
     <div style="font-size:12px;color:#aaa;margin-bottom:12px;">Submit code snippet or description for OWASP Top 10 2021 pattern analysis. Powered by the <span style="color:var(--cyber-cyan)">OWASP-Orizon</span> service backend. Educational use — not a substitute for proper SAST/DAST tooling.</div>
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
       <select id="owasp-type" style="background:#000;border:1px solid var(--cyber-cyan);color:var(--cyber-cyan);padding:9px 8px;font-family:'Courier New',monospace;font-size:12px;outline:none;" aria-label="Scan target type">
@@ -228,9 +375,9 @@ maxlength="4000" spellcheck="false" aria-label="Code to scan"></textarea>
 </div>
 
 <!-- LIVE CVE FEED -->
-<div class="section">
-  <div class="section-header">▶ LIVE_CVE_FEED // NVD THREAT INTELLIGENCE</div>
-  <div class="section-body">
+<div class="intel-panel">
+  <div class="intel-panel-hdr">▶ LIVE_CVE_FEED // NVD THREAT INTELLIGENCE</div>
+  <div class="intel-panel-body">
     <div style="font-size:12px;color:var(--cyber-green);margin-bottom:10px;" data-story="intel-adversaries">ACTIVE STARSHIELD ADVERSARIES: SYNCING...</div>
     <div style="font-size:12px;color:var(--cyber-pink);margin-bottom:10px;" data-story="intel-mission-impact">MISSION NODE IMPACT: SYNCING...</div>
     <div style="font-size:12px;color:#9cc; margin-bottom:10px;">LAUNCH WINDOW: <span data-story="launch-window">T-UNKNOWN</span> | UPLINK: <span data-story="uplink-integrity">0%</span> | RELAY TRUST: <span data-story="relay-trust">0%</span> | ADVERSARY PRESSURE: <span data-story="adversary-pressure">0%</span></div>
@@ -242,9 +389,9 @@ maxlength="4000" spellcheck="false" aria-label="Code to scan"></textarea>
 </div>
 
 <!-- CVE SEARCH + HISTORY (back to 2005) -->
-<div class="section">
-  <div class="section-header">▶ CVE_SEARCH // FULL DATABASE 2005–PRESENT</div>
-  <div class="section-body">
+<div class="intel-panel">
+  <div class="intel-panel-hdr">▶ CVE_SEARCH // FULL DATABASE 2005–PRESENT</div>
+  <div class="intel-panel-body">
     <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">
       <input id="cve-search-q" type="search" placeholder="Search CVE ID, product, keyword (e.g. log4j, openssl, CVE-2014-0160)" 
         style="flex:1;min-width:200px;background:#000;border:1px solid var(--cyber-cyan);color:var(--cyber-cyan);padding:9px 12px;font-family:'Courier New',monospace;font-size:13px;outline:none;" 
@@ -276,9 +423,9 @@ maxlength="4000" spellcheck="false" aria-label="Code to scan"></textarea>
 </div>
 
 <!-- THREAT LEVEL GAUGE -->
-<div class="section">
-  <div class="section-header">▶ THREAT_LEVEL_GAUGE // GLOBAL RISK INDEX</div>
-  <div class="section-body">
+<div class="intel-panel">
+  <div class="intel-panel-hdr">▶ THREAT_LEVEL_GAUGE // GLOBAL RISK INDEX</div>
+  <div class="intel-panel-body">
     <div id="gauge-wrap">
       <div id="gauge-bar-outer"><div id="gauge-bar-inner"></div></div>
       <div id="gauge-label">LOADING...</div>
@@ -287,9 +434,9 @@ maxlength="4000" spellcheck="false" aria-label="Code to scan"></textarea>
 </div>
 
 <!-- LIVE CAMERA -->
-<div class="section">
-  <div class="section-header">▶ LIVE_CAMERA // OPTICAL_RECON</div>
-  <div class="section-body">
+<div class="intel-panel">
+  <div class="intel-panel-hdr">▶ LIVE_CAMERA // OPTICAL_RECON</div>
+  <div class="intel-panel-body">
     <div id="cam-wrap">
       <button id="activate-btn">ACTIVATE_CAMERA</button>
       <div id="video-frame">
@@ -307,9 +454,9 @@ maxlength="4000" spellcheck="false" aria-label="Code to scan"></textarea>
 </div>
 
 <!-- ADVERSARY TACTICS FEED -->
-<div class="section">
-  <div class="section-header">▶ ADVERSARY_TACTICS_FEED // MITRE ATT&amp;CK</div>
-  <div class="section-body">
+<div class="intel-panel">
+  <div class="intel-panel-hdr">▶ ADVERSARY_TACTICS_FEED // MITRE ATT&amp;CK</div>
+  <div class="intel-panel-body">
     <div id="ttp-list"></div>
   </div>
 </div>
@@ -887,20 +1034,5 @@ setInterval(addTTP,4000);
   <span class="pf-clock" id="pf-clock"></span>
 </footer>
 <script>setInterval(function(){var e=document.getElementById('pf-clock');if(e)e.textContent=new Date().toLocaleTimeString('en-US',{hour12:true,hour:'2-digit',minute:'2-digit'});},1000);</script><script src="js/cyber-bg.js" defer></script>
-<div id="return-to-game-banner">
-  <a id="return-game-link" href="rpg/index.html">◀&nbsp;&nbsp;RETURN TO CYBERWORLD</a>
-  <span id="return-banner-tag">LAUNCHED FROM MMORPG</span>
-</div>
-<script>
-(function(){
-  try{
-    if(new URLSearchParams(window.location.search).get('ref')==='game'){
-      document.getElementById('return-to-game-banner').classList.add('show');
-      document.body.classList.add('has-game-banner');
-    }
-  }catch(e){}
-})();
-</script>
-<div id="return-to-game-banner"><a id="return-game-link" href="rpg/index.html">&#9664;&#160;&#160;RETURN TO CYBERWORLD</a><span id="return-banner-tag">LAUNCHED FROM MMORPG</span></div><script>(function(){try{if(new URLSearchParams(window.location.search).get('ref')=='game'){document.getElementById('return-to-game-banner').classList.add('show');document.body.classList.add('has-game-banner');}}catch(e){}})();</script>
 </body>
 </html>

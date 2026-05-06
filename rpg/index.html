@@ -24,10 +24,145 @@ html, body {
   );
 }
 canvas { display: block; }
+
+/* ══ CHALLENGE TERMINAL OVERLAY ═══════════════════════════ */
+#ch-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 9000;
+  align-items: center;
+  justify-content: center;
+}
+#ch-overlay.open { display: flex; }
+#ch-panel {
+  background: #020a04;
+  border: 2px solid #00ff41;
+  box-shadow: 0 0 40px rgba(0,255,65,0.2);
+  width: min(780px, 96vw);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'VT323', monospace;
+}
+#ch-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  background: linear-gradient(to right, #000080, #00003a);
+  border-bottom: 2px solid #00ff41;
+  gap: 10px;
+}
+#ch-header-title {
+  flex: 1;
+  font-size: 18px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+#ch-close-btn {
+  width: 22px; height: 22px;
+  background: linear-gradient(to bottom, #ddd, #999);
+  border: 2px outset #aaa;
+  color: #900;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#ch-close-btn:hover { background: linear-gradient(to bottom,#eee,#bbb); }
+#ch-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 14px;
+  overflow-y: auto;
+}
+.ch-card {
+  border: 1px solid rgba(0,255,65,0.22);
+  background: #000;
+  padding: 14px;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color .15s, background .15s;
+}
+.ch-card:hover { border-color: var(--cc, #00ff41); background: rgba(0,255,65,0.04); }
+.ch-title { font-size: 20px; color: var(--cc, #00ff41); letter-spacing: 2px; }
+.ch-desc  { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6a8c6a; line-height: 1.5; }
+.ch-meta  { display: flex; gap: 6px; flex-wrap: wrap; }
+.ch-badge { padding: 1px 6px; border: 1px solid var(--cc,#00ff41); color: var(--cc,#00ff41); font-size: 12px; }
+.ch-card.exploit { --cc: #ff3a4f; }
+.ch-card.recon   { --cc: #00e8ff; }
+.ch-card.dfir    { --cc: #c084fc; }
+.ch-card.crypto  { --cc: #ffe700; }
+.ch-card.red     { --cc: #ff8c00; }
+.ch-card.intel   { --cc: #00ffcc; }
+#ch-footer {
+  padding: 8px 16px;
+  background: #111;
+  border-top: 1px solid #333;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: #555;
+  display: flex;
+  justify-content: space-between;
+}
 </style>
 </head>
 <body>
 <div id="game-wrap"><div id="crt"></div></div>
+
+<!-- ══ CHALLENGE TERMINAL OVERLAY ══════════════════════════ -->
+<div id="ch-overlay">
+  <div id="ch-panel">
+    <div id="ch-header">
+      <span style="font-size:16px;">⚡</span>
+      <div id="ch-header-title">CHALLENGE_TERMINAL — FLLC OPERATIVE TRAINING SYSTEM</div>
+      <div id="ch-close-btn" onclick="closeChallengeTerminal()" title="Close [Esc]">✕</div>
+    </div>
+    <div id="ch-grid">
+      <a class="ch-card exploit" href="../wargames.html">
+        <div class="ch-title">WAR_GAMES</div>
+        <div class="ch-desc">12 SHA-256 verified hacking missions. LFI, XSS, SQLi, auth bypass, encoding chains. Password vault finale.</div>
+        <div class="ch-meta"><span class="ch-badge">12 MISSIONS</span><span class="ch-badge">XP REWARDS</span><span class="ch-badge">INTERMEDIATE</span></div>
+      </a>
+      <a class="ch-card red" href="../redops.html">
+        <div class="ch-title">RED_OPS</div>
+        <div class="ch-desc">Offensive lab arena. OWASP Top 10 attack chains: injection, SSRF, IDOR, broken auth, RCE escalation.</div>
+        <div class="ch-meta"><span class="ch-badge">12 OPS</span><span class="ch-badge">OWASP</span><span class="ch-badge">ADVANCED</span></div>
+      </a>
+      <a class="ch-card recon" href="../ctf-trail.html">
+        <div class="ch-title">CTF_TRAIL</div>
+        <div class="ch-desc">20-node story-driven CTF chain. OSINT, steganography, cryptography, network forensics, binary analysis.</div>
+        <div class="ch-meta"><span class="ch-badge">20 FLAGS</span><span class="ch-badge">STORY MODE</span><span class="ch-badge">BEGINNER+</span></div>
+      </a>
+      <a class="ch-card dfir" href="../forensics.html">
+        <div class="ch-title">FORENSICS_LAB</div>
+        <div class="ch-desc">DFIR investigation cases. Memory dumps, pcap analysis, log parsing, disk imaging, malware triage.</div>
+        <div class="ch-meta"><span class="ch-badge">12 CASES</span><span class="ch-badge">DFIR</span><span class="ch-badge">INTERMEDIATE</span></div>
+      </a>
+      <a class="ch-card crypto" href="../signal-lab.html">
+        <div class="ch-title">SIGNAL_LAB</div>
+        <div class="ch-desc">RF decode, XOR cipher, ROT13, RSA (n=3233), Vigenere, entropy analysis. 5 SHA-256 verified challenges.</div>
+        <div class="ch-meta"><span class="ch-badge">5 LABS</span><span class="ch-badge">CRYPTO</span><span class="ch-badge">ALL LEVELS</span></div>
+      </a>
+      <a class="ch-card intel" href="../intel.html">
+        <div class="ch-title">INTEL_HUB</div>
+        <div class="ch-desc">Live NVD CVE stream, CISA KEV, MITRE ATT&amp;CK, OSINT lookups, threat gauge, OWASP scanner.</div>
+        <div class="ch-meta"><span class="ch-badge">LIVE FEEDS</span><span class="ch-badge">OSINT</span><span class="ch-badge">RESEARCH</span></div>
+      </a>
+    </div>
+    <div id="ch-footer">
+      <span>6 challenge modules active — completions award XP on return</span>
+      <span>Press ESC or ✕ to close</span>
+    </div>
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
 <script>
 'use strict';
@@ -36,6 +171,24 @@ canvas { display: block; }
 //  GLOBALS & HELPERS
 // ============================================================
 const W = 1024, H = 768, WW = 2048, WH = 1536;
+
+// ── CHALLENGE TERMINAL ────────────────────────────────────
+function openChallengeTerminal() {
+  document.getElementById('ch-overlay').classList.add('open');
+}
+function closeChallengeTerminal() {
+  document.getElementById('ch-overlay').classList.remove('open');
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeChallengeTerminal();
+  if ((e.key === 't' || e.key === 'T') && !e.ctrlKey && !e.metaKey) {
+    var el = document.activeElement;
+    if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA')) return;
+    var overlay = document.getElementById('ch-overlay');
+    if (overlay.classList.contains('open')) { closeChallengeTerminal(); }
+    else { openChallengeTerminal(); }
+  }
+});
 
 function glow(size, color) {
   return {
@@ -675,6 +828,20 @@ class SceneHUD extends Phaser.Scene {
           this.time.delayedCall(220, () => bg.setFillStyle(0x001133));
         }
       });
+    });
+
+    // ── TRAINING / CHALLENGE TERMINAL button ─────────────────
+    const trainBx = W - 82, trainBy = H - 30;
+    const trainBg = this.add.rectangle(trainBx, trainBy, 120, 42, 0x001a00)
+      .setStrokeStyle(2, 0x00ff41, 0.9).setInteractive({ useHandCursor: true }).setScrollFactor(0).setDepth(5);
+    this.add.text(trainBx, trainBy - 7, '⚡ TRAIN', glow('17px', '#00ff41'))
+      .setOrigin(0.5).setScrollFactor(0).setDepth(6);
+    this.add.text(trainBx, trainBy + 10, '[T]', { fontFamily: 'VT323, monospace', fontSize: '12px', color: '#00aa00' })
+      .setOrigin(0.5).setScrollFactor(0).setDepth(6);
+    trainBg.on('pointerover', () => trainBg.setFillStyle(0x003300));
+    trainBg.on('pointerout',  () => trainBg.setFillStyle(0x001a00));
+    trainBg.on('pointerdown', () => {
+      if (typeof openChallengeTerminal === 'function') openChallengeTerminal();
     });
 
     // ── Mobile D-Pad ─────────────────────────────────────────
