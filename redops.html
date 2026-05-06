@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:; connect-src 'self' https://personfugithubio-production.up.railway.app;">
 <title>RED_OPS_RANGE // Web · Cloud · AD Offense — FURIOS-INT</title>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <meta property="og:title" content="RED_OPS_RANGE">
@@ -78,6 +78,30 @@
 .rx-wow .item p{font-size:12px;color:var(--wg-text-mute);line-height:1.55;margin-top:4px;}
 
 @media(max-width:760px){.rx-killchain{grid-template-columns:repeat(2,1fr);}}
+
+/* MSF Module Browser */
+.msf-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.msf-input{flex:1;min-width:160px;background:#000;border:1px solid var(--rx-red);color:#fff;padding:8px 12px;font-family:'JetBrains Mono','Courier New',monospace;font-size:12px;outline:none;}
+.msf-select{background:#000;border:1px solid var(--rx-red);color:#fff;padding:8px;font-family:'JetBrains Mono','Courier New',monospace;font-size:12px;outline:none;}
+.msf-btn{padding:8px 16px;background:var(--rx-red);color:#fff;border:none;font-family:'JetBrains Mono','Courier New',monospace;font-size:12px;letter-spacing:1px;cursor:pointer;}
+.msf-btn:disabled{opacity:.5;cursor:default;}
+#msf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;}
+.msf-card{background:#0a0006;border:1px solid #2a0010;padding:12px;border-left:3px solid var(--rx-red);}
+.msf-card.exploit{border-left-color:#ff3a4f;}
+.msf-card.auxiliary{border-left-color:#ffb000;}
+.msf-card.post{border-left-color:#00e8ff;}
+.msf-card.payload{border-left-color:#ff00ea;}
+.msf-mod-name{font-family:'JetBrains Mono','Courier New',monospace;font-size:11px;color:#ff8888;font-weight:bold;word-break:break-all;margin-bottom:4px;}
+.msf-mod-type{font-size:10px;padding:1px 6px;border:1px solid;display:inline-block;margin-bottom:4px;}
+.msf-mod-type.exploit{color:#ff3a4f;border-color:#ff3a4f;}
+.msf-mod-type.auxiliary{color:#ffb000;border-color:#ffb000;}
+.msf-mod-type.post{color:#00e8ff;border-color:#00e8ff;}
+.msf-mod-type.payload{color:#ff00ea;border-color:#ff00ea;}
+.msf-mod-rank{font-size:10px;color:#aaa;margin-left:6px;}
+.msf-mod-desc{font-size:11px;color:#bbb;line-height:1.5;margin-top:4px;}
+.msf-mod-cves{font-size:10px;color:#ff8800;margin-top:4px;}
+#msf-status{font-size:12px;color:var(--wg-text-mute);margin-bottom:8px;}
+
 </style>
 </head>
 <body>
@@ -144,6 +168,22 @@
     <span class="c">CLASSIFIED 600-850 XP</span>
   </div>
   <div id="rx-mount"></div>
+
+  <h2 class="rx-h2">▶ MSF_MODULE_CATALOG<small>exploit · aux · post · payload reference</small></h2>
+  <div style="font-size:12px;color:var(--wg-text-mute);margin-bottom:10px;">Live module catalog from FURIOS-INT backend. Educational reference — 55+ modules with CVE mappings and MITRE ATT&amp;CK annotations. Use only in authorized labs.</div>
+  <div class="msf-toolbar">
+    <input id="msf-search" type="text" class="msf-input" placeholder="Search by name, CVE, or keyword…" maxlength="80" autocomplete="off">
+    <select id="msf-type-filter" class="msf-select" aria-label="Module type filter">
+      <option value="">ALL TYPES</option>
+      <option value="exploit">EXPLOIT</option>
+      <option value="auxiliary">AUXILIARY</option>
+      <option value="post">POST</option>
+      <option value="payload">PAYLOAD</option>
+    </select>
+    <button id="msf-load-btn" class="msf-btn">LOAD CATALOG</button>
+  </div>
+  <div id="msf-status">⟳ Click LOAD CATALOG to fetch module list from NEXUS backend…</div>
+  <div id="msf-grid"></div>
 
   <h2 class="rx-h2">▶ TRADECRAFT REFERENCE<small>quick recall</small></h2>
   <div class="rx-wow">
@@ -263,6 +303,79 @@ paintHud(); setInterval(paintHud, 1500);
     ctx.stroke();
     requestAnimationFrame(tick);
   })();
+})();
+
+// MSF MODULE CATALOG
+(function(){
+  const NEXUS = "https://personfugithubio-production.up.railway.app";
+  const grid = document.getElementById("msf-grid");
+  const status = document.getElementById("msf-status");
+  const searchEl = document.getElementById("msf-search");
+  const typeEl = document.getElementById("msf-type-filter");
+  const loadBtn = document.getElementById("msf-load-btn");
+  let allModules = [];
+
+  function renderModules(mods) {
+    grid.innerHTML = "";
+    if (!mods.length) { status.textContent = "No modules match filter."; status.style.color = "#ffb000"; return; }
+    mods.forEach(function(m) {
+      const card = document.createElement("div");
+      const t = (m.type || "exploit").toLowerCase();
+      card.className = "msf-card " + t;
+      const nameEl = document.createElement("div"); nameEl.className = "msf-mod-name"; nameEl.textContent = m.name || m.fullName || "unknown";
+      const typeSpan = document.createElement("span"); typeSpan.className = "msf-mod-type " + t; typeSpan.textContent = t.toUpperCase();
+      const rankSpan = document.createElement("span"); rankSpan.className = "msf-mod-rank"; rankSpan.textContent = m.rank ? "RANK:" + m.rank : "";
+      const descEl = document.createElement("div"); descEl.className = "msf-mod-desc"; descEl.textContent = m.description || m.desc || "";
+      const cvesEl = document.createElement("div");
+      if (m.cves && m.cves.length) { cvesEl.className = "msf-mod-cves"; cvesEl.textContent = "CVEs: " + m.cves.join(", "); }
+      card.appendChild(nameEl);
+      card.appendChild(typeSpan);
+      card.appendChild(rankSpan);
+      card.appendChild(descEl);
+      if (m.cves && m.cves.length) card.appendChild(cvesEl);
+      grid.appendChild(card);
+    });
+    status.textContent = "✓ Showing " + mods.length + " of " + allModules.length + " modules";
+    status.style.color = "#5cf08a";
+  }
+
+  function applyFilter() {
+    const q = (searchEl.value || "").toLowerCase();
+    const t = typeEl.value.toLowerCase();
+    const filtered = allModules.filter(function(m) {
+      const name = (m.name || m.fullName || "").toLowerCase();
+      const desc = (m.description || m.desc || "").toLowerCase();
+      const cves = (m.cves || []).join(" ").toLowerCase();
+      const matchQ = !q || name.includes(q) || desc.includes(q) || cves.includes(q);
+      const matchT = !t || (m.type || "").toLowerCase() === t;
+      return matchQ && matchT;
+    });
+    renderModules(filtered);
+  }
+
+  async function loadCatalog() {
+    loadBtn.disabled = true;
+    status.textContent = "⟳ Fetching module catalog from NEXUS…";
+    status.style.color = "#ffb000";
+    try {
+      const resp = await fetch(NEXUS + "/api/tools/msf/search?q=" + encodeURIComponent(searchEl.value||''), { headers: { "Accept": "application/json" } });
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      const data = await resp.json();
+      allModules = data.modules || [];
+      if (!allModules.length) throw new Error("Empty catalog");
+      applyFilter();
+    } catch(err) {
+      status.textContent = "⚠ Backend unavailable: " + err.message + " — msf-service may still be deploying.";
+      status.style.color = "#ff4444";
+    } finally {
+      loadBtn.disabled = false;
+    }
+  }
+
+  loadBtn.addEventListener("click", loadCatalog);
+  searchEl.addEventListener("input", applyFilter);
+  typeEl.addEventListener("change", applyFilter);
+  searchEl.addEventListener("keydown", function(e) { if (e.key === "Enter") applyFilter(); });
 })();
 </script>
 <footer class="page-footer">

@@ -583,6 +583,7 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--txt);
         <div class="ph">SYSTEM_STATUS <span class="phr">RAILWAY</span></div>
         <div class="sr"><div class="sd on"></div><span class="sn">personfu.github.io</span><span class="ss on">ONLINE</span></div>
         <div class="sr"><div class="sd" id="sd-cw"></div><span class="sn">CyberWorld MMORPG</span><span class="ss" id="ss-cw">POLLING</span></div>
+        <div class="sr"><div class="sd" id="sd-msf"></div><span class="sn">msf-service</span><span class="ss" id="ss-msf">DEPLOYING</span></div>
         <div class="sr"><div class="sd on"></div><span class="sn">DISCORDBOT</span><span class="ss on">ONLINE</span></div>
         <div class="sr"><div class="sd on"></div><span class="sn">Steel Browser</span><span class="ss on">ONLINE</span></div>
         <div class="sr"><div class="sd err"></div><span class="sn">metasploit-fw</span><span class="ss err">BUILD FAIL</span></div>
@@ -590,6 +591,10 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--txt);
         <div class="sr"><div class="sd on"></div><span class="sn">FURY worker</span><span class="ss on">ONLINE</span></div>
         <div style="padding:5px 10px;font-size:9px;color:var(--g3);border-bottom:1px solid var(--bdr2);">
           Last polled: <span id="srv-ts">--:--:--</span>
+        </div>
+        <div style="padding:5px 10px;font-size:9px;color:var(--g3);display:flex;flex-direction:column;gap:2px;">
+          <div>UPTIME: <span id="srv-uptime" style="color:var(--g)">--</span></div>
+          <div>MEM: <span id="srv-mem" style="color:var(--amb)">--</span> | CACHE: <span id="srv-cache" style="color:var(--g3)">--</span></div>
         </div>
       </div>
 
@@ -877,6 +882,7 @@ function fetchWorld(){
   .then(function(){
     dot.className='sd on';stat.textContent='ONLINE';stat.className='ss on';
     hdot.className='hdot';htxt.textContent='SRV ONLINE';
+    // Fetch world state
     return fetch(NEXUS+'/api/world/state',{signal:AbortSignal.timeout(6000)});
   })
   .then(function(r){return r.json();})
@@ -893,6 +899,35 @@ function fetchWorld(){
   })
   .finally(function(){
     document.getElementById('srv-ts').textContent=new Date().toLocaleTimeString();
+  });
+
+  // Fetch server stats
+  fetch(NEXUS+'/api/stats',{signal:AbortSignal.timeout(6000)})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    var up=d.uptime;
+    var uptimeStr=up?Math.floor(up/3600)+'h '+Math.floor((up%3600)/60)+'m':'--';
+    var memEl=document.getElementById('srv-mem');
+    var uptimeEl=document.getElementById('srv-uptime');
+    var cacheEl=document.getElementById('srv-cache');
+    if(uptimeEl)uptimeEl.textContent=uptimeStr;
+    if(memEl&&d.memory)memEl.textContent=Math.round(d.memory.heapUsed/1024/1024)+'MB';
+    if(cacheEl)cacheEl.textContent=d.cache?d.cache.size+' keys':'--';
+  })
+  .catch(function(){});
+
+  // Poll msf-service health via NEXUS proxy or direct
+  fetch(NEXUS+'/api/msf/health',{signal:AbortSignal.timeout(6000)})
+  .then(function(r){
+    var msfDot=document.getElementById('sd-msf');
+    var msfStat=document.getElementById('ss-msf');
+    if(r.ok){msfDot.className='sd on';msfStat.textContent='ONLINE';msfStat.className='ss on';}
+    else{msfDot.className='sd warn';msfStat.textContent='DEGRADED';msfStat.className='ss warn';}
+  })
+  .catch(function(){
+    var msfDot=document.getElementById('sd-msf');
+    var msfStat=document.getElementById('ss-msf');
+    if(msfDot){msfDot.className='sd warn';msfStat.textContent='DEPLOYING';msfStat.className='ss warn';}
   });
 }
 

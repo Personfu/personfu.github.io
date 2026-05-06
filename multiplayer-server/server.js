@@ -1292,6 +1292,19 @@ app.post('/api/admin/cve-alert', adminAuth, (req, res) => {
   return res.json({ ok: true, alert, recipients: io.engine.clientsCount });
 });
 
+// ── GET /api/msf/health — proxy to msf-service ──────────────────────────────
+app.get('/api/msf/health', async (_req, res) => {
+  if (!MSF_RPC_URL) return res.json({ status: 'no-msf-url', catalog: 'local' });
+  const baseUrl = MSF_RPC_URL.replace(/\/api\/v1.*$/, '');
+  try {
+    const r = await fetch(`${baseUrl}/health`, { signal: AbortSignal.timeout(4000) });
+    const data = r.ok ? await r.json() : { status: 'error', code: r.status };
+    return res.json(data);
+  } catch (e) {
+    return res.status(502).json({ status: 'unreachable', error: e.message });
+  }
+});
+
 // ── GET /api/stats ──────────────────────────────────────────────────────────
 app.get('/api/stats', async (req, res) => {
   const world = await store.getWorldMeta().catch(() => ({}));

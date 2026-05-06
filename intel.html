@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://services.nvd.nist.gov https://cve.circl.lu;">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; connect-src 'self' https://services.nvd.nist.gov https://cve.circl.lu https://personfugithubio-production.up.railway.app wss://personfugithubio-production.up.railway.app;">
 <title>FLLC INTEL HUB — STARSHIELD WATCH // MAY 2026</title>
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <meta property="og:title" content="INTEL">
@@ -77,6 +77,23 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
 @media(min-width:1100px){
   #cve-list,#ttp-list,#cve-search-results,#highlights-list{max-height:540px;overflow-y:auto;}
 }
+
+/* OSINT Lookup */
+.osint-form{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.osint-input{flex:1;min-width:200px;background:#000;border:1px solid var(--cyber-cyan);color:var(--cyber-cyan);padding:9px 12px;font-family:'Courier New',monospace;font-size:13px;outline:none;}
+.osint-select{background:#000;border:1px solid var(--cyber-cyan);color:var(--cyber-cyan);padding:9px 8px;font-family:'Courier New',monospace;font-size:13px;outline:none;}
+.osint-btn{min-height:40px;padding:8px 20px;background:var(--cyber-cyan);color:#000;border:none;font-family:'Courier New',monospace;font-size:13px;letter-spacing:1px;cursor:pointer;}
+.osint-btn:disabled{opacity:.5;cursor:default;}
+#osint-output{background:#000;border:1px solid #1a2a1a;padding:14px;font-family:'JetBrains Mono','Courier New',monospace;font-size:11.5px;color:#b0ffb0;line-height:1.6;white-space:pre-wrap;word-break:break-all;max-height:380px;overflow-y:auto;display:none;}
+#osint-status{font-size:12px;color:var(--cyber-yellow);margin-bottom:8px;display:none;}
+
+/* CISA KEV */
+.kev-entry{background:#050505;border:1px solid #2a1a00;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:12px;margin-bottom:4px;}
+.kev-id{color:#ff8800;font-weight:bold;min-width:140px;}
+.kev-vendor{color:var(--cyber-pink);min-width:100px;}
+.kev-product{color:var(--cyber-cyan);}
+.kev-due{color:#ff4444;font-size:11px;}
+.kev-desc{color:#aaa;flex:1;}
 </style>
 <link rel="stylesheet" href="css/cyber-shared.css">
 </head>
@@ -139,6 +156,36 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
         <div class="watch-line">Focus on public interest, transparency, and verified open sources only.</div>
       </div>
     </div>
+  </div>
+</div>
+
+<!-- OSINT LOOKUP TOOL -->
+<div class="section">
+  <div class="section-header">▶ OSINT_LOOKUP // DOMAIN · IP · CERT RECON</div>
+  <div class="section-body">
+    <div style="font-size:12px;color:#aaa;margin-bottom:12px;">Query domain registration (RDAP), DNS records, IP geolocation, and SSL certificate transparency against the FURIOS-INT backend. For educational and authorized research use only.</div>
+    <div class="osint-form">
+      <input id="osint-target" type="text" class="osint-input" placeholder="Domain, IP, or hostname (e.g. example.com, 1.1.1.1)" maxlength="253" autocomplete="off" spellcheck="false" aria-label="OSINT target">
+      <select id="osint-type" class="osint-select" aria-label="Query type">
+        <option value="rdap">RDAP (WHOIS)</option>
+        <option value="dns">DNS Records</option>
+        <option value="ip">IP Geolocation</option>
+        <option value="crtsh">Cert Transparency</option>
+      </select>
+      <button id="osint-btn" class="osint-btn" aria-label="Run OSINT lookup">QUERY</button>
+    </div>
+    <div id="osint-status"></div>
+    <pre id="osint-output"></pre>
+  </div>
+</div>
+
+<!-- CISA KEV FEED -->
+<div class="section">
+  <div class="section-header">▶ CISA_KEV_FEED // KNOWN EXPLOITED VULNERABILITIES</div>
+  <div class="section-body">
+    <div style="font-size:12px;color:#aaa;margin-bottom:10px;">CISA's Known Exploited Vulnerabilities catalog — vulnerabilities with confirmed exploitation in the wild. Federal agencies are required to remediate these. <span id="kev-meta" style="color:#ff8800;"></span></div>
+    <div id="kev-list"></div>
+    <div id="kev-status" style="font-size:12px;color:var(--cyber-yellow);margin-top:8px;"></div>
   </div>
 </div>
 
@@ -230,6 +277,92 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
 </div>
 
 <script>
+const NEXUS = "https://personfugithubio-production.up.railway.app";
+
+// ── OSINT LOOKUP TOOL ────────────────────────────────────────────────────────
+(function(){
+  const btn = document.getElementById("osint-btn");
+  const statusEl = document.getElementById("osint-status");
+  const output = document.getElementById("osint-output");
+
+  btn.addEventListener("click", async function() {
+    const raw = document.getElementById("osint-target").value.trim();
+    const type = document.getElementById("osint-type").value;
+    if (!raw) { statusEl.style.display="block"; statusEl.textContent="⚠ Enter a domain or IP."; return; }
+    // Basic validation — only allow hostname/IP chars
+    if (!/^[a-zA-Z0-9.\-_:\/]+$/.test(raw) || raw.length > 253) {
+      statusEl.style.display="block"; statusEl.style.color="#ff4444";
+      statusEl.textContent="⚠ Invalid input — use only hostname or IP format."; return;
+    }
+    btn.disabled = true;
+    statusEl.style.display = "block"; statusEl.style.color = "var(--cyber-yellow)";
+    statusEl.textContent = "⟳ Querying NEXUS OSINT engine…";
+    output.style.display = "none";
+
+    let endpoint = "";
+    if (type === "rdap")  endpoint = NEXUS + "/api/osint/rdap?domain=" + encodeURIComponent(raw);
+    if (type === "dns")   endpoint = NEXUS + "/api/osint/dns?domain=" + encodeURIComponent(raw);
+    if (type === "ip")    endpoint = NEXUS + "/api/osint/ip?ip=" + encodeURIComponent(raw);
+    if (type === "crtsh") endpoint = NEXUS + "/api/osint/crtsh?domain=" + encodeURIComponent(raw);
+
+    try {
+      const resp = await fetch(endpoint, { headers: { "Accept": "application/json" } });
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      const data = await resp.json();
+      output.textContent = JSON.stringify(data, null, 2);
+      output.style.display = "block";
+      statusEl.textContent = "✓ Query complete [" + type.toUpperCase() + "] → " + raw;
+      statusEl.style.color = "var(--cyber-green)";
+    } catch(err) {
+      statusEl.textContent = "⚠ Error: " + err.message + " — Backend may be redeploying, try again.";
+      statusEl.style.color = "#ff4444";
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  document.getElementById("osint-target").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") btn.click();
+  });
+})();
+
+// ── CISA KEV FEED ────────────────────────────────────────────────────────────
+(function(){
+  const kevList = document.getElementById("kev-list");
+  const kevStatus = document.getElementById("kev-status");
+  const kevMeta = document.getElementById("kev-meta");
+
+  async function loadKEV() {
+    kevStatus.textContent = "⟳ Fetching CISA Known Exploited Vulnerabilities…";
+    try {
+      const resp = await fetch(NEXUS + "/api/threat/cisa-kev", { headers: { "Accept": "application/json" } });
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      const data = await resp.json();
+      const vulns = data.vulnerabilities || [];
+      kevMeta.textContent = data.count ? data.count + " total entries · updated " + (data.dateReleased || "") : "";
+      kevList.innerHTML = "";
+      // Show most recent 20 (catalog is sorted newest first)
+      vulns.slice(0, 20).forEach(function(v) {
+        const el = document.createElement("div");
+        el.className = "kev-entry";
+        const id = document.createElement("span"); id.className = "kev-id"; id.textContent = v.cveID || "";
+        const vendor = document.createElement("span"); vendor.className = "kev-vendor"; vendor.textContent = v.vendorProject || "";
+        const prod = document.createElement("span"); prod.className = "kev-product"; prod.textContent = v.product || "";
+        const due = document.createElement("span"); due.className = "kev-due"; due.textContent = "DUE: " + (v.dueDate || "N/A");
+        const desc = document.createElement("span"); desc.className = "kev-desc"; desc.textContent = v.shortDescription || v.vulnerabilityName || "";
+        el.appendChild(id); el.appendChild(vendor); el.appendChild(prod); el.appendChild(due); el.appendChild(desc);
+        kevList.appendChild(el);
+      });
+      kevStatus.textContent = vulns.length ? "✓ Showing latest " + Math.min(vulns.length, 20) + " CISA KEV entries (cached · auto-refresh 1 hr)" : "No entries returned.";
+      kevStatus.style.color = "var(--cyber-green)";
+    } catch(err) {
+      kevStatus.textContent = "⚠ Could not load CISA KEV: " + err.message + " — Backend redeploying?";
+      kevStatus.style.color = "#ff4444";
+    }
+  }
+  loadKEV();
+})();
+
 // ── CVE FEED: NVD API + CIRCL fallback ─────────────────────────────────────
 // NVD public API (no key needed for moderate rate): https://services.nvd.nist.gov/rest/json/cves/2.0
 // CIRCL CVE Search (backup): https://cve.circl.lu/api/last/10
