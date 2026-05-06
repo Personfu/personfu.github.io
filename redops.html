@@ -185,6 +185,19 @@
   <div id="msf-status">⟳ Click LOAD CATALOG to fetch module list from NEXUS backend…</div>
   <div id="msf-grid"></div>
 
+  <h2 class="rx-h2">▶ MSF_CONSOLE<small>training terminal — 10 cmds/min</small></h2>
+  <div style="font-size:12px;color:var(--wg-text-mute);margin-bottom:10px;">Simulated Metasploit console powered by the FURIOS-NEXUS backend. Commands: <code style="color:#ff8888;background:#0a0006;padding:1px 5px;">help version search use show sessions exit</code>. Auth required for sessions. Educational use only.</div>
+  <div id="msf-console" style="background:#000;border:1px solid var(--rx-red);font-family:'JetBrains Mono','Courier New',monospace;font-size:12px;color:#ccffcc;height:320px;overflow-y:auto;padding:12px 14px;white-space:pre-wrap;word-break:break-word;"></div>
+  <div style="display:flex;gap:0;margin-top:4px;">
+    <span style="background:#0a0000;border:1px solid var(--rx-red);border-right:0;padding:7px 10px;color:#ff8888;font-family:'JetBrains Mono',monospace;font-size:12px;white-space:nowrap;user-select:none;">msf6 &gt; </span>
+    <input id="msf-cmd" type="text" placeholder="help" maxlength="200" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+      style="flex:1;background:#050000;border:1px solid var(--rx-red);color:#fff;padding:7px 10px;font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;"
+      aria-label="MSF console input">
+    <button id="msf-run" style="padding:7px 18px;background:var(--rx-red);color:#fff;border:none;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:1px;cursor:pointer;">RUN</button>
+    <button id="msf-clr" style="padding:7px 14px;background:transparent;border:1px solid #444;color:#888;font-family:'JetBrains Mono',monospace;font-size:12px;cursor:pointer;margin-left:4px;">CLR</button>
+  </div>
+  <div id="msf-con-status" style="font-size:11px;color:var(--wg-text-mute);margin-top:5px;"></div>
+
   <h2 class="rx-h2">▶ TRADECRAFT REFERENCE<small>quick recall</small></h2>
   <div class="rx-wow">
     <div class="item"><h5>SQLi tautology</h5><code>' OR 1=1 --</code><p>Classic boolean true. Still works against unparameterized queries.</p></div>
@@ -376,6 +389,108 @@ paintHud(); setInterval(paintHud, 1500);
   searchEl.addEventListener("input", applyFilter);
   typeEl.addEventListener("change", applyFilter);
   searchEl.addEventListener("keydown", function(e) { if (e.key === "Enter") applyFilter(); });
+})();
+
+// ── MSF CONSOLE ──────────────────────────────────────────────────────────────
+(function(){
+  const con    = document.getElementById("msf-console");
+  const input  = document.getElementById("msf-cmd");
+  const runBtn = document.getElementById("msf-run");
+  const clrBtn = document.getElementById("msf-clr");
+  const status = document.getElementById("msf-con-status");
+  const NEXUS  = "https://personfugithubio-production.up.railway.app";
+  const MOTD   = [
+    '\x1b[31m' + '       =[ metasploit v6.4.0-FURIOS-TRAINING     ]',
+    '+ -- --=[ 2382 exploits  -  1236 auxiliary  -  423 post   ]',
+    '+ -- --=[ 1103 payloads  -   45 encoders    -  11 nops    ]',
+    '+ -- --=[ 9 evasion                                       ]',
+    '',
+    'FURIOS-INT TRAINING INSTANCE — EDUCATIONAL USE ONLY',
+    'Type "help" for commands. 10 commands/min rate limit.',
+    ''
+  ].join('\n');
+
+  function print(text, color) {
+    const span = document.createElement("span");
+    span.style.color = color || "#ccffcc";
+    span.textContent = text + "\n";
+    con.appendChild(span);
+    con.scrollTop = con.scrollHeight;
+  }
+
+  function printRaw(html) {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    con.appendChild(div);
+    con.scrollTop = con.scrollHeight;
+  }
+
+  // MOTD
+  MOTD.split('\n').forEach(line => print(line.replace('\x1b[31m',''), '#ff8888'));
+  print("msf6 > ", "#aaffaa");
+
+  let cmdHistory = [], histIdx = -1;
+
+  async function runCmd(cmd) {
+    cmd = cmd.trim();
+    if (!cmd) return;
+    print("msf6 > " + cmd, "#ffaaaa");
+    if (cmdHistory[0] !== cmd) cmdHistory.unshift(cmd);
+    histIdx = -1;
+
+    if (cmd === "clear" || cmd === "cls") { con.innerHTML = ""; return; }
+
+    // Local fast commands
+    if (cmd === "exit" || cmd === "quit") { print("[*] Disconnected from FURIOS training instance.", "#888"); return; }
+    if (cmd === "banner") { MOTD.split('\n').forEach(l => print(l, '#ff8888')); return; }
+
+    status.textContent = "⟳ sending…";
+    try {
+      const token = localStorage.getItem("furios_token") || "";
+      const headers = { "Content-Type": "application/json", "Accept": "application/json" };
+      if (token) headers["Authorization"] = "Bearer " + token;
+
+      const resp = await fetch(NEXUS + "/api/tools/msf/console", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ command: cmd })
+      });
+
+      if (resp.status === 401) {
+        print("[-] Auth required for this command. Register at profile.html.", "#ff4444");
+        status.textContent = "⚠ auth required";
+        return;
+      }
+      if (resp.status === 429) {
+        print("[-] Rate limit hit — 10 commands/min max.", "#ff8800");
+        status.textContent = "⚠ rate limited";
+        return;
+      }
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+
+      const data = await resp.json();
+      const out  = data.output || data.result || "";
+      print(out, "#ccffcc");
+      status.textContent = data.mode === "simulation" ? "SIM MODE — connect live MSF for full shell" : "✓ live";
+    } catch(err) {
+      print("[-] Console error: " + err.message, "#ff4444");
+      status.textContent = "⚠ " + err.message;
+    }
+  }
+
+  runBtn.addEventListener("click", () => {
+    const v = input.value;
+    input.value = "";
+    runCmd(v);
+  });
+
+  clrBtn.addEventListener("click", () => { con.innerHTML = ""; });
+
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") { const v = input.value; input.value = ""; runCmd(v); }
+    if (e.key === "ArrowUp")   { histIdx = Math.min(histIdx+1, cmdHistory.length-1); input.value = cmdHistory[histIdx] || ""; e.preventDefault(); }
+    if (e.key === "ArrowDown") { histIdx = Math.max(histIdx-1, -1); input.value = histIdx < 0 ? "" : cmdHistory[histIdx]; e.preventDefault(); }
+  });
 })();
 </script>
 <footer class="page-footer">

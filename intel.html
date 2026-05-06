@@ -189,6 +189,44 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
   </div>
 </div>
 
+<!-- OWASP VULNERABILITY SCANNER -->
+<div class="section">
+  <div class="section-header">▶ OWASP_SCANNER // VULNERABILITY PATTERN ANALYSIS</div>
+  <div class="section-body">
+    <div style="font-size:12px;color:#aaa;margin-bottom:12px;">Submit code snippet or description for OWASP Top 10 2021 pattern analysis. Powered by the <span style="color:var(--cyber-cyan)">OWASP-Orizon</span> service backend. Educational use — not a substitute for proper SAST/DAST tooling.</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+      <select id="owasp-type" style="background:#000;border:1px solid var(--cyber-cyan);color:var(--cyber-cyan);padding:9px 8px;font-family:'Courier New',monospace;font-size:12px;outline:none;" aria-label="Scan target type">
+        <option value="code">SOURCE CODE</option>
+        <option value="config">CONFIG FILE</option>
+        <option value="query">SQL QUERY</option>
+        <option value="template">HTML/TEMPLATE</option>
+        <option value="url">URL / PATH</option>
+      </select>
+      <select id="owasp-lang" style="background:#000;border:1px solid var(--cyber-cyan);color:var(--cyber-cyan);padding:9px 8px;font-family:'Courier New',monospace;font-size:12px;outline:none;" aria-label="Language">
+        <option value="javascript">JavaScript</option>
+        <option value="python">Python</option>
+        <option value="java">Java</option>
+        <option value="php">PHP</option>
+        <option value="sql">SQL</option>
+        <option value="bash">Bash</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+    <textarea id="owasp-code" rows="6" style="width:100%;background:#000;border:1px solid var(--cyber-cyan);color:#c0ffb0;padding:10px 12px;font-family:'JetBrains Mono','Courier New',monospace;font-size:11.5px;outline:none;resize:vertical;box-sizing:border-box;" placeholder="Paste code, config, or SQL query to analyze for OWASP Top 10 vulnerabilities...
+Example: SELECT * FROM users WHERE id='"+'" + userId +"'"+''"
+maxlength="4000" spellcheck="false" aria-label="Code to scan"></textarea>
+    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+      <button id="owasp-scan-btn" class="osint-btn" style="background:var(--cyber-pink);min-width:140px;" aria-label="Scan for vulnerabilities">⟳ SCAN</button>
+      <button id="owasp-clear-btn" class="osint-btn" style="background:transparent;border:1px solid var(--cyber-cyan);color:var(--cyber-cyan);" aria-label="Clear scan area">CLEAR</button>
+    </div>
+    <div id="owasp-status" style="font-size:12px;color:var(--cyber-yellow);margin-top:8px;display:none;"></div>
+    <div id="owasp-results" style="margin-top:12px;display:none;">
+      <div id="owasp-summary" style="font-family:'Courier New',monospace;font-size:12px;background:#000;border:1px solid #1a2a1a;padding:10px 12px;margin-bottom:8px;"></div>
+      <div id="owasp-findings"></div>
+    </div>
+  </div>
+</div>
+
 <!-- LIVE CVE FEED -->
 <div class="section">
   <div class="section-header">▶ LIVE_CVE_FEED // NVD THREAT INTELLIGENCE</div>
@@ -278,6 +316,102 @@ body{background:#050505;color:var(--cyber-cyan);font-family:'Courier New',Courie
 
 <script>
 const NEXUS = "https://personfugithubio-production.up.railway.app";
+
+// ── OWASP SCANNER ─────────────────────────────────────────────────────────────
+(function(){
+  const scanBtn  = document.getElementById("owasp-scan-btn");
+  const clearBtn = document.getElementById("owasp-clear-btn");
+  const status   = document.getElementById("owasp-status");
+  const results  = document.getElementById("owasp-results");
+  const summary  = document.getElementById("owasp-summary");
+  const findings = document.getElementById("owasp-findings");
+
+  const RISK_COLORS = { critical:'#ff1a1a', high:'#ff8800', medium:'#ffdd00', low:'var(--cyber-green)', info:'#aaa' };
+  const OWASP_REFS  = {
+    'A01': 'A01:2021 – Broken Access Control',
+    'A02': 'A02:2021 – Cryptographic Failures',
+    'A03': 'A03:2021 – Injection',
+    'A04': 'A04:2021 – Insecure Design',
+    'A05': 'A05:2021 – Security Misconfiguration',
+    'A06': 'A06:2021 – Vulnerable & Outdated Components',
+    'A07': 'A07:2021 – ID & Auth Failures',
+    'A08': 'A08:2021 – Software & Data Integrity Failures',
+    'A09': 'A09:2021 – Security Logging Failures',
+    'A10': 'A10:2021 – SSRF'
+  };
+
+  if(clearBtn) clearBtn.addEventListener("click", () => {
+    document.getElementById("owasp-code").value = "";
+    results.style.display = "none";
+    status.style.display  = "none";
+  });
+
+  if(scanBtn) scanBtn.addEventListener("click", async () => {
+    const code = document.getElementById("owasp-code").value.trim();
+    const type = document.getElementById("owasp-type").value;
+    const lang = document.getElementById("owasp-lang").value;
+    if (!code || code.length < 10) {
+      status.style.display = "block"; status.style.color = "#ff4444";
+      status.textContent = "⚠ Enter at least 10 characters of code or config to analyze."; return;
+    }
+    scanBtn.disabled = true;
+    status.style.display = "block"; status.style.color = "var(--cyber-yellow)";
+    status.textContent = "⟳ Submitting to OWASP-Orizon scanner…";
+    results.style.display = "none";
+
+    try {
+      const resp = await fetch(NEXUS + "/api/orizon/scan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({ code, type, language: lang })
+      });
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      const data = await resp.json();
+      const vulns = data.vulnerabilities || data.findings || [];
+      const score = data.riskScore || 0;
+
+      // Render summary
+      const riskColor = score >= 9 ? RISK_COLORS.critical : score >= 7 ? RISK_COLORS.high : score >= 4 ? RISK_COLORS.medium : RISK_COLORS.low;
+      summary.innerHTML =
+        '<span style="color:var(--cyber-cyan)">SCAN COMPLETE</span> — ' +
+        vulns.length + ' finding(s) detected | ' +
+        'Risk Score: <b style="color:' + riskColor + '">' + score.toFixed(1) + '/10</b> | ' +
+        'Language: ' + lang.toUpperCase() + ' | Type: ' + type.toUpperCase();
+
+      findings.innerHTML = "";
+      if (vulns.length === 0) {
+        findings.innerHTML = '<div style="color:var(--cyber-green);font-size:12px;padding:8px 0;">✓ No OWASP Top 10 patterns detected in the submitted code. Always verify with a full SAST tool.</div>';
+      } else {
+        vulns.forEach(v => {
+          const sev = (v.severity || v.risk || "info").toLowerCase();
+          const color = RISK_COLORS[sev] || RISK_COLORS.info;
+          const owaspRef = v.owaspCategory ? (OWASP_REFS[v.owaspCategory] || v.owaspCategory) : '';
+          const el = document.createElement("div");
+          el.style.cssText = "background:#030308;border:1px solid " + color + ";border-left:3px solid " + color + ";padding:10px 12px;margin-bottom:6px;font-size:11.5px;";
+          el.innerHTML =
+            '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;">' +
+            '<span style="font-family:\'JetBrains Mono\',monospace;color:' + color + ';font-weight:bold;">' + (v.id || v.name || 'FINDING') + '</span>' +
+            '<span style="font-size:10px;padding:1px 7px;border:1px solid ' + color + ';color:' + color + ';letter-spacing:1px;">' + sev.toUpperCase() + '</span>' +
+            '</div>' +
+            (owaspRef ? '<div style="font-size:10px;color:#888;margin-top:3px;">' + owaspRef + '</div>' : '') +
+            '<div style="color:#ccc;margin-top:5px;line-height:1.5;">' + (v.description || v.message || '') + '</div>' +
+            (v.remediation || v.fix ? '<div style="color:var(--cyber-green);font-size:11px;margin-top:5px;"><b>FIX:</b> ' + (v.remediation || v.fix) + '</div>' : '') +
+            (v.cwe ? '<div style="font-size:10px;color:#666;margin-top:3px;">CWE-' + v.cwe + '</div>' : '');
+          findings.appendChild(el);
+        });
+      }
+
+      results.style.display = "block";
+      status.textContent    = "✓ Scan complete — " + vulns.length + " finding(s)";
+      status.style.color    = vulns.length > 0 ? RISK_COLORS.high : RISK_COLORS.low;
+    } catch(err) {
+      status.textContent = "⚠ Scanner unavailable: " + err.message + ". Service may be deploying — try again in 60s.";
+      status.style.color = "#ff4444";
+    } finally {
+      scanBtn.disabled = false;
+    }
+  });
+})();
 
 // ── OSINT LOOKUP TOOL ────────────────────────────────────────────────────────
 (function(){

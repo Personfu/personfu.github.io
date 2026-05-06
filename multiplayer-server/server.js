@@ -1305,6 +1305,64 @@ app.get('/api/msf/health', async (_req, res) => {
   }
 });
 
+// ── Metasploit-Framework RPC Gateway proxy ───────────────────────────────────
+const MSF_GW_URL = process.env.MSF_GW_URL || 'http://metasploit-framework.railway.internal:8888';
+
+async function msfGwProxy(path, req, res) {
+  try {
+    const url = `${MSF_GW_URL}${path}${req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : ''}`;
+    const opts = { signal: AbortSignal.timeout(8000), headers: { 'User-Agent': 'FURIOS-NEXUS/3.0' } };
+    if (req.method === 'POST') {
+      opts.method = 'POST';
+      opts.headers['Content-Type'] = 'application/json';
+      opts.body = JSON.stringify(req.body);
+    }
+    const r = await fetch(url, opts);
+    const data = r.ok ? await r.json() : { error: `MSF-GW ${r.status}` };
+    return res.status(r.ok ? 200 : r.status).json(data);
+  } catch (e) {
+    return res.status(502).json({ error: 'msf-gateway unreachable', detail: e.message });
+  }
+}
+
+// These routes augment (don't replace) the local catalog-based routes above
+app.get('/api/msf-gw/health',   (_req, res) => msfGwProxy('/health',      _req, res));
+app.get('/api/msf-gw/modules',  (req,  res) => msfGwProxy('/api/modules', req,  res));
+app.post('/api/msf-gw/console', (req,  res) => msfGwProxy('/api/console', req,  res));
+
+// ── OWASP Orizon proxy ───────────────────────────────────────────────────────
+const ORIZON_URL = process.env.ORIZON_URL || 'http://owasp-orizon.railway.internal:8080';
+
+async function orizonProxy(path, req, res) {
+  try {
+    const qs = req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '';
+    const url = `${ORIZON_URL}${path}${qs}`;
+    const opts = { signal: AbortSignal.timeout(8000), headers: { 'User-Agent': 'FURIOS-NEXUS/3.0' } };
+    if (req.method === 'POST') {
+      opts.method = 'POST';
+      opts.headers['Content-Type'] = 'application/json';
+      opts.body = JSON.stringify(req.body);
+    }
+    const r = await fetch(url, opts);
+    const data = r.ok ? await r.json() : { error: `ORIZON ${r.status}` };
+    return res.status(r.ok ? 200 : r.status).json(data);
+  } catch (e) {
+    return res.status(502).json({ error: 'orizon-service unreachable', detail: e.message });
+  }
+}
+
+// Rate limiter for scan endpoint
+const limiterScan = rateLimit({ windowMs: 60000, max: 20, standardHeaders: true, legacyHeaders: false });
+
+app.get( '/api/orizon/health',          (_req, res) => orizonProxy('/health',           _req, res));
+app.get( '/api/orizon/vulnerabilities', (req,  res) => orizonProxy('/api/vulnerabilities', req, res));
+app.get( '/api/orizon/owasp-top10',     (_req, res) => orizonProxy('/api/owasp-top10', _req, res));
+app.post('/api/orizon/scan',  limiterScan, (req, res) => orizonProxy('/api/scan',       req,  res));
+app.get( '/api/orizon/cwe/:id', (req, res) => {
+  req.url = `/api/cwe/${req.params.id}`;
+  return orizonProxy(`/api/cwe/${req.params.id}`, req, res);
+});
+
 // ── GET /api/stats ──────────────────────────────────────────────────────────
 app.get('/api/stats', async (req, res) => {
   const world = await store.getWorldMeta().catch(() => ({}));
@@ -1321,6 +1379,8 @@ app.get('/api/stats', async (req, res) => {
     db: usePostgres ? 'postgres' : 'json-file',
     redis: redis ? 'connected' : 'in-memory',
     msfRpc: MSF_RPC_URL ? 'configured' : 'catalog-only',
+    msfGateway: MSF_GW_URL ? 'configured' : 'unavailable',
+    orizon: ORIZON_URL ? 'configured' : 'unavailable',
     operatives: userCount, onlineNow: io.engine.clientsCount,
     world: { operation: world.operation, globalThreat: world.globalThreat },
     cacheSize: CACHE.size

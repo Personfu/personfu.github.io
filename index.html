@@ -583,11 +583,11 @@ html,body{width:100%;height:100%;background:var(--bg);color:var(--txt);
         <div class="ph">SYSTEM_STATUS <span class="phr">RAILWAY</span></div>
         <div class="sr"><div class="sd on"></div><span class="sn">personfu.github.io</span><span class="ss on">ONLINE</span></div>
         <div class="sr"><div class="sd" id="sd-cw"></div><span class="sn">CyberWorld MMORPG</span><span class="ss" id="ss-cw">POLLING</span></div>
-        <div class="sr"><div class="sd" id="sd-msf"></div><span class="sn">msf-service</span><span class="ss" id="ss-msf">DEPLOYING</span></div>
+        <div class="sr"><div class="sd" id="sd-msf"></div><span class="sn">msf-service</span><span class="ss" id="ss-msf">POLLING</span></div>
         <div class="sr"><div class="sd on"></div><span class="sn">DISCORDBOT</span><span class="ss on">ONLINE</span></div>
         <div class="sr"><div class="sd on"></div><span class="sn">Steel Browser</span><span class="ss on">ONLINE</span></div>
-        <div class="sr"><div class="sd err"></div><span class="sn">metasploit-fw</span><span class="ss err">BUILD FAIL</span></div>
-        <div class="sr"><div class="sd err"></div><span class="sn">owasp-orizon</span><span class="ss err">BUILD FAIL</span></div>
+        <div class="sr"><div class="sd" id="sd-msfgw"></div><span class="sn">metasploit-fw</span><span class="ss" id="ss-msfgw">POLLING</span></div>
+        <div class="sr"><div class="sd" id="sd-orizon"></div><span class="sn">owasp-orizon</span><span class="ss" id="ss-orizon">POLLING</span></div>
         <div class="sr"><div class="sd on"></div><span class="sn">FURY worker</span><span class="ss on">ONLINE</span></div>
         <div style="padding:5px 10px;font-size:9px;color:var(--g3);border-bottom:1px solid var(--bdr2);">
           Last polled: <span id="srv-ts">--:--:--</span>
@@ -928,6 +928,34 @@ function fetchWorld(){
     var msfDot=document.getElementById('sd-msf');
     var msfStat=document.getElementById('ss-msf');
     if(msfDot){msfDot.className='sd warn';msfStat.textContent='DEPLOYING';msfStat.className='ss warn';}
+  });
+
+  // Poll metasploit-framework gateway
+  fetch(NEXUS+'/api/msf-gw/health',{signal:AbortSignal.timeout(8000)})
+  .then(function(r){
+    var d=document.getElementById('sd-msfgw');
+    var s=document.getElementById('ss-msfgw');
+    if(r.ok){d.className='sd on';s.textContent='ONLINE';s.className='ss on';}
+    else{d.className='sd warn';s.textContent='DEGRADED';s.className='ss warn';}
+  })
+  .catch(function(){
+    var d=document.getElementById('sd-msfgw');
+    var s=document.getElementById('ss-msfgw');
+    if(d){d.className='sd warn';s.textContent='DEPLOYING';s.className='ss warn';}
+  });
+
+  // Poll owasp-orizon
+  fetch(NEXUS+'/api/orizon/health',{signal:AbortSignal.timeout(8000)})
+  .then(function(r){
+    var d=document.getElementById('sd-orizon');
+    var s=document.getElementById('ss-orizon');
+    if(r.ok){d.className='sd on';s.textContent='ONLINE';s.className='ss on';}
+    else{d.className='sd warn';s.textContent='DEGRADED';s.className='ss warn';}
+  })
+  .catch(function(){
+    var d=document.getElementById('sd-orizon');
+    var s=document.getElementById('ss-orizon');
+    if(d){d.className='sd warn';s.textContent='DEPLOYING';s.className='ss warn';}
   });
 }
 
