@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const http = require('http');
 const { Server } = require('socket.io');
+const rateLimit = require('express-rate-limit');
+const crypto = require('crypto');
 
 dotenv.config();
 
@@ -22,7 +24,6 @@ const DB_FILE = path.join(__dirname, 'db.json');
 // so the server starts, but warn loudly — tokens will invalidate on restart.
 let JWT_SECRET = process.env.JWT_SECRET;
 if (!JWT_SECRET) {
-  const crypto = require('crypto');
   JWT_SECRET = crypto.randomBytes(48).toString('hex');
   console.warn('╔══════════════════════════════════════════════════════════╗');
   console.warn('║  WARNING: JWT_SECRET not set in environment variables.   ║');
@@ -69,6 +70,33 @@ const io = new Server(server, {
 });
 
 app.use(cors({ origin: corsOriginHandler, credentials: true }));
+
+// ── Rate limiting ─────────────────────────────────────────────────────────────
+const limiterGeneral = rateLimit({
+  windowMs: 60 * 1000,
+  max: 120,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests — slow down, operative.' }
+});
+const limiterAuth = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 15,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many auth attempts — try again in 15 minutes.' }
+});
+const limiterCtfVerify = rateLimit({
+  windowMs: 60 * 1000,
+  max: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'CTF verify rate limit hit.' }
+});
+app.use('/api/', limiterGeneral);
+app.use('/api/auth/login', limiterAuth);
+app.use('/api/auth/register', limiterAuth);
+app.use('/api/ctf/verify', limiterCtfVerify);
 
 // Parse JSON for all routes EXCEPT the Stripe webhook (which needs raw body)
 app.use((req, res, next) => {
@@ -118,6 +146,14 @@ async function ensureSchema() {
     INSERT INTO world_state (key, value)
       VALUES ('meta', '{"operation":"Operation Starshield","globalThreat":"CRITICAL","onlineCount":0,"activeLobbies":[],"news":["Starshield relay weather: unstable but recoverable."]}')
       ON CONFLICT (key) DO NOTHING;
+    CREATE TABLE IF NOT EXISTS flag_submissions (
+      id TEXT PRIMARY KEY,
+      user_id TEXT,
+      challenge_id TEXT NOT NULL,
+      flag_hash TEXT NOT NULL,
+      correct BOOLEAN NOT NULL,
+      submitted_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+    );
   `);
   console.log('[DB] Schema verified');
 }
@@ -586,6 +622,174 @@ app.post('/api/stripe/webhook',
     return res.json({ received: true });
   }
 );
+
+// ═══════════════════════════════════════════
+// Leaderboard
+// ═══════════════════════════════════════════
+const LEADERBOARD_BOTS = [
+  { id: 'bot_01', displayName: 'r00t_kai',    xp: 14750, flags: 148, rank: 'LEGEND',    bot: true },
+  { id: 'bot_02', displayName: 'phantom_07',  xp: 11200, flags: 112, rank: 'ELITE',     bot: true },
+  { id: 'bot_03', displayName: 'Vex_3r',      xp:  9800, flags:  98, rank: 'ELITE',     bot: true },
+  { id: 'bot_04', displayName: 'n0b0dy',      xp:  8250, flags:  83, rank: 'OPERATIVE', bot: true },
+  { id: 'bot_05', displayName: 'krypt0n_X',   xp:  7100, flags:  71, rank: 'OPERATIVE', bot: true },
+  { id: 'bot_06', displayName: 'cipherlock',  xp:  6400, flags:  64, rank: 'OPERATOR',  bot: true },
+  { id: 'bot_07', displayName: 'd4rkm4tter',  xp:  5500, flags:  55, rank: 'OPERATOR',  bot: true },
+  { id: 'bot_08', displayName: 'synth3tic',   xp:  4300, flags:  43, rank: 'ANALYST',   bot: true },
+  { id: 'bot_09', displayName: 'nullbyte_9',  xp:  3200, flags:  32, rank: 'ANALYST',   bot: true },
+  { id: 'bot_10', displayName: 'j4ck_tr4ce',  xp:  2100, flags:  21, rank: 'RECRUIT',   bot: true }
+];
+
+function getRank(flags) {
+  if (flags >= 100) return 'LEGEND';
+  if (flags >= 60)  return 'ELITE';
+  if (flags >= 30)  return 'OPERATIVE';
+  if (flags >= 15)  return 'OPERATOR';
+  if (flags >= 5)   return 'ANALYST';
+  return 'RECRUIT';
+}
+
+app.get('/api/leaderboard', async (req, res) => {
+  try {
+    let realUsers = [];
+    if (usePostgres) {
+      const r = await pool.query(
+        `SELECT display_name, progress->>'xp' AS xp,
+                jsonb_array_length(COALESCE(progress->'missionsCleared', '[]'::jsonb)) AS missions
+         FROM users ORDER BY (progress->>'xp')::int DESC LIMIT 50`
+      );
+      realUsers = r.rows.map(row => ({
+        displayName: row.display_name,
+        xp: parseInt(row.xp || '0', 10),
+        flags: parseInt(row.missions || '0', 10),
+        bot: false
+      }));
+    } else {
+      const db = loadDb();
+      realUsers = (db.users || []).map(u => ({
+        displayName: u.displayName,
+        xp: (u.progress && u.progress.xp) || 0,
+        flags: ((u.progress && u.progress.missionsCleared) || []).length,
+        bot: false
+      }));
+    }
+    const merged = [...realUsers, ...LEADERBOARD_BOTS]
+      .sort((a, b) => b.xp - a.xp)
+      .slice(0, 25)
+      .map((entry, idx) => ({
+        rank: idx + 1,
+        displayName: entry.displayName,
+        xp: entry.xp,
+        flags: entry.flags,
+        tier: getRank(entry.flags),
+        bot: entry.bot || false
+      }));
+    return res.json({ leaderboard: merged, updatedAt: new Date().toISOString() });
+  } catch (err) {
+    console.error('[leaderboard]', err.message);
+    return res.json({
+      leaderboard: LEADERBOARD_BOTS.map((b, i) => ({ rank: i + 1, ...b })),
+      updatedAt: new Date().toISOString()
+    });
+  }
+});
+
+// ═══════════════════════════════════════════
+// CTF Flag Verification (server-side SHA-256)
+// ═══════════════════════════════════════════
+const CTF_FLAGS = {
+  // challenge_id -> sha256(correct_flag) — never store plaintext flags server-side
+  ctf_01: '3a7bd3e2360a3d29eea436fcfb7e44c735d117c42d1c1835420b6b9942dd4f1b',
+  ctf_02: '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
+  ctf_03: '2c624232cdd221771294dfbb310acbc8da4ec4f04621b70a6b6a7df8f7a3c8f5',
+  ctf_04: '65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5',
+  ctf_05: '4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb5a1b274abc3843c63'
+};
+
+app.post('/api/ctf/verify', authOptional, async (req, res) => {
+  const { challengeId, flag } = req.body || {};
+  if (!challengeId || !flag) {
+    return res.status(400).json({ error: 'challengeId and flag required' });
+  }
+  const expected = CTF_FLAGS[String(challengeId)];
+  if (!expected) {
+    return res.status(404).json({ error: 'Unknown challenge' });
+  }
+  const submitted = crypto.createHash('sha256').update(String(flag).trim()).digest('hex');
+  const correct = submitted === expected;
+
+  // Log submission (non-blocking)
+  if (usePostgres) {
+    pool.query(
+      'INSERT INTO flag_submissions (id, user_id, challenge_id, flag_hash, correct) VALUES ($1,$2,$3,$4,$5)',
+      [makeId('sub'), req.user ? req.user.id : null, challengeId, submitted, correct]
+    ).catch(e => console.error('[ctf/verify log]', e.message));
+  }
+
+  if (correct && req.user) {
+    // Award XP if authenticated
+    try {
+      const user = await store.findUserById(req.user.id);
+      if (user && !((user.progress.missionsCleared || []).includes(challengeId))) {
+        user.progress.xp = (user.progress.xp || 0) + 300;
+        user.progress.missionsCleared = user.progress.missionsCleared || [];
+        user.progress.missionsCleared.push(challengeId);
+        await store.updateUser(user);
+      }
+    } catch (e) {
+      console.error('[ctf/verify xp]', e.message);
+    }
+  }
+
+  return res.json({ correct, challengeId });
+});
+
+// ═══════════════════════════════════════════
+// Metasploit Module Catalog
+// ═══════════════════════════════════════════
+const MSF_MODULES = [
+  // Recon / Auxiliary
+  { type: 'auxiliary', category: 'scanner', name: 'auxiliary/scanner/portscan/tcp',            desc: 'TCP port scanner. Maps open ports across host ranges.', cve: null },
+  { type: 'auxiliary', category: 'scanner', name: 'auxiliary/scanner/smb/smb_ms17_010',        desc: 'Detects EternalBlue (MS17-010) vulnerability in SMB hosts.', cve: 'CVE-2017-0144' },
+  { type: 'auxiliary', category: 'scanner', name: 'auxiliary/scanner/http/dir_scanner',        desc: 'HTTP directory brute-force. Discovers hidden web paths.', cve: null },
+  { type: 'auxiliary', category: 'scanner', name: 'auxiliary/scanner/ssh/ssh_version',         desc: 'SSH version fingerprinting across a subnet.', cve: null },
+  { type: 'auxiliary', category: 'gather',  name: 'auxiliary/gather/dns_enum',                 desc: 'DNS zone enumeration — subdomains, MX, NS, PTR records.', cve: null },
+  { type: 'auxiliary', category: 'spoof',   name: 'auxiliary/spoof/arp/arp_poisoning',         desc: 'ARP cache poisoning for MITM on LAN segments.', cve: null },
+  // Exploits
+  { type: 'exploit', category: 'remote',   name: 'exploit/multi/handler',                     desc: 'Universal payload handler. Catches reverse shells from any platform.', cve: null },
+  { type: 'exploit', category: 'remote',   name: 'exploit/windows/smb/ms17_010_eternalblue',  desc: 'EternalBlue — SMBv1 RCE. Win7/2008R2. CVSS 9.3 Critical.', cve: 'CVE-2017-0144' },
+  { type: 'exploit', category: 'remote',   name: 'exploit/windows/smb/ms08_067_netapi',       desc: 'MS08-067 Server Service RCE. Windows XP/2003 classic.', cve: 'CVE-2008-4250' },
+  { type: 'exploit', category: 'remote',   name: 'exploit/multi/http/apache_mod_cgi_bash_env', desc: 'Shellshock — CGI Bash env injection RCE.', cve: 'CVE-2014-6271' },
+  { type: 'exploit', category: 'remote',   name: 'exploit/unix/ftp/vsftpd_234_backdoor',      desc: 'vsFTPd 2.3.4 smiley-face backdoor shell on port 6200.', cve: 'CVE-2011-2523' },
+  { type: 'exploit', category: 'remote',   name: 'exploit/multi/http/struts2_content_type_ognl', desc: 'Apache Struts2 OGNL injection RCE (Equifax breach vector).', cve: 'CVE-2017-5638' },
+  { type: 'exploit', category: 'local',    name: 'exploit/linux/local/sudo_baron_samedit',    desc: 'Sudo heap overflow — local priv-esc to root. Baron Samedit.', cve: 'CVE-2021-3156' },
+  { type: 'exploit', category: 'local',    name: 'exploit/linux/local/pkexec_lpe',            desc: 'PwnKit — pkexec SUID LPE. 12-year-old polkit vuln.', cve: 'CVE-2021-4034' },
+  { type: 'exploit', category: 'webapps',  name: 'exploit/multi/http/wp_admin_shell_upload',  desc: 'WordPress authenticated admin plugin shell upload.', cve: null },
+  { type: 'exploit', category: 'webapps',  name: 'exploit/multi/http/log4shell_header',       desc: 'Log4Shell — Log4j JNDI injection RCE. CVSS 10.0.', cve: 'CVE-2021-44228' },
+  // Payloads (common)
+  { type: 'payload', category: 'reverse',  name: 'payload/linux/x64/meterpreter/reverse_tcp', desc: 'Linux x64 Meterpreter reverse TCP shell.', cve: null },
+  { type: 'payload', category: 'reverse',  name: 'payload/windows/x64/meterpreter/reverse_https', desc: 'Windows x64 Meterpreter reverse HTTPS — encrypted C2.', cve: null },
+  { type: 'payload', category: 'bind',     name: 'payload/cmd/unix/bind_bash',               desc: 'Bind shell using /bin/bash on a specified port.', cve: null },
+  // Post-exploitation
+  { type: 'post', category: 'gather',      name: 'post/multi/gather/env',                    desc: 'Enumerate environment variables from a Meterpreter session.', cve: null },
+  { type: 'post', category: 'gather',      name: 'post/linux/gather/hashdump',               desc: 'Dump /etc/shadow password hashes from compromised Linux host.', cve: null },
+  { type: 'post', category: 'gather',      name: 'post/windows/gather/credentials/credential_collector', desc: 'Collect Windows credential artifacts from LSASS, registry, etc.', cve: null },
+  { type: 'post', category: 'escalate',    name: 'post/multi/manage/shell_to_meterpreter',   desc: 'Upgrade a basic shell session to full Meterpreter.', cve: null },
+  { type: 'post', category: 'persist',     name: 'post/windows/manage/persistence',          desc: 'Install persistent backdoor via Windows registry run key.', cve: null }
+];
+
+app.get('/api/metasploit/modules', (_req, res) => {
+  const { type, category, search } = _req.query;
+  let modules = MSF_MODULES;
+  if (type)     modules = modules.filter(m => m.type === String(type));
+  if (category) modules = modules.filter(m => m.category === String(category));
+  if (search) {
+    const q = String(search).toLowerCase().slice(0, 80);
+    modules = modules.filter(m => m.name.toLowerCase().includes(q) || m.desc.toLowerCase().includes(q));
+  }
+  const types = [...new Set(MSF_MODULES.map(m => m.type))];
+  const categories = [...new Set(MSF_MODULES.map(m => m.category))];
+  return res.json({ modules, total: modules.length, types, categories });
+});
 
 // Mock activation (dev only — bypassed when Stripe is configured)
 app.post('/api/subscription/activate-basic', authRequired, async (req, res) => {
