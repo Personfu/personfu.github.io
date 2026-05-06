@@ -802,7 +802,7 @@ function renderLB(){
       var you=b.op===cs;
       var row=document.createElement('div');row.className='lr';
       row.style.background=you?'rgba(0,255,65,0.04)':'';
-      row.innerHTML='<span class="lrk '+rc'">#'+(i+1)+'</span>'+
+      row.innerHTML='<span class="lrk '+rc+'">#'+(i+1)+'</span>'+
         '<span class="lrn" style="'+(you?'color:var(--g)':'')+'">'+(b.op)+'</span>'+
         '<span class="lrs">'+b.score+'</span>'+
         '<span class="lrb">'+b.rank+'</span>';
