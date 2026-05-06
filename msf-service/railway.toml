@@ -1,0 +1,20 @@
+[build]
+builder = "dockerfile"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "node server.js"
+healthcheckPath = "/health"
+healthcheckTimeout = 45
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 5
+
+# ── Environment Variables ────────────────────────────────
+# ADMIN_KEY     — Shared key with nexus (x-admin-key header)
+# MSF_RPC_HOST  — Metasploit RPC host (default: localhost)
+# MSF_RPC_PORT  — Metasploit RPC port (default: 55553)
+# MSF_RPC_PASS  — Metasploit RPC password
+# NEXUS_URL     — https://personfugithubio-production.up.railway.app
+#                 (or internal: http://furios-nexus.railway.internal)
+# PORT          — Injected by Railway automatically
+# ────────────────────────────────────────────────────────

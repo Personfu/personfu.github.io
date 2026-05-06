@@ -1,0 +1,8 @@
+[phases.build]
+cmds = ["npm install --omit=dev"]
+
+[start]
+cmd = "node index.js"
+
+[variables]
+NODE_ENV = "production"

@@ -9,16 +9,30 @@ healthcheckTimeout = 60
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 5
 
-# ── Required environment variables ────────────────────────────────
-# Set these in Railway → Service → Variables:
+# ── Environment Variables (Railway → Service → Variables) ────────
 #
-#   JWT_SECRET        (required) — random 64-char hex string for signing JWTs
-#                                  Generate: openssl rand -hex 48
-#   APP_ORIGIN        (optional) — comma-separated allowed origins, default *
-#                                  e.g. https://personfu.github.io,https://fllc.net
-#   DATABASE_URL      (optional) — PostgreSQL connection string (Railway Postgres add-on)
-#                                  Without this the server uses a local db.json file
-#   STRIPE_SECRET_KEY (optional) — sk_live_... for billing
-#   STRIPE_WEBHOOK_SECRET (optional) — whsec_... from Stripe dashboard
-#   STRIPE_PRICE_ID   (optional) — price_... for the basic subscription plan
+#   REQUIRED:
+#   JWT_SECRET            — 64-char hex. Generate: openssl rand -hex 48
+#
+#   DATABASE & CACHE:
+#   DATABASE_URL          — Railway Postgres add-on connection string
+#   REDIS_URL             — Railway Redis add-on connection string
+#
+#   SECURITY:
+#   ADMIN_KEY             — Secret key for /api/admin/* endpoints (openssl rand -hex 32)
+#   APP_ORIGIN            — Comma-separated CORS origins (default *)
+#                           e.g. https://personfu.github.io,https://fllc.net
+#
+#   INTEL:
+#   NVD_API_KEY           — NIST NVD API key (https://nvd.nist.gov/developers/request-an-API-key)
+#                           Without this, NVD queries are rate-limited to 5 req/30s
+#
+#   METASPLOIT RPC (optional — connect a live Metasploit service):
+#   MSF_RPC_URL           — Internal Railway URL: http://msf-service.railway.internal:4567
+#   MSF_RPC_PASS          — Metasploit RPC password
+#
+#   BILLING:
+#   STRIPE_SECRET_KEY     — sk_live_... or sk_test_...
+#   STRIPE_WEBHOOK_SECRET — whsec_...
+#   STRIPE_PRICE_ID       — price_...
 # ─────────────────────────────────────────────────────────────────

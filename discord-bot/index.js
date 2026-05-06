@@ -48,6 +48,7 @@ const CH_CVE            = process.env.CHANNEL_CVE_ALERTS;
 const CH_GENERAL        = process.env.CHANNEL_GENERAL;
 const SITE_URL          = process.env.SITE_URL || 'https://personfu.github.io';
 const NVD_KEY           = process.env.NVD_API_KEY || '';
+const NEXUS_API         = process.env.NEXUS_API_URL || 'https://personfugithubio-production.up.railway.app';
 
 // ─── Bot client ───────────────────────────────────────────────────────────────
 const client = new Client({
@@ -246,6 +247,26 @@ async function safeGetChannel(id) {
   if (!id) return null;
   try { return await client.channels.fetch(id); } catch { return null; }
 }
+
+// ─── HTTP health server (Railway healthcheck) ─────────────────────────────────
+const http = require('http');
+const HEALTH_PORT = Number(process.env.PORT || 3001);
+http.createServer((req, res) => {
+  if (req.url === '/health' || req.url === '/') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({
+      ok: true, service: 'furios-discord-bot',
+      status: client.isReady() ? 'online' : 'connecting',
+      uptime: Math.floor(process.uptime()),
+      tag: client.user ? client.user.tag : null,
+      timestamp: new Date().toISOString()
+    }));
+  } else {
+    res.writeHead(404); res.end();
+  }
+}).listen(HEALTH_PORT, '0.0.0.0', () => {
+  console.log(`[HEALTH] HTTP health server on :${HEALTH_PORT}/health`);
+});
 
 // ─── Login ────────────────────────────────────────────────────────────────────
 client.login(process.env.DISCORD_TOKEN).catch(err => {

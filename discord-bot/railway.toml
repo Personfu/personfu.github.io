@@ -1,0 +1,27 @@
+[build]
+builder = "nixpacks"
+buildCommand = "npm install"
+
+[deploy]
+startCommand = "node index.js"
+healthcheckPath = "/health"
+healthcheckTimeout = 30
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 5
+
+# ── Required environment variables (Railway → Service → Variables) ──────────
+#
+#   DISCORD_TOKEN           — Bot token from https://discord.com/developers/applications
+#   DISCORD_CLIENT_ID       — Application ID: 1170817211837992981
+#   DISCORD_GUILD_ID        — Server ID: 1159996494691188765
+#
+#   CHANNEL_INTEL           — Channel ID for intel posts
+#   CHANNEL_ANNOUNCEMENTS   — Channel ID for daily briefings
+#   CHANNEL_CVE_ALERTS      — Channel ID for hourly CVE alerts
+#   CHANNEL_GENERAL         — Channel ID for bot-online message
+#
+#   SITE_URL                — https://personfu.github.io
+#   NVD_API_KEY             — Optional: NIST NVD API key for higher rate limits
+#   NEXUS_API_URL           — https://personfugithubio-production.up.railway.app
+#                             (internal: http://furios-nexus.railway.internal)
+# ────────────────────────────────────────────────────────────────────────────
