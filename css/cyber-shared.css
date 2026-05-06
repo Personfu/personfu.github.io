@@ -72,12 +72,12 @@ body {
 
 /* ── BACKGROUND CANVAS ─────────────────────────────────────────── */
 #cyber-bg-canvas {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  position: fixed !important; top: 0; left: 0; width: 100%; height: 100%;
   z-index: 0; pointer-events: none;
 }
 
 /* Stack everything above canvas */
-body > *:not(#cyber-bg-canvas):not(#crt-filter) {
+body > *:not(#cyber-bg-canvas):not(#crt-filter):not(#wg-bg) {
   position: relative; z-index: 1;
 }
 
