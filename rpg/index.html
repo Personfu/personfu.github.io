@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>CyberWorld — FLLC MMORPG</title>
+<title>CyberWorld — MMORPG Security Training</title>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -126,6 +126,36 @@ canvas { display: block; }
 #loading-sub { font-size: 13px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; }
 #loading-bar-track { width: 240px; height: 3px; background: #0d1f33; }
 #loading-bar { height: 100%; background: #00b4d8; width: 0%; transition: width 0.3s; }
+.game-overlay { display: none; position: fixed; inset: 0; background: rgba(3,6,11,0.9); z-index: 800; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+.game-overlay.open { display: flex; }
+.game-panel { background: #07111e; border: 1px solid #1e3a5f; border-top: 3px solid #00b4d8; width: min(720px,96vw); max-height: 86vh; display: flex; flex-direction: column; box-shadow: 0 24px 60px rgba(0,0,0,0.8); }
+.panel-head { padding: 16px 20px; border-bottom: 1px solid #112030; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+.panel-head h2 { font-size: 18px; color: #e0f0ff; }
+.panel-close { width: 28px; height: 28px; background: none; border: 1px solid #1e3a5f; color: #4a7a9b; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+.panel-close:hover { border-color: #ef4444; color: #ef4444; }
+.panel-body { flex: 1; overflow-y: auto; padding: 14px 20px; }
+.trial-card { padding: 12px 14px; border: 1px solid #1e3a5f; background: #0a1928; margin-bottom: 8px; cursor: pointer; transition: border-color 0.15s; }
+.trial-card:hover { border-color: #00b4d8; }
+.trial-track { font-size: 10px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; letter-spacing: 1px; margin-bottom: 4px; }
+.trial-title { font-size: 14px; font-weight: 600; color: #c8e0f4; margin-bottom: 4px; }
+.trial-brief { font-size: 12px; color: #4a7a9b; line-height: 1.5; margin-bottom: 6px; }
+.trial-reward { font-size: 11px; color: #22c55e; font-family: 'Share Tech Mono', monospace; }
+.case-card { padding: 12px 14px; border: 1px solid #1e3a5f; background: #0a1928; margin-bottom: 8px; cursor: pointer; transition: border-color 0.15s; display: flex; gap: 12px; align-items: flex-start; }
+.case-card:hover { border-color: #f59e0b; }
+.case-sev { font-size: 10px; font-family: 'Share Tech Mono', monospace; padding: 2px 6px; background: #0d1f33; letter-spacing: 1px; flex-shrink: 0; margin-top: 3px; }
+.sev-low { color: #22c55e; border: 1px solid #166534; }
+.sev-med { color: #f59e0b; border: 1px solid #92400e; }
+.sev-high { color: #f97316; border: 1px solid #9a3412; }
+.sev-critical { color: #ef4444; border: 1px solid #7f1d1d; }
+.case-title { font-size: 14px; font-weight: 600; color: #c8e0f4; margin-bottom: 3px; }
+.case-client { font-size: 11px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; }
+.case-synopsis-text { font-size: 13px; color: #8baec7; line-height: 1.6; padding: 12px 0; border-top: 1px solid #112030; }
+.case-choice-btn { width: 100%; text-align: left; padding: 10px 14px; margin-bottom: 6px; border: 1px solid #1e3a5f; background: #0d1f33; color: #c8e0f4; font-size: 13px; cursor: pointer; font-family: 'Exo 2', sans-serif; transition: all 0.15s; }
+.case-choice-btn:hover { border-color: #00b4d8; color: #00b4d8; }
+.codex-entry { padding: 14px; border: 1px solid #1e3a5f; background: #0a1928; margin-bottom: 10px; }
+.codex-title { font-size: 14px; font-weight: 600; color: #e0f0ff; margin-bottom: 3px; }
+.codex-district { font-size: 10px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; margin-bottom: 8px; letter-spacing: 1px; }
+.codex-text { font-size: 13px; color: #8baec7; line-height: 1.6; }
 </style>
 </head>
 <body>
@@ -151,8 +181,11 @@ canvas { display: block; }
   <div class="hud-sep"></div>
   <div id="hud-log">Welcome to CyberWorld.</div>
   <div class="hud-sep"></div>
-  <button class="hud-btn" onclick="openSectorSelect()">SECTORS</button>
-  <button class="hud-btn accent" onclick="openSectorSelect()">TRAIN</button>
+  <button class="hud-btn" onclick="openSectorSelect()">MAP</button>
+  <button class="hud-btn accent" onclick="openAcademy()">ACADEMY</button>
+  <button class="hud-btn" onclick="openCases()">OPS</button>
+  <button class="hud-btn" onclick="openActivities()">ACTS</button>
+  <button class="hud-btn" onclick="openCodex()">CODEX</button>
   <button class="hud-btn" onclick="goHome()">HOME</button>
 </div>
 <div id="portal-modal">
@@ -266,6 +299,33 @@ canvas { display: block; }
     <p id="cap-hint">Click rapidly to fill the bar before time expires</p>
   </div>
 </div>
+<div id="academy-overlay" class="game-overlay">
+  <div class="game-panel">
+    <div class="panel-head"><h2>Hacker Academy</h2><button class="panel-close" onclick="closeAcademy()">&#10005;</button></div>
+    <div class="panel-body" id="academy-list"></div>
+  </div>
+</div>
+<div id="cases-overlay" class="game-overlay">
+  <div class="game-panel">
+    <div class="panel-head"><h2>Operations Desk</h2><button class="panel-close" onclick="closeCases()">&#10005;</button></div>
+    <div class="panel-body">
+      <div id="cases-list"></div>
+      <div id="case-detail" style="display:none"><div id="case-synopsis"></div><div id="case-choices"></div></div>
+    </div>
+  </div>
+</div>
+<div id="activities-overlay" class="game-overlay">
+  <div class="game-panel" style="border-top-color:#22c55e">
+    <div class="panel-head"><h2>District Activities</h2><button class="panel-close" onclick="closeActivities()">&#10005;</button></div>
+    <div class="panel-body" id="activities-list"></div>
+  </div>
+</div>
+<div id="codex-overlay" class="game-overlay">
+  <div class="game-panel" style="border-top-color:#7c3aed">
+    <div class="panel-head"><h2>Nexus Codex</h2><button class="panel-close" onclick="closeCodex()">&#10005;</button></div>
+    <div class="panel-body" id="codex-list"></div>
+  </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
 <script>
 'use strict';
@@ -280,13 +340,15 @@ const SECTORS = {
     ],
     npcs: [
       { id: 'ada_mainframe', name: 'Ada Root', role: 'Bootcamp Handler', x: 112, y: 340, avatar: 'A',
-        dialogue: ['CyberWorld is one city. Every portal is a real district.', 'Start with WarGames or CTF Trail.', 'Press T or hit SECTORS to travel anywhere.'] },
+        dialogue: ['CyberWorld is no longer a menu of disconnected pages. Treat every portal like a district in one city.', 'Start with WarGames or CTF Trail. Earn badges, then bring that progress back to your operative profile.', 'Press MAP to travel to any sector.'] },
     ],
     portals: [
       { id: 'academy_wargames', title: 'WarGames Academy', category: 'TRAINING', emoji: 'WG', href: '../wargames.html', x: 230, y: 205, mission: 'Run guided labs and defensive drills.', briefing: 'Structured challenges become classroom terminals.', xp: 75, credits: 40 },
       { id: 'ctf_trail', title: 'CTF Trail', category: 'QUESTLINE', emoji: 'CF', href: '../ctf-trail.html', x: 395, y: 205, mission: 'Capture-the-flag quests as MMO progression.', briefing: 'Each flag is an artifact recovery contract.', xp: 90, credits: 50 },
       { id: 'research_vault', title: 'Research Vault', category: 'LIBRARY', emoji: 'RV', href: '../research.html', x: 555, y: 275, mission: 'Read writeups and defensive research.', briefing: 'Research pages are study terminals.', xp: 30, credits: 15 },
       { id: 'codex', title: 'Nexus Codex', category: 'LORE', emoji: 'CX', href: '../cyberworld-codex.html', x: 690, y: 380, mission: 'Review lore, ranks, factions.', briefing: 'The codex is the game manual.', xp: 20, credits: 10 },
+      { id: 'operative_dossier', title: 'Operative Dossier', category: 'PROFILE', emoji: 'ID', href: '../profile.html', x: 145, y: 275, mission: 'Set callsign and track academy progress.', briefing: 'The city identity kiosk for player progression.', xp: 10, credits: 5 },
+      { id: 'project_guide', title: 'Capstone Terminal', category: 'GUIDE', emoji: 'CP', href: '../final_project_tutorial.html', x: 780, y: 295, mission: 'Follow the full build, attack, defend workflow as a senior quest.', briefing: 'Final project tutorial as a mentor-led questline.', xp: 50, credits: 25 },
     ],
     enemies: [
       { id: 'macro_gremlin', name: 'MACRO GREMLIN', type: 'Training Daemon', x: 680, y: 200, hp: 82, maxHp: 82, level: 2 },
@@ -304,7 +366,7 @@ const SECTORS = {
     ],
     npcs: [
       { id: 'packet_mara', name: 'Mara VLAN', role: 'Packet Rancher', x: 132, y: 365, avatar: 'M',
-        dialogue: ['Phishing trails pass through here. Signal Lab is your lead.', 'Forensics and Signal intel move fast.'] },
+        dialogue: ['Phishing trails pass through here before they hit the open web. Signal Lab and Forensics are your best leads.', 'Watch the silos. Compromised credentials do not sit still for long.'] },
     ],
     portals: [
       { id: 'signal_lab', title: 'Signal Lab', category: 'PUZZLE', emoji: 'SL', href: '../signal-lab.html', x: 245, y: 290, mission: 'Decode radio and packet anomalies.', briefing: 'Signal puzzles unlock intel drops.', xp: 80, credits: 40 },
@@ -327,7 +389,7 @@ const SECTORS = {
     ],
     npcs: [
       { id: 'cipher_nox', name: 'Cipher Nox', role: 'Relay Informant', x: 145, y: 405, avatar: 'C',
-        dialogue: ['RedOps is a simulator. Keep blades in the sandbox.', 'Intel Exchange tracks adversaries. Study first.'] },
+        dialogue: ['RedOps is a simulator, not a license to harm real systems. Keep your blades inside the sandbox.', 'Intel Exchange tracks adversaries. Read before you swing.'] },
     ],
     portals: [
       { id: 'redops', title: 'RedOps Simulator', category: 'ARENA', emoji: 'RO', href: '../redops.html', x: 615, y: 225, mission: 'Enter adversary-emulation arenas.', briefing: 'Red-team scenarios with safe learning boundaries.', xp: 120, credits: 65 },
@@ -337,6 +399,7 @@ const SECTORS = {
     enemies: [
       { id: 'zero_day_panda', name: 'ZERO-DAY PANDA', type: 'Exploit Broker', x: 720, y: 460, hp: 145, maxHp: 145, level: 9 },
       { id: 'keylogger_moth', name: 'KEYLOGGER MOTH', type: 'Credential Parasite', x: 305, y: 400, hp: 105, maxHp: 105, level: 7 },
+      { id: 'botnet_jackal', name: 'BOTNET JACKAL', type: 'Relay Beast', x: 610, y: 210, hp: 130, maxHp: 130, level: 8 },
     ],
     daemons: [{ id: 'trojan_ghost', name: 'TROJAN_GHOST', type: 'TROJAN', x: 390, y: 295, level: 8 }],
   },
@@ -350,16 +413,19 @@ const SECTORS = {
     ],
     npcs: [
       { id: 'chief_vale', name: 'Chief Vale', role: 'Incident Commander', x: 128, y: 300, avatar: 'V',
-        dialogue: ['Stormcore is where everything converges.', 'Every terminal here has a purpose. Find them all.'] },
+        dialogue: ['Stormcore is where everything converges: node health, AI operations, arcade morale, and raid readiness.', 'A good MMO is a living operations floor. Every terminal should have a reason to exist.'] },
     ],
     portals: [
       { id: 'node_map', title: 'Node Atlas', category: 'WORLD MAP', emoji: 'NA', href: '../nodes.html', x: 330, y: 335, mission: 'Inspect global nodes and infrastructure.', briefing: 'Site status as the command center map layer.', xp: 30, credits: 15 },
       { id: 'ai_lab', title: 'AI Ops Lab', category: 'TOOLS', emoji: 'AI', href: '../ai.html', x: 745, y: 225, mission: 'Access AI helpers and operator copilots.', briefing: 'AI tooling as support infrastructure.', xp: 25, credits: 12 },
       { id: 'arsenal_stars', title: 'Cyber Arsenal', category: 'TOOLS', emoji: 'CA', href: '../stars.html', x: 655, y: 330, mission: 'Browse curated defensive and learning tools.', briefing: 'Tool lists as in-world vendor shelves.', xp: 20, credits: 10 },
+      { id: 'arcade_hub', title: 'Arcade Annex', category: 'MINIGAMES', emoji: 'AR', href: '../arcade.html', x: 555, y: 445, mission: 'Launch approved minigames as CyberWorld side activities.', briefing: 'Casual game pages as optional district terminals.', xp: 15, credits: 8 },
+      { id: 'cyberos_foundry', title: 'CyberOS Foundry', category: 'TOOLS', emoji: 'OS', href: '../cyberos-iso.html', x: 250, y: 470, mission: 'Build themed training environments from the operations bench.', briefing: 'CyberOS tooling as a workshop terminal for lab prep.', xp: 20, credits: 10 },
     ],
     enemies: [
       { id: 'ddos_leviathan', name: 'DDoS LEVIATHAN', type: 'Raid Boss', x: 695, y: 225, hp: 180, maxHp: 180, level: 12 },
       { id: 'cloud_misconfig', name: 'CLOUD MISCONFIG', type: 'Policy Golem', x: 750, y: 450, hp: 160, maxHp: 160, level: 11 },
+      { id: 'supply_chain_shade', name: 'SUPPLY-CHAIN SHADE', type: 'Build Ghost', x: 380, y: 435, hp: 155, maxHp: 155, level: 10 },
     ],
     daemons: [{ id: 'botnet_swarm', name: 'BOTNET_SWARM', type: 'BOTNET', x: 445, y: 295, level: 12 }],
   },
@@ -369,6 +435,50 @@ const ATTACKS = [
   { name: 'EXPLOIT CHAIN', dmg: [24,36], desc: 'Chained CVE strike' },
   { name: 'SOCIAL ENG', dmg: [16,24], desc: 'Phishing payload delivery' },
   { name: 'ZERO-DAY', dmg: [0,55], desc: '20% chance — high variance' },
+];
+const OPERATION_CASES = [
+  { id: 'case_macro_spill', sector: 'mainframe', title: 'Macro Spill in Classroom 0x12', client: 'Blue Team Academy', severity: 'LOW', synopsis: 'A training lab VM is beaconing after a student opened an unsigned spreadsheet macro.', choices: [{ label: 'Quarantine VM and preserve memory', xp: 48, credits: 22, outcome: 'The beacon stops and volatile indicators are captured.' }, { label: 'Block the domain only', xp: 28, credits: 15, outcome: 'The callback dies, but the host remains suspicious.' }] },
+  { id: 'case_credential_silo', sector: 'lan_valley', title: 'Credential Silo Drift', client: 'Packet Ranchers', severity: 'MED', synopsis: 'A mailbox rule is forwarding invoices to a lookalike domain while VPN failures spike.', choices: [{ label: 'Revoke sessions and rotate secrets', xp: 70, credits: 36, outcome: 'The compromised identity is contained before payroll exports.' }, { label: 'Hunt forwarding rules across the tenant', xp: 64, credits: 30, outcome: 'You find two more planted rules and build a reusable detection query.' }] },
+  { id: 'case_relay_market', sector: 'darknet_depths', title: 'Relay Market Takedown', client: 'Dark Relay Informant', severity: 'HIGH', synopsis: 'A broker is renting botnet relays that match traffic from earlier academy incidents.', choices: [{ label: 'Correlate infra and publish indicators', xp: 95, credits: 54, outcome: 'Defenders across the grid block the relay family within minutes.' }, { label: 'Seed a canary beacon into the market', xp: 110, credits: 48, outcome: 'The broker burns a fresh panel and reveals downstream customers.' }] },
+  { id: 'case_cloud_firewall', sector: 'stormcore', title: 'Cloud Firewall Fail-Open', client: 'Incident Command', severity: 'CRITICAL', synopsis: 'A rushed deployment exposed admin ports across a production subnet during a raid window.', choices: [{ label: 'Roll back rule set and enforce policy gate', xp: 135, credits: 70, outcome: 'Exposure closes and the same class of mistake is blocked in CI.' }, { label: 'Run emergency exposure scan', xp: 98, credits: 58, outcome: 'You find the open ports quickly, but process debt remains.' }] },
+];
+const HACKER_TRIALS = [
+  { id: 'intro_terminal', title: 'Terminal Literacy: Read Before You Run', track: 'INTRO', tier: 'I', sector: 'mainframe', mentor: 'Ada Root', brief: 'Learn CyberWorld commands, evidence, flags, and sandbox rules before anything else.', reward: { xp: 35, credits: 12 } },
+  { id: 'intro_http', title: 'HTTP Street Map', track: 'INTRO', tier: 'I', sector: 'mainframe', mentor: 'Ada Root', brief: 'Walk through request methods, status codes, cookies, and redirects using a harmless mock storefront.', reward: { xp: 42, credits: 16 } },
+  { id: 'web_xss', title: 'Reflected Input Clinic', track: 'WEB', tier: 'II', sector: 'mainframe', mentor: 'Ada Root', brief: 'Study how untrusted input reaches a page and practice choosing safe output encoding.', reward: { xp: 80, credits: 32 } },
+  { id: 'web_sql', title: 'SQL Parameterization Review', track: 'WEB', tier: 'II', sector: 'mainframe', mentor: 'Ada Root', brief: 'Review unsafe query construction and choose the defensive parameterized equivalent.', reward: { xp: 92, credits: 36 } },
+  { id: 'intro_linux', title: 'Filesystem Walk: Find the Evidence', track: 'INTRO', tier: 'I', sector: 'mainframe', mentor: 'Ada Root', brief: 'Practice reading a small Linux-like directory tree, following breadcrumbs, and documenting evidence.', reward: { xp: 45, credits: 18 } },
+  { id: 'web_authz', title: 'Broken Authorization Review', track: 'WEB', tier: 'III', sector: 'lan_valley', mentor: 'Mara VLAN', brief: 'Review an API design where invoice IDs are predictable and fix the access-control decision path.', reward: { xp: 125, credits: 48 } },
+  { id: 'crypto_hash', title: 'Hash Chain Trail', track: 'CRYPTO', tier: 'II', sector: 'lan_valley', mentor: 'Mara VLAN', brief: 'Follow a safe puzzle chain using encodings, hashes, and integrity checks without credential cracking.', reward: { xp: 95, credits: 34 } },
+  { id: 'crypto_password', title: 'Password Storage Clinic', track: 'CRYPTO', tier: 'II', sector: 'lan_valley', mentor: 'Mara VLAN', brief: 'Choose modern password storage patterns and explain why fast hashes are wrong for passwords.', reward: { xp: 118, credits: 46 } },
+  { id: 'forensics_phish', title: 'Phishing Timeline Room', track: 'FORENSICS', tier: 'II', sector: 'lan_valley', mentor: 'Mara VLAN', brief: 'Build a timeline from mail headers, endpoint logs, and proxy records after a simulated phishing incident.', reward: { xp: 115, credits: 42 } },
+  { id: 'forensics_pcap', title: 'PCAP Triage: Beacon or Backup?', track: 'FORENSICS', tier: 'III', sector: 'lan_valley', mentor: 'Mara VLAN', brief: 'Classify synthetic network flows and decide whether periodic traffic is backup activity or beaconing.', reward: { xp: 145, credits: 54 } },
+  { id: 'osint_cve', title: 'CVE Intel Digest', track: 'OSINT', tier: 'II', sector: 'darknet_depths', mentor: 'Cipher Nox', brief: 'Turn vulnerability feed noise into a prioritized advisory for fictional asset owners.', reward: { xp: 120, credits: 46 } },
+  { id: 'osint_actor', title: 'Adversary Graph Studio', track: 'OSINT', tier: 'III', sector: 'darknet_depths', mentor: 'Cipher Nox', brief: 'Correlate aliases and infrastructure in a fictional threat graph without real-person targeting.', reward: { xp: 140, credits: 58 } },
+  { id: 'osint_phish_kit', title: 'Phishing Kit Cluster', track: 'OSINT', tier: 'IV', sector: 'darknet_depths', mentor: 'Cipher Nox', brief: 'Cluster fictional phishing kits by visual markers and infrastructure patterns.', reward: { xp: 190, credits: 78 } },
+  { id: 'advanced_threat_hunt', title: 'Threat Hunt: Ghostline Echo', track: 'ADVANCED', tier: 'V', sector: 'darknet_depths', mentor: 'Cipher Nox', brief: 'Run a multi-stage defensive hunt across fictional endpoint, identity, and proxy telemetry.', reward: { xp: 300, credits: 145 } },
+  { id: 'cloud_iam', title: 'Cloud IAM Lockdown', track: 'CLOUD', tier: 'III', sector: 'stormcore', mentor: 'Chief Vale', brief: 'Investigate excessive permissions in a mock cloud account and reduce blast radius with least privilege.', reward: { xp: 155, credits: 62 } },
+  { id: 'cloud_storage', title: 'Cloud Storage Exposure Drill', track: 'CLOUD', tier: 'III', sector: 'stormcore', mentor: 'Chief Vale', brief: 'Review mock storage buckets and object policies to close accidental public exposure.', reward: { xp: 165, credits: 66 } },
+  { id: 'incident_ransomware', title: 'Ransomware Bridge Tabletop', track: 'INCIDENT', tier: 'IV', sector: 'stormcore', mentor: 'Chief Vale', brief: 'Lead a safe tabletop: triage alerts, protect backups, communicate clearly, and avoid panic moves.', reward: { xp: 210, credits: 88 } },
+  { id: 'incident_executive', title: 'Executive Bridge Briefing', track: 'INCIDENT', tier: 'IV', sector: 'stormcore', mentor: 'Chief Vale', brief: 'Convert technical findings into calm, accurate, executive-ready incident communication.', reward: { xp: 205, credits: 82 } },
+  { id: 'advanced_supply_chain', title: 'Supply Chain Release Gate', track: 'ADVANCED', tier: 'V', sector: 'stormcore', mentor: 'Chief Vale', brief: 'Review a release pipeline for dependency risk, provenance, secret handling, and deployment policy.', reward: { xp: 260, credits: 120 } },
+  { id: 'advanced_detection', title: 'Detection Engineering Gauntlet', track: 'ADVANCED', tier: 'V', sector: 'stormcore', mentor: 'Chief Vale', brief: 'Design a robust detection from fictional telemetry, tune out false positives, and write a runbook.', reward: { xp: 285, credits: 135 } },
+];
+const DISTRICT_ACTIVITIES = [
+  { id: 'act_orientation', sector: 'mainframe', title: 'Rooftop Orientation Loop', type: 'STORY', contact: 'Ada Root', summary: 'First-hour route through movement, portals, inventory, academy trials, and safe contract work.', reward: { xp: 90, credits: 35 } },
+  { id: 'act_flag_museum', sector: 'mainframe', title: 'Flag Museum Curation', type: 'RESEARCH', contact: 'Archivist Byte', summary: 'Curate safe CTF artifacts into a trophy wall with writeup notes and learning tags.', reward: { xp: 115, credits: 44 } },
+  { id: 'act_packet_cafe', sector: 'lan_valley', title: 'Packet Cafe Shift', type: 'MINIGAME', contact: 'Mara VLAN', summary: 'Serve clean packet routes to NPC customers by matching protocol, port, and destination hints.', reward: { xp: 130, credits: 52 } },
+  { id: 'act_phishnet', sector: 'lan_valley', title: 'Phishnet Neighborhood Patrol', type: 'SOCIAL', contact: 'Neighborhood SOC', summary: 'Walk through mailbox safety, reporting flow, and calm user coaching in a fictional district.', reward: { xp: 150, credits: 60 } },
+  { id: 'act_relay_sting', sector: 'darknet_depths', title: 'Relay Sting Table', type: 'RESEARCH', contact: 'Cipher Nox', summary: 'Build a defensive graph of fictional relay infrastructure and publish indicators to the city watch.', reward: { xp: 190, credits: 84 } },
+  { id: 'act_redops_scrim', sector: 'darknet_depths', title: 'Sanctioned RedOps Scrim', type: 'MINIGAME', contact: 'Arena Marshal Nox', summary: 'A contained adversary-emulation scrim focused on reading objectives and staying inside scope.', reward: { xp: 210, credits: 96 } },
+  { id: 'act_incident_bridge', sector: 'stormcore', title: 'Incident Bridge Shift', type: 'RAID', contact: 'Chief Vale', summary: 'Coordinate a raid-style defensive shift: triage alerts, preserve evidence, protect backups.', reward: { xp: 260, credits: 120 } },
+  { id: 'act_deck_bench', sector: 'stormcore', title: 'Deck Mod Bench', type: 'CRAFT', contact: 'Vale Workshop', summary: 'Tune cyber-deck scripts into safer utility modules with scan, evidence, and RAM recovery tools.', reward: { xp: 175, credits: 88 } },
+];
+const CODEX_ENTRIES = [
+  { id: 'codex_hub', title: 'One City, Many Games', district: 'CyberWorld', text: 'CyberWorld is the front door. Legacy games, challenges, tools, research, and social areas are buildings inside the city.' },
+  { id: 'codex_trials', title: 'Trial Safety Charter', district: 'Hacker Academy', text: 'Every academy trial uses fictional systems, defensive review, guided walkthroughs, or toy data. No real-world targeting.' },
+  { id: 'codex_progression', title: 'Rank Progression', district: 'Operations', text: 'XP raises level, reputation raises rank, credits fund deck activity. The loop: explore, learn, help, return stronger.' },
+  { id: 'codex_districts', title: 'District Roles', district: 'City Map', text: 'Mainframe teaches fundamentals. LAN Valley handles packets and phishing. Darknet Depths covers intel. Stormcore hosts raids.' },
 ];
 let currentSector = 'mainframe';
 let playerHP = 100, playerMaxHP = 100, playerXP = 0, playerLevel = 1, playerCredits = 25, playerRam = 100;
@@ -582,6 +692,84 @@ document.addEventListener('keydown', function(e) {
   }
   if ((e.key === 't' || e.key === 'T') && !e.ctrlKey && !e.metaKey) openSectorSelect();
 });
+function openAcademy() {
+  const box = document.getElementById('academy-list');
+  const trials = HACKER_TRIALS.filter(t => t.sector === currentSector);
+  box.innerHTML = trials.length ? trials.map(t =>
+    '<div class="trial-card" onclick="startTrial(\'' + t.id + '\')">' +
+    '<div class="trial-track">' + t.track + ' · TIER ' + t.tier + ' · ' + t.mentor + '</div>' +
+    '<div class="trial-title">' + t.title + '</div>' +
+    '<div class="trial-brief">' + t.brief + '</div>' +
+    '<div class="trial-reward">+' + t.reward.xp + ' XP &nbsp; +' + t.reward.credits + ' credits</div></div>'
+  ).join('') : '<p style="color:#4a7a9b;padding:12px;font-family:\'Share Tech Mono\',monospace;font-size:12px">No trials in this sector.</p>';
+  document.getElementById('academy-overlay').classList.add('open');
+}
+function closeAcademy() { document.getElementById('academy-overlay').classList.remove('open'); }
+function startTrial(id) {
+  const t = HACKER_TRIALS.find(x => x.id === id);
+  if (!t) return;
+  awardXP(t.reward.xp, t.reward.credits);
+  setHudLog('[TRIAL] ' + t.title + ' started. Mentor: ' + t.mentor);
+  closeAcademy();
+}
+function openCases() {
+  const list = document.getElementById('cases-list');
+  const detail = document.getElementById('case-detail');
+  detail.style.display = 'none';
+  const cases = OPERATION_CASES.filter(c => c.sector === currentSector);
+  list.innerHTML = cases.length ? cases.map(c =>
+    '<div class="case-card" onclick="openCaseDetail(\'' + c.id + '\')">' +
+    '<div class="case-sev sev-' + c.severity.toLowerCase() + '">' + c.severity + '</div>' +
+    '<div><div class="case-title">' + c.title + '</div><div class="case-client">Client: ' + c.client + '</div></div></div>'
+  ).join('') : '<p style="color:#4a7a9b;padding:12px;font-family:\'Share Tech Mono\',monospace;font-size:12px">No active cases in this sector.</p>';
+  document.getElementById('cases-overlay').classList.add('open');
+}
+function openCaseDetail(id) {
+  const c = OPERATION_CASES.find(x => x.id === id);
+  if (!c) return;
+  document.getElementById('case-synopsis').innerHTML = '<p class="case-synopsis-text">' + c.synopsis + '</p>';
+  const ch = document.getElementById('case-choices');
+  ch.innerHTML = '<p style="margin:8px 0 6px;color:#4a7a9b;font-size:11px;font-family:\'Share Tech Mono\',monospace;letter-spacing:1px">RESPONSE OPTIONS:</p>';
+  c.choices.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'case-choice-btn';
+    btn.textContent = opt.label;
+    btn.onclick = () => { awardXP(opt.xp, opt.credits); setHudLog('[OPS] ' + opt.outcome); closeCases(); };
+    ch.appendChild(btn);
+  });
+  document.getElementById('case-detail').style.display = 'block';
+}
+function closeCases() { document.getElementById('cases-overlay').classList.remove('open'); }
+function openActivities() {
+  const box = document.getElementById('activities-list');
+  const acts = DISTRICT_ACTIVITIES.filter(a => a.sector === currentSector);
+  box.innerHTML = acts.length ? acts.map(a =>
+    '<div class="trial-card" onclick="startActivity(\'' + a.id + '\')">' +
+    '<div class="trial-track">' + a.type + ' · ' + a.contact + '</div>' +
+    '<div class="trial-title">' + a.title + '</div>' +
+    '<div class="trial-brief">' + a.summary + '</div>' +
+    '<div class="trial-reward">+' + a.reward.xp + ' XP &nbsp; +' + a.reward.credits + ' credits</div></div>'
+  ).join('') : '<p style="color:#4a7a9b;padding:12px;font-family:\'Share Tech Mono\',monospace;font-size:12px">No activities in this sector right now.</p>';
+  document.getElementById('activities-overlay').classList.add('open');
+}
+function closeActivities() { document.getElementById('activities-overlay').classList.remove('open'); }
+function startActivity(id) {
+  const a = DISTRICT_ACTIVITIES.find(x => x.id === id);
+  if (!a) return;
+  awardXP(a.reward.xp, a.reward.credits);
+  setHudLog('[DISTRICT] ' + a.title + ' completed.');
+  closeActivities();
+}
+function openCodex() {
+  document.getElementById('codex-list').innerHTML = CODEX_ENTRIES.map(e =>
+    '<div class="codex-entry">' +
+    '<div class="codex-title">' + e.title + '</div>' +
+    '<div class="codex-district">' + e.district.toUpperCase() + '</div>' +
+    '<div class="codex-text">' + e.text + '</div></div>'
+  ).join('');
+  document.getElementById('codex-overlay').classList.add('open');
+}
+function closeCodex() { document.getElementById('codex-overlay').classList.remove('open'); }
 const W = 960, H = 620;
 class CyberWorldScene extends Phaser.Scene {
   constructor() { super({ key: 'CyberWorld' }); }

@@ -24,7 +24,6 @@
 }
 html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'Exo 2', sans-serif; user-select: none; }
 
-/* ── DESKTOP ─────────────────────────────────────────── */
 #desktop {
   position: absolute;
   inset: 0 0 var(--taskbar-h);
@@ -74,27 +73,29 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   pointer-events: none;
 }
 
-/* ── DESKTOP ICONS ───────────────────────────────────── */
 #icons-layer {
   position: absolute; inset: 0;
-  padding: 18px 14px;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 2px;
 }
 .icon {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80px;
-  padding: 8px 4px 10px;
-  margin: 0 0 8px;
+  width: 78px;
+  padding: 7px 4px 9px;
   cursor: pointer;
   border: 1px solid transparent;
-  gap: 6px;
-  vertical-align: top;
+  gap: 5px;
   transition: border-color 0.12s, background 0.12s;
 }
-.icon:hover, .icon.selected {
-  background: rgba(0,180,216,0.12);
-  border-color: rgba(0,180,216,0.4);
+.icon:hover {
+  background: rgba(0,180,216,0.1);
+  border-color: rgba(0,180,216,0.35);
 }
 .icon-img {
   width: 44px; height: 44px;
@@ -114,11 +115,10 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   width: 56px; height: 56px;
   font-size: 26px;
   border-color: var(--cyan);
-  box-shadow: 0 0 14px rgba(0,180,216,0.3);
+  box-shadow: 0 0 12px rgba(0,180,216,0.25);
 }
 .icon-primary .icon-label { color: var(--cyan); font-weight: 600; }
 
-/* ── TASKBAR ─────────────────────────────────────────── */
 #taskbar {
   position: absolute; bottom: 0; left: 0; right: 0;
   height: var(--taskbar-h);
@@ -151,7 +151,6 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 }
 .taskbar-item:hover, .taskbar-item.active { border-color: var(--cyan); color: var(--cyan); }
 
-/* ── START MENU ──────────────────────────────────────── */
 #start-menu {
   display: none;
   position: absolute;
@@ -183,7 +182,6 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .sm-item .sm-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
 .sm-item.danger .sm-icon { color: var(--danger); }
 
-/* ── WINDOWS ─────────────────────────────────────────── */
 .os-window {
   position: absolute;
   background: var(--panel);
@@ -215,7 +213,6 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 .boot-line.hi { color: var(--cyan); }
 .boot-line.err { color: var(--danger); }
 
-/* ── CONTEXT MENU ────────────────────────────────────── */
 #ctx-menu {
   display: none;
   position: absolute;
@@ -248,9 +245,7 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
       <div class="icon-img">&#9670;</div>
       <div class="icon-label">CyberWorld</div>
     </div>
-    <br>
-    <!-- Sector icons -->
-    <div class="icon" onclick="launchTo('wargames.html')" title="WarGames Academy">
+    <div class="icon" onclick="launchTo('wargames.html')"  title="WarGames Academy">
       <div class="icon-img">&#9876;</div>
       <div class="icon-label">WarGames</div>
     </div>
@@ -377,7 +372,6 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
 <script>
 'use strict';
 
-// ── PERIODIC TABLE DATA ───────────────────────────────────
 const PT = [
   ['H','Hydrogen','blue'],['He','Helium','cyan'],['Li','Lithium','red'],['Be','Beryllium','amber'],
   ['B','Boron','green'],['C','Carbon','blue'],['N','Nitrogen','cyan'],['O','Oxygen','red'],
@@ -435,7 +429,6 @@ const HACK_NAMES = {
   });
 })();
 
-// ── CLOCK ─────────────────────────────────────────────────
 function tickClock() {
   const now = new Date();
   const h = String(now.getHours()).padStart(2,'0');
@@ -446,12 +439,10 @@ function tickClock() {
 tickClock();
 setInterval(tickClock, 1000);
 
-// ── NAVIGATION ────────────────────────────────────────────
 function launchGame() { window.location.href = 'rpg/index.html'; }
 function launchTo(page) { window.location.href = page; }
 function reboot() { window.location.reload(); }
 
-// ── START MENU ────────────────────────────────────────────
 function toggleStart() {
   const m = document.getElementById('start-menu');
   m.classList.toggle('open');
@@ -464,7 +455,6 @@ document.addEventListener('click', function(e) {
   if (!ctx.contains(e.target)) ctx.classList.remove('open');
 });
 
-// ── CONTEXT MENU ──────────────────────────────────────────
 function showCtx(e) {
   e.preventDefault();
   const ctx = document.getElementById('ctx-menu');
@@ -475,7 +465,6 @@ function showCtx(e) {
   ctx.classList.add('open');
 }
 
-// ── WINDOWS ───────────────────────────────────────────────
 function openWindow(id) {
   document.getElementById('start-menu').classList.remove('open');
   document.getElementById('ctx-menu').classList.remove('open');
@@ -491,7 +480,6 @@ function bringToFront(el) {
   el.classList.add('active');
 }
 
-// ── DRAG ──────────────────────────────────────────────────
 let dragEl = null, dragOX = 0, dragOY = 0;
 function startDrag(e, id) {
   dragEl = document.getElementById(id);
@@ -510,7 +498,6 @@ document.addEventListener('mousemove', function(e) {
 });
 document.addEventListener('mouseup', function() { dragEl = null; });
 
-// ── BOOT LOG ──────────────────────────────────────────────
 const BOOT_LINES = [
   ['hi',  'NEXUS OS v2026.05 — CyberWorld Platform'],
   ['ok',  'Memory check: 16384 MB ... OK'],
@@ -541,8 +528,9 @@ function populateBootLog() {
   });
 }
 
-// ── BOOT ANIMATION ────────────────────────────────────────
 (function bootAnim() {
+  if (sessionStorage.getItem('boot_done')) return;
+  sessionStorage.setItem('boot_done', '1');
   openWindow('boot');
   const body = document.getElementById('boot-log-body');
   body.innerHTML = '';
