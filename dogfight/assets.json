@@ -1,0 +1,89 @@
+{
+  "aircraft": [
+    {
+      "slot": 0,
+      "id": "f47",
+      "name": "F-47 PRIMAS",
+      "designator": "F-47A",
+      "generation": "7th Gen USAF NGAD",
+      "hud_color": [0, 180, 216],
+      "afterburner_color": [28, 100, 255],
+      "exhaust_color": [0, 100, 200],
+      "engine_sfx": "adaptive_cycle",
+      "speed_factor": 1.3,
+      "maneuver_factor": 1.2
+    },
+    {
+      "slot": 1,
+      "id": "f58",
+      "name": "F-58 VALKYRJA",
+      "designator": "F-58B",
+      "generation": "8th Gen Hypersonic",
+      "hud_color": [255, 111, 145],
+      "afterburner_color": [255, 80, 60],
+      "exhaust_color": [200, 60, 40],
+      "engine_sfx": "turboramjet",
+      "speed_factor": 2.2,
+      "maneuver_factor": 0.85
+    },
+    {
+      "slot": 2,
+      "id": "sr91",
+      "name": "SR-91 AURORA",
+      "designator": "SR-91C",
+      "generation": "6th Gen+ Black Project",
+      "hud_color": [111, 234, 255],
+      "afterburner_color": [255, 180, 0],
+      "exhaust_color": [255, 140, 0],
+      "engine_sfx": "pdwe",
+      "speed_factor": 2.4,
+      "maneuver_factor": 0.7
+    },
+    {
+      "slot": 3,
+      "id": "rq180",
+      "name": "RQ-180 SENTINEL II",
+      "designator": "RQ-180C",
+      "generation": "UCAV NGAD",
+      "hud_color": [167, 182, 194],
+      "afterburner_color": [100, 160, 200],
+      "exhaust_color": [80, 120, 160],
+      "engine_sfx": "highbypass",
+      "speed_factor": 0.7,
+      "maneuver_factor": 0.6
+    },
+    {
+      "slot": 4,
+      "id": "tr3b",
+      "name": "TR-3B ASTRA",
+      "designator": "TR-3B/A",
+      "generation": "ARV UAP",
+      "hud_color": [223, 251, 255],
+      "afterburner_color": [200, 240, 255],
+      "exhaust_color": [150, 200, 255],
+      "engine_sfx": "mfd_ring",
+      "speed_factor": 4.0,
+      "maneuver_factor": 2.0
+    }
+  ],
+  "theme": {
+    "sky_top_color":    [2,   4,   9],
+    "sky_bottom_color": [3,  18,  42],
+    "horizon_color":    [0, 100, 160],
+    "ground_color":     [10,  14,  22],
+    "grid_color":       [0,  40,  80],
+    "hud_font":         "Share Tech Mono",
+    "hud_bg_opacity":   0.72,
+    "win98_chrome":     true,
+    "titlebar_color1":  [0,   0, 128],
+    "titlebar_color2":  [16, 132, 208]
+  },
+  "weapons": {
+    "aim260":  { "display": "AIM-260 JATM",   "color": [0, 180, 216] },
+    "aim9x":   { "display": "AIM-9X",          "color": [100, 255, 100] },
+    "hacm":    { "display": "HACM DART",       "color": [255, 111, 145] },
+    "siaw":    { "display": "SiAW",            "color": [252, 238, 9] }
+  },
+  "start_scene": "black_hangar",
+  "tagline": "CyberWorld Black Hangar // Stormcore // BHX-9X"
+}
