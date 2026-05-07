@@ -1,63 +1,564 @@
-<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=https://personfu.github.io/cyberworld.html">
-  <title>CyberWorld Gateway</title>
-  <style>
-    :root { color-scheme: dark; --cyan:#6feaff; --pink:#ff7df0; --bg:#101827; }
-    * { box-sizing: border-box; }
-    body {
-      min-height: 100vh;
-      margin: 0;
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(circle at 30% 20%, rgba(111,234,255,.18), transparent 30%),
-        radial-gradient(circle at 75% 70%, rgba(255,125,240,.16), transparent 30%),
-        linear-gradient(135deg, #162033, var(--bg));
-      font-family: "Segoe UI", Arial, sans-serif;
-      color: #eefbff;
-    }
-    main {
-      width: min(720px, calc(100vw - 32px));
-      padding: 34px;
-      border: 1px solid rgba(111,234,255,.35);
-      border-radius: 24px;
-      background: rgba(11,18,31,.78);
-      box-shadow: 0 24px 80px rgba(0,0,0,.35), inset 0 0 24px rgba(111,234,255,.06);
-      text-align: center;
-    }
-    h1 {
-      margin: 0 0 12px;
-      font-size: clamp(40px, 8vw, 76px);
-      letter-spacing: .08em;
-      color: var(--cyan);
-      text-shadow: 0 0 20px rgba(111,234,255,.42);
-    }
-    p { margin: 0 auto 24px; max-width: 54ch; line-height: 1.6; color: #c7d9e6; }
-    a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0 22px;
-      border: 1px solid var(--cyan);
-      border-radius: 16px;
-      color: #07131d;
-      background: var(--cyan);
-      font-weight: 700;
-      text-decoration: none;
-      box-shadow: 0 0 24px rgba(111,234,255,.28);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXUS OS — Personfu CyberWorld</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #03060b;
+  --panel: #07111e;
+  --border: #1e3a5f;
+  --border-hi: #00b4d8;
+  --cyan: #00b4d8;
+  --text: #c8e0f4;
+  --text-dim: #4a7a9b;
+  --text-hi: #e0f0ff;
+  --danger: #ef4444;
+  --green: #22c55e;
+  --purple: #a855f7;
+  --amber: #f59e0b;
+  --taskbar-h: 42px;
+}
+html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg); color: var(--text); font-family: 'Exo 2', sans-serif; user-select: none; }
+
+/* ── DESKTOP ─────────────────────────────────────────── */
+#desktop {
+  position: absolute;
+  inset: 0 0 var(--taskbar-h);
+  overflow: hidden;
+}
+
+/* Wallpaper: Periodic Table of Hacking */
+#wallpaper {
+  position: absolute; inset: 0;
+  background: #020508;
+  overflow: hidden;
+}
+.pt-grid {
+  position: absolute; inset: 0;
+  display: grid;
+  grid-template-columns: repeat(18, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  gap: 2px;
+  padding: 6px;
+  opacity: 0.28;
+}
+.pt-el {
+  background: #071525;
+  border: 1px solid #0d2340;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  min-width: 0;
+  overflow: hidden;
+}
+.pt-el .num { font-size: 6px; color: #2a4a6a; font-family: 'Share Tech Mono', monospace; line-height: 1; align-self: flex-start; }
+.pt-el .sym { font-size: 13px; font-weight: 700; line-height: 1.1; font-family: 'Share Tech Mono', monospace; }
+.pt-el .name { font-size: 5px; color: #2a5070; line-height: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 100%; text-align: center; }
+.pt-el.red   { border-color: #3b1a1a; } .pt-el.red   .sym { color: #c03040; }
+.pt-el.blue  { border-color: #0d2244; } .pt-el.blue  .sym { color: #2060a0; }
+.pt-el.green { border-color: #0d3020; } .pt-el.green .sym { color: #1a7040; }
+.pt-el.purp  { border-color: #2a1040; } .pt-el.purp  .sym { color: #7040b0; }
+.pt-el.amber { border-color: #3b2a00; } .pt-el.amber .sym { color: #a07010; }
+.pt-el.cyan  { border-color: #003344; } .pt-el.cyan  .sym { color: #008090; }
+
+/* scan-line effect */
+#scanlines {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,20,30,0.18) 4px);
+  pointer-events: none;
+}
+
+/* ── DESKTOP ICONS ───────────────────────────────────── */
+#icons-layer {
+  position: absolute; inset: 0;
+  padding: 18px 14px;
+}
+.icon {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80px;
+  padding: 8px 4px 10px;
+  margin: 0 0 8px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  gap: 6px;
+  vertical-align: top;
+  transition: border-color 0.12s, background 0.12s;
+}
+.icon:hover, .icon.selected {
+  background: rgba(0,180,216,0.12);
+  border-color: rgba(0,180,216,0.4);
+}
+.icon-img {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: #0a1a2e;
+  border: 1px solid #1e3a5f;
+  font-size: 20px;
+}
+.icon-label {
+  font-size: 11px; color: var(--text);
+  text-align: center; line-height: 1.3;
+  text-shadow: 0 1px 3px #000;
+  font-family: 'Share Tech Mono', monospace;
+  max-width: 78px; word-break: break-word;
+}
+.icon-primary .icon-img {
+  width: 56px; height: 56px;
+  font-size: 26px;
+  border-color: var(--cyan);
+  box-shadow: 0 0 14px rgba(0,180,216,0.3);
+}
+.icon-primary .icon-label { color: var(--cyan); font-weight: 600; }
+
+/* ── TASKBAR ─────────────────────────────────────────── */
+#taskbar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: var(--taskbar-h);
+  background: #060f1b;
+  border-top: 1px solid #112030;
+  display: flex; align-items: center; gap: 4px; padding: 0 8px;
+  z-index: 200;
+}
+#start-btn {
+  height: 30px; padding: 0 14px;
+  background: var(--cyan); border: none;
+  color: #02080e; font-weight: 700; font-size: 13px;
+  cursor: pointer; font-family: 'Exo 2', sans-serif;
+  letter-spacing: 0.3px; flex-shrink: 0;
+  transition: background 0.12s;
+}
+#start-btn:hover { background: #0dcaf0; }
+.taskbar-sep { width: 1px; height: 26px; background: #112030; flex-shrink: 0; margin: 0 4px; }
+.taskbar-clock {
+  margin-left: auto; font-size: 12px; color: var(--text-dim);
+  font-family: 'Share Tech Mono', monospace; white-space: nowrap;
+}
+.taskbar-item {
+  height: 30px; padding: 0 12px;
+  background: #0d1f33; border: 1px solid #1e3a5f;
+  color: var(--text); font-size: 12px; cursor: pointer;
+  font-family: 'Exo 2', sans-serif; white-space: nowrap;
+  display: flex; align-items: center; gap: 6px;
+  transition: all 0.12s;
+}
+.taskbar-item:hover, .taskbar-item.active { border-color: var(--cyan); color: var(--cyan); }
+
+/* ── START MENU ──────────────────────────────────────── */
+#start-menu {
+  display: none;
+  position: absolute;
+  bottom: var(--taskbar-h);
+  left: 0;
+  width: 260px;
+  background: #07111e;
+  border: 1px solid #1e3a5f;
+  border-bottom: none;
+  z-index: 300;
+  box-shadow: 4px -4px 24px rgba(0,0,0,0.6);
+}
+#start-menu.open { display: block; }
+.sm-header {
+  padding: 14px 16px;
+  background: #0a1a2e;
+  border-bottom: 1px solid #112030;
+  font-size: 18px; font-weight: 700; color: var(--cyan);
+  font-family: 'Share Tech Mono', monospace;
+}
+.sm-header span { font-size: 12px; color: var(--text-dim); display: block; margin-top: 2px; font-weight: 400; }
+.sm-section { padding: 8px 0; border-bottom: 1px solid #0d1f2e; }
+.sm-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 16px; font-size: 13px; color: var(--text);
+  cursor: pointer; transition: background 0.1s;
+}
+.sm-item:hover { background: #0d1f33; color: var(--text-hi); }
+.sm-item .sm-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.sm-item.danger .sm-icon { color: var(--danger); }
+
+/* ── WINDOWS ─────────────────────────────────────────── */
+.os-window {
+  position: absolute;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--cyan);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  min-width: 320px; min-height: 180px;
+  z-index: 100;
+  display: flex; flex-direction: column;
+}
+.os-window.active { border-color: var(--border); border-top-color: var(--cyan); z-index: 150; }
+.win-titlebar {
+  height: 34px; flex-shrink: 0;
+  background: #0a1a2e;
+  border-bottom: 1px solid #112030;
+  display: flex; align-items: center; padding: 0 10px; gap: 8px;
+  cursor: move;
+}
+.win-title { flex: 1; font-size: 13px; color: var(--text-hi); font-family: 'Share Tech Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.win-btn { width: 22px; height: 22px; flex-shrink: 0; background: #0d1f33; border: 1px solid #1e3a5f; color: var(--text-dim); font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.12s; }
+.win-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+.win-btn.close:hover { border-color: var(--danger); color: var(--danger); }
+.win-body { flex: 1; padding: 16px; overflow-y: auto; font-size: 13px; color: var(--text); line-height: 1.6; }
+
+/* Boot log window */
+.boot-line { font-family: 'Share Tech Mono', monospace; font-size: 12px; color: var(--text-dim); padding: 2px 0; }
+.boot-line.ok { color: #22c55e; }
+.boot-line.warn { color: var(--amber); }
+.boot-line.hi { color: var(--cyan); }
+.boot-line.err { color: var(--danger); }
+
+/* ── CONTEXT MENU ────────────────────────────────────── */
+#ctx-menu {
+  display: none;
+  position: absolute;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow: 4px 4px 16px rgba(0,0,0,0.5);
+  z-index: 400; min-width: 180px;
+}
+#ctx-menu.open { display: block; }
+.ctx-item { padding: 8px 16px; font-size: 13px; color: var(--text); cursor: pointer; transition: background 0.1s; }
+.ctx-item:hover { background: #0d1f33; color: var(--text-hi); }
+.ctx-sep { height: 1px; background: #0d1f2e; margin: 4px 0; }
+</style>
 </head>
 <body>
-  <main>
-    <h1>CYBERWORLD</h1>
-    <p>Personfu is being consolidated into CyberWorld. WarGames, CTF Trail, Signal Lab, Forensics, RedOps, Intel, Arcade, and AI Ops are now destinations inside the MMO hub.</p>
-    <a href="https://personfu.github.io/cyberworld.html">Enter CyberWorld</a>
-  </main>
+
+<!-- Desktop -->
+<div id="desktop" oncontextmenu="showCtx(event)">
+
+  <!-- Wallpaper: Periodic Table of Hacking -->
+  <div id="wallpaper">
+    <div class="pt-grid" id="pt-grid"></div>
+    <div id="scanlines"></div>
+  </div>
+
+  <!-- Desktop icons -->
+  <div id="icons-layer">
+    <!-- Primary: launch game -->
+    <div class="icon icon-primary" onclick="launchGame()" title="Launch CyberWorld MMORPG">
+      <div class="icon-img">&#9670;</div>
+      <div class="icon-label">CyberWorld</div>
+    </div>
+    <br>
+    <!-- Sector icons -->
+    <div class="icon" onclick="launchTo('wargames.html')" title="WarGames Academy">
+      <div class="icon-img">&#9876;</div>
+      <div class="icon-label">WarGames</div>
+    </div>
+    <div class="icon" onclick="launchTo('ctf-trail.html')" title="CTF Trail">
+      <div class="icon-img">&#9873;</div>
+      <div class="icon-label">CTF Trail</div>
+    </div>
+    <div class="icon" onclick="launchTo('forensics.html')" title="Forensics Lab">
+      <div class="icon-img">&#128270;</div>
+      <div class="icon-label">Forensics</div>
+    </div>
+    <div class="icon" onclick="launchTo('signal-lab.html')" title="Signal Lab">
+      <div class="icon-img">&#128225;</div>
+      <div class="icon-label">Signal Lab</div>
+    </div>
+    <div class="icon" onclick="launchTo('redops.html')" title="RedOps Simulator">
+      <div class="icon-img">&#9763;</div>
+      <div class="icon-label">RedOps</div>
+    </div>
+    <div class="icon" onclick="launchTo('intel.html')" title="Intel Exchange">
+      <div class="icon-img">&#128373;</div>
+      <div class="icon-label">Intel</div>
+    </div>
+    <div class="icon" onclick="launchTo('adversaries.html')" title="Adversary DB">
+      <div class="icon-img">&#127919;</div>
+      <div class="icon-label">Adversaries</div>
+    </div>
+    <div class="icon" onclick="launchTo('ai.html')" title="AI Ops Lab">
+      <div class="icon-img">&#129302;</div>
+      <div class="icon-label">AI Ops</div>
+    </div>
+    <div class="icon" onclick="launchTo('stars.html')" title="Cyber Arsenal">
+      <div class="icon-img">&#128736;</div>
+      <div class="icon-label">Arsenal</div>
+    </div>
+    <div class="icon" onclick="launchTo('research.html')" title="Research Vault">
+      <div class="icon-img">&#128218;</div>
+      <div class="icon-label">Research</div>
+    </div>
+    <div class="icon" onclick="launchTo('nodes.html')" title="Node Atlas">
+      <div class="icon-img">&#127758;</div>
+      <div class="icon-label">Nodes</div>
+    </div>
+    <div class="icon" onclick="openWindow('about')" title="About Personfu">
+      <div class="icon-img">&#8505;</div>
+      <div class="icon-label">About</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Taskbar -->
+<div id="taskbar">
+  <button id="start-btn" onclick="toggleStart()">&#9670; NEXUS</button>
+  <div class="taskbar-sep"></div>
+  <div class="taskbar-item active" onclick="launchGame()">
+    <span>&#9670;</span> CyberWorld
+  </div>
+  <div class="taskbar-clock" id="clock">00:00:00</div>
+</div>
+
+<!-- Start menu -->
+<div id="start-menu">
+  <div class="sm-header">NEXUS OS<span>Personfu CyberWorld Platform</span></div>
+  <div class="sm-section">
+    <div class="sm-item" onclick="launchGame()">
+      <div class="sm-icon">&#9670;</div> Play CyberWorld
+    </div>
+  </div>
+  <div class="sm-section">
+    <div class="sm-item" onclick="launchTo('wargames.html')"><div class="sm-icon">&#9876;</div> WarGames Academy</div>
+    <div class="sm-item" onclick="launchTo('ctf-trail.html')"><div class="sm-icon">&#9873;</div> CTF Trail</div>
+    <div class="sm-item" onclick="launchTo('forensics.html')"><div class="sm-icon">&#128270;</div> Forensics Lab</div>
+    <div class="sm-item" onclick="launchTo('signal-lab.html')"><div class="sm-icon">&#128225;</div> Signal Lab</div>
+    <div class="sm-item" onclick="launchTo('redops.html')"><div class="sm-icon">&#9763;</div> RedOps Simulator</div>
+    <div class="sm-item" onclick="launchTo('intel.html')"><div class="sm-icon">&#128373;</div> Intel Exchange</div>
+    <div class="sm-item" onclick="launchTo('adversaries.html')"><div class="sm-icon">&#127919;</div> Adversary DB</div>
+    <div class="sm-item" onclick="launchTo('ai.html')"><div class="sm-icon">&#129302;</div> AI Ops Lab</div>
+    <div class="sm-item" onclick="launchTo('stars.html')"><div class="sm-icon">&#128736;</div> Cyber Arsenal</div>
+    <div class="sm-item" onclick="launchTo('research.html')"><div class="sm-icon">&#128218;</div> Research Vault</div>
+  </div>
+  <div class="sm-section">
+    <div class="sm-item" onclick="openWindow('about')"><div class="sm-icon">&#8505;</div> About Personfu</div>
+    <div class="sm-item danger" onclick="reboot()"><div class="sm-icon">&#8635;</div> Reboot Desktop</div>
+  </div>
+</div>
+
+<!-- Context menu -->
+<div id="ctx-menu">
+  <div class="ctx-item" onclick="launchGame()">&#9670; Open CyberWorld</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" onclick="openWindow('boot')">Boot Log</div>
+  <div class="ctx-item" onclick="openWindow('about')">About</div>
+  <div class="ctx-sep"></div>
+  <div class="ctx-item" onclick="reboot()">Reboot Desktop</div>
+</div>
+
+<!-- About window template -->
+<div class="os-window" id="win-about" style="display:none; left:220px; top:80px; width:420px;">
+  <div class="win-titlebar" onmousedown="startDrag(event,'win-about')">
+    <span class="win-title">About Personfu — NEXUS OS</span>
+    <button class="win-btn close" onclick="closeWindow('win-about')">&#215;</button>
+  </div>
+  <div class="win-body">
+    <p style="margin-bottom:10px; color:#e0f0ff; font-weight:600; font-size:15px;">Personfu CyberWorld</p>
+    <p style="margin-bottom:10px;">An MMORPG-style cybersecurity training platform. All challenges, arenas, and tools are accessed through the game hub.</p>
+    <p style="margin-bottom:6px; color:#4a7a9b; font-family:'Share Tech Mono',monospace; font-size:12px;">Sectors: Mainframe Core · LAN Valley · Darknet Depths · Stormcore</p>
+    <p style="color:#4a7a9b; font-family:'Share Tech Mono',monospace; font-size:12px;">Build: 2026.05 · Engine: Phaser 3.60 · Platform: GitHub Pages</p>
+    <div style="margin-top:16px;">
+      <button onclick="launchGame()" style="padding:8px 20px; background:#00b4d8; border:none; color:#02080e; font-weight:700; cursor:pointer; font-family:'Exo 2',sans-serif; font-size:13px;">Enter CyberWorld</button>
+    </div>
+  </div>
+</div>
+
+<!-- Boot log window template -->
+<div class="os-window" id="win-boot" style="display:none; left:140px; top:60px; width:560px; height:340px;">
+  <div class="win-titlebar" onmousedown="startDrag(event,'win-boot')">
+    <span class="win-title">NEXUS OS — Boot Log</span>
+    <button class="win-btn close" onclick="closeWindow('win-boot')">&#215;</button>
+  </div>
+  <div class="win-body" id="boot-log-body" style="font-family:'Share Tech Mono',monospace; background:#020508;"></div>
+</div>
+
+<script>
+'use strict';
+
+// ── PERIODIC TABLE DATA ───────────────────────────────────
+const PT = [
+  ['H','Hydrogen','blue'],['He','Helium','cyan'],['Li','Lithium','red'],['Be','Beryllium','amber'],
+  ['B','Boron','green'],['C','Carbon','blue'],['N','Nitrogen','cyan'],['O','Oxygen','red'],
+  ['F','Fluorine','purp'],['Ne','Neon','cyan'],['Na','Sodium','red'],['Mg','Magnesium','amber'],
+  ['Al','Aluminum','green'],['Si','Silicon','blue'],['P','Phosphorus','amber'],['S','Sulfur','amber'],
+  ['Cl','Chlorine','green'],['Ar','Argon','cyan'],['K','Potassium','red'],['Ca','Calcium','amber'],
+  ['Sc','Scandium','blue'],['Ti','Titanium','blue'],['V','Vanadium','blue'],['Cr','Chromium','blue'],
+  ['Mn','Manganese','blue'],['Fe','Iron','blue'],['Co','Cobalt','blue'],['Ni','Nickel','blue'],
+  ['Cu','Copper','blue'],['Zn','Zinc','blue'],['Ga','Gallium','green'],['Ge','Germanium','green'],
+  ['As','Arsenic','green'],['Se','Selenium','amber'],['Br','Bromine','amber'],['Kr','Krypton','cyan'],
+  ['Rb','Rubidium','red'],['Sr','Strontium','amber'],['Y','Yttrium','blue'],['Zr','Zirconium','blue'],
+  ['Nb','Niobium','blue'],['Mo','Molybdenum','blue'],['Tc','Technetium','blue'],['Ru','Ruthenium','blue'],
+  ['Rh','Rhodium','blue'],['Pd','Palladium','blue'],['Ag','Silver','blue'],['Cd','Cadmium','blue'],
+  ['In','Indium','green'],['Sn','Tin','green'],['Sb','Antimony','green'],['Te','Tellurium','green'],
+  ['I','Iodine','purp'],['Xe','Xenon','cyan'],['Cs','Cesium','red'],['Ba','Barium','amber'],
+  ['La','Lanthanum','amber'],['Ce','Cerium','amber'],['Pr','Praseodymium','amber'],['Nd','Neodymium','amber'],
+  ['Pm','Promethium','amber'],['Sm','Samarium','amber'],['Eu','Europium','amber'],['Gd','Gadolinium','amber'],
+  ['Tb','Terbium','amber'],['Dy','Dysprosium','amber'],['Ho','Holmium','amber'],['Er','Erbium','amber'],
+  ['Tm','Thulium','amber'],['Yb','Ytterbium','amber'],['Lu','Lutetium','amber'],['Hf','Hafnium','blue'],
+  ['Ta','Tantalum','blue'],['W','Tungsten','blue'],['Re','Rhenium','blue'],['Os','Osmium','blue'],
+  ['Ir','Iridium','blue'],['Pt','Platinum','blue'],['Au','Gold','blue'],['Hg','Mercury','blue'],
+  ['Tl','Thallium','green'],['Pb','Lead','green'],['Bi','Bismuth','green'],['Po','Polonium','green'],
+  ['At','Astatine','purp'],['Rn','Radon','cyan'],['Fr','Francium','red'],['Ra','Radium','amber'],
+  ['Ac','Actinium','purp'],['Th','Thorium','purp'],['Pa','Protactinium','purp'],['U','Uranium','purp'],
+  ['Np','Neptunium','purp'],['Pu','Plutonium','purp'],['Am','Americium','purp'],['Cm','Curium','purp'],
+  ['Bk','Berkelium','purp'],['Cf','Californium','purp'],['Es','Einsteinium','purp'],['Fm','Fermium','purp'],
+  ['Md','Mendelevium','purp'],['No','Nobelium','purp'],['Lr','Lawrencium','purp'],['Rf','Rutherfordium','blue'],
+  ['Db','Dubnium','blue'],['Sg','Seaborgium','blue'],['Bh','Bohrium','blue'],['Hs','Hassium','blue'],
+  ['Mt','Meitnerium','blue'],['Ds','Darmstadtium','blue'],['Rg','Roentgenium','blue'],['Cn','Copernicium','blue'],
+  ['Nh','Nihonium','green'],['Fl','Flerovium','green'],['Mc','Moscovium','green'],['Lv','Livermorium','green'],
+  ['Ts','Tennessine','purp'],['Og','Oganesson','cyan'],
+];
+
+// Hacking-flavored names for select elements
+const HACK_NAMES = {
+  'H':'Handshake','He':'Heap Exploit','Li':'LFI','Be':'Buffer Error','B':'Bot','C':'C2 Server',
+  'N':'Nmap','O':'OSINT','F':'Fuzzer','Ne':'Netcat','Na':'Null Auth','Mg':'Metasploit',
+  'Al':'ARP Lure','Si':'SQL Injection','P':'Phishing','S':'SIEM','Cl':'CL.HTTP','Ar':'Argparse',
+  'K':'Keylogger','Ca':'Canary','Sc':'Scanner','Ti':'TI Feed','Cr':'Credential','Fe':'Firewall',
+  'Cu':'Custom Shell','Zn':'Zero-Day','As':'Assembly','Se':'Session Key','Br':'Brute Force',
+  'Kr':'Kerberos','Rb':'Rootkit B','Sr':'Stager','Nb':'Netbus','Mo':'Module','Ru':'Runtime',
+  'Ag':'Agent','Pd':'Payload','In':'Injector','Sn':'Snapper','I':'IDS','Cs':'C-Shell',
+  'La':'Lateral Move','Au':'Auth0','Hg':'Honeygram','Tl':'TLS','Pb':'Probe','Bi':'BIND Shell',
+  'Ra':'Ransomware','Ac':'ACL','Th':'Threat Hunt','U':'Unquoted Path',
+};
+
+(function buildPT() {
+  const grid = document.getElementById('pt-grid');
+  PT.forEach((el, i) => {
+    const div = document.createElement('div');
+    div.className = 'pt-el ' + el[2];
+    const name = HACK_NAMES[el[0]] || el[1];
+    div.innerHTML = '<span class="num">' + (i + 1) + '</span><span class="sym">' + el[0] + '</span><span class="name">' + name + '</span>';
+    grid.appendChild(div);
+  });
+})();
+
+// ── CLOCK ─────────────────────────────────────────────────
+function tickClock() {
+  const now = new Date();
+  const h = String(now.getHours()).padStart(2,'0');
+  const m = String(now.getMinutes()).padStart(2,'0');
+  const s = String(now.getSeconds()).padStart(2,'0');
+  document.getElementById('clock').textContent = h + ':' + m + ':' + s;
+}
+tickClock();
+setInterval(tickClock, 1000);
+
+// ── NAVIGATION ────────────────────────────────────────────
+function launchGame() { window.location.href = 'rpg/index.html'; }
+function launchTo(page) { window.location.href = page; }
+function reboot() { window.location.reload(); }
+
+// ── START MENU ────────────────────────────────────────────
+function toggleStart() {
+  const m = document.getElementById('start-menu');
+  m.classList.toggle('open');
+}
+document.addEventListener('click', function(e) {
+  const btn = document.getElementById('start-btn');
+  const menu = document.getElementById('start-menu');
+  if (!btn.contains(e.target) && !menu.contains(e.target)) menu.classList.remove('open');
+  const ctx = document.getElementById('ctx-menu');
+  if (!ctx.contains(e.target)) ctx.classList.remove('open');
+});
+
+// ── CONTEXT MENU ──────────────────────────────────────────
+function showCtx(e) {
+  e.preventDefault();
+  const ctx = document.getElementById('ctx-menu');
+  const x = Math.min(e.clientX, window.innerWidth - 200);
+  const y = Math.min(e.clientY, window.innerHeight - 200);
+  ctx.style.left = x + 'px';
+  ctx.style.top = y + 'px';
+  ctx.classList.add('open');
+}
+
+// ── WINDOWS ───────────────────────────────────────────────
+function openWindow(id) {
+  document.getElementById('start-menu').classList.remove('open');
+  document.getElementById('ctx-menu').classList.remove('open');
+  const win = document.getElementById('win-' + id);
+  if (!win) return;
+  win.style.display = 'flex';
+  bringToFront(win);
+  if (id === 'boot') populateBootLog();
+}
+function closeWindow(id) { document.getElementById(id).style.display = 'none'; }
+function bringToFront(el) {
+  document.querySelectorAll('.os-window').forEach(w => w.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── DRAG ──────────────────────────────────────────────────
+let dragEl = null, dragOX = 0, dragOY = 0;
+function startDrag(e, id) {
+  dragEl = document.getElementById(id);
+  bringToFront(dragEl);
+  const rect = dragEl.getBoundingClientRect();
+  dragOX = e.clientX - rect.left;
+  dragOY = e.clientY - rect.top;
+  e.preventDefault();
+}
+document.addEventListener('mousemove', function(e) {
+  if (!dragEl) return;
+  const x = Math.max(0, Math.min(e.clientX - dragOX, window.innerWidth - dragEl.offsetWidth));
+  const y = Math.max(0, Math.min(e.clientY - dragOY, window.innerHeight - dragEl.offsetHeight - 42));
+  dragEl.style.left = x + 'px';
+  dragEl.style.top = y + 'px';
+});
+document.addEventListener('mouseup', function() { dragEl = null; });
+
+// ── BOOT LOG ──────────────────────────────────────────────
+const BOOT_LINES = [
+  ['hi',  'NEXUS OS v2026.05 — CyberWorld Platform'],
+  ['ok',  'Memory check: 16384 MB ... OK'],
+  ['ok',  'CPU cores: 16 @ 3.6 GHz ... OK'],
+  ['ok',  'Phaser Engine 3.60 loaded'],
+  ['ok',  'Sector manifest loaded: 4 sectors'],
+  ['warn','JWT_SECRET: ephemeral (set in env for production)'],
+  ['ok',  'Socket.IO server: https://personfugithubio-production.up.railway.app'],
+  ['ok',  'Sector [mainframe] — Blue Team Academy ... ready'],
+  ['ok',  'Sector [lan_valley] — Packet Ranchers ... ready'],
+  ['ok',  'Sector [darknet_depths] — Shadow Brokers ... ready'],
+  ['ok',  'Sector [stormcore] — Incident Command ... ready'],
+  ['ok',  'NPC roster loaded: Ada Root, Mara VLAN, Cipher Nox, Chief Vale'],
+  ['ok',  'Challenge portals: 14 registered'],
+  ['ok',  'Enemy table: 10 adversaries across sectors'],
+  ['ok',  'Daemon table: 4 capturable daemons'],
+  ['hi',  'All systems nominal. Welcome, Operative.'],
+];
+function populateBootLog() {
+  const body = document.getElementById('boot-log-body');
+  body.innerHTML = '';
+  BOOT_LINES.forEach(function(l) {
+    const div = document.createElement('div');
+    div.className = 'boot-line ' + l[0];
+    const ts = new Date().toISOString().substr(11, 12);
+    div.textContent = '[' + ts + '] ' + l[1];
+    body.appendChild(div);
+  });
+}
+
+// ── BOOT ANIMATION ────────────────────────────────────────
+(function bootAnim() {
+  openWindow('boot');
+  const body = document.getElementById('boot-log-body');
+  body.innerHTML = '';
+  let i = 0;
+  function next() {
+    if (i >= BOOT_LINES.length) return;
+    const l = BOOT_LINES[i++];
+    const div = document.createElement('div');
+    div.className = 'boot-line ' + l[0];
+    div.textContent = l[1];
+    body.appendChild(div);
+    body.scrollTop = body.scrollHeight;
+    setTimeout(next, 90 + Math.random() * 60);
+  }
+  next();
+})();
+</script>
 </body>
 </html>
