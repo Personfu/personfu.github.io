@@ -1,46 +1,54 @@
-# CyberWorld Dogfight — Harfang3D Customization
+# CyberWorld Dogfight - Harfang3D Integration
 
-This directory contains the CyberWorld-themed configuration layer for
-[harfang3d/dogfight-sandbox-hg2](https://github.com/harfang3d/dogfight-sandbox-hg2).
+This folder now contains the upstream [harfang3d/dogfight-sandbox-hg2](https://github.com/harfang3d/dogfight-sandbox-hg2) source plus a CyberWorld overlay that keeps the upstream files intact.
 
-## Setup
+## What Is Included
 
-```bash
-pip install harfang
-git clone https://github.com/harfang3d/dogfight-sandbox-hg2
-cd dogfight-sandbox-hg2
-# Copy cyberworld_theme.py and assets.json into the dogfight-sandbox-hg2 directory
+- `dogfight-sandbox-hg2/` - cloned upstream Harfang Dogfight Sandbox source and assets.
+- `dogfight-sandbox-hg2/source/cyberworld_main.py` - themed launcher that installs CyberWorld runtime patches before importing the upstream game loop.
+- `dogfight-sandbox-hg2/source/cyberworld_theme_runtime.py` - runtime patch for mission names, display flags, smoke colors, and CyberWorld banner output.
+- `assets.json` - CyberWorld aircraft/UAP roster starting with the F-47 and mapping each themed bay to an available upstream dogfight model.
+- `cyberworld_theme.py` - local launcher and validator for the integration.
+
+## Run
+
+Install the upstream requirements first:
+
+```powershell
+cd dogfight\dogfight-sandbox-hg2\source
+pip install -r requirements.txt
+```
+
+Then launch the CyberWorld-themed entry point from this folder:
+
+```powershell
+cd dogfight
 python cyberworld_theme.py
 ```
 
-Python 3.10+ and the `harfang` package are required. The harfang3d library is
-not bundled here — install via pip or from https://www.harfang3d.com.
+To validate the integration without launching the 3D game:
 
-## What the customization changes
-
-| Aspect | Default | CyberWorld |
-|---|---|---|
-| Sky | Blue daytime | Dark navy `#030810` + cyan horizon |
-| Ground | Green terrain | Black tarmac grid + hangar lights |
-| HUD style | Minimal | Win98-style chrome overlay |
-| Aircraft names | Default set | F-47 PRIMAS, F-58 VALKYRJA, SR-91 AURORA, TR-3B ASTRA, RQ-180 SENTINEL II |
-| HUD colors | White/green | Cyan `#00b4d8` on black |
-| Title screen | Harfang logo | CyberWorld Black Hangar branding |
-| Weapon labels | Generic | CyberWorld armament designations |
-
-## Files
-
-- `cyberworld_theme.py` — runtime patch applied before launching the game
-- `assets.json` — aircraft name/HUD colour map fed into the patch
-- `README.md` — this file
-
-## Running
-
-```bash
-# Inside dogfight-sandbox-hg2/ after copying:
-python cyberworld_theme.py
+```powershell
+cd dogfight
+python cyberworld_theme.py --check
 ```
 
-The patch imports the stock `dogfight.py` entry point, overrides the relevant
-config dictionaries, then calls `main()` as normal. You do not need to edit the
-upstream source.
+## CyberWorld Changes
+
+The overlay prepends CyberWorld missions to the stock mission list:
+
+- F-47 NGAD checkout
+- TR-3B shadow intercept
+- Tic-Tac warp-bubble chase
+- SR-75 deep recon
+- NGAD Prime air dominance
+- FA-XX carrier deck
+- F-47 vs NGAD Prime duel
+- TR-3B/Tic-Tac UAP scramble
+- full advanced aircraft theater mix
+
+The visual theme enables HUD visibility, FPS, selected-aircraft display, cyan allied missile smoke, red threat smoke, and a Win98/CyberWorld launch banner. It does not claim that upstream placeholder aircraft meshes are exact F-47/TR-3B replicas; the website hangar remains the verified Sketchfab source-model viewer for exact visual inspection.
+
+## Web Tie-In
+
+The website hangar at `../hangar.html` is the source model theater. Dogfight uses the same roster metadata and maps those bays to the closest playable upstream aircraft classes available in the Harfang sandbox: `TFX`, `Miuss`, `F16`, `Eurofighter`, and `Rafale`.

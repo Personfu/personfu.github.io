@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberWorld Dogfight Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #03060b; color: #dff8ff; font-family: 'Exo 2', Segoe UI, sans-serif; }
+    body:before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 20; background: repeating-linear-gradient(0deg, rgba(255,255,255,.035), rgba(255,255,255,.035) 1px, transparent 1px, transparent 4px); opacity: .25; }
+    button, a { font: inherit; }
+    .deck { height: 100vh; display: grid; grid-template-rows: 34px 1fr 32px; background: radial-gradient(circle at 50% 24%, rgba(0,180,216,.18), transparent 36%), #03060b; }
+    .titlebar { display: flex; align-items: center; gap: 8px; padding: 0 8px; border-bottom: 1px solid #6f8fab; background: linear-gradient(90deg, #001c3c, #123f7d 58%, #051226); color: #fff; font-weight: 800; font-size: 13px; }
+    .titlebar span { min-width: 18px; height: 18px; display: grid; place-items: center; border: 1px solid #a8d7f0; background: #dce7f2; color: #001a2a; font-family: 'Share Tech Mono', monospace; font-size: 11px; }
+    .titlebar a { margin-left: auto; color: #07111e; background: #d6dde8; border: 1px solid #fff; border-right-color: #4b6278; border-bottom-color: #4b6278; padding: 4px 11px; text-decoration: none; font-weight: 800; }
+    .workspace { min-height: 0; display: grid; grid-template-columns: 330px minmax(0, 1fr) 360px; gap: 0; border-top: 1px solid #02080f; }
+    .pane { min-height: 0; overflow: hidden; background: rgba(7, 17, 30, .96); border-color: #1e3a5f; border-style: solid; border-width: 0 1px; display: flex; flex-direction: column; }
+    .pane-head { padding: 13px 14px; border-bottom: 1px solid #1e3a5f; background: #08131f; }
+    .pane-head h1, .pane-head h2 { margin: 0; color: #fff; letter-spacing: .04em; text-transform: uppercase; font-size: 16px; }
+    .pane-head p { margin: 7px 0 0; color: #91bdd5; font-size: 13px; line-height: 1.4; }
+    .roster { overflow: auto; padding: 9px; display: grid; gap: 8px; }
+    .craft { width: 100%; border: 1px solid #23384a; background: #121722; color: #e9fbff; padding: 9px; display: grid; grid-template-columns: 68px 1fr; gap: 10px; text-align: left; cursor: pointer; }
+    .craft:hover, .craft.active { border-color: #00d8ff; background: #102638; box-shadow: inset 0 0 24px rgba(0,216,255,.08); }
+    .badge { height: 50px; display: grid; place-items: center; border: 1px solid #1c5268; background: radial-gradient(circle, #13394b, #06131d 72%); color: #70f2ff; font: 800 12px 'Share Tech Mono', monospace; }
+    .craft strong { display: block; font-size: 15px; line-height: 1.15; }
+    .craft small { display: block; margin-top: 5px; color: #96c7de; font-size: 12px; line-height: 1.3; }
+    .stage { position: relative; min-width: 0; min-height: 0; background: #000; overflow: hidden; }
+    .stage:after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 2; background: linear-gradient(90deg, rgba(0,216,255,.12) 1px, transparent 1px), linear-gradient(rgba(0,216,255,.08) 1px, transparent 1px); background-size: 72px 72px; opacity: .16; mix-blend-mode: screen; }
+    #dogfight-canvas { width: 100%; height: 100%; display: block; background: #000; }
+    .toolbar { position: absolute; z-index: 4; top: 14px; left: 14px; right: 14px; display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; pointer-events: none; }
+    .tools { display: flex; gap: 8px; flex-wrap: wrap; pointer-events: auto; }
+    .tools button, .tools a { min-height: 38px; border: 1px solid #28516b; background: rgba(7, 17, 30, .9); color: #e9fbff; padding: 0 12px; text-decoration: none; cursor: pointer; font-weight: 800; }
+    .tools button:hover, .tools a:hover, .tools button.active { border-color: #00d8ff; background: #103044; }
+    .source-badge { position: absolute; z-index: 4; left: 18px; top: 72px; border: 1px solid rgba(0,216,255,.38); background: rgba(3,8,14,.76); padding: 9px 11px; color: #dff8ff; font: 12px 'Share Tech Mono', monospace; pointer-events: none; }
+    .hud { position: absolute; left: 18px; right: 18px; bottom: 18px; z-index: 4; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: end; pointer-events: none; }
+    .status { border: 1px solid rgba(0,216,255,.42); background: rgba(4, 9, 15, .82); padding: 12px 14px; }
+    .status h2 { margin: 0; color: #fff; font-size: 22px; line-height: 1.08; }
+    .status span { display: block; margin-top: 5px; color: #9fc7da; font-size: 13px; }
+    .meters { display: grid; gap: 8px; min-width: 250px; }
+    .meter { border: 1px solid #25465a; background: #08111a; padding: 6px; }
+    .meter label { display: flex; justify-content: space-between; color: #dff8ff; font: 700 11px 'Share Tech Mono', monospace; }
+    .bar { margin-top: 5px; height: 8px; background: #0f1823; border: 1px solid #24384a; overflow: hidden; }
+    .bar i { display: block; height: 100%; background: linear-gradient(90deg, #00d8ff, #75efff); width: 50%; }
+    .dossier { min-height: 0; overflow: auto; padding: 14px; display: grid; align-content: start; gap: 12px; }
+    .card { border: 1px solid #23384a; background: #111722; padding: 12px; }
+    .card h3 { margin: 0 0 8px; color: #fff; font-size: 14px; text-transform: uppercase; letter-spacing: .08em; }
+    .card p { margin: 0; color: #9fc7da; font-size: 13px; line-height: 1.5; }
+    .shot { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid #2d5368; background: #03060b; display: block; }
+    .kv { display: grid; grid-template-columns: 92px 1fr; gap: 7px 10px; color: #b9d8e8; font-size: 13px; }
+    .kv b { color: #fff; font: 800 11px 'Share Tech Mono', monospace; text-transform: uppercase; }
+    .source-link { color: #75efff; text-decoration: none; font-weight: 800; overflow-wrap: anywhere; }
+    .source-link:hover { text-decoration: underline; }
+    .mission-log { max-height: 190px; overflow: auto; display: grid; gap: 6px; }
+    .mission-log div { border-left: 2px solid #00d8ff; padding-left: 8px; color: #b8d4e5; font: 12px 'Share Tech Mono', monospace; }
+    .cmd-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+    .cmd-grid span { border: 1px solid #263b4c; background: #0a121c; padding: 6px 8px; color: #c9e7f5; font: 11px 'Share Tech Mono', monospace; }
+    .taskbar { display: flex; align-items: center; gap: 8px; padding: 0 8px; background: #c8d0d8; color: #07111e; border-top: 1px solid #fff; font: 800 12px 'Share Tech Mono', monospace; }
+    .start { background: #dce7f2; border: 1px solid #fff; border-right-color: #4b6278; border-bottom-color: #4b6278; padding: 4px 12px; }
+    .taskbar strong { color: #001c3c; }
+    @media (max-width: 1180px) { body { overflow: auto; } .deck { height: auto; min-height: 100vh; } .workspace { grid-template-columns: 1fr; } .stage { height: 72vh; } .pane { border-width: 0 0 1px; } }
+    @media (max-width: 720px) { .hud { grid-template-columns: 1fr; } .meters { min-width: 0; } .titlebar a { display: none; } }
+  </style>
+</head>
+<body>
+  <div id="dogfight-root" class="deck">
+    <div class="titlebar"><span>CW</span> CyberWorld Dogfight Deck <a href="index.html">Desktop</a></div>
+    <div class="workspace">
+      <aside class="pane">
+        <div class="pane-head"><h1>Flight Deck</h1><p>CyberWorld sortie roster sourced from the local Harfang dogfight manifest and verified model theater.</p></div>
+        <div id="craft-roster" class="roster"></div>
+      </aside>
+      <main class="stage">
+        <canvas id="dogfight-canvas"></canvas>
+        <div class="toolbar">
+          <div class="tools">
+            <button id="launch-btn">Launch</button>
+            <button id="dock-btn">Dock</button>
+            <button id="pulse-btn">Pulse</button>
+            <button id="camera-btn">Camera</button>
+          </div>
+          <div class="tools">
+            <a href="https://personfu.github.io/CyberWorld/?launch=hangar">3D Hangar</a>
+            <a href="dogfight/README.md">Python Deck</a>
+          </div>
+        </div>
+        <div id="source-badge" class="source-badge">HARFANG terrain shader / aircraft HUD study</div>
+        <div class="hud">
+          <div class="status"><h2 id="craft-name">CyberWorld Flight Deck</h2><span id="craft-status">Hangar standby</span></div>
+          <div class="meters">
+            <div class="meter"><label><span>SHIELD</span><span id="shield-label">100</span></label><div class="bar"><i id="shield-bar"></i></div></div>
+            <div class="meter"><label><span>HEAT</span><span id="heat-label">0</span></label><div class="bar"><i id="heat-bar"></i></div></div>
+            <div class="meter"><label><span>THREAT</span><span id="threat-label">0</span></label><div class="bar"><i id="threat-bar"></i></div></div>
+          </div>
+        </div>
+      </main>
+      <aside class="pane">
+        <div class="pane-head"><h2>Mission Dossier</h2><p id="mission-title">CYBERWORLD HANGAR</p></div>
+        <div id="dossier" class="dossier"></div>
+      </aside>
+    </div>
+    <div class="taskbar"><span class="start">NEXUS</span><strong id="task-mode">HANGAR</strong><span id="task-score">SCORE 000000</span><span id="task-wave">WAVE 01</span></div>
+  </div>
+  <script src="js/cyber-dogfight.js?v=20260507-source-repo" defer></script>
+</body>
+</html>

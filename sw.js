@@ -4,7 +4,7 @@
  * Strategy: Cache-First for assets, Network-First for HTML pages.
  */
 
-const CACHE_VERSION = 'fllc-v3';
+const CACHE_VERSION = 'fllc-v7-cyberworld-launch-routes';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 
@@ -19,6 +19,10 @@ const PRECACHE_ASSETS = [
   '/redops.html',
   '/forensics.html',
   '/intel.html',
+  '/hangar.html',
+  '/dogfight.html',
+  '/js/hangar-static.js',
+  '/js/cyber-dogfight.js',
   '/rpg/index.html',
   '/rpg/login.html',
   '/rpg/js/game.js',
@@ -72,6 +76,20 @@ self.addEventListener('fetch', event => {
   /* Only handle same-origin and Google Fonts */
   const isGoogleFonts = url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com';
   if (!isGoogleFonts && url.origin !== self.location.origin) return;
+
+  const isHangarAsset = url.pathname === '/hangar.html' || url.pathname === '/js/hangar-static.js' || url.pathname === '/dogfight.html' || url.pathname === '/js/cyber-dogfight.js';
+  if (isHangarAsset) {
+    event.respondWith(
+      fetch(request, { cache: 'no-store' })
+        .then(response => {
+          const clone = response.clone();
+          caches.open(DYNAMIC_CACHE).then(c => c.put(request, clone));
+          return response;
+        })
+        .catch(() => caches.match(request))
+    );
+    return;
+  }
 
   /* HTML pages: Network-First (stay up to date when online) */
   if (request.destination === 'document') {
