@@ -104,6 +104,12 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   border: 1px solid #1e3a5f;
   font-size: 20px;
 }
+.icon-img.c-red   { background: #120a0a; border-color: #4b1a1a; color: #ef4444; }
+.icon-img.c-cyan  { background: #03101a; border-color: #0e3550; color: #00b4d8; }
+.icon-img.c-green { background: #071208; border-color: #0d2e14; color: #22c55e; }
+.icon-img.c-purp  { background: #0e0818; border-color: #2a1040; color: #a855f7; }
+.icon-img.c-amber { background: #120e00; border-color: #3b2600; color: #f59e0b; }
+.icon-img.c-blue  { background: #080e18; border-color: #0d2044; color: #3b82f6; }
 .icon-label {
   font-size: 11px; color: var(--text);
   text-align: center; line-height: 1.3;
@@ -242,51 +248,51 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
   <div id="icons-layer">
     <!-- Primary: launch game -->
     <div class="icon icon-primary" onclick="launchGame()" title="Launch CyberWorld MMORPG">
-      <div class="icon-img">&#9670;</div>
+      <div class="icon-img c-cyan">&#9670;</div>
       <div class="icon-label">CyberWorld</div>
     </div>
-    <div class="icon" onclick="launchTo('wargames.html')"  title="WarGames Academy">
-      <div class="icon-img">&#9876;</div>
+    <div class="icon" onclick="launchTo('wargames.html')" title="WarGames Academy">
+      <div class="icon-img c-red">&#9876;</div>
       <div class="icon-label">WarGames</div>
     </div>
     <div class="icon" onclick="launchTo('ctf-trail.html')" title="CTF Trail">
-      <div class="icon-img">&#9873;</div>
+      <div class="icon-img c-amber">&#9873;</div>
       <div class="icon-label">CTF Trail</div>
     </div>
     <div class="icon" onclick="launchTo('forensics.html')" title="Forensics Lab">
-      <div class="icon-img">&#128270;</div>
+      <div class="icon-img c-green">&#128270;</div>
       <div class="icon-label">Forensics</div>
     </div>
     <div class="icon" onclick="launchTo('signal-lab.html')" title="Signal Lab">
-      <div class="icon-img">&#128225;</div>
+      <div class="icon-img c-blue">&#128225;</div>
       <div class="icon-label">Signal Lab</div>
     </div>
     <div class="icon" onclick="launchTo('redops.html')" title="RedOps Simulator">
-      <div class="icon-img">&#9763;</div>
+      <div class="icon-img c-red">&#9763;</div>
       <div class="icon-label">RedOps</div>
     </div>
     <div class="icon" onclick="launchTo('intel.html')" title="Intel Exchange">
-      <div class="icon-img">&#128373;</div>
+      <div class="icon-img c-purp">&#128373;</div>
       <div class="icon-label">Intel</div>
     </div>
     <div class="icon" onclick="launchTo('adversaries.html')" title="Adversary DB">
-      <div class="icon-img">&#127919;</div>
+      <div class="icon-img c-red">&#127919;</div>
       <div class="icon-label">Adversaries</div>
     </div>
     <div class="icon" onclick="launchTo('ai.html')" title="AI Ops Lab">
-      <div class="icon-img">&#129302;</div>
+      <div class="icon-img c-purp">&#129302;</div>
       <div class="icon-label">AI Ops</div>
     </div>
     <div class="icon" onclick="launchTo('stars.html')" title="Cyber Arsenal">
-      <div class="icon-img">&#128736;</div>
+      <div class="icon-img c-amber">&#9881;</div>
       <div class="icon-label">Arsenal</div>
     </div>
     <div class="icon" onclick="launchTo('research.html')" title="Research Vault">
-      <div class="icon-img">&#128218;</div>
+      <div class="icon-img c-blue">&#128218;</div>
       <div class="icon-label">Research</div>
     </div>
     <div class="icon" onclick="launchTo('nodes.html')" title="Node Atlas">
-      <div class="icon-img">&#127758;</div>
+      <div class="icon-img c-green">&#127758;</div>
       <div class="icon-label">Nodes</div>
     </div>
     <div class="icon" onclick="openWindow('about')" title="About Personfu">

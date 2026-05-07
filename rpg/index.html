@@ -779,6 +779,7 @@ class CyberWorldScene extends Phaser.Scene {
     this.npcSprites = new Map(); this.portalSprites = new Map();
     this.moveTween = null; this.lastKeyTime = 0;
     this._buildWorld(); this._buildPlayer(); this._buildEntities(); this._setupInput();
+    this.nearRing = this.add.circle(0, -9999, 44, 0, 0).setStrokeStyle(1.5, 0x00b4d8, 0.55).setDepth(3);
     worldScene = this;
     document.getElementById('hud').classList.add('visible');
     this.cameras.main.startFollow(this.playerGroup, true, 0.1, 0.1);
@@ -829,13 +830,16 @@ class CyberWorldScene extends Phaser.Scene {
   }
   _buildPlayer() {
     const s = SECTORS[this.sector];
+    const roleAccent = { PHANTOM: 0xa855f7, SENTINEL: 0x00b4d8, ADVERSARIAL: 0xef4444 };
+    const playerAccent = roleAccent[window._cwRole] || s.gridColor;
     const shadow = this.add.ellipse(0, 18, 28, 9, 0x000000, 0.2);
     const legs = this.add.rectangle(0, 13, 13, 16, 0x223044).setStrokeStyle(1, 0x0f172a);
-    const body = this.add.rectangle(0, -2, 22, 28, 0x26435c).setStrokeStyle(2, s.gridColor);
+    const body = this.add.rectangle(0, -2, 22, 28, 0x26435c).setStrokeStyle(2, playerAccent);
     const head = this.add.circle(0, -22, 10, 0xf0c7a8).setStrokeStyle(2, 0x111827);
-    const visor = this.add.rectangle(1, -23, 16, 5, 0x06101a, 0.95).setStrokeStyle(1, s.gridColor);
+    const visor = this.add.rectangle(1, -23, 16, 5, 0x06101a, 0.95).setStrokeStyle(1, playerAccent);
     this.playerGroup = this.add.container(200, 300, [shadow, legs, body, head, visor]).setDepth(4);
-    this.nameTag = this.add.text(200, 270, 'Operative', { fontFamily: 'Courier New', fontSize: '11px', color: '#ffffff', padding: { x: 4, y: 2 }, backgroundColor: 'rgba(0,0,0,0.5)' }).setOrigin(0.5).setDepth(5);
+    const roleName = window._cwRole || 'Operative';
+    this.nameTag = this.add.text(200, 270, roleName, { fontFamily: 'Courier New', fontSize: '11px', color: '#ffffff', padding: { x: 4, y: 2 }, backgroundColor: 'rgba(0,0,0,0.5)' }).setOrigin(0.5).setDepth(5);
   }
   _buildEntities() {
     const s = SECTORS[this.sector];
@@ -932,7 +936,14 @@ class CyberWorldScene extends Phaser.Scene {
     });
   }
   update(time, delta) {
-    if (!this.playerGroup || time <= this.lastKeyTime + 50) return;
+    if (!this.playerGroup) return;
+    const px = this.playerGroup.x, py = this.playerGroup.y;
+    let near = null;
+    this.portalSprites.forEach(n => { if (!near && Phaser.Math.Distance.Between(px, py, n.x, n.y) < 92) near = n; });
+    if (!near) this.npcSprites.forEach(c => { if (!near && Phaser.Math.Distance.Between(px, py, c.x, c.y) < 78) near = c; });
+    if (near) { this.nearRing.setPosition(near.x, near.y).setAlpha(0.35 + 0.22 * Math.sin(time / 320)).setVisible(true); }
+    else { this.nearRing.setVisible(false); }
+    if (time <= this.lastKeyTime + 50) return;
     let dx = 0, dy = 0;
     const spd = Math.floor((220 * delta) / 1000);
     if (this.cursors.left.isDown  || this.wasd.left.isDown)  dx = -spd;
@@ -1012,19 +1023,27 @@ class SceneLogin extends Phaser.Scene {
     const scanline = this.add.rectangle(W/2, 0, W, 2, 0x00b4d8, 0.1);
     this.tweens.add({ targets: scanline, y: H, duration: 3000, repeat: -1 });
     this.add.text(W/2, 374, 'SELECT OPERATIVE CLASS', { fontFamily: 'Exo 2', fontSize: '14px', fontStyle: 'bold', color: '#8baec7', letterSpacing: 2 }).setOrigin(0.5);
-    const classes = [
-      { id: 'RED_TEAM',    color: '#ef4444', desc: 'Nmap / Metasploit / Hydra  Offensive Ops',     y: 420 },
-      { id: 'BLUE_TEAM',   color: '#3b82f6', desc: 'Wireshark / CSET / Starkiller  Defensive SOC', y: 470 },
-      { id: 'OSINT_AGENT', color: '#a855f7', desc: 'FURY0S1NT / RedEye / GovINT  Intelligence',    y: 520 },
-      { id: 'FULL_STACK',  color: '#22c55e', desc: 'All engines unlocked  Complete operative',      y: 570 },
+    const roles = [
+      { id:'PHANTOM',    color:0xa855f7, hex:'#a855f7', title:'PHANTOM',   sub:'OSINT AGENT',   tools:'RedEye · GovINT · Signal', bonus:'+25% Intel' },
+      { id:'SENTINEL',   color:0x00b4d8, hex:'#00b4d8', title:'SENTINEL',  sub:'SOC ANALYST',   tools:'SIEM · Wireshark · CSET',  bonus:'+40% Shield' },
+      { id:'ADVERSARIAL',color:0xef4444, hex:'#ef4444', title:'ADVERSARY', sub:'RED TEAM OPS',  tools:'Nmap · Metasploit · Hydra', bonus:'+30% Damage' },
     ];
-    classes.forEach(cls => {
-      const row = this.add.rectangle(W/2, cls.y, 580, 40, 0x07111e).setStrokeStyle(1, 0x1e3a5f).setInteractive({ useHandCursor: true });
-      this.add.text(W/2 - 268, cls.y - 6, cls.id, { fontFamily: 'Exo 2', fontSize: '14px', fontStyle: 'bold', color: cls.color }).setOrigin(0, 0.5);
-      this.add.text(W/2 - 268, cls.y + 10, cls.desc, { fontFamily: 'Share Tech Mono', fontSize: '10px', color: '#4a7a9b' }).setOrigin(0, 0.5);
-      row.on('pointerover', () => row.setFillStyle(0x0d1f33));
-      row.on('pointerout',  () => row.setFillStyle(0x07111e));
-      row.on('pointerdown', () => { this.cameras.main.fadeOut(400, 3, 6, 11); this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('CyberWorld')); });
+    roles.forEach((r, i) => {
+      const cx = 164 + i * 316, cy = H / 2 + 62;
+      const card = this.add.rectangle(cx, cy, 272, 176, 0x040d18, 1).setStrokeStyle(2, r.color, 0.35).setInteractive({ useHandCursor: true }).setDepth(2);
+      const avatar = this.add.circle(cx, cy - 56, 26, r.color, 0.14).setStrokeStyle(2, r.color, 0.65).setDepth(3);
+      this.add.circle(cx, cy - 56, 9, r.color, 0.9).setDepth(3);
+      this.add.text(cx, cy - 6, r.title, { fontFamily: 'Exo 2', fontSize: '17px', fontStyle: 'bold', color: r.hex }).setOrigin(0.5).setDepth(3);
+      this.add.text(cx, cy + 18, r.sub, { fontFamily: 'Share Tech Mono', fontSize: '10px', color: '#4a7a9b', letterSpacing: 1 }).setOrigin(0.5).setDepth(3);
+      this.add.text(cx, cy + 44, r.tools, { fontFamily: 'Share Tech Mono', fontSize: '10px', color: '#5a8aaa', align: 'center' }).setOrigin(0.5).setDepth(3);
+      this.add.text(cx, cy + 68, r.bonus, { fontFamily: 'Share Tech Mono', fontSize: '11px', color: r.hex }).setOrigin(0.5).setDepth(3);
+      card.on('pointerover', () => { card.setStrokeStyle(2, r.color, 0.9); this.tweens.add({ targets: avatar, scaleX: 1.15, scaleY: 1.15, duration: 140 }); });
+      card.on('pointerout',  () => { card.setStrokeStyle(2, r.color, 0.35); this.tweens.add({ targets: avatar, scaleX: 1, scaleY: 1, duration: 140 }); });
+      card.on('pointerdown', () => {
+        window._cwRole = r.id;
+        this.cameras.main.fadeOut(400, 3, 6, 11);
+        this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('CyberWorld'));
+      });
     });
   }
 }
