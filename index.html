@@ -255,43 +255,43 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
       <div class="icon-img c-red">&#9876;</div>
       <div class="icon-label">WarGames</div>
     </div>
-    <div class="icon" onclick="launchTo('ctf-trail.html')" title="CTF Trail">
+    <div class="icon" onclick="launchModule('ctf-trail.html')" title="CTF Trail terminal inside CyberWorld">
       <div class="icon-img c-amber">&#9873;</div>
       <div class="icon-label">CTF Trail</div>
     </div>
-    <div class="icon" onclick="launchTo('forensics.html')" title="Forensics Lab">
+    <div class="icon" onclick="launchModule('forensics.html')" title="Forensics Lab terminal inside CyberWorld">
       <div class="icon-img c-green">&#128270;</div>
       <div class="icon-label">Forensics</div>
     </div>
-    <div class="icon" onclick="launchTo('signal-lab.html')" title="Signal Lab">
+    <div class="icon" onclick="launchModule('signal-lab.html')" title="Signal Lab terminal inside CyberWorld">
       <div class="icon-img c-blue">&#128225;</div>
       <div class="icon-label">Signal Lab</div>
     </div>
-    <div class="icon" onclick="launchTo('redops.html')" title="RedOps Simulator">
+    <div class="icon" onclick="launchModule('redops.html')" title="RedOps arena inside CyberWorld">
       <div class="icon-img c-red">&#9763;</div>
       <div class="icon-label">RedOps</div>
     </div>
-    <div class="icon" onclick="launchTo('intel.html')" title="Intel Exchange">
+    <div class="icon" onclick="launchModule('intel.html')" title="Intel desk inside CyberWorld">
       <div class="icon-img c-purp">&#128373;</div>
       <div class="icon-label">Intel</div>
     </div>
-    <div class="icon" onclick="launchTo('adversaries.html')" title="Adversary DB">
+    <div class="icon" onclick="launchModule('adversaries.html')" title="Adversary DB inside CyberWorld">
       <div class="icon-img c-red">&#127919;</div>
       <div class="icon-label">Adversaries</div>
     </div>
-    <div class="icon" onclick="launchTo('ai.html')" title="AI Ops Lab">
+    <div class="icon" onclick="launchModule('ai.html')" title="AI Ops terminal inside CyberWorld">
       <div class="icon-img c-purp">&#129302;</div>
       <div class="icon-label">AI Ops</div>
     </div>
-    <div class="icon" onclick="launchTo('stars.html')" title="Cyber Arsenal">
+    <div class="icon" onclick="launchModule('stars.html')" title="Cyber Arsenal inside CyberWorld">
       <div class="icon-img c-amber">&#9881;</div>
       <div class="icon-label">Arsenal</div>
     </div>
-    <div class="icon" onclick="launchTo('research.html')" title="Research Vault">
+    <div class="icon" onclick="launchModule('research.html')" title="Research Vault inside CyberWorld">
       <div class="icon-img c-blue">&#128218;</div>
       <div class="icon-label">Research</div>
     </div>
-    <div class="icon" onclick="launchTo('nodes.html')" title="Node Atlas">
+    <div class="icon" onclick="launchModule('nodes.html')" title="Node Atlas inside CyberWorld">
       <div class="icon-img c-green">&#127758;</div>
       <div class="icon-label">Nodes</div>
     </div>
@@ -322,16 +322,16 @@ html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg);
     </div>
   </div>
   <div class="sm-section">
-    <div class="sm-item" onclick="launchTo('wargames.html')"><div class="sm-icon">&#9876;</div> WarGames Academy</div>
-    <div class="sm-item" onclick="launchTo('ctf-trail.html')"><div class="sm-icon">&#9873;</div> CTF Trail</div>
-    <div class="sm-item" onclick="launchTo('forensics.html')"><div class="sm-icon">&#128270;</div> Forensics Lab</div>
-    <div class="sm-item" onclick="launchTo('signal-lab.html')"><div class="sm-icon">&#128225;</div> Signal Lab</div>
-    <div class="sm-item" onclick="launchTo('redops.html')"><div class="sm-icon">&#9763;</div> RedOps Simulator</div>
-    <div class="sm-item" onclick="launchTo('intel.html')"><div class="sm-icon">&#128373;</div> Intel Exchange</div>
-    <div class="sm-item" onclick="launchTo('adversaries.html')"><div class="sm-icon">&#127919;</div> Adversary DB</div>
-    <div class="sm-item" onclick="launchTo('ai.html')"><div class="sm-icon">&#129302;</div> AI Ops Lab</div>
-    <div class="sm-item" onclick="launchTo('stars.html')"><div class="sm-icon">&#128736;</div> Cyber Arsenal</div>
-    <div class="sm-item" onclick="launchTo('research.html')"><div class="sm-icon">&#128218;</div> Research Vault</div>
+    <div class="sm-item" onclick="launchModule('wargames.html')"><div class="sm-icon">&#9876;</div> WarGames Academy</div>
+    <div class="sm-item" onclick="launchModule('ctf-trail.html')"><div class="sm-icon">&#9873;</div> CTF Trail</div>
+    <div class="sm-item" onclick="launchModule('forensics.html')"><div class="sm-icon">&#128270;</div> Forensics Lab</div>
+    <div class="sm-item" onclick="launchModule('signal-lab.html')"><div class="sm-icon">&#128225;</div> Signal Lab</div>
+    <div class="sm-item" onclick="launchModule('redops.html')"><div class="sm-icon">&#9763;</div> RedOps Simulator</div>
+    <div class="sm-item" onclick="launchModule('intel.html')"><div class="sm-icon">&#128373;</div> Intel Exchange</div>
+    <div class="sm-item" onclick="launchModule('adversaries.html')"><div class="sm-icon">&#127919;</div> Adversary DB</div>
+    <div class="sm-item" onclick="launchModule('ai.html')"><div class="sm-icon">&#129302;</div> AI Ops Lab</div>
+    <div class="sm-item" onclick="launchModule('stars.html')"><div class="sm-icon">&#128736;</div> Cyber Arsenal</div>
+    <div class="sm-item" onclick="launchModule('research.html')"><div class="sm-icon">&#128218;</div> Research Vault</div>
   </div>
   <div class="sm-section">
     <div class="sm-item" onclick="openWindow('about')"><div class="sm-icon">&#8505;</div> About Personfu</div>
@@ -445,8 +445,9 @@ function tickClock() {
 tickClock();
 setInterval(tickClock, 1000);
 
-function launchGame() { window.location.href = 'rpg/index.html'; }
-function launchTo(page) { window.location.href = page; }
+function launchGame() { window.location.href = 'https://personfu.github.io/CyberWorld/'; }
+function launchModule(page) { window.location.href = 'https://personfu.github.io/CyberWorld/?module=' + encodeURIComponent(page); }
+function launchTo(page) { launchModule(page); }
 function reboot() { window.location.reload(); }
 
 function toggleStart() {
