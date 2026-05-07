@@ -1,1214 +1,851 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>CYBERWORLD ENGINE v2026.3-FLLC</title>
-<link href="https://fonts.googleapis.com/css2?family=VT323&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+<title>CyberWorld — FLLC MMORPG</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body {
-  width: 100%; height: 100%;
-  background: #050a14;
-  display: flex; justify-content: center; align-items: center;
-  overflow: hidden;
-}
-#game-wrap { position: relative; display: inline-block; }
-#crt {
-  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-  pointer-events: none; z-index: 10;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0,8,0,0.09) 0px, rgba(0,8,0,0.09) 1px,
-    transparent 1px, transparent 3px
-  );
-}
+html, body { width: 100%; height: 100%; overflow: hidden; background: #03060b; font-family: 'Exo 2', sans-serif; }
+#game-wrap { position: relative; display: inline-block; width: 100%; height: 100%; }
 canvas { display: block; }
-
-/* ══ CHALLENGE TERMINAL OVERLAY ═══════════════════════════ */
-#ch-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  z-index: 9000;
-  align-items: center;
-  justify-content: center;
-}
-#ch-overlay.open { display: flex; }
-#ch-panel {
-  background: #020a04;
-  border: 2px solid #00ff41;
-  box-shadow: 0 0 40px rgba(0,255,65,0.2);
-  width: min(780px, 96vw);
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  font-family: 'VT323', monospace;
-}
-#ch-header {
-  display: flex;
-  align-items: center;
-  padding: 10px 16px;
-  background: linear-gradient(to right, #000080, #00003a);
-  border-bottom: 2px solid #00ff41;
-  gap: 10px;
-}
-#ch-header-title {
-  flex: 1;
-  font-size: 18px;
-  color: #fff;
-  letter-spacing: 1px;
-}
-#ch-close-btn {
-  width: 22px; height: 22px;
-  background: linear-gradient(to bottom, #ddd, #999);
-  border: 2px outset #aaa;
-  color: #900;
-  font-size: 13px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#ch-close-btn:hover { background: linear-gradient(to bottom,#eee,#bbb); }
-#ch-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  padding: 14px;
-  overflow-y: auto;
-}
-.ch-card {
-  border: 1px solid rgba(0,255,65,0.22);
-  background: #000;
-  padding: 14px;
-  cursor: pointer;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  transition: border-color .15s, background .15s;
-}
-.ch-card:hover { border-color: var(--cc, #00ff41); background: rgba(0,255,65,0.04); }
-.ch-title { font-size: 20px; color: var(--cc, #00ff41); letter-spacing: 2px; }
-.ch-desc  { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #6a8c6a; line-height: 1.5; }
-.ch-meta  { display: flex; gap: 6px; flex-wrap: wrap; }
-.ch-badge { padding: 1px 6px; border: 1px solid var(--cc,#00ff41); color: var(--cc,#00ff41); font-size: 12px; }
-.ch-card.exploit { --cc: #ff3a4f; }
-.ch-card.recon   { --cc: #00e8ff; }
-.ch-card.dfir    { --cc: #c084fc; }
-.ch-card.crypto  { --cc: #ffe700; }
-.ch-card.red     { --cc: #ff8c00; }
-.ch-card.intel   { --cc: #00ffcc; }
-#ch-footer {
-  padding: 8px 16px;
-  background: #111;
-  border-top: 1px solid #333;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  color: #555;
-  display: flex;
-  justify-content: space-between;
-}
+#portal-modal { display: none; position: fixed; inset: 0; background: rgba(3,6,11,0.88); z-index: 800; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+#portal-modal.open { display: flex; }
+#portal-box { background: #07111e; border: 1px solid #1e3a5f; border-top: 3px solid #00b4d8; width: min(560px,94vw); box-shadow: 0 24px 60px rgba(0,0,0,0.7); }
+#portal-head { padding: 18px 20px 14px; border-bottom: 1px solid #112030; display: flex; align-items: flex-start; gap: 14px; }
+#portal-icon { width: 48px; height: 48px; background: #0d1f33; border: 1px solid #1e3a5f; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+#portal-info { flex: 1; }
+#portal-title { font-size: 18px; font-weight: 700; color: #e0f0ff; }
+#portal-category { font-size: 11px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; margin-top: 3px; letter-spacing: 1px; }
+#portal-close { width: 28px; height: 28px; background: none; border: 1px solid #1e3a5f; color: #4a7a9b; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; }
+#portal-close:hover { border-color: #00b4d8; color: #00b4d8; }
+#portal-body { padding: 18px 20px; }
+#portal-mission { font-size: 13px; color: #8baec7; line-height: 1.6; margin-bottom: 14px; }
+#portal-briefing { font-size: 12px; color: #4a7a9b; line-height: 1.5; border-left: 2px solid #1e3a5f; padding-left: 12px; margin-bottom: 18px; font-family: 'Share Tech Mono', monospace; }
+#portal-rewards { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 18px; }
+.portal-reward-badge { padding: 4px 10px; background: #0d1f33; border: 1px solid #1e3a5f; font-size: 11px; color: #8baec7; font-family: 'Share Tech Mono', monospace; }
+#portal-actions { display: flex; gap: 10px; }
+#portal-enter-btn { flex: 1; padding: 12px; background: #00b4d8; border: none; color: #03060b; font-size: 14px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; transition: background 0.15s; font-family: 'Exo 2', sans-serif; }
+#portal-enter-btn:hover { background: #0dcaf0; }
+#portal-embed-btn { padding: 12px 18px; background: none; border: 1px solid #1e3a5f; color: #8baec7; font-size: 13px; cursor: pointer; transition: all 0.15s; font-family: 'Exo 2', sans-serif; }
+#portal-embed-btn:hover { border-color: #00b4d8; color: #00b4d8; }
+#embed-overlay { display: none; position: fixed; inset: 0; background: #03060b; z-index: 900; flex-direction: column; }
+#embed-overlay.open { display: flex; }
+#embed-bar { height: 44px; flex-shrink: 0; background: #07111e; border-bottom: 1px solid #112030; display: flex; align-items: center; gap: 12px; padding: 0 14px; }
+#embed-back { height: 30px; padding: 0 14px; background: none; border: 1px solid #1e3a5f; color: #8baec7; font-size: 13px; cursor: pointer; font-family: 'Exo 2', sans-serif; transition: all 0.15s; }
+#embed-back:hover { border-color: #00b4d8; color: #00b4d8; }
+#embed-label { font-size: 13px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; flex: 1; }
+#embed-frame { flex: 1; border: none; width: 100%; }
+#dialogue-overlay { display: none; position: fixed; inset: 0; z-index: 800; align-items: flex-end; padding: 0 0 60px; pointer-events: none; }
+#dialogue-overlay.open { display: flex; pointer-events: all; }
+#dialogue-box { width: min(700px,96vw); margin: 0 auto; background: #07111e; border: 1px solid #1e3a5f; border-top: 3px solid #00b4d8; box-shadow: 0 -8px 40px rgba(0,0,0,0.6); }
+#dialogue-head { padding: 12px 16px; border-bottom: 1px solid #112030; display: flex; align-items: center; gap: 10px; }
+#dialogue-avatar { width: 38px; height: 38px; background: #0d1f33; border: 1px solid #1e3a5f; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+#dialogue-npc-name { font-weight: 700; font-size: 15px; color: #e0f0ff; }
+#dialogue-npc-role { font-size: 11px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; }
+#dialogue-text { padding: 16px; font-size: 14px; color: #a8c8e8; line-height: 1.65; }
+#dialogue-actions { padding: 10px 16px 14px; display: flex; justify-content: flex-end; gap: 8px; }
+.dlg-btn { padding: 8px 16px; border: 1px solid #1e3a5f; background: none; color: #8baec7; font-size: 13px; cursor: pointer; font-family: 'Exo 2', sans-serif; transition: all 0.15s; }
+.dlg-btn.primary { background: #00b4d8; border-color: #00b4d8; color: #03060b; font-weight: 600; }
+.dlg-btn:hover { border-color: #00b4d8; color: #00b4d8; }
+.dlg-btn.primary:hover { background: #0dcaf0; }
+#sector-overlay { display: none; position: fixed; inset: 0; background: rgba(3,6,11,0.88); z-index: 800; align-items: center; justify-content: center; backdrop-filter: blur(3px); }
+#sector-overlay.open { display: flex; }
+#sector-box { background: #07111e; border: 1px solid #1e3a5f; border-top: 3px solid #7c3aed; width: min(640px,96vw); padding: 24px; box-shadow: 0 24px 60px rgba(0,0,0,0.7); }
+#sector-box h2 { font-size: 18px; color: #e0f0ff; margin-bottom: 6px; }
+#sector-box p { font-size: 13px; color: #4a7a9b; margin-bottom: 20px; font-family: 'Share Tech Mono', monospace; }
+#sector-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.sector-card { padding: 14px 16px; background: #0a1928; border: 1px solid #1e3a5f; cursor: pointer; transition: all 0.15s; }
+.sector-card:hover { border-color: var(--sc,#00b4d8); background: rgba(0,180,216,0.07); }
+.sector-card-name { font-size: 14px; font-weight: 600; color: var(--sc,#00b4d8); margin-bottom: 4px; }
+.sector-card-faction { font-size: 11px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; }
+.sector-card-threat { font-size: 11px; margin-top: 6px; color: #8baec7; }
+#hud { position: fixed; bottom: 0; left: 0; right: 0; height: 58px; background: #07111e; border-top: 1px solid #112030; display: none; align-items: center; gap: 6px; padding: 0 10px; z-index: 700; }
+#hud.visible { display: flex; }
+.hud-stat { display: flex; flex-direction: column; gap: 2px; min-width: 80px; }
+.hud-stat-label { font-size: 9px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; letter-spacing: 1px; }
+.hud-bar-track { height: 6px; background: #0d1f33; border: 1px solid #1e3a5f; }
+.hud-bar-fill { height: 100%; transition: width 0.4s; }
+.hud-bar-fill.hp { background: #22c55e; }
+.hud-bar-fill.ram { background: #00b4d8; }
+.hud-sep { width: 1px; height: 32px; background: #112030; flex-shrink: 0; }
+.hud-info { font-size: 11px; color: #8baec7; font-family: 'Share Tech Mono', monospace; white-space: nowrap; }
+.hud-info strong { color: #e0f0ff; }
+#hud-log { flex: 1; font-size: 11px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.hud-btn { height: 36px; padding: 0 14px; background: #0d1f33; border: 1px solid #1e3a5f; color: #8baec7; font-size: 12px; cursor: pointer; font-family: 'Exo 2', sans-serif; font-weight: 600; transition: all 0.15s; white-space: nowrap; flex-shrink: 0; }
+.hud-btn:hover { border-color: #00b4d8; color: #00b4d8; }
+.hud-btn.accent { background: #00b4d8; border-color: #00b4d8; color: #03060b; }
+.hud-btn.accent:hover { background: #0dcaf0; }
+#battle-overlay { display: none; position: fixed; inset: 0; background: rgba(3,6,11,0.94); z-index: 850; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+#battle-overlay.open { display: flex; }
+#battle-box { background: #07111e; border: 1px solid #1e3a5f; border-top: 3px solid #ef4444; width: min(680px,96vw); box-shadow: 0 24px 60px rgba(0,0,0,0.8); }
+.battle-header { padding: 16px 20px; border-bottom: 1px solid #112030; text-align: center; }
+.battle-header h2 { font-size: 20px; color: #fca5a5; font-weight: 700; letter-spacing: 1px; }
+.battle-header p { font-size: 12px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; margin-top: 4px; }
+.battle-combatants { display: grid; grid-template-columns: 1fr auto 1fr; padding: 20px; gap: 16px; align-items: center; }
+.combatant-name { font-size: 15px; font-weight: 700; color: #e0f0ff; margin-bottom: 3px; }
+.combatant-sub { font-size: 11px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; margin-bottom: 10px; }
+.combatant-hp-track { height: 8px; background: #0d1f33; border: 1px solid #1e3a5f; margin-bottom: 4px; }
+.combatant-hp-fill { height: 100%; background: #22c55e; transition: width 0.3s; }
+.combatant-hp-fill.enemy { background: #ef4444; }
+.combatant-hp-label { font-size: 10px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; }
+.vs-label { font-size: 22px; font-weight: 700; color: #374151; font-family: 'Share Tech Mono', monospace; }
+.battle-attacks { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 0 20px 16px; }
+.attack-btn { padding: 12px 14px; background: #0a1928; border: 1px solid #1e3a5f; cursor: pointer; text-align: left; transition: all 0.15s; }
+.attack-btn:hover:not(:disabled) { border-color: #00b4d8; background: rgba(0,180,216,0.07); }
+.attack-btn:disabled { opacity: 0.4; cursor: default; }
+.attack-name { font-size: 13px; font-weight: 600; color: #e0f0ff; margin-bottom: 3px; }
+.attack-desc { font-size: 11px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; }
+.attack-dmg { font-size: 11px; color: #22c55e; margin-top: 4px; }
+.battle-log { margin: 0 20px 16px; background: #03060b; border: 1px solid #112030; padding: 10px 12px; min-height: 58px; }
+.battle-log p { font-size: 12px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; line-height: 1.6; }
+.battle-log p.important { color: #8baec7; }
+#battle-result { padding: 16px 20px; text-align: center; display: none; }
+#battle-result.win, #battle-result.lose { display: block; }
+#battle-result p { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+#battle-result .win-text { color: #22c55e; }
+#battle-result .lose-text { color: #ef4444; }
+#battle-result .sub-text { font-size: 13px; color: #4a7a9b; margin-bottom: 14px; }
+#capture-overlay { display: none; position: fixed; inset: 0; background: rgba(3,6,11,0.94); z-index: 850; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+#capture-overlay.open { display: flex; }
+#capture-box { background: #07111e; border: 1px solid #1e3a5f; border-top: 3px solid #a855f7; width: min(480px,94vw); padding: 24px; text-align: center; box-shadow: 0 24px 60px rgba(0,0,0,0.8); }
+#capture-box h2 { font-size: 18px; color: #d8b4fe; margin-bottom: 4px; }
+#capture-box .cap-sub { font-size: 12px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; margin-bottom: 18px; }
+#capture-daemon-name { font-size: 24px; font-weight: 700; color: #e0f0ff; margin-bottom: 16px; }
+#cap-bar-track { height: 22px; background: #0d1f33; border: 1px solid #1e3a5f; margin-bottom: 8px; }
+#cap-bar-fill { height: 100%; background: #a855f7; width: 0%; transition: width 0.08s; }
+#cap-pct { font-size: 13px; color: #a855f7; font-family: 'Share Tech Mono', monospace; margin-bottom: 6px; }
+#cap-timer { font-size: 20px; color: #8baec7; font-family: 'Share Tech Mono', monospace; margin-bottom: 18px; }
+#cap-scan-btn { width: 100%; padding: 16px; background: #a855f7; border: none; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; letter-spacing: 0.5px; font-family: 'Exo 2', sans-serif; transition: background 0.1s; }
+#cap-scan-btn:hover { background: #9333ea; }
+#cap-scan-btn:active { background: #7e22ce; }
+#cap-hint { font-size: 11px; color: #374151; font-family: 'Share Tech Mono', monospace; margin-top: 12px; }
+#loading { position: fixed; inset: 0; background: #03060b; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 9999; gap: 16px; }
+#loading-title { font-size: 32px; font-weight: 700; color: #e0f0ff; letter-spacing: 1px; }
+#loading-sub { font-size: 13px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; }
+#loading-bar-track { width: 240px; height: 3px; background: #0d1f33; }
+#loading-bar { height: 100%; background: #00b4d8; width: 0%; transition: width 0.3s; }
 </style>
 </head>
 <body>
-<div id="game-wrap"><div id="crt"></div></div>
-
-<!-- ══ CHALLENGE TERMINAL OVERLAY ══════════════════════════ -->
-<div id="ch-overlay">
-  <div id="ch-panel">
-    <div id="ch-header">
-      <span style="font-size:16px;">⚡</span>
-      <div id="ch-header-title">CHALLENGE_TERMINAL — FLLC OPERATIVE TRAINING SYSTEM</div>
-      <div id="ch-close-btn" onclick="closeChallengeTerminal()" title="Close [Esc]">✕</div>
+<div id="loading">
+  <div id="loading-title">CYBERWORLD</div>
+  <div id="loading-sub">Initializing engine...</div>
+  <div id="loading-bar-track"><div id="loading-bar"></div></div>
+</div>
+<div id="game-wrap"></div>
+<div id="hud">
+  <div class="hud-stat">
+    <span class="hud-stat-label">HP</span>
+    <div class="hud-bar-track" style="width:90px"><div id="hud-hp-bar" class="hud-bar-fill hp" style="width:100%"></div></div>
+  </div>
+  <div class="hud-stat">
+    <span class="hud-stat-label">RAM</span>
+    <div class="hud-bar-track" style="width:90px"><div id="hud-ram-bar" class="hud-bar-fill ram" style="width:100%"></div></div>
+  </div>
+  <div class="hud-sep"></div>
+  <div class="hud-info"><strong id="hud-level">LVL 1</strong></div>
+  <div class="hud-info"><strong id="hud-xp">0 XP</strong></div>
+  <div class="hud-info"><strong id="hud-credits">25 c</strong></div>
+  <div class="hud-sep"></div>
+  <div id="hud-log">Welcome to CyberWorld.</div>
+  <div class="hud-sep"></div>
+  <button class="hud-btn" onclick="openSectorSelect()">SECTORS</button>
+  <button class="hud-btn accent" onclick="openSectorSelect()">TRAIN</button>
+  <button class="hud-btn" onclick="goHome()">HOME</button>
+</div>
+<div id="portal-modal">
+  <div id="portal-box">
+    <div id="portal-head">
+      <div id="portal-icon">PC</div>
+      <div id="portal-info">
+        <div id="portal-title">Portal</div>
+        <div id="portal-category">CATEGORY</div>
+      </div>
+      <button id="portal-close" onclick="closePortalModal()">X</button>
     </div>
-    <div id="ch-grid">
-      <a class="ch-card exploit" href="../wargames.html">
-        <div class="ch-title">WAR_GAMES</div>
-        <div class="ch-desc">12 SHA-256 verified hacking missions. LFI, XSS, SQLi, auth bypass, encoding chains. Password vault finale.</div>
-        <div class="ch-meta"><span class="ch-badge">12 MISSIONS</span><span class="ch-badge">XP REWARDS</span><span class="ch-badge">INTERMEDIATE</span></div>
-      </a>
-      <a class="ch-card red" href="../redops.html">
-        <div class="ch-title">RED_OPS</div>
-        <div class="ch-desc">Offensive lab arena. OWASP Top 10 attack chains: injection, SSRF, IDOR, broken auth, RCE escalation.</div>
-        <div class="ch-meta"><span class="ch-badge">12 OPS</span><span class="ch-badge">OWASP</span><span class="ch-badge">ADVANCED</span></div>
-      </a>
-      <a class="ch-card recon" href="../ctf-trail.html">
-        <div class="ch-title">CTF_TRAIL</div>
-        <div class="ch-desc">20-node story-driven CTF chain. OSINT, steganography, cryptography, network forensics, binary analysis.</div>
-        <div class="ch-meta"><span class="ch-badge">20 FLAGS</span><span class="ch-badge">STORY MODE</span><span class="ch-badge">BEGINNER+</span></div>
-      </a>
-      <a class="ch-card dfir" href="../forensics.html">
-        <div class="ch-title">FORENSICS_LAB</div>
-        <div class="ch-desc">DFIR investigation cases. Memory dumps, pcap analysis, log parsing, disk imaging, malware triage.</div>
-        <div class="ch-meta"><span class="ch-badge">12 CASES</span><span class="ch-badge">DFIR</span><span class="ch-badge">INTERMEDIATE</span></div>
-      </a>
-      <a class="ch-card crypto" href="../signal-lab.html">
-        <div class="ch-title">SIGNAL_LAB</div>
-        <div class="ch-desc">RF decode, XOR cipher, ROT13, RSA (n=3233), Vigenere, entropy analysis. 5 SHA-256 verified challenges.</div>
-        <div class="ch-meta"><span class="ch-badge">5 LABS</span><span class="ch-badge">CRYPTO</span><span class="ch-badge">ALL LEVELS</span></div>
-      </a>
-      <a class="ch-card intel" href="../intel.html">
-        <div class="ch-title">INTEL_HUB</div>
-        <div class="ch-desc">Live NVD CVE stream, CISA KEV, MITRE ATT&amp;CK, OSINT lookups, threat gauge, OWASP scanner.</div>
-        <div class="ch-meta"><span class="ch-badge">LIVE FEEDS</span><span class="ch-badge">OSINT</span><span class="ch-badge">RESEARCH</span></div>
-      </a>
+    <div id="portal-body">
+      <p id="portal-mission"></p>
+      <p id="portal-briefing"></p>
+      <div id="portal-rewards"></div>
+      <div id="portal-actions">
+        <button id="portal-enter-btn" onclick="enterPortal()">Enter Module</button>
+        <button id="portal-embed-btn" onclick="embedPortal()">Play In-World</button>
+      </div>
     </div>
-    <div id="ch-footer">
-      <span>6 challenge modules active — completions award XP on return</span>
-      <span>Press ESC or ✕ to close</span>
+  </div>
+</div>
+<div id="embed-overlay">
+  <div id="embed-bar">
+    <button id="embed-back" onclick="closeEmbed()">Back to CyberWorld</button>
+    <span id="embed-label">Module Active</span>
+  </div>
+  <iframe id="embed-frame" sandbox="allow-scripts allow-same-origin allow-forms" title="Module"></iframe>
+</div>
+<div id="dialogue-overlay">
+  <div id="dialogue-box">
+    <div id="dialogue-head">
+      <div id="dialogue-avatar">NPC</div>
+      <div>
+        <div id="dialogue-npc-name">NPC</div>
+        <div id="dialogue-npc-role">Role</div>
+      </div>
     </div>
+    <div id="dialogue-text">...</div>
+    <div id="dialogue-actions">
+      <button class="dlg-btn" onclick="nextDialogue()">Next</button>
+      <button class="dlg-btn primary" onclick="closeDialogue()">Close</button>
+    </div>
+  </div>
+</div>
+<div id="sector-overlay">
+  <div id="sector-box">
+    <h2>Travel to Sector</h2>
+    <p>Select a district. Each sector has unique portals and challenges.</p>
+    <div id="sector-grid">
+      <div class="sector-card" style="--sc:#00b4d8" onclick="travelTo('mainframe')">
+        <div class="sector-card-name">Mainframe Core</div>
+        <div class="sector-card-faction">Blue Team Academy</div>
+        <div class="sector-card-threat">Threat: Low</div>
+      </div>
+      <div class="sector-card" style="--sc:#22c55e" onclick="travelTo('lan_valley')">
+        <div class="sector-card-name">LAN Valley</div>
+        <div class="sector-card-faction">Packet Ranchers</div>
+        <div class="sector-card-threat">Threat: Moderate</div>
+      </div>
+      <div class="sector-card" style="--sc:#a855f7" onclick="travelTo('darknet_depths')">
+        <div class="sector-card-name">Darknet Depths</div>
+        <div class="sector-card-faction">Shadow Brokers</div>
+        <div class="sector-card-threat">Threat: High</div>
+      </div>
+      <div class="sector-card" style="--sc:#f59e0b" onclick="travelTo('stormcore')">
+        <div class="sector-card-name">Stormcore</div>
+        <div class="sector-card-faction">Incident Command</div>
+        <div class="sector-card-threat">Threat: Critical</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="battle-overlay">
+  <div id="battle-box">
+    <div class="battle-header"><h2>COMBAT ENGAGED</h2><p id="battle-subtitle">vs Unknown</p></div>
+    <div class="battle-combatants">
+      <div>
+        <div class="combatant-name">Operative</div>
+        <div class="combatant-sub">PLAYER</div>
+        <div class="combatant-hp-track"><div class="combatant-hp-fill" id="player-hp-fill" style="width:100%"></div></div>
+        <div class="combatant-hp-label" id="player-hp-label">100 / 100</div>
+      </div>
+      <div class="vs-label">VS</div>
+      <div style="text-align:right">
+        <div class="combatant-name" id="enemy-name-battle">Enemy</div>
+        <div class="combatant-sub" id="enemy-type-sub">ADVERSARY</div>
+        <div class="combatant-hp-track"><div class="combatant-hp-fill enemy" id="enemy-hp-fill" style="width:100%"></div></div>
+        <div class="combatant-hp-label" id="enemy-hp-label">80 / 80</div>
+      </div>
+    </div>
+    <div class="battle-attacks" id="battle-attacks-grid"></div>
+    <div class="battle-log" id="battle-log"><p>Battle begins.</p></div>
+    <div id="battle-result">
+      <p id="battle-result-text"></p>
+      <p class="sub-text" id="battle-result-sub"></p>
+      <button class="hud-btn accent" onclick="closeBattle()">Continue</button>
+    </div>
+  </div>
+</div>
+<div id="capture-overlay">
+  <div id="capture-box">
+    <h2>DAEMON DETECTED</h2>
+    <p class="cap-sub">Capture before time runs out</p>
+    <div id="capture-daemon-name">UNKNOWN</div>
+    <div id="cap-bar-track"><div id="cap-bar-fill"></div></div>
+    <div id="cap-pct">0%</div>
+    <div id="cap-timer">5.0s</div>
+    <button id="cap-scan-btn" onclick="captureTick()">SCAN_DEPLOY</button>
+    <p id="cap-hint">Click rapidly to fill the bar before time expires</p>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
 <script>
 'use strict';
-
-// ============================================================
-//  GLOBALS & HELPERS
-// ============================================================
-const W = 1024, H = 768, WW = 2048, WH = 1536;
-
-// ── CHALLENGE TERMINAL ────────────────────────────────────
-function openChallengeTerminal() {
-  document.getElementById('ch-overlay').classList.add('open');
+const SECTORS = {
+  mainframe: {
+    label: 'Mainframe Core', faction: 'Blue Team Academy', threat: 'Low',
+    skyColor: 0x03111c, gridColor: 0x00b4d8, accentColor: 0xfcee09, dangerColor: 0xff0055,
+    landmarks: [
+      { x: 170, y: 150, w: 220, h: 88, label: 'BLUE TEAM QUAD' },
+      { x: 530, y: 178, w: 260, h: 96, label: 'PACKET LECTURE HALL' },
+      { x: 360, y: 440, w: 300, h: 116, label: 'SANDBOX RANGE' },
+    ],
+    npcs: [
+      { id: 'ada_mainframe', name: 'Ada Root', role: 'Bootcamp Handler', x: 112, y: 340, avatar: 'A',
+        dialogue: ['CyberWorld is one city. Every portal is a real district.', 'Start with WarGames or CTF Trail.', 'Press T or hit SECTORS to travel anywhere.'] },
+    ],
+    portals: [
+      { id: 'academy_wargames', title: 'WarGames Academy', category: 'TRAINING', emoji: 'WG', href: '../wargames.html', x: 230, y: 205, mission: 'Run guided labs and defensive drills.', briefing: 'Structured challenges become classroom terminals.', xp: 75, credits: 40 },
+      { id: 'ctf_trail', title: 'CTF Trail', category: 'QUESTLINE', emoji: 'CF', href: '../ctf-trail.html', x: 395, y: 205, mission: 'Capture-the-flag quests as MMO progression.', briefing: 'Each flag is an artifact recovery contract.', xp: 90, credits: 50 },
+      { id: 'research_vault', title: 'Research Vault', category: 'LIBRARY', emoji: 'RV', href: '../research.html', x: 555, y: 275, mission: 'Read writeups and defensive research.', briefing: 'Research pages are study terminals.', xp: 30, credits: 15 },
+      { id: 'codex', title: 'Nexus Codex', category: 'LORE', emoji: 'CX', href: '../cyberworld-codex.html', x: 690, y: 380, mission: 'Review lore, ranks, factions.', briefing: 'The codex is the game manual.', xp: 20, credits: 10 },
+    ],
+    enemies: [
+      { id: 'macro_gremlin', name: 'MACRO GREMLIN', type: 'Training Daemon', x: 680, y: 200, hp: 82, maxHp: 82, level: 2 },
+      { id: 'cookie_thief', name: 'COOKIE THIEF', type: 'Session Pest', x: 265, y: 420, hp: 95, maxHp: 95, level: 3 },
+    ],
+    daemons: [{ id: 'rootkit_v3', name: 'ROOTKIT_v3', type: 'MALWARE', x: 700, y: 295, level: 5 }],
+  },
+  lan_valley: {
+    label: 'LAN Valley', faction: 'Packet Ranchers', threat: 'Moderate',
+    skyColor: 0x071608, gridColor: 0x22c55e, accentColor: 0xffb347, dangerColor: 0xff3366,
+    landmarks: [
+      { x: 185, y: 170, w: 250, h: 90, label: 'SUBNET FARMS' },
+      { x: 560, y: 260, w: 300, h: 120, label: 'CREDENTIAL SILOS' },
+      { x: 320, y: 455, w: 230, h: 96, label: 'DHCP MARKET' },
+    ],
+    npcs: [
+      { id: 'packet_mara', name: 'Mara VLAN', role: 'Packet Rancher', x: 132, y: 365, avatar: 'M',
+        dialogue: ['Phishing trails pass through here. Signal Lab is your lead.', 'Forensics and Signal intel move fast.'] },
+    ],
+    portals: [
+      { id: 'signal_lab', title: 'Signal Lab', category: 'PUZZLE', emoji: 'SL', href: '../signal-lab.html', x: 245, y: 290, mission: 'Decode radio and packet anomalies.', briefing: 'Signal puzzles unlock intel drops.', xp: 80, credits: 40 },
+      { id: 'forensics_lab', title: 'Forensics Lab', category: 'INVESTIGATION', emoji: 'FL', href: '../forensics.html', x: 455, y: 345, mission: 'Analyze compromised hosts and logs.', briefing: 'Forensics is the evidence board for incident-response quests.', xp: 85, credits: 45 },
+      { id: 'discussion_board', title: 'Comms Board', category: 'SOCIAL', emoji: 'CB', href: '../discuss.html', x: 650, y: 450, mission: 'Read community notes and mission tips.', briefing: 'Discussion is the local message board.', xp: 10, credits: 5 },
+    ],
+    enemies: [
+      { id: 'phishing_wraith', name: 'PHISHING WRAITH', type: 'Social Lure', x: 680, y: 200, hp: 105, maxHp: 105, level: 4 },
+      { id: 'arp_spoofer', name: 'ARP SPOOFER', type: 'Packet Imp', x: 260, y: 425, hp: 115, maxHp: 115, level: 5 },
+    ],
+    daemons: [{ id: 'worm_slither', name: 'WORM_SLITHER', type: 'WORM', x: 590, y: 390, level: 3 }],
+  },
+  darknet_depths: {
+    label: 'Darknet Depths', faction: 'Shadow Brokers', threat: 'High',
+    skyColor: 0x110512, gridColor: 0xa855f7, accentColor: 0x00e8ff, dangerColor: 0xff3366,
+    landmarks: [
+      { x: 220, y: 165, w: 250, h: 100, label: 'TOR BAZAAR' },
+      { x: 610, y: 235, w: 280, h: 124, label: 'RELAY BLACKSITE' },
+      { x: 450, y: 470, w: 330, h: 90, label: 'ESCROW PIT' },
+    ],
+    npcs: [
+      { id: 'cipher_nox', name: 'Cipher Nox', role: 'Relay Informant', x: 145, y: 405, avatar: 'C',
+        dialogue: ['RedOps is a simulator. Keep blades in the sandbox.', 'Intel Exchange tracks adversaries. Study first.'] },
+    ],
+    portals: [
+      { id: 'redops', title: 'RedOps Simulator', category: 'ARENA', emoji: 'RO', href: '../redops.html', x: 615, y: 225, mission: 'Enter adversary-emulation arenas.', briefing: 'Red-team scenarios with safe learning boundaries.', xp: 120, credits: 65 },
+      { id: 'intel_exchange', title: 'Intel Exchange', category: 'LORE', emoji: 'IE', href: '../intel.html', x: 745, y: 345, mission: 'Trade threat intel and adversary dossiers.', briefing: 'Intelligence terminals inside CyberWorld.', xp: 40, credits: 20 },
+      { id: 'adversary_db', title: 'Adversary DB', category: 'DOSSIER', emoji: 'AD', href: '../adversaries.html', x: 575, y: 430, mission: 'Study actor patterns before advanced hunts.', briefing: 'Threat actor references as an intelligence desk.', xp: 35, credits: 18 },
+    ],
+    enemies: [
+      { id: 'zero_day_panda', name: 'ZERO-DAY PANDA', type: 'Exploit Broker', x: 720, y: 460, hp: 145, maxHp: 145, level: 9 },
+      { id: 'keylogger_moth', name: 'KEYLOGGER MOTH', type: 'Credential Parasite', x: 305, y: 400, hp: 105, maxHp: 105, level: 7 },
+    ],
+    daemons: [{ id: 'trojan_ghost', name: 'TROJAN_GHOST', type: 'TROJAN', x: 390, y: 295, level: 8 }],
+  },
+  stormcore: {
+    label: 'Stormcore', faction: 'Incident Command', threat: 'Critical',
+    skyColor: 0x080b18, gridColor: 0xf59e0b, accentColor: 0x00e8ff, dangerColor: 0xff0055,
+    landmarks: [
+      { x: 205, y: 175, w: 270, h: 92, label: 'INCIDENT BRIDGE' },
+      { x: 585, y: 190, w: 280, h: 110, label: 'CLOUD FIREWALL' },
+      { x: 520, y: 455, w: 360, h: 124, label: 'RAID MUSTER' },
+    ],
+    npcs: [
+      { id: 'chief_vale', name: 'Chief Vale', role: 'Incident Commander', x: 128, y: 300, avatar: 'V',
+        dialogue: ['Stormcore is where everything converges.', 'Every terminal here has a purpose. Find them all.'] },
+    ],
+    portals: [
+      { id: 'node_map', title: 'Node Atlas', category: 'WORLD MAP', emoji: 'NA', href: '../nodes.html', x: 330, y: 335, mission: 'Inspect global nodes and infrastructure.', briefing: 'Site status as the command center map layer.', xp: 30, credits: 15 },
+      { id: 'ai_lab', title: 'AI Ops Lab', category: 'TOOLS', emoji: 'AI', href: '../ai.html', x: 745, y: 225, mission: 'Access AI helpers and operator copilots.', briefing: 'AI tooling as support infrastructure.', xp: 25, credits: 12 },
+      { id: 'arsenal_stars', title: 'Cyber Arsenal', category: 'TOOLS', emoji: 'CA', href: '../stars.html', x: 655, y: 330, mission: 'Browse curated defensive and learning tools.', briefing: 'Tool lists as in-world vendor shelves.', xp: 20, credits: 10 },
+    ],
+    enemies: [
+      { id: 'ddos_leviathan', name: 'DDoS LEVIATHAN', type: 'Raid Boss', x: 695, y: 225, hp: 180, maxHp: 180, level: 12 },
+      { id: 'cloud_misconfig', name: 'CLOUD MISCONFIG', type: 'Policy Golem', x: 750, y: 450, hp: 160, maxHp: 160, level: 11 },
+    ],
+    daemons: [{ id: 'botnet_swarm', name: 'BOTNET_SWARM', type: 'BOTNET', x: 445, y: 295, level: 12 }],
+  },
+};
+const ATTACKS = [
+  { name: 'NMAP SCAN', dmg: [12,18], desc: 'Network enumeration probe' },
+  { name: 'EXPLOIT CHAIN', dmg: [24,36], desc: 'Chained CVE strike' },
+  { name: 'SOCIAL ENG', dmg: [16,24], desc: 'Phishing payload delivery' },
+  { name: 'ZERO-DAY', dmg: [0,55], desc: '20% chance — high variance' },
+];
+let currentSector = 'mainframe';
+let playerHP = 100, playerMaxHP = 100, playerXP = 0, playerLevel = 1, playerCredits = 25, playerRam = 100;
+let capturedDaemons = 0, defeatedEnemies = {};
+let currentPortal = null, dialogueNpc = null, dialogueIndex = 0, dialogueLines = [];
+let battleState = null, capDaemon = null, capProgress = 0, capTimeLeft = 5000, capTimer = null;
+let game = null, worldScene = null, hudLogTimeout = null;
+function setHudLog(msg) {
+  const el = document.getElementById('hud-log');
+  if (el) el.textContent = msg;
+  clearTimeout(hudLogTimeout);
+  hudLogTimeout = setTimeout(() => { if (el) el.textContent = ''; }, 6000);
 }
-function closeChallengeTerminal() {
-  document.getElementById('ch-overlay').classList.remove('open');
+function updateHud() {
+  const hpPct = Math.max(0, (playerHP / playerMaxHP) * 100);
+  document.getElementById('hud-hp-bar').style.width = hpPct + '%';
+  document.getElementById('hud-ram-bar').style.width = Math.max(0, playerRam) + '%';
+  document.getElementById('hud-level').textContent = 'LVL ' + playerLevel;
+  document.getElementById('hud-xp').textContent = playerXP + ' XP';
+  document.getElementById('hud-credits').textContent = playerCredits + ' c';
+  document.getElementById('hud-hp-bar').style.background = hpPct > 50 ? '#22c55e' : hpPct > 25 ? '#f59e0b' : '#ef4444';
+}
+function awardXP(xp, credits) {
+  playerXP += xp; playerCredits += credits;
+  playerLevel = Math.max(1, Math.floor(playerXP / 100) + 1);
+  updateHud();
+  setHudLog('+' + xp + ' XP, +' + credits + ' credits earned.');
+}
+function goHome() { window.location.href = '../index.html'; }
+function openPortalModal(portal) {
+  currentPortal = portal;
+  document.getElementById('portal-icon').textContent = portal.emoji || '?';
+  document.getElementById('portal-title').textContent = portal.title;
+  document.getElementById('portal-category').textContent = portal.category;
+  document.getElementById('portal-mission').textContent = portal.mission;
+  document.getElementById('portal-briefing').textContent = portal.briefing;
+  document.getElementById('portal-rewards').innerHTML =
+    '<span class="portal-reward-badge">+' + portal.xp + ' XP</span>' +
+    '<span class="portal-reward-badge">+' + portal.credits + ' c</span>' +
+    '<span class="portal-reward-badge">' + portal.category + '</span>';
+  document.getElementById('portal-modal').classList.add('open');
+}
+function closePortalModal() { document.getElementById('portal-modal').classList.remove('open'); }
+function enterPortal() {
+  if (!currentPortal) return;
+  closePortalModal();
+  awardXP(currentPortal.xp, currentPortal.credits);
+  window.open(currentPortal.href + '?ref=game', '_blank');
+}
+function embedPortal() {
+  if (!currentPortal) return;
+  closePortalModal();
+  document.getElementById('embed-frame').src = currentPortal.href + '?ref=game&embedded=1';
+  document.getElementById('embed-label').textContent = currentPortal.title + ' — Active';
+  document.getElementById('embed-overlay').classList.add('open');
+  awardXP(currentPortal.xp, currentPortal.credits);
+}
+function closeEmbed() {
+  document.getElementById('embed-overlay').classList.remove('open');
+  document.getElementById('embed-frame').src = 'about:blank';
+  setHudLog('Returned to CyberWorld.');
+}
+function openSectorSelect() { document.getElementById('sector-overlay').classList.add('open'); }
+function travelTo(sectorId) {
+  document.getElementById('sector-overlay').classList.remove('open');
+  if (sectorId === currentSector) return;
+  currentSector = sectorId;
+  setHudLog('Warping to ' + SECTORS[sectorId].label + '...');
+  if (worldScene) worldScene.changeSector(sectorId);
+}
+function openDialogue(npc) {
+  dialogueNpc = npc; dialogueLines = npc.dialogue || []; dialogueIndex = 0;
+  document.getElementById('dialogue-avatar').textContent = npc.avatar || 'N';
+  document.getElementById('dialogue-npc-name').textContent = npc.name;
+  document.getElementById('dialogue-npc-role').textContent = npc.role;
+  document.getElementById('dialogue-text').textContent = dialogueLines[0] || '';
+  document.getElementById('dialogue-overlay').classList.add('open');
+}
+function nextDialogue() {
+  dialogueIndex++;
+  if (dialogueIndex >= dialogueLines.length) { closeDialogue(); return; }
+  document.getElementById('dialogue-text').textContent = dialogueLines[dialogueIndex];
+}
+function closeDialogue() { document.getElementById('dialogue-overlay').classList.remove('open'); }
+function startBattle(enemy) {
+  battleState = { enemy: Object.assign({}, enemy), playerHP: playerHP, playerMaxHP: playerMaxHP, over: false, turn: 'player' };
+  document.getElementById('battle-subtitle').textContent = 'vs ' + enemy.name + ' [' + enemy.type + '] LV' + enemy.level;
+  document.getElementById('enemy-name-battle').textContent = enemy.name;
+  document.getElementById('enemy-type-sub').textContent = enemy.type;
+  updateBattleHP();
+  var grid = document.getElementById('battle-attacks-grid');
+  grid.innerHTML = '';
+  ATTACKS.forEach(function(atk) {
+    var btn = document.createElement('button');
+    btn.className = 'attack-btn';
+    var isZD = atk.name === 'ZERO-DAY';
+    btn.innerHTML = '<div class="attack-name">' + atk.name + '</div><div class="attack-desc">' + atk.desc + '</div><div class="attack-dmg">' + (isZD ? '0-55 dmg (20% hit)' : atk.dmg[0] + '-' + atk.dmg[1] + ' dmg') + '</div>';
+    btn.onclick = function() { playerAttack(atk); };
+    grid.appendChild(btn);
+  });
+  document.getElementById('battle-log').innerHTML = '<p class="important">Battle started — choose an attack.</p>';
+  document.getElementById('battle-result').className = '';
+  document.getElementById('battle-result').style.display = 'none';
+  document.getElementById('battle-overlay').classList.add('open');
+}
+function updateBattleHP() {
+  if (!battleState) return;
+  var pPct = Math.max(0, (battleState.playerHP / battleState.playerMaxHP) * 100);
+  var ePct = Math.max(0, (battleState.enemy.hp / battleState.enemy.maxHp) * 100);
+  document.getElementById('player-hp-fill').style.width = pPct + '%';
+  document.getElementById('enemy-hp-fill').style.width = ePct + '%';
+  document.getElementById('player-hp-label').textContent = Math.max(0, battleState.playerHP) + ' / ' + battleState.playerMaxHP;
+  document.getElementById('enemy-hp-label').textContent = Math.max(0, battleState.enemy.hp) + ' / ' + battleState.enemy.maxHp;
+}
+function battleLog(msg, important) {
+  var logEl = document.getElementById('battle-log');
+  logEl.innerHTML = '<p' + (important ? ' class="important"' : '') + '>' + msg + '</p>';
+}
+function playerAttack(atk) {
+  if (!battleState || battleState.over || battleState.turn !== 'player') return;
+  battleState.turn = 'waiting';
+  document.querySelectorAll('.attack-btn').forEach(function(b) { b.disabled = true; });
+  var dmg;
+  if (atk.name === 'ZERO-DAY') {
+    if (Math.random() > 0.2) { battleLog('ZERO-DAY missed.'); setTimeout(enemyTurn, 1000); return; }
+    dmg = Math.floor(Math.random() * 56);
+  } else {
+    dmg = atk.dmg[0] + Math.floor(Math.random() * (atk.dmg[1] - atk.dmg[0] + 1));
+  }
+  battleState.enemy.hp = Math.max(0, battleState.enemy.hp - dmg);
+  updateBattleHP();
+  battleLog(atk.name + ' dealt ' + dmg + ' damage.', true);
+  if (battleState.enemy.hp <= 0) { setTimeout(battleWin, 800); return; }
+  setTimeout(enemyTurn, 1000);
+}
+function enemyTurn() {
+  if (!battleState) return;
+  var dmg = 8 + Math.floor(Math.random() * (battleState.enemy.level * 4));
+  battleState.playerHP = Math.max(0, battleState.playerHP - dmg);
+  updateBattleHP();
+  battleLog(battleState.enemy.name + ' attacks for ' + dmg + ' damage!');
+  if (battleState.playerHP <= 0) { setTimeout(battleLose, 800); return; }
+  battleState.turn = 'player';
+  document.querySelectorAll('.attack-btn').forEach(function(b) { b.disabled = false; });
+}
+function battleWin() {
+  if (!battleState) return;
+  battleState.over = true;
+  var xpGain = 40 + battleState.enemy.level * 15;
+  var credGain = 10 + battleState.enemy.level * 5;
+  playerHP = battleState.playerHP;
+  defeatedEnemies[battleState.enemy.id] = true;
+  awardXP(xpGain, credGain);
+  var res = document.getElementById('battle-result');
+  res.style.display = 'block'; res.className = 'win';
+  document.getElementById('battle-result-text').innerHTML = '<span class="win-text">Adversary Neutralized</span>';
+  document.getElementById('battle-result-sub').textContent = '+' + xpGain + ' XP +' + credGain + ' credits';
+  if (worldScene) worldScene.removeEnemy(battleState.enemy.id);
+}
+function battleLose() {
+  if (!battleState) return;
+  battleState.over = true;
+  playerHP = playerMaxHP; updateHud();
+  var res = document.getElementById('battle-result');
+  res.style.display = 'block'; res.className = 'lose';
+  document.getElementById('battle-result-text').innerHTML = '<span class="lose-text">Operative KIA</span>';
+  document.getElementById('battle-result-sub').textContent = 'Respawned at full HP.';
+}
+function closeBattle() { document.getElementById('battle-overlay').classList.remove('open'); battleState = null; }
+function startCapture(daemon) {
+  capDaemon = daemon; capProgress = 0; capTimeLeft = 5000;
+  document.getElementById('capture-daemon-name').textContent = daemon.name;
+  document.getElementById('cap-bar-fill').style.width = '0%';
+  document.getElementById('cap-pct').textContent = '0%';
+  document.getElementById('cap-timer').textContent = '5.0s';
+  document.getElementById('capture-overlay').classList.add('open');
+  clearInterval(capTimer);
+  capTimer = setInterval(function() {
+    capTimeLeft -= 100;
+    var t = Math.max(0, capTimeLeft / 1000);
+    var timerEl = document.getElementById('cap-timer');
+    timerEl.textContent = t.toFixed(1) + 's';
+    timerEl.style.color = t < 2 ? '#ef4444' : t < 3.5 ? '#f59e0b' : '#8baec7';
+    if (capTimeLeft <= 0 && capProgress < 100) { clearInterval(capTimer); document.getElementById('capture-overlay').classList.remove('open'); setHudLog('Daemon escaped.'); }
+  }, 100);
+}
+function captureTick() {
+  if (!capDaemon || capProgress >= 100 || capTimeLeft <= 0) return;
+  capProgress = Math.min(100, capProgress + 8);
+  document.getElementById('cap-bar-fill').style.width = capProgress + '%';
+  document.getElementById('cap-pct').textContent = Math.floor(capProgress) + '%';
+  if (capProgress >= 100) {
+    clearInterval(capTimer);
+    capturedDaemons++;
+    awardXP(80, 30);
+    var dId = capDaemon.id;
+    capDaemon = null;
+    setTimeout(function() {
+      document.getElementById('capture-overlay').classList.remove('open');
+      setHudLog('Daemon captured! (' + capturedDaemons + ' total)');
+      if (worldScene) worldScene.removeDaemon(dId);
+    }, 400);
+  }
 }
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeChallengeTerminal();
-  if ((e.key === 't' || e.key === 'T') && !e.ctrlKey && !e.metaKey) {
-    var el = document.activeElement;
-    if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA')) return;
-    var overlay = document.getElementById('ch-overlay');
-    if (overlay.classList.contains('open')) { closeChallengeTerminal(); }
-    else { openChallengeTerminal(); }
+  if (document.getElementById('embed-overlay').classList.contains('open')) return;
+  if (e.key === 'Escape') {
+    closePortalModal(); closeDialogue(); closeBattle();
+    document.getElementById('sector-overlay').classList.remove('open');
+    document.getElementById('capture-overlay').classList.remove('open');
   }
+  if ((e.key === 't' || e.key === 'T') && !e.ctrlKey && !e.metaKey) openSectorSelect();
 });
-
-function glow(size, color) {
-  return {
-    fontFamily: 'VT323, monospace',
-    fontSize:   size  || '20px',
-    color:      color || '#00e8ff',
-    shadow: { color: color || '#00e8ff', blur: 8, fill: true }
-  };
-}
-
-function hexStr(n) {
-  return '#' + ((n || 0) >>> 0).toString(16).padStart(6, '0');
-}
-
-// ============================================================
-//  SCENE BOOT  — generates all textures, shows boot sequence
-// ============================================================
-class SceneBoot extends Phaser.Scene {
-  constructor() { super({ key: 'SceneBoot' }); }
-
+const W = 960, H = 620;
+class CyberWorldScene extends Phaser.Scene {
+  constructor() { super({ key: 'CyberWorld' }); }
   create() {
-    this.cameras.main.setBackgroundColor('#000000');
-    this._genTextures();
-
-    const lines = [
-      { t: 'CYBERWORLD ENGINE v2026.3-FLLC',        c: '#00e8ff', sz: '30px' },
-      { t: 'Loading ENGINE 1: CORE MMO...',           c: '#00ff41', sz: '22px' },
-      { t: 'Loading ENGINE 2: SOURCECODE...',         c: '#00ff41', sz: '22px' },
-      { t: 'Loading ENGINE 3: LITE...',               c: '#00ff41', sz: '22px' },
-      { t: 'Loading ENGINE 4: SOULCODE...',           c: '#00ff41', sz: '22px' },
-      { t: 'ALL ENGINES COMPILED \u2713',            c: '#00ff41', sz: '26px' },
-      { t: 'Initializing secure authentication...', c: '#ff00ea', sz: '20px' },
-    ];
-
-    const startY = H / 2 - lines.length * 18;
-    let delay = 200;
-    lines.forEach((line, i) => {
-      this.time.delayedCall(delay, () => {
-        const txt = this.add.text(W / 2, startY + i * 36, line.t, {
-          fontFamily: 'VT323, monospace', fontSize: line.sz,
-          color: line.c, shadow: { color: line.c, blur: 12, fill: true }
-        }).setOrigin(0.5).setAlpha(0);
-        this.tweens.add({ targets: txt, alpha: 1, duration: 300 });
-      });
-      delay += 380;
+    this.sector = currentSector;
+    this.enemies = new Map(); this.daemons = new Map();
+    this.npcSprites = new Map(); this.portalSprites = new Map();
+    this.moveTween = null; this.lastKeyTime = 0;
+    this._buildWorld(); this._buildPlayer(); this._buildEntities(); this._setupInput();
+    worldScene = this;
+    document.getElementById('hud').classList.add('visible');
+    this.cameras.main.startFollow(this.playerGroup, true, 0.1, 0.1);
+    this.cameras.main.setBounds(0, 0, 1200, 900);
+    updateHud();
+    setHudLog('Welcome to ' + SECTORS[this.sector].label + '. Click to move, T to travel.');
+  }
+  _buildWorld() {
+    const s = SECTORS[this.sector];
+    this.add.rectangle(600, 450, 1200, 900, s.skyColor, 1).setDepth(0);
+    const g = this.add.graphics().setDepth(1);
+    g.lineStyle(1, s.gridColor, 0.08);
+    for (let x = -100; x <= 1300; x += 56) g.lineBetween(x, 0, x + 140, 900);
+    for (let y = 60; y <= 900; y += 52) g.lineBetween(0, y, 1200, y + 12);
+    this.add.rectangle(148, 38, 262, 44, 0x06101a, 0.92).setDepth(5).setStrokeStyle(2, s.gridColor, 0.7);
+    this.add.text(18, 16, 'CYBERWORLD', { fontFamily: 'Courier New', fontSize: '20px', fontStyle: 'bold', color: '#dffbff' }).setDepth(6);
+    this.add.text(18, 42, s.label.toUpperCase(), { fontFamily: 'Courier New', fontSize: '9px', color: '#6ab4d8', letterSpacing: 1 }).setDepth(6);
+    s.landmarks.forEach((lm, i) => {
+      const c = i === 1 ? s.dangerColor : i === 2 ? s.accentColor : s.gridColor;
+      this._drawBuilding(lm.x, lm.y, lm.w, lm.h, c, lm.label);
     });
-
-    this.time.delayedCall(delay + 500, () => {
-      this.cameras.main.fadeOut(600, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('SceneLogin'));
-    });
+    this._drawServerPlaza(s);
+    const cg = this.add.graphics().setDepth(6); cg.lineStyle(1, s.gridColor, 0.25);
+    [[0,0,1,1],[W,0,-1,1],[0,H,1,-1],[W,H,-1,-1]].forEach(([cx,cy,sx,sy]) => { cg.lineBetween(cx,cy,cx+sx*40,cy); cg.lineBetween(cx,cy,cx,cy+sy*40); });
   }
-
-  _genTextures() {
-    // ── tx_player  28x36  blue operative
-    { const g = this.make.graphics({ x: 0, y: 0, add: false });
-      g.fillStyle(0x2244cc);             g.fillCircle(14, 9, 9);
-      g.fillStyle(0x00e8ff);             g.fillRect(7, 5, 14, 6);
-      g.fillStyle(0x1133aa);             g.fillRect(5, 18, 18, 13);
-      g.fillStyle(0x0d2266);             g.fillRect(5, 31, 7, 5); g.fillRect(16, 31, 7, 5);
-      g.fillStyle(0x00e8ff, 0.35);       g.fillRect(5, 18, 18, 2);
-      g.generateTexture('tx_player', 28, 36); g.destroy(); }
-
-    // ── tx_adversary  28x28  red angular threat
-    { const g = this.make.graphics({ x: 0, y: 0, add: false });
-      g.fillStyle(0xff003c);
-      g.fillTriangle(14, 1, 27, 14, 14, 27);
-      g.fillTriangle(14, 1,  1, 14, 14, 27);
-      g.fillStyle(0x880022); g.fillRect(10, 9, 8, 10);
-      g.fillStyle(0xff8888); g.fillCircle(14, 10, 4);
-      g.generateTexture('tx_adversary', 28, 28); g.destroy(); }
-
-    // ── tx_daemon  24x24  glowing diamond
-    { const g = this.make.graphics({ x: 0, y: 0, add: false });
-      g.fillStyle(0x002233);
-      g.fillTriangle(12, 1, 23, 12, 12, 23);
-      g.fillTriangle(12, 1,  1, 12, 12, 23);
-      g.fillStyle(0x00e8ff, 0.9);
-      g.fillTriangle(12, 3, 21, 12, 12, 21);
-      g.fillTriangle(12, 3,  3, 12, 12, 21);
-      g.fillStyle(0xffffff, 0.85); g.fillCircle(12, 12, 3);
-      g.generateTexture('tx_daemon', 24, 24); g.destroy(); }
-
-    // ── tx_terminal  40x36  blue terminal block
-    { const g = this.make.graphics({ x: 0, y: 0, add: false });
-      g.fillStyle(0x001133); g.fillRect(0, 0, 40, 36);
-      g.lineStyle(2, 0x00e8ff, 1); g.strokeRect(1, 1, 38, 34);
-      g.fillStyle(0x003366);       g.fillRect(1, 1, 38, 8);
-      g.fillStyle(0x00e8ff, 0.9);
-      g.fillRect(4, 14, 14, 2); g.fillRect(4, 19, 22, 2);
-      g.fillRect(4, 24, 18, 2); g.fillRect(4, 29, 20, 2);
-      g.generateTexture('tx_terminal', 40, 36); g.destroy(); }
-
-    // ── tx_cache  36x36  green cache cylinder
-    { const g = this.make.graphics({ x: 0, y: 0, add: false });
-      g.fillStyle(0x002200);
-      g.fillEllipse(18, 10, 34, 14); g.fillRect(1, 10, 34, 20);
-      g.fillStyle(0x00ff41); g.fillEllipse(18, 10, 34, 14);
-      g.lineStyle(2, 0x00ff41, 1);
-      g.strokeRect(1, 10, 34, 20); g.strokeEllipse(18, 30, 34, 14);
-      g.fillStyle(0x003300, 0.7); g.fillEllipse(18, 30, 34, 14);
-      g.generateTexture('tx_cache', 36, 36); g.destroy(); }
-
-    // ── tx_building  60x80  dark sector building with lit windows
-    { const g = this.make.graphics({ x: 0, y: 0, add: false });
-      g.fillStyle(0x050a14);
-      g.fillRect(0, 20, 60, 60); g.fillRect(15, 0, 30, 30);
-      g.lineStyle(2, 0x003366, 1);
-      g.strokeRect(0, 20, 60, 60); g.strokeRect(15, 0, 30, 30);
-      g.fillStyle(0x00e8ff, 0.6);
-      [[4,28],[18,28],[46,28],[4,40],[32,40],[46,40],[18,52],[32,52],[4,64],[46,64]]
-        .forEach(([wx, wy]) => g.fillRect(wx, wy, 8, 7));
-      g.generateTexture('tx_building', 60, 80); g.destroy(); }
+  _drawBuilding(x, y, w, h, color, label) {
+    const g = this.add.graphics().setDepth(2);
+    g.fillStyle(0x000000, 0.22); g.fillRect(x - w/2 + 5, y - h/2 + 5, w, h);
+    g.fillStyle(color, 0.06); g.fillRect(x - w/2, y - h/2, w, h);
+    g.lineStyle(1, color, 0.35); g.strokeRect(x - w/2, y - h/2, w, h);
+    g.fillStyle(color, 0.22);
+    for (let wx = x - w/2 + 18; wx < x + w/2 - 14; wx += 28) for (let wy = y - h/2 + 16; wy < y + h/2 - 14; wy += 22) g.fillRect(wx, wy, 12, 9);
+    this.add.text(x - w/2 + 8, y - h/2 + 8, label, { fontFamily: 'Courier New', fontSize: '10px', color: '#d0f0ff', fontStyle: 'bold' }).setDepth(3);
   }
-}
-
-// ============================================================
-//  SCENE LOGIN
-// ============================================================
-class SceneLogin extends Phaser.Scene {
-  constructor() { super({ key: 'SceneLogin' }); }
-
-  create() {
-    this.cameras.main.setBackgroundColor('#050a14');
-    this.cameras.main.fadeIn(400, 0, 0, 0);
-
-    // Grid background
-    const grid = this.add.graphics();
-    grid.lineStyle(1, 0x003366, 0.45);
-    for (let x = 0; x <= W; x += 32) grid.lineBetween(x, 0, x, H);
-    for (let y = 0; y <= H; y += 32) grid.lineBetween(0, y, W, y);
-
-    // Corner brackets
-    [[0, 0, 1, 1], [W, 0, -1, 1], [0, H, 1, -1], [W, H, -1, -1]].forEach(([cx, cy, sx, sy]) => {
-      const dg = this.add.graphics();
-      dg.lineStyle(2, 0x00e8ff, 0.7);
-      dg.lineBetween(cx, cy, cx + sx * 44, cy);
-      dg.lineBetween(cx, cy, cx, cy + sy * 44);
-    });
-
-    // Title
-    this.add.text(W / 2, 138, 'CYBERWORLD', {
-      fontFamily: 'VT323, monospace', fontSize: '84px', color: '#00e8ff',
-      shadow: { color: '#00e8ff', blur: 28, fill: true }
-    }).setOrigin(0.5);
-    this.add.text(W / 2, 220,
-      'ClubPenguin  +  RuneScape  +  Pok\u00e9mon  +  Hacking  +  FLLC',
-      glow('18px', '#00ff41')).setOrigin(0.5);
-    this.add.text(W / 2, 252, 'ENGINE v2026.3-FLLC', glow('18px', '#ff00ea')).setOrigin(0.5);
-
-    // Auto agent ID
-    const agentId = 'AGENT_' + Math.floor(1000 + Math.random() * 9000);
-    this.registry.set('agentId', agentId);
-
-    this.add.text(W / 2, 322, 'OPERATIVE_ID:', glow('18px', '#aabbcc')).setOrigin(0.5);
-    this.add.rectangle(W / 2, 360, 320, 48, 0x001133).setStrokeStyle(2, 0x00e8ff);
-    this.add.text(W / 2, 360, agentId, glow('28px', '#00ff41')).setOrigin(0.5);
-    const cursor = this.add.text(W / 2 + 78, 360, '_', glow('28px', '#00ff41')).setOrigin(0, 0.5);
-    this.tweens.add({ targets: cursor, alpha: 0, duration: 500, yoyo: true, repeat: -1 });
-
-    // Auth button
-    const btn = this.add.rectangle(W / 2, 450, 280, 54, 0x002244)
-      .setStrokeStyle(2, 0x00e8ff).setInteractive({ useHandCursor: true });
-    this.add.text(W / 2, 450, 'INITIALIZE_AUTH', glow('26px', '#00e8ff')).setOrigin(0.5);
-    btn.on('pointerover', () => btn.setFillStyle(0x003366));
-    btn.on('pointerout',  () => btn.setFillStyle(0x002244));
-    btn.on('pointerdown', () => {
-      this.cameras.main.fadeOut(400, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('SceneCharacter'));
-    });
-
-    this.add.text(W / 2, 543, '[ SECURE NEURAL LINK ESTABLISHED ]', glow('16px', '#003355')).setOrigin(0.5);
-    this.add.text(W / 2, 566, 'ENCRYPTION: AES-256  //  PROTOCOL: DARKNET_v7',
-      glow('14px', '#002244')).setOrigin(0.5);
-    this.add.text(W / 2, 598, '[v] IDENTITY_HASH: 4F2A9C1E7B83D56A0F',
-      glow('14px', '#002233')).setOrigin(0.5);
-
-    // Animated scan line
-    const scan = this.add.rectangle(W / 2, -2, W, 2, 0x00e8ff, 0.14);
-    this.tweens.add({ targets: scan, y: H + 2, duration: 3400, repeat: -1 });
+  _drawServerPlaza(s) {
+    const g = this.add.graphics().setDepth(2);
+    const px = W/2, py = H/2 + 20;
+    g.fillStyle(0x101827, 0.6); g.fillRect(px - 200, py - 135, 400, 270);
+    g.lineStyle(2, s.gridColor, 0.4); g.strokeRect(px - 200, py - 135, 400, 270);
+    for (let i = 0; i < 6; i++) {
+      const col = i % 3, row = Math.floor(i / 3);
+      const rx = px - 130 + col * 130, ry = py - 75 + row * 112;
+      g.fillStyle(0x1f2937, 0.95); g.fillRect(rx - 18, ry - 44, 36, 88);
+      g.lineStyle(1, s.gridColor, 0.45); g.strokeRect(rx - 18, ry - 44, 36, 88);
+      for (let l = -30; l <= 30; l += 12) { g.fillStyle(s.gridColor, 0.7); g.fillCircle(rx - 6, ry + l, 2); g.fillStyle(s.accentColor, 0.55); g.fillCircle(rx + 6, ry + l, 2); }
+    }
+    this.add.text(px - 75, py - 155, 'OPERATIONS FLOOR', { fontFamily: 'Courier New', fontSize: '11px', fontStyle: 'bold', color: '#dffbff' }).setDepth(3);
   }
-}
-
-// ============================================================
-//  SCENE CHARACTER
-// ============================================================
-class SceneCharacter extends Phaser.Scene {
-  constructor() { super({ key: 'SceneCharacter' }); }
-
-  create() {
-    this.cameras.main.setBackgroundColor('#050a14');
-    this.cameras.main.fadeIn(400, 0, 0, 0);
-
-    const grid = this.add.graphics();
-    grid.lineStyle(1, 0x001122, 0.8);
-    for (let x = 0; x <= W; x += 32) grid.lineBetween(x, 0, x, H);
-    for (let y = 0; y <= H; y += 32) grid.lineBetween(0, y, W, y);
-
-    this.add.text(W / 2, 56, 'SELECT_OPERATIVE_CLASS', glow('38px', '#00e8ff')).setOrigin(0.5);
-    this.add.text(W / 2, 94,
-      'Choose your specialization \u2014 defines loadout and engine access',
-      glow('17px', '#ff00ea')).setOrigin(0.5);
-
-    const classes = [
-      { id: 'RED_TEAM',    color: 0xff003c, hex: '#ff003c',
-        desc: 'Nmap, Metasploit, Hydra \u2014 Offensive Ops',            engine: 'ENGINE 2',   y: 190 },
-      { id: 'BLUE_TEAM',   color: 0x0088ff, hex: '#0088ff',
-        desc: 'Wireshark, CSET, Starkiller \u2014 Defensive SOC',        engine: 'ENGINE 3',   y: 302 },
-      { id: 'OSINT_AGENT', color: 0xff00ea, hex: '#ff00ea',
-        desc: 'FURY0s1nt, RedEye, GovINT \u2014 Intelligence Ops',       engine: 'ENGINE 4',   y: 414 },
-      { id: 'FULL_STACK',  color: 0x00ff41, hex: '#00ff41',
-        desc: 'ALL ENGINES UNLOCKED \u2014 Complete Operative Exp.',     engine: 'ENGINE 1-4', y: 526 },
-    ];
-
-    classes.forEach(cls => {
-      const card = this.add.rectangle(W / 2, cls.y, 650, 88, 0x050a14)
-        .setStrokeStyle(2, cls.color).setInteractive({ useHandCursor: true });
-      this.add.text(W / 2 - 300, cls.y - 16, cls.id, {
-        fontFamily: 'VT323, monospace', fontSize: '26px',
-        color: cls.hex, shadow: { color: cls.hex, blur: 10, fill: true }
-      }).setOrigin(0, 0.5);
-      this.add.text(W / 2 - 300, cls.y + 16, cls.desc, glow('16px', '#aabbcc')).setOrigin(0, 0.5);
-      this.add.text(W / 2 + 300, cls.y, cls.engine, glow('20px', cls.hex)).setOrigin(1, 0.5);
-
-      card.on('pointerover', () => card.setFillStyle(cls.color, 0.12));
-      card.on('pointerout',  () => card.setFillStyle(0x050a14));
-      card.on('pointerdown', () => {
-        this.registry.set('playerClass',     cls.id);
-        this.registry.set('classColor',      cls.color);
-        this.registry.set('playerHP',        100);
-        this.registry.set('playerMaxHP',     100);
-        this.registry.set('playerXP',        0);
-        this.registry.set('capturedDaemons', 0);
-        this.registry.set('hudLog',          []);
-        this.registry.set('hudLogVer',       0);
-        this.cameras.main.fadeOut(400, 0, 0, 0);
-        this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('SceneWorld'));
-      });
-    });
-
-    this.add.text(W / 2, 640,
-      'Class determines tool affinity, damage multipliers and faction reputation',
-      glow('16px', '#334455')).setOrigin(0.5);
-  }
-}
-
-// ============================================================
-//  SCENE WORLD  — main game loop
-// ============================================================
-class SceneWorld extends Phaser.Scene {
-  constructor() { super({ key: 'SceneWorld' }); }
-
-  create() {
-    this.cameras.main.setBackgroundColor('#050a14');
-    this.cameras.main.setBounds(0, 0, WW, WH);
-
-    this.playerHP            = this.registry.get('playerHP')    || 100;
-    this.playerMaxHP         = this.registry.get('playerMaxHP') || 100;
-    this.playerXP            = this.registry.get('playerXP')    || 0;
-    this.playerClass         = this.registry.get('playerClass') || 'FULL_STACK';
-    this.classColor          = this.registry.get('classColor')  || 0x00ff41;
-    this.moving              = false;
-    this.lastMoveTime        = 0;
-    this.defeatedAdversaries = {};
-    this.capturedDaemonsList = {};
-
-    this._buildTerrain();
-    this._buildSectors();
-    this._buildPlayer();
-    this._buildAdversaries();
-    this._buildDaemons();
-    this._setupInput();
-
-    this.cameras.main.startFollow(this.player, true, 0.08, 0.08);
-    this.scene.launch('SceneHUD');
-    this.events.on('resume', this._onResume, this);
-
-    this.addLog('CYBERWORLD ONLINE. Welcome, ' + (this.registry.get('agentId') || 'OPERATIVE') + '.');
-    this.addLog('WASD / arrows or click-to-move. Approach targets within 150px to engage.');
-    this.addLog('Tool buttons run scans. Click daemons to attempt SOULCODE capture.');
-  }
-
-  // ── Terrain ─────────────────────────────────────────────────
-  _buildTerrain() {
-    const g = this.add.graphics().setDepth(0);
-    g.fillStyle(0x050a14, 1);
-    g.fillRect(0, 0, WW, WH);
-    g.lineStyle(1, 0x0a1a2e, 1);
-    for (let x = 0; x <= WW; x += 64) g.lineBetween(x, 0, x, WH);
-    for (let y = 0; y <= WH; y += 64) g.lineBetween(0, y, WW, y);
-  }
-
-  // ── Sectors ─────────────────────────────────────────────────
-  _buildSectors() {
-    const sectors = [
-      { name: 'MAINFRAME_CORE', x: 512,  y: 200,  w: 380, h: 260, color: 0x00e8ff },
-      { name: 'LAN_VALLEY',     x: 300,  y: 550,  w: 300, h: 240, color: 0x00ff41 },
-      { name: 'DARKNET_DEPTHS', x: 1400, y: 400,  w: 360, h: 280, color: 0xff003c },
-      { name: 'SOC_TOWER',      x: 900,  y: 1100, w: 340, h: 260, color: 0xff00ea },
-    ];
-    this.sectorData = sectors;
-
-    sectors.forEach(s => {
-      const g = this.add.graphics().setDepth(1);
-      g.fillStyle(s.color, 0.04);
-      g.fillRect(s.x - s.w / 2, s.y - s.h / 2, s.w, s.h);
-      g.lineStyle(1, s.color, 0.3);
-      g.strokeRect(s.x - s.w / 2, s.y - s.h / 2, s.w, s.h);
-
-      this.add.image(s.x, s.y, 'tx_building').setDepth(2).setTint(s.color).setScale(1.1);
-      this.add.image(s.x - 65, s.y + 45, 'tx_terminal').setDepth(2).setTint(s.color);
-      this.add.image(s.x + 72, s.y - 28, 'tx_cache').setDepth(2).setTint(s.color);
-
-      const label = this.add.text(s.x, s.y - s.h / 2 - 18, s.name, {
-        fontFamily: 'VT323, monospace', fontSize: '20px',
-        color: hexStr(s.color), shadow: { color: hexStr(s.color), blur: 12, fill: true }
-      }).setOrigin(0.5).setDepth(6);
-      this.tweens.add({
-        targets: label, alpha: 0.55,
-        duration: 1600 + Math.random() * 600,
-        yoyo: true, repeat: -1
-      });
-    });
-  }
-
-  // ── Player ──────────────────────────────────────────────────
   _buildPlayer() {
-    const agentId = this.registry.get('agentId') || 'AGENT_0000';
-    const opName  = agentId.replace('AGENT_', 'OPERATIVE_');
-    this.player = this.add.image(512, 384, 'tx_player')
-      .setDepth(4).setTint(this.classColor).setScale(1.3);
-    this.playerLabel = this.add.text(512, 360, opName, {
-      fontFamily: 'VT323, monospace', fontSize: '14px', color: '#ffffff',
-      shadow: { color: '#00e8ff', blur: 6, fill: true }
-    }).setOrigin(0.5).setDepth(5);
+    const s = SECTORS[this.sector];
+    const shadow = this.add.ellipse(0, 18, 28, 9, 0x000000, 0.2);
+    const legs = this.add.rectangle(0, 13, 13, 16, 0x223044).setStrokeStyle(1, 0x0f172a);
+    const body = this.add.rectangle(0, -2, 22, 28, 0x26435c).setStrokeStyle(2, s.gridColor);
+    const head = this.add.circle(0, -22, 10, 0xf0c7a8).setStrokeStyle(2, 0x111827);
+    const visor = this.add.rectangle(1, -23, 16, 5, 0x06101a, 0.95).setStrokeStyle(1, s.gridColor);
+    this.playerGroup = this.add.container(200, 300, [shadow, legs, body, head, visor]).setDepth(4);
+    this.nameTag = this.add.text(200, 270, 'Operative', { fontFamily: 'Courier New', fontSize: '11px', color: '#ffffff', padding: { x: 4, y: 2 }, backgroundColor: 'rgba(0,0,0,0.5)' }).setOrigin(0.5).setDepth(5);
   }
-
-  // ── Adversaries ─────────────────────────────────────────────
-  _buildAdversaries() {
-    const advData = [
-      { name: 'FANCY_BEAR',      faction: 'APT28',    x: 250,  y: 300,  color: 0xff003c, hp: 80  },
-      { name: 'LAZARUS_GROUP',   faction: 'Chollima', x: 900,  y: 280,  color: 0xff00ea, hp: 100 },
-      { name: 'BITWISE_SPIDER',  faction: 'RaaS',     x: 400,  y: 700,  color: 0xff8800, hp: 70  },
-      { name: 'COZY_BEAR',       faction: 'APT29',    x: 1300, y: 350,  color: 0xcc2222, hp: 90  },
-      { name: 'MUSTANG_PANDA',   faction: 'TEMP.Hex', x: 200,  y: 900,  color: 0xffaa00, hp: 75  },
-      { name: 'CHARMING_KITTEN', faction: 'APT35',    x: 1500, y: 600,  color: 0x44ff44, hp: 85  },
-    ];
-    this.adversaries = [];
-
-    this.tooltip = this.add.text(0, 0, '', {
-      fontFamily: 'VT323, monospace', fontSize: '16px', color: '#ffffff',
-      backgroundColor: '#000a1a', padding: { x: 6, y: 4 },
-      shadow: { color: '#00e8ff', blur: 6, fill: true }
-    }).setDepth(10).setVisible(false);
-
-    advData.forEach(data => {
-      const sprite = this.add.image(data.x, data.y, 'tx_adversary')
-        .setDepth(3).setTint(data.color).setScale(1.6)
-        .setInteractive({ useHandCursor: true });
-      const label = this.add.text(data.x, data.y - 28, data.name, {
-        fontFamily: 'VT323, monospace', fontSize: '14px',
-        color: hexStr(data.color), shadow: { color: hexStr(data.color), blur: 4, fill: true }
-      }).setOrigin(0.5).setDepth(5);
-
-      this.tweens.add({
-        targets: [sprite, label], y: '-=10',
-        duration: 1100 + Math.random() * 500,
-        yoyo: true, repeat: -1, ease: 'Sine.easeInOut'
-      });
-
-      const adv = { ...data, sprite, label, currentHP: data.hp };
-      this.adversaries.push(adv);
-
-      sprite.on('pointerover', () =>
-        this.tooltip.setText(
-          data.name + '\n[' + data.faction + ']  HP: ' + adv.currentHP + '/' + data.hp
-        ).setVisible(true));
-      sprite.on('pointerout',  () => this.tooltip.setVisible(false));
-      sprite.on('pointerdown', (ptr, lx, ly, evt) => {
-        evt.stopPropagation();
-        this.tooltip.setVisible(false);
-        const dist = Phaser.Math.Distance.Between(this.player.x, this.player.y, adv.sprite.x, adv.sprite.y);
-        if (dist > 150) { this.addLog('Move closer to engage ' + data.name); return; }
-        this.cameras.main.flash(300, 255, 0, 0);
-        this.registry.set('currentAdversary', {
-          name: data.name, faction: data.faction,
-          hp: adv.currentHP, maxHP: data.hp, color: data.color
-        });
-        this.registry.set('playerHP', this.playerHP);
-        this.scene.launch('SceneBattle');
-        this.scene.pause('SceneHUD');
-        this.scene.pause('SceneWorld');
-      });
+  _buildEntities() {
+    const s = SECTORS[this.sector];
+    s.portals.forEach(portal => {
+      const pad = this.add.rectangle(0, 4, 72, 46, 0x0e1726, 0.93).setStrokeStyle(2, s.gridColor, 0.75);
+      const awning = this.add.rectangle(0, -22, 86, 16, s.accentColor, 0.65).setStrokeStyle(1, 0xffffff, 0.25);
+      const cat = this.add.text(0, 4, portal.category.substring(0,4), { fontFamily: 'Courier New', fontSize: '10px', fontStyle: 'bold', color: '#fff', align: 'center' }).setOrigin(0.5);
+      const lbl = this.add.text(0, 36, portal.title.toUpperCase(), { fontFamily: 'Courier New', fontSize: '8px', color: '#dffbff', align: 'center' }).setOrigin(0.5, 0);
+      const node = this.add.container(portal.x, portal.y, [pad, awning, cat, lbl]).setDepth(3);
+      node.setInteractive(new Phaser.Geom.Rectangle(-40,-30,80,80), Phaser.Geom.Rectangle.Contains);
+      node.on('pointerdown', () => openPortalModal(portal));
+      node.on('pointerover', () => { pad.setFillStyle(s.gridColor, 0.16); this.game.canvas.style.cursor = 'pointer'; });
+      node.on('pointerout',  () => { pad.setFillStyle(0x0e1726, 0.93); this.game.canvas.style.cursor = 'default'; });
+      this.portalSprites.set(portal.id, node);
     });
-  }
-
-  // ── Daemons ─────────────────────────────────────────────────
-  _buildDaemons() {
-    const daemonData = [
-      { name: 'ROOTKIT_v3',   type: 'MALWARE', x: 700,  y: 300,  color: 0x00e8ff, level: 5  },
-      { name: 'WORM_SLITHER', type: 'WORM',    x: 600,  y: 600,  color: 0x00ff41, level: 3  },
-      { name: 'TROJAN_GHOST', type: 'TROJAN',  x: 1100, y: 800,  color: 0xff88cc, level: 8  },
-      { name: 'BOTNET_SWARM', type: 'BOTNET',  x: 350,  y: 1100, color: 0xffff00, level: 12 },
-    ];
-    this.daemons = [];
-
-    daemonData.forEach(data => {
-      const sprite = this.add.image(data.x, data.y, 'tx_daemon')
-        .setDepth(2).setTint(data.color).setScale(1.7)
-        .setInteractive({ useHandCursor: true });
-      const label = this.add.text(data.x, data.y - 26, data.name, {
-        fontFamily: 'VT323, monospace', fontSize: '14px',
-        color: hexStr(data.color), shadow: { color: hexStr(data.color), blur: 6, fill: true }
-      }).setOrigin(0.5).setDepth(5);
-
-      this.tweens.add({
-        targets: sprite, alpha: 0.4, scale: 2.1,
-        duration: 900 + Math.random() * 300,
-        yoyo: true, repeat: -1, ease: 'Sine.easeInOut'
+    s.npcs.forEach(npc => {
+      const shadow = this.add.ellipse(0, 18, 28, 9, 0x000000, 0.25);
+      const legs = this.add.rectangle(0, 13, 13, 16, 0x263244).setStrokeStyle(1, 0x0f172a);
+      const body = this.add.rectangle(0, -2, 22, 28, 0x34506a).setStrokeStyle(2, 0x9be7ff);
+      const head = this.add.circle(0, -22, 10, 0xf0c7a8).setStrokeStyle(2, 0x111827);
+      const visor = this.add.rectangle(1, -23, 16, 5, 0x06101a).setStrokeStyle(1, 0x9be7ff);
+      const tag = this.add.text(0, -44, npc.name, { fontFamily: 'Courier New', fontSize: '10px', color: '#d7fff7', align: 'center', backgroundColor: 'rgba(0,0,0,0.55)', padding: { x: 4, y: 2 } }).setOrigin(0.5);
+      const c = this.add.container(npc.x, npc.y, [shadow, legs, body, head, visor, tag]).setDepth(3);
+      c.setInteractive(new Phaser.Geom.Circle(0, 0, 28), Phaser.Geom.Circle.Contains);
+      c.on('pointerdown', () => {
+        if (Phaser.Math.Distance.Between(this.playerGroup.x, this.playerGroup.y, npc.x, npc.y) > 160) { setHudLog('Move closer to talk.'); return; }
+        openDialogue(npc);
       });
-
-      const dm = { ...data, sprite, label };
-      this.daemons.push(dm);
-
-      sprite.on('pointerdown', (ptr, lx, ly, evt) => {
-        evt.stopPropagation();
-        const dist = Phaser.Math.Distance.Between(this.player.x, this.player.y, data.x, data.y);
-        if (dist > 150) { this.addLog('Move closer to attempt capture of ' + data.name); return; }
-        this.registry.set('currentDaemon', {
-          name: data.name, type: data.type, level: data.level, color: data.color
-        });
-        this.scene.launch('SceneCapture');
-        this.scene.pause('SceneHUD');
-        this.scene.pause('SceneWorld');
-      });
+      c.on('pointerover', () => { this.game.canvas.style.cursor = 'pointer'; });
+      c.on('pointerout',  () => { this.game.canvas.style.cursor = 'default'; });
+      this.tweens.add({ targets: c, y: npc.y - 6, duration: 1400 + Math.random() * 400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+      this.npcSprites.set(npc.id, c);
     });
+    s.enemies.forEach(enemy => {
+      if (defeatedEnemies[enemy.id]) return;
+      this._spawnEnemy(enemy);
+    });
+    s.daemons.forEach(daemon => this._spawnDaemon(daemon));
   }
-
-  // ── Input ────────────────────────────────────────────────────
+  _spawnEnemy(enemy) {
+    const g = this.add.graphics();
+    g.fillStyle(0xff0044, 1); g.fillTriangle(0, -14, 14, 10, -14, 10);
+    g.fillStyle(0x880022); g.fillRect(-5, -4, 10, 10);
+    g.fillStyle(0xff8888, 0.9); g.fillCircle(0, -5, 4);
+    g.generateTexture('tx_enemy_' + enemy.id, 30, 28); g.destroy();
+    const sprite = this.add.image(enemy.x, enemy.y, 'tx_enemy_' + enemy.id).setDepth(3).setScale(1.4);
+    const label = this.add.text(enemy.x, enemy.y - 28, enemy.name, { fontFamily: 'Courier New', fontSize: '11px', color: '#ff8888', backgroundColor: 'rgba(0,0,0,0.6)', padding: { x: 3, y: 2 } }).setOrigin(0.5).setDepth(4);
+    const lvl = this.add.text(enemy.x, enemy.y - 14, 'LV' + enemy.level, { fontFamily: 'Courier New', fontSize: '9px', color: '#ff4466' }).setOrigin(0.5).setDepth(4);
+    this.tweens.add({ targets: [sprite, label, lvl], y: '-=8', duration: 900 + Math.random() * 400, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    sprite.setInteractive({ useHandCursor: true });
+    sprite.on('pointerdown', () => {
+      if (Phaser.Math.Distance.Between(this.playerGroup.x, this.playerGroup.y, enemy.x, enemy.y) > 160) { setHudLog('Move closer to engage.'); return; }
+      this.cameras.main.flash(250, 255, 0, 0);
+      startBattle(enemy);
+    });
+    sprite.on('pointerover', () => setHudLog(enemy.name + ' · ' + enemy.type + ' · LV' + enemy.level));
+    this.enemies.set(enemy.id, { sprite, label, lvlBadge: lvl });
+  }
+  _spawnDaemon(daemon) {
+    const g = this.add.graphics();
+    g.fillStyle(0x002233); g.fillTriangle(12, 1, 23, 12, 12, 23); g.fillTriangle(12, 1, 1, 12, 12, 23);
+    g.fillStyle(0x00e8ff, 0.88); g.fillTriangle(12, 3, 21, 12, 12, 21); g.fillTriangle(12, 3, 3, 12, 12, 21);
+    g.fillStyle(0xffffff, 0.82); g.fillCircle(12, 12, 3);
+    g.generateTexture('tx_daemon_' + daemon.id, 24, 24); g.destroy();
+    const sx = daemon.x % 700 + 80, sy = daemon.y % 400 + 100;
+    const sprite = this.add.image(sx, sy, 'tx_daemon_' + daemon.id).setDepth(2).setScale(1.8);
+    const label = this.add.text(sx, sy - 24, daemon.name, { fontFamily: 'Courier New', fontSize: '10px', color: '#00e8ff', backgroundColor: 'rgba(0,0,0,0.55)', padding: { x: 3, y: 2 } }).setOrigin(0.5).setDepth(3);
+    this.tweens.add({ targets: sprite, alpha: 0.4, scale: 2.2, duration: 850 + Math.random() * 250, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
+    sprite.setInteractive({ useHandCursor: true });
+    sprite.on('pointerdown', () => {
+      if (Phaser.Math.Distance.Between(this.playerGroup.x, this.playerGroup.y, sx, sy) > 160) { setHudLog('Move closer to capture.'); return; }
+      startCapture(daemon);
+    });
+    sprite.on('pointerover', () => setHudLog(daemon.name + ' · ' + daemon.type));
+    this.daemons.set(daemon.id, { sprite, label });
+  }
   _setupInput() {
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.wasd = this.input.keyboard.addKeys({
-      up:    Phaser.Input.Keyboard.KeyCodes.W,
-      down:  Phaser.Input.Keyboard.KeyCodes.S,
-      left:  Phaser.Input.Keyboard.KeyCodes.A,
-      right: Phaser.Input.Keyboard.KeyCodes.D,
-    });
-
-    this.input.on('pointerdown', (ptr, currentlyOver) => {
-      if (currentlyOver && currentlyOver.length > 0) return;
-      const sx = Phaser.Math.Clamp(Math.floor(ptr.worldX / 64) * 64 + 32, 32, WW - 32);
-      const sy = Phaser.Math.Clamp(Math.floor(ptr.worldY / 64) * 64 + 32, 32, WH - 32);
-      this._movePlayerTo(sx, sy);
+    this.wasd = this.input.keyboard.addKeys({ up: 'W', down: 'S', left: 'A', right: 'D' });
+    this.input.on('pointerdown', (ptr, over) => {
+      if (over && over.length > 0) return;
+      if (document.getElementById('portal-modal').classList.contains('open')) return;
+      if (document.getElementById('dialogue-overlay').classList.contains('open')) return;
+      this._moveTo(Phaser.Math.Clamp(ptr.worldX, 32, 1168), Phaser.Math.Clamp(ptr.worldY, 60, 868));
     });
   }
-
-  _movePlayerTo(tx, ty) {
-    const dist = Phaser.Math.Distance.Between(this.player.x, this.player.y, tx, ty);
-    if (dist < 4) return;
-    const dur = Phaser.Math.Clamp(dist * 1.8, 120, 900);
-    this.moving = true;
-    this.tweens.killTweensOf(this.player);
-    this.tweens.add({
-      targets: this.player, x: tx, y: ty, duration: dur, ease: 'Linear',
-      onComplete: () => { this.moving = false; }
+  _moveTo(tx, ty) {
+    if (Phaser.Math.Distance.Between(this.playerGroup.x, this.playerGroup.y, tx, ty) < 6) return;
+    if (this.moveTween) this.moveTween.stop();
+    const dur = Phaser.Math.Clamp(Phaser.Math.Distance.Between(this.playerGroup.x, this.playerGroup.y, tx, ty) * 1.6, 80, 700);
+    this.moveTween = this.tweens.add({
+      targets: [this.playerGroup, this.nameTag], x: tx, y: ty, duration: dur, ease: 'Linear',
+      onUpdate: () => { if (this.nameTag) this.nameTag.setPosition(this.playerGroup.x, this.playerGroup.y - 30); }
     });
   }
-
-  // ── Resume handler (after battle / capture) ──────────────────
-  _onResume() {
-    this.moving   = false;
-    this.playerHP = this.registry.get('playerHP') || this.playerHP;
-    this.playerXP = this.registry.get('playerXP') || this.playerXP;
-
-    const defeated = this.registry.get('defeatedAdversary');
-    if (defeated) {
-      const adv = this.adversaries.find(a => a.name === defeated);
-      if (adv) { adv.sprite.destroy(); adv.label.destroy(); }
-      this.adversaries = this.adversaries.filter(a => a.name !== defeated);
-      this.defeatedAdversaries[defeated] = true;
-      this.registry.set('defeatedAdversary', null);
-    }
-
-    const captured = this.registry.get('capturedDaemon');
-    if (captured) {
-      const dm = this.daemons.find(d => d.name === captured);
-      if (dm) { dm.sprite.destroy(); dm.label.destroy(); }
-      this.daemons = this.daemons.filter(d => d.name !== captured);
-      this.capturedDaemonsList[captured] = true;
-      this.registry.set('capturedDaemon', null);
-    }
-
-    this.addLog('Systems online. Operative status: ACTIVE.');
-  }
-
-  // ── Tool handler called from HUD ─────────────────────────────
-  runTool(toolName) {
-    let nearest = null, nearDist = Infinity;
-    this.adversaries.forEach(a => {
-      const d = Phaser.Math.Distance.Between(this.player.x, this.player.y, a.sprite.x, a.sprite.y);
-      if (d < nearDist) { nearDist = d; nearest = a; }
-    });
-    const msgs = {
-      NMAP:       'Port scan initiated on target subnet',
-      METASPLOIT: 'Exploit framework scanning CVE database',
-      WIRESHARK:  'Packet capture live on LAN segment',
-      HYDRA:      'Brute-force auth attack launched',
-      FURY:       'OSINT sweep aggregating target profile',
-      CSET:       'Cyber assessment framework engaged',
-    };
-    if (nearDist <= 150 && nearest) {
-      this.addLog('[' + toolName + '] vs ' + nearest.name + ': ' + (msgs[toolName] || 'Scan running'));
-    } else {
-      this.addLog('[' + toolName + '] No target in range \u2014 move within 150px');
-    }
-  }
-
-  addLog(msg) {
-    const logs = this.registry.get('hudLog') || [];
-    logs.push(msg);
-    if (logs.length > 30) logs.splice(0, logs.length - 30);
-    this.registry.set('hudLog',    logs);
-    this.registry.set('hudLogVer', (this.registry.get('hudLogVer') || 0) + 1);
-  }
-
-  // ── Update ──────────────────────────────────────────────────
-  update(time) {
-    this.playerLabel.setPosition(this.player.x, this.player.y - 24);
-
-    if (this.tooltip.visible) {
-      const ptr = this.input.activePointer;
-      this.tooltip.setPosition(ptr.worldX + 14, ptr.worldY - 14);
-    }
-
-    if (time > this.lastMoveTime + 155) {
-      let dx = 0, dy = 0;
-      if      (this.cursors.up.isDown    || this.wasd.up.isDown)    dy = -64;
-      else if (this.cursors.down.isDown  || this.wasd.down.isDown)  dy =  64;
-      else if (this.cursors.left.isDown  || this.wasd.left.isDown)  dx = -64;
-      else if (this.cursors.right.isDown || this.wasd.right.isDown) dx =  64;
-      if (dx !== 0 || dy !== 0) {
-        const nx = Phaser.Math.Clamp(this.player.x + dx, 32, WW - 32);
-        const ny = Phaser.Math.Clamp(this.player.y + dy, 32, WH - 32);
-        this._movePlayerTo(nx, ny);
-        this.lastMoveTime = time;
-      }
-    }
-
-    this.registry.set('playerWorldX', this.player.x);
-    this.registry.set('playerWorldY', this.player.y);
-    this.registry.set('playerHP',     this.playerHP);
-    this.registry.set('playerXP',     this.playerXP);
-  }
-}
-
-// ============================================================
-//  SCENE HUD  — runs in parallel with SceneWorld
-// ============================================================
-class SceneHUD extends Phaser.Scene {
-  constructor() { super({ key: 'SceneHUD' }); }
-
-  create() {
-    // Bottom toolbar BG
-    this.add.rectangle(W / 2, H - 30, W, 60, 0x000a14, 0.93).setScrollFactor(0).setDepth(0);
-    this.add.rectangle(W / 2, H - 30, W, 60, 0x000000, 0)
-      .setStrokeStyle(1, 0x003366).setScrollFactor(0).setDepth(1);
-
-    // ── HP / XP bars (top-left) ───────────────────────────────
-    this.add.text(12, 10, 'HP', glow('18px', '#ff003c')).setScrollFactor(0);
-    this.add.rectangle(94, 18, 154, 14, 0x220011).setOrigin(0, 0.5).setScrollFactor(0);
-    this.hpBar = this.add.rectangle(94, 18, 150, 12, 0xff003c).setOrigin(0, 0.5).setScrollFactor(0);
-
-    this.add.text(12, 30, 'XP', glow('18px', '#00e8ff')).setScrollFactor(0);
-    this.add.rectangle(94, 40, 154, 14, 0x001122).setOrigin(0, 0.5).setScrollFactor(0);
-    this.xpBar = this.add.rectangle(94, 40, 2, 12, 0x00e8ff).setOrigin(0, 0.5).setScrollFactor(0);
-
-    this.classLabel = this.add.text(12, 56, 'CLASS: ---', glow('15px', '#ff00ea')).setScrollFactor(0);
-
-    // ── Daemons count (top-right) ─────────────────────────────
-    this.daemonsLabel = this.add.text(W - 14, 10, 'DAEMONS: 0/4',
-      glow('18px', '#00e8ff')).setOrigin(1, 0).setScrollFactor(0);
-
-    // ── Minimap ───────────────────────────────────────────────
-    this.mmX = W - 134; this.mmY = 34; this.mmW = 120; this.mmH = 90;
-    this.add.rectangle(
-      this.mmX + this.mmW / 2, this.mmY + this.mmH / 2,
-      this.mmW, this.mmH, 0x000a1a, 0.88
-    ).setScrollFactor(0);
-    this.add.rectangle(
-      this.mmX + this.mmW / 2, this.mmY + this.mmH / 2,
-      this.mmW, this.mmH
-    ).setScrollFactor(0).setStrokeStyle(1, 0x00e8ff);
-    this.add.text(this.mmX + this.mmW / 2, this.mmY - 10, 'MINIMAP',
-      glow('13px', '#003355')).setOrigin(0.5).setScrollFactor(0);
-
-    // Sector dots on minimap
-    [
-      { x: 512,  y: 200,  c: 0x00e8ff },
-      { x: 300,  y: 550,  c: 0x00ff41 },
-      { x: 1400, y: 400,  c: 0xff003c },
-      { x: 900,  y: 1100, c: 0xff00ea },
-    ].forEach(s => this.add.circle(
-      this.mmX + (s.x / WW) * this.mmW,
-      this.mmY + (s.y / WH) * this.mmH,
-      3, s.c
-    ).setScrollFactor(0));
-
-    this.minimapDot = this.add.circle(0, 0, 3, 0xffffff).setScrollFactor(0);
-
-    // ── SOC Console (right side) ──────────────────────────────
-    this.add.text(W - 14, H / 2 - 96, 'SOC_CONSOLE',
-      glow('15px', '#00ff41')).setOrigin(1, 0.5).setScrollFactor(0);
-    this.logLines = [];
-    for (let i = 0; i < 5; i++) {
-      this.logLines.push(this.add.text(W - 14, H / 2 - 74 + i * 22, '', {
-        fontFamily: 'VT323, monospace', fontSize: '13px', color: '#00ff41',
-        backgroundColor: '#000a00', padding: { x: 3, y: 2 },
-        shadow: { color: '#00ff41', blur: 3, fill: true }
-      }).setOrigin(1, 0).setScrollFactor(0));
-    }
-
-    // ── Tool buttons (bottom bar) ─────────────────────────────
-    const tools = ['NMAP', 'METASPLOIT', 'WIRESHARK', 'HYDRA', 'FURY', 'CSET'];
-    const bW = 136, bH = 42, bY = H - 30;
-    tools.forEach((tool, i) => {
-      const bx = 74 + i * (bW + 6);
-      const bg = this.add.rectangle(bx, bY, bW, bH, 0x001133)
-        .setStrokeStyle(1, 0x00e8ff).setInteractive({ useHandCursor: true }).setScrollFactor(0);
-      this.add.text(bx, bY, tool, glow('17px', '#00e8ff')).setOrigin(0.5).setScrollFactor(0);
-      bg.on('pointerover', () => bg.setFillStyle(0x003355));
-      bg.on('pointerout',  () => bg.setFillStyle(0x001133));
-      bg.on('pointerdown', () => {
-        const ws = this.scene.get('SceneWorld');
-        if (ws && !ws.scene.isPaused()) {
-          ws.runTool(tool);
-          bg.setFillStyle(0x005577);
-          this.time.delayedCall(220, () => bg.setFillStyle(0x001133));
-        }
-      });
-    });
-
-    // ── TRAINING / CHALLENGE TERMINAL button ─────────────────
-    const trainBx = W - 82, trainBy = H - 30;
-    const trainBg = this.add.rectangle(trainBx, trainBy, 120, 42, 0x001a00)
-      .setStrokeStyle(2, 0x00ff41, 0.9).setInteractive({ useHandCursor: true }).setScrollFactor(0).setDepth(5);
-    this.add.text(trainBx, trainBy - 7, '⚡ TRAIN', glow('17px', '#00ff41'))
-      .setOrigin(0.5).setScrollFactor(0).setDepth(6);
-    this.add.text(trainBx, trainBy + 10, '[T]', { fontFamily: 'VT323, monospace', fontSize: '12px', color: '#00aa00' })
-      .setOrigin(0.5).setScrollFactor(0).setDepth(6);
-    trainBg.on('pointerover', () => trainBg.setFillStyle(0x003300));
-    trainBg.on('pointerout',  () => trainBg.setFillStyle(0x001a00));
-    trainBg.on('pointerdown', () => {
-      if (typeof openChallengeTerminal === 'function') openChallengeTerminal();
-    });
-
-    // ── Mobile D-Pad ─────────────────────────────────────────
-    if (this.sys.game.device.os.android || this.sys.game.device.os.iOS) {
-      this._buildDpad();
-    }
-
-    this._lastLogVer = -1;
-  }
-
-  _buildDpad() {
-    const cx = 86, cy = H - 132;
-    [{ dx: 0, dy: -1, lbl: '\u25b2' }, { dx: 0, dy: 1, lbl: '\u25bc' },
-     { dx: -1, dy: 0, lbl: '\u25c4' }, { dx: 1, dy: 0, lbl: '\u25ba' }]
-    .forEach(d => {
-      const bx = cx + d.dx * 52, by = cy + d.dy * 52;
-      const btn = this.add.circle(bx, by, 26, 0x002244, 0.82)
-        .setScrollFactor(0).setInteractive({ useHandCursor: true });
-      this.add.text(bx, by, d.lbl, glow('20px', '#00e8ff')).setOrigin(0.5).setScrollFactor(0);
-      btn.on('pointerdown', () => {
-        const ws = this.scene.get('SceneWorld');
-        if (ws && !ws.scene.isPaused()) {
-          const p = ws.player;
-          ws._movePlayerTo(
-            Phaser.Math.Clamp(p.x + d.dx * 64, 32, WW - 32),
-            Phaser.Math.Clamp(p.y + d.dy * 64, 32, WH - 32)
-          );
-        }
-      });
-    });
-  }
-
-  update() {
-    const hp   = this.registry.get('playerHP')        || 100;
-    const mhp  = this.registry.get('playerMaxHP')     || 100;
-    const xp   = this.registry.get('playerXP')        || 0;
-    const cls  = this.registry.get('playerClass')     || 'UNKNOWN';
-    const cap  = this.registry.get('capturedDaemons') || 0;
-    const ver  = this.registry.get('hudLogVer')       || 0;
-    const logs = this.registry.get('hudLog')          || [];
-
-    const hpRatio = hp / mhp;
-    this.hpBar.setSize(Math.max(2, 150 * hpRatio), 12);
-    this.hpBar.setFillStyle(hpRatio > 0.5 ? 0x00ff41 : hpRatio > 0.25 ? 0xffaa00 : 0xff003c);
-    this.xpBar.setSize(Math.max(2, 150 * Math.min(xp / 1000, 1)), 12);
-    this.classLabel.setText('CLASS: ' + cls);
-    this.daemonsLabel.setText('DAEMONS: ' + cap + '/4');
-
-    if (ver !== this._lastLogVer) {
-      const recent = logs.slice(-5);
-      this.logLines.forEach((l, i) =>
-        l.setText(i < recent.length ? '> ' + recent[i].substring(0, 27) : ''));
-      this._lastLogVer = ver;
-    }
-
-    const px = this.registry.get('playerWorldX') || 512;
-    const py = this.registry.get('playerWorldY') || 384;
-    this.minimapDot.setPosition(
-      this.mmX + (px / WW) * this.mmW,
-      this.mmY + (py / WH) * this.mmH
-    );
-  }
-}
-
-// ============================================================
-//  SCENE BATTLE
-// ============================================================
-class SceneBattle extends Phaser.Scene {
-  constructor() { super({ key: 'SceneBattle' }); }
-
-  create() {
-    this.adversaryData = this.registry.get('currentAdversary') ||
-      { name: 'UNKNOWN_THREAT', faction: 'APT0', hp: 50, maxHP: 50, color: 0xff003c };
-    this.playerHP    = this.registry.get('playerHP')    || 100;
-    this.playerMaxHP = this.registry.get('playerMaxHP') || 100;
-    this.advHP       = this.adversaryData.hp;
-    this.advMaxHP    = this.adversaryData.maxHP || 80;
-    this.battleOver  = false;
-    this.playerTurn  = true;
-    this._btns       = [];
-
-    // Full-screen dark cover
-    this.add.rectangle(W / 2, H / 2, W, H, 0x000a14, 0.97);
-
-    // ── Header ───────────────────────────────────────────────
-    this.add.text(W / 2, 27, '\u2694  COMBAT  ENGAGED  \u2694', glow('32px', '#ff003c')).setOrigin(0.5);
-    this.add.text(W / 2, 60,
-      this.adversaryData.name + '  [' + (this.adversaryData.faction || 'THREAT') + ']',
-      glow('20px', '#ff8800')).setOrigin(0.5);
-    this.add.line(W / 2, 79, -W / 2 + 20, 0, W / 2 - 20, 0, 0x003366).setLineWidth(1);
-
-    // ── Player side ──────────────────────────────────────────
-    this.add.text(210, 100, 'OPERATIVE', glow('22px', '#00e8ff')).setOrigin(0.5);
-    this.add.text(210, 124, this.registry.get('agentId') || 'AGENT_0000',
-      glow('16px', '#00ff41')).setOrigin(0.5);
-    this.add.image(210, 215, 'tx_player').setScale(3.2)
-      .setTint(this.registry.get('classColor') || 0x00e8ff);
-    this.add.text(100, 282, 'HP', glow('18px', '#ff003c')).setOrigin(0, 0.5);
-    this.add.rectangle(195, 282, 156, 16, 0x220011).setOrigin(0.5);
-    this.playerHPBar = this.add.rectangle(122, 282, 150, 14, 0xff003c).setOrigin(0, 0.5);
-    this.playerHPTxt = this.add.text(280, 282, this.playerHP + '/' + this.playerMaxHP,
-      glow('15px', '#ff003c')).setOrigin(0, 0.5);
-
-    // ── Adversary side ───────────────────────────────────────
-    const advHex = hexStr(this.adversaryData.color || 0xff003c);
-    this.add.text(W - 210, 100, 'THREAT_ACTOR', glow('22px', advHex)).setOrigin(0.5);
-    this.add.text(W - 210, 124, this.adversaryData.name, glow('16px', advHex)).setOrigin(0.5);
-    this.advSprite = this.add.image(W - 210, 215, 'tx_adversary')
-      .setScale(3.2).setTint(this.adversaryData.color || 0xff003c);
-    this.tweens.add({ targets: this.advSprite, y: '+=10', duration: 800, yoyo: true, repeat: -1 });
-    this.add.text(W - 316, 282, 'HP', glow('18px', '#ff6600')).setOrigin(0, 0.5);
-    this.add.rectangle(W - 213, 282, 156, 16, 0x220011).setOrigin(0.5);
-    this.advHPBar = this.add.rectangle(W - 290, 282, 150, 14, 0xff6600).setOrigin(0, 0.5);
-    this.advHPTxt = this.add.text(W - 133, 282, this.advHP + '/' + this.advMaxHP,
-      glow('15px', '#ff6600')).setOrigin(0, 0.5);
-
-    this.add.line(W / 2, 294, 0, -214, 0, 214, 0x003366).setLineWidth(1);
-
-    // ── Attack buttons ────────────────────────────────────────
-    this.add.text(W / 2, 323, 'SELECT_ATTACK', glow('22px', '#00e8ff')).setOrigin(0.5);
-    const attacks = [
-      { name: 'NMAP_SCAN',     dmg: 15, hit: 1.00, desc: 'Network enumeration',           color: 0x00e8ff },
-      { name: 'EXPLOIT_CHAIN', dmg: 30, hit: 1.00, desc: 'Chained CVE attack',             color: 0xff8800 },
-      { name: 'SOCIAL_ENG',    dmg: 20, hit: 1.00, desc: 'Phishing payload delivery',      color: 0xff00ea },
-      { name: 'ZERO_DAY',      dmg: 50, hit: 0.20, desc: '0-day critical strike (20% hit)',color: 0xff003c },
-    ];
-    attacks.forEach((atk, i) => {
-      const bx = 148 + (i % 2) * 360, by = 380 + Math.floor(i / 2) * 70;
-      const hexC = hexStr(atk.color);
-      const bg = this.add.rectangle(bx, by, 300, 58, 0x001122)
-        .setStrokeStyle(1, atk.color).setInteractive({ useHandCursor: true });
-      this.add.text(bx, by - 12, atk.name, {
-        fontFamily: 'VT323, monospace', fontSize: '20px',
-        color: hexC, shadow: { color: hexC, blur: 6, fill: true }
-      }).setOrigin(0.5);
-      this.add.text(bx, by + 12, atk.desc, glow('14px', '#aabbcc')).setOrigin(0.5);
-      bg.on('pointerover', () => bg.setFillStyle(atk.color, 0.15));
-      bg.on('pointerout',  () => bg.setFillStyle(0x001122));
-      bg.on('pointerdown', () => { if (!this.battleOver && this.playerTurn) this._playerAttack(atk); });
-      this._btns.push(bg);
-    });
-
-    // ── Battle log ────────────────────────────────────────────
-    this.add.rectangle(W / 2, H - 91, W - 40, 106, 0x000a14, 0.9).setStrokeStyle(1, 0x003366);
-    this.add.text(22, H - 138, 'BATTLE_LOG:', glow('15px', '#00ff41'));
-    this._blog = [];
-    for (let i = 0; i < 3; i++)
-      this._blog.push(this.add.text(22, H - 124 + i * 26, '', glow('15px', '#aabbcc')));
-
-    this.statusTxt = this.add.text(W / 2, H / 2 + 12, '', glow('36px', '#00ff41'))
-      .setOrigin(0.5).setAlpha(0);
-
-    this._log('BATTLE STARTED \u2014 ' + this.adversaryData.name + '  HP: ' + this.advHP);
-    this._log('Your turn \u2014 select an attack');
-  }
-
-  _playerAttack(atk) {
-    this.playerTurn = false;
-    this._btns.forEach(b => b.disableInteractive());
-    const hit = Math.random() < atk.hit;
-    if (!hit) {
-      this._log('ZERO_DAY MISSED \u2014 target evaded the exploit!');
-    } else {
-      this.advHP = Math.max(0, this.advHP - atk.dmg);
-      this._updateAdvHP();
-      this._log('You used ' + atk.name + '  \u2192  -' + atk.dmg + '  to ' + this.adversaryData.name);
-      this.tweens.add({ targets: this.advSprite, alpha: 0.25, duration: 80, yoyo: true, repeat: 3 });
-    }
-    if (this.advHP <= 0) { this._win(); return; }
-    this.time.delayedCall(1100, () => this._enemyAttack());
-  }
-
-  _enemyAttack() {
-    const dmg = Phaser.Math.Between(10, 25);
-    this.playerHP = Math.max(0, this.playerHP - dmg);
-    this._updatePlayerHP();
-    this._log(this.adversaryData.name + '  counterattacks for  ' + dmg + '  damage!');
-    if (this.playerHP <= 0) { this._lose(); return; }
-    this._log('Your turn \u2014 select an attack');
-    this.playerTurn = true;
-    this._btns.forEach(b => b.setInteractive({ useHandCursor: true }));
-  }
-
-  _updateAdvHP() {
-    this.advHPBar.setSize(Math.max(2, 150 * (this.advHP / this.advMaxHP)), 14);
-    this.advHPTxt.setText(this.advHP + '/' + this.advMaxHP);
-  }
-
-  _updatePlayerHP() {
-    this.playerHPBar.setSize(Math.max(2, 150 * (this.playerHP / this.playerMaxHP)), 14);
-    this.playerHPTxt.setText(this.playerHP + '/' + this.playerMaxHP);
-  }
-
-  _win() {
-    this.battleOver = true;
-    const xpGain = Phaser.Math.Between(60, 160);
-    this.registry.set('playerXP', (this.registry.get('playerXP') || 0) + xpGain);
-    this.registry.set('playerHP', this.playerHP);
-    this.registry.set('defeatedAdversary', this.adversaryData.name);
-    this.statusTxt.setText('ADVERSARY NEUTRALIZED\n+' + xpGain + ' XP GAINED')
-      .setStyle({ fontFamily: 'VT323, monospace', fontSize: '36px', color: '#00ff41',
-        shadow: { color: '#00ff41', blur: 14, fill: true }, align: 'center' })
-      .setAlpha(1);
-    this._log('VICTORY! ' + this.adversaryData.name + '  neutralized.  +' + xpGain + ' XP');
-    const ws = this.scene.get('SceneWorld');
-    if (ws) ws.addLog('COMBAT WON vs ' + this.adversaryData.name + '  +' + xpGain + 'XP');
-    this.time.delayedCall(2500, () => {
-      this.scene.stop('SceneBattle');
-      this.scene.resume('SceneHUD');
-      this.scene.resume('SceneWorld');
-    });
-  }
-
-  _lose() {
-    this.battleOver = true;
-    this.registry.set('playerHP', this.registry.get('playerMaxHP') || 100);
-    this.statusTxt.setText('OPERATIVE_KIA\nRespawning with full HP...')
-      .setStyle({ fontFamily: 'VT323, monospace', fontSize: '34px', color: '#ff003c',
-        shadow: { color: '#ff003c', blur: 12, fill: true }, align: 'center' })
-      .setAlpha(1);
-    this._log('OPERATIVE KIA \u2014 respawning with full HP.');
-    const ws = this.scene.get('SceneWorld');
-    if (ws) ws.addLog('KIA vs ' + this.adversaryData.name + ' \u2014 respawned.');
-    this.time.delayedCall(2500, () => {
-      this.scene.stop('SceneBattle');
-      this.scene.resume('SceneHUD');
-      this.scene.resume('SceneWorld');
-    });
-  }
-
-  _log(msg) {
-    for (let i = 0; i < this._blog.length - 1; i++)
-      this._blog[i].setText(this._blog[i + 1].text);
-    this._blog[this._blog.length - 1].setText('> ' + msg);
-  }
-}
-
-// ============================================================
-//  SCENE CAPTURE
-// ============================================================
-class SceneCapture extends Phaser.Scene {
-  constructor() { super({ key: 'SceneCapture' }); }
-
-  create() {
-    this.daemonData      = this.registry.get('currentDaemon') ||
-      { name: 'UNKNOWN', type: 'MALWARE', level: 1, color: 0x00e8ff };
-    this.captureProgress = 0;
-    this.captureComplete = false;
-    this.timeLeft        = 5000;
-    const hexC = hexStr(this.daemonData.color || 0x00e8ff);
-
-    // Dark cover
-    this.add.rectangle(W / 2, H / 2, W, H, 0x000a14, 0.97);
-
-    // ── Header ───────────────────────────────────────────────
-    this.add.text(W / 2, 36, '\u2b21  DAEMON  DETECTED  \u2b21', glow('36px', '#ff00ea')).setOrigin(0.5);
-    this.add.text(W / 2, 78, this.daemonData.name, {
-      fontFamily: 'VT323, monospace', fontSize: '32px',
-      color: hexC, shadow: { color: hexC, blur: 16, fill: true }
-    }).setOrigin(0.5);
-    this.add.text(W / 2, 114,
-      'TYPE: ' + this.daemonData.type + '  //  THREAT LEVEL: ' + this.daemonData.level,
-      glow('20px', '#ff8800')).setOrigin(0.5);
-
-    // Bouncing daemon sprite
-    this.daemonSpr = this.add.image(W / 2, 226, 'tx_daemon')
-      .setScale(5.2).setTint(this.daemonData.color || 0x00e8ff);
-    this.tweens.add({
-      targets: this.daemonSpr, y: '+=20', scale: 5.7,
-      duration: 520, yoyo: true, repeat: -1, ease: 'Bounce.easeOut'
-    });
-
-    // ── Capture bar ───────────────────────────────────────────
-    this.add.text(W / 2, 328, 'CAPTURE_BAR', glow('24px', '#ff00ea')).setOrigin(0.5);
-    this.add.rectangle(W / 2, 364, 406, 32, 0x001122).setStrokeStyle(2, 0xff00ea);
-    this.capBarFg = this.add.rectangle(W / 2 - 201, 364, 2, 28, 0xff00ea).setOrigin(0, 0.5);
-    this.capPct   = this.add.text(W / 2, 364, '0%', glow('20px', '#ffffff')).setOrigin(0.5);
-
-    // ── Timer ─────────────────────────────────────────────────
-    this.add.text(W / 2, 408, 'TIME REMAINING', glow('18px', '#ffaa00')).setOrigin(0.5);
-    this.timerTxt = this.add.text(W / 2, 438, '5.0s', glow('32px', '#ffaa00')).setOrigin(0.5);
-
-    // ── SCAN_DEPLOY button ────────────────────────────────────
-    this.add.text(W / 2, 492, 'CLICK RAPIDLY TO FILL THE CAPTURE BAR!',
-      glow('18px', '#aabbcc')).setOrigin(0.5);
-    this.scanBtn = this.add.rectangle(W / 2, 542, 330, 66, 0x001133)
-      .setStrokeStyle(2, 0xff00ea).setInteractive({ useHandCursor: true });
-    this.add.text(W / 2, 542, 'SCAN_DEPLOY', glow('30px', '#ff00ea')).setOrigin(0.5);
-    this.scanBtn.on('pointerdown', () => {
-      if (this.captureComplete || this.timeLeft <= 0) return;
-      this.captureProgress = Math.min(100, this.captureProgress + 8);
-      this._updateBar();
-      this.scanBtn.setFillStyle(0x220033);
-      this.time.delayedCall(100, () => this.scanBtn.setFillStyle(0x001133));
-      if (this.captureProgress >= 100) this._success();
-    });
-
-    this.statusTxt = this.add.text(W / 2, H / 2 + 22, '', glow('36px', '#00ff41'))
-      .setOrigin(0.5).setAlpha(0);
-    this.add.text(W / 2, H - 36, '+8% per click  //  reach 100% in 5 seconds to capture',
-      glow('16px', '#334455')).setOrigin(0.5);
-  }
-
-  _updateBar() {
-    this.capBarFg.setSize(Math.max(2, (this.captureProgress / 100) * 402), 28);
-    this.capPct.setText(Math.floor(this.captureProgress) + '%');
-  }
-
-  _success() {
-    if (this.captureComplete) return;
-    this.captureComplete = true;
-    this.registry.set('capturedDaemons', (this.registry.get('capturedDaemons') || 0) + 1);
-    this.registry.set('capturedDaemon',  this.daemonData.name);
-    this.registry.set('playerXP', (this.registry.get('playerXP') || 0) + 80);
-    const logs = this.registry.get('hudLog') || [];
-    logs.push('DAEMON CAPTURED: ' + this.daemonData.name + '  [' + this.daemonData.type + ']');
-    this.registry.set('hudLog', logs);
-    this.registry.set('hudLogVer', (this.registry.get('hudLogVer') || 0) + 1);
-    this.statusTxt.setText('DAEMON  CAPTURED!\n' + this.daemonData.name + '  added to CODEX')
-      .setStyle({ fontFamily: 'VT323, monospace', fontSize: '34px', color: '#00ff41',
-        shadow: { color: '#00ff41', blur: 14, fill: true }, align: 'center' })
-      .setAlpha(1);
-    this.time.delayedCall(2200, () => this._returnToWorld());
-  }
-
-  _fail() {
-    if (this.captureComplete) return;
-    this.captureComplete = true;
-    const logs = this.registry.get('hudLog') || [];
-    logs.push('CAPTURE FAILED: ' + this.daemonData.name + '  escaped containment');
-    this.registry.set('hudLog', logs);
-    this.registry.set('hudLogVer', (this.registry.get('hudLogVer') || 0) + 1);
-    this.statusTxt.setText('CAPTURE  FAILED\nDaemon escaped containment')
-      .setStyle({ fontFamily: 'VT323, monospace', fontSize: '34px', color: '#ff003c',
-        shadow: { color: '#ff003c', blur: 12, fill: true }, align: 'center' })
-      .setAlpha(1);
-    this.time.delayedCall(2200, () => this._returnToWorld());
-  }
-
-  _returnToWorld() {
-    this.scene.stop('SceneCapture');
-    this.scene.resume('SceneHUD');
-    this.scene.resume('SceneWorld');
-  }
-
   update(time, delta) {
-    if (this.captureComplete) return;
-    this.timeLeft -= delta;
-    const t = Math.max(0, this.timeLeft / 1000);
-    this.timerTxt.setText(t.toFixed(1) + 's');
-    if      (this.timeLeft < 2000) this.timerTxt.setStyle(glow('32px', '#ff003c'));
-    else if (this.timeLeft < 3500) this.timerTxt.setStyle(glow('32px', '#ff8800'));
-    if (this.timeLeft <= 0 && this.captureProgress < 100) this._fail();
+    if (!this.playerGroup || time <= this.lastKeyTime + 50) return;
+    let dx = 0, dy = 0;
+    const spd = Math.floor((220 * delta) / 1000);
+    if (this.cursors.left.isDown  || this.wasd.left.isDown)  dx = -spd;
+    if (this.cursors.right.isDown || this.wasd.right.isDown) dx =  spd;
+    if (this.cursors.up.isDown    || this.wasd.up.isDown)    dy = -spd;
+    if (this.cursors.down.isDown  || this.wasd.down.isDown)  dy =  spd;
+    if (dx || dy) {
+      if (this.moveTween) { this.moveTween.stop(); this.moveTween = null; }
+      this.playerGroup.x = Phaser.Math.Clamp(this.playerGroup.x + dx, 32, W - 32);
+      this.playerGroup.y = Phaser.Math.Clamp(this.playerGroup.y + dy, 60, H - 32);
+      if (this.nameTag) this.nameTag.setPosition(this.playerGroup.x, this.playerGroup.y - 30);
+      this.lastKeyTime = time;
+    }
+  }
+  changeSector(sectorId) {
+    this.sector = sectorId; currentSector = sectorId;
+    this.enemies.clear(); this.daemons.clear(); this.npcSprites.clear(); this.portalSprites.clear();
+    this.children.removeAll(true);
+    const px = this.playerGroup ? this.playerGroup.x : 200;
+    const py = this.playerGroup ? this.playerGroup.y : 300;
+    this.playerGroup = null; this.nameTag = null;
+    this._buildWorld(); this._buildPlayer();
+    this.playerGroup.setPosition(px, py);
+    if (this.nameTag) this.nameTag.setPosition(px, py - 30);
+    this._buildEntities();
+    updateHud();
+    setHudLog('Sector: ' + SECTORS[sectorId].label);
+  }
+  removeEnemy(id) { const e = this.enemies.get(id); if (!e) return; e.sprite.destroy(); e.label.destroy(); e.lvlBadge.destroy(); this.enemies.delete(id); }
+  removeDaemon(id) { const d = this.daemons.get(id); if (!d) return; d.sprite.destroy(); d.label.destroy(); this.daemons.delete(id); }
+}
+class SceneBoot extends Phaser.Scene {
+  constructor() { super({ key: 'SceneBoot' }); }
+  preload() {
+    const bar = document.getElementById('loading-bar');
+    const sub = document.getElementById('loading-sub');
+    const steps = ['Compiling engine...', 'Loading sectors...', 'Ready.'];
+    let pct = 0;
+    const tick = setInterval(() => {
+      pct = Math.min(pct + 14, 90);
+      bar.style.width = pct + '%';
+      sub.textContent = steps[Math.min(2, Math.floor(pct / 33))];
+    }, 80);
+    this.load.on('complete', () => { clearInterval(tick); bar.style.width = '100%'; });
+  }
+  create() {
+    setTimeout(() => {
+      document.getElementById('loading').style.transition = 'opacity 0.4s';
+      document.getElementById('loading').style.opacity = '0';
+      setTimeout(() => { document.getElementById('loading').style.display = 'none'; }, 420);
+      this.scene.start('SceneLogin');
+    }, 300);
   }
 }
-
-// ============================================================
-//  GAME INIT
-// ============================================================
-new Phaser.Game({
-  type:            Phaser.AUTO,
-  width:           W,
-  height:          H,
-  parent:          'game-wrap',
-  backgroundColor: '#050a14',
-  render:          { antialias: false },
-  scene: [SceneBoot, SceneLogin, SceneCharacter, SceneWorld, SceneHUD, SceneBattle, SceneCapture],
+class SceneLogin extends Phaser.Scene {
+  constructor() { super({ key: 'SceneLogin' }); }
+  create() {
+    const s = SECTORS[currentSector];
+    this.cameras.main.setBackgroundColor(s.skyColor);
+    this.cameras.main.fadeIn(500, 3, 6, 11);
+    const g = this.add.graphics();
+    g.lineStyle(1, 0x1e3a5f, 0.4);
+    for (let x = 0; x <= W; x += 40) g.lineBetween(x, 0, x + 80, H);
+    for (let y = 0; y <= H; y += 40) g.lineBetween(0, y, W, y);
+    [[0,0,1,1],[W,0,-1,1],[0,H,1,-1],[W,H,-1,-1]].forEach(([cx,cy,sx,sy]) => {
+      const dg = this.add.graphics(); dg.lineStyle(2, 0x00b4d8, 0.5);
+      dg.lineBetween(cx,cy,cx+sx*36,cy); dg.lineBetween(cx,cy,cx,cy+sy*36);
+    });
+    this.add.text(W/2, 118, 'CYBERWORLD', { fontFamily: 'Exo 2', fontSize: '72px', fontStyle: 'bold', color: '#e0f0ff', shadow: { color: '#00b4d8', blur: 32, fill: true } }).setOrigin(0.5);
+    this.add.text(W/2, 192, 'CyberWorld  FLLC  MMO  Security Training', { fontFamily: 'Share Tech Mono', fontSize: '14px', color: '#4a7a9b' }).setOrigin(0.5);
+    const agentId = 'OPERATIVE_' + Math.floor(1000 + Math.random() * 9000);
+    this.add.text(W/2, 268, 'AGENT_ID', { fontFamily: 'Share Tech Mono', fontSize: '11px', color: '#4a7a9b', letterSpacing: 2 }).setOrigin(0.5);
+    this.add.rectangle(W/2, 302, 300, 42, 0x07111e).setStrokeStyle(1, 0x1e3a5f);
+    this.add.text(W/2, 302, agentId, { fontFamily: 'Share Tech Mono', fontSize: '22px', color: '#00b4d8' }).setOrigin(0.5);
+    const cur = this.add.text(W/2 + 84, 302, '#', { fontFamily: 'Share Tech Mono', fontSize: '20px', color: '#00b4d8' }).setOrigin(0, 0.5);
+    this.tweens.add({ targets: cur, alpha: 0, duration: 500, yoyo: true, repeat: -1 });
+    const scanline = this.add.rectangle(W/2, 0, W, 2, 0x00b4d8, 0.1);
+    this.tweens.add({ targets: scanline, y: H, duration: 3000, repeat: -1 });
+    this.add.text(W/2, 374, 'SELECT OPERATIVE CLASS', { fontFamily: 'Exo 2', fontSize: '14px', fontStyle: 'bold', color: '#8baec7', letterSpacing: 2 }).setOrigin(0.5);
+    const classes = [
+      { id: 'RED_TEAM',    color: '#ef4444', desc: 'Nmap / Metasploit / Hydra  Offensive Ops',     y: 420 },
+      { id: 'BLUE_TEAM',   color: '#3b82f6', desc: 'Wireshark / CSET / Starkiller  Defensive SOC', y: 470 },
+      { id: 'OSINT_AGENT', color: '#a855f7', desc: 'FURY0S1NT / RedEye / GovINT  Intelligence',    y: 520 },
+      { id: 'FULL_STACK',  color: '#22c55e', desc: 'All engines unlocked  Complete operative',      y: 570 },
+    ];
+    classes.forEach(cls => {
+      const row = this.add.rectangle(W/2, cls.y, 580, 40, 0x07111e).setStrokeStyle(1, 0x1e3a5f).setInteractive({ useHandCursor: true });
+      this.add.text(W/2 - 268, cls.y - 6, cls.id, { fontFamily: 'Exo 2', fontSize: '14px', fontStyle: 'bold', color: cls.color }).setOrigin(0, 0.5);
+      this.add.text(W/2 - 268, cls.y + 10, cls.desc, { fontFamily: 'Share Tech Mono', fontSize: '10px', color: '#4a7a9b' }).setOrigin(0, 0.5);
+      row.on('pointerover', () => row.setFillStyle(0x0d1f33));
+      row.on('pointerout',  () => row.setFillStyle(0x07111e));
+      row.on('pointerdown', () => { this.cameras.main.fadeOut(400, 3, 6, 11); this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('CyberWorld')); });
+    });
+  }
+}
+game = new Phaser.Game({
+  type: Phaser.AUTO, width: W, height: H, parent: 'game-wrap',
+  backgroundColor: '#03060b',
+  render: { antialias: true, pixelArt: false },
+  scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
+  scene: [SceneBoot, SceneLogin, CyberWorldScene],
 });
 </script>
 </body>
