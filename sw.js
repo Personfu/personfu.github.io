@@ -4,7 +4,7 @@
  * Strategy: Cache-First for assets, Network-First for HTML pages.
  */
 
-const CACHE_VERSION = 'fllc-v10-single-entry-cyberworld-20260510';
+const CACHE_VERSION = 'fllc-v11-cyberworld-runtime-stability-20260510';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 
@@ -77,8 +77,14 @@ self.addEventListener('fetch', event => {
   const isGoogleFonts = url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com';
   if (!isGoogleFonts && url.origin !== self.location.origin) return;
 
-  const isHangarAsset = url.pathname === '/hangar.html' || url.pathname === '/js/hangar-static.js' || url.pathname === '/dogfight.html' || url.pathname === '/js/cyber-dogfight.js';
-  if (isHangarAsset) {
+  const isHotAsset =
+    url.pathname === '/hangar.html' ||
+    url.pathname === '/js/hangar-static.js' ||
+    url.pathname === '/dogfight.html' ||
+    url.pathname === '/js/cyber-dogfight.js' ||
+    url.pathname === '/CyberWorld/' ||
+    url.pathname.startsWith('/CyberWorld/_next/static/chunks/');
+  if (isHotAsset) {
     event.respondWith(
       fetch(request, { cache: 'no-store' })
         .then(response => {
