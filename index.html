@@ -66,6 +66,13 @@ body{background:var(--w98-desktop);position:relative}
 .win-menu-item:hover{background:var(--w98-title);color:#fff}
 .win-body{flex:1;overflow:hidden;background:#fff;border:2px inset var(--w98-darkgray)}
 .win-body iframe{width:100%;height:100%;border:0;background:#000}
+.frame-wrap{position:relative;width:100%;height:100%;background:#000}
+.frame-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(0,0,0,.72);color:#d8f7ff;font:400 12px 'Share Tech Mono',monospace;text-align:center;padding:14px;z-index:2}
+.frame-overlay.hidden{display:none}
+.frame-status{max-width:520px;line-height:1.5}
+.frame-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.frame-actions button{height:22px;padding:0 10px;background:var(--w98-gray);border:2px solid;border-color:var(--w98-white) var(--w98-black) var(--w98-black) var(--w98-white);font:400 11px 'Share Tech Mono',monospace;cursor:pointer}
+.frame-actions button:active{border-color:var(--w98-black) var(--w98-white) var(--w98-white) var(--w98-black)}
 .win-statusbar{height:18px;border-top:1px solid var(--w98-darkgray);background:var(--w98-gray);display:flex;align-items:center;padding:0 6px;font-size:10px;color:var(--w98-black);flex-shrink:0}
 
 /* ── NEON OVERLAY ── */
@@ -192,9 +199,69 @@ function openApp(app){
     +'<button class="win-btn" type="button" aria-label="Close" onclick="closeWin(this.closest(\'.win98-window\').id.slice(4))">&#x2715;</button>'
     +'</div></div>'
     +'<div class="win-menubar"><span class="win-menu-item">File</span><span class="win-menu-item">View</span><span class="win-menu-item">Help</span></div>'
-    +'<div class="win-body"><iframe src="'+app.url+'" title="'+app.label+'" loading="lazy" allow="fullscreen" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe></div>'
+    +'<div class="win-body"><div class="frame-wrap">'
+    +'<div class="frame-overlay" data-role="overlay"><div class="frame-status" data-role="status">Loading module...</div><div class="frame-actions"><button type="button" data-role="retry" style="display:none">Retry</button><button type="button" data-role="open" style="display:none">Open In New Tab</button></div></div>'
+    +'<iframe title="'+app.label+'" loading="lazy" allow="fullscreen" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe></div></div>'
     +'<div class="win-statusbar">'+app.desc+'</div>';
   document.body.appendChild(w);
+  const iframe = w.querySelector('iframe');
+  const overlay = w.querySelector('[data-role="overlay"]');
+  const status = w.querySelector('[data-role="status"]');
+  const retryBtn = w.querySelector('[data-role="retry"]');
+  const openBtn = w.querySelector('[data-role="open"]');
+  const baseUrl = app.url;
+  const isLocal = /^([a-z]+:)?\/\//i.test(baseUrl) ? false : true;
+  let watchdog = null;
+
+  function moduleUrl(){
+    if(!isLocal) return baseUrl;
+    const sep = baseUrl.includes('?') ? '&' : '?';
+    return baseUrl + sep + 'cw_frame=' + Date.now();
+  }
+
+  function showLoading(msg){
+    status.textContent = msg || 'Loading module...';
+    overlay.classList.remove('hidden');
+    retryBtn.style.display = 'none';
+    openBtn.style.display = 'none';
+  }
+
+  function showIssue(msg){
+    status.textContent = msg;
+    overlay.classList.remove('hidden');
+    retryBtn.style.display = 'inline-flex';
+    openBtn.style.display = 'inline-flex';
+  }
+
+  function loadFrame(){
+    clearTimeout(watchdog);
+    showLoading('Loading module...');
+    iframe.src = moduleUrl();
+    watchdog = setTimeout(()=>{
+      showIssue('Module is taking too long or may be stuck. You can retry or open it in a new tab.');
+    },12000);
+  }
+
+  iframe.addEventListener('load',()=>{
+    clearTimeout(watchdog);
+    try{
+      const doc = iframe.contentDocument;
+      if(doc && doc.body && doc.body.childElementCount===0){
+        showIssue('Module loaded an empty page. Try retry, or open in a new tab.');
+        return;
+      }
+    }catch(_e){
+      // Cross-origin frame: load event is sufficient.
+    }
+    overlay.classList.add('hidden');
+  });
+  iframe.addEventListener('error',()=>{
+    clearTimeout(watchdog);
+    showIssue('Module failed to load. Try retry, or open in a new tab.');
+  });
+  retryBtn.addEventListener('click',loadFrame);
+  openBtn.addEventListener('click',()=>window.open(baseUrl,'_blank'));
+  loadFrame();
   openWins[app.id]=w;
   makeDraggable(w);
   focusWin(app.id);
