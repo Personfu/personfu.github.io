@@ -4,7 +4,7 @@
  * Strategy: Cache-First for assets, Network-First for HTML pages.
  */
 
-const CACHE_VERSION = 'fllc-v8-hangar-hotfix-20260510';
+const CACHE_VERSION = 'fllc-v9-launcher-routing-shell-size-20260510';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 

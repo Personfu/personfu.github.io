@@ -119,15 +119,23 @@ function drawWallpaper(){
   const H=wallpaperCanvas.height=window.innerHeight;
 
   const bg=wallpaperCtx.createLinearGradient(0,0,0,H);
-  bg.addColorStop(0,'#0b8c8d');
-  bg.addColorStop(1,'#066a6a');
+  bg.addColorStop(0,'#10989a');
+  bg.addColorStop(1,'#0a7476');
   wallpaperCtx.fillStyle=bg;
   wallpaperCtx.fillRect(0,0,W,H);
 
   const glow=wallpaperCtx.createRadialGradient(W*0.5,H*0.38,40,W*0.5,H*0.38,Math.max(W,H)*0.74);
-  glow.addColorStop(0,'rgba(0,255,218,0.16)');
+  glow.addColorStop(0,'rgba(0,255,218,0.24)');
   glow.addColorStop(1,'rgba(0,0,0,0)');
   wallpaperCtx.fillStyle=glow;
+  wallpaperCtx.fillRect(0,0,W,H);
+
+  // Add a faint diagonal wash so the desktop is visibly textured, not flat.
+  const wash=wallpaperCtx.createLinearGradient(0,0,W,H);
+  wash.addColorStop(0,'rgba(255,255,255,0.045)');
+  wash.addColorStop(0.5,'rgba(255,255,255,0)');
+  wash.addColorStop(1,'rgba(0,0,0,0.08)');
+  wallpaperCtx.fillStyle=wash;
   wallpaperCtx.fillRect(0,0,W,H);
 
   wallpaperCtx.strokeStyle='rgba(180,255,255,0.06)';
@@ -156,24 +164,24 @@ window.addEventListener('resize',drawWallpaper);
 
 /* ── APPS / ICONS ─────────────────────────────────────────────── */
 const APPS=[
-  {id:'cyberworld', icon:'🌐', label:'CyberWorld MMORPG',   url:'CyberWorld/',              desc:'Main MMORPG game hub'},
+  {id:'cyberworld', icon:'🌐', label:'CyberWorld MMORPG',   url:'CyberWorld/',              desc:'Main MMORPG game hub', openTab:true},
   {id:'hangar',     icon:'✈️', label:'Hangar 3D',           url:'hangar.html',              desc:'22 verified 3D models'},
-  {id:'mathviz',    icon:'∑',  label:'Math Visualization',  url:'simulator.html',           desc:'Interactive mathematical visualization lab'},
-  {id:'ctf',        icon:'🏴', label:'CTF Trail',           url:'ctf-trail.html',           desc:'Badge-gated quest'},
-  {id:'wargames',   icon:'⚔️', label:'WarGames Academy',    url:'wargames.html',            desc:'Mainframe classroom'},
-  {id:'signal',     icon:'📡', label:'Signal Lab',          url:'signal-lab.html',          desc:'Packet analysis'},
-  {id:'forensics',  icon:'🔬', label:'Forensics Lab',       url:'forensics.html',           desc:'Evidence room'},
-  {id:'redops',     icon:'🔴', label:'RedOps Arena',        url:'redops.html',              desc:'Sanctioned adversary'},
-  {id:'intel',      icon:'🧠', label:'Intel Desk',          url:'intel.html',               desc:'OSINT & analysis'},
-  {id:'adversaries',icon:'👾', label:'Adversaries',         url:'adversaries.html',         desc:'Threat actor profiles'},
-  {id:'research',   icon:'📖', label:'Research',            url:'research.html',            desc:'FLLC research hub'},
-  {id:'ai',         icon:'🤖', label:'AI Module',           url:'ai.html',                  desc:'AI/ML tools'},
-  {id:'nodes',      icon:'🕸️', label:'Nodes',               url:'nodes.html',               desc:'Network nodes'},
+  {id:'mathviz',    icon:'∑',  label:'Math Visualization',  url:'simulator.html',           desc:'Interactive mathematical visualization lab', openTab:true},
+  {id:'ctf',        icon:'🏴', label:'CTF Trail',           url:'ctf-trail.html',           desc:'Badge-gated quest', openTab:true},
+  {id:'wargames',   icon:'⚔️', label:'WarGames Academy',    url:'wargames.html',            desc:'Mainframe classroom', openTab:true},
+  {id:'signal',     icon:'📡', label:'Signal Lab',          url:'signal-lab.html',          desc:'Packet analysis', openTab:true},
+  {id:'forensics',  icon:'🔬', label:'Forensics Lab',       url:'forensics.html',           desc:'Evidence room', openTab:true},
+  {id:'redops',     icon:'🔴', label:'RedOps Arena',        url:'redops.html',              desc:'Sanctioned adversary', openTab:true},
+  {id:'intel',      icon:'🧠', label:'Intel Desk',          url:'intel.html',               desc:'OSINT & analysis', openTab:true},
+  {id:'adversaries',icon:'👾', label:'Adversaries',         url:'adversaries.html',         desc:'Threat actor profiles', openTab:true},
+  {id:'research',   icon:'📖', label:'Research',            url:'research.html',            desc:'FLLC research hub', openTab:true},
+  {id:'ai',         icon:'🤖', label:'AI Module',           url:'ai.html',                  desc:'AI/ML tools', openTab:true},
+  {id:'nodes',      icon:'🕸️', label:'Nodes',               url:'nodes.html',               desc:'Network nodes', openTab:true},
   {id:'dogfight',   icon:'🛩️', label:'Dogfight',            url:'dogfight.html',            desc:'Flight combat sim'},
-  {id:'discuss',    icon:'💬', label:'Discuss',             url:'discuss.html',             desc:'Community board'},
-  {id:'codex',      icon:'📚', label:'CyberWorld Codex',    url:'cyberworld-codex.html',    desc:'Lore & world guide'},
-  {id:'stars',      icon:'⭐', label:'Stars',               url:'stars.html',               desc:'Starfield explorer'},
-  {id:'profile',    icon:'🪪', label:'Profile',             url:'profile.html',             desc:'Operative profile'},
+  {id:'discuss',    icon:'💬', label:'Discuss',             url:'discuss.html',             desc:'Community board', openTab:true},
+  {id:'codex',      icon:'📚', label:'CyberWorld Codex',    url:'cyberworld-codex.html',    desc:'Lore & world guide', openTab:true},
+  {id:'stars',      icon:'⭐', label:'Stars',               url:'stars.html',               desc:'Starfield explorer', openTab:true},
+  {id:'profile',    icon:'🪪', label:'Profile',             url:'profile.html',             desc:'Operative profile', openTab:true},
   {id:'github',     icon:'🐙', label:'Source Code',         url:'https://github.com/Personfu/personfu.github.io', desc:'GitHub repo', ext:true},
 ];
 
@@ -183,6 +191,7 @@ let zTop=100, openWins={};
 function openApp(app){
   if(openWins[app.id]){focusWin(app.id);return;}
   if(app.ext){window.open(app.url,'_blank');return;}
+  if(app.openTab){window.open(app.url,'_blank');return;}
   const w=document.createElement('div');
   w.className='win98-window';
   w.id='win-'+app.id;
@@ -205,7 +214,7 @@ function openApp(app){
     +'<div class="win-menubar"><span class="win-menu-item">File</span><span class="win-menu-item">View</span><span class="win-menu-item">Help</span></div>'
     +'<div class="win-body"><div class="frame-wrap">'
     +'<div class="frame-overlay" data-role="overlay"><div class="frame-status" data-role="status">Loading module...</div><div class="frame-actions"><button type="button" data-role="retry" style="display:none">Retry</button><button type="button" data-role="open" style="display:none">Open In New Tab</button></div></div>'
-    +'<iframe title="'+app.label+'" loading="lazy" allow="fullscreen" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"></iframe></div></div>'
+    +'<iframe title="'+app.label+'" loading="lazy" allow="fullscreen"></iframe></div></div>'
     +'<div class="win-statusbar">'+app.desc+'</div>';
   document.body.appendChild(w);
   const iframe = w.querySelector('iframe');
