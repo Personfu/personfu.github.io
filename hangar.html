@@ -1,1 +1,66 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Hangar — CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/?launch=hangar"><link rel="canonical" href="https://personfu.github.io/CyberWorld/?launch=hangar"></head><body><script>window.location.replace("https://personfu.github.io/CyberWorld/?launch=hangar");</script><p>The Hangar is now an in-world bay inside <a href="https://personfu.github.io/CyberWorld/?launch=hangar">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hangar 3D Visualizer — CyberWorld Aerospace & Defense</title>
+<meta name="description" content="22 verified Sketchfab embeds — NGAD fighters, UAP models, Space vehicles, Drones, Munitions. Advanced cyberpunk 3D theater viewer.">
+<link rel="canonical" href="https://personfu.github.io/hangar.html">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Hangar app shell: all logic in js/hangar-static.js -->
+<style>
+  html,body{margin:0;padding:0;width:100%;height:100%;overflow:hidden;background:#02060a}
+  #hangar-root{width:100%;height:100%}
+  /* Scanline overlay */
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;
+    background:repeating-linear-gradient(0deg,rgba(0,0,0,.15) 0px,rgba(0,0,0,.15) 1px,transparent 1px,transparent 3px);
+    animation:scan 8s linear infinite}
+  @keyframes scan{0%{background-position:0 0}100%{background-position:0 120px}}
+  /* Boot flash */
+  #boot{position:fixed;inset:0;background:#000;z-index:9000;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:14px;transition:opacity .5s}
+  #boot.done{opacity:0;pointer-events:none}
+  #boot-title{font-family:'Share Tech Mono',monospace;font-size:28px;color:#00d8ff;letter-spacing:4px;text-shadow:0 0 24px #00d8ff}
+  #boot-sub{font-family:'Share Tech Mono',monospace;font-size:12px;color:#3a7a99;letter-spacing:2px}
+  #boot-bar-wrap{width:320px;height:3px;background:#0a1828;border:1px solid #1a3a52}
+  #boot-bar{height:100%;width:0%;background:#00d8ff;transition:width .05s linear;box-shadow:0 0 8px #00d8ff}
+</style>
+</head>
+<body>
+
+<div id="boot">
+  <div id="boot-title">▸ HANGAR_3D ◂</div>
+  <div id="boot-sub">LOADING VERIFIED ASSET REGISTRY...</div>
+  <div id="boot-bar-wrap"><div id="boot-bar"></div></div>
+</div>
+
+<div id="hangar-root"></div>
+
+<script>
+// Boot sequence
+(function(){
+  const bar = document.getElementById('boot-bar');
+  const sub = document.getElementById('boot-sub');
+  const msgs = [
+    'AUTHENTICATING SKETCHFAB REGISTRY...',
+    'LOADING 22 VERIFIED EMBEDS...',
+    'INITIALIZING CYBERPUNK THEATER...',
+    'ONLINE.',
+  ];
+  let pct = 0;
+  const tick = setInterval(function(){
+    pct = Math.min(pct + Math.random() * 18 + 6, 100);
+    bar.style.width = pct + '%';
+    sub.textContent = msgs[Math.min(3, Math.floor(pct / 26))];
+    if (pct >= 100) {
+      clearInterval(tick);
+      setTimeout(function(){
+        document.getElementById('boot').classList.add('done');
+      }, 300);
+    }
+  }, 80);
+})();
+</script>
+<script src="js/hangar-static.js"></script>
+</body>
+</html>

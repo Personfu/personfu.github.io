@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -98,7 +98,7 @@ canvas { display: block; }
 .attack-name { font-size: 13px; font-weight: 600; color: #e0f0ff; margin-bottom: 3px; }
 .attack-desc { font-size: 11px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; }
 .attack-dmg { font-size: 11px; color: #22c55e; margin-top: 4px; }
-.battle-log { margin: 0 20px 16px; background: #03060b; border: 1px solid #112030; padding: 10px 12px; min-height: 58px; }
+.battle-log { margin: 0 20px 16px; background: #03060b; border: 1px solid #112030; padding: 10px 12px; min-height: 68px; max-height: 110px; overflow-y: auto; }
 .battle-log p { font-size: 12px; color: #4a7a9b; font-family: 'Share Tech Mono', monospace; line-height: 1.6; }
 .battle-log p.important { color: #8baec7; }
 #battle-result { padding: 16px 20px; text-align: center; display: none; }
@@ -214,7 +214,7 @@ canvas { display: block; }
     <button id="embed-back" onclick="closeEmbed()">Back to CyberWorld</button>
     <span id="embed-label">Module Active</span>
   </div>
-  <iframe id="embed-frame" sandbox="allow-scripts allow-same-origin allow-forms" title="Module"></iframe>
+  <iframe id="embed-frame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" title="Module"></iframe>
 </div>
 <div id="dialogue-overlay">
   <div id="dialogue-box">
@@ -423,8 +423,8 @@ const SECTORS = {
       { id: 'cyberos_foundry', title: 'CyberOS Foundry', category: 'TOOLS', emoji: 'OS', href: '../cyberos-iso.html', x: 250, y: 470, mission: 'Build themed training environments from the operations bench.', briefing: 'CyberOS tooling as a workshop terminal for lab prep.', xp: 20, credits: 10 },
       { id: 'cyberworld_command_hub', title: 'CyberWorld Command Hub', category: 'MMORPG', emoji: 'CW', href: 'https://personfu.github.io/CyberWorld/', x: 335, y: 210, mission: 'Launch the unified module bus for CyberWorld, Hangar, Dogfight, challenge terminals, and source repositories.', briefing: 'A Windows 98-style command center keeps the website modules and source repos mapped inside the game shell.', xp: 35, credits: 18 },
       { id: 'math_simulator', title: 'Nexus Simulator', category: 'RESEARCH', emoji: 'Σ', href: '../simulator.html', x: 420, y: 290, mission: 'Interactive math engine — hypertorus, Lorenz attractor, SHA-256 avalanche, elliptic curves, and more.', briefing: 'Advanced visualization terminal for adversary pattern analysis and cryptographic primitive research.', xp: 40, credits: 20 },
-      { id: 'hangar_visualizer', title: 'Hangar Visualizer', category: 'EXHIBIT', emoji: 'HG', href: 'https://personfu.github.io/CyberWorld/?launch=hangar', x: 145, y: 215, mission: 'Inspect verified Sketchfab aircraft and UAP models through the CyberWorld hangar launch route.', briefing: 'Cyberpunk source-model theater for F-47/NGAD fighters, lesser-known advanced aircraft, orbital craft, and UAP/ARV studies.', xp: 35, credits: 18 },
-      { id: 'dogfight_deck', title: 'Dogfight Deck', category: 'MINIGAME', emoji: 'DF', href: 'https://personfu.github.io/CyberWorld/?launch=dogfight', x: 175, y: 340, mission: 'Launch CyberWorld sorties from the Stormcore flight-deck route.', briefing: 'Browser-playable flight combat module connected to the Harfang dogfight integration and verified source roster.', xp: 55, credits: 30 },
+      { id: 'hangar_visualizer', title: 'Hangar Visualizer', category: 'EXHIBIT', emoji: 'HG', href: '../hangar.html', x: 145, y: 215, mission: 'Inspect 22 verified Sketchfab models: NGAD fighters, Space vehicles, UAP/ARV studies, Drones, Munitions.', briefing: '22-model cyberpunk 3D theater. Filter by FIGHTER, SPACE, UAP, DRONE, MUNITION. Live Sketchfab embeds, dossiers, and source verification.', xp: 35, credits: 18 },
+      { id: 'dogfight_deck', title: 'Dogfight Deck', category: 'MINIGAME', emoji: 'DF', href: '../dogfight-legacy.html', x: 175, y: 340, mission: 'Launch CyberWorld sorties from the Stormcore flight-deck route.', briefing: 'Browser-playable flight combat module connected to the Harfang dogfight integration and verified source roster.', xp: 55, credits: 30 },
     ],
     enemies: [
       { id: 'ddos_leviathan', name: 'DDoS LEVIATHAN', type: 'Raid Boss', x: 695, y: 225, hp: 180, maxHp: 180, level: 12 },
@@ -511,7 +511,11 @@ function awardXP(xp, credits) {
   updateHud();
   setHudLog('+' + xp + ' XP, +' + credits + ' credits earned.');
 }
-function goHome() { window.location.href = '../index.html'; }
+function goHome() {
+  if (confirm('Return to the CyberWorld Operator Desktop?')) {
+    window.location.href = '../index.html';
+  }
+}
 function openPortalModal(portal) {
   currentPortal = portal;
   document.getElementById('portal-icon').textContent = portal.emoji || '?';
@@ -599,7 +603,13 @@ function updateBattleHP() {
 }
 function battleLog(msg, important) {
   var logEl = document.getElementById('battle-log');
-  logEl.innerHTML = '<p' + (important ? ' class="important"' : '') + '>' + msg + '</p>';
+  var p = document.createElement('p');
+  if (important) p.className = 'important';
+  p.textContent = msg;
+  logEl.appendChild(p);
+  // keep last 5 lines
+  while (logEl.children.length > 5) logEl.removeChild(logEl.firstChild);
+  logEl.scrollTop = logEl.scrollHeight;
 }
 function playerAttack(atk) {
   if (!battleState || battleState.over || battleState.turn !== 'player') return;
@@ -607,11 +617,13 @@ function playerAttack(atk) {
   document.querySelectorAll('.attack-btn').forEach(function(b) { b.disabled = true; });
   var dmg;
   if (atk.name === 'ZERO-DAY') {
-    if (Math.random() > 0.2) { battleLog('ZERO-DAY missed.'); setTimeout(enemyTurn, 1000); return; }
+    if (Math.random() < 0.8) { battleLog('ZERO-DAY fizzled — 20% hit rate.'); setTimeout(enemyTurn, 1000); return; }
     dmg = Math.floor(Math.random() * 56);
   } else {
     dmg = atk.dmg[0] + Math.floor(Math.random() * (atk.dmg[1] - atk.dmg[0] + 1));
   }
+  // ADVERSARIAL class: +30% damage bonus
+  if (window._cwRole === 'ADVERSARIAL') dmg = Math.floor(dmg * 1.3);
   battleState.enemy.hp = Math.max(0, battleState.enemy.hp - dmg);
   updateBattleHP();
   battleLog(atk.name + ' dealt ' + dmg + ' damage.', true);
@@ -621,9 +633,14 @@ function playerAttack(atk) {
 function enemyTurn() {
   if (!battleState) return;
   var dmg = 8 + Math.floor(Math.random() * (battleState.enemy.level * 4));
+  // SENTINEL class: 40% damage reduction
+  if (window._cwRole === 'SENTINEL') dmg = Math.max(1, Math.floor(dmg * 0.6));
   battleState.playerHP = Math.max(0, battleState.playerHP - dmg);
+  playerHP = battleState.playerHP; // keep global in sync
   updateBattleHP();
-  battleLog(battleState.enemy.name + ' attacks for ' + dmg + ' damage!');
+  updateHud(); // sync HUD HP bar colour
+  var note = window._cwRole === 'SENTINEL' ? ' [SENTINEL shield -40%]' : '';
+  battleLog(battleState.enemy.name + ' hits for ' + dmg + ' damage!' + note);
   if (battleState.playerHP <= 0) { setTimeout(battleLose, 800); return; }
   battleState.turn = 'player';
   document.querySelectorAll('.attack-btn').forEach(function(b) { b.disabled = false; });
@@ -666,7 +683,14 @@ function startCapture(daemon) {
     var timerEl = document.getElementById('cap-timer');
     timerEl.textContent = t.toFixed(1) + 's';
     timerEl.style.color = t < 2 ? '#ef4444' : t < 3.5 ? '#f59e0b' : '#8baec7';
-    if (capTimeLeft <= 0 && capProgress < 100) { clearInterval(capTimer); document.getElementById('capture-overlay').classList.remove('open'); setHudLog('Daemon escaped.'); }
+    if (capTimeLeft <= 0) {
+      clearInterval(capTimer);
+      if (capProgress < 100) {
+        document.getElementById('capture-overlay').classList.remove('open');
+        setHudLog('Daemon escaped — too slow!');
+        capDaemon = null; capProgress = 0;
+      }
+    }
   }, 100);
 }
 function captureTick() {
@@ -694,7 +718,12 @@ document.addEventListener('keydown', function(e) {
     document.getElementById('sector-overlay').classList.remove('open');
     document.getElementById('capture-overlay').classList.remove('open');
   }
-  if ((e.key === 't' || e.key === 'T') && !e.ctrlKey && !e.metaKey) openSectorSelect();
+  if ((e.key === 't' || e.key === 'T') && !e.ctrlKey && !e.metaKey) {
+    const anyOpen = ['portal-modal','dialogue-overlay','battle-overlay','capture-overlay',
+      'academy-overlay','cases-overlay','activities-overlay','codex-overlay']
+      .some(id => document.getElementById(id).classList.contains('open'));
+    if (!anyOpen) openSectorSelect();
+  }
 });
 function openAcademy() {
   const box = document.getElementById('academy-list');
@@ -713,8 +742,18 @@ function startTrial(id) {
   const t = HACKER_TRIALS.find(x => x.id === id);
   if (!t) return;
   awardXP(t.reward.xp, t.reward.credits);
-  setHudLog('[TRIAL] ' + t.title + ' started. Mentor: ' + t.mentor);
-  closeAcademy();
+  setHudLog('[TRIAL] ' + t.title + ' — completed. +' + t.reward.xp + ' XP +' + t.reward.credits + ' credits.');
+  // Mark card complete
+  const cards = document.querySelectorAll('#academy-list .trial-card');
+  cards.forEach(c => {
+    if (c.textContent.includes(t.title)) {
+      c.style.borderColor = '#22c55e';
+      c.style.opacity = '0.6';
+      c.style.pointerEvents = 'none';
+      c.querySelector('.trial-reward').textContent = '✓ COMPLETED';
+    }
+  });
+  setTimeout(closeAcademy, 1200);
 }
 function openCases() {
   const list = document.getElementById('cases-list');
@@ -731,6 +770,7 @@ function openCases() {
 function openCaseDetail(id) {
   const c = OPERATION_CASES.find(x => x.id === id);
   if (!c) return;
+  document.getElementById('cases-list').style.display = 'none';
   document.getElementById('case-synopsis').innerHTML = '<p class="case-synopsis-text">' + c.synopsis + '</p>';
   const ch = document.getElementById('case-choices');
   ch.innerHTML = '<p style="margin:8px 0 6px;color:#4a7a9b;font-size:11px;font-family:\'Share Tech Mono\',monospace;letter-spacing:1px">RESPONSE OPTIONS:</p>';
@@ -738,12 +778,28 @@ function openCaseDetail(id) {
     const btn = document.createElement('button');
     btn.className = 'case-choice-btn';
     btn.textContent = opt.label;
-    btn.onclick = () => { awardXP(opt.xp, opt.credits); setHudLog('[OPS] ' + opt.outcome); closeCases(); };
+    btn.onclick = () => {
+      awardXP(opt.xp, opt.credits);
+      btn.disabled = true;
+      btn.style.borderColor = '#22c55e';
+      btn.textContent = '✓ ' + btn.textContent;
+      document.getElementById('case-choices').querySelectorAll('.case-choice-btn').forEach(b => b.disabled = true);
+      const out = document.createElement('p');
+      out.style.cssText = 'margin-top:10px;padding:10px;background:#031208;border:1px solid #22c55e;color:#22c55e;font-size:12px;line-height:1.5';
+      out.textContent = 'OUTCOME: ' + opt.outcome;
+      document.getElementById('case-choices').appendChild(out);
+      setHudLog('[OPS] ' + opt.outcome);
+      setTimeout(() => { closeCases(); document.getElementById('cases-list').style.display = ''; }, 2400);
+    };
     ch.appendChild(btn);
   });
   document.getElementById('case-detail').style.display = 'block';
 }
-function closeCases() { document.getElementById('cases-overlay').classList.remove('open'); }
+function closeCases() {
+  document.getElementById('cases-overlay').classList.remove('open');
+  document.getElementById('cases-list').style.display = '';
+  document.getElementById('case-detail').style.display = 'none';
+}
 function openActivities() {
   const box = document.getElementById('activities-list');
   const acts = DISTRICT_ACTIVITIES.filter(a => a.sector === currentSector);
@@ -761,8 +817,17 @@ function startActivity(id) {
   const a = DISTRICT_ACTIVITIES.find(x => x.id === id);
   if (!a) return;
   awardXP(a.reward.xp, a.reward.credits);
-  setHudLog('[DISTRICT] ' + a.title + ' completed.');
-  closeActivities();
+  setHudLog('[DISTRICT] ' + a.title + ' completed. +' + a.reward.xp + ' XP');
+  const cards = document.querySelectorAll('#activities-list .trial-card');
+  cards.forEach(c => {
+    if (c.textContent.includes(a.title)) {
+      c.style.borderColor = '#22c55e';
+      c.style.opacity = '0.6';
+      c.style.pointerEvents = 'none';
+      c.querySelector('.trial-reward').textContent = '✓ COMPLETE';
+    }
+  });
+  setTimeout(closeActivities, 1200);
 }
 function openCodex() {
   document.getElementById('codex-list').innerHTML = CODEX_ENTRIES.map(e =>
@@ -908,7 +973,7 @@ class CyberWorldScene extends Phaser.Scene {
     g.fillStyle(0x00e8ff, 0.88); g.fillTriangle(12, 3, 21, 12, 12, 21); g.fillTriangle(12, 3, 3, 12, 12, 21);
     g.fillStyle(0xffffff, 0.82); g.fillCircle(12, 12, 3);
     g.generateTexture('tx_daemon_' + daemon.id, 24, 24); g.destroy();
-    const sx = daemon.x % 700 + 80, sy = daemon.y % 400 + 100;
+    const sx = daemon.x, sy = daemon.y;
     const sprite = this.add.image(sx, sy, 'tx_daemon_' + daemon.id).setDepth(2).setScale(1.8);
     const label = this.add.text(sx, sy - 24, daemon.name, { fontFamily: 'Courier New', fontSize: '10px', color: '#00e8ff', backgroundColor: 'rgba(0,0,0,0.55)', padding: { x: 3, y: 2 } }).setOrigin(0.5).setDepth(3);
     this.tweens.add({ targets: sprite, alpha: 0.4, scale: 2.2, duration: 850 + Math.random() * 250, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
@@ -945,8 +1010,8 @@ class CyberWorldScene extends Phaser.Scene {
     let near = null;
     this.portalSprites.forEach(n => { if (!near && Phaser.Math.Distance.Between(px, py, n.x, n.y) < 92) near = n; });
     if (!near) this.npcSprites.forEach(c => { if (!near && Phaser.Math.Distance.Between(px, py, c.x, c.y) < 78) near = c; });
-    if (near) { this.nearRing.setPosition(near.x, near.y).setAlpha(0.35 + 0.22 * Math.sin(time / 320)).setVisible(true); }
-    else { this.nearRing.setVisible(false); }
+    if (near && this.nearRing) { this.nearRing.setPosition(near.x, near.y).setAlpha(0.35 + 0.22 * Math.sin(time / 320)).setVisible(true); }
+    else if (this.nearRing) { this.nearRing.setVisible(false); }
     if (time <= this.lastKeyTime + 50) return;
     let dx = 0, dy = 0;
     const spd = Math.floor((220 * delta) / 1000);
@@ -965,14 +1030,19 @@ class CyberWorldScene extends Phaser.Scene {
   changeSector(sectorId) {
     this.sector = sectorId; currentSector = sectorId;
     this.enemies.clear(); this.daemons.clear(); this.npcSprites.clear(); this.portalSprites.clear();
-    this.children.removeAll(true);
     const px = this.playerGroup ? this.playerGroup.x : 200;
     const py = this.playerGroup ? this.playerGroup.y : 300;
-    this.playerGroup = null; this.nameTag = null;
+    this.children.removeAll(true); // destroys nearRing too
+    this.nearRing = null;
+    this.playerGroup = null; this.nameTag = null; this.moveTween = null;
     this._buildWorld(); this._buildPlayer();
-    this.playerGroup.setPosition(px, py);
+    if (this.playerGroup) this.playerGroup.setPosition(px, py);
     if (this.nameTag) this.nameTag.setPosition(px, py - 30);
     this._buildEntities();
+    // Rebuild nearRing
+    this.nearRing = this.add.circle(0, -9999, 44, 0, 0).setStrokeStyle(1.5, 0x00b4d8, 0.55).setDepth(3);
+    this.cameras.main.startFollow(this.playerGroup, true, 0.1, 0.1);
+    this.cameras.main.setBounds(0, 0, 1200, 900);
     updateHud();
     setHudLog('Sector: ' + SECTORS[sectorId].label);
   }
@@ -987,11 +1057,17 @@ class SceneBoot extends Phaser.Scene {
     const steps = ['Compiling engine...', 'Loading sectors...', 'Ready.'];
     let pct = 0;
     const tick = setInterval(() => {
-      pct = Math.min(pct + 14, 90);
+      pct = Math.min(pct + 14, 92);
       bar.style.width = pct + '%';
       sub.textContent = steps[Math.min(2, Math.floor(pct / 33))];
+      if (pct >= 92) clearInterval(tick);
     }, 80);
-    this.load.on('complete', () => { clearInterval(tick); bar.style.width = '100%'; });
+    // Phaser fires 'complete' even if no files are loaded — always fires
+    this.load.on('complete', () => {
+      clearInterval(tick);
+      bar.style.width = '100%';
+      sub.textContent = 'Ready.';
+    });
   }
   create() {
     setTimeout(() => {
@@ -1054,7 +1130,7 @@ class SceneLogin extends Phaser.Scene {
 game = new Phaser.Game({
   type: Phaser.AUTO, width: W, height: H, parent: 'game-wrap',
   backgroundColor: '#03060b',
-  render: { antialias: true, pixelArt: false },
+  render: { antialias: true, pixelArt: false, roundPixels: false },
   scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
   scene: [SceneBoot, SceneLogin, CyberWorldScene],
 });

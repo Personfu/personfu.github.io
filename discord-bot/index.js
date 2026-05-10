@@ -3,7 +3,7 @@
  *  FLLC CYBERWORLD DISCORD BOT — index.js
  *  Application ID : 1170817211837992981
  *  Guild (Server)  : 1159996494691188765
- *  Built by Preston Furulie — CyberOS v2026.3-FLLC
+ *  Built by Person Fu — CyberOS v2026.3-FLLC
  * ═══════════════════════════════════════════════════════════════════
  *
  *  Features:

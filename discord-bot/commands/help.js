@@ -94,7 +94,7 @@ module.exports = {
           inline: false,
         }
       )
-      .setFooter({ text: 'FURIOS-INT // FLLC CyberWorld Operations Center • Built by Preston Furulie' })
+      .setFooter({ text: 'FURIOS-INT // FLLC CyberWorld Operations Center • Built by Person Fu' })
       .setTimestamp();
 
     const row = new ActionRowBuilder().addComponents(

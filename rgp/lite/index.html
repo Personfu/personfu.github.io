@@ -85,5 +85,14 @@
     </div>
     <div id="dock">Move the operator to secure assets and simulate a compact FLLC mission loop.</div>
     <script src="src/game.js" type="module"></script>
+<div id="missing-notice" style="position:fixed;inset:0;background:#0a0a0a;display:flex;align-items:center;justify-content:center;color:#00e8ff;font-size:18px;font-family:monospace;flex-direction:column;gap:12px;z-index:9999">
+<div>⚠ rgp/src/game.js not found — this is a stub page</div>
+<a href="../../rpg/index.html" style="color:#00e8ff;font-size:14px">→ Launch CyberWorld RPG</a>
+</div>
+<script>if(!document.getElementById('missing-notice')){}
+// Check if game.js loaded
+window.addEventListener('error',function(e){if(e.filename&&e.filename.includes('game.js')){document.getElementById('missing-notice').style.display='flex';}},{once:true});
+setTimeout(()=>{const n=document.getElementById('missing-notice');if(n)n.style.display='flex';},1500);
+</script>
 </body>
 </html>
