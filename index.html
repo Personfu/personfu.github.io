@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Personfu CyberWorld — Operator Desktop</title>
-<meta name="description" content="CyberWorld FLLC operator desktop. Windows 98-style interface with periodic table wallpaper. Access all cybersecurity tools, games, and labs from one unified desktop.">
+<meta name="description" content="CyberWorld FLLC operator desktop. Windows 98-style interface with a clean operator background. Access all cybersecurity tools, games, and labs from one unified desktop.">
 <link rel="canonical" href="https://personfu.github.io/">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
 <style>
@@ -17,7 +17,7 @@
 html,body{width:100%;height:100%;overflow:hidden;font-family:'Share Tech Mono',monospace;font-size:11px;user-select:none}
 body{background:var(--w98-desktop);position:relative}
 
-/* ── PERIODIC TABLE WALLPAPER (canvas-generated) ── */
+/* ── OPERATOR WALLPAPER (canvas-generated) ── */
 #wallpaper{position:fixed;inset:0;z-index:0;pointer-events:none}
 
 /* ── DESKTOP ── */
@@ -76,7 +76,7 @@ body{background:var(--w98-desktop);position:relative}
 .win-statusbar{height:18px;border-top:1px solid var(--w98-darkgray);background:var(--w98-gray);display:flex;align-items:center;padding:0 6px;font-size:10px;color:var(--w98-black);flex-shrink:0}
 
 /* ── NEON OVERLAY ── */
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:linear-gradient(rgba(0,255,200,.018) 50%,rgba(0,0,0,.06) 50%);background-size:100% 3px;mix-blend-mode:overlay}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:linear-gradient(rgba(0,255,200,.008) 50%,rgba(0,0,0,.03) 50%);background-size:100% 4px;mix-blend-mode:overlay}
 
 /* ── GLITCH anim ── */
 @keyframes glitch{0%,100%{text-shadow:0 0 6px var(--neon)}50%{text-shadow:2px 0 0 var(--neon2),-2px 0 0 var(--neon)}}
@@ -110,42 +110,25 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 <script>
 'use strict';
 
-/* ── PERIODIC TABLE WALLPAPER ──────────────────────────────────── */
+/* ── OPERATOR WALLPAPER ─────────────────────────────────────────── */
 (function drawWallpaper(){
   const cv=document.getElementById('wallpaper');
   const W=cv.width=window.innerWidth, H=cv.height=window.innerHeight;
   const ctx=cv.getContext('2d');
-  ctx.fillStyle='#006868';ctx.fillRect(0,0,W,H);
-  const elements=[
-    'H','He','Li','Be','B','C','N','O','F','Ne',
-    'Na','Mg','Al','Si','P','S','Cl','Ar','K','Ca',
-    'Sc','Ti','V','Cr','Mn','Fe','Co','Ni','Cu','Zn',
-    'Ga','Ge','As','Se','Br','Kr','Rb','Sr','Y','Zr',
-    'Nb','Mo','Tc','Ru','Rh','Pd','Ag','Cd','In','Sn',
-    'Sb','Te','I','Xe','Cs','Ba','La','Ce','Pr','Nd',
-    'U','Pu','Am','Cm','Ra','Ac','Th','Pa','Np','Fm'
-  ];
-  const cols=['rgba(0,255,180,.05)','rgba(0,200,255,.045)','rgba(255,0,200,.03)','rgba(255,200,0,.028)'];
-  const cw=56,ch=44;
-  let col=0,row=0;
-  elements.forEach((sym,i)=>{
-    const x=col*cw, y=row*ch;
-    if(x+cw>W){col=0;row++;return;}
-    ctx.strokeStyle=cols[i%cols.length];
-    ctx.lineWidth=.6;
-    ctx.strokeRect(x+.5,row*ch+.5,cw-1,ch-1);
-    ctx.font='700 11px Share Tech Mono,monospace';
-    ctx.fillStyle='rgba(0,255,200,.11)';
-    ctx.fillText(sym,x+6,row*ch+22);
-    ctx.font='8px Share Tech Mono,monospace';
-    ctx.fillStyle='rgba(0,255,200,.08)';
-    ctx.fillText(String(i+1),x+6,row*ch+12);
-    col++;
-    if(col*cw>=W){col=0;row++;}
-  });
-  // scanline overlay
-  for(let y=0;y<H;y+=4){
-    ctx.fillStyle='rgba(0,0,0,.032)';
+  // Base flat desktop tone
+  ctx.fillStyle='#007a7a';
+  ctx.fillRect(0,0,W,H);
+
+  // Soft center glow for depth without pattern clutter
+  const glow=ctx.createRadialGradient(W*0.5,H*0.42,30,W*0.5,H*0.42,Math.max(W,H)*0.68);
+  glow.addColorStop(0,'rgba(0,255,220,0.06)');
+  glow.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=glow;
+  ctx.fillRect(0,0,W,H);
+
+  // Very subtle panel grain so it does not look flat
+  for(let y=0;y<H;y+=5){
+    ctx.fillStyle='rgba(255,255,255,0.012)';
     ctx.fillRect(0,y,W,1);
   }
 })();
