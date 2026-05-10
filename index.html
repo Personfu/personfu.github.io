@@ -125,7 +125,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
     'Sb','Te','I','Xe','Cs','Ba','La','Ce','Pr','Nd',
     'U','Pu','Am','Cm','Ra','Ac','Th','Pa','Np','Fm'
   ];
-  const cols=['rgba(0,255,180,.07)','rgba(0,200,255,.05)','rgba(255,0,200,.04)','rgba(255,200,0,.04)'];
+  const cols=['rgba(0,255,180,.13)','rgba(0,200,255,.10)','rgba(255,0,200,.08)','rgba(255,200,0,.08)'];
   const cw=56,ch=44;
   let col=0,row=0;
   elements.forEach((sym,i)=>{
@@ -135,10 +135,10 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
     ctx.lineWidth=.6;
     ctx.strokeRect(x+.5,row*ch+.5,cw-1,ch-1);
     ctx.font='700 11px Share Tech Mono,monospace';
-    ctx.fillStyle='rgba(0,255,200,.18)';
+    ctx.fillStyle='rgba(0,255,200,.32)';
     ctx.fillText(sym,x+6,row*ch+22);
     ctx.font='8px Share Tech Mono,monospace';
-    ctx.fillStyle='rgba(0,255,200,.1)';
+    ctx.fillStyle='rgba(0,255,200,.22)';
     ctx.fillText(String(i+1),x+6,row*ch+12);
     col++;
     if(col*cw>=W){col=0;row++;}
