@@ -125,7 +125,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
     'Sb','Te','I','Xe','Cs','Ba','La','Ce','Pr','Nd',
     'U','Pu','Am','Cm','Ra','Ac','Th','Pa','Np','Fm'
   ];
-  const cols=['rgba(0,255,180,.13)','rgba(0,200,255,.10)','rgba(255,0,200,.08)','rgba(255,200,0,.08)'];
+  const cols=['rgba(0,255,180,.05)','rgba(0,200,255,.045)','rgba(255,0,200,.03)','rgba(255,200,0,.028)'];
   const cw=56,ch=44;
   let col=0,row=0;
   elements.forEach((sym,i)=>{
@@ -135,17 +135,17 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
     ctx.lineWidth=.6;
     ctx.strokeRect(x+.5,row*ch+.5,cw-1,ch-1);
     ctx.font='700 11px Share Tech Mono,monospace';
-    ctx.fillStyle='rgba(0,255,200,.32)';
+    ctx.fillStyle='rgba(0,255,200,.11)';
     ctx.fillText(sym,x+6,row*ch+22);
     ctx.font='8px Share Tech Mono,monospace';
-    ctx.fillStyle='rgba(0,255,200,.22)';
+    ctx.fillStyle='rgba(0,255,200,.08)';
     ctx.fillText(String(i+1),x+6,row*ch+12);
     col++;
     if(col*cw>=W){col=0;row++;}
   });
   // scanline overlay
   for(let y=0;y<H;y+=4){
-    ctx.fillStyle='rgba(0,0,0,.06)';
+    ctx.fillStyle='rgba(0,0,0,.032)';
     ctx.fillRect(0,y,W,1);
   }
 })();
@@ -370,20 +370,7 @@ function tickClock(){
 }
 tickClock();setInterval(tickClock,1000);
 
-// Auto-open CyberWorld on load in a maximized window
-setTimeout(()=>{
-  openApp(APPS[0]);
-  // small delay to ensure window exists then maximize
-  setTimeout(()=>{
-    const w=openWins['cyberworld'];
-    if(w&&!w.dataset.maxed){
-      w.dataset.prev=w.style.cssText;
-      w.dataset.maxed='1';
-      const z=++zTop;
-      w.style.cssText='left:0;top:0;width:100vw;height:calc(100vh - 28px);z-index:'+z;
-    }
-  },100);
-},400);
+// Start on plain desktop. Modules launch only on explicit user action.
 </script>
 </body>
 </html>
