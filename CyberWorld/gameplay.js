@@ -446,6 +446,12 @@
 	window.addEventListener('load', boot, { once: true });
 	setTimeout(boot, 0);
 	setTimeout(boot, 1200);
+	var bootAttempts = 0;
+	var bootWatch = setInterval(function () {
+		boot();
+		bootAttempts++;
+		if (bootAttempts >= 10) clearInterval(bootWatch);
+	}, 1000);
 
 	// Public API
 	window.__cwGameplay = {
