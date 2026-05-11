@@ -437,15 +437,15 @@
 	}
 
 	function boot() {
+		if (!document.body) return;
 		mountFab();
 		wireRoutes();
 		try { console.log('%c[CyberWorld gameplay] ready — press M', 'color:#00ff9c;font-weight:bold'); } catch (e) {}
 	}
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', boot, { once: true });
-	} else {
-		boot();
-	}
+	document.addEventListener('DOMContentLoaded', boot, { once: true });
+	window.addEventListener('load', boot, { once: true });
+	setTimeout(boot, 0);
+	setTimeout(boot, 1200);
 
 	// Public API
 	window.__cwGameplay = {
