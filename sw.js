@@ -4,7 +4,7 @@
  * Strategy: Cache-First for assets, Network-First for HTML pages.
  */
 
-const CACHE_VERSION = 'fllc-v12-cyberworld-runtime-stability-20260510b';
+const CACHE_VERSION = 'fllc-v13-cyberworld-runtime-stability-20260510c';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 
@@ -83,6 +83,11 @@ self.addEventListener('fetch', event => {
     url.pathname === '/dogfight.html' ||
     url.pathname === '/js/cyber-dogfight.js' ||
     url.pathname === '/CyberWorld/' ||
+    url.pathname === '/CyberWorld/index.html' ||
+    url.pathname === '/CyberWorld/augment.css' ||
+    url.pathname === '/CyberWorld/augment.js' ||
+    url.pathname === '/CyberWorld/gameplay.css' ||
+    url.pathname === '/CyberWorld/gameplay.js' ||
     url.pathname.startsWith('/CyberWorld/_next/static/chunks/');
   if (isHotAsset) {
     event.respondWith(
