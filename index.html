@@ -6,13 +6,6 @@
 <title>Personfu CyberWorld — Operator Desktop</title>
 <meta name="description" content="CyberWorld FLLC operator desktop. Windows 98-style interface with a clean operator background. Access all cybersecurity tools, games, and labs from one unified desktop.">
 <link rel="canonical" href="https://personfu.github.io/">
-<meta http-equiv="refresh" content="0;url=/CyberWorld/">
-<script>
-if(location.pathname === '/' || location.pathname.endsWith('/index.html')){
-  const target = '/CyberWorld/';
-  location.replace(target);
-}
-</script>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -172,7 +165,7 @@ window.addEventListener('resize',drawWallpaper);
 /* ── APPS / ICONS ─────────────────────────────────────────────── */
 const APPS=[
   {id:'cyberworld', icon:'🌐', label:'CyberWorld MMORPG',   url:'CyberWorld/',              desc:'Main MMORPG game hub', openTab:true},
-  {id:'hangar',     icon:'✈️', label:'Hangar 3D',           url:'hangar.html',              desc:'22 verified 3D models'},
+  {id:'hangar',     icon:'✈️', label:'Hangar 3D',           url:'hangar.html',              desc:'22 verified 3D models', openTab:true},
   {id:'mathviz',    icon:'∑',  label:'Math Visualization',  url:'simulator.html',           desc:'Interactive mathematical visualization lab', openTab:true},
   {id:'ctf',        icon:'🏴', label:'CTF Trail',           url:'ctf-trail.html',           desc:'Badge-gated quest', openTab:true},
   {id:'wargames',   icon:'⚔️', label:'WarGames Academy',    url:'wargames.html',            desc:'Mainframe classroom', openTab:true},
@@ -184,7 +177,10 @@ const APPS=[
   {id:'research',   icon:'📖', label:'Research',            url:'research.html',            desc:'FLLC research hub', openTab:true},
   {id:'ai',         icon:'🤖', label:'AI Module',           url:'ai.html',                  desc:'AI/ML tools', openTab:true},
   {id:'nodes',      icon:'🕸️', label:'Nodes',               url:'nodes.html',               desc:'Network nodes', openTab:true},
-  {id:'dogfight',   icon:'🛩️', label:'Dogfight',            url:'dogfight.html',            desc:'Flight combat sim'},
+  {id:'arcade',    icon:'🕹️', label:'Arcade',              url:'arcade.html',              desc:'Cyber arcade cabinet floor', openTab:true},
+  {id:'games',     icon:'🎮', label:'Games Hub',           url:'games.html',               desc:'Browser game archive', openTab:true},
+  {id:'iso',       icon:'💿', label:'ISO Builder',         url:'cyberos-iso.html',         desc:'CyberOS foundry / lab ISO builder', openTab:true},
+  {id:'dogfight',   icon:'🛩️', label:'Dogfight',            url:'dogfight.html',            desc:'Flight combat sim', openTab:true},
   {id:'discuss',    icon:'💬', label:'Discuss',             url:'discuss.html',             desc:'Community board', openTab:true},
   {id:'codex',      icon:'📚', label:'CyberWorld Codex',    url:'cyberworld-codex.html',    desc:'Lore & world guide', openTab:true},
   {id:'stars',      icon:'⭐', label:'Stars',               url:'stars.html',               desc:'Starfield explorer', openTab:true},
@@ -354,8 +350,13 @@ const grid=document.getElementById('icon-grid');
 APPS.forEach(app=>{
   const div=document.createElement('div');
   div.className='icon';
+  div.tabIndex=0;
+  div.setAttribute('role','button');
+  div.setAttribute('aria-label',app.label+' — double-click to open');
+  div.title=app.label+' — double-click to open in new tab';
   div.innerHTML='<div class="icon-img">'+app.icon+'</div><div class="icon-label">'+app.label+'</div>';
   div.addEventListener('dblclick',()=>openApp(app));
+  div.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openApp(app);}});
   div.addEventListener('click',()=>{
     document.querySelectorAll('.icon').forEach(i=>i.classList.remove('selected'));
     div.classList.add('selected');
