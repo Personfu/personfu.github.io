@@ -4,7 +4,7 @@
  * Strategy: Cache-First for assets, Network-First for HTML pages.
  */
 
-const CACHE_VERSION = 'fllc-v14-cyberworld-runtime-stability-20260510d';
+const CACHE_VERSION = 'fllc-v15-cyberworld-overlay-repair-20260510e';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 

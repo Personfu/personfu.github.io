@@ -500,3 +500,272 @@
 /* Console FAB above taskbar */
 .cw-gp-fab { bottom: 56px !important; }
 .cw-augment-mp { top: 14px !important; right: 14px !important; }
+
+/* In-game overlay repair. The exported CSS accidentally scopes many modal
+   rules under action-button classes, leaving guide/portal panels as raw HTML. */
+html body [class*="guideOverlay"],
+html body [class*="portalOverlay"],
+html body [class*="embeddedPortalOverlay"],
+html body [class*="academyOverlay"],
+html body [class*="activitiesOverlay"],
+html body [class*="codexOverlay"],
+html body [class*="opsOverlay"],
+html body [class*="deckOverlay"],
+html body [class*="cityOverlay"],
+html body [class*="friendsOverlay"] {
+	position: absolute !important;
+	inset: 0 !important;
+	z-index: 40000 !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	padding: 16px !important;
+	box-sizing: border-box !important;
+	background: rgba(2, 7, 14, .76) !important;
+	-webkit-backdrop-filter: blur(6px) !important;
+	backdrop-filter: blur(6px) !important;
+	pointer-events: auto !important;
+	overflow: hidden !important;
+}
+
+html body [class*="guidePanel"],
+html body [class*="portalContainer"],
+html body [class*="academyContainer"],
+html body [class*="activitiesContainer"],
+html body [class*="codexContainer"],
+html body [class*="opsContainer"],
+html body [class*="cityPanel"],
+html body [class*="friendsPanel"],
+html body [class*="deckContainer"],
+html body [class*="embeddedPortalShell"],
+html body [class*="inventoryModal"] {
+	position: relative !important;
+	z-index: 40001 !important;
+	display: flex !important;
+	flex-direction: column !important;
+	width: min(1040px, 100%) !important;
+	max-width: 100% !important;
+	max-height: 100% !important;
+	overflow: hidden !important;
+	box-sizing: border-box !important;
+	color: #dffbff !important;
+	background: linear-gradient(180deg, rgba(12, 22, 36, .98), rgba(4, 10, 18, .98)) !important;
+	border: 1px solid rgba(111, 234, 255, .72) !important;
+	border-radius: 16px !important;
+	box-shadow: 0 24px 70px rgba(0, 0, 0, .72), inset 0 0 24px rgba(111, 234, 255, .10) !important;
+}
+
+html body [class*="modalHeader"],
+html body [class*="deckHeader"] {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	gap: 12px !important;
+	flex: 0 0 auto !important;
+	min-height: 48px !important;
+	padding: 12px 16px !important;
+	background: linear-gradient(90deg, rgba(111, 234, 255, .20), rgba(255, 125, 240, .10)) !important;
+	border-bottom: 1px solid rgba(111, 234, 255, .30) !important;
+}
+
+html body [class*="modalHeader"] h2,
+html body [class*="deckHeader"] h2 {
+	min-width: 0 !important;
+	margin: 0 !important;
+	color: #f1fdff !important;
+	font-size: 1rem !important;
+	line-height: 1.1 !important;
+	letter-spacing: 2px !important;
+	overflow-wrap: anywhere !important;
+}
+
+html body [class*="modalHeader"] button,
+html body [class*="deckHeader"] button {
+	flex: 0 0 auto !important;
+	cursor: pointer !important;
+	color: #ff7aa8 !important;
+	background: rgba(255, 0, 85, .14) !important;
+	border: 1px solid rgba(255, 0, 85, .72) !important;
+	border-radius: 8px !important;
+	padding: 7px 12px !important;
+	font: 700 12px/1 Inter, "Segoe UI", Arial, sans-serif !important;
+	letter-spacing: 1px !important;
+}
+
+html body [class*="guideHero"] {
+	flex: 0 0 auto !important;
+	padding: 14px 18px !important;
+	border-bottom: 1px solid rgba(111, 234, 255, .22) !important;
+}
+
+html body [class*="guideHero"] strong,
+html body [class*="guideHero"] span {
+	display: block !important;
+}
+
+html body [class*="guideHero"] strong {
+	margin-bottom: 6px !important;
+	color: #fff !important;
+	font-size: 1.1rem !important;
+}
+
+html body [class*="guideHero"] span {
+	color: #b8d2df !important;
+	font-size: .84rem !important;
+	line-height: 1.4 !important;
+}
+
+html body [class*="guideSteps"] {
+	display: grid !important;
+	gap: 10px !important;
+	min-height: 0 !important;
+	padding: 14px 18px !important;
+	overflow: auto !important;
+}
+
+html body [class*="guideSteps"] article {
+	display: grid !important;
+	grid-template-columns: 42px minmax(0, 1fr) !important;
+	gap: 12px !important;
+	padding: 12px !important;
+	background: rgba(7, 14, 24, .78) !important;
+	border: 1px solid rgba(111, 234, 255, .22) !important;
+	border-radius: 12px !important;
+}
+
+html body [class*="guideSteps"] b {
+	color: #fcee09 !important;
+}
+
+html body [class*="guideSteps"] h3 {
+	margin: 0 0 5px !important;
+	color: #dffbff !important;
+	font-size: .95rem !important;
+}
+
+html body [class*="guideSteps"] p {
+	margin: 0 !important;
+	color: #9fb8c9 !important;
+	font-size: .78rem !important;
+	line-height: 1.4 !important;
+}
+
+html body [class*="guideFooter"] {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	gap: 12px !important;
+	flex: 0 0 auto !important;
+	padding: 12px 18px !important;
+	border-top: 1px solid rgba(111, 234, 255, .22) !important;
+}
+
+html body [class*="portalBody"] {
+	display: grid !important;
+	grid-template-columns: minmax(220px, 300px) minmax(0, 1fr) !important;
+	gap: 16px !important;
+	min-height: 0 !important;
+	padding: 16px !important;
+	overflow: auto !important;
+}
+
+html body [class*="portalFocus"] {
+	min-height: 260px !important;
+	padding: 14px !important;
+	background: rgba(252, 238, 9, .06) !important;
+	border: 1px solid rgba(252, 238, 9, .35) !important;
+	border-radius: 14px !important;
+}
+
+html body [class*="portalFocus"] h3 {
+	margin: 8px 0 !important;
+	color: #fcee09 !important;
+	font-size: 1.15rem !important;
+}
+
+html body [class*="portalFocus"] strong,
+html body [class*="portalFocus"] p,
+html body [class*="portalFocus"] b,
+html body [class*="portalFocus"] span {
+	display: block !important;
+}
+
+html body [class*="portalFocus"] p,
+html body [class*="portalFocus"] span {
+	color: #9fb8c9 !important;
+	font-size: .78rem !important;
+	line-height: 1.4 !important;
+}
+
+html body [class*="portalGrid"] {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+	gap: 10px !important;
+	min-width: 0 !important;
+}
+
+html body [class*="portalCard"] {
+	display: block !important;
+	min-height: 90px !important;
+	padding: 12px !important;
+	cursor: pointer !important;
+	text-align: left !important;
+	color: #d7fff7 !important;
+	background: rgba(0, 255, 204, .08) !important;
+	border: 1px solid rgba(0, 255, 204, .30) !important;
+	border-radius: 12px !important;
+	font: inherit !important;
+}
+
+html body [class*="portalCard"]:hover,
+html body [class*="portalCardActive"] {
+	background: rgba(252, 238, 9, .12) !important;
+	border-color: #fcee09 !important;
+	box-shadow: 0 0 18px rgba(252, 238, 9, .18) !important;
+}
+
+html body [class*="portalCard"] span,
+html body [class*="portalCard"] strong,
+html body [class*="portalCard"] small {
+	display: block !important;
+}
+
+html body [class*="portalCard"] span {
+	color: #ff5580 !important;
+	font-size: .62rem !important;
+	letter-spacing: 1px !important;
+}
+
+html body [class*="portalCard"] strong {
+	margin: 7px 0 !important;
+	color: #00ffcc !important;
+	font-size: .88rem !important;
+}
+
+html body [class*="portalCard"] small {
+	color: #9fb8b2 !important;
+}
+
+@media (max-width: 760px) {
+	html body [class*="guideOverlay"],
+	html body [class*="portalOverlay"],
+	html body [class*="embeddedPortalOverlay"],
+	html body [class*="academyOverlay"],
+	html body [class*="activitiesOverlay"],
+	html body [class*="codexOverlay"],
+	html body [class*="opsOverlay"],
+	html body [class*="deckOverlay"],
+	html body [class*="cityOverlay"],
+	html body [class*="friendsOverlay"] {
+		padding: 8px !important;
+	}
+
+	html body [class*="portalBody"] {
+		grid-template-columns: 1fr !important;
+	}
+
+	html body [class*="modalHeader"] h2,
+	html body [class*="deckHeader"] h2 {
+		font-size: .9rem !important;
+	}
+}
