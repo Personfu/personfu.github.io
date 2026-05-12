@@ -1,31 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>PNG Payloads</title>
-  <style>
-    body { background: #181c24; color: #eee; font-family: 'Share Tech Mono', monospace; }
-    h1 { color: #00ffe7; text-shadow: 0 0 10px #00ffe7; }
-    ul { font-size: 1.1em; }
-    a { color: #ff0055; text-decoration: underline; }
-    a:hover { color: #00ffe7; }
-    .desc { color: #aaa; font-size: 0.95em; margin-bottom: 1.5em; }
-  </style>
-</head>
-<body>
-  <h1>PNG Payloads</h1>
-  <div class="desc">These are example payloads for steganography and security research. <br>For demonstration and educational use only.</div>
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>png_payloads</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  body{background:#0f1320;color:#dfe;font-family:'Share Tech Mono',monospace;margin:0;padding:24px;max-width:1100px;margin:0 auto}
+  h1{color:#00ffe7;text-shadow:0 0 10px #00ffe7;margin:0 0 4px}
+  .sub{color:#ff0055;text-shadow:0 0 6px #ff0055;margin-bottom:16px}
+  .nav a{color:#cfe;text-decoration:none;margin-right:12px;padding:4px 8px;border:1px solid rgba(0,255,231,.4);border-radius:4px;font-size:.85em}
+  .nav a:hover{color:#ff0055;border-color:#ff0055}
+  .card{background:rgba(20,28,52,.92);border:1px solid rgba(0,255,231,.4);border-radius:8px;padding:14px;margin:12px 0}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+  .grid figure{margin:0;background:#0a0d18;border:1px solid rgba(0,255,231,.3);border-radius:6px;padding:10px;text-align:center}
+  .grid img{width:100%;height:auto;image-rendering:pixelated;background:#0a0d18}
+  .grid figcaption{font-size:.8em;color:#cfe;margin-top:6px}
+  .grid a{color:#00ffe7;text-decoration:none}
+  .grid a:hover{color:#ff0055}
+  table{width:100%;border-collapse:collapse;font-size:.85em}
+  th,td{border-bottom:1px solid rgba(0,255,231,.2);padding:6px;text-align:left;vertical-align:top}
+  th{color:#00ffe7}
+  code{background:#0a0d18;padding:2px 4px;border-radius:3px;color:#ffd870}
+  footer{margin-top:24px;border-top:1px solid rgba(0,255,231,.2);padding-top:10px;font-size:.8em;color:#9ab}
+</style></head><body>
+<div class="nav">
+  <a href="../">..</a>
+  <a href="../CyberWorld_login/">CyberWorld_login</a>
+  <a href="../png_payloads/">png_payloads</a>
+  <a href="../qr_payloads/">qr_payloads</a>
+</div>
+<h1>png_payloads</h1>
+<div class="sub">steganography carriers — LSB · text chunks · EXIF · polyglot</div>
+
+<div class="card">
+  <h2 style="color:#00ffe7;margin-top:0">Stego carriers</h2>
+  <div class="grid"><figure><a href="stego/01_lsb_flag.png"><img src="stego/01_lsb_flag.png" alt="01_lsb_flag.png"></a><figcaption><a href="stego/01_lsb_flag.png">01_lsb_flag.png</a><br>LSB-encoded CTF flag in red channel (decoder: see scripts/lsb_decode.py)</figcaption></figure><figure><a href="stego/02_text_chunks_cves.png"><img src="stego/02_text_chunks_cves.png" alt="02_text_chunks_cves.png"></a><figcaption><a href="stego/02_text_chunks_cves.png">02_text_chunks_cves.png</a><br>tEXt + compressed zTXt chunks with CVE quick-reference; pngcheck -tv to dump</figcaption></figure><figure><a href="stego/03_exif_manifest.png"><img src="stego/03_exif_manifest.png" alt="03_exif_manifest.png"></a><figcaption><a href="stego/03_exif_manifest.png">03_exif_manifest.png</a><br>Embedded JSON SBOM-style manifest with public IOCs and CVE list</figcaption></figure><figure><a href="stego/04_png_zip_polyglot.png"><img src="stego/04_png_zip_polyglot.png" alt="04_png_zip_polyglot.png"></a><figcaption><a href="stego/04_png_zip_polyglot.png">04_png_zip_polyglot.png</a><br>Valid PNG + valid ZIP polyglot. `unzip 04_png_zip_polyglot.png` reveals CVE pack</figcaption></figure><figure><a href="stego/00_decoder_map.png"><img src="stego/00_decoder_map.png" alt="00_decoder_map.png"></a><figcaption><a href="stego/00_decoder_map.png">00_decoder_map.png</a><br>Index / decoder map for the other stego carriers</figcaption></figure><figure><a href="stego/05_alpha_lsb_payload.png"><img src="stego/05_alpha_lsb_payload.png" alt="05_alpha_lsb_payload.png"></a><figcaption><a href="stego/05_alpha_lsb_payload.png">05_alpha_lsb_payload.png</a><br>Alpha-channel LSB carrier plus detectable IEND trailer</figcaption></figure></div>
+</div>
+
+<div class="card">
+  <h2 style="color:#00ffe7;margin-top:0">Decoders</h2>
+  <table>
+    <tr><th>Carrier</th><th>How to read it</th></tr>
+    <tr><td>01_lsb_flag.png</td><td><code>python scripts/lsb_decode.py png_payloads/stego/01_lsb_flag.png</code></td></tr>
+    <tr><td>05_alpha_lsb_payload.png</td><td><code>python scripts/lsb_decode.py png_payloads/stego/05_alpha_lsb_payload.png a</code></td></tr>
+    <tr><td>02_text_chunks_cves.png</td><td><code>pngcheck -tv 02_text_chunks_cves.png</code> &nbsp; or &nbsp; <code>exiftool 02_text_chunks_cves.png</code></td></tr>
+    <tr><td>03_exif_manifest.png</td><td><code>exiftool -Manifest 03_exif_manifest.png</code></td></tr>
+    <tr><td>00/01/02/03 trailers</td><td><code>python scripts/png_trailer_scan.py png_payloads/stego</code></td></tr>
+    <tr><td>04_png_zip_polyglot.png</td><td><code>unzip 04_png_zip_polyglot.png -d out/</code></td></tr>
+  </table>
+</div>
+
+<div class="card">
+  <h2 style="color:#00ffe7;margin-top:0">Legacy payload references</h2>
+  <p>The text files in this directory (credential_stealer_*.txt, persistence_*.txt, rat_*.txt, downloader_*.txt) are the original training references. They are kept for the prior CTF track; new content lives in <code>stego/</code> and <code>../qr_payloads/</code>.</p>
   <ul>
-    <li><a href="credential_stealer_browser_passwords.txt">Credential Stealer: Browser Passwords</a></li>
-    <li><a href="credential_stealer_wifi_keys.txt">Credential Stealer: Wi-Fi Keys</a></li>
-    <li><a href="credential_stealer_tokens.txt">Credential Stealer: Tokens/Cookies</a></li>
-    <li><a href="persistence_scheduled_task.txt">Persistence: Scheduled Task</a></li>
-    <li><a href="persistence_registry_run.txt">Persistence: Registry Run Key</a></li>
-    <li><a href="downloader_powershell.txt">Downloader: PowerShell</a></li>
-    <li><a href="downloader_wget_curl.txt">Downloader: wget/curl</a></li>
-    <li><a href="rat_encrypted_dll_loader.txt">RAT: Encrypted DLL Loader</a></li>
-    <li><a href="rat_shellcode_loader.txt">RAT: Shellcode Loader</a></li>
-    <li><a href="phishing_hidden_url_qr.txt">Phishing: Hidden URL/QR</a></li>
+    <li><a href="README.md">README.md</a></li>
+    <li><a href="phishing_hidden_url_qr.txt">phishing_hidden_url_qr.txt</a> → moved to <a href="../qr_payloads/login_url.png">qr_payloads/login_url.png</a></li>
   </ul>
-</body>
-</html>
+</div>
+
+<footer>// CyberWorld training environment — all payloads are CVE references and CTF flags.<br>
+No working exploit code, no malware, no credential collection. Educational / red-team awareness use only.
+</footer></body></html>

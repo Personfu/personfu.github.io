@@ -284,6 +284,9 @@
         lockMs: 90000,
         minDelayMs: 420,
         maxDelayMs: 1250,
+        sessionKey: "cw.r",
+        sessionTtlMs: 20 * 60 * 1000,
+        nextUrl: "console.html",
         assetUrl: "assets/seal.png",
         maxAssetBytes: 1048576,
         maxTailBytes: 8192,
@@ -446,6 +449,19 @@
         throw new Error("busy");
       }
 
+      async function signSession(session, asset) {
+        const material = [
+          session.v,
+          session.u,
+          session.a,
+          session.n,
+          session.i,
+          session.e,
+          asset.tail.slice(0, 24)
+        ].join("|");
+        return (await hashHex("SHA-256", textEncoder.encode(material))).slice(0, 32);
+      }
+
       async function handleSubmit(event) {
         event.preventDefault();
         if (runtime.busy) return;
@@ -483,17 +499,24 @@
           if (!runtime.asset) await validateAsset();
           const userHash = await hashHex("SHA-256", textEncoder.encode(userValue));
           const nonce = await proofOfWork(userHash.slice(0, 24) + ":" + runtime.asset.file.slice(0, 24));
-
-          sessionStorage.setItem("cw.r", JSON.stringify({
+          const issued = Date.now();
+          const session = {
+            v: 1,
             u: userHash.slice(0, 24),
             a: runtime.asset.file.slice(0, 24),
             n: nonce,
-            t: Date.now()
-          }));
+            i: issued,
+            e: issued + settings.sessionTtlMs
+          };
+          session.s = await signSession(session, runtime.asset);
+          sessionStorage.setItem(settings.sessionKey, JSON.stringify(session));
 
           await wait(randomDelay());
-          setStatus("Request received.", "ok");
+          setStatus("Access granted.", "ok");
           form.reset();
+          window.setTimeout(() => {
+            window.location.assign(settings.nextUrl);
+          }, 350);
         } catch {
           await wait(randomDelay());
           setStatus("Unable to sign in.", "bad");

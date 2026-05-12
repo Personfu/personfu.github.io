@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests">
+  <meta name="robots" content="noindex,nofollow">
+  <title>CyberWorld</title>
+  <style>
+    :root {
+      --cyan: #00ffe7;
+      --pink: #ff0055;
+      --text: #edf8fb;
+      --muted: #8ba8b7;
+      --panel: rgba(9, 13, 25, 0.94);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% 28%, rgba(0, 255, 231, 0.16), rgba(0, 255, 231, 0.03) 30%, transparent 58%),
+        linear-gradient(135deg, #0a171d 0%, #101528 51%, #244f60 100%);
+      font-family: "Courier New", Consolas, ui-monospace, monospace;
+      overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(rgba(0, 255, 231, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 231, 0.055) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.2), transparent);
+      background-size: 100% 4px;
+      opacity: 0.32;
+      pointer-events: none;
+    }
+
+    main {
+      position: relative;
+      z-index: 1;
+      width: min(520px, calc(100vw - 32px));
+      padding: 34px 32px 30px;
+      border: 1px solid var(--cyan);
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(13, 18, 34, 0.98), rgba(8, 11, 22, 0.96)), var(--panel);
+      box-shadow: 0 0 34px rgba(0, 255, 231, 0.23), 0 0 90px rgba(0, 255, 231, 0.1), inset 0 0 24px rgba(0, 255, 231, 0.04);
+      text-align: center;
+    }
+
+    img {
+      width: 76px;
+      height: 76px;
+      filter: drop-shadow(0 0 10px rgba(255, 0, 85, 0.9));
+    }
+
+    h1 {
+      margin: 18px 0 8px;
+      color: var(--cyan);
+      font-size: clamp(2rem, 7vw, 2.45rem);
+      line-height: 1;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-shadow: 0 0 14px rgba(0, 255, 231, 0.78);
+    }
+
+    .line {
+      margin: 0 0 26px;
+      color: var(--pink);
+      font-size: 0.84rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-shadow: 0 0 9px rgba(255, 0, 85, 0.62);
+    }
+
+    .status {
+      min-height: 1.4em;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    a,
+    button {
+      display: inline-grid;
+      place-items: center;
+      min-height: 46px;
+      border: 1px solid rgba(0, 255, 231, 0.9);
+      border-radius: 5px;
+      color: var(--text);
+      background: #080d17;
+      font: inherit;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    a:hover,
+    button:hover {
+      border-color: var(--pink);
+      color: var(--cyan);
+    }
+
+    @media (max-width: 430px) {
+      main {
+        padding: 28px 22px 24px;
+      }
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <img src="assets/skull.png" width="76" height="76" alt="">
+    <h1>CyberWorld</h1>
+    <p id="stateLine" class="line">Stand by</p>
+    <div id="status" class="status" role="status" aria-live="polite">Verifying session...</div>
+    <div class="actions" hidden id="actions">
+      <a href="../">Enter</a>
+      <button id="exit" type="button">Exit</button>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const status = document.getElementById("status");
+      const stateLine = document.getElementById("stateLine");
+      const actions = document.getElementById("actions");
+      const exit = document.getElementById("exit");
+      const sessionKey = "cw.r";
+      const assetUrl = "assets/seal.png";
+      const maxAssetBytes = 1048576;
+      const maxTailBytes = 8192;
+      const pngSignature = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10]);
+      const pngIend = new Uint8Array([0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130]);
+      const encoder = new TextEncoder();
+
+      async function hashHex(algorithm, data) {
+        const digest = await crypto.subtle.digest(algorithm, data);
+        return Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, "0")).join("");
+      }
+
+      function hasPrefix(bytes, prefix) {
+        if (bytes.length < prefix.length) return false;
+        for (let index = 0; index < prefix.length; index += 1) {
+          if (bytes[index] !== prefix[index]) return false;
+        }
+        return true;
+      }
+
+      function findIendEnd(bytes) {
+        for (let offset = bytes.length - pngIend.length; offset >= 0; offset -= 1) {
+          let matched = true;
+          for (let index = 0; index < pngIend.length; index += 1) {
+            if (bytes[offset + index] !== pngIend[index]) {
+              matched = false;
+              break;
+            }
+          }
+          if (matched) return offset + pngIend.length;
+        }
+        return -1;
+      }
+
+      async function readAsset() {
+        const response = await fetch(assetUrl, { cache: "no-store", credentials: "same-origin" });
+        if (!response.ok) throw new Error("asset");
+        const bytes = new Uint8Array(await response.arrayBuffer());
+        if (bytes.length > maxAssetBytes || !hasPrefix(bytes, pngSignature)) throw new Error("asset");
+        const iendEnd = findIendEnd(bytes);
+        if (iendEnd < 0) throw new Error("asset");
+        const tail = bytes.slice(iendEnd);
+        if (tail.length === 0 || tail.length > maxTailBytes) throw new Error("asset");
+        return {
+          file: await hashHex("SHA-256", bytes),
+          tail: await hashHex("SHA-256", tail)
+        };
+      }
+
+      async function signature(session, asset) {
+        const material = [
+          session.v,
+          session.u,
+          session.a,
+          session.n,
+          session.i,
+          session.e,
+          asset.tail.slice(0, 24)
+        ].join("|");
+        return (await hashHex("SHA-256", encoder.encode(material))).slice(0, 32);
+      }
+
+      function redirectHome() {
+        window.location.replace("index.html");
+      }
+
+      async function boot() {
+        try {
+          const raw = sessionStorage.getItem(sessionKey);
+          if (!raw) throw new Error("session");
+          const session = JSON.parse(raw);
+          if (!session || session.v !== 1 || Date.now() > session.e) throw new Error("session");
+          const asset = await readAsset();
+          if (session.a !== asset.file.slice(0, 24)) throw new Error("session");
+          const expected = await signature(session, asset);
+          if (session.s !== expected) throw new Error("session");
+          stateLine.textContent = "Access granted";
+          status.textContent = "Session accepted.";
+          actions.hidden = false;
+        } catch {
+          stateLine.textContent = "Session expired";
+          status.textContent = "Session expired.";
+          window.setTimeout(redirectHome, 900);
+        }
+      }
+
+      exit.addEventListener("click", () => {
+        sessionStorage.removeItem(sessionKey);
+        redirectHome();
+      });
+
+      boot();
+    })();
+  </script>
+</body>
+</html>
