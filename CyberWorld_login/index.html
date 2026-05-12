@@ -482,12 +482,10 @@
         try {
           if (!runtime.asset) await validateAsset();
           const userHash = await hashHex("SHA-256", textEncoder.encode(userValue));
-          const passHash = await hashHex("SHA-256", textEncoder.encode(passValue));
           const nonce = await proofOfWork(userHash.slice(0, 24) + ":" + runtime.asset.file.slice(0, 24));
 
           sessionStorage.setItem("cw.r", JSON.stringify({
             u: userHash.slice(0, 24),
-            p: passHash.slice(0, 12),
             a: runtime.asset.file.slice(0, 24),
             n: nonce,
             t: Date.now()
