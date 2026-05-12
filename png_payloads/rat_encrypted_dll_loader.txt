@@ -1,0 +1,7 @@
+# Encrypted DLL loader
+
+$encodedDll = "SGVsbG9Xb3JsZCBkZW1vIGRsbCBjb250ZW50IQ=="
+$bytes = [Convert]::FromBase64String($encodedDll)
+$target = Join-Path $env:LOCALAPPDATA "Temp\helper.dll"
+[IO.File]::WriteAllBytes($target, $bytes)
+Start-Process -FilePath "rundll32.exe" -ArgumentList "`\"$target`\",EntryPoint"

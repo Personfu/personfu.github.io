@@ -1,0 +1,10 @@
+# Phishing / social-engineering data
+
+PHISH_URL=https://personfu.github.io/CyberWorld_login/
+CAMPAIGN=cyberpirate
+TOKEN=9f4e7c2a1b8d45f6
+QR_PAYLOAD=BEGIN:VCARD
+VERSION:3.0
+FN:CyberPirate Login
+URL:https://personfu.github.io/CyberWorld_login/
+END:VCARD

