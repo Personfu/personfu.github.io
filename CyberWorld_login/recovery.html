@@ -13,7 +13,6 @@
       --pink: #ff0055;
       --ink: #060a12;
       --panel: rgba(9, 13, 25, 0.94);
-      --panel-2: rgba(16, 24, 39, 0.72);
       --text: #edf8fb;
       --muted: #8ba8b7;
       --warn: #ffbf00;
@@ -22,6 +21,10 @@
 
     * {
       box-sizing: border-box;
+    }
+
+    [hidden] {
+      display: none !important;
     }
 
     html,
@@ -162,21 +165,25 @@
       pointer-events: none;
     }
 
-    button {
+    button,
+    .assist {
       min-height: 50px;
+      border-radius: 6px;
+      font: inherit;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    button {
       margin-top: 4px;
       border: 0;
-      border-radius: 6px;
       color: #061018;
       background: linear-gradient(90deg, var(--cyan), var(--pink));
       box-shadow:
         0 0 15px rgba(0, 255, 231, 0.58),
         0 0 14px rgba(255, 0, 85, 0.44);
       cursor: pointer;
-      font: inherit;
       font-weight: 800;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
       transition: color 140ms ease, filter 140ms ease, transform 140ms ease;
     }
 
@@ -196,18 +203,20 @@
     }
 
     .assist {
-      display: block;
-      width: fit-content;
-      margin: 2px auto 0;
-      color: var(--muted);
-      font-size: 0.74rem;
-      letter-spacing: 0.08em;
+      display: inline-grid;
+      place-items: center;
+      width: 100%;
+      margin-top: 12px;
+      border: 1px solid rgba(0, 255, 231, 0.55);
+      color: var(--text);
+      background: #080d17;
+      font-size: 0.78rem;
       text-decoration: none;
-      text-transform: uppercase;
     }
 
     .assist:hover,
     .assist:focus {
+      border-color: var(--pink);
       color: var(--cyan);
       outline: none;
     }
@@ -230,6 +239,28 @@
 
     .status.bad {
       color: var(--pink);
+    }
+
+    .ticket {
+      margin-top: 16px;
+      padding: 12px;
+      border: 1px solid rgba(0, 255, 231, 0.35);
+      border-radius: 6px;
+      color: var(--muted);
+      background: rgba(8, 13, 23, 0.72);
+      font-size: 0.78rem;
+      line-height: 1.55;
+      text-align: center;
+      word-break: break-word;
+    }
+
+    .ticket strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--text);
+      font-size: 0.86rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
     }
 
     .fineprint {
@@ -257,27 +288,23 @@
     <section class="panel" aria-labelledby="title">
       <img class="brand-mark" src="assets/skull.png" width="76" height="76" alt="">
       <h1 id="title">CyberWorld</h1>
-      <div class="subtitle">Enter if you dare</div>
+      <div class="subtitle">Account help</div>
 
-      <form id="gate" novalidate autocomplete="off">
+      <form id="recover" novalidate autocomplete="off">
         <div class="field">
-          <label for="username">Username</label>
-          <input id="username" name="username" type="text" minlength="3" maxlength="64" autocomplete="username" autocapitalize="none" spellcheck="false" required>
-        </div>
-
-        <div class="field">
-          <label for="password">Password</label>
-          <input id="password" type="password" minlength="8" maxlength="128" autocomplete="current-password" required>
+          <label for="identifier">Email or username</label>
+          <input id="identifier" name="identifier" type="text" minlength="3" maxlength="254" autocomplete="username" autocapitalize="none" spellcheck="false" required>
         </div>
 
         <input class="trap" id="website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <input class="trap" id="middleName" name="middle_name" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input class="trap" id="phone" name="phone" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-        <button id="submit" type="submit">Log In</button>
-        <a class="assist" href="recovery.html">Forgot username or password?</a>
+        <button id="submit" type="submit">Continue</button>
       </form>
 
       <div id="status" class="status" role="status" aria-live="polite"></div>
+      <div id="ticket" class="ticket" hidden></div>
+      <a class="assist" href="index.html">Return to login</a>
     </section>
     <div class="fineprint">CyberWorld</div>
   </main>
@@ -286,14 +313,14 @@
     (() => {
       "use strict";
 
-      const form = document.getElementById("gate");
-      const username = document.getElementById("username");
-      const password = document.getElementById("password");
+      const form = document.getElementById("recover");
+      const identifier = document.getElementById("identifier");
       const submit = document.getElementById("submit");
       const status = document.getElementById("status");
+      const ticket = document.getElementById("ticket");
       const traps = [
         document.getElementById("website"),
-        document.getElementById("middleName")
+        document.getElementById("phone")
       ];
 
       if (window.top !== window.self) {
@@ -306,21 +333,18 @@
       }
 
       const settings = Object.freeze({
-        attemptsKey: "cw.a",
-        maxAttempts: 5,
-        lockMs: 90000,
-        minDelayMs: 420,
-        maxDelayMs: 1250,
-        sessionKey: "cw.r",
-        sessionTtlMs: 5 * 60 * 1000,
-        nextUrl: "console.html",
+        requestKey: "cw.recovery",
+        attemptsKey: "cw.recovery.attempts",
+        maxAttempts: 4,
+        lockMs: 120000,
+        minDelayMs: 520,
+        maxDelayMs: 1450,
+        requestTtlMs: 10 * 60 * 1000,
         assetUrl: "assets/seal.png",
         maxAssetBytes: 1048576,
         maxTailBytes: 8192,
         maxEmbeddedBytes: 16384,
-        scanLimitBytes: 4096,
-        maxNonce: 160000,
-        powBits: 16
+        scanLimitBytes: 4096
       });
 
       const pngSignature = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10]);
@@ -330,19 +354,6 @@
         asset: null,
         busy: false
       };
-      const weakPasswords = new Set([
-        "password",
-        "password1",
-        "password123",
-        "admin",
-        "admin123",
-        "letmein",
-        "welcome",
-        "changeme",
-        "qwerty",
-        "cyberworld",
-        "personfu"
-      ]);
       const deniedEmbeddedPatterns = [
         /document\s*\.\s*cookie/,
         /localstorage/,
@@ -440,15 +451,11 @@
         return output;
       }
 
-      function decodeSample(bytes) {
-        const sample = bytes.slice(0, Math.min(bytes.length, settings.scanLimitBytes));
-        return new TextDecoder("utf-8", { fatal: false }).decode(sample).toLowerCase();
-      }
-
       function assertBenignEmbeddedData(bytes) {
-        const sample = decodeSample(bytes);
+        const sample = bytes.slice(0, Math.min(bytes.length, settings.scanLimitBytes));
+        const text = new TextDecoder("utf-8", { fatal: false }).decode(sample).toLowerCase();
         for (const pattern of deniedEmbeddedPatterns) {
-          if (pattern.test(sample)) throw new Error("asset");
+          if (pattern.test(text)) throw new Error("asset");
         }
       }
 
@@ -480,6 +487,29 @@
         };
       }
 
+      function classifyIdentifier(value) {
+        const trimmed = value.trim();
+        const email = /^[^\s@]{1,64}@[^\s@]{1,188}\.[^\s@]{2,24}$/;
+        const username = /^[a-zA-Z0-9._@-]{3,64}$/;
+        if (trimmed.length < 3 || trimmed.length > 254) return null;
+        if (email.test(trimmed)) return "email";
+        if (username.test(trimmed)) return "username";
+        return null;
+      }
+
+      function maskIdentifier(value, type) {
+        const trimmed = value.trim();
+        if (type === "email") {
+          const parts = trimmed.split("@");
+          const local = parts[0] || "";
+          const domain = parts.slice(1).join("@");
+          const head = local.slice(0, 1);
+          return head + "***@" + domain.toLowerCase();
+        }
+        if (trimmed.length <= 4) return trimmed.slice(0, 1) + "***";
+        return trimmed.slice(0, 2) + "***" + trimmed.slice(-2);
+      }
+
       function readAttemptState() {
         const now = Date.now();
         try {
@@ -498,67 +528,50 @@
         return item.count <= settings.maxAttempts;
       }
 
-      function validUsername(value) {
-        return /^[a-zA-Z0-9._@-]{3,64}$/.test(value);
+      function renderTicket(record) {
+        ticket.hidden = false;
+        ticket.innerHTML = "<strong>" + record.ticket + "</strong>" +
+          "Request recorded for " + record.masked + ". " +
+          "Use this reference if you return to the portal during this session.";
       }
 
-      function validPassword(value) {
-        const normalized = value.toLowerCase();
-        if (weakPasswords.has(normalized)) return false;
-        if (value.length < 8 || value.length > 128) return false;
-        if (/^\s|\s$/.test(value)) return false;
-        if (/^(.)\1+$/.test(value)) return false;
-        return true;
-      }
-
-      async function proofOfWork(seed) {
-        for (let nonce = 0; nonce <= settings.maxNonce; nonce += 1) {
-          const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", textEncoder.encode(seed + ":" + nonce)));
-          let zeroBits = 0;
-          for (const byte of digest) {
-            if (byte === 0) {
-              zeroBits += 8;
-              continue;
-            }
-            for (let bit = 7; bit >= 0; bit -= 1) {
-              if ((byte >> bit) & 1) break;
-              zeroBits += 1;
-            }
-            break;
-          }
-          if (zeroBits >= settings.powBits) return nonce;
-          if (nonce > 0 && nonce % 5000 === 0) await wait(0);
-        }
-        throw new Error("busy");
-      }
-
-      async function signSession(session, asset) {
-        const material = [
-          session.v,
-          session.u,
-          session.a,
-          session.n,
-          session.i,
-          session.e,
-          asset.tail.slice(0, 24)
+      async function buildRecord(value, type) {
+        const issued = Date.now();
+        const normalized = type === "email" ? value.trim().toLowerCase() : value.trim();
+        const identifierHash = await hashHex("SHA-256", textEncoder.encode(normalized));
+        const ticketSeed = [
+          identifierHash.slice(0, 24),
+          runtime.asset.file.slice(0, 24),
+          runtime.asset.tail.slice(0, 24),
+          issued
         ].join("|");
-        return (await hashHex("SHA-256", textEncoder.encode(material))).slice(0, 32);
+        const ticketHash = await hashHex("SHA-256", textEncoder.encode(ticketSeed));
+        return {
+          v: 1,
+          type,
+          masked: maskIdentifier(normalized, type),
+          ref: identifierHash.slice(0, 24),
+          asset: runtime.asset.file.slice(0, 24),
+          ticket: "CW-" + ticketHash.slice(0, 12).toUpperCase(),
+          i: issued,
+          e: issued + settings.requestTtlMs
+        };
       }
 
       async function handleSubmit(event) {
         event.preventDefault();
         if (runtime.busy) return;
 
-        const userValue = username.value.trim();
-        const passValue = password.value;
+        const value = identifier.value.trim();
+        const type = classifyIdentifier(value);
         const trapped = traps.some((input) => input.value.trim().length > 0);
-
-        username.setAttribute("aria-invalid", String(!validUsername(userValue)));
-        password.setAttribute("aria-invalid", String(!validPassword(passValue)));
+        identifier.setAttribute("aria-invalid", String(!type));
+        ticket.hidden = true;
+        ticket.textContent = "";
 
         if (trapped) {
           await wait(randomDelay());
-          setStatus("Unable to sign in.", "bad");
+          setStatus("Unable to continue.", "bad");
           return;
         }
 
@@ -568,47 +581,27 @@
           return;
         }
 
-        if (userValue.toLowerCase() === passValue.toLowerCase()) {
+        if (!type) {
           await wait(randomDelay());
-          setStatus("Check username and password.", "warn");
-          return;
-        }
-
-        if (!validUsername(userValue) || !validPassword(passValue)) {
-          await wait(randomDelay());
-          setStatus("Check username and password.", "warn");
+          setStatus("Enter a valid email or username.", "warn");
           return;
         }
 
         runtime.busy = true;
         submit.disabled = true;
-        setStatus("Checking access...", "");
+        setStatus("Checking request...", "");
 
         try {
           if (!runtime.asset) await validateAsset();
-          const userHash = await hashHex("SHA-256", textEncoder.encode(userValue));
-          const nonce = await proofOfWork(userHash.slice(0, 24) + ":" + runtime.asset.file.slice(0, 24));
-          const issued = Date.now();
-          const session = {
-            v: 1,
-            u: userHash.slice(0, 24),
-            a: runtime.asset.file.slice(0, 24),
-            n: nonce,
-            i: issued,
-            e: issued + settings.sessionTtlMs
-          };
-          session.s = await signSession(session, runtime.asset);
-          sessionStorage.setItem(settings.sessionKey, JSON.stringify(session));
-
+          const record = await buildRecord(value, type);
+          sessionStorage.setItem(settings.requestKey, JSON.stringify(record));
           await wait(randomDelay());
-          setStatus("Access granted.", "ok");
+          setStatus("Request accepted.", "ok");
+          renderTicket(record);
           form.reset();
-          window.setTimeout(() => {
-            window.location.assign(settings.nextUrl);
-          }, 350);
         } catch {
           await wait(randomDelay());
-          setStatus("Unable to sign in.", "bad");
+          setStatus("Unable to continue.", "bad");
         } finally {
           runtime.busy = false;
           submit.disabled = false;

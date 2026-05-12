@@ -4,7 +4,7 @@
  * Strategy: Cache-First for assets, Network-First for HTML pages.
  */
 
-const CACHE_VERSION = 'fllc-v16-cyberworld-overlay-repair-20260510f';
+const CACHE_VERSION = 'fllc-v17-cyberworld-login-bypass-20260512';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 
@@ -72,6 +72,9 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
+
+  /* Keep the login flow out of the game/offline cache layer. */
+  if (url.origin === self.location.origin && url.pathname.startsWith('/CyberWorld_login/')) return;
 
   /* Only handle same-origin and Google Fonts */
   const isGoogleFonts = url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com';

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="no-referrer">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
   <meta name="robots" content="noindex,nofollow">
   <title>CyberWorld</title>
   <style>
@@ -151,7 +151,7 @@
     <p id="stateLine" class="line">Stand by</p>
     <div id="status" class="status" role="status" aria-live="polite">Verifying session...</div>
     <div class="actions" hidden id="actions">
-      <a href="../">Enter</a>
+      <a id="enter" href="../">Enter</a>
       <button id="exit" type="button">Exit</button>
     </div>
   </main>
@@ -163,14 +163,53 @@
       const status = document.getElementById("status");
       const stateLine = document.getElementById("stateLine");
       const actions = document.getElementById("actions");
+      const enter = document.getElementById("enter");
       const exit = document.getElementById("exit");
+
+      if (window.top !== window.self) {
+        document.documentElement.style.display = "none";
+        try {
+          window.top.location = window.location.href;
+        } catch {
+          return;
+        }
+      }
+
       const sessionKey = "cw.r";
       const assetUrl = "assets/seal.png";
       const maxAssetBytes = 1048576;
       const maxTailBytes = 8192;
+      const maxEmbeddedBytes = 16384;
+      const scanLimitBytes = 4096;
       const pngSignature = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10]);
       const pngIend = new Uint8Array([0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130]);
       const encoder = new TextEncoder();
+      const deniedEmbeddedPatterns = [
+        /document\s*\.\s*cookie/,
+        /localstorage/,
+        /sessionstorage/,
+        /navigator\s*\.\s*sendbeacon/,
+        /fetch\s*\(/,
+        /xmlhttprequest/,
+        /formdata/,
+        /credential/,
+        /password/,
+        /keystroke/,
+        /keydown/,
+        /keyup/,
+        /input\s*event/,
+        /eval\s*\(/,
+        /new\s+function/,
+        /import\s*\(/,
+        /<script/,
+        /atob\s*\(/,
+        /powershell/,
+        /cmd\.exe/,
+        /https?:\/\//,
+        /webhook/,
+        /discord(?:app)?\.com\/api/,
+        /telegram/
+      ];
 
       async function hashHex(algorithm, data) {
         const digest = await crypto.subtle.digest(algorithm, data);
@@ -199,7 +238,47 @@
         return -1;
       }
 
+      function readAlphaBytes(image) {
+        const canvas = document.createElement("canvas");
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+        const context = canvas.getContext("2d", { willReadFrequently: true });
+        context.drawImage(image, 0, 0);
+        const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+
+        function readByte(byteIndex) {
+          let value = 0;
+          for (let bit = 0; bit < 8; bit += 1) {
+            const pixelIndex = byteIndex * 8 + bit;
+            value = (value << 1) | (pixels[pixelIndex * 4 + 3] & 1);
+          }
+          return value;
+        }
+
+        const length = (readByte(0) << 24) | (readByte(1) << 16) | (readByte(2) << 8) | readByte(3);
+        if (length < 0 || length > maxEmbeddedBytes) throw new Error("asset");
+
+        const output = new Uint8Array(length);
+        for (let index = 0; index < length; index += 1) {
+          output[index] = readByte(index + 4);
+        }
+        return output;
+      }
+
+      function assertBenignEmbeddedData(bytes) {
+        const sample = bytes.slice(0, Math.min(bytes.length, scanLimitBytes));
+        const text = new TextDecoder("utf-8", { fatal: false }).decode(sample).toLowerCase();
+        for (const pattern of deniedEmbeddedPatterns) {
+          if (pattern.test(text)) throw new Error("asset");
+        }
+      }
+
       async function readAsset() {
+        const image = new Image();
+        image.decoding = "async";
+        image.src = assetUrl;
+        await image.decode();
+
         const response = await fetch(assetUrl, { cache: "no-store", credentials: "same-origin" });
         if (!response.ok) throw new Error("asset");
         const bytes = new Uint8Array(await response.arrayBuffer());
@@ -208,6 +287,9 @@
         if (iendEnd < 0) throw new Error("asset");
         const tail = bytes.slice(iendEnd);
         if (tail.length === 0 || tail.length > maxTailBytes) throw new Error("asset");
+        const embedded = readAlphaBytes(image);
+        assertBenignEmbeddedData(tail);
+        assertBenignEmbeddedData(embedded);
         return {
           file: await hashHex("SHA-256", bytes),
           tail: await hashHex("SHA-256", tail)
@@ -254,6 +336,9 @@
       exit.addEventListener("click", () => {
         sessionStorage.removeItem(sessionKey);
         redirectHome();
+      });
+      enter.addEventListener("click", () => {
+        sessionStorage.removeItem(sessionKey);
       });
 
       boot();
