@@ -556,6 +556,16 @@ html body [class*="inventoryModal"] {
 	box-shadow: 0 24px 70px rgba(0, 0, 0, .72), inset 0 0 24px rgba(111, 234, 255, .10) !important;
 }
 
+html body [class*="embeddedPortalShell"] {
+	width: min(1400px, 96vw) !important;
+	height: min(920px, 92vh) !important;
+}
+
+html body [class*="embeddedPortalFrame"] {
+	min-width: 0 !important;
+	min-height: 0 !important;
+}
+
 html body [class*="modalHeader"],
 html body [class*="deckHeader"] {
 	display: flex !important;
