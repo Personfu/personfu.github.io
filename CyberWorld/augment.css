@@ -110,6 +110,27 @@
 	background: #001a10cc;
 }
 
+.cw-collapse-toggle {
+	position: absolute;
+	top: 12px;
+	left: 8px;
+	z-index: 100000;
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	border: 1px solid #00e8ff77;
+	background: rgba(0, 14, 28, 0.72);
+	color: #00e8ff;
+	font-size: 18px;
+	cursor: pointer;
+	box-shadow: 0 0 18px #00e8ff66;
+	transition: transform .15s ease, background .15s ease;
+}
+.cw-collapse-toggle:hover {
+	transform: translateY(-1px);
+	background: rgba(0, 232, 255, 0.16);
+}
+
 /* In-game fullscreen dialogs live inside .cw-shell. Raise that stacking
    context above the restored top/bottom chrome while a modal is active. */
 .cw-app:has(.cw-hangar-shell) .cw-shell,

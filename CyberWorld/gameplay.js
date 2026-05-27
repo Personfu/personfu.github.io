@@ -87,12 +87,68 @@
 		  reward: { xp: 250, credits: 400, item: 'STORM-KEY' }, kind: 'combat', enemy: 'STORMCORE-ICE', req: { level: 6 } }
 	];
 
-	var ENEMIES = {
-		'PHANTOM-DRONE':    { hp: 60,  atk: 8,  def: 2,  loot: { credits: 60 } },
-		'CARTEL-WARDEN':    { hp: 110, atk: 12, def: 4,  loot: { credits: 120, item: 'CIPHER-KEY' } },
-		'STORMCORE-ICE':    { hp: 220, atk: 18, def: 8,  loot: { credits: 250, item: 'ICE-CORE' } },
-		'TRAINING-DAEMON':  { hp: 30,  atk: 4,  def: 0,  loot: { credits: 20 } }
+	var ENEMY_TEMPLATES = {
+		'PHANTOM-DRONE': {
+			baseHp: 60, atk: 8, def: 2,
+			loot: { credits: 60 },
+			tactic: 'harass',
+			boss: false
+		},
+		'CARTEL-WARDEN': {
+			baseHp: 110, atk: 12, def: 4,
+			loot: { credits: 120, item: 'CIPHER-KEY' },
+			tactic: 'pressure',
+			boss: false
+		},
+		'STORMCORE-ICE': {
+			baseHp: 220, atk: 18, def: 8,
+			loot: { credits: 250, item: 'ICE-CORE' },
+			tactic: 'fortify',
+			boss: true
+		},
+		'TRAINING-DAEMON': {
+			baseHp: 30, atk: 4, def: 0,
+			loot: { credits: 20 },
+			tactic: 'probe',
+			boss: false
+		}
 	};
+
+	function scaleEnemy(template, level, isBoss) {
+		var multiplier = 1 + Math.min(0.9, Math.max(0, (level - 1) * 0.08));
+		var hp = Math.round(template.baseHp * multiplier * (isBoss ? 1.8 : 1));
+		var atk = Math.round((template.atk + Math.floor(level * 1.5)) * (isBoss ? 1.2 : 1));
+		var def = Math.round((template.def + Math.floor(level * 0.7)) * (isBoss ? 1.15 : 1));
+		return {
+			hp: hp,
+			maxHp: hp,
+			atk: atk,
+			def: def,
+			loot: Object.assign({}, template.loot),
+			state: 'patrol',
+			phase: 1,
+			boss: !!template.boss || isBoss,
+			tactic: template.tactic,
+			name: template === null ? 'UNKNOWN' : ''
+		};
+	}
+
+	function createCombatEnemy(templateId, level, isBoss) {
+		var template = ENEMY_TEMPLATES[templateId] || ENEMY_TEMPLATES['TRAINING-DAEMON'];
+		var enemy = scaleEnemy(template, level, isBoss);
+		enemy.name = templateId;
+		return enemy;
+	}
+
+	function isBossEncounter(mission) {
+		if (mission && mission.id === 'sc-raid') return true;
+		return state.level >= 8 && Math.random() < 0.22;
+	}
+
+	function chooseEnemyForMission(mission) {
+		var templateId = mission && mission.enemy ? mission.enemy : 'TRAINING-DAEMON';
+		return createCombatEnemy(templateId, state.level, isBossEncounter(mission));
+	}
 
 	function missionAvailable(m) {
 		if (state.completed[m.id]) return false;
@@ -125,11 +181,18 @@
 	// ---------- Combat engine ----------
 	var combat = null;
 	function startCombat(enemyId, onEnd, mission) {
-		var base = ENEMIES[enemyId] || ENEMIES['TRAINING-DAEMON'];
+		var enemy;
+		if (typeof enemyId === 'string' && ENEMY_TEMPLATES[enemyId]) {
+			enemy = createCombatEnemy(enemyId, state.level, isBossEncounter(mission));
+		} else if (enemyId && typeof enemyId === 'object') {
+			enemy = enemyId;
+		} else {
+			enemy = chooseEnemyForMission(mission);
+		}
 		combat = {
-			enemyId: enemyId,
-			enemy: { hp: base.hp, maxHp: base.hp, atk: base.atk, def: base.def, loot: base.loot },
-			log: ['ENGAGED ' + enemyId],
+			enemyId: enemy.name || enemyId,
+			enemy: enemy,
+			log: ['ENGAGED ' + (enemy.name || 'UNKNOWN')],
 			turn: 'player',
 			onEnd: onEnd,
 			mission: mission
@@ -189,13 +252,38 @@
 	function enemyAct() {
 		if (!combat) return;
 		var c = combat;
-		var raw = c.enemy.atk + Math.floor(Math.random() * 6) - 2;
+		var pct = c.enemy.hp / c.enemy.maxHp;
+		if (!c.enemy.boss && pct < 0.28 && c.enemy.state !== 'retreat') {
+			c.enemy.state = 'retreat';
+			c.enemy.atk = Math.max(1, c.enemy.atk - 2);
+			c.log.push('ENEMY RETREATS TO RECOVER');
+		}
+		else if (state.shield < 12 && pct > 0.45) {
+			c.enemy.state = 'chase';
+			c.log.push('ENEMY CHARGES THROUGH DEFENSE');
+		}
+		else {
+			c.enemy.state = 'patrol';
+		}
+		if (c.enemy.boss && pct < 0.5 && c.enemy.phase === 1) {
+			c.enemy.phase = 2;
+			c.enemy.atk += 4;
+			c.enemy.def += 2;
+			c.log.push('BOSS ENRAGED — PHASE 2');
+		}
+		var raw = c.enemy.atk + Math.floor(Math.random() * 6) - (c.enemy.state === 'retreat' ? 4 : 2);
+		if (c.enemy.state === 'chase') raw += 2;
 		var absorbed = Math.min(state.shield, Math.max(0, Math.floor(raw * 0.6)));
 		state.shield -= absorbed;
 		var hpHit = Math.max(0, raw - absorbed);
 		state.hp -= hpHit;
 		saveState();
 		c.log.push('Enemy hits for ' + raw + ' (' + absorbed + ' shield / ' + hpHit + ' hp)');
+		if (c.enemy.state === 'retreat' && Math.random() < 0.4) {
+			var regen = Math.min(6, c.enemy.maxHp - c.enemy.hp);
+			c.enemy.hp += regen;
+			if (regen) c.log.push('Enemy recovers ' + regen + ' HP while falling back');
+		}
 		if (state.hp <= 0) {
 			state.hp = 0;
 			c.log.push('OPERATIVE DOWNED');

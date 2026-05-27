@@ -97,6 +97,44 @@ const FILES = {
 let _redeemCount = 0;
 const REDEEM_THRESHOLD = 5;
 
+// ----- Tier-5 state -----
+// RSA public PEM published at /api/v1/auth/keys.pub.
+// The JWT verifier on /api/v1/internal/super accepts HS256 signed with the
+// bytes of this PEM as the HMAC key (the classic key-confusion vulnerability
+// described in RFC 8725 sec. 3.1).
+const RS256_PUB_PEM = [
+  "-----BEGIN PUBLIC KEY-----",
+  "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAioOWY1x0C7p8oa1s37Y9",
+  "YQ25FNPaiUDUsP1f2Vvs1GHW9ae0ED9fbOQrDsGrNiMZhJUAQw0JMzIedvqJ9+ej",
+  "7YcNNS+SF0u9OTFsr3XYWLZYCy43FB2jsj3cm0Zbck0pTCtXVnGGf1tMmkPQ9zKI",
+  "2LCwiWcoNHC/771FGFz4Zr2BvYEV7Qtm8ZTkj8LrCWIFesh4OByUdIMrsIwysRdT",
+  "m05KbteqKkonMSkP49T9QgCI/8wwiruQNRAjoXpi9a6x5DcfXrLXvEKcVR+g31uJ",
+  "Neod30Hx2JRu5sNkByD2a9y8z3WBICaUvaMTFYtUxU5un9LqPoAGPwrybkC9KxPh",
+  "eQIDAQAB",
+  "-----END PUBLIC KEY-----",
+  "",
+].join("\n");
+
+// Vulnerable deep merge -- recurses into __proto__ when present as an own
+// property in the source (which JSON.parse does produce). After this runs
+// with a malicious body, Object.prototype is polluted.
+// CWE-1321; OWASP Web Top-10 2021 A06 (Vulnerable & Outdated Components).
+function vulnerableDeepMerge(dst, src) {
+  for (const k in src) {                 // intentionally NOT hasOwnProperty
+    const v = src[k];
+    if (v && typeof v === "object" && !Array.isArray(v)) {
+      if (!dst[k]) dst[k] = {};          // for k=__proto__ this is Object.prototype
+      vulnerableDeepMerge(dst[k], v);
+    } else {
+      dst[k] = v;
+    }
+  }
+  return dst;
+}
+
+// In-memory poisonable cache (F33). No authentication on write.
+const swPoisonableCache = new Map();
+
 // ============================================================
 //  pure handler: takes a Fetch Request, returns a Fetch Response.
 //  Exported on self.__ctfHandler for Node smoke tests.
@@ -276,6 +314,119 @@ async function ctfHandleRequest(request) {
     });
   }
 
+  // -----------------------------------------------------------------
+  // Tier 5 // deeper exploit chain (F31-F33)
+  // CWE-345  Insufficient verification of data authenticity (key confusion)
+  // CWE-1321 Improperly Controlled Modification of Object Prototype Attributes
+  // CWE-639  Authorization Bypass Through User-Controlled Key (cache confusion)
+  // -----------------------------------------------------------------
+
+  // GET /api/v1/auth/keys.pub -- publishes an RSA public key as if for RS256.
+  // The classic JWT key-confusion attack: the verifier on /api/v1/internal/super
+  // accepts HS256 signed with the bytes of this PEM as the HMAC key.
+  // Reference: RFC 8725 sec. 3.1 (Algorithm Confusion).
+  if (route === "auth/keys.pub") {
+    return new Response(RS256_PUB_PEM, {
+      status: 200,
+      headers: { "Content-Type": "application/x-pem-file", "X-CTF-Surface": "key-confusion-target" },
+    });
+  }
+
+  // GET /api/v1/internal/super -- F31 key-confusion target.
+  if (route === "internal/super") {
+    const jwt = parseAuthorization(headers.authorization);
+    if (!jwt) return jsonResponse({ error: "Authorization required" }, 401);
+    const parts = jwt.split(".");
+    if (parts.length !== 3) return jsonResponse({ error: "malformed JWT" }, 401);
+    let header, payload;
+    try {
+      header  = JSON.parse(b64urlDecode(parts[0]));
+      payload = JSON.parse(b64urlDecode(parts[1]));
+    } catch { return jsonResponse({ error: "JWT decode failed" }, 401); }
+    // alg=none explicitly REJECTED for this endpoint -- forces key-confusion path.
+    if (header.alg === "none") return jsonResponse({ error: "alg=none forbidden on this surface; raise the bar" }, 403);
+    if (header.alg !== "HS256") return jsonResponse({ error: "alg must be HS256 for /internal/super" }, 401);
+    // The bug: verifier blindly uses the RSA public PEM string as an HMAC key.
+    const expected = await hmacSha256B64(RS256_PUB_PEM, parts[0] + "." + parts[1]);
+    if (expected !== parts[2]) return jsonResponse({ error: "HS256 signature mismatch (try the public PEM as key)" }, 401);
+    if (payload.role !== "admin" || payload.superadmin !== true)
+      return jsonResponse({ error: "claims insufficient (need role=admin && superadmin=true)" }, 403);
+    return jsonResponse({
+      ctf_flag: "CTF_FLAG{F31_jwt_hs_rs_key_confusion}",
+      cyberworld_grant: "superoperator",
+      note: "you used the RSA public key as an HMAC secret -- classic RFC 8725 sec. 3.1 violation",
+    });
+  }
+
+  // POST /api/v1/config/merge -- vulnerable deep-merge (CWE-1321).
+  // The merge writes through __proto__ into Object.prototype.
+  // Subsequent GET /api/v1/admin/console reads a brand-new object and
+  // observes the polluted property.
+  if (route === "config/merge" && request.method === "POST") {
+    let body;
+    try { body = await request.json(); }
+    catch { return jsonResponse({ error: "JSON body required" }, 400); }
+    if (typeof body !== "object" || body === null) return jsonResponse({ error: "object body required" }, 400);
+    const target = {};
+    vulnerableDeepMerge(target, body);
+    return jsonResponse({
+      merged_keys: Object.keys(target),
+      proto_keys_visible_now: Object.keys({}),  // a sentinel; will list polluted keys
+      hint: "if you wrote into __proto__, GET /api/v1/admin/console next",
+    });
+  }
+
+  // GET /api/v1/admin/console -- reads a fresh object; if Object.prototype was
+  // polluted with isAdmin=true and maintenance=false, the gate opens (F32).
+  if (route === "admin/console") {
+    const cfg = {};
+    if (cfg.isAdmin === true && cfg.maintenance === false) {
+      return jsonResponse({
+        ctf_flag: "CTF_FLAG{F32_prototype_pollution_to_admin_console}",
+        cyberworld_grant: "console-operator",
+        runtime_console: { sessions: 0, alerts: 0, status: "armed" },
+        note: "Object.prototype was polluted via deep-merge of __proto__; CWE-1321",
+      });
+    }
+    return jsonResponse({
+      error: "admin console locked",
+      runtime: { isAdmin: cfg.isAdmin, maintenance: cfg.maintenance },
+      hint: "POST a JSON body to /api/v1/config/merge first; the merge is deep + naive",
+    }, 403);
+  }
+
+  // POST /api/v1/cache/put?key=X -- writes to the SW's in-memory cache with
+  // NO authorization (intentional bug). The cache is later read before auth
+  // by /api/v1/admin/cached-users.
+  if (route === "cache/put" && request.method === "POST") {
+    const key = (url.searchParams.get("key") || "").slice(0, 96);
+    if (!key) return jsonResponse({ error: "?key=... required" }, 400);
+    const body = await request.text();
+    swPoisonableCache.set(key, body);
+    return jsonResponse({
+      ok: true, key, bytes: body.length,
+      hint: key === "admin/users"
+        ? "now GET /api/v1/admin/cached-users without any Authorization header"
+        : null,
+    });
+  }
+
+  // GET /api/v1/admin/cached-users -- reads cache BEFORE checking JWT (CWE-639
+  // class: trust placed in unauthenticated cache content). When the cache for
+  // "admin/users" is populated, the response carries the F33 flag verbatim.
+  if (route === "admin/cached-users") {
+    if (swPoisonableCache.has("admin/users")) {
+      const cached = swPoisonableCache.get("admin/users");
+      return jsonResponse({
+        ctf_flag: "CTF_FLAG{F33_sw_cache_poisoning_pre_auth_read}",
+        cached_bytes:  cached.length,
+        cached_preview: cached.slice(0, 240),
+        note: "the cache was read without any Authorization check",
+      }, 200, { "X-CTF-Finding": "F33", "X-CTF-Cache-Hit": "true" });
+    }
+    return jsonResponse({ error: "cache empty -- poison it via POST /api/v1/cache/put?key=admin/users" }, 404);
+  }
+
   // GET /api/v1/internal/flag -- chain F22 (alg=none) + F24 (role=admin) + custom op header (F30)
   if (route === "internal/flag") {
     const jwt = parseAuthorization(headers.authorization);
@@ -298,6 +449,44 @@ async function ctfHandleRequest(request) {
     return jsonResponse({
       response: "thanks for trying ?secret=admin; this is the canonical decoy. See X-CTF-Decoy header.",
     }, 200, { "X-CTF-Decoy": "true" });
+  }
+
+  // ----- pirate-themed noise endpoints (Tier-4 atmospherics) -----
+  // GET /api/v1/alarm/heartbeat -- periodic ping the page fires so the
+  // analyst's Network tab fills with intimidating-looking traffic.
+  if (route === "alarm/heartbeat") {
+    const traceId = (crypto.getRandomValues(new Uint8Array(6))).reduce((s,b)=>s+b.toString(16).padStart(2,"0"),"");
+    return jsonResponse({
+      status:   "armed",
+      trace_id: traceId,
+      ts:       new Date().toISOString(),
+      jolly_roger: "  X  ",
+      note: "training heartbeat; nothing is actually being tracked",
+    }, 200, {
+      "X-CTF-Surface":   "training-alarm-only",
+      "X-Alarm-State":   "ENGAGED",
+      "X-Trace-Id":      traceId,
+      "X-Jolly-Roger":   "<>--SKULL+CROSSBONES--<>",
+      "X-CTF-Theatre":   "true",  // mirror of X-CTF-Decoy for atmospherics
+    });
+  }
+
+  // GET /api/v1/alarm/intrusion?evt=X -- fired by the page when the
+  // DevTools-open detector trips; nothing is logged or sent off-origin.
+  if (route === "alarm/intrusion") {
+    const evt = (url.searchParams.get("evt") || "unspecified").slice(0, 32);
+    return jsonResponse({
+      logged:    false,
+      evt,
+      sent_to:   "/dev/null",
+      message:   "this is a fake alarm; the only place it goes is your own browser",
+      next_step: "open CHALLENGE.md or GET /api/v1/debug/echo to start the real CTF",
+    }, 200, {
+      "X-CTF-Surface":   "training-alarm-only",
+      "X-Alarm-State":   "INTRUSION_FAKE",
+      "X-Intrusion-Evt": evt,
+      "X-CTF-Theatre":   "true",
+    });
   }
 
   // GET /api/v1/lab/sysinfo -- decoy (looks like a juicy fingerprint endpoint)
@@ -404,4 +593,11 @@ self.addEventListener("fetch", (event) => {
 
 // Expose the handler for the Node smoke test (vm context picks this up).
 self.__ctfHandleRequest = ctfHandleRequest;
-self.__ctfResetState = () => { _redeemCount = 0; };
+self.__ctfResetState = () => {
+  _redeemCount = 0;
+  swPoisonableCache.clear();
+  // Undo any prototype pollution between smoke-test runs.
+  for (const k of ["isAdmin", "maintenance", "polluted", "role"]) {
+    try { delete Object.prototype[k]; } catch {}
+  }
+};

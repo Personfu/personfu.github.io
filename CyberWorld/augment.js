@@ -190,7 +190,22 @@
 		btn.dataset.cwRoute = a.external ? 'external' : (a.launch ? 'launch' : 'info');
 		btn.setAttribute('aria-label', info.raw + (a.external ? ' (opens new tab)' : ''));
 		btn.title = info.raw + (a.external ? ' — opens in new tab' : (a.launch ? ' — launch in world' : ''));
+		btn.setAttribute('role', 'button');
 		if (!btn.hasAttribute('tabindex')) btn.tabIndex = 0;
+		if (!btn.dataset.cwEvents) {
+			btn.addEventListener('click', function () {
+				document.querySelectorAll('.win98-shortcut').forEach(function (other) {
+					other.classList.remove('selected');
+				});
+				btn.classList.add('selected');
+			});
+			btn.addEventListener('dblclick', function (ev) {
+				ev.preventDefault();
+				ev.stopPropagation();
+				executeAction(resolveButton(btn));
+			});
+			btn.dataset.cwEvents = '1';
+		}
 	}
 
 	function annotateAll(root) {
@@ -292,35 +307,53 @@
 		mountBackdrop();
 	}
 
-	// Capture-phase click: we want to act BEFORE the bundle's own handler navigates
-	// to a possibly broken target.  Only intercept when we have an actual mapping.
-	document.addEventListener('click', function (ev) {
-		var btn = ev.target.closest && ev.target.closest('.win98-shortcut');
-		if (!btn) return;
-		var info = resolveButton(btn);
-		if (!info.action) return;          // let the bundle handle unknowns
-		if (shouldLetBundleHandle(btn, info.action)) { fallbackIfBundleMisses(btn, info); return; }
-		ev.preventDefault();
-		ev.stopPropagation();
-		executeAction(info);
-	}, true);
-
-	// Keyboard: Enter/Space activate
+	// Desktop double-click launcher: single click only selects, double-click opens.
+	// We also preserve bundle behavior for unknown or internal routes.
+	// Keyboard: Enter/Space activates the selected icon.
 	document.addEventListener('keydown', function (ev) {
 		if (ev.key !== 'Enter' && ev.key !== ' ') return;
 		var btn = ev.target && ev.target.closest && ev.target.closest('.win98-shortcut');
 		if (!btn) return;
 		ev.preventDefault();
 		var info = resolveButton(btn);
-		if (shouldLetBundleHandle(btn, info.action)) { btn.click(); return; }
-		if (info.action) executeAction(info);
-		else btn.click();
+		if (info.action && !shouldLetBundleHandle(btn, info.action)) {
+			executeAction(info);
+			return;
+		}
+		btn.click();
 	});
 
 	// ---------------------------------------------------------------
 	// Multiplayer status pill — reads window.__colyseus_state if the bundle exposes one,
 	// otherwise probes the env-configured endpoint with a HEAD request.  Best-effort.
 	// ---------------------------------------------------------------
+	function getSidebarState() {
+		return localStorage.getItem('cw.sidebar.collapsed') === 'true';
+	}
+
+	function setSidebarState(collapsed) {
+		var shell = document.querySelector('.cw-shell');
+		if (!shell) return;
+		shell.classList.toggle('cw-sidebar-collapsed', collapsed);
+		localStorage.setItem('cw.sidebar.collapsed', collapsed ? 'true' : 'false');
+	}
+
+	function mountSidebarToggle() {
+		if (document.querySelector('.cw-collapse-toggle')) return;
+		var shell = document.querySelector('.cw-shell');
+		if (!shell) return;
+		var btn = document.createElement('button');
+		btn.type = 'button';
+		btn.className = 'cw-collapse-toggle';
+		btn.setAttribute('aria-label', 'Toggle sidebar');
+		btn.textContent = '☰';
+		shell.appendChild(btn);
+		btn.addEventListener('click', function () {
+			setSidebarState(!shell.classList.contains('cw-sidebar-collapsed'));
+		});
+		setSidebarState(getSidebarState());
+	}
+
 	function mountMpPill() {
 		if (document.querySelector('.cw-augment-mp')) return;
 		var pill = document.createElement('div');
@@ -367,6 +400,7 @@
 			}
 		});
 		mo.observe(document.body, { childList: true, subtree: true });
+		mountSidebarToggle();
 
 		// Helpful console banner for debugging
 		try {

@@ -2,38 +2,49 @@
 User-agent: *
 Disallow: /
 
-# --- Analyst breadcrumb -----------------------------------------------
-# This directory is an intentional defensive-analyst CTF surface.
-# The login page never POSTs and never accepts real credentials.
-# See ./CHALLENGE.md for the 30-finding rubric across four tiers
-# (audit / crypto / intel / Burp-style web pentest) and math reference.
+# ---------------------------------------------------------------------
+# CYBERWORLD :: TRAINING_GATE :: v5  //  FLLC Purple-Team OS
+# PersonFu <https://github.com/Personfu>  //  FLLC <https://fllc.net>
+# "Hack the impossible. Defend the future."
+# ---------------------------------------------------------------------
+#
+# This directory is an intentional defensive-analyst CTF surface. The
+# login page never POSTs and never accepts real credentials. Five tiers:
+#
+#   TIER_01::AUDIT       F01-F10   client-side audit
+#   TIER_02::CRYPTO      F11-F15   RSA / ECDSA / HMAC / Vigenere
+#   TIER_03::INTEL       F16-F20   May-2026 CVE / ATT&CK / ZWSP
+#   TIER_04::BURP        F21-F30   JWT / IDOR / Traversal / XFF / HPP / race
+#   TIER_05::DEEPER      F31-F33   HS/RS confusion / proto-pollution / cache
+#
+# Player brief:  ./challenge.html        (rendered)
+# Manifest:      ./manifest.json         (HMAC-SHA-256 signed; commitments only)
+# Hints:         ./hints.json            (loaded on user click; spoiler if read raw)
+# Workbench:     ./intercept.html        (Burp-style HTTP repeater)
+# Lore vault:    ./lore.html             (RFC / NIST / MITRE / OWASP / CWE)
+# Service worker: ./sw-ctf.js            (scope /CyberWorld_login/)
 #
 # The asset at ./assets/seal.png is a stego carrier:
 #   * alpha-channel LSB, 79 bytes, length-prefixed (4-byte big-endian)
 #   * IEND trailer, JSON marked with "CYBERWORLD_TRAILER_V1"
-#   Decoders ship at ../scripts/lsb_decode.py and ../scripts/png_trailer_scan.py
+#   Decoders at ../scripts/lsb_decode.py and ../scripts/png_trailer_scan.py
 #
-# Manifest:  ./manifest.json  (HMAC-SHA-256 signed; key derivation in
-#                              CHALLENGE.md sec. A.0)
-# Workbench: ./intercept.html (Burp-style API client for Tier 4)
-# SW scope : ./               (service worker at ./sw-ctf.js intercepts
-#                              every /CyberWorld_login/api/v1/* fetch)
-
-# --- Decoy URLs (intentional false flags; do not waste time) ----------
-# Disallow:  ./admin.php          -- no PHP runs anywhere on the static host
+# --- Decoy URLs (intentional false flags) ----------------------------
+# Disallow:  ./admin.php          -- no PHP runs anywhere
 # Disallow:  ./wp-admin/          -- no WordPress
 # Disallow:  ./.env.bak           -- decoy env (X-CTF-Decoy: true)
-# Disallow:  ./.git/HEAD          -- decoy ref (wrong branch)
+# Disallow:  ./.git/HEAD          -- decoy ref (refs/heads/decoy-honeypot)
 # Disallow:  ./backup.zip         -- decoy ZIP (no central directory)
-# Disallow:  ./config.json        -- decoy public config
+# Disallow:  ./config.json        -- decoy public config (DECOY__ values)
 # Disallow:  ./api/v1/debug?secret=admin
 # Disallow:  ./api/v1/lab/sysinfo
 # Disallow:  ./api/v1/__proto__/polluted
-
-# --- Real Tier-4 endpoints (after the service worker is active) -------
+#
+# --- Tier-4 / Tier-5 endpoints (after SW activation) -----------------
 # Allow:     ./api/v1/debug/echo          (Burp recon -- request reflector)
 # Allow:     ./api/v1/auth/issue          (mint HS256 JWT; weak key 'cyberworld')
 # Allow:     ./api/v1/auth/whoami         (alg=none accepted -- F22)
+# Allow:     ./api/v1/auth/keys.pub       (RSA public PEM -- F31 target)
 # Allow:     ./api/v1/profile?uid=N       (IDOR -- F25 at uid=42)
 # Allow:     ./api/v1/admin/users         (forge JWT role=admin -- F24)
 # Allow:     ./api/v1/admin/geo           (X-Forwarded-For: 127.0.0.1 -- F27)
@@ -41,7 +52,12 @@ Disallow: /
 # Allow:     ./api/v1/hpp?token=X&token=Y (HPP last-wins -- F28)
 # Allow:     ./api/v1/redeem              (POST, race condition -- F29)
 # Allow:     ./api/v1/internal/flag       (chain F22 + F24 + X-Cw-Ops -- F30)
-# Allow:     ./admin                      (SW-served hidden landing page)
+# Allow:     ./api/v1/internal/super      (HS256 with PEM bytes -- F31)
+# Allow:     ./api/v1/config/merge        (POST, vulnerable deep-merge -- F32)
+# Allow:     ./api/v1/admin/console       (after proto pollution -- F32)
+# Allow:     ./api/v1/cache/put?key=...   (unauth cache write -- F33)
+# Allow:     ./api/v1/admin/cached-users  (cache-before-auth -- F33)
+# Allow:     ./admin                      (SW-served hidden landing)
 
 Sitemap: /CyberWorld_login/sitemap.xml
-Sitemap: /CyberWorld_login/CHALLENGE.md
+Sitemap: /CyberWorld_login/challenge.html

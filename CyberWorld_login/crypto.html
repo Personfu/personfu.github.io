@@ -48,7 +48,7 @@
 <body>
   <main>
     <div class="training" role="note">
-      Tier 2 -- Cryptanalysis · <a href="lab.html">lab</a> · <a href="CHALLENGE.md">brief</a>
+      Tier 2 -- Cryptanalysis · <a href="lab.html">lab</a> · <a href="challenge.html">brief</a>
     </div>
     <h1>Crypto Lab</h1>
     <p class="sub" id="stateLine">Verifying session...</p>
@@ -137,7 +137,7 @@ hash    :  SHA-256
       <a class="primary" href="lab.html">Back to lab</a>
       <a href="intel.html">Tier 3: Intel</a>
       <a href="console.html">Console</a>
-      <a href="CHALLENGE.md">Brief</a>
+      <a href="challenge.html">Brief</a>
     </div>
   </main>
 
@@ -353,7 +353,7 @@ hash    :  SHA-256
         const r = await fetch("manifest.json", {cache:"no-store", credentials:"same-origin"});
         if(!r.ok) throw new Error("manifest");
         const m = await r.json();
-        if(m.schema!=="cyberworld.training.manifest.v4") throw new Error("schema");
+        if(m.schema!=="cyberworld.training.manifest.v5") throw new Error("schema");
         window.__manifest = m;
         document.getElementById("stateLine").textContent = "Session OK -- 5 challenges, all local";
         document.getElementById("stateLine").style.color = "var(--ok)";

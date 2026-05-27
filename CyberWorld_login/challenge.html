@@ -1,0 +1,172 @@
+<!doctype html>
+<!--
+  CYBERWORLD :: TRAINING_RANGE :: PLAYER BRIEF
+  Rendered HTML version of the brief. CHALLENGE.md is preserved as a
+  plain-text mirror; this is the canonical viewer.
+  Person / FLLC <https://fllc.net>
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+  <meta name="robots" content="noindex,nofollow">
+  <title>CyberWorld :: Player Brief</title>
+  <style>
+    :root { --cyan:#00ffe7; --pink:#ff0055; --text:#edf8fb; --muted:#8ba8b7; --warn:#ffbf00; --ok:#20d978; --panel:rgba(9,13,25,0.94); }
+    *{box-sizing:border-box}
+    html,body{min-height:100%;margin:0}
+    body{min-height:100vh;color:var(--text);background:radial-gradient(circle at 50% 28%,rgba(0,255,231,.16),rgba(0,255,231,.03) 30%,transparent 58%),linear-gradient(135deg,#0a171d 0%,#101528 51%,#244f60 100%);font-family:"Courier New",Consolas,ui-monospace,monospace}
+    body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(0,255,231,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,231,.05) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;z-index:0}
+    body::after{content:"";position:fixed;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.2),transparent);background-size:100% 4px;opacity:.32;pointer-events:none;z-index:0}
+    main{position:relative;z-index:1;width:min(900px,calc(100vw - 32px));margin:32px auto;padding:28px 32px 28px;border:1px solid var(--cyan);border-radius:10px;background:linear-gradient(180deg,rgba(13,18,34,.98),rgba(8,11,22,.96)),var(--panel);box-shadow:0 0 34px rgba(0,255,231,.23),0 0 90px rgba(0,255,231,.1),inset 0 0 24px rgba(0,255,231,.04);line-height:1.6}
+
+    .training{margin:0 0 16px;padding:8px 12px;border:1px dashed var(--warn);border-radius:5px;background:rgba(255,191,0,.05);color:var(--warn);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+    .training a{color:var(--cyan);text-decoration:none;border-bottom:1px dotted var(--cyan)}
+
+    h1{margin:0 0 4px;color:var(--cyan);font-size:clamp(1.6rem,4.6vw,2.1rem);letter-spacing:.16em;text-transform:uppercase;text-shadow:0 0 14px rgba(0,255,231,.78)}
+    .tag{margin:0 0 24px;color:var(--pink);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase}
+    h2{margin:26px 0 8px;color:var(--cyan);font-size:1rem;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid rgba(0,255,231,.25);padding-bottom:6px}
+    h3{margin:20px 0 6px;color:var(--warn);font-size:.86rem;letter-spacing:.1em;text-transform:uppercase}
+    p,li{font-size:.88rem;color:var(--text)}
+    code{color:var(--warn);background:#0a121e;padding:2px 5px;border-radius:3px;font-size:.84rem}
+    pre{padding:10px 12px;border:1px solid rgba(0,255,231,.22);border-radius:6px;background:#0a121e;color:#cfe;font-size:.78rem;overflow-x:auto;line-height:1.55}
+    table{width:100%;border-collapse:collapse;font-size:.82rem;margin:8px 0 14px}
+    th,td{padding:6px 9px;border-bottom:1px solid rgba(0,255,231,.18);text-align:left;vertical-align:top}
+    th{color:var(--cyan);letter-spacing:.04em;font-weight:600}
+    td code{font-size:.78rem}
+    .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+    .toolbar a{display:inline-grid;place-items:center;min-height:38px;padding:0 14px;border:1px solid rgba(0,255,231,.6);border-radius:4px;color:var(--text);background:#080d17;font:inherit;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+    .toolbar a:hover{border-color:var(--pink);color:var(--cyan)}
+    .toolbar .primary{color:#061018;background:linear-gradient(90deg,var(--cyan),var(--pink));border-color:transparent;font-weight:800}
+    .quote{margin:0 0 14px;padding:10px 14px;border-left:3px solid var(--pink);color:var(--text);background:rgba(255,0,85,.06);font-size:.86rem;font-style:italic}
+    .quote em{color:var(--warn);font-style:normal}
+    ul,ol{padding-left:22px}
+    a{color:var(--cyan)}
+    .footer{margin-top:30px;padding-top:14px;border-top:1px solid rgba(0,255,231,.2);color:var(--muted);font-size:.72rem;letter-spacing:.08em}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="training">
+      Player brief · <a href="index.html">gate</a> · <a href="lab.html">lab</a> · <a href="manifest.json">manifest</a> · <a href="hints.json">hints</a>
+    </div>
+
+    <h1>CyberWorld :: Training Range</h1>
+    <p class="tag">FLLC Purple-Team OS // "Hack the impossible. Defend the future."</p>
+
+    <div class="quote">
+      Five tiers of intentionally vulnerable training surface, statically deployed, signed,
+      and bound to an in-browser service-worker backend. Real vulnerabilities and
+      <em>obvious false flags</em> coexist; tell them apart. Nothing leaves your browser.
+      Provided as is for demonstration and educational purposes only.
+    </div>
+
+    <h2>Tiers</h2>
+    <table>
+      <tr><th>Tier</th><th>Findings</th><th>Surface</th><th>Theme</th></tr>
+      <tr><td>1 -- Audit</td><td>F01-F10</td><td><code>index.html</code> + <code>console.html</code></td><td>client-side auth, sessionStorage, CSP, honeypot, PNG stego, Hashcash</td></tr>
+      <tr><td>2 -- Crypto</td><td>F11-F15</td><td><code>crypto.html</code></td><td>RSA toy factor + decrypt, ECDSA P-256, HMAC-16 collision, Vigenere</td></tr>
+      <tr><td>3 -- Intel</td><td>F16-F20</td><td><code>intel.html</code></td><td>CVE attribution, MITRE ATT&amp;CK, NIST IR phase, actor cluster, ZWSP stego</td></tr>
+      <tr><td>4 -- Burp</td><td>F21-F30</td><td><code>intercept.html</code> + <code>sw-ctf.js</code></td><td>JWT alg=none, IDOR, path traversal, X-Forwarded-For trust, HPP, race, chain</td></tr>
+      <tr><td>5 -- Deeper</td><td>F31-F33</td><td><code>intercept.html</code></td><td>JWT HS/RS confusion, prototype pollution, SW cache-vs-auth confusion</td></tr>
+    </table>
+
+    <h2>Where to start</h2>
+    <ol>
+      <li>Open the gate at <code>index.html</code>. Log in with any handle and passphrase that pass local validation. The page is the audit surface; F01-F09 are observable here without leaving it.</li>
+      <li>You will be forwarded to <code>lab.html</code>. Each tier card links to its workbench.</li>
+      <li>For Tier 1 self-check, go to <code>console.html</code> and paste canonical observations into the rubric.</li>
+      <li>For Tiers 2 and 3, use the interactive challenges on <code>crypto.html</code> and <code>intel.html</code>.</li>
+      <li>For Tiers 4 and 5, the workbench is <code>intercept.html</code>. It carries the endpoint catalog and macros for the trickier exploit chains.</li>
+      <li>If you need a hint for any finding, the <code>hint</code> button next to each row loads <code>hints.json</code> on demand. Reading the file directly is a spoiler.</li>
+    </ol>
+
+    <h2>Safety and scope</h2>
+    <ul>
+      <li>No credentials are accepted, transmitted, or stored. Anything you type into the gate is processed locally and discarded.</li>
+      <li>The session token lives in <code>window.sessionStorage</code> only and expires in 5 minutes.</li>
+      <li>The only network fetches are same-origin to <code>./assets/seal.png</code>, <code>./manifest.json</code>, <code>./hints.json</code>, and the service-worker-served <code>./api/v1/*</code>.</li>
+      <li>The service worker at <code>./sw-ctf.js</code> is the Tier-4 / Tier-5 backend. Its scope is <code>/CyberWorld_login/</code>. The site-wide service worker at <code>/sw.js</code> explicitly skips this directory.</li>
+    </ul>
+
+    <h2>Manifest verification</h2>
+    <p>The public <code>manifest.json</code> ships with an HMAC-SHA-256 signature over its canonical JSON body. The key derivation is published:</p>
+    <pre>K = SHA-256("cyberworld:training:v2:2026-05-26:personfu")
+  = d8e02c04f74ec71feea211c61bb680261aa38f5e899b9f7100ae02e50ce86875</pre>
+    <p>To verify locally:</p>
+    <pre>python3 - &lt;&lt;'PY'
+import json, hashlib, hmac
+m = json.load(open("manifest.json"))
+sig = m.pop("signature")
+K = hashlib.sha256(b"cyberworld:training:v2:2026-05-26:personfu").digest()
+print("ok" if hmac.compare_digest(
+    hmac.new(K, json.dumps(m, separators=(",",":"), sort_keys=True).encode(),
+             hashlib.sha256).hexdigest(),
+    sig["value"]) else "MISMATCH")
+PY</pre>
+
+    <h2>Finding commitments</h2>
+    <p>The public manifest publishes a 32-bit commitment for every finding:</p>
+    <pre>answer_sha256_prefix = SHA-256(canonical_token)[:4]
+master_xor           = T1 XOR T2 XOR ... XOR T33   over GF(2)^32</pre>
+    <p>Pasting a candidate token into the per-finding input on the Console or Intercept page hashes it locally and compares against the published prefix. Cryptographic challenges (RSA, ECDSA, HMAC, Vigenere, JWT) auto-confirm when their exploit response is detected; intel and audit findings accept short observation tokens.</p>
+
+    <h2>Tier 5 -- new in v5</h2>
+    <table>
+      <tr><th>#</th><th>Exploit</th><th>Reference</th></tr>
+      <tr><td>F31</td><td>JWT key confusion -- HS256 signed with the RSA public PEM bytes as HMAC key, against <code>/api/v1/internal/super</code>.</td><td>RFC 8725 sec. 3.1 (Algorithm Confusion)</td></tr>
+      <tr><td>F32</td><td>Object-prototype pollution via <code>POST /api/v1/config/merge</code> body that touches <code>__proto__</code>; <code>GET /api/v1/admin/console</code> then sees <code>{}.isAdmin === true</code>.</td><td>CWE-1321</td></tr>
+      <tr><td>F33</td><td>Service-worker cache poisoning: <code>POST /api/v1/cache/put?key=admin/users</code> without auth, then <code>GET /api/v1/admin/cached-users</code> returns the attacker-written value before any JWT check.</td><td>CWE-639 (cache-vs-auth confusion)</td></tr>
+    </table>
+
+    <h2>Resume framing</h2>
+    <p>Designed and deployed a five-tier defensive-analyst CTF on GitHub Pages. The static-site service-worker backend simulates a small vulnerable HTTP API and exposes intentional vulnerabilities mapped to CWE / OWASP / MITRE ATT&amp;CK / NIST SP 800-53 + 800-61 references. The challenge surface covers client-side audit, RSA / ECDSA / HMAC / Vigenere cryptanalysis, May-2026 threat intelligence (CVE attribution, ATT&amp;CK technique mapping, NIST IR phase, threat-actor cluster, zero-width-space steganography), and a chained web-pentest path culminating in JWT key confusion, prototype pollution, and cache-vs-auth confusion. No credentials are accepted, transmitted, or stored. Manifest is HMAC-SHA-256 signed; finding commitments live in the public manifest, hints in a separate <code>hints.json</code>.</p>
+
+    <h2>References</h2>
+    <ol>
+      <li>RFC 7515 -- JSON Web Signature (JWS)</li>
+      <li>RFC 7519 -- JSON Web Token (JWT)</li>
+      <li>RFC 8725 -- JWT Best Current Practices (HS/RS key confusion, alg=none)</li>
+      <li>RFC 9110 -- HTTP Semantics</li>
+      <li>NIST FIPS 180-4 -- SHA-256</li>
+      <li>NIST FIPS 186-5 -- ECDSA over NIST P-256</li>
+      <li>NIST FIPS 198-1 -- HMAC</li>
+      <li>NIST SP 800-53 -- Security and Privacy Controls</li>
+      <li>NIST SP 800-61 Rev.3 -- Computer Security Incident Handling Guide</li>
+      <li>NIST SP 800-115 -- Technical Guide to Information Security Testing</li>
+      <li>OWASP Top 10 -- A01 Broken Access Control / A02 Cryptographic Failures / A03 Injection / A07 Identification and Authentication Failures</li>
+      <li>OWASP ASVS v4 -- Architecture, Authentication, Session Management, Access Control, Validation</li>
+      <li>MITRE ATT&amp;CK -- T1078 Valid Accounts, T1190 Exploit Public-Facing App, T1059 Command and Scripting Interpreter</li>
+      <li>MITRE D3FEND -- Authentication Hardening countermeasures</li>
+      <li>CISA Alert AA24-179A -- polyfill.io supply-chain compromise</li>
+      <li>Mandiant -- UNC5337 (Ivanti Connect Secure, Dec 2024 onward; CVE-2025-0282)</li>
+      <li>Vercel -- CVE-2025-29927 (Next.js middleware authorization bypass, Mar 2025)</li>
+      <li>Adam Back -- Hashcash, 2002</li>
+      <li>A. Shamir -- "How to share a secret", CACM 22(11), 1979</li>
+      <li>R. Rivest, A. Shamir, L. Adleman -- CACM 21(2), 1978</li>
+      <li>F. Kasiski -- Die Geheimschriften und die Dechiffrir-Kunst, 1863</li>
+      <li>W. F. Friedman -- The Index of Coincidence and its Applications in Cryptography, 1922</li>
+    </ol>
+
+    <div class="toolbar">
+      <a class="primary" href="index.html">[Start at the gate]</a>
+      <a href="lab.html">Lab</a>
+      <a href="console.html">Console</a>
+      <a href="crypto.html">Crypto</a>
+      <a href="intel.html">Intel</a>
+      <a href="intercept.html">Intercept</a>
+      <a href="lore.html">Lore vault</a>
+      <a href="manifest.json">Manifest (JSON)</a>
+      <a href="hints.json">Hints (JSON)</a>
+      <a href="CHALLENGE.md">Brief (raw .md)</a>
+    </div>
+
+    <p class="footer">
+      v5 // 2026-05-27 // Person / FLLC &lt;https://fllc.net&gt; // FLLC Purple-Team OS<br>
+      provided as is for demonstration and educational purposes only.
+    </p>
+  </main>
+</body>
+</html>

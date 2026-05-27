@@ -28,7 +28,7 @@
     .sub{margin:4px 0 18px;color:var(--pink);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
     .tiers{display:grid;grid-template-columns:1fr;gap:12px}
     @media(min-width:640px){.tiers{grid-template-columns:1fr 1fr}}
-    @media(min-width:980px){.tiers{grid-template-columns:1fr 1fr 1fr 1fr}}
+    @media(min-width:980px){.tiers{grid-template-columns:1fr 1fr 1fr 1fr 1fr}}
     .tier{padding:14px;border:1px solid rgba(0,255,231,.4);border-radius:7px;background:rgba(8,13,23,.7);display:flex;flex-direction:column;gap:8px}
     .tier h2{margin:0;color:var(--cyan);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
     .tier .num{font-size:1.8rem;color:var(--text);font-weight:700;letter-spacing:.05em}
@@ -54,7 +54,7 @@
 <body>
   <main>
     <div class="training" role="note">
-      Training lab · <a href="CHALLENGE.md">brief</a> · <a href="manifest.json">manifest</a>
+      Training lab · <a href="challenge.html">brief</a> · <a href="manifest.json">manifest</a>
     </div>
 
     <h1>CyberWorld :: Lab</h1>
@@ -89,10 +89,17 @@
         <p class="meta">Service-worker backend at <code>/api/v1/*</code>. JWT alg=none, IDOR, path traversal, X-Forwarded-For trust, HPP, race, chained master flag. Real Burp / curl exercises.</p>
         <a href="intercept.html">Open intercept</a>
       </div>
+      <div class="tier" data-tier="5">
+        <h2>Tier 5 -- Deeper Chain</h2>
+        <div class="num" id="t5n">0<small>/3</small></div>
+        <div class="bar"><span id="t5bar" style="width:0%"></span></div>
+        <p class="meta">JWT HS256/RS256 key confusion (RFC 8725 sec. 3.1), Object.prototype pollution via deep-merge (CWE-1321), and SW cache-vs-auth confusion (CWE-639).</p>
+        <a href="intercept.html#tier5">Open intercept</a>
+      </div>
     </div>
 
     <div class="master" id="master">
-      <strong>0/30</strong> confirmed -- partial XOR = <code>0x00000000</code> -- target <code id="target">0x--------</code>
+      <strong>0/33</strong> confirmed -- partial XOR = <code>0x00000000</code> -- target <code id="target">0x--------</code>
     </div>
 
     <dl class="fp">
@@ -161,7 +168,7 @@
     async function loadManifest(){
       const r=await fetch(settings.manifestUrl,{cache:"no-store",credentials:"same-origin"}); if(!r.ok) throw new Error("manifest:fetch");
       const m=await r.json();
-      if(!m||m.schema!=="cyberworld.training.manifest.v4") throw new Error("manifest:schema");
+      if(!m||m.schema!=="cyberworld.training.manifest.v5") throw new Error("manifest:schema");
       const {signature, ...body}=m;
       const key=await sha256(enc.encode(KEY_DERIVATION));
       if(!await hmacVerify(key, canon(body), signature.value)) throw new Error("manifest:hmac");
@@ -184,7 +191,7 @@
     async function tally(manifest){
       const solved=readSolved();
       let acc=0, count=0;
-      const tiers={1:{ok:0,total:0},2:{ok:0,total:0},3:{ok:0,total:0},4:{ok:0,total:0}};
+      const tiers={1:{ok:0,total:0},2:{ok:0,total:0},3:{ok:0,total:0},4:{ok:0,total:0},5:{ok:0,total:0}};
       for(const f of manifest.findings){
         const tier=f.tier||1;
         tiers[tier].total += 1;
@@ -219,7 +226,7 @@
         document.getElementById("target").textContent="0x"+manifest.master_xor;
         setLine("Access granted","ok");
         const t=await tally(manifest);
-        for (const tier of [1,2,3,4]) {
+        for (const tier of [1,2,3,4,5]) {
           const tn = document.getElementById("t"+tier+"n");
           const tb = document.getElementById("t"+tier+"bar");
           if (tn) tn.innerHTML = t.tiers[tier].ok+"<small>/"+t.tiers[tier].total+"</small>";
@@ -229,13 +236,15 @@
         document.getElementById("master").innerHTML=
           "<strong>"+t.count+"/"+manifest.findings.length+"</strong> confirmed -- partial XOR = <code>0x"+t.acc+"</code> -- target <code>0x"+manifest.master_xor+"</code>"+
           (closed?' <span class="ok">-- LINEAR CODE CLOSED -- OPERATOR_GRANT issued</span>':'');
-        // MMO handoff: when every tier closes, mark the browser as operator
-        // so /cyberworld.html can unlock operator-tier content.
+        // MMO handoff: when every tier closes, mark the browser as
+        // 'superoperator' (Tier 5 closure) so /cyberworld.html can
+        // unlock the highest-tier content. Tier 4 closure alone marks
+        // 'operator'; intercept.html writes the partial grant itself.
         if (closed) {
           try {
-            localStorage.setItem("cw.role", "operator");
+            localStorage.setItem("cw.role", "superoperator");
             localStorage.setItem("cw.grant_ts", new Date().toISOString());
-            localStorage.setItem("cw.grant_source", "CyberWorld_login:tier1-4");
+            localStorage.setItem("cw.grant_source", "CyberWorld_login:tier1-5");
           } catch {}
         }
       }catch(e){
