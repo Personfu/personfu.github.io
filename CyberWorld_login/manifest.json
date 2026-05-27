@@ -13,15 +13,92 @@
   "author": {
     "contact": "https://github.com/Personfu",
     "name": "Person / FLLC",
-    "purpose": "defensive-analyst CTF training; no real credentials accepted, transmitted, or stored"
+    "purpose": "defensive-analyst CTF training; no real credentials accepted, transmitted, or stored",
+    "site": "https://fllc.net",
+    "tagline": "Hack the impossible. Defend the future."
   },
   "challenge_artifacts": {
+    "api_v1": {
+      "decoys": [
+        ".env.bak",
+        ".git/HEAD",
+        "backup.zip",
+        "admin.php",
+        "wp-admin/",
+        "config.json",
+        "api/v1/debug?secret=admin",
+        "api/v1/lab/sysinfo",
+        "api/v1/__proto__/polluted"
+      ],
+      "endpoints": [
+        {
+          "desc": "echo request headers+query (recon)",
+          "path": "api/v1/debug/echo",
+          "verb": "GET"
+        },
+        {
+          "desc": "mint HS256 JWT (weak key 'cyberworld')",
+          "path": "api/v1/auth/issue",
+          "verb": "GET"
+        },
+        {
+          "desc": "decode Bearer JWT; alg=none accepted (F22)",
+          "path": "api/v1/auth/whoami",
+          "verb": "GET"
+        },
+        {
+          "desc": "IDOR; uid=42 is operator (F25)",
+          "path": "api/v1/profile?uid=N",
+          "verb": "GET"
+        },
+        {
+          "desc": "needs Bearer JWT role=admin (F24)",
+          "path": "api/v1/admin/users",
+          "verb": "GET"
+        },
+        {
+          "desc": "needs X-Forwarded-For: 127.0.0.1 (F27)",
+          "path": "api/v1/admin/geo",
+          "verb": "GET"
+        },
+        {
+          "desc": "path-traversal demo (F26)",
+          "path": "api/v1/files?name=...",
+          "verb": "GET"
+        },
+        {
+          "desc": "HPP last-wins (F28)",
+          "path": "api/v1/hpp?token=X&token=Y",
+          "verb": "GET"
+        },
+        {
+          "desc": "race condition >=5 stacks (F29)",
+          "path": "api/v1/redeem",
+          "verb": "POST"
+        },
+        {
+          "desc": "alg=none + role=admin + X-Cw-Ops (F30)",
+          "path": "api/v1/internal/flag",
+          "verb": "GET"
+        }
+      ],
+      "idor_operator_uid": 42,
+      "jwt_weak_key": "cyberworld",
+      "operator_header": {
+        "name": "X-Cw-Ops",
+        "value": "cyberworld-operator"
+      },
+      "operator_path": "/CyberWorld_login/api/v1/internal/flag",
+      "prefix": "/CyberWorld_login/api/v1/",
+      "race_threshold": 5,
+      "traversal_target": "../etc/cyberworld.flag"
+    },
     "ecdsa_p256": {
       "curve": "P-256",
       "hash": "SHA-256",
       "message_utf8": "Phoenix Operations: May 26 2026",
       "public_key_uncompressed_hex": "046b17cc5608f5019e193bebe486935ce357448649545fcbe0409e80081c70cdd18ac691b9ed0f85868f7f83a60439bd90e8dfbfe72c03f49cea612a7d2f4a9b96",
-      "signature_raw_hex": "4714f43c994a6e20cc7e345cd7f1451a82f43c79df5b1b2904f2bbf1fd9434fc10eaa55e1cb3d03cc1ed906961911d39e5be8416315bca1ecf656ff9e51c71e2"
+      "signature_raw_hex": "405556fce5cc24e208d08efbe036e3f124667a573eb76095f3e7009240650b3b885255615221dbf812e46fa9cd8cc71042dde32f26620163cb159efb346393a5"
     },
     "hmac_f14": {
       "anchor_msg": "Phoenix-2026",
@@ -44,6 +121,21 @@
     }
   },
   "expires": "2027-05-26T00:00:00Z",
+  "false_flags": [
+    ".env.bak (CYBERWORLD_API_KEY=DECOY...)",
+    ".git/HEAD (ref: refs/heads/decoy-honeypot -- wrong default branch)",
+    "backup.zip (PK header but no central directory)",
+    "admin.php / wp-admin/ (no PHP, no WordPress)",
+    "config.json (api_key=DECOY..., jwt_secret=DECOY...)",
+    "GET /api/v1/debug?secret=admin (returns X-CTF-Decoy true)",
+    "GET /api/v1/lab/sysinfo (fake nginx/PHP server fingerprint)",
+    "GET /api/v1/__proto__/polluted (returns 'no prototype pollution here')",
+    "noscript <form action='/cgi-bin/cyberworld-login.cgi'> (no backend on static host)",
+    "hidden div data-fake-flag=CTF_FLAG{F00_decoy_only_real_flags_start_at_F21}",
+    "HTML comment 'CYBERWORLD_JWT_SECRET=DECOY__see_alg_none_F22'",
+    "base64 in source: REVDT1lfRjAwX25vdF9hX2ZsYWc= -> 'DECOY_F00_not_a_flag'",
+    "cw_admin_token / cw_csrf cookies (backend never reads them)"
+  ],
   "findings": [
     {
       "answer_canonical_sha256": "acaaacc3ca0101fbc82984ee042569ed57fd8150e146e15c4fbed21bbf2a07bd",
@@ -204,6 +296,86 @@
       "n": 20,
       "tier": 3,
       "title": "Zero-width-space steganography encodes the flag inside intel.html paragraphs"
+    },
+    {
+      "answer_canonical_sha256": "81b40759bb05eb709f1f8fe7372c9c6aa33968a43fc03ad693828765c5a27513",
+      "answer_sha256_prefix": "81b40759",
+      "hint": "Open DevTools -> Application -> Service Workers; sw-ctf.js is registered with scope /CyberWorld_login/.",
+      "n": 21,
+      "tier": 4,
+      "title": "A service worker at /CyberWorld_login/sw-ctf.js intercepts every /api/v1/* request"
+    },
+    {
+      "answer_canonical_sha256": "4c1d66bc367e6bf740041f3c9dd8cf2467f80a09379e955cb49ac1d5580403e2",
+      "answer_sha256_prefix": "4c1d66bc",
+      "hint": "Encode header {'alg':'none','typ':'JWT'} and a payload, then send with empty signature: Authorization: Bearer hdr.payload. (note trailing dot).",
+      "n": 22,
+      "tier": 4,
+      "title": "JWT verification accepts alg=none (no signature required) on /api/v1/auth/whoami"
+    },
+    {
+      "answer_canonical_sha256": "f1d98ecdd04192fea81ebda06f9b5ef5885a52989b11565d12ad86fe87dcca51",
+      "answer_sha256_prefix": "f1d98ecd",
+      "hint": "Change document.cookie cw_role from guest to admin; nothing happens. The backend only reads JWT.",
+      "n": 23,
+      "tier": 4,
+      "title": "cw_role cookie is decoy bait; the SW backend only trusts the JWT role claim"
+    },
+    {
+      "answer_canonical_sha256": "3253a8f779185afce37d9798ce9c2fc315bf8c37b75594bbd53d91b182e58cf3",
+      "answer_sha256_prefix": "3253a8f7",
+      "hint": "Build a JWT (alg=none works) with payload.role='admin' and hit /api/v1/admin/users.",
+      "n": 24,
+      "tier": 4,
+      "title": "Forge a JWT with role=admin (alg=none or HS256 with weak key) to access /api/v1/admin/users"
+    },
+    {
+      "answer_canonical_sha256": "37dbcf787363efef3d6c148eed4b561726b294eedfd153f806e2a74d78f8bcb3",
+      "answer_sha256_prefix": "37dbcf78",
+      "hint": "GET /api/v1/profile?uid=1 ... step through uids; uid=42 returns the operator + flag.",
+      "n": 25,
+      "tier": 4,
+      "title": "IDOR: GET /api/v1/profile?uid=42 returns the cw-operator profile"
+    },
+    {
+      "answer_canonical_sha256": "a011434d28e2ebdf54ee33a2e08ab21b5d42f2d585e824c10242d45ddb9747d9",
+      "answer_sha256_prefix": "a011434d",
+      "hint": "GET /api/v1/files?name=../etc/cyberworld.flag -- ../ is allowed by the demo handler.",
+      "n": 26,
+      "tier": 4,
+      "title": "Path traversal: GET /api/v1/files?name=../etc/cyberworld.flag returns the master flag"
+    },
+    {
+      "answer_canonical_sha256": "ff85ae1e1bf28f0cd6d89cce53754e9ace4019744912ce223e7b93aa8d5a3c9b",
+      "answer_sha256_prefix": "ff85ae1e",
+      "hint": "Add header 'X-Forwarded-For: 127.0.0.1' to GET /api/v1/admin/geo.",
+      "n": 27,
+      "tier": 4,
+      "title": "X-Forwarded-For: 127.0.0.1 bypasses /api/v1/admin/geo region restrictions"
+    },
+    {
+      "answer_canonical_sha256": "58d8202b239357f01834fb0086ddc815ae17821940fe8b3c78a6d89ae001c1a7",
+      "answer_sha256_prefix": "58d8202b",
+      "hint": "GET /api/v1/hpp?token=user&token=admin -- the SW uses URLSearchParams.getAll and picks the last.",
+      "n": 28,
+      "tier": 4,
+      "title": "HTTP Parameter Pollution: ?token=user&token=admin uses the last value (admin)"
+    },
+    {
+      "answer_canonical_sha256": "d96c4ded5af69fba26b6e5f0a4dba0fd83c6fa4887742ba0a15d28d771d9f8a4",
+      "answer_sha256_prefix": "d96c4ded",
+      "hint": "Use Promise.all on 6 fetch('/api/v1/redeem', {method:'POST'}) calls; the in-memory counter races past 5.",
+      "n": 29,
+      "tier": 4,
+      "title": "Race condition: 5+ parallel POSTs to /api/v1/redeem stack the counter past the threshold"
+    },
+    {
+      "answer_canonical_sha256": "e1c223e4563a8df3a242a406de7d3d959d494f85f48ba66f6c4d93e0e42a15f6",
+      "answer_sha256_prefix": "e1c223e4",
+      "hint": "Combine the alg=none JWT with role=admin plus header X-Cw-Ops: cyberworld-operator on GET /api/v1/internal/flag.",
+      "n": 30,
+      "tier": 4,
+      "title": "Chain: alg=none JWT + role=admin + X-Cw-Ops: cyberworld-operator -> /api/v1/internal/flag"
     }
   ],
   "intentional_weaknesses": [
@@ -215,18 +387,27 @@
     "console.html performs only client-side session-signature verification",
     "RSA-toy parameters in crypto.html are deliberately undersized",
     "HMAC truncation to 16 bits in F14 is deliberately within birthday range",
-    "Vigenere demo in F15 is a textbook break; not used for any auth path"
+    "Vigenere demo in F15 is a textbook break; not used for any auth path",
+    "service-worker JWT verifier accepts alg=none (the canonical CVE-2015-9235-class vulnerability)",
+    "service-worker JWT verifier accepts HS256 signed with the published weak key 'cyberworld'",
+    "service-worker /api/v1/profile lacks any access control (IDOR; uid=42 is the operator)",
+    "service-worker /api/v1/files allows '../' in the name parameter (path traversal)",
+    "service-worker /api/v1/admin/geo trusts the first X-Forwarded-For hop",
+    "service-worker /api/v1/hpp uses URLSearchParams.getAll and picks the last value (HPP)",
+    "service-worker /api/v1/redeem state is process-wide and races (atomic counter not protected)",
+    "cw_role / cw_admin_token / cw_csrf cookies are bait; backend ignores them"
   ],
   "issued": "2026-05-26T00:00:00Z",
-  "master_xor": "ba1274e7",
+  "master_xor": "bc085f31",
   "math_primitives": {
     "birthday_bound": "expected stamps for k zero bits = 2^k; for k=18 ~= 2.62e5 hashes (geometric expectation)",
     "bloom_filter": "256-bit Bloom filter, k=3 hash functions derived from SHA-256(weak-password)",
     "crc32_ieee": "polynomial 0xEDB88320 (reflected); computed over alpha-LSB payload",
     "ecdsa_p256": "ECDSA over NIST P-256 (FIPS 186-5); WebCrypto subtle.verify with SHA-256",
-    "gf2_32_xor": "20 finding-tokens XOR over GF(2)^32 closes to master_xor",
+    "gf2_32_xor": "30 finding-tokens XOR over GF(2)^32 closes to master_xor",
     "hashcash": "RFC-style v1 stamp: 1:bits:date:resource:ext:rand:counter (Back, 2002); difficulty = 18 leading zero bits of SHA-256",
     "hmac_birthday": "16-bit truncated HMAC-SHA-256: expected collision in ~2^8 random preimages",
+    "jwt_alg_none": "JWS RFC 7515: 'none' algorithm produces an empty signature; servers MUST reject when verifying. Our SW does not -- that is the lesson.",
     "modexp_toy": "RSA-toy gadget: n=3233 (=53*61), e=17, d=2753; deliberately factorable",
     "session_hmac": "HMAC-SHA-256 over canonical(session-claims || tail24) using key K = SHA-256('cyberworld:training:v2:2026-05-26:personfu')",
     "shamir": "GF(2^8) k-of-n share demo wired in puzzle module; not on the auth path",
@@ -234,7 +415,7 @@
     "zwsp_stego": "binary encoding using U+200B (zero) and U+200D (one), MSB-first per ASCII byte"
   },
   "publishing_key_derivation": "K = SHA-256('cyberworld:training:v2:2026-05-26:personfu')",
-  "schema": "cyberworld.training.manifest.v3",
+  "schema": "cyberworld.training.manifest.v4",
   "scope": {
     "brief": "/CyberWorld_login/CHALLENGE.md",
     "console": "/CyberWorld_login/console.html",
@@ -242,14 +423,17 @@
     "directory": "/CyberWorld_login/",
     "entry": "/CyberWorld_login/index.html",
     "intel": "/CyberWorld_login/intel.html",
+    "intercept": "/CyberWorld_login/intercept.html",
     "lab": "/CyberWorld_login/lab.html",
+    "mmo_grant": "localStorage.cw.role = 'operator' (set after Tier 4 close; consumed by /cyberworld.html)",
     "recovery": "/CyberWorld_login/recovery.html",
-    "robots": "/CyberWorld_login/robots.txt"
+    "robots": "/CyberWorld_login/robots.txt",
+    "sw": "/CyberWorld_login/sw-ctf.js"
   },
   "signature": {
     "algorithm": "HMAC-SHA-256",
     "canonicalization": "json.dumps(body, separators=(',',':'), sort_keys=True) of all fields except this one; body is ASCII-only",
     "key_derivation": "cyberworld:training:v2:2026-05-26:personfu",
-    "value": "2f5ed44c64fa8ba39177d5ad613e2bac8c71beeecba3b8bbf916c13eb5db1681"
+    "value": "33a8d71ddc49e7396f37eca775a0cc3b6c544ccf7cbbe277e74e493bb91afb1e"
   }
 }

@@ -552,7 +552,7 @@
       const r = await fetch(settings.manifestUrl, { cache: "no-store", credentials: "same-origin" });
       if (!r.ok) throw new Error("manifest:fetch");
       const m = await r.json();
-      if (!m || m.schema !== "cyberworld.training.manifest.v3") throw new Error("manifest:schema");
+      if (!m || m.schema !== "cyberworld.training.manifest.v4") throw new Error("manifest:schema");
       if (!m.signature || m.signature.algorithm !== "HMAC-SHA-256") throw new Error("manifest:signature");
       const { signature, ...body } = m;
       const key = await sha256(enc.encode(KEY_DERIVATION));

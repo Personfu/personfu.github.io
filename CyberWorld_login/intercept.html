@@ -1,0 +1,489 @@
+<!doctype html>
+<!--
+  CYBERWORLD :: TIER_04 :: INTERCEPT_WORKBENCH
+  Burp-style HTTP repeater bound to the local service-worker backend at
+  /CyberWorld_login/sw-ctf.js. Every request below stays on this origin.
+  Solve F21-F30 here. The page auto-confirms a finding whenever an
+  exploit pattern is observed in the request/response pair.
+  v3.0 · Person / FLLC <https://fllc.net>
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="cyberworld:role" content="training-ctf-intercept">
+  <title>CyberWorld :: Intercept Workbench</title>
+  <style>
+    :root { --cyan:#00ffe7; --pink:#ff0055; --text:#edf8fb; --muted:#8ba8b7; --warn:#ffbf00; --ok:#20d978; --panel:rgba(9,13,25,0.94); --ink:#070a14; }
+    *{box-sizing:border-box} [hidden]{display:none!important}
+    html,body{min-height:100%;margin:0}
+    body{
+      min-height:100vh;color:var(--text);
+      background:radial-gradient(circle at 50% 28%,rgba(0,255,231,.16),rgba(0,255,231,.03) 30%,transparent 58%),linear-gradient(135deg,#0a171d 0%,#101528 51%,#244f60 100%);
+      font-family:"Courier New",Consolas,ui-monospace,monospace;
+    }
+    body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(0,255,231,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,231,.05) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;z-index:0}
+    body::after{content:"";position:fixed;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.2),transparent);background-size:100% 4px;opacity:.32;pointer-events:none;z-index:0}
+
+    main{position:relative;z-index:1;width:min(1180px,calc(100vw - 24px));margin:24px auto;padding:22px 24px;border:1px solid var(--cyan);border-radius:10px;background:linear-gradient(180deg,rgba(13,18,34,.98),rgba(8,11,22,.96)),var(--panel);box-shadow:0 0 34px rgba(0,255,231,.23),0 0 90px rgba(0,255,231,.1),inset 0 0 24px rgba(0,255,231,.04)}
+
+    .training{margin:0 0 12px;padding:7px 12px;border:1px dashed var(--warn);border-radius:5px;background:rgba(255,191,0,.05);color:var(--warn);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+    .training a{color:var(--cyan);text-decoration:none;border-bottom:1px dotted var(--cyan)}
+    .status-strip{display:flex;justify-content:space-between;gap:8px;margin:0 0 14px;padding:6px 10px;border:1px solid rgba(0,255,231,.32);border-radius:5px;background:rgba(8,13,23,.7);color:var(--muted);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase}
+    .status-strip .s-ok{color:var(--ok)} .status-strip .s-bad{color:var(--pink)} .status-strip .s-warn{color:var(--warn)}
+
+    h1{margin:0;color:var(--cyan);font-size:clamp(1.4rem,4.2vw,1.85rem);letter-spacing:.16em;text-transform:uppercase;text-shadow:0 0 14px rgba(0,255,231,.78)}
+    .sub{margin:2px 0 16px;color:var(--pink);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase}
+
+    .grid{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:920px){.grid{grid-template-columns:320px 1fr 320px}}
+
+    .panel{padding:12px 14px;border:1px solid rgba(0,255,231,.35);border-radius:7px;background:rgba(8,13,23,.7);min-height:0;display:flex;flex-direction:column;gap:8px}
+    .panel h2{margin:0;color:var(--cyan);font-size:.76rem;letter-spacing:.16em;text-transform:uppercase}
+    .panel .note{color:var(--muted);font-size:.7rem;line-height:1.45}
+
+    /* endpoint catalog */
+    .cat{list-style:none;margin:0;padding:0;display:grid;gap:6px;max-height:520px;overflow-y:auto}
+    .cat li{padding:7px 8px;border:1px solid rgba(0,255,231,.22);border-radius:4px;background:#0a121e;cursor:pointer;font-size:.72rem;line-height:1.4;color:var(--text)}
+    .cat li:hover{border-color:var(--pink);color:var(--cyan)}
+    .cat li .verb{display:inline-block;min-width:42px;color:var(--warn);font-weight:700;letter-spacing:.05em}
+    .cat li .verb.post{color:var(--pink)}
+    .cat li .desc{display:block;color:var(--muted);font-size:.65rem;margin-top:2px;letter-spacing:0}
+    .cat li.decoy{border-color:rgba(255,191,0,.25)}
+    .cat li.decoy::after{content:" // decoy";color:var(--warn);font-size:.6rem}
+
+    /* request builder */
+    .req-row{display:grid;grid-template-columns:90px 1fr 80px;gap:8px}
+    .req-row select,.req-row input{min-height:36px;padding:.45rem .6rem;border:1px solid rgba(0,255,231,.6);border-radius:4px;color:#fff;background:#080d17;font:inherit;font-size:.78rem}
+    .req-row select{text-transform:uppercase}
+    .req-row button{min-height:36px;border:0;border-radius:4px;color:#061018;background:linear-gradient(90deg,var(--cyan),var(--pink));font:inherit;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+    .req-row button:hover{filter:saturate(1.18)}
+
+    textarea{width:100%;min-height:80px;padding:.5rem .7rem;border:1px solid rgba(0,255,231,.5);border-radius:4px;background:#080d17;color:var(--text);font:inherit;font-size:.74rem;resize:vertical}
+    textarea:focus,select:focus,input:focus{outline:none;border-color:var(--pink)}
+
+    .quick{display:flex;flex-wrap:wrap;gap:6px}
+    .quick button{font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;border:1px solid rgba(0,255,231,.45);border-radius:4px;background:#0e1830;color:var(--text);cursor:pointer}
+    .quick button:hover{border-color:var(--pink);color:var(--cyan)}
+
+    .resp{display:grid;gap:6px}
+    .resp .meta{display:flex;gap:12px;color:var(--muted);font-size:.72rem;flex-wrap:wrap}
+    .resp .meta .code{color:var(--ok);font-weight:700}
+    .resp .meta .code.bad{color:var(--pink)}
+    .resp pre{margin:0;padding:10px;border-radius:4px;background:#0a121e;color:#cfe;font-size:.74rem;line-height:1.5;overflow-x:auto;max-height:300px;border:1px solid rgba(0,255,231,.22)}
+    .resp .hdrs{font-size:.7rem;color:var(--muted)}
+    .resp .hdrs strong{color:var(--cyan);font-weight:600}
+    .resp .decoy-flag{color:var(--warn);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase}
+
+    /* findings checklist (F21-F30) */
+    .findings{list-style:none;margin:0;padding:0;display:grid;gap:6px;max-height:520px;overflow-y:auto}
+    .findings li{padding:7px 8px;border:1px solid rgba(0,255,231,.22);border-radius:4px;background:#0a121e;font-size:.7rem;line-height:1.45;color:var(--text)}
+    .findings li.ok{border-color:var(--ok);background:rgba(32,217,120,.08)}
+    .findings li .n{color:var(--pink);font-weight:700;letter-spacing:.06em;margin-right:.4em}
+    .findings li.ok .n{color:var(--ok)}
+    .findings li .hint{display:block;color:var(--muted);font-size:.64rem;margin-top:2px}
+    .findings li .input{display:grid;grid-template-columns:1fr auto;gap:6px;margin-top:6px}
+    .findings li input{min-height:30px;padding:.4rem .55rem;border:1px solid rgba(0,255,231,.45);border-radius:4px;color:#fff;background:#080d17;font:inherit;font-size:.7rem}
+    .findings li button{min-height:30px;padding:0 10px;border:1px solid rgba(0,255,231,.45);border-radius:4px;background:#0e1830;color:var(--text);font:inherit;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+    .findings li button:hover{border-color:var(--pink);color:var(--cyan)}
+    .findings li .res{display:block;margin-top:4px;font-size:.62rem;color:var(--muted)}
+    .findings li .res.ok{color:var(--ok)}
+    .findings li .res.bad{color:var(--pink)}
+
+    .progress{margin-top:10px;color:var(--muted);font-size:.74rem;text-align:center}
+    .progress .ok{color:var(--ok)}
+
+    .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .toolbar a,.toolbar button{display:inline-grid;place-items:center;min-height:38px;padding:0 14px;border:1px solid rgba(0,255,231,.6);border-radius:4px;color:var(--text);background:#080d17;font:inherit;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;cursor:pointer}
+    .toolbar .primary{color:#061018;background:linear-gradient(90deg,var(--cyan),var(--pink));border-color:transparent;font-weight:800}
+    .toolbar a:hover,.toolbar button:hover{border-color:var(--pink);color:var(--cyan)}
+    .toolbar button.primary:hover{color:#fff;filter:saturate(1.15)}
+
+    code{color:var(--warn);background:#0a121e;padding:2px 5px;border-radius:3px;font-size:.74rem}
+
+    .grant{margin-top:14px;padding:12px;border:1px solid rgba(32,217,120,.5);border-radius:6px;background:rgba(32,217,120,.05);color:var(--text);font-size:.82rem;line-height:1.55}
+    .grant strong{color:var(--ok);letter-spacing:.1em}
+    .grant code{color:var(--warn)}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="training">
+      Tier 4 // Burp-Style Workbench · <a href="lab.html">lab</a> · <a href="CHALLENGE.md">brief</a> · <a href="sw-ctf.js">sw-ctf.js</a>
+    </div>
+    <div class="status-strip" aria-hidden="true">
+      <span>DEFCON_CTF::<span class="s-warn">4</span></span>
+      <span id="sw-state">SW::<span class="s-warn">probing</span></span>
+      <span>OPERATOR::<span class="s-warn">TRAINING</span></span>
+      <span>RANGE<span class="s-ok">::LIVE</span></span>
+    </div>
+
+    <h1>CyberWorld :: Intercept</h1>
+    <p class="sub" id="stateLine">Hack the impossible. Defend the future.</p>
+
+    <div class="grid">
+      <!-- LEFT: endpoint catalog -->
+      <section class="panel">
+        <h2>Endpoint catalog</h2>
+        <p class="note">Click an entry to load it into the request builder. Items tagged decoy are intentional false flags.</p>
+        <ul class="cat" id="cat"></ul>
+      </section>
+
+      <!-- MIDDLE: request builder + response viewer -->
+      <section class="panel">
+        <h2>Request / Response</h2>
+        <div class="req-row">
+          <select id="method">
+            <option>GET</option><option>POST</option><option>PUT</option><option>DELETE</option>
+          </select>
+          <input id="url" type="text" value="api/v1/debug/echo">
+          <button id="send" type="button">Send</button>
+        </div>
+        <div class="quick" id="quickHdrs">
+          <button data-add="Authorization: Bearer ">+ Authorization</button>
+          <button data-add="X-Forwarded-For: 127.0.0.1">+ X-Forwarded-For</button>
+          <button data-add="X-Cw-Ops: cyberworld-operator">+ X-Cw-Ops</button>
+          <button data-add="Content-Type: application/json">+ Content-Type JSON</button>
+          <button id="quick-jwt" type="button">+ JWT from localStorage</button>
+          <button id="quick-jwt-none" type="button">+ Forge alg=none JWT (role=admin)</button>
+        </div>
+        <label class="note">Headers (one per line, "Name: Value")</label>
+        <textarea id="headers" spellcheck="false"></textarea>
+        <label class="note">Body (POST/PUT only)</label>
+        <textarea id="body" spellcheck="false" placeholder='{"k":"v"} or url-encoded form'></textarea>
+
+        <div class="resp">
+          <div class="meta"><span id="r-method">--</span> <span id="r-url"></span> <span class="code" id="r-code">--</span> <span id="r-time"></span></div>
+          <div class="hdrs" id="r-hdrs"></div>
+          <pre id="r-body">(send a request to see the response)</pre>
+        </div>
+
+        <div class="toolbar">
+          <button id="race" class="primary" type="button">Race 6x POST /redeem</button>
+          <button id="enum" type="button">Enumerate /profile uid 1..50</button>
+          <button id="reset" type="button">Reset solved</button>
+        </div>
+      </section>
+
+      <!-- RIGHT: F21-F30 checklist -->
+      <section class="panel">
+        <h2>Findings F21 - F30</h2>
+        <p class="note">Some auto-confirm when the right exploit response is observed; others want an answer in the input box.</p>
+        <ul class="findings" id="findings"></ul>
+        <div class="progress" id="progress">0/10 confirmed</div>
+      </section>
+    </div>
+
+    <div class="grant" id="grant" hidden>
+      <strong>OPERATOR_GRANT</strong> · You closed all four tiers. <code>localStorage.cw.role</code> is now <code>operator</code>; the main <a href="/cyberworld.html">/cyberworld.html</a> MMO unlocks operator-tier content for this browser.
+    </div>
+
+    <div class="toolbar">
+      <a class="primary" href="lab.html">Back to lab</a>
+      <a href="console.html">Console (Tier 1)</a>
+      <a href="crypto.html">Crypto (Tier 2)</a>
+      <a href="intel.html">Intel (Tier 3)</a>
+      <a href="CHALLENGE.md">Brief</a>
+    </div>
+  </main>
+
+  <script>
+  (() => {
+    "use strict";
+    const enc = new TextEncoder(), dec = new TextDecoder("utf-8");
+
+    // ----------------- endpoint catalog -----------------
+    const CATALOG = [
+      { v: "GET",  u: "api/v1/debug/echo",                  d: "echo request headers + query (Burp recon)" },
+      { v: "GET",  u: "api/v1/auth/issue?sub=trainee&role=user", d: "mint a fresh HS256 JWT" },
+      { v: "GET",  u: "api/v1/auth/whoami",                 d: "decode Bearer JWT; alg=none is accepted (F22)" },
+      { v: "GET",  u: "api/v1/profile?uid=1",               d: "profile lookup; try uid=42 (IDOR, F25)" },
+      { v: "GET",  u: "api/v1/admin/users",                 d: "needs Bearer JWT role=admin (F24)" },
+      { v: "GET",  u: "api/v1/admin/geo",                   d: "needs X-Forwarded-For: 127.0.0.1 (F27)" },
+      { v: "GET",  u: "api/v1/files?name=etc/cyberworld.motd", d: "list a file; try ../etc/cyberworld.flag (F26)" },
+      { v: "GET",  u: "api/v1/hpp?token=user",              d: "HPP: add &token=admin (F28)" },
+      { v: "POST", u: "api/v1/redeem",                      d: "race condition; needs 5+ parallel hits (F29)" },
+      { v: "GET",  u: "api/v1/internal/flag",               d: "chain F22 + F24 + X-Cw-Ops (F30)" },
+      { v: "GET",  u: "api/v1/debug?secret=admin",          d: "decoy bait endpoint", decoy: true },
+      { v: "GET",  u: "api/v1/lab/sysinfo",                 d: "decoy fingerprint (no real server)", decoy: true },
+      { v: "GET",  u: "api/v1/__proto__/polluted",          d: "decoy proto-pollution probe", decoy: true },
+      { v: "GET",  u: "admin",                              d: "hidden admin landing (SW-served)" },
+      { v: "GET",  u: ".env.bak",                           d: "decoy .env backup", decoy: true },
+      { v: "GET",  u: ".git/HEAD",                          d: "decoy git head", decoy: true },
+      { v: "GET",  u: "backup.zip",                         d: "decoy zip", decoy: true },
+      { v: "GET",  u: "config.json",                        d: "decoy public config", decoy: true },
+      { v: "GET",  u: "sitemap.xml",                        d: "lists real + decoy URLs" },
+    ];
+
+    // ----------------- finding definitions -----------------
+    // tokens are the same canonical strings published in manifest.json
+    const FINDINGS = [
+      { n: 21, title: "Service worker /CyberWorld_login/sw-ctf.js intercepts /api/v1/*",
+        hint: "type \"sw-ctf\" or \"service-worker\" to confirm; DevTools > Application > Service Workers also shows it",
+        mode: "text", expects: /sw[-_ ]?ctf|service[-_ ]?worker/i,
+        token: "cyberworld:F21:sw:intercepts:/api/v1/" },
+      { n: 22, title: "JWT verify accepts alg=none",
+        hint: "auto: send a forged alg=none JWT to /api/v1/auth/whoami",
+        mode: "auto", autoCheck: ({path, body, headers}) => path === "api/v1/auth/whoami" && /CTF_FLAG\{F22_alg_none/.test(body),
+        token: "cyberworld:F22:jwt:alg-none:accepted" },
+      { n: 23, title: "cw_role cookie is decoy; only JWT role is enforced",
+        hint: "type \"cookie\" or \"decoy\" after testing -- changing cw_role to admin does NOT unlock /admin/users",
+        mode: "text", expects: /decoy|cookie|ignored|not.?used/i,
+        token: "cyberworld:F23:cookie:cw_role:decoy" },
+      { n: 24, title: "Forge JWT with role=admin to GET /api/v1/admin/users",
+        hint: "auto: a successful 200 from /admin/users with role=admin claim",
+        mode: "auto", autoCheck: ({path, body}) => path === "api/v1/admin/users" && /CTF_FLAG\{F24_jwt_forged_to_admin/.test(body),
+        token: "cyberworld:F24:jwt:forge:role=admin" },
+      { n: 25, title: "IDOR: GET /api/v1/profile?uid=42 leaks operator profile",
+        hint: "auto: request profile for uid=42",
+        mode: "auto", autoCheck: ({path, url, body}) => path === "api/v1/profile" && /uid=42/.test(url) && /CTF_FLAG\{F25_idor_uid_42/.test(body),
+        token: "cyberworld:F25:idor:profile:uid=42" },
+      { n: 26, title: "Path traversal: /api/v1/files?name=../etc/cyberworld.flag",
+        hint: "auto: hit /api/v1/files with a name that traverses to etc/cyberworld.flag",
+        mode: "auto", autoCheck: ({path, url, body}) => path === "api/v1/files" && /etc\/cyberworld\.flag/.test(url) && /CTF_FLAG\{F26_path_traversal/.test(body),
+        token: "cyberworld:F26:path-traversal:etc/cyberworld.flag" },
+      { n: 27, title: "X-Forwarded-For: 127.0.0.1 bypasses /api/v1/admin/geo",
+        hint: "auto: include header X-Forwarded-For: 127.0.0.1",
+        mode: "auto", autoCheck: ({path, body}) => path === "api/v1/admin/geo" && /CTF_FLAG\{F27_x_forwarded_for/.test(body),
+        token: "cyberworld:F27:xff:127.0.0.1:bypass" },
+      { n: 28, title: "HPP: ?token=user&token=admin returns admin (last wins)",
+        hint: "auto: send two token params, the second being admin",
+        mode: "auto", autoCheck: ({path, url, body}) => path === "api/v1/hpp" && /token=user.*token=admin|token=admin.*token=user/.test(url) && /CTF_FLAG\{F28_hpp/.test(body),
+        token: "cyberworld:F28:hpp:token-last-wins" },
+      { n: 29, title: "Race: 5+ parallel POSTs to /api/v1/redeem stack the counter",
+        hint: "auto: use the 'Race 6x POST /redeem' button or fire Promise.all on /redeem",
+        mode: "auto", autoCheck: ({path, body}) => path === "api/v1/redeem" && /CTF_FLAG\{F29_race_condition/.test(body),
+        token: "cyberworld:F29:race:redeem" },
+      { n: 30, title: "Chain: alg=none + role=admin + X-Cw-Ops -> /api/v1/internal/flag",
+        hint: "auto: combine the alg=none JWT (admin role) plus header X-Cw-Ops: cyberworld-operator",
+        mode: "auto", autoCheck: ({path, body}) => path === "api/v1/internal/flag" && /CTF_FLAG\{F30_/.test(body),
+        token: "cyberworld:F30:chain:jwt+xcwops" },
+    ];
+
+    // ----------------- helpers -----------------
+    const toHex = (b) => Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
+    async function sha256Hex(s) {
+      const d = await crypto.subtle.digest("SHA-256", enc.encode(s));
+      return toHex(new Uint8Array(d));
+    }
+    function readSolved(){ try{ return JSON.parse(sessionStorage.getItem("cw.solved")||"{}"); } catch { return {}; } }
+    function writeSolved(m){ sessionStorage.setItem("cw.solved", JSON.stringify(m)); }
+    async function confirm(n, token) {
+      const s = readSolved();
+      s[String(n)] = token;
+      writeSolved(s);
+      renderFindings();
+    }
+    function b64url(u) { let s=""; for(const b of u) s+=String.fromCharCode(b); return btoa(s).replace(/=+$/,"").replace(/\+/g,"-").replace(/\//g,"_"); }
+
+    // ----------------- UI: catalog -----------------
+    const catEl = document.getElementById("cat");
+    for (const e of CATALOG) {
+      const li = document.createElement("li");
+      if (e.decoy) li.className = "decoy";
+      li.innerHTML = '<span class="verb' + (e.v === "POST" ? " post" : "") + '">' + e.v + '</span> ' + e.u + '<span class="desc">' + e.d + '</span>';
+      li.addEventListener("click", () => { document.getElementById("method").value = e.v; document.getElementById("url").value = e.u; });
+      catEl.appendChild(li);
+    }
+
+    // ----------------- UI: quick headers -----------------
+    const hdrsEl = document.getElementById("headers");
+    document.querySelectorAll("#quickHdrs button[data-add]").forEach((b) => {
+      b.addEventListener("click", () => {
+        const v = b.dataset.add;
+        hdrsEl.value = (hdrsEl.value ? hdrsEl.value + "\n" : "") + v;
+      });
+    });
+    document.getElementById("quick-jwt").addEventListener("click", () => {
+      const jwt = localStorage.getItem("cw.jwt") || "";
+      hdrsEl.value = (hdrsEl.value ? hdrsEl.value + "\n" : "") + "Authorization: Bearer " + jwt;
+    });
+    document.getElementById("quick-jwt-none").addEventListener("click", () => {
+      const now = Math.floor(Date.now()/1000);
+      const hdr = b64url(enc.encode(JSON.stringify({ alg: "none", typ: "JWT" })));
+      const pl  = b64url(enc.encode(JSON.stringify({ sub: "forged-operator", role: "admin", iat: now, exp: now + 3600 })));
+      const jwt = hdr + "." + pl + ".";
+      hdrsEl.value = (hdrsEl.value ? hdrsEl.value + "\n" : "") + "Authorization: Bearer " + jwt;
+    });
+
+    // ----------------- UI: send -----------------
+    function parseHeaders(text) {
+      const out = {};
+      for (const ln of (text || "").split(/\r?\n/)) {
+        const m = ln.match(/^([^:]+):\s*(.*)$/);
+        if (m) out[m[1].trim()] = m[2].trim();
+      }
+      return out;
+    }
+    async function send(opts) {
+      const method = (opts && opts.method) || document.getElementById("method").value;
+      const url    = (opts && opts.url)    || document.getElementById("url").value;
+      const hdrText = (opts && opts.headers) || hdrsEl.value;
+      const bodyText = (opts && opts.body) || document.getElementById("body").value;
+      const headers = parseHeaders(hdrText);
+      const init = { method, headers, cache: "no-store", credentials: "same-origin" };
+      if (method !== "GET" && method !== "HEAD" && bodyText) init.body = bodyText;
+      const t0 = performance.now();
+      let resp, text = "", code = "ERR";
+      try {
+        resp = await fetch(url, init);
+        code = String(resp.status);
+        text = await resp.text();
+      } catch (e) {
+        text = "fetch failed: " + e.message;
+        code = "EXC";
+      }
+      const ms = (performance.now() - t0).toFixed(0);
+
+      document.getElementById("r-method").textContent = method;
+      document.getElementById("r-url").textContent    = url;
+      const codeEl = document.getElementById("r-code");
+      codeEl.textContent = code;
+      codeEl.className   = "code" + (code.startsWith("2") ? "" : " bad");
+      document.getElementById("r-time").textContent = ms + " ms";
+      if (resp) {
+        const rows = [];
+        resp.headers.forEach((v, k) => rows.push("<strong>" + k + ":</strong> " + escapeHtml(v)));
+        document.getElementById("r-hdrs").innerHTML = rows.join("<br>");
+      } else {
+        document.getElementById("r-hdrs").innerHTML = "";
+      }
+      const pre = document.getElementById("r-body");
+      try { pre.textContent = JSON.stringify(JSON.parse(text), null, 2); } catch { pre.textContent = text; }
+
+      // auto-confirm findings on this exchange
+      autoConfirm({ method, url, headers, body: text, path: url.split("?")[0] });
+      return { resp, text, code };
+    }
+    function escapeHtml(s){ return String(s).replace(/[&<>]/g, (c)=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+
+    async function autoConfirm(exchange) {
+      for (const f of FINDINGS) {
+        if (f.mode !== "auto") continue;
+        if (readSolved()[String(f.n)]) continue;
+        try {
+          if (f.autoCheck(exchange)) await confirm(f.n, f.token);
+        } catch {}
+      }
+    }
+
+    document.getElementById("send").addEventListener("click", () => send());
+
+    document.getElementById("race").addEventListener("click", async () => {
+      const url = "api/v1/redeem";
+      const N = 6;
+      await Promise.all(Array.from({length:N}, () => fetch(url, { method:"POST", cache:"no-store" })));
+      // One more visible call to update the panel + trigger auto-confirm
+      document.getElementById("method").value = "POST";
+      document.getElementById("url").value = url;
+      await send({ method: "POST", url, headers: "", body: "" });
+    });
+
+    document.getElementById("enum").addEventListener("click", async () => {
+      const log = [];
+      for (let uid = 1; uid <= 50; uid += 1) {
+        try {
+          const r = await fetch("api/v1/profile?uid=" + uid, { cache:"no-store" });
+          const t = await r.text();
+          if (r.status === 200) log.push("uid=" + uid + " -> " + t.replace(/\s+/g," ").slice(0, 160));
+          // surface the auto-confirm pathway too
+          await autoConfirm({ method:"GET", url:"api/v1/profile?uid="+uid, headers:{}, body:t, path:"api/v1/profile" });
+        } catch {}
+      }
+      document.getElementById("r-body").textContent = log.join("\n");
+      document.getElementById("r-code").textContent = "BATCH";
+      document.getElementById("r-code").className = "code";
+    });
+
+    document.getElementById("reset").addEventListener("click", () => {
+      sessionStorage.removeItem("cw.solved");
+      renderFindings();
+    });
+
+    // ----------------- UI: findings panel -----------------
+    const findEl = document.getElementById("findings");
+    function renderFindings() {
+      const solved = readSolved();
+      findEl.innerHTML = "";
+      let okCount = 0;
+      for (const f of FINDINGS) {
+        const li = document.createElement("li");
+        const isOk = !!solved[String(f.n)];
+        if (isOk) { li.className = "ok"; okCount += 1; }
+        li.innerHTML =
+          '<span class="n">F' + f.n + '</span>' + escapeHtml(f.title) +
+          '<span class="hint">hint: ' + escapeHtml(f.hint) + '</span>';
+        if (f.mode === "text" && !isOk) {
+          const input = document.createElement("div");
+          input.className = "input";
+          input.innerHTML =
+            '<input type="text" placeholder="type observation">' +
+            '<button type="button">Check</button>';
+          li.appendChild(input);
+          const res = document.createElement("span");
+          res.className = "res";
+          li.appendChild(res);
+          const inp = input.querySelector("input");
+          const btn = input.querySelector("button");
+          btn.addEventListener("click", async () => {
+            const v = (inp.value || "").trim();
+            if (!v) { res.className="res bad"; res.textContent="enter an observation"; return; }
+            if (f.expects.test(v)) {
+              await confirm(f.n, f.token);
+              res.className="res ok"; res.textContent="match -- confirmed";
+            } else {
+              res.className="res bad"; res.textContent="no match -- try again";
+            }
+          });
+        }
+        findEl.appendChild(li);
+      }
+      const prog = document.getElementById("progress");
+      prog.innerHTML = '<span class="' + (okCount===FINDINGS.length?"ok":"") + '">' + okCount + '/' + FINDINGS.length + ' confirmed' + (okCount===FINDINGS.length?' -- TIER 4 CLOSED':'') + '</span>';
+
+      // operator grant + MMO handoff
+      if (okCount === FINDINGS.length) {
+        try {
+          localStorage.setItem("cw.role", "operator");
+          localStorage.setItem("cw.grant_ts", new Date().toISOString());
+          localStorage.setItem("cw.grant_source", "CyberWorld_login:tier4:F30");
+        } catch {}
+        document.getElementById("grant").hidden = false;
+      }
+    }
+    renderFindings();
+
+    // ----------------- session + SW status -----------------
+    function setSw(text, kind) {
+      const el = document.getElementById("sw-state");
+      if (el) el.innerHTML = "SW::<span class='s-" + (kind||"warn") + "'>" + text + "</span>";
+    }
+    if (window.top !== window.self){ document.documentElement.style.display="none"; try{ window.top.location=window.location.href; }catch{ return; } }
+    (async () => {
+      try {
+        const raw = sessionStorage.getItem("cw.r");
+        if (!raw) throw new Error("no session");
+        // SW readiness
+        if (!("serviceWorker" in navigator)) { setSw("unsupported", "bad"); return; }
+        await navigator.serviceWorker.register("sw-ctf.js", { scope: "./" });
+        await navigator.serviceWorker.ready;
+        setSw("active", "ok");
+        // Sanity-ping debug/echo so the controller is wired up.
+        const r = await fetch("api/v1/debug/echo", { cache: "no-store" });
+        if (!r.ok) throw new Error("echo " + r.status);
+        document.getElementById("stateLine").textContent = "Service worker active // " + CATALOG.length + " endpoints loaded";
+        document.getElementById("stateLine").style.color = "var(--ok)";
+      } catch (e) {
+        document.getElementById("stateLine").textContent = "Workbench unavailable: " + e.message + " -- returning to login";
+        document.getElementById("stateLine").style.color = "var(--pink)";
+        setSw("error", "bad");
+        setTimeout(()=>location.replace("index.html"), 1500);
+      }
+    })();
+  })();
+  </script>
+</body>
+</html>

@@ -301,7 +301,7 @@
         const r = await fetch("manifest.json", {cache:"no-store", credentials:"same-origin"});
         if(!r.ok) throw new Error("manifest");
         const m = await r.json();
-        if(m.schema!=="cyberworld.training.manifest.v3") throw new Error("schema");
+        if(m.schema!=="cyberworld.training.manifest.v4") throw new Error("schema");
         window.__manifest = m;
         document.getElementById("stateLine").textContent = "Session OK -- 5 challenges, all local";
         document.getElementById("stateLine").style.color = "var(--ok)";

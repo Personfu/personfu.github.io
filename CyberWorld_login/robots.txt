@@ -1,15 +1,47 @@
-# CyberWorld training range — keep search engines and bots away from the lab.
+# CyberWorld training range -- keep search engines and bots away from the lab.
 User-agent: *
 Disallow: /
 
-# Analyst breadcrumb:
-#   This directory is an intentional defensive-analyst CTF surface.
-#   The login page never POSTs and never accepts real credentials.
-#   See ./CHALLENGE.md for the 10-finding rubric and math reference.
-#   The asset at ./assets/seal.png is a stego carrier:
-#     * alpha-channel LSB,  79 bytes, length-prefixed (4-byte big-endian)
-#     * IEND trailer,       JSON marked with "CYBERWORLD_TRAILER_V1"
+# --- Analyst breadcrumb -----------------------------------------------
+# This directory is an intentional defensive-analyst CTF surface.
+# The login page never POSTs and never accepts real credentials.
+# See ./CHALLENGE.md for the 30-finding rubric across four tiers
+# (audit / crypto / intel / Burp-style web pentest) and math reference.
+#
+# The asset at ./assets/seal.png is a stego carrier:
+#   * alpha-channel LSB, 79 bytes, length-prefixed (4-byte big-endian)
+#   * IEND trailer, JSON marked with "CYBERWORLD_TRAILER_V1"
 #   Decoders ship at ../scripts/lsb_decode.py and ../scripts/png_trailer_scan.py
-#   Manifest:   ./manifest.json   (HMAC-SHA-256 signed; key derivation in CHALLENGE.md §A.0)
+#
+# Manifest:  ./manifest.json  (HMAC-SHA-256 signed; key derivation in
+#                              CHALLENGE.md sec. A.0)
+# Workbench: ./intercept.html (Burp-style API client for Tier 4)
+# SW scope : ./               (service worker at ./sw-ctf.js intercepts
+#                              every /CyberWorld_login/api/v1/* fetch)
 
+# --- Decoy URLs (intentional false flags; do not waste time) ----------
+# Disallow:  ./admin.php          -- no PHP runs anywhere on the static host
+# Disallow:  ./wp-admin/          -- no WordPress
+# Disallow:  ./.env.bak           -- decoy env (X-CTF-Decoy: true)
+# Disallow:  ./.git/HEAD          -- decoy ref (wrong branch)
+# Disallow:  ./backup.zip         -- decoy ZIP (no central directory)
+# Disallow:  ./config.json        -- decoy public config
+# Disallow:  ./api/v1/debug?secret=admin
+# Disallow:  ./api/v1/lab/sysinfo
+# Disallow:  ./api/v1/__proto__/polluted
+
+# --- Real Tier-4 endpoints (after the service worker is active) -------
+# Allow:     ./api/v1/debug/echo          (Burp recon -- request reflector)
+# Allow:     ./api/v1/auth/issue          (mint HS256 JWT; weak key 'cyberworld')
+# Allow:     ./api/v1/auth/whoami         (alg=none accepted -- F22)
+# Allow:     ./api/v1/profile?uid=N       (IDOR -- F25 at uid=42)
+# Allow:     ./api/v1/admin/users         (forge JWT role=admin -- F24)
+# Allow:     ./api/v1/admin/geo           (X-Forwarded-For: 127.0.0.1 -- F27)
+# Allow:     ./api/v1/files?name=...      (path traversal -- F26)
+# Allow:     ./api/v1/hpp?token=X&token=Y (HPP last-wins -- F28)
+# Allow:     ./api/v1/redeem              (POST, race condition -- F29)
+# Allow:     ./api/v1/internal/flag       (chain F22 + F24 + X-Cw-Ops -- F30)
+# Allow:     ./admin                      (SW-served hidden landing page)
+
+Sitemap: /CyberWorld_login/sitemap.xml
 Sitemap: /CyberWorld_login/CHALLENGE.md

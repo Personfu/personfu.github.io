@@ -1,19 +1,43 @@
 <!doctype html>
 <!--
-  ╔═════════════════════════════════════════════════════════════════════╗
-  ║  CyberWorld :: Training Login (defensive-analyst CTF surface)       ║
-  ║  Version 2.0  ·  2026-05-26  ·  Person / FLLC                       ║
-  ║  Manifest:   ./manifest.json   (HMAC-SHA-256, key in CHALLENGE.md)  ║
-  ║  Brief:      ./CHALLENGE.md    (10-finding rubric + math reference) ║
-  ║  Robots:     ./robots.txt      (analyst breadcrumb)                 ║
-  ║                                                                     ║
-  ║  THIS PAGE IS A TEACHING ARTIFACT.                                  ║
-  ║  · Authentication is client-side only; no POST ever leaves origin.  ║
-  ║  · Sessions live in window.sessionStorage and expire in 5 minutes.  ║
-  ║  · Do NOT type real credentials. Use Training Handle / Passphrase.  ║
-  ║  · The page contains 10 intentional, documented weaknesses (F01-10).║
-  ╚═════════════════════════════════════════════════════════════════════╝
+  CYBERWORLD :: TRAINING_GATE  //  FLLC PURPLE-TEAM OS
+  v3.0 · 2026-05-26 · Person / FLLC <https://fllc.net>
+  "Hack the impossible. Defend the future."
+
+  Four-tier CTF range. Real vulnerabilities and obvious false flags
+  coexist; tell them apart.
+
+    TIER_01::AUDIT      F01-F10   defensive observations (this page + console.html)
+    TIER_02::CRYPTO     F11-F15   RSA / ECDSA / HMAC / Vigenere    (crypto.html)
+    TIER_03::INTEL      F16-F20   May-2026 advisories + ZWSP stego (intel.html)
+    TIER_04::BURP       F21-F30   service-worker backend + JWT     (intercept.html)
+
+  Manifest:  ./manifest.json   (HMAC-SHA-256 signed; key in CHALLENGE.md sec.A)
+  Brief:     ./CHALLENGE.md    (rubric + math + endpoint catalog)
+  Robots:    ./robots.txt      (analyst breadcrumb; lists decoys too)
+  Workbench: ./intercept.html  (Burp-style API client gating Tier 4)
+
+  // provided as is for demonstration and educational purposes only
+  // do NOT type real credentials; this gate accepts anything and the
+  // only thing it stores is a 5-minute sessionStorage token
+
+  ---------------- Decoy bait. None of these are real: ----------------
+    TODO: rotate CYBERWORLD_JWT_SECRET=DECOY__see_alg_none_F22 before launch
+    backup at ./backup.zip                                  decoy (corrupt ZIP)
+    legacy admin at ./admin.php                             decoy (no PHP)
+    .env.bak left on the static host                        decoy (X-CTF-Decoy)
+    base64 secret: REVDT1lfRjAwX25vdF9hX2ZsYWc=             decodes to
+                                                            "DECOY_F00_not_a_flag"
+    wp-admin/ for the WordPress mirror                      decoy (no WP)
+    /api/v1/debug?secret=admin                              decoy (returns bait)
+
+  Real artefacts you will need for Tier 4:
+    JWT in localStorage  ->  cw.jwt           (issued at boot; HS256, weak key)
+    Service worker scope -> /CyberWorld_login/  (sw-ctf.js)
+    Burp-style client    -> ./intercept.html
+    Endpoint catalog     -> /api/v1/debug/echo  (request reflector)
 -->
+
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -22,10 +46,12 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
   <meta name="robots" content="noindex,nofollow">
   <meta name="cyberworld:role"     content="training-ctf">
-  <meta name="cyberworld:version"  content="2.0">
+  <meta name="cyberworld:version"  content="3.0">
   <meta name="cyberworld:manifest" content="./manifest.json">
   <meta name="cyberworld:brief"    content="./CHALLENGE.md">
-  <title>CyberWorld :: Training Login</title>
+  <meta name="cyberworld:tiers"    content="audit:F01-F10,crypto:F11-F15,intel:F16-F20,burp:F21-F30">
+  <meta name="generator"           content="FLLC Purple-Team OS">
+  <title>CyberWorld :: Training Gate</title>
   <style>
     :root {
       --cyan: #00ffe7;
@@ -84,8 +110,8 @@
     }
 
     .training-banner {
-      margin: 0 0 14px;
-      padding: 8px 12px;
+      margin: 0 0 10px;
+      padding: 7px 12px;
       border: 1px dashed var(--warn);
       border-radius: 5px;
       background: rgba(255, 191, 0, 0.05);
@@ -96,6 +122,23 @@
       text-transform: uppercase;
     }
     .training-banner a { color: var(--cyan); text-decoration: none; border-bottom: 1px dotted var(--cyan); }
+    .status-strip {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 0 0 12px;
+      padding: 6px 10px;
+      border: 1px solid rgba(0, 255, 231, 0.32);
+      border-radius: 5px;
+      background: rgba(8, 13, 23, 0.7);
+      color: var(--muted);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .status-strip .s-ok   { color: var(--ok); }
+    .status-strip .s-bad  { color: var(--pink); }
+    .status-strip .s-warn { color: var(--warn); }
 
     .panel {
       padding: 32px 30px 28px;
@@ -233,7 +276,12 @@
 <body>
   <main class="shell">
     <div class="training-banner" role="note">
-      Training surface · <a href="CHALLENGE.md">brief</a>
+      Training surface · 4 tiers · <a href="CHALLENGE.md">brief</a> · <a href="intercept.html">workbench</a>
+    </div>
+    <div class="status-strip" aria-hidden="true">
+      <span>DEFCON_CTF::<span class="s-warn">3</span></span>
+      <span id="sw-state">SW::<span class="s-warn">starting</span></span>
+      <span>RANGE<span class="s-ok">::LIVE</span></span>
     </div>
 
     <section class="panel" aria-labelledby="title">
@@ -260,6 +308,22 @@
 
       <div id="status" class="status" role="status" aria-live="polite"></div>
     </section>
+
+    <!-- ============================================================
+         Source-recon decoys. Not visible to a normal user. Burp / "view
+         source" analysts will see them; all are intentional false flags.
+         ============================================================ -->
+    <noscript>
+      <!-- Legacy POST endpoint. The static host has no backend; this is bait. -->
+      <form action="/cgi-bin/cyberworld-login.cgi" method="POST" style="display:none">
+        <input type="hidden" name="role"  value="superuser">
+        <input type="hidden" name="flag"  value="DECOY_F00_noscript_form_bait">
+      </form>
+    </noscript>
+    <div hidden id="cw-source-decoys"
+         data-fake-session="ZmFrZV9zZXNzaW9uX2lkX2RvX25vdF91c2VfdGhpcw=="
+         data-fake-token="cw.legacy.<DECOY_F00>"
+         data-fake-flag="CTF_FLAG{F00_decoy_only_real_flags_start_at_F21}"></div>
   </main>
 
   <script>
@@ -652,7 +716,7 @@
         { cache: "no-store", credentials: "same-origin" });
       if (!r.ok) throw new Error("manifest:fetch");
       const m = await r.json();
-      if (!m || m.schema !== "cyberworld.training.manifest.v3")
+      if (!m || m.schema !== "cyberworld.training.manifest.v4")
         throw new Error("manifest:schema");
       if (!m.signature || m.signature.algorithm !== "HMAC-SHA-256")
         throw new Error("manifest:signature");
@@ -837,6 +901,67 @@
     })();
 
     form.addEventListener("submit", handleSubmit);
+
+    // ====================================================================
+    // §8 · Tier-4 attack-surface bootstrap (service worker + JWT + cookies)
+    //   These are the artefacts the analyst exploits from intercept.html.
+    //   They are *intentionally* visible in DevTools and discoverable
+    //   from page source. See CHALLENGE.md sec. G for the endpoint catalog.
+    // ====================================================================
+
+    // Decoy cookies. cw_role looks like an authorization signal but isn't:
+    // the service worker only trusts the JWT. cw_admin_token is pure bait.
+    try {
+      document.cookie = "cw_role=guest; SameSite=Strict; Path=/CyberWorld_login/";
+      document.cookie = "cw_admin_token=DECOY_F00_not_used_by_anyone; SameSite=Strict; Path=/CyberWorld_login/";
+      document.cookie = "cw_csrf=" + (crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)) + "; SameSite=Strict; Path=/CyberWorld_login/";
+    } catch {}
+
+    // Issue an HS256 JWT signed with the WEAK key "cyberworld" and plant
+    // it in localStorage. The SW also accepts alg=none, so this token is
+    // forgeable two ways (F22 / F24).
+    (async () => {
+      const JWT_WEAK_KEY = "cyberworld";
+      function b64url(uint8) {
+        let s = ""; for (const b of uint8) s += String.fromCharCode(b);
+        return btoa(s).replace(/=+$/, "").replace(/\+/g, "-").replace(/\//g, "_");
+      }
+      const now = Math.floor(Date.now() / 1000);
+      const header  = JSON.stringify({ alg: "HS256", typ: "JWT" });
+      const payload = JSON.stringify({ sub: "trainee", role: "user", iat: now, exp: now + 24*3600, iss: "cyberworld.training", aud: "intercept" });
+      const hdrB  = b64url(enc.encode(header));
+      const plB   = b64url(enc.encode(payload));
+      const key   = await crypto.subtle.importKey("raw", enc.encode(JWT_WEAK_KEY), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+      const sig   = b64url(new Uint8Array(await crypto.subtle.sign("HMAC", key, enc.encode(hdrB + "." + plB))));
+      const jwt   = hdrB + "." + plB + "." + sig;
+      try {
+        localStorage.setItem("cw.jwt", jwt);
+        localStorage.setItem("cw.jwt_alg", "HS256");
+        localStorage.setItem("cw.jwt_key_published", JWT_WEAK_KEY);
+      } catch {}
+    })();
+
+    // Register the Tier-4 service worker. Its scope is /CyberWorld_login/.
+    // The existing site-wide /sw.js explicitly skips this path, so there
+    // is no conflict; the narrower scope wins.
+    (async () => {
+      const stateEl = document.getElementById("sw-state");
+      function setSw(text, kind) {
+        if (!stateEl) return;
+        stateEl.innerHTML = "SW::<span class='s-" + (kind || "warn") + "'>" + text + "</span>";
+      }
+      if (!("serviceWorker" in navigator)) { setSw("unsupported", "bad"); return; }
+      try {
+        const reg = await navigator.serviceWorker.register("sw-ctf.js", { scope: "./" });
+        await navigator.serviceWorker.ready;
+        setSw("active", "ok");
+        // Soft-ping the SW with a no-op request so the controller is wired up
+        // before the analyst opens intercept.html.
+        try { await fetch("api/v1/debug/echo", { cache: "no-store" }); } catch {}
+      } catch (err) {
+        setSw("error", "bad");
+      }
+    })();
   })();
   </script>
 </body>

