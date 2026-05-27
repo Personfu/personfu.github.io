@@ -1,0 +1,235 @@
+<!doctype html>
+<!--
+  CyberWorld :: Training Lab Hub
+  Requires a valid session (cw.r). Aggregates progress across the
+  three tiers (console.html, crypto.html, intel.html) by reading
+  sessionStorage.cw.solved which each page writes when a finding
+  is locally confirmed.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+  <meta name="robots" content="noindex,nofollow">
+  <title>CyberWorld :: Lab</title>
+  <style>
+    :root { --cyan:#00ffe7; --pink:#ff0055; --text:#edf8fb; --muted:#8ba8b7; --warn:#ffbf00; --ok:#20d978; --panel:rgba(9,13,25,0.94); }
+    *{box-sizing:border-box} [hidden]{display:none!important}
+    html,body{min-height:100%;margin:0}
+    body{min-height:100vh;color:var(--text);background:radial-gradient(circle at 50% 28%,rgba(0,255,231,.16),rgba(0,255,231,.03) 30%,transparent 58%),linear-gradient(135deg,#0a171d 0%,#101528 51%,#244f60 100%);font-family:"Courier New",Consolas,ui-monospace,monospace}
+    body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(0,255,231,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,231,.05) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;z-index:0}
+    body::after{content:"";position:fixed;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.2),transparent);background-size:100% 4px;opacity:.32;pointer-events:none;z-index:0}
+    main{position:relative;z-index:1;width:min(720px,calc(100vw - 32px));margin:32px auto;padding:24px 26px 22px;border:1px solid var(--cyan);border-radius:10px;background:linear-gradient(180deg,rgba(13,18,34,.98),rgba(8,11,22,.96)),var(--panel);box-shadow:0 0 34px rgba(0,255,231,.23),0 0 90px rgba(0,255,231,.1),inset 0 0 24px rgba(0,255,231,.04)}
+    .training{margin:0 0 14px;padding:8px 12px;border:1px dashed var(--warn);border-radius:5px;background:rgba(255,191,0,.05);color:var(--warn);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+    .training a{color:var(--cyan);text-decoration:none;border-bottom:1px dotted var(--cyan)}
+    h1{margin:0;color:var(--cyan);font-size:clamp(1.5rem,4.6vw,2rem);letter-spacing:.18em;text-transform:uppercase;text-shadow:0 0 14px rgba(0,255,231,.78)}
+    .sub{margin:4px 0 18px;color:var(--pink);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+    .tiers{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:640px){.tiers{grid-template-columns:1fr 1fr 1fr}}
+    .tier{padding:14px;border:1px solid rgba(0,255,231,.4);border-radius:7px;background:rgba(8,13,23,.7);display:flex;flex-direction:column;gap:8px}
+    .tier h2{margin:0;color:var(--cyan);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+    .tier .num{font-size:1.8rem;color:var(--text);font-weight:700;letter-spacing:.05em}
+    .tier .num small{font-size:.6em;color:var(--muted)}
+    .tier .bar{height:6px;border-radius:3px;background:#0a121e;border:1px solid rgba(0,255,231,.25);overflow:hidden}
+    .tier .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--pink));transition:width .25s ease}
+    .tier .meta{color:var(--muted);font-size:.72rem;line-height:1.5}
+    .tier a{display:inline-grid;place-items:center;min-height:36px;padding:0 12px;border:1px solid rgba(0,255,231,.6);border-radius:4px;color:var(--text);background:#080d17;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+    .tier a:hover{border-color:var(--pink);color:var(--cyan)}
+    .master{margin-top:16px;padding:12px;border:1px solid rgba(0,255,231,.5);border-radius:6px;background:rgba(0,255,231,.04);color:var(--text);font-size:.82rem;line-height:1.55}
+    .master strong{color:var(--cyan);letter-spacing:.1em}
+    .master code{color:var(--warn)}
+    .master .ok{color:var(--ok)} .master .bad{color:var(--pink)} .master .meta{color:var(--muted);font-size:.72rem}
+    .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .toolbar a,.toolbar button{display:inline-grid;place-items:center;min-height:38px;padding:0 14px;border:1px solid rgba(0,255,231,.6);border-radius:4px;color:var(--text);background:#080d17;font:inherit;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer}
+    .toolbar .primary{color:#061018;background:linear-gradient(90deg,var(--cyan),var(--pink));border-color:transparent;font-weight:800}
+    .toolbar a:hover,.toolbar button:hover{border-color:var(--pink);color:var(--cyan)}
+    .fp{display:grid;grid-template-columns:max-content 1fr;gap:4px 10px;margin:14px 0 0;font-size:.72rem}
+    .fp dt{color:var(--muted)} .fp dd{margin:0;word-break:break-all;color:var(--text)}
+    .fp .ok{color:var(--ok)} .fp .bad{color:var(--pink)}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="training" role="note">
+      Training lab · <a href="CHALLENGE.md">brief</a> · <a href="manifest.json">manifest</a>
+    </div>
+
+    <h1>CyberWorld :: Lab</h1>
+    <p class="sub" id="stateLine">Verifying session...</p>
+
+    <div class="tiers">
+      <div class="tier" data-tier="1">
+        <h2>Tier 1 -- Defensive Audit</h2>
+        <div class="num" id="t1n">0<small>/10</small></div>
+        <div class="bar"><span id="t1bar" style="width:0%"></span></div>
+        <p class="meta">10 observations about the auth surface itself. Self-check rubric and live re-verification of session/asset/manifest.</p>
+        <a href="console.html">Open console</a>
+      </div>
+      <div class="tier" data-tier="2">
+        <h2>Tier 2 -- Cryptanalysis</h2>
+        <div class="num" id="t2n">0<small>/5</small></div>
+        <div class="bar"><span id="t2bar" style="width:0%"></span></div>
+        <p class="meta">RSA-toy factor + decrypt, ECDSA P-256 verify, 16-bit HMAC collision, Vigenere break. Web Crypto + BigInt.</p>
+        <a href="crypto.html">Open crypto lab</a>
+      </div>
+      <div class="tier" data-tier="3">
+        <h2>Tier 3 -- Threat Intel</h2>
+        <div class="num" id="t3n">0<small>/5</small></div>
+        <div class="bar"><span id="t3bar" style="width:0%"></span></div>
+        <p class="meta">May-2026 CVE attribution, MITRE ATT&amp;CK technique mapping, NIST IR phase, threat actor, zero-width-space stego.</p>
+        <a href="intel.html">Open intel desk</a>
+      </div>
+    </div>
+
+    <div class="master" id="master">
+      <strong>0/20</strong> confirmed -- partial XOR = <code>0x00000000</code> -- target <code id="target">0x--------</code>
+    </div>
+
+    <dl class="fp">
+      <dt>session.e</dt><dd id="se">--</dd>
+      <dt>asset.file</dt><dd id="sa">--</dd>
+      <dt>manifest</dt><dd id="sm">--</dd>
+    </dl>
+
+    <div class="toolbar">
+      <a class="primary" href="/cyberworld.html">Enter CyberWorld</a>
+      <a href="console.html">Console</a>
+      <a href="crypto.html">Crypto</a>
+      <a href="intel.html">Intel</a>
+      <button id="exit" type="button">Exit</button>
+    </div>
+  </main>
+
+  <script>
+  (() => {
+    "use strict";
+    const KEY_DERIVATION = "cyberworld:training:v2:2026-05-26:personfu";
+    const enc = new TextEncoder();
+    const dec = new TextDecoder("utf-8", { fatal: false });
+
+    const settings = Object.freeze({
+      sessionKey:   "cw.r",
+      solvedKey:    "cw.solved",
+      assetUrl:     "assets/seal.png",
+      manifestUrl:  "manifest.json",
+      schemaVersion:2,
+      powBits:      18
+    });
+
+    const PNG_SIG  = Uint8Array.from([137, 80, 78, 71, 13, 10, 26, 10]);
+    const PNG_IEND = Uint8Array.from([0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130]);
+    const TRAILER_MAGIC = "CYBERWORLD_TRAILER_V1";
+    const DENY = [/document\s*\.\s*cookie/, /localstorage/, /sessionstorage/, /navigator\s*\.\s*sendbeacon/, /fetch\s*\(/, /xmlhttprequest/, /formdata/, /credential/, /password/, /keystroke/, /keydown/, /keyup/, /input\s*event/, /eval\s*\(/, /new\s+function/, /import\s*\(/, /<script/, /atob\s*\(/, /powershell/, /cmd\.exe/, /https?:\/\//, /webhook/, /discord(?:app)?\.com\/api/, /telegram/];
+
+    const toHex = (b) => Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
+    const fromHex = (h) => { const o = new Uint8Array(h.length/2); for (let i=0;i<o.length;i++) o[i]=parseInt(h.substr(i*2,2),16); return o; };
+    async function sha256(b){ return new Uint8Array(await crypto.subtle.digest("SHA-256", b)); }
+    async function sha256Hex(b){ return toHex(await sha256(b instanceof Uint8Array ? b : enc.encode(b))); }
+    async function hmacKey(k){ return crypto.subtle.importKey("raw", k, {name:"HMAC", hash:"SHA-256"}, false, ["sign","verify"]); }
+    async function hmacHex(k,m){ const key=await hmacKey(k); const s=await crypto.subtle.sign("HMAC", key, m instanceof Uint8Array ? m : enc.encode(m)); return toHex(new Uint8Array(s)); }
+    async function hmacVerify(k,m,sig){ const key=await hmacKey(k); return crypto.subtle.verify("HMAC", key, fromHex(sig), m instanceof Uint8Array ? m : enc.encode(m)); }
+    function canon(o){ if(o===null||typeof o!=="object") return JSON.stringify(o); if(Array.isArray(o)) return "["+o.map(canon).join(",")+"]"; const ks=Object.keys(o).sort(); return "{"+ks.map(k=>JSON.stringify(k)+":"+canon(o[k])).join(",")+"}"; }
+    function lzb(b){ let n=0; for(let i=0;i<b.length;i++){ if(b[i]===0){n+=8;continue} for(let m=0x80;m>0;m>>=1){ if(b[i]&m) return n; n+=1; } return n; } return n; }
+
+    function hasPrefix(b,p){ if(b.length<p.length) return false; for(let i=0;i<p.length;i++) if(b[i]!==p[i]) return false; return true; }
+    function findIend(b){ for(let off=b.length-PNG_IEND.length; off>=0; off--){ let ok=true; for(let i=0;i<PNG_IEND.length;i++){ if(b[off+i]!==PNG_IEND[i]){ok=false;break;} } if(ok) return off+PNG_IEND.length; } return -1; }
+    function readAlpha(img){ const c=document.createElement("canvas"); c.width=img.naturalWidth; c.height=img.naturalHeight; const ctx=c.getContext("2d",{willReadFrequently:true}); ctx.drawImage(img,0,0); const px=ctx.getImageData(0,0,c.width,c.height).data; function rb(i){let v=0;for(let bit=0;bit<8;bit++) v=(v<<1)|(px[(i*8+bit)*4+3]&1); return v;} const L=(rb(0)<<24)|(rb(1)<<16)|(rb(2)<<8)|rb(3); if(L<0||L>16384) throw new Error("alpha-length"); const o=new Uint8Array(L); for(let i=0;i<L;i++) o[i]=rb(i+4); return o; }
+    function assertBenign(bytes){ const t=dec.decode(bytes.slice(0,Math.min(bytes.length,4096))).toLowerCase(); for(const p of DENY) if(p.test(t)) throw new Error("denied"); }
+
+    async function readAsset(){
+      const img=new Image(); img.decoding="async"; img.src=settings.assetUrl; await img.decode();
+      const r=await fetch(settings.assetUrl,{cache:"no-store",credentials:"same-origin"}); if(!r.ok) throw new Error("asset:fetch");
+      const bytes=new Uint8Array(await r.arrayBuffer());
+      if(bytes.length>1048576 || !hasPrefix(bytes,PNG_SIG)) throw new Error("asset:signature");
+      const ie=findIend(bytes); if(ie<0) throw new Error("asset:iend");
+      const tail=bytes.slice(ie); if(tail.length===0||tail.length>8192) throw new Error("asset:tail-size");
+      const alpha=readAlpha(img); assertBenign(tail); assertBenign(alpha);
+      if(!dec.decode(tail).includes(TRAILER_MAGIC)) throw new Error("asset:trailer-magic");
+      return { file:await sha256Hex(bytes), tail:await sha256Hex(tail), alpha:await sha256Hex(alpha) };
+    }
+    async function loadManifest(){
+      const r=await fetch(settings.manifestUrl,{cache:"no-store",credentials:"same-origin"}); if(!r.ok) throw new Error("manifest:fetch");
+      const m=await r.json();
+      if(!m||m.schema!=="cyberworld.training.manifest.v3") throw new Error("manifest:schema");
+      const {signature, ...body}=m;
+      const key=await sha256(enc.encode(KEY_DERIVATION));
+      if(!await hmacVerify(key, canon(body), signature.value)) throw new Error("manifest:hmac");
+      return m;
+    }
+    async function verifySession(session, asset){
+      if(!session||session.v!==settings.schemaVersion) throw new Error("session:schema");
+      if(Date.now()>session.e) throw new Error("session:expired");
+      if(session.a!==asset.file.slice(0,24)) throw new Error("session:asset-binding");
+      if(typeof session.h!=="string"||!session.h.startsWith("1:"+settings.powBits+":")) throw new Error("session:hashcash-format");
+      if(lzb(await sha256(enc.encode(session.h))) < settings.powBits) throw new Error("session:hashcash-difficulty");
+      const key=await sha256(enc.encode(KEY_DERIVATION));
+      const material=canon({v:session.v,u:session.u,a:session.a,n:session.n,i:session.i,e:session.e,h:session.h})+"|"+asset.tail.slice(0,24);
+      const expected=(await hmacHex(key,material)).slice(0,32);
+      if(session.s!==expected) throw new Error("session:hmac");
+      return true;
+    }
+
+    function readSolved(){ try{ return JSON.parse(sessionStorage.getItem(settings.solvedKey)||"{}"); } catch { return {}; } }
+    async function tally(manifest){
+      const solved=readSolved();
+      let acc=0, count=0;
+      const tiers={1:{ok:0,total:0},2:{ok:0,total:0},3:{ok:0,total:0}};
+      for(const f of manifest.findings){
+        const tier=f.tier||1;
+        tiers[tier].total += 1;
+        const token=solved[String(f.n)];
+        if(typeof token==="string" && token.length){
+          const hex=(await sha256Hex(token)).slice(0,8);
+          if(hex===f.answer_sha256_prefix){
+            acc^=parseInt(hex,16);
+            count+=1;
+            tiers[tier].ok += 1;
+          }
+        }
+      }
+      return { acc:(acc>>>0).toString(16).padStart(8,"0"), count, tiers };
+    }
+
+    function setLine(t,k){ const el=document.getElementById("stateLine"); el.textContent=t; el.className="sub"; if(k) el.classList.add(k); }
+    function shortHash(h){ return h?h.slice(0,12)+"..."+h.slice(-8):"--"; }
+
+    async function boot(){
+      let session=null;
+      try{ const raw=sessionStorage.getItem(settings.sessionKey); if(!raw) throw new Error(); session=JSON.parse(raw); }
+      catch{ setLine("Session missing","bad"); setTimeout(()=>location.replace("index.html"),900); return; }
+      try{
+        const asset=await readAsset();
+        const manifest=await loadManifest();
+        await verifySession(session, asset);
+        if(manifest.asset_fingerprints["seal.png"]!==asset.file) throw new Error("manifest:asset-binding");
+        document.getElementById("se").textContent=new Date(session.e).toISOString().slice(0,19)+"Z";
+        document.getElementById("sa").textContent=shortHash(asset.file);
+        document.getElementById("sm").innerHTML='<span class="ok">verified</span> '+shortHash(manifest.signature.value);
+        document.getElementById("target").textContent="0x"+manifest.master_xor;
+        setLine("Access granted","ok");
+        const t=await tally(manifest);
+        document.getElementById("t1n").innerHTML=t.tiers[1].ok+"<small>/"+t.tiers[1].total+"</small>";
+        document.getElementById("t2n").innerHTML=t.tiers[2].ok+"<small>/"+t.tiers[2].total+"</small>";
+        document.getElementById("t3n").innerHTML=t.tiers[3].ok+"<small>/"+t.tiers[3].total+"</small>";
+        document.getElementById("t1bar").style.width=(t.tiers[1].ok/Math.max(1,t.tiers[1].total)*100)+"%";
+        document.getElementById("t2bar").style.width=(t.tiers[2].ok/Math.max(1,t.tiers[2].total)*100)+"%";
+        document.getElementById("t3bar").style.width=(t.tiers[3].ok/Math.max(1,t.tiers[3].total)*100)+"%";
+        const closed=(t.count===manifest.findings.length && t.acc===manifest.master_xor);
+        document.getElementById("master").innerHTML=
+          "<strong>"+t.count+"/"+manifest.findings.length+"</strong> confirmed -- partial XOR = <code>0x"+t.acc+"</code> -- target <code>0x"+manifest.master_xor+"</code>"+
+          (closed?' <span class="ok">-- LINEAR CODE CLOSED</span>':'');
+      }catch(e){
+        setLine("Verification failed: "+(e&&e.message||e),"bad");
+        sessionStorage.removeItem(settings.sessionKey);
+        setTimeout(()=>location.replace("index.html"),1500);
+      }
+    }
+    document.getElementById("exit").addEventListener("click",()=>{ sessionStorage.removeItem(settings.sessionKey); sessionStorage.removeItem(settings.solvedKey); location.replace("index.html"); });
+    if(window.top!==window.self){ document.documentElement.style.display="none"; try{ window.top.location=window.location.href; }catch{ return; } }
+    boot();
+  })();
+  </script>
+</body>
+</html>

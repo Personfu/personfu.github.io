@@ -1,4 +1,10 @@
 <!doctype html>
+<!--
+  CyberWorld :: Training Console v2.0
+  Re-validates the local session, re-fetches the asset, re-verifies the
+  manifest HMAC, and renders the 10-finding rubric so the analyst can
+  self-check each observation locally. Independent of index.html.
+-->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -6,40 +12,31 @@
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
   <meta name="robots" content="noindex,nofollow">
-  <title>CyberWorld</title>
+  <meta name="cyberworld:role" content="training-ctf-console">
+  <title>CyberWorld :: Training Console</title>
   <style>
     :root {
       --cyan: #00ffe7;
       --pink: #ff0055;
       --text: #edf8fb;
       --muted: #8ba8b7;
+      --warn: #ffbf00;
+      --ok: #20d978;
       --panel: rgba(9, 13, 25, 0.94);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
 
-    [hidden] {
-      display: none !important;
-    }
-
-    html,
-    body {
-      min-height: 100%;
-      margin: 0;
-    }
+    html, body { min-height: 100%; margin: 0; }
 
     body {
-      display: grid;
-      place-items: center;
       min-height: 100vh;
       color: var(--text);
       background:
         radial-gradient(circle at 50% 28%, rgba(0, 255, 231, 0.16), rgba(0, 255, 231, 0.03) 30%, transparent 58%),
         linear-gradient(135deg, #0a171d 0%, #101528 51%, #244f60 100%);
       font-family: "Courier New", Consolas, ui-monospace, monospace;
-      overflow: hidden;
     }
 
     body::before {
@@ -47,10 +44,11 @@
       position: fixed;
       inset: 0;
       background:
-        linear-gradient(rgba(0, 255, 231, 0.055) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 255, 231, 0.055) 1px, transparent 1px);
+        linear-gradient(rgba(0, 255, 231, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 231, 0.05) 1px, transparent 1px);
       background-size: 32px 32px;
       pointer-events: none;
+      z-index: 0;
     }
 
     body::after {
@@ -61,288 +59,735 @@
       background-size: 100% 4px;
       opacity: 0.32;
       pointer-events: none;
+      z-index: 0;
     }
 
     main {
       position: relative;
       z-index: 1;
-      width: min(520px, calc(100vw - 32px));
-      padding: 34px 32px 30px;
+      width: min(960px, calc(100vw - 32px));
+      margin: 32px auto;
+      padding: 28px 30px 26px;
       border: 1px solid var(--cyan);
       border-radius: 10px;
       background: linear-gradient(180deg, rgba(13, 18, 34, 0.98), rgba(8, 11, 22, 0.96)), var(--panel);
-      box-shadow: 0 0 34px rgba(0, 255, 231, 0.23), 0 0 90px rgba(0, 255, 231, 0.1), inset 0 0 24px rgba(0, 255, 231, 0.04);
-      text-align: center;
+      box-shadow:
+        0 0 34px rgba(0, 255, 231, 0.23),
+        0 0 90px rgba(0, 255, 231, 0.1),
+        inset 0 0 24px rgba(0, 255, 231, 0.04);
     }
 
-    img {
-      width: 76px;
-      height: 76px;
+    header {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    header img {
+      width: 76px; height: 76px;
       filter: drop-shadow(0 0 10px rgba(255, 0, 85, 0.9));
     }
-
     h1 {
-      margin: 18px 0 8px;
+      margin: 0;
       color: var(--cyan);
-      font-size: clamp(2rem, 7vw, 2.45rem);
-      line-height: 1;
-      letter-spacing: 0.18em;
+      font-size: clamp(1.6rem, 4.4vw, 2.2rem);
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       text-shadow: 0 0 14px rgba(0, 255, 231, 0.78);
     }
-
-    .line {
-      margin: 0 0 26px;
+    .sub {
+      margin: 4px 0 0;
       color: var(--pink);
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       letter-spacing: 0.16em;
       text-transform: uppercase;
       text-shadow: 0 0 9px rgba(255, 0, 85, 0.62);
     }
 
-    .status {
-      min-height: 1.4em;
-      color: var(--muted);
-      font-size: 0.82rem;
+    .training {
+      margin-bottom: 18px;
+      padding: 10px 12px;
+      border: 1px dashed var(--warn);
+      border-radius: 6px;
+      background: rgba(255, 191, 0, 0.06);
+      color: var(--warn);
+      font-size: 0.76rem;
+      letter-spacing: 0.06em;
     }
+    .training small { color: rgba(255, 215, 130, 0.85); }
+    .training a { color: var(--cyan); }
+
+    .status-line {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 0.84rem;
+    }
+    .status-line .ok   { color: var(--ok); }
+    .status-line .warn { color: var(--warn); }
+    .status-line .bad  { color: var(--pink); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    @media (min-width: 720px) {
+      .grid { grid-template-columns: 1.4fr 1fr; }
+    }
+
+    .panel-block {
+      padding: 14px;
+      border: 1px solid rgba(0, 255, 231, 0.4);
+      border-radius: 7px;
+      background: rgba(8, 13, 23, 0.7);
+    }
+    .panel-block h2 {
+      margin: 0 0 10px;
+      color: var(--cyan);
+      font-size: 0.82rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    dl.fp {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 4px 10px;
+      margin: 0;
+      font-size: 0.75rem;
+    }
+    dl.fp dt { color: var(--muted); }
+    dl.fp dd { margin: 0; word-break: break-all; color: var(--text); }
+
+    .findings {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+    .finding {
+      padding: 10px 12px;
+      border: 1px solid rgba(0, 255, 231, 0.28);
+      border-radius: 6px;
+      background: rgba(12, 18, 30, 0.6);
+    }
+    .finding header {
+      display: flex;
+      gap: 8px;
+      margin: 0 0 4px;
+      align-items: baseline;
+    }
+    .finding .num {
+      color: var(--pink);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+    .finding .title {
+      color: var(--cyan);
+      font-size: 0.86rem;
+      letter-spacing: 0.05em;
+    }
+    .finding p {
+      margin: 6px 0;
+      color: var(--text);
+      font-size: 0.78rem;
+      line-height: 1.5;
+    }
+    .finding .hint { color: var(--muted); font-size: 0.76rem; }
+    .finding .row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .finding input {
+      width: 100%;
+      min-height: 36px;
+      padding: 0.5rem 0.7rem;
+      border: 1px solid rgba(0, 255, 231, 0.6);
+      border-radius: 4px;
+      color: #fff;
+      background: #080d17;
+      font: inherit;
+      font-size: 0.78rem;
+    }
+    .finding input:focus { outline: none; border-color: var(--pink); }
+    .finding button {
+      min-height: 36px;
+      padding: 0 14px;
+      border: 1px solid rgba(0, 255, 231, 0.6);
+      border-radius: 4px;
+      color: var(--text);
+      background: #0e1830;
+      font: inherit;
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .finding button:hover { border-color: var(--pink); color: var(--cyan); }
+    .finding .result {
+      display: block;
+      min-height: 1.2em;
+      margin-top: 6px;
+      font-size: 0.75rem;
+    }
+    .finding .result.ok  { color: var(--ok); }
+    .finding .result.bad { color: var(--pink); }
+    .finding .meta { color: var(--muted); font-size: 0.7rem; }
 
     .actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 24px;
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
     }
-
-    a,
-    button {
+    .actions a, .actions button {
       display: inline-grid;
       place-items: center;
-      min-height: 46px;
-      border: 1px solid rgba(0, 255, 231, 0.9);
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid rgba(0, 255, 231, 0.7);
       border-radius: 5px;
       color: var(--text);
       background: #080d17;
       font: inherit;
+      font-size: 0.84rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       text-decoration: none;
       cursor: pointer;
     }
-
-    a:hover,
-    button:hover {
+    .actions a:hover, .actions button:hover {
       border-color: var(--pink);
       color: var(--cyan);
     }
-
-    @media (max-width: 430px) {
-      main {
-        padding: 28px 22px 24px;
-      }
-
-      .actions {
-        grid-template-columns: 1fr;
-      }
+    .actions .primary {
+      color: #061018;
+      background: linear-gradient(90deg, var(--cyan), var(--pink));
+      border-color: transparent;
+      font-weight: 800;
+      box-shadow: 0 0 15px rgba(0, 255, 231, 0.4);
     }
+
+    .master {
+      margin-top: 14px;
+      padding: 12px;
+      border: 1px solid rgba(0, 255, 231, 0.5);
+      border-radius: 6px;
+      background: rgba(0, 255, 231, 0.04);
+      color: var(--text);
+      font-size: 0.82rem;
+      line-height: 1.55;
+    }
+    .master strong { color: var(--cyan); letter-spacing: 0.1em; }
+    .master code { color: var(--warn); }
+    .master .ok  { color: var(--ok); }
+    .master .bad { color: var(--pink); }
+
+    .fineprint {
+      margin: 14px 0 0;
+      color: rgba(237, 248, 251, 0.5);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+    }
+    .fineprint a { color: var(--cyan); }
   </style>
 </head>
 <body>
   <main>
-    <img src="assets/skull.png" width="76" height="76" alt="">
-    <h1>CyberWorld</h1>
-    <p id="stateLine" class="line">Stand by</p>
-    <div id="status" class="status" role="status" aria-live="polite">Verifying session...</div>
-    <div class="actions" hidden id="actions">
-      <a id="enter" href="../">Enter</a>
+    <header>
+      <img src="assets/skull.png" width="76" height="76" alt="">
+      <div>
+        <h1>CyberWorld :: Console</h1>
+        <p class="sub" id="stateLine">Verifying session…</p>
+      </div>
+    </header>
+
+    <div class="training">
+      <strong>Training console</strong> — independent re-verification of the local
+      session, the PNG seal, and the manifest. No data leaves the browser.
+      <br><small>
+        Reference: <a href="CHALLENGE.md">CHALLENGE.md</a> ·
+        <a href="manifest.json">manifest.json</a> ·
+        <a href="robots.txt">robots.txt</a>
+      </small>
+    </div>
+
+    <p class="status-line" id="status" role="status" aria-live="polite">Boot…</p>
+
+    <div class="grid">
+      <section class="panel-block">
+        <h2>Live audit</h2>
+        <dl class="fp" id="fp">
+          <dt>session.v</dt><dd id="v-ver">—</dd>
+          <dt>session.h</dt><dd id="v-stamp">—</dd>
+          <dt>session.i</dt><dd id="v-issued">—</dd>
+          <dt>session.e</dt><dd id="v-expires">—</dd>
+          <dt>asset</dt><dd id="v-asset">—</dd>
+          <dt>iend tail</dt><dd id="v-tail">—</dd>
+          <dt>alpha-lsb</dt><dd id="v-alpha">—</dd>
+          <dt>crc-32</dt><dd id="v-crc">—</dd>
+          <dt>manifest</dt><dd id="v-manifest">—</dd>
+          <dt>signature</dt><dd id="v-signature">—</dd>
+        </dl>
+      </section>
+
+      <section class="panel-block">
+        <h2>Math primitives in this page</h2>
+        <p style="margin:0 0 6px;font-size:.78rem;color:var(--text)">
+          The console replays:
+        </p>
+        <ul style="margin:0;padding-left:18px;font-size:.76rem;line-height:1.6;color:var(--muted)">
+          <li>SHA-256 over the live <code>seal.png</code> bytes (asset binding).</li>
+          <li>CRC-32 (IEEE 802.3 reflected) over the 79-byte alpha-LSB payload.</li>
+          <li>HMAC-SHA-256 verification of the canonical manifest body.</li>
+          <li>Independent Hashcash stamp re-validation (<code>SHA-256(stamp) ≫ 256-bits</code>).</li>
+        </ul>
+        <p class="meta" style="margin:8px 0 0;font-size:.7rem;color:var(--muted)">
+          Birthday bound: 𝔼[counter] ≈ 2¹⁸ = 262144 hashes for 18-bit difficulty.
+        </p>
+      </section>
+    </div>
+
+    <section class="panel-block" style="margin-top:14px">
+      <h2>Ten-finding rubric — self-check (local only)</h2>
+      <p style="margin:0 0 10px;font-size:.78rem;color:var(--muted)">
+        For each finding, type the canonical token from CHALLENGE.md §B.
+        The page hashes it locally with SHA-256 and shows whether the first
+        4 bytes match the manifest's published commitment. When all ten
+        match, the XOR of the prefixes equals the published
+        <code>master_xor</code>. No network traffic is generated.
+      </p>
+      <ol class="findings" id="findings"></ol>
+
+      <div class="master" id="master">
+        Master accumulator: <strong>—</strong>
+        <br><span class="meta">XOR of your 10 confirmed prefixes will appear here.</span>
+      </div>
+    </section>
+
+    <div class="actions">
+      <a class="primary" id="enter" href="lab.html">Open lab</a>
+      <a href="crypto.html">Tier 2: Crypto</a>
+      <a href="intel.html">Tier 3: Intel</a>
       <button id="exit" type="button">Exit</button>
     </div>
+
+    <p class="fineprint">
+      v2.0 · 2026-05-26 · This console performs the second of two
+      independent verifications. The first happens at
+      <a href="index.html">index.html</a>; either page rejects a tampered
+      session, asset, or manifest.
+    </p>
   </main>
 
   <script>
-    (() => {
-      "use strict";
+  /* ====================================================================
+     CyberWorld :: Console v2.0
+     Independent re-verification: session signature, asset fingerprints,
+     manifest HMAC, Hashcash stamp, 10-finding self-check.
+     ==================================================================== */
+  (() => {
+    "use strict";
 
-      const status = document.getElementById("status");
-      const stateLine = document.getElementById("stateLine");
-      const actions = document.getElementById("actions");
-      const enter = document.getElementById("enter");
-      const exit = document.getElementById("exit");
+    const KEY_DERIVATION = "cyberworld:training:v2:2026-05-26:personfu";
+    const enc = new TextEncoder();
+    const dec = new TextDecoder("utf-8", { fatal: false });
 
-      if (window.top !== window.self) {
-        document.documentElement.style.display = "none";
-        try {
-          window.top.location = window.location.href;
-        } catch {
-          return;
+    const settings = Object.freeze({
+      sessionKey:   "cw.r",
+      assetUrl:     "assets/seal.png",
+      manifestUrl:  "manifest.json",
+      schemaVersion:2,
+      maxAssetBytes: 1_048_576,
+      maxTailBytes:  8192,
+      maxEmbeddedBytes: 16_384,
+      scanLimitBytes: 4096,
+      powBits:      18
+    });
+
+    const PNG_SIG  = Uint8Array.from([137, 80, 78, 71, 13, 10, 26, 10]);
+    const PNG_IEND = Uint8Array.from([0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130]);
+    const TRAILER_MAGIC = "CYBERWORLD_TRAILER_V1";
+
+    const deniedEmbeddedPatterns = [
+      /document\s*\.\s*cookie/, /localstorage/, /sessionstorage/,
+      /navigator\s*\.\s*sendbeacon/, /fetch\s*\(/, /xmlhttprequest/,
+      /formdata/, /credential/, /password/, /keystroke/, /keydown/,
+      /keyup/, /input\s*event/, /eval\s*\(/, /new\s+function/,
+      /import\s*\(/, /<script/, /atob\s*\(/, /powershell/, /cmd\.exe/,
+      /https?:\/\//, /webhook/, /discord(?:app)?\.com\/api/, /telegram/
+    ];
+
+    // ---------------- helpers ----------------
+    const toHex = (b) => Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
+    const fromHex = (h) => {
+      const o = new Uint8Array(h.length / 2);
+      for (let i = 0; i < o.length; i += 1) o[i] = parseInt(h.substr(i * 2, 2), 16);
+      return o;
+    };
+    async function sha256(b) { return new Uint8Array(await crypto.subtle.digest("SHA-256", b)); }
+    async function sha256Hex(b) { return toHex(await sha256(b instanceof Uint8Array ? b : enc.encode(b))); }
+    async function hmacKey(k) {
+      return crypto.subtle.importKey("raw", k, { name: "HMAC", hash: "SHA-256" }, false, ["sign", "verify"]);
+    }
+    async function hmacSha256Hex(k, msg) {
+      const key = await hmacKey(k);
+      const sig = await crypto.subtle.sign("HMAC", key,
+        msg instanceof Uint8Array ? msg : enc.encode(msg));
+      return toHex(new Uint8Array(sig));
+    }
+    async function hmacVerify(k, msg, hexSig) {
+      const key = await hmacKey(k);
+      return crypto.subtle.verify("HMAC", key, fromHex(hexSig),
+        msg instanceof Uint8Array ? msg : enc.encode(msg));
+    }
+    function canonicalize(o) {
+      if (o === null || typeof o !== "object") return JSON.stringify(o);
+      if (Array.isArray(o)) return "[" + o.map(canonicalize).join(",") + "]";
+      const ks = Object.keys(o).sort();
+      return "{" + ks.map((k) => JSON.stringify(k) + ":" + canonicalize(o[k])).join(",") + "}";
+    }
+    function leadingZeroBits(b) {
+      let n = 0;
+      for (let i = 0; i < b.length; i += 1) {
+        if (b[i] === 0) { n += 8; continue; }
+        for (let m = 0x80; m > 0; m >>= 1) {
+          if (b[i] & m) return n;
+          n += 1;
+        }
+        return n;
+      }
+      return n;
+    }
+    let _crcTab = null;
+    function crc32(bytes) {
+      if (!_crcTab) {
+        _crcTab = new Uint32Array(256);
+        for (let n = 0; n < 256; n += 1) {
+          let c = n;
+          for (let k = 0; k < 8; k += 1) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+          _crcTab[n] = c >>> 0;
         }
       }
+      let c = 0xFFFFFFFF;
+      for (let i = 0; i < bytes.length; i += 1)
+        c = _crcTab[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+      return ((c ^ 0xFFFFFFFF) >>> 0);
+    }
 
-      const sessionKey = "cw.r";
-      const assetUrl = "assets/seal.png";
-      const maxAssetBytes = 1048576;
-      const maxTailBytes = 8192;
-      const maxEmbeddedBytes = 16384;
-      const scanLimitBytes = 4096;
-      const pngSignature = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10]);
-      const pngIend = new Uint8Array([0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130]);
-      const encoder = new TextEncoder();
-      const deniedEmbeddedPatterns = [
-        /document\s*\.\s*cookie/,
-        /localstorage/,
-        /sessionstorage/,
-        /navigator\s*\.\s*sendbeacon/,
-        /fetch\s*\(/,
-        /xmlhttprequest/,
-        /formdata/,
-        /credential/,
-        /password/,
-        /keystroke/,
-        /keydown/,
-        /keyup/,
-        /input\s*event/,
-        /eval\s*\(/,
-        /new\s+function/,
-        /import\s*\(/,
-        /<script/,
-        /atob\s*\(/,
-        /powershell/,
-        /cmd\.exe/,
-        /https?:\/\//,
-        /webhook/,
-        /discord(?:app)?\.com\/api/,
-        /telegram/
-      ];
-
-      async function hashHex(algorithm, data) {
-        const digest = await crypto.subtle.digest(algorithm, data);
-        return Array.from(new Uint8Array(digest)).map((byte) => byte.toString(16).padStart(2, "0")).join("");
-      }
-
-      function hasPrefix(bytes, prefix) {
-        if (bytes.length < prefix.length) return false;
-        for (let index = 0; index < prefix.length; index += 1) {
-          if (bytes[index] !== prefix[index]) return false;
+    // ---------------- asset / manifest ----------------
+    function hasPrefix(b, p) {
+      if (b.length < p.length) return false;
+      for (let i = 0; i < p.length; i += 1) if (b[i] !== p[i]) return false;
+      return true;
+    }
+    function findIendEnd(b) {
+      for (let off = b.length - PNG_IEND.length; off >= 0; off -= 1) {
+        let ok = true;
+        for (let i = 0; i < PNG_IEND.length; i += 1) {
+          if (b[off + i] !== PNG_IEND[i]) { ok = false; break; }
         }
-        return true;
+        if (ok) return off + PNG_IEND.length;
       }
+      return -1;
+    }
+    function readAlpha(img) {
+      const c = document.createElement("canvas");
+      c.width = img.naturalWidth; c.height = img.naturalHeight;
+      const ctx = c.getContext("2d", { willReadFrequently: true });
+      ctx.drawImage(img, 0, 0);
+      const px = ctx.getImageData(0, 0, c.width, c.height).data;
+      function rb(i) {
+        let v = 0;
+        for (let bit = 0; bit < 8; bit += 1)
+          v = (v << 1) | (px[(i * 8 + bit) * 4 + 3] & 1);
+        return v;
+      }
+      const L = (rb(0) << 24) | (rb(1) << 16) | (rb(2) << 8) | rb(3);
+      if (L < 0 || L > settings.maxEmbeddedBytes) throw new Error("asset:alpha-length");
+      const o = new Uint8Array(L);
+      for (let i = 0; i < L; i += 1) o[i] = rb(i + 4);
+      return o;
+    }
+    function assertBenign(bytes) {
+      const text = dec.decode(bytes.slice(0, Math.min(bytes.length, settings.scanLimitBytes))).toLowerCase();
+      for (const p of deniedEmbeddedPatterns) if (p.test(text)) throw new Error("asset:denied");
+    }
 
-      function findIendEnd(bytes) {
-        for (let offset = bytes.length - pngIend.length; offset >= 0; offset -= 1) {
-          let matched = true;
-          for (let index = 0; index < pngIend.length; index += 1) {
-            if (bytes[offset + index] !== pngIend[index]) {
-              matched = false;
-              break;
-            }
+    async function readAsset() {
+      const image = new Image();
+      image.decoding = "async";
+      image.src = settings.assetUrl;
+      await image.decode();
+
+      const r = await fetch(settings.assetUrl, { cache: "no-store", credentials: "same-origin" });
+      if (!r.ok) throw new Error("asset:fetch");
+      const bytes = new Uint8Array(await r.arrayBuffer());
+      if (bytes.length > settings.maxAssetBytes || !hasPrefix(bytes, PNG_SIG))
+        throw new Error("asset:signature");
+      const ie = findIendEnd(bytes);
+      if (ie < 0) throw new Error("asset:iend");
+      const tail = bytes.slice(ie);
+      if (tail.length === 0 || tail.length > settings.maxTailBytes)
+        throw new Error("asset:tail-size");
+      const alpha = readAlpha(image);
+      assertBenign(tail); assertBenign(alpha);
+      if (!dec.decode(tail).includes(TRAILER_MAGIC)) throw new Error("asset:trailer-magic");
+      return {
+        size:  bytes.length,
+        tailSize: tail.length,
+        alphaLen: alpha.length,
+        file:  await sha256Hex(bytes),
+        tail:  await sha256Hex(tail),
+        alpha: await sha256Hex(alpha),
+        crc32: crc32(alpha).toString(16).padStart(8, "0")
+      };
+    }
+
+    async function loadManifest() {
+      const r = await fetch(settings.manifestUrl, { cache: "no-store", credentials: "same-origin" });
+      if (!r.ok) throw new Error("manifest:fetch");
+      const m = await r.json();
+      if (!m || m.schema !== "cyberworld.training.manifest.v3") throw new Error("manifest:schema");
+      if (!m.signature || m.signature.algorithm !== "HMAC-SHA-256") throw new Error("manifest:signature");
+      const { signature, ...body } = m;
+      const key = await sha256(enc.encode(KEY_DERIVATION));
+      const ok = await hmacVerify(key, canonicalize(body), signature.value);
+      if (!ok) throw new Error("manifest:hmac-mismatch");
+      return m;
+    }
+
+    // ---------------- session verification ----------------
+    async function verifySession(session, asset) {
+      if (!session || session.v !== settings.schemaVersion) throw new Error("session:schema");
+      if (Date.now() > session.e) throw new Error("session:expired");
+      if (session.a !== asset.file.slice(0, 24))           throw new Error("session:asset-binding");
+
+      // Re-verify the embedded Hashcash stamp
+      if (typeof session.h !== "string" || !session.h.startsWith("1:" + settings.powBits + ":"))
+        throw new Error("session:hashcash-format");
+      const digest = await sha256(enc.encode(session.h));
+      if (leadingZeroBits(digest) < settings.powBits)
+        throw new Error("session:hashcash-difficulty");
+
+      // Re-derive the session signature
+      const key = await sha256(enc.encode(KEY_DERIVATION));
+      const material = canonicalize({ v: session.v, u: session.u, a: session.a, n: session.n, i: session.i, e: session.e, h: session.h })
+                     + "|" + asset.tail.slice(0, 24);
+      const expected = (await hmacSha256Hex(key, material)).slice(0, 32);
+      if (session.s !== expected) throw new Error("session:hmac-mismatch");
+      return true;
+    }
+
+    // ---------------- finding rubric ----------------
+    function renderFindings(manifest) {
+      const root = document.getElementById("findings");
+      root.innerHTML = "";
+      for (const f of manifest.findings) {
+        if (f.tier !== 1) continue; // console shows Tier-1 only; Tier 2/3 live in lab/crypto/intel
+        const li = document.createElement("li");
+        li.className = "finding";
+        li.dataset.expected = f.answer_sha256_prefix;
+        li.dataset.n = String(f.n);
+        li.innerHTML =
+          `<header>
+            <span class="num">F${String(f.n).padStart(2, "0")}</span>
+            <span class="title">${f.title.replace(/[&<>]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}</span>
+          </header>
+          <p class="hint">Hint: ${f.hint.replace(/[&<>]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}</p>
+          <div class="row">
+            <input type="text" placeholder="paste canonical token here" autocomplete="off">
+            <button type="button">Check</button>
+          </div>
+          <span class="result meta">Expected prefix: <code>${f.answer_sha256_prefix}</code></span>`;
+        root.appendChild(li);
+      }
+      attachFindingHandlers(manifest);
+    }
+
+    function readSolved(){ try{ return JSON.parse(sessionStorage.getItem("cw.solved")||"{}"); } catch { return {}; } }
+    function writeSolved(m){ sessionStorage.setItem("cw.solved", JSON.stringify(m)); }
+
+    function attachFindingHandlers(manifest) {
+      const root = document.getElementById("findings");
+      // Hydrate from shared solved-state so the analyst sees earlier work.
+      const solved = readSolved();
+      root.querySelectorAll(".finding").forEach((node) => {
+        const input  = node.querySelector("input");
+        const button = node.querySelector("button");
+        const out    = node.querySelector(".result");
+        const n      = Number(node.dataset.n);
+        if (typeof solved[String(n)] === "string") {
+          input.value = solved[String(n)];
+        }
+        async function check() {
+          const value = input.value.trim();
+          const map = readSolved();
+          if (!value) {
+            out.className = "result meta";
+            out.textContent = "Expected prefix: " + node.dataset.expected;
+            delete map[String(n)]; writeSolved(map);
+            updateMaster(manifest);
+            return;
           }
-          if (matched) return offset + pngIend.length;
-        }
-        return -1;
-      }
-
-      function readAlphaBytes(image) {
-        const canvas = document.createElement("canvas");
-        canvas.width = image.naturalWidth;
-        canvas.height = image.naturalHeight;
-        const context = canvas.getContext("2d", { willReadFrequently: true });
-        context.drawImage(image, 0, 0);
-        const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
-
-        function readByte(byteIndex) {
-          let value = 0;
-          for (let bit = 0; bit < 8; bit += 1) {
-            const pixelIndex = byteIndex * 8 + bit;
-            value = (value << 1) | (pixels[pixelIndex * 4 + 3] & 1);
+          const hex = await sha256Hex(value);
+          const prefix = hex.slice(0, 8);
+          if (prefix === node.dataset.expected) {
+            out.className = "result ok";
+            out.textContent = "Match -- prefix " + prefix + " = " + node.dataset.expected;
+            map[String(n)] = value; writeSolved(map);
+          } else {
+            out.className = "result bad";
+            out.textContent = "Mismatch -- got " + prefix + " -- expected " + node.dataset.expected;
+            delete map[String(n)]; writeSolved(map);
           }
-          return value;
+          updateMaster(manifest);
         }
-
-        const length = (readByte(0) << 24) | (readByte(1) << 16) | (readByte(2) << 8) | readByte(3);
-        if (length < 0 || length > maxEmbeddedBytes) throw new Error("asset");
-
-        const output = new Uint8Array(length);
-        for (let index = 0; index < length; index += 1) {
-          output[index] = readByte(index + 4);
-        }
-        return output;
-      }
-
-      function assertBenignEmbeddedData(bytes) {
-        const sample = bytes.slice(0, Math.min(bytes.length, scanLimitBytes));
-        const text = new TextDecoder("utf-8", { fatal: false }).decode(sample).toLowerCase();
-        for (const pattern of deniedEmbeddedPatterns) {
-          if (pattern.test(text)) throw new Error("asset");
-        }
-      }
-
-      async function readAsset() {
-        const image = new Image();
-        image.decoding = "async";
-        image.src = assetUrl;
-        await image.decode();
-
-        const response = await fetch(assetUrl, { cache: "no-store", credentials: "same-origin" });
-        if (!response.ok) throw new Error("asset");
-        const bytes = new Uint8Array(await response.arrayBuffer());
-        if (bytes.length > maxAssetBytes || !hasPrefix(bytes, pngSignature)) throw new Error("asset");
-        const iendEnd = findIendEnd(bytes);
-        if (iendEnd < 0) throw new Error("asset");
-        const tail = bytes.slice(iendEnd);
-        if (tail.length === 0 || tail.length > maxTailBytes) throw new Error("asset");
-        const embedded = readAlphaBytes(image);
-        assertBenignEmbeddedData(tail);
-        assertBenignEmbeddedData(embedded);
-        return {
-          file: await hashHex("SHA-256", bytes),
-          tail: await hashHex("SHA-256", tail)
-        };
-      }
-
-      async function signature(session, asset) {
-        const material = [
-          session.v,
-          session.u,
-          session.a,
-          session.n,
-          session.i,
-          session.e,
-          asset.tail.slice(0, 24)
-        ].join("|");
-        return (await hashHex("SHA-256", encoder.encode(material))).slice(0, 32);
-      }
-
-      function redirectHome() {
-        window.location.replace("index.html");
-      }
-
-      async function boot() {
-        try {
-          const raw = sessionStorage.getItem(sessionKey);
-          if (!raw) throw new Error("session");
-          const session = JSON.parse(raw);
-          if (!session || session.v !== 1 || Date.now() > session.e) throw new Error("session");
-          const asset = await readAsset();
-          if (session.a !== asset.file.slice(0, 24)) throw new Error("session");
-          const expected = await signature(session, asset);
-          if (session.s !== expected) throw new Error("session");
-          stateLine.textContent = "Access granted";
-          status.textContent = "Session accepted.";
-          actions.hidden = false;
-        } catch {
-          stateLine.textContent = "Session expired";
-          status.textContent = "Session expired.";
-          window.setTimeout(redirectHome, 900);
-        }
-      }
-
-      exit.addEventListener("click", () => {
-        sessionStorage.removeItem(sessionKey);
-        redirectHome();
+        button.addEventListener("click", check);
+        input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); check(); } });
+        input.addEventListener("input", () => {
+          if (!input.value.trim()) {
+            out.className = "result meta";
+            out.textContent = "Expected prefix: " + node.dataset.expected;
+            const map = readSolved(); delete map[String(n)]; writeSolved(map);
+            updateMaster(manifest);
+          }
+        });
+        // Auto-verify if hydrated from sessionStorage.
+        if (input.value) check();
       });
-      enter.addEventListener("click", () => {
-        sessionStorage.removeItem(sessionKey);
-      });
+    }
 
-      boot();
-    })();
+    async function updateMaster(manifest) {
+      const master = document.getElementById("master");
+      const want = manifest.master_xor;
+      const tier1Total = manifest.findings.filter((f) => f.tier === 1).length;
+      const solved = readSolved();
+      let acc = 0;
+      let tier1Ok = 0, totalOk = 0;
+      for (const f of manifest.findings) {
+        const tok = solved[String(f.n)];
+        if (typeof tok === "string" && tok.length) {
+          const hex = (await sha256Hex(tok)).slice(0, 8);
+          if (hex === f.answer_sha256_prefix) {
+            acc ^= parseInt(hex, 16);
+            totalOk += 1;
+            if (f.tier === 1) tier1Ok += 1;
+          }
+        }
+      }
+      const got = (acc >>> 0).toString(16).padStart(8, "0");
+      if (totalOk === manifest.findings.length) {
+        master.innerHTML =
+          `<strong>${totalOk}/${manifest.findings.length} confirmed</strong><br>` +
+          `master = <code>0x${got}</code> -- published = <code>0x${want}</code> ` +
+          (got === want
+            ? `<span class="ok">-- LINEAR CODE CLOSED</span>`
+            : `<span class="bad">-- XOR mismatch</span>`);
+      } else {
+        master.innerHTML =
+          `<strong>Tier 1: ${tier1Ok}/${tier1Total} -- All tiers: ${totalOk}/${manifest.findings.length}</strong><br>` +
+          `partial XOR = <code>0x${got}</code> -- target = <code>0x${want}</code>` +
+          `<br><span class="meta">Tier 2 lives at <a href="crypto.html">crypto.html</a> -- Tier 3 at <a href="intel.html">intel.html</a>.</span>`;
+      }
+    }
+
+    // ---------------- boot ----------------
+    function setStatus(text, kind) {
+      const el = document.getElementById("status");
+      el.innerHTML = text;
+      el.className = "status-line" + (kind ? " " + kind : "");
+    }
+    function setLine(text, kind) {
+      const el = document.getElementById("stateLine");
+      el.textContent = text;
+      el.className = "sub";
+      if (kind) el.classList.add(kind);
+    }
+
+    if (window.top !== window.self) {
+      document.documentElement.style.display = "none";
+      try { window.top.location = window.location.href; } catch { return; }
+    }
+
+    function shortHash(h) { return h ? h.slice(0, 12) + "…" + h.slice(-8) : "—"; }
+    function fmtTime(ms) {
+      try { return new Date(ms).toISOString().replace("T", " ").slice(0, 19) + "Z"; }
+      catch { return String(ms); }
+    }
+
+    async function boot() {
+      let session = null;
+      try {
+        const raw = sessionStorage.getItem(settings.sessionKey);
+        if (!raw) throw new Error("session:missing");
+        session = JSON.parse(raw);
+      } catch (e) {
+        setLine("Session missing or invalid", "bad");
+        setStatus(`<span class="bad">Boot blocked:</span> no usable session — returning to login…`, "bad");
+        setTimeout(() => window.location.replace("index.html"), 1200);
+        return;
+      }
+
+      document.getElementById("v-ver").textContent     = String(session.v);
+      document.getElementById("v-stamp").textContent   = (session.h || "").slice(0, 64);
+      document.getElementById("v-issued").textContent  = fmtTime(session.i);
+      document.getElementById("v-expires").textContent = fmtTime(session.e);
+
+      try {
+        setStatus("Re-fetching asset…");
+        const asset = await readAsset();
+        document.getElementById("v-asset").textContent = shortHash(asset.file);
+        document.getElementById("v-tail").textContent  = shortHash(asset.tail);
+        document.getElementById("v-alpha").textContent = shortHash(asset.alpha);
+        document.getElementById("v-crc").textContent   = "0x" + asset.crc32 + " (" + asset.alphaLen + " B)";
+
+        setStatus("Verifying manifest HMAC…");
+        const manifest = await loadManifest();
+        const sig = manifest.signature.value;
+        document.getElementById("v-manifest").innerHTML  = '<span class="ok">verified</span>';
+        document.getElementById("v-signature").textContent = sig.slice(0, 12) + "…" + sig.slice(-8);
+
+        setStatus("Re-verifying session signature + Hashcash stamp…");
+        await verifySession(session, asset);
+
+        // Asset binding check vs manifest
+        const fp = manifest.asset_fingerprints || {};
+        if (fp["seal.png"] !== asset.file ||
+            fp["seal.png:iend_tail"] !== asset.tail ||
+            fp["seal.png:alpha_lsb"] !== asset.alpha ||
+            fp["seal.png:alpha_crc32_ieee"] !== asset.crc32) {
+          throw new Error("manifest:asset-binding");
+        }
+
+        setLine("Access granted", "ok");
+        setStatus(`<span class="ok">All checks passed.</span> Local session, asset binding, manifest HMAC, and Hashcash stamp all verified independently.`, "ok");
+
+        renderFindings(manifest);
+        updateMaster(manifest);
+      } catch (err) {
+        const reason = err && err.message ? err.message : String(err);
+        setLine("Session rejected", "bad");
+        setStatus(`<span class="bad">Verification failed:</span> ${reason} — returning to login…`, "bad");
+        sessionStorage.removeItem(settings.sessionKey);
+        setTimeout(() => window.location.replace("index.html"), 1500);
+      }
+    }
+
+    document.getElementById("exit").addEventListener("click", () => {
+      sessionStorage.removeItem(settings.sessionKey);
+      window.location.replace("index.html");
+    });
+    document.getElementById("enter").addEventListener("click", () => {
+      sessionStorage.removeItem(settings.sessionKey);
+    });
+
+    boot();
+  })();
   </script>
 </body>
 </html>

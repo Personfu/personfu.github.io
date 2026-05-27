@@ -1,0 +1,318 @@
+<!doctype html>
+<!--
+  CyberWorld :: Tier 3 -- May 2026 Threat-Intel Desk (F16-F20)
+  Tests defender knowledge of recent advisories, MITRE ATT&CK, NIST
+  IR phases, threat-actor attribution, and zero-width-space stego.
+  All checks run locally; nothing is sent off-origin.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+  <meta name="robots" content="noindex,nofollow">
+  <title>CyberWorld :: Intel Desk</title>
+  <style>
+    :root { --cyan:#00ffe7; --pink:#ff0055; --text:#edf8fb; --muted:#8ba8b7; --warn:#ffbf00; --ok:#20d978; --panel:rgba(9,13,25,0.94); }
+    *{box-sizing:border-box} [hidden]{display:none!important}
+    html,body{min-height:100%;margin:0}
+    body{min-height:100vh;color:var(--text);background:radial-gradient(circle at 50% 28%,rgba(0,255,231,.16),rgba(0,255,231,.03) 30%,transparent 58%),linear-gradient(135deg,#0a171d 0%,#101528 51%,#244f60 100%);font-family:"Courier New",Consolas,ui-monospace,monospace}
+    body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(0,255,231,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,231,.05) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;z-index:0}
+    body::after{content:"";position:fixed;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.2),transparent);background-size:100% 4px;opacity:.32;pointer-events:none;z-index:0}
+    main{position:relative;z-index:1;width:min(880px,calc(100vw - 32px));margin:32px auto;padding:24px 26px 22px;border:1px solid var(--cyan);border-radius:10px;background:linear-gradient(180deg,rgba(13,18,34,.98),rgba(8,11,22,.96)),var(--panel);box-shadow:0 0 34px rgba(0,255,231,.23),0 0 90px rgba(0,255,231,.1),inset 0 0 24px rgba(0,255,231,.04)}
+    .training{margin:0 0 14px;padding:8px 12px;border:1px dashed var(--warn);border-radius:5px;background:rgba(255,191,0,.05);color:var(--warn);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+    .training a{color:var(--cyan);text-decoration:none;border-bottom:1px dotted var(--cyan)}
+    h1{margin:0;color:var(--cyan);font-size:clamp(1.5rem,4.6vw,2rem);letter-spacing:.18em;text-transform:uppercase;text-shadow:0 0 14px rgba(0,255,231,.78)}
+    .sub{margin:4px 0 18px;color:var(--pink);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+    .brief{padding:12px 14px;border:1px solid rgba(0,255,231,.3);border-radius:6px;background:rgba(8,13,23,.6);margin-bottom:14px;font-size:.86rem;line-height:1.65;color:var(--text)}
+    .brief em{color:var(--warn);font-style:normal}
+    .ch{margin:14px 0;padding:14px 16px;border:1px solid rgba(0,255,231,.35);border-radius:7px;background:rgba(8,13,23,.7)}
+    .ch h2{margin:0 0 6px;color:var(--cyan);font-size:.82rem;letter-spacing:.16em;text-transform:uppercase}
+    .ch h2 .n{color:var(--pink);margin-right:.4em}
+    .ch p{margin:6px 0;color:var(--text);font-size:.84rem;line-height:1.55}
+    .ch p.hint{color:var(--muted);font-size:.76rem}
+    .ch code{color:var(--warn);background:#0a121e;padding:2px 5px;border-radius:3px;font-size:.82rem}
+    .ch pre{padding:8px 10px;border-radius:5px;background:#0a121e;color:#cfe;font-size:.78rem;overflow-x:auto;line-height:1.5;margin:6px 0;border:1px solid rgba(0,255,231,.2)}
+    .row{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:8px}
+    .row input{width:100%;min-height:38px;padding:.5rem .7rem;border:1px solid rgba(0,255,231,.6);border-radius:4px;color:#fff;background:#080d17;font:inherit;font-size:.82rem}
+    .row input:focus{outline:none;border-color:var(--pink)}
+    .row button,.toolbar button,.toolbar a{display:inline-grid;place-items:center;min-height:38px;padding:0 14px;border:1px solid rgba(0,255,231,.6);border-radius:4px;color:var(--text);background:#0e1830;font:inherit;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-decoration:none}
+    .row button:hover,.toolbar button:hover,.toolbar a:hover{border-color:var(--pink);color:var(--cyan)}
+    .result{display:block;min-height:1.2em;margin-top:6px;font-size:.78rem;color:var(--muted)}
+    .result.ok{color:var(--ok)} .result.bad{color:var(--pink)} .result.warn{color:var(--warn)}
+    .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .toolbar .primary{color:#061018;background:linear-gradient(90deg,var(--cyan),var(--pink));border-color:transparent;font-weight:800}
+    .progress{margin-top:10px;color:var(--muted);font-size:.76rem}
+    .progress .ok{color:var(--ok)}
+    table{width:100%;border-collapse:collapse;font-size:.78rem;margin-top:8px}
+    th,td{padding:6px 8px;border-bottom:1px solid rgba(0,255,231,.18);text-align:left;vertical-align:top}
+    th{color:var(--cyan);letter-spacing:.05em}
+    .ioc-line{font-size:.78rem;color:var(--text)}
+    .ioc-line .ts{color:var(--muted)}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="training" role="note">
+      Tier 3 -- May 2026 Intel · <a href="lab.html">lab</a> · <a href="CHALLENGE.md">brief</a>
+    </div>
+    <h1>Intel Desk</h1>
+    <p class="sub" id="stateLine">Verifying session...</p>
+
+    <!--
+      Editorial brief. The flag for F20 is embedded as zero-width
+      characters between the words "Phoenix" and "Operations" below.
+      A printable read shows nothing; selecting the text or viewing
+      source reveals U+200B / U+200D codepoints.
+    -->
+    <section class="brief">
+      <p><strong>Phoenix‌​‍​​​‍‍​​‍​​‍‍​​​‍​​‍‍​​​‍​​​​‍‍​​‍‍​​‍​​​‍‍​​​​​​‍‍​​‍​​​‍‍​‍‍​Operations -- May 2026 quarterly brief.</strong>
+         The quarter opened with a <em>Next.js middleware authorization-bypass</em> advisory
+         (March 2025) that defenders were still mopping up; defenders were also
+         rotating secrets exposed by the March 2025 GitHub Actions
+         supply-chain compromise. Mandiant continued tracking
+         <em>UNC5337</em>'s long campaign against Ivanti Connect Secure (the December 2024
+         pre-auth stack overflow). The standing guidance below stays in force:</p>
+      <ul style="margin:6px 0;padding-left:22px;color:var(--muted);font-size:.78rem;line-height:1.6">
+        <li>Pin third-party GitHub Actions to a full commit SHA, not a tag.</li>
+        <li>Server-side authorize every route -- middleware-only checks are bypassable.</li>
+        <li>Force passkey / WebAuthn for admin paths; disable SMS OTP fallback.</li>
+        <li>Verify <code>xz-utils</code> &lt; 5.6.0 or &ge; 5.4.6 (CVE-2024-3094).</li>
+        <li>Treat any Ivanti Connect Secure exposed pre-Jan-2025 as compromised.</li>
+      </ul>
+    </section>
+
+    <!-- F16 -->
+    <section class="ch" data-n="16">
+      <h2><span class="n">F16</span> CVE attribution</h2>
+      <p>A Next.js application accepts an HTTP header <code>x-middleware-subrequest</code> from
+         an unauthenticated user and the middleware-based authorization gate is bypassed,
+         giving the caller admin-only routes. Name the CVE (CVE-YYYY-NNNNN).</p>
+      <p class="hint">Disclosed March 2025; affects Next.js &lt; 15.2.3 / 14.2.25 / 13.5.9 / 12.3.5.</p>
+      <div class="row">
+        <input type="text" id="i16" placeholder="CVE-2025-#####" autocomplete="off">
+        <button type="button" data-n="16">Check</button>
+      </div>
+      <span class="result" id="r16"></span>
+    </section>
+
+    <!-- F17 -->
+    <section class="ch" data-n="17">
+      <h2><span class="n">F17</span> MITRE ATT&amp;CK technique</h2>
+      <p>An adversary signs in to a corporate web app using stolen username and password.
+         No exploit is required; the credentials simply work. Map this to a MITRE ATT&amp;CK
+         technique ID (Txxxx).</p>
+      <p class="hint">Enterprise matrix, Initial Access tactic. The technique is one of the most-reported.</p>
+      <div class="row">
+        <input type="text" id="i17" placeholder="T#### or T####.###" autocomplete="off">
+        <button type="button" data-n="17">Check</button>
+      </div>
+      <span class="result" id="r17"></span>
+    </section>
+
+    <!-- F18 -->
+    <section class="ch" data-n="18">
+      <h2><span class="n">F18</span> NIST SP 800-61 phase</h2>
+      <p>You've identified the supply-chain compromise root cause, rotated all secrets that
+         were exposed in CI logs since 2025-03-14, and pinned the offending GitHub Action
+         to a full commit SHA across all repos. Which NIST SP 800-61 Rev.3
+         incident-response phase are you in?</p>
+      <pre>Preparation -> Detection & Analysis -> Containment -> Eradication -> Recovery</pre>
+      <p class="hint">"Removing the root cause of the incident from the environment."</p>
+      <div class="row">
+        <input type="text" id="i18" placeholder="one word" autocomplete="off">
+        <button type="button" data-n="18">Check</button>
+      </div>
+      <span class="result" id="r18"></span>
+    </section>
+
+    <!-- F19 -->
+    <section class="ch" data-n="19">
+      <h2><span class="n">F19</span> Actor attribution</h2>
+      <p>From December 2024 onward, an undisclosed actor exploited a pre-authentication stack
+         overflow in Ivanti Connect Secure / Policy Secure / Neurons-for-ZTA gateways
+         (CVE-2025-0282). Mandiant's tracker for this campaign is which UNC cluster?</p>
+      <p class="hint">UNC#### -- the cluster's first disclosed reference is in Mandiant's January 2025 advisory.</p>
+      <div class="row">
+        <input type="text" id="i19" placeholder="UNC####" autocomplete="off">
+        <button type="button" data-n="19">Check</button>
+      </div>
+      <span class="result" id="r19"></span>
+    </section>
+
+    <!-- F20 -->
+    <section class="ch" data-n="20">
+      <h2><span class="n">F20</span> Zero-width-space steganography</h2>
+      <p>The brief above contains an invisible payload between two of its words. Zero-width
+         space (<code>U+200B</code>) encodes binary 0; zero-width joiner (<code>U+200D</code>)
+         encodes binary 1; eight characters per ASCII byte, MSB first.</p>
+      <p class="hint">Try selecting the entire brief paragraph, copy-pasting into a hex viewer, or
+         running <code>btoa</code> on the substring after stripping non-ZWSP/ZWJ characters.
+         The page can also auto-extract via the button below.</p>
+      <div class="row">
+        <input type="text" id="i20" placeholder="extracted flag" autocomplete="off" autocapitalize="characters">
+        <button type="button" data-n="20">Check</button>
+      </div>
+      <div class="row" style="grid-template-columns:1fr auto">
+        <span class="result" id="r20"></span>
+        <button type="button" id="b20-auto">Auto-extract</button>
+      </div>
+    </section>
+
+    <div class="progress" id="progress">--/5 confirmed locally</div>
+
+    <div class="toolbar">
+      <a class="primary" href="lab.html">Back to lab</a>
+      <a href="crypto.html">Tier 2: Crypto</a>
+      <a href="console.html">Console</a>
+      <a href="CHALLENGE.md">Brief</a>
+    </div>
+  </main>
+
+  <script>
+  (() => {
+    "use strict";
+    const enc = new TextEncoder();
+
+    const TOKENS = {
+      16: "cyberworld:F16:nextjs-middleware-bypass:CVE-2025-29927",
+      17: "cyberworld:F17:mitre-attack:T1078:valid-accounts",
+      18: "cyberworld:F18:ir-phase:eradication",
+      19: "cyberworld:F19:actor:UNC5337:ivanti-connect-secure",
+      20: "cyberworld:F20:zwsp-stego-extracted",
+    };
+
+    const ZWSP = "​"; // 0
+    const ZWJ  = "‍"; // 1
+
+    const toHex = (b) => Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
+    async function sha256(b){ return new Uint8Array(await crypto.subtle.digest("SHA-256", b)); }
+    async function sha256Hex(b){ return toHex(await sha256(b instanceof Uint8Array ? b : enc.encode(b))); }
+
+    function readSolved(){ try{ return JSON.parse(sessionStorage.getItem("cw.solved")||"{}"); } catch { return {}; } }
+    function writeSolved(m){ sessionStorage.setItem("cw.solved", JSON.stringify(m)); }
+    async function confirm(n){
+      const s = readSolved();
+      s[String(n)] = TOKENS[n];
+      writeSolved(s);
+      await refreshProgress();
+    }
+    async function refreshProgress(){
+      const m = window.__manifest;
+      if(!m) return;
+      const solved = readSolved();
+      let ok=0, total=0;
+      for(const f of m.findings){
+        if(f.tier!==3) continue;
+        total++;
+        const tok=solved[String(f.n)];
+        if(tok && (await sha256Hex(tok)).slice(0,8)===f.answer_sha256_prefix) ok++;
+      }
+      document.getElementById("progress").innerHTML =
+        '<span class="'+(ok===total?"ok":"")+'">'+ok+"/"+total+" confirmed locally"+
+        (ok===total?" -- Tier 3 closed":"")+"</span>";
+    }
+
+    function paint(el, text, kind){ el.textContent=text; el.className="result"+(kind?" "+kind:""); }
+
+    function normalize(s){ return (s||"").trim(); }
+
+    function checkF16(input){
+      const v = normalize(input).toUpperCase().replace(/\s+/g,"");
+      if(v==="CVE-2025-29927") return { ok:true, msg:"correct -- Next.js x-middleware-subrequest bypass" };
+      return { ok:false, msg:"not the right CVE" };
+    }
+    function checkF17(input){
+      const v = normalize(input).toUpperCase();
+      if(v==="T1078" || v.startsWith("T1078.")) return { ok:true, msg:"correct -- T1078 Valid Accounts (Initial Access)" };
+      return { ok:false, msg:"not the right technique ID" };
+    }
+    function checkF18(input){
+      const v = normalize(input).toLowerCase();
+      if(v==="eradication") return { ok:true, msg:"correct -- NIST SP 800-61 Eradication phase" };
+      return { ok:false, msg:"that's not the right phase" };
+    }
+    function checkF19(input){
+      const v = normalize(input).toUpperCase().replace(/[^A-Z0-9]/g,"");
+      if(v==="UNC5337") return { ok:true, msg:"correct -- UNC5337 (Ivanti Connect Secure Dec 2024)" };
+      return { ok:false, msg:"not the right cluster" };
+    }
+    function checkF20(input){
+      const v = normalize(input).toUpperCase();
+      if(v==="FLLC2026") return { ok:true, msg:"flag matches -- zero-width-space stego extracted" };
+      return { ok:false, msg:"not the right flag" };
+    }
+
+    function extractZWSP(){
+      // Scan the brief paragraph for ZWSP / ZWJ characters and decode.
+      const brief = document.querySelector(".brief");
+      if(!brief) return null;
+      const text = brief.textContent || "";
+      const bits = [];
+      for(const ch of text){
+        if(ch === ZWSP) bits.push(0);
+        else if(ch === ZWJ) bits.push(1);
+      }
+      if(bits.length === 0 || bits.length % 8 !== 0) return null;
+      const bytes = new Uint8Array(bits.length / 8);
+      for(let i=0;i<bytes.length;i++){
+        let b = 0;
+        for(let j=0;j<8;j++) b = (b<<1) | bits[i*8 + j];
+        bytes[i] = b;
+      }
+      try { return new TextDecoder().decode(bytes); } catch { return null; }
+    }
+
+    document.addEventListener("click", async (ev) => {
+      const btn = ev.target.closest("button[data-n]");
+      if(!btn) return;
+      const n = Number(btn.dataset.n);
+      const inputEl = document.getElementById("i"+n);
+      const resultEl = document.getElementById("r"+n);
+      const v = inputEl ? inputEl.value : "";
+      let res;
+      if(n===16) res = checkF16(v);
+      else if(n===17) res = checkF17(v);
+      else if(n===18) res = checkF18(v);
+      else if(n===19) res = checkF19(v);
+      else if(n===20) res = checkF20(v);
+      paint(resultEl, res.msg, res.ok ? "ok" : "bad");
+      if(res.ok) await confirm(n);
+    });
+
+    document.getElementById("b20-auto").addEventListener("click", () => {
+      const r = document.getElementById("r20");
+      const extracted = extractZWSP();
+      if(extracted){
+        document.getElementById("i20").value = extracted;
+        paint(r, "extracted: \""+extracted+"\" -- submit Check to confirm", "warn");
+      } else {
+        paint(r, "no zero-width-space sequence found in the brief", "bad");
+      }
+    });
+
+    // ----- session guard -----
+    if(window.top !== window.self){ document.documentElement.style.display="none"; try{ window.top.location=window.location.href; }catch{ return; } }
+    (async () => {
+      try {
+        const raw = sessionStorage.getItem("cw.r");
+        if(!raw) throw new Error("no session");
+        const r = await fetch("manifest.json", {cache:"no-store", credentials:"same-origin"});
+        if(!r.ok) throw new Error("manifest");
+        const m = await r.json();
+        if(m.schema!=="cyberworld.training.manifest.v3") throw new Error("schema");
+        window.__manifest = m;
+        document.getElementById("stateLine").textContent = "Session OK -- 5 challenges, all local";
+        document.getElementById("stateLine").style.color = "var(--ok)";
+        await refreshProgress();
+      } catch (e) {
+        document.getElementById("stateLine").textContent = "Verification failed: "+e.message+" -- returning to login...";
+        document.getElementById("stateLine").style.color = "var(--pink)";
+        setTimeout(()=>location.replace("index.html"), 1200);
+      }
+    })();
+  })();
+  </script>
+</body>
+</html>

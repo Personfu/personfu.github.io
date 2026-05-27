@@ -1,0 +1,15 @@
+# CyberWorld training range — keep search engines and bots away from the lab.
+User-agent: *
+Disallow: /
+
+# Analyst breadcrumb:
+#   This directory is an intentional defensive-analyst CTF surface.
+#   The login page never POSTs and never accepts real credentials.
+#   See ./CHALLENGE.md for the 10-finding rubric and math reference.
+#   The asset at ./assets/seal.png is a stego carrier:
+#     * alpha-channel LSB,  79 bytes, length-prefixed (4-byte big-endian)
+#     * IEND trailer,       JSON marked with "CYBERWORLD_TRAILER_V1"
+#   Decoders ship at ../scripts/lsb_decode.py and ../scripts/png_trailer_scan.py
+#   Manifest:   ./manifest.json   (HMAC-SHA-256 signed; key derivation in CHALLENGE.md §A.0)
+
+Sitemap: /CyberWorld_login/CHALLENGE.md

@@ -1,4 +1,19 @@
 <!doctype html>
+<!--
+  ╔═════════════════════════════════════════════════════════════════════╗
+  ║  CyberWorld :: Training Login (defensive-analyst CTF surface)       ║
+  ║  Version 2.0  ·  2026-05-26  ·  Person / FLLC                       ║
+  ║  Manifest:   ./manifest.json   (HMAC-SHA-256, key in CHALLENGE.md)  ║
+  ║  Brief:      ./CHALLENGE.md    (10-finding rubric + math reference) ║
+  ║  Robots:     ./robots.txt      (analyst breadcrumb)                 ║
+  ║                                                                     ║
+  ║  THIS PAGE IS A TEACHING ARTIFACT.                                  ║
+  ║  · Authentication is client-side only; no POST ever leaves origin.  ║
+  ║  · Sessions live in window.sessionStorage and expire in 5 minutes.  ║
+  ║  · Do NOT type real credentials. Use Training Handle / Passphrase.  ║
+  ║  · The page contains 10 intentional, documented weaknesses (F01-10).║
+  ╚═════════════════════════════════════════════════════════════════════╝
+-->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -6,7 +21,11 @@
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
   <meta name="robots" content="noindex,nofollow">
-  <title>CyberWorld</title>
+  <meta name="cyberworld:role"     content="training-ctf">
+  <meta name="cyberworld:version"  content="2.0">
+  <meta name="cyberworld:manifest" content="./manifest.json">
+  <meta name="cyberworld:brief"    content="./CHALLENGE.md">
+  <title>CyberWorld :: Training Login</title>
   <style>
     :root {
       --cyan: #00ffe7;
@@ -20,15 +39,9 @@
       --ok: #20d978;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html,
-    body {
-      min-height: 100%;
-      margin: 0;
-    }
+    html, body { min-height: 100%; margin: 0; }
 
     body {
       display: grid;
@@ -39,7 +52,7 @@
         radial-gradient(circle at 50% 29%, rgba(0, 255, 231, 0.18), rgba(0, 255, 231, 0.035) 28%, transparent 56%),
         linear-gradient(135deg, #0a171d 0%, #101528 51%, #244f60 100%);
       font-family: "Courier New", Consolas, ui-monospace, monospace;
-      overflow: hidden;
+      overflow: auto;
     }
 
     body::before {
@@ -66,11 +79,26 @@
     .shell {
       position: relative;
       z-index: 1;
-      width: min(424px, calc(100vw - 32px));
+      width: min(460px, calc(100vw - 32px));
+      padding: 22px 0;
     }
 
+    .training-banner {
+      margin: 0 0 14px;
+      padding: 8px 12px;
+      border: 1px dashed var(--warn);
+      border-radius: 5px;
+      background: rgba(255, 191, 0, 0.05);
+      color: var(--warn);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .training-banner a { color: var(--cyan); text-decoration: none; border-bottom: 1px dotted var(--cyan); }
+
     .panel {
-      padding: 34px 32px 30px;
+      padding: 32px 30px 28px;
       border: 1px solid var(--cyan);
       border-radius: 10px;
       background:
@@ -86,14 +114,14 @@
       display: block;
       width: 76px;
       height: 76px;
-      margin: 0 auto 18px;
+      margin: 0 auto 16px;
       filter: drop-shadow(0 0 10px rgba(255, 0, 85, 0.9));
     }
 
     h1 {
       margin: 0;
       color: var(--cyan);
-      font-size: clamp(2rem, 7vw, 2.5rem);
+      font-size: clamp(1.85rem, 6.5vw, 2.4rem);
       line-height: 1;
       letter-spacing: 0.2em;
       text-align: center;
@@ -102,24 +130,17 @@
     }
 
     .subtitle {
-      margin: 12px 0 28px;
+      margin: 10px 0 22px;
       color: var(--pink);
-      font-size: 0.86rem;
+      font-size: 0.82rem;
       letter-spacing: 0.18em;
       text-align: center;
       text-transform: uppercase;
       text-shadow: 0 0 9px rgba(255, 0, 85, 0.62);
     }
 
-    form {
-      display: grid;
-      gap: 14px;
-    }
-
-    .field {
-      display: grid;
-      gap: 6px;
-    }
+    form { display: grid; gap: 14px; }
+    .field { display: grid; gap: 6px; }
 
     label {
       color: var(--muted);
@@ -127,7 +148,6 @@
       letter-spacing: 0.13em;
       text-transform: uppercase;
     }
-
     input {
       width: 100%;
       min-height: 46px;
@@ -149,9 +169,7 @@
         0 0 15px rgba(0, 255, 231, 0.13);
     }
 
-    input[aria-invalid="true"] {
-      border-color: var(--warn);
-    }
+    input[aria-invalid="true"] { border-color: var(--warn); }
 
     .trap {
       position: absolute;
@@ -179,21 +197,9 @@
       text-transform: uppercase;
       transition: color 140ms ease, filter 140ms ease, transform 140ms ease;
     }
-
-    button:hover {
-      color: #fff;
-      filter: saturate(1.14);
-    }
-
-    button:active {
-      transform: translateY(1px);
-    }
-
-    button:disabled {
-      cursor: wait;
-      filter: grayscale(0.8);
-      opacity: 0.8;
-    }
+    button:hover { color: #fff; filter: saturate(1.14); }
+    button:active { transform: translateY(1px); }
+    button:disabled { cursor: wait; filter: grayscale(0.8); opacity: 0.8; }
 
     .assist {
       display: block;
@@ -205,12 +211,7 @@
       text-decoration: none;
       text-transform: uppercase;
     }
-
-    .assist:hover,
-    .assist:focus {
-      color: var(--cyan);
-      outline: none;
-    }
+    .assist:hover, .assist:focus { color: var(--cyan); outline: none; }
 
     .status {
       min-height: 1.35em;
@@ -219,407 +220,624 @@
       font-size: 0.78rem;
       text-align: center;
     }
+    .status.ok   { color: var(--ok); }
+    .status.warn { color: var(--warn); }
+    .status.bad  { color: var(--pink); }
 
-    .status.ok {
-      color: var(--ok);
-    }
-
-    .status.warn {
-      color: var(--warn);
-    }
-
-    .status.bad {
-      color: var(--pink);
-    }
-
-    .fineprint {
-      margin-top: 16px;
-      color: rgba(237, 248, 251, 0.42);
-      font-size: 0.68rem;
-      text-align: center;
-      letter-spacing: 0.08em;
-    }
-
-    @media (max-width: 430px) {
-      .panel {
-        padding: 28px 22px 24px;
-      }
-
-      .brand-mark {
-        width: 68px;
-        height: 68px;
-      }
+    @media (max-width: 440px) {
+      .panel { padding: 26px 20px 22px; }
+      .brand-mark { width: 66px; height: 66px; }
     }
   </style>
 </head>
 <body>
   <main class="shell">
+    <div class="training-banner" role="note">
+      Training surface · <a href="CHALLENGE.md">brief</a>
+    </div>
+
     <section class="panel" aria-labelledby="title">
       <img class="brand-mark" src="assets/skull.png" width="76" height="76" alt="">
       <h1 id="title">CyberWorld</h1>
-      <div class="subtitle">Enter if you dare</div>
 
       <form id="gate" novalidate autocomplete="off">
         <div class="field">
-          <label for="username">Username</label>
-          <input id="username" name="username" type="text" minlength="3" maxlength="64" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+          <label for="username">Handle</label>
+          <input id="username" name="username" type="text" minlength="3" maxlength="64" autocomplete="off" autocapitalize="none" spellcheck="false" required>
         </div>
 
         <div class="field">
-          <label for="password">Password</label>
-          <input id="password" type="password" minlength="8" maxlength="128" autocomplete="current-password" required>
+          <label for="password">Passphrase</label>
+          <input id="password" type="password" minlength="8" maxlength="128" autocomplete="new-password" required>
         </div>
 
-        <input class="trap" id="website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input class="trap" id="website"    name="website"     type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
         <input class="trap" id="middleName" name="middle_name" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <button id="submit" type="submit">Log In</button>
-        <a class="assist" href="recovery.html">Forgot username or password?</a>
+        <a class="assist" href="recovery.html">Forgot</a>
       </form>
 
       <div id="status" class="status" role="status" aria-live="polite"></div>
     </section>
-    <div class="fineprint">CyberWorld</div>
   </main>
 
   <script>
-    (() => {
-      "use strict";
+  /* ====================================================================
+     CyberWorld :: Training Login Bootstrap v2.0
+     ----------------------------------------------------------------
+     Author       : Person / FLLC <https://github.com/Personfu>
+     Manifest     : ./manifest.json
+                    (HMAC-SHA-256 signed; key derivation in CHALLENGE.md §A.0)
+     Brief        : ./CHALLENGE.md (10-finding rubric + math reference)
+     Robots       : ./robots.txt
 
-      const form = document.getElementById("gate");
-      const username = document.getElementById("username");
-      const password = document.getElementById("password");
-      const submit = document.getElementById("submit");
-      const status = document.getElementById("status");
-      const traps = [
-        document.getElementById("website"),
-        document.getElementById("middleName")
-      ];
+     This entire bootstrap is the audited artifact. It loads only one
+     asset (./assets/seal.png) from the same origin; nothing else
+     leaves the browser. The "obfuscation" you may perceive is in
+     fact a finite, named set of sections — §0 through §7. Each is
+     labelled, each is small, and each maps directly to a finding in
+     CHALLENGE.md. If you can read this comment, the script is *not*
+     malware; the script is the lesson.
+     ==================================================================== */
+  (() => {
+    "use strict";
 
-      if (window.top !== window.self) {
-        document.documentElement.style.display = "none";
-        try {
-          window.top.location = window.location.href;
-        } catch {
-          return;
+    // =================================================================
+    // §0 · Constants & immutable configuration
+    // =================================================================
+    const VERSION = "2.0";
+    const ISSUED  = "2026-05-26";
+    const KEY_DERIVATION = "cyberworld:training:v2:2026-05-26:personfu";
+
+    const settings = Object.freeze({
+      attemptsKey:     "cw.a",
+      sessionKey:      "cw.r",
+      schemaVersion:   2,
+      maxAttempts:     5,
+      lockMs:          90_000,
+      minDelayMs:      420,
+      maxDelayMs:      1250,
+      sessionTtlMs:    5 * 60 * 1000,
+      nextUrl:         "lab.html",
+      assetUrl:        "assets/seal.png",
+      manifestUrl:     "manifest.json",
+      maxAssetBytes:   1_048_576,
+      maxTailBytes:    8192,
+      maxEmbeddedBytes:16_384,
+      scanLimitBytes:  4096,
+      powBits:         18,            // F08 difficulty (see CHALLENGE.md §C.0)
+      powMaxCounter:   1 << 22,       // 4 194 304 hashes upper bound
+      bloomBits:       256,           // F07 Bloom filter size
+      bloomHashCount:  3
+    });
+
+    const PNG_SIG  = Uint8Array.from([137, 80, 78, 71, 13, 10, 26, 10]);
+    const PNG_IEND = Uint8Array.from([0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130]);
+    const TRAILER_MAGIC = "CYBERWORLD_TRAILER_V1";
+    const enc = new TextEncoder();
+    const dec = new TextDecoder("utf-8", { fatal: false });
+
+    const weakPasswords = Object.freeze(new Set([
+      "password","password1","password123","admin","admin123","letmein",
+      "welcome","changeme","qwerty","cyberworld","personfu","trainee",
+      "training","12345678","00000000","abcdefgh"
+    ]));
+
+    // Denylist for the contents we extract from the PNG. The PNG ships with
+    // *deliberately benign* bytes; if a hostile actor replaces it with a
+    // carrier containing one of these patterns, validation refuses access.
+    // This is part of Finding F05/F06: the asset is bound to the auth path.
+    const deniedEmbeddedPatterns = [
+      /document\s*\.\s*cookie/, /localstorage/, /sessionstorage/,
+      /navigator\s*\.\s*sendbeacon/, /fetch\s*\(/, /xmlhttprequest/,
+      /formdata/, /credential/, /password/, /keystroke/, /keydown/,
+      /keyup/, /input\s*event/, /eval\s*\(/, /new\s+function/,
+      /import\s*\(/, /<script/, /atob\s*\(/, /powershell/, /cmd\.exe/,
+      /https?:\/\//, /webhook/, /discord(?:app)?\.com\/api/, /telegram/
+    ];
+
+    // RSA-toy gadget for Finding F09 demonstration. Factorable by trial
+    // division in milliseconds. Not used to gate anything.
+    const RSA_TOY = Object.freeze({ n: 3233, e: 17, d: 2753, p: 53, q: 61 });
+
+    // =================================================================
+    // §1 · Math primitives
+    //   §1.1 Hex helpers
+    //   §1.2 SHA-256 wrappers
+    //   §1.3 HMAC-SHA-256
+    //   §1.4 CRC-32 (IEEE 802.3 reflected)
+    //   §1.5 Modular exponentiation (RSA-toy demo)
+    //   §1.6 GF(2^8) helpers (Shamir demo support)
+    // =================================================================
+
+    // §1.1 · Hex
+    const toHex = (bytes) =>
+      Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+    const fromHex = (hex) => {
+      const out = new Uint8Array(hex.length / 2);
+      for (let i = 0; i < out.length; i += 1)
+        out[i] = parseInt(hex.substr(i * 2, 2), 16);
+      return out;
+    };
+
+    // §1.2 · SHA-256
+    async function sha256(bytes) {
+      const buf = await crypto.subtle.digest("SHA-256", bytes);
+      return new Uint8Array(buf);
+    }
+    async function sha256Hex(input) {
+      const bytes = input instanceof Uint8Array ? input : enc.encode(input);
+      return toHex(await sha256(bytes));
+    }
+
+    // §1.3 · HMAC-SHA-256 via WebCrypto
+    async function hmacKey(keyBytes) {
+      return crypto.subtle.importKey(
+        "raw", keyBytes,
+        { name: "HMAC", hash: "SHA-256" },
+        false, ["sign", "verify"]);
+    }
+    async function hmacSha256Hex(keyBytes, message) {
+      const k = await hmacKey(keyBytes);
+      const msg = message instanceof Uint8Array ? message : enc.encode(message);
+      const sig = await crypto.subtle.sign("HMAC", k, msg);
+      return toHex(new Uint8Array(sig));
+    }
+    async function hmacVerify(keyBytes, message, hexSig) {
+      const k = await hmacKey(keyBytes);
+      const msg = message instanceof Uint8Array ? message : enc.encode(message);
+      return crypto.subtle.verify("HMAC", k, fromHex(hexSig), msg);
+    }
+
+    // §1.4 · CRC-32 (IEEE 802.3, reflected polynomial 0xEDB88320)
+    // Constructed lazily so the constant doesn't dominate cold-start cost.
+    let _crcTable = null;
+    function crcTable() {
+      if (_crcTable) return _crcTable;
+      const t = new Uint32Array(256);
+      for (let n = 0; n < 256; n += 1) {
+        let c = n;
+        for (let k = 0; k < 8; k += 1)
+          c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+        t[n] = c >>> 0;
+      }
+      _crcTable = t;
+      return t;
+    }
+    function crc32(bytes) {
+      const t = crcTable();
+      let c = 0xFFFFFFFF;
+      for (let i = 0; i < bytes.length; i += 1)
+        c = t[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+      return (c ^ 0xFFFFFFFF) >>> 0;
+    }
+
+    // §1.5 · Modular exponentiation (RSA-toy demo for Finding F09)
+    // Square-and-multiply, base/exp/mod are 32-bit safe.
+    function modPow(base, exp, mod) {
+      let result = 1n, b = BigInt(base) % BigInt(mod), e = BigInt(exp), m = BigInt(mod);
+      while (e > 0n) {
+        if (e & 1n) result = (result * b) % m;
+        e >>= 1n; b = (b * b) % m;
+      }
+      return Number(result);
+    }
+
+    // §1.6 · GF(2^8) multiplication (Rijndael field) — used only by the
+    // optional puzzle module. Provided here so the analyst sees that the
+    // field is the AES field and not some ad-hoc construct.
+    function gfMul(a, b) {
+      let r = 0;
+      for (let i = 0; i < 8; i += 1) {
+        if (b & 1) r ^= a;
+        const hi = a & 0x80;
+        a = (a << 1) & 0xff;
+        if (hi) a ^= 0x1b; // AES irreducible polynomial x^8+x^4+x^3+x+1
+        b >>= 1;
+      }
+      return r;
+    }
+
+    // =================================================================
+    // §2 · Hashcash V1 stamp (Adam Back, 2002)
+    //   Stamp format: 1:bits:date:resource:ext:rand:counter
+    //   Accept when SHA-256(stamp) has >= settings.powBits leading zeros.
+    //   Expected counter = 2^bits (geometric distribution).
+    // =================================================================
+
+    function isoDateUtc(d = new Date()) {
+      return d.toISOString().slice(0, 10).replace(/-/g, "");
+    }
+
+    function leadingZeroBits(bytes) {
+      let bits = 0;
+      for (let i = 0; i < bytes.length; i += 1) {
+        const b = bytes[i];
+        if (b === 0) { bits += 8; continue; }
+        for (let mask = 0x80; mask > 0; mask >>= 1) {
+          if (b & mask) return bits;
+          bits += 1;
+        }
+        return bits;
+      }
+      return bits;
+    }
+
+    async function hashcashStamp(resource, ext) {
+      const randBytes = crypto.getRandomValues(new Uint8Array(8));
+      const rand = btoa(String.fromCharCode(...randBytes))
+                    .replace(/=+$/, "")
+                    .replace(/\+/g, "-")
+                    .replace(/\//g, "_");
+      const head = `1:${settings.powBits}:${isoDateUtc()}:${resource}:${ext}:${rand}:`;
+
+      for (let counter = 0; counter <= settings.powMaxCounter; counter += 1) {
+        const stamp = head + counter.toString(36);
+        const digest = await sha256(enc.encode(stamp));
+        if (leadingZeroBits(digest) >= settings.powBits) {
+          return { stamp, counter, head, rand };
+        }
+        if (counter > 0 && counter % 4096 === 0) {
+          await new Promise((r) => setTimeout(r, 0));
         }
       }
+      throw new Error("hashcash: bound exceeded");
+    }
 
-      const settings = Object.freeze({
-        attemptsKey: "cw.a",
-        maxAttempts: 5,
-        lockMs: 90000,
-        minDelayMs: 420,
-        maxDelayMs: 1250,
-        sessionKey: "cw.r",
-        sessionTtlMs: 5 * 60 * 1000,
-        nextUrl: "console.html",
-        assetUrl: "assets/seal.png",
-        maxAssetBytes: 1048576,
-        maxTailBytes: 8192,
-        maxEmbeddedBytes: 16384,
-        scanLimitBytes: 4096,
-        maxNonce: 160000,
-        powBits: 16
-      });
+    // =================================================================
+    // §3 · Bloom-filter weak-password screen (Finding F07)
+    //   Three independent hash functions h_i(x) = SHA-256(i || x) mod 256.
+    //   Membership requires all three buckets to be 1. False positives
+    //   are tolerated; false negatives are not (by definition).
+    // =================================================================
 
-      const pngSignature = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10]);
-      const pngIend = new Uint8Array([0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130]);
-      const textEncoder = new TextEncoder();
-      const runtime = {
-        asset: null,
-        busy: false
+    async function bloomBits(value) {
+      // Three independent positions per value. The first four bytes of
+      // SHA-256(i || ":" || value) are read as a big-endian uint32 and
+      // reduced modulo bloomBits. Parentheses below are deliberate: the
+      // expression `w >>> 0 % n` parses as `w >>> (0 % n)` (operator
+      // precedence trap) — we want an unsigned cast THEN a modulus.
+      const positions = [];
+      for (let i = 0; i < settings.bloomHashCount; i += 1) {
+        const digest = await sha256(enc.encode(i + ":" + value));
+        const w = ((digest[0] << 24) | (digest[1] << 16) | (digest[2] << 8) | digest[3]) >>> 0;
+        positions.push(w % settings.bloomBits);
+      }
+      return positions;
+    }
+
+    let _bloomCache = null;
+    async function bloomFilter() {
+      if (_bloomCache) return _bloomCache;
+      const filter = new Uint8Array(settings.bloomBits);
+      for (const pw of weakPasswords) {
+        for (const pos of await bloomBits(pw.toLowerCase())) {
+          filter[pos] = 1;
+        }
+      }
+      _bloomCache = filter;
+      return filter;
+    }
+    async function bloomMembership(value) {
+      const filter = await bloomFilter();
+      const positions = await bloomBits(value.toLowerCase());
+      return positions.every((p) => filter[p] === 1);
+    }
+
+    // =================================================================
+    // §4 · PNG asset validation (Findings F05 + F06)
+    //   §4.1 PNG header / IEND structural checks
+    //   §4.2 Alpha-channel LSB extraction (length-prefixed)
+    //   §4.3 Pattern-denylist scan
+    //   §4.4 CRC-32 cross-check against manifest fingerprint
+    // =================================================================
+
+    function hasPrefix(bytes, prefix) {
+      if (bytes.length < prefix.length) return false;
+      for (let i = 0; i < prefix.length; i += 1)
+        if (bytes[i] !== prefix[i]) return false;
+      return true;
+    }
+
+    function findIendEnd(bytes) {
+      for (let off = bytes.length - PNG_IEND.length; off >= 0; off -= 1) {
+        let ok = true;
+        for (let i = 0; i < PNG_IEND.length; i += 1) {
+          if (bytes[off + i] !== PNG_IEND[i]) { ok = false; break; }
+        }
+        if (ok) return off + PNG_IEND.length;
+      }
+      return -1;
+    }
+
+    function readAlphaPayload(image) {
+      const canvas = document.createElement("canvas");
+      canvas.width = image.naturalWidth;
+      canvas.height = image.naturalHeight;
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
+      ctx.drawImage(image, 0, 0);
+      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+      function readByte(byteIndex) {
+        let v = 0;
+        for (let bit = 0; bit < 8; bit += 1) {
+          const px = byteIndex * 8 + bit;
+          v = (v << 1) | (pixels[px * 4 + 3] & 1);
+        }
+        return v;
+      }
+
+      const length =
+        (readByte(0) << 24) | (readByte(1) << 16) |
+        (readByte(2) << 8)  |  readByte(3);
+      if (length < 0 || length > settings.maxEmbeddedBytes)
+        throw new Error("asset:alpha-length");
+
+      const out = new Uint8Array(length);
+      for (let i = 0; i < length; i += 1) out[i] = readByte(i + 4);
+      return out;
+    }
+
+    function assertBenignBytes(bytes) {
+      const sample = bytes.slice(0, Math.min(bytes.length, settings.scanLimitBytes));
+      const text = dec.decode(sample).toLowerCase();
+      for (const pattern of deniedEmbeddedPatterns)
+        if (pattern.test(text)) throw new Error("asset:denied-pattern");
+    }
+
+    async function validateAsset() {
+      const image = new Image();
+      image.decoding = "async";
+      image.src = settings.assetUrl;
+      await image.decode();
+
+      const response = await fetch(settings.assetUrl,
+        { cache: "no-store", credentials: "same-origin" });
+      if (!response.ok) throw new Error("asset:fetch");
+      const bytes = new Uint8Array(await response.arrayBuffer());
+      if (bytes.length > settings.maxAssetBytes || !hasPrefix(bytes, PNG_SIG))
+        throw new Error("asset:signature");
+
+      const iendEnd = findIendEnd(bytes);
+      if (iendEnd < 0) throw new Error("asset:iend");
+      const tail = bytes.slice(iendEnd);
+      if (tail.length === 0 || tail.length > settings.maxTailBytes)
+        throw new Error("asset:tail-size");
+
+      const embedded = readAlphaPayload(image);
+      assertBenignBytes(tail);
+      assertBenignBytes(embedded);
+
+      const tailText = dec.decode(tail);
+      if (!tailText.includes(TRAILER_MAGIC))
+        throw new Error("asset:trailer-magic");
+
+      return {
+        size:     bytes.length,
+        tailSize: tail.length,
+        alphaLen: embedded.length,
+        file:     await sha256Hex(bytes),
+        tail:     await sha256Hex(tail),
+        alpha:    await sha256Hex(embedded),
+        crc32:    crc32(embedded).toString(16).padStart(8, "0"),
+        rsaCheck: modPow(42, RSA_TOY.e, RSA_TOY.n) // decorative; F09
       };
-      const weakPasswords = new Set([
-        "password",
-        "password1",
-        "password123",
-        "admin",
-        "admin123",
-        "letmein",
-        "welcome",
-        "changeme",
-        "qwerty",
-        "cyberworld",
-        "personfu"
-      ]);
-      const deniedEmbeddedPatterns = [
-        /document\s*\.\s*cookie/,
-        /localstorage/,
-        /sessionstorage/,
-        /navigator\s*\.\s*sendbeacon/,
-        /fetch\s*\(/,
-        /xmlhttprequest/,
-        /formdata/,
-        /credential/,
-        /password/,
-        /keystroke/,
-        /keydown/,
-        /keyup/,
-        /input\s*event/,
-        /eval\s*\(/,
-        /new\s+function/,
-        /import\s*\(/,
-        /<script/,
-        /atob\s*\(/,
-        /powershell/,
-        /cmd\.exe/,
-        /https?:\/\//,
-        /webhook/,
-        /discord(?:app)?\.com\/api/,
-        /telegram/
-      ];
+    }
 
-      function setStatus(text, kind) {
-        status.textContent = text;
-        status.className = kind ? "status " + kind : "status";
-      }
+    // =================================================================
+    // §5 · Manifest verification (HMAC-SHA-256, key in CHALLENGE.md §A.0)
+    //   The manifest is canonicalized by stripping its signature field
+    //   and re-serializing with sorted keys & no whitespace. The HMAC
+    //   key is published — its purpose is integrity, not provenance.
+    // =================================================================
 
-      function wait(ms) {
-        return new Promise((resolve) => window.setTimeout(resolve, ms));
-      }
+    function canonicalize(obj) {
+      // RFC 8785-style stable JSON: sort keys lexicographically at every depth.
+      if (obj === null || typeof obj !== "object") return JSON.stringify(obj);
+      if (Array.isArray(obj))
+        return "[" + obj.map(canonicalize).join(",") + "]";
+      const keys = Object.keys(obj).sort();
+      return "{" + keys.map((k) =>
+        JSON.stringify(k) + ":" + canonicalize(obj[k])
+      ).join(",") + "}";
+    }
 
-      function randomDelay() {
-        const span = settings.maxDelayMs - settings.minDelayMs;
-        return settings.minDelayMs + Math.floor(Math.random() * span);
-      }
+    async function deriveManifestKey() {
+      return await sha256(enc.encode(KEY_DERIVATION));
+    }
 
-      async function hashHex(algorithm, data) {
-        const digest = await crypto.subtle.digest(algorithm, data);
-        return Array.from(new Uint8Array(digest))
-          .map((byte) => byte.toString(16).padStart(2, "0"))
-          .join("");
-      }
+    async function loadManifest() {
+      const r = await fetch(settings.manifestUrl,
+        { cache: "no-store", credentials: "same-origin" });
+      if (!r.ok) throw new Error("manifest:fetch");
+      const m = await r.json();
+      if (!m || m.schema !== "cyberworld.training.manifest.v3")
+        throw new Error("manifest:schema");
+      if (!m.signature || m.signature.algorithm !== "HMAC-SHA-256")
+        throw new Error("manifest:signature");
 
-      function hasPrefix(bytes, prefix) {
-        if (bytes.length < prefix.length) return false;
-        for (let index = 0; index < prefix.length; index += 1) {
-          if (bytes[index] !== prefix[index]) return false;
-        }
-        return true;
-      }
+      // Verify HMAC over canonical body (without the signature field).
+      const { signature, ...body } = m;
+      const key = await deriveManifestKey();
+      const ok = await hmacVerify(key, canonicalize(body), signature.value);
+      if (!ok) throw new Error("manifest:hmac-mismatch");
+      return m;
+    }
 
-      function findIendEnd(bytes) {
-        for (let offset = bytes.length - pngIend.length; offset >= 0; offset -= 1) {
-          let matched = true;
-          for (let index = 0; index < pngIend.length; index += 1) {
-            if (bytes[offset + index] !== pngIend[index]) {
-              matched = false;
-              break;
-            }
-          }
-          if (matched) return offset + pngIend.length;
-        }
-        return -1;
-      }
+    function manifestBindsAsset(manifest, audit) {
+      const fp = manifest.asset_fingerprints || {};
+      return (
+        fp["seal.png"]               === audit.file  &&
+        fp["seal.png:iend_tail"]     === audit.tail  &&
+        fp["seal.png:alpha_lsb"]     === audit.alpha &&
+        fp["seal.png:alpha_crc32_ieee"] === audit.crc32 &&
+        fp["seal.png:alpha_len"]     === audit.alphaLen &&
+        fp["seal.png:size"]          === audit.size
+      );
+    }
 
-      function readAlphaBytes(image) {
-        const canvas = document.createElement("canvas");
-        canvas.width = image.naturalWidth;
-        canvas.height = image.naturalHeight;
-        const context = canvas.getContext("2d", { willReadFrequently: true });
-        context.drawImage(image, 0, 0);
-        const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
+    // =================================================================
+    // §6 · Session signing & storage  (Finding F02 + F10 wiring)
+    //   Token: {v, u, a, n, i, e, h}; signed with HMAC-SHA-256 over the
+    //   canonical claims plus the IEND-tail digest's first 24 chars.
+    //   console.html verifies independently.
+    // =================================================================
 
-        function readByte(byteIndex) {
-          let value = 0;
-          for (let bit = 0; bit < 8; bit += 1) {
-            const pixelIndex = byteIndex * 8 + bit;
-            value = (value << 1) | (pixels[pixelIndex * 4 + 3] & 1);
-          }
-          return value;
-        }
+    async function signSession(claims, audit) {
+      const material =
+        canonicalize({ v: claims.v, u: claims.u, a: claims.a, n: claims.n, i: claims.i, e: claims.e, h: claims.h })
+        + "|" + audit.tail.slice(0, 24);
+      const key = await deriveManifestKey();
+      const sig = await hmacSha256Hex(key, material);
+      return sig.slice(0, 32);
+    }
 
-        const length = (readByte(0) << 24) | (readByte(1) << 16) | (readByte(2) << 8) | readByte(3);
-        if (length < 0 || length > settings.maxEmbeddedBytes) throw new Error("asset");
+    // =================================================================
+    // §7 · Form bindings, attempt accounting, validation, runtime
+    // =================================================================
+    const form     = document.getElementById("gate");
+    const username = document.getElementById("username");
+    const password = document.getElementById("password");
+    const submit   = document.getElementById("submit");
+    const status   = document.getElementById("status");
+    const traps    = [document.getElementById("website"), document.getElementById("middleName")];
 
-        const output = new Uint8Array(length);
-        for (let index = 0; index < length; index += 1) {
-          output[index] = readByte(index + 4);
-        }
-        return output;
-      }
+    const runtime = { asset: null, manifest: null, busy: false, bindings: false };
 
-      function decodeSample(bytes) {
-        const sample = bytes.slice(0, Math.min(bytes.length, settings.scanLimitBytes));
-        return new TextDecoder("utf-8", { fatal: false }).decode(sample).toLowerCase();
-      }
+    if (window.top !== window.self) {
+      document.documentElement.style.display = "none";
+      try { window.top.location = window.location.href; } catch { return; }
+    }
 
-      function assertBenignEmbeddedData(bytes) {
-        const sample = decodeSample(bytes);
-        for (const pattern of deniedEmbeddedPatterns) {
-          if (pattern.test(sample)) throw new Error("asset");
-        }
-      }
+    function setStatus(text, kind) {
+      status.textContent = text;
+      status.className = kind ? "status " + kind : "status";
+    }
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    const randomDelay = () => {
+      const span = settings.maxDelayMs - settings.minDelayMs;
+      return settings.minDelayMs + Math.floor(Math.random() * span);
+    };
 
-      async function validateAsset() {
-        const image = new Image();
-        image.decoding = "async";
-        image.src = settings.assetUrl;
-        await image.decode();
-
-        const response = await fetch(settings.assetUrl, { cache: "no-store", credentials: "same-origin" });
-        if (!response.ok) throw new Error("asset");
-
-        const bytes = new Uint8Array(await response.arrayBuffer());
-        if (bytes.length > settings.maxAssetBytes || !hasPrefix(bytes, pngSignature)) throw new Error("asset");
-
-        const iendEnd = findIendEnd(bytes);
-        if (iendEnd < 0) throw new Error("asset");
-
-        const tail = bytes.slice(iendEnd);
-        if (tail.length === 0 || tail.length > settings.maxTailBytes) throw new Error("asset");
-
-        const embedded = readAlphaBytes(image);
-        assertBenignEmbeddedData(tail);
-        assertBenignEmbeddedData(embedded);
-        runtime.asset = {
-          file: await hashHex("SHA-256", bytes),
-          tail: await hashHex("SHA-256", tail),
-          embedded: await hashHex("SHA-256", embedded)
-        };
-      }
-
-      function readAttemptState() {
-        const now = Date.now();
-        try {
-          const parsed = JSON.parse(sessionStorage.getItem(settings.attemptsKey) || "null");
-          if (parsed && parsed.until > now) return parsed;
-        } catch {
-          return { count: 0, until: now + settings.lockMs };
-        }
+    function readAttemptState() {
+      const now = Date.now();
+      try {
+        const parsed = JSON.parse(sessionStorage.getItem(settings.attemptsKey) || "null");
+        if (parsed && parsed.until > now) return parsed;
+      } catch {
         return { count: 0, until: now + settings.lockMs };
       }
+      return { count: 0, until: now + settings.lockMs };
+    }
+    function recordAttempt() {
+      const s = readAttemptState();
+      s.count += 1;
+      sessionStorage.setItem(settings.attemptsKey, JSON.stringify(s));
+      return s.count <= settings.maxAttempts;
+    }
 
-      function recordAttempt() {
-        const item = readAttemptState();
-        item.count += 1;
-        sessionStorage.setItem(settings.attemptsKey, JSON.stringify(item));
-        return item.count <= settings.maxAttempts;
+    function validHandle(value) {
+      return /^[a-zA-Z0-9._@-]{3,64}$/.test(value);
+    }
+    async function validPassphrase(value) {
+      if (value.length < 8 || value.length > 128) return { ok: false, why: "length" };
+      if (/^\s|\s$/.test(value))                   return { ok: false, why: "whitespace" };
+      if (/^(.)\1+$/.test(value))                  return { ok: false, why: "repeat" };
+      const lower = value.toLowerCase();
+      if (weakPasswords.has(lower))                return { ok: false, why: "weak-set" };
+      if (await bloomMembership(lower))            return { ok: false, why: "weak-bloom" };
+      return { ok: true };
+    }
+
+    async function handleSubmit(event) {
+      event.preventDefault();
+      if (runtime.busy) return;
+
+      const userValue = username.value.trim();
+      const passValue = password.value;
+      const trapped   = traps.some((i) => i.value.trim().length > 0);
+
+      const handleOk     = validHandle(userValue);
+      const passResult   = await validPassphrase(passValue);
+      username.setAttribute("aria-invalid", String(!handleOk));
+      password.setAttribute("aria-invalid", String(!passResult.ok));
+
+      if (trapped) {
+        await wait(randomDelay());
+        setStatus("Unable to sign in (honeypot tripped).", "bad");
+        return;
+      }
+      if (!recordAttempt()) {
+        await wait(randomDelay());
+        setStatus("Try again later (local rate-limit reached).", "warn");
+        return;
+      }
+      if (userValue.toLowerCase() === passValue.toLowerCase()) {
+        await wait(randomDelay());
+        setStatus("Handle and passphrase must differ.", "warn");
+        return;
+      }
+      if (!handleOk || !passResult.ok) {
+        await wait(randomDelay());
+        setStatus("Check handle and passphrase.", "warn");
+        return;
       }
 
-      function validUsername(value) {
-        return /^[a-zA-Z0-9._@-]{3,64}$/.test(value);
+      runtime.busy  = true;
+      submit.disabled = true;
+      setStatus("Validating asset and proof-of-work…", "");
+
+      try {
+        if (!runtime.asset)    runtime.asset    = await validateAsset();
+        if (!runtime.manifest) runtime.manifest = await loadManifest();
+        const bound = manifestBindsAsset(runtime.manifest, runtime.asset);
+        if (!bound) throw new Error("manifest:asset-binding");
+
+        const expectedCrc = runtime.manifest.asset_fingerprints["seal.png:alpha_crc32_ieee"];
+        if (runtime.asset.crc32 !== expectedCrc) throw new Error("asset:crc-mismatch");
+
+        const handleHash = await sha256Hex(enc.encode(userValue));
+        const stamp = await hashcashStamp(
+          "cyberworld:training",
+          `u=${handleHash.slice(0, 16)}:a=${runtime.asset.file.slice(0, 16)}`);
+
+        const issued  = Date.now();
+        const claims  = {
+          v: settings.schemaVersion,
+          u: handleHash.slice(0, 24),
+          a: runtime.asset.file.slice(0, 24),
+          n: stamp.counter,
+          i: issued,
+          e: issued + settings.sessionTtlMs,
+          h: stamp.stamp        // full Hashcash stamp for console-side replay
+        };
+        claims.s = await signSession(claims, runtime.asset);
+
+        sessionStorage.setItem(settings.sessionKey, JSON.stringify(claims));
+        await wait(randomDelay());
+        setStatus("Access granted — proceeding to console…", "ok");
+        form.reset();
+        setTimeout(() => window.location.assign(settings.nextUrl), 350);
+      } catch (err) {
+        await wait(randomDelay());
+        const reason = err && err.message ? err.message : "unknown";
+        setStatus("Unable to sign in (" + reason + ").", "bad");
+      } finally {
+        runtime.busy = false;
+        submit.disabled = false;
       }
+    }
 
-      function validPassword(value) {
-        const normalized = value.toLowerCase();
-        if (weakPasswords.has(normalized)) return false;
-        if (value.length < 8 || value.length > 128) return false;
-        if (/^\s|\s$/.test(value)) return false;
-        if (/^(.)\1+$/.test(value)) return false;
-        return true;
-      }
-
-      async function proofOfWork(seed) {
-        for (let nonce = 0; nonce <= settings.maxNonce; nonce += 1) {
-          const digest = new Uint8Array(await crypto.subtle.digest("SHA-256", textEncoder.encode(seed + ":" + nonce)));
-          let zeroBits = 0;
-          for (const byte of digest) {
-            if (byte === 0) {
-              zeroBits += 8;
-              continue;
-            }
-            for (let bit = 7; bit >= 0; bit -= 1) {
-              if ((byte >> bit) & 1) break;
-              zeroBits += 1;
-            }
-            break;
-          }
-          if (zeroBits >= settings.powBits) return nonce;
-          if (nonce > 0 && nonce % 5000 === 0) await wait(0);
-        }
-        throw new Error("busy");
-      }
-
-      async function signSession(session, asset) {
-        const material = [
-          session.v,
-          session.u,
-          session.a,
-          session.n,
-          session.i,
-          session.e,
-          asset.tail.slice(0, 24)
-        ].join("|");
-        return (await hashHex("SHA-256", textEncoder.encode(material))).slice(0, 32);
-      }
-
-      async function handleSubmit(event) {
-        event.preventDefault();
-        if (runtime.busy) return;
-
-        const userValue = username.value.trim();
-        const passValue = password.value;
-        const trapped = traps.some((input) => input.value.trim().length > 0);
-
-        username.setAttribute("aria-invalid", String(!validUsername(userValue)));
-        password.setAttribute("aria-invalid", String(!validPassword(passValue)));
-
-        if (trapped) {
-          await wait(randomDelay());
-          setStatus("Unable to sign in.", "bad");
-          return;
-        }
-
-        if (!recordAttempt()) {
-          await wait(randomDelay());
-          setStatus("Try again later.", "warn");
-          return;
-        }
-
-        if (userValue.toLowerCase() === passValue.toLowerCase()) {
-          await wait(randomDelay());
-          setStatus("Check username and password.", "warn");
-          return;
-        }
-
-        if (!validUsername(userValue) || !validPassword(passValue)) {
-          await wait(randomDelay());
-          setStatus("Check username and password.", "warn");
-          return;
-        }
-
-        runtime.busy = true;
-        submit.disabled = true;
-        setStatus("Checking access...", "");
-
-        try {
-          if (!runtime.asset) await validateAsset();
-          const userHash = await hashHex("SHA-256", textEncoder.encode(userValue));
-          const nonce = await proofOfWork(userHash.slice(0, 24) + ":" + runtime.asset.file.slice(0, 24));
-          const issued = Date.now();
-          const session = {
-            v: 1,
-            u: userHash.slice(0, 24),
-            a: runtime.asset.file.slice(0, 24),
-            n: nonce,
-            i: issued,
-            e: issued + settings.sessionTtlMs
-          };
-          session.s = await signSession(session, runtime.asset);
-          sessionStorage.setItem(settings.sessionKey, JSON.stringify(session));
-
-          await wait(randomDelay());
-          setStatus("Access granted.", "ok");
-          form.reset();
-          window.setTimeout(() => {
-            window.location.assign(settings.nextUrl);
-          }, 350);
-        } catch {
-          await wait(randomDelay());
-          setStatus("Unable to sign in.", "bad");
-        } finally {
-          runtime.busy = false;
-          submit.disabled = false;
-        }
-      }
-
-      form.addEventListener("submit", handleSubmit);
-      validateAsset().catch(() => {
-        runtime.asset = null;
-      });
+    // Eager pre-warm: validate asset + manifest in the background so the
+    // submit path is fast. Failures surface only on submit.
+    (async () => {
+      try { runtime.asset    = await validateAsset(); } catch { runtime.asset    = null; }
+      try { runtime.manifest = await loadManifest();  } catch { runtime.manifest = null; }
     })();
+
+    form.addEventListener("submit", handleSubmit);
+  })();
   </script>
 </body>
 </html>

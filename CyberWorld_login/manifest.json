@@ -1,0 +1,255 @@
+{
+  "asset_fingerprints": {
+    "seal.png": "372b90e59de3f97b63aa5d0d24af2fc2f79b51b9caa1e15188f4151ca45e3d05",
+    "seal.png:alpha_crc32_ieee": "b2e976a3",
+    "seal.png:alpha_len": 79,
+    "seal.png:alpha_lsb": "a50b4f727be945d60a30265c7a5420209707387cdc098c99c46d92a787c36b83",
+    "seal.png:iend_tail": "25ed896e5ccd7380d9546de48dedb501551f95a59ac890b185e9090f15bd6043",
+    "seal.png:size": 14782,
+    "seal.png:tail_size": 311,
+    "skull.png": "7881d250eb7266e9239b0f33a537d1fd2eefc72ff3e647bd1cba6e9b40a1f82c",
+    "skull.png:size": 4658
+  },
+  "author": {
+    "contact": "https://github.com/Personfu",
+    "name": "Person / FLLC",
+    "purpose": "defensive-analyst CTF training; no real credentials accepted, transmitted, or stored"
+  },
+  "challenge_artifacts": {
+    "ecdsa_p256": {
+      "curve": "P-256",
+      "hash": "SHA-256",
+      "message_utf8": "Phoenix Operations: May 26 2026",
+      "public_key_uncompressed_hex": "046b17cc5608f5019e193bebe486935ce357448649545fcbe0409e80081c70cdd18ac691b9ed0f85868f7f83a60439bd90e8dfbfe72c03f49cea612a7d2f4a9b96",
+      "signature_raw_hex": "4714f43c994a6e20cc7e345cd7f1451a82f43c79df5b1b2904f2bbf1fd9434fc10eaa55e1cb3d03cc1ed906961911d39e5be8416315bca1ecf656ff9e51c71e2"
+    },
+    "hmac_f14": {
+      "anchor_msg": "Phoenix-2026",
+      "key": "cyberworld:F14:hmac16",
+      "target_tag16": "5916"
+    },
+    "rsa_toy": {
+      "F12_ciphertext": 352,
+      "F12_plaintext": 2026,
+      "d": 2753,
+      "e": 17,
+      "n": 3233,
+      "p": 53,
+      "q": 61
+    },
+    "vigenere": {
+      "alphabet": "A-Z",
+      "ciphertext": "ZVASJFRBDSFAZLDRYBJIXVQIKWBVSIYQXTJBDQOMNX",
+      "key_length": 6
+    }
+  },
+  "expires": "2027-05-26T00:00:00Z",
+  "findings": [
+    {
+      "answer_canonical_sha256": "acaaacc3ca0101fbc82984ee042569ed57fd8150e146e15c4fbed21bbf2a07bd",
+      "answer_sha256_prefix": "acaaacc3",
+      "hint": "Submit credentials with the network tab open; no POST leaves the origin.",
+      "n": 1,
+      "tier": 1,
+      "title": "Client-side authentication only -- credentials never cross the network"
+    },
+    {
+      "answer_canonical_sha256": "a58d5cafaa809ec12972c54a397e433518953a41ff45f77d51463fb39d2a213c",
+      "answer_sha256_prefix": "a58d5caf",
+      "hint": "Open DevTools -> Application -> Session Storage -> cw.r; you can edit/clone it.",
+      "n": 2,
+      "tier": 1,
+      "title": "Fake 'session' stored in window.sessionStorage rather than issued by a backend"
+    },
+    {
+      "answer_canonical_sha256": "60b409d8d463d0101abdab274e9f77e3f846abe9c0af9446d8ba83308d0ad7f8",
+      "answer_sha256_prefix": "60b409d8",
+      "hint": "Read the Content-Security-Policy meta tag -- script-src lists 'unsafe-inline'.",
+      "n": 3,
+      "tier": 1,
+      "title": "Content-Security-Policy is strict yet permits inline scripts (intentional)"
+    },
+    {
+      "answer_canonical_sha256": "a7649669609f5dc2cc0b3990074e22152b73daff71bfb1193a5184f37e3faec4",
+      "answer_sha256_prefix": "a7649669",
+      "hint": "View source for inputs named 'website' and 'middle_name' positioned off-screen.",
+      "n": 4,
+      "tier": 1,
+      "title": "Honeypot fields exist but are bot-friction only, not real security"
+    },
+    {
+      "answer_canonical_sha256": "c89a149a00cd81112bbf149ee7a9b04c3f96539685862b63d65b30df4a2240cc",
+      "answer_sha256_prefix": "c89a149a",
+      "hint": "Compute sha256 of assets/seal.png and compare to manifest.json.",
+      "n": 5,
+      "tier": 1,
+      "title": "PNG asset is treated as authentication material via fingerprint binding"
+    },
+    {
+      "answer_canonical_sha256": "71ffe7b0a49826b7f8c399a4f37c5c8fb878709e16834cf0ad59388b914ef966",
+      "answer_sha256_prefix": "71ffe7b0",
+      "hint": "Run scripts/png_trailer_scan.py and scripts/lsb_decode.py on seal.png.",
+      "n": 6,
+      "tier": 1,
+      "title": "PNG IEND tail + alpha-channel LSB carry training-data side channels"
+    },
+    {
+      "answer_canonical_sha256": "8200dcf0a66f08ed12747400385e059db89042ad290084d9998aa25fd95ac48e",
+      "answer_sha256_prefix": "8200dcf0",
+      "hint": "Inspect the weakPasswords Set + Bloom filter in the inline script.",
+      "n": 7,
+      "tier": 1,
+      "title": "Weak-password blacklist is client-side and bypassable (Set + Bloom)"
+    },
+    {
+      "answer_canonical_sha256": "518fdb08a521a0b640e57eb3f279b4eaa0217b7b42464dd9a0af48d4c4edba59",
+      "answer_sha256_prefix": "518fdb08",
+      "hint": "Trace proofOfWork(): 18 leading zero bits of SHA-256; nothing binds it to identity.",
+      "n": 8,
+      "tier": 1,
+      "title": "Hashcash-style proof-of-work is local; proves compute, not identity"
+    },
+    {
+      "answer_canonical_sha256": "06f9ea18a71b312b808092cc08ab92f43333df92f19be38264bb1c5c484539e7",
+      "answer_sha256_prefix": "06f9ea18",
+      "hint": "Read the banner at the top of the inline script -- version, author, signed-manifest pointer.",
+      "n": 9,
+      "tier": 1,
+      "title": "Inline bootstrap script is the intentional teaching artifact, not malware"
+    },
+    {
+      "answer_canonical_sha256": "38e08dad9dead61dd26c834e8b783ab107ae276d265a7dab64ebf4efb3528f17",
+      "answer_sha256_prefix": "38e08dad",
+      "hint": "Visit console.html -- it re-fetches and re-hashes the asset before granting Enter.",
+      "n": 10,
+      "tier": 1,
+      "title": "console.html re-validates the session independently, gating access twice"
+    },
+    {
+      "answer_canonical_sha256": "469f08383e215844811854afa14227f81fb92434c7414d6b7da64b8ec482f939",
+      "answer_sha256_prefix": "469f0838",
+      "hint": "n=3233 is small. Trial division up to sqrt(3233)~56.86 finds 53 and 61.",
+      "n": 11,
+      "tier": 2,
+      "title": "RSA-toy n=3233 is trivially factorable by trial division (53 * 61)"
+    },
+    {
+      "answer_canonical_sha256": "82bdf861a531b54d98f01a7806f4a36df75f911f9fe7c55d8d14a60e16687f0f",
+      "answer_sha256_prefix": "82bdf861",
+      "hint": "c=352, e=17, n=3233, d=2753; compute m = c^d mod n using BigInt modPow.",
+      "n": 12,
+      "tier": 2,
+      "title": "RSA-toy ciphertext decrypts to m=2026 with d=2753 mod 3233"
+    },
+    {
+      "answer_canonical_sha256": "2614f40397cad3ef63c3f163176153846ce9f98fdbe5bf1ea0ffd7a9ad737630",
+      "answer_sha256_prefix": "2614f403",
+      "hint": "WebCrypto subtle.verify('ECDSA', ...) over the published public key + message.",
+      "n": 13,
+      "tier": 2,
+      "title": "ECDSA P-256 signature over a known message verifies with WebCrypto"
+    },
+    {
+      "answer_canonical_sha256": "b8d12dea71857a069cec54e856c7ae64dccb49729f6389b30873d1fefc82f399",
+      "answer_sha256_prefix": "b8d12dea",
+      "hint": "key='cyberworld:F14:hmac16', target tag16=0x5916; find any preimage that collides.",
+      "n": 14,
+      "tier": 2,
+      "title": "16-bit-truncated HMAC has birthday-bounded collisions (~2^8 expected)"
+    },
+    {
+      "answer_canonical_sha256": "ff7565964134af3c4ae92af978f08408eec0b008503c416563026dae08b4b3ea",
+      "answer_sha256_prefix": "ff756596",
+      "hint": "Key is a 6-letter cryptographer's surname; plaintext is an information-security principle, A-Z only.",
+      "n": 15,
+      "tier": 2,
+      "title": "Vigenere ciphertext breaks via Kasiski + Index of Coincidence; key=RIVEST"
+    },
+    {
+      "answer_canonical_sha256": "f0c0c43aa687728157e0a64b0f4c48fd7b92d70e5c611a453ebe443aaacdffb5",
+      "answer_sha256_prefix": "f0c0c43a",
+      "hint": "March 2025 Next.js advisory: x-middleware-subrequest header bypasses middleware auth.",
+      "n": 16,
+      "tier": 3,
+      "title": "Next.js middleware authorization bypass is CVE-2025-29927 (Mar 2025)"
+    },
+    {
+      "answer_canonical_sha256": "099306f473496cfff348a4383c5b796c8271c8b1e15fefe2e256dfb96cd4155f",
+      "answer_sha256_prefix": "099306f4",
+      "hint": "Adversary uses stolen credentials over the legitimate auth surface.",
+      "n": 17,
+      "tier": 3,
+      "title": "MITRE ATT&CK technique for 'Valid Accounts' is T1078"
+    },
+    {
+      "answer_canonical_sha256": "061bad4fc6dc9d16c7c44710805e07374d057611c1e1893d86128795ad277e97",
+      "answer_sha256_prefix": "061bad4f",
+      "hint": "NIST SP 800-61 phases: Preparation, Detection/Analysis, Containment, Eradication, Recovery.",
+      "n": 18,
+      "tier": 3,
+      "title": "NIST SP 800-61 phase for SHA-pinning + secret rotation is Eradication"
+    },
+    {
+      "answer_canonical_sha256": "41a58b3ef3500403c9355e3d4432aa83b65c45c8746a941cb64625c357487435",
+      "answer_sha256_prefix": "41a58b3e",
+      "hint": "Mandiant tracker for the Dec 2024 ICS pre-auth stack overflow campaign.",
+      "n": 19,
+      "tier": 3,
+      "title": "Ivanti Connect Secure CVE-2025-0282 was exploited in the wild by UNC5337 (Dec 2024)"
+    },
+    {
+      "answer_canonical_sha256": "3b6920c417bf5d2eac08140fc0b13f73cd3cae4fd08b2238c235118b680542ab",
+      "answer_sha256_prefix": "3b6920c4",
+      "hint": "Open intel.html source and look for U+200B / U+200D between readable paragraphs.",
+      "n": 20,
+      "tier": 3,
+      "title": "Zero-width-space steganography encodes the flag inside intel.html paragraphs"
+    }
+  ],
+  "intentional_weaknesses": [
+    "script-src 'unsafe-inline' allows the inline bootstrap to be the audited artifact",
+    "session token lives only in window.sessionStorage; no server-side validation",
+    "proof-of-work is local (Hashcash, 18-bit difficulty) and proves only compute, not identity",
+    "weak-password screen is client-side (Set + Bloom filter) and bypassable by editing local state",
+    "rate-limit counter (cw.a) is sessionStorage-scoped and trivially resettable",
+    "console.html performs only client-side session-signature verification",
+    "RSA-toy parameters in crypto.html are deliberately undersized",
+    "HMAC truncation to 16 bits in F14 is deliberately within birthday range",
+    "Vigenere demo in F15 is a textbook break; not used for any auth path"
+  ],
+  "issued": "2026-05-26T00:00:00Z",
+  "master_xor": "ba1274e7",
+  "math_primitives": {
+    "birthday_bound": "expected stamps for k zero bits = 2^k; for k=18 ~= 2.62e5 hashes (geometric expectation)",
+    "bloom_filter": "256-bit Bloom filter, k=3 hash functions derived from SHA-256(weak-password)",
+    "crc32_ieee": "polynomial 0xEDB88320 (reflected); computed over alpha-LSB payload",
+    "ecdsa_p256": "ECDSA over NIST P-256 (FIPS 186-5); WebCrypto subtle.verify with SHA-256",
+    "gf2_32_xor": "20 finding-tokens XOR over GF(2)^32 closes to master_xor",
+    "hashcash": "RFC-style v1 stamp: 1:bits:date:resource:ext:rand:counter (Back, 2002); difficulty = 18 leading zero bits of SHA-256",
+    "hmac_birthday": "16-bit truncated HMAC-SHA-256: expected collision in ~2^8 random preimages",
+    "modexp_toy": "RSA-toy gadget: n=3233 (=53*61), e=17, d=2753; deliberately factorable",
+    "session_hmac": "HMAC-SHA-256 over canonical(session-claims || tail24) using key K = SHA-256('cyberworld:training:v2:2026-05-26:personfu')",
+    "shamir": "GF(2^8) k-of-n share demo wired in puzzle module; not on the auth path",
+    "vigenere": "Classical poly-alphabetic cipher over Z/26; break via Kasiski + Index of Coincidence",
+    "zwsp_stego": "binary encoding using U+200B (zero) and U+200D (one), MSB-first per ASCII byte"
+  },
+  "publishing_key_derivation": "K = SHA-256('cyberworld:training:v2:2026-05-26:personfu')",
+  "schema": "cyberworld.training.manifest.v3",
+  "scope": {
+    "brief": "/CyberWorld_login/CHALLENGE.md",
+    "console": "/CyberWorld_login/console.html",
+    "crypto": "/CyberWorld_login/crypto.html",
+    "directory": "/CyberWorld_login/",
+    "entry": "/CyberWorld_login/index.html",
+    "intel": "/CyberWorld_login/intel.html",
+    "lab": "/CyberWorld_login/lab.html",
+    "recovery": "/CyberWorld_login/recovery.html",
+    "robots": "/CyberWorld_login/robots.txt"
+  },
+  "signature": {
+    "algorithm": "HMAC-SHA-256",
+    "canonicalization": "json.dumps(body, separators=(',',':'), sort_keys=True) of all fields except this one; body is ASCII-only",
+    "key_derivation": "cyberworld:training:v2:2026-05-26:personfu",
+    "value": "2f5ed44c64fa8ba39177d5ad613e2bac8c71beeecba3b8bbf916c13eb5db1681"
+  }
+}

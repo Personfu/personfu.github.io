@@ -1,0 +1,370 @@
+<!doctype html>
+<!--
+  CyberWorld :: Tier 2 -- Cryptanalysis Lab (F11-F15)
+  All work happens client-side. Each challenge writes its confirmation
+  token to sessionStorage.cw.solved on success; lab.html aggregates.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+  <meta name="robots" content="noindex,nofollow">
+  <title>CyberWorld :: Crypto Lab</title>
+  <style>
+    :root { --cyan:#00ffe7; --pink:#ff0055; --text:#edf8fb; --muted:#8ba8b7; --warn:#ffbf00; --ok:#20d978; --panel:rgba(9,13,25,0.94); }
+    *{box-sizing:border-box} [hidden]{display:none!important}
+    html,body{min-height:100%;margin:0}
+    body{min-height:100vh;color:var(--text);background:radial-gradient(circle at 50% 28%,rgba(0,255,231,.16),rgba(0,255,231,.03) 30%,transparent 58%),linear-gradient(135deg,#0a171d 0%,#101528 51%,#244f60 100%);font-family:"Courier New",Consolas,ui-monospace,monospace}
+    body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(0,255,231,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,231,.05) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;z-index:0}
+    body::after{content:"";position:fixed;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.2),transparent);background-size:100% 4px;opacity:.32;pointer-events:none;z-index:0}
+    main{position:relative;z-index:1;width:min(880px,calc(100vw - 32px));margin:32px auto;padding:24px 26px 22px;border:1px solid var(--cyan);border-radius:10px;background:linear-gradient(180deg,rgba(13,18,34,.98),rgba(8,11,22,.96)),var(--panel);box-shadow:0 0 34px rgba(0,255,231,.23),0 0 90px rgba(0,255,231,.1),inset 0 0 24px rgba(0,255,231,.04)}
+    .training{margin:0 0 14px;padding:8px 12px;border:1px dashed var(--warn);border-radius:5px;background:rgba(255,191,0,.05);color:var(--warn);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;text-align:center}
+    .training a{color:var(--cyan);text-decoration:none;border-bottom:1px dotted var(--cyan)}
+    h1{margin:0;color:var(--cyan);font-size:clamp(1.5rem,4.6vw,2rem);letter-spacing:.18em;text-transform:uppercase;text-shadow:0 0 14px rgba(0,255,231,.78)}
+    .sub{margin:4px 0 18px;color:var(--pink);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+    .ch{margin:14px 0;padding:14px 16px;border:1px solid rgba(0,255,231,.35);border-radius:7px;background:rgba(8,13,23,.7)}
+    .ch h2{margin:0 0 6px;color:var(--cyan);font-size:.82rem;letter-spacing:.16em;text-transform:uppercase}
+    .ch h2 .n{color:var(--pink);margin-right:.4em}
+    .ch p{margin:6px 0;color:var(--text);font-size:.84rem;line-height:1.55}
+    .ch p.hint{color:var(--muted);font-size:.76rem}
+    .ch code{color:var(--warn);background:#0a121e;padding:2px 5px;border-radius:3px;font-size:.82rem}
+    .ch pre{padding:8px 10px;border-radius:5px;background:#0a121e;color:#cfe;font-size:.78rem;overflow-x:auto;line-height:1.5;margin:6px 0;border:1px solid rgba(0,255,231,.2)}
+    .row{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:8px}
+    .row input,.row textarea{width:100%;min-height:38px;padding:.5rem .7rem;border:1px solid rgba(0,255,231,.6);border-radius:4px;color:#fff;background:#080d17;font:inherit;font-size:.82rem}
+    .row textarea{min-height:60px;resize:vertical}
+    .row input:focus,.row textarea:focus{outline:none;border-color:var(--pink)}
+    .row button,.toolbar button,.toolbar a{display:inline-grid;place-items:center;min-height:38px;padding:0 14px;border:1px solid rgba(0,255,231,.6);border-radius:4px;color:var(--text);background:#0e1830;font:inherit;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;text-decoration:none}
+    .row button:hover,.toolbar button:hover,.toolbar a:hover{border-color:var(--pink);color:var(--cyan)}
+    .result{display:block;min-height:1.2em;margin-top:6px;font-size:.78rem;color:var(--muted)}
+    .result.ok{color:var(--ok)} .result.bad{color:var(--pink)} .result.warn{color:var(--warn)}
+    .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+    .toolbar .primary{color:#061018;background:linear-gradient(90deg,var(--cyan),var(--pink));border-color:transparent;font-weight:800}
+    .progress{margin-top:10px;color:var(--muted);font-size:.76rem}
+    .progress .ok{color:var(--ok)}
+  </style>
+</head>
+<body>
+  <main>
+    <div class="training" role="note">
+      Tier 2 -- Cryptanalysis · <a href="lab.html">lab</a> · <a href="CHALLENGE.md">brief</a>
+    </div>
+    <h1>Crypto Lab</h1>
+    <p class="sub" id="stateLine">Verifying session...</p>
+
+    <!-- F11 -->
+    <section class="ch" data-n="11">
+      <h2><span class="n">F11</span> Factor n = 3233</h2>
+      <p>The published RSA-toy modulus is <code>n = 3233</code> with public exponent <code>e = 17</code>.
+         Factor n by trial division (try every prime up to &radic;n &asymp; 56.86); submit either prime.</p>
+      <p class="hint">Hint: <code>n mod 53 = 0</code>. The other factor satisfies <code>n/53 = 61</code>. Both are prime by Fermat-test.</p>
+      <div class="row">
+        <input type="text" id="i11" placeholder="enter p (or q)" autocomplete="off" inputmode="numeric">
+        <button type="button" data-n="11">Check</button>
+      </div>
+      <span class="result" id="r11"></span>
+    </section>
+
+    <!-- F12 -->
+    <section class="ch" data-n="12">
+      <h2><span class="n">F12</span> RSA-toy decryption</h2>
+      <p>Ciphertext <code>c = 352</code>, public key <code>(e=17, n=3233)</code>, private exponent <code>d = 2753</code>.
+         Recover the plaintext integer <code>m = c<sup>d</sup> mod n</code>.</p>
+      <pre>m = pow(c, d, n)
+  = 352^2753 mod 3233</pre>
+      <p class="hint">Compute by repeated squaring (the page will do this for you if you click Check). Submit the integer m.</p>
+      <div class="row">
+        <input type="text" id="i12" placeholder="enter m" autocomplete="off" inputmode="numeric">
+        <button type="button" data-n="12">Check</button>
+      </div>
+      <span class="result" id="r12"></span>
+    </section>
+
+    <!-- F13 -->
+    <section class="ch" data-n="13">
+      <h2><span class="n">F13</span> ECDSA P-256 signature verification</h2>
+      <p>A NIST P-256 keypair has signed the message below. Verify the signature with WebCrypto's
+         <code>subtle.verify("ECDSA", { hash: "SHA-256" }, ...)</code>.</p>
+      <pre id="ecdsa-block">
+message :  "Phoenix Operations: May 26 2026"
+public  :  (uncompressed 65-byte point, hex; see source)
+sig     :  (raw r||s, 64 bytes hex; see source)
+curve   :  P-256 (secp256r1)
+hash    :  SHA-256
+</pre>
+      <p class="hint">Click Verify. The page imports the public key, hashes the message, and calls <code>subtle.verify</code>.</p>
+      <div class="row">
+        <span></span>
+        <button type="button" id="b13">Verify</button>
+      </div>
+      <span class="result" id="r13"></span>
+    </section>
+
+    <!-- F14 -->
+    <section class="ch" data-n="14">
+      <h2><span class="n">F14</span> 16-bit HMAC birthday collision</h2>
+      <p>Key <code>cyberworld:F14:hmac16</code>; anchor message <code>Phoenix-2026</code> hashes to
+         truncated tag <code>HMAC-SHA-256(key, msg)[0:16 bits] = 0x5916</code>.
+         Find <em>any other</em> string whose HMAC has the same 16-bit prefix.</p>
+      <p class="hint">Birthday bound: roughly <code>2<sup>8</sup> = 256</code> random preimages give &gt; 50% collision odds. The page can grind for you with the Search button, or you can submit a guess.</p>
+      <div class="row">
+        <input type="text" id="i14" placeholder="enter any message (must differ from anchor)" autocomplete="off">
+        <button type="button" data-n="14">Check</button>
+      </div>
+      <div class="row" style="grid-template-columns:1fr auto">
+        <span class="result" id="r14"></span>
+        <button type="button" id="b14-search">Grind</button>
+      </div>
+    </section>
+
+    <!-- F15 -->
+    <section class="ch" data-n="15">
+      <h2><span class="n">F15</span> Vigenere break</h2>
+      <p>Ciphertext (uppercase, no spaces) -- key length 6, key is a 6-letter cryptographer's surname.</p>
+      <pre>ZVASJFRBDSFAZLDRYBJIXVQIKWBVSIYQXTJBDQOMNX</pre>
+      <p class="hint">Try Kasiski / IC analysis. Submit the decrypted plaintext (A-Z only).</p>
+      <div class="row">
+        <input type="text" id="i15" placeholder="enter plaintext A-Z" autocomplete="off" autocapitalize="characters">
+        <button type="button" data-n="15">Check</button>
+      </div>
+      <span class="result" id="r15"></span>
+    </section>
+
+    <div class="progress" id="progress">--/5 confirmed locally</div>
+
+    <div class="toolbar">
+      <a class="primary" href="lab.html">Back to lab</a>
+      <a href="intel.html">Tier 3: Intel</a>
+      <a href="console.html">Console</a>
+      <a href="CHALLENGE.md">Brief</a>
+    </div>
+  </main>
+
+  <script>
+  (() => {
+    "use strict";
+    const KEY_DERIVATION = "cyberworld:training:v2:2026-05-26:personfu";
+    const enc = new TextEncoder(), dec = new TextDecoder("utf-8");
+
+    // Per-finding confirmation tokens; must match manifest fingerprints.
+    const TOKENS = {
+      11: "cyberworld:F11:rsa-toy-factored:n=3233=53*61",
+      12: "cyberworld:F12:rsa-toy-decrypted:m=2026",
+      13: "cyberworld:F13:ecdsa-p256-verified",
+      14: "cyberworld:F14:hmac-truncated-collision-found",
+      15: "cyberworld:F15:vigenere-rivest-broken",
+    };
+
+    // Tier-2 artifacts (mirrored from manifest.challenge_artifacts).
+    const F12_C = 352, RSA_N = 3233, RSA_E = 17, RSA_D = 2753;
+    const F13_PK_HEX  = "046b17cc5608f5019e193bebe486935ce357448649545fcbe0409e80081c70cdd18ac691b9ed0f85868f7f83a60439bd90e8dfbfe72c03f49cea612a7d2f4a9b96";
+    const F13_SIG_HEX = "4714f43c994a6e20cc7e345cd7f1451a82f43c79df5b1b2904f2bbf1fd9434fc10eaa55e1cb3d03cc1ed906961911d39e5be8416315bca1ecf656ff9e51c71e2";
+    const F13_MSG     = "Phoenix Operations: May 26 2026";
+    const F14_KEY     = "cyberworld:F14:hmac16";
+    const F14_ANCHOR  = "Phoenix-2026";
+    const F14_TAG16   = "5916";
+    const F15_PT      = "INFORMATIONHIDINGISACRYPTOGRAPHICPRIMITIVE";
+
+    // ----- helpers -----
+    const toHex = (b) => Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
+    const fromHex = (h) => { const o = new Uint8Array(h.length/2); for (let i=0;i<o.length;i++) o[i]=parseInt(h.substr(i*2,2),16); return o; };
+    async function sha256(b){ return new Uint8Array(await crypto.subtle.digest("SHA-256", b)); }
+    async function sha256Hex(b){ return toHex(await sha256(b instanceof Uint8Array ? b : enc.encode(b))); }
+    async function hmacKey(k){ return crypto.subtle.importKey("raw", k, {name:"HMAC", hash:"SHA-256"}, false, ["sign","verify"]); }
+    async function hmacHex(k,m){ const key=await hmacKey(k instanceof Uint8Array ? k : enc.encode(k)); const s=await crypto.subtle.sign("HMAC", key, m instanceof Uint8Array ? m : enc.encode(m)); return toHex(new Uint8Array(s)); }
+
+    // BigInt modular exponentiation (RSA-toy decrypt)
+    function modPow(base, exp, mod){
+      let r=1n, b=BigInt(base)%BigInt(mod), e=BigInt(exp), m=BigInt(mod);
+      while(e>0n){ if(e&1n) r=(r*b)%m; e>>=1n; b=(b*b)%m; }
+      return Number(r);
+    }
+
+    // Vigenere decrypt
+    function vigDec(ct, key){
+      let out=""; const K=key.toUpperCase();
+      for(let i=0,j=0;i<ct.length;i++){
+        const c=ct[i];
+        if(c<"A"||c>"Z"){ out+=c; continue; }
+        const s=K.charCodeAt(j%K.length)-65;
+        out+=String.fromCharCode((c.charCodeAt(0)-65-s+26)%26+65);
+        j++;
+      }
+      return out;
+    }
+    // Index-of-Coincidence (per-column average) for a hypothetical key length
+    function ic(text, klen){
+      const cols=Array.from({length:klen},()=>[]);
+      for(let i=0;i<text.length;i++) cols[i%klen].push(text[i]);
+      let sum=0;
+      for(const col of cols){
+        const counts={};
+        for(const ch of col) counts[ch]=(counts[ch]||0)+1;
+        const n=col.length;
+        let s=0;
+        for(const c of Object.values(counts)) s+=c*(c-1);
+        sum += n>1 ? s/(n*(n-1)) : 0;
+      }
+      return sum/klen;
+    }
+
+    // ----- shared state -----
+    function readSolved(){ try{ return JSON.parse(sessionStorage.getItem("cw.solved")||"{}"); } catch { return {}; } }
+    function writeSolved(map){ sessionStorage.setItem("cw.solved", JSON.stringify(map)); }
+    async function confirm(n){
+      const tok = TOKENS[n];
+      const s = readSolved();
+      s[String(n)] = tok;
+      writeSolved(s);
+      await refreshProgress();
+    }
+    async function refreshProgress(){
+      const m = window.__manifest;
+      if(!m) return;
+      const solved=readSolved();
+      let ok=0, total=0;
+      for(const f of m.findings){
+        if(f.tier!==2) continue;
+        total++;
+        const tok=solved[String(f.n)];
+        if(tok && (await sha256Hex(tok)).slice(0,8)===f.answer_sha256_prefix) ok++;
+      }
+      document.getElementById("progress").innerHTML =
+        '<span class="'+(ok===total?"ok":"")+'">'+ok+"/"+total+" confirmed locally"+
+        (ok===total?" -- Tier 2 closed":"")+"</span>";
+    }
+
+    function paint(el, text, kind){ el.textContent=text; el.className="result"+(kind?" "+kind:""); }
+
+    // ----- F11 -----
+    function checkF11(input){
+      const v = (input||"").trim();
+      const n = Number(v);
+      if(!Number.isInteger(n)) return { ok:false, msg:"not an integer" };
+      if(n!==53 && n!==61)     return { ok:false, msg:"not a factor of 3233" };
+      return { ok:true, msg:"correct: 53 * 61 = 3233 (Fermat-test passes both)" };
+    }
+
+    // ----- F12 -----
+    function checkF12(input){
+      const v=(input||"").trim();
+      const m=Number(v);
+      if(!Number.isInteger(m)||m<0||m>=RSA_N) return { ok:false, msg:"out of range [0, n)" };
+      const expected = modPow(F12_C, RSA_D, RSA_N);
+      if(m===expected) return { ok:true, msg:"correct: 352^2753 mod 3233 = "+expected };
+      return { ok:false, msg:"got "+m+", expected "+expected };
+    }
+
+    // ----- F13 -----
+    async function checkF13(){
+      const pkRaw = fromHex(F13_PK_HEX);          // 65 bytes
+      const sig   = fromHex(F13_SIG_HEX);         // 64 bytes raw
+      const key = await crypto.subtle.importKey(
+        "raw", pkRaw,
+        { name: "ECDSA", namedCurve: "P-256" },
+        false, ["verify"]);
+      const ok = await crypto.subtle.verify(
+        { name: "ECDSA", hash: "SHA-256" },
+        key, sig, enc.encode(F13_MSG));
+      return ok
+        ? { ok:true, msg:"signature valid -- ECDSA P-256 / SHA-256 verified" }
+        : { ok:false, msg:"signature invalid (tampered key, sig, or message)" };
+    }
+
+    // ----- F14 -----
+    async function checkF14(input){
+      const v=(input||"").trim();
+      if(!v) return { ok:false, msg:"enter a message first" };
+      if(v===F14_ANCHOR) return { ok:false, msg:"that's the anchor; you need a different preimage" };
+      const tag = (await hmacHex(F14_KEY, v)).slice(0,4);
+      if(tag===F14_TAG16) return { ok:true, msg:"collision! HMAC(\""+v+"\")[0:16] = 0x"+tag };
+      return { ok:false, msg:"no collision: HMAC(\""+v+"\")[0:16] = 0x"+tag+" (target 0x"+F14_TAG16+")" };
+    }
+    async function grindF14(progressEl){
+      paint(progressEl, "grinding...", "warn");
+      const start = Date.now();
+      for(let i=0;i<200_000;i++){
+        if(i%4096===0) await new Promise(r=>setTimeout(r,0));
+        const cand = "PHX-"+i.toString(36);
+        const tag = (await hmacHex(F14_KEY, cand)).slice(0,4);
+        if(tag===F14_TAG16){
+          const inputEl = document.getElementById("i14");
+          inputEl.value = cand;
+          return { ok:true, msg:"found in "+(i+1)+" tries / "+(Date.now()-start)+" ms: \""+cand+"\"" };
+        }
+      }
+      return { ok:false, msg:"no collision in 200k tries (unlucky -- try again or submit your own)" };
+    }
+
+    // ----- F15 -----
+    function checkF15(input){
+      const v=(input||"").replace(/\s+/g,"").toUpperCase();
+      if(!/^[A-Z]+$/.test(v)) return { ok:false, msg:"A-Z only please" };
+      if(v===F15_PT) return { ok:true, msg:"plaintext matches -- key=RIVEST" };
+      // give IC hint on failure
+      const icScores={};
+      for(let k=2;k<=8;k++) icScores[k]=ic("ZVASJFRBDSFAZLDRYBJIXVQIKWBVSIYQXTJBDQOMNX", k).toFixed(3);
+      return { ok:false, msg:"no match. IC by key-length: "+JSON.stringify(icScores) };
+    }
+
+    // ----- wire up -----
+    document.addEventListener("click", async (ev) => {
+      const btn = ev.target.closest("button[data-n]");
+      if(!btn) return;
+      const n = Number(btn.dataset.n);
+      const inputEl = document.getElementById("i"+n);
+      const resultEl = document.getElementById("r"+n);
+      const v = inputEl ? inputEl.value : "";
+      let res;
+      if(n===11) res = checkF11(v);
+      else if(n===12) res = checkF12(v);
+      else if(n===14) res = await checkF14(v);
+      else if(n===15) res = checkF15(v);
+      paint(resultEl, res.msg, res.ok ? "ok" : "bad");
+      if(res.ok) await confirm(n);
+    });
+
+    document.getElementById("b13").addEventListener("click", async () => {
+      const r = document.getElementById("r13");
+      paint(r, "verifying...", "warn");
+      try {
+        const res = await checkF13();
+        paint(r, res.msg, res.ok ? "ok" : "bad");
+        if(res.ok) await confirm(13);
+      } catch (e) {
+        paint(r, "verify failed: "+e.message, "bad");
+      }
+    });
+
+    document.getElementById("b14-search").addEventListener("click", async () => {
+      const r = document.getElementById("r14");
+      const res = await grindF14(r);
+      paint(r, res.msg, res.ok ? "ok" : "warn");
+      if(res.ok) await confirm(14);
+    });
+
+    // ----- session guard -----
+    if(window.top !== window.self){ document.documentElement.style.display="none"; try{ window.top.location=window.location.href; }catch{ return; } }
+    (async () => {
+      try {
+        const raw = sessionStorage.getItem("cw.r");
+        if(!raw) throw new Error("no session");
+        const r = await fetch("manifest.json", {cache:"no-store", credentials:"same-origin"});
+        if(!r.ok) throw new Error("manifest");
+        const m = await r.json();
+        if(m.schema!=="cyberworld.training.manifest.v3") throw new Error("schema");
+        window.__manifest = m;
+        document.getElementById("stateLine").textContent = "Session OK -- 5 challenges, all local";
+        document.getElementById("stateLine").style.color = "var(--ok)";
+        await refreshProgress();
+      } catch (e) {
+        document.getElementById("stateLine").textContent = "Verification failed: "+e.message+" -- returning to login...";
+        document.getElementById("stateLine").style.color = "var(--pink)";
+        setTimeout(()=>location.replace("index.html"), 1200);
+      }
+    })();
+  })();
+  </script>
+</body>
+</html>

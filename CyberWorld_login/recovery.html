@@ -1,4 +1,10 @@
 <!doctype html>
+<!--
+  CyberWorld :: Training Recovery v2.0
+  Issues a deterministic, client-side "recovery ticket". No mail, no SMS,
+  no backend. The ticket is a SHA-256-derived reference number bound to
+  the asset fingerprint; it is meaningless outside this tab.
+-->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -6,7 +12,8 @@
   <meta name="referrer" content="no-referrer">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; form-action 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
   <meta name="robots" content="noindex,nofollow">
-  <title>CyberWorld</title>
+  <meta name="cyberworld:role" content="training-ctf-recovery">
+  <title>CyberWorld :: Training Recovery</title>
   <style>
     :root {
       --cyan: #00ffe7;
@@ -19,19 +26,10 @@
       --ok: #20d978;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
 
-    [hidden] {
-      display: none !important;
-    }
-
-    html,
-    body {
-      min-height: 100%;
-      margin: 0;
-    }
+    html, body { min-height: 100%; margin: 0; }
 
     body {
       display: grid;
@@ -42,24 +40,21 @@
         radial-gradient(circle at 50% 29%, rgba(0, 255, 231, 0.18), rgba(0, 255, 231, 0.035) 28%, transparent 56%),
         linear-gradient(135deg, #0a171d 0%, #101528 51%, #244f60 100%);
       font-family: "Courier New", Consolas, ui-monospace, monospace;
-      overflow: hidden;
+      overflow: auto;
     }
 
     body::before {
       content: "";
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background:
         linear-gradient(rgba(0, 255, 231, 0.055) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 255, 231, 0.055) 1px, transparent 1px);
       background-size: 32px 32px;
       pointer-events: none;
     }
-
     body::after {
       content: "";
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background: linear-gradient(transparent, rgba(0, 0, 0, 0.2), transparent);
       background-size: 100% 4px;
       opacity: 0.32;
@@ -67,13 +62,27 @@
     }
 
     .shell {
-      position: relative;
-      z-index: 1;
-      width: min(424px, calc(100vw - 32px));
+      position: relative; z-index: 1;
+      width: min(460px, calc(100vw - 32px));
+      padding: 22px 0;
     }
 
+    .training-banner {
+      margin: 0 0 14px;
+      padding: 8px 12px;
+      border: 1px dashed var(--warn);
+      border-radius: 5px;
+      background: rgba(255, 191, 0, 0.05);
+      color: var(--warn);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .training-banner a { color: var(--cyan); text-decoration: none; border-bottom: 1px dotted var(--cyan); }
+
     .panel {
-      padding: 34px 32px 30px;
+      padding: 32px 30px 28px;
       border: 1px solid var(--cyan);
       border-radius: 10px;
       background:
@@ -87,16 +96,15 @@
 
     .brand-mark {
       display: block;
-      width: 76px;
-      height: 76px;
-      margin: 0 auto 18px;
+      width: 76px; height: 76px;
+      margin: 0 auto 16px;
       filter: drop-shadow(0 0 10px rgba(255, 0, 85, 0.9));
     }
 
     h1 {
       margin: 0;
       color: var(--cyan);
-      font-size: clamp(2rem, 7vw, 2.5rem);
+      font-size: clamp(1.85rem, 6.5vw, 2.4rem);
       line-height: 1;
       letter-spacing: 0.2em;
       text-align: center;
@@ -105,24 +113,17 @@
     }
 
     .subtitle {
-      margin: 12px 0 28px;
+      margin: 10px 0 22px;
       color: var(--pink);
-      font-size: 0.86rem;
+      font-size: 0.82rem;
       letter-spacing: 0.18em;
       text-align: center;
       text-transform: uppercase;
       text-shadow: 0 0 9px rgba(255, 0, 85, 0.62);
     }
 
-    form {
-      display: grid;
-      gap: 14px;
-    }
-
-    .field {
-      display: grid;
-      gap: 6px;
-    }
+    form { display: grid; gap: 14px; }
+    .field { display: grid; gap: 6px; }
 
     label {
       color: var(--muted);
@@ -130,7 +131,6 @@
       letter-spacing: 0.13em;
       text-transform: uppercase;
     }
-
     input {
       width: 100%;
       min-height: 46px;
@@ -141,85 +141,31 @@
       color: #fff;
       background: #080d17;
       font: inherit;
-      transition: border-color 140ms ease, box-shadow 140ms ease, background 140ms ease;
     }
+    input:focus { border-color: var(--pink); background: #0b101c; box-shadow: 0 0 0 2px rgba(255, 0, 85, 0.2); }
+    input[aria-invalid="true"] { border-color: var(--warn); }
 
-    input:focus {
-      border-color: var(--pink);
-      background: #0b101c;
-      box-shadow:
-        0 0 0 2px rgba(255, 0, 85, 0.2),
-        0 0 15px rgba(0, 255, 231, 0.13);
-    }
+    .trap { position: absolute; left: -10000px; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
-    input[aria-invalid="true"] {
-      border-color: var(--warn);
-    }
-
-    .trap {
-      position: absolute;
-      left: -10000px;
-      width: 1px;
-      height: 1px;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    button,
-    .assist {
-      min-height: 50px;
-      border-radius: 6px;
-      font: inherit;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-    }
-
+    button, .assist { min-height: 50px; border-radius: 6px; font: inherit; letter-spacing: 0.14em; text-transform: uppercase; }
     button {
-      margin-top: 4px;
-      border: 0;
+      margin-top: 4px; border: 0;
       color: #061018;
       background: linear-gradient(90deg, var(--cyan), var(--pink));
-      box-shadow:
-        0 0 15px rgba(0, 255, 231, 0.58),
-        0 0 14px rgba(255, 0, 85, 0.44);
-      cursor: pointer;
-      font-weight: 800;
-      transition: color 140ms ease, filter 140ms ease, transform 140ms ease;
+      box-shadow: 0 0 15px rgba(0, 255, 231, 0.58), 0 0 14px rgba(255, 0, 85, 0.44);
+      cursor: pointer; font-weight: 800;
     }
-
-    button:hover {
-      color: #fff;
-      filter: saturate(1.14);
-    }
-
-    button:active {
-      transform: translateY(1px);
-    }
-
-    button:disabled {
-      cursor: wait;
-      filter: grayscale(0.8);
-      opacity: 0.8;
-    }
+    button:hover { color: #fff; filter: saturate(1.14); }
+    button:disabled { cursor: wait; filter: grayscale(0.8); opacity: 0.8; }
 
     .assist {
-      display: inline-grid;
-      place-items: center;
-      width: 100%;
+      display: inline-grid; place-items: center; width: 100%;
       margin-top: 12px;
       border: 1px solid rgba(0, 255, 231, 0.55);
-      color: var(--text);
-      background: #080d17;
-      font-size: 0.78rem;
-      text-decoration: none;
+      color: var(--text); background: #080d17;
+      font-size: 0.78rem; text-decoration: none;
     }
-
-    .assist:hover,
-    .assist:focus {
-      border-color: var(--pink);
-      color: var(--cyan);
-      outline: none;
-    }
+    .assist:hover { border-color: var(--pink); color: var(--cyan); }
 
     .status {
       min-height: 1.35em;
@@ -228,18 +174,9 @@
       font-size: 0.78rem;
       text-align: center;
     }
-
-    .status.ok {
-      color: var(--ok);
-    }
-
-    .status.warn {
-      color: var(--warn);
-    }
-
-    .status.bad {
-      color: var(--pink);
-    }
+    .status.ok   { color: var(--ok); }
+    .status.warn { color: var(--warn); }
+    .status.bad  { color: var(--pink); }
 
     .ticket {
       margin-top: 16px;
@@ -253,366 +190,270 @@
       text-align: center;
       word-break: break-word;
     }
+    .ticket strong { display: block; margin-bottom: 4px; color: var(--text); font-size: 0.86rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .ticket code { color: var(--warn); }
 
-    .ticket strong {
-      display: block;
-      margin-bottom: 4px;
-      color: var(--text);
-      font-size: 0.86rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    .fineprint {
-      margin-top: 16px;
-      color: rgba(237, 248, 251, 0.42);
-      font-size: 0.68rem;
-      text-align: center;
-      letter-spacing: 0.08em;
-    }
-
-    @media (max-width: 430px) {
-      .panel {
-        padding: 28px 22px 24px;
-      }
-
-      .brand-mark {
-        width: 68px;
-        height: 68px;
-      }
-    }
+    .fineprint { margin-top: 14px; color: rgba(237, 248, 251, 0.5); font-size: 0.7rem; text-align: center; letter-spacing: 0.08em; }
+    .fineprint a { color: var(--cyan); text-decoration: underline dotted; }
   </style>
 </head>
 <body>
   <main class="shell">
+    <div class="training-banner" role="note">
+      Training surface · <a href="CHALLENGE.md">brief</a>
+    </div>
+
     <section class="panel" aria-labelledby="title">
       <img class="brand-mark" src="assets/skull.png" width="76" height="76" alt="">
       <h1 id="title">CyberWorld</h1>
-      <div class="subtitle">Account help</div>
+      <div class="subtitle">Recovery</div>
 
       <form id="recover" novalidate autocomplete="off">
         <div class="field">
-          <label for="identifier">Email or username</label>
-          <input id="identifier" name="identifier" type="text" minlength="3" maxlength="254" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+          <label for="identifier">Identifier</label>
+          <input id="identifier" name="identifier" type="text" minlength="3" maxlength="254" autocomplete="off" autocapitalize="none" spellcheck="false" required>
         </div>
 
         <input class="trap" id="website" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <input class="trap" id="phone" name="phone" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <input class="trap" id="phone"   name="phone"   type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <button id="submit" type="submit">Continue</button>
       </form>
 
       <div id="status" class="status" role="status" aria-live="polite"></div>
       <div id="ticket" class="ticket" hidden></div>
-      <a class="assist" href="index.html">Return to login</a>
+      <a class="assist" href="index.html">Back to login</a>
     </section>
-    <div class="fineprint">CyberWorld</div>
   </main>
 
   <script>
-    (() => {
-      "use strict";
+  /* ====================================================================
+     CyberWorld :: Recovery v2.0
+     Same math layer as index.html (sha256/hmac/png-binding) — used only
+     to mint a deterministic local ticket. The ticket lives in
+     sessionStorage under cw.recovery and expires in 10 minutes.
+     ==================================================================== */
+  (() => {
+    "use strict";
 
-      const form = document.getElementById("recover");
-      const identifier = document.getElementById("identifier");
-      const submit = document.getElementById("submit");
-      const status = document.getElementById("status");
-      const ticket = document.getElementById("ticket");
-      const traps = [
-        document.getElementById("website"),
-        document.getElementById("phone")
-      ];
+    const KEY_DERIVATION = "cyberworld:training:v2:2026-05-26:personfu";
+    const enc = new TextEncoder();
+    const dec = new TextDecoder("utf-8", { fatal: false });
 
-      if (window.top !== window.self) {
-        document.documentElement.style.display = "none";
-        try {
-          window.top.location = window.location.href;
-        } catch {
-          return;
-        }
+    const settings = Object.freeze({
+      requestKey:      "cw.recovery",
+      attemptsKey:     "cw.recovery.attempts",
+      maxAttempts:     4,
+      lockMs:          120_000,
+      minDelayMs:      520,
+      maxDelayMs:      1450,
+      requestTtlMs:    10 * 60 * 1000,
+      assetUrl:        "assets/seal.png",
+      maxAssetBytes:   1_048_576,
+      maxTailBytes:    8192,
+      maxEmbeddedBytes:16_384,
+      scanLimitBytes:  4096
+    });
+
+    const PNG_SIG  = Uint8Array.from([137, 80, 78, 71, 13, 10, 26, 10]);
+    const PNG_IEND = Uint8Array.from([0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130]);
+    const TRAILER_MAGIC = "CYBERWORLD_TRAILER_V1";
+
+    const deniedEmbeddedPatterns = [
+      /document\s*\.\s*cookie/, /localstorage/, /sessionstorage/,
+      /navigator\s*\.\s*sendbeacon/, /fetch\s*\(/, /xmlhttprequest/,
+      /formdata/, /credential/, /password/, /keystroke/, /keydown/,
+      /keyup/, /input\s*event/, /eval\s*\(/, /new\s+function/,
+      /import\s*\(/, /<script/, /atob\s*\(/, /powershell/, /cmd\.exe/,
+      /https?:\/\//, /webhook/, /discord(?:app)?\.com\/api/, /telegram/
+    ];
+
+    const toHex = (b) => Array.from(b, (x) => x.toString(16).padStart(2, "0")).join("");
+    async function sha256(b) { return new Uint8Array(await crypto.subtle.digest("SHA-256", b)); }
+    async function sha256Hex(b) { return toHex(await sha256(b instanceof Uint8Array ? b : enc.encode(b))); }
+
+    function hasPrefix(b, p) {
+      if (b.length < p.length) return false;
+      for (let i = 0; i < p.length; i += 1) if (b[i] !== p[i]) return false;
+      return true;
+    }
+    function findIendEnd(b) {
+      for (let off = b.length - PNG_IEND.length; off >= 0; off -= 1) {
+        let ok = true;
+        for (let i = 0; i < PNG_IEND.length; i += 1)
+          if (b[off + i] !== PNG_IEND[i]) { ok = false; break; }
+        if (ok) return off + PNG_IEND.length;
       }
+      return -1;
+    }
+    function readAlpha(img) {
+      const c = document.createElement("canvas");
+      c.width = img.naturalWidth; c.height = img.naturalHeight;
+      const ctx = c.getContext("2d", { willReadFrequently: true });
+      ctx.drawImage(img, 0, 0);
+      const px = ctx.getImageData(0, 0, c.width, c.height).data;
+      function rb(i) {
+        let v = 0;
+        for (let bit = 0; bit < 8; bit += 1)
+          v = (v << 1) | (px[(i * 8 + bit) * 4 + 3] & 1);
+        return v;
+      }
+      const L = (rb(0) << 24) | (rb(1) << 16) | (rb(2) << 8) | rb(3);
+      if (L < 0 || L > settings.maxEmbeddedBytes) throw new Error("asset:alpha-length");
+      const o = new Uint8Array(L);
+      for (let i = 0; i < L; i += 1) o[i] = rb(i + 4);
+      return o;
+    }
+    function assertBenign(bytes) {
+      const text = dec.decode(bytes.slice(0, Math.min(bytes.length, settings.scanLimitBytes))).toLowerCase();
+      for (const p of deniedEmbeddedPatterns) if (p.test(text)) throw new Error("asset:denied");
+    }
 
-      const settings = Object.freeze({
-        requestKey: "cw.recovery",
-        attemptsKey: "cw.recovery.attempts",
-        maxAttempts: 4,
-        lockMs: 120000,
-        minDelayMs: 520,
-        maxDelayMs: 1450,
-        requestTtlMs: 10 * 60 * 1000,
-        assetUrl: "assets/seal.png",
-        maxAssetBytes: 1048576,
-        maxTailBytes: 8192,
-        maxEmbeddedBytes: 16384,
-        scanLimitBytes: 4096
-      });
+    async function validateAsset() {
+      const img = new Image(); img.decoding = "async";
+      img.src = settings.assetUrl; await img.decode();
+      const r = await fetch(settings.assetUrl, { cache: "no-store", credentials: "same-origin" });
+      if (!r.ok) throw new Error("asset:fetch");
+      const bytes = new Uint8Array(await r.arrayBuffer());
+      if (bytes.length > settings.maxAssetBytes || !hasPrefix(bytes, PNG_SIG))
+        throw new Error("asset:signature");
+      const ie = findIendEnd(bytes);
+      if (ie < 0) throw new Error("asset:iend");
+      const tail = bytes.slice(ie);
+      if (tail.length === 0 || tail.length > settings.maxTailBytes)
+        throw new Error("asset:tail-size");
+      const alpha = readAlpha(img);
+      assertBenign(tail); assertBenign(alpha);
+      if (!dec.decode(tail).includes(TRAILER_MAGIC)) throw new Error("asset:trailer-magic");
+      return { file: await sha256Hex(bytes), tail: await sha256Hex(tail), alpha: await sha256Hex(alpha) };
+    }
 
-      const pngSignature = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10]);
-      const pngIend = new Uint8Array([0, 0, 0, 0, 73, 69, 78, 68, 174, 66, 96, 130]);
-      const textEncoder = new TextEncoder();
-      const runtime = {
-        asset: null,
-        busy: false
+    const form       = document.getElementById("recover");
+    const identifier = document.getElementById("identifier");
+    const submit     = document.getElementById("submit");
+    const status     = document.getElementById("status");
+    const ticketBox  = document.getElementById("ticket");
+    const traps      = [document.getElementById("website"), document.getElementById("phone")];
+    const runtime    = { asset: null, busy: false };
+
+    if (window.top !== window.self) {
+      document.documentElement.style.display = "none";
+      try { window.top.location = window.location.href; } catch { return; }
+    }
+
+    function setStatus(t, k) { status.textContent = t; status.className = k ? "status " + k : "status"; }
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    const randomDelay = () => settings.minDelayMs +
+      Math.floor(Math.random() * (settings.maxDelayMs - settings.minDelayMs));
+
+    function classify(value) {
+      const v = value.trim();
+      if (v.length < 3 || v.length > 254) return null;
+      if (/^[^\s@]{1,64}@[^\s@]{1,188}\.[^\s@]{2,24}$/.test(v)) return "email";
+      if (/^[a-zA-Z0-9._@-]{3,64}$/.test(v))                    return "handle";
+      return null;
+    }
+    function mask(v, t) {
+      const x = v.trim();
+      if (t === "email") {
+        const [local, ...rest] = x.split("@");
+        return (local || "").slice(0, 1) + "***@" + rest.join("@").toLowerCase();
+      }
+      return x.length <= 4 ? x.slice(0, 1) + "***" : x.slice(0, 2) + "***" + x.slice(-2);
+    }
+    function readAttempt() {
+      const now = Date.now();
+      try {
+        const v = JSON.parse(sessionStorage.getItem(settings.attemptsKey) || "null");
+        if (v && v.until > now) return v;
+      } catch { return { count: 0, until: now + settings.lockMs }; }
+      return { count: 0, until: now + settings.lockMs };
+    }
+    function recordAttempt() {
+      const s = readAttempt(); s.count += 1;
+      sessionStorage.setItem(settings.attemptsKey, JSON.stringify(s));
+      return s.count <= settings.maxAttempts;
+    }
+
+    async function mintTicket(value, type, asset) {
+      const issued = Date.now();
+      const normalized = type === "email" ? value.trim().toLowerCase() : value.trim();
+      const seedMaterial = [
+        await sha256Hex(enc.encode(normalized)),
+        asset.file.slice(0, 24),
+        asset.tail.slice(0, 24),
+        String(issued)
+      ].join("|");
+      const seedHash = await sha256Hex(enc.encode(seedMaterial));
+      return {
+        v: 1,
+        type,
+        masked:  mask(normalized, type),
+        ref:     seedHash.slice(0, 24),
+        asset:   asset.file.slice(0, 24),
+        ticket:  "CW-" + seedHash.slice(0, 12).toUpperCase(),
+        i: issued,
+        e: issued + settings.requestTtlMs
       };
-      const deniedEmbeddedPatterns = [
-        /document\s*\.\s*cookie/,
-        /localstorage/,
-        /sessionstorage/,
-        /navigator\s*\.\s*sendbeacon/,
-        /fetch\s*\(/,
-        /xmlhttprequest/,
-        /formdata/,
-        /credential/,
-        /password/,
-        /keystroke/,
-        /keydown/,
-        /keyup/,
-        /input\s*event/,
-        /eval\s*\(/,
-        /new\s+function/,
-        /import\s*\(/,
-        /<script/,
-        /atob\s*\(/,
-        /powershell/,
-        /cmd\.exe/,
-        /https?:\/\//,
-        /webhook/,
-        /discord(?:app)?\.com\/api/,
-        /telegram/
-      ];
+    }
 
-      function setStatus(text, kind) {
-        status.textContent = text;
-        status.className = kind ? "status " + kind : "status";
+    function paintTicket(t) {
+      ticketBox.hidden = false;
+      ticketBox.innerHTML =
+        `<strong>${t.ticket}</strong>` +
+        `<code>${t.masked}</code>`;
+    }
+
+    async function handleSubmit(event) {
+      event.preventDefault();
+      if (runtime.busy) return;
+
+      const value   = identifier.value.trim();
+      const type    = classify(value);
+      const trapped = traps.some((i) => i.value.trim().length > 0);
+      identifier.setAttribute("aria-invalid", String(!type));
+      ticketBox.hidden = true;
+      ticketBox.textContent = "";
+
+      if (trapped) {
+        await wait(randomDelay());
+        setStatus("Unable to continue (honeypot tripped).", "bad");
+        return;
+      }
+      if (!recordAttempt()) {
+        await wait(randomDelay());
+        setStatus("Try again later (local rate-limit).", "warn");
+        return;
+      }
+      if (!type) {
+        await wait(randomDelay());
+        setStatus("Enter a valid training email or handle.", "warn");
+        return;
       }
 
-      function wait(ms) {
-        return new Promise((resolve) => window.setTimeout(resolve, ms));
+      runtime.busy = true; submit.disabled = true;
+      setStatus("Validating asset & minting local ticket…");
+
+      try {
+        if (!runtime.asset) runtime.asset = await validateAsset();
+        const ticket = await mintTicket(value, type, runtime.asset);
+        sessionStorage.setItem(settings.requestKey, JSON.stringify(ticket));
+        await wait(randomDelay());
+        setStatus("Local ticket minted.", "ok");
+        paintTicket(ticket);
+        form.reset();
+      } catch (err) {
+        await wait(randomDelay());
+        setStatus("Unable to continue (" + ((err && err.message) || "unknown") + ").", "bad");
+      } finally {
+        runtime.busy = false;
+        submit.disabled = false;
       }
+    }
 
-      function randomDelay() {
-        const span = settings.maxDelayMs - settings.minDelayMs;
-        return settings.minDelayMs + Math.floor(Math.random() * span);
-      }
-
-      async function hashHex(algorithm, data) {
-        const digest = await crypto.subtle.digest(algorithm, data);
-        return Array.from(new Uint8Array(digest))
-          .map((byte) => byte.toString(16).padStart(2, "0"))
-          .join("");
-      }
-
-      function hasPrefix(bytes, prefix) {
-        if (bytes.length < prefix.length) return false;
-        for (let index = 0; index < prefix.length; index += 1) {
-          if (bytes[index] !== prefix[index]) return false;
-        }
-        return true;
-      }
-
-      function findIendEnd(bytes) {
-        for (let offset = bytes.length - pngIend.length; offset >= 0; offset -= 1) {
-          let matched = true;
-          for (let index = 0; index < pngIend.length; index += 1) {
-            if (bytes[offset + index] !== pngIend[index]) {
-              matched = false;
-              break;
-            }
-          }
-          if (matched) return offset + pngIend.length;
-        }
-        return -1;
-      }
-
-      function readAlphaBytes(image) {
-        const canvas = document.createElement("canvas");
-        canvas.width = image.naturalWidth;
-        canvas.height = image.naturalHeight;
-        const context = canvas.getContext("2d", { willReadFrequently: true });
-        context.drawImage(image, 0, 0);
-        const pixels = context.getImageData(0, 0, canvas.width, canvas.height).data;
-
-        function readByte(byteIndex) {
-          let value = 0;
-          for (let bit = 0; bit < 8; bit += 1) {
-            const pixelIndex = byteIndex * 8 + bit;
-            value = (value << 1) | (pixels[pixelIndex * 4 + 3] & 1);
-          }
-          return value;
-        }
-
-        const length = (readByte(0) << 24) | (readByte(1) << 16) | (readByte(2) << 8) | readByte(3);
-        if (length < 0 || length > settings.maxEmbeddedBytes) throw new Error("asset");
-
-        const output = new Uint8Array(length);
-        for (let index = 0; index < length; index += 1) {
-          output[index] = readByte(index + 4);
-        }
-        return output;
-      }
-
-      function assertBenignEmbeddedData(bytes) {
-        const sample = bytes.slice(0, Math.min(bytes.length, settings.scanLimitBytes));
-        const text = new TextDecoder("utf-8", { fatal: false }).decode(sample).toLowerCase();
-        for (const pattern of deniedEmbeddedPatterns) {
-          if (pattern.test(text)) throw new Error("asset");
-        }
-      }
-
-      async function validateAsset() {
-        const image = new Image();
-        image.decoding = "async";
-        image.src = settings.assetUrl;
-        await image.decode();
-
-        const response = await fetch(settings.assetUrl, { cache: "no-store", credentials: "same-origin" });
-        if (!response.ok) throw new Error("asset");
-
-        const bytes = new Uint8Array(await response.arrayBuffer());
-        if (bytes.length > settings.maxAssetBytes || !hasPrefix(bytes, pngSignature)) throw new Error("asset");
-
-        const iendEnd = findIendEnd(bytes);
-        if (iendEnd < 0) throw new Error("asset");
-
-        const tail = bytes.slice(iendEnd);
-        if (tail.length === 0 || tail.length > settings.maxTailBytes) throw new Error("asset");
-
-        const embedded = readAlphaBytes(image);
-        assertBenignEmbeddedData(tail);
-        assertBenignEmbeddedData(embedded);
-        runtime.asset = {
-          file: await hashHex("SHA-256", bytes),
-          tail: await hashHex("SHA-256", tail),
-          embedded: await hashHex("SHA-256", embedded)
-        };
-      }
-
-      function classifyIdentifier(value) {
-        const trimmed = value.trim();
-        const email = /^[^\s@]{1,64}@[^\s@]{1,188}\.[^\s@]{2,24}$/;
-        const username = /^[a-zA-Z0-9._@-]{3,64}$/;
-        if (trimmed.length < 3 || trimmed.length > 254) return null;
-        if (email.test(trimmed)) return "email";
-        if (username.test(trimmed)) return "username";
-        return null;
-      }
-
-      function maskIdentifier(value, type) {
-        const trimmed = value.trim();
-        if (type === "email") {
-          const parts = trimmed.split("@");
-          const local = parts[0] || "";
-          const domain = parts.slice(1).join("@");
-          const head = local.slice(0, 1);
-          return head + "***@" + domain.toLowerCase();
-        }
-        if (trimmed.length <= 4) return trimmed.slice(0, 1) + "***";
-        return trimmed.slice(0, 2) + "***" + trimmed.slice(-2);
-      }
-
-      function readAttemptState() {
-        const now = Date.now();
-        try {
-          const parsed = JSON.parse(sessionStorage.getItem(settings.attemptsKey) || "null");
-          if (parsed && parsed.until > now) return parsed;
-        } catch {
-          return { count: 0, until: now + settings.lockMs };
-        }
-        return { count: 0, until: now + settings.lockMs };
-      }
-
-      function recordAttempt() {
-        const item = readAttemptState();
-        item.count += 1;
-        sessionStorage.setItem(settings.attemptsKey, JSON.stringify(item));
-        return item.count <= settings.maxAttempts;
-      }
-
-      function renderTicket(record) {
-        ticket.hidden = false;
-        ticket.innerHTML = "<strong>" + record.ticket + "</strong>" +
-          "Request recorded for " + record.masked + ". " +
-          "Use this reference if you return to the portal during this session.";
-      }
-
-      async function buildRecord(value, type) {
-        const issued = Date.now();
-        const normalized = type === "email" ? value.trim().toLowerCase() : value.trim();
-        const identifierHash = await hashHex("SHA-256", textEncoder.encode(normalized));
-        const ticketSeed = [
-          identifierHash.slice(0, 24),
-          runtime.asset.file.slice(0, 24),
-          runtime.asset.tail.slice(0, 24),
-          issued
-        ].join("|");
-        const ticketHash = await hashHex("SHA-256", textEncoder.encode(ticketSeed));
-        return {
-          v: 1,
-          type,
-          masked: maskIdentifier(normalized, type),
-          ref: identifierHash.slice(0, 24),
-          asset: runtime.asset.file.slice(0, 24),
-          ticket: "CW-" + ticketHash.slice(0, 12).toUpperCase(),
-          i: issued,
-          e: issued + settings.requestTtlMs
-        };
-      }
-
-      async function handleSubmit(event) {
-        event.preventDefault();
-        if (runtime.busy) return;
-
-        const value = identifier.value.trim();
-        const type = classifyIdentifier(value);
-        const trapped = traps.some((input) => input.value.trim().length > 0);
-        identifier.setAttribute("aria-invalid", String(!type));
-        ticket.hidden = true;
-        ticket.textContent = "";
-
-        if (trapped) {
-          await wait(randomDelay());
-          setStatus("Unable to continue.", "bad");
-          return;
-        }
-
-        if (!recordAttempt()) {
-          await wait(randomDelay());
-          setStatus("Try again later.", "warn");
-          return;
-        }
-
-        if (!type) {
-          await wait(randomDelay());
-          setStatus("Enter a valid email or username.", "warn");
-          return;
-        }
-
-        runtime.busy = true;
-        submit.disabled = true;
-        setStatus("Checking request...", "");
-
-        try {
-          if (!runtime.asset) await validateAsset();
-          const record = await buildRecord(value, type);
-          sessionStorage.setItem(settings.requestKey, JSON.stringify(record));
-          await wait(randomDelay());
-          setStatus("Request accepted.", "ok");
-          renderTicket(record);
-          form.reset();
-        } catch {
-          await wait(randomDelay());
-          setStatus("Unable to continue.", "bad");
-        } finally {
-          runtime.busy = false;
-          submit.disabled = false;
-        }
-      }
-
-      form.addEventListener("submit", handleSubmit);
-      validateAsset().catch(() => {
-        runtime.asset = null;
-      });
-    })();
+    form.addEventListener("submit", handleSubmit);
+    validateAsset().catch(() => { runtime.asset = null; });
+  })();
   </script>
 </body>
 </html>
