@@ -320,6 +320,16 @@
 	flex-direction: column;
 	gap: 12px;
 }
+.cw-gp-combat.fx-boom .cb-enemy {
+	animation: cw-gp-boom .28s ease;
+	box-shadow: 0 0 0 1px #ffb347, 0 0 28px #ff2bd655, inset 0 0 20px #ffb34733;
+}
+@keyframes cw-gp-boom {
+	0% { transform: scale(1); filter: brightness(1); }
+	30% { transform: scale(1.02); filter: brightness(1.4); }
+	60% { transform: scale(0.99); filter: brightness(1.1); }
+	100% { transform: scale(1); filter: brightness(1); }
+}
 .cb-enemy {
 	border: 1px solid #ff2bd699;
 	border-radius: 10px;
@@ -345,7 +355,7 @@
 .cb-enemy small { color: #8ab4c8; font-size: 12px; }
 .cb-actions {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(3, 1fr);
 	gap: 6px;
 }
 .cb-actions button {
@@ -360,6 +370,21 @@
 	text-transform: uppercase;
 	cursor: pointer;
 	transition: all .15s ease;
+}
+.cb-actions button[data-act="boom"] {
+	background: linear-gradient(180deg, #ffb3472d, #ff2bd610);
+	border-color: #ffb347;
+	color: #ffb347;
+}
+.cb-actions button[data-act="sqlninja"] {
+	background: linear-gradient(180deg, #00ff9c2d, #00e8ff10);
+	border-color: #00ff9c99;
+	color: #00ff9c;
+}
+.cb-actions button[data-act="nmap"] {
+	background: linear-gradient(180deg, #00e8ff2d, #00e8ff10);
+	border-color: #00e8ff;
+	color: #00e8ff;
 }
 .cb-actions button:hover:not(:disabled) {
 	background: #00e8ff;

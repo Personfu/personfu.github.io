@@ -139,6 +139,7 @@
 		var template = ENEMY_TEMPLATES[templateId] || ENEMY_TEMPLATES['TRAINING-DAEMON'];
 		var enemy = scaleEnemy(template, level, isBoss);
 		enemy.name = templateId;
+		enemy.accuracy = isBoss ? 78 : 64;
 		return enemy;
 	}
 
@@ -249,10 +250,26 @@
 		if (!combat || combat.turn !== 'player') return;
 		var c = combat;
 		var dmg, msg;
-		if (action === 'exploit') {
-			dmg = Math.max(1, 14 + Math.floor(Math.random() * 10) - c.enemy.def);
+		if (action === 'nmap') {
+			dmg = 10;
 			c.enemy.hp -= dmg;
-			msg = 'EXPLOIT lands for ' + dmg;
+			c.enemy.accuracy = Math.max(35, c.enemy.accuracy - 10);
+			c.enemy.def = Math.max(0, c.enemy.def - 1);
+			msg = 'NMAP strips 10 HP, -10 ACC, -1 DEF';
+		} else if (action === 'sqlninja') {
+			var hackRoll = 55 + Math.floor(Math.random() * 35) + Math.max(0, 10 - c.enemy.def * 2);
+			var hit = hackRoll >= c.enemy.accuracy;
+			dmg = hit ? 16 + Math.floor(Math.random() * 9) : 4 + Math.floor(Math.random() * 5);
+			c.enemy.hp -= dmg;
+			c.enemy.def = Math.max(0, c.enemy.def - (hit ? 2 : 1));
+			msg = hit ? 'SQLNinja command breach for ' + dmg : 'SQLNinja command glances for ' + dmg;
+		} else if (action === 'boom') {
+			c.fx = 'boom';
+			dmg = 20 + Math.floor(Math.random() * 8) - Math.max(0, c.enemy.def - 1);
+			c.enemy.hp -= dmg;
+			c.enemy.accuracy = Math.max(30, c.enemy.accuracy - 6);
+			msg = 'BOOM detonates for ' + dmg;
+			setTimeout(function () { if (combat) { combat.fx = ''; render(); } }, 280);
 		} else if (action === 'patch') {
 			if (!consumeItem('PATCH-KIT')) { c.log.push('No PATCH-KIT available'); render(); return; }
 			var heal = 18 + Math.floor(Math.random() * 8);
@@ -260,11 +277,6 @@
 			state.shield = Math.min(state.maxShield, state.shield + 6);
 			saveState();
 			msg = 'PATCH-KIT restores ' + heal + ' HP';
-		} else if (action === 'trace') {
-			c.enemy.def = Math.max(0, c.enemy.def - 2);
-			dmg = Math.max(1, 6 + Math.floor(Math.random() * 6));
-			c.enemy.hp -= dmg;
-			msg = 'TRACE_ROUTE weakens defense, ' + dmg + ' dmg';
 		} else if (action === 'run') {
 			c.log.push('Disengaged.');
 			endCombat(false);
@@ -302,6 +314,13 @@
 			c.enemy.atk += 4;
 			c.enemy.def += 2;
 			c.log.push('BOSS ENRAGED — PHASE 2');
+		}
+		var hitRoll = 35 + Math.floor(Math.random() * 70);
+		if (hitRoll > c.enemy.accuracy) {
+			c.log.push('Enemy attack misses the trace window');
+			c.turn = 'player';
+			render();
+			return;
 		}
 		var raw = c.enemy.atk + Math.floor(Math.random() * 6) - (c.enemy.state === 'retreat' ? 4 : 2);
 		if (c.enemy.state === 'chase') raw += 2;
@@ -460,16 +479,17 @@
 		var c = combat;
 		var pct = Math.max(0, Math.floor(100 * c.enemy.hp / c.enemy.maxHp));
 		return ''
-			+ '<div class="cw-gp-combat">'
+			+ '<div class="cw-gp-combat ' + (c.fx === 'boom' ? 'fx-boom' : '') + '">'
 			+   '<div class="cb-enemy">'
 			+     '<strong>' + escapeHtml(c.enemyId) + '</strong>'
 			+     '<div class="cb-bar"><span style="width:' + pct + '%"></span></div>'
-			+     '<small>HP ' + c.enemy.hp + ' / ' + c.enemy.maxHp + ' · DEF ' + c.enemy.def + '</small>'
+			+     '<small>HP ' + c.enemy.hp + ' / ' + c.enemy.maxHp + ' · ACC ' + c.enemy.accuracy + ' · DEF ' + c.enemy.def + '</small>'
 			+   '</div>'
 			+   '<div class="cb-actions">'
-			+     '<button data-act="exploit" ' + (c.turn !== 'player' ? 'disabled' : '') + '>EXPLOIT</button>'
+			+     '<button data-act="nmap" ' + (c.turn !== 'player' ? 'disabled' : '') + '>NMAP</button>'
+			+     '<button data-act="sqlninja" ' + (c.turn !== 'player' ? 'disabled' : '') + '>SQLNINJA</button>'
+			+     '<button data-act="boom" ' + (c.turn !== 'player' ? 'disabled' : '') + '>BOOM</button>'
 			+     '<button data-act="patch"   ' + (c.turn !== 'player' ? 'disabled' : '') + '>PATCH-KIT (' + (state.inventory['PATCH-KIT'] || 0) + ')</button>'
-			+     '<button data-act="trace"   ' + (c.turn !== 'player' ? 'disabled' : '') + '>TRACE</button>'
 			+     '<button data-act="run"     ' + (c.turn !== 'player' ? 'disabled' : '') + '>RUN</button>'
 			+   '</div>'
 			+   '<div class="cb-log">' + c.log.slice(-6).map(escapeHtml).join('<br>') + '</div>'
