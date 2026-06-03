@@ -25,6 +25,10 @@
     .training a{color:var(--cyan);text-decoration:none;border-bottom:1px dotted var(--cyan)}
     h1{margin:0;color:var(--cyan);font-size:clamp(1.5rem,4.6vw,2rem);letter-spacing:.18em;text-transform:uppercase;text-shadow:0 0 14px rgba(0,255,231,.78)}
     .sub{margin:4px 0 18px;color:var(--pink);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+    .ops{padding:11px 13px;border:1px solid rgba(0,255,231,.3);border-radius:6px;background:rgba(8,13,23,.66);margin-bottom:12px}
+    .ops h2{margin:0 0 7px;color:var(--cyan);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase}
+    .ops p{margin:0;color:var(--text);font-size:.78rem;line-height:1.55}
+    .ops p + p{margin-top:6px;color:var(--muted)}
     .brief{padding:12px 14px;border:1px solid rgba(0,255,231,.3);border-radius:6px;background:rgba(8,13,23,.6);margin-bottom:14px;font-size:.86rem;line-height:1.65;color:var(--text)}
     .brief em{color:var(--warn);font-style:normal}
     .ch{margin:14px 0;padding:14px 16px;border:1px solid rgba(0,255,231,.35);border-radius:7px;background:rgba(8,13,23,.7)}
@@ -59,6 +63,12 @@
     </div>
     <h1>Intel Desk</h1>
     <p class="sub" id="stateLine">Verifying session...</p>
+
+    <section class="ops" aria-labelledby="ops-title">
+      <h2 id="ops-title">Intel Mission Context</h2>
+      <p>You are feeding live threat intelligence into CyberWorld command routing. Every answer here sharpens your intercept decisions in Tier 4/5.</p>
+      <p>Play this as an analyst sprint: attribution first, framework mapping second, stego extraction last.</p>
+    </section>
 
     <!--
       Editorial brief. The flag for F20 is embedded as zero-width

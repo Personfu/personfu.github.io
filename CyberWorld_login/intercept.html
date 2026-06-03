@@ -38,6 +38,19 @@
     h1{margin:0;color:var(--cyan);font-size:clamp(1.4rem,4.2vw,1.85rem);letter-spacing:.16em;text-transform:uppercase;text-shadow:0 0 14px rgba(0,255,231,.78)}
     .sub{margin:2px 0 16px;color:var(--pink);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase}
 
+    .op-brief{margin:0 0 12px;padding:12px;border:1px solid rgba(0,255,231,.34);border-radius:7px;background:rgba(8,13,23,.72)}
+    .op-brief h2{margin:0 0 8px;color:var(--cyan);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase}
+    .op-brief p{margin:0;color:var(--text);font-size:.76rem;line-height:1.55}
+    .op-brief .muted{margin-top:7px;color:var(--muted)}
+    .op-path{margin-top:10px;display:grid;gap:8px;grid-template-columns:1fr}
+    @media(min-width:780px){.op-path{grid-template-columns:1fr 1fr 1fr}}
+    .op-node{padding:10px;border:1px solid rgba(0,255,231,.2);border-radius:6px;background:#0a121e}
+    .op-node .n{color:var(--pink);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase}
+    .op-node strong{display:block;margin:4px 0 3px;color:var(--text);font-size:.74rem;letter-spacing:.08em;text-transform:uppercase}
+    .op-node span{display:block;color:var(--muted);font-size:.68rem;line-height:1.45}
+    .op-ticker{margin-top:10px;padding:10px;border:1px solid rgba(32,217,120,.3);border-radius:6px;background:rgba(3,11,10,.8);color:#95f7c3;font-size:.72rem;line-height:1.55;min-height:52px}
+    .op-ticker strong{display:block;color:var(--cyan);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase}
+
     .grid{display:grid;grid-template-columns:1fr;gap:12px}
     @media(min-width:920px){.grid{grid-template-columns:320px 1fr 320px}}
 
@@ -124,6 +137,18 @@
     <h1>CyberWorld :: Intercept</h1>
     <p class="sub" id="stateLine">Hack the impossible. Defend the future.</p>
 
+    <section class="op-brief" aria-labelledby="op-title">
+      <h2 id="op-title">Operator Playbook</h2>
+      <p>This workbench is your breach arena. Run small wins fast, then chain primitives into full operator control.</p>
+      <p class="muted">Recommended chain: get a forged identity, escalate authz, then pivot through headers and race logic.</p>
+      <div class="op-path">
+        <article class="op-node"><span class="n">Path A</span><strong>Identity breach</strong><span>F22 -> F24 via forged JWT.</span></article>
+        <article class="op-node"><span class="n">Path B</span><strong>Control pivot</strong><span>F27/F28/F29 for trust and timing abuse.</span></article>
+        <article class="op-node"><span class="n">Path C</span><strong>Deep chain</strong><span>F31/F32/F33 for superoperator closure.</span></article>
+      </div>
+      <div class="op-ticker" id="opTicker"><strong>Tactical feed</strong>Syncing exploit relay...</div>
+    </section>
+
     <div class="grid">
       <!-- LEFT: endpoint catalog -->
       <section class="panel">
@@ -198,6 +223,15 @@
   (() => {
     "use strict";
     const enc = new TextEncoder(), dec = new TextDecoder("utf-8");
+    const opTicker = document.getElementById("opTicker");
+    const feed = [
+      "Kick off with /auth/whoami and prove alg=none before heavier chains.",
+      "If admin/users still blocks, inspect Bearer payload role and expiry first.",
+      "Path traversal and HPP are fast score wins for momentum.",
+      "Race macro is noisy by design; run it once, confirm the flag, move on.",
+      "Tier 5: HS/RS confusion + proto pollution + cache poisoning closes the arc."
+    ];
+    let feedIdx = 0;
 
     // ----------------- endpoint catalog -----------------
     const CATALOG = [
@@ -552,6 +586,7 @@
       }
       const prog = document.getElementById("progress");
       prog.innerHTML = '<span class="' + (okCount===FINDINGS.length?"ok":"") + '">' + okCount + '/' + FINDINGS.length + ' confirmed' + (okCount===FINDINGS.length?' -- TIER 4 CLOSED':'') + '</span>';
+      updateFeed(okCount);
 
       // operator grant + MMO handoff
       if (okCount === FINDINGS.length) {
@@ -563,7 +598,22 @@
         document.getElementById("grant").hidden = false;
       }
     }
+
+    function updateFeed(okCount){
+      if(!opTicker) return;
+      if(okCount === FINDINGS.length){
+        opTicker.innerHTML = "<strong>Tactical feed</strong>All intercept findings closed. Operator grant has been issued for CyberWorld handoff.";
+        return;
+      }
+      opTicker.innerHTML = "<strong>Tactical feed</strong>[" + okCount + "/" + FINDINGS.length + "] " + feed[feedIdx % feed.length];
+      feedIdx += 1;
+    }
     renderFindings();
+    window.setInterval(() => {
+      const solved = readSolved();
+      const count = Object.keys(solved).filter((k)=>Number(k)>=21 && Number(k)<=33).length;
+      updateFeed(count);
+    }, 2800);
 
     // ----------------- session + SW status -----------------
     function setSw(text, kind) {
