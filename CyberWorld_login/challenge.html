@@ -42,6 +42,15 @@
     .toolbar .primary{color:#061018;background:linear-gradient(90deg,var(--cyan),var(--pink));border-color:transparent;font-weight:800}
     .quote{margin:0 0 14px;padding:10px 14px;border-left:3px solid var(--pink);color:var(--text);background:rgba(255,0,85,.06);font-size:.86rem;font-style:italic}
     .quote em{color:var(--warn);font-style:normal}
+    .matrix-route{margin:0 0 18px;padding:12px 14px;border:1px solid rgba(0,255,231,.24);border-radius:6px;background:rgba(8,13,23,.62)}
+    .matrix-route h2{margin:0 0 8px;color:var(--cyan);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;border:0;padding:0}
+    .matrix-route-grid{display:grid;grid-template-columns:1fr;gap:8px}
+    @media(min-width:680px){.matrix-route-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+    .matrix-route-grid a{display:grid;gap:4px;padding:10px 11px;border:1px solid rgba(0,255,231,.16);border-radius:6px;background:#0a121e;color:var(--text);text-decoration:none}
+    .matrix-route-grid a:hover{border-color:var(--pink);color:var(--cyan)}
+    .matrix-route-grid .n{color:var(--pink);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase}
+    .matrix-route-grid strong{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+    .matrix-route-grid span{color:var(--muted);font-size:.68rem;line-height:1.45}
     ul,ol{padding-left:22px}
     a{color:var(--cyan)}
     .footer{margin-top:30px;padding-top:14px;border-top:1px solid rgba(0,255,231,.2);color:var(--muted);font-size:.72rem;letter-spacing:.08em}
@@ -62,6 +71,17 @@
       <em>obvious false flags</em> coexist; tell them apart. Nothing leaves your browser.
       Provided as is for demonstration and educational purposes only.
     </div>
+
+    <section class="matrix-route" aria-labelledby="matrix-route-title">
+      <h2 id="matrix-route-title">Matrix route</h2>
+      <div class="matrix-route-grid">
+        <a href="index.html"><span class="n">01</span><strong>Gate</strong><span>Log in and bootstrap the audit surface.</span></a>
+        <a href="lab.html"><span class="n">02</span><strong>Lab</strong><span>See the tier map and pick a faster path.</span></a>
+        <a href="crypto.html"><span class="n">03</span><strong>Crypto</strong><span>Take the RSA / ECDSA / HMAC / Vigenere drills.</span></a>
+        <a href="intel.html"><span class="n">04</span><strong>Intel</strong><span>Walk the May-2026 advisory and stego trail.</span></a>
+        <a href="intercept.html"><span class="n">05</span><strong>Intercept</strong><span>Use the Burp workbench for the web chain.</span></a>
+      </div>
+    </section>
 
     <h2>Tiers</h2>
     <table>

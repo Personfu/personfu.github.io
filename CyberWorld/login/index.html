@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="robots" content="noindex,nofollow">
+  <title>CyberWorld :: Login Matrix</title>
+  <style>
+    :root {
+      --cyan: #00ffe7;
+      --pink: #ff0055;
+      --green: #58ff9a;
+      --text: #effff8;
+      --muted: #8fa9a2;
+      --panel: rgba(6, 12, 18, 0.94);
+      --line: rgba(88, 255, 154, 0.24);
+    }
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; margin: 0; }
+    body {
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% 18%, rgba(88, 255, 154, 0.24), rgba(0, 0, 0, 0) 34%),
+        radial-gradient(circle at 50% 100%, rgba(0, 255, 231, 0.12), rgba(0, 0, 0, 0) 36%),
+        linear-gradient(135deg, #020704 0%, #05120f 46%, #10131d 100%);
+      font-family: "Courier New", Consolas, ui-monospace, monospace;
+      overflow: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        linear-gradient(rgba(88, 255, 154, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(88, 255, 154, 0.06) 1px, transparent 1px);
+      background-size: 30px 30px;
+      pointer-events: none;
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.28), transparent);
+      background-size: 100% 4px;
+      pointer-events: none;
+      opacity: 0.34;
+    }
+    canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 0.7;
+    }
+    main {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+    }
+    .shell {
+      width: min(1120px, 100%);
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+    @media (max-width: 960px) {
+      .shell { grid-template-columns: 1fr; }
+      body { overflow: auto; }
+    }
+    .panel {
+      border: 1px solid rgba(0, 255, 231, 0.34);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(12, 20, 18, 0.96), rgba(5, 10, 16, 0.98)), var(--panel);
+      box-shadow:
+        0 0 30px rgba(88, 255, 154, 0.14),
+        inset 0 0 24px rgba(0, 255, 231, 0.05);
+      backdrop-filter: blur(10px);
+    }
+    .hero {
+      padding: 28px;
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+    .kicker {
+      color: var(--green);
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.1rem);
+      line-height: 0.95;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-shadow: 0 0 18px rgba(88, 255, 154, 0.5);
+    }
+    .subtitle {
+      margin: 0;
+      color: var(--pink);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+    .copy {
+      margin: 0;
+      color: #dff7ec;
+      line-height: 1.7;
+      max-width: 60ch;
+      font-size: 0.94rem;
+    }
+    .prompt {
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(2, 8, 6, 0.88);
+      color: #9af7bb;
+      line-height: 1.55;
+      font-size: 0.84rem;
+      white-space: pre-wrap;
+    }
+    .prompt strong { color: var(--cyan); }
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .actions a {
+      display: inline-grid;
+      place-items: center;
+      min-height: 46px;
+      padding: 0 16px;
+      border-radius: 10px;
+      border: 1px solid rgba(0, 255, 231, 0.55);
+      color: var(--text);
+      background: #061019;
+      text-decoration: none;
+      font-size: 0.76rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .actions a.primary {
+      color: #041010;
+      background: linear-gradient(90deg, var(--green), var(--cyan));
+      border-color: transparent;
+      font-weight: 800;
+    }
+    .actions a:hover { border-color: var(--pink); color: var(--cyan); }
+    .actions a.primary:hover { color: #051018; filter: saturate(1.08); }
+    .route {
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+    .route h2 {
+      margin: 4px 0 2px;
+      color: var(--cyan);
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .steps {
+      display: grid;
+      gap: 10px;
+    }
+    .step {
+      padding: 13px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 255, 231, 0.24);
+      background: rgba(8, 13, 20, 0.72);
+      display: grid;
+      gap: 6px;
+    }
+    .step .label {
+      color: var(--pink);
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .step strong {
+      color: var(--text);
+      font-size: 0.92rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.82rem;
+    }
+    .step a {
+      color: var(--cyan);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+    }
+    .step a:hover { color: var(--green); }
+    .footer {
+      grid-column: 1 / -1;
+      color: rgba(239, 255, 248, 0.55);
+      font-size: 0.7rem;
+      line-height: 1.5;
+      letter-spacing: 0.06em;
+      text-align: center;
+      padding-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="matrix" aria-hidden="true"></canvas>
+  <main>
+    <div class="shell">
+      <section class="panel hero" aria-labelledby="title">
+        <div class="kicker">Matrix login // CyberWorld training range</div>
+        <h1 id="title">Operator Gate</h1>
+        <p class="subtitle">A simpler front door for a hard range.</p>
+        <p class="copy">Use this path when you want the challenge to feel like a breach run instead of a checklist. The underlying findings are still the same; this page just makes the path into them shorter and more visual.</p>
+        <div class="prompt" aria-label="mission prompt"><strong>prompt&gt;</strong> load gate -- guided
+<strong>prompt&gt;</strong> follow node map -- gate / lab / workbench
+<strong>prompt&gt;</strong> if you want the full challenge, the links are below</div>
+        <div class="actions">
+          <a class="primary" href="/CyberWorld_login/">Enter training gate</a>
+          <a href="/CyberWorld_login/lab.html">Open lab</a>
+          <a href="/CyberWorld_login/intercept.html">Open workbench</a>
+          <a href="/cyberworld.html">Open CyberWorld</a>
+        </div>
+      </section>
+
+      <aside class="panel route" aria-labelledby="route-title">
+        <h2 id="route-title">Guided Breach Route</h2>
+        <div class="steps">
+          <article class="step">
+            <span class="label">Step 01</span>
+            <strong>Gate login</strong>
+            <p>Open the main login page and land in the training range.</p>
+            <a href="/CyberWorld_login/">Launch</a>
+          </article>
+          <article class="step">
+            <span class="label">Step 02</span>
+            <strong>Read the map</strong>
+            <p>The lab page gives the fastest overview of the tiers and where to start.</p>
+            <a href="/CyberWorld_login/lab.html">Launch</a>
+          </article>
+          <article class="step">
+            <span class="label">Step 03</span>
+            <strong>Hit the workbench</strong>
+            <p>When you are ready for the live attack surface, use the Burp-style interceptor.</p>
+            <a href="/CyberWorld_login/intercept.html">Launch</a>
+          </article>
+          <article class="step">
+            <span class="label">Step 04</span>
+            <strong>Return to CyberWorld</strong>
+            <p>Operator progression feeds back into the main MMO world.</p>
+            <a href="/cyberworld.html">Launch</a>
+          </article>
+        </div>
+      </aside>
+
+      <div class="footer">Tip: if the challenge felt too heavy, this is the low-friction route. The range itself has not been simplified; only the entry trail has.</div>
+    </div>
+  </main>
+
+  <script>
+  (() => {
+    "use strict";
+    const canvas = document.getElementById("matrix");
+    const ctx = canvas.getContext("2d");
+    const glyphs = "01CYBERWORLDLOGINBREACHMATRIXNODE";
+    let columns = [];
+
+    function resize() {
+      const scale = window.devicePixelRatio || 1;
+      canvas.width = Math.floor(window.innerWidth * scale);
+      canvas.height = Math.floor(window.innerHeight * scale);
+      canvas.style.width = window.innerWidth + "px";
+      canvas.style.height = window.innerHeight + "px";
+      ctx.setTransform(scale, 0, 0, scale, 0, 0);
+      ctx.font = "14px Consolas, monospace";
+      const count = Math.max(24, Math.floor(window.innerWidth / 18));
+      columns = Array.from({ length: count }, () => Math.random() * window.innerHeight);
+    }
+
+    function draw() {
+      ctx.fillStyle = "rgba(2, 7, 4, 0.08)";
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+      for (let i = 0; i < columns.length; i++) {
+        const x = i * 18;
+        const y = columns[i];
+        const ch = glyphs[(Math.random() * glyphs.length) | 0];
+        ctx.fillStyle = i % 4 === 0 ? "rgba(0, 255, 231, 0.82)" : "rgba(88, 255, 154, 0.72)";
+        ctx.fillText(ch, x, y);
+        columns[i] = (columns[i] + 0.9 + Math.random() * 1.2) % (window.innerHeight + 20);
+      }
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener("resize", resize, { passive: true });
+    resize();
+    draw();
+  })();
+  </script>
+</body>
+</html>
