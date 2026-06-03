@@ -1,1 +1,79 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>adversaries - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adversary DB // CyberWorld</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{display:flex;flex-direction:column}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
+.sep{color:#1a3050}
+.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
+.hdr-right{margin-left:auto}
+.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
+.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:var(--card);padding:18px}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
+.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
+.hero .brief{font-size:12px;line-height:1.65}
+.adv-card{border:1px solid var(--border);background:var(--card);padding:14px;margin-bottom:10px}
+.adv-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.adv-name{color:var(--bright);font-size:13px;font-weight:bold;flex:1}
+.adv-tag{font-size:9px;color:var(--gold);border:1px solid rgba(255,223,120,0.4);padding:1px 6px}
+.adv-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
+.meta-item{font-size:10px}
+.meta-lbl{color:var(--cyan);margin-bottom:2px}
+.meta-val{color:var(--text)}
+.tech-list{font-size:10px;color:var(--text);line-height:1.7}
+.tech-id{color:var(--gold);margin-right:4px}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">CYBERWORLD</span>
+  <span class="sep">//</span>
+  <span class="cat">ADVERSARY DB</span>
+  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">THREAT MODULE // DARKNET DEPTHS DISTRICT</div>
+    <h1>Adversary DB</h1>
+    <p class="brief">Fictional threat-actor dossiers used as training scenarios. All groups, targets, and campaigns are invented for educational purposes. Technique IDs reference the real MITRE ATT&amp;CK framework.</p>
+  </section>
+  <div class="adv-card">
+    <div class="adv-header"><span class="adv-name">RELAY KID</span><span class="adv-tag">FICTIONAL</span><span class="adv-tag">TIER-1 NPC</span></div>
+    <div class="adv-meta">
+      <div class="meta-item"><div class="meta-lbl">MOTIVATION</div><div class="meta-val">Reputation / Demonstration</div></div>
+      <div class="meta-item"><div class="meta-lbl">ORIGIN</div><div class="meta-val">In-world lore</div></div>
+      <div class="meta-item"><div class="meta-lbl">ACTIVITY</div><div class="meta-val">May 2026 (scenario)</div></div>
+    </div>
+    <div class="tech-list">
+      <span class="tech-id">T1078</span>Valid Accounts — compromised NPC credentials 
+      <span class="tech-id">T1059.007</span>JavaScript execution in browser context 
+      <span class="tech-id">T1553</span>Subvert Trust Controls via token forgery
+    </div>
+  </div>
+  <div class="adv-card">
+    <div class="adv-header"><span class="adv-name">GRIDLOCK SYNDICATE</span><span class="adv-tag">FICTIONAL</span><span class="adv-tag">TIER-3 BOSS</span></div>
+    <div class="adv-meta">
+      <div class="meta-item"><div class="meta-lbl">MOTIVATION</div><div class="meta-val">Financial / Disruption</div></div>
+      <div class="meta-item"><div class="meta-lbl">ORIGIN</div><div class="meta-val">Darknet Depths (in-world)</div></div>
+      <div class="meta-item"><div class="meta-lbl">ACTIVITY</div><div class="meta-val">Ongoing (scenario)</div></div>
+    </div>
+    <div class="tech-list">
+      <span class="tech-id">T1190</span>Exploit Public-Facing Application 
+      <span class="tech-id">T1027</span>Obfuscated Files via ZWSP steganography 
+      <span class="tech-id">T1134</span>Access Token Manipulation (JWT)
+    </div>
+  </div>
+</main>
+<footer>CYBERWORLD // FLLC GRID // ADVERSARY DB // DARKNET DEPTHS</footer>
+</body>
+</html>

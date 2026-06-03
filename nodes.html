@@ -1,1 +1,60 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>nodes - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Node Atlas // CyberWorld</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{display:flex;flex-direction:column}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
+.sep{color:#1a3050}
+.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
+.hdr-right{margin-left:auto}
+.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
+.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:var(--card);padding:18px}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
+.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
+.hero .brief{font-size:12px;line-height:1.65}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px}
+@media(max-width:600px){.grid3{grid-template-columns:1fr 1fr}}
+.node-card{border:1px solid var(--border);background:var(--card);padding:12px}
+.node-name{color:var(--bright);font-size:11px;margin-bottom:4px;font-weight:bold}
+.node-dist{color:var(--gold);font-size:9px;letter-spacing:1px;margin-bottom:6px}
+.node-status{font-size:9px;padding:2px 6px;display:inline-block}
+.online{color:var(--green);border:1px solid rgba(0,255,156,0.4)}
+.partial{color:var(--gold);border:1px solid rgba(255,223,120,0.4)}
+.node-desc{font-size:10px;color:var(--text);margin-top:6px;line-height:1.5}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">CYBERWORLD</span>
+  <span class="sep">//</span>
+  <span class="cat">NODE ATLAS</span>
+  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">INFRASTRUCTURE MODULE // FLLC GRID</div>
+    <h1>Node Atlas</h1>
+    <p class="brief">Real-time status board for all FLLC Grid infrastructure nodes. Static snapshot — no live polling. Nodes are fictional in-world assets.</p>
+  </section>
+  <div class="grid3">
+    <div class="node-card"><div class="node-name">MAINFRAME-CORE-01</div><div class="node-dist">MAINFRAME CORE</div><span class="node-status online">ONLINE</span><p class="node-desc">Primary compute hub. Academy, profiles, and guild registry.</p></div>
+    <div class="node-card"><div class="node-name">LAN-VALLEY-GATE</div><div class="node-dist">LAN VALLEY</div><span class="node-status online">ONLINE</span><p class="node-desc">Signal routing and forensics evidence board.</p></div>
+    <div class="node-card"><div class="node-name">DARKNET-RELAY-D4</div><div class="node-dist">DARKNET DEPTHS</div><span class="node-status online">ONLINE</span><p class="node-desc">Intel Exchange and RedOps isolated simulation arena.</p></div>
+    <div class="node-card"><div class="node-name">QUANTUM-QX7</div><div class="node-dist">QUANTUM QUARTER</div><span class="node-status partial">PARTIAL</span><p class="node-desc">Research Vault and AI Ops. Some modules require district key.</p></div>
+    <div class="node-card"><div class="node-name">PIXEL-ARCADE-PA2</div><div class="node-dist">PIXEL ARCADE</div><span class="node-status online">ONLINE</span><p class="node-desc">Game Archive and Arcade Annex compute substrate.</p></div>
+    <div class="node-card"><div class="node-name">CYBER-OS-FORGE</div><div class="node-dist">CYBERFORGE</div><span class="node-status partial">PARTIAL</span><p class="node-desc">CyberOS Foundry ISO builder. Staging zone — not all toolchains loaded.</p></div>
+  </div>
+</main>
+<footer>CYBERWORLD // FLLC GRID // NODE ATLAS // INFRASTRUCTURE</footer>
+</body>
+</html>

@@ -1,1 +1,69 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>tutorial - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capstone Terminal // CyberWorld</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{display:flex;flex-direction:column}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
+.sep{color:#1a3050}
+.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
+.hdr-right{margin-left:auto}
+.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
+.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:var(--card);padding:18px}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
+.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
+.hero .brief{font-size:12px;line-height:1.65;margin-bottom:14px}
+.action-bar{display:flex;gap:10px;flex-wrap:wrap}
+.btn-launch{background:var(--cyan);color:#030811;border:none;padding:10px 22px;font-family:'Courier New',monospace;font-size:12px;font-weight:bold;cursor:pointer;text-decoration:none;letter-spacing:1px;display:inline-block}
+.btn-launch:hover{background:var(--bright)}
+.btn-alt{border:1px solid var(--green);color:var(--green);padding:9px 18px;font-family:'Courier New',monospace;font-size:11px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-alt:hover{background:var(--green);color:#030811}
+.card{border:1px solid var(--border);background:var(--card);padding:14px}
+.card-lbl{color:var(--cyan);font-size:10px;letter-spacing:1px;margin-bottom:8px}
+.step{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.step:last-child{border-bottom:none}
+.step-num{color:var(--gold);font-size:14px;font-weight:bold;width:22px;flex-shrink:0;line-height:1.4}
+.step-body{flex:1}
+.step-title{color:var(--bright);font-size:12px;margin-bottom:2px}
+.step-desc{color:var(--text);font-size:11px;line-height:1.6}
+.deliverable{color:var(--cyan);font-size:10px;margin-top:3px}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">CYBERWORLD</span>
+  <span class="sep">//</span>
+  <span class="cat">CAPSTONE MODULE</span>
+  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">CAPSTONE MODULE // FLLC GRID</div>
+    <h1>Capstone Terminal</h1>
+    <p class="brief">The final project: build, attack, and defend a complete CyberWorld-style environment using the skills gained across all five training tiers. Combines recon, exploitation simulation, and incident response into one deliverable.</p>
+    <div class="action-bar">
+      <a class="btn-launch" href="/CyberWorld_login/" target="_blank">START TRAINING &#8599;</a>
+      <a class="btn-alt" href="/CyberWorld_login/intercept.html" target="_blank">WORKBENCH &#8599;</a>
+    </div>
+  </section>
+  <div class="card">
+    <div class="card-lbl">CAPSTONE WORKFLOW</div>
+    <div class="step"><span class="step-num">1</span><div class="step-body"><div class="step-title">Complete All Tiers</div><div class="step-desc">Finish T-01 through T-05 and capture all 33 flags in the training range.</div><div class="deliverable">DELIVERABLE: Screenshot of completed flag board</div></div></div>
+    <div class="step"><span class="step-num">2</span><div class="step-body"><div class="step-title">Map to ATT&amp;CK</div><div class="step-desc">For each technique encountered, map it to a MITRE ATT&amp;CK technique ID and write a one-sentence description of the real-world analogue.</div><div class="deliverable">DELIVERABLE: Technique mapping table (Tier, Flag, ATT&amp;CK ID, Description)</div></div></div>
+    <div class="step"><span class="step-num">3</span><div class="step-body"><div class="step-title">Simulate an Incident</div><div class="step-desc">Using the Intercept Workbench, craft a JWT token that bypasses the synthetic auth gate. Document each step.</div><div class="deliverable">DELIVERABLE: Step-by-step replay notes</div></div></div>
+    <div class="step"><span class="step-num">4</span><div class="step-body"><div class="step-title">Write an IR Report</div><div class="step-desc">Using NIST SP 800-61 R3 phases (Detect, Contain, Eradicate, Recover), write a structured incident report for the scenario.</div><div class="deliverable">DELIVERABLE: Formatted incident report with confidence caveats</div></div></div>
+    <div class="step"><span class="step-num">5</span><div class="step-body"><div class="step-title">Propose Remediations</div><div class="step-desc">For the three most severe findings, write a remediation brief: root cause, fix, and detection rule.</div><div class="deliverable">DELIVERABLE: Three remediation cards</div></div></div>
+  </div>
+</main>
+<footer>CYBERWORLD // FLLC GRID // CAPSTONE TERMINAL // ALL DISTRICTS</footer>
+</body>
+</html>

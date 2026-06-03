@@ -1,1 +1,77 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>games - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Archive // CyberWorld</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{display:flex;flex-direction:column}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
+.sep{color:#1a3050}
+.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
+.hdr-right{margin-left:auto}
+.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
+.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:var(--card);padding:18px}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
+.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
+.hero .brief{font-size:12px;line-height:1.65}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.game-card{border:1px solid var(--border);background:var(--card);padding:14px;display:flex;flex-direction:column;gap:8px}
+.game-name{color:var(--bright);font-size:13px;font-weight:bold}
+.game-tag{display:inline-block;font-size:9px;color:var(--cyan);border:1px solid rgba(0,232,255,0.3);padding:1px 5px}
+.game-desc{font-size:11px;line-height:1.6;color:var(--text);flex:1}
+.btn-play{background:var(--green);color:#030811;border:none;padding:7px 16px;font-family:'Courier New',monospace;font-size:11px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block;align-self:flex-start;margin-top:4px}
+.btn-play:hover{background:var(--bright)}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">CYBERWORLD</span>
+  <span class="sep">//</span>
+  <span class="cat">GAME ARCHIVE</span>
+  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">GAMES MODULE // PIXEL ARCADE DISTRICT</div>
+    <h1>Game Archive</h1>
+    <p class="brief">Browser-based diversions and skill-building mini-games from the Pixel Arcade district. No installation, no sign-in, no tracking — just open and play.</p>
+  </section>
+  <div class="grid2">
+    <div class="game-card">
+      <span class="game-name">CTF Flag Hunt</span>
+      <span class="game-tag">PUZZLE</span>
+      <p class="game-desc">The original CyberWorld training-range quest. Chase 33 flags across 5 tiers. Good for 2–8 hours of gameplay if you’re being thorough.</p>
+      <a class="btn-play" href="/CyberWorld_login/challenge.html" target="_blank">PLAY &#8599;</a>
+    </div>
+    <div class="game-card">
+      <span class="game-name">Intercept Workbench</span>
+      <span class="game-tag">TOOL / PUZZLE</span>
+      <p class="game-desc">JWT forgery and HTTP repeater sandbox. Craft tokens, intercept synthetic responses, decode payloads. Uses the same engine as Tier 4–5 flags.</p>
+      <a class="btn-play" href="/CyberWorld_login/intercept.html" target="_blank">PLAY &#8599;</a>
+    </div>
+    <div class="game-card">
+      <span class="game-name">Payload Decoder</span>
+      <span class="game-tag">UTILITY</span>
+      <p class="game-desc">Instant Base64, JWT, hex, and URL decode. Try encoding your own messages and decoding them back. Useful brain-training for spotting encoded strings in the wild.</p>
+      <a class="btn-play" href="/ai.html" target="_top">OPEN &#8599;</a>
+    </div>
+    <div class="game-card">
+      <span class="game-name">Lore Archive</span>
+      <span class="game-tag">EXPLORE</span>
+      <p class="game-desc">Browse the CyberWorld lore vault — district backstories, NPC dossiers, and incident reports. Some entries contain hidden flags.</p>
+      <a class="btn-play" href="/CyberWorld/" target="_top">EXPLORE &#8599;</a>
+    </div>
+  </div>
+</main>
+<footer>CYBERWORLD // FLLC GRID // GAME ARCHIVE // PIXEL ARCADE</footer>
+</body>
+</html>

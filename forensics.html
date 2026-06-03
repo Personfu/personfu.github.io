@@ -1,1 +1,82 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>forensics - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forensics Lab // CyberWorld</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{display:flex;flex-direction:column}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
+.sep{color:#1a3050}
+.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
+.hdr-right{margin-left:auto}
+.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
+.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:var(--card);padding:18px}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
+.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
+.hero .brief{font-size:12px;line-height:1.65;margin-bottom:14px}
+.action-bar{display:flex;gap:10px;flex-wrap:wrap}
+.btn-launch{background:var(--cyan);color:#030811;border:none;padding:10px 22px;font-family:'Courier New',monospace;font-size:12px;font-weight:bold;cursor:pointer;text-decoration:none;letter-spacing:1px;display:inline-block}
+.btn-launch:hover{background:var(--bright)}
+.btn-alt{border:1px solid var(--green);color:var(--green);padding:9px 18px;font-family:'Courier New',monospace;font-size:11px;cursor:pointer;text-decoration:none;display:inline-block}
+.btn-alt:hover{background:var(--green);color:#030811}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.card{border:1px solid var(--border);background:var(--card);padding:14px}
+.card-lbl{color:var(--cyan);font-size:10px;letter-spacing:1px;margin-bottom:8px}
+.card p,.card li{font-size:11px;line-height:1.6}
+.card ul{padding-left:14px;margin-top:4px}
+.phase-row{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid var(--border)}
+.phase-row:last-child{border-bottom:none}
+.phase-tag{color:var(--gold);font-size:10px;width:80px;flex-shrink:0;font-weight:bold}
+.phase-desc{color:var(--bright);font-size:11px}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">CYBERWORLD</span>
+  <span class="sep">//</span>
+  <span class="cat">INVESTIGATION MODULE</span>
+  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">FORENSICS MODULE // LAN VALLEY DISTRICT</div>
+    <h1>Forensics Lab</h1>
+    <p class="brief">Digital forensics becomes the evidence board for incident-response quests. Analyze compromised hosts, log chains, and synthetic artifacts using NIST SP 800-61 R3 methodology.</p>
+    <div class="action-bar">
+      <a class="btn-launch" href="/CyberWorld_login/lab.html" target="_blank">OPEN EVIDENCE BOARD &#8599;</a>
+      <a class="btn-alt" href="/CyberWorld_login/intel.html" target="_blank">INTEL PIVOT &#8599;</a>
+    </div>
+  </section>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-lbl">IR PHASES (NIST 800-61 R3)</div>
+      <div class="phase-row"><span class="phase-tag">DETECT</span><span class="phase-desc">Identify indicators in logs, traffic, and host artifacts</span></div>
+      <div class="phase-row"><span class="phase-tag">CONTAIN</span><span class="phase-desc">Isolate affected systems before evidence degrades</span></div>
+      <div class="phase-row"><span class="phase-tag">ERADICATE</span><span class="phase-desc">Remove threat presence from the synthetic environment</span></div>
+      <div class="phase-row"><span class="phase-tag">RECOVER</span><span class="phase-desc">Restore operation and validate clean state</span></div>
+      <div class="phase-row"><span class="phase-tag">DOCUMENT</span><span class="phase-desc">Write a structured post-incident report</span></div>
+    </div>
+    <div class="card">
+      <div class="card-lbl">CASE OBJECTIVES</div>
+      <ul>
+        <li>Correlate CVE attribution with NVD and ATT&amp;CK data</li>
+        <li>Map observed behaviour to T1078 (Valid Accounts)</li>
+        <li>Identify ZWSP steganography in synthetic document artifacts</li>
+        <li>Produce a confidence-caveated incident timeline</li>
+        <li>Capture Tier 3 flags (F16–F20)</li>
+      </ul>
+    </div>
+  </div>
+</main>
+<footer>CYBERWORLD // FLLC GRID // FORENSICS LAB // LAN VALLEY</footer>
+</body>
+</html>

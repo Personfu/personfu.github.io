@@ -1,1 +1,80 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>cyberos iso - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberOS Foundry // CyberWorld</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{display:flex;flex-direction:column}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
+.sep{color:#1a3050}
+.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
+.hdr-right{margin-left:auto}
+.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
+.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:var(--card);padding:18px}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
+.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
+.hero .brief{font-size:12px;line-height:1.65}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.card{border:1px solid var(--border);background:var(--card);padding:14px}
+.card-lbl{color:var(--cyan);font-size:10px;letter-spacing:1px;margin-bottom:8px}
+.card p,.card li{font-size:11px;line-height:1.6}
+.card ul{padding-left:14px;margin-top:4px}
+.status-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)}
+.status-row:last-child{border-bottom:none}
+.s-name{color:var(--bright);font-size:11px}
+.s-tag{font-size:9px;padding:1px 6px;border:1px solid}
+.s-wip{color:var(--gold);border-color:rgba(255,223,120,0.4)}
+.s-done{color:var(--green);border-color:rgba(0,255,156,0.4)}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">CYBERWORLD</span>
+  <span class="sep">//</span>
+  <span class="cat">CYBEROS FOUNDRY</span>
+  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">FOUNDRY MODULE // CYBERFORGE DISTRICT</div>
+    <h1>CyberOS Foundry</h1>
+    <p class="brief">The in-world training environment builder. Packages up a portable CyberWorld environment — service worker, training range, and all tools — so operatives can run labs fully offline. Static site: no build step required.</p>
+  </section>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-lbl">COMPONENT STATUS</div>
+      <div class="status-row"><span class="s-name">Service Worker (sw.js)</span><span class="s-tag s-done">READY</span></div>
+      <div class="status-row"><span class="s-name">Training Range (5 tiers)</span><span class="s-tag s-done">READY</span></div>
+      <div class="status-row"><span class="s-name">JWT Intercept Workbench</span><span class="s-tag s-done">READY</span></div>
+      <div class="status-row"><span class="s-name">Intel Pivot Module</span><span class="s-tag s-done">READY</span></div>
+      <div class="status-row"><span class="s-name">CyberOS Desktop Shell</span><span class="s-tag s-wip">STAGING</span></div>
+      <div class="status-row"><span class="s-name">Offline Package Builder</span><span class="s-tag s-wip">STAGING</span></div>
+    </div>
+    <div class="card">
+      <div class="card-lbl">OFFLINE DEPLOYMENT</div>
+      <ul>
+        <li>Clone <code>personfu.github.io</code> to a USB drive</li>
+        <li>Open <code>index.html</code> in any modern browser</li>
+        <li>Service worker caches all assets on first load</li>
+        <li>Works without internet after cache is primed</li>
+        <li>All training flags function fully offline</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-lbl">QUICK START</div>
+    <p><code>git clone https://github.com/PersonFu/personfu.github.io.git cyber-env</code><br>Then open <code>cyber-env/CyberWorld_login/index.html</code> locally. No server needed for the training range.</p>
+  </div>
+</main>
+<footer>CYBERWORLD // FLLC GRID // CYBEROS FOUNDRY // CYBERFORGE</footer>
+</body>
+</html>

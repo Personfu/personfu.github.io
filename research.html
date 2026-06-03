@@ -1,1 +1,90 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>research - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Vault // CyberWorld</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{display:flex;flex-direction:column}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
+.sep{color:#1a3050}
+.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
+.hdr-right{margin-left:auto}
+.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
+.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:var(--card);padding:18px}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
+.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
+.hero .brief{font-size:12px;line-height:1.65}
+.card{border:1px solid var(--border);background:var(--card);padding:14px}
+.card-lbl{color:var(--cyan);font-size:10px;letter-spacing:1px;margin-bottom:10px}
+.entry{padding:8px 0;border-bottom:1px solid var(--border)}
+.entry:last-child{border-bottom:none}
+.entry-title{color:var(--bright);font-size:12px;margin-bottom:3px}
+.entry-meta{color:var(--gold);font-size:9px;margin-bottom:4px;letter-spacing:1px}
+.entry-body{color:var(--text);font-size:11px;line-height:1.6}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.ref-link{display:block;color:var(--cyan);font-size:11px;text-decoration:none;padding:3px 0;border-bottom:1px solid var(--border)}
+.ref-link:last-child{border-bottom:none}
+.ref-link:hover{color:var(--bright)}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">CYBERWORLD</span>
+  <span class="sep">//</span>
+  <span class="cat">RESEARCH VAULT</span>
+  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">RESEARCH MODULE // QUANTUM QUARTER DISTRICT</div>
+    <h1>Research Vault</h1>
+    <p class="brief">Curated writeups, methodology notes, and reference archives for CyberWorld operatives. All external links open in a new tab.</p>
+  </section>
+  <div class="card">
+    <div class="card-lbl">FEATURED WRITEUPS</div>
+    <div class="entry">
+      <div class="entry-title">JWT Algorithm Confusion: HS256 vs RS256</div>
+      <div class="entry-meta">METHODOLOGY // T-05 // FLAG F31–F33</div>
+      <div class="entry-body">When a server accepts both HMAC and RSA-signed tokens, an attacker can re-sign a forged token with the public key using HS256, bypassing RS256 verification. Detection: enforce <code>algorithm</code> allowlist server-side. Never trust the <code>alg</code> header from the client.</div>
+    </div>
+    <div class="entry">
+      <div class="entry-title">Zero-Width Space Steganography in Text Documents</div>
+      <div class="entry-meta">FORENSICS // T-03 // FLAG F18</div>
+      <div class="entry-body">ZWSP (U+200B) and similar invisible Unicode characters can encode hidden binary data in plain text. Detection: paste suspicious text into a hex viewer or use <code>/\u200b/g</code> regex. Remove with <code>str.replace(/[\u200b-\u200d\ufeff]/g,'')</code>.</div>
+    </div>
+    <div class="entry">
+      <div class="entry-title">Client-Side Auth Bypass (CWE-602)</div>
+      <div class="entry-meta">CLIENT-AUDIT // T-01 // FLAG F01–F05</div>
+      <div class="entry-body">Logic gated only in the browser (JS conditionals, hidden form fields, localStorage flags) is trivially bypassed via DevTools. All authorisation decisions must be enforced server-side. Frontend checks are UX only.</div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-lbl">EXTERNAL REFERENCES</div>
+      <a class="ref-link" href="https://owasp.org/Top10/" target="_blank" rel="noopener">OWASP Top 10</a>
+      <a class="ref-link" href="https://attack.mitre.org/" target="_blank" rel="noopener">MITRE ATT&amp;CK</a>
+      <a class="ref-link" href="https://nvd.nist.gov/" target="_blank" rel="noopener">NIST NVD</a>
+      <a class="ref-link" href="https://cwe.mitre.org/" target="_blank" rel="noopener">MITRE CWE</a>
+      <a class="ref-link" href="https://jwt.io/" target="_blank" rel="noopener">JWT.io Debugger</a>
+    </div>
+    <div class="card">
+      <div class="card-lbl">NIST SP 800-61 R3 PHASES</div>
+      <a class="ref-link" href="https://csrc.nist.gov/pubs/sp/800/61/r3/final" target="_blank" rel="noopener">NIST SP 800-61 R3 Full Text</a>
+      <a class="ref-link" href="https://attack.mitre.org/tactics/TA0005/" target="_blank" rel="noopener">ATT&amp;CK TA0005 Defence Evasion</a>
+      <a class="ref-link" href="https://attack.mitre.org/techniques/T1078/" target="_blank" rel="noopener">T1078 Valid Accounts</a>
+      <a class="ref-link" href="https://attack.mitre.org/techniques/T1190/" target="_blank" rel="noopener">T1190 Exploit Public-Facing App</a>
+    </div>
+  </div>
+</main>
+<footer>CYBERWORLD // FLLC GRID // RESEARCH VAULT // QUANTUM QUARTER</footer>
+</body>
+</html>

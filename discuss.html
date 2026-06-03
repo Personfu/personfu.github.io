@@ -1,1 +1,73 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>discuss - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comms Board // CyberWorld</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{display:flex;flex-direction:column}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
+.sep{color:#1a3050}
+.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
+.hdr-right{margin-left:auto}
+.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
+.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:var(--card);padding:18px}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
+.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
+.hero .brief{font-size:12px;line-height:1.65}
+.card{border:1px solid var(--border);background:var(--card);padding:14px}
+.card-lbl{color:var(--cyan);font-size:10px;letter-spacing:1px;margin-bottom:10px}
+.post{padding:10px 0;border-bottom:1px solid var(--border)}
+.post:last-child{border-bottom:none}
+.post-header{display:flex;gap:8px;align-items:center;margin-bottom:4px}
+.post-author{color:var(--gold);font-size:10px;font-weight:bold}
+.post-ts{color:#334;font-size:9px;margin-left:auto}
+.post-body{font-size:11px;line-height:1.65;color:var(--text)}
+.post-tag{font-size:9px;border:1px solid rgba(0,232,255,0.3);color:var(--cyan);padding:1px 5px;margin-left:4px}
+.comms-note{background:rgba(0,232,255,0.04);border:1px solid var(--border);padding:10px 14px;font-size:11px;color:var(--text);line-height:1.7}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">CYBERWORLD</span>
+  <span class="sep">//</span>
+  <span class="cat">COMMS BOARD</span>
+  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">COMMUNITY MODULE // MAINFRAME CORE DISTRICT</div>
+    <h1>Comms Board</h1>
+    <p class="brief">Operative discussion board — tips, writeup links, and district announcements. Static lore feed for now; live chat requires a backend not present in this static deployment.</p>
+  </section>
+  <div class="comms-note">&#9432; This is a static snapshot. To join live community discussion, see the repo at <a href="https://github.com/PersonFu" target="_blank" rel="noopener" style="color:var(--cyan)">github.com/PersonFu</a> and open an issue or discussion thread.</div>
+  <div class="card">
+    <div class="card-lbl">LORE FEED</div>
+    <div class="post">
+      <div class="post-header"><span class="post-author">SYS_ANNOUNCE</span><span class="post-tag">OFFICIAL</span><span class="post-ts">CYCLE 0847</span></div>
+      <div class="post-body">Portal Network is LIVE. All district modules now accessible via the DOCK MODULE iframe or OPEN EXTERNAL shortcut. Report broken portals to Mainframe Core admin.</div>
+    </div>
+    <div class="post">
+      <div class="post-header"><span class="post-author">RELAY_KID</span><span class="post-tag">NPC</span><span class="post-ts">CYCLE 0831</span></div>
+      <div class="post-body">Reminder: the scope boundary is real. No real targets. I mean it. Fictional systems only. The Foundry is watching.</div>
+    </div>
+    <div class="post">
+      <div class="post-header"><span class="post-author">ANON_OPERATIVE</span><span class="post-ts">CYCLE 0819</span></div>
+      <div class="post-body">Tip: F18 (ZWSP steg) — paste the lore doc into browser console with <code>encodeURIComponent(str)</code> and look for %E2%80%8B sequences. Zero-width spaces encode as those bytes.</div>
+    </div>
+    <div class="post">
+      <div class="post-header"><span class="post-author">ANON_OPERATIVE</span><span class="post-ts">CYCLE 0804</span></div>
+      <div class="post-body">F31 hint: the server trusts <code>alg</code> from the JWT header. Set it to HS256 and sign with the public key as the HMAC secret. Workbench &gt; Header field lets you edit it.</div>
+    </div>
+  </div>
+</main>
+<footer>CYBERWORLD // FLLC GRID // COMMS BOARD // MAINFRAME CORE</footer>
+</body>
+</html>
