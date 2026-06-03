@@ -18,7 +18,7 @@
 		shield: 30, maxShield: 30,
 		inventory: { 'PING-BREACH': 1, 'PATCH-KIT': 2 },
 		completed: {},
-		flags: {}
+		flags: { run: { active: false, missionId: null } }
 	};
 	function loadState() {
 		try {
@@ -28,7 +28,9 @@
 			return Object.assign({}, DEFAULT_STATE, s, {
 				inventory: Object.assign({}, DEFAULT_STATE.inventory, s.inventory || {}),
 				completed: s.completed || {},
-				flags: s.flags || {}
+				flags: Object.assign({}, DEFAULT_STATE.flags, s.flags || {}, {
+					run: Object.assign({}, DEFAULT_STATE.flags.run, (s.flags && s.flags.run) || {})
+				})
 			});
 		} catch (e) { return Object.assign({}, DEFAULT_STATE); }
 	}
@@ -156,23 +158,51 @@
 		return true;
 	}
 
+	function getNextMission() {
+		for (var i = 0; i < MISSIONS.length; i++) {
+			if (missionAvailable(MISSIONS[i])) return MISSIONS[i];
+		}
+		return null;
+	}
+
+	function setActiveRun(mission) {
+		state.flags.run = state.flags.run || { active: false, missionId: null };
+		state.flags.run.active = true;
+		state.flags.run.missionId = mission ? mission.id : null;
+		saveState();
+	}
+
+	function clearActiveRun() {
+		state.flags.run = state.flags.run || { active: false, missionId: null };
+		state.flags.run.active = false;
+		state.flags.run.missionId = null;
+		saveState();
+	}
+
 	function completeMission(m) {
 		state.completed[m.id] = Date.now();
 		if (m.reward.xp) gainXp(m.reward.xp);
 		if (m.reward.credits) gainCredits(m.reward.credits);
 		if (m.reward.item) gainItem(m.reward.item, 1);
 		toast('MISSION COMPLETE: ' + m.title);
+		if (state.flags.run && state.flags.run.missionId === m.id) {
+			clearActiveRun();
+		}
 	}
 
 	function startMission(m) {
 		if (!missionAvailable(m)) { toast('Mission locked'); return; }
+		setActiveRun(m);
+		if (root) root.dataset.tab = (m.kind === 'combat' ? 'combat' : 'run');
 		if (m.kind === 'instant') {
 			completeMission(m);
-			render();
 		} else if (m.kind === 'combat') {
 			startCombat(m.enemy, function (won) {
 				if (won) completeMission(m);
-				else toast('MISSION FAILED — recover and retry');
+				else {
+					toast('MISSION FAILED — recover and retry');
+					clearActiveRun();
+				}
 				render();
 			}, m);
 		}
@@ -197,6 +227,7 @@
 			onEnd: onEnd,
 			mission: mission
 		};
+		if (root) root.dataset.tab = 'combat';
 		render();
 	}
 	function endCombat(won) {
@@ -211,6 +242,7 @@
 			saveState();
 		}
 		if (c.onEnd) c.onEnd(won);
+		if (root) root.dataset.tab = 'run';
 		render();
 	}
 	function playerAct(action) {
@@ -321,7 +353,7 @@
 			+     '<button class="cw-gp-close" type="button" aria-label="Close">×</button>'
 			+   '</header>'
 			+   '<div class="cw-gp-tabs">'
-			+     '<button data-tab="missions" class="active">Missions</button>'
+			+     '<button data-tab="run" class="active">Run</button>'
 			+     '<button data-tab="combat">Combat</button>'
 			+     '<button data-tab="inventory">Inventory</button>'
 			+     '<button data-tab="profile">Profile</button>'
@@ -340,7 +372,7 @@
 				render();
 			});
 		});
-		root.dataset.tab = 'missions';
+		root.dataset.tab = 'run';
 		return root;
 	}
 	function toggle(force) {
@@ -382,6 +414,39 @@
 				+ '</div>';
 		}).join('');
 		return rows || '<em>No missions available.</em>';
+	}
+
+	function renderRun() {
+		var current = null;
+		if (state.flags.run && state.flags.run.missionId) {
+			current = MISSIONS.find(function (m) { return m.id === state.flags.run.missionId; }) || null;
+		}
+		if (!current) current = getNextMission();
+		var completed = Object.keys(state.completed).length;
+		var ready = current ? (current.kind === 'combat' ? 'ENGAGE' : 'EXECUTE') : 'TRAIN';
+		return ''
+			+ '<div class="cw-gp-run">'
+			+   '<div class="cw-gp-run-hero">'
+			+     '<div>'
+			+       '<span class="cw-gp-run-kicker">ACTIVE RUN</span>'
+			+       '<strong>' + escapeHtml(current ? current.title : 'NO MISSIONS LEFT') + '</strong>'
+			+       '<p>' + escapeHtml(current ? current.brief : 'The district is clear. Use combat training, reset the operative, or replay cleared sectors.') + '</p>'
+			+     '</div>'
+			+     '<button class="cw-gp-run-start" data-mid="' + (current ? current.id : '') + '">' + ready + '</button>'
+			+   '</div>'
+			+   '<div class="cw-gp-run-grid">'
+			+     '<div class="cw-gp-run-card"><span>Sector</span><strong>' + escapeHtml(current ? current.sector : 'NONE') + '</strong></div>'
+			+     '<div class="cw-gp-run-card"><span>Mode</span><strong>' + escapeHtml(current ? current.kind.toUpperCase() : 'IDLE') + '</strong></div>'
+			+     '<div class="cw-gp-run-card"><span>Cleared</span><strong>' + completed + ' / ' + MISSIONS.length + '</strong></div>'
+			+   '</div>'
+			+   '<div class="cw-gp-run-track">'
+			+     MISSIONS.map(function (m) {
+					var active = state.flags.run && state.flags.run.missionId === m.id;
+					var done = !!state.completed[m.id];
+					return '<button class="cw-gp-run-node ' + (active ? 'active ' : '') + (done ? 'done' : '') + '" data-mid="' + m.id + '"><span>' + escapeHtml(m.title) + '</span><small>' + escapeHtml(m.sector) + '</small></button>';
+				}).join('')
+			+   '</div>'
+			+ '</div>';
 	}
 
 	function renderCombat() {
@@ -441,11 +506,12 @@
 
 	function render() {
 		if (!root || !open) return;
-		var tab = root.dataset.tab || 'missions';
+		var tab = root.dataset.tab || 'run';
 		var body = root.querySelector('.cw-gp-body');
 		var foot = root.querySelector('.cw-gp-foot');
 
-		if (tab === 'missions')   body.innerHTML = renderMissions();
+		if (tab === 'run')        body.innerHTML = renderRun();
+		else if (tab === 'missions')   body.innerHTML = renderMissions();
 		else if (tab === 'combat') body.innerHTML = renderCombat();
 		else if (tab === 'inventory') body.innerHTML = renderInventory();
 		else if (tab === 'profile') body.innerHTML = renderProfile();
@@ -458,6 +524,17 @@
 			+ '<span>XP ' + state.xp + '/' + xpForLevel(state.level) + '</span>';
 
 		// Event wiring (delegated re-bind safe since we replaced innerHTML)
+		body.querySelectorAll('.cw-gp-run-node').forEach(function (b) {
+			b.addEventListener('click', function () {
+				var m = MISSIONS.find(function (x) { return x.id === b.dataset.mid; });
+				if (m) startMission(m);
+			});
+		});
+		var runStart = body.querySelector('.cw-gp-run-start');
+		if (runStart) runStart.addEventListener('click', function () {
+			var m = MISSIONS.find(function (x) { return x.id === runStart.dataset.mid; }) || getNextMission();
+			if (m) startMission(m);
+		});
 		body.querySelectorAll('.m-start').forEach(function (b) {
 			b.addEventListener('click', function () {
 				var m = MISSIONS.find(function (x) { return x.id === b.dataset.mid; });
@@ -469,6 +546,7 @@
 		});
 		var train = body.querySelector('.cw-gp-train');
 		if (train) train.addEventListener('click', function () {
+			root.dataset.tab = 'combat';
 			startCombat('TRAINING-DAEMON', function () { render(); });
 		});
 		var rest = body.querySelector('.pf-rest');
