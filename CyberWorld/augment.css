@@ -220,15 +220,29 @@
 .cw-app:has(.cw-win98-desktop) .cw-bottombar { display: flex !important; }
 
 .cw-app:has(.cw-win98-desktop) .cw-shell {
+	display: grid !important;
+	grid-template-rows: minmax(0, 1fr) !important;
 	grid-template-columns: 126px 1fr 176px !important;
 	gap: 10px !important;
 	padding: 10px !important;
 }
 .cw-app:has(.cw-win98-desktop) .cw-stage,
 .cw-app:has(.cw-win98-desktop) .cw-stage .viewport {
+	flex: 1 1 auto !important;
+	width: 100% !important;
+	height: 100% !important;
 	border-radius: 14px !important;
 	border: 1px solid #00e8ff66 !important;
 	min-height: 0 !important;
+}
+
+.cw-app:has(.cw-win98-desktop) .cw-stage {
+	display: flex !important;
+	min-width: 0 !important;
+}
+
+.cw-app:has(.cw-win98-desktop) .cw-stage .viewport {
+	overflow: hidden !important;
 }
 
 /* =====================================================================
