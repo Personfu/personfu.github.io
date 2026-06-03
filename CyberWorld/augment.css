@@ -518,6 +518,93 @@
 	background: linear-gradient(180deg, #00e8ff, #ff2bd6);
 }
 
+/* =====================================================================
+   EPIC 1: Responsive canvas & HUD clipping fixes
+   ===================================================================== */
+
+/* Canvas fills its container instead of fixed 1080x680 */
+.cw-stage .viewport {
+	position: relative !important;
+	width: 100% !important;
+	height: 100% !important;
+	min-height: 0 !important;
+	overflow: hidden !important;
+}
+
+.cw-stage canvas {
+	width: 100% !important;
+	height: 100% !important;
+	display: block !important;
+	object-fit: contain !important;
+}
+
+/* HUD overlay panels: fixed/clamped so they never clip outside viewport */
+.cw-operative-card,
+[class*="operativeCard"],
+[class*="playerCard"] {
+	position: fixed !important;
+	top: 60px !important;
+	left: 140px !important;
+	max-width: calc(100vw - 340px) !important;
+	z-index: 50 !important;
+}
+
+/* Operative Console: centered and clamped within viewport */
+[class*="consoleOverlay"],
+[class*="operativeConsole"],
+.cw-gp-console {
+	position: fixed !important;
+	top: 50% !important;
+	left: 50% !important;
+	transform: translate(-50%, -50%) !important;
+	max-width: min(1100px, calc(100vw - 40px)) !important;
+	max-height: calc(100vh - 80px) !important;
+	overflow: auto !important;
+	z-index: 50000 !important;
+}
+
+/* Sector/OPS panels don't overlap title bar */
+.cw-panel.sidebar {
+	overflow-y: auto !important;
+	max-height: calc(100vh - 80px) !important;
+}
+
+/* At narrow widths, collapse sidebars and let stage fill */
+@media (max-width: 960px) {
+	.cw-shell {
+		grid-template-columns: 1fr !important;
+	}
+	.cw-panel.sidebar {
+		display: none !important;
+	}
+	.cw-app:has(.cw-win98-desktop) .cw-shell {
+		grid-template-columns: 1fr !important;
+	}
+}
+
+/* Mobile: full-width stage, touch-friendly buttons */
+@media (max-width: 600px) {
+	.cw-topbar {
+		flex-wrap: wrap !important;
+		height: auto !important;
+		padding: 4px 8px !important;
+	}
+	.cw-status .pill {
+		font-size: 10px !important;
+		padding: 2px 6px !important;
+	}
+	.cw-bottombar {
+		font-size: 10px !important;
+		height: 28px !important;
+	}
+	[class*="consoleOverlay"],
+	[class*="operativeConsole"],
+	.cw-gp-console {
+		max-width: calc(100vw - 16px) !important;
+		max-height: calc(100vh - 40px) !important;
+	}
+}
+
 /* Console FAB above taskbar */
 .cw-gp-fab { bottom: 56px !important; }
 .cw-augment-mp { top: 14px !important; right: 14px !important; }

@@ -402,11 +402,118 @@
 		mo.observe(document.body, { childList: true, subtree: true });
 		mountSidebarToggle();
 
+		patchPhaserRuntime();
+
 		// Helpful console banner for debugging
 		try {
 			console.log('%c[CyberWorld augment] active', 'color:#00e8ff;font-weight:bold');
 			console.log('Routes:', Object.keys(ROUTES).length, 'mapped. Override with window.__cwAddRoute(label, action).');
 		} catch (e) {}
+	}
+
+	// ---------------------------------------------------------------
+	// Phaser runtime patches — responsive canvas, camera follow, label fixes
+	// ---------------------------------------------------------------
+	function patchPhaserRuntime() {
+		var maxAttempts = 40;
+		var attempt = 0;
+		var interval = setInterval(function () {
+			attempt++;
+			var canvas = document.querySelector('.cw-stage canvas, .viewport canvas');
+			if (!canvas || attempt > maxAttempts) {
+				if (attempt > maxAttempts) clearInterval(interval);
+				return;
+			}
+			clearInterval(interval);
+
+			// Find Phaser game instance via canvas parent's scene reference
+			var game = null;
+			try {
+				// Phaser 3 stores game ref on the canvas's parent scene manager
+				// Walk up to find it
+				var parent = canvas.parentElement;
+				while (parent && !game) {
+					if (parent.__vue__ || parent._reactRootContainer) break;
+					// Check children for Phaser internals
+					var keys = Object.keys(parent);
+					for (var k = 0; k < keys.length; k++) {
+						var val = parent[keys[k]];
+						if (val && val.scene && val.scale && val.canvas === canvas) {
+							game = val;
+							break;
+						}
+					}
+					parent = parent.parentElement;
+				}
+			} catch (e) {}
+
+			// CSS-level responsive fix: ensure canvas fills its container
+			canvas.style.width = '100%';
+			canvas.style.height = '100%';
+			canvas.style.objectFit = 'contain';
+			canvas.style.display = 'block';
+
+			if (game && game.scale) {
+				try {
+					// Switch to RESIZE mode so canvas fills viewport container
+					game.scale.scaleMode = 2; // Phaser.Scale.RESIZE = 2
+					game.scale.refresh();
+					console.log('%c[CyberWorld augment] Phaser scale patched to RESIZE', 'color:#00ff9c');
+				} catch (e) {
+					console.warn('[CyberWorld augment] scale patch failed:', e);
+				}
+
+				// Camera follow + zoom
+				try {
+					var scenes = game.scene.getScenes(true);
+					for (var s = 0; s < scenes.length; s++) {
+						var scene = scenes[s];
+						var cam = scene.cameras && scene.cameras.main;
+						if (!cam) continue;
+						// Set world bounds larger than viewport
+						cam.setBounds(0, 0, 2160, 1360);
+						// Find player sprite to follow
+						if (scene.player) {
+							cam.startFollow(scene.player, true, 0.08, 0.08);
+							cam.setZoom(1.2);
+						}
+					}
+					console.log('%c[CyberWorld augment] Camera patched', 'color:#00ff9c');
+				} catch (e) {
+					console.warn('[CyberWorld augment] camera patch failed:', e);
+				}
+
+				// De-overlap labels
+				try {
+					var scenes2 = game.scene.getScenes(true);
+					for (var s2 = 0; s2 < scenes2.length; s2++) {
+						deoverlapLabels(scenes2[s2]);
+					}
+				} catch (e) {}
+			}
+		}, 500);
+	}
+
+	function deoverlapLabels(scene) {
+		if (!scene || !scene.children || !scene.children.list) return;
+		var texts = [];
+		scene.children.list.forEach(function (child) {
+			if (child.type === 'Text' && child.text && child.text.length > 2 && child.text.length < 40) {
+				texts.push(child);
+			}
+		});
+		// Sort by y, then nudge overlapping labels
+		texts.sort(function (a, b) { return a.y - b.y || a.x - b.x; });
+		for (var i = 1; i < texts.length; i++) {
+			var prev = texts[i - 1];
+			var curr = texts[i];
+			var dy = Math.abs(curr.y - prev.y);
+			var dx = Math.abs(curr.x - prev.x);
+			// If labels are too close vertically and horizontally overlapping
+			if (dy < 18 && dx < 120) {
+				curr.y = prev.y + 20;
+			}
+		}
 	}
 
 	// Public API for ad-hoc extension
