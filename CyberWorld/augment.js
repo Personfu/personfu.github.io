@@ -14,6 +14,16 @@
 	if (window.__cwAugmentLoaded) return;
 	window.__cwAugmentLoaded = true;
 
+	function tagLaunchMode() {
+		var params = new URLSearchParams(window.location.search || '');
+		var launch = (params.get('launch') || '').toLowerCase();
+		var home = !launch || launch === 'cyberworld';
+		document.body.dataset.cwLaunch = launch || 'home';
+		document.body.classList.toggle('cw-home-launch', home);
+	}
+
+	tagLaunchMode();
+
 	// ---------------------------------------------------------------
 	// Routing table.  Action shapes:
 	//   { launch: '<id>' }    -> navigate to /CyberWorld/?launch=<id>

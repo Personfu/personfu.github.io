@@ -215,19 +215,20 @@
    bottombar — undo that so we get sector nav + ops briefing + marquee
    back on screen alongside the Win98 desktop.
    ===================================================================== */
-.cw-app:has(.cw-win98-desktop) .cw-topbar,
-.cw-app:has(.cw-win98-desktop) .cw-panel,
-.cw-app:has(.cw-win98-desktop) .cw-bottombar { display: flex !important; }
 
-.cw-app:has(.cw-win98-desktop) .cw-shell {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-topbar,
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-panel,
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-bottombar { display: flex !important; }
+
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-shell {
 	display: grid !important;
 	grid-template-rows: minmax(0, 1fr) !important;
 	grid-template-columns: 126px 1fr 176px !important;
 	gap: 10px !important;
 	padding: 10px !important;
 }
-.cw-app:has(.cw-win98-desktop) .cw-stage,
-.cw-app:has(.cw-win98-desktop) .cw-stage .viewport {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-stage,
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-stage .viewport {
 	flex: 1 1 auto !important;
 	width: 100% !important;
 	height: 100% !important;
@@ -236,12 +237,12 @@
 	min-height: 0 !important;
 }
 
-.cw-app:has(.cw-win98-desktop) .cw-stage {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-stage {
 	display: flex !important;
 	min-width: 0 !important;
 }
 
-.cw-app:has(.cw-win98-desktop) .cw-stage .viewport {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-stage .viewport {
 	overflow: hidden !important;
 }
 
@@ -451,14 +452,14 @@
 
 /* Final restore pass: keep the OG side navigation expanded. Earlier bundle edits
    collapsed it to a vertical rail, which removed useful detail from the desktop. */
-.cw-app:has(.cw-win98-desktop) .cw-shell {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-shell {
 	grid-template-columns: 126px 1fr 176px !important;
 }
-.cw-app:has(.cw-win98-desktop) .cw-shell > .cw-panel.sidebar:first-child {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-shell > .cw-panel.sidebar:first-child {
 	display: flex !important;
 	min-width: 0 !important;
 }
-.cw-app:has(.cw-win98-desktop) .cw-shell > .cw-panel.sidebar:first-child header {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-shell > .cw-panel.sidebar:first-child header {
 	writing-mode: horizontal-tb !important;
 	text-orientation: mixed !important;
 	height: auto !important;
@@ -467,47 +468,47 @@
 	border-bottom: 1px solid var(--panel-border, #00e8ff59) !important;
 	border-radius: var(--ui-radius, 14px) var(--ui-radius, 14px) 0 0 !important;
 }
-.cw-app:has(.cw-win98-desktop) .cw-shell > .cw-panel.sidebar:first-child .body,
-.cw-app:has(.cw-win98-desktop) .cw-shell > .cw-panel.sidebar:first-child .tag {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-shell > .cw-panel.sidebar:first-child .body,
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-shell > .cw-panel.sidebar:first-child .tag {
 	display: block !important;
 }
-.cw-app:has(.cw-win98-desktop) .sector-list {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .sector-list {
 	display: flex !important;
 	gap: 5px !important;
 }
-.cw-app:has(.cw-win98-desktop) .sector-list button {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .sector-list button {
 	align-items: flex-start !important;
 	border-radius: 8px !important;
 	font-size: 11px !important;
 	line-height: 1.08 !important;
 	padding: 6px 6px !important;
 }
-.cw-app:has(.cw-win98-desktop) .sector-list button small {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .sector-list button small {
 	font-size: 8px !important;
 	letter-spacing: .5px !important;
 }
-.cw-app:has(.cw-win98-desktop) .sector-list .tag {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .sector-list .tag {
 	font-size: 8px !important;
 	padding: 1px 3px !important;
 }
-.cw-app:has(.cw-win98-desktop) .cw-panel header {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-panel header {
 	font-size: 11px !important;
 	padding: 6px 8px !important;
 }
-.cw-app:has(.cw-win98-desktop) .cw-panel .body {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-panel .body {
 	padding: 8px !important;
 }
-.cw-app:has(.cw-win98-desktop) .news-feed {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .news-feed {
 	gap: 7px !important;
 	font-size: 11px !important;
 }
-.cw-app:has(.cw-win98-desktop) .module-row {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .module-row {
 	padding: 5px 6px !important;
 	margin-bottom: 5px !important;
 }
-.cw-app:has(.cw-win98-desktop) .module-row strong,
-.cw-app:has(.cw-win98-desktop) .module-row span,
-.cw-app:has(.cw-win98-desktop) .module-row small {
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .module-row strong,
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .module-row span,
+body.cw-home-launch .cw-app:has(.cw-win98-desktop) .module-row small {
 	font-size: 10px !important;
 }
 
@@ -591,7 +592,7 @@
 	.cw-panel.sidebar {
 		display: none !important;
 	}
-	.cw-app:has(.cw-win98-desktop) .cw-shell {
+	body.cw-home-launch .cw-app:has(.cw-win98-desktop) .cw-shell {
 		grid-template-columns: 1fr !important;
 	}
 }
