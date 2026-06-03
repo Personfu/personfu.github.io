@@ -251,12 +251,14 @@
 		var c = combat;
 		var dmg, msg;
 		if (action === 'nmap') {
+			c.log.push('> nmap --scan ' + c.enemyId);
 			dmg = 10;
 			c.enemy.hp -= dmg;
 			c.enemy.accuracy = Math.max(35, c.enemy.accuracy - 10);
 			c.enemy.def = Math.max(0, c.enemy.def - 1);
 			msg = 'NMAP strips 10 HP, -10 ACC, -1 DEF';
 		} else if (action === 'sqlninja') {
+			c.log.push('> sqlninja --command breach ' + c.enemyId);
 			var hackRoll = 55 + Math.floor(Math.random() * 35) + Math.max(0, 10 - c.enemy.def * 2);
 			var hit = hackRoll >= c.enemy.accuracy;
 			dmg = hit ? 16 + Math.floor(Math.random() * 9) : 4 + Math.floor(Math.random() * 5);
@@ -264,6 +266,7 @@
 			c.enemy.def = Math.max(0, c.enemy.def - (hit ? 2 : 1));
 			msg = hit ? 'SQLNinja command breach for ' + dmg : 'SQLNinja command glances for ' + dmg;
 		} else if (action === 'boom') {
+			c.log.push('> boom --payload detonate ' + c.enemyId);
 			c.fx = 'boom';
 			dmg = 20 + Math.floor(Math.random() * 8) - Math.max(0, c.enemy.def - 1);
 			c.enemy.hp -= dmg;
@@ -480,10 +483,19 @@
 		var pct = Math.max(0, Math.floor(100 * c.enemy.hp / c.enemy.maxHp));
 		return ''
 			+ '<div class="cw-gp-combat ' + (c.fx === 'boom' ? 'fx-boom' : '') + '">'
-			+   '<div class="cb-enemy">'
+			+   '<div class="cb-target">'
+			+     '<span class="cb-target-kicker">TARGET LOCKED</span>'
 			+     '<strong>' + escapeHtml(c.enemyId) + '</strong>'
+			+     '<small>MODE ' + escapeHtml(c.mission ? c.mission.kind.toUpperCase() : 'TRAIN') + ' · ' + (c.turn === 'player' ? 'YOUR MOVE' : 'ENEMY MOVE') + '</small>'
+			+   '</div>'
+			+   '<div class="cb-enemy">'
 			+     '<div class="cb-bar"><span style="width:' + pct + '%"></span></div>'
 			+     '<small>HP ' + c.enemy.hp + ' / ' + c.enemy.maxHp + ' · ACC ' + c.enemy.accuracy + ' · DEF ' + c.enemy.def + '</small>'
+			+   '</div>'
+			+   '<div class="cb-tooltips">'
+			+     '<div><strong>NMAP</strong><span>-10 HP · -10 ACC · -1 DEF</span></div>'
+			+     '<div><strong>SQLNINJA</strong><span>Command breach for higher damage</span></div>'
+			+     '<div><strong>BOOM</strong><span>Detonate for burst damage + accuracy drop</span></div>'
 			+   '</div>'
 			+   '<div class="cb-actions">'
 			+     '<button data-act="nmap" ' + (c.turn !== 'player' ? 'disabled' : '') + '>NMAP</button>'
