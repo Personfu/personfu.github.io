@@ -302,18 +302,27 @@
 
     async function boot(){
       let session=null;
-      try{ const raw=sessionStorage.getItem(settings.sessionKey); if(!raw) throw new Error(); session=JSON.parse(raw); }
-      catch{ setLine("Session missing","bad"); setTimeout(()=>location.replace("index.html"),900); return; }
+      try{ const raw=sessionStorage.getItem(settings.sessionKey); if(raw) session=JSON.parse(raw); }
+      catch{ session=null; }
       try{
         const asset=await readAsset();
         const manifest=await loadManifest();
-        await verifySession(session, asset);
+        let verified=false;
+        if(session){
+          try{
+            await verifySession(session, asset);
+            verified=true;
+          }catch(e){
+            sessionStorage.removeItem(settings.sessionKey);
+            session=null;
+          }
+        }
         if(manifest.asset_fingerprints["seal.png"]!==asset.file) throw new Error("manifest:asset-binding");
-        document.getElementById("se").textContent=new Date(session.e).toISOString().slice(0,19)+"Z";
+        document.getElementById("se").textContent=verified ? new Date(session.e).toISOString().slice(0,19)+"Z" : "training mode";
         document.getElementById("sa").textContent=shortHash(asset.file);
         document.getElementById("sm").innerHTML='<span class="ok">verified</span> '+shortHash(manifest.signature.value);
         document.getElementById("target").textContent="0x"+manifest.master_xor;
-        setLine("Access granted","ok");
+        setLine(verified ? "Access granted" : "Deep-link training mode","ok");
         const t=await tally(manifest);
         for (const tier of [1,2,3,4,5]) {
           const tn = document.getElementById("t"+tier+"n");
@@ -339,8 +348,6 @@
         }
       }catch(e){
         setLine("Verification failed: "+(e&&e.message||e),"bad");
-        sessionStorage.removeItem(settings.sessionKey);
-        setTimeout(()=>location.replace("index.html"),1500);
       }
     }
     document.getElementById("exit").addEventListener("click",()=>{ sessionStorage.removeItem(settings.sessionKey); sessionStorage.removeItem(settings.solvedKey); location.replace("index.html"); });

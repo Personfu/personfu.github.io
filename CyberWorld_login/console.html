@@ -728,8 +728,12 @@
         session = JSON.parse(raw);
       } catch (e) {
         setLine("Session missing or invalid", "bad");
-        setStatus(`<span class="bad">Boot blocked:</span> no usable session — returning to login…`, "bad");
-        setTimeout(() => window.location.replace("index.html"), 1200);
+        setStatus(`<span class="bad">Boot blocked:</span> no usable session. Console remains the strict verifier; use the gate for Tier 1 proof or continue from the lab links below.`, "bad");
+        try {
+          const manifest = await loadManifest();
+          renderFindings(manifest);
+          updateMaster(manifest);
+        } catch {}
         return;
       }
 
@@ -772,9 +776,8 @@
       } catch (err) {
         const reason = err && err.message ? err.message : String(err);
         setLine("Session rejected", "bad");
-        setStatus(`<span class="bad">Verification failed:</span> ${reason} — returning to login…`, "bad");
+        setStatus(`<span class="bad">Verification failed:</span> ${reason}. Console stayed open so the failure can be inspected.`, "bad");
         sessionStorage.removeItem(settings.sessionKey);
-        setTimeout(() => window.location.replace("index.html"), 1500);
       }
     }
 

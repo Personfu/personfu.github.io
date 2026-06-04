@@ -359,19 +359,18 @@ hash    :  SHA-256
     (async () => {
       try {
         const raw = sessionStorage.getItem("cw.r");
-        if(!raw) throw new Error("no session");
+        const sessionMode = raw ? "Session OK" : "Training mode";
         const r = await fetch("manifest.json", {cache:"no-store", credentials:"same-origin"});
         if(!r.ok) throw new Error("manifest");
         const m = await r.json();
         if(m.schema!=="cyberworld.training.manifest.v5") throw new Error("schema");
         window.__manifest = m;
-        document.getElementById("stateLine").textContent = "Session OK -- 5 challenges, all local";
+        document.getElementById("stateLine").textContent = sessionMode + " -- 5 challenges, all local";
         document.getElementById("stateLine").style.color = "var(--ok)";
         await refreshProgress();
       } catch (e) {
-        document.getElementById("stateLine").textContent = "Verification failed: "+e.message+" -- returning to login...";
+        document.getElementById("stateLine").textContent = "Verification failed: "+e.message+" -- stay here, then refresh or open the gate";
         document.getElementById("stateLine").style.color = "var(--pink)";
-        setTimeout(()=>location.replace("index.html"), 1200);
       }
     })();
   })();

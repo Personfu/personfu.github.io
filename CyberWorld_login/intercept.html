@@ -624,22 +624,32 @@
     (async () => {
       try {
         const raw = sessionStorage.getItem("cw.r");
-        if (!raw) throw new Error("no session");
+        const sessionMode = raw ? "session present" : "deep-link training mode";
         // SW readiness
         if (!("serviceWorker" in navigator)) { setSw("unsupported", "bad"); return; }
         await navigator.serviceWorker.register("sw-ctf.js", { scope: "./" });
         await navigator.serviceWorker.ready;
+        if (!navigator.serviceWorker.controller) {
+          const reloadKey = "cw.sw.claim.reload";
+          if (!sessionStorage.getItem(reloadKey)) {
+            sessionStorage.setItem(reloadKey, "1");
+            setSw("claiming", "warn");
+            document.getElementById("stateLine").textContent = "Service worker installed // claiming workbench control...";
+            setTimeout(()=>location.reload(), 250);
+            return;
+          }
+        }
+        sessionStorage.removeItem("cw.sw.claim.reload");
         setSw("active", "ok");
         // Sanity-ping debug/echo so the controller is wired up.
         const r = await fetch("api/v1/debug/echo", { cache: "no-store" });
         if (!r.ok) throw new Error("echo " + r.status);
-        document.getElementById("stateLine").textContent = "Service worker active // " + CATALOG.length + " endpoints loaded";
+        document.getElementById("stateLine").textContent = "Service worker active // " + CATALOG.length + " endpoints loaded // " + sessionMode;
         document.getElementById("stateLine").style.color = "var(--ok)";
       } catch (e) {
-        document.getElementById("stateLine").textContent = "Workbench unavailable: " + e.message + " -- returning to login";
+        document.getElementById("stateLine").textContent = "Workbench unavailable: " + e.message + " -- refresh or open the gate if the service worker was just updated";
         document.getElementById("stateLine").style.color = "var(--pink)";
         setSw("error", "bad");
-        setTimeout(()=>location.replace("index.html"), 1500);
       }
     })();
   })();
