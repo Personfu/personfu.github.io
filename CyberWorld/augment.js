@@ -69,14 +69,28 @@
 		rpgnexus:        { external: '/rpg/index.html' },
 		codex:           { external: '/cyberworld-codex.html' },
 		cyberworldcodex: { external: '/cyberworld-codex.html' },
+		nexuscodex:      { external: '/cyberworld-codex.html' },
 		stars:           { external: '/stars.html' },
 		profile:         { external: '/profile.html' },
+		operativedossier:{ external: '/profile.html' },
 		isobuilder:      { external: '/cyberos-iso.html' },
+		cyberosfoundry:  { external: '/cyberos-iso.html' },
 		iso:             { external: '/cyberos-iso.html' },
 		tools:           { external: '/tools_fragment.html' },
+		cyberarsenal:    { external: '/tools_fragment.html' },
 		source:          { external: 'https://github.com/Personfu/personfu.github.io' },
 		sourcecode:      { external: 'https://github.com/Personfu/personfu.github.io' },
-		github:          { external: 'https://github.com/Personfu/personfu.github.io' }
+		github:          { external: 'https://github.com/Personfu/personfu.github.io' },
+		researchvault:   { launch: 'research' },
+		commsboard:      { launch: 'discuss' },
+		redopssimulator: { launch: 'redops' },
+		intelexchange:   { launch: 'intel' },
+		dogfightdeck:    { launch: 'dogfight' },
+		nodeatlas:       { launch: 'nodes' },
+		aiopslab:        { launch: 'ai' },
+		adversarydb:     { launch: 'adversaries' },
+		convoymode:      { enterWorld: true },
+		gamearchivewing: { external: '/games.html' }
 	};
 
 	var SHORTCUTS = [
@@ -106,6 +120,13 @@
 
 	function normalize(s) {
 		return String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+	}
+
+	function cyberWorldUrl(query) {
+		var path = window.location.pathname || '/CyberWorld/';
+		var idx = path.toLowerCase().indexOf('/cyberworld');
+		path = idx >= 0 ? path.slice(0, idx) + '/CyberWorld/' : '/CyberWorld/';
+		return new URL(path + (query || ''), window.location.origin).href;
 	}
 
 	// ---------------------------------------------------------------
@@ -169,6 +190,93 @@
 			return true;
 		}
 		return false;
+	}
+
+	function executeActionStable(info, mode) {
+		if (!info || !info.action) {
+			toast('Module not wired: ' + (info && info.raw ? info.raw : 'unknown'));
+			return false;
+		}
+		var a = info.action;
+		if (a.info) { toast(a.info); return true; }
+		if (a.enterWorld) {
+			window.location.assign(cyberWorldUrl('?launch=cyberworld'));
+			return true;
+		}
+		if (a.launch) {
+			window.location.assign(cyberWorldUrl('?launch=' + encodeURIComponent(a.launch)));
+			return true;
+		}
+		if (a.external) {
+			if (mode === 'external') {
+				window.open(a.external, '_blank', 'noopener');
+			} else if (/^\//.test(a.external)) {
+				window.location.assign(new URL(a.external, window.location.origin).href);
+			} else {
+				window.location.assign(a.external);
+			}
+			toast((mode === 'external' ? 'Opening ' : 'Docking ') + info.raw);
+			return true;
+		}
+		return false;
+	}
+
+	function findPortalModuleName(from) {
+		var overlay = from && from.closest && from.closest('[class*="portal"], [class*="deck"], [class*="embedded"], [class*="modal"]');
+		var scope = overlay || document;
+		var selectors = [
+			'[class*="portalFocus"] h3',
+			'[class*="portalFocus"] strong',
+			'[class*="portalCardActive"] strong',
+			'[class*="portalCard"][aria-selected="true"] strong',
+			'[class*="modalHeader"] h2',
+			'[class*="deckHeader"] h2'
+		];
+		for (var i = 0; i < selectors.length; i++) {
+			var el = scope.querySelector(selectors[i]);
+			var txt = el && el.textContent && el.textContent.trim();
+			if (!txt) continue;
+			txt = txt.replace(/\s*\/\/.*$/, '').replace(/\s*docked module\s*$/i, '').trim();
+			if (txt && !/^cyberworld portal network$/i.test(txt)) return txt;
+		}
+		return '';
+	}
+
+	function handlePortalButton(ev) {
+		var btn = ev.target && ev.target.closest && ev.target.closest('button');
+		if (!btn) return;
+		var label = (btn.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
+		if (label !== 'dock module' && label !== 'open external') return;
+		var raw = findPortalModuleName(btn);
+		var info = { raw: raw || 'selected module', key: normalize(raw), action: ROUTES[normalize(raw)] || null };
+		if (!info.action && raw) {
+			// Some modal titles include display nouns; try every route key contained
+			// inside the selected title before conceding.
+			var keys = Object.keys(ROUTES);
+			for (var i = 0; i < keys.length; i++) {
+				if (info.key.indexOf(keys[i]) !== -1 || keys[i].indexOf(info.key) !== -1) {
+					info.action = ROUTES[keys[i]];
+					break;
+				}
+			}
+		}
+		if (!info.action) return;
+		ev.preventDefault();
+		ev.stopPropagation();
+		ev.stopImmediatePropagation();
+		executeActionStable(info, label === 'open external' ? 'external' : 'dock');
+	}
+
+	function localizeDockedFrames() {
+		if (!/^(localhost|127\.0\.0\.1|\[::1\])$/i.test(window.location.hostname)) return;
+		document.querySelectorAll('iframe[src*="personfu.github.io"]').forEach(function (frame) {
+			try {
+				var src = new URL(frame.getAttribute('src'), window.location.href);
+				if (src.hostname !== 'personfu.github.io') return;
+				var local = new URL(src.pathname + src.search + src.hash, window.location.origin).href;
+				if (frame.src !== local) frame.src = local;
+			} catch (e) {}
+		});
 	}
 
 	function shouldLetBundleHandle(btn, action) {
@@ -391,6 +499,13 @@
 		annotateAll(document);
 		mountBackdrop();
 		mountMpPill();
+		if (!document.__cwPortalButtonsCaptured) {
+			document.addEventListener('pointerdown', handlePortalButton, true);
+			document.addEventListener('mousedown', handlePortalButton, true);
+			document.addEventListener('click', handlePortalButton, true);
+			setInterval(localizeDockedFrames, 800);
+			document.__cwPortalButtonsCaptured = true;
+		}
 
 		// React renders shortcuts after hydration — observe and re-annotate
 		var mo = new MutationObserver(function (mutations) {
@@ -405,6 +520,7 @@
 						else if (n.querySelectorAll) annotateAll(n);
 						if (n.classList && n.classList.contains('win98-bg')) buildPeriodicBackdrop(n);
 						else if (n.querySelector) { var bg = n.querySelector('.win98-bg'); if (bg) buildPeriodicBackdrop(bg); }
+						localizeDockedFrames();
 					}
 				}
 			}

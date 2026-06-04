@@ -610,10 +610,157 @@
 		document.body.appendChild(fab);
 	}
 
+	// ---------- Live Ops layer ----------
+	var liveOps = null;
+	var liveKeys = {};
+	function liveToast(msg) {
+		if (!liveOps || !liveOps.toast) return;
+		liveOps.toast.textContent = msg;
+		liveOps.toast.classList.add('show');
+		clearTimeout(liveOps.toastTimer);
+		liveOps.toastTimer = setTimeout(function () { liveOps.toast.classList.remove('show'); }, 900);
+	}
+	function randBetween(min, max) { return min + Math.random() * (max - min); }
+	function dist(a, b) {
+		var dx = a.x - b.x, dy = a.y - b.y;
+		return Math.sqrt(dx * dx + dy * dy);
+	}
+	function placeLiveNode(node, obj) {
+		node.style.setProperty('--x', Math.round(obj.x) + 'px');
+		node.style.setProperty('--y', Math.round(obj.y) + 'px');
+	}
+	function spawnPacket(bounds) {
+		return { x: randBetween(90, Math.max(110, bounds.width - 90)), y: randBetween(120, Math.max(140, bounds.height - 120)) };
+	}
+	function spawnDaemon(bounds, i) {
+		return {
+			x: randBetween(120, Math.max(140, bounds.width - 120)),
+			y: randBetween(140, Math.max(160, bounds.height - 120)),
+			vx: (i % 2 ? 1 : -1) * randBetween(0.35, 0.75),
+			vy: (i % 3 ? 1 : -1) * randBetween(0.22, 0.55)
+		};
+	}
+	function mountLiveOps() {
+		var viewport = document.querySelector('.cw-stage .viewport');
+		if (!viewport || document.querySelector('.cw-win98-desktop')) return;
+		if (liveOps && liveOps.root && liveOps.root.isConnected) return;
+		if (getComputedStyle(viewport).position === 'static') viewport.style.position = 'relative';
+		var root = document.createElement('div');
+		root.className = 'cw-live-ops';
+		root.innerHTML = '<div class="lo-player" aria-hidden="true"></div><div class="cw-live-toast"></div>';
+		var hud = document.createElement('div');
+		hud.className = 'cw-live-hud';
+		hud.innerHTML = '<span id="lo-score">Packets 0/5</span><span id="lo-heat">Heat 0%</span><span class="warn">WASD / arrows move - Space pulse</span>';
+		viewport.appendChild(root);
+		viewport.appendChild(hud);
+		var rect = viewport.getBoundingClientRect();
+		liveOps = {
+			root: root,
+			hud: hud,
+			toast: root.querySelector('.cw-live-toast'),
+			player: { x: Math.max(120, rect.width * .48), y: Math.max(160, rect.height * .58), speed: 3.4 },
+			score: 0,
+			heat: 0,
+			last: performance.now(),
+			packets: [],
+			daemons: [],
+			packetNodes: [],
+			daemonNodes: []
+		};
+		var i;
+		for (i = 0; i < 5; i++) {
+			var p = spawnPacket(rect);
+			var pn = document.createElement('div');
+			pn.className = 'lo-packet';
+			root.appendChild(pn);
+			liveOps.packets.push(p);
+			liveOps.packetNodes.push(pn);
+			placeLiveNode(pn, p);
+		}
+		for (i = 0; i < 3; i++) {
+			var d = spawnDaemon(rect, i);
+			var dn = document.createElement('div');
+			dn.className = 'lo-daemon';
+			root.appendChild(dn);
+			liveOps.daemons.push(d);
+			liveOps.daemonNodes.push(dn);
+			placeLiveNode(dn, d);
+		}
+		placeLiveNode(root.querySelector('.lo-player'), liveOps.player);
+		liveToast('Live ops online');
+		requestAnimationFrame(tickLiveOps);
+	}
+	function tickLiveOps(now) {
+		if (!liveOps || !liveOps.root || !liveOps.root.isConnected) return;
+		var viewport = document.querySelector('.cw-stage .viewport');
+		if (!viewport || document.querySelector('.cw-win98-desktop')) {
+			if (liveOps.root) liveOps.root.remove();
+			if (liveOps.hud) liveOps.hud.remove();
+			liveOps = null;
+			return;
+		}
+		var rect = viewport.getBoundingClientRect();
+		var dt = Math.min(32, now - liveOps.last) / 16.666;
+		liveOps.last = now;
+		var dx = (liveKeys.ArrowRight || liveKeys.d ? 1 : 0) - (liveKeys.ArrowLeft || liveKeys.a ? 1 : 0);
+		var dy = (liveKeys.ArrowDown || liveKeys.s ? 1 : 0) - (liveKeys.ArrowUp || liveKeys.w ? 1 : 0);
+		if (dx && dy) { dx *= .707; dy *= .707; }
+		liveOps.player.x = Math.max(74, Math.min(rect.width - 42, liveOps.player.x + dx * liveOps.player.speed * dt));
+		liveOps.player.y = Math.max(86, Math.min(rect.height - 66, liveOps.player.y + dy * liveOps.player.speed * dt));
+		placeLiveNode(liveOps.root.querySelector('.lo-player'), liveOps.player);
+		liveOps.daemons.forEach(function (d, i) {
+			d.x += d.vx * dt; d.y += d.vy * dt;
+			if (d.x < 82 || d.x > rect.width - 60) d.vx *= -1;
+			if (d.y < 100 || d.y > rect.height - 72) d.vy *= -1;
+			placeLiveNode(liveOps.daemonNodes[i], d);
+			if (dist(liveOps.player, d) < 28) {
+				liveOps.heat = Math.min(100, liveOps.heat + 0.8 * dt);
+			}
+		});
+		liveOps.packets.forEach(function (p, i) {
+			if (p.collected) return;
+			if (dist(liveOps.player, p) < 24) {
+				p.collected = true;
+				liveOps.packetNodes[i].style.display = 'none';
+				liveOps.score++;
+				gainCredits(8);
+				if (liveOps.score >= 5) {
+					gainXp(20);
+					liveToast('Packet route secured');
+				} else {
+					liveToast('Packet captured');
+				}
+			}
+		});
+		if (liveKeys[' '] || liveKeys.Spacebar) {
+			liveOps.heat = Math.max(0, liveOps.heat - 1.4 * dt);
+		} else {
+			liveOps.heat = Math.max(0, liveOps.heat - 0.12 * dt);
+		}
+		var score = liveOps.hud.querySelector('#lo-score');
+		var heat = liveOps.hud.querySelector('#lo-heat');
+		if (score) score.textContent = 'Packets ' + liveOps.score + '/5';
+		if (heat) heat.textContent = 'Heat ' + Math.round(liveOps.heat) + '%';
+		if (liveOps.heat >= 100) {
+			liveOps.heat = 35;
+			state.hp = Math.max(20, state.hp - 8);
+			saveState();
+			liveToast('Trace spike - keep moving');
+		}
+		requestAnimationFrame(tickLiveOps);
+	}
+
 	document.addEventListener('keydown', function (ev) {
 		if (ev.target && /input|textarea|select/i.test(ev.target.tagName)) return;
+		if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','W','A','S','D',' '].indexOf(ev.key) !== -1) {
+			liveKeys[ev.key.length === 1 ? ev.key.toLowerCase() : ev.key] = true;
+			if (ev.key !== 'm' && ev.key !== 'M') ev.preventDefault();
+		}
 		if (ev.key === 'm' || ev.key === 'M') { ev.preventDefault(); toggle(); }
 		else if (ev.key === 'Escape' && open) { toggle(false); }
+	});
+	document.addEventListener('keyup', function (ev) {
+		liveKeys[ev.key.length === 1 ? ev.key.toLowerCase() : ev.key] = false;
 	});
 
 	// Hook augment routes: pressing in-game shortcuts also surfaces relevant missions.
@@ -637,6 +784,7 @@
 	function boot() {
 		if (!document.body) return;
 		mountFab();
+		mountLiveOps();
 		wireRoutes();
 		try { console.log('%c[CyberWorld gameplay] ready — press M', 'color:#00ff9c;font-weight:bold'); } catch (e) {}
 	}
@@ -650,6 +798,14 @@
 		bootAttempts++;
 		if (bootAttempts >= 10) clearInterval(bootWatch);
 	}, 1000);
+	setInterval(function () {
+		mountLiveOps();
+	}, 1200);
+	try {
+		new MutationObserver(function () {
+			mountLiveOps();
+		}).observe(document.body, { childList: true, subtree: true });
+	} catch (e) {}
 
 	// Public API
 	window.__cwGameplay = {
