@@ -1,1 +1,114 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>discuss - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DISCUSS // COMMS CHANNEL</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#02070d;color:#00e8ff;font-family:'Share Tech Mono',monospace;min-height:100vh}
+a{color:#00e8ff;text-decoration:none}a:hover{color:#ff2bd6}
+#top-bar{padding:15px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #00e8ff33}
+#top-bar h1{font-family:'VT323',monospace;font-size:32px;letter-spacing:3px}
+.container{max-width:900px;margin:20px auto;padding:0 20px}
+.thread{background:rgba(0,232,255,0.03);border:1px solid #00e8ff22;margin:10px 0;border-radius:4px;cursor:pointer;transition:border-color .2s}
+.thread:hover{border-color:#00e8ff66}
+.thread-header{padding:14px 18px;display:flex;justify-content:space-between;align-items:center}
+.thread-title{font-family:'VT323',monospace;font-size:20px;color:#00e8ff}
+.thread-meta{font-size:11px;color:#ffb347}
+.thread-author{color:#ff2bd6;font-size:12px}
+.thread-tag{display:inline-block;padding:2px 8px;font-size:10px;border:1px solid #00ff9c44;color:#00ff9c;border-radius:2px;margin-left:8px}
+.thread-body{display:none;padding:0 18px 18px;border-top:1px solid #00e8ff11}
+.thread.open .thread-body{display:block}
+.post{margin:12px 0;padding:12px;background:rgba(0,0,0,0.3);border-left:3px solid #00e8ff33;border-radius:2px}
+.post-author{color:#ff2bd6;font-size:13px;margin-bottom:4px;font-family:'VT323',monospace;font-size:16px}
+.post-time{color:#ffb34799;font-size:10px;margin-left:10px}
+.post-text{color:#ccc;font-size:13px;line-height:1.6}
+.note{text-align:center;color:#ffb34766;font-size:12px;margin:30px 0;font-style:italic}
+</style>
+</head>
+<body>
+<div id="top-bar">
+<h1>DISCUSS // COMMS CHANNEL</h1>
+<a href="/CyberWorld/">&#8592; Back to CyberWorld</a>
+</div>
+<div class="container">
+<p class="note">[ READ-ONLY ARCHIVE // COMMS INTERCEPTED FROM THE GRID ]</p>
+<div id="threads"></div>
+</div>
+<script>
+const threads=[
+{title:"GRID STATUS: Sector 7-G Outage Report",author:"Chief Vale",tag:"GRIDWATCH",time:"2 hours ago",posts:[
+{author:"Chief Vale",time:"2 hours ago",text:"All operatives: Sector 7-G experienced a 47-minute blackout at 0300 Grid Standard Time. Preliminary analysis indicates daemon interference on the primary relay. GRIDWATCH teams are on-site. Avoid routing through 7-G until further notice."},
+{author:"Ada Root",time:"1 hour ago",text:"I ran a trace on the relay logs before they went dark. The packet signatures match Wraith-class daemon activity. This wasn't random -- someone directed it. Forwarding my analysis to your encrypted drop."},
+{author:"Chief Vale",time:"45 min ago",text:"Confirmed. Escalating to Tier-3 response. All GRIDWATCH operatives report to briefing channel ECHO-9. Root, good catch -- your analysis is being reviewed by the council."}
+]},
+{title:"Has anyone seen the new daemon near LAN Valley?",author:"Subnet Sam",tag:"DAEMONS",time:"5 hours ago",posts:[
+{author:"Subnet Sam",time:"5 hours ago",text:"Okay so I was running a routine scan near the Valley perimeter and picked up something I've never seen before. It was cloaked, but my scanner caught a brief signature -- looked like a Hydra variant but the entropy was way higher. Anyone else picking this up?"},
+{author:"Patch Kid",time:"4 hours ago",text:"I saw flickering on my IDS around the same time. Could be related. The signature didn't match any known daemon in the codex. I patched my firewall rules just in case but honestly? This felt different. Be careful out there."},
+{author:"Cipher Nox",time:"3 hours ago",text:"Interesting. The Syndicate has been tracking anomalous daemon mutations for weeks now. This could be connected to the Axiom incident residue. I'd say more but... not on an open channel. You know where to find me."}
+]},
+{title:"FACTION POLITICS: Nexus Corp overreach continues",author:"Mara VLAN",tag:"FACTIONS",time:"8 hours ago",posts:[
+{author:"Mara VLAN",time:"8 hours ago",text:"Another day, another Nexus Corp 'security improvement' that just happens to route all traffic through their monitoring nodes. They've deployed new checkpoints along the Stormcore border. This isn't security -- it's surveillance. When are we going to push back?"},
+{author:"DJ Cache",time:"7 hours ago",text:"They tried to shut down my broadcast tower AGAIN claiming it was an 'unlicensed signal source.' Grid Radio has been broadcasting for three years. The signal is the people's signal. I rerouted through backup frequencies but this is getting ridiculous."},
+{author:"Archivist Byte",time:"6 hours ago",text:"For historical context: Nexus Corp's charter explicitly grants them jurisdiction over Stormcore infrastructure only. Their expansion into LAN Valley and Mainframe Core sectors violates the Third Grid Accord. I have the original documents archived if anyone needs evidence for a formal complaint."},
+{author:"Mara VLAN",time:"5 hours ago",text:"Byte, send me those docs. It's time we brought this to the Grid Council. Chief Vale -- I know you're reading this. GRIDWATCH needs to take a stand."}
+]},
+{title:"SECURITY TIP: Hardening your local node",author:"Ada Root",tag:"SECURITY",time:"12 hours ago",posts:[
+{author:"Ada Root",time:"12 hours ago",text:"Quick tip for newer operatives: Always run your node with least-privilege access. I've been seeing a lot of operatives running services as root -- that's how daemons get footholds. Set up proper user isolation, enable audit logging, and for Grid's sake, patch your systems. The daemon threat is real."},
+{author:"Patch Kid",time:"11 hours ago",text:"Adding to this: I maintain a curated patch list for common Grid vulnerabilities. Check the codex under 'Patch Registry.' Also, if you're running ValleyOS, version 2.7 has a known privilege escalation bug. Update to 2.8 immediately."}
+]},
+{title:"The Axiom Incident -- what really happened?",author:"Archivist Byte",tag:"LORE",time:"1 day ago",posts:[
+{author:"Archivist Byte",time:"1 day ago",text:"I've been cross-referencing pre-Axiom data fragments recovered from the Dark Archive. The official story says it was a cascading system failure, but the data tells a different story. There are encrypted logs that suggest the Axiom kernel was deliberately destabilized. By whom? The fragments are incomplete, but the timestamp patterns match Nexus Corp's founding date exactly."},
+{author:"Cipher Nox",time:"22 hours ago",text:"You're playing with fire, Byte. Some archives are sealed for a reason. But since you've opened this door... the Syndicate has its own records from that era. Let's just say the 'official story' has more holes than a Swiss cheese firewall."},
+{author:"Ada Root",time:"20 hours ago",text:"I've seen the kernel logs myself. Whatever happened during the Axiom Incident created the conditions for daemon emergence. That's not in any official report. If Byte's timeline is correct... this changes everything we thought we knew about the Grid's origins."}
+]},
+{title:"Grid Radio playlist request thread!",author:"DJ Cache",tag:"SOCIAL",time:"1 day ago",posts:[
+{author:"DJ Cache",time:"1 day ago",text:"What's up Grid! Your favorite frequency pirate here. Drop your track requests for tonight's broadcast. Theme is 'Digital Nightfall' -- synthwave, darkwave, anything that sounds like hacking a mainframe at midnight. Broadcasting on freq 108.7 and backup 92.3 if Nexus tries to jam us again."},
+{author:"Subnet Sam",time:"23 hours ago",text:"Play that track from last week -- the one with the modem handshake intro that transitions into a bass drop. My scanner literally synchronized to the beat. Peak Grid energy right there."},
+{author:"Mara VLAN",time:"22 hours ago",text:"Anything by Null Pointer Exception. Their album 'Buffer Overflow' is peak cyberpunk. Also Cache, thanks for keeping the signal alive. The Grid needs you."}
+]},
+{title:"WARNING: Phishing attacks targeting new operatives",author:"Chief Vale",tag:"GRIDWATCH",time:"2 days ago",posts:[
+{author:"Chief Vale",time:"2 days ago",text:"GRIDWATCH ADVISORY: We've identified a coordinated phishing campaign targeting operatives below Tier 3. The attacks use spoofed GRIDWATCH credentials and request 'security verification' of your node keys. DO NOT respond. GRIDWATCH will NEVER ask for your private keys via comms. Report any suspicious messages to your sector lead."},
+{author:"Ada Root",time:"2 days ago",text:"I've analyzed the phishing payloads. They contain a polymorphic trojan that attempts to install a backdoor daemon. The code quality suggests this isn't amateur work. Someone with resources is behind this. I've added detection signatures to the community scanner."}
+]},
+{title:"LAN Valley community meetup this weekend",author:"Subnet Sam",tag:"SOCIAL",time:"2 days ago",posts:[
+{author:"Subnet Sam",time:"2 days ago",text:"Hey Valley folks! Organizing a meetup at the old relay station this Saturday. Bring your scanners, we're doing a group daemon-hunting expedition along the Valley perimeter. Patch Kid is bringing their latest detection tools. DJ Cache is setting up a mobile broadcast. All skill levels welcome!"},
+{author:"Patch Kid",time:"2 days ago",text:"I'll have demo units of my new IDS module. It uses behavioral analysis instead of signature matching -- catches zero-days that traditional scanners miss. Bring your nodes and I'll help you install it."},
+{author:"DJ Cache",time:"1 day ago",text:"Mobile rig is charged and ready. I've got a special Valley Mix prepared. See you all there! Frequency TBD (gotta stay one step ahead of Nexus Corp's frequency police)."}
+]},
+{title:"Darknet Depths: Navigation Advisory",author:"Cipher Nox",tag:"DAEMONS",time:"3 days ago",posts:[
+{author:"Cipher Nox",time:"3 days ago",text:"For those brave or foolish enough to traverse the Depths: the daemon density has increased 300% in the last cycle. Stick to the mapped paths. The Phantom Syndicate has marked safe corridors with encrypted beacons -- frequency 13.37 if you know the key. If you don't have the key, you shouldn't be down here."},
+{author:"Mara VLAN",time:"3 days ago",text:"Translation for normal people: don't go into the Darknet Depths alone, don't stray from known paths, and if your scanner starts showing impossible readings, turn around immediately. I lost a probe drone down there last week. Still haven't recovered the telemetry."}
+]},
+{title:"Codex Entry Submission: Worm-class Daemons",author:"Archivist Byte",tag:"LORE",time:"3 days ago",posts:[
+{author:"Archivist Byte",time:"3 days ago",text:"I've completed my analysis of Worm-class daemons for the codex. These self-replicating entities are among the most dangerous in the Grid. Unlike Trojan-class which require user interaction, Worms propagate autonomously through network vulnerabilities. My research documents 14 known variants, their propagation methods, and countermeasures. Submitting for peer review."},
+{author:"Ada Root",time:"3 days ago",text:"Reviewed and approved. Your classification system is solid. I'd add that the Morris variant shows signs of evolution -- it's adapting to newer patch levels faster than we can update defenses. This needs to be flagged as a priority threat."}
+]},
+{title:"STORM WARNING: Sentinel activity spike",author:"Chief Vale",tag:"GRIDWATCH",time:"4 days ago",posts:[
+{author:"Chief Vale",time:"4 days ago",text:"PRIORITY ALERT: The Sentinel daemon in Stormcore containment has shown a 500% increase in activity over the last 48 hours. Containment is holding but we're reinforcing the perimeter. All operatives at Tier 6 and above are authorized for defensive deployment. This is not a drill."},
+{author:"Ada Root",time:"4 days ago",text:"Running continuous analysis on the containment telemetry. The Sentinel's behavior patterns suggest it's probing for weaknesses in the containment field. It's... learning. I've never seen daemon behavior this sophisticated. We may need to rethink our containment strategy entirely."},
+{author:"Cipher Nox",time:"4 days ago",text:"The Syndicate detected resonance harmonics from the Sentinel reaching all the way to the Darknet Depths. Whatever it's doing, the other daemons are responding. This isn't just an activity spike -- it's a signal. Prepare accordingly."}
+]},
+{title:"New operative? Start here!",author:"Patch Kid",tag:"GUIDE",time:"5 days ago",posts:[
+{author:"Patch Kid",time:"5 days ago",text:"Welcome to the Grid, newcomer! Here's your survival checklist: 1) Read the Codex -- knowledge is your best weapon. 2) Keep your node patched and hardened (see Ada Root's security guide). 3) Start with missions in LAN Valley -- it's the safest sector. 4) Don't trust anyone who asks for your keys. 5) Listen to Grid Radio for updates. 6) When in doubt, ask in this channel. We look out for each other here."},
+{author:"Subnet Sam",time:"5 days ago",text:"And most importantly: have fun! The Grid can be dangerous but it's also amazing. There's so much to explore and discover. Find your crew, level up your skills, and remember -- every elite operative started as a script kiddie. No shame in learning."},
+{author:"DJ Cache",time:"5 days ago",text:"Tune into Grid Radio for the latest news, tips, and the best beats in cyberspace. Freq 108.7. Welcome to the Grid, rookie. You're going to love it here."},
+{author:"Chief Vale",time:"4 days ago",text:"On behalf of GRIDWATCH: stay safe, stay vigilant, and report any suspicious activity. The Grid is only as secure as its operatives. Good luck out there."}
+]}
+];
+
+const container=document.getElementById('threads');
+threads.forEach((t,i)=>{
+const div=document.createElement('div');div.className='thread';
+div.innerHTML=`<div class="thread-header" onclick="this.parentElement.classList.toggle('open')">
+<div><span class="thread-title">${t.title}</span><span class="thread-tag">${t.tag}</span></div>
+<div><span class="thread-author">${t.author}</span><span class="thread-meta" style="margin-left:10px">${t.time} // ${t.posts.length} posts</span></div>
+</div>
+<div class="thread-body">${t.posts.map(p=>`<div class="post"><div><span class="post-author">${p.author}</span><span class="post-time">${p.time}</span></div><div class="post-text">${p.text}</div></div>`).join('')}</div>`;
+container.appendChild(div);
+});
+</script>
+</body>
+</html>
