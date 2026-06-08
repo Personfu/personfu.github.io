@@ -1,1 +1,268 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>signal lab - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIGNAL LAB // PACKET DESK</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#02070d;color:#00e8ff;font-family:'Share Tech Mono',monospace;min-height:100vh;overflow-x:hidden}
+a{color:#00e8ff;text-decoration:none}
+.back{position:fixed;top:16px;left:16px;z-index:100;font-family:'VT323',monospace;font-size:20px;padding:6px 14px;border:1px solid #00e8ff;background:rgba(0,232,255,.08);transition:.3s}
+.back:hover{background:#00e8ff;color:#02070d}
+h1{font-family:'VT323',monospace;font-size:48px;text-align:center;padding:30px 0 6px;text-shadow:0 0 20px #00e8ff}
+.subtitle{text-align:center;color:#ff2bd6;font-family:'VT323',monospace;font-size:22px;margin-bottom:20px}
+.score-bar{text-align:center;font-family:'VT323',monospace;font-size:20px;color:#00ff9c;margin-bottom:10px}
+.container{max-width:960px;margin:0 auto;padding:0 20px 60px}
+.ex-nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+.ex-btn{font-family:'VT323',monospace;font-size:18px;padding:8px 16px;background:rgba(0,232,255,.06);border:1px solid #00e8ff33;color:#00e8ff55;cursor:not-allowed;transition:.3s}
+.ex-btn.unlocked{border-color:#00e8ff;color:#00e8ff;cursor:pointer}
+.ex-btn.active{background:#00e8ff;color:#02070d}
+.ex-btn.completed{border-color:#00ff9c;color:#00ff9c}
+.ex-btn.completed.active{background:#00ff9c;color:#02070d}
+.panel{display:none;border:1px solid #00e8ff33;padding:20px;background:rgba(0,232,255,.03)}
+.panel.visible{display:block}
+.briefing{border-left:3px solid #ff2bd6;padding:10px 16px;margin-bottom:18px;color:#ff2bd6;font-size:14px;background:rgba(255,43,214,.05)}
+.pkt{font-size:13px;padding:8px 10px;border:1px solid transparent;margin:3px 0;cursor:pointer;transition:.2s;overflow-x:auto}
+.pkt:hover{border-color:#00e8ff55;background:rgba(0,232,255,.05)}
+.pkt.sel{border-color:#ff2bd6;background:rgba(255,43,214,.1)}
+.pkt.ok{border-color:#00ff9c;background:rgba(0,255,156,.1)}
+.pkt.bad{border-color:#f00;background:rgba(255,0,0,.1)}
+.abtn{font-family:'VT323',monospace;font-size:22px;padding:10px 30px;background:transparent;border:2px solid #ff2bd6;color:#ff2bd6;cursor:pointer;margin-top:16px;transition:.3s;display:block;width:100%}
+.abtn:hover{background:#ff2bd6;color:#02070d}
+.abtn:disabled{opacity:.3;cursor:not-allowed;background:transparent;color:#ff2bd6}
+.fb{margin-top:16px;padding:14px;border:1px solid #00ff9c;background:rgba(0,255,156,.05);display:none;font-size:13px;line-height:1.6}
+.fb.show{display:block}
+.fb.fail{border-color:#f00;background:rgba(255,0,0,.05)}
+.lesson{color:#00ff9c;margin-top:8px;font-style:italic}
+.opts label{display:block;padding:6px 10px;cursor:pointer;border:1px solid transparent;margin:3px 0;transition:.2s;font-size:13px}
+.opts label:hover{border-color:#00e8ff33}
+.opts input{margin-right:8px}
+.cert{border:1px solid #00e8ff33;padding:12px;margin:6px 0;cursor:pointer;transition:.2s;font-size:13px;white-space:pre-wrap}
+.cert:hover{border-color:#00e8ff}
+.cert.sel{border-color:#ff2bd6;background:rgba(255,43,214,.08)}
+.hdr{color:#00e8ff88;font-size:12px;margin-bottom:6px;padding:4px}
+.scanline{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,232,255,.015) 2px,rgba(0,232,255,.015) 4px)}
+</style>
+</head>
+<body>
+<div class="scanline"></div>
+<a href="/CyberWorld/" class="back">&lt; BACK TO CYBERWORLD</a>
+<h1>SIGNAL LAB</h1>
+<div class="subtitle">// PACKET DESK //</div>
+<div class="container">
+<div class="score-bar">TOTAL SCORE: <span id="ts">0</span>/600</div>
+<div class="ex-nav" id="nav"></div>
+<div id="panels"></div>
+</div>
+<script>
+const K='cw.signallab.v1';
+let S=JSON.parse(localStorage.getItem(K)||'null')||{scores:[0,0,0,0,0,0],unlocked:1,done:[]};
+const sv=()=>localStorage.setItem(K,JSON.stringify(S));
+const tot=()=>document.getElementById('ts').textContent=S.scores.reduce((a,b)=>a+b,0);
+
+const EX=[
+{t:"EX1: CLEARTEXT CREDS",b:"A packet capture from a web server shows HTTP traffic. One packet contains credentials sent in cleartext. Click the offending packet, then ANALYZE.",
+build(p){
+const pkts=[
+'192.168.1.10 -> 10.0.0.5  TCP 443 [SYN] Seq=0 Win=64240',
+'10.0.0.5 -> 192.168.1.10  TCP 443 [SYN,ACK] Seq=0 Ack=1',
+'192.168.1.10 -> 10.0.0.5  HTTP GET /index.html HTTP/1.1 Host: secure.corp.net',
+'10.0.0.5 -> 192.168.1.10  HTTP 200 OK Content-Type: text/html',
+'192.168.1.10 -> 10.0.0.5  HTTP POST /login HTTP/1.1 username=admin&password=S3cur3P@ss! Host: legacy.corp.net',
+'192.168.1.10 -> 10.0.0.5  TLS Client Hello Version: TLS 1.3',
+'10.0.0.5 -> 192.168.1.10  TLS Server Hello Cipher: AES_256_GCM',
+'192.168.1.10 -> 10.0.0.5  TCP [FIN,ACK] Seq=1842 Ack=3201'
+];
+const ans=new Set([4]);let sel=new Set();
+const d=p.querySelector('.data');
+pkts.forEach((t,i)=>{const r=mk(d,`[${i}] ${t}`);r.onclick=()=>{if(p.locked)return;sel.clear();p.querySelectorAll('.pkt').forEach(x=>x.classList.remove('sel'));sel.add(i);r.classList.add('sel')}});
+return()=>{
+if(!sel.size)return;
+const ok=sel.size===1&&sel.has(4);
+const sc=ok?100:0;S.scores[0]=sc;
+p.querySelectorAll('.pkt')[4].classList.add('ok');
+if(!ok)p.querySelectorAll('.pkt')[Array.from(sel)[0]].classList.add('bad');
+fb(p,sc,ok?'CORRECT! Packet #4 sends credentials via plaintext HTTP POST.':'INCORRECT. Packet #4 is the offender - HTTP POST with username=admin&password=S3cur3P@ss! in cleartext.','Always use HTTPS/TLS for authentication. Cleartext credentials on HTTP can be captured by anyone with a packet sniffer.');
+return sc;
+}}},
+
+{t:"EX2: DNS EXFIL",b:"Analyze these DNS queries. Some contain suspiciously long subdomains encoding exfiltrated data. Flag all suspicious queries.",
+build(p){
+const qs=[
+'A  www.google.com -> 142.250.80.46',
+'A  dGhlIHNlY3JldCBkb2N1bWVudCBjb250ZW50cw.data.evil-c2.net -> 10.10.10.1',
+'A  mail.corp.internal -> 192.168.1.25',
+'AAAA  ipv6.microsoft.com -> 2607:f8b0:4004:800::200e',
+'A  Y29uZmlkZW50aWFsIGRhdGFiYXNlIGR1bXA.data.evil-c2.net -> 10.10.10.1',
+'A  dns.cloudflare.com -> 1.1.1.1',
+'A  updates.corp.internal -> 192.168.1.30',
+'A  cGFzc3dvcmQgaGFzaGVzIGV4cG9ydA.data.evil-c2.net -> 10.10.10.1',
+'A  ntp.ubuntu.com -> 91.189.89.198',
+'MX  corp.internal -> mail.corp.internal'
+];
+const ans=[1,4,7];let sel=new Set();
+const d=p.querySelector('.data');
+qs.forEach((t,i)=>{const r=mk(d,`[${i}] ${t}`);r.onclick=()=>{if(p.locked)return;tog(sel,i,r)}});
+return()=>{
+if(!sel.size)return;
+const hits=ans.filter(x=>sel.has(x)).length;const fp=sel.size-hits;
+const sc=Math.max(0,Math.round((hits/3)*100-fp*15));S.scores[1]=sc;
+const rows=p.querySelectorAll('.pkt');ans.forEach(i=>rows[i].classList.add('ok'));
+sel.forEach(i=>{if(!ans.includes(i))rows[i].classList.add('bad')});
+fb(p,sc,`Suspicious queries: #1, #4, #7 - all resolve base64-encoded subdomains to evil-c2.net.`,'DNS exfiltration encodes stolen data as subdomain labels. Look for unusually long base64-like strings resolving to the same suspicious domain.');
+return sc;
+}}},
+
+{t:"EX3: SYN FLOOD",b:"Review these TCP packets captured over 2 seconds. Identify the attack type and select the best mitigation.",
+build(p){
+const pkts=[
+'10.44.21.8:49312 -> 192.168.1.5:80 [SYN] Seq=0',
+'10.44.21.8:49313 -> 192.168.1.5:80 [SYN] Seq=0',
+'192.168.1.5:80 -> 10.44.21.8:49312 [SYN,ACK] Seq=0 Ack=1',
+'10.44.21.8:49314 -> 192.168.1.5:80 [SYN] Seq=0',
+'10.44.21.8:49315 -> 192.168.1.5:80 [SYN] Seq=0',
+'10.44.21.8:49316 -> 192.168.1.5:80 [SYN] Seq=0',
+'10.44.21.8:49317 -> 192.168.1.5:80 [SYN] Seq=0',
+'192.168.1.5:80 -> 10.44.21.8:49313 [SYN,ACK] Seq=0 Ack=1',
+'10.44.21.8:49318 -> 192.168.1.5:80 [SYN] Seq=0',
+'10.44.21.8:49319 -> 192.168.1.5:80 [SYN] Seq=0',
+'10.44.21.8:49320 -> 192.168.1.5:80 [SYN] Seq=0',
+'10.44.21.8:49321 -> 192.168.1.5:80 [SYN] Seq=0'
+];
+const d=p.querySelector('.data');
+pkts.forEach((t,i)=>{mk(d,`[${i}] ${t}`)});
+const od=document.createElement('div');od.className='opts';
+od.innerHTML=`<p style="color:#ff2bd6;margin:12px 0 6px">Select the best mitigation:</p>
+<label><input type="radio" name="m3" value="a"> Block all traffic from 10.44.21.8 permanently</label>
+<label><input type="radio" name="m3" value="b"> Enable SYN cookies on the server</label>
+<label><input type="radio" name="m3" value="c"> Increase server RAM</label>
+<label><input type="radio" name="m3" value="d"> Disable TCP on the firewall</label>`;
+d.after(od);
+return()=>{
+const c=p.querySelector('input[name="m3"]:checked');if(!c)return;
+const ok=c.value==='b';const sc=ok?100:25;S.scores[2]=sc;
+fb(p,sc,ok?'CORRECT! SYN cookies let the server handle connections without allocating resources until the handshake completes.':'INCORRECT. SYN cookies are the best defense. Blocking IPs fails against spoofed sources. RAM is a band-aid. Disabling TCP breaks everything.','SYN floods exhaust server connection tables with half-open connections. SYN cookies (RFC 4987) encode state in the sequence number, eliminating half-open tracking.');
+return sc;
+}}},
+
+{t:"EX4: ARP POISON",b:"Examine this ARP table. Two entries are poisoned - different IPs sharing the same MAC address. Click the poisoned entries.",
+build(p){
+const entries=[
+'192.168.1.1    00:1A:2B:3C:4D:01   GATEWAY     dynamic',
+'192.168.1.10   00:1A:2B:3C:4D:10   WORKSTATION dynamic',
+'192.168.1.25   AA:BB:CC:DD:EE:FF   FILESERVER  dynamic',
+'192.168.1.30   00:1A:2B:3C:4D:30   PRINTER     dynamic',
+'192.168.1.1    AA:BB:CC:DD:EE:FF   GATEWAY     dynamic',
+'192.168.1.50   00:1A:2B:3C:4D:50   LAPTOP      dynamic'
+];
+const ans=[2,4];let sel=new Set();
+const d=p.querySelector('.data');
+d.innerHTML='<div class="hdr">IP ADDRESS      MAC ADDRESS        HOSTNAME    TYPE</div>';
+entries.forEach((t,i)=>{const r=mk(d,t);r.onclick=()=>{if(p.locked)return;tog(sel,i,r)}});
+return()=>{
+if(!sel.size)return;
+const hits=ans.filter(x=>sel.has(x)).length;const fp=sel.size-hits;
+const sc=Math.max(0,Math.round((hits/2)*100-fp*25));S.scores[3]=sc;
+const rows=p.querySelectorAll('.pkt');ans.forEach(i=>rows[i].classList.add('ok'));
+sel.forEach(i=>{if(!ans.includes(i))rows[i].classList.add('bad')});
+fb(p,sc,'Entries #2 (FILESERVER) and #4 (GATEWAY duplicate) share MAC AA:BB:CC:DD:EE:FF. The real gateway is entry #0 with MAC 00:1A:2B:3C:4D:01. An attacker poisoned the cache to redirect traffic.','ARP poisoning maps multiple IPs to one attacker MAC for MITM attacks. Mitigations: static ARP for critical hosts, Dynamic ARP Inspection (DAI), 802.1X.');
+return sc;
+}}},
+
+{t:"EX5: BEACON ANALYSIS",b:"These HTTP requests were captured over 5 minutes. Some show beaconing behavior - regular callbacks at exact intervals. Flag all beaconing requests.",
+build(p){
+const reqs=[
+'10:00:02  192.168.1.10 -> google.com        GET /search?q=weather        200',
+'10:00:15  192.168.1.10 -> cdn.updates.cx    GET /check?id=a8f3e1          200',
+'10:00:33  192.168.1.10 -> stackoverflow.com GET /questions/12345          200',
+'10:01:15  192.168.1.10 -> cdn.updates.cx    GET /check?id=a8f3e1          200',
+'10:01:44  192.168.1.10 -> github.com        GET /notifications            304',
+'10:02:15  192.168.1.10 -> cdn.updates.cx    GET /check?id=a8f3e1          200',
+'10:02:50  192.168.1.10 -> reddit.com        GET /r/cybersecurity          200',
+'10:03:15  192.168.1.10 -> cdn.updates.cx    GET /check?id=a8f3e1          200',
+'10:03:22  192.168.1.10 -> microsoft.com     GET /updates                  304',
+'10:04:01  192.168.1.10 -> slack.com         GET /api/conversations.list   200'
+];
+const ans=[1,3,5,7];let sel=new Set();
+const d=p.querySelector('.data');
+reqs.forEach((t,i)=>{const r=mk(d,`[${i}] ${t}`);r.onclick=()=>{if(p.locked)return;tog(sel,i,r)}});
+return()=>{
+if(!sel.size)return;
+const hits=ans.filter(x=>sel.has(x)).length;const fp=sel.size-hits;
+const sc=Math.max(0,Math.round((hits/4)*100-fp*15));S.scores[4]=sc;
+const rows=p.querySelectorAll('.pkt');ans.forEach(i=>rows[i].classList.add('ok'));
+sel.forEach(i=>{if(!ans.includes(i))rows[i].classList.add('bad')});
+fb(p,sc,'Requests #1, #3, #5, #7 all contact cdn.updates.cx at exactly 60-second intervals (10:00:15, 10:01:15, 10:02:15, 10:03:15) with identical parameters.','Beaconing is a hallmark of C2 communication. Key indicators: fixed intervals, same destination, identical request patterns. Advanced malware adds jitter to evade detection.');
+return sc;
+}}},
+
+{t:"EX6: CERT INSPECTION",b:"Review these TLS certificates. Two have critical issues. Click the problematic certificates.",
+build(p){
+const certs=[
+`Subject: CN=www.corp-secure.com
+Issuer: DigiCert Global Root CA
+Valid: 2025-01-15 to 2027-01-15
+SAN: www.corp-secure.com, corp-secure.com
+Algorithm: RSA 2048 / SHA-256`,
+`Subject: CN=mail.corp-secure.com
+Issuer: DigiCert Global Root CA
+Valid: 2024-06-01 to 2025-12-01  *** EXPIRED ***
+SAN: mail.corp-secure.com
+Algorithm: RSA 2048 / SHA-256`,
+`Subject: CN=api.corp-secure.com
+Issuer: Let's Encrypt Authority X3
+Valid: 2025-11-01 to 2026-08-01
+SAN: api.corp-secure.com, api-v2.corp-secure.com
+Algorithm: EC P-256 / SHA-256`,
+`Subject: CN=www.totally-legit-bank.com
+Issuer: Self-Signed
+Valid: 2025-06-01 to 2035-06-01
+SAN: (none)
+Connecting to: secure.corp-secure.com  *** CN MISMATCH ***
+Algorithm: RSA 1024 / SHA-1`
+];
+const ans=[1,3];let sel=new Set();
+const d=p.querySelector('.data');
+certs.forEach((t,i)=>{
+const c=document.createElement('div');c.className='cert';c.textContent=`[CERT ${i}]\n${t}`;
+c.onclick=()=>{if(p.locked)return;if(sel.has(i)){sel.delete(i);c.classList.remove('sel')}else{sel.add(i);c.classList.add('sel')}};
+d.appendChild(c);
+});
+return()=>{
+if(!sel.size)return;
+const hits=ans.filter(x=>sel.has(x)).length;const fp=sel.size-hits;
+const sc=Math.max(0,Math.round((hits/2)*100-fp*25));S.scores[5]=sc;
+fb(p,sc,'Cert #1: Expired (valid until 2025-12-01). Cert #3: Self-signed, CN mismatch (cert for totally-legit-bank.com on secure.corp-secure.com), weak RSA 1024, deprecated SHA-1, 10-year validity - likely MITM.','Verify certificate validity dates, issuer trust chains, CN/SAN matching, and crypto strength. Self-signed certs and CN mismatches are strong indicators of interception.');
+return sc;
+}}},
+];
+
+function mk(parent,text){const r=document.createElement('div');r.className='pkt';r.textContent=text;parent.appendChild(r);return r}
+function tog(sel,i,r){if(sel.has(i)){sel.delete(i);r.classList.remove('sel')}else{sel.add(i);r.classList.add('sel')}}
+function fb(p,sc,msg,lesson){const f=p.querySelector('.fb');f.innerHTML=(sc>=80?'<span style="color:#00ff9c">':'<span style="color:#f00">')+`Score: ${sc}/100</span><br>${msg}<br><span class="lesson">LESSON: ${lesson}</span>`;f.className='fb show'+(sc>=80?'':' fail');p.locked=true}
+
+const nav=document.getElementById('nav'),pnls=document.getElementById('panels');
+let cur=0;
+EX.forEach((ex,i)=>{
+const btn=document.createElement('button');btn.className='ex-btn';btn.textContent=`EX${i+1}`;btn.id=`nb${i}`;
+btn.onclick=()=>show(i);nav.appendChild(btn);
+const p=document.createElement('div');p.className='panel';p.id=`p${i}`;
+p.innerHTML=`<div class="briefing"><strong>${ex.t}</strong><br>${ex.b}</div><div class="data"></div><button class="abtn">[ ANALYZE ]</button><div class="fb"></div>`;
+pnls.appendChild(p);
+const fn=ex.build(p);
+if(S.done.includes(i))p.locked=true;
+p.querySelector('.abtn').onclick=()=>{
+if(p.locked)return;
+const sc=fn();if(sc===undefined)return;
+if(sc>=50&&!S.done.includes(i)){S.done.push(i);if(S.unlocked<=i+1)S.unlocked=i+2}
+sv();ui();
+};
+});
+function show(i){if(i>=S.unlocked)return;cur=i;document.querySelectorAll('.panel').forEach(p=>p.classList.remove('visible'));document.querySelectorAll('.ex-btn').forEach(b=>b.classList.remove('active'));document.getElementById(`p${i}`).classList.add('visible');document.getElementById(`nb${i}`).classList.add('active')}
+function ui(){tot();document.querySelectorAll('.ex-btn').forEach((b,i)=>{b.classList.toggle('unlocked',i<S.unlocked);b.classList.toggle('completed',S.done.includes(i))})}
+ui();show(0);
+</script>
+</body>
+</html>

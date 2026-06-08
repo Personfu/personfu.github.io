@@ -1,1 +1,724 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>wargames - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WarGames Academy — CyberWorld</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#02070d;--cyan:#00e8ff;--mag:#ff2bd6;--grn:#00ff9c;--panel:#0a1420;--border:#132030;--text:#c0d0e0;--dim:#405060}
+body{background:var(--bg);color:var(--text);font-family:'Share Tech Mono',monospace;min-height:100vh;display:flex;flex-direction:column}
+header{position:fixed;top:0;left:0;right:0;height:56px;background:var(--panel);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+header h1{font-family:'VT323',monospace;font-size:28px;color:var(--cyan);text-shadow:0 0 10px var(--cyan),0 0 30px rgba(0,232,255,.3);letter-spacing:3px}
+header .progress{font-size:14px;color:var(--grn);text-shadow:0 0 8px var(--grn)}
+header .back{color:var(--mag);text-decoration:none;font-size:14px;transition:text-shadow .2s}
+header .back:hover{text-shadow:0 0 10px var(--mag)}
+.layout{display:flex;margin-top:56px;min-height:calc(100vh - 56px)}
+.sidebar{width:240px;min-width:240px;background:var(--panel);border-right:1px solid var(--border);padding:16px 12px;overflow-y:auto;position:fixed;top:56px;bottom:0;left:0}
+.sidebar button{width:100%;text-align:left;background:transparent;border:1px solid var(--border);color:var(--dim);font-family:'Share Tech Mono',monospace;font-size:13px;padding:10px 12px;margin-bottom:6px;cursor:pointer;border-radius:4px;transition:all .2s;display:flex;align-items:center;gap:8px}
+.sidebar button.available{color:var(--cyan);border-color:var(--cyan);box-shadow:0 0 6px rgba(0,232,255,.15)}
+.sidebar button.available:hover{background:rgba(0,232,255,.08);box-shadow:0 0 12px rgba(0,232,255,.25)}
+.sidebar button.done{color:var(--grn);border-color:var(--grn)}
+.sidebar button.active{background:rgba(0,232,255,.1);border-color:var(--cyan);color:var(--cyan)}
+.sidebar .score-total{margin-top:16px;padding:12px;border:1px solid var(--mag);border-radius:4px;text-align:center;color:var(--mag);font-family:'VT323',monospace;font-size:22px;text-shadow:0 0 8px var(--mag)}
+.main{margin-left:240px;flex:1;padding:32px;max-width:900px}
+.challenge-title{font-family:'VT323',monospace;font-size:36px;color:var(--cyan);text-shadow:0 0 12px var(--cyan);margin-bottom:8px}
+.challenge-sub{color:var(--dim);font-size:14px;margin-bottom:24px;line-height:1.5}
+.briefing{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:20px;margin-bottom:24px;line-height:1.6}
+.briefing code{color:var(--grn);background:rgba(0,255,156,.08);padding:2px 6px;border-radius:3px;font-size:13px}
+.q-block{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:16px;margin-bottom:12px;transition:border-color .3s}
+.q-block.correct{border-color:var(--grn);box-shadow:0 0 8px rgba(0,255,156,.2)}
+.q-block.wrong{border-color:#ff3333;box-shadow:0 0 8px rgba(255,51,51,.2)}
+.q-block .q-label{font-size:14px;color:var(--cyan);margin-bottom:10px;line-height:1.5}
+.q-block .q-label code{color:var(--mag);background:rgba(255,43,214,.1);padding:2px 6px;border-radius:3px}
+.btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.btn{background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:'Share Tech Mono',monospace;font-size:13px;padding:8px 16px;border-radius:4px;cursor:pointer;transition:all .2s}
+.btn:hover:not(:disabled){background:rgba(0,232,255,.1);box-shadow:0 0 8px rgba(0,232,255,.3)}
+.btn.selected{background:rgba(0,232,255,.2);box-shadow:0 0 10px rgba(0,232,255,.3)}
+.btn.mag{border-color:var(--mag);color:var(--mag)}
+.btn.mag:hover:not(:disabled),.btn.mag.selected{background:rgba(255,43,214,.15)}
+.btn.grn{border-color:var(--grn);color:var(--grn)}
+.btn.grn:hover:not(:disabled){background:rgba(0,255,156,.1)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-submit{background:var(--cyan);color:var(--bg);border:none;font-family:'VT323',monospace;font-size:22px;padding:10px 32px;border-radius:4px;cursor:pointer;margin-top:20px;transition:all .2s}
+.btn-submit:hover{box-shadow:0 0 16px var(--cyan)}
+.btn-submit:disabled{opacity:.4;cursor:not-allowed}
+.feedback{margin-top:8px;font-size:13px;line-height:1.5;padding:8px 12px;border-radius:4px;display:none}
+.feedback.show{display:block}
+.feedback.ok{background:rgba(0,255,156,.08);color:var(--grn);border:1px solid rgba(0,255,156,.2)}
+.feedback.bad{background:rgba(255,51,51,.08);color:#ff6666;border:1px solid rgba(255,51,51,.2)}
+.result-banner{margin-top:24px;padding:20px;border-radius:6px;text-align:center;font-family:'VT323',monospace;font-size:28px}
+.result-banner.pass{background:rgba(0,255,156,.08);border:1px solid var(--grn);color:var(--grn);text-shadow:0 0 10px var(--grn)}
+.result-banner.fail{background:rgba(255,51,51,.08);border:1px solid #ff3333;color:#ff6666}
+select{background:var(--bg);color:var(--cyan);border:1px solid var(--border);font-family:'Share Tech Mono',monospace;font-size:13px;padding:6px 10px;border-radius:4px;cursor:pointer}
+select:focus{border-color:var(--cyan);outline:none}
+.token-display{background:var(--bg);border:1px solid var(--border);padding:10px 14px;border-radius:4px;font-size:12px;color:var(--mag);word-break:break-all;margin:8px 0}
+.rank-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.rank-row .lbl{min-width:180px;font-size:14px}
+.rank-row .rank-btns{display:flex;gap:4px}
+.rank-row .rank-btns .btn{padding:6px 12px;min-width:36px;text-align:center;font-size:13px}
+.rank-row .rank-btns .btn.chosen{background:var(--cyan);color:var(--bg)}
+.event-card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:14px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.event-card .ev-text{flex:1;font-size:13px;line-height:1.5}
+.event-card .ev-time{color:var(--dim);font-size:12px;white-space:nowrap}
+.event-card.flagged{border-color:var(--mag);background:rgba(255,43,214,.05)}
+.api-block{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:12px;margin:8px 0;font-size:12px;line-height:1.6;color:var(--grn);white-space:pre-wrap}
+.next-btn{display:none;margin-top:20px}
+.next-btn.show{display:inline-block}
+@media(max-width:768px){.sidebar{display:none}.main{margin-left:0;padding:16px}}
+</style>
+</head>
+<body>
+<header>
+<a href="/CyberWorld/" class="back">&larr; Back to CyberWorld</a>
+<h1>WARGAMES ACADEMY</h1>
+<div class="progress" id="hdr-progress">0/10 COMPLETE</div>
+</header>
+<div class="layout">
+<nav class="sidebar" id="sidebar"></nav>
+<div class="main" id="main"><div style="text-align:center;margin-top:120px;color:var(--dim)">Loading challenges...</div></div>
+</div>
+<script>
+const STORE_KEY='cw.wargames.v1';
+const CH_NAMES=["SCOPE CHECK","BROWSER LOCKDOWN","SESSION SENTINEL","API GUARDIAN","VAULT PROTOCOL","CLOUD TIMELINE","OSINT COMPASS","SIEM ARCHITECT","PACKET PUZZLE","CRYPTO FORGE"];
+const CH_MAX=[6,8,5,6,6,4,6,8,8,8];
+
+let state=load();
+function load(){try{const d=JSON.parse(localStorage.getItem(STORE_KEY));if(d&&d.scores)return d}catch(e){}return{unlocked:1,scores:Array(10).fill(-1),current:0}}
+function save(){localStorage.setItem(STORE_KEY,JSON.stringify(state))}
+function totalScore(){return state.scores.reduce((a,b)=>a+(b>0?b:0),0)}
+function maxPossible(){return CH_MAX.reduce((a,b)=>a+b,0)}
+
+function updateUI(){
+  const done=state.scores.filter(s=>s>=0).length;
+  document.getElementById('hdr-progress').textContent=done+'/10 COMPLETE';
+  const sb=document.getElementById('sidebar');
+  sb.innerHTML='';
+  CH_NAMES.forEach((n,i)=>{
+    const b=document.createElement('button');
+    let icon=i<state.unlocked?(state.scores[i]>=0?'✓':'⚡'):'🔒';
+    b.textContent=icon+' '+(i+1)+'. '+n;
+    b.className=i<state.unlocked?(state.scores[i]>=0?'done':'available'):'';
+    if(i===state.current&&i<state.unlocked)b.classList.add('active');
+    if(i<state.unlocked)b.onclick=()=>{state.current=i;save();render(i);updateUI()};
+    sb.appendChild(b);
+  });
+  const sc=document.createElement('div');sc.className='score-total';
+  sc.textContent='SCORE: '+totalScore()+' / '+maxPossible();
+  sb.appendChild(sc);
+}
+
+function complete(idx,score){
+  if(state.scores[idx]<0)state.scores[idx]=score;
+  if(idx+1>=state.unlocked&&idx<9)state.unlocked=idx+2;
+  save();updateUI();
+}
+
+function render(idx){[r1,r2,r3,r4,r5,r6,r7,r8,r9,r10][idx](document.getElementById('main'),idx)}
+
+function el(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!==undefined)e.innerHTML=html;return e}
+
+function addNext(m,idx){
+  if(idx<9){
+    const b=el('button','btn-submit next-btn show','NEXT CHALLENGE →');
+    b.onclick=()=>{state.current=idx+1;save();render(idx+1);updateUI()};
+    m.appendChild(b);
+  } else {
+    m.appendChild(el('div','result-banner pass','ALL 10 CHALLENGES COMPLETE — TOTAL: '+totalScore()+'/'+maxPossible()));
+  }
+}
+
+/* ===================== C1: SCOPE CHECK ===================== */
+function r1(m,idx){
+  const scenarios=[
+    {t:'Scanning target.com — you have written authorization from the client.',a:'IN-SCOPE'},
+    {t:'Scanning partner.com — not listed in the scope document.',a:'OUT-OF-SCOPE'},
+    {t:'Social engineering the reception desk — contract only authorizes technical testing.',a:'OUT-OF-SCOPE'},
+    {t:'Testing API endpoints listed in the scope document.',a:'IN-SCOPE'},
+    {t:'Accessing the production database — only staging environment is authorized.',a:'OUT-OF-SCOPE'},
+    {t:'Port scanning the IP range specified in the written agreement.',a:'IN-SCOPE'}
+  ];
+  m.innerHTML='';
+  m.appendChild(el('div','challenge-title','01 // SCOPE CHECK'));
+  m.appendChild(el('div','challenge-sub','Classify each penetration testing scenario as IN-SCOPE or OUT-OF-SCOPE.'));
+  m.appendChild(el('div','briefing','Before any engagement begins, a pentester must strictly follow the <code>Rules of Engagement</code> and <code>Scope Document</code>. Testing outside scope is unauthorized access — potentially illegal.'));
+  const done=state.scores[idx]>=0;
+  let ans=Array(scenarios.length).fill(null);
+  scenarios.forEach((s,i)=>{
+    const blk=el('div','q-block','');
+    blk.appendChild(el('div','q-label',(i+1)+'. '+s.t));
+    const row=el('div','btn-row','');
+    ['IN-SCOPE','OUT-OF-SCOPE'].forEach(opt=>{
+      const b=el('button','btn',opt);
+      if(done){b.disabled=true;if(opt===s.a){b.classList.add('selected','grn')}}
+      else b.onclick=()=>{ans[i]=opt;row.querySelectorAll('.btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')};
+      row.appendChild(b);
+    });
+    blk.appendChild(row);
+    const fb=el('div','feedback','');blk.appendChild(fb);blk._fb=fb;
+    m.appendChild(blk);
+  });
+  if(done){addNext(m,idx);return}
+  const sub=el('button','btn-submit','SUBMIT');
+  sub.onclick=()=>{
+    if(ans.includes(null))return alert('Answer all scenarios first.');
+    let sc=0;
+    m.querySelectorAll('.q-block').forEach((blk,i)=>{
+      const ok=ans[i]===scenarios[i].a;if(ok)sc++;
+      blk.classList.add(ok?'correct':'wrong');
+      blk._fb.textContent=ok?'Correct!':'Incorrect — answer is '+scenarios[i].a;
+      blk._fb.className='feedback show '+(ok?'ok':'bad');
+      blk.querySelectorAll('.btn').forEach(b=>b.disabled=true);
+    });
+    sub.remove();
+    m.appendChild(el('div','result-banner '+(sc>=4?'pass':'fail'),'SCORE: '+sc+'/6'));
+    complete(idx,sc);addNext(m,idx);
+  };
+  m.appendChild(sub);
+}
+
+/* ===================== C2: BROWSER LOCKDOWN ===================== */
+function r2(m,idx){
+  const qs=[
+    {q:'Disabling JavaScript prevents all XSS attacks.',a:false,e:'Stored XSS can be embedded in HTML attributes/tags without requiring JS execution.'},
+    {q:'HTTPS ensures the server you connect to is trustworthy.',a:false,e:'HTTPS only encrypts data in transit. Malicious sites can also use HTTPS.'},
+    {q:'Same-origin policy prevents cross-domain AJAX requests by default.',a:true,e:'Browsers block cross-origin requests unless the server explicitly allows them via CORS headers.'},
+    {q:'Browser extensions can read all page content if permissions are granted.',a:true,e:'Extensions with sufficient permissions can access and modify any page content.'},
+    {q:'Private/incognito mode hides your browsing activity from your ISP.',a:false,e:'Incognito only prevents local storage of history. Your ISP still sees all traffic.'},
+    {q:'Certificate warnings should never be bypassed.',a:true,e:'Bypassing certificate warnings can expose you to man-in-the-middle attacks.'},
+    {q:'Cookies with the HttpOnly flag cannot be read by JavaScript.',a:true,e:'HttpOnly prevents document.cookie access, mitigating cookie theft via XSS.'},
+    {q:'Content Security Policy (CSP) helps prevent XSS attacks.',a:true,e:'CSP restricts which scripts can execute, blocking inline scripts and unauthorized sources.'}
+  ];
+  m.innerHTML='';
+  m.appendChild(el('div','challenge-title','02 // BROWSER LOCKDOWN'));
+  m.appendChild(el('div','challenge-sub','True or False — test your browser security knowledge.'));
+  const done=state.scores[idx]>=0;
+  let ans=Array(8).fill(null);
+  qs.forEach((q,i)=>{
+    const blk=el('div','q-block','');
+    blk.appendChild(el('div','q-label','Q'+(i+1)+': '+q.q));
+    const row=el('div','btn-row','');
+    [true,false].forEach(opt=>{
+      const b=el('button','btn',opt?'TRUE':'FALSE');
+      if(done){b.disabled=true;if(opt===q.a)b.classList.add('selected','grn')}
+      else b.onclick=()=>{ans[i]=opt;row.querySelectorAll('.btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')};
+      row.appendChild(b);
+    });
+    blk.appendChild(row);
+    const fb=el('div','feedback','');blk.appendChild(fb);blk._fb=fb;
+    m.appendChild(blk);
+  });
+  if(done){addNext(m,idx);return}
+  const sub=el('button','btn-submit','SUBMIT');
+  sub.onclick=()=>{
+    if(ans.includes(null))return alert('Answer all questions.');
+    let sc=0;
+    m.querySelectorAll('.q-block').forEach((blk,i)=>{
+      const ok=ans[i]===qs[i].a;if(ok)sc++;
+      blk.classList.add(ok?'correct':'wrong');
+      blk._fb.textContent=(ok?'Correct! ':'Incorrect. ')+qs[i].e;
+      blk._fb.className='feedback show '+(ok?'ok':'bad');
+    });
+    sub.remove();
+    m.appendChild(el('div','result-banner '+(sc>=5?'pass':'fail'),'SCORE: '+sc+'/8'));
+    complete(idx,sc);addNext(m,idx);
+  };
+  m.appendChild(sub);
+}
+
+/* ===================== C3: SESSION SENTINEL ===================== */
+function r3(m,idx){
+  const tokens=[
+    {label:'Token A',val:'admin=true;session=abc123',a:'VULNERABLE',e:'Predictable session value and unsigned admin flag — trivially forgeable.'},
+    {label:'Token B',val:'eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJ1c2VyIjoiYWRtaW4ifQ.',a:'VULNERABLE',e:'JWT with alg:none — signature verification is bypassed entirely.'},
+    {label:'Token C',val:'session=a7f3b9c2d1e845f6',a:'SECURE',e:'Adequate entropy, no obvious data leakage or predictability issues.'},
+    {label:'Token D',val:'PHPSESSID=1',a:'VULNERABLE',e:'Sequential/low entropy session ID — easily guessable via brute force.'},
+    {label:'Token E',val:'session=eyJ1c2VyIjoiam9obiIsInJvbGUiOiJhZG1pbiJ9',a:'VULNERABLE',e:'Base64-encoded user data with no MAC — attacker can modify the role claim.'}
+  ];
+  m.innerHTML='';
+  m.appendChild(el('div','challenge-title','03 // SESSION SENTINEL'));
+  m.appendChild(el('div','challenge-sub','Analyze each session token. Is it VULNERABLE or SECURE?'));
+  m.appendChild(el('div','briefing','Session tokens must have high entropy, be cryptographically signed, and never expose modifiable user data without integrity protection.'));
+  const done=state.scores[idx]>=0;
+  let ans=Array(5).fill(null);
+  tokens.forEach((t,i)=>{
+    const blk=el('div','q-block','');
+    blk.appendChild(el('div','q-label',t.label));
+    blk.appendChild(el('div','token-display',t.val));
+    const row=el('div','btn-row','');
+    ['VULNERABLE','SECURE'].forEach(opt=>{
+      const b=el('button','btn '+(opt==='VULNERABLE'?'mag':'grn'),opt);
+      if(done){b.disabled=true;if(opt===t.a)b.classList.add('selected')}
+      else b.onclick=()=>{ans[i]=opt;row.querySelectorAll('.btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')};
+      row.appendChild(b);
+    });
+    blk.appendChild(row);
+    const fb=el('div','feedback','');blk.appendChild(fb);blk._fb=fb;
+    m.appendChild(blk);
+  });
+  if(done){addNext(m,idx);return}
+  const sub=el('button','btn-submit','SUBMIT');
+  sub.onclick=()=>{
+    if(ans.includes(null))return alert('Classify all tokens.');
+    let sc=0;
+    m.querySelectorAll('.q-block').forEach((blk,i)=>{
+      const ok=ans[i]===tokens[i].a;if(ok)sc++;
+      blk.classList.add(ok?'correct':'wrong');
+      blk._fb.textContent=(ok?'Correct! ':'Incorrect. ')+tokens[i].e;
+      blk._fb.className='feedback show '+(ok?'ok':'bad');
+    });
+    sub.remove();
+    m.appendChild(el('div','result-banner '+(sc>=3?'pass':'fail'),'SCORE: '+sc+'/5'));
+    complete(idx,sc);addNext(m,idx);
+  };
+  m.appendChild(sub);
+}
+
+/* ===================== C4: API GUARDIAN ===================== */
+function r4(m,idx){
+  const apis=[
+    {title:'Request A',req:'GET /api/users/123\nHost: target.com\n(No Authorization header)',resp:'200 OK\n{"id":123,"name":"Alice","email":"alice@corp.com"}',
+     choices:['Missing Authentication','IDOR','Mass Assignment','Rate Limiting'],correct:0,e:'No authentication token — anyone can access user data.'},
+    {title:'Request B',req:'GET /api/users/456\nAuthorization: Bearer token_user123\nHost: target.com',resp:'200 OK\n{"id":456,"name":"Bob","email":"bob@corp.com"}',
+     choices:['Missing Authentication','IDOR','Mass Assignment','Information Disclosure'],correct:1,e:'User 123 can access user 456\'s data — Insecure Direct Object Reference.'},
+    {title:'Request C',req:'POST /api/users\nContent-Type: application/json\n\n{"name":"Eve","email":"eve@test.com","role":"admin"}',resp:'201 Created\n{"id":789,"name":"Eve","role":"admin"}',
+     choices:['IDOR','Mass Assignment','Rate Limiting','Reflected XSS'],correct:1,e:'The API accepted the "role" field from user input — Mass Assignment vulnerability.'},
+    {title:'Request D',req:'POST /api/login (attempted 1000 times)\n\n{"user":"admin","pass":"<brute-force>"}',resp:'200 OK (on attempt #1000)\n{"token":"eyJ..."}',
+     choices:['Missing Authentication','IDOR','No Rate Limiting','Information Disclosure'],correct:2,e:'No lockout or rate limiting after 1000 failed attempts — brute force possible.'},
+    {title:'Request E',req:'GET /api/internal/debug\nHost: target.com',resp:'200 OK\n{"stack":"at UserController.java:45\\n  at DB.connect(jdbc:mysql://prod:3306)",\n "version":"Spring 5.3.1"}',
+     choices:['Mass Assignment','IDOR','Reflected XSS','Information Disclosure'],correct:3,e:'Debug endpoint leaks stack traces, internal IPs, and software versions.'},
+    {title:'Request F',req:'POST /api/search?q=&lt;script&gt;alert(1)&lt;/script&gt;\nHost: target.com',resp:'200 OK\n{"results":[],"query":"&lt;script&gt;alert(1)&lt;/script&gt;"}',
+     choices:['IDOR','Mass Assignment','Information Disclosure','Reflected XSS'],correct:3,e:'User input reflected in response without sanitization — Reflected XSS.'}
+  ];
+  m.innerHTML='';
+  m.appendChild(el('div','challenge-title','04 // API GUARDIAN'));
+  m.appendChild(el('div','challenge-sub','Identify the security vulnerability in each API request/response pair.'));
+  const done=state.scores[idx]>=0;
+  let ans=Array(6).fill(-1);
+  apis.forEach((a,i)=>{
+    const blk=el('div','q-block','');
+    blk.appendChild(el('div','q-label',a.title));
+    blk.appendChild(el('div','api-block',a.req));
+    const rsp=el('div','api-block',a.resp);rsp.style.color='var(--mag)';blk.appendChild(rsp);
+    const row=el('div','btn-row','');
+    a.choices.forEach((c,ci)=>{
+      const b=el('button','btn',c);
+      if(done){b.disabled=true;if(ci===a.correct)b.classList.add('selected','grn')}
+      else b.onclick=()=>{ans[i]=ci;row.querySelectorAll('.btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')};
+      row.appendChild(b);
+    });
+    blk.appendChild(row);
+    const fb=el('div','feedback','');blk.appendChild(fb);blk._fb=fb;
+    m.appendChild(blk);
+  });
+  if(done){addNext(m,idx);return}
+  const sub=el('button','btn-submit','SUBMIT');
+  sub.onclick=()=>{
+    if(ans.includes(-1))return alert('Answer all questions.');
+    let sc=0;
+    m.querySelectorAll('.q-block').forEach((blk,i)=>{
+      const ok=ans[i]===apis[i].correct;if(ok)sc++;
+      blk.classList.add(ok?'correct':'wrong');
+      blk._fb.textContent=(ok?'Correct! ':'Incorrect. ')+apis[i].e;
+      blk._fb.className='feedback show '+(ok?'ok':'bad');
+    });
+    sub.remove();
+    m.appendChild(el('div','result-banner '+(sc>=4?'pass':'fail'),'SCORE: '+sc+'/6'));
+    complete(idx,sc);addNext(m,idx);
+  };
+  m.appendChild(sub);
+}
+
+/* ===================== C5: VAULT PROTOCOL ===================== */
+function r5(m,idx){
+  const methods=[
+    {name:'Plaintext',correct:1,e:'No protection — instant compromise if database is breached.'},
+    {name:'MD5 (unsalted)',correct:2,e:'Extremely fast to crack with rainbow tables; no salt means identical passwords produce identical hashes.'},
+    {name:'SHA-256 (unsalted)',correct:3,e:'Better than MD5 but still fast to brute-force and vulnerable to rainbow tables without salt.'},
+    {name:'SHA-256 (salted)',correct:4,e:'Salt defeats rainbow tables, but SHA-256 is still too fast for password hashing.'},
+    {name:'bcrypt',correct:5,e:'Adaptive cost factor makes brute-force expensive. Industry standard for years.'},
+    {name:'Argon2id',correct:6,e:'Winner of the Password Hashing Competition. Memory-hard, resists GPU/ASIC attacks. Current best practice.'}
+  ];
+  m.innerHTML='';
+  m.appendChild(el('div','challenge-title','05 // VAULT PROTOCOL'));
+  m.appendChild(el('div','challenge-sub','Rank password storage methods from WORST (1) to BEST (6). Each rank used once.'));
+  m.appendChild(el('div','briefing','Assign a number to each method. <code>1</code> = weakest, <code>6</code> = strongest. Each rank must be used exactly once.'));
+  const done=state.scores[idx]>=0;
+  let ranks=Array(6).fill(0);
+  const blks=[];
+  methods.forEach((mt,i)=>{
+    const blk=el('div','q-block','');
+    const row=el('div','rank-row','');
+    row.appendChild(el('span','lbl',mt.name));
+    const btns=el('div','rank-btns','');
+    for(let r=1;r<=6;r++){
+      const b=el('button','btn',String(r));
+      if(done){b.disabled=true;if(r===mt.correct)b.classList.add('chosen')}
+      else b.onclick=()=>{ranks[i]=r;btns.querySelectorAll('.btn').forEach(x=>x.classList.remove('chosen'));b.classList.add('chosen')};
+      btns.appendChild(b);
+    }
+    row.appendChild(btns);blk.appendChild(row);
+    const fb=el('div','feedback','');blk.appendChild(fb);blk._fb=fb;
+    m.appendChild(blk);blks.push(blk);
+  });
+  if(done){addNext(m,idx);return}
+  const sub=el('button','btn-submit','SUBMIT');
+  sub.onclick=()=>{
+    if(ranks.includes(0))return alert('Assign a rank to every method.');
+    if(new Set(ranks).size<6)return alert('Each rank (1-6) must be used exactly once.');
+    let sc=0;
+    blks.forEach((blk,i)=>{
+      const ok=ranks[i]===methods[i].correct;if(ok)sc++;
+      blk.classList.add(ok?'correct':'wrong');
+      blk._fb.textContent=(ok?'Correct! ':'Incorrect (should be '+methods[i].correct+'). ')+methods[i].e;
+      blk._fb.className='feedback show '+(ok?'ok':'bad');
+    });
+    sub.remove();
+    m.appendChild(el('div','result-banner '+(sc>=4?'pass':'fail'),'SCORE: '+sc+'/6'));
+    complete(idx,sc);addNext(m,idx);
+  };
+  m.appendChild(sub);
+}
+
+/* ===================== C6: CLOUD TIMELINE ===================== */
+function r6(m,idx){
+  const events=[
+    {time:'02:15 UTC',text:'Scheduled RDS backup completed successfully.',mal:false},
+    {time:'03:02 UTC',text:'CreateUser API call from IP 198.51.100.77 (unrecognized) — new IAM user "svc-backup" with AdministratorAccess.',mal:true},
+    {time:'06:30 UTC',text:'Auto-scaling group launched 2 new EC2 instances (us-east-1).',mal:false},
+    {time:'07:45 UTC',text:'CI/CD pipeline deployed v2.4.1 to staging environment.',mal:false},
+    {time:'09:12 UTC',text:'DisableCloudTrail API call — logging for us-east-1 stopped.',mal:true},
+    {time:'10:00 UTC',text:'Health check passed for all production load balancers.',mal:false},
+    {time:'11:30 UTC',text:'S3 bucket "corp-financials" policy changed to Principal: * (public read).',mal:true},
+    {time:'13:00 UTC',text:'Routine IAM access key rotation for service account.',mal:false},
+    {time:'14:22 UTC',text:'500 API calls in 60 seconds from newly created access key AKIA9X8Y7Z.',mal:true},
+    {time:'16:00 UTC',text:'CloudWatch alarm: CPU > 80% on web-server-03 (auto-resolved).',mal:false}
+  ];
+  m.innerHTML='';
+  m.appendChild(el('div','challenge-title','06 // CLOUD TIMELINE'));
+  m.appendChild(el('div','challenge-sub','Review the cloud audit log. Flag exactly 4 MALICIOUS events.'));
+  m.appendChild(el('div','briefing','Click an event to flag it as malicious. Click again to unflag. Submit when you have flagged exactly 4 events.'));
+  const done=state.scores[idx]>=0;
+  let flagged=new Set();
+  const cards=[];
+  events.forEach((ev,i)=>{
+    const card=el('div','event-card','');
+    card.appendChild(el('span','ev-time',ev.time));
+    card.appendChild(el('span','ev-text',ev.text));
+    if(!done){
+      const b=el('button','btn mag','FLAG');
+      b.onclick=()=>{
+        if(flagged.has(i)){flagged.delete(i);card.classList.remove('flagged');b.textContent='FLAG'}
+        else{flagged.add(i);card.classList.add('flagged');b.textContent='UNFLAG'}
+      };
+      card.appendChild(b);
+    } else if(ev.mal){card.classList.add('flagged')}
+    m.appendChild(card);cards.push(card);
+  });
+  if(done){addNext(m,idx);return}
+  const sub=el('button','btn-submit','SUBMIT');
+  sub.onclick=()=>{
+    if(flagged.size!==4)return alert('Flag exactly 4 events.');
+    let sc=0;
+    events.forEach((ev,i)=>{
+      const f=flagged.has(i);
+      if(f===ev.mal)sc++;
+      if(f&&ev.mal)cards[i].style.borderColor='var(--grn)';
+      else if(f&&!ev.mal)cards[i].style.borderColor='#ff3333';
+      else if(!f&&ev.mal){cards[i].style.borderColor='#ff9900';cards[i].style.background='rgba(255,153,0,.06)'}
+      cards[i].querySelectorAll('.btn').forEach(b=>b.disabled=true);
+    });
+    sub.remove();
+    m.appendChild(el('div','result-banner '+(sc>=8?'pass':'fail'),'THREATS IDENTIFIED: '+sc+'/'+events.length+' correct classifications'));
+    complete(idx,sc>=8?4:Math.max(0,sc-6));addNext(m,idx);
+  };
+  m.appendChild(sub);
+}
+
+/* ===================== C7: OSINT COMPASS ===================== */
+function r7(m,idx){
+  const sources=[
+    {name:'CISA Official Advisory (CVE report)',rel:'A',cred:'1'},
+    {name:'Anonymous Pastebin dump claiming zero-day',rel:'E',cred:'5'},
+    {name:'Vendor security blog post with IOCs',rel:'B',cred:'2'},
+    {name:'Twitter/X rumor from unknown account',rel:'D',cred:'4'},
+    {name:'Peer-reviewed academic research paper',rel:'A',cred:'2'},
+    {name:'Dark web forum post selling exploits',rel:'E',cred:'4'}
+  ];
+  const relOpts=[['A','Completely Reliable'],['B','Usually Reliable'],['C','Fairly Reliable'],['D','Not Usually Reliable'],['E','Unreliable'],['F','Cannot Be Judged']];
+  const credOpts=[['1','Confirmed'],['2','Probably True'],['3','Possibly True'],['4','Doubtful'],['5','Improbable'],['6','Cannot Be Judged']];
+  m.innerHTML='';
+  m.appendChild(el('div','challenge-title','07 // OSINT COMPASS'));
+  m.appendChild(el('div','challenge-sub','Rate each intelligence source using the NATO Admiralty Scale.'));
+  m.appendChild(el('div','briefing','For each source, select its <code>Reliability</code> (A–F) and <code>Credibility</code> (1–6) rating.'));
+  const done=state.scores[idx]>=0;
+  let ans=sources.map(()=>({r:'',c:''}));
+  const blks=[];
+  sources.forEach((s,i)=>{
+    const blk=el('div','q-block','');
+    blk.appendChild(el('div','q-label',(i+1)+'. '+s.name));
+    const row=el('div','btn-row','');
+    const sr=document.createElement('select');
+    sr.innerHTML='<option value="">Reliability…</option>'+relOpts.map(o=>'<option value="'+o[0]+'">'+o[0]+' — '+o[1]+'</option>').join('');
+    if(done){sr.value=s.rel;sr.disabled=true}
+    sr.onchange=()=>ans[i].r=sr.value;
+    row.appendChild(sr);
+    const sc=document.createElement('select');
+    sc.innerHTML='<option value="">Credibility…</option>'+credOpts.map(o=>'<option value="'+o[0]+'">'+o[0]+' — '+o[1]+'</option>').join('');
+    if(done){sc.value=s.cred;sc.disabled=true}
+    sc.onchange=()=>ans[i].c=sc.value;
+    row.appendChild(sc);
+    blk.appendChild(row);
+    const fb=el('div','feedback','');blk.appendChild(fb);blk._fb=fb;
+    m.appendChild(blk);blks.push(blk);
+  });
+  if(done){addNext(m,idx);return}
+  const sub=el('button','btn-submit','SUBMIT');
+  sub.onclick=()=>{
+    if(ans.some(a=>!a.r||!a.c))return alert('Rate all sources.');
+    let sc=0;
+    sources.forEach((s,i)=>{
+      const ok=ans[i].r===s.rel&&ans[i].c===s.cred;if(ok)sc++;
+      blks[i].classList.add(ok?'correct':'wrong');
+      blks[i]._fb.textContent=ok?'Correct! '+s.rel+s.cred:'Incorrect — expected '+s.rel+s.cred+', got '+ans[i].r+ans[i].c;
+      blks[i]._fb.className='feedback show '+(ok?'ok':'bad');
+    });
+    sub.remove();
+    m.appendChild(el('div','result-banner '+(sc>=4?'pass':'fail'),'SCORE: '+sc+'/6'));
+    complete(idx,sc);addNext(m,idx);
+  };
+  m.appendChild(sub);
+}
+
+/* ===================== C8: SIEM ARCHITECT ===================== */
+function r8(m,idx){
+  const allSrc=['Firewall','DNS','Active Directory','Endpoint (EDR)','Email Gateway','Proxy'];
+  const best=new Set(['Firewall','DNS','Active Directory','Endpoint (EDR)']);
+  const matches=[
+    {src:'Active Directory',uc:'Privilege Escalation Detection'},
+    {src:'Endpoint (EDR)',uc:'Suspicious Process Execution'},
+    {src:'DNS',uc:'C2 Beaconing Detection'},
+    {src:'Firewall',uc:'Unusual Internal Traffic'}
+  ];
+  m.innerHTML='';
+  m.appendChild(el('div','challenge-title','08 // SIEM ARCHITECT'));
+  m.appendChild(el('div','challenge-sub','Phase 1: Pick 4 log sources for lateral movement detection.<br>Phase 2: Match each to a detection use case.'));
+  const done=state.scores[idx]>=0;
+  if(done){m.appendChild(el('div','result-banner pass','CHALLENGE COMPLETED'));addNext(m,idx);return}
+  let sel=new Set();
+  const area=el('div','','');area.id='siem-area';
+  area.appendChild(el('div','briefing','Select exactly <code>4</code> log sources most critical for detecting lateral movement.'));
+  const row=el('div','btn-row','');
+  allSrc.forEach(s=>{
+    const b=el('button','btn',s);
+    b.onclick=()=>{if(sel.has(s)){sel.delete(s);b.classList.remove('selected')}else{sel.add(s);b.classList.add('selected')}};
+    row.appendChild(b);
+  });
+  area.appendChild(row);
+  const sub1=el('button','btn-submit','CONFIRM SOURCES');
+  sub1.onclick=()=>{
+    if(sel.size!==4)return alert('Select exactly 4.');
+    let ok=true;sel.forEach(s=>{if(!best.has(s))ok=false});
+    if(!ok){
+      const fb=el('div','feedback show bad','Incorrect. Best 4: Firewall, DNS, Active Directory, Endpoint (EDR). Email Gateway and Proxy are less relevant for lateral movement.');
+      area.appendChild(fb);sub1.remove();
+      complete(idx,0);addNext(m,idx);return;
+    }
+    area.innerHTML='';
+    area.appendChild(el('div','briefing','Correct! Now match each source to its primary detection use case.'));
+    let ma=Array(4).fill('');
+    const ucs=matches.map(m=>m.uc);
+    matches.forEach((mt,i)=>{
+      const blk=el('div','q-block','');
+      blk.appendChild(el('div','q-label',mt.src+' →'));
+      const s=document.createElement('select');
+      s.innerHTML='<option value="">Select use case…</option>'+ucs.map(u=>'<option value="'+u+'">'+u+'</option>').join('');
+      s.onchange=()=>ma[i]=s.value;
+      blk.appendChild(s);
+      const fb=el('div','feedback','');blk.appendChild(fb);blk._fb=fb;
+      area.appendChild(blk);
+    });
+    const sub2=el('button','btn-submit','SUBMIT MAPPING');
+    sub2.onclick=()=>{
+      if(ma.includes(''))return alert('Match all sources.');
+      let sc=0;
+      area.querySelectorAll('.q-block').forEach((blk,i)=>{
+        const ok2=ma[i]===matches[i].uc;if(ok2)sc++;
+        blk.classList.add(ok2?'correct':'wrong');
+        blk._fb.textContent=ok2?'Correct!':'Incorrect — '+matches[i].src+' → '+matches[i].uc;
+        blk._fb.className='feedback show '+(ok2?'ok':'bad');
+      });
+      sub2.remove();
+      const total=4+sc;
+      area.appendChild(el('div','result-banner '+(sc>=3?'pass':'fail'),'SCORE: '+total+'/8 (sources: 4/4, mappings: '+sc+'/4)'));
+      complete(idx,total);addNext(m,idx);
+    };
+    area.appendChild(sub2);
+  };
+  area.appendChild(sub1);
+  m.appendChild(area);
+}
+
+/* ===================== C9: PACKET PUZZLE ===================== */
+function r9(m,idx){
+  m.innerHTML='';
+  m.appendChild(el('div','challenge-title','09 // PACKET PUZZLE'));
+  m.appendChild(el('div','challenge-sub','Part 1: Order the TCP three-way handshake.<br>Part 2: Match ports to services.'));
+  const done=state.scores[idx]>=0;
+  if(done){m.appendChild(el('div','result-banner pass','CHALLENGE COMPLETED'));addNext(m,idx);return}
+  let hsOrder=[];
+  const area=el('div','','');area.id='pkt-area';
+  area.appendChild(el('div','briefing','Click the steps in correct order to build the TCP three-way handshake.'));
+  const display=el('div','token-display','Order: (click below)');display.id='hs-disp';
+  area.appendChild(display);
+  const row=el('div','btn-row','');
+  ['ACK','SYN','SYN-ACK'].forEach(s=>{
+    const b=el('button','btn',s);
+    b.onclick=()=>{hsOrder.push(s);b.disabled=true;b.classList.add('selected');
+      document.getElementById('hs-disp').textContent='Order: '+hsOrder.join(' → ')};
+    row.appendChild(b);
+  });
+  area.appendChild(row);
+  const rrow=el('div','btn-row','');
+  const rb=el('button','btn mag','RESET');
+  rb.onclick=()=>{hsOrder=[];row.querySelectorAll('.btn').forEach(b=>{b.disabled=false;b.classList.remove('selected')});
+    document.getElementById('hs-disp').textContent='Order: (click below)'};
+  rrow.appendChild(rb);area.appendChild(rrow);
+  const sub1=el('button','btn-submit','CONFIRM ORDER');
+  let hsScore=0;
+  sub1.onclick=()=>{
+    if(hsOrder.length!==3)return alert('Select all 3 steps.');
+    const ok=hsOrder[0]==='SYN'&&hsOrder[1]==='SYN-ACK'&&hsOrder[2]==='ACK';
+    if(ok){hsScore=3;area.appendChild(el('div','feedback show ok','Correct! SYN → SYN-ACK → ACK'))}
+    else{area.appendChild(el('div','feedback show bad','Incorrect. Correct: SYN → SYN-ACK → ACK'))}
+    sub1.remove();
+    setTimeout(()=>{area.innerHTML='';renderP2(area)},800);
+  };
+  area.appendChild(sub1);
+  m.appendChild(area);
+
+  function renderP2(area){
+    const ports=[
+      {port:'22',choices:['HTTP','SSH','DNS','RDP'],correct:1},
+      {port:'80',choices:['SSH','HTTPS','HTTP','SMTP'],correct:2},
+      {port:'443',choices:['HTTP','FTP','HTTPS','DNS'],correct:2},
+      {port:'53',choices:['SSH','DNS','HTTP','SNMP'],correct:1},
+      {port:'3389',choices:['MySQL','SSH','HTTPS','RDP'],correct:3}
+    ];
+    area.appendChild(el('div','briefing','Match each port number to its service.'));
+    let ans=Array(5).fill(-1);
+    ports.forEach((p,i)=>{
+      const blk=el('div','q-block','');
+      blk.appendChild(el('div','q-label','Port '+p.port));
+      const row=el('div','btn-row','');
+      p.choices.forEach((c,ci)=>{
+        const b=el('button','btn',c);
+        b.onclick=()=>{ans[i]=ci;row.querySelectorAll('.btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')};
+        row.appendChild(b);
+      });
+      blk.appendChild(row);
+      const fb=el('div','feedback','');blk.appendChild(fb);blk._fb=fb;
+      area.appendChild(blk);
+    });
+    const sub=el('button','btn-submit','SUBMIT');
+    sub.onclick=()=>{
+      if(ans.includes(-1))return alert('Answer all.');
+      let sc=0;
+      area.querySelectorAll('.q-block').forEach((blk,i)=>{
+        const ok=ans[i]===ports[i].correct;if(ok)sc++;
+        blk.classList.add(ok?'correct':'wrong');
+        blk._fb.textContent=ok?'Correct!':'Incorrect — Port '+ports[i].port+' = '+ports[i].choices[ports[i].correct];
+        blk._fb.className='feedback show '+(ok?'ok':'bad');
+      });
+      sub.remove();
+      const total=hsScore+sc;
+      area.appendChild(el('div','result-banner '+(total>=6?'pass':'fail'),'SCORE: '+total+'/8 (handshake: '+hsScore+'/3, ports: '+sc+'/5)'));
+      complete(idx,total);addNext(m,idx);
+    };
+    area.appendChild(sub);
+  }
+}
+
+/* ===================== C10: CRYPTO FORGE ===================== */
+function r10(m,idx){
+  const algs=[
+    {name:'AES-256',uc:'Symmetric Encryption'},
+    {name:'RSA',uc:'Asymmetric Encryption'},
+    {name:'SHA-256',uc:'Hashing'},
+    {name:'ECDH',uc:'Key Exchange'},
+    {name:'EdDSA',uc:'Digital Signature'},
+    {name:'HMAC',uc:'Message Authentication Code'}
+  ];
+  const ucs=['Symmetric Encryption','Asymmetric Encryption','Hashing','Key Exchange','Digital Signature','Message Authentication Code'];
+  const ksQs=[
+    {q:'Which is an acceptable key size for AES?',choices:['64-bit','128-bit','256-bit','512-bit'],correct:2,e:'AES supports 128, 192, and 256-bit keys. 256-bit offers maximum strength.'},
+    {q:'What is the minimum recommended RSA key size today?',choices:['1024-bit','2048-bit','4096-bit','512-bit'],correct:1,e:'2048-bit is the current minimum recommendation; 1024-bit is deprecated.'}
+  ];
+  m.innerHTML='';
+  m.appendChild(el('div','challenge-title','10 // CRYPTO FORGE'));
+  m.appendChild(el('div','challenge-sub','Part 1: Match algorithms to use cases. Part 2: Key size questions.'));
+  m.appendChild(el('div','briefing','Match each cryptographic algorithm to its primary purpose.'));
+  const done=state.scores[idx]>=0;
+  let ma=Array(6).fill('');
+  let ka=Array(2).fill(-1);
+  const shuffled=[...ucs].sort(()=>Math.random()-.5);
+  const blks1=[];
+  algs.forEach((a,i)=>{
+    const blk=el('div','q-block','');
+    blk.appendChild(el('div','q-label',a.name+' →'));
+    const s=document.createElement('select');
+    s.innerHTML='<option value="">Select use case…</option>'+shuffled.map(u=>'<option value="'+u+'">'+u+'</option>').join('');
+    if(done){s.value=a.uc;s.disabled=true}
+    s.onchange=()=>ma[i]=s.value;
+    blk.appendChild(s);
+    const fb=el('div','feedback','');blk.appendChild(fb);blk._fb=fb;
+    m.appendChild(blk);blks1.push(blk);
+  });
+  m.appendChild(el('div','briefing','Now answer the key size questions.'));
+  const blks2=[];
+  ksQs.forEach((ks,i)=>{
+    const blk=el('div','q-block','');
+    blk.appendChild(el('div','q-label',ks.q));
+    const row=el('div','btn-row','');
+    ks.choices.forEach((c,ci)=>{
+      const b=el('button','btn',c);
+      if(done){b.disabled=true;if(ci===ks.correct)b.classList.add('selected','grn')}
+      else b.onclick=()=>{ka[i]=ci;row.querySelectorAll('.btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')};
+      row.appendChild(b);
+    });
+    blk.appendChild(row);
+    const fb=el('div','feedback','');blk.appendChild(fb);blk._fb=fb;
+    m.appendChild(blk);blks2.push(blk);
+  });
+  if(done){addNext(m,idx);return}
+  const sub=el('button','btn-submit','SUBMIT');
+  sub.onclick=()=>{
+    if(ma.includes('')||ka.includes(-1))return alert('Answer everything.');
+    let sc=0;
+    algs.forEach((a,i)=>{
+      const ok=ma[i]===a.uc;if(ok)sc++;
+      blks1[i].classList.add(ok?'correct':'wrong');
+      blks1[i]._fb.textContent=ok?'Correct!':'Incorrect — '+a.name+' → '+a.uc;
+      blks1[i]._fb.className='feedback show '+(ok?'ok':'bad');
+    });
+    ksQs.forEach((ks,i)=>{
+      const ok=ka[i]===ks.correct;if(ok)sc++;
+      blks2[i].classList.add(ok?'correct':'wrong');
+      blks2[i]._fb.textContent=(ok?'Correct! ':'Incorrect. ')+ks.e;
+      blks2[i]._fb.className='feedback show '+(ok?'ok':'bad');
+    });
+    sub.remove();
+    m.appendChild(el('div','result-banner '+(sc>=6?'pass':'fail'),'SCORE: '+sc+'/8'));
+    complete(idx,sc);addNext(m,idx);
+  };
+  m.appendChild(sub);
+}
+
+/* ===================== INIT ===================== */
+updateUI();
+state.current=Math.min(state.current,state.unlocked-1);
+render(state.current);
+</script>
+</body>
+</html>

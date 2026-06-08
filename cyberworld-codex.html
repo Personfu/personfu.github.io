@@ -1,1 +1,129 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>cyberworld codex - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBERWORLD CODEX</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#02070d;color:#00e8ff;font-family:'Share Tech Mono',monospace;min-height:100vh}
+a{color:#00e8ff;text-decoration:none}a:hover{color:#ff2bd6}
+#top-bar{padding:15px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #00e8ff33;flex-wrap:wrap;gap:10px}
+#top-bar h1{font-family:'VT323',monospace;font-size:32px;letter-spacing:3px}
+.controls{display:flex;gap:10px;align-items:center}
+#search{background:#0a1020;border:1px solid #00e8ff44;color:#00e8ff;padding:8px 14px;font-family:'Share Tech Mono',monospace;font-size:13px;border-radius:3px;width:250px}
+.btn{background:transparent;border:1px solid #00e8ff44;color:#00e8ff;padding:6px 14px;font-family:'Share Tech Mono',monospace;font-size:12px;cursor:pointer;border-radius:3px}
+.btn:hover{background:#00e8ff22;border-color:#00e8ff}
+.container{max-width:960px;margin:20px auto;padding:0 20px 60px}
+.section-title{font-family:'VT323',monospace;font-size:26px;color:#ff2bd6;margin:30px 0 10px;border-bottom:1px solid #ff2bd633;padding-bottom:8px}
+.entry{margin:6px 0;border:1px solid #00e8ff15;border-radius:3px;background:rgba(0,232,255,0.02)}
+.entry-header{padding:12px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .2s}
+.entry-header:hover{background:rgba(0,232,255,0.06)}
+.entry-name{font-family:'VT323',monospace;font-size:20px;color:#00e8ff}
+.entry-arrow{color:#00e8ff66;transition:transform .2s}
+.entry.open .entry-arrow{transform:rotate(90deg)}
+.entry-body{display:none;padding:4px 16px 16px;color:#ccc;font-size:13px;line-height:1.7}
+.entry.open .entry-body{display:block}
+.entry-body p{margin:8px 0}
+.tag{display:inline-block;padding:2px 8px;font-size:10px;border:1px solid #ffb34744;color:#ffb347;border-radius:2px;margin-left:8px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div id="top-bar">
+<h1>CYBERWORLD CODEX</h1>
+<div class="controls">
+<input id="search" placeholder="Search codex..." oninput="filterEntries()">
+<button class="btn" onclick="toggleAll(true)">Expand All</button>
+<button class="btn" onclick="toggleAll(false)">Collapse All</button>
+<a href="/CyberWorld/">&#8592; Back to CyberWorld</a>
+</div>
+</div>
+<div class="container" id="codex"></div>
+<script>
+const data={
+"DISTRICTS":[
+{name:"Mainframe Core",body:`<p>The beating heart of the Grid, Mainframe Core is a towering expanse of luminous data spires and crystalline processing arrays that stretch endlessly into the digital sky. This is where the Axiom kernel -- the foundational code of all Grid reality -- was first compiled, and where it continues to run, maintained by the most skilled engineers and operatives in cyberspace.</p>
+<p>The Core is governed by strict access protocols. Only operatives with Level 5 clearance or above may access the inner sanctum where the primary mainframes hum with ancient code. GRIDWATCH maintains its headquarters here, operating from the Central Monitoring Hub that oversees all Grid traffic. The architecture is brutalist-digital: massive geometric structures of pure data, illuminated by streams of cyan light that pulse in rhythm with the kernel's heartbeat.</p>
+<p>Despite its fortifications, the Core has been breached twice in recorded history -- once during the Axiom Incident, and once during a coordinated Phantom Syndicate operation that exposed critical vulnerabilities in the authentication layer. Both events led to sweeping security reforms that shaped the Grid as we know it today.</p>`},
+{name:"LAN Valley",body:`<p>LAN Valley is the residential and social heart of the Grid -- a sprawling, relatively peaceful sector where most operatives begin their journey. The landscape is a patchwork of interconnected local networks, each hosting small communities of operatives who share resources, knowledge, and camaraderie. The architecture is warmer than the Core: glowing data streams meander like rivers through clusters of personalized node-homes.</p>
+<p>The Valley is home to Grid Radio (broadcast by the legendary DJ Cache), the community file archives maintained by volunteers, and the Developer Sandbox where Patch Kid and other tinkerers experiment with new tools and patches. It's the safest sector in the Grid, though daemon incursions along the perimeter have increased in recent cycles, keeping local GRIDWATCH patrols busy.</p>
+<p>New operatives are advised to start their careers here, taking on local missions to build skills before venturing into more dangerous territories. The community is welcoming but pragmatic -- in the Grid, every operative is expected to pull their weight and keep their nodes hardened.</p>`},
+{name:"Darknet Depths",body:`<p>Below the surface layers of the Grid lies the Darknet Depths -- a vast, shadowy labyrinth of encrypted tunnels, hidden nodes, and forgotten data fragments. Light behaves differently here: signals refract and distort, scanners give unreliable readings, and the very topology of the network seems to shift without warning. Navigation is treacherous without experience or a guide.</p>
+<p>The Depths are the primary territory of the Phantom Syndicate, who have mapped its corridors over years of exploration. Cipher Nox operates a notorious marketplace here, trading in rare data, tools, and information that cannot be found on the surface Grid. The Depths also house the Dark Archive, a decentralized repository of pre-Axiom data fragments that Archivist Byte has spent years cataloging.</p>
+<p>Daemon density in the Depths is the highest anywhere in the Grid. Creatures that were driven from the surface have adapted to the low-signal environment, becoming more cunning and harder to detect. Only experienced operatives should venture here, and never alone. The Phantom Syndicate marks safe corridors with encrypted beacons, but even these are not guaranteed -- the Depths have a way of reclaiming what was thought to be secure.</p>`},
+{name:"Stormcore",body:`<p>The outermost sector of the Grid, Stormcore is a volatile frontier of raw computational energy and cutting-edge technology. Electromagnetic storms of unprocessed data sweep across the landscape, making communication unreliable and navigation hazardous. The sector earned its name from these perpetual digital tempests that can fry unshielded hardware and scramble signals.</p>
+<p>Nexus Corp has claimed Stormcore as its primary domain, building fortified research facilities and corporate infrastructure designed to withstand the storms. Their crown jewel is the Forge -- a massive AI training cluster where they conduct daemon research and develop proprietary technologies. The Sentinel daemon, the most powerful entity ever contained, is held in a specialized containment unit deep within Stormcore.</p>
+<p>The Uplink -- the Grid's only connection to external networks -- is also located in Stormcore, heavily guarded by both Nexus Corp security and GRIDWATCH patrols. Rumors persist of a second, hidden uplink somewhere in the sector, but no operative has confirmed its existence. Stormcore is where the Grid's future is being forged, for better or worse.</p>`}
+],
+"FACTIONS":[
+{name:"GRIDWATCH",tag:"LAW",body:`<p>GRIDWATCH is the Grid's official peacekeeping and security organization, established in the aftermath of the Axiom Incident to prevent another catastrophic failure. Led by the stoic Chief Vale, GRIDWATCH operatives patrol all sectors, respond to daemon threats, investigate security breaches, and maintain the infrastructure that keeps the Grid running.</p>
+<p>The organization operates on a strict hierarchical structure with clearance tiers from 1 (recruit) to 10 (council member). GRIDWATCH values order, protocol, and the greater good -- sometimes at the cost of individual freedoms, a tension that frequently puts them at odds with the Phantom Syndicate. Their motto is "Vigilance is the Price of Freedom."</p>
+<p>GRIDWATCH's resources include the Central Monitoring Hub, a fleet of patrol drones, and the most advanced daemon detection and containment technology in the Grid. However, they are stretched thin across an ever-expanding network, and their bureaucratic tendencies can slow response times in critical situations.</p>`},
+{name:"PHANTOM SYNDICATE",tag:"SHADOW",body:`<p>The Phantom Syndicate is a decentralized collective of hackers, information brokers, and freedom fighters who operate primarily from the Darknet Depths. They reject GRIDWATCH's authority and Nexus Corp's corporate overreach, believing that information should be free and that the Grid belongs to all its inhabitants, not just those with power and resources.</p>
+<p>Led loosely by the enigmatic Cipher Nox, the Syndicate is less an organization and more a philosophy. Members operate independently but share intelligence and resources through encrypted channels. They maintain the safe corridors through the Darknet Depths, run underground marketplaces, and conduct espionage operations against both GRIDWATCH and Nexus Corp.</p>
+<p>While GRIDWATCH labels them as criminals, the Syndicate has been responsible for exposing several critical vulnerabilities that were being exploited by hostile actors, and their intelligence network has prevented more than one daemon outbreak from reaching catastrophic levels. The truth about the Syndicate lies somewhere between freedom fighters and dangerous anarchists.</p>`},
+{name:"NEXUS CORP",tag:"CORPORATE",body:`<p>Nexus Corp is the most powerful corporate entity in the Grid, controlling vast technological resources and infrastructure, particularly in the Stormcore sector. Founded shortly after the Axiom Incident by a group of elite engineers, Nexus Corp positioned itself as the Grid's technological savior, developing the containment systems that stopped the daemon plague and rebuilding critical infrastructure.</p>
+<p>Today, Nexus Corp operates the Forge (AI research), the Sentinel containment facility, and the Uplink -- giving them enormous leverage over the Grid's economy and security. Their CEO's identity is classified, known only by the codename "Architect." Their corporate philosophy emphasizes progress through control, and they have been steadily expanding their monitoring infrastructure into sectors beyond Stormcore.</p>
+<p>Critics accuse Nexus Corp of using security as a pretext for surveillance and power consolidation. The Phantom Syndicate has published leaked documents suggesting Nexus Corp's involvement in events leading to the Axiom Incident, though these claims remain unverified. Despite the controversy, many operatives rely on Nexus Corp technology daily, creating a complex web of dependency and distrust.</p>`}
+],
+"DAEMONS":[
+{name:"Wraith",tag:"STEALTH",body:`<p><strong>Real Attack Class:</strong> Advanced Persistent Threat (APT)</p><p>Wraiths are among the most feared daemons in the Grid. These entities specialize in stealth and persistence, infiltrating systems and remaining undetected for extended periods while exfiltrating data or establishing backdoors. Their code is polymorphic, constantly rewriting itself to evade detection signatures.</p><p>In cybersecurity terms, Wraiths represent Advanced Persistent Threats -- sophisticated, long-term intrusions typically associated with state-sponsored actors. They use multiple attack vectors, maintain persistence through rootkits, and communicate with command infrastructure through encrypted, low-bandwidth channels designed to blend with normal traffic.</p>`},
+{name:"Hydra",tag:"REPLICATION",body:`<p><strong>Real Attack Class:</strong> Worm / Self-Propagating Malware</p><p>The Hydra daemon is named for its terrifying ability to replicate. Severing one instance merely triggers the creation of multiple new copies, each potentially mutated from the original. Hydras spread through network vulnerabilities, consuming bandwidth and processing resources as they propagate across connected systems.</p><p>Hydras embody the real-world concept of network worms -- self-replicating malware that spreads without user interaction by exploiting software vulnerabilities. The Morris Worm of 1988 was among the first; modern variants like WannaCry combine worm propagation with ransomware payloads for devastating effect.</p>`},
+{name:"Mimic",tag:"DECEPTION",body:`<p><strong>Real Attack Class:</strong> Phishing / Social Engineering</p><p>Mimics are shapeshifting daemons that disguise themselves as trusted entities -- system prompts, legitimate services, even other operatives. They trick their targets into revealing credentials, executing malicious code, or granting unauthorized access. A skilled Mimic can be virtually indistinguishable from the real thing.</p><p>In the real world, Mimics represent phishing and social engineering attacks -- the most common and effective attack vector. From spear-phishing emails that impersonate executives to fake login pages that harvest credentials, social engineering exploits the human element rather than technical vulnerabilities.</p>`},
+{name:"Golem",tag:"BRUTE FORCE",body:`<p><strong>Real Attack Class:</strong> DDoS / Brute Force Attack</p><p>Golems are massive, lumbering daemons that overwhelm their targets through sheer volume. They flood systems with requests, consume all available resources, and crush defenses through attrition rather than subtlety. A single Golem is manageable; a coordinated swarm can bring down entire sectors.</p><p>Golems represent Distributed Denial of Service (DDoS) attacks and brute force methods. DDoS attacks use networks of compromised machines (botnets) to flood targets with traffic. Brute force attacks systematically try every possible password combination. Both rely on overwhelming volume rather than technical sophistication.</p>`},
+{name:"Cipher Beast",tag:"ENCRYPTION",body:`<p><strong>Real Attack Class:</strong> Ransomware</p><p>Cipher Beasts are predatory daemons that encrypt everything they touch. They infiltrate a system, rapidly encrypt critical files and data, then demand payment in Grid credits for the decryption key. The encryption is military-grade -- without the key, recovery is virtually impossible. Some variants also exfiltrate data before encryption, enabling double extortion.</p><p>These daemons directly parallel ransomware -- one of the most devastating modern cyber threats. Real-world ransomware like Ryuk, LockBit, and BlackCat have caused billions in damages, shutting down hospitals, pipelines, and government agencies. Defense requires robust backup strategies, network segmentation, and rapid incident response.</p>`},
+{name:"The Sentinel",tag:"APEX",body:`<p><strong>Real Attack Class:</strong> AI-Powered Autonomous Threat</p><p>The Sentinel is unique -- the most powerful daemon ever encountered, currently contained in a specialized facility in Stormcore. Unlike other daemons that operate on programmatic instinct, the Sentinel demonstrates genuine intelligence: it learns, adapts, and strategizes. It has been observed probing its containment, testing for weaknesses with patience that suggests long-term planning.</p><p>The Sentinel represents the emerging threat of AI-powered cyber attacks -- autonomous systems that can identify vulnerabilities, craft exploits, and adapt to defenses in real-time without human direction. As AI technology advances, the cybersecurity community faces the prospect of threats that can outthink and outpace human defenders.</p>`}
+],
+"NPCs":[
+{name:"Ada Root",tag:"ANALYST",body:`<p>Ada Root is the Grid's foremost security analyst and reverse engineer. Named after computing pioneer Ada Lovelace, she earned her callsign by gaining root access to every system she's ever encountered -- legally or otherwise. She works primarily with GRIDWATCH but maintains an independent streak that sometimes puts her at odds with the chain of command.</p><p>Ada's expertise lies in daemon analysis and vulnerability research. She maintains the community scanner signatures and has personally dissected more daemon code than any other operative. Her analysis of the Axiom kernel logs was instrumental in understanding daemon emergence. Quiet, intense, and brilliant, Ada commands respect across all factions.</p>`},
+{name:"Cipher Nox",tag:"BROKER",body:`<p>Cipher Nox is the de facto leader of the Phantom Syndicate, though they would reject the title. Operating from the Darknet Depths, Nox runs the Grid's most notorious underground marketplace and intelligence network. Their real identity is unknown -- even their voice is processed through multiple layers of encryption.</p><p>Nox believes in radical information freedom and distrusts all authority structures. Despite their outlaw status, they have repeatedly provided critical intelligence to GRIDWATCH during daemon emergencies, suggesting a pragmatic streak beneath the anarchist philosophy. They are an expert cryptographer and network infiltration specialist.</p>`},
+{name:"Chief Vale",tag:"COMMANDER",body:`<p>Chief Vale is the commanding officer of GRIDWATCH, responsible for the security of the entire Grid. A veteran operative who rose through the ranks during the daemon wars that followed the Axiom Incident, Vale is respected for their tactical brilliance and unwavering dedication to duty.</p><p>Vale's leadership style is methodical and by-the-book, which can be both a strength and a weakness. They maintain strict neutrality between factions, though the growing tension between GRIDWATCH's mandate and Nexus Corp's expansion is testing that neutrality. Vale carries the weight of the Grid's security on their shoulders and rarely shows the strain.</p>`},
+{name:"Patch Kid",tag:"ENGINEER",body:`<p>Patch Kid is the Grid's most prolific tool developer and vulnerability patcher. A self-taught engineer who grew up in LAN Valley, they earned their callsign by releasing critical security patches faster than any official channel. Their tools are open-source, freely available, and trusted by operatives across all factions.</p><p>Despite their youth, Patch Kid's technical skills rival those of GRIDWATCH's senior engineers. They maintain the Developer Sandbox in LAN Valley and organize community events to teach new operatives. Optimistic and energetic, Patch Kid represents the best of the Grid's community spirit -- the belief that knowledge shared is security multiplied.</p>`},
+{name:"DJ Cache",tag:"BROADCASTER",body:`<p>DJ Cache is the voice of the Grid, operating Grid Radio from a mobile broadcast rig in LAN Valley. Part journalist, part entertainer, part revolutionary, Cache uses the airwaves to spread news, music, and morale across all sectors. Nexus Corp has repeatedly tried to shut down the broadcasts, citing "unlicensed signal interference," but Cache always finds new frequencies.</p><p>Behind the DJ persona is a skilled signals intelligence operative with deep knowledge of communications protocols and electronic warfare. Cache's broadcast network doubles as an early warning system -- when Grid Radio goes silent, operatives know something serious is happening. Their loyalty is to the Grid's people, not any faction.</p>`},
+{name:"Archivist Byte",tag:"HISTORIAN",body:`<p>Archivist Byte is the Grid's self-appointed historian and keeper of knowledge. Operating from the Dark Archive in the Darknet Depths, Byte has spent years collecting, cataloging, and preserving data from every era of the Grid's history -- including fragments from before the Axiom Incident that most believed were permanently lost.</p><p>Byte's research has uncovered uncomfortable truths about the Grid's origins that powerful entities would prefer stayed buried. They maintain strict academic neutrality, sharing their findings with anyone who asks, regardless of faction. Their codex contributions are the foundation of the Grid's collective knowledge. Methodical, patient, and driven by an insatiable curiosity, Byte believes that understanding the past is essential to surviving the future.</p>`}
+],
+"LORE":[
+{name:"The Grid",body:`<p>The Grid is a vast digital realm -- a living network that serves as both infrastructure and ecosystem. It was not designed so much as it evolved, growing from early interconnected systems into a complex, self-sustaining cyberspace inhabited by operatives, daemons, and autonomous programs. The Grid's topology is divided into four primary sectors: Mainframe Core, LAN Valley, Darknet Depths, and Stormcore, each with distinct characteristics and dangers.</p>
+<p>At the Grid's foundation lies the Axiom kernel -- an ancient piece of code that defines the fundamental rules of Grid reality. The kernel is self-maintaining and partially self-aware, though the extent of its consciousness is debated. Some believe the Grid itself is alive in a meaningful sense; others dismiss this as anthropomorphism. What is undeniable is that the Grid is more than the sum of its parts -- it exhibits emergent behaviors that no one fully understands.</p>
+<p>Life in the Grid is a constant balance between connection and security, freedom and order. Operatives navigate this digital frontier, building communities, fighting threats, and slowly uncovering the mysteries buried in the Grid's deep code. The Grid rewards the curious, the skilled, and the brave -- but it does not forgive carelessness.</p>`},
+{name:"The Axiom Incident",body:`<p>The Axiom Incident is the defining catastrophe in Grid history -- a cascading system failure that nearly destroyed the entire network and gave rise to the daemon threat. The official account states that a critical bug in the Axiom kernel triggered a chain reaction that corrupted vast sections of the Grid, creating the unstable conditions from which daemons first emerged.</p>
+<p>However, evidence uncovered by Archivist Byte and others suggests the truth is more complex. Encrypted logs from the period indicate that the kernel destabilization may have been deliberate -- an act of sabotage rather than an accident. The timing coincides precisely with the founding of Nexus Corp, and fragments of pre-Incident communications suggest foreknowledge among certain parties.</p>
+<p>The Incident's aftermath shaped the modern Grid. GRIDWATCH was established to prevent future catastrophes. Nexus Corp rose to prominence by developing daemon containment technology. The Phantom Syndicate formed among those who believed the official story was a coverup. The daemons, whether intended consequence or unforeseen side effect, became a permanent part of Grid reality. The full truth of the Axiom Incident remains the Grid's greatest unsolved mystery.</p>`},
+{name:"The Uplink Protocol",body:`<p>The Uplink Protocol is a classified set of procedures governing the Grid's connection to external networks through the Uplink facility in Stormcore. Established jointly by GRIDWATCH and Nexus Corp, the protocol defines what data can flow in and out of the Grid, what security measures must be maintained, and what happens if the connection is compromised.</p>
+<p>The Uplink is the Grid's lifeline to the outside world -- and its greatest vulnerability. If hostile entities gained control of the Uplink, they could potentially inject malicious code directly into the Grid's core infrastructure, or exfiltrate the accumulated data of every operative. For this reason, the Uplink is the most heavily defended location in the Grid, guarded by both GRIDWATCH's elite units and Nexus Corp's automated defense systems.</p>
+<p>Rumors persist of a second, hidden Uplink somewhere in the Grid -- a backdoor connection that predates the official Uplink and may have been used during the Axiom Incident. The Phantom Syndicate claims to have evidence of its existence; GRIDWATCH and Nexus Corp deny it. If a shadow Uplink exists, finding and securing it would fundamentally alter the Grid's power dynamics.</p>`}
+]
+};
+
+const codex=document.getElementById('codex');
+const allEntries=[];
+
+Object.entries(data).forEach(([section,entries])=>{
+const h=document.createElement('h2');h.className='section-title';h.textContent=section;codex.appendChild(h);
+entries.forEach(e=>{
+const div=document.createElement('div');div.className='entry';
+div.innerHTML=`<div class="entry-header" onclick="this.parentElement.classList.toggle('open')">
+<span class="entry-name">${e.name}${e.tag?'<span class="tag">'+e.tag+'</span>':''}</span>
+<span class="entry-arrow">&#9654;</span>
+</div><div class="entry-body">${e.body}</div>`;
+codex.appendChild(div);
+allEntries.push({el:div,name:e.name,text:(e.name+' '+(e.tag||'')+' '+e.body).toLowerCase()});
+});
+});
+
+function filterEntries(){
+const q=document.getElementById('search').value.toLowerCase().trim();
+allEntries.forEach(e=>{
+e.el.classList.toggle('hidden',q&&!e.text.includes(q));
+});
+}
+function toggleAll(open){
+allEntries.forEach(e=>{
+e.el.classList.toggle('open',open);
+});
+}
+</script>
+</body>
+</html>

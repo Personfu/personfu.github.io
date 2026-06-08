@@ -1,1 +1,202 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>cyberos iso - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBEROS ISO BUILDER</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#02070d;color:#00e8ff;font-family:'Share Tech Mono',monospace;min-height:100vh}
+a{color:#00e8ff;text-decoration:none}a:hover{color:#ff2bd6}
+#top-bar{padding:15px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #00e8ff33}
+#top-bar h1{font-family:'VT323',monospace;font-size:32px;letter-spacing:3px}
+.container{max-width:900px;margin:20px auto;padding:0 20px 60px}
+.section{margin:20px 0}
+.section h3{font-family:'VT323',monospace;font-size:22px;color:#ff2bd6;margin-bottom:12px}
+.base-options{display:flex;gap:12px;flex-wrap:wrap}
+.base-opt{padding:16px 24px;border:2px solid #00e8ff33;border-radius:6px;cursor:pointer;transition:.2s;flex:1;min-width:180px;text-align:center}
+.base-opt:hover{border-color:#00e8ff88}
+.base-opt.selected{border-color:#00ff9c;background:rgba(0,255,156,0.08);box-shadow:0 0 16px #00ff9c22}
+.base-opt h4{font-family:'VT323',monospace;font-size:20px;color:#00e8ff;margin-bottom:4px}
+.base-opt.selected h4{color:#00ff9c}
+.base-opt p{font-size:11px;color:#888}
+.stats{display:flex;gap:20px;justify-content:center;margin:20px 0;flex-wrap:wrap}
+.stat-box{text-align:center;padding:16px 24px;border:1px solid #00e8ff22;border-radius:4px;min-width:140px;background:rgba(0,0,0,0.3)}
+.stat-box .label{font-size:11px;color:#ffb347;margin-bottom:4px}
+.stat-box .val{font-family:'VT323',monospace;font-size:32px}
+.stat-box .val.over{color:#ff2bd6}
+.modules{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.module{padding:14px;border:1px solid #00e8ff22;border-radius:4px;cursor:pointer;transition:.2s;background:rgba(0,0,0,0.2)}
+.module:hover{border-color:#00e8ff66}
+.module.on{border-color:#00ff9c88;background:rgba(0,255,156,0.05)}
+.module h4{font-family:'VT323',monospace;font-size:18px;color:#00e8ff;margin-bottom:4px}
+.module.on h4{color:#00ff9c}
+.module p{font-size:11px;color:#888;margin-bottom:6px;line-height:1.4}
+.module .costs{font-size:11px;display:flex;gap:12px}
+.module .costs span{color:#ffb347}
+.module .costs .sec{color:#00ff9c}
+.bar-wrap{margin:4px 0}
+.bar{height:12px;background:#0a1020;border:1px solid #00e8ff22;border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;transition:width .3s;border-radius:2px}
+.btn-build{display:block;margin:24px auto;padding:14px 40px;font-family:'VT323',monospace;font-size:24px;background:transparent;border:2px solid #00ff9c;color:#00ff9c;cursor:pointer;border-radius:4px;transition:.2s}
+.btn-build:hover{background:#00ff9c22}
+.btn-build:disabled{opacity:0.3;cursor:not-allowed}
+#manifest{display:none;margin:20px 0;padding:20px;border:1px solid #00ff9c44;background:rgba(0,255,156,0.03);border-radius:4px;font-size:13px;line-height:1.8;white-space:pre-wrap}
+#manifest h3{font-family:'VT323',monospace;font-size:24px;color:#00ff9c;margin-bottom:12px}
+.edu{margin:20px 0;padding:16px;border:1px solid #ffb34733;background:rgba(255,179,71,0.03);border-radius:4px;font-size:12px;color:#ffb347;line-height:1.6}
+</style>
+</head>
+<body>
+<div id="top-bar">
+<h1>CYBEROS ISO BUILDER</h1>
+<a href="/CyberWorld/">&#8592; Back to CyberWorld</a>
+</div>
+<div class="container">
+<div class="edu">EDUCATIONAL NOTE: This configurator teaches defense-in-depth strategy. Each security module represents a real-world security control. The goal is to maximize your security score within the resource budget -- just like real organizations must balance security investments against operational costs.</div>
+
+<div class="section">
+<h3>BASE OS</h3>
+<div class="base-options" id="bases"></div>
+</div>
+
+<div class="stats">
+<div class="stat-box"><div class="label">RESOURCE BUDGET</div><div class="val" id="budget-val">100</div><div class="bar-wrap"><div class="bar"><div class="bar-fill" id="budget-bar" style="width:100%;background:#00ff9c"></div></div></div></div>
+<div class="stat-box"><div class="label">RESOURCES USED</div><div class="val" id="used-val">0</div></div>
+<div class="stat-box"><div class="label">SECURITY SCORE</div><div class="val" id="sec-val">0</div></div>
+</div>
+
+<div class="section">
+<h3>SECURITY MODULES</h3>
+<div class="modules" id="modules"></div>
+</div>
+
+<button class="btn-build" id="build-btn" onclick="buildISO()">BUILD ISO</button>
+<div id="manifest"></div>
+</div>
+
+<script>
+const bases=[
+{name:'LITE',desc:'Minimal footprint. Low resource overhead. Basic hardening.',baseCost:5,baseSec:5},
+{name:'STANDARD',desc:'Balanced profile. Moderate defaults. Recommended.',baseCost:15,baseSec:12},
+{name:'HARDENED',desc:'Maximum baseline security. High resource cost.',baseCost:25,baseSec:22}
+];
+
+const modules=[
+{name:'Firewall',desc:'Network traffic filtering and access control. Blocks unauthorized connections and enforces network policies.',cost:8,sec:10},
+{name:'IDS/IPS',desc:'Intrusion Detection and Prevention System. Monitors traffic for known attack signatures and anomalous behavior.',cost:10,sec:12},
+{name:'VPN Gateway',desc:'Encrypted tunnel for remote access. Protects data in transit and enables secure remote connections.',cost:7,sec:8},
+{name:'Disk Encryption',desc:'Full-disk encryption using AES-256. Protects data at rest if physical media is compromised.',cost:5,sec:9},
+{name:'Audit Logging',desc:'Comprehensive system activity logging. Essential for forensic analysis and compliance requirements.',cost:4,sec:7},
+{name:'App Whitelist',desc:'Application whitelisting enforcement. Only pre-approved executables can run, preventing unauthorized software.',cost:6,sec:11},
+{name:'Multi-Factor Auth',desc:'Hardware token and biometric authentication. Prevents unauthorized access even if passwords are compromised.',cost:5,sec:10},
+{name:'EDR Agent',desc:'Endpoint Detection and Response. Real-time behavioral monitoring and automated threat containment.',cost:12,sec:14},
+{name:'Sandboxing',desc:'Application isolation environment. Runs untrusted code in contained environments to prevent system compromise.',cost:9,sec:11},
+{name:'Backup System',desc:'Automated encrypted backups with versioning. Critical for ransomware recovery and disaster preparedness.',cost:6,sec:8},
+{name:'SIEM Connector',desc:'Security Information and Event Management integration. Centralizes log analysis and enables correlation-based detection.',cost:8,sec:10},
+{name:'Patch Manager',desc:'Automated vulnerability patching and update management. Reduces the window of exposure to known vulnerabilities.',cost:5,sec:9}
+];
+
+let selectedBase=1;
+let moduleStates=new Array(modules.length).fill(false);
+const BUDGET=100;
+
+function render(){
+// bases
+const basesEl=document.getElementById('bases');
+basesEl.innerHTML='';
+bases.forEach((b,i)=>{
+const d=document.createElement('div');d.className='base-opt'+(i===selectedBase?' selected':'');
+d.innerHTML=`<h4>${b.name}</h4><p>${b.desc}</p><p style="margin-top:6px;color:#ffb347">Cost: ${b.baseCost} | Base Security: ${b.baseSec}</p>`;
+d.onclick=()=>{selectedBase=i;render()};
+basesEl.appendChild(d);
+});
+
+// modules
+const modsEl=document.getElementById('modules');
+modsEl.innerHTML='';
+modules.forEach((m,i)=>{
+const d=document.createElement('div');d.className='module'+(moduleStates[i]?' on':'');
+d.innerHTML=`<h4>${m.name}</h4><p>${m.desc}</p><div class="costs"><span>Cost: ${m.cost}</span><span class="sec">Security: +${m.sec}</span></div>`;
+d.onclick=()=>{moduleStates[i]=!moduleStates[i];render()};
+modsEl.appendChild(d);
+});
+
+// stats
+const base=bases[selectedBase];
+let usedCost=base.baseCost;
+let secScore=base.baseSec;
+modules.forEach((m,i)=>{if(moduleStates[i]){usedCost+=m.cost;secScore+=m.sec}});
+const remaining=BUDGET-usedCost;
+const over=remaining<0;
+
+document.getElementById('budget-val').textContent=remaining;
+document.getElementById('budget-val').className='val'+(over?' over':'');
+document.getElementById('used-val').textContent=usedCost;
+document.getElementById('sec-val').textContent=secScore;
+document.getElementById('sec-val').style.color=secScore>60?'#00ff9c':secScore>30?'#ffb347':'#ff2bd6';
+
+const pct=Math.max(0,Math.min(100,(remaining/BUDGET)*100));
+const bar=document.getElementById('budget-bar');
+bar.style.width=pct+'%';
+bar.style.background=over?'#ff2bd6':remaining<20?'#ffb347':'#00ff9c';
+
+document.getElementById('build-btn').disabled=over;
+}
+
+function buildISO(){
+const base=bases[selectedBase];
+let usedCost=base.baseCost,secScore=base.baseSec;
+const enabled=[];
+modules.forEach((m,i)=>{if(moduleStates[i]){usedCost+=m.cost;secScore+=m.sec;enabled.push(m.name)}});
+if(BUDGET-usedCost<0)return;
+
+let grade='F';
+if(secScore>=100)grade='S';
+else if(secScore>=80)grade='A';
+else if(secScore>=60)grade='B';
+else if(secScore>=40)grade='C';
+else if(secScore>=20)grade='D';
+
+const manifest=document.getElementById('manifest');
+manifest.style.display='block';
+manifest.innerHTML=`<h3>CYBEROS BUILD MANIFEST</h3>
+===============================================
+  BASE OS:          CyberOS ${base.name}
+  BUILD DATE:       ${new Date().toISOString().split('T')[0]}
+  SECURITY GRADE:   ${grade}
+===============================================
+
+  RESOURCE BUDGET:  ${BUDGET} units
+  RESOURCES USED:   ${usedCost} units
+  REMAINING:        ${BUDGET-usedCost} units
+  SECURITY SCORE:   ${secScore} / 141
+
+  BASE SECURITY:    ${base.baseSec} (from ${base.name} profile)
+  MODULE SECURITY:  ${secScore-base.baseSec} (from ${enabled.length} modules)
+
+  ENABLED MODULES:
+${enabled.length?enabled.map(n=>'    [+] '+n).join('\n'):'    (none)'}
+
+  DISABLED MODULES:
+${modules.filter((m,i)=>!moduleStates[i]).map(m=>'    [-] '+m.name).join('\n')}
+
+===============================================
+  ANALYSIS:
+${secScore>=80?'  Excellent security posture. This build provides comprehensive defense-in-depth coverage.':secScore>=60?'  Good security posture. Consider adding more modules for critical environments.':secScore>=40?'  Moderate security. Significant gaps remain. Not recommended for high-value targets.':'  Weak security posture. This build is vulnerable to most common attack vectors.'}
+
+${enabled.indexOf('Backup System')===-1?'  WARNING: No backup system configured. Vulnerable to ransomware and data loss.':''}
+${enabled.indexOf('Multi-Factor Auth')===-1?'  WARNING: No MFA configured. Single-factor authentication is easily compromised.':''}
+${enabled.indexOf('Patch Manager')===-1?'  WARNING: No patch management. Known vulnerabilities will remain unpatched.':''}
+===============================================
+  ISO IMAGE:  cyberos-${base.name.toLowerCase()}-${secScore}.iso
+  SHA256:     ${Array.from({length:64},()=>'0123456789abcdef'[Math.floor(Math.random()*16)]).join('')}
+===============================================`;
+
+manifest.scrollIntoView({behavior:'smooth'});
+}
+
+render();
+</script>
+</body>
+</html>

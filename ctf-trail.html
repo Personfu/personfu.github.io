@@ -1,1 +1,658 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>ctf trail - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTF Trail — CyberWorld</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#02070d;--cyan:#00e8ff;--pink:#ff2bd6;--green:#00ff9c;--card:#0a1020;--card-border:#152040;--text:#c0d0e0;--dim:#506080}
+body{background:var(--bg);color:var(--text);font-family:'Share Tech Mono',monospace;min-height:100vh;overflow-x:hidden}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline}
+.back-link{display:inline-block;padding:1rem 1.5rem;font-size:.9rem;opacity:.7;transition:opacity .2s}
+.back-link:hover{opacity:1}
+
+header{text-align:center;padding:2rem 1rem 1rem}
+header h1{font-family:'VT323',monospace;font-size:3.5rem;background:linear-gradient(90deg,var(--cyan),var(--pink),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:.15em}
+.progress-bar{max-width:500px;margin:1rem auto;height:6px;background:#152040;border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .4s ease;border-radius:3px}
+.progress-text{font-size:.85rem;color:var(--dim);margin-top:.3rem}
+
+.tabs{display:flex;justify-content:center;gap:.5rem;padding:1.5rem 1rem .5rem;flex-wrap:wrap}
+.tab{padding:.5rem 1.2rem;border:1px solid var(--card-border);border-radius:4px;cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:.85rem;background:transparent;color:var(--dim);transition:all .2s;position:relative}
+.tab:hover{border-color:var(--cyan);color:var(--cyan)}
+.tab.active{border-color:var(--cyan);color:var(--cyan);background:rgba(0,232,255,.06)}
+.tab .tab-progress{position:absolute;top:-6px;right:-6px;font-size:.65rem;background:var(--green);color:var(--bg);border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-weight:bold}
+
+.challenges{max-width:800px;margin:1rem auto;padding:0 1rem 3rem}
+.challenge-card{background:var(--card);border:1px solid var(--card-border);border-radius:8px;margin-bottom:1rem;overflow:hidden;transition:border-color .2s}
+.challenge-card.solved{border-color:var(--green)}
+.challenge-card.locked{opacity:.4;pointer-events:none}
+.challenge-header{padding:1rem 1.2rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.challenge-header:hover{background:rgba(0,232,255,.03)}
+.ch-left{display:flex;align-items:center;gap:.8rem}
+.ch-num{font-family:'VT323',monospace;font-size:1.4rem;color:var(--pink);min-width:2rem}
+.ch-title{font-size:.95rem;color:#e0e8f0}
+.ch-status{font-size:1.1rem}
+.challenge-body{display:none;padding:0 1.2rem 1.2rem;border-top:1px solid var(--card-border)}
+.challenge-body.open{display:block}
+
+.briefing{background:rgba(0,232,255,.04);border-left:3px solid var(--cyan);padding:.8rem 1rem;margin:.8rem 0;font-size:.85rem;color:var(--dim);line-height:1.5}
+.interactive{background:#080e1a;border:1px solid var(--card-border);border-radius:4px;padding:1rem;margin:.8rem 0;font-size:.82rem;line-height:1.6;overflow-x:auto;white-space:pre-wrap;font-family:'Share Tech Mono',monospace;color:var(--text);max-height:400px;overflow-y:auto}
+.interactive .hl-comment{color:#506080}
+.interactive .hl-key{color:var(--cyan)}
+.interactive .hl-val{color:var(--green)}
+.interactive .hl-flag{color:var(--pink)}
+.interactive .hl-warn{color:#ff6b6b}
+.interactive .hl-link{color:var(--cyan);cursor:pointer;text-decoration:underline}
+
+.btn{padding:.4rem 1rem;border:1px solid var(--cyan);background:transparent;color:var(--cyan);font-family:'Share Tech Mono',monospace;font-size:.82rem;border-radius:4px;cursor:pointer;transition:all .2s}
+.btn:hover{background:rgba(0,232,255,.1)}
+.btn-pink{border-color:var(--pink);color:var(--pink)}
+.btn-pink:hover{background:rgba(255,43,214,.1)}
+
+.flag-input-row{display:flex;gap:.5rem;margin-top:.8rem;align-items:center;flex-wrap:wrap}
+.flag-input{flex:1;min-width:200px;padding:.5rem .8rem;background:#060c18;border:1px solid var(--card-border);border-radius:4px;color:var(--text);font-family:'Share Tech Mono',monospace;font-size:.85rem;outline:none;transition:border-color .2s}
+.flag-input:focus{border-color:var(--cyan)}
+.flag-input.correct{border-color:var(--green);color:var(--green)}
+.flag-input.wrong{border-color:#ff4444;animation:shake .3s}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+
+.submit-btn{padding:.5rem 1.2rem;background:linear-gradient(135deg,rgba(0,232,255,.15),rgba(255,43,214,.15));border:1px solid var(--cyan);color:var(--cyan);font-family:'Share Tech Mono',monospace;font-size:.85rem;border-radius:4px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.submit-btn:hover{background:linear-gradient(135deg,rgba(0,232,255,.25),rgba(255,43,214,.25))}
+
+.hint{margin-top:.6rem;padding:.6rem .8rem;background:rgba(255,43,214,.06);border-left:3px solid var(--pink);font-size:.8rem;color:var(--pink);display:none;line-height:1.4}
+.hint.show{display:block}
+.result-msg{margin-top:.5rem;font-size:.85rem;min-height:1.2em}
+.result-msg.success{color:var(--green)}
+.result-msg.fail{color:#ff4444}
+
+.url-bar{display:flex;align-items:center;gap:.5rem;background:#060c18;border:1px solid var(--card-border);border-radius:4px;padding:.4rem .6rem;margin:.5rem 0}
+.url-bar span{color:var(--dim);font-size:.82rem}
+.url-bar input{flex:1;background:transparent;border:none;color:var(--cyan);font-family:'Share Tech Mono',monospace;font-size:.82rem;outline:none}
+
+.wordlist{display:flex;flex-wrap:wrap;gap:.4rem;margin:.5rem 0}
+.wordlist .word{padding:.3rem .7rem;border:1px solid var(--card-border);border-radius:4px;cursor:pointer;font-size:.82rem;transition:all .2s}
+.wordlist .word:hover{border-color:var(--pink);color:var(--pink)}
+.wordlist .word.selected{border-color:var(--green);color:var(--green);background:rgba(0,255,156,.06)}
+
+.dir-browser{margin:.5rem 0}
+.dir-path{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.dir-path input{flex:1;padding:.4rem .6rem;background:#060c18;border:1px solid var(--card-border);border-radius:4px;color:var(--text);font-family:'Share Tech Mono',monospace;font-size:.82rem;outline:none}
+.dir-listing div{padding:.2rem .4rem;cursor:pointer;color:var(--cyan);font-size:.85rem}
+.dir-listing div:hover{background:rgba(0,232,255,.06)}
+.dir-listing div.file-item{color:var(--text)}
+
+.timeline-events{margin:.5rem 0}
+.timeline-events .event{display:flex;align-items:center;gap:.5rem;padding:.4rem .6rem;margin:.2rem 0;background:#080e1a;border:1px solid var(--card-border);border-radius:4px;cursor:grab;font-size:.8rem;user-select:none}
+.timeline-events .event.dragging{opacity:.4}
+.timeline-events .event .evt-handle{color:var(--dim);font-size:1rem}
+.timeline-events .event .evt-time{color:var(--cyan);min-width:6rem}
+</style>
+</head>
+<body>
+<a href="/CyberWorld/" class="back-link">&larr; Back to CyberWorld</a>
+
+<header>
+<h1>CTF TRAIL</h1>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+<div class="progress-text" id="progressText">0 / 12 challenges solved</div>
+</header>
+
+<div class="tabs" id="tabs"></div>
+<div class="challenges" id="challenges"></div>
+
+<script>
+const STORAGE_KEY='cw.ctf.v1';
+const CATEGORIES=['RECON','CRYPTO','WEB','FORENSICS'];
+const CHALLENGES=[
+{id:1,cat:'RECON',title:'Hidden Comment',flag:'FLAG{html_comments_leak_secrets}',hint:'Look carefully at the HTML source code. Comments start with &lt;!--',briefing:'A developer left sensitive information in the page source. Can you find the hidden flag?'},
+{id:2,cat:'RECON',title:'Robot Exclusion',flag:'FLAG{robots_txt_is_not_security}',hint:'Try clicking on each disallowed path. One of them hides something interesting.',briefing:'The robots.txt file tells search engines what not to index. But should you trust it for security?'},
+{id:3,cat:'RECON',title:'Header Hunter',flag:'FLAG{check_your_headers}',hint:'Examine the HTTP response headers carefully. Look for any non-standard header names.',briefing:'HTTP response headers can leak sensitive information. Inspect the server response below.'},
+{id:4,cat:'CRYPTO',title:'Caesar Shift',flag:'FLAG{rot13_is_not_encryption}',hint:'ROT13 shifts each letter by 13 positions. A becomes N, B becomes O, etc. Apply it to the ciphertext.',briefing:'An intercepted message appears to be encoded with a classic Caesar cipher variant. Decode the message to recover the flag.'},
+{id:5,cat:'CRYPTO',title:'Base64 Basics',flag:'FLAG{base64_is_encoding_not_encryption}',hint:'Base64 is encoding, not encryption. Try an online Base64 decoder or use atob() in the browser console.',briefing:'This data was found encoded in transit. Identify the encoding scheme and decode it.'},
+{id:6,cat:'CRYPTO',title:'Hash Match',flag:'FLAG{weak_passwords_crack_fast}',hint:'Try each word in the list. The hash matches one of the most common passwords in the world.',briefing:'A password hash was recovered from a breached database. Match it against the wordlist to find the original password, then submit the flag.'},
+{id:7,cat:'WEB',title:'Cookie Monster',flag:'FLAG{never_trust_client_cookies}',hint:'One cookie value looks like Base64. Try decoding the "admin_token" cookie.',briefing:'A web application stores session data in browser cookies. Examine them for sensitive information.'},
+{id:8,cat:'WEB',title:'Parameter Tampering',flag:'FLAG{validate_on_the_server}',hint:'Edit the URL parameter "price" directly. What happens if you change the value to 0?',briefing:'An online store passes the item price as a URL parameter. Can you exploit this poor design?'},
+{id:9,cat:'WEB',title:'Directory Traversal',flag:'FLAG{sanitize_file_paths}',hint:'Try navigating up with "../" to escape the web root. Look for /etc/flag.txt.',briefing:'A file server lets you browse directories. But does it properly restrict which paths you can access?'},
+{id:10,cat:'FORENSICS',title:'Log Sleuth',flag:'FLAG{anomalous_logins_need_review}',hint:'Look for a successful login that stands out — unusual time, unusual IP, preceded by failures.',briefing:'Analyze the authentication logs below. One login event is anomalous and indicates a likely breach.'},
+{id:11,cat:'FORENSICS',title:'Metadata Miner',flag:'FLAG{metadata_reveals_secrets}',hint:'The Author field looks encoded. It appears to be Base64 — try decoding it.',briefing:'Files carry hidden metadata. Examine the document properties below for concealed information.'},
+{id:12,cat:'FORENSICS',title:'Timeline Puzzle',flag:'FLAG{forensic_timelines_matter}',hint:'Sort events by date/time. Then read the first letter of each event description in chronological order.',briefing:'Reconstruct the timeline of a cyber incident. Order the events chronologically, and the first letters of each event (in order) spell the flag keyword.'}
+];
+
+let state = loadState();
+
+function loadState(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {solved:{},fails:{}} }catch(e){ return {solved:{},fails:{}} } }
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)) }
+function isSolved(id){ return !!state.solved[id] }
+function getFails(id){ return state.fails[id] || 0 }
+function isUnlocked(ch){
+  const catChallenges = CHALLENGES.filter(c => c.cat === ch.cat);
+  const idx = catChallenges.indexOf(ch);
+  if(idx === 0) return true;
+  return isSolved(catChallenges[idx - 1].id);
+}
+
+function updateProgress(){
+  const solved = Object.keys(state.solved).length;
+  document.getElementById('progressFill').style.width = (solved / 12 * 100) + '%';
+  document.getElementById('progressText').textContent = solved + ' / 12 challenges solved';
+  document.querySelectorAll('.tab').forEach(t => {
+    const cat = t.dataset.cat;
+    const catChs = CHALLENGES.filter(c => c.cat === cat);
+    const catSolved = catChs.filter(c => isSolved(c.id)).length;
+    let badge = t.querySelector('.tab-progress');
+    if(catSolved > 0){
+      if(!badge){ badge = document.createElement('span'); badge.className = 'tab-progress'; t.appendChild(badge) }
+      badge.textContent = catSolved;
+    } else if(badge){ badge.remove() }
+  });
+}
+
+function renderTabs(){
+  const tabs = document.getElementById('tabs');
+  CATEGORIES.forEach((cat, i) => {
+    const t = document.createElement('div');
+    t.className = 'tab' + (i === 0 ? ' active' : '');
+    t.dataset.cat = cat;
+    t.textContent = cat;
+    t.onclick = () => {
+      document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+      t.classList.add('active');
+      renderChallenges(cat);
+    };
+    tabs.appendChild(t);
+  });
+}
+
+function renderChallenges(cat){
+  const cont = document.getElementById('challenges');
+  cont.innerHTML = '';
+  CHALLENGES.filter(c => c.cat === cat).forEach(ch => {
+    const card = document.createElement('div');
+    const solved = isSolved(ch.id);
+    const unlocked = isUnlocked(ch);
+    card.className = 'challenge-card' + (solved ? ' solved' : '') + (unlocked ? '' : ' locked');
+    card.innerHTML = `
+      <div class="challenge-header" onclick="toggleBody(${ch.id})">
+        <div class="ch-left"><span class="ch-num">#${String(ch.id).padStart(2,'0')}</span><span class="ch-title">${ch.title}</span></div>
+        <span class="ch-status">${solved ? '✓' : unlocked ? '▶' : '🔒'}</span>
+      </div>
+      <div class="challenge-body" id="body-${ch.id}">
+        <div class="briefing">${ch.briefing}</div>
+        <div id="interactive-${ch.id}"></div>
+        ${solved ? '<div class="result-msg success">✓ Solved! Flag: ' + ch.flag + '</div>' : `
+        <div class="flag-input-row">
+          <input class="flag-input" id="input-${ch.id}" placeholder="FLAG{...}" onkeydown="if(event.key==='Enter')submitFlag(${ch.id})">
+          <button class="submit-btn" onclick="submitFlag(${ch.id})">SUBMIT</button>
+        </div>
+        <div class="result-msg" id="result-${ch.id}"></div>
+        <div class="hint" id="hint-${ch.id}" ${getFails(ch.id) >= 2 ? 'style="display:block"' : ''}>${ch.hint}</div>`}
+      </div>`;
+    cont.appendChild(card);
+    buildInteractive(ch);
+  });
+}
+
+function toggleBody(id){
+  const body = document.getElementById('body-' + id);
+  if(body) body.classList.toggle('open');
+}
+
+function submitFlag(id){
+  const ch = CHALLENGES.find(c => c.id === id);
+  const input = document.getElementById('input-' + id);
+  const result = document.getElementById('result-' + id);
+  const val = input.value.trim();
+  if(val === ch.flag){
+    state.solved[id] = true;
+    saveState();
+    input.classList.add('correct');
+    input.disabled = true;
+    result.className = 'result-msg success';
+    result.textContent = 'Correct! Challenge solved.';
+    updateProgress();
+    setTimeout(() => renderChallenges(ch.cat), 800);
+  } else {
+    state.fails[id] = (state.fails[id] || 0) + 1;
+    saveState();
+    input.classList.add('wrong');
+    setTimeout(() => input.classList.remove('wrong'), 300);
+    result.className = 'result-msg fail';
+    result.textContent = 'Incorrect. Try again.';
+    if(state.fails[id] >= 2){
+      const hint = document.getElementById('hint-' + id);
+      if(hint) hint.style.display = 'block';
+    }
+  }
+}
+
+function buildInteractive(ch){
+  const el = document.getElementById('interactive-' + ch.id);
+  if(!el) return;
+  switch(ch.id){
+    case 1: buildHiddenComment(el); break;
+    case 2: buildRobots(el); break;
+    case 3: buildHeaders(el); break;
+    case 4: buildCaesar(el); break;
+    case 5: buildBase64(el); break;
+    case 6: buildHash(el); break;
+    case 7: buildCookie(el); break;
+    case 8: buildParam(el); break;
+    case 9: buildDirTraversal(el); break;
+    case 10: buildLogs(el); break;
+    case 11: buildMetadata(el); break;
+    case 12: buildTimeline(el); break;
+  }
+}
+
+/* ===== CHALLENGE BUILDERS ===== */
+
+function buildHiddenComment(el){
+  el.innerHTML = `<button class="btn" onclick="document.getElementById('src1').style.display='block';this.style.display='none'">View Source</button>
+<div class="interactive" id="src1" style="display:none"><span class="hl-key">&lt;!DOCTYPE html&gt;</span>
+<span class="hl-key">&lt;html&gt;</span>
+<span class="hl-key">&lt;head&gt;</span>
+  <span class="hl-key">&lt;title&gt;</span>Welcome Page<span class="hl-key">&lt;/title&gt;</span>
+<span class="hl-key">&lt;/head&gt;</span>
+<span class="hl-key">&lt;body&gt;</span>
+  <span class="hl-key">&lt;h1&gt;</span>Welcome to our secure portal<span class="hl-key">&lt;/h1&gt;</span>
+  <span class="hl-key">&lt;p&gt;</span>Please log in to continue.<span class="hl-key">&lt;/p&gt;</span>
+  <span class="hl-comment">&lt;!-- TODO: remove before production --&gt;</span>
+  <span class="hl-comment">&lt;!-- Debug flag: FLAG{html_comments_leak_secrets} --&gt;</span>
+  <span class="hl-comment">&lt;!-- End debug section --&gt;</span>
+  <span class="hl-key">&lt;script </span>src="app.js"<span class="hl-key">&gt;&lt;/script&gt;</span>
+<span class="hl-key">&lt;/body&gt;</span>
+<span class="hl-key">&lt;/html&gt;</span></div>`;
+}
+
+function buildRobots(el){
+  el.innerHTML = `<div class="interactive"><span class="hl-comment"># robots.txt for shop.example.com</span>
+<span class="hl-comment"># Last updated: 2026-05-20</span>
+
+User-agent: *
+Disallow: /admin/
+Disallow: /config/
+Disallow: <span class="hl-link" onclick="showRobotPath('/backup/')">/backup/</span>
+Disallow: <span class="hl-link" onclick="showRobotPath('/.secret-flags/')">/.<span></span>secret-flags/</span>
+Disallow: <span class="hl-link" onclick="showRobotPath('/tmp/')">/tmp/</span>
+Disallow: <span class="hl-link" onclick="showRobotPath('/logs/')">/logs/</span>
+
+Sitemap: https://shop.example.com/sitemap.xml</div>
+<div id="robot-result" class="interactive" style="display:none"></div>`;
+}
+function showRobotPath(path){
+  const res = document.getElementById('robot-result');
+  res.style.display = 'block';
+  if(path === '/.secret-flags/'){
+    res.innerHTML = '<span class="hl-key">GET ' + path + '</span> → <span class="hl-val">200 OK</span>\n\nIndex of /.secret-flags/\n\n  <span class="hl-val">flag.txt</span>  -  Contents: <span class="hl-flag">FLAG{robots_txt_is_not_security}</span>';
+  } else {
+    res.innerHTML = '<span class="hl-key">GET ' + path + '</span> → <span class="hl-warn">403 Forbidden</span>\n\nAccess denied.';
+  }
+}
+
+function buildHeaders(el){
+  el.innerHTML = `<div class="interactive"><span class="hl-val">HTTP/1.1 200 OK</span>
+<span class="hl-key">Date:</span> Sun, 08 Jun 2026 14:22:01 GMT
+<span class="hl-key">Server:</span> Apache/2.4.52 (Ubuntu)
+<span class="hl-key">Content-Type:</span> text/html; charset=UTF-8
+<span class="hl-key">X-Powered-By:</span> PHP/8.1.2
+<span class="hl-key">X-Frame-Options:</span> SAMEORIGIN
+<span class="hl-key">Cache-Control:</span> no-cache, private
+<span class="hl-key">X-Request-ID:</span> a3f8c912-4b7e-4d1a-9f2c
+<span class="hl-key">X-Secret-Flag:</span> <span class="hl-flag">FLAG{check_your_headers}</span>
+<span class="hl-key">Content-Length:</span> 3847
+<span class="hl-key">Connection:</span> keep-alive</div>`;
+}
+
+function buildCaesar(el){
+  el.innerHTML = `<div class="interactive"><span class="hl-key">INTERCEPTED TRANSMISSION:</span>
+
+<span class="hl-flag">SYNT{ebg13_vf_abg_rapelcgvba}</span>
+
+<span class="hl-comment">// Intelligence suggests this uses ROT13 encoding</span>
+<span class="hl-comment">// Each letter is shifted 13 positions in the alphabet</span></div>
+<button class="btn" onclick="document.getElementById('rot13tool').style.display='block';this.style.display='none'" style="margin-top:.5rem">Open ROT13 Decoder</button>
+<div id="rot13tool" style="display:none;margin-top:.5rem">
+  <input class="flag-input" id="rot13in" placeholder="Paste ciphertext here..." oninput="doRot13()" style="margin-bottom:.4rem;width:100%">
+  <div class="interactive" id="rot13out" style="min-height:1.5em;padding:.5rem .8rem">Decoded output will appear here...</div>
+</div>`;
+}
+function doRot13(){
+  const v = document.getElementById('rot13in').value;
+  document.getElementById('rot13out').textContent = v.replace(/[a-zA-Z]/g, c => {
+    const base = c <= 'Z' ? 65 : 97;
+    return String.fromCharCode((c.charCodeAt(0) - base + 13) % 26 + base);
+  });
+}
+
+function buildBase64(el){
+  el.innerHTML = `<div class="interactive"><span class="hl-key">ENCODED DATA RECOVERED FROM NETWORK CAPTURE:</span>
+
+<span class="hl-flag">RkxBR3tiYXNlNjRfaXNfZW5jb2Rpbmdfbm90X2VuY3J5cHRpb259</span>
+
+<span class="hl-comment">// The encoding scheme uses characters: A-Z, a-z, 0-9, +, /</span>
+<span class="hl-comment">// Strings are often padded with = characters</span>
+<span class="hl-comment">// This is NOT encryption — it is reversible without a key</span></div>
+<button class="btn" onclick="document.getElementById('b64tool').style.display='block';this.style.display='none'" style="margin-top:.5rem">Open Decoder</button>
+<div id="b64tool" style="display:none;margin-top:.5rem">
+  <input class="flag-input" id="b64in" placeholder="Paste encoded text..." style="width:100%;margin-bottom:.4rem">
+  <button class="btn" onclick="doB64()">Decode</button>
+  <div class="interactive" id="b64out" style="min-height:1.5em;padding:.5rem .8rem;margin-top:.4rem">Decoded output will appear here...</div>
+</div>`;
+}
+function doB64(){
+  try{ document.getElementById('b64out').textContent = atob(document.getElementById('b64in').value.trim()) }
+  catch(e){ document.getElementById('b64out').textContent = 'Error: Invalid Base64 input' }
+}
+
+function buildHash(el){
+  const words = ['password','admin','letmein','123456','qwerty','dragon','master','welcome'];
+  el.innerHTML = `<div class="interactive"><span class="hl-key">RECOVERED PASSWORD HASH (MD5):</span>
+
+<span class="hl-flag">5f4dcc3b5aa765d61d8327deb882cf99</span>
+
+<span class="hl-comment">// Crack this hash using the wordlist below</span>
+<span class="hl-comment">// Select the word that matches, then submit the flag</span></div>
+<p style="font-size:.82rem;color:var(--dim);margin:.5rem 0">Click each word to test it against the hash:</p>
+<div class="wordlist" id="wordlist">${words.map(w => '<div class="word" onclick="selectWord(this,\'' + w + '\')">' + w + '</div>').join('')}</div>
+<div id="hash-result" class="result-msg" style="margin:.5rem 0"></div>`;
+}
+function selectWord(el, word){
+  document.querySelectorAll('#wordlist .word').forEach(w => w.classList.remove('selected'));
+  el.classList.add('selected');
+  const res = document.getElementById('hash-result');
+  if(word === 'password'){
+    res.className = 'result-msg success';
+    res.textContent = 'Match! "password" → 5f4dcc3b5aa765d61d8327deb882cf99. Now submit FLAG{weak_passwords_crack_fast}';
+  } else {
+    res.className = 'result-msg fail';
+    res.textContent = '"' + word + '" hash does not match. Try another word.';
+  }
+}
+
+function buildCookie(el){
+  el.innerHTML = `<div class="interactive"><span class="hl-key">Browser Cookies for shop.example.com:</span>
+
+<span class="hl-key">session_id</span> = <span class="hl-val">a8f3e91b2c4d5067</span>
+<span class="hl-key">theme</span>      = <span class="hl-val">dark</span>
+<span class="hl-key">lang</span>       = <span class="hl-val">en-US</span>
+<span class="hl-key">admin_token</span>= <span class="hl-flag">RkxBR3tuZXZlcl90cnVzdF9jbGllbnRfY29va2llc30=</span>
+<span class="hl-key">cart_items</span> = <span class="hl-val">3</span>
+<span class="hl-key">tracking</span>   = <span class="hl-val">utm_source=google</span></div>
+<button class="btn" onclick="document.getElementById('b64tool2').style.display='block';this.style.display='none'" style="margin-top:.5rem">Open Base64 Decoder</button>
+<div id="b64tool2" style="display:none;margin-top:.5rem">
+  <input class="flag-input" id="b64in2" placeholder="Paste cookie value..." style="width:100%;margin-bottom:.4rem">
+  <button class="btn" onclick="doB64_2()">Decode</button>
+  <div class="interactive" id="b64out2" style="min-height:1.5em;padding:.5rem .8rem;margin-top:.4rem">Decoded output will appear here...</div>
+</div>`;
+}
+function doB64_2(){
+  try{ document.getElementById('b64out2').textContent = atob(document.getElementById('b64in2').value.trim()) }
+  catch(e){ document.getElementById('b64out2').textContent = 'Error: Invalid Base64 input' }
+}
+
+function buildParam(el){
+  el.innerHTML = `<div class="interactive"><span class="hl-key">Online Store — Checkout Page</span>
+
+Item: CyberWidget Pro
+Quantity: 1
+Price: $10.00</div>
+<div class="url-bar">
+  <span>GET</span>
+  <input id="param-url" value="https://shop.example.com/checkout?item=cyberwidget&qty=1&price=10" onkeydown="if(event.key==='Enter')checkParam()">
+  <button class="btn" onclick="checkParam()" style="padding:.2rem .6rem">GO</button>
+</div>
+<div class="interactive" id="param-result"><span class="hl-comment">Modify the URL parameters and press GO to submit the request.</span></div>`;
+}
+function checkParam(){
+  const url = document.getElementById('param-url').value;
+  const res = document.getElementById('param-result');
+  const match = url.match(/price=(-?\d+)/);
+  if(match && match[1] === '0'){
+    res.innerHTML = '<span class="hl-val">HTTP 200 OK</span>\n\nOrder confirmed!\nItem: CyberWidget Pro\nPrice: $0.00\n\n<span class="hl-flag">FLAG{validate_on_the_server}</span>\n\n<span class="hl-warn">Warning: The server accepted a client-supplied price without validation!</span>';
+  } else if(match){
+    res.innerHTML = '<span class="hl-val">HTTP 200 OK</span>\n\nOrder summary:\nItem: CyberWidget Pro\nPrice: $' + match[1] + '.00\n\n<span class="hl-comment">The price comes from the URL. What if you changed it?</span>';
+  } else {
+    res.innerHTML = '<span class="hl-warn">HTTP 400 Bad Request</span>\n\nMissing required parameter: price';
+  }
+}
+
+function buildDirTraversal(el){
+  const fs = {
+    '/':{type:'dir',children:{
+      'var':{type:'dir',children:{
+        'www':{type:'dir',children:{
+          'html':{type:'dir',children:{
+            'index.html':{type:'file',content:'<h1>Welcome to our website</h1>'},
+            'about.html':{type:'file',content:'<h1>About Us</h1><p>We are a tech company.</p>'},
+            'css':{type:'dir',children:{
+              'style.css':{type:'file',content:'body { margin: 0; }'}
+            }},
+            'images':{type:'dir',children:{
+              'logo.png':{type:'file',content:'[PNG binary data - 24KB]'},
+              'banner.jpg':{type:'file',content:'[JPEG binary data - 156KB]'}
+            }}
+          }}
+        }}
+      }},
+      'etc':{type:'dir',children:{
+        'passwd':{type:'file',content:'root:x:0:0:root:/root:/bin/bash\nwww-data:x:33:33:www-data:/var/www:/usr/sbin/nologin'},
+        'flag.txt':{type:'file',content:'FLAG{sanitize_file_paths}'},
+        'hosts':{type:'file',content:'127.0.0.1 localhost\n::1 localhost'},
+        'shadow':{type:'file',content:'[Permission Denied]'}
+      }}
+    }}
+  };
+
+  let cwd = '/var/www/html';
+
+  el.innerHTML = `<div class="dir-browser">
+    <div class="dir-path">
+      <span style="color:var(--green)">Path:</span>
+      <input id="dir-path-input" value="${cwd}" onkeydown="if(event.key==='Enter')navDir()">
+      <button class="btn" onclick="navDir()" style="padding:.2rem .6rem">GO</button>
+    </div>
+    <div class="interactive" id="dir-listing"></div>
+  </div>`;
+
+  function resolve(path){
+    const parts = [];
+    path.split('/').forEach(p => {
+      if(p === '..') parts.pop();
+      else if(p && p !== '.') parts.push(p);
+    });
+    let node = fs['/'];
+    for(const p of parts){
+      if(!node || node.type !== 'dir' || !node.children[p]) return null;
+      node = node.children[p];
+    }
+    return { node, path: '/' + parts.join('/') };
+  }
+
+  function showDir(){
+    const listing = document.getElementById('dir-listing');
+    const r = resolve(cwd);
+    if(!r || !r.node){
+      listing.innerHTML = '<span class="hl-warn">Error: Path not found</span>';
+      return;
+    }
+    if(r.node.type === 'file'){
+      listing.innerHTML = '<span class="hl-key">Contents of ' + r.path + ':</span>\n\n<span class="hl-flag">' + r.node.content + '</span>';
+      return;
+    }
+    let html = '<span class="hl-key">Index of ' + r.path + '/</span>\n\n<div class="dir-listing">';
+    html += '<div onclick="window._cdTo(\'..\')">📁 ../</div>';
+    for(const [name, item] of Object.entries(r.node.children)){
+      if(item.type === 'dir'){
+        html += '<div onclick="window._cdTo(\'' + name + '\')">📁 ' + name + '/</div>';
+      } else {
+        html += '<div class="file-item" onclick="window._cdTo(\'' + name + '\')">📄 ' + name + '</div>';
+      }
+    }
+    html += '</div>';
+    listing.innerHTML = html;
+  }
+
+  window._cdTo = function(name){
+    if(name === '..'){
+      const parts = cwd.split('/');
+      parts.pop();
+      cwd = parts.join('/') || '/';
+    } else {
+      cwd = cwd === '/' ? '/' + name : cwd + '/' + name;
+    }
+    document.getElementById('dir-path-input').value = cwd;
+    showDir();
+  };
+
+  window.navDir = function(){
+    cwd = document.getElementById('dir-path-input').value.trim();
+    showDir();
+  };
+
+  showDir();
+}
+
+function buildLogs(el){
+  const logs = [
+    {time:'2026-06-07 08:15:22',ip:'192.168.1.10 ',user:'jsmith ',action:'LOGIN_SUCCESS ',note:''},
+    {time:'2026-06-07 09:03:44',ip:'192.168.1.15 ',user:'admin  ',action:'LOGIN_SUCCESS ',note:''},
+    {time:'2026-06-07 10:22:11',ip:'192.168.1.10 ',user:'jsmith ',action:'FILE_ACCESS   ',note:'report.pdf'},
+    {time:'2026-06-07 11:45:33',ip:'192.168.1.22 ',user:'mgarcia',action:'LOGIN_SUCCESS ',note:''},
+    {time:'2026-06-07 14:08:55',ip:'192.168.1.15 ',user:'admin  ',action:'CONFIG_CHANGE ',note:'Updated firewall rules'},
+    {time:'2026-06-07 16:30:02',ip:'192.168.1.10 ',user:'jsmith ',action:'LOGOUT        ',note:''},
+    {time:'2026-06-07 17:00:14',ip:'192.168.1.22 ',user:'mgarcia',action:'LOGOUT        ',note:''},
+    {time:'2026-06-07 23:45:01',ip:'45.33.32.156 ',user:'admin  ',action:'LOGIN_FAILED  ',note:'Invalid password'},
+    {time:'2026-06-07 23:45:18',ip:'45.33.32.156 ',user:'admin  ',action:'LOGIN_FAILED  ',note:'Invalid password'},
+    {time:'2026-06-07 23:45:34',ip:'45.33.32.156 ',user:'admin  ',action:'LOGIN_FAILED  ',note:'Invalid password'},
+    {time:'2026-06-07 23:45:51',ip:'45.33.32.156 ',user:'admin  ',action:'LOGIN_FAILED  ',note:'Invalid password'},
+    {time:'2026-06-07 23:46:08',ip:'45.33.32.156 ',user:'admin  ',action:'LOGIN_FAILED  ',note:'Invalid password'},
+    {time:'2026-06-08 03:14:27',ip:'45.33.32.156 ',user:'admin  ',action:'LOGIN_SUCCESS ',note:'** AFTER 5 FAILED ATTEMPTS **'},
+    {time:'2026-06-08 03:15:02',ip:'45.33.32.156 ',user:'admin  ',action:'FILE_ACCESS   ',note:'customer_db.sql'},
+    {time:'2026-06-08 03:22:48',ip:'45.33.32.156 ',user:'admin  ',action:'LOGOUT        ',note:''},
+  ];
+  let html = '<div class="interactive" style="font-size:.72rem;line-height:1.9">';
+  html += '<span class="hl-key">TIMESTAMP            IP              USER     ACTION          DETAILS</span>\n';
+  html += '<span class="hl-key">' + '─'.repeat(88) + '</span>\n';
+  logs.forEach(l => {
+    const isFail = l.action.includes('FAILED');
+    const isAnomaly = l.time === '2026-06-08 03:14:27';
+    let cls = isFail ? 'hl-warn' : isAnomaly ? 'hl-flag' : '';
+    html += '<span' + (cls ? ' class="' + cls + '"' : '') + '>' + l.time + '  ' + l.ip + ' ' + l.user + ' ' + l.action + ' ' + l.note + '</span>\n';
+  });
+  html += '</div>';
+  html += '<p style="font-size:.8rem;color:var(--dim);margin-top:.5rem">Analyze the logs. Identify the anomalous event and submit the flag.</p>';
+  el.innerHTML = html;
+}
+
+function buildMetadata(el){
+  el.innerHTML = `<div class="interactive"><span class="hl-key">FILE METADATA — confidential_report.docx</span>
+<span class="hl-key">${'─'.repeat(50)}</span>
+<span class="hl-key">Filename:</span>      <span class="hl-val">confidential_report.docx</span>
+<span class="hl-key">File Size:</span>     <span class="hl-val">2.4 MB</span>
+<span class="hl-key">Created:</span>       <span class="hl-val">2026-05-15 09:30:00 UTC</span>
+<span class="hl-key">Modified:</span>      <span class="hl-val">2026-06-01 14:22:17 UTC</span>
+<span class="hl-key">Author:</span>        <span class="hl-flag">RkxBR3ttZXRhZGF0YV9yZXZlYWxzX3NlY3JldHN9</span>
+<span class="hl-key">Company:</span>       <span class="hl-val">ACME Corp</span>
+<span class="hl-key">Last Saved By:</span> <span class="hl-val">jdoe</span>
+<span class="hl-key">Revision:</span>      <span class="hl-val">12</span>
+<span class="hl-key">Application:</span>   <span class="hl-val">Microsoft Word 16.0</span>
+<span class="hl-key">Content-Type:</span>  <span class="hl-val">application/vnd.openxmlformats-officedocument</span></div>
+<button class="btn" onclick="document.getElementById('b64tool3').style.display='block';this.style.display='none'" style="margin-top:.5rem">Open Base64 Decoder</button>
+<div id="b64tool3" style="display:none;margin-top:.5rem">
+  <input class="flag-input" id="b64in3" placeholder="Paste encoded value..." style="width:100%;margin-bottom:.4rem">
+  <button class="btn" onclick="doB64_3()">Decode</button>
+  <div class="interactive" id="b64out3" style="min-height:1.5em;padding:.5rem .8rem;margin-top:.4rem">Decoded output will appear here...</div>
+</div>`;
+}
+function doB64_3(){
+  try{ document.getElementById('b64out3').textContent = atob(document.getElementById('b64in3').value.trim()) }
+  catch(e){ document.getElementById('b64out3').textContent = 'Error: Invalid Base64 input' }
+}
+
+function buildTimeline(el){
+  // Correct chronological order spells "forensic" from first letters:
+  // F(02:10), O(03:15), R(04:20), E(05:10), N(06:00), S(07:15), I(08:30), C(09:45)
+  const events = [
+    {id:'F',time:'2026-06-01 02:10',desc:'First brute-force attempts detected on SSH'},
+    {id:'O',time:'2026-06-01 03:15',desc:'Outbound recon scan from compromised host'},
+    {id:'R',time:'2026-06-01 04:20',desc:'Rogue user account "svc_backup" created'},
+    {id:'E',time:'2026-06-01 05:10',desc:'Escalation to root via kernel exploit'},
+    {id:'N',time:'2026-06-01 06:00',desc:'Network firewall rules modified silently'},
+    {id:'S',time:'2026-06-01 07:15',desc:'Staging of sensitive files in /tmp'},
+    {id:'I',time:'2026-06-01 08:30',desc:'Internal traffic spike on port 443'},
+    {id:'C',time:'2026-06-01 09:45',desc:'Confirmed exfiltration of customer database'},
+  ];
+
+  // Shuffle for display
+  const shuffled = [...events].sort(() => Math.random() - 0.5);
+  let currentOrder = [...shuffled];
+
+  el.innerHTML = `<p style="font-size:.82rem;color:var(--dim);margin:.5rem 0">Drag and drop (or use arrows) to reorder events chronologically. The first letter of each event description, read top to bottom, spells the flag keyword.</p>
+<div class="timeline-events" id="timeline-list"></div>
+<button class="btn" onclick="checkTimeline()" style="margin-top:.5rem">Check Order</button>
+<div id="timeline-result" class="result-msg" style="margin-top:.5rem"></div>
+<p style="font-size:.78rem;color:var(--dim);margin-top:.5rem">Flag format: FLAG{keyword_timelines_matter}</p>`;
+
+  function renderList(){
+    const list = document.getElementById('timeline-list');
+    list.innerHTML = '';
+    currentOrder.forEach((ev, i) => {
+      const div = document.createElement('div');
+      div.className = 'event';
+      div.draggable = true;
+      div.dataset.idx = i;
+      div.innerHTML = '<span class="evt-handle">☰</span><span class="evt-time">' + ev.time + '</span><span>' + ev.desc + '</span><span style="margin-left:auto;display:flex;gap:2px"><button class="btn" style="padding:0 .4rem;font-size:.7rem" onclick="moveEvt(' + i + ',-1)">▲</button><button class="btn" style="padding:0 .4rem;font-size:.7rem" onclick="moveEvt(' + i + ',1)">▼</button></span>';
+
+      div.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', i);
+        div.classList.add('dragging');
+      });
+      div.addEventListener('dragend', () => div.classList.remove('dragging'));
+      div.addEventListener('dragover', e => e.preventDefault());
+      div.addEventListener('drop', e => {
+        e.preventDefault();
+        const from = parseInt(e.dataTransfer.getData('text/plain'));
+        const to = i;
+        if(from === to) return;
+        const [moved] = currentOrder.splice(from, 1);
+        currentOrder.splice(to, 0, moved);
+        renderList();
+      });
+      list.appendChild(div);
+    });
+  }
+
+  window.moveEvt = function(idx, dir){
+    const newIdx = idx + dir;
+    if(newIdx < 0 || newIdx >= currentOrder.length) return;
+    const [moved] = currentOrder.splice(idx, 1);
+    currentOrder.splice(newIdx, 0, moved);
+    renderList();
+  };
+
+  window.checkTimeline = function(){
+    const letters = currentOrder.map(e => e.id).join('');
+    const res = document.getElementById('timeline-result');
+    if(letters === 'FORENSIC'){
+      res.className = 'result-msg success';
+      res.textContent = 'Correct! The keyword is "forensic". Submit: FLAG{forensic_timelines_matter}';
+    } else {
+      res.className = 'result-msg fail';
+      res.textContent = 'Current first letters: "' + letters.toLowerCase() + '" — Not quite right. Sort by timestamp.';
+    }
+  };
+
+  renderList();
+}
+
+/* ===== INIT ===== */
+renderTabs();
+renderChallenges('RECON');
+updateProgress();
+</script>
+</body>
+</html>
