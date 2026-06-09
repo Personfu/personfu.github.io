@@ -1457,4 +1457,229 @@
     },
     missions: function () { return MISSIONS.slice(); }
   };
+
+  // ========== UX LAYER: loading sequence, settings, pause, audio (Epic 8) ==========
+  var SETTINGS_KEY = 'cw.settings.v1';
+  var settings = (function () {
+    try {
+      var raw = localStorage.getItem(SETTINGS_KEY);
+      if (raw) return JSON.parse(raw);
+    } catch (e) {}
+    return { audio: true, reduceMotion: false, particles: 'high', firstRun: true };
+  })();
+  function saveSettings() {
+    try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch (e) {}
+  }
+
+  // Procedural Web Audio — no external assets, all synthesized
+  var audioCtx = null;
+  function ensureAudio() {
+    if (audioCtx || !settings.audio) return audioCtx;
+    try {
+      var Ctor = window.AudioContext || window.webkitAudioContext;
+      if (Ctor) audioCtx = new Ctor();
+    } catch (e) { audioCtx = null; }
+    return audioCtx;
+  }
+  function tone(freq, dur, type, gain) {
+    if (!settings.audio) return;
+    var ctx = ensureAudio();
+    if (!ctx) return;
+    try {
+      var t0 = ctx.currentTime;
+      var osc = ctx.createOscillator();
+      var g = ctx.createGain();
+      osc.type = type || 'square';
+      osc.frequency.setValueAtTime(freq, t0);
+      g.gain.setValueAtTime(0, t0);
+      g.gain.linearRampToValueAtTime((gain != null ? gain : 0.06), t0 + 0.01);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + (dur || 0.12));
+      osc.connect(g); g.connect(ctx.destination);
+      osc.start(t0);
+      osc.stop(t0 + (dur || 0.12) + 0.02);
+    } catch (e) {}
+  }
+  window.cwAudio = {
+    click: function () { tone(660, 0.05, 'square', 0.04); },
+    confirm: function () { tone(880, 0.08, 'triangle', 0.05); tone(1320, 0.06, 'triangle', 0.04); },
+    hit: function () { tone(140, 0.08, 'sawtooth', 0.07); },
+    win: function () { tone(523, 0.10, 'triangle', 0.06); setTimeout(function () { tone(784, 0.14, 'triangle', 0.06); }, 90); },
+    error: function () { tone(160, 0.20, 'square', 0.07); },
+    mute: function () { settings.audio = !settings.audio; saveSettings(); return settings.audio; },
+    isMuted: function () { return !settings.audio; }
+  };
+  // Click sound on console buttons (delegated)
+  document.addEventListener('click', function (ev) {
+    if (!settings.audio) return;
+    var t = ev.target;
+    if (!t || !t.closest) return;
+    if (t.closest('.cw-gp-root') || t.closest('.cw-pause-root') || t.closest('.cw-gp-fab')) {
+      if (t.matches('button, [role="button"], .cw-gp-tab, .cw-gp-act')) window.cwAudio.click();
+    }
+  }, true);
+
+  // Loading sequence — shown until canvas appears or 5s timeout
+  function mountLoader() {
+    if (document.querySelector('.cw-loader')) return;
+    if (window.location.pathname.indexOf('/CyberWorld') !== 0 && window.location.pathname !== '/') {
+      // Only on the CyberWorld game page
+      return;
+    }
+    var el = document.createElement('div');
+    el.className = 'cw-loader';
+    el.innerHTML =
+      '<div class="cw-loader-inner">' +
+        '<div class="cw-loader-logo">CYBERWORLD</div>' +
+        '<div class="cw-loader-bar"><div class="cw-loader-bar-fill"></div></div>' +
+        '<div class="cw-loader-msg">Booting Phaser runtime…</div>' +
+      '</div>';
+    document.body.appendChild(el);
+    var msgs = [
+      'Booting Phaser runtime…',
+      'Initializing scenes…',
+      'Synchronizing operative profile…',
+      'Connecting to mainframe…',
+      'Calibrating sensors…'
+    ];
+    var msgIdx = 0;
+    var msgEl = el.querySelector('.cw-loader-msg');
+    var msgTimer = setInterval(function () {
+      msgIdx = (msgIdx + 1) % msgs.length;
+      if (msgEl) msgEl.textContent = msgs[msgIdx];
+    }, 700);
+    var t0 = Date.now();
+    var watchdog = setInterval(function () {
+      var hasCanvas = !!document.querySelector('canvas');
+      var elapsed = Date.now() - t0;
+      if (hasCanvas || elapsed > 5000) {
+        clearInterval(watchdog);
+        clearInterval(msgTimer);
+        el.classList.add('done');
+        setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 600);
+      }
+    }, 200);
+  }
+
+  // Pause menu — opens on Escape when console is closed
+  var pauseOpen = false;
+  function mountPause() {
+    if (document.querySelector('.cw-pause-root')) return;
+    var root = document.createElement('div');
+    root.className = 'cw-pause-root';
+    root.setAttribute('role', 'dialog');
+    root.setAttribute('aria-label', 'Pause Menu');
+    root.setAttribute('aria-hidden', 'true');
+    root.innerHTML =
+      '<div class="cw-pause-panel">' +
+        '<h2>PAUSED</h2>' +
+        '<button type="button" data-act="resume">RESUME</button>' +
+        '<button type="button" data-act="console">OPERATIVE CONSOLE</button>' +
+        '<button type="button" data-act="settings">SETTINGS</button>' +
+        '<button type="button" data-act="quit">RETURN TO DESKTOP</button>' +
+      '</div>';
+    document.body.appendChild(root);
+    root.addEventListener('click', function (ev) {
+      if (ev.target === root) { setPause(false); return; }
+      var act = ev.target.getAttribute && ev.target.getAttribute('data-act');
+      if (!act) return;
+      if (act === 'resume') setPause(false);
+      else if (act === 'console') { setPause(false); if (window.__cwGameplay) window.__cwGameplay.open(); }
+      else if (act === 'settings') openSettings();
+      else if (act === 'quit') { window.location.href = '/'; }
+    });
+  }
+  function setPause(on) {
+    mountPause();
+    var root = document.querySelector('.cw-pause-root');
+    if (!root) return;
+    pauseOpen = !!on;
+    root.classList.toggle('open', pauseOpen);
+    root.setAttribute('aria-hidden', pauseOpen ? 'false' : 'true');
+    // Pause Phaser if available
+    try {
+      var canvas = document.querySelector('canvas');
+      if (canvas && canvas.__phaserGame && canvas.__phaserGame.scene) {
+        // best-effort: don't crash if game shape differs
+        var sm = canvas.__phaserGame.scene;
+        if (sm && sm.scenes) {
+          sm.scenes.forEach(function (sc) {
+            try { if (pauseOpen) sc.scene.pause(); else sc.scene.resume(); } catch (e) {}
+          });
+        }
+      }
+    } catch (e) {}
+  }
+
+  // Settings panel — modal layered above pause
+  function openSettings() {
+    var existing = document.querySelector('.cw-settings-root');
+    if (existing) { existing.classList.add('open'); return; }
+    var root = document.createElement('div');
+    root.className = 'cw-settings-root open';
+    root.setAttribute('role', 'dialog');
+    root.setAttribute('aria-label', 'Settings');
+    root.innerHTML =
+      '<div class="cw-settings-panel">' +
+        '<h2>SETTINGS</h2>' +
+        '<label class="cw-set-row"><span>Audio</span><input type="checkbox" data-set="audio"' + (settings.audio ? ' checked' : '') + '></label>' +
+        '<label class="cw-set-row"><span>Reduce motion</span><input type="checkbox" data-set="reduceMotion"' + (settings.reduceMotion ? ' checked' : '') + '></label>' +
+        '<label class="cw-set-row"><span>Particle quality</span>' +
+          '<select data-set="particles">' +
+            '<option value="low"' + (settings.particles === 'low' ? ' selected' : '') + '>Low</option>' +
+            '<option value="medium"' + (settings.particles === 'medium' ? ' selected' : '') + '>Medium</option>' +
+            '<option value="high"' + (settings.particles === 'high' ? ' selected' : '') + '>High</option>' +
+          '</select>' +
+        '</label>' +
+        '<div class="cw-set-actions">' +
+          '<button type="button" data-act="close">CLOSE</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(root);
+    root.addEventListener('change', function (ev) {
+      var key = ev.target.getAttribute && ev.target.getAttribute('data-set');
+      if (!key) return;
+      if (ev.target.type === 'checkbox') settings[key] = ev.target.checked;
+      else settings[key] = ev.target.value;
+      saveSettings();
+      // Apply motion preference live
+      document.documentElement.classList.toggle('cw-reduce-motion', !!settings.reduceMotion);
+    });
+    root.addEventListener('click', function (ev) {
+      if (ev.target === root) { root.classList.remove('open'); return; }
+      if (ev.target.getAttribute && ev.target.getAttribute('data-act') === 'close') {
+        root.classList.remove('open');
+      }
+    });
+    document.documentElement.classList.toggle('cw-reduce-motion', !!settings.reduceMotion);
+  }
+  // Apply motion preference on load
+  document.documentElement.classList.toggle('cw-reduce-motion', !!settings.reduceMotion);
+
+  // Escape key: close settings → close pause → open pause (only if console isn't open)
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key !== 'Escape') return;
+    if (ev.target && /input|textarea|select/i.test(ev.target.tagName)) return;
+    var settingsEl = document.querySelector('.cw-settings-root.open');
+    if (settingsEl) { ev.preventDefault(); settingsEl.classList.remove('open'); return; }
+    var consoleOpen = document.querySelector('.cw-gp-root.open');
+    if (consoleOpen) return; // existing handler will close it
+    ev.preventDefault();
+    setPause(!pauseOpen);
+  });
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'p' || ev.key === 'P') {
+      if (ev.target && /input|textarea|select/i.test(ev.target.tagName)) return;
+      ev.preventDefault();
+      setPause(!pauseOpen);
+    }
+  });
+
+  // Boot loader once DOM is ready
+  if (document.body) mountLoader();
+  else document.addEventListener('DOMContentLoaded', mountLoader, { once: true });
+
+  // Public API additions
+  window.__cwGameplay.pause = function () { setPause(true); };
+  window.__cwGameplay.resume = function () { setPause(false); };
+  window.__cwGameplay.settings = openSettings;
 })();

@@ -727,3 +727,104 @@
 	.cw-gp-foot { font-size: 10px; gap: 8px; }
 	.pf-actions { flex-direction: column; }
 }
+
+/* ===== Loading sequence ===== */
+.cw-loader {
+	position: fixed; inset: 0; z-index: 99998;
+	background: radial-gradient(ellipse at center, #0a1828 0%, #02070d 70%);
+	display: flex; align-items: center; justify-content: center;
+	font-family: 'Share Tech Mono', monospace; color: #00e8ff;
+	transition: opacity .55s ease;
+}
+.cw-loader.done { opacity: 0; pointer-events: none; }
+.cw-loader-inner { text-align: center; max-width: 460px; padding: 0 24px; }
+.cw-loader-logo {
+	font-family: 'VT323', monospace; font-size: 48px; letter-spacing: 8px;
+	color: #00ff9c; margin-bottom: 24px;
+	text-shadow: 0 0 18px rgba(0, 255, 156, .55);
+	animation: cwLoaderPulse 1.4s ease-in-out infinite;
+}
+.cw-loader-bar {
+	height: 6px; background: #06101a; border: 1px solid #00e8ff44; border-radius: 3px;
+	overflow: hidden; margin-bottom: 16px;
+}
+.cw-loader-bar-fill {
+	height: 100%; width: 0;
+	background: linear-gradient(90deg, #00e8ff, #00ff9c);
+	animation: cwLoaderFill 4.5s ease-out forwards;
+}
+.cw-loader-msg { font-size: 12px; letter-spacing: 2px; color: #6fdfff; }
+@keyframes cwLoaderPulse {
+	0%, 100% { opacity: 1; transform: scale(1); }
+	50% { opacity: .65; transform: scale(.985); }
+}
+@keyframes cwLoaderFill {
+	0% { width: 0; } 100% { width: 100%; }
+}
+.cw-reduce-motion .cw-loader-logo { animation: none; }
+.cw-reduce-motion .cw-loader-bar-fill { animation-duration: 0.1s; }
+
+/* ===== Pause menu ===== */
+.cw-pause-root {
+	position: fixed; inset: 0; z-index: 99997;
+	display: none; align-items: center; justify-content: center;
+	background: rgba(2, 7, 13, .75); backdrop-filter: blur(4px);
+	font-family: 'Share Tech Mono', monospace;
+}
+.cw-pause-root.open { display: flex; }
+.cw-pause-panel {
+	background: #0a0a12; border: 1px solid #00ff9c; border-radius: 12px;
+	padding: 28px 36px; min-width: 280px; text-align: center;
+	box-shadow: 0 0 32px rgba(0, 255, 156, .25);
+}
+.cw-pause-panel h2 {
+	font-family: 'VT323', monospace; color: #00ff9c; font-size: 32px;
+	letter-spacing: 6px; margin: 0 0 18px;
+}
+.cw-pause-panel button {
+	display: block; width: 100%; padding: 10px 14px; margin: 6px 0;
+	background: #06101a; color: #00e8ff; border: 1px solid #00e8ff66;
+	font-family: inherit; font-size: 13px; letter-spacing: 2px;
+	cursor: pointer; border-radius: 6px;
+	transition: background .15s, border-color .15s, color .15s;
+}
+.cw-pause-panel button:hover, .cw-pause-panel button:focus-visible {
+	background: #0a1828; border-color: #00ff9c; color: #00ff9c; outline: none;
+}
+
+/* ===== Settings panel ===== */
+.cw-settings-root {
+	position: fixed; inset: 0; z-index: 99999;
+	display: none; align-items: center; justify-content: center;
+	background: rgba(2, 7, 13, .8);
+	font-family: 'Share Tech Mono', monospace;
+}
+.cw-settings-root.open { display: flex; }
+.cw-settings-panel {
+	background: #0a0a12; border: 1px solid #00e8ff; border-radius: 12px;
+	padding: 24px 28px; min-width: 320px; max-width: 92vw;
+	box-shadow: 0 0 28px rgba(0, 232, 255, .2);
+}
+.cw-settings-panel h2 {
+	font-family: 'VT323', monospace; color: #00e8ff; font-size: 28px;
+	letter-spacing: 4px; margin: 0 0 16px;
+}
+.cw-set-row {
+	display: flex; justify-content: space-between; align-items: center;
+	padding: 8px 0; border-bottom: 1px solid #00e8ff22; color: #dffbff;
+	font-size: 13px; letter-spacing: 1px;
+}
+.cw-set-row select, .cw-set-row input[type="checkbox"] {
+	background: #06101a; color: #00e8ff; border: 1px solid #00e8ff66;
+	font-family: inherit; padding: 4px 8px;
+}
+.cw-set-actions { margin-top: 16px; text-align: right; }
+.cw-set-actions button {
+	background: #06101a; color: #00e8ff; border: 1px solid #00e8ff66;
+	padding: 8px 16px; font-family: inherit; letter-spacing: 2px; cursor: pointer;
+	border-radius: 6px;
+}
+.cw-set-actions button:hover { background: #0a1828; border-color: #00ff9c; color: #00ff9c; }
+
+/* Reduce-motion: suppress non-essential animations across overlay */
+.cw-reduce-motion * { animation-duration: .001ms !important; transition-duration: .001ms !important; }
