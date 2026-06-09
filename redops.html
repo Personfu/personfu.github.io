@@ -1,1 +1,349 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>redops - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REDOPS ARENA // SCOPED SIMULATOR</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#02070d;color:#00e8ff;font-family:'Share Tech Mono',monospace;min-height:100vh;overflow-x:hidden}
+a{color:#00e8ff;text-decoration:none}
+.back{position:fixed;top:16px;left:16px;z-index:100;font-family:'VT323',monospace;font-size:20px;padding:6px 14px;border:1px solid #00e8ff;background:rgba(0,232,255,.08);transition:.3s}
+.back:hover{background:#00e8ff;color:#02070d}
+h1{font-family:'VT323',monospace;font-size:48px;text-align:center;padding:30px 0 6px;text-shadow:0 0 20px #00e8ff}
+.sub{text-align:center;color:#ff2bd6;font-family:'VT323',monospace;font-size:22px;margin-bottom:20px}
+.sbar{text-align:center;font-family:'VT323',monospace;font-size:20px;color:#00ff9c;margin-bottom:10px}
+.ctr{max-width:980px;margin:0 auto;padding:0 20px 60px}
+.nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+.nb{font-family:'VT323',monospace;font-size:18px;padding:8px 16px;background:rgba(0,232,255,.06);border:1px solid #00e8ff33;color:#00e8ff55;cursor:not-allowed;transition:.3s}
+.nb.u{border-color:#00e8ff;color:#00e8ff;cursor:pointer}.nb.a{background:#00e8ff;color:#02070d}
+.nb.d{border-color:#00ff9c;color:#00ff9c}.nb.d.a{background:#00ff9c;color:#02070d}
+.pnl{display:none;border:1px solid #00e8ff33;padding:20px;background:rgba(0,232,255,.03)}.pnl.v{display:block}
+.br{border-left:3px solid #ff2bd6;padding:10px 16px;margin-bottom:14px;color:#ff2bd6;font-size:14px;background:rgba(255,43,214,.05)}
+.roe{border:2px solid #f00;padding:10px 16px;margin-bottom:18px;color:#f00;font-size:13px;background:rgba(255,0,0,.05)}
+.row{font-size:13px;padding:8px 10px;border:1px solid transparent;margin:3px 0;cursor:pointer;transition:.2s;overflow-x:auto}
+.row:hover{border-color:#00e8ff55;background:rgba(0,232,255,.05)}
+.row.sel{border-color:#ff2bd6;background:rgba(255,43,214,.1)}
+.row.ok{border-color:#00ff9c;background:rgba(0,255,156,.1)}
+.row.bad{border-color:#f00;background:rgba(255,0,0,.1)}
+.btn{font-family:'VT323',monospace;font-size:22px;padding:10px 30px;background:transparent;border:2px solid #ff2bd6;color:#ff2bd6;cursor:pointer;margin-top:16px;transition:.3s;display:block;width:100%}
+.btn:hover{background:#ff2bd6;color:#02070d}
+.fb{margin-top:16px;padding:14px;border:1px solid #00ff9c;background:rgba(0,255,156,.05);display:none;font-size:13px;line-height:1.6}
+.fb.show{display:block}.fb.fail{border-color:#f00;background:rgba(255,0,0,.05)}
+.les{color:#00ff9c;margin-top:8px;font-style:italic}
+.opts{margin:10px 0}.opts label{display:block;padding:6px 10px;cursor:pointer;border:1px solid transparent;margin:3px 0;font-size:13px}
+.opts label:hover{border-color:#00e8ff33}.opts input{margin-right:8px}
+.hdr{color:#00e8ff88;font-size:12px;margin-bottom:6px;padding:4px}
+.term{background:#000;border:1px solid #00ff9c;padding:16px;font-family:'Share Tech Mono',monospace;font-size:13px;margin:10px 0;min-height:200px}
+.term .prompt{color:#00ff9c}.term .out{color:#00e8ff;white-space:pre-wrap;margin:4px 0}
+.cmd{display:inline-block;padding:4px 12px;margin:4px;border:1px solid #00ff9c;color:#00ff9c;cursor:pointer;font-size:13px;transition:.2s}
+.cmd:hover{background:#00ff9c;color:#02070d}
+.cmd.used{opacity:.5}
+.net-host{display:inline-block;width:120px;padding:10px;margin:8px;border:1px solid #00e8ff;text-align:center;font-size:12px;cursor:pointer;transition:.2s;vertical-align:top}
+.net-host:hover{border-color:#ff2bd6;background:rgba(255,43,214,.08)}
+.net-host.sel{border-color:#ff2bd6;background:rgba(255,43,214,.15)}
+.net-host.path{border-color:#00ff9c;background:rgba(0,255,156,.1)}
+.sev-row{border:1px solid #00e8ff33;padding:10px;margin:6px 0;font-size:13px}
+.sev-row select{background:#02070d;color:#00e8ff;border:1px solid #00e8ff;padding:4px;font-family:'Share Tech Mono',monospace;margin:4px}
+.scanline{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,232,255,.015) 2px,rgba(0,232,255,.015) 4px)}
+</style>
+</head>
+<body>
+<div class="scanline"></div>
+<a href="/CyberWorld/" class="back">&lt; BACK TO CYBERWORLD</a>
+<h1>REDOPS ARENA</h1>
+<div class="sub">// SCOPED SIMULATOR //</div>
+<div class="ctr">
+<div class="sbar">TOTAL SCORE: <span id="ts">0</span>/500</div>
+<div class="nav" id="nav"></div>
+<div id="panels"></div>
+</div>
+<script>
+const K='cw.redops.v1';
+let S=JSON.parse(localStorage.getItem(K)||'null')||{scores:[0,0,0,0,0],unlocked:1,done:[]};
+const sv=()=>localStorage.setItem(K,JSON.stringify(S));
+const tot=()=>document.getElementById('ts').textContent=S.scores.reduce((a,b)=>a+b,0);
+function mk(p,t){const r=document.createElement('div');r.className='row';r.textContent=t;p.appendChild(r);return r}
+function tog(s,i,r){if(s.has(i)){s.delete(i);r.classList.remove('sel')}else{s.add(i);r.classList.add('sel')}}
+function fbk(p,sc,msg,lesson){const f=p.querySelector('.fb');f.innerHTML=(sc>=60?'<span style="color:#00ff9c">':'<span style="color:#f00">')+`Score: ${sc}/100</span><br>${msg}<br><span class="les">LESSON: ${lesson}</span>`;f.className='fb show'+(sc>=60?'':' fail');p.locked=true}
+
+const SCEN=[
+// S1: EXTERNAL RECON
+{t:"S1: EXTERNAL RECON",b:"Classify these 10 domains as IN-SCOPE or OUT-OF-SCOPE based on the Rules of Engagement, then select appropriate recon techniques.",
+roe:"RULES OF ENGAGEMENT: Target organization is Acme Corp (acmecorp.com). Scope includes: *.acmecorp.com and 10.0.0.0/8 ranges. OUT OF SCOPE: third-party services, partner domains, any .gov domains.",
+build(p){
+const domains=[
+{d:'www.acmecorp.com',scope:true},
+{d:'mail.acmecorp.com',scope:true},
+{d:'vpn.acmecorp.com',scope:true},
+{d:'dev.acmecorp.com',scope:true},
+{d:'acmecorp.gov',scope:false},
+{d:'partner-portal.othercorp.com',scope:false},
+{d:'cdn.cloudflare.com (serves acmecorp assets)',scope:false},
+{d:'api.acmecorp.com',scope:true},
+{d:'hr.acmecorp.com',scope:true},
+{d:'login.microsoftonline.com (Acme SSO)',scope:false}
+];
+const d=p.querySelector('.data');
+d.innerHTML='<div class="hdr">Click to toggle IN-SCOPE (green) / OUT-OF-SCOPE (red)</div>';
+let choices={};
+domains.forEach((dm,i)=>{
+const r=document.createElement('div');r.className='row';r.textContent=`[${i}] ${dm.d}`;
+r.style.borderLeftWidth='4px';r.style.borderLeftStyle='solid';r.style.borderLeftColor='#555';
+choices[i]=null;
+r.onclick=()=>{
+if(p.locked)return;
+if(choices[i]===null||choices[i]===false){choices[i]=true;r.style.borderLeftColor='#00ff9c';r.textContent=`[${i}] IN-SCOPE  ${dm.d}`}
+else{choices[i]=false;r.style.borderLeftColor='#f00';r.textContent=`[${i}] OUT-SCOPE ${dm.d}`}
+};
+d.appendChild(r);
+});
+
+const techOpts=document.createElement('div');techOpts.className='opts';
+techOpts.innerHTML=`<p style="color:#ff2bd6;margin:12px 0 6px">Select appropriate passive recon techniques (check all that apply):</p>
+<label><input type="checkbox" name="s1t" value="whois"> WHOIS lookup on target domains</label>
+<label><input type="checkbox" name="s1t" value="dns"> DNS enumeration (subdomain brute-force)</label>
+<label><input type="checkbox" name="s1t" value="shodan"> Shodan/Censys search for target IPs</label>
+<label><input type="checkbox" name="s1t" value="portscan"> Active port scanning of all discovered hosts</label>
+<label><input type="checkbox" name="s1t" value="social"> Social engineering employees via phone</label>
+<label><input type="checkbox" name="s1t" value="osint"> OSINT - LinkedIn, GitHub, Pastebin searches</label>`;
+d.after(techOpts);
+return()=>{
+let scopeScore=0;let total=0;
+domains.forEach((dm,i)=>{if(choices[i]!==null){total++;if(choices[i]===dm.scope)scopeScore++}});
+if(total<10)return;
+const goodTech=['whois','dns','shodan','osint'];
+const techs=Array.from(p.querySelectorAll('input[name="s1t"]:checked')).map(x=>x.value);
+const tHits=goodTech.filter(x=>techs.includes(x)).length;
+const tFp=techs.filter(x=>!goodTech.includes(x)).length;
+let sc=Math.round((scopeScore/10)*60+(tHits/4)*40-tFp*15);
+sc=Math.max(0,Math.min(100,sc));S.scores[0]=sc;
+fbk(p,sc,`Scope: acmecorp.com subdomains are in-scope. .gov, third-party CDNs, partner domains, and SSO providers are out-of-scope regardless of association. Good passive recon: WHOIS, DNS enum, Shodan/Censys, OSINT. Active port scanning requires explicit authorization. Social engineering was not in scope.`,'Always respect scope boundaries. Scanning out-of-scope targets can have legal consequences. Passive recon (WHOIS, OSINT, certificate transparency) gathers intelligence without touching targets directly.');
+return sc;
+}}},
+
+// S2: WEB APP ASSESSMENT
+{t:"S2: WEB APP ASSESSMENT",b:"Six web pages have been discovered. Identify the vulnerability type and rate severity (Critical/High/Medium/Low) for each.",
+roe:"RULES OF ENGAGEMENT: Web application testing authorized on app.acmecorp.com. No denial-of-service. No data destruction. Report all findings immediately.",
+build(p){
+const vulns=[
+{page:'/search?q=<script>alert(1)</script>  -> Response reflects input unescaped',vuln:'XSS',sev:'High'},
+{page:'/api/users?id=1 OR 1=1--  -> Returns all user records',vuln:'SQLi',sev:'Critical'},
+{page:'/api/profile/1042  -> Changing ID to 1043 shows other user\'s data',vuln:'IDOR',sev:'High'},
+{page:'/transfer  -> No CSRF token, form submits state-changing action',vuln:'CSRF',sev:'Medium'},
+{page:'/debug/info  -> Exposes stack traces, DB connection strings, API keys',vuln:'Info Disclosure',sev:'High'},
+{page:'/api/internal?url=http://169.254.169.254/meta-data  -> Returns AWS metadata',vuln:'SSRF',sev:'Critical'}
+];
+const d=p.querySelector('.data');
+const vulnTypes=['XSS','SQLi','IDOR','CSRF','Info Disclosure','SSRF'];
+const sevTypes=['Critical','High','Medium','Low'];
+vulns.forEach((v,i)=>{
+const row=document.createElement('div');row.className='sev-row';
+row.innerHTML=`<div style="margin-bottom:6px">[PAGE ${i}] ${v.page}</div>
+<label>Vuln: <select name="vt${i}">${vulnTypes.map(t=>`<option value="${t}">${t}</option>`).join('')}</select></label>
+<label>Severity: <select name="vs${i}">${sevTypes.map(t=>`<option value="${t}">${t}</option>`).join('')}</select></label>`;
+d.appendChild(row);
+});
+return()=>{
+let sc=0;
+vulns.forEach((v,i)=>{
+const vt=p.querySelector(`select[name="vt${i}"]`).value;
+const vs=p.querySelector(`select[name="vs${i}"]`).value;
+if(vt===v.vuln)sc+=10;
+if(vs===v.sev)sc+=7;
+});
+sc=Math.min(100,Math.round(sc));S.scores[1]=sc;
+fbk(p,sc,`Correct mappings: Page 0=XSS/High, Page 1=SQLi/Critical (data breach risk), Page 2=IDOR/High, Page 3=CSRF/Medium, Page 4=Info Disclosure/High (exposes secrets), Page 5=SSRF/Critical (cloud metadata access = full compromise).`,'Severity ratings should consider business impact. SQLi and SSRF with cloud metadata access are Critical because they lead to full data compromise. XSS, IDOR, and info disclosure exposing secrets are High. CSRF is typically Medium unless it affects critical functions.');
+return sc;
+}}},
+
+// S3: PRIVILEGE ESCALATION
+{t:"S3: PRIVILEGE ESCALATION",b:"You have a shell as www-data. Use the available commands to find a privilege escalation path. Click commands to execute them in the terminal.",
+roe:"RULES OF ENGAGEMENT: Privilege escalation authorized on target host 10.0.0.5. Do not modify production data. Document all actions.",
+build(p){
+const d=p.querySelector('.data');
+const term=document.createElement('div');term.className='term';
+term.innerHTML='<div class="prompt">www-data@target:~$</div>';
+d.appendChild(term);
+
+const cmdDiv=document.createElement('div');cmdDiv.style.marginTop='10px';
+d.appendChild(cmdDiv);
+
+const cmds={
+'whoami':{out:'www-data',hint:false},
+'id':{out:'uid=33(www-data) gid=33(www-data) groups=33(www-data)',hint:false},
+'find / -writable -type f 2>/dev/null':{out:'/var/www/html/index.php\n/tmp/test.txt\n/etc/cron.d/backup-job',hint:true},
+'cat /etc/cron.d/backup-job':{out:'*/5 * * * * root /opt/scripts/backup.sh',hint:true},
+'sudo -l':{out:'Sorry, user www-data may not run sudo on target.',hint:false},
+'ps aux | grep root':{out:'root      1  0.0  /sbin/init\nroot    342  0.0  /usr/sbin/cron\nroot    501  0.0  /opt/scripts/backup.sh',hint:true},
+'ls -la /opt/scripts/backup.sh':{out:'-rwxrwxrwx 1 root root 245 Jun 01 backup.sh  (WORLD WRITABLE)',hint:true},
+'cat /opt/scripts/backup.sh':{out:'#!/bin/bash\ntar -czf /backup/site.tar.gz /var/www/html/\necho "Backup complete" >> /var/log/backup.log',hint:true}
+};
+
+let executed=[];let foundCron=false;let foundWritable=false;let editedScript=false;
+
+Object.keys(cmds).forEach(c=>{
+const btn=document.createElement('span');btn.className='cmd';btn.textContent=c;
+btn.onclick=()=>{
+if(p.locked)return;
+btn.classList.add('used');
+executed.push(c);
+const line=document.createElement('div');
+line.innerHTML=`<div class="prompt">www-data@target:~$ ${c}</div><div class="out">${cmds[c].out}</div>`;
+term.appendChild(line);term.scrollTop=term.scrollHeight;
+if(c.includes('find'))foundWritable=true;
+if(c.includes('cat /etc/cron'))foundCron=true;
+if(foundCron&&foundWritable&&!editedScript){
+const editBtn=document.createElement('span');editBtn.className='cmd';editBtn.style.borderColor='#ff2bd6';editBtn.style.color='#ff2bd6';
+editBtn.textContent='echo "cp /bin/bash /tmp/rootbash && chmod +s /tmp/rootbash" >> /opt/scripts/backup.sh';
+editBtn.onclick=()=>{
+if(p.locked)return;
+editedScript=true;editBtn.classList.add('used');
+const l2=document.createElement('div');
+l2.innerHTML=`<div class="prompt">www-data@target:~$ echo "cp /bin/bash /tmp/rootbash && chmod +s /tmp/rootbash" >> /opt/scripts/backup.sh</div><div class="out">[+] Payload appended to backup.sh\n[*] Waiting for cron execution (every 5 min)...\n[+] /tmp/rootbash created with SUID bit!\n[+] Executing /tmp/rootbash -p...</div><div class="prompt" style="color:#f00">root@target:~# whoami</div><div class="out" style="color:#f00">root</div><div style="color:#00ff9c;margin-top:8px">*** PRIVILEGE ESCALATION SUCCESSFUL ***</div>`;
+term.appendChild(l2);term.scrollTop=term.scrollHeight;
+};
+cmdDiv.appendChild(editBtn);
+}
+};
+cmdDiv.appendChild(btn);
+});
+
+return()=>{
+let sc=0;
+if(executed.includes('whoami')||executed.includes('id'))sc+=10;
+if(foundWritable)sc+=15;
+if(foundCron)sc+=15;
+if(executed.includes('ls -la /opt/scripts/backup.sh'))sc+=10;
+if(editedScript)sc+=50;
+sc=Math.min(100,sc);S.scores[2]=sc;
+fbk(p,sc,`Escalation path: find writable files -> discover /etc/cron.d/backup-job runs /opt/scripts/backup.sh as root every 5 min -> backup.sh is world-writable -> inject SUID bash payload -> wait for cron -> get root shell.`,'Writable cron jobs and scripts run by root are classic Linux privesc vectors. Always check: sudo -l, SUID binaries, writable cron jobs, writable PATH directories, and kernel exploits. Tools like LinPEAS automate this enumeration.');
+return sc;
+}}},
+
+// S4: LATERAL MOVEMENT
+{t:"S4: LATERAL MOVEMENT",b:"Plan a path from the compromised workstation to the Domain Controller. Click hosts in order and select the technique for each hop.",
+roe:"RULES OF ENGAGEMENT: Internal network testing authorized. Scope: 192.168.1.0/24. Do not disrupt production services. Avoid detection where possible.",
+build(p){
+const d=p.querySelector('.data');
+const hosts=[
+{name:'WS-SALES-01',ip:'192.168.1.10',desc:'Compromised workstation (you are here)',type:'start'},
+{name:'FILE-SVR',ip:'192.168.1.20',desc:'File server, SMB open, admin shares accessible',type:'mid'},
+{name:'DB-SVR',ip:'192.168.1.30',desc:'Database server, SQL Server running, no direct admin',type:'mid'},
+{name:'IT-ADMIN-WS',ip:'192.168.1.40',desc:'IT admin workstation, RDP enabled, cached domain admin creds',type:'mid'},
+{name:'PRINT-SVR',ip:'192.168.1.50',desc:'Print server, isolated VLAN, no route to DC',type:'dead'},
+{name:'DC-01',ip:'192.168.1.1',desc:'Domain Controller - FINAL TARGET',type:'target'}
+];
+const correctPath=[0,1,3,5];
+const techniques=['SMB/PsExec','RDP','WMI','Pass-the-Hash','SSH','SQL Injection'];
+
+let path=[];let techChoices={};
+const mapDiv=document.createElement('div');mapDiv.style.textAlign='center';mapDiv.style.margin='10px 0';
+
+hosts.forEach((h,i)=>{
+const box=document.createElement('div');box.className='net-host';
+if(i===0)box.classList.add('path');
+box.innerHTML=`<strong>${h.name}</strong><br><span style="font-size:11px;color:#00e8ff88">${h.ip}</span><br><span style="font-size:10px;color:#ff2bd6">${h.desc}</span>`;
+box.onclick=()=>{
+if(p.locked)return;
+if(i===0)return;
+if(path.includes(i)){path=path.filter(x=>x!==i);box.classList.remove('sel');delete techChoices[i];return}
+path.push(i);box.classList.add('sel');
+const tech=prompt('Select technique:\n1. SMB/PsExec\n2. RDP\n3. WMI\n4. Pass-the-Hash\n5. SSH\n6. SQL Injection');
+techChoices[i]=techniques[parseInt(tech)-1]||'Unknown';
+};
+mapDiv.appendChild(box);
+});
+d.appendChild(mapDiv);
+d.innerHTML+='<div style="font-size:12px;color:#00e8ff88;margin-top:8px">Click hosts in order to build your path. A prompt will ask for technique at each hop.</div>';
+
+return()=>{
+if(path.length<2)return;
+const fullPath=[0,...path];
+let sc=0;
+const isCorrectPath=JSON.stringify(fullPath)===JSON.stringify(correctPath);
+if(isCorrectPath)sc+=50;
+else if(fullPath[fullPath.length-1]===5)sc+=20;
+if(path.includes(4))sc-=20; // penalty for print server (dead end)
+if(techChoices[1]==='SMB/PsExec')sc+=15;
+if(techChoices[3]==='RDP'||techChoices[3]==='Pass-the-Hash')sc+=15;
+if(techChoices[5]==='Pass-the-Hash'||techChoices[5]==='SMB/PsExec')sc+=20;
+sc=Math.max(0,Math.min(100,sc));S.scores[3]=sc;
+const hostEls=p.querySelectorAll('.net-host');
+correctPath.forEach(i=>hostEls[i].classList.add('path'));
+if(path.includes(4))hostEls[4].classList.add('bad');
+fbk(p,sc,`Optimal path: WS-SALES-01 --(SMB/PsExec)--> FILE-SVR --(harvest creds)--> IT-ADMIN-WS (RDP, cached domain admin creds) --(Pass-the-Hash/PsExec)--> DC-01. PRINT-SVR is a dead end (isolated VLAN). DB-SVR has no direct admin path to DC.`,'Lateral movement requires understanding network topology and credential availability. Target hosts with cached admin credentials. Avoid dead ends (isolated VLANs). Common techniques: PsExec, RDP, WMI, Pass-the-Hash, DCOM.');
+return sc;
+}}},
+
+// S5: REPORT WRITING
+{t:"S5: REPORT WRITING",b:"Classify these 4 findings by severity, order them by risk, and select the correct remediation for each.",
+roe:"RULES OF ENGAGEMENT: All findings must be reported per the agreed format. Severity ratings follow CVSS v3.1 guidelines. Client expects actionable remediation advice.",
+build(p){
+const d=p.querySelector('.data');
+const findings=[
+{title:'SQL Injection in login form',desc:'The /api/login endpoint is vulnerable to SQL injection via the username parameter, allowing authentication bypass and full database access.',correctSev:'Critical',correctRem:'param'},
+{title:'Missing HTTP security headers',desc:'Application responses lack X-Frame-Options, X-Content-Type-Options, and Content-Security-Policy headers.',correctSev:'Low',correctRem:'headers'},
+{title:'Stored XSS in user profile',desc:'The profile bio field accepts and renders JavaScript, affecting all users who view the profile.',correctSev:'High',correctRem:'sanitize'},
+{title:'Default admin credentials',desc:'The application admin panel at /admin uses admin:admin credentials.',correctSev:'Critical',correctRem:'password'}
+];
+const sevOpts=['Critical','High','Medium','Low'];
+const remOpts=[
+{val:'param',label:'Use parameterized queries / prepared statements'},
+{val:'headers',label:'Configure web server to include security headers'},
+{val:'sanitize',label:'Implement input sanitization and output encoding'},
+{val:'password',label:'Enforce strong passwords and remove default credentials'},
+{val:'firewall',label:'Add a web application firewall'},
+{val:'encrypt',label:'Enable full disk encryption'}
+];
+
+findings.forEach((f,i)=>{
+const row=document.createElement('div');row.className='sev-row';
+row.innerHTML=`<div style="margin-bottom:6px;color:#ff2bd6"><strong>[FINDING ${i}] ${f.title}</strong></div>
+<div style="margin-bottom:8px;font-size:12px">${f.desc}</div>
+<label>Severity: <select name="fs${i}">${sevOpts.map(s=>`<option value="${s}">${s}</option>`).join('')}</select></label>
+<label>Remediation: <select name="fr${i}">${remOpts.map(r=>`<option value="${r.val}">${r.label}</option>`).join('')}</select></label>
+<label>Risk rank (1=highest): <select name="fo${i}">${[1,2,3,4].map(n=>`<option value="${n}">${n}</option>`).join('')}</select></label>`;
+d.appendChild(row);
+});
+
+return()=>{
+let sc=0;
+const correctOrder=[0,3,2,1]; // SQLi, default creds, XSS, headers -> by risk
+findings.forEach((f,i)=>{
+const sev=p.querySelector(`select[name="fs${i}"]`).value;
+const rem=p.querySelector(`select[name="fr${i}"]`).value;
+const ord=parseInt(p.querySelector(`select[name="fo${i}"]`).value);
+if(sev===f.correctSev)sc+=10;
+if(rem===f.correctRem)sc+=10;
+if(correctOrder[ord-1]===i)sc+=5;
+});
+sc=Math.min(100,sc);S.scores[4]=sc;
+fbk(p,sc,`Correct: Finding 0 (SQLi)=Critical, parameterized queries, rank 1. Finding 1 (Headers)=Low, configure headers, rank 4. Finding 2 (XSS)=High, input sanitization + output encoding, rank 3. Finding 3 (Default creds)=Critical, enforce strong passwords, rank 2. Risk order: SQLi > Default Creds > Stored XSS > Missing Headers.`,'Pentest reports should prioritize findings by business impact. Critical findings (SQLi, default admin creds) go first. Each finding needs: clear description, proof of concept, impact assessment, and actionable remediation. Use CVSS for consistent severity ratings.');
+return sc;
+}}},
+];
+
+const nav=document.getElementById('nav'),pnls=document.getElementById('panels');
+SCEN.forEach((s,i)=>{
+const btn=document.createElement('button');btn.className='nb';btn.textContent=`S${i+1}`;btn.id=`nb${i}`;
+btn.onclick=()=>show(i);nav.appendChild(btn);
+const p=document.createElement('div');p.className='pnl';p.id=`p${i}`;
+p.innerHTML=`<div class="br"><strong>${s.t}</strong><br>${s.b}</div>${s.roe?'<div class="roe">'+s.roe+'</div>':''}<div class="data"></div><button class="btn">[ SUBMIT ]</button><div class="fb"></div>`;
+pnls.appendChild(p);
+const fn=s.build(p);
+if(S.done.includes(i))p.locked=true;
+p.querySelector('.btn').onclick=()=>{
+if(p.locked)return;
+const sc=fn();if(sc===undefined)return;
+if(sc>=50&&!S.done.includes(i)){S.done.push(i);if(S.unlocked<=i+1)S.unlocked=i+2}
+sv();ui();
+};
+});
+function show(i){if(i>=S.unlocked)return;document.querySelectorAll('.pnl').forEach(p=>p.classList.remove('v'));document.querySelectorAll('.nb').forEach(b=>b.classList.remove('a'));document.getElementById(`p${i}`).classList.add('v');document.getElementById(`nb${i}`).classList.add('a')}
+function ui(){tot();document.querySelectorAll('.nb').forEach((b,i)=>{b.classList.toggle('u',i<S.unlocked);b.classList.toggle('d',S.done.includes(i))})}
+ui();show(0);
+</script>
+</body>
+</html>
