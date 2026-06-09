@@ -1,1 +1,192 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>intel - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Intel Desk — CyberWorld</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#02070d;--panel:#06101a;--cyan:#00e8ff;--mag:#ff2bd6;--green:#00ff9c;--amber:#ffb347;--red:#ff3366;--text:#dffbff;--dim:#5a7a8a}
+body{background:var(--bg);color:var(--text);font-family:'Share Tech Mono',monospace;min-height:100vh}
+a{color:var(--cyan)}
+.top{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-bottom:1px solid #00e8ff44}
+.top h1{font-family:'VT323',monospace;font-size:22px;color:var(--cyan);letter-spacing:3px}
+.top .prog{color:var(--amber);font-size:13px}
+.back{color:var(--cyan);text-decoration:none;font-size:13px}
+.wrap{display:flex;min-height:calc(100vh - 52px)}
+.side{width:220px;border-right:1px solid #00e8ff33;padding:10px;flex-shrink:0}
+.side button{display:block;width:100%;text-align:left;padding:8px 10px;margin-bottom:4px;background:transparent;border:1px solid #00e8ff33;border-radius:8px;color:var(--dim);font-family:inherit;font-size:12px;cursor:pointer;letter-spacing:1px}
+.side button.available{color:var(--text);border-color:var(--cyan)}
+.side button.done{color:var(--green);border-color:#00ff9c66}
+.side button.active{background:#00e8ff1a;border-color:var(--cyan);color:var(--cyan)}
+.main{flex:1;padding:20px;max-width:800px}
+h2{font-family:'VT323',monospace;color:var(--mag);font-size:20px;letter-spacing:2px;margin-bottom:8px}
+.brief{color:var(--dim);font-size:13px;line-height:1.5;margin-bottom:16px}
+.row{padding:10px;margin-bottom:6px;background:var(--panel);border:1px solid #00e8ff33;border-radius:8px;font-size:13px}
+.row:hover{border-color:var(--cyan)}
+select{background:var(--bg);color:var(--cyan);border:1px solid #00e8ff66;border-radius:4px;padding:2px 4px;font-family:inherit;font-size:12px}
+.btn{padding:10px 22px;background:linear-gradient(180deg,#00e8ff33,#00e8ff10);border:1px solid var(--cyan);color:var(--cyan);border-radius:8px;font-family:inherit;font-size:13px;letter-spacing:2px;cursor:pointer;margin-top:14px}
+.btn:hover{background:var(--cyan);color:var(--bg)}
+.feedback{margin-top:14px;padding:12px;border:1px solid var(--green);border-radius:8px;background:#00ff9c0d;color:var(--green);font-size:13px;line-height:1.5;display:none}
+.feedback.wrong{border-color:var(--red);color:var(--red);background:#ff33660d}
+.mc{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.mc button{padding:6px 12px;background:var(--panel);border:1px solid #00e8ff44;border-radius:6px;color:var(--text);font-family:inherit;font-size:12px;cursor:pointer}
+.mc button:hover{border-color:var(--cyan)}
+.mc button.picked{border-color:var(--mag);background:#ff2bd61a;color:var(--mag)}
+@media(max-width:700px){.wrap{flex-direction:column}.side{width:100%;display:flex;overflow-x:auto;border-right:0;border-bottom:1px solid #00e8ff33}.side button{white-space:nowrap}}
+</style></head><body>
+<div class="top">
+ <div><a class="back" href="/CyberWorld/">← CYBERWORLD</a></div>
+ <h1>INTEL DESK // ANALYST TABLE</h1>
+ <div class="prog" id="prog">0 / 5</div>
+</div>
+<div class="wrap">
+ <nav class="side" id="side"></nav>
+ <section class="main" id="main"></section>
+</div>
+<script>
+(function(){
+'use strict';
+var KEY='cw.intel.v1',save=JSON.parse(localStorage.getItem(KEY)||'{}');
+function persist(){localStorage.setItem(KEY,JSON.stringify(save))}
+var EXERCISES=[
+{id:'source',title:'SOURCE GRADING',brief:'Rate each intelligence source on the NATO Admiralty Scale. Reliability (A=Completely Reliable … F=Cannot Be Judged). Credibility (1=Confirmed … 6=Cannot Be Judged).',
+ sources:[
+  {name:'CISA Critical Infrastructure Advisory',desc:'Official US government cybersecurity advisory with technical indicators.',rA:'A',cA:'1'},
+  {name:'Anonymous Pastebin Dump',desc:'Unverified data dump claiming stolen credentials from a major corporation.',rA:'E',cA:'5'},
+  {name:'CrowdStrike Blog Post',desc:'Vendor analysis of a new malware family with IOCs and YARA rules.',rA:'B',cA:'2'},
+  {name:'Twitter/X Rumor',desc:'Unverified claim by anonymous account about a zero-day exploit being sold.',rA:'D',cA:'4'},
+  {name:'IEEE Research Paper',desc:'Peer-reviewed paper on novel side-channel attacks against AES implementations.',rA:'A',cA:'2'},
+  {name:'Dark Web Forum Post',desc:'Threat actor advertising RDP access to a compromised Fortune 500 network.',rA:'E',cA:'4'}]},
+{id:'profile',title:'THREAT PROFILING',brief:'Analyze 4 reports about fictional threat actor COBALT LYNX and classify their characteristics.',
+ reports:[
+  {text:'Spearphishing emails with macro-enabled docs targeting telecom engineers. Payloads call back to C2 in Eastern Europe.',q:'Initial access technique?',opts:['Phishing','Drive-by Compromise','Supply Chain','Valid Accounts'],ans:0},
+  {text:'Custom backdoor "SilentPipe" uses DNS tunneling for C2. Persists via scheduled tasks. Stages encrypted archives before exfil.',q:'Primary C2 channel?',opts:['HTTP beaconing','DNS tunneling','Social media dead drops','ICMP tunneling'],ans:1},
+  {text:'Targets: 3 major telecom providers across NATO countries. No financial theft. Focus on call records and network diagrams.',q:'Likely motivation?',opts:['Financial gain','Espionage','Hacktivism','Destruction'],ans:1},
+  {text:'Zero-day exploits observed. Custom tooling. 18+ month sustained operations with careful OPSEC. Multiple coordinated teams.',q:'Sophistication?',opts:['Script Kiddie','Cybercriminal','Advanced Group','Nation-State APT'],ans:3}]},
+{id:'ioc',title:'INDICATOR TRIAGE',brief:'Classify each indicator of compromise as Malicious or Benign using the context provided.',
+ indicators:[
+  {val:'198.51.100.47',ctx:'IP on known bulletproof hosting. Seen in 3 malware sandbox reports.',ans:'malicious',typ:'C2 Server'},
+  {val:'evil-update.com',ctx:'Registered 2 days ago. Nameservers match known phishing infrastructure.',ans:'malicious',typ:'Phishing Domain'},
+  {val:'a1b2c3d4e5f67890abcdef',ctx:'SHA256 hash matching Emotet variant — 58/72 VT detections.',ans:'malicious',typ:'Malware Hash'},
+  {val:'192.0.2.1',ctx:'RFC 5737 documentation range. Not routable on the internet.',ans:'benign',typ:'Documentation IP'},
+  {val:'login-secure-verify.net',ctx:'Mimics bank login page. Free Let\'s Encrypt cert, registered yesterday.',ans:'malicious',typ:'Credential Harvester'},
+  {val:'8.8.8.8',ctx:'Google Public DNS. Present in virtually all network traffic.',ans:'benign',typ:'Public DNS'},
+  {val:'svchost-update.exe',ctx:'Mimics Windows system process name. Found in %TEMP%. No valid signature.',ans:'malicious',typ:'Masquerading Malware'},
+  {val:'203.0.113.50',ctx:'RFC 5737 documentation range used as placeholder in log examples.',ans:'benign',typ:'Documentation IP'}]},
+{id:'diamond',title:'DIAMOND MODEL',brief:'Assign each evidence item to the correct Diamond Model quadrant: Adversary, Infrastructure, Capability, or Victim.',
+ items:[
+  {text:'COBALT LYNX threat group, attributed by 2 vendors',ans:'adversary'},
+  {text:'DNS tunneling C2 via ns1.evil-dns.test',ans:'infrastructure'},
+  {text:'Custom "SilentPipe" backdoor with encrypted exfil',ans:'capability'},
+  {text:'MegaTelecom Inc. — 50k employee telecom provider',ans:'victim'},
+  {text:'Spearphishing with macro-enabled document dropper',ans:'capability'},
+  {text:'VPS cluster at 198.51.100.0/24 bulletproof provider',ans:'infrastructure'},
+  {text:'Exfiltrated call detail records and network diagrams',ans:'victim'},
+  {text:'Nation-state sponsor with geopolitical telecom interest',ans:'adversary'}]},
+{id:'collect',title:'COLLECTION PLAN',brief:'Your org is targeted by COBALT LYNX. Select the 3 most relevant Priority Intelligence Requirements from 6 options.',
+ pirs:[
+  {text:'What initial access vectors is COBALT LYNX currently using?',best:true},
+  {text:'What is the current price of Bitcoin?',best:false},
+  {text:'Which of our assets are most likely targeted based on their TTPs?',best:true},
+  {text:'What are the latest movie releases?',best:false},
+  {text:'Are there indicators of COBALT LYNX reconnaissance against our infra?',best:true},
+  {text:'What is next week\'s weather forecast?',best:false}]}
+];
+var cur=0,answers={};
+function unlocked(i){return i===0||save['ex'+EXERCISES[i-1].id]}
+function render(){
+ var side=document.getElementById('side'),done=0;side.innerHTML='';
+ EXERCISES.forEach(function(ex,i){
+  if(save['ex'+ex.id])done++;
+  var b=document.createElement('button');
+  b.textContent=(i+1)+'. '+ex.title;
+  b.className=save['ex'+ex.id]?'done':unlocked(i)?'available':'';
+  if(i===cur)b.classList.add('active');
+  if(unlocked(i))b.onclick=function(){cur=i;answers={};render()};
+  side.appendChild(b);
+ });
+ document.getElementById('prog').textContent=done+' / '+EXERCISES.length;
+ renderEx();
+}
+function renderEx(){
+ var m=document.getElementById('main'),ex=EXERCISES[cur];
+ if(!unlocked(cur)){m.innerHTML='<p style="color:var(--dim)">Complete the previous exercise first.</p>';return}
+ var h='<h2>'+ex.title+'</h2><p class="brief">'+ex.brief+'</p>';
+ if(ex.id==='source'){
+  ex.sources.forEach(function(s,i){
+   h+='<div class="row"><strong>'+s.name+'</strong><br><span style="color:var(--dim)">'+s.desc+'</span><br style="margin-top:6px">'
+   +'Reliability: <select id="r'+i+'">';'ABCDEF'.split('').forEach(function(l){h+='<option>'+l+'</option>'});
+   h+='</select> Credibility: <select id="c'+i+'">';'123456'.split('').forEach(function(n){h+='<option>'+n+'</option>'});
+   h+='</select></div>';});
+  h+='<button class="btn" id="sub">SUBMIT</button><div class="feedback" id="fb"></div>';
+  m.innerHTML=h;
+  document.getElementById('sub').onclick=function(){
+   var sc=0;ex.sources.forEach(function(s,i){
+    if(document.getElementById('r'+i).value===s.rA)sc++;
+    if(document.getElementById('c'+i).value===s.cA)sc++;});
+   var pct=Math.round(100*sc/12),fb=document.getElementById('fb');
+   fb.style.display='block';fb.className='feedback'+(pct>=50?'':' wrong');
+   fb.innerHTML='Score: '+pct+'%<br><br>'+ex.sources.map(function(s){return s.name+': '+s.rA+s.cA}).join('<br>')
+    +'<br><br>The Admiralty Scale standardizes how analysts communicate source quality. Reliability grades the source historically; credibility grades this specific information.';
+   save['ex'+ex.id]=pct;persist();render();};
+ } else if(ex.id==='profile'){
+  ex.reports.forEach(function(r,i){
+   h+='<div class="row"><p>'+r.text+'</p><p style="color:var(--cyan);margin-top:6px">'+r.q+'</p><div class="mc" id="mc'+i+'">';
+   r.opts.forEach(function(o,j){h+='<button data-i="'+i+'" data-j="'+j+'">'+o+'</button>'});h+='</div></div>';});
+  h+='<button class="btn" id="sub">SUBMIT</button><div class="feedback" id="fb"></div>';m.innerHTML=h;
+  m.querySelectorAll('.mc button').forEach(function(b){b.onclick=function(){
+   b.parentElement.querySelectorAll('button').forEach(function(x){x.classList.remove('picked')});
+   b.classList.add('picked');answers['q'+b.dataset.i]=+b.dataset.j;};});
+  document.getElementById('sub').onclick=function(){
+   var sc=0;ex.reports.forEach(function(r,i){if(answers['q'+i]===r.ans)sc++});
+   var pct=Math.round(100*sc/4),fb=document.getElementById('fb');fb.style.display='block';
+   fb.className='feedback'+(pct>=75?'':' wrong');
+   fb.innerHTML='Score: '+pct+'% — COBALT LYNX: phishing initial access, DNS tunneling C2, espionage motivation, nation-state APT sophistication.';
+   save['ex'+ex.id]=pct;persist();render();};
+ } else if(ex.id==='ioc'){
+  ex.indicators.forEach(function(ind,i){
+   h+='<div class="row"><code style="color:var(--cyan)">'+ind.val+'</code><br><span style="color:var(--dim)">'+ind.ctx+'</span>'
+    +'<div class="mc"><button data-i="'+i+'" data-v="malicious">MALICIOUS</button><button data-i="'+i+'" data-v="benign">BENIGN</button></div></div>';});
+  h+='<button class="btn" id="sub">SUBMIT</button><div class="feedback" id="fb"></div>';m.innerHTML=h;
+  m.querySelectorAll('.mc button').forEach(function(b){b.onclick=function(){
+   b.parentElement.querySelectorAll('button').forEach(function(x){x.classList.remove('picked')});
+   b.classList.add('picked');answers['ioc'+b.dataset.i]=b.dataset.v;};});
+  document.getElementById('sub').onclick=function(){
+   var sc=0;ex.indicators.forEach(function(ind,i){if(answers['ioc'+i]===ind.ans)sc++});
+   var pct=Math.round(100*sc/8),fb=document.getElementById('fb');fb.style.display='block';
+   fb.className='feedback'+(pct>=60?'':' wrong');
+   fb.innerHTML='Score: '+pct+'%<br><br>'+ex.indicators.map(function(ind){return '<code>'+ind.val+'</code> → '+ind.ans.toUpperCase()+' ('+ind.typ+')'}).join('<br>')
+    +'<br><br>Context is everything in IOC triage: hosting reputation, registration age, VT detections, and behavioral patterns inform classification.';
+   save['ex'+ex.id]=pct;persist();render();};
+ } else if(ex.id==='diamond'){
+  var quads=['adversary','infrastructure','capability','victim'];
+  ex.items.forEach(function(it,i){
+   h+='<div class="row"><p>'+it.text+'</p><div class="mc">';
+   quads.forEach(function(q){h+='<button data-i="'+i+'" data-v="'+q+'">'+q.toUpperCase()+'</button>'});h+='</div></div>';});
+  h+='<button class="btn" id="sub">SUBMIT</button><div class="feedback" id="fb"></div>';m.innerHTML=h;
+  m.querySelectorAll('.mc button').forEach(function(b){b.onclick=function(){
+   b.parentElement.querySelectorAll('button').forEach(function(x){x.classList.remove('picked')});
+   b.classList.add('picked');answers['d'+b.dataset.i]=b.dataset.v;};});
+  document.getElementById('sub').onclick=function(){
+   var sc=0;ex.items.forEach(function(it,i){if(answers['d'+i]===it.ans)sc++});
+   var pct=Math.round(100*sc/8),fb=document.getElementById('fb');fb.style.display='block';
+   fb.className='feedback'+(pct>=60?'':' wrong');
+   fb.innerHTML='Score: '+pct+'%<br><br>The Diamond Model maps intrusions to four vertices: Adversary (who), Infrastructure (their systems), Capability (tools/techniques), Victim (target). It helps correlate incidents and predict future activity.';
+   save['ex'+ex.id]=pct;persist();render();};
+ } else if(ex.id==='collect'){
+  ex.pirs.forEach(function(p,i){
+   h+='<div class="row"><label><input type="checkbox" id="cb'+i+'"> '+p.text+'</label></div>';});
+  h+='<p style="color:var(--amber);font-size:12px;margin-top:8px">Select exactly 3.</p>';
+  h+='<button class="btn" id="sub">SUBMIT</button><div class="feedback" id="fb"></div>';m.innerHTML=h;
+  document.getElementById('sub').onclick=function(){
+   var picked=[];ex.pirs.forEach(function(p,i){if(document.getElementById('cb'+i).checked)picked.push(i)});
+   if(picked.length!==3){alert('Select exactly 3 PIRs.');return}
+   var sc=0;picked.forEach(function(i){if(ex.pirs[i].best)sc++});
+   var pct=Math.round(100*sc/3),fb=document.getElementById('fb');fb.style.display='block';
+   fb.className='feedback'+(pct>=66?'':' wrong');
+   fb.innerHTML='Score: '+pct+'%<br><br>Best PIRs:<br>'+ex.pirs.filter(function(p){return p.best}).map(function(p){return '• '+p.text}).join('<br>')
+    +'<br><br>Effective collection plans focus on actionable, threat-specific intelligence requirements. Irrelevant questions waste analyst time and collection resources.';
+   save['ex'+ex.id]=pct;persist();render();};
+ }
+}
+render();
+})();
+</script></body></html>
