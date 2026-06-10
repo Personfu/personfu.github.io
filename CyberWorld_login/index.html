@@ -479,6 +479,65 @@
     .status.warn { color: var(--warn); }
     .status.bad  { color: var(--pink); }
 
+    .route-map {
+      margin-top: 16px;
+      padding: 14px;
+      border: 1px solid rgba(0, 255, 231, 0.25);
+      border-radius: 8px;
+      background: rgba(8, 13, 23, 0.62);
+    }
+    .route-map h2 {
+      margin: 0 0 10px;
+      color: var(--cyan);
+      font-size: 0.78rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .route-grid {
+      display: grid;
+      gap: 10px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (min-width: 540px) {
+      .route-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    .route-node {
+      padding: 10px;
+      border: 1px solid rgba(0, 255, 231, 0.16);
+      border-radius: 6px;
+      background: rgba(3, 8, 14, 0.76);
+    }
+    .route-node .kicker {
+      color: var(--pink);
+      font-size: 0.64rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .route-node strong {
+      display: block;
+      margin: 4px 0 3px;
+      color: var(--text);
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .route-node p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.7rem;
+      line-height: 1.45;
+    }
+    .route-node a {
+      display: inline-block;
+      margin-top: 7px;
+      color: var(--cyan);
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+    .route-node a:hover { color: var(--pink); }
+
     @media (max-width: 440px) {
       .panel { padding: 26px 20px 22px; }
       .brand-mark { width: 66px; height: 66px; }
@@ -488,7 +547,7 @@
 <body>
   <main class="shell">
     <div class="training-banner" role="note">
-      Training surface · 4 tiers · <a href="challenge.html">brief</a> · <a href="intercept.html">workbench</a>
+      Training surface · 5 tiers · <a href="challenge.html">brief</a> · <a href="intercept.html">workbench</a>
     </div>
     <div class="status-strip" aria-hidden="true">
       <span><span class="rec" aria-hidden="true"></span>INTRUSION_LOG::<span class="s-bad">ARMED</span></span>
@@ -520,6 +579,48 @@
       </form>
 
       <div id="status" class="status" role="status" aria-live="polite"></div>
+
+      <section class="route-map" aria-labelledby="route-title">
+        <h2 id="route-title">Matrix route</h2>
+        <div class="route-grid">
+          <article class="route-node">
+            <span class="kicker">01</span>
+            <strong>Gate</strong>
+            <p>Enter the training range from the main login screen.</p>
+            <a href="index.html">Open gate</a>
+          </article>
+          <article class="route-node">
+            <span class="kicker">02</span>
+            <strong>Lab</strong>
+            <p>See the full tier map and pick a faster path.</p>
+            <a href="lab.html">Open lab</a>
+          </article>
+          <article class="route-node">
+            <span class="kicker">03</span>
+            <strong>Crypto</strong>
+            <p>Run the RSA, ECDSA, HMAC, and Vigenere drills.</p>
+            <a href="crypto.html">Open crypto</a>
+          </article>
+          <article class="route-node">
+            <span class="kicker">04</span>
+            <strong>Intel</strong>
+            <p>Read the May-2026 incident brief and walk the CVE trail.</p>
+            <a href="intel.html">Open intel</a>
+          </article>
+          <article class="route-node">
+            <span class="kicker">05</span>
+            <strong>Intercept</strong>
+            <p>Use the Burp-style workbench for the live API chain.</p>
+            <a href="intercept.html">Open workbench</a>
+          </article>
+          <article class="route-node">
+            <span class="kicker">06</span>
+            <strong>World</strong>
+            <p>Return to the main CyberWorld MMO after operator unlock.</p>
+            <a href="/cyberworld.html">Enter world</a>
+          </article>
+        </div>
+      </section>
     </section>
 
     <!-- ============================================================

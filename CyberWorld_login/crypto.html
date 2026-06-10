@@ -24,6 +24,10 @@
     .training a{color:var(--cyan);text-decoration:none;border-bottom:1px dotted var(--cyan)}
     h1{margin:0;color:var(--cyan);font-size:clamp(1.5rem,4.6vw,2rem);letter-spacing:.18em;text-transform:uppercase;text-shadow:0 0 14px rgba(0,255,231,.78)}
     .sub{margin:4px 0 18px;color:var(--pink);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+    .ops{padding:11px 13px;border:1px solid rgba(0,255,231,.3);border-radius:6px;background:rgba(8,13,23,.66);margin-bottom:12px}
+    .ops h2{margin:0 0 7px;color:var(--cyan);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase}
+    .ops p{margin:0;color:var(--text);font-size:.78rem;line-height:1.55}
+    .ops p + p{margin-top:6px;color:var(--muted)}
     .ch{margin:14px 0;padding:14px 16px;border:1px solid rgba(0,255,231,.35);border-radius:7px;background:rgba(8,13,23,.7)}
     .ch h2{margin:0 0 6px;color:var(--cyan);font-size:.82rem;letter-spacing:.16em;text-transform:uppercase}
     .ch h2 .n{color:var(--pink);margin-right:.4em}
@@ -52,6 +56,12 @@
     </div>
     <h1>Crypto Lab</h1>
     <p class="sub" id="stateLine">Verifying session...</p>
+
+    <section class="ops" aria-labelledby="ops-title">
+      <h2 id="ops-title">Crypto Mission Context</h2>
+      <p>This node is your decryption forge. The math is intentionally approachable so you can build speed before high-pressure exploit chains.</p>
+      <p>Run the sequence in order: factor -> decrypt -> verify -> collide -> break. It mirrors CyberWorld breach prep flow.</p>
+    </section>
 
     <!-- F11 -->
     <section class="ch" data-n="11">
@@ -349,19 +359,18 @@ hash    :  SHA-256
     (async () => {
       try {
         const raw = sessionStorage.getItem("cw.r");
-        if(!raw) throw new Error("no session");
+        const sessionMode = raw ? "Session OK" : "Training mode";
         const r = await fetch("manifest.json", {cache:"no-store", credentials:"same-origin"});
         if(!r.ok) throw new Error("manifest");
         const m = await r.json();
         if(m.schema!=="cyberworld.training.manifest.v5") throw new Error("schema");
         window.__manifest = m;
-        document.getElementById("stateLine").textContent = "Session OK -- 5 challenges, all local";
+        document.getElementById("stateLine").textContent = sessionMode + " -- 5 challenges, all local";
         document.getElementById("stateLine").style.color = "var(--ok)";
         await refreshProgress();
       } catch (e) {
-        document.getElementById("stateLine").textContent = "Verification failed: "+e.message+" -- returning to login...";
+        document.getElementById("stateLine").textContent = "Verification failed: "+e.message+" -- stay here, then refresh or open the gate";
         document.getElementById("stateLine").style.color = "var(--pink)";
-        setTimeout(()=>location.replace("index.html"), 1200);
       }
     })();
   })();

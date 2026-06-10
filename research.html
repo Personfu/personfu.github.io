@@ -1,125 +1,90 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Research Vault — CyberWorld</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Vault // CyberWorld</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:#02070d;color:#dffbff;font-family:'Share Tech Mono',monospace;min-height:100vh;padding:0 0 40px}
-a{color:#00e8ff}
-.top{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;border-bottom:1px solid #00e8ff44}
-.top h1{font-family:'VT323',monospace;font-size:24px;color:#00e8ff;letter-spacing:3px}
-.search{padding:6px 12px;background:#06101a;border:1px solid #00e8ff66;border-radius:8px;color:#00e8ff;font-family:inherit;font-size:13px;width:260px}
-.content{max-width:900px;margin:20px auto;padding:0 20px}
-.section{margin-bottom:12px;border:1px solid #00e8ff33;border-radius:10px;overflow:hidden}
-.section-head{padding:12px 16px;background:#06101a;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'VT323',monospace;font-size:18px;color:#ff2bd6;letter-spacing:2px}
-.section-head:hover{background:#0a1828}
-.section-head .arrow{color:#00e8ff;transition:transform .2s}
-.section.open .arrow{transform:rotate(90deg)}
-.section-body{display:none;padding:16px;font-size:13px;line-height:1.6;color:#a8c8d8}
-.section.open .section-body{display:block}
-.entry{padding:10px;margin-bottom:8px;background:#030c14;border:1px solid #00e8ff22;border-radius:8px}
-.entry h3{color:#00e8ff;font-size:14px;letter-spacing:1px;margin-bottom:6px;font-family:'VT323',monospace}
-.entry p{margin-bottom:6px}
-.entry .tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;letter-spacing:1px;margin-right:4px}
-.tag-tactic{background:#ff2bd622;color:#ff2bd6;border:1px solid #ff2bd644}
-.tag-tech{background:#00e8ff22;color:#00e8ff;border:1px solid #00e8ff44}
-.tag-port{background:#ffb34722;color:#ffb347;border:1px solid #ffb34744}
-.tag-algo{background:#00ff9c22;color:#00ff9c;border:1px solid #00ff9c44}
-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
-th{text-align:left;padding:6px 8px;color:#ff2bd6;border-bottom:1px solid #ff2bd644;font-size:11px;letter-spacing:1px}
-td{padding:6px 8px;border-bottom:1px solid #00e8ff11}
-.hidden{display:none!important}
-@media(max-width:600px){.search{width:140px}.content{padding:0 10px}}
-</style></head><body>
-<div class="top">
- <a href="/CyberWorld/" style="font-size:13px;text-decoration:none">← CYBERWORLD</a>
- <h1>RESEARCH VAULT</h1>
- <input class="search" id="search" placeholder="Search...">
-</div>
-<div class="content" id="content"></div>
-<script>
-(function(){
-var DATA=[
-{title:'CYBER KILL CHAIN',entries:[
- {name:'1. Reconnaissance',text:'Attacker researches the target: harvesting emails, scanning for open ports, mapping the network. <br><b>Defense:</b> Minimize public exposure, monitor for scanning activity, limit information leakage.'},
- {name:'2. Weaponization',text:'Attacker creates a deliverable payload — e.g., a PDF with an embedded exploit or a macro-enabled document paired with a backdoor. <br><b>Defense:</b> Threat intelligence on known weaponization patterns, sandboxing suspicious files.'},
- {name:'3. Delivery',text:'Payload is transmitted to the target via email attachment, malicious link, USB drive, or watering hole. <br><b>Defense:</b> Email filtering, web proxies, user awareness training, attachment sandboxing.'},
- {name:'4. Exploitation',text:'The payload triggers a vulnerability — buffer overflow, macro execution, or social engineering trick. <br><b>Defense:</b> Patching, application whitelisting, exploit mitigation (DEP, ASLR), least privilege.'},
- {name:'5. Installation',text:'Malware installs persistence mechanisms: registry keys, scheduled tasks, DLL sideloading, or bootkit. <br><b>Defense:</b> Endpoint detection, application control, file integrity monitoring, behavioral analysis.'},
- {name:'6. Command & Control',text:'Compromised host establishes outbound channel to attacker infrastructure for remote control. <br><b>Defense:</b> Network monitoring, DNS sinkholing, proxy inspection, egress filtering, JA3/JA4 fingerprinting.'},
- {name:'7. Actions on Objectives',text:'Attacker achieves their goal: data exfiltration, destruction, ransomware deployment, or lateral movement. <br><b>Defense:</b> DLP, network segmentation, encryption at rest, backup/recovery, incident response.'}]},
-{title:'MITRE ATT&CK PRIMER',entries:[
- {name:'Initial Access',text:'Techniques to gain entry: <span class="tag tag-tech">Phishing (T1566)</span> <span class="tag tag-tech">Drive-by Compromise (T1189)</span> <span class="tag tag-tech">Valid Accounts (T1078)</span>'},
- {name:'Execution',text:'Running malicious code: <span class="tag tag-tech">Command/Script Interpreter (T1059)</span> <span class="tag tag-tech">User Execution (T1204)</span> <span class="tag tag-tech">Scheduled Task (T1053)</span>'},
- {name:'Persistence',text:'Maintaining access: <span class="tag tag-tech">Boot Autostart (T1547)</span> <span class="tag tag-tech">Create Account (T1136)</span> <span class="tag tag-tech">Scheduled Task (T1053)</span>'},
- {name:'Privilege Escalation',text:'Gaining higher permissions: <span class="tag tag-tech">Exploitation for Priv Esc (T1068)</span> <span class="tag tag-tech">Access Token Manipulation (T1134)</span> <span class="tag tag-tech">Sudo Caching (T1548)</span>'},
- {name:'Defense Evasion',text:'Avoiding detection: <span class="tag tag-tech">Obfuscated Files (T1027)</span> <span class="tag tag-tech">Masquerading (T1036)</span> <span class="tag tag-tech">Indicator Removal (T1070)</span>'},
- {name:'Credential Access',text:'Stealing credentials: <span class="tag tag-tech">Brute Force (T1110)</span> <span class="tag tag-tech">OS Credential Dumping (T1003)</span> <span class="tag tag-tech">Input Capture (T1056)</span>'},
- {name:'Discovery',text:'Mapping the environment: <span class="tag tag-tech">Network Service Discovery (T1046)</span> <span class="tag tag-tech">System Info Discovery (T1082)</span> <span class="tag tag-tech">Account Discovery (T1087)</span>'},
- {name:'Lateral Movement',text:'Spreading through network: <span class="tag tag-tech">Remote Services (T1021)</span> <span class="tag tag-tech">Internal Spearphishing (T1534)</span> <span class="tag tag-tech">Exploitation of Remote Services (T1210)</span>'},
- {name:'Collection',text:'Gathering target data: <span class="tag tag-tech">Data from Local System (T1005)</span> <span class="tag tag-tech">Screen Capture (T1113)</span> <span class="tag tag-tech">Email Collection (T1114)</span>'},
- {name:'Exfiltration',text:'Stealing data out: <span class="tag tag-tech">Exfil Over C2 (T1041)</span> <span class="tag tag-tech">Exfil Over Web Service (T1567)</span> <span class="tag tag-tech">Automated Exfiltration (T1020)</span>'}]},
-{title:'OWASP TOP 10 (2021)',entries:[
- {name:'A01: Broken Access Control',text:'Users can act outside their intended permissions. Missing function-level or object-level authorization. <b>Fix:</b> Deny by default, enforce server-side access checks, disable directory listing.'},
- {name:'A02: Cryptographic Failures',text:'Sensitive data exposed due to weak/missing encryption. Cleartext transmission, weak algorithms, poor key management. <b>Fix:</b> Encrypt data in transit (TLS) and at rest, use strong algorithms (AES-256, SHA-256+), never roll your own crypto.'},
- {name:'A03: Injection',text:'Untrusted data sent to an interpreter: SQL injection, NoSQL injection, OS command injection, LDAP injection. <b>Fix:</b> Parameterized queries, input validation, ORM usage, least-privilege database accounts.'},
- {name:'A04: Insecure Design',text:'Flaws in architecture and design patterns rather than implementation bugs. Missing threat modeling. <b>Fix:</b> Threat modeling, secure design patterns, reference architectures, abuse case testing.'},
- {name:'A05: Security Misconfiguration',text:'Default credentials, unnecessary features enabled, overly permissive cloud policies, missing security headers. <b>Fix:</b> Hardening guides, automated config scanning, minimal installs, review default settings.'},
- {name:'A06: Vulnerable Components',text:'Using libraries/frameworks with known vulnerabilities. No patching process. <b>Fix:</b> Software composition analysis (SCA), dependency scanning, automated patching, SBOM maintenance.'},
- {name:'A07: Auth & Identity Failures',text:'Weak passwords, credential stuffing, missing MFA, session fixation, insecure password recovery. <b>Fix:</b> MFA, strong password policies, rate limiting, secure session management.'},
- {name:'A08: Software & Data Integrity',text:'Code and infrastructure lacking integrity verification. Insecure CI/CD pipelines, auto-updates without signature checks. <b>Fix:</b> Code signing, integrity checks, secure CI/CD, dependency pinning.'},
- {name:'A09: Security Logging & Monitoring',text:'Insufficient logging, no alerting, audit logs not protected. Breaches go undetected for months. <b>Fix:</b> Log all auth events, failures, and access to sensitive data. SIEM integration. Alert on anomalies.'},
- {name:'A10: Server-Side Request Forgery',text:'Application fetches remote resources without validating user-supplied URLs. Access internal services, cloud metadata. <b>Fix:</b> Allowlist URLs, disable redirects, segment network, block metadata endpoints.'}]},
-{title:'INCIDENT RESPONSE (NIST 800-61)',entries:[
- {name:'Phase 1: Preparation',text:'Establish IR capability before incidents occur. Create IR policy and plan, build the team, acquire tools, establish communication channels, conduct training and tabletop exercises. Prepare jump bags with forensic hardware/software.'},
- {name:'Phase 2: Detection & Analysis',text:'Identify and validate incidents. Monitor alerts from IDS/SIEM/EDR, analyze indicators, determine scope and impact, document everything, assign severity level. Distinguish true incidents from false positives using correlation and context.'},
- {name:'Phase 3: Containment, Eradication & Recovery',text:'<b>Containment:</b> Isolate affected systems, block malicious IPs/domains, disable compromised accounts. <b>Eradication:</b> Remove malware, close vulnerabilities, reset credentials. <b>Recovery:</b> Restore systems from clean backups, verify integrity, monitor for re-infection.'},
- {name:'Phase 4: Post-Incident Activity',text:'Conduct lessons-learned review within 2 weeks. Document timeline, root cause, impact, and response effectiveness. Update IR procedures, detection rules, and security controls. Share intelligence (appropriately) with industry partners and ISACs.'}]},
-{title:'NETWORK PROTOCOLS',entries:[
- {name:'Protocol Reference Table',text:'<table><tr><th>Protocol</th><th>Port</th><th>Transport</th><th>Purpose</th><th>Security Notes</th></tr>'
-  +'<tr><td>HTTP</td><td>80</td><td>TCP</td><td>Web traffic (cleartext)</td><td>No encryption — use HTTPS instead</td></tr>'
-  +'<tr><td>HTTPS</td><td>443</td><td>TCP</td><td>Encrypted web traffic</td><td>TLS 1.2+ required; verify certificate chains</td></tr>'
-  +'<tr><td>DNS</td><td>53</td><td>UDP/TCP</td><td>Domain name resolution</td><td>Vulnerable to spoofing/poisoning; use DNSSEC, DoH, DoT</td></tr>'
-  +'<tr><td>SSH</td><td>22</td><td>TCP</td><td>Secure remote shell</td><td>Key-based auth preferred; disable password auth</td></tr>'
-  +'<tr><td>FTP</td><td>21</td><td>TCP</td><td>File transfer (cleartext)</td><td>Credentials sent in cleartext — use SFTP/SCP instead</td></tr>'
-  +'<tr><td>SMTP</td><td>25/587</td><td>TCP</td><td>Email delivery</td><td>Implement SPF, DKIM, DMARC to prevent spoofing</td></tr>'
-  +'<tr><td>DHCP</td><td>67-68</td><td>UDP</td><td>IP address assignment</td><td>Vulnerable to rogue DHCP; use DHCP snooping</td></tr>'
-  +'<tr><td>ARP</td><td>N/A</td><td>L2</td><td>IP-to-MAC resolution</td><td>No authentication — vulnerable to ARP spoofing; use DAI</td></tr>'
-  +'<tr><td>SNMP</td><td>161-162</td><td>UDP</td><td>Network management</td><td>v1/v2c use cleartext community strings; use SNMPv3</td></tr>'
-  +'<tr><td>RDP</td><td>3389</td><td>TCP</td><td>Remote desktop</td><td>Brute force target; use MFA, NLA, limit exposure</td></tr>'
-  +'</table>'}]},
-{title:'CRYPTOGRAPHY CHEAT SHEET',entries:[
- {name:'Symmetric Encryption',text:'Same key encrypts and decrypts. Fast, used for bulk data.<br><span class="tag tag-algo">AES-256</span> Gold standard. 128/192/256-bit keys. Use GCM mode for authenticated encryption.<br><span class="tag tag-algo">ChaCha20-Poly1305</span> Alternative to AES. Faster on devices without AES hardware acceleration.'},
- {name:'Asymmetric Encryption',text:'Public key encrypts, private key decrypts (or vice versa for signing). Slower, used for key exchange and signatures.<br><span class="tag tag-algo">RSA</span> Minimum 2048-bit keys (3072+ recommended). Widely supported but computationally expensive.<br><span class="tag tag-algo">ECC (Elliptic Curve)</span> Equivalent security at smaller key sizes (256-bit ECC ≈ 3072-bit RSA). Faster operations.'},
- {name:'Hashing',text:'One-way function producing fixed-size output. Used for integrity, password storage, digital signatures.<br><span class="tag tag-algo">SHA-256/SHA-3</span> Secure for integrity checks and digital signatures.<br><span class="tag tag-algo">bcrypt/Argon2id</span> Purpose-built for password hashing with salt and configurable cost factor.<br><b>Never use:</b> MD5 or SHA-1 for security purposes (collision attacks demonstrated).'},
- {name:'Key Exchange',text:'Securely establish shared secret over insecure channel.<br><span class="tag tag-algo">ECDH (Elliptic Curve Diffie-Hellman)</span> Preferred. Smaller keys, faster computation.<br><span class="tag tag-algo">DH (Diffie-Hellman)</span> Classic. Use 2048+ bit parameters. Vulnerable to MITM without authentication.'},
- {name:'Digital Signatures',text:'Prove authenticity and integrity. Private key signs, public key verifies.<br><span class="tag tag-algo">Ed25519/EdDSA</span> Modern, fast, resistant to many implementation pitfalls.<br><span class="tag tag-algo">RSA-PSS</span> RSA-based signing with probabilistic padding. Widely supported.<br><span class="tag tag-algo">ECDSA</span> Elliptic curve signatures. Requires careful nonce generation (use deterministic RFC 6979).'}]}
-];
-
-var content=document.getElementById('content');
-function buildAll(filter){
- content.innerHTML='';
- DATA.forEach(function(sec){
-  var entries=sec.entries;
-  if(filter){
-   entries=entries.filter(function(e){
-    return (e.name+e.text).toLowerCase().indexOf(filter)!==-1;
-   });
-   if(!entries.length)return;
-  }
-  var div=document.createElement('div');
-  div.className='section'+(filter?' open':'');
-  div.innerHTML='<div class="section-head"><span>'+sec.title+'</span><span class="arrow">▶</span></div>'
-   +'<div class="section-body">'+entries.map(function(e){
-    return '<div class="entry"><h3>'+e.name+'</h3><p>'+e.text+'</p></div>';
-   }).join('')+'</div>';
-  div.querySelector('.section-head').onclick=function(){div.classList.toggle('open')};
-  content.appendChild(div);
- });
-}
-buildAll();
-document.getElementById('search').addEventListener('input',function(){
- var v=this.value.trim().toLowerCase();
- buildAll(v||null);
-});
-})();
-</script></body></html>
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{display:flex;flex-direction:column}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
+.sep{color:#1a3050}
+.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
+.hdr-right{margin-left:auto}
+.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
+.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:var(--card);padding:18px}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
+.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
+.hero .brief{font-size:12px;line-height:1.65}
+.card{border:1px solid var(--border);background:var(--card);padding:14px}
+.card-lbl{color:var(--cyan);font-size:10px;letter-spacing:1px;margin-bottom:10px}
+.entry{padding:8px 0;border-bottom:1px solid var(--border)}
+.entry:last-child{border-bottom:none}
+.entry-title{color:var(--bright);font-size:12px;margin-bottom:3px}
+.entry-meta{color:var(--gold);font-size:9px;margin-bottom:4px;letter-spacing:1px}
+.entry-body{color:var(--text);font-size:11px;line-height:1.6}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.ref-link{display:block;color:var(--cyan);font-size:11px;text-decoration:none;padding:3px 0;border-bottom:1px solid var(--border)}
+.ref-link:last-child{border-bottom:none}
+.ref-link:hover{color:var(--bright)}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">CYBERWORLD</span>
+  <span class="sep">//</span>
+  <span class="cat">RESEARCH VAULT</span>
+  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">RESEARCH MODULE // QUANTUM QUARTER DISTRICT</div>
+    <h1>Research Vault</h1>
+    <p class="brief">Curated writeups, methodology notes, and reference archives for CyberWorld operatives. All external links open in a new tab.</p>
+  </section>
+  <div class="card">
+    <div class="card-lbl">FEATURED WRITEUPS</div>
+    <div class="entry">
+      <div class="entry-title">JWT Algorithm Confusion: HS256 vs RS256</div>
+      <div class="entry-meta">METHODOLOGY // T-05 // FLAG F31–F33</div>
+      <div class="entry-body">When a server accepts both HMAC and RSA-signed tokens, an attacker can re-sign a forged token with the public key using HS256, bypassing RS256 verification. Detection: enforce <code>algorithm</code> allowlist server-side. Never trust the <code>alg</code> header from the client.</div>
+    </div>
+    <div class="entry">
+      <div class="entry-title">Zero-Width Space Steganography in Text Documents</div>
+      <div class="entry-meta">FORENSICS // T-03 // FLAG F18</div>
+      <div class="entry-body">ZWSP (U+200B) and similar invisible Unicode characters can encode hidden binary data in plain text. Detection: paste suspicious text into a hex viewer or use <code>/\u200b/g</code> regex. Remove with <code>str.replace(/[\u200b-\u200d\ufeff]/g,'')</code>.</div>
+    </div>
+    <div class="entry">
+      <div class="entry-title">Client-Side Auth Bypass (CWE-602)</div>
+      <div class="entry-meta">CLIENT-AUDIT // T-01 // FLAG F01–F05</div>
+      <div class="entry-body">Logic gated only in the browser (JS conditionals, hidden form fields, localStorage flags) is trivially bypassed via DevTools. All authorisation decisions must be enforced server-side. Frontend checks are UX only.</div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-lbl">EXTERNAL REFERENCES</div>
+      <a class="ref-link" href="https://owasp.org/Top10/" target="_blank" rel="noopener">OWASP Top 10</a>
+      <a class="ref-link" href="https://attack.mitre.org/" target="_blank" rel="noopener">MITRE ATT&amp;CK</a>
+      <a class="ref-link" href="https://nvd.nist.gov/" target="_blank" rel="noopener">NIST NVD</a>
+      <a class="ref-link" href="https://cwe.mitre.org/" target="_blank" rel="noopener">MITRE CWE</a>
+      <a class="ref-link" href="https://jwt.io/" target="_blank" rel="noopener">JWT.io Debugger</a>
+    </div>
+    <div class="card">
+      <div class="card-lbl">NIST SP 800-61 R3 PHASES</div>
+      <a class="ref-link" href="https://csrc.nist.gov/pubs/sp/800/61/r3/final" target="_blank" rel="noopener">NIST SP 800-61 R3 Full Text</a>
+      <a class="ref-link" href="https://attack.mitre.org/tactics/TA0005/" target="_blank" rel="noopener">ATT&amp;CK TA0005 Defence Evasion</a>
+      <a class="ref-link" href="https://attack.mitre.org/techniques/T1078/" target="_blank" rel="noopener">T1078 Valid Accounts</a>
+      <a class="ref-link" href="https://attack.mitre.org/techniques/T1190/" target="_blank" rel="noopener">T1190 Exploit Public-Facing App</a>
+    </div>
+  </div>
+</main>
+<footer>CYBERWORLD // FLLC GRID // RESEARCH VAULT // QUANTUM QUARTER</footer>
+</body>
+</html>

@@ -1,16 +1,17 @@
-# CyberWorld Login -- Training-Range Brief (v4)
+# CyberWorld Login -- Training-Range Brief (v5)
 
 > **FLLC Purple-Team OS · CyberWorld Training Range**
 > *"Hack the impossible. Defend the future."*
 > Provided as is for demonstration and educational purposes only. No
 > real credentials are accepted, transmitted, or stored.
 
-This range is a four-tier defensive + offensive analyst CTF. It
-accepts any input that passes its local validation, builds a fake
-session in `window.sessionStorage`, registers a deliberately
-vulnerable service-worker backend at `/CyberWorld_login/api/v1/*`,
-and forwards you to a console + lab + Burp-style workbench that
-re-check everything client-side. No POST ever leaves the origin.
+This range is a five-node CyberWorld breach run wrapped around a
+defensive + offensive analyst CTF. It accepts any input that passes
+its local validation, builds a fake session in `window.sessionStorage`,
+registers a deliberately vulnerable service-worker backend at
+`/CyberWorld_login/api/v1/*`, and forwards you to a console + lab +
+Burp-style workbench that re-check everything client-side. No POST
+ever leaves the origin.
 
 *Do not enter real usernames, passwords, emails, or recovery
 identifiers.* The login is bait so you can practise on it.
@@ -35,7 +36,15 @@ Burp Suite (or `curl -H 'Authorization: Bearer ...'`), Python REPL,
 `pngcheck`, `exiftool`, and a calculator. Intended completion time
 is ~3 hours for a focused analyst.
 
-When the analyst closes all 30 findings, `localStorage.cw.role` is
+If the full rubric feels heavy, use the guided Matrix route:
+
+1. Open the gate at `index.html`.
+2. Read the map in `lab.html` and choose a tier.
+3. Use `console.html`, `crypto.html`, and `intel.html` for the first three tiers.
+4. Finish in `intercept.html` with the Burp-style workbench.
+5. Return to `/cyberworld.html` when the operator grant closes.
+
+When the analyst closes all 33 findings, `localStorage.cw.role` is
 set to `operator` -- the main `/cyberworld.html` MMO consumes that
 grant to unlock operator-tier content for this browser.
 
@@ -87,7 +96,7 @@ PY
 
 ---
 
-## §B · The 20-Finding Rubric
+## §B · The 33-Finding Rubric
 
 Each finding has a **canonical confirmation token** -- a fixed short
 string. Each page that owns a finding writes that token to
@@ -95,21 +104,31 @@ string. Each page that owns a finding writes that token to
 the finding (either by pasting the token directly on the Console, or
 by solving the page's interactive widget on Crypto / Intel).
 
+The quickest way to play the range is to treat it like a breach map,
+not a textbook. The pages are already labeled:
+
+* `index.html` - gate and audit surface
+* `lab.html` - route planner
+* `console.html` - Tier 1 validator
+* `crypto.html` - Tier 2 drills
+* `intel.html` - Tier 3 brief
+* `intercept.html` - Tier 4/5 workbench
+
 `manifest.json[findings][n].answer_sha256_prefix` publishes the first
 **32 bits** of SHA-256 of the canonical token. Pasting your candidate
 into the Console will hash it locally and tell you whether the first
 4 bytes match. You never need to send anything to a server; the
 entire check is in your browser tab.
 
-When you have all 20 prefixes, XOR them as 32-bit integers -- the
+When you have all 33 prefixes, XOR them as 32-bit integers -- the
 result is the published `master_xor`. This is a linear code over
 **GF(2)<sup>32</sup>**:
 
 ```
-master_xor = T1 XOR T2 XOR ... XOR T30
+master_xor = T1 XOR T2 XOR ... XOR T33
 ```
 
-For the shipped v4 manifest, `master_xor = 0xbc085f31` (30 findings across 4 tiers).
+For the shipped v5 manifest, `master_xor = 0xd9693969` (33 findings across 5 tiers).
 
 ### Tier 1 -- Defensive Audit (F01-F10)
 

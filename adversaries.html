@@ -3,146 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ADVERSARIES // THREAT GALLERY</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<title>Adversary DB // CyberWorld</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#02070d;color:#c0c0c0;font-family:'Share Tech Mono',monospace;min-height:100vh}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:#02070d}
-::-webkit-scrollbar-thumb{background:#00e8ff33;border-radius:3px}
-a{color:#00e8ff;text-decoration:none}
-a:hover{text-shadow:0 0 8px #00e8ff}
-.back-link{position:fixed;top:16px;left:16px;z-index:100;font-family:'VT323',monospace;font-size:1.2rem;padding:6px 14px;border:1px solid #00e8ff44;background:#02070dcc;backdrop-filter:blur(6px);border-radius:4px}
-h1{font-family:'VT323',monospace;font-size:2.8rem;text-align:center;padding:60px 20px 10px;color:#00e8ff;text-shadow:0 0 20px #00e8ff66}
-.subtitle{text-align:center;color:#ff2bd6;font-family:'VT323',monospace;font-size:1.3rem;margin-bottom:24px}
-.container{max-width:1200px;margin:0 auto;padding:0 20px 60px}
-.filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
-.filter-btn{padding:8px 16px;font-family:'VT323',monospace;font-size:1rem;background:transparent;border:1px solid #ffffff20;color:#c0c0c0;cursor:pointer;border-radius:4px;transition:.2s}
-.filter-btn:hover,.filter-btn.active{border-color:#ff2bd6;color:#ff2bd6;background:#ff2bd611}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
-.card{border:1px solid #ffffff15;background:#ffffff06;border-radius:6px;padding:20px;cursor:pointer;transition:.3s;position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#00e8ff,#ff2bd6);opacity:0;transition:.3s}
-.card:hover{border-color:#00e8ff44;transform:translateY(-2px);box-shadow:0 4px 20px #00e8ff11}
-.card:hover::before{opacity:1}
-.card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-.card-name{font-family:'VT323',monospace;font-size:1.5rem;color:#00e8ff}
-.card-type{font-size:.7rem;padding:3px 8px;border-radius:3px;text-transform:uppercase;white-space:nowrap}
-.type-nation{border:1px solid #ff2bd6;color:#ff2bd6}
-.type-criminal{border:1px solid #ff6b35;color:#ff6b35}
-.type-hacktivist{border:1px solid #00ff6a;color:#00ff6a}
-.type-insider{border:1px solid #ffcc00;color:#ffcc00}
-.type-unknown{border:1px solid #888;color:#888}
-.card-meta{font-size:.8rem;color:#888;margin-bottom:8px}
-.card-meta span{margin-right:14px}
-.stars{color:#ff2bd6;letter-spacing:2px}
-.card-targets{font-size:.8rem;color:#aaa}
-.card-expand{display:none;margin-top:16px;padding-top:16px;border-top:1px solid #ffffff15;animation:fadeIn .3s}
-.card.open .card-expand{display:block}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.detail-section{margin-bottom:12px}
-.detail-section h4{font-family:'VT323',monospace;font-size:1.1rem;color:#ff2bd6;margin-bottom:6px}
-.detail-section p,.detail-section li{font-size:.85rem;line-height:1.6}
-.detail-section ul{list-style:none;padding-left:0}
-.detail-section li::before{content:'> ';color:#00e8ff}
-.campaign{background:#ffffff06;border:1px solid #ffffff10;padding:10px;margin:6px 0;border-radius:4px;font-size:.85rem}
-.campaign strong{color:#00e8ff}
-.defense-list li::before{content:'[+] ';color:#00ff6a}
-.click-hint{font-size:.75rem;color:#555;text-align:center;margin-top:4px}
-@media(max-width:600px){h1{font-size:2rem;padding-top:50px}.grid{grid-template-columns:1fr}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{display:flex;flex-direction:column}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
+.sep{color:#1a3050}
+.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
+.hdr-right{margin-left:auto}
+.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
+.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:var(--card);padding:18px}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
+.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
+.hero .brief{font-size:12px;line-height:1.65}
+.adv-card{border:1px solid var(--border);background:var(--card);padding:14px;margin-bottom:10px}
+.adv-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.adv-name{color:var(--bright);font-size:13px;font-weight:bold;flex:1}
+.adv-tag{font-size:9px;color:var(--gold);border:1px solid rgba(255,223,120,0.4);padding:1px 6px}
+.adv-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
+.meta-item{font-size:10px}
+.meta-lbl{color:var(--cyan);margin-bottom:2px}
+.meta-val{color:var(--text)}
+.tech-list{font-size:10px;color:var(--text);line-height:1.7}
+.tech-id{color:var(--gold);margin-right:4px}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
 </style>
 </head>
 <body>
-<a href="/CyberWorld/" class="back-link">&lt; CYBERWORLD</a>
-<h1>ADVERSARIES // THREAT GALLERY</h1>
-<p class="subtitle">// KNOW YOUR ENEMY -- THREAT ACTOR INTELLIGENCE //</p>
-<div class="container">
-<div class="filters" id="filters"></div>
-<div class="grid" id="grid"></div>
-</div>
-<script>
-const actors=[
-{name:"FROST BEAR",type:"nation-state",motivation:"Espionage",targets:"Defense contractors, military agencies, government",sophistication:5,since:"2011",
-ttps:["Spearphishing with weaponized documents (T1566.001)","Custom backdoors with encrypted C2 channels (T1573)","Living-off-the-land via PowerShell and WMI (T1059.001)","Credential harvesting with modified Mimikatz (T1003)"],
-campaigns:[{name:"Operation Polar Vortex (2019)",desc:"Targeted 14 defense contractors across NATO countries using trojanized PDF proposals. Exfiltrated weapons system schematics over DNS tunneling for 8 months."},{name:"Arctic Shadow (2022)",desc:"Compromised a defense supply chain vendor to implant firmware backdoors in networking equipment shipped to military installations."}],
-defenses:["Email sandboxing and attachment detonation","Network segmentation for defense-related systems","EDR with behavioral detection for living-off-the-land techniques","Supply chain integrity verification programs"]},
-{name:"NEON SPIDER",type:"criminal",motivation:"Financial gain",targets:"Banking, financial services, payment processors",sophistication:4,since:"2015",
-ttps:["Banking trojan distribution via malvertising (T1189)","Web injection attacks on banking portals (T1185)","ATM jackpotting malware deployment (T1569)","Money mule network for cash-out operations (T1657)"],
-campaigns:[{name:"Operation Cash Flow (2020)",desc:"Deployed custom banking trojan across 200+ financial institutions in Europe. Intercepted wire transfers totaling $47M before detection."},{name:"Jackpot Express (2023)",desc:"Physical compromise of ATMs in Southeast Asia using custom malware on USB drives, extracting cash from 340 machines."}],
-defenses:["Transaction anomaly detection systems","Multi-factor authentication for all banking operations","Real-time web session integrity monitoring","ATM firmware integrity and physical security audits"]},
-{name:"GHOST PANDA",type:"nation-state",motivation:"Intellectual property theft",targets:"Technology companies, semiconductor firms, R&D labs",sophistication:5,since:"2009",
-ttps:["Zero-day exploitation of VPN appliances (T1190)","Memory-only implants to avoid disk forensics (T1620)","Strategic web compromises of industry forums (T1189)","Exfiltration via steganography in image files (T1027.003)"],
-campaigns:[{name:"Silicon Harvest (2018)",desc:"Exploited zero-day in popular VPN to compromise 7 major semiconductor companies. Stole chip designs worth billions using steganographic exfiltration."},{name:"Project Looking Glass (2021)",desc:"Watering hole attack on an industry conference website that compromised attendees from 30+ tech firms with memory-resident malware."}],
-defenses:["Aggressive patch management for edge devices","Memory forensics and volatile data collection","Network traffic analysis for steganographic channels","Threat intelligence sharing within industry ISACs"]},
-{name:"CRIMSON JACKAL",type:"hacktivist",motivation:"Political disruption",targets:"Energy companies, oil & gas, utilities",sophistication:3,since:"2017",
-ttps:["DDoS attacks using booter services (T1498)","Website defacement via CMS vulnerabilities (T1491.002)","Data leaks from compromised employee accounts (T1078)","Social media coordination for amplification (T1583)"],
-campaigns:[{name:"Blackout Protest (2020)",desc:"Coordinated DDoS attacks against 5 major energy companies during environmental summit, taking customer portals offline for 72 hours."},{name:"Pipeline Leak (2022)",desc:"Compromised employee VPN credentials to access and leak internal documents revealing environmental violations at 3 oil companies."}],
-defenses:["DDoS mitigation services and traffic scrubbing","CMS hardening and WAF deployment","MFA enforcement on all remote access","Employee security awareness focused on credential hygiene"]},
-{name:"SHADOW VIPER",type:"criminal",motivation:"Ransomware extortion",targets:"Healthcare systems, hospitals, medical devices",sophistication:4,since:"2019",
-ttps:["Initial access via RDP brute force (T1110)","Lateral movement using PsExec and SMB (T1570)","Volume Shadow Copy deletion before encryption (T1490)","Double extortion: encrypt and threaten data leak (T1486)"],
-campaigns:[{name:"Code Blue (2021)",desc:"Encrypted 12 hospital networks simultaneously, demanding $20M total. Patient data for 3.2 million individuals exfiltrated as leverage."},{name:"MedLock (2023)",desc:"Targeted medical device management servers, encrypting firmware update systems and threatening to brick connected devices."}],
-defenses:["RDP access restrictions and network-level authentication","Immutable backup systems with air-gapped copies","Medical device network segmentation","Incident response retainer with healthcare experience"]},
-{name:"COBALT LYNX",type:"nation-state",motivation:"Strategic espionage",targets:"Telecommunications providers, ISPs, mobile carriers",sophistication:5,since:"2012",
-ttps:["Compromise of telecom management systems (T1199)","Call detail record harvesting for surveillance (T1530)","SIM swapping via compromised carrier tools (T1111)","Implants in network routing infrastructure (T1584)"],
-campaigns:[{name:"Operation Wiretap (2019)",desc:"Compromised core network infrastructure of 4 major carriers across 3 countries, enabling real-time interception of diplomatic communications."},{name:"Signal Intercept (2022)",desc:"Deployed persistent implants in SS7 infrastructure to track and intercept communications of targeted individuals globally."}],
-defenses:["Telecom-specific threat monitoring and SS7 firewall","Privileged access management for network infrastructure","Diameter/SS7 signaling security analytics","International telecom security cooperation frameworks"]},
-{name:"IRON WOLF",type:"criminal",motivation:"Cryptojacking profit",targets:"Cloud infrastructure, container platforms, CI/CD",sophistication:3,since:"2018",
-ttps:["Exploitation of misconfigured Docker/K8s (T1610)","Cryptomining malware via CI/CD pipeline injection (T1195.002)","Cloud credential theft from public repos (T1552.004)","Worm propagation across container networks (T1210)"],
-campaigns:[{name:"Cloud Mine (2021)",desc:"Compromised 4,000+ misconfigured Kubernetes clusters to deploy XMRig miners, generating estimated $2M in cryptocurrency before takedown."},{name:"Pipeline Hijack (2023)",desc:"Injected cryptomining code into popular open-source CI/CD actions, affecting 800+ organizations before the supply chain compromise was discovered."}],
-defenses:["Container security scanning and runtime protection","Cloud security posture management (CSPM)","Secret scanning in code repositories","Resource utilization monitoring and alerting"]},
-{name:"JADE FALCON",type:"insider",motivation:"Corporate espionage",targets:"Pharmaceutical companies, biotech firms",sophistication:3,since:"2016",
-ttps:["Privileged access abuse for data collection (T1078)","Encrypted USB exfiltration of research data (T1052)","Use of personal cloud storage for staging (T1567)","Social engineering of colleagues for access (T1534)"],
-campaigns:[{name:"Formula Theft (2020)",desc:"Senior researcher systematically exfiltrated 18 months of drug trial data to a competitor via encrypted USB drives, causing $500M in competitive losses."},{name:"Patent Pirate (2023)",desc:"Network of 3 insiders across departments collaborated to steal and sell patent-pending formulations to foreign pharmaceutical companies."}],
-defenses:["Data Loss Prevention with USB and cloud monitoring","User and Entity Behavior Analytics (UEBA)","Strict access controls with need-to-know enforcement","Exit interview protocols and departing employee monitoring"]},
-{name:"OBSIDIAN MOTH",type:"nation-state",motivation:"Destructive attacks",targets:"Utility companies, power grids, water treatment",sophistication:5,since:"2014",
-ttps:["ICS/SCADA exploitation via engineering workstations (T0818)","Custom wiper malware targeting industrial systems (T0822)","Compromise of safety instrumented systems (T0880)","Long-term dormant implants with kill switches (T1588)"],
-campaigns:[{name:"Blackout (2018)",desc:"Deployed custom malware to 3 power distribution companies, causing cascading outages affecting 2.3 million people for up to 6 hours."},{name:"Turbine Kill (2022)",desc:"Targeted safety systems at industrial facilities with wiper malware designed to cause physical damage to turbine control systems."}],
-defenses:["ICS-specific network monitoring and anomaly detection","Air-gapped networks for safety-critical systems","Regular ICS security assessments and penetration testing","Incident response plans specific to OT environments"]},
-{name:"SILVER FOX",type:"criminal",motivation:"Business email compromise",targets:"Any organization -- opportunistic",sophistication:2,since:"2017",
-ttps:["Credential phishing for executive email access (T1566.001)","Email forwarding rules for persistent access (T1114.003)","Invoice fraud and payment redirection (T1657)","Domain spoofing with lookalike domains (T1583.001)"],
-campaigns:[{name:"Executive Impersonation Ring (2021)",desc:"Compromised 200+ executive email accounts across industries, redirecting $35M in payments using forged invoices and urgent wire requests."},{name:"Vendor Fraud Network (2023)",desc:"Infiltrated vendor communication chains to substitute banking details in legitimate invoices, defrauding 50+ companies of $12M."}],
-defenses:["DMARC/DKIM/SPF email authentication enforcement","Payment verification procedures with out-of-band confirmation","Email forwarding rule monitoring","Executive account enhanced security and monitoring"]},
-{name:"AZURE SCORPION",type:"hacktivist",motivation:"Information operations",targets:"Media organizations, news outlets, social platforms",sophistication:3,since:"2019",
-ttps:["Account takeover of journalist social media (T1078)","Deepfake content creation for disinformation (T1583)","Coordinated inauthentic behavior networks (T1585)","Website defacement with propaganda (T1491.002)"],
-campaigns:[{name:"Truth Distortion (2021)",desc:"Compromised social media accounts of 40+ journalists to spread fabricated stories during election cycles across 3 countries."},{name:"Synthetic Voices (2023)",desc:"Used AI-generated deepfake audio and video of public figures to create false statements, amplified through bot networks reaching 50M+ views."}],
-defenses:["Multi-factor authentication for all media accounts","Digital content provenance and verification tools","Bot detection and coordinated behavior analysis","Media literacy programs and fact-checking partnerships"]},
-{name:"VOID MANTIS",type:"unknown",motivation:"Unknown -- possibly R&D theft",targets:"AI companies, ML research labs, autonomous systems",sophistication:4,since:"2022",
-ttps:["Zero-day exploitation of collaboration tools (T1190)","Model poisoning via compromised training pipelines (T1195.002)","Exfiltration of model weights and training data (T1041)","Counter-forensics including log wiping and timestomping (T1070)"],
-campaigns:[{name:"Neural Harvest (2023)",desc:"Breached 3 leading AI research labs, exfiltrating large language model weights and proprietary training datasets. Attribution remains contested."},{name:"Ghost Protocol (2024)",desc:"Targeted autonomous vehicle companies with sophisticated supply chain attacks on ML training infrastructure, potentially poisoning safety-critical models."}],
-defenses:["Enhanced monitoring for AI/ML development environments","Model integrity verification and watermarking","Collaboration tool hardening and zero-trust access","Advanced forensics capabilities and log integrity"]},
-];
-
-const typeMap={'nation-state':'type-nation','criminal':'type-criminal','hacktivist':'type-hacktivist','insider':'type-insider','unknown':'type-unknown'};
-const types=['ALL','nation-state','criminal','hacktivist','insider','unknown'];
-let activeFilter='ALL';
-
-const filtersEl=document.getElementById('filters');
-types.forEach(t=>{
-const b=document.createElement('button');b.className='filter-btn'+(t==='ALL'?' active':'');b.textContent=t.toUpperCase();
-b.onclick=()=>{activeFilter=t;filtersEl.querySelectorAll('.filter-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderGrid()};
-filtersEl.appendChild(b)});
-
-function renderGrid(){
-const g=document.getElementById('grid');g.innerHTML='';
-const filtered=activeFilter==='ALL'?actors:actors.filter(a=>a.type===activeFilter);
-filtered.forEach(a=>{
-const c=document.createElement('div');c.className='card';
-const stars='&#9733;'.repeat(a.sophistication)+'&#9734;'.repeat(5-a.sophistication);
-c.innerHTML=`
-<div class="card-header"><span class="card-name">${a.name}</span><span class="card-type ${typeMap[a.type]}">${a.type}</span></div>
-<div class="card-meta"><span>${a.motivation}</span><span>Active since ${a.since}</span></div>
-<div class="card-meta"><span>Sophistication: <span class="stars">${stars}</span></span></div>
-<div class="card-targets">Targets: ${a.targets}</div>
-<p class="click-hint">[ click to expand ]</p>
-<div class="card-expand">
-<div class="detail-section"><h4>TTPs</h4><ul>${a.ttps.map(t=>'<li>'+t+'</li>').join('')}</ul></div>
-<div class="detail-section"><h4>CAMPAIGNS</h4>${a.campaigns.map(c=>'<div class="campaign"><strong>'+c.name+'</strong><br>'+c.desc+'</div>').join('')}</div>
-<div class="detail-section"><h4>RECOMMENDED DEFENSES</h4><ul class="defense-list">${a.defenses.map(d=>'<li>'+d+'</li>').join('')}</ul></div>
-</div>`;
-c.onclick=()=>{c.classList.toggle('open');c.querySelector('.click-hint').textContent=c.classList.contains('open')?'[ click to collapse ]':'[ click to expand ]'};
-g.appendChild(c)})}
-
-renderGrid();
-</script>
+<header>
+  <span class="logo">CYBERWORLD</span>
+  <span class="sep">//</span>
+  <span class="cat">ADVERSARY DB</span>
+  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">THREAT MODULE // DARKNET DEPTHS DISTRICT</div>
+    <h1>Adversary DB</h1>
+    <p class="brief">Fictional threat-actor dossiers used as training scenarios. All groups, targets, and campaigns are invented for educational purposes. Technique IDs reference the real MITRE ATT&amp;CK framework.</p>
+  </section>
+  <div class="adv-card">
+    <div class="adv-header"><span class="adv-name">RELAY KID</span><span class="adv-tag">FICTIONAL</span><span class="adv-tag">TIER-1 NPC</span></div>
+    <div class="adv-meta">
+      <div class="meta-item"><div class="meta-lbl">MOTIVATION</div><div class="meta-val">Reputation / Demonstration</div></div>
+      <div class="meta-item"><div class="meta-lbl">ORIGIN</div><div class="meta-val">In-world lore</div></div>
+      <div class="meta-item"><div class="meta-lbl">ACTIVITY</div><div class="meta-val">May 2026 (scenario)</div></div>
+    </div>
+    <div class="tech-list">
+      <span class="tech-id">T1078</span>Valid Accounts — compromised NPC credentials 
+      <span class="tech-id">T1059.007</span>JavaScript execution in browser context 
+      <span class="tech-id">T1553</span>Subvert Trust Controls via token forgery
+    </div>
+  </div>
+  <div class="adv-card">
+    <div class="adv-header"><span class="adv-name">GRIDLOCK SYNDICATE</span><span class="adv-tag">FICTIONAL</span><span class="adv-tag">TIER-3 BOSS</span></div>
+    <div class="adv-meta">
+      <div class="meta-item"><div class="meta-lbl">MOTIVATION</div><div class="meta-val">Financial / Disruption</div></div>
+      <div class="meta-item"><div class="meta-lbl">ORIGIN</div><div class="meta-val">Darknet Depths (in-world)</div></div>
+      <div class="meta-item"><div class="meta-lbl">ACTIVITY</div><div class="meta-val">Ongoing (scenario)</div></div>
+    </div>
+    <div class="tech-list">
+      <span class="tech-id">T1190</span>Exploit Public-Facing Application 
+      <span class="tech-id">T1027</span>Obfuscated Files via ZWSP steganography 
+      <span class="tech-id">T1134</span>Access Token Manipulation (JWT)
+    </div>
+  </div>
+</main>
+<footer>CYBERWORLD // FLLC GRID // ADVERSARY DB // DARKNET DEPTHS</footer>
 </body>
 </html>

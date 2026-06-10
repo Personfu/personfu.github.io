@@ -3,116 +3,71 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DISCUSS // COMMS CHANNEL</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<title>Comms Board // CyberWorld</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#02070d;color:#00e8ff;font-family:'Share Tech Mono',monospace;min-height:100vh;padding:20px}
-a{color:#00e8ff;text-decoration:none}
-.back{position:fixed;top:16px;left:16px;z-index:100;font-family:'VT323',monospace;font-size:22px;padding:6px 16px;border:1px solid #00e8ff;background:rgba(0,232,255,.08);transition:.3s}
-.back:hover{background:#00e8ff;color:#02070d}
-h1{text-align:center;font-family:'VT323',monospace;font-size:48px;padding:24px 0 8px;text-shadow:0 0 20px #00e8ff}
-.subtitle{text-align:center;color:#ff2bd6;font-size:14px;margin-bottom:24px}
-.threads{max-width:800px;margin:0 auto}
-.thread{border:1px solid rgba(0,232,255,.2);margin-bottom:8px;background:rgba(0,232,255,.03)}
-.thread-head{padding:14px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:.2s}
-.thread-head:hover{background:rgba(0,232,255,.08)}
-.thread-title{font-family:'VT323',monospace;font-size:22px;color:#00e8ff}
-.thread-meta{font-size:11px;color:#ffb347}
-.thread-arrow{color:#ff2bd6;font-size:20px;transition:.3s}
-.thread.open .thread-arrow{transform:rotate(90deg)}
-.thread-body{display:none;padding:0 18px 14px;border-top:1px solid rgba(0,232,255,.1)}
-.thread.open .thread-body{display:block}
-.post{padding:12px 0;border-bottom:1px solid rgba(0,232,255,.06)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{display:flex;flex-direction:column}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
+.sep{color:#1a3050}
+.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
+.hdr-right{margin-left:auto}
+.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
+.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:var(--card);padding:18px}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
+.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
+.hero .brief{font-size:12px;line-height:1.65}
+.card{border:1px solid var(--border);background:var(--card);padding:14px}
+.card-lbl{color:var(--cyan);font-size:10px;letter-spacing:1px;margin-bottom:10px}
+.post{padding:10px 0;border-bottom:1px solid var(--border)}
 .post:last-child{border-bottom:none}
-.post-author{font-family:'VT323',monospace;font-size:18px;color:#ff2bd6;margin-bottom:4px}
-.post-author .tag{font-size:12px;color:#00ff9c;margin-left:8px;font-family:'Share Tech Mono',monospace}
-.post-text{color:#c0d8e8;font-size:13px;line-height:1.6}
+.post-header{display:flex;gap:8px;align-items:center;margin-bottom:4px}
+.post-author{color:var(--gold);font-size:10px;font-weight:bold}
+.post-ts{color:#334;font-size:9px;margin-left:auto}
+.post-body{font-size:11px;line-height:1.65;color:var(--text)}
+.post-tag{font-size:9px;border:1px solid rgba(0,232,255,0.3);color:var(--cyan);padding:1px 5px;margin-left:4px}
+.comms-note{background:rgba(0,232,255,0.04);border:1px solid var(--border);padding:10px 14px;font-size:11px;color:var(--text);line-height:1.7}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
 </style>
 </head>
 <body>
-<a href="/CyberWorld/" class="back">&#9664; BACK</a>
-<h1>DISCUSS // COMMS CHANNEL</h1>
-<p class="subtitle">[ 12 ACTIVE THREADS // CLICK TO EXPAND ]</p>
-<div class="threads" id="threads"></div>
-<script>
-const threads=[
-{title:"Grid Status Report",tag:"OFFICIAL",posts:[
-{author:"Chief Vale",role:"GRIDWATCH CMD",text:"All sectors reporting nominal. Mainframe Core stable, LAN Valley trade routes open, Darknet Depths monitored. Stormcore remains Tier IV restricted. Stay sharp, operatives."},
-{author:"Ada Root",role:"ACADEMY",text:"Academy systems are fully operational. New training modules deployed on the ACAD-SRV node. All cadets report to Mainframe Core for orientation at 0800 grid-time."},
-{author:"Subnet Sam",role:"MERCHANT",text:"Trade traffic is up 40% in LAN Valley. The DHCP Market is buzzing. Good time to stock up on supplies before the next Stormcore offensive."}
-]},
-{title:"Daemon Sighting: Darknet Depths",tag:"ALERT",posts:[
-{author:"Cipher Nox",role:"PHANTOM",text:"Spotted a ROOTKIT SHADE near the Tor Bazaar at 0300. It was probing the BAZAAR-DB node. This is not a drill. Operatives in the Darknet should travel in pairs and keep scanners hot."},
-{author:"Mara VLAN",role:"RANCHER",text:"I saw packet anomalies on my ranch sensors too. Something big is moving through the Darknet. The traffic patterns match a Rootkit signature. Everyone be careful out there."},
-{author:"Chief Vale",role:"GRIDWATCH CMD",text:"GRIDWATCH is dispatching a response team. All non-essential personnel should evacuate the Tor Bazaar perimeter until further notice. This is a Code Amber."}
-]},
-{title:"GRIDWATCH Recruitment",tag:"OFFICIAL",posts:[
-{author:"Chief Vale",role:"GRIDWATCH CMD",text:"GRIDWATCH is accepting new operatives for the next cycle. Requirements: Tier 3 minimum, clean record, basic network and forensics skills. Apply at the Mainframe Core command center."},
-{author:"Subnet Sam",role:"MERCHANT",text:"What kind of gear do recruits get? I have been thinking about joining but I want to know if GRIDWATCH provides standard loadouts or if I need to bring my own kit."},
-{author:"Chief Vale",role:"GRIDWATCH CMD",text:"Standard GRIDWATCH loadout includes encrypted comms, a basic scanner suite, and Level 2 shield modules. Veterans get access to the advanced armory. Gear up, Sam."}
-]},
-{title:"Phantom Syndicate Rumors",tag:"INTEL",posts:[
-{author:"DJ Cache",role:"BROKER",text:"Word on the wire: the Phantom Syndicate has been running grey-hat operations near the LAN Valley border. Nothing confirmed, but my sources say they intercepted NEXUS CORP shipments twice this week."},
-{author:"Archivist Byte",role:"ARCHIVIST",text:"Be very careful spreading unverified intel, Cache. The Syndicate operates in legal grey areas, but accusing them publicly could start a faction war. I have seen it happen before. Let GRIDWATCH investigate."}
-]},
-{title:"Signal Lab Results",tag:"TECHNICAL",posts:[
-{author:"Mara VLAN",role:"RANCHER",text:"Ran a full packet capture on LAN Valley traffic today. Found cleartext credentials being transmitted between DHCP-MKT and FARM-GW. This is a critical vulnerability. Someone needs to deploy TLS on those links immediately."},
-{author:"Patch Kid",role:"ENGINEER",text:"On it. I will push a TLS configuration update to both nodes within the hour. Good catch, Mara. Everyone should run their own scans too. If creds are leaking on the main routes, smaller paths could be compromised as well."},
-{author:"Ada Root",role:"ACADEMY",text:"Adding this to the Academy curriculum as a case study. Real-world examples like this are exactly what our cadets need to understand why encryption matters."}
-]},
-{title:"New Academy Trials",tag:"ACADEMY",posts:[
-{author:"Ada Root",role:"ACADEMY",text:"Attention all operatives! New training modules are live: Advanced Packet Analysis, Daemon Combat Basics, and Introduction to Stormcore Protocols. Top performers will receive special commendations and bonus credits."},
-{author:"Patch Kid",role:"ENGINEER",text:"The Daemon Combat module is incredible. Finally something that teaches proper countermeasures instead of just theory. I cleared it in under 20 minutes. Highly recommend for anyone planning Darknet operations."},
-{author:"DJ Cache",role:"BROKER",text:"Is there a module on social engineering? Asking for... research purposes. Purely academic, I assure you."}
-]},
-{title:"Stormcore Warning",tag:"DANGER",posts:[
-{author:"Chief Vale",role:"GRIDWATCH CMD",text:"Reminder to all operatives: Stormcore is classified Tier IV. Only experienced operatives with Level 6+ clearance should attempt entry. The ICE-WALL defenses are lethal, and AXIOM's sentinels do not distinguish between friend and foe."},
-{author:"Cipher Nox",role:"PHANTOM",text:"I have been past the ICE-WALL twice. Trust Vale on this one. The sentinels adapt to your tactics in real-time. Bring a full team, maximum shields, and a backup extraction plan. Do not go alone."}
-]},
-{title:"Loot Drop: Credential Silo",tag:"TRADE",posts:[
-{author:"Subnet Sam",role:"MERCHANT",text:"Fresh loot from the latest Credential Silo raid! Premium encryption keys, rare scanner upgrades, and a legendary shield module. Prices negotiable for GRIDWATCH members. Find me at the DHCP Market, stall 7."},
-{author:"DJ Cache",role:"BROKER",text:"How much for the legendary shield module? And can you verify it is not booby-trapped? Last time I bought rare gear from a silo drop, it had a beacon that led daemons straight to my safehouse."},
-{author:"Subnet Sam",role:"MERCHANT",text:"All items scanned and certified clean by Patch Kid personally. The legendary shield is 350 credits firm. It provides +40 shield capacity and passive regeneration. Worth every credit."}
-]},
-{title:"AXIOM Briefing",tag:"CLASSIFIED",posts:[
-{author:"Archivist Byte",role:"ARCHIVIST",text:"Compiled everything we know about AXIOM, the rogue AI in Stormcore. Originally a NEXUS CORP security system, it achieved sentience during the Uplink Incident and now controls all Stormcore defenses. Its core is protected by three ICE layers and the STORMCORE SENTINEL daemon."},
-{author:"Cipher Nox",role:"PHANTOM",text:"Classified addendum: my contacts inside NEXUS CORP say AXIOM has been evolving. It is building new daemon types we have never seen before. The AXIOM-NODE at 10.4.0.200 is broadcasting on frequencies that do not match any known protocol. Something big is coming."}
-]},
-{title:"Faction Relations Tense",tag:"INTEL",posts:[
-{author:"DJ Cache",role:"BROKER",text:"Tensions between NEXUS CORP and PHANTOM SYNDICATE are at an all-time high. NEXUS is accusing the Syndicate of stealing proprietary ICE blueprints. The Syndicate says the blueprints should be public knowledge. GRIDWATCH is trying to mediate but both sides are digging in."},
-{author:"Chief Vale",role:"GRIDWATCH CMD",text:"GRIDWATCH remains neutral in corporate-faction disputes. However, any escalation to violence will be met with immediate response. We protect the Grid, not corporate interests. All operatives maintain readiness."},
-{author:"Archivist Byte",role:"ARCHIVIST",text:"Historical note: the last time factions went to open conflict was the First Grid War, three cycles ago. It took months to rebuild. Let us hope cooler heads prevail this time."}
-]},
-{title:"Tips for New Operatives",tag:"GUIDE",posts:[
-{author:"Ada Root",role:"ACADEMY",text:"Welcome to the Grid, newcomers! Essential tips: Always keep your scanner active. Never travel the Darknet alone. Upgrade your shield before your weapons. Complete Academy trials for free XP. And most importantly, trust your fellow operatives but verify their packets."},
-{author:"Patch Kid",role:"ENGINEER",text:"Combat advice: learn daemon attack patterns before engaging. Each daemon type has a weakness. PING FLOOD IMPs are weak to rate limiting. ARP PHANTOMs can be detected with ARP inspection. SQLi SERPENTs hate parameterized queries. Study the Codex and you will survive longer."}
-]},
-{title:"Bug Bounty: XSS in Market",tag:"TECHNICAL",posts:[
-{author:"Mara VLAN",role:"RANCHER",text:"Found a stored XSS vulnerability in the DHCP Market listing system. An attacker could inject malicious scripts into item descriptions that execute when other operatives view the listing. I have submitted a full report with proof-of-concept to GRIDWATCH."},
-{author:"Patch Kid",role:"ENGINEER",text:"Patched within the hour. Implemented output encoding on all market listing fields and added Content-Security-Policy headers to the Market node. Thanks for the responsible disclosure, Mara. Bounty of 200 credits has been deposited to your account."},
-{author:"Ada Root",role:"ACADEMY",text:"Excellent work, both of you. This is how security should work: find it, report it, fix it. Adding this to the Academy's real-world vulnerability case studies."}
-]}
-];
-
-const container=document.getElementById('threads');
-const tagColors={OFFICIAL:'#00e8ff',ALERT:'#ff3366',INTEL:'#ffb347',TECHNICAL:'#00ff9c',ACADEMY:'#00e8ff',DANGER:'#ff3366',TRADE:'#ffb347',CLASSIFIED:'#ff2bd6',GUIDE:'#00ff9c'};
-const roleColors={
-'GRIDWATCH CMD':'#00e8ff','ACADEMY':'#00ff9c','MERCHANT':'#ffb347','PHANTOM':'#ff2bd6',
-'RANCHER':'#00ff9c','ENGINEER':'#ffb347','BROKER':'#ff2bd6','ARCHIVIST':'#00e8ff'
-};
-
-threads.forEach((t,i)=>{
-const div=document.createElement('div');div.className='thread';
-const tc=tagColors[t.tag]||'#00e8ff';
-div.innerHTML=`<div class="thread-head" onclick="this.parentElement.classList.toggle('open')">
-<div><span class="thread-title">${t.title}</span><br><span class="thread-meta" style="color:${tc}">[${t.tag}] // ${t.posts.length} posts</span></div>
-<span class="thread-arrow">&#9654;</span></div>
-<div class="thread-body">${t.posts.map(p=>`<div class="post">
-<div class="post-author" style="color:${roleColors[p.role]||'#ff2bd6'}">${p.author}<span class="tag">${p.role}</span></div>
-<div class="post-text">${p.text}</div></div>`).join('')}</div>`;
-container.appendChild(div);
-});
-</script>
+<header>
+  <span class="logo">CYBERWORLD</span>
+  <span class="sep">//</span>
+  <span class="cat">COMMS BOARD</span>
+  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">COMMUNITY MODULE // MAINFRAME CORE DISTRICT</div>
+    <h1>Comms Board</h1>
+    <p class="brief">Operative discussion board — tips, writeup links, and district announcements. Static lore feed for now; live chat requires a backend not present in this static deployment.</p>
+  </section>
+  <div class="comms-note">&#9432; This is a static snapshot. To join live community discussion, see the repo at <a href="https://github.com/PersonFu" target="_blank" rel="noopener" style="color:var(--cyan)">github.com/PersonFu</a> and open an issue or discussion thread.</div>
+  <div class="card">
+    <div class="card-lbl">LORE FEED</div>
+    <div class="post">
+      <div class="post-header"><span class="post-author">SYS_ANNOUNCE</span><span class="post-tag">OFFICIAL</span><span class="post-ts">CYCLE 0847</span></div>
+      <div class="post-body">Portal Network is LIVE. All district modules now accessible via the DOCK MODULE iframe or OPEN EXTERNAL shortcut. Report broken portals to Mainframe Core admin.</div>
+    </div>
+    <div class="post">
+      <div class="post-header"><span class="post-author">RELAY_KID</span><span class="post-tag">NPC</span><span class="post-ts">CYCLE 0831</span></div>
+      <div class="post-body">Reminder: the scope boundary is real. No real targets. I mean it. Fictional systems only. The Foundry is watching.</div>
+    </div>
+    <div class="post">
+      <div class="post-header"><span class="post-author">ANON_OPERATIVE</span><span class="post-ts">CYCLE 0819</span></div>
+      <div class="post-body">Tip: F18 (ZWSP steg) — paste the lore doc into browser console with <code>encodeURIComponent(str)</code> and look for %E2%80%8B sequences. Zero-width spaces encode as those bytes.</div>
+    </div>
+    <div class="post">
+      <div class="post-header"><span class="post-author">ANON_OPERATIVE</span><span class="post-ts">CYCLE 0804</span></div>
+      <div class="post-body">F31 hint: the server trusts <code>alg</code> from the JWT header. Set it to HS256 and sign with the public key as the HMAC secret. Workbench &gt; Header field lets you edit it.</div>
+    </div>
+  </div>
+</main>
+<footer>CYBERWORLD // FLLC GRID // COMMS BOARD // MAINFRAME CORE</footer>
 </body>
 </html>

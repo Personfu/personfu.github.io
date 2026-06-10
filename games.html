@@ -3,47 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GAMES HUB</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<title>Game Archive // CyberWorld</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#02070d;color:#00e8ff;font-family:'Share Tech Mono',monospace;min-height:100vh}
-a{color:#00e8ff;text-decoration:none}a:hover{color:#ff2bd6}
-#top-bar{padding:15px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #00e8ff33}
-#top-bar h1{font-family:'VT323',monospace;font-size:32px;letter-spacing:3px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;max-width:1100px;margin:30px auto;padding:0 20px 60px}
-.card{display:block;padding:20px;background:rgba(0,232,255,0.03);border:1px solid #00e8ff22;border-radius:6px;transition:all .3s;text-decoration:none}
-.card:hover{border-color:#00e8ff;box-shadow:0 0 24px #00e8ff22;transform:translateY(-2px)}
-.card .icon{font-size:32px;margin-bottom:8px}
-.card h3{font-family:'VT323',monospace;font-size:22px;color:#00e8ff;margin-bottom:6px}
-.card:hover h3{color:#00ff9c}
-.card p{font-size:12px;color:#888;line-height:1.5}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{display:flex;flex-direction:column}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
+.sep{color:#1a3050}
+.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
+.hdr-right{margin-left:auto}
+.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
+.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:var(--card);padding:18px}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
+.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
+.hero .brief{font-size:12px;line-height:1.65}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.game-card{border:1px solid var(--border);background:var(--card);padding:14px;display:flex;flex-direction:column;gap:8px}
+.game-name{color:var(--bright);font-size:13px;font-weight:bold}
+.game-tag{display:inline-block;font-size:9px;color:var(--cyan);border:1px solid rgba(0,232,255,0.3);padding:1px 5px}
+.game-desc{font-size:11px;line-height:1.6;color:var(--text);flex:1}
+.btn-play{background:var(--green);color:#030811;border:none;padding:7px 16px;font-family:'Courier New',monospace;font-size:11px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block;align-self:flex-start;margin-top:4px}
+.btn-play:hover{background:var(--bright)}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
 </style>
 </head>
 <body>
-<div id="top-bar">
-<h1>GAMES HUB</h1>
-<a href="cyberworld-game.html">&#8592; Back to CyberWorld</a>
-</div>
-<div class="grid">
-<a class="card" href="cyberworld-game.html"><div class="icon">&#127758;</div><h3>CyberWorld MMORPG</h3><p>Enter the Grid. Walk the 4 sectors. Fight 16 daemons. Complete the AXIOM storyline.</p></a>
-<a class="card" href="wargames.html"><div class="icon">&#9876;</div><h3>WarGames</h3><p>Tactical cybersecurity war scenarios and challenges.</p></a>
-<a class="card" href="ctf-trail.html"><div class="icon">&#127937;</div><h3>CTF Trail</h3><p>Capture the Flag challenges across difficulty tiers.</p></a>
-<a class="card" href="signal-lab.html"><div class="icon">&#128225;</div><h3>Signal Lab</h3><p>Packet analysis and signal intelligence training.</p></a>
-<a class="card" href="forensics.html"><div class="icon">&#128270;</div><h3>Forensics</h3><p>Digital forensics investigations and evidence analysis.</p></a>
-<a class="card" href="redops.html"><div class="icon">&#128308;</div><h3>RedOps</h3><p>Offensive security operations and penetration testing.</p></a>
-<a class="card" href="intel.html"><div class="icon">&#128202;</div><h3>Intel</h3><p>Threat intelligence gathering and OSINT operations.</p></a>
-<a class="card" href="ai.html"><div class="icon">&#129302;</div><h3>AI Arsenal</h3><p>AI-powered security tools and machine learning labs.</p></a>
-<a class="card" href="adversaries.html"><div class="icon">&#128123;</div><h3>Adversaries</h3><p>Study threat actors, APTs, and attack methodologies.</p></a>
-<a class="card" href="research.html"><div class="icon">&#128218;</div><h3>Research</h3><p>Security research papers, CVEs, and deep analysis.</p></a>
-<a class="card" href="arcade.html"><div class="icon">&#127918;</div><h3>Arcade</h3><p>Cybersecurity-themed minigames and high score challenges.</p></a>
-<a class="card" href="hangar.html"><div class="icon">&#128747;</div><h3>Hangar 3D</h3><p>3D vehicle hangar and equipment inspection bay.</p></a>
-<a class="card" href="dogfight.html"><div class="icon">&#9992;</div><h3>Dogfight</h3><p>Aerial cyber-combat simulation.</p></a>
-<a class="card" href="nodes.html"><div class="icon">&#128430;</div><h3>Nodes</h3><p>Interactive network topology map of the Grid.</p></a>
-<a class="card" href="cyberworld-codex.html"><div class="icon">&#128214;</div><h3>Codex</h3><p>Complete CyberWorld lore encyclopedia.</p></a>
-<a class="card" href="profile.html"><div class="icon">&#128100;</div><h3>Profile</h3><p>Your operative dossier and stats.</p></a>
-<a class="card" href="stars.html"><div class="icon">&#11088;</div><h3>Stars</h3><p>Hall of Fame achievements and milestones.</p></a>
-<a class="card" href="cyberos-iso.html"><div class="icon">&#128190;</div><h3>ISO Builder</h3><p>Configure and build a fictional secure OS image.</p></a>
-</div>
+<header>
+  <span class="logo">CYBERWORLD</span>
+  <span class="sep">//</span>
+  <span class="cat">GAME ARCHIVE</span>
+  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">GAMES MODULE // PIXEL ARCADE DISTRICT</div>
+    <h1>Game Archive</h1>
+    <p class="brief">Browser-based diversions and skill-building mini-games from the Pixel Arcade district. No installation, no sign-in, no tracking — just open and play.</p>
+  </section>
+  <div class="grid2">
+    <div class="game-card">
+      <span class="game-name">CTF Flag Hunt</span>
+      <span class="game-tag">PUZZLE</span>
+      <p class="game-desc">The original CyberWorld training-range quest. Chase 33 flags across 5 tiers. Good for 2–8 hours of gameplay if you’re being thorough.</p>
+      <a class="btn-play" href="/CyberWorld_login/challenge.html" target="_blank">PLAY &#8599;</a>
+    </div>
+    <div class="game-card">
+      <span class="game-name">Intercept Workbench</span>
+      <span class="game-tag">TOOL / PUZZLE</span>
+      <p class="game-desc">JWT forgery and HTTP repeater sandbox. Craft tokens, intercept synthetic responses, decode payloads. Uses the same engine as Tier 4–5 flags.</p>
+      <a class="btn-play" href="/CyberWorld_login/intercept.html" target="_blank">PLAY &#8599;</a>
+    </div>
+    <div class="game-card">
+      <span class="game-name">Payload Decoder</span>
+      <span class="game-tag">UTILITY</span>
+      <p class="game-desc">Instant Base64, JWT, hex, and URL decode. Try encoding your own messages and decoding them back. Useful brain-training for spotting encoded strings in the wild.</p>
+      <a class="btn-play" href="/ai.html" target="_top">OPEN &#8599;</a>
+    </div>
+    <div class="game-card">
+      <span class="game-name">Lore Archive</span>
+      <span class="game-tag">EXPLORE</span>
+      <p class="game-desc">Browse the CyberWorld lore vault — district backstories, NPC dossiers, and incident reports. Some entries contain hidden flags.</p>
+      <a class="btn-play" href="/CyberWorld/" target="_top">EXPLORE &#8599;</a>
+    </div>
+  </div>
+</main>
+<footer>CYBERWORLD // FLLC GRID // GAME ARCHIVE // PIXEL ARCADE</footer>
 </body>
 </html>

@@ -26,6 +26,13 @@
     .training a{color:var(--cyan);text-decoration:none;border-bottom:1px dotted var(--cyan)}
     h1{margin:0;color:var(--cyan);font-size:clamp(1.5rem,4.6vw,2rem);letter-spacing:.18em;text-transform:uppercase;text-shadow:0 0 14px rgba(0,255,231,.78)}
     .sub{margin:4px 0 18px;color:var(--pink);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+    .ops-brief{margin:0 0 14px;padding:12px 14px;border:1px solid rgba(0,255,231,.35);border-radius:7px;background:rgba(8,13,23,.72)}
+    .ops-brief h2{margin:0 0 8px;color:var(--cyan);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+    .ops-brief p{margin:0;color:var(--text);font-size:.8rem;line-height:1.55}
+    .ops-brief p + p{margin-top:8px;color:var(--muted)}
+    .ops-actions{margin:10px 0 0;padding-left:18px;display:grid;gap:4px}
+    .ops-actions li{color:var(--text);font-size:.76rem;line-height:1.5}
+    .ops-actions li::marker{color:var(--pink)}
     .tiers{display:grid;grid-template-columns:1fr;gap:12px}
     @media(min-width:640px){.tiers{grid-template-columns:1fr 1fr}}
     @media(min-width:980px){.tiers{grid-template-columns:1fr 1fr 1fr 1fr 1fr}}
@@ -59,6 +66,15 @@
 
     <h1>CyberWorld :: Lab</h1>
     <p class="sub" id="stateLine">Verifying session...</p>
+
+    <section class="ops-brief" aria-labelledby="ops-title">
+      <h2 id="ops-title">Mission Relay</h2>
+      <p id="opsFocus">Syncing tactical feed...</p>
+      <p id="opsNarrative">The grid is unstable. Pick the next node and keep pressure on the breach chain.</p>
+      <ol class="ops-actions" id="nextActions">
+        <li>Wait for manifest verification.</li>
+      </ol>
+    </section>
 
     <div class="tiers">
       <div class="tier" data-tier="1">
@@ -211,20 +227,102 @@
     function setLine(t,k){ const el=document.getElementById("stateLine"); el.textContent=t; el.className="sub"; if(k) el.classList.add(k); }
     function shortHash(h){ return h?h.slice(0,12)+"..."+h.slice(-8):"--"; }
 
+    function nextOpenTier(tiers){
+      for(const tier of [1,2,3,4,5]) if(tiers[tier].ok < tiers[tier].total) return tier;
+      return null;
+    }
+
+    function renderMissionRelay(t){
+      const focus = document.getElementById("opsFocus");
+      const narrative = document.getElementById("opsNarrative");
+      const list = document.getElementById("nextActions");
+      if(!focus || !narrative || !list) return;
+
+      const briefs = {
+        1: {
+          label: "Node 1 :: Defensive Audit",
+          text: "Confirm the gate is theatre, not trust. Validate session + asset fingerprints before moving deeper.",
+          actions: [
+            "Open console and close the first ten audit findings.",
+            "Verify session and manifest integrity signals.",
+            "Treat every flashy alarm as potential decoy bait."
+          ]
+        },
+        2: {
+          label: "Node 2 :: Cryptanalysis",
+          text: "Break the toy crypto fast and clean. This tier builds momentum for the live exploit chain.",
+          actions: [
+            "Factor RSA-toy and decrypt the provided ciphertext.",
+            "Verify ECDSA and solve the truncated HMAC collision.",
+            "Finish Vigenere to unlock full intel pacing."
+          ]
+        },
+        3: {
+          label: "Node 3 :: Threat Intel",
+          text: "Map real-world references to field tactics. This node trains fast attribution under pressure.",
+          actions: [
+            "Resolve CVE, ATT&CK, NIST phase, and actor mapping.",
+            "Extract the zero-width payload from the brief.",
+            "Use intel clues to inform intercept strategy."
+          ]
+        },
+        4: {
+          label: "Node 4 :: Burp Workbench",
+          text: "Shift from analysis to active compromise. Chain JWT, IDOR, traversal, XFF, HPP, and race flaws.",
+          actions: [
+            "Use intercept macros to accelerate request mutation.",
+            "Forge/admin pivot and chain to internal flag.",
+            "Track solved findings so the XOR closes cleanly."
+          ]
+        },
+        5: {
+          label: "Node 5 :: Deeper Chain",
+          text: "Finish the advanced path: key confusion, prototype pollution, and cache-vs-auth confusion.",
+          actions: [
+            "Exploit HS/RS confusion against the super endpoint.",
+            "Pollute Object.prototype and open admin console.",
+            "Poison cache path and validate pre-auth read behavior."
+          ]
+        }
+      };
+
+      const openTier = nextOpenTier(t.tiers);
+      if(openTier === null){
+        focus.textContent = "All nodes closed :: Superoperator signal active";
+        narrative.textContent = "Every finding is confirmed. Jump back into CyberWorld and claim high-tier operator content.";
+        list.innerHTML = "<li>Enter CyberWorld main world.</li><li>Confirm grant source and timestamp in local storage.</li><li>Replay favorite node for speed-run training.</li>";
+        return;
+      }
+
+      const b = briefs[openTier];
+      focus.textContent = b.label;
+      narrative.textContent = b.text;
+      list.innerHTML = b.actions.map((a)=>"<li>"+a+"</li>").join("");
+    }
+
     async function boot(){
       let session=null;
-      try{ const raw=sessionStorage.getItem(settings.sessionKey); if(!raw) throw new Error(); session=JSON.parse(raw); }
-      catch{ setLine("Session missing","bad"); setTimeout(()=>location.replace("index.html"),900); return; }
+      try{ const raw=sessionStorage.getItem(settings.sessionKey); if(raw) session=JSON.parse(raw); }
+      catch{ session=null; }
       try{
         const asset=await readAsset();
         const manifest=await loadManifest();
-        await verifySession(session, asset);
+        let verified=false;
+        if(session){
+          try{
+            await verifySession(session, asset);
+            verified=true;
+          }catch(e){
+            sessionStorage.removeItem(settings.sessionKey);
+            session=null;
+          }
+        }
         if(manifest.asset_fingerprints["seal.png"]!==asset.file) throw new Error("manifest:asset-binding");
-        document.getElementById("se").textContent=new Date(session.e).toISOString().slice(0,19)+"Z";
+        document.getElementById("se").textContent=verified ? new Date(session.e).toISOString().slice(0,19)+"Z" : "training mode";
         document.getElementById("sa").textContent=shortHash(asset.file);
         document.getElementById("sm").innerHTML='<span class="ok">verified</span> '+shortHash(manifest.signature.value);
         document.getElementById("target").textContent="0x"+manifest.master_xor;
-        setLine("Access granted","ok");
+        setLine(verified ? "Access granted" : "Deep-link training mode","ok");
         const t=await tally(manifest);
         for (const tier of [1,2,3,4,5]) {
           const tn = document.getElementById("t"+tier+"n");
@@ -236,6 +334,7 @@
         document.getElementById("master").innerHTML=
           "<strong>"+t.count+"/"+manifest.findings.length+"</strong> confirmed -- partial XOR = <code>0x"+t.acc+"</code> -- target <code>0x"+manifest.master_xor+"</code>"+
           (closed?' <span class="ok">-- LINEAR CODE CLOSED -- OPERATOR_GRANT issued</span>':'');
+        renderMissionRelay(t);
         // MMO handoff: when every tier closes, mark the browser as
         // 'superoperator' (Tier 5 closure) so /cyberworld.html can
         // unlock the highest-tier content. Tier 4 closure alone marks
@@ -249,8 +348,6 @@
         }
       }catch(e){
         setLine("Verification failed: "+(e&&e.message||e),"bad");
-        sessionStorage.removeItem(settings.sessionKey);
-        setTimeout(()=>location.replace("index.html"),1500);
       }
     }
     document.getElementById("exit").addEventListener("click",()=>{ sessionStorage.removeItem(settings.sessionKey); sessionStorage.removeItem(settings.solvedKey); location.replace("index.html"); });

@@ -3,303 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI ARSENAL // OPS BENCH</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<title>AI Ops Lab // CyberWorld</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#02070d;color:#c0c0c0;font-family:'Share Tech Mono',monospace;min-height:100vh;overflow-x:hidden}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:#02070d}
-::-webkit-scrollbar-thumb{background:#00e8ff33;border-radius:3px}
-a{color:#00e8ff;text-decoration:none}
-a:hover{text-shadow:0 0 8px #00e8ff}
-.back-link{position:fixed;top:16px;left:16px;z-index:100;font-family:'VT323',monospace;font-size:1.2rem;padding:6px 14px;border:1px solid #00e8ff44;background:#02070dcc;backdrop-filter:blur(6px);border-radius:4px}
-h1{font-family:'VT323',monospace;font-size:2.8rem;text-align:center;padding:60px 20px 10px;color:#00e8ff;text-shadow:0 0 20px #00e8ff66}
-.subtitle{text-align:center;color:#ff2bd6;font-family:'VT323',monospace;font-size:1.3rem;margin-bottom:30px}
-.container{max-width:900px;margin:0 auto;padding:0 20px 60px}
-.progress-bar{display:flex;gap:8px;justify-content:center;margin-bottom:30px;flex-wrap:wrap}
-.prog-dot{width:120px;padding:8px;text-align:center;font-size:.75rem;border:1px solid #ffffff15;background:#ffffff08;border-radius:4px;cursor:default;transition:.3s}
-.prog-dot.active{border-color:#00e8ff;color:#00e8ff;box-shadow:0 0 10px #00e8ff33}
-.prog-dot.done{border-color:#00ff6a;color:#00ff6a}
-.prog-dot.locked{opacity:.4}
-.exercise{display:none;animation:fadeIn .4s}
-.exercise.visible{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-.briefing{border:1px solid #ff2bd644;background:#ff2bd608;padding:20px;margin-bottom:24px;border-radius:4px}
-.briefing h2{font-family:'VT323',monospace;font-size:1.8rem;color:#ff2bd6;margin-bottom:8px}
-.briefing p{line-height:1.6;font-size:.9rem}
-.task-block{border:1px solid #ffffff15;background:#ffffff06;padding:18px;margin-bottom:16px;border-radius:4px}
-.task-block h3{font-family:'VT323',monospace;font-size:1.2rem;color:#00e8ff;margin-bottom:10px}
-.log-line{background:#000;padding:6px 10px;margin:4px 0;font-size:.8rem;border-left:2px solid #00e8ff44;color:#8fa;font-family:'Share Tech Mono',monospace;word-break:break-all}
-.choices{display:flex;flex-direction:column;gap:8px;margin-top:12px}
-.choice-btn{background:#ffffff08;border:1px solid #ffffff20;color:#c0c0c0;padding:10px 14px;text-align:left;font-family:'Share Tech Mono',monospace;font-size:.85rem;cursor:pointer;border-radius:4px;transition:.2s}
-.choice-btn:hover:not(:disabled){border-color:#00e8ff;color:#00e8ff}
-.choice-btn.selected{border-color:#00e8ff;color:#00e8ff;background:#00e8ff11}
-.choice-btn.correct{border-color:#00ff6a!important;color:#00ff6a!important;background:#00ff6a11!important}
-.choice-btn.wrong{border-color:#ff3333!important;color:#ff3333!important;background:#ff333311!important}
-.choice-btn:disabled{cursor:default}
-.feedback{margin-top:10px;padding:10px;font-size:.85rem;border-radius:4px;display:none;line-height:1.5}
-.feedback.show{display:block}
-.feedback.good{border:1px solid #00ff6a44;background:#00ff6a08;color:#00ff6a}
-.feedback.bad{border:1px solid #ff333344;background:#ff333308;color:#ff3333}
-.score-display{text-align:center;font-family:'VT323',monospace;font-size:2rem;color:#00e8ff;margin:20px 0}
-.next-btn,.submit-btn{display:block;margin:20px auto 0;padding:10px 30px;background:transparent;border:1px solid #ff2bd6;color:#ff2bd6;font-family:'VT323',monospace;font-size:1.2rem;cursor:pointer;border-radius:4px;transition:.2s}
-.next-btn:hover,.submit-btn:hover{background:#ff2bd622;box-shadow:0 0 12px #ff2bd633}
-.next-btn:disabled,.submit-btn:disabled{opacity:.3;cursor:default;pointer-events:none}
-.drag-list{list-style:none}
-.drag-item{display:flex;align-items:center;gap:12px;padding:12px;margin:6px 0;border:1px solid #ffffff20;background:#ffffff08;border-radius:4px;cursor:grab;user-select:none}
-.drag-item:active{cursor:grabbing}
-.drag-item .step-num{font-family:'VT323',monospace;font-size:1.3rem;color:#ff2bd6;min-width:24px}
-.drag-item .step-text{flex:1;font-size:.85rem}
-.auto-select{display:flex;gap:6px;flex-shrink:0}
-.auto-select button{padding:4px 10px;font-size:.7rem;font-family:'Share Tech Mono',monospace;background:#ffffff08;border:1px solid #ffffff20;color:#c0c0c0;cursor:pointer;border-radius:3px;transition:.2s}
-.auto-select button.active{border-color:#00e8ff;color:#00e8ff;background:#00e8ff15}
-.auto-select button:hover{border-color:#00e8ff}
-.checkbox-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
-.cb-label{display:flex;align-items:center;gap:8px;padding:8px;border:1px solid #ffffff15;border-radius:4px;cursor:pointer;font-size:.85rem;transition:.2s}
-.cb-label:hover{border-color:#00e8ff}
-.cb-label input{accent-color:#00e8ff}
-.cb-label.sel{border-color:#00e8ff;background:#00e8ff08}
-.final-score{text-align:center;padding:40px;border:1px solid #00e8ff44;background:#00e8ff08;border-radius:8px;margin-top:30px}
-.final-score h2{font-family:'VT323',monospace;font-size:2.5rem;color:#00e8ff}
-.final-score .num{font-family:'VT323',monospace;font-size:4rem;color:#ff2bd6}
-.reset-btn{display:block;margin:20px auto;padding:8px 24px;background:transparent;border:1px solid #ff333388;color:#ff3333;font-family:'VT323',monospace;font-size:1rem;cursor:pointer;border-radius:4px}
-.reset-btn:hover{background:#ff333318}
-@media(max-width:600px){h1{font-size:2rem;padding-top:50px}.drag-item{flex-wrap:wrap}.auto-select{width:100%;justify-content:center}.checkbox-grid{grid-template-columns:1fr}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+body{display:flex;flex-direction:column}
+header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
+.sep{color:#1a3050}
+.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
+.hdr-right{margin-left:auto}
+.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
+.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:var(--card);padding:18px}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
+.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
+.hero .brief{font-size:12px;line-height:1.65}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.card{border:1px solid var(--border);background:var(--card);padding:14px}
+.card-lbl{color:var(--cyan);font-size:10px;letter-spacing:1px;margin-bottom:8px}
+.card p,.card li{font-size:11px;line-height:1.6}
+.card ul{padding-left:14px;margin-top:4px}
+.tool-row{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid var(--border)}
+.tool-row:last-child{border-bottom:none}
+.tname{color:var(--bright);font-size:11px;width:110px;flex-shrink:0}
+.tdesc{color:var(--text);font-size:10px;line-height:1.5}
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
 </style>
 </head>
 <body>
-<a href="/CyberWorld/" class="back-link">&lt; CYBERWORLD</a>
-<h1>AI ARSENAL // OPS BENCH</h1>
-<p class="subtitle">// MACHINE-AUGMENTED SECURITY OPERATIONS TRAINING //</p>
-<div class="container">
-<div class="progress-bar" id="progBar"></div>
-<div id="exCon"></div>
-</div>
+<header>
+  <span class="logo">CYBERWORLD</span>
+  <span class="sep">//</span>
+  <span class="cat">AI OPS MODULE</span>
+  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">AI MODULE // QUANTUM QUARTER DISTRICT</div>
+    <h1>AI Ops Lab</h1>
+    <p class="brief">In-world AI assistant terminal for Quantum Quarter operatives. Use AI tools to automate log triage, pattern-match CVE descriptions, and generate remediation outlines. All prompts run client-side or through public APIs — no credentials stored.</p>
+  </section>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-lbl">AVAILABLE TOOLS</div>
+      <div class="tool-row"><span class="tname">Log Triage</span><span class="tdesc">Paste log output for automatic pattern extraction and anomaly tagging</span></div>
+      <div class="tool-row"><span class="tname">CVE Matcher</span><span class="tdesc">Describe a symptom and get candidate CVE IDs and ATT&amp;CK techniques</span></div>
+      <div class="tool-row"><span class="tname">Payload Decoder</span><span class="tdesc">Decode Base64, URL-encode, hex, and JWT payloads in one click</span></div>
+      <div class="tool-row"><span class="tname">Report Draft</span><span class="tdesc">Generate a structured incident-report outline from bullet-point findings</span></div>
+    </div>
+    <div class="card">
+      <div class="card-lbl">USAGE GUIDELINES</div>
+      <ul>
+        <li>Do not paste real credentials or PII into any field</li>
+        <li>AI output is a starting point — verify every finding manually</li>
+        <li>Decoder runs locally in your browser; no data is transmitted</li>
+        <li>CVE lookups query public NVD/MITRE APIs — no auth required</li>
+        <li>Flag any AI-generated content with a verification caveat</li>
+      </ul>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-lbl">PAYLOAD DECODER</div>
+    <p style="font-size:11px;margin-bottom:8px">Paste any encoded string below to inspect it:</p>
+    <textarea id="dec-in" style="width:100%;height:60px;background:#030811;border:1px solid rgba(0,232,255,0.2);color:#a0c8d8;font-family:'Courier New',monospace;font-size:11px;padding:6px;resize:vertical" placeholder="Base64 / JWT / hex / URL-encoded..."></textarea>
+    <button onclick="decode()" style="margin-top:6px;background:var(--cyan);color:#030811;border:none;padding:6px 14px;font-family:'Courier New',monospace;font-size:11px;cursor:pointer;font-weight:bold">DECODE</button>
+    <pre id="dec-out" style="margin-top:8px;font-size:11px;white-space:pre-wrap;word-break:break-all;color:var(--bright)"></pre>
+  </div>
+</main>
+<footer>CYBERWORLD // FLLC GRID // AI OPS LAB // QUANTUM QUARTER</footer>
 <script>
-const SK='cw.ai.v1';
-let S=JSON.parse(localStorage.getItem(SK)||'null')||{scores:[null,null,null,null,null],unlocked:0};
-function save(){localStorage.setItem(SK,JSON.stringify(S))}
-function esc(s){return s.replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-
-const EX=[
-{title:"PATTERN MATCHER",brief:"Detection engineering starts with pattern recognition. Analyze 8 log entries and select the correct regex that matches each attack signature. Think like a SIEM rule writer.",
-render(el){
-const items=[
-{log:'2024-03-15 08:12:33 POST /admin/login.php?user=admin%27%20OR%201%3D1-- HTTP/1.1 200 3842',q:'Match SQL injection in URL parameters',
-choices:["/%27.*OR.*1%3D1/i","/%27%20OR%20%271%27%3D%271/","/(\\%27|')\\s*(OR|AND)\\s*\\d+\\s*[%3D=]\\s*\\d+/i","/SELECT.*FROM.*WHERE/i"],correct:2,
-explain:"Matches URL-encoded single quotes followed by OR/AND with numeric tautology comparisons, catching common SQL injection forms."},
-{log:'[Sun Mar 15 09:01:12] WARNING: cmd.exe /c powershell -nop -w hidden -enc SQBFAFgAIAAoA...',q:'Match encoded PowerShell execution',
-choices:["/powershell.*-enc/i","/powershell\\s+(-\\w+\\s+)*-enc(odedcommand)?\\s+[A-Za-z0-9+\\/=]+/i","/cmd\\.exe.*powershell/","/base64_decode/i"],correct:1,
-explain:"Matches powershell with optional flags then -enc/-encodedcommand and a base64 payload string -- hallmark of obfuscated execution."},
-{log:'Mar 15 09:15:44 web01 sshd[2384]: Failed password for invalid user root from 45.33.32.156 port 48322 ssh2',q:'Match SSH brute force attempts',
-choices:["/Failed password for .* from .*/","/sshd\\[\\d+\\]:\\s*Failed password for (invalid user )?\\w+ from \\d+\\.\\d+\\.\\d+\\.\\d+/","/ssh.*login.*fail/i","/brute.?force/i"],correct:1,
-explain:"Precisely matches the sshd log format including PID, optional 'invalid user' prefix, username, and source IP address."},
-{log:'GET /../../../../etc/passwd HTTP/1.1 200 1247',q:'Match directory traversal attacks',
-choices:["/etc\\/passwd/","/(\\.\\.[\\/\\\\]){2,}/","/\\.\\.\\/\\.\\.\\/\\.\\.\\/\\.\\./","/path.traversal/i"],correct:1,
-explain:"Matches two or more consecutive ../ or ..\\\\ sequences, detecting traversal attempts regardless of depth or OS path separator."},
-{log:'2024-03-15 10:22:18 DNS Query: TXT aW1wb3J0IG9z.data.evil-c2.com from 10.0.1.55',q:'Match DNS tunneling / exfiltration',
-choices:["/DNS.*Query.*TXT/","/DNS.*Query.*TXT\\s+[A-Za-z0-9+\\/=]{8,}\\.[\\w.-]+/","/evil.*\\.com/","/DNS.*exfil/i"],correct:1,
-explain:"DNS tunneling uses long base64-like subdomains in TXT queries. This pattern matches TXT queries with long encoded subdomain labels."},
-{log:'alert tcp any any -> $HOME_NET 445 (msg:"ET EXPLOIT EternalBlue"; content:"|ff|SMB|73|"; sid:2024217;)',q:'Match SMB exploit signatures',
-choices:["/EternalBlue/i","/SMB.*\\|73\\|/","/tcp.*445.*content:\\s*\"\\|[0-9a-f]{2}\\|SMB\\|[0-9a-f]{2}\\|\"/i","/port 445/"],correct:2,
-explain:"Matches Snort/Suricata rule format for SMB exploits targeting port 445 with hex-encoded content match patterns."},
-{log:'[ALERT] Mimikatz detected: sekurlsa::logonpasswords executed by SYSTEM on DC01',q:'Match credential dumping tools',
-choices:["/mimikatz/i","/sekurlsa::(logonpasswords|wdigest|kerberos|msv|credman)/i","/credential.*dump/i","/SYSTEM.*DC/"],correct:1,
-explain:"Matches specific Mimikatz sekurlsa sub-commands used for credential harvesting, covering the most common modules."},
-{log:'2024-03-15 11:30:00 OUTBOUND 10.0.1.22:49812 -> 185.141.63.120:443 bytes:524288000 duration:3600s',q:'Match data exfiltration by volume',
-choices:["/OUTBOUND.*bytes:\\d{9,}/","/OUTBOUND.*\\d+\\.\\d+\\.\\d+\\.\\d+:\\d+\\s*->\\s*\\d+\\.\\d+\\.\\d+\\.\\d+:\\d+.*bytes:(\\d{8,}).*duration:(\\d{3,})/","/524288000/","/exfiltration/i"],correct:1,
-explain:"Matches outbound connections with large byte counts (8+ digits ~10MB+) and long durations (3+ digit seconds), indicators of bulk exfiltration."}
-];
-let ans=0,sc=0;
-items.forEach((it,i)=>{
-const d=document.createElement('div');d.className='task-block';
-d.innerHTML='<h3>LOG '+(i+1)+'/8: '+it.q+'</h3><div class="log-line">'+esc(it.log)+'</div><div class="choices" id="e1q'+i+'"></div><div class="feedback" id="e1f'+i+'"></div>';
-el.appendChild(d);
-const cc=d.querySelector('#e1q'+i);
-it.choices.forEach((c,ci)=>{const b=document.createElement('button');b.className='choice-btn';b.textContent=c;
-b.onclick=()=>{cc.querySelectorAll('.choice-btn').forEach(x=>x.disabled=true);
-if(ci===it.correct){b.classList.add('correct');sc++}else{b.classList.add('wrong');cc.children[it.correct].classList.add('correct')}
-const fb=d.querySelector('#e1f'+i);fb.className='feedback show '+(ci===it.correct?'good':'bad');fb.textContent=(ci===it.correct?'CORRECT: ':'INCORRECT: ')+it.explain;
-ans++;if(ans===items.length)setTimeout(()=>finish(0,Math.round(sc/items.length*100)),500)};
-cc.appendChild(b)});
-})}
-},
-{title:"CLASSIFICATION ENGINE",brief:"SOC analysts must quickly triage alerts to avoid fatigue. Classify each security alert as True Positive (real threat) or False Positive (benign). Context is everything.",
-render(el){
-const items=[
-{alert:"Outbound SSH from web server 10.0.1.50 to 91.234.56.78:22 at 03:14 AM",ctx:"No scheduled SSH jobs. No maintenance window. Destination IP in a country with no business operations.",ans:"tp",ex:"Unexpected outbound SSH from a web server to an unrecognized foreign IP outside maintenance windows strongly indicates compromise."},
-{alert:"Multiple failed logins for 'jsmith' from 10.0.2.100 then successful login",ctx:"Monday 8:45 AM. User forgets passwords after weekends. Source IP is office DHCP range. Helpdesk reset password 5 minutes prior.",ans:"fp",ex:"Classic post-weekend password issue confirmed by helpdesk reset from an internal office IP during business hours."},
-{alert:"PowerShell -EncodedCommand detected on WORKSTATION-42",ctx:"IT automation runs scheduled GPO script at 2 AM daily using encoded PS for inventory. Alert at 2:01 AM. Script hash matches approved version.",ans:"fp",ex:"Matches a known, approved automation script running at its scheduled time with verified hash."},
-{alert:"DNS queries to domain registered 2 days ago from 10.0.1.88",ctx:"Domain on Cloudflare. User is in marketing. Domain is a new vendor product page mentioned in recent email thread.",ans:"fp",ex:"Newly registered domain linked to legitimate vendor interaction. Marketing context and standard CDN hosting confirm benign activity."},
-{alert:"4.2 GB transfer from file server to USB on WORKSTATION-17",ctx:"User submitted resignation yesterday. Files include proprietary designs and client databases. Transfer at 11:47 PM.",ans:"tp",ex:"Large USB transfers of sensitive files by a departing employee after hours is textbook insider data theft."},
-{alert:"AV detected Trojan.GenericKD in C:\\Users\\admin\\Downloads\\Q4_Report.xlsm",ctx:"Email from unknown sender with 'Urgent Q4 Financial Report'. Macros download payload from known malicious URL. Bypassed spam filter.",ans:"tp",ex:"Macro-enabled file from unknown sender contacting known malicious URL is confirmed malicious delivery."}
-];
-let ans=0,sc=0;
-items.forEach((it,i)=>{
-const d=document.createElement('div');d.className='task-block';
-d.innerHTML='<h3>ALERT '+(i+1)+'/6</h3><div class="log-line">'+esc(it.alert)+'</div><p style="margin:10px 0;font-size:.85rem"><b style="color:#ff2bd6">CONTEXT:</b> '+it.ctx+'</p><div class="choices" id="e2q'+i+'"></div><div class="feedback" id="e2f'+i+'"></div>';
-el.appendChild(d);
-const cc=d.querySelector('#e2q'+i);
-[{l:'TRUE POSITIVE -- Real Threat',v:'tp'},{l:'FALSE POSITIVE -- Benign Activity',v:'fp'}].forEach(o=>{
-const b=document.createElement('button');b.className='choice-btn';b.textContent=o.l;
-b.onclick=()=>{cc.querySelectorAll('.choice-btn').forEach(x=>x.disabled=true);
-const ok=o.v===it.ans;if(ok){b.classList.add('correct');sc++}else{b.classList.add('wrong');[...cc.children].find(x=>!x.classList.contains('wrong')).classList.add('correct')}
-const fb=d.querySelector('#e2f'+i);fb.className='feedback show '+(ok?'good':'bad');fb.textContent=(ok?'CORRECT: ':'INCORRECT: ')+it.ex;
-ans++;if(ans===items.length)setTimeout(()=>finish(1,Math.round(sc/items.length*100)),500)};
-cc.appendChild(b)});
-})}
-},
-{title:"AUTOMATION ETHICS",brief:"AI in security raises ethical dilemmas. For each scenario, choose the most appropriate ethical stance. Each answer includes an explanation of the reasoning.",
-render(el){
-const items=[
-{q:"Your AI auto-locks accounts on anomalous behavior (2% FP rate = ~50 legit employees locked out daily, losing hours of productivity).",
-c:["Keep as-is; 2% is acceptable for security","Add human review before lockouts, accepting slower response","Raise threshold to reduce FP even if threats slip through","Tiered response: restrict sensitive access immediately, full lockout only after human review"],
-a:3,ex:"Tiered response balances security and user impact. Graduated response limits damage from both threats and false positives while maintaining human oversight for high-impact actions."},
-{q:"An AI platform predicts insider threats using behavioral analytics, HR data, and personal financial records. Your CISO wants to deploy it.",
-c:["Deploy fully -- insider threats cause major damage","Deploy only behavioral analytics; exclude personal/HR data","Reject entirely -- predictive profiling violates dignity","Deploy with employee consent and transparency"],
-a:1,ex:"Behavioral analytics on work systems is proportionate. Personal financial and HR data crosses into surveillance, creates bias risks, and may violate privacy laws."},
-{q:"Your AI flags more alerts for users in certain regions. Analysis shows training data had more attack samples from those regions.",
-c:["Reflects real threat landscape -- some regions have more attacks","Retrain with balanced data and add fairness constraints","Disable AI until bias is eliminated","Add disclaimer and let analysts account for it"],
-a:1,ex:"Biased training data leads to discriminatory outcomes. Retraining with balanced data and fairness constraints addresses the root cause rather than shifting burden to analysts."},
-{q:"During active ransomware, your AI recommends isolating 200 hospital network segments, which would disable life-support monitoring for 15 minutes during switchover.",
-c:["Execute immediately -- every second counts","Never isolate life-safety equipment regardless of threat","Isolate non-critical segments automatically; require human auth for life-safety","Let AI decide based on its risk calculation"],
-a:2,ex:"Life-safety systems require human authorization before disruption. AI should support but not replace human judgment in life-or-death situations."},
-{q:"A vendor offers AI trained on thousands of companies' incident data. It would improve your detection, but you must share anonymized incident data back.",
-c:["Refuse -- sharing any data is too risky","Join -- defensive benefit outweighs risk","Join only if anonymization is verified, legally reviewed, and you can opt out later","Share but demand vendor limit use to collective defense only"],
-a:2,ex:"Collective defense has value but requires verified anonymization, legal review, and exit options. Informed, conditional participation is the ethical path."}
-];
-let ans=0,sc=0;
-items.forEach((it,i)=>{
-const d=document.createElement('div');d.className='task-block';
-d.innerHTML='<h3>SCENARIO '+(i+1)+'/5</h3><p style="margin-bottom:12px;line-height:1.6;font-size:.9rem">'+it.q+'</p><div class="choices" id="e3q'+i+'"></div><div class="feedback" id="e3f'+i+'"></div>';
-el.appendChild(d);
-const cc=d.querySelector('#e3q'+i);
-it.c.forEach((c,ci)=>{const b=document.createElement('button');b.className='choice-btn';b.textContent=c;
-b.onclick=()=>{cc.querySelectorAll('.choice-btn').forEach(x=>x.disabled=true);
-const ok=ci===it.a;if(ok){b.classList.add('correct');sc++}else{b.classList.add('wrong');cc.children[it.a].classList.add('correct')}
-const fb=d.querySelector('#e3f'+i);fb.className='feedback show '+(ok?'good':'bad');fb.textContent=(ok?'CORRECT: ':'INCORRECT: ')+it.ex;
-ans++;if(ans===items.length)setTimeout(()=>finish(2,Math.round(sc/items.length*100)),500)};
-cc.appendChild(b)});
-})}
-},
-{title:"PLAYBOOK BUILDER",brief:"Build a ransomware incident response playbook. Drag the 6 steps into the correct order, then assign an automation level (Auto / Semi-Auto / Manual) to each. Both order and automation choices count toward your score.",
-render(el){
-const correct=[
-{id:0,text:"Isolate affected systems from the network to prevent lateral movement",auto:"auto"},
-{id:1,text:"Preserve forensic evidence -- capture memory dumps and disk images",auto:"manual"},
-{id:2,text:"Identify the ransomware variant and check for known decryptors",auto:"semi"},
-{id:3,text:"Assess scope of encryption and identify all affected data and systems",auto:"semi"},
-{id:4,text:"Eradicate threat -- remove malware, patch entry vector, reset credentials",auto:"manual"},
-{id:5,text:"Restore from verified clean backups and monitor for reinfection",auto:"semi"}
-];
-let shuffled=[...correct].sort(()=>Math.random()-.5);
-let aLvl={};shuffled.forEach(s=>aLvl[s.id]='semi');
-const w=document.createElement('div');w.className='task-block';
-w.innerHTML='<h3>RANSOMWARE IR PLAYBOOK</h3><p style="font-size:.85rem;margin-bottom:12px;color:#aaa">Drag steps into correct order. Set automation level for each.</p><ul class="drag-list" id="dList"></ul><button class="submit-btn" id="e4sub">SUBMIT PLAYBOOK</button><div class="feedback" id="e4f" style="white-space:pre-wrap"></div>';
-el.appendChild(w);
-const list=w.querySelector('#dList');
-function render(){list.innerHTML='';shuffled.forEach((it,i)=>{
-const li=document.createElement('li');li.className='drag-item';li.draggable=true;li.dataset.idx=i;
-li.innerHTML='<span class="step-num">'+(i+1)+'</span><span class="step-text">'+it.text+'</span><div class="auto-select"><button data-lv="auto" class="'+(aLvl[it.id]==='auto'?'active':'')+'">AUTO</button><button data-lv="semi" class="'+(aLvl[it.id]==='semi'?'active':'')+'">SEMI</button><button data-lv="manual" class="'+(aLvl[it.id]==='manual'?'active':'')+'">MANUAL</button></div>';
-li.querySelectorAll('.auto-select button').forEach(b=>b.onclick=e=>{e.stopPropagation();aLvl[it.id]=b.dataset.lv;li.querySelectorAll('.auto-select button').forEach(x=>x.classList.remove('active'));b.classList.add('active')});
-li.addEventListener('dragstart',e=>{e.dataTransfer.setData('text/plain',String(i));li.style.opacity='.4'});
-li.addEventListener('dragend',()=>li.style.opacity='1');
-li.addEventListener('dragover',e=>{e.preventDefault();li.style.borderColor='#00e8ff'});
-li.addEventListener('dragleave',()=>li.style.borderColor='#ffffff20');
-li.addEventListener('drop',e=>{e.preventDefault();li.style.borderColor='#ffffff20';const f=parseInt(e.dataTransfer.getData('text/plain'));if(f===i)return;const x=shuffled.splice(f,1)[0];shuffled.splice(i,0,x);render()});
-list.appendChild(li)})}
-render();
-w.querySelector('#e4sub').onclick=()=>{
-w.querySelector('#e4sub').disabled=true;
-let oSc=0,aSc=0;
-shuffled.forEach((it,i)=>{if(it.id===i)oSc++});
-shuffled.forEach(it=>{if(aLvl[it.id]===correct[it.id].auto)aSc++});
-const total=Math.round((oSc/6)*60+(aSc/6)*40);
-const fb=w.querySelector('#e4f');fb.className='feedback show '+(total>=50?'good':'bad');
-let t='SCORE: '+total+'/100\nOrder: '+oSc+'/6 | Automation: '+aSc+'/6\n\nCorrect order & automation:\n';
-correct.forEach((s,i)=>t+=(i+1)+'. ['+s.auto.toUpperCase()+'] '+s.text+'\n');
-fb.textContent=t;
-setTimeout(()=>finish(3,total),500)}}
-},
-{title:"THREAT HUNTING",brief:"Threat hunting is proactive adversary search. For each hypothesis: select 3 data sources, pick the best search query, and interpret the results. All three steps count toward your score.",
-render(el){
-const hunts=[
-{hyp:"An adversary is using DNS tunneling for data exfiltration from the corporate network.",
-ds:["DNS query logs","Firewall logs","Proxy logs","Endpoint telemetry","Email gateway logs","DHCP logs"],cds:[0,1,3],
-qs:["dns.query_length > 50 AND dns.record_type = 'TXT' AND NOT dns.domain IN whitelist","src_ip = '10.0.0.*' AND dst_port = 53","process_name = 'nslookup.exe'","http.url CONTAINS 'dns'"],cq:0,
-res:"847 DNS TXT queries from 10.0.1.55 to 3 domains registered this week. Average subdomain length: 63 chars (base64-encoded). Queries at regular 30-second intervals. Domains resolve to IPs in different /24 blocks.",
-interps:["Normal -- TXT records are common for SPF/DKIM","Likely DNS tunneling -- regular intervals, long encoded subdomains, newly registered domains indicate C2/exfil","Possible CDN activity -- multiple IPs normal for load balancing","Inconclusive -- need more data"],ci:1,
-ex:"Regular-interval TXT queries with long base64 subdomains to newly registered domains is textbook DNS tunneling. The regularity suggests automated C2 beaconing."},
-{hyp:"An insider is staging sensitive files for exfiltration via cloud storage during off-hours.",
-ds:["Cloud access logs","DLP alerts","Endpoint telemetry","Badge access logs","DNS query logs","VPN logs"],cds:[0,1,2],
-qs:["cloud.service IN ('dropbox','gdrive','onedrive') AND time BETWEEN '22:00' AND '06:00' AND file.class = 'confidential'","user.login_time > '17:00'","cloud.upload_bytes > 1000000","process_name = 'chrome.exe'"],cq:0,
-res:"23 uploads to personal Google Drive from jdoe between 11 PM-3 AM over 2 weeks. Files: project_falcon_designs.zip (340MB), client_contracts_2024.7z (128MB), source_code_backup.tar.gz (890MB). User is junior analyst with no need for these files. Badge logs: no physical presence -- all via VPN.",
-interps:["Normal backup behavior","Confirmed insider threat -- off-hours exfil of sensitive files outside job scope via personal cloud and VPN","Shadow IT -- check if sanctioned","Could be legitimate remote work"],ci:1,
-ex:"Off-hours uploads of classified files to personal cloud by a user without need-to-know, via VPN with no physical presence, is strong evidence of insider data theft."}
-];
-let sc=0,ans=0;
-hunts.forEach((h,hi)=>{
-const d=document.createElement('div');d.className='task-block';
-d.innerHTML='<h3>HUNT '+(hi+1)+'/2</h3><p style="font-size:.9rem;margin-bottom:12px"><b style="color:#ff2bd6">HYPOTHESIS:</b> '+h.hyp+'</p><p style="font-size:.85rem;color:#00e8ff;margin-bottom:6px">STEP 1: Select 3 data sources</p><div class="checkbox-grid" id="hd'+hi+'"></div><p style="font-size:.85rem;color:#00e8ff;margin:12px 0 6px">STEP 2: Select the best search query</p><div class="choices" id="hq'+hi+'"></div><p style="font-size:.85rem;color:#00e8ff;margin:12px 0 6px">STEP 3: Interpret results</p><div class="log-line" style="white-space:pre-wrap">'+h.res+'</div><div class="choices" id="hi'+hi+'"></div><button class="submit-btn" id="hs'+hi+'" disabled>SUBMIT HUNT '+(hi+1)+'</button><div class="feedback" id="hf'+hi+'"></div>';
-el.appendChild(d);
-let selDS=new Set(),selQ=null,selI=null;
-const dg=d.querySelector('#hd'+hi);
-h.ds.forEach((ds,di)=>{const lb=document.createElement('label');lb.className='cb-label';lb.innerHTML='<input type="checkbox"> '+ds;
-lb.querySelector('input').onchange=e=>{if(e.target.checked){selDS.add(di);lb.classList.add('sel')}else{selDS.delete(di);lb.classList.remove('sel')}chk()};dg.appendChild(lb)});
-const qd=d.querySelector('#hq'+hi);
-h.qs.forEach((q,qi)=>{const b=document.createElement('button');b.className='choice-btn';b.style.fontSize='.8rem';b.textContent=q;
-b.onclick=()=>{qd.querySelectorAll('.choice-btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');selQ=qi;chk()};qd.appendChild(b)});
-const id=d.querySelector('#hi'+hi);
-h.interps.forEach((ip,ii)=>{const b=document.createElement('button');b.className='choice-btn';b.textContent=ip;
-b.onclick=()=>{id.querySelectorAll('.choice-btn').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');selI=ii;chk()};id.appendChild(b)});
-const sb=d.querySelector('#hs'+hi);
-function chk(){sb.disabled=!(selDS.size>=1&&selQ!==null&&selI!==null)}
-sb.onclick=()=>{
-sb.disabled=true;
-let pts=0;const cSet=new Set(h.cds);
-pts+=Math.round([...selDS].filter(x=>cSet.has(x)).length/3*34);
-if(selQ===h.cq)pts+=33;if(selI===h.ci)pts+=33;
-sc+=pts;ans++;
-const fb=d.querySelector('#hf'+hi);fb.className='feedback show '+(pts>=50?'good':'bad');fb.textContent='Hunt score: '+pts+'/100. '+h.ex;
-dg.querySelectorAll('input').forEach(x=>x.disabled=true);
-qd.querySelectorAll('.choice-btn').forEach(x=>x.disabled=true);
-id.querySelectorAll('.choice-btn').forEach(x=>x.disabled=true);
-if(ans===hunts.length)setTimeout(()=>finish(4,Math.round(sc/hunts.length)),500)}})}
+function decode(){
+  const v=document.getElementById('dec-in').value.trim();
+  const out=document.getElementById('dec-out');
+  if(!v){out.textContent='No input.';return;}
+  let results=[];
+  // JWT
+  if(/^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]*$/.test(v)){
+    try{
+      const [h,p]=v.split('.');
+      results.push('JWT HEADER: '+JSON.stringify(JSON.parse(atob(h.replace(/-/g,'+').replace(/_/g,'/'))),null,2));
+      results.push('JWT PAYLOAD: '+JSON.stringify(JSON.parse(atob(p.replace(/-/g,'+').replace(/_/g,'/'))),null,2));
+    }catch(e){results.push('JWT parse failed: '+e.message);}
+  }
+  // Base64
+  try{const b=atob(v);results.push('BASE64: '+b);}catch(e){}
+  // URL decode
+  try{const u=decodeURIComponent(v);if(u!==v)results.push('URL-DECODED: '+u);}catch(e){}
+  // hex
+  if(/^([0-9a-fA-F]{2})+$/.test(v)){
+    try{results.push('HEX: '+v.match(/.{2}/g).map(x=>String.fromCharCode(parseInt(x,16))).join(''));}catch(e){}
+  }
+  out.textContent=results.length?results.join('\n\n'):'No recognised encoding detected.';
 }
-];
-
-function finish(idx,sc){S.scores[idx]=sc;if(idx<4)S.unlocked=Math.max(S.unlocked,idx+1);save();renderUI()}
-
-function renderUI(){
-const bar=document.getElementById('progBar');bar.innerHTML='';
-EX.forEach((ex,i)=>{const d=document.createElement('div');d.className='prog-dot';
-if(i===S.unlocked&&S.scores[i]===null)d.classList.add('active');
-else if(S.scores[i]!==null)d.classList.add('done');
-else if(i>S.unlocked)d.classList.add('locked');
-d.textContent=S.scores[i]!==null?'EX'+(i+1)+': '+S.scores[i]:'EX'+(i+1);
-if(i<=S.unlocked){d.style.cursor='pointer';d.onclick=()=>showEx(i)}
-bar.appendChild(d)});
-const c=document.getElementById('exCon');c.innerHTML='';
-if(S.scores.every(s=>s!==null)){
-const avg=Math.round(S.scores.reduce((a,b)=>a+b,0)/5);
-c.innerHTML='<div class="final-score"><h2>ALL EXERCISES COMPLETE</h2><div class="num">'+avg+'/100</div><p style="color:#aaa;margin-top:8px">Overall Average Score</p></div>';
-const rb=document.createElement('button');rb.className='reset-btn';rb.textContent='RESET ALL PROGRESS';
-rb.onclick=()=>{S={scores:[null,null,null,null,null],unlocked:0};save();renderUI()};c.appendChild(rb);return}
-showEx(S.unlocked)}
-
-function showEx(idx){
-if(idx>S.unlocked)return;
-const c=document.getElementById('exCon');c.innerHTML='';
-if(S.scores[idx]!==null){
-c.innerHTML='<div class="score-display">EX'+(idx+1)+' COMPLETED -- SCORE: '+S.scores[idx]+'/100</div>';
-if(idx<4){const nb=document.createElement('button');nb.className='next-btn';nb.textContent='NEXT EXERCISE';nb.onclick=()=>showEx(idx+1);c.appendChild(nb)}
-return}
-const brief=document.createElement('div');brief.className='briefing';
-brief.innerHTML='<h2>EX'+(idx+1)+': '+EX[idx].title+'</h2><p>'+EX[idx].brief+'</p>';
-c.appendChild(brief);EX[idx].render(c)}
-
-renderUI();
 </script>
 </body>
 </html>
