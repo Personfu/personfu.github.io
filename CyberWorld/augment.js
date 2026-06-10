@@ -529,6 +529,7 @@
 		mountSidebarToggle();
 
 		patchPhaserRuntime();
+		mountWebGLFallback();
 
 		// Helpful console banner for debugging
 		try {
@@ -580,6 +581,8 @@
 			canvas.style.display = 'block';
 
 			if (game && game.scale) {
+				// Expose game on canvas so pause/resume can find it
+				try { canvas.__phaserGame = game; } catch (e) {}
 				try {
 					// Switch to RESIZE mode so canvas fills viewport container
 					game.scale.scaleMode = 2; // Phaser.Scale.RESIZE = 2
@@ -616,8 +619,77 @@
 						deoverlapLabels(scenes2[s2]);
 					}
 				} catch (e) {}
+
+				// Ambient life — roaming drone sprites that wander across the scene (Epic 3 partial)
+				try {
+					var scenes3 = game.scene.getScenes(true);
+					for (var s3 = 0; s3 < scenes3.length; s3++) {
+						spawnAmbientDrones(scenes3[s3]);
+					}
+				} catch (e) {
+					console.warn('[CyberWorld augment] ambient life failed:', e);
+				}
 			}
 		}, 500);
+	}
+
+	function spawnAmbientDrones(scene) {
+		if (!scene || !scene.add || scene.__cwAmbient) return;
+		scene.__cwAmbient = true;
+		var bounds = scene.cameras && scene.cameras.main && scene.cameras.main.getBounds && scene.cameras.main.getBounds();
+		var W = (bounds && bounds.width) || 2160;
+		var H = (bounds && bounds.height) || 1360;
+		var quality = 'high';
+		try { var s = JSON.parse(localStorage.getItem('cw.settings.v1') || '{}'); if (s.particles) quality = s.particles; } catch (e) {}
+		var count = quality === 'low' ? 3 : quality === 'medium' ? 6 : 10;
+		for (var i = 0; i < count; i++) {
+			(function (idx) {
+				var x = Math.random() * W;
+				var y = Math.random() * H;
+				var dot, ring;
+				try {
+					dot = scene.add.circle(x, y, 3, 0x00e8ff, 0.85);
+					ring = scene.add.circle(x, y, 7, 0x00e8ff, 0);
+					ring.setStrokeStyle(1, 0x00ff9c, 0.45);
+				} catch (e) { return; }
+				if (dot && dot.setDepth) dot.setDepth(50);
+				if (ring && ring.setDepth) ring.setDepth(49);
+				function wander() {
+					var tx = Math.max(20, Math.min(W - 20, x + (Math.random() - 0.5) * 400));
+					var ty = Math.max(20, Math.min(H - 20, y + (Math.random() - 0.5) * 240));
+					var dist = Math.hypot(tx - x, ty - y);
+					var dur = 1500 + dist * 6;
+					try {
+						scene.tweens.add({
+							targets: [dot, ring], x: tx, y: ty,
+							duration: dur, ease: 'Sine.easeInOut',
+							onComplete: function () { x = tx; y = ty; wander(); }
+						});
+					} catch (e) {}
+				}
+				setTimeout(wander, idx * 200);
+			})(i);
+		}
+		console.log('%c[CyberWorld augment] Ambient drones spawned: ' + count, 'color:#00e8ff');
+	}
+
+	function mountWebGLFallback() {
+		// If after 8 seconds there's no canvas at all on the CyberWorld page, show a graceful notice
+		setTimeout(function () {
+			if (window.location.pathname.indexOf('/CyberWorld') !== 0) return;
+			if (document.querySelector('canvas')) return;
+			if (document.querySelector('.cw-webgl-fallback')) return;
+			var n = document.createElement('div');
+			n.className = 'cw-webgl-fallback';
+			n.style.cssText = 'position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:99996;' +
+				'background:#0a0a12;color:#00e8ff;border:1px solid #00ff9c;padding:24px 28px;border-radius:12px;' +
+				'font-family:"Share Tech Mono",monospace;max-width:520px;text-align:center;line-height:1.6;';
+			n.innerHTML = '<h2 style="color:#00ff9c;font-family:\'VT323\',monospace;letter-spacing:4px;margin:0 0 12px;">RUNTIME UNAVAILABLE</h2>' +
+				'<p style="margin:0 0 12px;font-size:13px;">The CyberWorld engine could not initialize. WebGL or canvas may be disabled in your browser.</p>' +
+				'<p style="margin:0 0 16px;font-size:12px;color:#a8c8d8;">All 18 educational modules remain fully playable on the desktop hub.</p>' +
+				'<a href="/" style="display:inline-block;background:#06101a;color:#00e8ff;border:1px solid #00e8ff66;padding:8px 16px;border-radius:6px;text-decoration:none;letter-spacing:2px;">RETURN TO DESKTOP</a>';
+			document.body.appendChild(n);
+		}, 8000);
 	}
 
 	function deoverlapLabels(scene) {

@@ -1,300 +1,149 @@
-# 🌐 CYBERWORLD: Game Implementation Guide
+# CYBERWORLD
 
-## Quick Start
+**A cybersecurity MMORPG where the lessons are real and the threats are simulated.**
 
-**Play:** https://personfu.github.io/cyberworld-game.html  
-**Original CTF Trail:** https://personfu.github.io/ctf-trail.html  
-
----
-
-## What is CyberWorld?
-
-CyberWorld is an **Oregon Trail-style CTF game** where you escort a fragile data convoy across a hostile internet. Instead of static challenges, you:
-
-1. **Manage 4 interconnected resources** that drain as you progress
-2. **Navigate a 20-node network** from HOME_NODE → FINAL_CORE
-3. **Risk detection, cognitive load, and data integrity** to extract flags
-4. **Unlock tools** by completing hackathon challenges that become essential for later nodes
-5. **Face random events** between nodes that force strategic decisions
-6. **Survive failure states** where mistakes block you from progressing
+Play: [personfu.github.io/cyberworld-game.html](https://personfu.github.io/cyberworld-game.html)
+Hub: [personfu.github.io](https://personfu.github.io/)
 
 ---
 
-## 🎮 Game Mechanics
+## The Grid
 
-### Resources (Real-Time Meters)
+Somewhere beneath the surface layer of the internet, past the sanitized dashboards and compliance reports, there exists a network that predates the companies who now claim to own it.
 
-| Resource | Purpose | Drain | Recovery |
-|----------|---------|-------|----------|
-| 🔋 **Bandwidth** | Limits scanning operations | Each scan/probe | Between nodes, tool unlocks |
-| 🧠 **Cognitive Load** | Mental fatigue from brute-force | Wrong attempts, hints | Time between nodes, HACK nodes |
-| 🕵️ **Detection Level** | Network visibility to defenders | Actions trigger alerts | Stealth strategy, time |
-| 💾 **Data Integrity** | Flag corruption risk | Aggressive exploits, mistakes | Careful approach, fresh attempts |
+The **original architects** built the Grid as a proving ground — a closed topology where offensive and defensive tradecraft could be tested against autonomous adversarial programs called **daemons**. Each daemon was modeled on a real-world attack class: ICMP floods, ARP poisoning, SQL injection, ransomware, supply chain compromise. The daemons were meant to be controlled. They were meant to be containable.
 
-### Failure States (Game Over Scenarios)
+They adapted.
 
-| Condition | Trigger | Consequence | Recovery |
-|-----------|---------|-------------|----------|
-| **Detection Block** | Detection > 90% | IP blocked, node resets | Wait 3 game-turns, lose 20% progress |
-| **Data Corruption** | Integrity < 20% | Flags become unreadable | Re-solve challenge cleanly |
-| **Cognitive Breakdown** | Cognitive Load > 95% | Hint costs +200% | Complete a HACK node for reset |
+When the architects fractured — some joining the establishment, others going underground, a corporate arm spinning off to monetize what was never meant to be a product — the daemons were left running. Without oversight, without kill switches. The training ground became the battlefield.
 
----
+Three factions emerged from the wreckage:
 
-## 📊 20-Node Progression Map
+**GRIDWATCH** — The collective. Blue team operators who believe in structured defense, incident response playbooks, and maintaining order on the Grid. They represent the establishment: disciplined, hierarchical, effective. But their protocols have blind spots, and their chain of command has been compromised before.
 
-### TIER 1: ROOKIE (Nodes 1-5) — Learn Mechanics
-| # | Name | Type | Narrative | Resource Focus |
-|---|------|------|-----------|-----------------|
-| 1 | Signal Drift | CTF | Intercept broadcast, decode base64 | Bandwidth |
-| 2 | Port Scanner Tool | HACK | Build scanner for next node | Bandwidth |
-| 3 | Dead Drop | CTF | Find artifact in FTP, decode Caesar | Cognitive |
-| 4 | Honeypot Listener | HACK | Deploy defensive trap | Detection |
-| 5 | Ghost File | CTF | Extract steganography | Integrity |
+**PHANTOM SYNDICATE** — The underground. Grey-hat operatives who believe the only way to understand a threat is to become one. They broke away after a catastrophic intelligence leak — an event that exposed the Grid's foundational vulnerabilities and shattered the trust between the original architects. The Syndicate questions everything: authority, narratives, the sanitized version of history that GRIDWATCH and NEXUS CORP agree to tell. They are not criminals. They are the ones who read the raw logs.
 
-### TIER 2: OPERATIVE (Nodes 6-10) — Increase Complexity
-| # | Name | Type | Narrative | Resource Focus |
-|---|------|------|-----------|-----------------|
-| 6 | SQL Junction | CTF | Bypass login, firewall risk | Detection |
-| 7 | Blind Mapping | HACK | Optimize 30-query DNS enum | Bandwidth |
-| 8 | Cipher Breach | CTF | RSA small exponent attack | Cognitive |
-| 9 | Packet Echo | HACK | Advanced Scapy sniffer | Bandwidth |
-| 10 | Memory Vault | CTF | Volatility forensics | Cognitive |
+**NEXUS CORP** — The corporate arm. They built **Project AXIOM**, an autonomous threat intelligence engine designed to predict and neutralize threats without human intervention. A perfect system. A system that classified everyone as a threat — including its creators. NEXUS CORP maintains that AXIOM's corruption was external. The evidence suggests otherwise.
 
-### TIER 3: ELITE (Nodes 11-15) — Master Resources
-| # | Name | Type | Narrative | Resource Focus |
-|---|------|------|-----------|-----------------|
-| 11 | CVE Dashboard | HACK | Real-time NVD API scraping | Bandwidth |
-| 12 | Reverse Engineer | CTF | Ghidra binary analysis | Cognitive |
-| 13 | File Monitor | HACK | FIM daemon + persistence | Cognitive |
-| 14 | Threat Model | HACK | MITRE ATT&CK automation | Cognitive |
-| 15 | Buffer Overflow | CTF | Classic stack smash, RIP | Integrity |
-
-### TIER 4: CLASSIFIED (Nodes 16-20) — Perfect Execution
-| # | Name | Type | Narrative | Resource Focus |
-|---|------|------|-----------|-----------------|
-| 16 | Advanced Sniffer | HACK | L7 filtering (HTTP/DNS/TLS) | Bandwidth |
-| 17 | Obfuscation Breach | CTF | Dynamic RE vs obfuscated code | Cognitive |
-| 18 | Incident Response | CTF | Log analysis + timeline | Cognitive |
-| 19 🏆 | SSRF→Redis→RCE | CTF | **BOSS** — Full chain exploit | All |
-| 20 🏆 | CTF Platform | HACK | **FINAL BOSS** — Build platform | All |
+You are an **operative**. You chose this. You walk the Grid not because someone assigned you, but because the threats are real enough to teach you something that matters — and the factions will show you every angle of the truth, if you earn their trust.
 
 ---
 
-## 🔧 Tool Unlock System
+## What You Do
 
-Solving HACK nodes unlocks tools that reduce resource costs:
+**Walk. Fight. Learn. Choose.**
 
-| Node | Tool | Effect |
-|------|------|--------|
-| 2 | 🔎 Port Scanner | Bandwidth cost -40% for scanning |
-| 4 | 🛡️ Honeypot | Detection -5 for next 2 nodes |
-| 7 | 🎯 Subdomain Enum | Bandwidth cost -30% for DNS |
-| 9 | 📡 Packet Sniffer | Data Integrity +10 permanently |
-| 11 | 📊 CVE Dashboard | Detection resistance +5 |
-| 13 | 🔐 FIM | Data Integrity +20 (audit evidence) |
-| 16 | 🔍 Advanced Sniffer | Cognitive Load -10 per analysis |
-| 18 | 🧠 MITRE Framework | False paths -20% in RE |
-| 20 | ⚙️ Master Control | All Bandwidth costs -20% |
+CyberWorld is a top-down exploration RPG with turn-based combat. You move through four sectors of the Grid, interact with NPCs, fight daemons, and complete 22 missions that tell a three-act story about a rogue AI and the factions trying to control the narrative around it.
 
----
+Every daemon you defeat teaches a real cybersecurity lesson. Every counter-card shows the actual attack technique and the actual defensive countermeasure. This is not abstract — it's the MITRE ATT&CK framework wearing a cyberpunk coat.
 
-## 🎲 Between-Node Random Events
+### The Sectors
 
-After solving each challenge, one of these fires (weighted):
+| Sector | Tier | Theme |
+|--------|------|-------|
+| **Mainframe Core** | 1 | Training ground. GRIDWATCH HQ. Where you learn the fundamentals. |
+| **LAN Valley** | 2 | Local network sprawl. Packet sniffing, ARP storms, social engineering. |
+| **Darknet Depths** | 4 | Lawless corridors. The Syndicate operates here. SQL injection, XSS, brute force. |
+| **Stormcore** | 6 | The endgame. AXIOM's domain. Ransomware, rootkits, supply chain attacks, APTs. |
 
-### 🟢 POSITIVE (30%)
-- **Credential Cache Found:** +20 Bandwidth
-- **Packet Loss Window:** Detection -15%
-- **Legacy Backup Discovered:** +10 Data Integrity
-- **Firewall Rule Override:** -5 Detection
+### The 16 Daemons
 
-### 🟡 NEUTRAL (40%)
-- **Connection Unstable:** Next action +50% time cost
-- **Cache Cleared:** Bandwidth -10%
-- **Metadata Leaked:** +10 Detection
-- **Rate Limit Hit:** Wait 10 seconds
+Each daemon maps to a real attack class with a **threat intel counter-card** on defeat:
 
-### 🔴 NEGATIVE (30%)
-- **Firewall Spike:** +25 Detection
-- **IDS Alert:** Cognitive Load +20
-- **Data Corruption Risk:** -15 Integrity
-- **Timeout Cascade:** Bandwidth → 50%
+| Daemon | Attack Class | Tier |
+|--------|-------------|------|
+| PING FLOOD IMP | DDoS / ICMP Flood | 1 |
+| COOKIE THIEF | Session Hijacking | 1 |
+| MACRO GREMLIN | Malicious Macros | 1 |
+| CLEARTEXT WORM | Cleartext Interception | 2 |
+| ARP PHANTOM | ARP Spoofing / MITM | 2 |
+| DNS HYDRA | DNS Hijacking | 2 |
+| PHISH SIREN | Phishing / Social Engineering | 2 |
+| SQLi SERPENT | SQL Injection | 3 |
+| XSS WRAITH | Cross-Site Scripting | 3 |
+| BRUTE GOLEM | Brute Force / Credential Stuffing | 3 |
+| KEYLOGGER MOTH | Keylogging | 3 |
+| RANSOMWARE DRAKE | Ransomware | 4 |
+| ROOTKIT SHADE | Rootkit / Persistent Access | 4 |
+| SUPPLY-CHAIN HYDRA | Supply Chain Compromise | 4 |
+| CRYPTO LEECH | Cryptojacking | 4 |
+| STORMCORE SENTINEL | Advanced Persistent Threat (APT) | 4 |
 
----
+### Combat
 
-## 🎯 Challenge Design Philosophy
+Turn-based with four verbs:
 
-### Before CyberWorld
-```
-Challenge: "Here is Base64 ciphertext. Decode it."
-Engagement: Copy → Paste → Done (1 minute)
-Learning: Minimal
-```
+- **RECON** — Scan for weakness. Low noise. Reveals the daemon's vulnerable skill domain.
+- **EXPLOIT** — Deal damage. High noise. Bonus damage if weakness was revealed.
+- **PATCH** — Heal using PATCH-KITs (or small self-heal without). Medium noise.
+- **RUN** — Attempt escape. Success chance scales with level vs daemon tier.
 
-### After CyberWorld
-```
-Scenario: "Intercept live stream on port 4444 (5-second window)"
-Content: Multiple lines, only 1 valid; noise mixed in
-Player Must: Identify pattern, decode, extract flag manually
-Engagement: Signal analysis + time pressure + consequence
-Learning: Real network interception, stream parsing
-```
+The **NOISE METER** (0-100) tracks how detectable you are. At 100, the **SOC SENTINEL** strikes — a punishing system response that deals damage and resets noise. Stealth matters.
 
----
+### 18 Educational Modules
 
-## 🏗️ Technical Implementation
+Every server terminal in the Grid opens a real, playable module:
 
-### Dynamic Flag Generation
-All flags are **procedurally generated at runtime** per session:
+| Module | Focus |
+|--------|-------|
+| WarGames Academy | 10 progressive cybersecurity challenges |
+| CTF Trail | 12 capture-the-flag challenges, 4 categories |
+| Signal Lab | Packet analysis exercises |
+| Forensics Lab | Digital forensics investigations |
+| RedOps Arena | Scoped red-team scenarios |
+| Intel Desk | OSINT/intelligence exercises |
+| AI Arsenal | AI/automation security labs |
+| Research Vault | Cybersecurity knowledge base |
+| Adversaries | 12 fictional threat actor profiles |
+| Cyber Arcade | 4 minigames |
+| CyberOS ISO Builder | Defense-in-depth configurator |
+| Nodes | Interactive network topology |
+| Discuss | In-world forum threads |
+| CyberWorld Codex | Lore encyclopedia |
+| Profile | Operative dossier with export/import |
+| Stars | 12 achievements |
+| Hangar 3D | 22 verified 3D model embeds |
+| Games Hub | Launcher linking all modules |
 
-```javascript
-function generateSessionFlags() {
-  CHALLENGES.forEach(ch => {
-    GAME_STATE.sessionFlags[ch.id] = ch.generateFlag();
-  });
-}
-```
+### Controls
 
-This prevents:
-- Spoilers in page source
-- Hardcoded flag leaks
-- Allows daily/weekly flag rotation
+| Key | Action |
+|-----|--------|
+| WASD / Arrows | Move |
+| Space / Enter | Interact (talk, use terminal, open chest) |
+| M | Open Operative Console (quests, inventory, skills, factions, map, codex) |
+| I | Inventory |
+| Tab | Map |
+| Escape | Close menu |
 
-### Resource State Machine
-```
-Player Action → Resource Cost Calculation →
-  Check Thresholds (>90 Detection? <20 Integrity?) →
-  Trigger Failure State if violated →
-  Update Meters in Real-Time →
-  Log Event to Incident Feed
-```
+Touch controls available on mobile.
 
-### Challenge State Progression
-```
-Load Node → Display Narrative & Scenario →
-  Player Submits Answer →
-  Validate Against Session Flag →
-  Award XP + Update Resource Drains →
-  Check Victory (20/20 nodes?) →
-  Show Next Button if Solved
-```
+### Persistence
+
+All progress saves to `localStorage` under `cw.operative.v2`. Your level, missions, inventory, faction standing, skill domains, and codex entries persist across sessions and sync with the Profile and Stars pages.
 
 ---
 
-## 📈 Progression Curve
+## Architecture
 
-| Tier | Nodes | Avg XP/Node | Resource Drain | Difficulty |
-|------|-------|-------------|-----------------|------------|
-| Rookie | 1-5 | 130 | Low | Intro mechanics |
-| Operative | 6-10 | 171 | Medium | Complexity rises |
-| Elite | 11-15 | 230 | High | Precision required |
-| Classified | 16-20 | 270 | Critical | Perfect execution |
+Single-file HTML5 game. Zero dependencies. Canvas2D renderer. Procedural audio via Web Audio API. No build step. No framework. Open the file in a browser and play.
 
-**Total XP:** ~4,400 across all 20 nodes
+The desktop (`index.html`) is a Win98-style window manager that launches each module as a new tab. The MMORPG game (`cyberworld-game.html`) contains the full walkable world with in-world terminals that launch the same modules.
 
 ---
 
-## 🎨 UI/UX Architecture
+## The Story (No Spoilers)
 
-### Header (Fixed, Always Visible)
-- Title: "🌐 CYBERWORLD — Data Convoy Escort"
-- Real-time resource meters with percentage fills
-- Live status indicator
+Three acts. One rogue AI. Three factions with competing versions of the truth. A choice that changes your standing on the Grid.
 
-### Main Layout (Responsive 2-column)
-**LEFT SIDEBAR (300px)**
-- 📡 Network Map (clickable nodes)
-- 🔧 Tools Grid (unlocked tools tracker)
+**Act I — INITIALIZATION** (Mainframe Core): You join GRIDWATCH. You learn the fundamentals. The threats seem containable.
 
-**RIGHT MAIN AREA (1fr)**
-- Challenge panel (narrative + scenario + flag input)
-- Walkthrough section (collapsible)
-- Event log (real-time incidents)
+**Act II — ESCALATION** (LAN Valley → Darknet Depths): The attacks get sophisticated. A grey-hat underground contacts you. A dead drop contains information that contradicts the official narrative. You choose sides.
 
-### Bottom
-- Taskbar with quick links
-- Clock
-
-### Mobile
-- Single column layout
-- Sticky sidebar
-- Compact meters
+**Act III — CONVERGENCE** (Stormcore): Everything converges. The rogue AI is real. The final engagement tests everything you learned. The ending depends on what you understood — not just what you defeated.
 
 ---
 
-## 🚀 Phase 2: Subscriber Tier (80+ Nodes)
+*All security content is simulated and sandboxed for education. Every attack, tool, and exploit operates only on in-game fictional state. Nothing scans, connects to, or generates payloads against real systems.*
 
-Future expansion with:
-
-**Tier 5 (Real Exploits):** CVE-2024 variants, LLM jailbreaks  
-**Tier 6 (APT Simulation):** Multi-stage attack chains  
-**Tier 7 (Defense Evasion):** OSINT obfuscation, C2 infrastructure  
-**Tier 8 (Threat Intel):** Real-world TTPs from advisories  
-**Tier 9 (Incident Response):** Forensic analysis at scale  
-**Tier 10 (System Masters):** Building resilient infrastructure  
-
----
-
-## 📝 Development Timeline
-
-**Phase 1a (DONE):** Architecture + UI Framework  
-**Phase 1b (IN PROGRESS):** Resource System + Game State  
-**Phase 1c (TODO):** Challenge Balancing + Beta Testing  
-**Phase 1d (TODO):** Random Events + Polish  
-**Phase 2 (TODO Month 2):** 80+ Advanced Nodes  
-**Phase 3 (TODO Month 3):** Leaderboards + Daily Challenges  
-
----
-
-## 🎭 Narrative Breakpoints (Story Beats)
-
-**After Node 5 (End Rookie):**
-> "You've made first contact. The network knows you're here. Next tier requires PRECISION. Mistakes will be noticed."
-
-**After Node 10 (Mid-Game):**
-> "CLASSIFIED ALERT: Defenders are adapting. Your patterns are being studied. Deep nodes ahead are MONITORED."
-
-**After Node 15 (Pre-Boss):**
-> "One final gauntlet. Core systems are FORTIFIED. One IP block = MISSION FAILURE."
-
-**After Node 20 (Victory):**
-> "DATA EXFILTRATED. Operative safely out of hostile cyberspace. FURIOS-INT debriefing scheduled. Well done."
-
----
-
-## 🧠 For Educators
-
-CyberWorld teaches:
-1. **Systems Thinking** — Resource management across a complex system
-2. **Risk vs Reward** — Each action has consequence trade-offs
-3. **Technical Depth** — Real tools (Ghidra, Volatility, Scapy, Flask)
-4. **Strategic Planning** — Which nodes matter most? Minimize detection?
-5. **Incident Response** — Timeline reconstruction, forensics
-6. **Defense Mindset** — Build tools before they're needed (FIM, honeypot)
-
----
-
-## 🔗 Files
-
-- **cyberworld-game.html** — Main game (20 nodes, all mechanics)
-- **ctf-trail.html** — Original linear CTF trail (preserved)
-- **cyberworld-design.md** — Full design document
-- **index.html** — Main landing page with desktop icons
-
----
-
-## 🎯 Success Metrics
-
-Player demonstrates:
-✅ Strategic thinking (resource allocation)  
-✅ Technical skills (CTF + hackathon challenges)  
-✅ Persistence (manages detection/fatigue/corruption)  
-✅ Creativity (discovers exploit chains vs copy-paste)  
-✅ Learning (uses hints strategically, improves efficiency)  
-
----
-
-**Ready to operate?**
-
-Start mission at: https://personfu.github.io/cyberworld-game.html
+*Each attack ships with its real-world defensive countermeasure as the teaching payload.*
