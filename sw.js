@@ -4,7 +4,7 @@
  * Strategy: Cache-First for assets, Network-First for HTML pages.
  */
 
-const CACHE_VERSION = 'fllc-v17-cyberworld-login-bypass-20260512';
+const CACHE_VERSION = 'fllc-v18-cyberworld-mmorpg-20260610';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 
@@ -13,6 +13,7 @@ const PRECACHE_ASSETS = [
   '/',
   '/index.html',
   '/cyberworld.html',
+  '/cyberworld-game.html',
   '/wargames.html',
   '/arcade.html',
   '/signal-lab.html',

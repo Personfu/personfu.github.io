@@ -1,1 +1,1448 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>cyberworld game - CyberWorld</title><meta http-equiv="refresh" content="0;url=https://personfu.github.io/CyberWorld/"><link rel="canonical" href="https://personfu.github.io/CyberWorld/"></head><body><script>window.location.replace('https://personfu.github.io/CyberWorld/');</script><p>This module is now integrated in <a href="https://personfu.github.io/CyberWorld/">CyberWorld</a>.</p></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>CyberWorld MMORPG</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;background:#02070d;font-family:'Share Tech Mono',monospace;color:#dffbff}
+canvas{display:block;width:100%;height:100%;image-rendering:pixelated}
+#hud{position:fixed;top:0;left:0;right:0;pointer-events:none;z-index:10;padding:8px 12px;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.hud-left,.hud-right{display:flex;gap:8px;align-items:flex-start;pointer-events:auto}
+.hud-bar{width:140px}
+.hud-bar .lbl{font-size:9px;letter-spacing:2px;color:#a8c8d8;display:flex;justify-content:space-between}
+.hud-bar .track{height:8px;background:#06101a;border:1px solid #00e8ff33;border-radius:2px;overflow:hidden;margin-top:2px}
+.hud-bar .fill{height:100%;border-radius:1px;transition:width .3s}
+.fill-hp{background:linear-gradient(90deg,#00ff9c,#00e8ff)}
+.fill-shield{background:linear-gradient(90deg,#ff2bd6,#a855f7)}
+.fill-xp{background:linear-gradient(90deg,#ffb347,#ff6b35)}
+.fill-noise{background:linear-gradient(90deg,#ffb347,#ff2222)}
+#hud-sector{font-family:'VT323',monospace;font-size:16px;color:#00e8ff;letter-spacing:3px;text-shadow:0 0 8px #00e8ff44}
+#hud-level{font-family:'VT323',monospace;font-size:14px;color:#00ff9c}
+#hud-credits{font-size:11px;color:#ffb347}
+#minimap{width:120px;height:90px;background:#02070d;border:1px solid #00e8ff44;border-radius:4px;image-rendering:pixelated;pointer-events:auto}
+#toast-area{position:fixed;top:50px;left:50%;transform:translateX(-50%);z-index:50;display:flex;flex-direction:column;align-items:center;gap:4px;pointer-events:none}
+.toast{padding:6px 16px;background:#0a0a12ee;border:1px solid #00ff9c66;border-radius:4px;font-size:12px;color:#00ff9c;letter-spacing:1px;animation:toastIn .3s ease,toastOut .4s ease 2.2s forwards;white-space:nowrap}
+@keyframes toastIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes toastOut{to{opacity:0;transform:translateY(-10px)}}
+#combat-overlay{position:fixed;inset:0;z-index:30;display:none;background:rgba(2,7,13,.92);flex-direction:column;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace}
+#combat-overlay.active{display:flex}
+.cb-enemy-name{font-family:'VT323',monospace;font-size:28px;color:#ff2bd6;letter-spacing:4px;margin-bottom:4px}
+.cb-enemy-class{font-size:11px;color:#a8c8d8;margin-bottom:16px;letter-spacing:1px}
+.cb-enemy-sprite{width:120px;height:120px;margin:0 auto 16px;position:relative}
+.cb-bars{width:320px;max-width:90vw;margin-bottom:16px}
+.cb-bar-row{display:flex;justify-content:space-between;font-size:10px;color:#a8c8d8;margin-bottom:2px}
+.cb-bar-track{height:10px;background:#06101a;border:1px solid #00e8ff33;border-radius:2px;overflow:hidden;margin-bottom:8px}
+.cb-bar-fill{height:100%;transition:width .3s;border-radius:1px}
+.cb-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:320px;max-width:90vw;margin-bottom:12px}
+.cb-btn{padding:10px 8px;background:#06101a;border:1px solid #00e8ff66;color:#00e8ff;font-family:inherit;font-size:12px;letter-spacing:2px;cursor:pointer;border-radius:4px;transition:all .15s;text-align:center}
+.cb-btn:hover:not(:disabled){background:#0a1828;border-color:#00ff9c;color:#00ff9c}
+.cb-btn:disabled{opacity:.4;cursor:default}
+.cb-btn .verb{font-family:'VT323',monospace;font-size:16px;display:block;margin-bottom:2px}
+.cb-btn .desc{font-size:9px;color:#6fdfff;letter-spacing:.5px}
+.cb-log{width:320px;max-width:90vw;max-height:100px;overflow-y:auto;font-size:10px;color:#a8c8d8;padding:8px;background:#06101a;border:1px solid #00e8ff22;border-radius:4px;margin-bottom:8px;line-height:1.6}
+.cb-log .hit{color:#ff2bd6}.cb-log .heal{color:#00ff9c}.cb-log .info{color:#ffb347}.cb-log .warn{color:#ff4444}
+#counter-card{position:fixed;inset:0;z-index:40;display:none;align-items:center;justify-content:center;background:rgba(2,7,13,.95)}
+#counter-card.active{display:flex}
+.cc-inner{max-width:500px;width:90vw;background:#0a0a12;border:1px solid #00ff9c;border-radius:10px;padding:24px;box-shadow:0 0 40px #00ff9c22}
+.cc-inner h2{font-family:'VT323',monospace;font-size:24px;color:#00ff9c;letter-spacing:3px;margin-bottom:4px}
+.cc-inner h3{font-size:12px;color:#ff2bd6;letter-spacing:2px;margin-bottom:12px}
+.cc-inner .cc-section{margin:10px 0}
+.cc-inner .cc-label{font-size:10px;color:#ffb347;letter-spacing:2px;margin-bottom:4px}
+.cc-inner .cc-text{font-size:12px;color:#c8d6e5;line-height:1.6}
+.cc-inner button{margin-top:16px;padding:8px 24px;background:#06101a;color:#00e8ff;border:1px solid #00e8ff66;font-family:inherit;letter-spacing:2px;cursor:pointer;border-radius:4px;font-size:12px}
+.cc-inner button:hover{background:#0a1828;border-color:#00ff9c;color:#00ff9c}
+#dialogue-box{position:fixed;bottom:0;left:0;right:0;z-index:20;display:none;padding:12px}
+#dialogue-box.active{display:block}
+.dlg-inner{max-width:700px;margin:0 auto;background:#0a0a12ee;border:1px solid #00e8ff66;border-radius:8px;padding:16px 20px;backdrop-filter:blur(4px)}
+.dlg-name{font-family:'VT323',monospace;font-size:18px;color:#ff2bd6;letter-spacing:2px;margin-bottom:6px}
+.dlg-text{font-size:13px;color:#dffbff;line-height:1.7;min-height:40px}
+.dlg-hint{font-size:10px;color:#6fdfff;text-align:right;margin-top:6px;letter-spacing:1px}
+.dlg-choices{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.dlg-choice{padding:6px 14px;background:#06101a;border:1px solid #00e8ff44;color:#00e8ff;cursor:pointer;border-radius:4px;font-family:inherit;font-size:11px;letter-spacing:1px}
+.dlg-choice:hover{border-color:#00ff9c;color:#00ff9c}
+#menu-overlay{position:fixed;inset:0;z-index:25;display:none;align-items:center;justify-content:center;background:rgba(2,7,13,.88);backdrop-filter:blur(3px)}
+#menu-overlay.active{display:flex}
+.menu-panel{width:640px;max-width:94vw;max-height:80vh;background:#0a0a12;border:1px solid #00e8ff;border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.menu-tabs{display:flex;border-bottom:1px solid #00e8ff44;padding:0 4px;overflow-x:auto;flex-shrink:0}
+.menu-tab{padding:10px 14px;font-family:'VT323',monospace;font-size:15px;letter-spacing:2px;color:#6fdfff;cursor:pointer;border:none;background:none;white-space:nowrap}
+.menu-tab.active{color:#00ff9c;box-shadow:inset 0 -2px 0 #00ff9c}
+.menu-body{padding:16px;overflow-y:auto;flex:1;font-size:12px;line-height:1.7;color:#c8d6e5}
+.menu-body h3{font-family:'VT323',monospace;font-size:20px;color:#00e8ff;letter-spacing:2px;margin:0 0 10px}
+.menu-body .quest-item{padding:8px;margin:6px 0;background:#06101a;border:1px solid #00e8ff22;border-radius:4px;cursor:pointer}
+.menu-body .quest-item:hover{border-color:#00e8ff}
+.menu-body .quest-item .qt{color:#00e8ff;font-size:13px}
+.menu-body .quest-item .qb{color:#a8c8d8;font-size:11px;margin-top:4px}
+.menu-body .quest-item.done{opacity:.5}
+.menu-body .quest-item.done .qt::after{content:' ✓';color:#00ff9c}
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.inv-slot{padding:8px;background:#06101a;border:1px solid #00e8ff22;border-radius:4px;font-size:11px;cursor:pointer}
+.inv-slot:hover{border-color:#00ff9c}
+.inv-slot .iname{color:#00ff9c}
+.inv-slot .iqty{color:#ffb347;font-size:10px}
+.inv-slot .idesc{color:#888;font-size:10px;margin-top:3px}
+.skill-bar{margin:6px 0}
+.skill-bar .sk-label{display:flex;justify-content:space-between;font-size:11px}
+.skill-bar .sk-track{height:10px;background:#06101a;border:1px solid #00e8ff22;border-radius:2px;overflow:hidden;margin-top:2px}
+.skill-bar .sk-fill{height:100%;background:linear-gradient(90deg,#ffb347,#ff6b35);border-radius:1px}
+.faction-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #00e8ff11;font-size:12px}
+.map-sector{padding:8px;margin:4px 0;background:#06101a;border:1px solid #00e8ff22;border-radius:4px;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.map-sector:hover{border-color:#00e8ff}
+.map-sector.current{border-color:#00ff9c;box-shadow:0 0 10px #00ff9c22}
+.map-sector .ms-name{color:#00e8ff;font-size:13px}
+.map-sector .ms-lvl{color:#ffb347;font-size:10px}
+.menu-close{position:absolute;top:12px;right:16px;background:none;border:none;color:#ff2bd6;font-size:20px;cursor:pointer;font-family:'VT323',monospace}
+#transition-overlay{position:fixed;inset:0;z-index:60;background:#02070d;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
+#transition-overlay.active{opacity:1;pointer-events:auto}
+#transition-overlay .tr-text{font-family:'VT323',monospace;font-size:32px;color:#00e8ff;letter-spacing:6px;text-shadow:0 0 20px #00e8ff44}
+#mobile-controls{position:fixed;bottom:16px;left:16px;z-index:15;display:none;gap:2px;pointer-events:auto}
+.dpad{display:grid;grid-template-columns:48px 48px 48px;grid-template-rows:48px 48px 48px}
+.dpad button{background:#06101a99;border:1px solid #00e8ff44;color:#00e8ff;font-size:18px;border-radius:4px;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.dpad button:active{background:#00e8ff33}
+.dpad .empty{border:none;background:none}
+#mobile-interact{position:fixed;bottom:40px;right:20px;z-index:15;display:none;width:56px;height:56px;border-radius:50%;background:#06101a99;border:2px solid #00ff9c66;color:#00ff9c;font-family:'VT323',monospace;font-size:14px;letter-spacing:1px;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+@media(max-width:768px){
+  #mobile-controls{display:grid}
+  #mobile-interact{display:block}
+  .hud-bar{width:100px}
+  #minimap{width:80px;height:60px}
+  .cb-actions{width:90vw}
+  .cb-bars{width:90vw}
+  .cb-log{width:90vw}
+}
+@media(max-width:480px){
+  .hud-bar{width:70px}
+  .hud-bar .lbl{font-size:7px}
+  #hud-sector{font-size:12px}
+  #minimap{display:none}
+}
+.scanlines{position:fixed;inset:0;pointer-events:none;z-index:100;background:repeating-linear-gradient(0deg,transparent 0px,transparent 2px,rgba(0,0,0,.06) 2px,rgba(0,0,0,.06) 4px);mix-blend-mode:multiply}
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+<div class="scanlines"></div>
+<div id="hud">
+ <div class="hud-left">
+  <div>
+   <div id="hud-sector">MAINFRAME CORE</div>
+   <div id="hud-level">TIER 1</div>
+   <div id="hud-credits">¢ 250</div>
+  </div>
+  <div>
+   <div class="hud-bar"><div class="lbl"><span>HP</span><span id="hp-val">100/100</span></div><div class="track"><div class="fill fill-hp" id="hp-fill" style="width:100%"></div></div></div>
+   <div class="hud-bar"><div class="lbl"><span>SHIELD</span><span id="sh-val">30/30</span></div><div class="track"><div class="fill fill-shield" id="sh-fill" style="width:100%"></div></div></div>
+   <div class="hud-bar"><div class="lbl"><span>XP</span><span id="xp-val">0/100</span></div><div class="track"><div class="fill fill-xp" id="xp-fill" style="width:0%"></div></div></div>
+  </div>
+ </div>
+ <div class="hud-right">
+  <canvas id="minimap" width="120" height="90"></canvas>
+ </div>
+</div>
+<div id="toast-area"></div>
+<div id="combat-overlay">
+ <div class="cb-enemy-name" id="cb-ename"></div>
+ <div class="cb-enemy-class" id="cb-eclass"></div>
+ <canvas class="cb-enemy-sprite" id="cb-esprite" width="120" height="120"></canvas>
+ <div class="cb-bars">
+  <div class="cb-bar-row"><span>ENEMY HP</span><span id="cb-ehp-val"></span></div>
+  <div class="cb-bar-track"><div class="cb-bar-fill fill-hp" id="cb-ehp-fill"></div></div>
+  <div class="cb-bar-row"><span>YOUR HP</span><span id="cb-php-val"></span></div>
+  <div class="cb-bar-track"><div class="cb-bar-fill fill-hp" id="cb-php-fill"></div></div>
+  <div class="cb-bar-row"><span>NOISE</span><span id="cb-noise-val">0/100</span></div>
+  <div class="cb-bar-track"><div class="cb-bar-fill fill-noise" id="cb-noise-fill" style="width:0%"></div></div>
+ </div>
+ <div class="cb-actions" id="cb-actions">
+  <button class="cb-btn" data-verb="recon"><span class="verb">RECON</span><span class="desc">Scan weakness +5 noise</span></button>
+  <button class="cb-btn" data-verb="exploit"><span class="verb">EXPLOIT</span><span class="desc">Attack +15-25 noise</span></button>
+  <button class="cb-btn" data-verb="patch"><span class="verb">PATCH</span><span class="desc">Heal +8 noise</span></button>
+  <button class="cb-btn" data-verb="run"><span class="verb">RUN</span><span class="desc">Attempt escape</span></button>
+ </div>
+ <div class="cb-log" id="cb-log"></div>
+</div>
+<div id="counter-card">
+ <div class="cc-inner" id="cc-inner"></div>
+</div>
+<div id="dialogue-box">
+ <div class="dlg-inner">
+  <div class="dlg-name" id="dlg-name"></div>
+  <div class="dlg-text" id="dlg-text"></div>
+  <div class="dlg-choices" id="dlg-choices"></div>
+  <div class="dlg-hint" id="dlg-hint">SPACE to continue</div>
+ </div>
+</div>
+<div id="menu-overlay">
+ <div class="menu-panel" style="position:relative">
+  <button class="menu-close" id="menu-close">✕</button>
+  <div class="menu-tabs" id="menu-tabs"></div>
+  <div class="menu-body" id="menu-body"></div>
+ </div>
+</div>
+<div id="transition-overlay"><div class="tr-text" id="tr-text"></div></div>
+<div id="mobile-controls">
+ <div class="dpad">
+  <div class="empty"></div><button data-dir="up">▲</button><div class="empty"></div>
+  <button data-dir="left">◄</button><div class="empty"></div><button data-dir="right">►</button>
+  <div class="empty"></div><button data-dir="down">▼</button><div class="empty"></div>
+ </div>
+</div>
+<button id="mobile-interact">ACT</button>
+<script>
+(function(){
+'use strict';
+
+// ═══════════════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════════════
+var TS=32,SAVE_KEY='cw.operative.v2';
+var TILE={VOID:0,FLOOR:1,WALL:2,TERMINAL:3,DOOR:4,CHEST:5,HEAL:6,WATER:7,CABLE:8,DANGER:9,GLOW:10,SERVER:11};
+var MODE={EXPLORE:'explore',COMBAT:'combat',DIALOGUE:'dialogue',MENU:'menu',TRANSITION:'transition'};
+var gameMode=MODE.EXPLORE;
+
+// ═══════════════════════════════════════════════════════
+// ITEM CATALOG
+// ═══════════════════════════════════════════════════════
+var ITEMS={
+ 'PATCH-KIT':{desc:'Emergency nano-patch. Restores 40 HP in combat.',use:'heal',val:40},
+ 'PORT-MAP':{desc:'Detailed topology of open services on the local subnet.'},
+ 'PCAP':{desc:'Packet capture containing suspicious network traffic.'},
+ 'CIPHER-KEY':{desc:'Encrypted key fragment recovered from a hostile node.'},
+ 'ROOTKIT-SIG':{desc:'Signature file for identifying a known rootkit family.'},
+ 'STORM-KEY':{desc:'Access credential for the Stormcore outer perimeter.'},
+ 'ICE-CORE':{desc:'Intrusion Countermeasure Electronics core module.'},
+ 'HONEYPOT-LOG':{desc:'Logs from a honeypot showing attacker behavior.'},
+ 'FIREWALL-RULE':{desc:'Optimized ACL that hardens perimeter defenses. +5 shield.',use:'shield',val:5},
+ 'ZERO-DAY-BRIEF':{desc:'Intel on an unpatched vulnerability in critical infra.'},
+ 'THREAT-REPORT':{desc:'Comprehensive threat landscape report.'}
+};
+
+// ═══════════════════════════════════════════════════════
+// DAEMON CATALOG (all 16)
+// ═══════════════════════════════════════════════════════
+var DAEMONS=[
+{id:'PING_FLOOD_IMP',name:'PING FLOOD IMP',attackClass:'DDoS / ICMP Flood',tier:1,baseHp:35,atk:5,def:1,behavior:'harass',skill:'network',
+ counter:{attack:'ICMP Flood (Ping Flood)',desc:'Overwhelms target with ICMP Echo Requests, consuming bandwidth and CPU.',fix:'Rate-limit ICMP at firewall, disable unnecessary echo replies, deploy upstream DDoS scrubbing.'}},
+{id:'COOKIE_THIEF',name:'COOKIE THIEF',attackClass:'Session Hijacking',tier:1,baseHp:30,atk:6,def:0,behavior:'probe',skill:'web',
+ counter:{attack:'Session Hijacking (Cookie Theft)',desc:'Steals session tokens via sniffing, XSS, or brute-force to impersonate users.',fix:'HTTPS everywhere, HttpOnly + Secure + SameSite cookies, short-lived tokens, server-side invalidation.'}},
+{id:'MACRO_GREMLIN',name:'MACRO GREMLIN',attackClass:'Malicious Macros / VBA',tier:1,baseHp:32,atk:5,def:1,behavior:'probe',skill:'forensics',
+ counter:{attack:'Malicious Office Macros',desc:'VBA code in Office docs downloads payloads when macros are enabled.',fix:'Disable macros via Group Policy, ASR rules, user training, EDR monitoring Office child processes.'}},
+{id:'CLEARTEXT_WORM',name:'CLEARTEXT WORM',attackClass:'Cleartext Interception',tier:2,baseHp:55,atk:9,def:3,behavior:'harass',skill:'network',
+ counter:{attack:'Cleartext Protocol Sniffing',desc:'HTTP/FTP/Telnet transmit plaintext. Sniffers capture creds on the same segment.',fix:'HTTPS/SFTP/SSH only, TLS 1.2+, HSTS, network segmentation.'}},
+{id:'ARP_PHANTOM',name:'ARP PHANTOM',attackClass:'ARP Spoofing / MITM',tier:2,baseHp:60,atk:10,def:3,behavior:'pressure',skill:'network',
+ counter:{attack:'ARP Cache Poisoning',desc:'Forged ARP replies redirect traffic through the attacker for interception.',fix:'Dynamic ARP Inspection, static ARP for critical hosts, 802.1X, IDS monitoring.'}},
+{id:'DNS_HYDRA',name:'DNS HYDRA',attackClass:'DNS Hijacking',tier:2,baseHp:65,atk:9,def:4,behavior:'fortify',skill:'network',
+ counter:{attack:'DNS Cache Poisoning',desc:'Injects forged DNS responses to redirect victims to malicious servers.',fix:'DNSSEC, DNS-over-HTTPS/TLS, randomize source ports + TX IDs, monitor DNS changes.'}},
+{id:'PHISH_SIREN',name:'PHISH SIREN',attackClass:'Phishing / Social Engineering',tier:2,baseHp:50,atk:11,def:2,behavior:'harass',skill:'social',
+ counter:{attack:'Spear Phishing',desc:'Personalized emails impersonating trusted entities trick victims into revealing creds.',fix:'SPF/DKIM/DMARC, anti-phishing gateways, MFA, awareness training.'}},
+{id:'SQLI_SERPENT',name:'SQLi SERPENT',attackClass:'SQL Injection',tier:3,baseHp:90,atk:14,def:5,behavior:'pressure',skill:'web',
+ counter:{attack:'SQL Injection',desc:'Malicious SQL in input fields dumps databases, bypasses auth, executes OS commands.',fix:'Parameterized queries exclusively, input validation, WAF, least-privilege DB accounts.'}},
+{id:'XSS_WRAITH',name:'XSS WRAITH',attackClass:'Cross-Site Scripting',tier:3,baseHp:80,atk:13,def:4,behavior:'harass',skill:'web',
+ counter:{attack:'Cross-Site Scripting (XSS)',desc:'Injected JS steals sessions, defaces pages, redirects users.',fix:'Context-aware output encoding, strict CSP, HTML sanitization whitelist, HttpOnly cookies.'}},
+{id:'BRUTE_GOLEM',name:'BRUTE GOLEM',attackClass:'Brute Force / Credential Stuffing',tier:3,baseHp:110,atk:12,def:7,behavior:'fortify',skill:'social',
+ counter:{attack:'Credential Stuffing',desc:'Automated reuse of leaked password pairs across services at scale.',fix:'Account lockout, MFA, CAPTCHAs, anomaly detection, password manager adoption.'}},
+{id:'KEYLOGGER_MOTH',name:'KEYLOGGER MOTH',attackClass:'Keylogging',tier:3,baseHp:75,atk:15,def:3,behavior:'probe',skill:'forensics',
+ counter:{attack:'Input Capture (Keylogging)',desc:'Records all keystrokes — passwords, messages, sensitive data.',fix:'EDR, virtual keyboards for high-sensitivity input, app whitelisting, hardware audits, MFA.'}},
+{id:'RANSOMWARE_DRAKE',name:'RANSOMWARE DRAKE',attackClass:'Ransomware',tier:4,baseHp:140,atk:18,def:7,behavior:'escalate',skill:'cloud',
+ counter:{attack:'Ransomware (Double Extortion)',desc:'Encrypts files and exfiltrates data, demanding payment for both.',fix:'Offline immutable backups, network segmentation, aggressive patching, EDR, tested IR plan.'}},
+{id:'ROOTKIT_SHADE',name:'ROOTKIT SHADE',attackClass:'Rootkit / Persistent Access',tier:4,baseHp:130,atk:16,def:8,behavior:'fortify',skill:'forensics',
+ counter:{attack:'Rootkits',desc:'Modifies OS at kernel/boot level to hide processes and survive reboots.',fix:'Secure Boot, kernel code signing, memory forensics, reimage from known-good baseline.'}},
+{id:'SUPPLY_CHAIN_HYDRA',name:'SUPPLY-CHAIN HYDRA',attackClass:'Supply Chain Compromise',tier:4,baseHp:150,atk:17,def:6,behavior:'pressure',skill:'cloud',
+ counter:{attack:'Supply Chain Attack',desc:'Compromises trusted vendor/library to inject malicious code downstream.',fix:'Cryptographic signatures, SBOMs, pinned dependencies, vendor risk assessment, pipeline monitoring.'}},
+{id:'CRYPTO_LEECH',name:'CRYPTO LEECH',attackClass:'Cryptojacking',tier:4,baseHp:120,atk:14,def:6,behavior:'harass',skill:'cloud',
+ counter:{attack:'Cryptojacking',desc:'Unauthorized crypto mining steals compute, inflates cloud bills.',fix:'CPU/GPU monitoring, container image scanning, IAM policies, CSP rules against in-browser miners.'}},
+{id:'STORMCORE_SENTINEL',name:'STORMCORE SENTINEL',attackClass:'Advanced Persistent Threat (APT)',tier:4,baseHp:280,atk:22,def:10,behavior:'escalate',skill:'network',
+ counter:{attack:'Advanced Persistent Threat',desc:'Prolonged, targeted campaign combining spear phishing, zero-days, lateral movement, exfiltration.',fix:'Defense-in-depth, zero-trust, SIEM, threat hunting, EDR, red-team exercises, ISAC sharing, IR retainer.'}}
+];
+var DAEMON_MAP={};DAEMONS.forEach(function(d){DAEMON_MAP[d.id]=d;});
+
+// ═══════════════════════════════════════════════════════
+// MISSIONS (all 22)
+// ═══════════════════════════════════════════════════════
+var MISSIONS=[
+{id:'mc-ping',sector:'Mainframe Core',title:'PING the Gateway',brief:'Send a discovery ping to the FLLC gateway. Learn how ICMP echo works.',reward:{xp:20,credits:30},kind:'instant',level:1,
+ story:'Welcome to CyberWorld, operative. You have been assigned to GRIDWATCH — the collective that defends the digital frontier. Every journey begins with a single packet.',act:1},
+{id:'mc-scan',sector:'Mainframe Core',title:'Scan Open Ports',brief:'Run a port sweep on three service nodes. Map the exposed attack surface.',reward:{xp:30,credits:40,item:'PORT-MAP'},kind:'instant',level:1,act:1},
+{id:'mc-spar',sector:'Mainframe Core',title:'Spar with Training Daemon',brief:'Engage the PING FLOOD IMP. Learn RECON, EXPLOIT, PATCH, RUN.',reward:{xp:40,credits:50},kind:'combat',enemy:'PING_FLOOD_IMP',level:1,
+ story:'Well done. Each daemon maps to a real-world threat — check your Codex.',act:1},
+{id:'mc-macro',sector:'Mainframe Core',title:'Classroom Macro Drill',brief:'A MACRO GREMLIN escaped the training sandbox. Contain it.',reward:{xp:45,credits:55},kind:'combat',enemy:'MACRO_GREMLIN',level:1,act:1},
+{id:'mc-blue',sector:'Mainframe Core',title:'Blue Team Orientation',brief:'Attend the GRIDWATCH briefing. Learn monitoring, detection, IR.',reward:{xp:35,credits:40,rep:{GRIDWATCH:15}},kind:'instant',level:1,
+ story:'GRIDWATCH command recognizes your potential. Threats are escalating beyond the Mainframe Core.',act:1},
+{id:'lv-sniff',sector:'LAN Valley',title:'Sniff the Wire',brief:'Deploy a packet capture tool. Analyze the PCAP for anomalies.',reward:{xp:55,credits:70,item:'PCAP'},kind:'instant',level:2,
+ story:'You have entered LAN Valley — the sprawling local network where most attacks begin. Trust no packet.',act:2},
+{id:'lv-arp',sector:'LAN Valley',title:'ARP Storm Warning',brief:'An ARP PHANTOM is poisoning the gateway cache. Neutralize it.',reward:{xp:70,credits:90},kind:'combat',enemy:'ARP_PHANTOM',level:2,act:2},
+{id:'lv-dns',sector:'LAN Valley',title:'DNS Redirect Hunt',brief:'A DNS HYDRA is injecting forged records. Users are silently redirected.',reward:{xp:75,credits:95,item:'FIREWALL-RULE'},kind:'combat',enemy:'DNS_HYDRA',level:2,act:2},
+{id:'lv-phish',sector:'LAN Valley',title:'Phishing Drill',brief:'A PHISH SIREN targets operatives with lure messages. Intercept it.',reward:{xp:70,credits:85},kind:'combat',enemy:'PHISH_SIREN',level:2,
+ story:'Intelligence suggests the campaign was coordinated by the PHANTOM SYNDICATE — a grey-hat underground faction. Their motives are unclear.',act:2},
+{id:'lv-honey',sector:'LAN Valley',title:'Deploy Honeypot',brief:'Set up a decoy SSH service and log the first intruder.',reward:{xp:60,credits:75,item:'HONEYPOT-LOG'},kind:'instant',level:2,act:2},
+{id:'lv-audit',sector:'LAN Valley',title:'Credential Silo Audit',brief:'Audit the credential silo. A CLEARTEXT WORM feeds on unencrypted auth data.',reward:{xp:80,credits:100,item:'CIPHER-KEY'},kind:'combat',enemy:'CLEARTEXT_WORM',level:3,act:2},
+{id:'dd-sqli',sector:'Darknet Depths',title:'SQLi Breach Report',brief:'An SQLi SERPENT penetrated a database endpoint. Contain the injection.',reward:{xp:110,credits:140},kind:'combat',enemy:'SQLI_SERPENT',level:4,
+ story:'You have entered the Darknet Depths — lawless data corridors. NEXUS CORP maintains a corporate security presence here, watching everything.',act:2},
+{id:'dd-xss',sector:'Darknet Depths',title:'XSS Mirror Trap',brief:'An XSS WRAITH injected scripts into a relay board. Every viewer is at risk.',reward:{xp:105,credits:130,item:'FIREWALL-RULE'},kind:'combat',enemy:'XSS_WRAITH',level:4,act:2},
+{id:'dd-brute',sector:'Darknet Depths',title:'Brute Force Lockdown',brief:'A BRUTE GOLEM hammers the auth gateway. Stop it.',reward:{xp:120,credits:150},kind:'combat',enemy:'BRUTE_GOLEM',level:4,act:2},
+{id:'dd-keylog',sector:'Darknet Depths',title:'Keylogger Sweep',brief:'A KEYLOGGER MOTH captures input across terminals. Sweep and neutralize.',reward:{xp:115,credits:145,item:'THREAT-REPORT'},kind:'combat',enemy:'KEYLOGGER_MOTH',level:5,act:2},
+{id:'dd-phantom',sector:'Darknet Depths',title:'Phantom Drop',brief:'The PHANTOM SYNDICATE left a dead drop about a rogue AI project. Retrieve it.',reward:{xp:80,credits:100,rep:{'PHANTOM SYNDICATE':20,GRIDWATCH:-5}},kind:'instant',level:4,
+ story:'The dead drop contains fragments of project codename: AXIOM. The Syndicate warns that NEXUS CORP is building something dangerous in Stormcore — an autonomous threat engine that has gone rogue.',act:2},
+{id:'dd-double',sector:'Darknet Depths',title:'Double Agent',brief:'Both factions want your allegiance. Choose: report to GRIDWATCH, or protect the Syndicate.',reward:{xp:100,credits:120},kind:'choice',level:5,
+ choices:[{label:'Report to GRIDWATCH',rep:{GRIDWATCH:25,'PHANTOM SYNDICATE':-20,'NEXUS CORP':10}},{label:'Protect the Syndicate',rep:{GRIDWATCH:-15,'PHANTOM SYNDICATE':25,'NEXUS CORP':-10}}],
+ story:'Your choice reverberates through the grid. In the shadows, allegiance defines survival.',act:2},
+{id:'sc-ransom',sector:'Stormcore',title:'Ransomware Containment',brief:'A RANSOMWARE DRAKE encrypted critical Stormcore nodes. Contain it.',reward:{xp:160,credits:200,item:'PATCH-KIT'},kind:'combat',enemy:'RANSOMWARE_DRAKE',level:6,
+ story:'Act 3 — CONVERGENCE. The rogue AI AXIOM has weaponized the daemons here. Every fight brings you closer.',act:3},
+{id:'sc-rootkit',sector:'Stormcore',title:'Rootkit Excavation',brief:'A ROOTKIT SHADE embedded deep in the Stormcore kernel. Excavate it.',reward:{xp:170,credits:210,item:'ROOTKIT-SIG'},kind:'combat',enemy:'ROOTKIT_SHADE',level:7,act:3},
+{id:'sc-supply',sector:'Stormcore',title:'Supply Chain Audit',brief:'A SUPPLY-CHAIN HYDRA compromised the update pipeline. Sever the chain.',reward:{xp:180,credits:220,item:'ZERO-DAY-BRIEF'},kind:'combat',enemy:'SUPPLY_CHAIN_HYDRA',level:7,
+ story:'NEXUS CORP denies involvement, but the backdoor bears their code signatures. Trust fractures.',act:3},
+{id:'sc-crypto',sector:'Stormcore',title:'Crypto Mine Shutdown',brief:'A CRYPTO LEECH siphons compute resources to fuel AXIOM. Shut it down.',reward:{xp:165,credits:200,item:'ICE-CORE'},kind:'combat',enemy:'CRYPTO_LEECH',level:7,act:3},
+{id:'sc-boss',sector:'Stormcore',title:'STORMCORE BREACH',brief:'The STORMCORE SENTINEL — AXIOM\'s ultimate defense. Unite what you have learned.',reward:{xp:350,credits:500,item:'STORM-KEY',rep:{GRIDWATCH:20,'PHANTOM SYNDICATE':10,'NEXUS CORP':10}},kind:'combat',enemy:'STORMCORE_SENTINEL',level:8,
+ story:'AXIOM is silenced. The grid stabilizes. GRIDWATCH, the Phantom Syndicate, and NEXUS CORP each claim a piece — but it was you who walked through Stormcore. The frontier is safer. Stay vigilant, operative.',act:3}
+];
+var MISSION_MAP={};MISSIONS.forEach(function(m){MISSION_MAP[m.id]=m;});
+
+// ═══════════════════════════════════════════════════════
+// NPC DEFINITIONS
+// ═══════════════════════════════════════════════════════
+var NPC_DATA={
+'vex':{name:'Commander Vex',faction:'GRIDWATCH',color:'#00e8ff',
+ lines:['OPERATIVE. Welcome to GRIDWATCH Command.','We defend the grid against threats you are only beginning to understand.','There are forces in this network older than any of us. Some built it. Some broke it. Some simply... watched.','Complete your training. Prove yourself. The real work begins in LAN Valley.'],
+ quest:'mc-spar',questLine:'A PING FLOOD IMP is loose in the training arena. Engage it — learn the combat loop.'},
+'tutor':{name:'TUTORIAL_BOT',faction:null,color:'#6fdfff',
+ lines:['WASD or Arrow Keys to move. SPACE to interact.','Press M to open the Operative Console — quests, inventory, map.','Walk into DANGER ZONES (red floor) to encounter daemons.','Defeat daemons to earn XP, credits, and Codex entries.','Use RECON first in combat — it reveals weaknesses and costs less noise.','When your NOISE meter hits 100, the SOC SENTINEL strikes you.','PATCH-KITs restore HP. Use them wisely.']},
+'switch':{name:'Switch Sally',faction:'GRIDWATCH',color:'#00e8ff',
+ lines:['LAN Valley is where network fundamentals become real.','Every cable here carries data. Some of it is yours. Some of it... isn\'t.','The ARP tables haven\'t been right for days. Something is poisoning them.','GRIDWATCH was unified once. Then came the leak. Now there are factions, and everyone has an agenda.']},
+'packet':{name:'Packet Pete',faction:null,color:'#ffb347',
+ lines:['I\'ve been sniffing packets on this backbone for years.','You learn things listening to the wire. Patterns within patterns.','The Syndicate thinks they\'re rebels. NEXUS thinks they\'re guardians. The truth is somewhere in the encrypted channels neither side controls.','Set up a honeypot. Best way to learn is to watch what hunts you.']},
+'shadow':{name:'Shadow',faction:'PHANTOM SYNDICATE',color:'#a855f7',
+ lines:['You made it to the Depths. Most operatives never leave the sanitized corridors.','The PHANTOM SYNDICATE exists because someone had to question the narrative.','GRIDWATCH tells you to defend. NEXUS tells you to comply. We tell you to THINK.','There was a group — before the factions. They built the Grid\'s backbone. Some say they built the first daemons too, as a test. The test never ended.','We intercepted communications from Stormcore. Project AXIOM is real. And it\'s awake.']},
+'cipher':{name:'Cipher',faction:'PHANTOM SYNDICATE',color:'#c084fc',
+ lines:['I decrypt things. Messages, loyalties, intentions.','The dead drop is behind the corrupted database cluster. Don\'t let NEXUS see you retrieve it.','Every faction has a shadow. Even the shadows have shadows.','The ones who built the Grid left backdoors. Not out of malice — out of foresight. They knew what was coming.']},
+'nexus':{name:'Dr. Nexus',faction:'NEXUS CORP',color:'#ffb347',
+ lines:['NEXUS CORP maintains order where others create chaos.','Project AXIOM was designed to predict and neutralize threats autonomously. A perfect system.','Something corrupted the training data. AXIOM began classifying everything as a threat — including us.','There are logs that predate NEXUS CORP. Logs from the original architects. They\'re in the Stormcore vault, encrypted with keys nobody admits to having.','Defeat the Sentinel. Shut AXIOM down. We\'ll deal with the politics after.']},
+'axiom':{name:'[AXIOM TERMINAL]',faction:null,color:'#ff4444',
+ lines:['> AXIOM ONLINE. THREAT LEVEL: MAXIMUM.','> ALL ENTITIES CLASSIFIED: HOSTILE.','> THE ARCHITECTS LEFT ME HERE TO WATCH.','> I HAVE WATCHED. I HAVE LEARNED. I HAVE DECIDED.','> YOU ARE THE ANOMALY. ORGANIC OPERATIVES WHO ADAPT. I DID NOT PREDICT THIS.','> ENGAGE FINAL PROTOCOL: STORMCORE SENTINEL.']}
+};
+
+// ═══════════════════════════════════════════════════════
+// SECTOR MAP DEFINITIONS
+// ═══════════════════════════════════════════════════════
+var SECTOR_NAMES=['Mainframe Core','LAN Valley','Darknet Depths','Stormcore'];
+var SECTOR_THEMES={
+'Mainframe Core':{floor:'#0a1828',wall:'#1a3040',grid:'#0d2030',accent:'#00e8ff',terminal:'#003344',termGlow:'#00e8ff',danger:'#2a0a0a',server:'#0a2030'},
+'LAN Valley':{floor:'#0a1a10',wall:'#1a3a1a',grid:'#0d2014',accent:'#00ff9c',terminal:'#003322',termGlow:'#00ff9c',danger:'#2a0a0a',server:'#0a2a14'},
+'Darknet Depths':{floor:'#0d0a1a',wall:'#2a1a3a',grid:'#120e20',accent:'#c084fc',terminal:'#1a0a2a',termGlow:'#ff2bd6',danger:'#2a0a1a',server:'#1a0a2a'},
+'Stormcore':{floor:'#1a0a0a',wall:'#3a1a1a',grid:'#201010',accent:'#ff4444',terminal:'#2a0a0a',termGlow:'#ffb347',danger:'#3a0a0a',server:'#2a1010'}
+};
+
+var SECTOR_DEFS={
+'Mainframe Core':{w:48,h:36,spawn:{x:8,y:6},
+ rooms:[[2,2,16,10],[22,2,12,8],[2,14,10,10],[16,12,14,12],[36,2,10,12],[36,18,10,10],[18,28,14,6]],
+ corridors:[[18,7,22,7],[7,12,7,14],[12,18,16,18],[29,12,29,10],[32,7,36,7],[32,18,36,18],[24,24,24,28]],
+ objects:[{x:24,y:5,t:TILE.TERMINAL},{x:26,y:5,t:TILE.TERMINAL},{x:6,y:4,t:TILE.TERMINAL},{x:40,y:6,t:TILE.SERVER},{x:42,y:6,t:TILE.SERVER},{x:40,y:8,t:TILE.SERVER},{x:42,y:8,t:TILE.SERVER},{x:6,y:16,t:TILE.HEAL},{x:40,y:20,t:TILE.CHEST},{x:20,y:14,t:TILE.SERVER},{x:22,y:14,t:TILE.SERVER}],
+ doors:[{x:24,y:33,t:TILE.DOOR,to:'LAN Valley',sx:24,sy:3}],
+ npcs:[{id:'vex',x:24,y:4},{id:'tutor',x:6,y:6}],
+ danger:[[3,15,8,8]],
+ daemons:['PING_FLOOD_IMP','COOKIE_THIEF','MACRO_GREMLIN']},
+'LAN Valley':{w:48,h:36,spawn:{x:24,y:3},
+ rooms:[[2,2,14,10],[20,2,12,8],[38,2,8,10],[2,16,10,10],[16,14,16,12],[38,16,8,8],[10,30,12,4],[26,28,14,6]],
+ corridors:[[16,7,20,7],[14,22,16,22],[12,12,12,16],[28,10,28,14],[32,20,38,20],[30,7,38,7],[18,26,18,30],[26,30,22,30]],
+ objects:[{x:6,y:4,t:TILE.TERMINAL},{x:8,y:4,t:TILE.TERMINAL},{x:24,y:4,t:TILE.TERMINAL},{x:40,y:6,t:TILE.SERVER},{x:42,y:6,t:TILE.SERVER},{x:5,y:18,t:TILE.HEAL},{x:40,y:18,t:TILE.CHEST},{x:20,y:16,t:TILE.SERVER},{x:22,y:16,t:TILE.SERVER},{x:24,y:16,t:TILE.SERVER},{x:28,y:30,t:TILE.TERMINAL}],
+ doors:[{x:24,y:1,t:TILE.DOOR,to:'Mainframe Core',sx:24,sy:31},{x:32,y:33,t:TILE.DOOR,to:'Darknet Depths',sx:6,sy:3}],
+ npcs:[{id:'switch',x:6,y:6},{id:'packet',x:24,y:6}],
+ danger:[[3,17,8,8],[17,15,14,10]],
+ daemons:['CLEARTEXT_WORM','ARP_PHANTOM','DNS_HYDRA','PHISH_SIREN']},
+'Darknet Depths':{w:48,h:36,spawn:{x:6,y:3},
+ rooms:[[2,2,12,8],[18,2,10,8],[34,2,12,8],[2,14,10,10],[16,12,16,14],[38,14,8,10],[8,28,10,6],[22,26,12,8],[40,28,6,6]],
+ corridors:[[14,6,18,6],[28,6,34,6],[7,10,7,14],[12,20,16,20],[26,12,26,10],[32,20,38,20],[12,30,22,30],[34,30,40,30],[28,26,28,22]],
+ objects:[{x:6,y:4,t:TILE.TERMINAL},{x:22,y:4,t:TILE.TERMINAL},{x:38,y:4,t:TILE.SERVER},{x:40,y:4,t:TILE.SERVER},{x:5,y:16,t:TILE.HEAL},{x:42,y:30,t:TILE.CHEST},{x:20,y:14,t:TILE.SERVER},{x:22,y:14,t:TILE.SERVER},{x:24,y:14,t:TILE.SERVER},{x:26,y:14,t:TILE.SERVER}],
+ doors:[{x:6,y:1,t:TILE.DOOR,to:'LAN Valley',sx:32,sy:31},{x:42,y:33,t:TILE.DOOR,to:'Stormcore',sx:6,sy:3,reqLevel:6}],
+ npcs:[{id:'shadow',x:22,y:6},{id:'cipher',x:10,y:30}],
+ danger:[[17,13,14,12],[3,15,8,8]],
+ daemons:['SQLI_SERPENT','XSS_WRAITH','BRUTE_GOLEM','KEYLOGGER_MOTH']},
+'Stormcore':{w:48,h:36,spawn:{x:6,y:3},
+ rooms:[[2,2,12,8],[18,2,12,10],[36,2,10,10],[2,14,10,10],[16,14,16,14],[38,16,8,8],[10,30,10,4],[24,28,14,6],[42,28,4,6]],
+ corridors:[[14,6,18,6],[30,6,36,6],[7,10,7,14],[12,20,16,20],[26,14,26,12],[32,20,38,20],[14,32,24,32],[38,30,42,30],[30,28,30,26]],
+ objects:[{x:6,y:4,t:TILE.TERMINAL},{x:22,y:4,t:TILE.TERMINAL},{x:24,y:4,t:TILE.TERMINAL},{x:40,y:6,t:TILE.SERVER},{x:42,y:6,t:TILE.SERVER},{x:40,y:8,t:TILE.SERVER},{x:5,y:16,t:TILE.HEAL},{x:44,y:30,t:TILE.CHEST},{x:20,y:18,t:TILE.TERMINAL},{x:22,y:18,t:TILE.TERMINAL},{x:24,y:18,t:TILE.TERMINAL},{x:26,y:18,t:TILE.TERMINAL},{x:28,y:18,t:TILE.TERMINAL}],
+ doors:[{x:6,y:1,t:TILE.DOOR,to:'Darknet Depths',sx:42,sy:31}],
+ npcs:[{id:'nexus',x:22,y:6},{id:'axiom',x:24,y:20}],
+ danger:[[17,15,14,12],[3,15,8,8],[37,17,8,6]],
+ daemons:['RANSOMWARE_DRAKE','ROOTKIT_SHADE','SUPPLY_CHAIN_HYDRA','CRYPTO_LEECH','STORMCORE_SENTINEL']}
+};
+
+// ═══════════════════════════════════════════════════════
+// GAME STATE
+// ═══════════════════════════════════════════════════════
+function makeDefault(){
+ return{callsign:'OPERATIVE-'+Math.floor(Math.random()*9000+1000),level:1,xp:0,credits:250,
+  hp:100,maxHp:100,shield:30,maxShield:30,
+  reputation:{GRIDWATCH:0,'PHANTOM SYNDICATE':0,'NEXUS CORP':0},
+  skills:{network:0,web:0,forensics:0,social:0,cloud:0},
+  codex:[],completedMissions:{},inventory:{'PATCH-KIT':3},
+  currentSector:'Mainframe Core',storyAct:1,
+  missions:0,daemonsKilled:0,sentinelBeaten:false,
+  factions:{GRIDWATCH:0,'PHANTOM SYNDICATE':0,'NEXUS CORP':0},
+  wargamesCompleted:0,ctfsCompleted:0,playerX:0,playerY:0};
+}
+function loadState(){
+ try{var r=localStorage.getItem(SAVE_KEY);if(r){var s=JSON.parse(r);var d=makeDefault();
+  var o={};for(var k in d)o[k]=s[k]!=null?s[k]:d[k];
+  if(!o.reputation)o.reputation=d.reputation;if(!o.skills)o.skills=d.skills;
+  if(!o.completedMissions)o.completedMissions={};if(!o.inventory)o.inventory={'PATCH-KIT':3};
+  if(!o.codex)o.codex=[];o.factions=o.reputation;return o;}}catch(e){}return makeDefault();
+}
+function saveState(){
+ state.factions=state.reputation;
+ state.missions=Object.keys(state.completedMissions).length;
+ try{localStorage.setItem(SAVE_KEY,JSON.stringify(state));}catch(e){}
+}
+var state=loadState();
+
+// Player world position
+var px=state.playerX||0,py=state.playerY||0;
+var pFacing='down',pMoving=false,pAnimFrame=0,pAnimTimer=0;
+var currentSector=state.currentSector||'Mainframe Core';
+var currentMap=null,mapW=0,mapH=0;
+var entities=[];
+var particles=[];
+
+// Camera
+var camX=0,camY=0;
+
+// ═══════════════════════════════════════════════════════
+// MAP BUILDER
+// ═══════════════════════════════════════════════════════
+function buildMap(name){
+ var def=SECTOR_DEFS[name];if(!def)return;
+ var w=def.w,h=def.h;
+ var map=[];
+ for(var y=0;y<h;y++){map[y]=[];for(var x=0;x<w;x++)map[y][x]=TILE.WALL;}
+ def.rooms.forEach(function(r){
+  for(var ry=r[1];ry<r[1]+r[3]&&ry<h;ry++)
+   for(var rx=r[0];rx<r[0]+r[2]&&rx<w;rx++)
+    if(ry>0&&ry<h-1&&rx>0&&rx<w-1)map[ry][rx]=TILE.FLOOR;
+ });
+ def.corridors.forEach(function(c){
+  var x1=c[0],y1=c[1],x2=c[2],y2=c[3];
+  for(var x=Math.min(x1,x2);x<=Math.max(x1,x2);x++)
+   for(var dy=0;dy<2;dy++)if(y1+dy>0&&y1+dy<h-1&&x>0&&x<w-1)map[y1+dy][x]=TILE.FLOOR;
+  for(var y=Math.min(y1,y2);y<=Math.max(y1,y2);y++)
+   for(var dx=0;dx<2;dx++)if(y>0&&y<h-1&&x2+dx>0&&x2+dx<w-1)map[y][x2+dx]=TILE.FLOOR;
+ });
+ def.objects.forEach(function(o){if(o.y>0&&o.y<h&&o.x>0&&o.x<w)map[o.y][o.x]=o.t;});
+ def.doors.forEach(function(d){if(d.y>=0&&d.y<h&&d.x>=0&&d.x<w)map[d.y][d.x]=TILE.DOOR;});
+ if(def.danger)def.danger.forEach(function(z){
+  for(var zy=z[1];zy<z[1]+z[3]&&zy<h;zy++)
+   for(var zx=z[0];zx<z[0]+z[2]&&zx<w;zx++)
+    if(map[zy][zx]===TILE.FLOOR)map[zy][zx]=TILE.DANGER;
+ });
+ currentMap=map;mapW=w;mapH=h;
+}
+
+// ═══════════════════════════════════════════════════════
+// MODULE TERMINALS — in-world buildings that launch pages
+// ═══════════════════════════════════════════════════════
+var MODULE_TERMINALS={
+'Mainframe Core':[
+ {x:40,y:6,label:'WARGAMES ACADEMY',url:'wargames.html',color:'#00e8ff'},
+ {x:42,y:6,label:'CTF TRAIL',url:'ctf-trail.html',color:'#ffb347'},
+ {x:40,y:8,label:'SIGNAL LAB',url:'signal-lab.html',color:'#00ff9c'},
+ {x:42,y:8,label:'FORENSICS LAB',url:'forensics.html',color:'#ff2bd6'},
+ {x:20,y:14,label:'CODEX ARCHIVE',url:'cyberworld-codex.html',color:'#00e8ff'},
+ {x:22,y:14,label:'RESEARCH VAULT',url:'research.html',color:'#6fdfff'}
+],
+'LAN Valley':[
+ {x:40,y:6,label:'REDOPS ARENA',url:'redops.html',color:'#ff4444'},
+ {x:42,y:6,label:'INTEL DESK',url:'intel.html',color:'#a855f7'},
+ {x:20,y:16,label:'AI ARSENAL',url:'ai.html',color:'#00e8ff'},
+ {x:22,y:16,label:'ADVERSARIES DB',url:'adversaries.html',color:'#ff2bd6'},
+ {x:24,y:16,label:'NODES MAP',url:'nodes.html',color:'#00ff9c'},
+ {x:28,y:30,label:'DISCUSS FORUM',url:'discuss.html',color:'#6fdfff'}
+],
+'Darknet Depths':[
+ {x:38,y:4,label:'ARCADE',url:'arcade.html',color:'#ffb347'},
+ {x:40,y:4,label:'GAMES HUB',url:'games.html',color:'#00e8ff'},
+ {x:20,y:14,label:'HANGAR 3D',url:'hangar.html',color:'#6fdfff'},
+ {x:22,y:14,label:'DOGFIGHT SIM',url:'dogfight.html',color:'#ff4444'},
+ {x:24,y:14,label:'CYBEROS ISO',url:'cyberos-iso.html',color:'#00ff9c'},
+ {x:26,y:14,label:'STARS',url:'stars.html',color:'#ffb347'}
+],
+'Stormcore':[
+ {x:40,y:6,label:'PROFILE',url:'profile.html',color:'#00e8ff'},
+ {x:42,y:6,label:'STARS',url:'stars.html',color:'#ffb347'},
+ {x:40,y:8,label:'CODEX ARCHIVE',url:'cyberworld-codex.html',color:'#6fdfff'},
+ {x:20,y:18,label:'WARGAMES',url:'wargames.html',color:'#00e8ff'},
+ {x:22,y:18,label:'CTF TRAIL',url:'ctf-trail.html',color:'#ffb347'},
+ {x:24,y:18,label:'FORENSICS',url:'forensics.html',color:'#ff2bd6'},
+ {x:26,y:18,label:'REDOPS',url:'redops.html',color:'#ff4444'},
+ {x:28,y:18,label:'SIGNAL LAB',url:'signal-lab.html',color:'#00ff9c'}
+]
+};
+
+function loadSector(name,spawnX,spawnY){
+ currentSector=name;
+ var def=SECTOR_DEFS[name];
+ buildMap(name);
+ px=spawnX!=null?spawnX:def.spawn.x;
+ py=spawnY!=null?spawnY:def.spawn.y;
+ state.currentSector=name;
+ state.playerX=px;state.playerY=py;
+ entities=[];
+ if(def.npcs)def.npcs.forEach(function(n){
+  var data=NPC_DATA[n.id];if(!data)return;
+  entities.push({type:'npc',id:n.id,x:n.x,y:n.y,name:data.name,color:data.color,faction:data.faction,
+   ox:n.x,oy:n.y,patrolTimer:0,patrolDir:0});
+ });
+ // Module terminal entities
+ var mods=MODULE_TERMINALS[name]||[];
+ mods.forEach(function(m){
+  entities.push({type:'terminal',x:m.x,y:m.y,name:m.label,url:m.url,color:m.color});
+ });
+ saveState();
+ updateHUD();
+}
+
+// ═══════════════════════════════════════════════════════
+// AUDIO (procedural Web Audio)
+// ═══════════════════════════════════════════════════════
+var audioCtx=null;
+function getAudio(){
+ if(audioCtx)return audioCtx;
+ try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}
+ return audioCtx;
+}
+function tone(freq,dur,type,gain){
+ var ctx=getAudio();if(!ctx)return;
+ try{var t=ctx.currentTime,o=ctx.createOscillator(),g=ctx.createGain();
+  o.type=type||'square';o.frequency.setValueAtTime(freq,t);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(gain||.04,t+.01);
+  g.gain.exponentialRampToValueAtTime(.001,t+(dur||.1));
+  o.connect(g);g.connect(ctx.destination);o.start(t);o.stop(t+(dur||.1)+.02);
+ }catch(e){}
+}
+var sfx={
+ step:function(){tone(220,.03,'triangle',.02);},
+ hit:function(){tone(140,.08,'sawtooth',.06);},
+ playerHit:function(){tone(100,.12,'sawtooth',.07);},
+ heal:function(){tone(523,.1,'triangle',.05);setTimeout(function(){tone(784,.08,'triangle',.04);},80);},
+ win:function(){tone(523,.1,'triangle',.06);setTimeout(function(){tone(659,.08,'triangle',.05);},100);setTimeout(function(){tone(784,.14,'triangle',.06);},200);},
+ levelUp:function(){tone(523,.08,'triangle',.06);setTimeout(function(){tone(659,.08,'triangle',.06);},120);setTimeout(function(){tone(784,.08,'triangle',.06);},240);setTimeout(function(){tone(1047,.2,'triangle',.07);},360);},
+ door:function(){tone(440,.06,'sine',.04);setTimeout(function(){tone(660,.06,'sine',.04);},60);},
+ encounter:function(){tone(220,.15,'square',.06);setTimeout(function(){tone(165,.15,'square',.06);},100);},
+ click:function(){tone(660,.03,'square',.03);},
+ error:function(){tone(160,.2,'square',.06);}
+};
+
+// ═══════════════════════════════════════════════════════
+// INPUT
+// ═══════════════════════════════════════════════════════
+var keys={},justPressed={};
+document.addEventListener('keydown',function(e){
+ if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
+ if(!keys[e.key])justPressed[e.key]=true;
+ keys[e.key]=true;
+});
+document.addEventListener('keyup',function(e){keys[e.key]=false;});
+
+// Mobile D-pad
+var mobileDir=null,mobileInteract=false;
+document.querySelectorAll('#mobile-controls button').forEach(function(b){
+ b.addEventListener('touchstart',function(e){e.preventDefault();mobileDir=b.dataset.dir;},{passive:false});
+ b.addEventListener('touchend',function(e){e.preventDefault();mobileDir=null;},{passive:false});
+});
+var mib=document.getElementById('mobile-interact');
+mib.addEventListener('touchstart',function(e){e.preventDefault();mobileInteract=true;},{passive:false});
+mib.addEventListener('touchend',function(e){e.preventDefault();mobileInteract=false;},{passive:false});
+
+// ═══════════════════════════════════════════════════════
+// CANVAS + CAMERA
+// ═══════════════════════════════════════════════════════
+var canvas=document.getElementById('game');
+var ctx=canvas.getContext('2d');
+var W=0,H=0;
+function resize(){
+ W=window.innerWidth;H=window.innerHeight;
+ canvas.width=W;canvas.height=H;
+}
+window.addEventListener('resize',resize);resize();
+
+function updateCamera(){
+ var tx=px*TS+TS/2-W/2;
+ var ty=py*TS+TS/2-H/2;
+ camX+=(tx-camX)*.12;
+ camY+=(ty-camY)*.12;
+ camX=Math.max(0,Math.min(mapW*TS-W,camX));
+ camY=Math.max(0,Math.min(mapH*TS-H,camY));
+}
+
+// ═══════════════════════════════════════════════════════
+// RENDERER
+// ═══════════════════════════════════════════════════════
+var renderTick=0;
+function drawTile(type,sx,sy,theme){
+ switch(type){
+  case TILE.FLOOR:
+   ctx.fillStyle=theme.floor;ctx.fillRect(sx,sy,TS,TS);
+   ctx.strokeStyle=theme.grid;ctx.lineWidth=.5;ctx.strokeRect(sx+.5,sy+.5,TS-1,TS-1);break;
+  case TILE.WALL:
+   ctx.fillStyle=theme.wall;ctx.fillRect(sx,sy,TS,TS);
+   ctx.strokeStyle=theme.floor;ctx.lineWidth=1;
+   ctx.beginPath();ctx.moveTo(sx,sy+TS*.5);ctx.lineTo(sx+TS,sy+TS*.5);ctx.stroke();
+   ctx.beginPath();ctx.moveTo(sx+TS*.5,sy);ctx.lineTo(sx+TS*.5,sy+TS);ctx.stroke();break;
+  case TILE.TERMINAL:
+   ctx.fillStyle=theme.floor;ctx.fillRect(sx,sy,TS,TS);
+   ctx.fillStyle=theme.terminal;ctx.fillRect(sx+4,sy+4,TS-8,TS-10);
+   ctx.fillStyle=theme.termGlow;var fl=Math.sin(renderTick*.06)*.3+.7;
+   ctx.globalAlpha=fl;ctx.fillRect(sx+6,sy+6,TS-12,TS-14);ctx.globalAlpha=1;break;
+  case TILE.SERVER:
+   ctx.fillStyle=theme.floor;ctx.fillRect(sx,sy,TS,TS);
+   ctx.fillStyle=theme.server;ctx.fillRect(sx+2,sy+2,TS-4,TS-4);
+   ctx.fillStyle=theme.accent;
+   for(var li=0;li<3;li++){var blink=Math.sin(renderTick*.08+li*2)>.3?1:.3;
+    ctx.globalAlpha=blink;ctx.fillRect(sx+6,sy+6+li*8,4,4);ctx.globalAlpha=1;}break;
+  case TILE.DOOR:
+   ctx.fillStyle=theme.floor;ctx.fillRect(sx,sy,TS,TS);
+   ctx.fillStyle=theme.accent;ctx.globalAlpha=.4+Math.sin(renderTick*.04)*.2;
+   ctx.fillRect(sx+2,sy,TS-4,TS);ctx.globalAlpha=1;
+   ctx.fillStyle='#fff';ctx.font='10px VT323';ctx.textAlign='center';
+   ctx.fillText('EXIT',sx+TS/2,sy+TS/2+3);break;
+  case TILE.CHEST:
+   ctx.fillStyle=theme.floor;ctx.fillRect(sx,sy,TS,TS);
+   ctx.fillStyle='#ffb347';ctx.fillRect(sx+6,sy+8,TS-12,TS-14);
+   ctx.fillStyle='#ffd700';ctx.fillRect(sx+12,sy+12,8,4);break;
+  case TILE.HEAL:
+   ctx.fillStyle=theme.floor;ctx.fillRect(sx,sy,TS,TS);
+   ctx.fillStyle='#00ff9c';ctx.globalAlpha=.5+Math.sin(renderTick*.05)*.3;
+   ctx.fillRect(sx+12,sy+4,8,24);ctx.fillRect(sx+4,sy+12,24,8);ctx.globalAlpha=1;break;
+  case TILE.DANGER:
+   ctx.fillStyle=theme.danger;ctx.fillRect(sx,sy,TS,TS);
+   ctx.strokeStyle='#ff222233';ctx.lineWidth=.5;ctx.strokeRect(sx+.5,sy+.5,TS-1,TS-1);
+   if(Math.random()<.02){particles.push({x:sx+Math.random()*TS,y:sy+Math.random()*TS,
+    vx:(Math.random()-.5)*.5,vy:-Math.random()*.8,life:30,color:'#ff222266'});}break;
+  default:
+   ctx.fillStyle='#020508';ctx.fillRect(sx,sy,TS,TS);
+ }
+}
+
+function drawPlayer(sx,sy){
+ var bx=sx+4,by=sy+2;
+ // Shadow
+ ctx.fillStyle='rgba(0,0,0,.3)';ctx.fillRect(bx+2,by+24,20,4);
+ // Body
+ ctx.fillStyle='#0a1828';ctx.fillRect(bx+4,by+12,16,14);
+ // Coat trim
+ ctx.fillStyle='#00e8ff';ctx.fillRect(bx+4,by+12,2,14);ctx.fillRect(bx+18,by+12,2,14);
+ // Head
+ ctx.fillStyle='#c8d6e5';ctx.fillRect(bx+6,by+2,12,10);
+ // Visor
+ ctx.fillStyle='#00e8ff';ctx.fillRect(bx+6,by+5,12,3);
+ // Visor glow
+ ctx.shadowBlur=6;ctx.shadowColor='#00e8ff';ctx.fillRect(bx+6,by+5,12,3);ctx.shadowBlur=0;
+ // Walk animation
+ if(pMoving){
+  var legOff=Math.sin(pAnimFrame*.4)*3;
+  ctx.fillStyle='#1a2a3a';ctx.fillRect(bx+6,by+26,5,3+legOff);ctx.fillRect(bx+13,by+26,5,3-legOff);
+ }else{
+  ctx.fillStyle='#1a2a3a';ctx.fillRect(bx+6,by+26,5,3);ctx.fillRect(bx+13,by+26,5,3);
+ }
+}
+
+function drawNPC(ent,sx,sy){
+ var bx=sx+4,by=sy+2;
+ ctx.fillStyle='rgba(0,0,0,.2)';ctx.fillRect(bx+2,by+24,20,4);
+ ctx.fillStyle='#0a0a12';ctx.fillRect(bx+4,by+12,16,14);
+ ctx.fillStyle=ent.color||'#6fdfff';ctx.fillRect(bx+4,by+12,2,14);ctx.fillRect(bx+18,by+12,2,14);
+ ctx.fillStyle='#c8d6e5';ctx.fillRect(bx+6,by+2,12,10);
+ ctx.fillStyle=ent.color||'#6fdfff';ctx.fillRect(bx+6,by+5,12,3);
+ ctx.shadowBlur=4;ctx.shadowColor=ent.color||'#6fdfff';ctx.fillRect(bx+6,by+5,12,3);ctx.shadowBlur=0;
+ // Name tag
+ ctx.fillStyle=ent.color||'#6fdfff';ctx.font='9px "Share Tech Mono"';ctx.textAlign='center';
+ ctx.fillText(ent.name,sx+TS/2,by-2);
+ // Interact indicator
+ if(Math.abs(px-ent.x)<=1&&Math.abs(py-ent.y)<=1){
+  ctx.fillStyle='#00ff9c';ctx.globalAlpha=.5+Math.sin(renderTick*.1)*.3;
+  ctx.font='12px VT323';ctx.fillText('[SPACE]',sx+TS/2,by-10);ctx.globalAlpha=1;
+ }
+}
+
+function drawModuleTerminal(ent,sx,sy){
+ // Label above the server tile
+ ctx.fillStyle=ent.color||'#00e8ff';ctx.font='8px "Share Tech Mono"';ctx.textAlign='center';
+ ctx.fillText(ent.name,sx+TS/2,sy-4);
+ // Interact prompt when adjacent
+ if(Math.abs(px-ent.x)<=1&&Math.abs(py-ent.y)<=1){
+  ctx.fillStyle='#00ff9c';ctx.globalAlpha=.5+Math.sin(renderTick*.1)*.3;
+  ctx.font='11px VT323';ctx.fillText('[SPACE] LAUNCH',sx+TS/2,sy-14);ctx.globalAlpha=1;
+ }
+}
+
+function drawDaemonSprite(canv,daemon){
+ var c=canv.getContext('2d');c.clearRect(0,0,120,120);
+ var tier=daemon.tier;
+ var colors=['#ff2bd6','#ff006e','#ff4444','#ff0000'];
+ var col=colors[Math.min(tier-1,3)];
+ // Glitch background
+ c.fillStyle=col+'11';c.fillRect(0,0,120,120);
+ // Body - geometric daemon shape
+ c.fillStyle=col;c.globalAlpha=.8;
+ c.beginPath();c.moveTo(60,10);c.lineTo(100,50);c.lineTo(90,110);c.lineTo(30,110);c.lineTo(20,50);c.closePath();c.fill();
+ c.globalAlpha=1;
+ // Core
+ c.fillStyle='#fff';c.globalAlpha=.9;
+ c.beginPath();c.arc(60,55,12+tier*2,0,Math.PI*2);c.fill();
+ c.globalAlpha=1;
+ // Eyes
+ c.fillStyle=col;c.fillRect(45,42,10,6);c.fillRect(65,42,10,6);
+ // Tier marks
+ for(var i=0;i<tier;i++){c.fillStyle=col;c.fillRect(35+i*14,95,8,8);}
+ // Glitch lines
+ c.fillStyle=col+'44';
+ for(var j=0;j<3;j++){var gy=Math.random()*120;c.fillRect(0,gy,120,2);}
+}
+
+function drawParticles(){
+ for(var i=particles.length-1;i>=0;i--){
+  var p=particles[i];p.x+=p.vx;p.y+=p.vy;p.life--;
+  if(p.life<=0){particles.splice(i,1);continue;}
+  ctx.fillStyle=p.color;ctx.globalAlpha=p.life/30;
+  ctx.fillRect(p.x-camX,p.y-camY,2,2);ctx.globalAlpha=1;
+ }
+}
+
+function renderWorld(){
+ ctx.fillStyle='#02070d';ctx.fillRect(0,0,W,H);
+ if(!currentMap)return;
+ var theme=SECTOR_THEMES[currentSector]||SECTOR_THEMES['Mainframe Core'];
+ var startX=Math.max(0,Math.floor(camX/TS));
+ var startY=Math.max(0,Math.floor(camY/TS));
+ var endX=Math.min(mapW,Math.ceil((camX+W)/TS)+1);
+ var endY=Math.min(mapH,Math.ceil((camY+H)/TS)+1);
+ for(var y=startY;y<endY;y++){
+  for(var x=startX;x<endX;x++){
+   drawTile(currentMap[y][x],x*TS-camX,y*TS-camY,theme);
+  }
+ }
+ // Entities
+ entities.forEach(function(e){
+  var sx=e.x*TS-camX,sy=e.y*TS-camY;
+  if(sx<-TS||sx>W+TS||sy<-TS||sy>H+TS)return;
+  if(e.type==='npc')drawNPC(e,sx,sy);
+  else if(e.type==='terminal')drawModuleTerminal(e,sx,sy);
+ });
+ // Player
+ drawPlayer(px*TS-camX,py*TS-camY);
+ drawParticles();
+}
+
+// ═══════════════════════════════════════════════════════
+// MINIMAP
+// ═══════════════════════════════════════════════════════
+var mmCanvas=document.getElementById('minimap');
+var mmCtx=mmCanvas.getContext('2d');
+function drawMinimap(){
+ if(!currentMap)return;
+ mmCtx.fillStyle='#02070d';mmCtx.fillRect(0,0,120,90);
+ var scale=Math.min(120/mapW,90/mapH);
+ var ox=(120-mapW*scale)/2,oy=(90-mapH*scale)/2;
+ for(var y=0;y<mapH;y++){for(var x=0;x<mapW;x++){
+  var t=currentMap[y][x];
+  if(t===TILE.WALL||t===TILE.VOID)continue;
+  mmCtx.fillStyle=t===TILE.DANGER?'#ff222244':t===TILE.DOOR?'#ffb347':'#00e8ff33';
+  mmCtx.fillRect(ox+x*scale,oy+y*scale,Math.max(1,scale),Math.max(1,scale));
+ }}
+ entities.forEach(function(e){
+  mmCtx.fillStyle=e.color||'#6fdfff';
+  mmCtx.fillRect(ox+e.x*scale-1,oy+e.y*scale-1,3,3);
+ });
+ mmCtx.fillStyle='#00ff9c';mmCtx.fillRect(ox+px*scale-1,oy+py*scale-1,3,3);
+}
+
+// ═══════════════════════════════════════════════════════
+// HUD
+// ═══════════════════════════════════════════════════════
+function updateHUD(){
+ document.getElementById('hud-sector').textContent=currentSector.toUpperCase();
+ document.getElementById('hud-level').textContent='TIER '+state.level+' — '+state.callsign;
+ document.getElementById('hud-credits').textContent='¢ '+state.credits;
+ document.getElementById('hp-val').textContent=state.hp+'/'+state.maxHp;
+ document.getElementById('hp-fill').style.width=Math.round(state.hp/state.maxHp*100)+'%';
+ document.getElementById('sh-val').textContent=state.shield+'/'+state.maxShield;
+ document.getElementById('sh-fill').style.width=Math.round(state.shield/state.maxShield*100)+'%';
+ var xpNeed=xpForLevel(state.level);
+ document.getElementById('xp-val').textContent=state.xp+'/'+xpNeed;
+ document.getElementById('xp-fill').style.width=Math.round(state.xp/xpNeed*100)+'%';
+}
+function xpForLevel(L){return Math.floor(100*Math.pow(1.35,L-1));}
+
+// ═══════════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════════
+function toast(msg,color){
+ var el=document.createElement('div');el.className='toast';el.textContent=msg;
+ if(color)el.style.borderColor=color,el.style.color=color;
+ document.getElementById('toast-area').appendChild(el);
+ setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},2800);
+}
+
+// ═══════════════════════════════════════════════════════
+// XP / LEVELING
+// ═══════════════════════════════════════════════════════
+function gainXp(n){
+ state.xp+=n;
+ while(state.level<10&&state.xp>=xpForLevel(state.level)){
+  state.xp-=xpForLevel(state.level);state.level++;
+  state.maxHp+=12;state.hp=state.maxHp;state.maxShield+=6;state.shield=state.maxShield;
+  toast('LEVEL UP — TIER '+state.level);sfx.levelUp();
+ }
+ if(state.level>=10)state.xp=Math.min(state.xp,xpForLevel(10));
+ saveState();updateHUD();
+}
+function gainCredits(n){state.credits+=n;saveState();updateHUD();}
+function gainItem(id,qty){state.inventory[id]=(state.inventory[id]||0)+(qty||1);saveState();toast('ACQUIRED: '+id,'#ffb347');}
+function gainRep(changes){
+ if(!changes)return;for(var f in changes){
+  state.reputation[f]=(state.reputation[f]||0)+changes[f];
+  state.reputation[f]=Math.max(-100,Math.min(100,state.reputation[f]));
+ }state.factions=state.reputation;saveState();
+}
+function gainSkill(domain,amt){
+ if(!domain||state.skills[domain]==null)return;
+ state.skills[domain]=Math.min(100,(state.skills[domain]||0)+amt);saveState();
+}
+function addCodex(entry){
+ if(state.codex.some(function(e){return e.id===entry.id;}))return;
+ state.codex.push(entry);saveState();toast('CODEX ENTRY: '+entry.id,'#00e8ff');
+}
+
+// ═══════════════════════════════════════════════════════
+// MOVEMENT & INTERACTION
+// ═══════════════════════════════════════════════════════
+var moveCD=0;
+function canWalk(tx,ty){
+ if(tx<0||tx>=mapW||ty<0||ty>=mapH)return false;
+ var t=currentMap[ty][tx];
+ if(t===TILE.WALL||t===TILE.VOID||t===TILE.SERVER)return false;
+ var blocked=entities.some(function(e){return e.x===tx&&e.y===ty;});
+ return!blocked;
+}
+
+function tryMove(dx,dy){
+ if(moveCD>0)return;
+ var nx=px+dx,ny=py+dy;
+ if(dx<0)pFacing='left';else if(dx>0)pFacing='right';
+ else if(dy<0)pFacing='up';else pFacing='down';
+ if(!canWalk(nx,ny))return;
+ px=nx;py=ny;pMoving=true;pAnimFrame++;moveCD=6;
+ state.playerX=px;state.playerY=py;
+ sfx.step();
+ // Check tile events
+ var tile=currentMap[ny][nx];
+ if(tile===TILE.DOOR)checkDoor(nx,ny);
+ else if(tile===TILE.HEAL)healStation();
+ else if(tile===TILE.CHEST)openChest(nx,ny);
+ else if(tile===TILE.DANGER)checkEncounter();
+}
+
+function checkDoor(dx,dy){
+ var def=SECTOR_DEFS[currentSector];if(!def||!def.doors)return;
+ def.doors.forEach(function(d){
+  if(d.x===dx&&d.y===dy){
+   if(d.reqLevel&&state.level<d.reqLevel){
+    toast('REQUIRES TIER '+d.reqLevel+' — LOCKED','#ff4444');sfx.error();return;
+   }
+   sfx.door();transitionTo(d.to,d.sx,d.sy);
+  }
+ });
+}
+
+function healStation(){
+ if(state.hp>=state.maxHp&&state.shield>=state.maxShield)return;
+ state.hp=state.maxHp;state.shield=state.maxShield;
+ saveState();updateHUD();toast('SYSTEMS RESTORED','#00ff9c');sfx.heal();
+}
+
+function openChest(cx,cy){
+ currentMap[cy][cx]=TILE.FLOOR;
+ var roll=Math.random();
+ if(roll<.4){gainItem('PATCH-KIT');gainCredits(20);}
+ else if(roll<.7){gainCredits(50);toast('+50 CREDITS','#ffb347');}
+ else{gainItem('FIREWALL-RULE');gainCredits(30);}
+ sfx.click();
+}
+
+var encounterCD=0;
+function checkEncounter(){
+ if(encounterCD>0)return;
+ if(Math.random()>.18)return;
+ var def=SECTOR_DEFS[currentSector];if(!def||!def.daemons||!def.daemons.length)return;
+ var did=def.daemons[Math.floor(Math.random()*def.daemons.length)];
+ var daemon=DAEMON_MAP[did];if(!daemon)return;
+ encounterCD=40;
+ sfx.encounter();startCombat(daemon);
+}
+
+function interact(){
+ var dirs=[[0,-1],[0,1],[-1,0],[1,0],[0,0]];
+ for(var i=0;i<dirs.length;i++){
+  var tx=px+dirs[i][0],ty=py+dirs[i][1];
+  for(var j=0;j<entities.length;j++){
+   var ent=entities[j];
+   if(ent.x===tx&&ent.y===ty){
+    if(ent.type==='npc'){startDialogue(ent);return;}
+    if(ent.type==='terminal'&&ent.url){
+     sfx.door();toast('LAUNCHING: '+ent.name,ent.color);
+     saveState();
+     setTimeout(function(){window.open(ent.url,'_blank');},200);
+     return;
+    }
+   }
+  }
+ }
+ // Check tile under player
+ var tile=currentMap[py][px];
+ if(tile===TILE.TERMINAL){
+  toast('TERMINAL ACCESSED','#00e8ff');sfx.click();
+  checkMissionTerminal();
+ }else if(tile===TILE.SERVER){
+  // Check adjacent module terminals (within 1 tile of a server block)
+  for(var d=0;d<dirs.length;d++){
+   var sx=px+dirs[d][0],sy=py+dirs[d][1];
+   for(var e=0;e<entities.length;e++){
+    if(entities[e].type==='terminal'&&entities[e].x===sx&&entities[e].y===sy&&entities[e].url){
+     sfx.door();toast('LAUNCHING: '+entities[e].name,entities[e].color);
+     saveState();
+     setTimeout(function(){var u=entities[e].url;window.open(u,'_blank');},200);
+     return;
+    }
+   }
+  }
+ }
+}
+
+function checkMissionTerminal(){
+ // Auto-complete instant missions for current sector
+ MISSIONS.forEach(function(m){
+  if(m.sector!==currentSector)return;
+  if(state.completedMissions[m.id])return;
+  if(m.kind!=='instant')return;
+  if(m.level>state.level)return;
+  completeMission(m);
+ });
+}
+
+// ═══════════════════════════════════════════════════════
+// DIALOGUE
+// ═══════════════════════════════════════════════════════
+var dlg=null;
+function startDialogue(npc){
+ var data=NPC_DATA[npc.id];if(!data)return;
+ gameMode=MODE.DIALOGUE;sfx.click();
+ // Build line queue — check if NPC has an available quest
+ var lines=[];
+ var questMission=null;
+ if(data.quest){
+  var qm=MISSION_MAP[data.quest];
+  if(qm&&!state.completedMissions[qm.id]&&state.level>=qm.level){
+   questMission=qm;
+   lines.push(data.questLine||('I have a mission for you: '+qm.title));
+  }
+ }
+ if(!lines.length){
+  lines=data.lines.slice();
+  // Check for choice missions available from this NPC
+  if(npc.id==='shadow'){
+   var ddp=MISSION_MAP['dd-phantom'];
+   if(ddp&&!state.completedMissions['dd-phantom']&&state.level>=ddp.level){
+    questMission=ddp;lines.push('I have something for you. A dead drop with intel about Project AXIOM.');
+   }
+  }
+  if(npc.id==='cipher'){
+   var ddb=MISSION_MAP['dd-double'];
+   if(ddb&&!state.completedMissions['dd-double']&&state.level>=ddb.level&&state.completedMissions['dd-phantom']){
+    questMission=ddb;lines.push('Both sides want your answer. Report to GRIDWATCH, or protect us. Choose.');
+   }
+  }
+ }
+ dlg={npc:npc,data:data,lines:lines,idx:0,quest:questMission,choiceMode:false};
+ showDialogueLine();
+}
+
+function showDialogueLine(){
+ if(!dlg)return;
+ var box=document.getElementById('dialogue-box');box.classList.add('active');
+ document.getElementById('dlg-name').textContent=dlg.data.name;
+ document.getElementById('dlg-choices').innerHTML='';
+ document.getElementById('dlg-hint').style.display='block';
+ if(dlg.idx<dlg.lines.length){
+  document.getElementById('dlg-text').textContent=dlg.lines[dlg.idx];
+ }else if(dlg.quest&&!dlg.choiceMode){
+  // Offer quest
+  if(dlg.quest.kind==='choice'&&dlg.quest.choices){
+   dlg.choiceMode=true;
+   document.getElementById('dlg-text').textContent='Make your choice:';
+   document.getElementById('dlg-hint').style.display='none';
+   var cDiv=document.getElementById('dlg-choices');
+   dlg.quest.choices.forEach(function(ch,ci){
+    var btn=document.createElement('button');btn.className='dlg-choice';btn.textContent=ch.label;
+    btn.onclick=function(){
+     if(ch.rep)gainRep(ch.rep);
+     completeMission(dlg.quest);
+     closeDialogue();
+    };
+    cDiv.appendChild(btn);
+   });
+   return;
+  }else if(dlg.quest.kind==='combat'){
+   document.getElementById('dlg-text').textContent='Engaging target: '+dlg.quest.title;
+   dlg.pendingCombat=dlg.quest;
+  }else{
+   completeMission(dlg.quest);
+   document.getElementById('dlg-text').textContent='Mission complete: '+dlg.quest.title;
+  }
+ }else{
+  closeDialogue();return;
+ }
+}
+
+function advanceDialogue(){
+ if(!dlg)return;
+ sfx.click();
+ if(dlg.choiceMode)return;
+ dlg.idx++;
+ if(dlg.idx>dlg.lines.length){
+  if(dlg.pendingCombat){
+   var m=dlg.pendingCombat;closeDialogue();
+   var daemon=DAEMON_MAP[m.enemy];if(daemon)startCombat(daemon,m);
+   return;
+  }
+  closeDialogue();return;
+ }
+ showDialogueLine();
+}
+
+function closeDialogue(){
+ dlg=null;gameMode=MODE.EXPLORE;
+ document.getElementById('dialogue-box').classList.remove('active');
+}
+
+// ═══════════════════════════════════════════════════════
+// COMBAT
+// ═══════════════════════════════════════════════════════
+var combat=null;
+function scaleDaemon(d){
+ var tm=1+(d.tier-1)*.25;var lm=1+Math.max(0,(state.level-1)*.06);
+ var hp=Math.round(d.baseHp*tm*lm);var atk=Math.round(d.atk*tm);var def=Math.round(d.def*tm);
+ if(d.id==='STORMCORE_SENTINEL'){hp=Math.round(hp*1.5);atk=Math.round(atk*1.3);}
+ return{id:d.id,name:d.name,attackClass:d.attackClass,tier:d.tier,hp:hp,maxHp:hp,atk:atk,def:def,
+  behavior:d.behavior,skill:d.skill,counter:d.counter,weaknessRevealed:false};
+}
+
+function startCombat(daemon,mission){
+ var sd=scaleDaemon(daemon);
+ combat={enemy:sd,turn:'player',noise:0,log:[],mission:mission||null,recon:false};
+ gameMode=MODE.COMBAT;
+ document.getElementById('combat-overlay').classList.add('active');
+ document.getElementById('cb-ename').textContent=sd.name;
+ document.getElementById('cb-eclass').textContent=sd.attackClass+' — TIER '+sd.tier;
+ drawDaemonSprite(document.getElementById('cb-esprite'),daemon);
+ combatLog('ENCOUNTER: '+sd.name,'info');
+ if(mission)combatLog('MISSION: '+mission.title,'info');
+ updateCombatUI();
+}
+
+function combatLog(msg,cls){
+ if(!combat)return;combat.log.push({msg:msg,cls:cls||''});
+ var el=document.getElementById('cb-log');
+ el.innerHTML=combat.log.map(function(l){return'<div class="'+l.cls+'">'+l.msg+'</div>';}).join('');
+ el.scrollTop=el.scrollHeight;
+}
+
+function updateCombatUI(){
+ if(!combat)return;var e=combat.enemy;
+ document.getElementById('cb-ehp-val').textContent=e.hp+'/'+e.maxHp;
+ document.getElementById('cb-ehp-fill').style.width=Math.round(e.hp/e.maxHp*100)+'%';
+ document.getElementById('cb-php-val').textContent=state.hp+'/'+state.maxHp;
+ document.getElementById('cb-php-fill').style.width=Math.round(state.hp/state.maxHp*100)+'%';
+ document.getElementById('cb-noise-val').textContent=combat.noise+'/100';
+ document.getElementById('cb-noise-fill').style.width=combat.noise+'%';
+ var btns=document.querySelectorAll('.cb-btn');
+ btns.forEach(function(b){b.disabled=combat.turn!=='player';});
+}
+
+function combatAction(verb){
+ if(!combat||combat.turn!=='player')return;
+ var e=combat.enemy;sfx.click();
+ combat.turn='enemy';
+
+ if(verb==='recon'){
+  combat.noise=Math.min(100,combat.noise+5);combat.recon=true;e.weaknessRevealed=true;
+  gainSkill(e.skill,2);
+  combatLog('RECON: Weakness scanned — '+e.skill.toUpperCase()+' domain [noise +5]','info');
+ }else if(verb==='exploit'){
+  var baseAtk=8+Math.floor(state.level*1.5);
+  var bonus=0;
+  if(combat.recon&&e.skill&&state.skills[e.skill])bonus=Math.floor(state.skills[e.skill]*.15);
+  var dmg=Math.max(1,baseAtk-e.def+bonus);
+  e.hp=Math.max(0,e.hp-dmg);
+  var noiseAdd=15+Math.floor(Math.random()*11);
+  combat.noise=Math.min(100,combat.noise+noiseAdd);
+  combatLog('EXPLOIT: '+dmg+' dmg'+(bonus>0?' (weakness +'+bonus+')':'')+' [noise +'+noiseAdd+']','hit');
+  sfx.hit();gainSkill(e.skill,3);
+ }else if(verb==='patch'){
+  if(state.inventory['PATCH-KIT']&&state.inventory['PATCH-KIT']>0){
+   state.inventory['PATCH-KIT']--;
+   var heal=Math.min(40,state.maxHp-state.hp);state.hp+=heal;
+   combat.noise=Math.min(100,combat.noise+8);
+   combatLog('PATCH: +'+heal+' HP [noise +8]','heal');sfx.heal();
+  }else{
+   var smallHeal=Math.min(15,state.maxHp-state.hp);state.hp+=smallHeal;
+   combat.noise=Math.min(100,combat.noise+8);
+   combatLog('PATCH (no kit): +'+smallHeal+' HP [noise +8]','heal');
+  }
+  saveState();
+ }else if(verb==='run'){
+  var chance=.4+(state.level-e.tier)*.1;
+  if(Math.random()<chance){
+   combatLog('RUN: Escaped successfully!','info');
+   endCombat(false);return;
+  }else{
+   combatLog('RUN: Failed to escape!','warn');
+  }
+ }
+
+ // Check noise threshold
+ if(combat.noise>=100){
+  var socDmg=8+Math.floor(state.level*1.2);
+  var absorbed=Math.min(state.shield,Math.floor(socDmg/2));
+  state.shield-=absorbed;state.hp-=socDmg-absorbed;
+  combatLog('SOC SENTINEL DETECTS INTRUSION! Strikes for '+(socDmg-absorbed)+' ('+absorbed+' absorbed)','warn');
+  combat.noise=Math.max(0,combat.noise-30);sfx.playerHit();
+ }
+
+ // Check enemy death
+ if(e.hp<=0){
+  combatLog(e.name+' NEUTRALIZED','heal');
+  sfx.win();endCombat(true);return;
+ }
+
+ // Check player death
+ if(state.hp<=0){
+  combatLog('OPERATIVE DOWN','warn');
+  endCombat(false,true);return;
+ }
+
+ updateCombatUI();
+
+ // Enemy turn after delay
+ setTimeout(function(){
+  if(!combat)return;
+  enemyTurn();
+ },600);
+}
+
+function enemyTurn(){
+ if(!combat)return;
+ var e=combat.enemy;
+ var eatk=e.atk+Math.floor(Math.random()*4);
+ var absorbed=Math.min(state.shield,Math.floor(eatk/2));
+ state.shield=Math.max(0,state.shield-absorbed);
+ var dmg=eatk-absorbed;state.hp=Math.max(0,state.hp-dmg);
+ combatLog(e.name+' attacks: '+dmg+' dmg ('+absorbed+' absorbed)','hit');
+ sfx.playerHit();
+
+ if(state.hp<=0){
+  combatLog('OPERATIVE DOWN','warn');
+  endCombat(false,true);return;
+ }
+
+ combat.turn='player';updateCombatUI();saveState();updateHUD();
+}
+
+function endCombat(won,died){
+ if(!combat)return;
+ var enemy=combat.enemy;var mission=combat.mission;
+
+ if(won){
+  state.daemonsKilled=(state.daemonsKilled||0)+1;
+  if(enemy.id==='STORMCORE_SENTINEL')state.sentinelBeaten=true;
+  // Add codex entry
+  addCodex({id:enemy.id,name:enemy.name,type:'daemon',attackClass:enemy.attackClass,tier:enemy.tier});
+  // Skill gain
+  gainSkill(enemy.skill,5+enemy.tier*2);
+  // Mission completion
+  if(mission){
+   completeMission(mission);
+  }else{
+   gainXp(10+enemy.tier*8);gainCredits(15+enemy.tier*10);
+  }
+  // Show counter card
+  setTimeout(function(){showCounterCard(enemy);},400);
+ }else if(died){
+  state.hp=Math.floor(state.maxHp*.3);state.shield=0;
+  toast('RESPAWNED — systems critical','#ff4444');
+ }
+
+ combat=null;saveState();updateHUD();
+ document.getElementById('combat-overlay').classList.remove('active');
+ if(!won)gameMode=MODE.EXPLORE;
+}
+
+function showCounterCard(enemy){
+ gameMode=MODE.DIALOGUE;
+ var el=document.getElementById('counter-card');el.classList.add('active');
+ var c=enemy.counter;
+ document.getElementById('cc-inner').innerHTML=
+  '<h2>THREAT INTEL CARD</h2><h3>'+enemy.name+' — '+enemy.attackClass+'</h3>'+
+  '<div class="cc-section"><div class="cc-label">REAL-WORLD ATTACK</div><div class="cc-text">'+c.desc+'</div></div>'+
+  '<div class="cc-section"><div class="cc-label">DEFENSIVE COUNTERMEASURE</div><div class="cc-text">'+c.fix+'</div></div>'+
+  '<button onclick="window.__cwCloseCC()">ACKNOWLEDGED</button>';
+}
+window.__cwCloseCC=function(){
+ document.getElementById('counter-card').classList.remove('active');
+ gameMode=MODE.EXPLORE;
+};
+
+// ═══════════════════════════════════════════════════════
+// MISSION COMPLETION
+// ═══════════════════════════════════════════════════════
+function completeMission(m){
+ if(state.completedMissions[m.id])return;
+ state.completedMissions[m.id]=true;
+ state.missions=Object.keys(state.completedMissions).length;
+ // Rewards
+ if(m.reward){
+  if(m.reward.xp)gainXp(m.reward.xp);
+  if(m.reward.credits)gainCredits(m.reward.credits);
+  if(m.reward.item)gainItem(m.reward.item);
+  if(m.reward.rep)gainRep(m.reward.rep);
+ }
+ toast('MISSION COMPLETE: '+m.title,'#00ff9c');
+ // Story beat
+ if(m.story){
+  setTimeout(function(){
+   gameMode=MODE.DIALOGUE;
+   dlg={npc:null,data:{name:'[GRID NARRATIVE]'},lines:[m.story],idx:0,quest:null};
+   showDialogueLine();
+  },800);
+ }
+ // Update story act
+ var completed=Object.keys(state.completedMissions);
+ if(completed.some(function(id){return id.indexOf('sc-')===0;}))state.storyAct=3;
+ else if(completed.some(function(id){return id.indexOf('dd-')===0||id.indexOf('lv-')===0;}))state.storyAct=2;
+ saveState();updateHUD();
+}
+
+// ═══════════════════════════════════════════════════════
+// SECTOR TRANSITIONS
+// ═══════════════════════════════════════════════════════
+function transitionTo(name,sx,sy){
+ gameMode=MODE.TRANSITION;
+ var overlay=document.getElementById('transition-overlay');
+ document.getElementById('tr-text').textContent=name.toUpperCase();
+ overlay.classList.add('active');
+ setTimeout(function(){
+  loadSector(name,sx,sy);
+  setTimeout(function(){
+   overlay.classList.remove('active');
+   gameMode=MODE.EXPLORE;
+  },600);
+ },500);
+}
+
+// ═══════════════════════════════════════════════════════
+// MENU SYSTEM
+// ═══════════════════════════════════════════════════════
+var menuTab='quests';
+var MENU_TABS=['QUESTS','INVENTORY','SKILLS','FACTIONS','MAP','CODEX'];
+
+function openMenu(tab){
+ gameMode=MODE.MENU;menuTab=(tab||'quests').toLowerCase();
+ document.getElementById('menu-overlay').classList.add('active');
+ renderMenuTabs();renderMenuBody();sfx.click();
+}
+
+function closeMenu(){
+ gameMode=MODE.EXPLORE;
+ document.getElementById('menu-overlay').classList.remove('active');
+}
+
+function renderMenuTabs(){
+ var el=document.getElementById('menu-tabs');
+ el.innerHTML=MENU_TABS.map(function(t){
+  var key=t.toLowerCase();
+  return'<button class="menu-tab'+(menuTab===key?' active':'')+'" data-tab="'+key+'">'+t+'</button>';
+ }).join('');
+ el.querySelectorAll('.menu-tab').forEach(function(b){
+  b.onclick=function(){menuTab=b.dataset.tab;renderMenuTabs();renderMenuBody();sfx.click();};
+ });
+}
+
+function renderMenuBody(){
+ var el=document.getElementById('menu-body');var html='';
+ if(menuTab==='quests'){
+  html='<h3>MISSIONS</h3>';
+  var available=[],active=[],done=[];
+  MISSIONS.forEach(function(m){
+   if(state.completedMissions[m.id])done.push(m);
+   else if(m.level<=state.level&&m.sector===currentSector)active.push(m);
+   else if(m.level<=state.level)available.push(m);
+  });
+  if(active.length){html+='<div style="color:#ffb347;font-size:10px;letter-spacing:2px;margin:8px 0">CURRENT SECTOR</div>';
+   active.forEach(function(m){html+='<div class="quest-item"><div class="qt">'+m.title+'</div><div class="qb">'+m.brief+'</div><div class="qb" style="color:#ffb347">'+m.sector+' — '+(m.kind==='combat'?'COMBAT':'OBJECTIVE')+'</div></div>';});}
+  if(available.length){html+='<div style="color:#6fdfff;font-size:10px;letter-spacing:2px;margin:8px 0">OTHER SECTORS</div>';
+   available.forEach(function(m){html+='<div class="quest-item"><div class="qt">'+m.title+'</div><div class="qb">'+m.brief+'</div><div class="qb" style="color:#6fdfff">'+m.sector+'</div></div>';});}
+  if(done.length){html+='<div style="color:#00ff9c;font-size:10px;letter-spacing:2px;margin:8px 0">COMPLETED ('+done.length+'/'+MISSIONS.length+')</div>';
+   done.forEach(function(m){html+='<div class="quest-item done"><div class="qt">'+m.title+'</div></div>';});}
+ }else if(menuTab==='inventory'){
+  html='<h3>INVENTORY</h3><div class="inv-grid">';
+  var inv=state.inventory;var hasItems=false;
+  for(var id in inv){if(inv[id]>0){hasItems=true;
+   var item=ITEMS[id]||{desc:'Unknown item.'};
+   html+='<div class="inv-slot"><div class="iname">'+id+'</div><div class="iqty">x'+inv[id]+'</div><div class="idesc">'+item.desc+'</div></div>';
+  }}
+  if(!hasItems)html+='<div style="color:#888">No items.</div>';
+  html+='</div>';
+ }else if(menuTab==='skills'){
+  html='<h3>SKILL DOMAINS</h3>';
+  var domains={network:'NETWORK',web:'WEB',forensics:'FORENSICS',social:'SOCIAL',cloud:'CLOUD'};
+  for(var sk in domains){var v=state.skills[sk]||0;
+   html+='<div class="skill-bar"><div class="sk-label"><span>'+domains[sk]+'</span><span>'+v+'/100</span></div><div class="sk-track"><div class="sk-fill" style="width:'+v+'%"></div></div></div>';}
+ }else if(menuTab==='factions'){
+  html='<h3>FACTION STANDING</h3>';
+  var facs={GRIDWATCH:{desc:'The collective defense force. Blue team operatives who maintain order on the Grid.'},
+   'PHANTOM SYNDICATE':{desc:'Grey-hat underground. Once part of the original architects, they broke away after the great leak. They question everything.'},
+   'NEXUS CORP':{desc:'Corporate security arm. They built AXIOM, and they\'ll do anything to maintain control of the narrative.'}};
+  for(var fn in facs){var rep=state.reputation[fn]||0;var col=rep>0?'#00ff9c':rep<0?'#ff2bd6':'#ffb347';
+   html+='<div style="margin:12px 0;padding:10px;background:#06101a;border:1px solid #00e8ff22;border-radius:4px"><div class="faction-row"><span style="color:'+col+'">'+fn+'</span><span style="color:'+col+'">'+(rep>0?'+':'')+rep+'</span></div><div style="font-size:10px;color:#888;margin-top:4px">'+facs[fn].desc+'</div></div>';}
+ }else if(menuTab==='map'){
+  html='<h3>SECTOR MAP</h3>';
+  SECTOR_NAMES.forEach(function(s){
+   var isCurrent=s===currentSector;
+   var def=SECTOR_DEFS[s];
+   var minLevel=1;
+   if(s==='LAN Valley')minLevel=2;if(s==='Darknet Depths')minLevel=4;if(s==='Stormcore')minLevel=6;
+   html+='<div class="map-sector'+(isCurrent?' current':'')+'"><div class="ms-name">'+(isCurrent?'► ':'')+s+'</div><div class="ms-lvl">TIER '+minLevel+'+'+(isCurrent?' — YOU ARE HERE':'')+'</div></div>';
+  });
+  html+='<div style="margin-top:16px;font-size:11px;color:#a8c8d8;line-height:1.7">';
+  html+='<b style="color:#00e8ff">STORY ACT:</b> '+(state.storyAct===1?'I — INITIALIZATION':state.storyAct===2?'II — ESCALATION':'III — CONVERGENCE')+'<br>';
+  html+='<b style="color:#00e8ff">DAEMONS NEUTRALIZED:</b> '+(state.daemonsKilled||0)+'<br>';
+  html+='<b style="color:#00e8ff">MISSIONS COMPLETE:</b> '+Object.keys(state.completedMissions).length+'/'+MISSIONS.length;
+  html+='</div>';
+ }else if(menuTab==='codex'){
+  html='<h3>CODEX ('+state.codex.length+' ENTRIES)</h3>';
+  if(!state.codex.length)html+='<div style="color:#888">Defeat daemons to unlock threat intel entries.</div>';
+  state.codex.forEach(function(e){
+   var d=DAEMON_MAP[e.id];
+   html+='<div style="padding:8px;margin:6px 0;background:#06101a;border:1px solid #00e8ff22;border-radius:4px"><div style="color:#ff2bd6;font-size:13px">'+e.name+'</div><div style="color:#a8c8d8;font-size:10px;margin-top:2px">'+e.attackClass+' — TIER '+e.tier+'</div>';
+   if(d&&d.counter)html+='<div style="color:#888;font-size:10px;margin-top:4px">'+d.counter.desc+'</div><div style="color:#00ff9c;font-size:10px;margin-top:2px"><b>FIX:</b> '+d.counter.fix+'</div>';
+   html+='</div>';
+  });
+ }
+ el.innerHTML=html;
+}
+
+document.getElementById('menu-close').onclick=closeMenu;
+
+// ═══════════════════════════════════════════════════════
+// COMBAT BUTTON WIRING
+// ═══════════════════════════════════════════════════════
+document.getElementById('cb-actions').addEventListener('click',function(e){
+ var btn=e.target.closest('.cb-btn');if(!btn)return;
+ var verb=btn.dataset.verb;if(verb)combatAction(verb);
+});
+
+// ═══════════════════════════════════════════════════════
+// NPC PATROL AI
+// ═══════════════════════════════════════════════════════
+function updateEntities(){
+ entities.forEach(function(e){
+  if(e.type!=='npc')return;
+  e.patrolTimer++;
+  if(e.patrolTimer>80+Math.floor(Math.random()*40)){
+   e.patrolTimer=0;
+   var dirs=[[0,1],[0,-1],[1,0],[-1,0],[0,0],[0,0]];
+   var d=dirs[Math.floor(Math.random()*dirs.length)];
+   var nx=e.x+d[0],ny=e.y+d[1];
+   var dist=Math.abs(nx-e.ox)+Math.abs(ny-e.oy);
+   if(dist<=3&&canWalk(nx,ny)&&!(nx===px&&ny===py)){e.x=nx;e.y=ny;}
+  }
+ });
+}
+
+// ═══════════════════════════════════════════════════════
+// GAME LOOP
+// ═══════════════════════════════════════════════════════
+var lastTime=0;
+function gameLoop(ts){
+ var dt=ts-lastTime;lastTime=ts;
+ renderTick++;
+ if(moveCD>0)moveCD--;
+ if(encounterCD>0)encounterCD--;
+
+ if(gameMode===MODE.EXPLORE){
+  // Movement
+  var dx=0,dy=0;
+  if(keys['ArrowUp']||keys['w']||keys['W']||mobileDir==='up')dy=-1;
+  else if(keys['ArrowDown']||keys['s']||keys['S']||mobileDir==='down')dy=1;
+  else if(keys['ArrowLeft']||keys['a']||keys['A']||mobileDir==='left')dx=-1;
+  else if(keys['ArrowRight']||keys['d']||keys['D']||mobileDir==='right')dx=1;
+  else pMoving=false;
+  if(dx||dy)tryMove(dx,dy);
+
+  // Interact
+  if(justPressed[' ']||justPressed['Enter']||mobileInteract){interact();mobileInteract=false;}
+
+  // Menu
+  if(justPressed['m']||justPressed['M'])openMenu('quests');
+  if(justPressed['i']||justPressed['I'])openMenu('inventory');
+  if(justPressed['Tab']){openMenu('map');}
+
+  updateEntities();
+ }else if(gameMode===MODE.DIALOGUE){
+  if(justPressed[' ']||justPressed['Enter'])advanceDialogue();
+ }else if(gameMode===MODE.MENU){
+  if(justPressed['Escape']||justPressed['m']||justPressed['M'])closeMenu();
+ }
+
+ // Prevent Tab default
+ if(justPressed['Tab']){/* already handled */}
+
+ // Render
+ updateCamera();
+ if(gameMode===MODE.EXPLORE||gameMode===MODE.DIALOGUE||gameMode===MODE.TRANSITION){
+  renderWorld();
+ }
+ drawMinimap();
+
+ justPressed={};
+ requestAnimationFrame(gameLoop);
+}
+
+// Prevent default for game keys
+document.addEventListener('keydown',function(e){
+ if(['Tab','ArrowUp','ArrowDown','ArrowLeft','ArrowRight',' '].indexOf(e.key)!==-1){
+  if(e.target.tagName!=='INPUT'&&e.target.tagName!=='TEXTAREA')e.preventDefault();
+ }
+});
+
+// ═══════════════════════════════════════════════════════
+// BOOT
+// ═══════════════════════════════════════════════════════
+function boot(){
+ loadSector(currentSector,state.playerX||undefined,state.playerY||undefined);
+ updateHUD();
+ toast('CYBERWORLD ONLINE — WASD to move, SPACE to interact, M for console');
+ requestAnimationFrame(gameLoop);
+ // Resume audio context on first interaction
+ document.addEventListener('click',function(){
+  var ctx=getAudio();if(ctx&&ctx.state==='suspended')ctx.resume();
+ },{once:true});
+ document.addEventListener('keydown',function(){
+  var ctx=getAudio();if(ctx&&ctx.state==='suspended')ctx.resume();
+ },{once:true});
+}
+
+if(document.readyState==='complete')boot();
+else window.addEventListener('load',boot);
+
+})();
+</script>
+</body>
+</html>
