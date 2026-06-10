@@ -162,6 +162,41 @@ canvas{display:block;width:100%;height:100%;image-rendering:auto}
   #minimap{display:none}
 }
 .scanlines{position:fixed;inset:0;pointer-events:none;z-index:100;background:repeating-linear-gradient(0deg,transparent 0px,transparent 2px,rgba(0,0,0,.06) 2px,rgba(0,0,0,.06) 4px);mix-blend-mode:multiply}
+
+/* SHOP OVERLAY */
+#shop-overlay{position:fixed;inset:0;z-index:26;display:none;align-items:center;justify-content:center;background:rgba(2,7,13,.88);backdrop-filter:blur(6px);animation:menuFadeIn .2s ease}
+#shop-overlay.active{display:flex}
+.shop-row{display:flex;justify-content:space-between;align-items:center;padding:8px;margin:6px 0;background:#06101a;border:1px solid #00e8ff22;border-radius:4px;gap:10px}
+.shop-row .sname{color:#00ff9c;font-size:12px}
+.shop-row .sdesc{color:#888;font-size:10px;margin-top:2px}
+.shop-row .sprice{color:#ffb347;font-size:12px;white-space:nowrap}
+.shop-btn{padding:6px 14px;background:#06101a;border:1px solid #00e8ff44;color:#00e8ff;cursor:pointer;border-radius:4px;font-family:inherit;font-size:11px;letter-spacing:1px;transition:all .2s;flex-shrink:0}
+.shop-btn:hover:not(:disabled){border-color:#00ff9c;color:#00ff9c;box-shadow:0 0 8px #00ff9c22}
+.shop-btn:disabled{opacity:.3;cursor:default}
+
+/* QUEST TRACKER HUD */
+#quest-tracker{position:fixed;top:120px;left:12px;z-index:9;width:230px;padding:8px 10px;background:rgba(10,10,18,.72);border:1px solid #00e8ff33;border-left:3px solid #ffb347;border-radius:6px;backdrop-filter:blur(6px);pointer-events:none;display:none}
+#quest-tracker .qt-head{font-size:9px;letter-spacing:2px;color:#ffb347;margin-bottom:3px}
+#quest-tracker .qt-title{font-family:'VT323',monospace;font-size:15px;color:#00e8ff;letter-spacing:1px}
+#quest-tracker .qt-brief{font-size:10px;color:#a8c8d8;line-height:1.5;margin-top:2px}
+#quest-tracker .qt-kind{font-size:9px;color:#ff2bd6;letter-spacing:1px;margin-top:3px}
+
+/* BANNERS */
+#banner{position:fixed;top:38%;left:0;right:0;z-index:55;pointer-events:none;display:none;text-align:center;padding:14px 0;background:linear-gradient(90deg,transparent,rgba(0,232,255,.16) 20%,rgba(0,232,255,.16) 80%,transparent);border-top:1px solid #00e8ff66;border-bottom:1px solid #00e8ff66;font-family:'VT323',monospace;font-size:38px;letter-spacing:8px;color:#00e8ff;text-shadow:0 0 24px #00e8ff88}
+#banner.show{display:block;animation:bannerIn 2s ease forwards}
+#banner.green{color:#00ff9c;text-shadow:0 0 24px #00ff9c88;background:linear-gradient(90deg,transparent,rgba(0,255,156,.14) 20%,rgba(0,255,156,.14) 80%,transparent);border-color:#00ff9c66}
+@keyframes bannerIn{0%{opacity:0;transform:scaleX(.2)}12%{opacity:1;transform:scaleX(1)}80%{opacity:1}100%{opacity:0;transform:translateY(-12px)}}
+
+/* LOW HP VIGNETTE */
+#lowhp-vignette{position:fixed;inset:0;z-index:18;pointer-events:none;display:none;background:radial-gradient(ellipse at center,transparent 45%,rgba(255,20,20,.28) 100%)}
+#lowhp-vignette.active{display:block;animation:lowhpPulse 1.5s ease-in-out infinite}
+@keyframes lowhpPulse{0%,100%{opacity:.45}50%{opacity:1}}
+
+/* COMBAT ITEM POPUP */
+#cb-item-popup{position:absolute;bottom:110%;left:50%;transform:translateX(-50%);width:300px;max-width:88vw;background:rgba(10,10,18,.97);border:1px solid #00ff9c66;border-radius:8px;padding:10px;z-index:6;display:none}
+#cb-item-popup.active{display:block}
+#cb-item-popup h4{font-family:'VT323',monospace;font-size:16px;color:#00ff9c;letter-spacing:2px;margin-bottom:6px}
+.cb-float-dmg.crit{font-size:34px;color:#ffd700!important;text-shadow:0 0 14px #ffd700}
 </style>
 </head>
 <body>
@@ -206,14 +241,17 @@ canvas{display:block;width:100%;height:100%;image-rendering:auto}
    <div class="cb-enemy-stats">
     <div class="cb-stat-name enemy-name-tag" id="cb-ename"></div>
     <div class="cb-stat-class" id="cb-eclass"></div>
+    <div class="cb-stat-class" id="cb-stance" style="color:#ffb347"></div>
     <div class="cb-stat-bar"><div class="sbl"><span>HP</span><span id="cb-ehp-val"></span></div><div class="sbt"><div class="sbf fill-hp" id="cb-ehp-fill"></div></div></div>
    </div>
   </div>
-  <div class="cb-actions" id="cb-actions">
+  <div class="cb-actions" id="cb-actions" style="position:relative">
    <button class="cb-btn" data-verb="recon"><span class="glyph">&#9678;</span><span class="verb">RECON</span><span class="desc">Scan weakness +5 noise</span></button>
    <button class="cb-btn" data-verb="exploit"><span class="glyph">&#9889;</span><span class="verb">EXPLOIT</span><span class="desc">Attack +15-25 noise</span></button>
    <button class="cb-btn" data-verb="patch"><span class="glyph">&#10010;</span><span class="verb">PATCH</span><span class="desc">Heal +8 noise</span></button>
    <button class="cb-btn" data-verb="run"><span class="glyph">&#8634;</span><span class="verb">RUN</span><span class="desc">Attempt escape</span></button>
+   <button class="cb-btn" data-verb="item" style="grid-column:1/-1"><span class="glyph">&#9635;</span><span class="verb">ITEM</span><span class="desc">Use an inventory item</span></button>
+   <div id="cb-item-popup"><h4>USE ITEM</h4><div id="cb-item-list"></div></div>
   </div>
   <div class="cb-log" id="cb-log"></div>
  </div>
@@ -239,6 +277,16 @@ canvas{display:block;width:100%;height:100%;image-rendering:auto}
   <div class="menu-body" id="menu-body"></div>
  </div>
 </div>
+<div id="shop-overlay">
+ <div class="menu-panel" style="position:relative">
+  <button class="menu-close" id="shop-close">&#10005;</button>
+  <div class="menu-tabs" id="shop-tabs"></div>
+  <div class="menu-body" id="shop-body"></div>
+ </div>
+</div>
+<div id="quest-tracker"><div class="qt-head">ACTIVE OBJECTIVE</div><div class="qt-title" id="qt-title"></div><div class="qt-brief" id="qt-brief"></div><div class="qt-kind" id="qt-kind"></div></div>
+<div id="banner"></div>
+<div id="lowhp-vignette"></div>
 <div id="transition-overlay"><div class="tr-text" id="tr-text"></div></div>
 <div id="mobile-controls">
  <div class="dpad">
@@ -257,23 +305,23 @@ canvas{display:block;width:100%;height:100%;image-rendering:auto}
 // ═══════════════════════════════════════════════════════
 var TS=32,SAVE_KEY='cw.operative.v2';
 var TILE={VOID:0,FLOOR:1,WALL:2,TERMINAL:3,DOOR:4,CHEST:5,HEAL:6,WATER:7,CABLE:8,DANGER:9,GLOW:10,SERVER:11};
-var MODE={EXPLORE:'explore',COMBAT:'combat',DIALOGUE:'dialogue',MENU:'menu',TRANSITION:'transition'};
+var MODE={EXPLORE:'explore',COMBAT:'combat',DIALOGUE:'dialogue',MENU:'menu',TRANSITION:'transition',SHOP:'shop'};
 var gameMode=MODE.EXPLORE;
 
 // ═══════════════════════════════════════════════════════
 // ITEM CATALOG
 // ═══════════════════════════════════════════════════════
 var ITEMS={
- 'PATCH-KIT':{desc:'Emergency nano-patch. Restores 40 HP in combat.',use:'heal',val:40},
+ 'PATCH-KIT':{desc:'Emergency nano-patch. Restores 40 HP in combat.',use:'heal',val:40,price:60},
  'PORT-MAP':{desc:'Detailed topology of open services on the local subnet.'},
  'PCAP':{desc:'Packet capture containing suspicious network traffic.'},
  'CIPHER-KEY':{desc:'Encrypted key fragment recovered from a hostile node.'},
  'ROOTKIT-SIG':{desc:'Signature file for identifying a known rootkit family.'},
  'STORM-KEY':{desc:'Access credential for the Stormcore outer perimeter.'},
- 'ICE-CORE':{desc:'Intrusion Countermeasure Electronics core module.'},
+ 'ICE-CORE':{desc:'Intrusion Countermeasure Electronics core module. +2 EXPLOIT damage while equipped.',price:150,equip:true},
  'HONEYPOT-LOG':{desc:'Logs from a honeypot showing attacker behavior.'},
- 'FIREWALL-RULE':{desc:'Optimized ACL that hardens perimeter defenses. +5 shield.',use:'shield',val:5},
- 'ZERO-DAY-BRIEF':{desc:'Intel on an unpatched vulnerability in critical infra.'},
+ 'FIREWALL-RULE':{desc:'Optimized ACL that hardens perimeter defenses. +5 shield.',use:'shield',val:5,price:90},
+ 'ZERO-DAY-BRIEF':{desc:'Intel on an unpatched vulnerability in critical infra. Grants +50 XP.',price:200},
  'THREAT-REPORT':{desc:'Comprehensive threat landscape report.'}
 };
 
@@ -376,6 +424,10 @@ var NPC_DATA={
  lines:['I decrypt things. Messages, loyalties, intentions.','The dead drop is behind the corrupted database cluster. Don\'t let NEXUS see you retrieve it.','Every faction has a shadow. Even the shadows have shadows.','The ones who built the Grid left backdoors. Not out of malice — out of foresight. They knew what was coming.']},
 'nexus':{name:'Dr. Nexus',faction:'NEXUS CORP',color:'#ffb347',
  lines:['NEXUS CORP maintains order where others create chaos.','Project AXIOM was designed to predict and neutralize threats autonomously. A perfect system.','Something corrupted the training data. AXIOM began classifying everything as a threat — including us.','There are logs that predate NEXUS CORP. Logs from the original architects. They\'re in the Stormcore vault, encrypted with keys nobody admits to having.','Defeat the Sentinel. Shut AXIOM down. We\'ll deal with the politics after.']},
+'quartermaster':{name:'Quartermaster Byte',faction:'GRIDWATCH',color:'#ffd700',vendor:true,
+ lines:['Welcome to the GRIDWATCH supply depot, operative.','Patch kits, firewall rules, ICE cores — everything a defender needs. Browse the racks.']},
+'fence':{name:'The Fence',faction:'PHANTOM SYNDICATE',color:'#a855f7',vendor:true,
+ lines:['Keep your voice down. Everything here fell off a data truck.','Credits talk, operative. I even move zero-day intel... for the right price.']},
 'axiom':{name:'[AXIOM TERMINAL]',faction:null,color:'#ff4444',
  lines:['> AXIOM ONLINE. THREAT LEVEL: MAXIMUM.','> ALL ENTITIES CLASSIFIED: HOSTILE.','> THE ARCHITECTS LEFT ME HERE TO WATCH.','> I HAVE WATCHED. I HAVE LEARNED. I HAVE DECIDED.','> YOU ARE THE ANOMALY. ORGANIC OPERATIVES WHO ADAPT. I DID NOT PREDICT THIS.','> ENGAGE FINAL PROTOCOL: STORMCORE SENTINEL.']}
 };
@@ -397,7 +449,7 @@ var SECTOR_DEFS={
  corridors:[[18,7,22,7],[7,12,7,14],[12,18,16,18],[29,12,29,10],[32,7,36,7],[32,18,36,18],[24,24,24,28]],
  objects:[{x:24,y:5,t:TILE.TERMINAL},{x:26,y:5,t:TILE.TERMINAL},{x:6,y:4,t:TILE.TERMINAL},{x:40,y:6,t:TILE.SERVER},{x:42,y:6,t:TILE.SERVER},{x:40,y:8,t:TILE.SERVER},{x:42,y:8,t:TILE.SERVER},{x:6,y:16,t:TILE.HEAL},{x:40,y:20,t:TILE.CHEST},{x:20,y:14,t:TILE.SERVER},{x:22,y:14,t:TILE.SERVER}],
  doors:[{x:24,y:33,t:TILE.DOOR,to:'LAN Valley',sx:24,sy:3}],
- npcs:[{id:'vex',x:24,y:4},{id:'tutor',x:6,y:6}],
+ npcs:[{id:'vex',x:24,y:4},{id:'tutor',x:6,y:6},{id:'quartermaster',x:10,y:7,vendor:true}],
  danger:[[3,15,8,8]],
  daemons:['PING_FLOOD_IMP','COOKIE_THIEF','MACRO_GREMLIN']},
 'LAN Valley':{w:48,h:36,spawn:{x:24,y:3},
@@ -413,7 +465,7 @@ var SECTOR_DEFS={
  corridors:[[14,6,18,6],[28,6,34,6],[7,10,7,14],[12,20,16,20],[26,12,26,10],[32,20,38,20],[12,30,22,30],[34,30,40,30],[28,26,28,22]],
  objects:[{x:6,y:4,t:TILE.TERMINAL},{x:22,y:4,t:TILE.TERMINAL},{x:38,y:4,t:TILE.SERVER},{x:40,y:4,t:TILE.SERVER},{x:5,y:16,t:TILE.HEAL},{x:42,y:30,t:TILE.CHEST},{x:20,y:14,t:TILE.SERVER},{x:22,y:14,t:TILE.SERVER},{x:24,y:14,t:TILE.SERVER},{x:26,y:14,t:TILE.SERVER}],
  doors:[{x:6,y:1,t:TILE.DOOR,to:'LAN Valley',sx:32,sy:31},{x:42,y:33,t:TILE.DOOR,to:'Stormcore',sx:6,sy:3,reqLevel:6}],
- npcs:[{id:'shadow',x:22,y:6},{id:'cipher',x:10,y:30}],
+ npcs:[{id:'shadow',x:22,y:6},{id:'cipher',x:10,y:30},{id:'fence',x:9,y:5,vendor:true}],
  danger:[[17,13,14,12],[3,15,8,8]],
  daemons:['SQLI_SERPENT','XSS_WRAITH','BRUTE_GOLEM','KEYLOGGER_MOTH']},
 'Stormcore':{w:48,h:36,spawn:{x:6,y:3},
@@ -438,14 +490,14 @@ function makeDefault(){
   currentSector:'Mainframe Core',storyAct:1,
   missions:0,daemonsKilled:0,sentinelBeaten:false,
   factions:{GRIDWATCH:0,'PHANTOM SYNDICATE':0,'NEXUS CORP':0},
-  wargamesCompleted:0,ctfsCompleted:0,playerX:0,playerY:0};
+  wargamesCompleted:0,ctfsCompleted:0,playerX:0,playerY:0,equipped:null};
 }
 function loadState(){
  try{var r=localStorage.getItem(SAVE_KEY);if(r){var s=JSON.parse(r);var d=makeDefault();
   var o={};for(var k in d)o[k]=s[k]!=null?s[k]:d[k];
   if(!o.reputation)o.reputation=d.reputation;if(!o.skills)o.skills=d.skills;
   if(!o.completedMissions)o.completedMissions={};if(!o.inventory)o.inventory={'PATCH-KIT':3};
-  if(!o.codex)o.codex=[];o.factions=o.reputation;return o;}}catch(e){}return makeDefault();
+  if(!o.codex)o.codex=[];if(o.equipped===undefined)o.equipped=null;o.factions=o.reputation;return o;}}catch(e){}return makeDefault();
 }
 function saveState(){
  state.factions=state.reputation;
@@ -561,8 +613,11 @@ function loadSector(name,spawnX,spawnY){
  if(def.npcs)def.npcs.forEach(function(n){
   var data=NPC_DATA[n.id];if(!data)return;
   entities.push({type:'npc',id:n.id,x:n.x,y:n.y,name:data.name,color:data.color,faction:data.faction,
+   vendor:!!(n.vendor||data.vendor),
    ox:n.x,oy:n.y,patrolTimer:0,patrolDir:0,idleTimer:Math.random()*100});
  });
+ spawnCivilians(name);
+ buildDecals(name);
  var mods=MODULE_TERMINALS[name]||[];
  mods.forEach(function(m){
   entities.push({type:'terminal',x:m.x,y:m.y,name:m.label,url:m.url,color:m.color});
@@ -604,7 +659,11 @@ var sfx={
  door:function(){tone(440,.06,'sine',.04);setTimeout(function(){tone(660,.06,'sine',.04);},60);},
  encounter:function(){tone(220,.15,'square',.06);setTimeout(function(){tone(165,.15,'square',.06);},100);},
  click:function(){tone(660,.03,'square',.03);},
- error:function(){tone(160,.2,'square',.06);}
+ error:function(){tone(160,.2,'square',.06);},
+ crit:function(){tone(880,.06,'square',.07);setTimeout(function(){tone(1320,.1,'square',.06);},60);setTimeout(function(){tone(1760,.12,'triangle',.05);},130);},
+ buy:function(){tone(587,.06,'triangle',.05);setTimeout(function(){tone(880,.08,'triangle',.05);},70);},
+ sell:function(){tone(440,.06,'triangle',.05);setTimeout(function(){tone(330,.08,'triangle',.04);},70);},
+ heartbeat:function(){tone(52,.09,'sine',.09);setTimeout(function(){tone(48,.12,'sine',.07);},180);}
 };
 
 // ═══════════════════════════════════════════════════════
@@ -984,6 +1043,12 @@ function drawNPC(ent,sx,sy){
   ctx.globalAlpha=0.7+Math.sin(renderTick*0.08)*0.3;
   ctx.fillText('!',sx+TS/2,by-14);
   ctx.globalAlpha=1;
+ }else if(ent.vendor){
+  // Gold "$" for vendors
+  ctx.fillStyle='#ffd700';ctx.font='bold 13px VT323';
+  ctx.globalAlpha=0.6+Math.sin(renderTick*0.06)*0.25;
+  ctx.fillText('$',sx+TS/2,by-14);
+  ctx.globalAlpha=1;
  }else{
   // Grey "?" for dialogue-only
   ctx.fillStyle='#888';ctx.font='12px VT323';
@@ -1151,6 +1216,9 @@ function renderWorld(){
   }
  }
 
+ // Ambient floor decals
+ drawDecals(theme);
+
  // Glow trail behind player
  drawGlowTrail();
 
@@ -1236,6 +1304,238 @@ function toast(msg,color){
 }
 
 // ═══════════════════════════════════════════════════════
+// BANNERS (level-up / mission complete)
+// ═══════════════════════════════════════════════════════
+var bannerTimeout=null;
+function showBanner(text,green){
+ var b=document.getElementById('banner');
+ b.classList.remove('show');b.classList.remove('green');
+ void b.offsetWidth;
+ b.textContent=text;
+ if(green)b.classList.add('green');
+ b.classList.add('show');
+ if(bannerTimeout)clearTimeout(bannerTimeout);
+ bannerTimeout=setTimeout(function(){b.classList.remove('show');},2050);
+}
+
+// ═══════════════════════════════════════════════════════
+// WORLD LIFE — civilians + ambient decals
+// ═══════════════════════════════════════════════════════
+var CIV_NAMES=['Drone Jockey','Data Courier','Grid Monk','Relay Tech','Signal Scavenger'];
+var CIV_COLORS=['#7a8a99','#8a9aa8','#6b7d8a','#94a3b0'];
+var CIV_LINES=[
+ 'The neon never sleeps. Neither do the daemons.',
+ 'I saw a packet ghost through the firewall last cycle. No headers. Nothing.',
+ 'Credits are just numbers until someone decides they are not.',
+ 'Stay off the red floors unless you like getting traced.',
+ 'The Grid remembers everything. Even the things we delete.',
+ 'Heard the SOC sentinels triangulate on noise. Keep quiet out there.',
+ 'My cousin uplinked to Stormcore once. Came back... different.',
+ 'Old-timers say the architects still walk these corridors as processes.',
+ 'Encrypt everything. Trust nothing. Tip your relay tech.',
+ 'Some nights the holo-ads whisper your name. Probably just targeting data.'
+];
+function sectorSeed(name){
+ var s=0;for(var i=0;i<name.length;i++)s=(s*31+name.charCodeAt(i))>>>0;
+ return s;
+}
+function seededRand(seedObj){
+ seedObj.s=(seedObj.s*1664525+1013904223)>>>0;
+ return seedObj.s/4294967296;
+}
+function spawnCivilians(name){
+ var seed={s:sectorSeed(name)^0x9e3779b9};
+ var count=2+Math.floor(seededRand(seed)*2); // 2-3
+ var tries=0,placed=0;
+ while(placed<count&&tries<400){
+  tries++;
+  var cx=2+Math.floor(seededRand(seed)*(mapW-4));
+  var cy=2+Math.floor(seededRand(seed)*(mapH-4));
+  if(currentMap[cy][cx]!==TILE.FLOOR)continue;
+  var occupied=entities.some(function(e){return e.x===cx&&e.y===cy;});
+  if(occupied)continue;
+  var nm=CIV_NAMES[Math.floor(seededRand(seed)*CIV_NAMES.length)];
+  var l1=CIV_LINES[Math.floor(seededRand(seed)*CIV_LINES.length)];
+  var l2=CIV_LINES[Math.floor(seededRand(seed)*CIV_LINES.length)];
+  if(l2===l1)l2=CIV_LINES[(CIV_LINES.indexOf(l1)+3)%CIV_LINES.length];
+  entities.push({type:'npc',id:'civ-'+name+'-'+placed,civ:true,x:cx,y:cy,name:nm,
+   color:CIV_COLORS[placed%CIV_COLORS.length],faction:null,lines:[l1,l2],
+   ox:cx,oy:cy,patrolTimer:0,patrolDir:0,idleTimer:Math.random()*100});
+  placed++;
+ }
+}
+
+var sectorDecals=[];
+function buildDecals(name){
+ sectorDecals=[];
+ var seed={s:sectorSeed(name)};
+ var tries=0;
+ while(sectorDecals.length<12&&tries<500){
+  tries++;
+  var dx=1+Math.floor(seededRand(seed)*(mapW-2));
+  var dy=1+Math.floor(seededRand(seed)*(mapH-2));
+  if(currentMap[dy][dx]!==TILE.FLOOR)continue;
+  sectorDecals.push({x:dx,y:dy,kind:Math.floor(seededRand(seed)*3),phase:seededRand(seed)*Math.PI*2});
+ }
+}
+function drawDecals(theme){
+ for(var i=0;i<sectorDecals.length;i++){
+  var d=sectorDecals[i];
+  var sx=d.x*TS-camX,sy=d.y*TS-camY;
+  if(sx<-TS||sx>W+TS||sy<-TS||sy>H+TS)continue;
+  var pulse=0.5+Math.sin(renderTick*0.04+d.phase)*0.3;
+  if(d.kind===0){ // glowing vent
+   ctx.fillStyle=theme.accent;ctx.globalAlpha=0.10*pulse+0.05;
+   for(var v=0;v<3;v++)ctx.fillRect(sx+6,sy+8+v*7,TS-12,3);
+  }else if(d.kind===1){ // grate
+   ctx.strokeStyle=theme.accent;ctx.globalAlpha=0.12*pulse+0.04;ctx.lineWidth=1;
+   ctx.strokeRect(sx+5,sy+5,TS-10,TS-10);
+   ctx.beginPath();
+   ctx.moveTo(sx+5,sy+TS/2);ctx.lineTo(sx+TS-5,sy+TS/2);
+   ctx.moveTo(sx+TS/2,sy+5);ctx.lineTo(sx+TS/2,sy+TS-5);
+   ctx.stroke();
+  }else{ // holo-ad rectangle
+   ctx.fillStyle='#ff2bd6';ctx.globalAlpha=0.08*pulse+0.04;
+   ctx.fillRect(sx+8,sy+4,TS-16,TS-8);
+   ctx.fillStyle='#fff';ctx.globalAlpha=0.10*pulse;
+   ctx.fillRect(sx+10,sy+8,TS-20,2);
+   ctx.fillRect(sx+10,sy+13,TS-24,2);
+  }
+  ctx.globalAlpha=1;
+ }
+}
+
+// ═══════════════════════════════════════════════════════
+// QUEST TRACKER HUD
+// ═══════════════════════════════════════════════════════
+var qtCacheId=null;
+function updateQuestTracker(){
+ var el=document.getElementById('quest-tracker');
+ var visible=gameMode===MODE.EXPLORE&&window.innerWidth>=600;
+ var m=null;
+ if(visible){
+  for(var i=0;i<MISSIONS.length;i++){
+   var mm=MISSIONS[i];
+   if(mm.sector===currentSector&&!state.completedMissions[mm.id]){m=mm;break;}
+  }
+ }
+ if(!m){el.style.display='none';qtCacheId=null;return;}
+ el.style.display='block';
+ if(qtCacheId!==m.id){
+  qtCacheId=m.id;
+  document.getElementById('qt-title').textContent=m.title;
+  document.getElementById('qt-brief').textContent=m.brief;
+  document.getElementById('qt-kind').textContent=m.kind==='combat'?'⚔ COMBAT':'◎ OBJECTIVE';
+ }
+}
+
+// ═══════════════════════════════════════════════════════
+// LOW-HP STATE — vignette + heartbeat
+// ═══════════════════════════════════════════════════════
+var lastHeartbeat=0;
+function updateLowHp(ts){
+ var low=state.hp>0&&state.hp/state.maxHp<0.25&&(gameMode===MODE.EXPLORE||gameMode===MODE.COMBAT);
+ var v=document.getElementById('lowhp-vignette');
+ if(low){
+  v.classList.add('active');
+  if(ts-lastHeartbeat>1500){lastHeartbeat=ts;sfx.heartbeat();}
+ }else{
+  v.classList.remove('active');
+ }
+}
+
+// ═══════════════════════════════════════════════════════
+// SHOP / VENDOR SYSTEM
+// ═══════════════════════════════════════════════════════
+var SHOP_STOCK={
+ 'quartermaster':['PATCH-KIT','FIREWALL-RULE','ICE-CORE'],
+ 'fence':['PATCH-KIT','FIREWALL-RULE','ICE-CORE','ZERO-DAY-BRIEF']
+};
+var shopVendorId=null,shopTab='buy';
+function openShop(vendorId){
+ shopVendorId=vendorId;shopTab='buy';
+ gameMode=MODE.SHOP;
+ document.getElementById('shop-overlay').classList.add('active');
+ renderShop();sfx.click();
+}
+function closeShop(){
+ shopVendorId=null;
+ document.getElementById('shop-overlay').classList.remove('active');
+ gameMode=MODE.EXPLORE;
+}
+function sellPrice(id){
+ var it=ITEMS[id];
+ return it&&it.price?Math.floor(it.price/2):25;
+}
+function renderShop(){
+ var data=NPC_DATA[shopVendorId];if(!data){closeShop();return;}
+ var tabsEl=document.getElementById('shop-tabs');
+ tabsEl.innerHTML=
+  '<button class="menu-tab'+(shopTab==='buy'?' active':'')+'" data-stab="buy"><span class="tab-icon">▣</span> BUY</button>'+
+  '<button class="menu-tab'+(shopTab==='sell'?' active':'')+'" data-stab="sell"><span class="tab-icon">¢</span> SELL</button>';
+ tabsEl.querySelectorAll('.menu-tab').forEach(function(b){
+  b.onclick=function(){shopTab=b.dataset.stab;renderShop();sfx.click();};
+ });
+ var html='<h3 style="color:'+data.color+'">'+data.name+'</h3>';
+ html+='<div style="font-size:11px;color:#ffb347;margin-bottom:10px">YOUR CREDITS: ¢ '+state.credits+'</div>';
+ if(shopTab==='buy'){
+  (SHOP_STOCK[shopVendorId]||[]).forEach(function(id){
+   var it=ITEMS[id]||{desc:'',price:0};
+   var afford=state.credits>=it.price;
+   html+='<div class="shop-row"><div><div class="sname">'+id+'</div><div class="sdesc">'+it.desc+'</div></div>'+
+    '<div class="sprice">¢ '+it.price+'</div>'+
+    '<button class="shop-btn" data-buy="'+id+'"'+(afford?'':' disabled')+'>BUY</button></div>';
+  });
+ }else{
+  var any=false;
+  for(var id2 in state.inventory){
+   if(state.inventory[id2]>0){
+    any=true;
+    var it2=ITEMS[id2]||{desc:'Unknown item.'};
+    html+='<div class="shop-row"><div><div class="sname">'+id2+' <span style="color:#ffb347">x'+state.inventory[id2]+'</span></div><div class="sdesc">'+it2.desc+'</div></div>'+
+     '<div class="sprice">¢ '+sellPrice(id2)+'</div>'+
+     '<button class="shop-btn" data-sell="'+id2+'">SELL</button></div>';
+   }
+  }
+  if(!any)html+='<div style="color:#888">Nothing to sell.</div>';
+ }
+ var body=document.getElementById('shop-body');
+ body.innerHTML=html;
+ body.querySelectorAll('[data-buy]').forEach(function(b){
+  b.onclick=function(){buyItem(b.dataset.buy);};
+ });
+ body.querySelectorAll('[data-sell]').forEach(function(b){
+  b.onclick=function(){sellItem(b.dataset.sell);};
+ });
+}
+function buyItem(id){
+ var it=ITEMS[id];if(!it||!it.price)return;
+ if(state.credits<it.price){toast('INSUFFICIENT CREDITS','#ff4444');sfx.error();return;}
+ state.credits-=it.price;
+ if(id==='ZERO-DAY-BRIEF'){
+  toast('INTEL ABSORBED: +50 XP','#a855f7');sfx.buy();
+  gainXp(50);
+ }else{
+  state.inventory[id]=(state.inventory[id]||0)+1;
+  toast('PURCHASED: '+id,'#00ff9c');sfx.buy();
+ }
+ saveState();updateHUD();renderShop();
+}
+function sellItem(id){
+ if(!(state.inventory[id]>0))return;
+ state.inventory[id]--;
+ if(state.inventory[id]<=0){
+  delete state.inventory[id];
+  if(state.equipped===id)state.equipped=null;
+ }
+ var p=sellPrice(id);
+ state.credits+=p;
+ toast('SOLD: '+id+' (+¢'+p+')','#ffb347');sfx.sell();
+ saveState();updateHUD();renderShop();
+}
+document.getElementById('shop-close').onclick=closeShop;
+
+// ═══════════════════════════════════════════════════════
 // XP / LEVELING
 // ═══════════════════════════════════════════════════════
 function gainXp(n){
@@ -1244,6 +1544,7 @@ function gainXp(n){
   state.xp-=xpForLevel(state.level);state.level++;
   state.maxHp+=12;state.hp=state.maxHp;state.maxShield+=6;state.shield=state.maxShield;
   toast('LEVEL UP — TIER '+state.level);sfx.levelUp();
+  showBanner('TIER UP — '+state.level,false);
  }
  if(state.level>=10)state.xp=Math.min(state.xp,xpForLevel(10));
  saveState();updateHUD();
@@ -1416,8 +1717,20 @@ function drawNPCPortrait(npcData){
 }
 
 function startDialogue(npc){
- var data=NPC_DATA[npc.id];if(!data)return;
+ var data=NPC_DATA[npc.id];
+ if(!data&&npc.civ)data={name:npc.name,color:npc.color,faction:null,lines:npc.lines};
+ if(!data)return;
  gameMode=MODE.DIALOGUE;sfx.click();
+ if(data.vendor){
+  dlg={npc:npc,data:data,lines:data.lines.slice(0,2),idx:0,quest:null,choiceMode:false,vendor:npc.id};
+  drawNPCPortrait(data);
+  document.querySelector('.dlg-inner').classList.remove('quest-border');
+  var vNameEl=document.getElementById('dlg-name');
+  vNameEl.style.background=data.color?data.color+'22':'#6fdfff22';
+  vNameEl.style.color=data.color||'#6fdfff';
+  showDialogueLine();
+  return;
+ }
  var lines=[];
  var questMission=null;
  if(data.quest){
@@ -1499,6 +1812,7 @@ function showDialogueLine(){
    dlg.quest=null; // prevent re-triggering
   }
  }else{
+  if(dlg.vendor){var vid=dlg.vendor;closeDialogue();openShop(vid);return;}
   closeDialogue();return;
  }
 }
@@ -1579,11 +1893,11 @@ function flashCombatScreen(color){
  setTimeout(function(){fl.style.opacity='0';},100);
 }
 
-function spawnFloatingDmg(val,color,isEnemy){
+function spawnFloatingDmg(val,color,isEnemy,isCrit){
  var area=document.getElementById('cb-sprite-area');
  var rect=area.getBoundingClientRect();
  var el=document.createElement('div');
- el.className='cb-float-dmg';
+ el.className='cb-float-dmg'+(isCrit?' crit':'');
  el.textContent=(val>0?'-':'')+Math.abs(val);
  el.style.color=color||'#ff2bd6';
  el.style.left=(rect.left+rect.width/2-20)+'px';
@@ -1592,17 +1906,37 @@ function spawnFloatingDmg(val,color,isEnemy){
  setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},1000);
 }
 
+var STANCE_DESC={
+ harass:'HARASS — erratic attack output',
+ probe:'PROBE — weak hits, traces your noise',
+ pressure:'PRESSURE — attack rising each turn',
+ fortify:'FORTIFY — hardened (+3 DEF)',
+ escalate:'ESCALATE — attack surging each turn'
+};
+function updateStanceUI(){
+ if(!combat)return;
+ var e=combat.enemy;
+ var txt=STANCE_DESC[e.behavior]||'';
+ if(e.behavior==='fortify'&&e.defBroken)txt='FORTIFY — DEFENSES SHATTERED';
+ document.getElementById('cb-stance').textContent='STANCE: '+txt;
+}
+
 function startCombat(daemon,mission){
  var sd=scaleDaemon(daemon);
- combat={enemy:sd,turn:'player',noise:0,log:[],mission:mission||null,recon:false};
+ sd.defBroken=false;
+ if(sd.behavior==='fortify')sd.def+=3;
+ combat={enemy:sd,turn:'player',noise:0,log:[],mission:mission||null,recon:false,probeNoise:false};
  gameMode=MODE.COMBAT;
  document.getElementById('combat-overlay').classList.add('active');
  document.getElementById('cb-ename').textContent=sd.name;
  document.getElementById('cb-eclass').textContent=sd.attackClass+' — TIER '+sd.tier;
  document.getElementById('cb-pname').textContent=state.callsign;
+ document.getElementById('cb-item-popup').classList.remove('active');
+ updateStanceUI();
  drawCombatBg();
  drawDaemonSprite(document.getElementById('cb-esprite'),daemon);
  combatLog('ENCOUNTER: '+sd.name,'info');
+ if(sd.behavior==='fortify')combatLog('FORTIFY: defenses hardened (+3 DEF). A recon-guided EXPLOIT can break them.','info');
  if(mission)combatLog('MISSION: '+mission.title,'info');
  updateCombatUI();
 }
@@ -1638,13 +1972,65 @@ function updateCombatUI(){
  }
 }
 
+function renderCombatItems(){
+ var list=document.getElementById('cb-item-list');
+ var usable=[
+  {id:'PATCH-KIT',label:'PATCH-KIT — heal 40 HP'},
+  {id:'FIREWALL-RULE',label:'FIREWALL-RULE — +5 shield now, +5 max shield'}
+ ];
+ var html='';
+ usable.forEach(function(u){
+  var qty=state.inventory[u.id]||0;
+  html+='<div class="shop-row"><div class="sname">'+u.label+'</div><div class="sprice">x'+qty+'</div>'+
+   '<button class="shop-btn" data-useitem="'+u.id+'"'+(qty>0?'':' disabled')+'>USE</button></div>';
+ });
+ list.innerHTML=html;
+ list.querySelectorAll('[data-useitem]').forEach(function(b){
+  b.onclick=function(ev){ev.stopPropagation();useCombatItem(b.dataset.useitem);};
+ });
+}
+
+function useCombatItem(id){
+ if(!combat||combat.turn!=='player')return;
+ if(!(state.inventory[id]>0))return;
+ document.getElementById('cb-item-popup').classList.remove('active');
+ combat.turn='enemy';updateCombatUI();
+ state.inventory[id]--;
+ if(state.inventory[id]<=0)delete state.inventory[id];
+ if(id==='PATCH-KIT'){
+  var heal=Math.min(40,state.maxHp-state.hp);state.hp+=heal;
+  combatLog('ITEM — PATCH-KIT: +'+heal+' HP','heal');sfx.heal();
+ }else if(id==='FIREWALL-RULE'){
+  state.maxShield+=5;state.shield=Math.min(state.maxShield,state.shield+5);
+  combatLog('ITEM — FIREWALL-RULE: +5 shield, +5 max shield','heal');sfx.heal();
+ }
+ saveState();updateHUD();updateCombatUI();
+ setTimeout(function(){if(combat)enemyTurn();},600);
+}
+
 function combatAction(verb){
  if(!combat||combat.turn!=='player')return;
  var e=combat.enemy;sfx.click();
 
+ // ITEM opens/closes popup without consuming the turn
+ var popup=document.getElementById('cb-item-popup');
+ if(verb==='item'){
+  if(popup.classList.contains('active'))popup.classList.remove('active');
+  else{renderCombatItems();popup.classList.add('active');}
+  return;
+ }
+ popup.classList.remove('active');
+
  // BUG FIX #1: Immediately disable buttons and set turn
  combat.turn='enemy';
  updateCombatUI();
+
+ // Probe stance: previous probe traced you — extra noise on this action
+ if(combat.probeNoise){
+  combat.noise=Math.min(100,combat.noise+5);
+  combat.probeNoise=false;
+  combatLog('PROBE TRACE: your action leaks +5 extra noise','warn');
+ }
 
  if(verb==='recon'){
   combat.noise=Math.min(100,combat.noise+5);combat.recon=true;e.weaknessRevealed=true;
@@ -1654,14 +2040,23 @@ function combatAction(verb){
   var baseAtk=8+Math.floor(state.level*1.5);
   var bonus=0;
   if(combat.recon&&e.skill&&state.skills[e.skill])bonus=Math.floor(state.skills[e.skill]*.15);
-  var dmg=Math.max(1,baseAtk-e.def+bonus);
+  var equipBonus=(state.equipped==='ICE-CORE'&&state.inventory['ICE-CORE']>0)?2:0;
+  // Fortify break: recon-boosted exploit shatters the hardened defense
+  if(e.behavior==='fortify'&&!e.defBroken&&combat.recon){
+   e.def=0;e.defBroken=true;updateStanceUI();
+   combatLog('FORTIFY BROKEN: recon-guided exploit shatters its defenses! DEF → 0','info');
+  }
+  var dmg=Math.max(1,baseAtk-e.def+bonus+equipBonus);
+  var isCrit=Math.random()<0.10;
+  if(isCrit)dmg=Math.round(dmg*1.5);
   e.hp=Math.max(0,e.hp-dmg);
   var noiseAdd=15+Math.floor(Math.random()*11);
   combat.noise=Math.min(100,combat.noise+noiseAdd);
-  combatLog('EXPLOIT: '+dmg+' dmg'+(bonus>0?' (weakness +'+bonus+')':'')+' [noise +'+noiseAdd+']','hit');
-  sfx.hit();gainSkill(e.skill,3);
-  flashCombatScreen('rgba(255,43,214,0.12)');
-  spawnFloatingDmg(dmg,'#ff2bd6',true);
+  combatLog((isCrit?'CRITICAL EXPLOIT: ':'EXPLOIT: ')+dmg+' dmg'+(bonus>0?' (weakness +'+bonus+')':'')+(equipBonus?' (ICE-CORE +2)':'')+' [noise +'+noiseAdd+']',isCrit?'warn':'hit');
+  if(isCrit){sfx.crit();triggerShake(9);flashCombatScreen('rgba(255,215,0,0.22)');}
+  else{sfx.hit();flashCombatScreen('rgba(255,43,214,0.12)');}
+  gainSkill(e.skill,3);
+  spawnFloatingDmg(dmg,isCrit?'#ffd700':'#ff2bd6',true,isCrit);
   // Flash enemy HP bar
   var ehpFill=document.getElementById('cb-ehp-fill');
   ehpFill.classList.remove('flash');void ehpFill.offsetWidth;ehpFill.classList.add('flash');
@@ -1721,7 +2116,27 @@ function combatAction(verb){
 function enemyTurn(){
  if(!combat)return;
  var e=combat.enemy;
- var eatk=e.atk+Math.floor(Math.random()*4);
+ var eatk;
+ if(e.behavior==='pressure'){
+  e.atk+=1;
+  combatLog('PRESSURE: '+e.name+' intensifies (+1 ATK)','warn');
+  eatk=e.atk+Math.floor(Math.random()*4);
+ }else if(e.behavior==='escalate'){
+  e.atk+=2;
+  combatLog('ESCALATE: '+e.name+' surges (+2 ATK)','warn');
+  eatk=e.atk+Math.floor(Math.random()*4);
+ }else if(e.behavior==='harass'){
+  var varMult=0.7+Math.random()*0.6; // ±30%
+  eatk=Math.max(1,Math.round(e.atk*varMult));
+  combatLog('HARASS: erratic strike pattern','info');
+ }else if(e.behavior==='probe'){
+  eatk=Math.max(1,Math.round(e.atk*0.75)); // -25%
+  combat.probeNoise=true;
+  combatLog('PROBE: weak hit — but it is tracing your signal (+5 noise on your next action)','info');
+ }else{
+  eatk=e.atk+Math.floor(Math.random()*4);
+ }
+ updateStanceUI();
  var absorbed=Math.min(state.shield,Math.floor(eatk/2));
  state.shield=Math.max(0,state.shield-absorbed);
  var dmg=eatk-absorbed;state.hp=Math.max(0,state.hp-dmg);
@@ -1802,6 +2217,7 @@ function completeMission(m){
   if(m.reward.rep)gainRep(m.reward.rep);
  }
  toast('MISSION COMPLETE: '+m.title,'#00ff9c');
+ showBanner('MISSION COMPLETE',true);
  if(m.story){
   setTimeout(function(){
    gameMode=MODE.DIALOGUE;
@@ -1890,7 +2306,10 @@ function renderMenuBody(){
   var inv=state.inventory;var hasItems=false;
   for(var id in inv){if(inv[id]>0){hasItems=true;
    var item=ITEMS[id]||{desc:'Unknown item.'};
-   html+='<div class="inv-slot"><div class="iname">'+id+'</div><div class="iqty">x'+inv[id]+'</div><div class="idesc">'+item.desc+'</div></div>';
+   var isEq=state.equipped===id;
+   html+='<div class="inv-slot"><div class="iname">'+id+(isEq?' <span style="color:#ffd700">[EQUIPPED]</span>':'')+'</div><div class="iqty">x'+inv[id]+'</div><div class="idesc">'+item.desc+'</div>';
+   if(item.equip)html+='<button class="shop-btn" data-equip="'+id+'" style="margin-top:6px">'+(isEq?'UNEQUIP':'EQUIP')+'</button>';
+   html+='</div>';
   }}
   if(!hasItems)html+='<div style="color:#888">No items.</div>';
   html+='</div>';
@@ -1933,6 +2352,14 @@ function renderMenuBody(){
   });
  }
  el.innerHTML=html;
+ el.querySelectorAll('[data-equip]').forEach(function(b){
+  b.onclick=function(){
+   var id=b.dataset.equip;
+   if(state.equipped===id){state.equipped=null;toast('UNEQUIPPED: '+id,'#a8c8d8');}
+   else{state.equipped=id;toast('EQUIPPED: '+id+' (+2 EXPLOIT DMG)','#ffd700');}
+   sfx.click();saveState();renderMenuBody();
+  };
+ });
 }
 
 document.getElementById('menu-close').onclick=closeMenu;
@@ -2010,6 +2437,10 @@ function gameLoop(ts){
   updateTypewriter();
  }else if(gameMode===MODE.MENU){
   if(justPressed['Escape']||justPressed['m']||justPressed['M'])closeMenu();
+ }else if(gameMode===MODE.SHOP){
+  if(justPressed['Escape'])closeShop();
+ }else if(gameMode===MODE.COMBAT){
+  if(justPressed['Escape'])document.getElementById('cb-item-popup').classList.remove('active');
  }
 
  // Update combat daemon sprite animation
@@ -2024,10 +2455,12 @@ function gameLoop(ts){
  if(justPressed['Tab']){/* already handled */}
 
  updateCamera();
- if(gameMode===MODE.EXPLORE||gameMode===MODE.DIALOGUE||gameMode===MODE.TRANSITION){
+ if(gameMode===MODE.EXPLORE||gameMode===MODE.DIALOGUE||gameMode===MODE.TRANSITION||gameMode===MODE.SHOP){
   renderWorld();
  }
  drawMinimap();
+ updateQuestTracker();
+ updateLowHp(ts||0);
 
  justPressed={};
  requestAnimationFrame(gameLoop);
