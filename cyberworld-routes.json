@@ -1,0 +1,26 @@
+{
+  "version": "2026-06-17-route-repair",
+  "routes": [
+    { "id": "desktop", "label": "Operator Desktop", "path": "/index.html", "critical": true },
+    { "id": "training-login", "label": "CyberWorld Training Login", "path": "/CyberWorld_login/", "critical": true },
+    { "id": "cyberworld-hub", "label": "CyberWorld Hub", "path": "/CyberWorld/", "critical": true },
+    { "id": "cyberworld-game", "label": "CyberWorld MMORPG", "path": "/cyberworld-game.html", "critical": true },
+    { "id": "hangar", "label": "Hangar 3D", "path": "/hangar.html", "critical": true },
+    { "id": "hangar-runtime", "label": "Hangar Runtime", "path": "/js/hangar-static.js", "critical": true },
+    { "id": "mathviz", "label": "Math Visualization", "path": "/simulator.html", "critical": true },
+    { "id": "wargames", "label": "WarGames Academy", "path": "/wargames.html", "critical": false },
+    { "id": "signal-lab", "label": "Signal Lab", "path": "/signal-lab.html", "critical": false },
+    { "id": "forensics", "label": "Forensics Lab", "path": "/forensics.html", "critical": false },
+    { "id": "redops", "label": "RedOps Arena", "path": "/redops.html", "critical": false },
+    { "id": "intel", "label": "Intel Desk", "path": "/intel.html", "critical": false },
+    { "id": "adversaries", "label": "Adversaries", "path": "/adversaries.html", "critical": false },
+    { "id": "research", "label": "Research", "path": "/research.html", "critical": false },
+    { "id": "ai", "label": "AI Module", "path": "/ai.html", "critical": false },
+    { "id": "nodes", "label": "Nodes", "path": "/nodes.html", "critical": false },
+    { "id": "arcade", "label": "Arcade", "path": "/arcade.html", "critical": false },
+    { "id": "games", "label": "Games Hub", "path": "/games.html", "critical": false },
+    { "id": "dogfight", "label": "Dogfight", "path": "/dogfight.html", "critical": false },
+    { "id": "codex", "label": "CyberWorld Codex", "path": "/cyberworld-codex.html", "critical": false },
+    { "id": "profile", "label": "Profile", "path": "/profile.html", "critical": false }
+  ]
+}
