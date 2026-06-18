@@ -1,9 +1,10 @@
 {
-  "version": "2026-06-17-extreme-expansion-2",
+  "version": "2026-06-18-sprite-atlas-expansion",
   "routes": [
     { "id": "desktop", "label": "Operator Desktop", "path": "/index.html", "critical": true },
     { "id": "mars", "label": "Operation Mars Base", "path": "/mars-mission.html", "critical": true },
     { "id": "housing", "label": "Hacker Housing Studio", "path": "/housing.html", "critical": true },
+    { "id": "sprite-atlas", "label": "Gemini Sprite Atlas", "path": "/sprite-atlas.html", "critical": true },
     { "id": "hardware", "label": "Hardware Lab", "path": "/hardware-lab.html", "critical": true },
     { "id": "print-lab", "label": "3-D Print Lab", "path": "/print-lab.html", "critical": true },
     { "id": "walkthroughs", "label": "Safe Walkthrough Academy", "path": "/walkthroughs.html", "critical": true },
@@ -40,6 +41,7 @@
     { "id": "playtest-css", "label": "Playtest Patch CSS", "path": "/css/cyberworld-playtest-patches.css", "critical": true },
     { "id": "playtest-js", "label": "Playtest Patch JS", "path": "/js/cyberworld-playtest-patches.js", "critical": true },
     { "id": "extreme-css", "label": "Extreme Expansion CSS", "path": "/css/cyberworld-extreme.css", "critical": true },
-    { "id": "extreme-js", "label": "Extreme Expansion JS", "path": "/js/cyberworld-extreme.js", "critical": true }
+    { "id": "extreme-js", "label": "Extreme Expansion JS", "path": "/js/cyberworld-extreme.js", "critical": true },
+    { "id": "sprite-atlas-js", "label": "Sprite Atlas JS", "path": "/js/cyberworld-sprite-atlas.js", "critical": true }
   ]
 }
