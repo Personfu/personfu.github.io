@@ -1,398 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Personfu CyberWorld — Operator Desktop</title>
-<meta name="description" content="CyberWorld FLLC operator desktop. Windows 98-style interface with a clean operator background. Access all cybersecurity tools, games, and labs from one unified desktop.">
+<meta name="description" content="CyberWorld operator desktop: unified launch surface for the educational security game, labs, diagnostics, and research modules.">
 <link rel="canonical" href="https://personfu.github.io/">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/cyberworld-unified.css?v=20260617-unified">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --w98-bg:#008080;--w98-desktop:#008080;--w98-title:#000080;--w98-title-end:#1084d0;
-  --w98-gray:#c0c0c0;--w98-darkgray:#808080;--w98-white:#fff;--w98-black:#000;
-  --neon:#00ffcc;--neon2:#ff2bd6;--dim:#005f5f;
-}
-html,body{width:100%;height:100%;overflow:hidden;font-family:'Share Tech Mono',monospace;font-size:11px;user-select:none}
-body{background:var(--w98-desktop);position:relative}
-
-/* ── OPERATOR WALLPAPER (canvas-generated) ── */
-#wallpaper{position:fixed;inset:0;z-index:0;pointer-events:none}
-
-/* ── DESKTOP ── */
-#desktop{position:fixed;inset:0 0 28px 0;z-index:1;padding:8px}
-.icon-grid{display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px;padding:4px}
-
-/* ── ICON ── */
-.icon{width:76px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px;border:1px solid transparent;text-align:center}
-.icon:hover{background:rgba(0,128,128,.35);border-color:var(--neon)}
-.icon.selected{background:rgba(0,0,128,.5);border-color:#fff}
-.icon-img{width:44px;height:44px;display:grid;place-items:center;font-size:26px;position:relative;filter:drop-shadow(0 0 3px rgba(0,255,204,.4))}
-.icon-label{color:#fff;font-size:10px;text-shadow:1px 1px 0 #000,-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000;line-height:1.2;max-width:72px;overflow-wrap:break-word}
-
-/* ── TASKBAR ── */
-#taskbar{position:fixed;bottom:0;left:0;right:0;height:28px;z-index:1000;background:var(--w98-gray);border-top:2px solid var(--w98-white);display:flex;align-items:center;gap:2px;padding:0 2px}
-#start-btn{height:22px;padding:0 6px;background:var(--w98-gray);border:2px solid;border-color:var(--w98-white) var(--w98-black) var(--w98-black) var(--w98-white);font:700 11px 'Share Tech Mono',monospace;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap}
-#start-btn:active{border-color:var(--w98-black) var(--w98-white) var(--w98-white) var(--w98-black)}
-.taskbar-sep{width:2px;height:20px;background:linear-gradient(to right,var(--w98-darkgray),var(--w98-white));margin:0 2px}
-#taskbar-apps{flex:1;display:flex;gap:2px;overflow:hidden}
-.tb-app{height:22px;padding:0 8px;background:var(--w98-gray);border:2px solid;border-color:var(--w98-darkgray) var(--w98-white) var(--w98-white) var(--w98-darkgray);font:400 10px 'Share Tech Mono',monospace;cursor:pointer;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.tb-app.active{border-color:var(--w98-black) var(--w98-white) var(--w98-white) var(--w98-black);background:#b0b0b0}
-#taskbar-right{display:flex;align-items:center;gap:6px;padding:0 6px;border:2px inset var(--w98-gray);height:22px;font-size:11px;white-space:nowrap}
-#clock{color:var(--w98-black);letter-spacing:.5px}
-
-/* ── START MENU ── */
-#start-menu{display:none;position:fixed;bottom:28px;left:0;z-index:2000;background:var(--w98-gray);border:2px solid;border-color:var(--w98-white) var(--w98-black) var(--w98-black) var(--w98-white);width:240px}
-#start-menu.open{display:block}
-.sm-banner{background:linear-gradient(180deg,#000080,#1084d0);width:26px;float:left;height:100%;position:absolute;top:0;left:0;bottom:0;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;justify-content:flex-end;padding-bottom:4px;font:700 16px 'VT323',monospace;color:rgba(255,255,255,.7);letter-spacing:2px}
-.sm-items{margin-left:26px}
-.sm-item{display:flex;align-items:center;gap:8px;padding:5px 10px;cursor:pointer;font:400 11px 'Share Tech Mono',monospace;color:var(--w98-black);text-decoration:none}
-.sm-item:hover{background:#000080;color:#fff}
-.sm-item-icon{font-size:18px;width:24px;text-align:center}
-.sm-sep{height:1px;background:linear-gradient(to right,var(--w98-darkgray),transparent);margin:2px 6px}
-
-/* ── WINDOWS ── */
-.win98-window{position:fixed;z-index:100;min-width:320px;min-height:240px;background:var(--w98-gray);border:2px solid;border-color:var(--w98-white) var(--w98-black) var(--w98-black) var(--w98-white);box-shadow:2px 2px 0 var(--w98-black);display:flex;flex-direction:column}
-.win98-window.focused{z-index:200}
-.win-titlebar{background:linear-gradient(90deg,var(--w98-title),var(--w98-title-end));height:20px;display:flex;align-items:center;padding:0 4px;gap:4px;cursor:move;flex-shrink:0}
-.win-icon{font-size:13px;flex-shrink:0}
-.win-title{flex:1;color:#fff;font:700 11px 'Share Tech Mono',monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.win-btns{display:flex;gap:2px;flex-shrink:0}
-.win-btn{width:16px;height:14px;background:var(--w98-gray);border:1px solid;border-color:var(--w98-white) var(--w98-black) var(--w98-black) var(--w98-white);display:grid;place-items:center;font-size:10px;cursor:pointer;line-height:1}
-.win-btn:active{border-color:var(--w98-black) var(--w98-white) var(--w98-white) var(--w98-black)}
-.win-menubar{background:var(--w98-gray);border-bottom:1px solid var(--w98-darkgray);padding:2px 6px;font-size:11px;flex-shrink:0;display:flex;gap:10px}
-.win-menu-item{cursor:pointer;padding:1px 4px}
-.win-menu-item:hover{background:var(--w98-title);color:#fff}
-.win-body{flex:1;overflow:hidden;background:#fff;border:2px inset var(--w98-darkgray)}
-.win-body iframe{width:100%;height:100%;border:0;background:#000}
-.frame-wrap{position:relative;width:100%;height:100%;background:#000}
-.frame-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(0,0,0,.72);color:#d8f7ff;font:400 12px 'Share Tech Mono',monospace;text-align:center;padding:14px;z-index:2}
-.frame-overlay.hidden{display:none}
-.frame-status{max-width:520px;line-height:1.5}
-.frame-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-.frame-actions button{height:22px;padding:0 10px;background:var(--w98-gray);border:2px solid;border-color:var(--w98-white) var(--w98-black) var(--w98-black) var(--w98-white);font:400 11px 'Share Tech Mono',monospace;cursor:pointer}
-.frame-actions button:active{border-color:var(--w98-black) var(--w98-white) var(--w98-white) var(--w98-black)}
-.win-statusbar{height:18px;border-top:1px solid var(--w98-darkgray);background:var(--w98-gray);display:flex;align-items:center;padding:0 6px;font-size:10px;color:var(--w98-black);flex-shrink:0}
-
-/* ── NEON OVERLAY ── */
-body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:linear-gradient(rgba(0,255,200,.008) 50%,rgba(0,0,0,.03) 50%);background-size:100% 4px;mix-blend-mode:overlay}
-
-/* ── GLITCH anim ── */
-@keyframes glitch{0%,100%{text-shadow:0 0 6px var(--neon)}50%{text-shadow:2px 0 0 var(--neon2),-2px 0 0 var(--neon)}}
+*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;font-family:'Share Tech Mono',monospace;background:#008080;color:#fff}body{overflow-x:hidden}.desktop{min-height:calc(100vh - 30px);padding:14px;background:radial-gradient(circle at 50% 12%,rgba(0,255,204,.18),transparent 34%),linear-gradient(135deg,#008080,#005d66)}.mast{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin:4px 0 14px}.mast h1{font-family:'VT323',monospace;font-size:48px;letter-spacing:5px;margin:0;color:#fff;text-shadow:2px 2px #000,0 0 18px #00ffcc}.mast p{max-width:760px;line-height:1.5;margin:4px 0 0;color:#dffbff;text-shadow:1px 1px #000}.status{border:2px solid;border-color:#fff #000 #000 #fff;background:#c0c0c0;color:#000;padding:8px;min-width:240px}.status b{color:#000080}.icon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(106px,1fr));gap:10px;align-items:start}.icon{min-height:98px;border:1px solid transparent;color:#fff;text-decoration:none;text-align:center;padding:7px 5px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:5px}.icon:hover,.icon:focus{outline:none;background:rgba(0,0,128,.45);border-color:#fff}.icon-img{font-size:34px;filter:drop-shadow(1px 2px #000)}.icon-label{font-size:11px;line-height:1.15;text-shadow:1px 1px #000,-1px -1px #000}.primary .icon-img{filter:drop-shadow(0 0 8px #00ffcc)}.taskbar{position:sticky;bottom:0;height:30px;background:#c0c0c0;border-top:2px solid #fff;display:flex;align-items:center;gap:6px;padding:3px;z-index:10}.start{border:2px solid;border-color:#fff #000 #000 #fff;background:#c0c0c0;color:#000;font-weight:700;padding:3px 10px;text-decoration:none}.tb{color:#000;font-size:11px}.noscript{margin:10px 0;padding:10px;background:#111;color:#00ff9c;border:1px solid #00ff9c}@media(max-width:720px){.mast{display:block}.status{margin-top:10px}.icon-grid{grid-template-columns:repeat(auto-fill,minmax(88px,1fr))}}
 </style>
 </head>
 <body>
-
-<!-- wallpaper canvas -->
-<canvas id="wallpaper"></canvas>
-
-<!-- desktop icons -->
-<div id="desktop">
-  <div class="icon-grid" id="icon-grid"></div>
-</div>
-
-<!-- taskbar -->
-<div id="taskbar">
-  <button id="start-btn" onclick="toggleStart()">&#x229E; Start</button>
-  <div class="taskbar-sep"></div>
-  <div id="taskbar-apps"></div>
-  <div class="taskbar-sep"></div>
-  <div id="taskbar-right"><span id="clock">00:00</span></div>
-</div>
-
-<!-- start menu -->
-<div id="start-menu">
-  <div class="sm-banner">CyberWorld</div>
-  <div class="sm-items" id="sm-items"></div>
-</div>
-
-<script>
-'use strict';
-
-/* ── OPERATOR WALLPAPER ─────────────────────────────────────────── */
-const wallpaperCanvas=document.getElementById('wallpaper');
-const wallpaperCtx=wallpaperCanvas.getContext('2d');
-
-function drawWallpaper(){
-  const W=wallpaperCanvas.width=window.innerWidth;
-  const H=wallpaperCanvas.height=window.innerHeight;
-
-  const bg=wallpaperCtx.createLinearGradient(0,0,0,H);
-  bg.addColorStop(0,'#10989a');
-  bg.addColorStop(1,'#0a7476');
-  wallpaperCtx.fillStyle=bg;
-  wallpaperCtx.fillRect(0,0,W,H);
-
-  const glow=wallpaperCtx.createRadialGradient(W*0.5,H*0.38,40,W*0.5,H*0.38,Math.max(W,H)*0.74);
-  glow.addColorStop(0,'rgba(0,255,218,0.24)');
-  glow.addColorStop(1,'rgba(0,0,0,0)');
-  wallpaperCtx.fillStyle=glow;
-  wallpaperCtx.fillRect(0,0,W,H);
-
-  // Add a faint diagonal wash so the desktop is visibly textured, not flat.
-  const wash=wallpaperCtx.createLinearGradient(0,0,W,H);
-  wash.addColorStop(0,'rgba(255,255,255,0.045)');
-  wash.addColorStop(0.5,'rgba(255,255,255,0)');
-  wash.addColorStop(1,'rgba(0,0,0,0.08)');
-  wallpaperCtx.fillStyle=wash;
-  wallpaperCtx.fillRect(0,0,W,H);
-
-  wallpaperCtx.strokeStyle='rgba(180,255,255,0.06)';
-  wallpaperCtx.lineWidth=1;
-  for(let x=0;x<W;x+=44){
-    wallpaperCtx.beginPath();
-    wallpaperCtx.moveTo(x,0);
-    wallpaperCtx.lineTo(x,H);
-    wallpaperCtx.stroke();
-  }
-  for(let y=0;y<H;y+=30){
-    wallpaperCtx.beginPath();
-    wallpaperCtx.moveTo(0,y);
-    wallpaperCtx.lineTo(W,y);
-    wallpaperCtx.stroke();
-  }
-
-  wallpaperCtx.fillStyle='rgba(255,255,255,0.045)';
-  for(let y=0;y<H;y+=4){
-    wallpaperCtx.fillRect(0,y,W,1);
-  }
-}
-
-drawWallpaper();
-window.addEventListener('resize',drawWallpaper);
-
-/* ── APPS / ICONS ─────────────────────────────────────────────── */
-const APPS=[
-  {id:'cyberworld', icon:'🌐', label:'CyberWorld MMORPG',   url:'cyberworld-game.html',     desc:'Enter the Grid — full walkable MMORPG', openTab:true},
-  {id:'cw-hub',     icon:'🖥️', label:'CyberWorld Hub',      url:'CyberWorld/',              desc:'Original CyberWorld hub view', openTab:true},
-  {id:'hangar',     icon:'✈️', label:'Hangar 3D',           url:'hangar.html',              desc:'22 verified 3D models', openTab:true},
-  {id:'mathviz',    icon:'∑',  label:'Math Visualization',  url:'simulator.html',           desc:'Interactive mathematical visualization lab', openTab:true},
-  {id:'ctf',        icon:'🏴', label:'CTF Trail',           url:'ctf-trail.html',           desc:'Badge-gated quest', openTab:true},
-  {id:'wargames',   icon:'⚔️', label:'WarGames Academy',    url:'wargames.html',            desc:'Mainframe classroom', openTab:true},
-  {id:'signal',     icon:'📡', label:'Signal Lab',          url:'signal-lab.html',          desc:'Packet analysis', openTab:true},
-  {id:'forensics',  icon:'🔬', label:'Forensics Lab',       url:'forensics.html',           desc:'Evidence room', openTab:true},
-  {id:'redops',     icon:'🔴', label:'RedOps Arena',        url:'redops.html',              desc:'Sanctioned adversary', openTab:true},
-  {id:'intel',      icon:'🧠', label:'Intel Desk',          url:'intel.html',               desc:'OSINT & analysis', openTab:true},
-  {id:'adversaries',icon:'👾', label:'Adversaries',         url:'adversaries.html',         desc:'Threat actor profiles', openTab:true},
-  {id:'research',   icon:'📖', label:'Research',            url:'research.html',            desc:'FLLC research hub', openTab:true},
-  {id:'ai',         icon:'🤖', label:'AI Module',           url:'ai.html',                  desc:'AI/ML tools', openTab:true},
-  {id:'nodes',      icon:'🕸️', label:'Nodes',               url:'nodes.html',               desc:'Network nodes', openTab:true},
-  {id:'arcade',    icon:'🕹️', label:'Arcade',              url:'arcade.html',              desc:'Cyber arcade cabinet floor', openTab:true},
-  {id:'games',     icon:'🎮', label:'Games Hub',           url:'games.html',               desc:'Browser game archive', openTab:true},
-  {id:'iso',       icon:'💿', label:'ISO Builder',         url:'cyberos-iso.html',         desc:'CyberOS foundry / lab ISO builder', openTab:true},
-  {id:'dogfight',   icon:'🛩️', label:'Dogfight',            url:'dogfight.html',            desc:'Flight combat sim', openTab:true},
-  {id:'discuss',    icon:'💬', label:'Discuss',             url:'discuss.html',             desc:'Community board', openTab:true},
-  {id:'codex',      icon:'📚', label:'CyberWorld Codex',    url:'cyberworld-codex.html',    desc:'Lore & world guide', openTab:true},
-  {id:'stars',      icon:'⭐', label:'Stars',               url:'stars.html',               desc:'Starfield explorer', openTab:true},
-  {id:'profile',    icon:'🪪', label:'Profile',             url:'profile.html',             desc:'Operative profile', openTab:true},
-  {id:'github',     icon:'🐙', label:'Source Code',         url:'https://github.com/Personfu/personfu.github.io', desc:'GitHub repo', ext:true},
-];
-
-/* ── WINDOW MANAGER ───────────────────────────────────────────── */
-let zTop=100, openWins={};
-
-function openApp(app){
-  if(openWins[app.id]){focusWin(app.id);return;}
-  if(app.ext){window.open(app.url,'_blank');return;}
-  if(app.openTab){window.open(app.url,'_blank');return;}
-  const w=document.createElement('div');
-  w.className='win98-window';
-  w.id='win-'+app.id;
-  // position cascaded
-  const count=Object.keys(openWins).length;
-  const left=80+count*22, top=40+count*22;
-  const winW=Math.min(900,window.innerWidth-left-10);
-  const winH=Math.min(640,window.innerHeight-top-40);
-  w.style.cssText='left:'+left+'px;top:'+top+'px;width:'+winW+'px;height:'+winH+'px';
-  const eid = CSS.escape(app.id);
-  w.innerHTML =
-    '<div class="win-titlebar">'
-    +'<span class="win-icon">'+app.icon+'</span>'
-    +'<span class="win-title">'+app.label+'</span>'
-    +'<div class="win-btns">'
-    +'<button class="win-btn" type="button" aria-label="Minimize" onclick="minimizeWin(this.closest(\'.win98-window\').id.slice(4))">_</button>'
-    +'<button class="win-btn" type="button" aria-label="Maximize" onclick="maxWin(this.closest(\'.win98-window\').id.slice(4))">&#x25A1;</button>'
-    +'<button class="win-btn" type="button" aria-label="Close" onclick="closeWin(this.closest(\'.win98-window\').id.slice(4))">&#x2715;</button>'
-    +'</div></div>'
-    +'<div class="win-menubar"><span class="win-menu-item">File</span><span class="win-menu-item">View</span><span class="win-menu-item">Help</span></div>'
-    +'<div class="win-body"><div class="frame-wrap">'
-    +'<div class="frame-overlay" data-role="overlay"><div class="frame-status" data-role="status">Loading module...</div><div class="frame-actions"><button type="button" data-role="retry" style="display:none">Retry</button><button type="button" data-role="open" style="display:none">Open In New Tab</button></div></div>'
-    +'<iframe title="'+app.label+'" loading="lazy" allow="fullscreen"></iframe></div></div>'
-    +'<div class="win-statusbar">'+app.desc+'</div>';
-  document.body.appendChild(w);
-  const iframe = w.querySelector('iframe');
-  const overlay = w.querySelector('[data-role="overlay"]');
-  const status = w.querySelector('[data-role="status"]');
-  const retryBtn = w.querySelector('[data-role="retry"]');
-  const openBtn = w.querySelector('[data-role="open"]');
-  const baseUrl = app.url;
-  const isLocal = /^([a-z]+:)?\/\//i.test(baseUrl) ? false : true;
-  let watchdog = null;
-
-  function moduleUrl(){
-    if(!isLocal) return baseUrl;
-    const sep = baseUrl.includes('?') ? '&' : '?';
-    return baseUrl + sep + 'cw_frame=' + Date.now();
-  }
-
-  function showLoading(msg){
-    status.textContent = msg || 'Loading module...';
-    overlay.classList.remove('hidden');
-    retryBtn.style.display = 'none';
-    openBtn.style.display = 'none';
-  }
-
-  function showIssue(msg){
-    status.textContent = msg;
-    overlay.classList.remove('hidden');
-    retryBtn.style.display = 'inline-flex';
-    openBtn.style.display = 'inline-flex';
-  }
-
-  function loadFrame(){
-    clearTimeout(watchdog);
-    showLoading('Loading module...');
-    iframe.src = moduleUrl();
-    watchdog = setTimeout(()=>{
-      showIssue('Module is taking too long or may be stuck. You can retry or open it in a new tab.');
-    },12000);
-  }
-
-  iframe.addEventListener('load',()=>{
-    clearTimeout(watchdog);
-    try{
-      const doc = iframe.contentDocument;
-      if(doc && doc.body && doc.body.childElementCount===0){
-        showIssue('Module loaded an empty page. Try retry, or open in a new tab.');
-        return;
-      }
-    }catch(_e){
-      // Cross-origin frame: load event is sufficient.
-    }
-    overlay.classList.add('hidden');
-  });
-  iframe.addEventListener('error',()=>{
-    clearTimeout(watchdog);
-    showIssue('Module failed to load. Try retry, or open in a new tab.');
-  });
-  retryBtn.addEventListener('click',loadFrame);
-  openBtn.addEventListener('click',()=>window.open(baseUrl,'_blank'));
-  loadFrame();
-  openWins[app.id]=w;
-  makeDraggable(w);
-  focusWin(app.id);
-  addTaskbarBtn(app);
-}
-
-function focusWin(id){
-  Object.values(openWins).forEach(w=>{w.classList.remove('focused');});
-  const w=openWins[id];
-  if(w){w.style.zIndex=++zTop;w.classList.add('focused');if(w.style.display==='none')w.style.display='flex';}
-  document.querySelectorAll('.tb-app').forEach(b=>b.classList.toggle('active',b.dataset.win===id));
-}
-
-function closeWin(id){
-  const w=openWins[id];if(!w)return;
-  w.remove();delete openWins[id];
-  document.querySelector('.tb-app[data-win="'+id+'"]')?.remove();
-}
-
-function minimizeWin(id){
-  const w=openWins[id];if(!w)return;
-  w.style.display='none';
-  document.querySelectorAll('.tb-app').forEach(b=>b.classList.toggle('active',false));
-}
-
-function maxWin(id){
-  const w=openWins[id];if(!w)return;
-  if(w.dataset.maxed){
-    w.style.cssText=w.dataset.prev;
-    w.style.zIndex=++zTop;
-    delete w.dataset.maxed;
-  }else{
-    w.dataset.prev=w.style.cssText;
-    w.dataset.maxed='1';
-    const z=++zTop;
-    w.style.cssText='left:0;top:0;width:100vw;height:calc(100vh - 28px);z-index:'+z;
-  }
-}
-
-function addTaskbarBtn(app){
-  const tb=document.getElementById('taskbar-apps');
-  const b=document.createElement('button');
-  b.className='tb-app';b.dataset.win=app.id;
-  b.textContent=app.icon+' '+app.label;
-  b.onclick=()=>openWins[app.id]?.style.display==='none'?focusWin(app.id):minimizeWin(app.id);
-  tb.appendChild(b);
-}
-
-/* ── DRAG (single shared handler — no listener accumulation) ──── */
-let _dEl=null,_dDX=0,_dDY=0,_dOn=false;
-document.addEventListener('mousemove',e=>{
-  if(!_dOn||!_dEl)return;
-  _dEl.style.left=Math.max(0,Math.min(e.clientX-_dDX,window.innerWidth-_dEl.offsetWidth))+'px';
-  _dEl.style.top=Math.max(0,Math.min(e.clientY-_dDY,window.innerHeight-56))+'px';
-});
-document.addEventListener('mouseup',()=>{_dOn=false;_dEl=null;});
-function makeDraggable(win){
-  win.querySelector('.win-titlebar').addEventListener('mousedown',e=>{
-    if(e.button!==0||e.target.closest('.win-btns'))return;
-    _dOn=true;_dEl=win;
-    _dDX=e.clientX-win.offsetLeft;
-    _dDY=e.clientY-win.offsetTop;
-    focusWin(win.id.slice(4));
-    e.preventDefault();
-  });
-}
-
-/* ── RENDER ICONS ─────────────────────────────────────────────── */
-const grid=document.getElementById('icon-grid');
-APPS.forEach(app=>{
-  const div=document.createElement('div');
-  div.className='icon';
-  div.tabIndex=0;
-  div.setAttribute('role','button');
-  div.setAttribute('aria-label',app.label+' — double-click to open');
-  div.title=app.label+' — double-click to open in new tab';
-  div.innerHTML='<div class="icon-img">'+app.icon+'</div><div class="icon-label">'+app.label+'</div>';
-  div.addEventListener('dblclick',()=>openApp(app));
-  div.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openApp(app);}});
-  div.addEventListener('click',()=>{
-    document.querySelectorAll('.icon').forEach(i=>i.classList.remove('selected'));
-    div.classList.add('selected');
-  });
-  grid.appendChild(div);
-});
-
-/* ── START MENU ───────────────────────────────────────────────── */
-const smItems=document.getElementById('sm-items');
-[{sep:true},
- ...APPS.map(a=>({icon:a.icon,label:a.label,app:a})),
- {sep:true},
- {icon:'❌',label:'Shut Down'}
-].forEach(item=>{
-  if(item.sep){const d=document.createElement('div');d.className='sm-sep';smItems.appendChild(d);return;}
-  const a=document.createElement('a');
-  a.className='sm-item';a.href='#';
-  a.innerHTML='<span class="sm-item-icon">'+item.icon+'</span>'+item.label;
-  a.addEventListener('click',e=>{e.preventDefault();toggleStart();if(item.app)openApp(item.app);});
-  smItems.appendChild(a);
-});
-
-function toggleStart(){document.getElementById('start-menu').classList.toggle('open');}
-document.addEventListener('click',e=>{if(!e.target.closest('#start-menu')&&!e.target.closest('#start-btn'))document.getElementById('start-menu').classList.remove('open');});
-
-/* ── CLOCK ────────────────────────────────────────────────────── */
-function tickClock(){
-  const d=new Date();
-  const h=String(d.getHours()).padStart(2,'0');
-  const m=String(d.getMinutes()).padStart(2,'0');
-  document.getElementById('clock').textContent=h+':'+m;
-}
-tickClock();setInterval(tickClock,1000);
-
-// Start on plain desktop. Modules launch only on explicit user action.
-</script>
+<script src="/js/cyberworld-unified.js?v=20260617-unified" defer></script>
+<main class="desktop">
+  <section class="mast">
+    <div><h1>CYBERWORLD</h1><p>Operator desktop for a fictional, educational security grid. Four-layer visibility: geography, infrastructure, routing, and persona context — translated into safe training modules, diagnostics, and playable labs.</p></div>
+    <aside class="status"><b>GRID STATUS</b><br>ROUTES: ONLINE<br>MODE: EDUCATIONAL RANGE<br>BUILD: 2026.06.17</aside>
+  </section>
+  <noscript><div class="noscript">JavaScript is disabled. The desktop still works: use the module icons below as normal links.</div></noscript>
+  <section class="icon-grid" aria-label="CyberWorld modules">
+    <a class="icon primary" href="/CyberWorld_login/"><span class="icon-img">🔐</span><span class="icon-label">CTF Login</span></a>
+    <a class="icon primary" href="/cyberworld-game.html"><span class="icon-img">🌐</span><span class="icon-label">Main Game</span></a>
+    <a class="icon primary" href="/CyberWorld/"><span class="icon-img">🖥️</span><span class="icon-label">CyberWorld Hub</span></a>
+    <a class="icon primary" href="/route-check.html"><span class="icon-img">🧪</span><span class="icon-label">Route Check</span></a>
+    <a class="icon primary" href="/hangar.html"><span class="icon-img">✈️</span><span class="icon-label">Hangar 3D</span></a>
+    <a class="icon primary" href="/simulator.html"><span class="icon-img">∑</span><span class="icon-label">Math Visualization</span></a>
+    <a class="icon" href="/ctf-trail.html"><span class="icon-img">🏴</span><span class="icon-label">CTF Trail</span></a>
+    <a class="icon" href="/wargames.html"><span class="icon-img">⚔️</span><span class="icon-label">WarGames</span></a>
+    <a class="icon" href="/signal-lab.html"><span class="icon-img">📡</span><span class="icon-label">Signal Lab</span></a>
+    <a class="icon" href="/forensics.html"><span class="icon-img">🔬</span><span class="icon-label">Forensics</span></a>
+    <a class="icon" href="/redops.html"><span class="icon-img">🔴</span><span class="icon-label">RedOps</span></a>
+    <a class="icon" href="/intel.html"><span class="icon-img">🧠</span><span class="icon-label">Intel Desk</span></a>
+    <a class="icon" href="/adversaries.html"><span class="icon-img">👾</span><span class="icon-label">Adversaries</span></a>
+    <a class="icon" href="/research.html"><span class="icon-img">📖</span><span class="icon-label">Research</span></a>
+    <a class="icon" href="/ai.html"><span class="icon-img">🤖</span><span class="icon-label">AI Module</span></a>
+    <a class="icon" href="/nodes.html"><span class="icon-img">🕸️</span><span class="icon-label">Nodes</span></a>
+    <a class="icon" href="/arcade.html"><span class="icon-img">🕹️</span><span class="icon-label">Arcade</span></a>
+    <a class="icon" href="/games.html"><span class="icon-img">🎮</span><span class="icon-label">Games</span></a>
+    <a class="icon" href="/rpg/index.html"><span class="icon-img">🧬</span><span class="icon-label">RPG Nexus</span></a>
+    <a class="icon" href="/cyberos-iso.html"><span class="icon-img">💿</span><span class="icon-label">ISO Builder</span></a>
+    <a class="icon" href="/dogfight.html"><span class="icon-img">🛩️</span><span class="icon-label">Dogfight</span></a>
+    <a class="icon" href="/discuss.html"><span class="icon-img">💬</span><span class="icon-label">Discuss</span></a>
+    <a class="icon" href="/cyberworld-codex.html"><span class="icon-img">📚</span><span class="icon-label">Codex</span></a>
+    <a class="icon" href="/stars.html"><span class="icon-img">⭐</span><span class="icon-label">Arsenal</span></a>
+    <a class="icon" href="/profile.html"><span class="icon-img">🪪</span><span class="icon-label">Profile</span></a>
+    <a class="icon" href="/cyberworld-complete.html"><span class="icon-img">✅</span><span class="icon-label">Completion Status</span></a>
+  </section>
+</main>
+<footer class="taskbar"><a class="start" href="/CyberWorld/">⊞ Start</a><span class="tb">CyberWorld Desktop // all icons are direct links</span></footer>
 </body>
 </html>
