@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-17-story-expansion",
+  "version": "2026-06-17-playtest-patch",
   "routes": [
     { "id": "desktop", "label": "Operator Desktop", "path": "/index.html", "critical": true },
     { "id": "login-clean", "label": "Clean Login Alias", "path": "/login/", "critical": true },
@@ -30,6 +30,8 @@
     { "id": "unified-css", "label": "Unified CSS", "path": "/css/cyberworld-unified.css", "critical": true },
     { "id": "unified-js", "label": "Unified JS", "path": "/js/cyberworld-unified.js", "critical": true },
     { "id": "story-css", "label": "Story Enhancement CSS", "path": "/css/cyberworld-content-enhance.css", "critical": true },
-    { "id": "story-js", "label": "Story Enhancement JS", "path": "/js/cyberworld-content-enhance.js", "critical": true }
+    { "id": "story-js", "label": "Story Enhancement JS", "path": "/js/cyberworld-content-enhance.js", "critical": true },
+    { "id": "playtest-css", "label": "Playtest Patch CSS", "path": "/css/cyberworld-playtest-patches.css", "critical": true },
+    { "id": "playtest-js", "label": "Playtest Patch JS", "path": "/js/cyberworld-playtest-patches.js", "critical": true }
   ]
 }
