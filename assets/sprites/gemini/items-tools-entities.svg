@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" role="img" aria-label="CyberWorld generated items tools entities sprite sheet">
+<title>CyberWorld Items, Tools, Artifacts and Entities Sprite Sheet</title>
+<style><![CDATA[
+.bg{fill:#07121c}.panel{fill:#0b1c29;stroke:#1fe8ff;stroke-opacity:.35;stroke-width:2}.cell{fill:#102838;stroke:#2ee8ff;stroke-opacity:.22;stroke-width:1}.h{font:700 28px monospace;fill:#8fffee;letter-spacing:2px}.sub{font:11px monospace;fill:#9ab8c9}.lab{font:10px monospace;fill:#dffbff}.icon{font:42px monospace}.cyan{fill:#35f2ff}.mag{fill:#ff4fd8}.gold{fill:#ffd166}.green{fill:#62ff9d}.red{fill:#ff5d73}.muted{fill:#7ca5b8}.outline{fill:none;stroke:#dffbff;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.glow{filter:url(#g)}
+]]></style><defs><filter id="g"><feGaussianBlur stdDeviation="2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+<rect class="bg" width="1280" height="800"/><text x="24" y="42" class="h">CYBERWORLD ITEMS / TOOLS / ARTIFACTS / ENTITIES - GENERATED VECTOR SHEET</text><text x="24" y="66" class="sub">Global SVG fallback sheet. Safe fictional training gear, collectibles, loot, drones, automata, and non-human entities.</text>
+<g transform="translate(20 90)"><rect class="panel" width="1240" height="680" rx="12"/><text x="18" y="34" class="h" font-size="22">CONSUMABLES &amp; TOOLCHAIN</text>
+<g transform="translate(16 54)">
+<g transform="translate(0 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="50" y="48" class="icon cyan">💉</text><text x="12" y="88" class="lab">med stim</text></g>
+<g transform="translate(154 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="50" y="48" class="icon gold">🔋</text><text x="12" y="88" class="lab">energy cell</text></g>
+<g transform="translate(308 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="50" y="48" class="icon green">🧪</text><text x="12" y="88" class="lab">trace vial</text></g>
+<g transform="translate(462 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="50" y="48" class="icon red">🧯</text><text x="12" y="88" class="lab">thermal fix</text></g>
+<g transform="translate(616 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="50" y="48" class="icon cyan">📟</text><text x="12" y="88" class="lab">pager node</text></g>
+<g transform="translate(770 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="50" y="48" class="icon mag">📡</text><text x="12" y="88" class="lab">signal puck</text></g>
+<g transform="translate(924 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="50" y="48" class="icon gold">🔑</text><text x="12" y="88" class="lab">training key</text></g>
+<g transform="translate(1078 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="50" y="48" class="icon green">🧰</text><text x="12" y="88" class="lab">field kit</text></g>
+</g>
+<text x="18" y="202" class="h" font-size="22">HARDWARE ICONS &amp; SAFE LAB PROPS</text><g transform="translate(16 222)">
+<g transform="translate(0 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon cyan">🕹️</text><text x="12" y="88" class="lab">flipper sim</text></g>
+<g transform="translate(154 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon gold">📻</text><text x="12" y="88" class="lab">rf trainer</text></g>
+<g transform="translate(308 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon green">💳</text><text x="12" y="88" class="lab">toy badge</text></g>
+<g transform="translate(462 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon mag">📶</text><text x="12" y="88" class="lab">wifi defense</text></g>
+<g transform="translate(616 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon cyan">🔬</text><text x="12" y="88" class="lab">logic scope</text></g>
+<g transform="translate(770 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon red">🧲</text><text x="12" y="88" class="lab">mag clamp</text></g>
+<g transform="translate(924 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon gold">🧱</text><text x="12" y="88" class="lab">print resin</text></g>
+<g transform="translate(1078 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon green">🛰️</text><text x="12" y="88" class="lab">uplink toy</text></g>
+</g>
+<text x="18" y="370" class="h" font-size="22">RARE LOOT &amp; ARTIFACTS</text><g transform="translate(16 390)">
+<g transform="translate(0 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon cyan">💎</text><text x="12" y="88" class="lab">logic crystal</text></g>
+<g transform="translate(154 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon mag">🔮</text><text x="12" y="88" class="lab">oracle cache</text></g>
+<g transform="translate(308 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon gold">🏅</text><text x="12" y="88" class="lab">mission badge</text></g>
+<g transform="translate(462 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon green">🧬</text><text x="12" y="88" class="lab">bio key</text></g>
+<g transform="translate(616 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon cyan">⚙️</text><text x="12" y="88" class="lab">mars gear</text></g>
+<g transform="translate(770 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon mag">🧿</text><text x="12" y="88" class="lab">sentinel eye</text></g>
+<g transform="translate(924 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon gold">📜</text><text x="12" y="88" class="lab">sector map</text></g>
+<g transform="translate(1078 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon green">🛡️</text><text x="12" y="88" class="lab">patch shard</text></g>
+</g>
+<text x="18" y="538" class="h" font-size="22">ENTITIES / DRONES / DESERT LIFE</text><g transform="translate(16 558)">
+<g transform="translate(0 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon cyan">🛸</text><text x="12" y="88" class="lab">sentry orb</text></g>
+<g transform="translate(154 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon mag">🕷️</text><text x="12" y="88" class="lab">spider bot</text></g>
+<g transform="translate(308 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon gold">🦂</text><text x="12" y="88" class="lab">desert scorp</text></g>
+<g transform="translate(462 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon green">🦎</text><text x="12" y="88" class="lab">mars lizard</text></g>
+<g transform="translate(616 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon cyan">🤖</text><text x="12" y="88" class="lab">guard bot</text></g>
+<g transform="translate(770 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon mag">👽</text><text x="12" y="88" class="lab">visitor</text></g>
+<g transform="translate(924 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon red">🦠</text><text x="12" y="88" class="lab">glitch spore</text></g>
+<g transform="translate(1078 0)"><rect class="cell" width="145" height="108" rx="8"/><text x="46" y="48" class="icon green">🧟</text><text x="12" y="88" class="lab">cache husk</text></g>
+</g></g></svg>
