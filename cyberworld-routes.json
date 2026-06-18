@@ -1,10 +1,11 @@
 {
-  "version": "2026-06-17-extreme-expansion",
+  "version": "2026-06-17-extreme-expansion-2",
   "routes": [
     { "id": "desktop", "label": "Operator Desktop", "path": "/index.html", "critical": true },
     { "id": "mars", "label": "Operation Mars Base", "path": "/mars-mission.html", "critical": true },
-    { "id": "housing", "label": "Hacker Housing", "path": "/housing.html", "critical": true },
+    { "id": "housing", "label": "Hacker Housing Studio", "path": "/housing.html", "critical": true },
     { "id": "hardware", "label": "Hardware Lab", "path": "/hardware-lab.html", "critical": true },
+    { "id": "print-lab", "label": "3-D Print Lab", "path": "/print-lab.html", "critical": true },
     { "id": "walkthroughs", "label": "Safe Walkthrough Academy", "path": "/walkthroughs.html", "critical": true },
     { "id": "audit", "label": "CyberWorld QA Audit Ledger", "path": "/cyberworld-audit.html", "critical": true },
     { "id": "login-clean", "label": "Clean Login Alias", "path": "/login/", "critical": true },
