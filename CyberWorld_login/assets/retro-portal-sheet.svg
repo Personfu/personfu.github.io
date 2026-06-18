@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" role="img" aria-label="CyberWorld retro flash era CTF portal sprite sheet">
+<title>CyberWorld Retro Flash Era CTF Portal Sprite Sheet</title>
+<style><![CDATA[
+.bg{fill:#090018}.grid{stroke:#00ffff;stroke-opacity:.18}.panel{fill:#130a2a;stroke:#00ffff;stroke-width:3}.tile{fill:#1b1036;stroke:#ff00ff;stroke-opacity:.55;stroke-width:2}.t{font:700 30px Verdana,monospace;fill:#fff;text-shadow:2px 2px #000}.s{font:14px Verdana,monospace;fill:#bff}.tiny{font:11px Verdana,monospace;fill:#fffd8a}.cyan{fill:#00e8ff}.pink{fill:#ff31d9}.lime{fill:#7dff00}.gold{fill:#ffd84d}.orange{fill:#ff8a00}.red{fill:#ff3050}.dark{fill:#050611}.line{fill:none;stroke:#fff;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}.thin{fill:none;stroke:#00ffff;stroke-width:2;stroke-opacity:.8}.blink{fill:#ff0}.chrome{fill:url(#chrome)}
+]]></style>
+<defs><linearGradient id="chrome" x1="0" x2="1"><stop offset="0" stop-color="#fff"/><stop offset=".18" stop-color="#88f7ff"/><stop offset=".45" stop-color="#3322ff"/><stop offset=".7" stop-color="#ff31d9"/><stop offset="1" stop-color="#fff"/></linearGradient><pattern id="scan" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" class="grid" fill="none"/></pattern></defs>
+<rect class="bg" width="1400" height="900"/><rect width="1400" height="900" fill="url(#scan)"/><text x="34" y="54" class="t">CYBERWORLD LOGIN CTF // 2005 FLASH-PORTAL VISUAL KIT</text><text x="36" y="82" class="s">Custom generated source art: badges, hunt tracks, archive disks, RF toys, bug bounty trophies, old-web nav, and arcade UI.</text>
+<g transform="translate(30 120)"><rect class="panel" width="1340" height="720" rx="18"/>
+<g transform="translate(24 32)"><text class="t" x="0" y="0">HUNT TRACK ICONS</text>
+<g transform="translate(0 28)">
+<g transform="translate(0 0)"><rect class="tile" width="150" height="128" rx="14"/><circle cx="75" cy="50" r="32" class="cyan"/><path d="M43 86h64M60 32h30M60 52h30" class="line"/><text x="14" y="113" class="tiny">OSINT TRAIL</text></g>
+<g transform="translate(166 0)"><rect class="tile" width="150" height="128" rx="14"/><rect x="35" y="24" width="80" height="56" rx="8" class="pink"/><path d="M48 44h54M48 60h38" class="line"/><text x="14" y="113" class="tiny">API BUGS</text></g>
+<g transform="translate(332 0)"><rect class="tile" width="150" height="128" rx="14"/><path d="M32 78c24-56 62-56 86 0" class="lime"/><circle cx="52" cy="48" r="12" class="dark"/><circle cx="98" cy="48" r="12" class="dark"/><path d="M28 88h94" class="line"/><text x="14" y="113" class="tiny">RF / BADGE</text></g>
+<g transform="translate(498 0)"><rect class="tile" width="150" height="128" rx="14"/><path d="M75 20l42 72H33z" class="gold"/><path d="M62 72h26M75 42v28" class="line"/><text x="14" y="113" class="tiny">FIRMWARE</text></g>
+<g transform="translate(664 0)"><rect class="tile" width="150" height="128" rx="14"/><rect x="34" y="26" width="82" height="58" rx="8" class="orange"/><path d="M44 42h62M44 58h48M44 74h34" class="line"/><text x="14" y="113" class="tiny">ARCHIVE</text></g>
+<g transform="translate(830 0)"><rect class="tile" width="150" height="128" rx="14"/><circle cx="75" cy="58" r="40" class="red"/><path d="M48 58h54M75 31v54" class="line"/><text x="14" y="113" class="tiny">MALWARE LAB</text></g>
+<g transform="translate(996 0)"><rect class="tile" width="150" height="128" rx="14"/><path d="M32 82h86L96 34H54z" class="cyan"/><path d="M44 84h62" class="line"/><text x="14" y="113" class="tiny">SPACE OPS</text></g>
+<g transform="translate(1162 0)"><rect class="tile" width="150" height="128" rx="14"/><path d="M30 86l45-64 45 64z" class="pink"/><path d="M54 72h42" class="line"/><text x="14" y="113" class="tiny">BOSS CHAIN</text></g>
+</g>
+<text class="t" x="0" y="210">OLD WEB / FLASH ERA UI</text><g transform="translate(0 238)">
+<g><rect class="tile" width="300" height="96" rx="8"/><rect x="14" y="16" width="272" height="28" class="chrome"/><text x="32" y="37" class="tiny">ENTER THE HACKER WEBRING</text><rect x="34" y="58" width="62" height="20" class="cyan"/><rect x="108" y="58" width="62" height="20" class="pink"/><rect x="182" y="58" width="62" height="20" class="lime"/></g>
+<g transform="translate(320 0)"><rect class="tile" width="300" height="96" rx="8"/><text x="22" y="34" class="t" font-size="22">NEW!</text><text x="94" y="34" class="tiny">BUG BOUNTY ARCADE</text><circle cx="242" cy="48" r="28" class="gold"/><text x="32" y="70" class="tiny">best viewed 1024x768</text></g>
+<g transform="translate(640 0)"><rect class="tile" width="300" height="96" rx="8"/><path d="M24 70h252" class="thin"/><path d="M62 70V28h176v42" class="line"/><text x="70" y="55" class="tiny">UNDER CONSTRUCTION</text></g>
+<g transform="translate(960 0)"><rect class="tile" width="300" height="96" rx="8"/><text x="24" y="38" class="tiny">guestbook // forum // irc // zine</text><text x="24" y="66" class="tiny">[ home ] [ labs ] [ links ]</text></g>
+</g>
+<text class="t" x="0" y="394">COLLECTIBLES / TROPHIES</text><g transform="translate(0 422)">
+<g transform="translate(0 0)"><rect class="tile" width="150" height="128" rx="14"/><path d="M75 18l18 36 40 6-29 28 7 40-36-19-36 19 7-40-29-28 40-6z" class="gold"/><text x="14" y="113" class="tiny">FIRST BLOOD</text></g>
+<g transform="translate(166 0)"><rect class="tile" width="150" height="128" rx="14"/><circle cx="75" cy="55" r="38" class="cyan"/><path d="M52 55h46M75 32v46" class="line"/><text x="14" y="113" class="tiny">RECON ACE</text></g>
+<g transform="translate(332 0)"><rect class="tile" width="150" height="128" rx="14"/><rect x="36" y="24" width="78" height="64" rx="12" class="lime"/><path d="M52 44h46M52 62h30" class="line"/><text x="14" y="113" class="tiny">API SLAYER</text></g>
+<g transform="translate(498 0)"><rect class="tile" width="150" height="128" rx="14"/><path d="M40 80h70L92 32H58z" class="pink"/><circle cx="75" cy="58" r="10" class="dark"/><text x="14" y="113" class="tiny">RF GHOST</text></g>
+<g transform="translate(664 0)"><rect class="tile" width="150" height="128" rx="14"/><path d="M28 80h94V36H28z" class="orange"/><path d="M42 50h66M42 66h48" class="line"/><text x="14" y="113" class="tiny">ARCHIVIST</text></g>
+<g transform="translate(830 0)"><rect class="tile" width="150" height="128" rx="14"/><circle cx="75" cy="48" r="28" class="red"/><rect x="48" y="72" width="54" height="22" class="red"/><text x="14" y="113" class="tiny">BOSS CLEAR</text></g>
+</g>
+<text class="t" x="0" y="594">ARCADE CABINETS / PORTALS</text><g transform="translate(0 622)">
+<g><rect class="tile" width="220" height="74" rx="8"/><rect x="16" y="12" width="188" height="36" class="dark"/><text x="28" y="36" class="tiny">CLICK 2 START</text><circle cx="170" cy="60" r="8" class="pink"/><circle cx="194" cy="60" r="8" class="cyan"/></g>
+<g transform="translate(240 0)"><rect class="tile" width="220" height="74" rx="8"/><text x="18" y="28" class="tiny">ACHIEVEMENT UNLOCKED</text><text x="18" y="52" class="tiny">WEB CACHE WIZARD</text></g>
+<g transform="translate(480 0)"><rect class="tile" width="220" height="74" rx="8"/><text x="18" y="28" class="tiny">RSS ZINE FEED</text><text x="18" y="52" class="tiny">ISSUE #2606</text></g>
+<g transform="translate(720 0)"><rect class="tile" width="220" height="74" rx="8"/><text x="18" y="28" class="tiny">WAYBACK QUEST</text><text x="18" y="52" class="tiny">404 != DEAD</text></g>
+<g transform="translate(960 0)"><rect class="tile" width="220" height="74" rx="8"/><text x="18" y="28" class="tiny">LAN PARTY MODE</text><text x="18" y="52" class="tiny">NO FLASH REQUIRED</text></g>
+</g></g></g></svg>
