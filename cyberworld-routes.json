@@ -1,10 +1,11 @@
 {
-  "version": "2026-06-18-generated-svg-sprites",
+  "version": "2026-06-18-visual-reference-dossier",
   "routes": [
     { "id": "desktop", "label": "Operator Desktop", "path": "/index.html", "critical": true },
     { "id": "mars", "label": "Operation Mars Base", "path": "/mars-mission.html", "critical": true },
     { "id": "housing", "label": "Hacker Housing Studio", "path": "/housing.html", "critical": true },
     { "id": "sprite-atlas", "label": "Sprite Atlas Armory", "path": "/sprite-atlas.html", "critical": true },
+    { "id": "visual-references", "label": "Visual Reference Dossier", "path": "/visual-references.html", "critical": true },
     { "id": "hardware", "label": "Hardware Lab", "path": "/hardware-lab.html", "critical": true },
     { "id": "print-lab", "label": "3-D Print Lab", "path": "/print-lab.html", "critical": true },
     { "id": "walkthroughs", "label": "Safe Walkthrough Academy", "path": "/walkthroughs.html", "critical": true },
@@ -45,6 +46,7 @@
     { "id": "sprite-atlas-js", "label": "Sprite Atlas JS", "path": "/js/cyberworld-sprite-atlas.js", "critical": true },
     { "id": "sprite-items-svg", "label": "Generated Items Tools Entities SVG", "path": "/assets/sprites/gemini/items-tools-entities.svg", "critical": true },
     { "id": "sprite-operatives-svg", "label": "Generated Operatives Hardware Threats SVG", "path": "/assets/sprites/gemini/operatives-hardware-threats.svg", "critical": true },
-    { "id": "sprite-vehicles-svg", "label": "Generated Vehicles Transit Mobility SVG", "path": "/assets/sprites/gemini/vehicles-transit-mobility.svg", "critical": true }
+    { "id": "sprite-vehicles-svg", "label": "Generated Vehicles Transit Mobility SVG", "path": "/assets/sprites/gemini/vehicles-transit-mobility.svg", "critical": true },
+    { "id": "sprite-reference-sources", "label": "Sprite Reference Source Manifest", "path": "/assets/sprites/gemini/reference-sources.json", "critical": true }
   ]
 }
