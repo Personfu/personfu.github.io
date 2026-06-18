@@ -4,75 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Operative Dossier // CyberWorld</title>
+<link rel="stylesheet" href="/css/cyberworld-unified.css?v=20260617-unified">
+<link rel="stylesheet" href="/css/cyberworld-playtest-patches.css?v=20260617-playtest">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
-html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
+html,body{min-height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
 body{display:flex;flex-direction:column}
 header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
-.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
-.sep{color:#1a3050}
-.cat{color:var(--gold);font-size:10px;letter-spacing:1px}
-.hdr-right{margin-left:auto}
-.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
-.btn-sm:hover{background:var(--green);color:var(--bg)}
-main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
-.hero{border:1px solid var(--border);background:var(--card);padding:18px}
-.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
-.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
-.hero .brief{font-size:12px;line-height:1.65;margin-bottom:14px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.grid2{grid-template-columns:1fr}}
-.card{border:1px solid var(--border);background:var(--card);padding:14px}
-.card-lbl{color:var(--cyan);font-size:10px;letter-spacing:1px;margin-bottom:10px}
-.stat-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)}
-.stat-row:last-child{border-bottom:none}
-.stat-key{color:var(--text);font-size:11px}
-.stat-val{color:var(--bright);font-size:11px;font-weight:bold}
-.rank-badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:2px 8px;font-size:10px;letter-spacing:1px;margin-top:8px}
-.note{font-size:10px;color:#446;margin-top:6px}
-footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
+.logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}.sep{color:#1a3050}.cat{color:var(--gold);font-size:10px;letter-spacing:1px}.hdr-right{margin-left:auto}.btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}.btn-sm:hover{background:var(--green);color:var(--bg)}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:960px;width:100%;margin:0 auto}.hero{border:1px solid var(--border);background:var(--card);padding:18px}.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}.hero h1{color:var(--bright);font-size:22px;margin-bottom:6px;letter-spacing:1px}.hero .brief{font-size:12px;line-height:1.65;margin-bottom:14px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:650px){.grid2{grid-template-columns:1fr}}
+.card{border:1px solid var(--border);background:var(--card);padding:14px}.card-lbl{color:var(--cyan);font-size:10px;letter-spacing:1px;margin-bottom:10px}.stat-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);gap:10px}.stat-row:last-child{border-bottom:none}.stat-key{color:var(--text);font-size:11px}.stat-val{color:var(--bright);font-size:11px;font-weight:bold;text-align:right}.rank-badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:2px 8px;font-size:10px;letter-spacing:1px;margin-top:8px}.note{font-size:10px;color:#8fb7c7;margin-top:8px;line-height:1.5}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.actions a,.actions button{border:1px solid var(--cyan);background:#02070d;color:var(--cyan);padding:8px 10px;text-decoration:none;font:inherit;font-size:11px;cursor:pointer}.actions a.primary{background:var(--cyan);color:#02070d;font-weight:bold}.actions a:hover,.actions button:hover{border-color:var(--green);color:var(--green)}.actions a.primary:hover{background:var(--green);color:#02070d}.meter{height:8px;border:1px solid rgba(0,232,255,.3);background:#02070d;margin-top:5px}.fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--green));width:0}footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
 </style>
 </head>
-<body>
-<header>
-  <span class="logo">CYBERWORLD</span>
-  <span class="sep">//</span>
-  <span class="cat">OPERATIVE DOSSIER</span>
-  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
-</header>
+<body><script src="/js/cyberworld-unified.js?v=20260617-playtest" defer></script>
+<header><span class="logo">CYBERWORLD</span><span class="sep">//</span><span class="cat">OPERATIVE DOSSIER</span><div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div></header>
 <main>
-  <section class="hero">
-    <div class="kicker">PROFILE MODULE // MAINFRAME CORE DISTRICT</div>
-    <h1>Operative Dossier</h1>
-    <p class="brief">Your in-world service record. Stats are tracked locally in your browser via localStorage — nothing is sent to any server.</p>
-  </section>
+  <section class="hero"><div class="kicker">PROFILE MODULE // MAINFRAME CORE DISTRICT // V2 SAVE AWARE</div><h1>Operative Dossier</h1><p class="brief">Your in-world service record. This dossier now reads the active game save <code>cw.operative.v2</code> first, then falls back to the old launcher key so the profile no longer appears blank after customization.</p><div class="actions"><a class="primary" href="/game/">Customize Operative</a><a href="/cyberworld-game.html">Enter CyberWorld</a><button id="refresh" type="button">Refresh Dossier</button></div></section>
   <div class="grid2">
-    <div class="card" id="stats-card">
-      <div class="card-lbl">SESSION RECORD</div>
-      <div class="stat-row"><span class="stat-key">OPERATIVE</span><span class="stat-val" id="op-name">UNKNOWN</span></div>
-      <div class="stat-row"><span class="stat-key">RANK</span><span class="stat-val" id="op-rank">CIVILIAN</span></div>
-      <div class="stat-row"><span class="stat-key">XP</span><span class="stat-val" id="op-xp">0</span></div>
-      <div class="stat-row"><span class="stat-key">CREDITS</span><span class="stat-val" id="op-credits">0 cr</span></div>
-      <div class="stat-row"><span class="stat-key">REPUTATION</span><span class="stat-val" id="op-rep">NEUTRAL</span></div>
-    </div>
-    <div class="card">
-      <div class="card-lbl">CLEARANCE INFO</div>
-      <p style="font-size:11px;line-height:1.7">Your dossier reflects XP and rank earned through Portal Network missions. Complete wargames tiers and CTF flags to earn promotions. Reputation shifts with district choices in Darknet Depths and Mainframe Core.</p>
-      <p class="note">All progress is stored in localStorage key <code>cw.operative.v1</code>. Clearing browser data resets progress.</p>
-    </div>
+    <div class="card" id="stats-card"><div class="card-lbl">ACTIVE GAME SAVE</div><div class="stat-row"><span class="stat-key">OPERATIVE</span><span class="stat-val" id="op-name">UNKNOWN</span></div><div class="stat-row"><span class="stat-key">CLASS / RANK</span><span class="stat-val" id="op-rank">CIVILIAN</span></div><div class="stat-row"><span class="stat-key">LEVEL</span><span class="stat-val" id="op-level">1</span></div><div class="stat-row"><span class="stat-key">XP</span><span class="stat-val" id="op-xp">0</span></div><div class="meter"><div class="fill" id="xp-fill"></div></div><div class="stat-row"><span class="stat-key">CREDITS</span><span class="stat-val" id="op-credits">0 cr</span></div><div class="stat-row"><span class="stat-key">SECTOR</span><span class="stat-val" id="op-sector">MAINFRAME CORE</span></div><div class="stat-row"><span class="stat-key">HP / SHIELD</span><span class="stat-val" id="op-hp">100 / 30</span></div></div>
+    <div class="card"><div class="card-lbl">PROGRESSION HEALTH</div><div class="stat-row"><span class="stat-key">MISSIONS COMPLETE</span><span class="stat-val" id="op-missions">0</span></div><div class="stat-row"><span class="stat-key">INVENTORY SLOTS</span><span class="stat-val" id="op-inventory">0</span></div><div class="stat-row"><span class="stat-key">GRIDWATCH</span><span class="stat-val" id="rep-gridwatch">0</span></div><div class="stat-row"><span class="stat-key">PHANTOM SYNDICATE</span><span class="stat-val" id="rep-phantom">0</span></div><div class="stat-row"><span class="stat-key">NEXUS CORP</span><span class="stat-val" id="rep-nexus">0</span></div><p class="note">Storage inspected: <code>cw.operative.v2</code>, <code>cw.launcher.profile</code>, then legacy <code>cw.operative.v1</code>. Clearing browser data resets progress.</p></div>
   </div>
-</main>
-<footer>CYBERWORLD // FLLC GRID // OPERATIVE DOSSIER // MAINFRAME CORE</footer>
+</main><footer>CYBERWORLD // FLLC GRID // OPERATIVE DOSSIER // MAINFRAME CORE</footer>
 <script>
-try{
-  const d=JSON.parse(localStorage.getItem('cw.operative.v1')||'{}');
-  if(d.name)document.getElementById('op-name').textContent=d.name;
-  if(d.rank)document.getElementById('op-rank').textContent=d.rank;
-  if(typeof d.xp==='number')document.getElementById('op-xp').textContent=d.xp;
-  if(typeof d.credits==='number')document.getElementById('op-credits').textContent=d.credits+' cr';
-  if(d.reputation)document.getElementById('op-rep').textContent=d.reputation;
-}catch(e){}
-</script>
-</body>
-</html>
+function read(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function countInventory(inv){if(!inv)return 0;if(Array.isArray(inv))return inv.length;return Object.values(inv).filter(v=>Number(v)>0).length}
+function load(){const v2=read('cw.operative.v2',{})||{},p=read('cw.launcher.profile',{})||{},v1=read('cw.operative.v1',{})||{};const callsign=v2.callsign||p.name||v1.name||'UNKNOWN';const klass=v2.operatorClass||p.class||v1.rank||'CIVILIAN';const xp=Number(v2.xp||v1.xp||0);const level=Number(v2.level||Math.max(1,Math.floor(xp/100)+1));document.getElementById('op-name').textContent=callsign;document.getElementById('op-rank').textContent=klass;document.getElementById('op-level').textContent=level;document.getElementById('op-xp').textContent=xp;document.getElementById('xp-fill').style.width=Math.min(100,xp%100)+'%';document.getElementById('op-credits').textContent=Number(v2.credits||v1.credits||0)+' cr';document.getElementById('op-sector').textContent=v2.currentSector||'Mainframe Core';document.getElementById('op-hp').textContent=Number(v2.hp||100)+' / '+Number(v2.shield||30);document.getElementById('op-missions').textContent=Array.isArray(v2.completedMissions)?v2.completedMissions.length:Object.keys(v2.completedMissions||{}).length;document.getElementById('op-inventory').textContent=countInventory(v2.inventory);const rep=v2.reputation||v2.factions||{};document.getElementById('rep-gridwatch').textContent=rep.GRIDWATCH||0;document.getElementById('rep-phantom').textContent=rep['PHANTOM SYNDICATE']||0;document.getElementById('rep-nexus').textContent=rep['NEXUS CORP']||0;}
+document.getElementById('refresh').onclick=load;load();
+</script></body></html>
