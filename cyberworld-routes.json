@@ -1,7 +1,11 @@
 {
-  "version": "2026-06-17-sitewide-audit",
+  "version": "2026-06-17-extreme-expansion",
   "routes": [
     { "id": "desktop", "label": "Operator Desktop", "path": "/index.html", "critical": true },
+    { "id": "mars", "label": "Operation Mars Base", "path": "/mars-mission.html", "critical": true },
+    { "id": "housing", "label": "Hacker Housing", "path": "/housing.html", "critical": true },
+    { "id": "hardware", "label": "Hardware Lab", "path": "/hardware-lab.html", "critical": true },
+    { "id": "walkthroughs", "label": "Safe Walkthrough Academy", "path": "/walkthroughs.html", "critical": true },
     { "id": "audit", "label": "CyberWorld QA Audit Ledger", "path": "/cyberworld-audit.html", "critical": true },
     { "id": "login-clean", "label": "Clean Login Alias", "path": "/login/", "critical": true },
     { "id": "game-clean", "label": "Game Launcher + Tutorial", "path": "/game/", "critical": true },
@@ -33,6 +37,8 @@
     { "id": "story-css", "label": "Story Enhancement CSS", "path": "/css/cyberworld-content-enhance.css", "critical": true },
     { "id": "story-js", "label": "Story Enhancement JS", "path": "/js/cyberworld-content-enhance.js", "critical": true },
     { "id": "playtest-css", "label": "Playtest Patch CSS", "path": "/css/cyberworld-playtest-patches.css", "critical": true },
-    { "id": "playtest-js", "label": "Playtest Patch JS", "path": "/js/cyberworld-playtest-patches.js", "critical": true }
+    { "id": "playtest-js", "label": "Playtest Patch JS", "path": "/js/cyberworld-playtest-patches.js", "critical": true },
+    { "id": "extreme-css", "label": "Extreme Expansion CSS", "path": "/css/cyberworld-extreme.css", "critical": true },
+    { "id": "extreme-js", "label": "Extreme Expansion JS", "path": "/js/cyberworld-extreme.js", "critical": true }
   ]
 }
