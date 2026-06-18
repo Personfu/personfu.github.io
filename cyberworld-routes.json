@@ -1,7 +1,8 @@
 {
-  "version": "2026-06-17-playtest-patch",
+  "version": "2026-06-17-sitewide-audit",
   "routes": [
     { "id": "desktop", "label": "Operator Desktop", "path": "/index.html", "critical": true },
+    { "id": "audit", "label": "CyberWorld QA Audit Ledger", "path": "/cyberworld-audit.html", "critical": true },
     { "id": "login-clean", "label": "Clean Login Alias", "path": "/login/", "critical": true },
     { "id": "game-clean", "label": "Game Launcher + Tutorial", "path": "/game/", "critical": true },
     { "id": "hub-clean", "label": "Clean Hub Alias", "path": "/hub/", "critical": true },
