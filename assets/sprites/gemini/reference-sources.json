@@ -1,0 +1,48 @@
+{
+  "version": "2026-06-18-visual-reference-dossier",
+  "policy": "Generated SVG sheets are the default shipped CyberWorld art. External sources are reference/inspiration lanes only unless their license is verified before importing specific files.",
+  "sources": [
+    {
+      "id": "nasa-media",
+      "name": "NASA Images and Media Guidelines",
+      "url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+      "license_summary": "NASA content is generally not subject to U.S. copyright for many uses, but NASA insignia/endorsement/personality rights restrictions still apply.",
+      "use_in_cyberworld": "Mars launch, rover, habitat, telemetry, mission control, and aerospace visual references. Avoid implying NASA endorsement."
+    },
+    {
+      "id": "kenney-cc0",
+      "name": "Kenney Game Assets",
+      "url": "https://kenney.nl/",
+      "license_summary": "Kenney states asset-page game assets are public domain licensed CC0 and usable commercially.",
+      "use_in_cyberworld": "UI, props, vehicles, tiles, and neutral game objects if downloaded with license files preserved."
+    },
+    {
+      "id": "opengameart-cc0",
+      "name": "OpenGameArt CC0 collections",
+      "url": "https://opengameart.org/",
+      "license_summary": "OpenGameArt hosts assets under multiple free licenses; verify each item. Prefer CC0 assets for CyberWorld imports.",
+      "use_in_cyberworld": "Cyberpunk tiles, characters, portraits, backgrounds, and effects after per-asset license verification."
+    },
+    {
+      "id": "opengameart-cyberpunk",
+      "name": "OpenGameArt Cyberpunk Tileset and Assets",
+      "url": "https://opengameart.org/content/cyberpunk-tileset-and-assets-slim-version",
+      "license_summary": "Useful cyberpunk reference candidate. License must be verified on the asset page before direct import.",
+      "use_in_cyberworld": "Mood, props, city panels, wall/floor shapes, and neon environment references."
+    },
+    {
+      "id": "opengameart-warped-city",
+      "name": "OpenGameArt Warped City",
+      "url": "https://opengameart.org/content/warped-city",
+      "license_summary": "Cyberpunk platformer reference candidate. License must be verified on the asset page before direct import.",
+      "use_in_cyberworld": "Movement, city tiles, vehicle silhouettes, enemy animation expectations, and background layering reference."
+    },
+    {
+      "id": "fontawesome-free",
+      "name": "Font Awesome Free License",
+      "url": "https://fontawesome.com/license/free",
+      "license_summary": "Font Awesome Free uses separate licenses for icons, fonts, and code; preserve attribution/license requirements if files are imported.",
+      "use_in_cyberworld": "Reference for clear UI icon silhouettes; direct import requires license attribution hygiene."
+    }
+  ]
+}
