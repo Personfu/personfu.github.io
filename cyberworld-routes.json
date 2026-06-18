@@ -1,5 +1,5 @@
 {
-  "version": "2026-06-18-visual-reference-dossier",
+  "version": "2026-06-18-retro-login-ctf",
   "routes": [
     { "id": "desktop", "label": "Operator Desktop", "path": "/index.html", "critical": true },
     { "id": "mars", "label": "Operation Mars Base", "path": "/mars-mission.html", "critical": true },
@@ -11,6 +11,11 @@
     { "id": "walkthroughs", "label": "Safe Walkthrough Academy", "path": "/walkthroughs.html", "critical": true },
     { "id": "audit", "label": "CyberWorld QA Audit Ledger", "path": "/cyberworld-audit.html", "critical": true },
     { "id": "login-clean", "label": "Clean Login Alias", "path": "/login/", "critical": true },
+    { "id": "ctf-login", "label": "Retro CTF Login Portal", "path": "/CyberWorld_login/", "critical": true },
+    { "id": "ctf-lab", "label": "Retro CTF Lab Hub", "path": "/CyberWorld_login/lab.html", "critical": true },
+    { "id": "ctf-retro-css", "label": "Retro CTF CSS", "path": "/CyberWorld_login/assets/retro-ctf.css", "critical": true },
+    { "id": "ctf-retro-js", "label": "Retro CTF JS", "path": "/CyberWorld_login/assets/retro-ctf.js", "critical": true },
+    { "id": "ctf-retro-sheet", "label": "Retro CTF Visual Sheet", "path": "/CyberWorld_login/assets/retro-portal-sheet.svg", "critical": true },
     { "id": "game-clean", "label": "Game Launcher + Tutorial", "path": "/game/", "critical": true },
     { "id": "hub-clean", "label": "Clean Hub Alias", "path": "/hub/", "critical": true },
     { "id": "mathviz-clean", "label": "Clean MathViz Alias", "path": "/mathviz/", "critical": true },
