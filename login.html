@@ -1,1 +1,29 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>CyberWorld Sign In</title><meta http-equiv="refresh" content="0;url=/CyberWorld_login/"><link rel="canonical" href="/CyberWorld_login/"></head><body><script>location.replace('/CyberWorld_login/');</script><p>Opening <a href="/CyberWorld_login/">CyberWorld Sign In</a>.</p></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PersonFu Login Gateway</title>
+  <meta name="description" content="PersonFu / FLLC login gateway for GitHub Pages. Authentication is handled by FLLC.net and Supabase." />
+  <style>
+    :root{--cyan:#00e8ff;--green:#00ff9c;--mag:#ff2bd6;--text:#eaf8ff}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:#008080;color:var(--text);font-family:"Courier New",monospace;display:grid;place-items:center;padding:18px}body:before{content:"";position:fixed;inset:0;background:radial-gradient(circle at 30% 20%,rgba(0,232,255,.22),transparent 34%),radial-gradient(circle at 70% 80%,rgba(255,43,214,.18),transparent 40%),linear-gradient(rgba(255,255,255,.025) 50%,rgba(0,0,0,.18) 50%);background-size:auto,auto,100% 3px;pointer-events:none}.window{position:relative;width:min(560px,100%);background:#c0c0c0;color:#000;border:2px solid;border-color:#fff #000 #000 #fff;box-shadow:6px 6px 0 #001014}.title{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,#000080,#0080ff);color:#fff;padding:5px 8px;font-weight:900;letter-spacing:.08em}.body{padding:28px}.screen{background:#02060d;color:var(--green);border:2px inset #888;padding:16px;line-height:1.55;margin-bottom:18px}.screen b{color:var(--cyan)}.btn{display:flex;justify-content:center;align-items:center;gap:10px;width:100%;margin:10px 0;padding:14px 16px;text-decoration:none;color:#000;background:#c0c0c0;border:2px solid;border-color:#fff #000 #000 #fff;font-weight:900;text-transform:uppercase;letter-spacing:.08em}.btn:hover{filter:brightness(1.08)}.google{background:#fff}.danger{color:#7a0033}.foot{font-size:11px;color:#333;line-height:1.45;margin-top:18px}
+  </style>
+</head>
+<body>
+  <main class="window">
+    <div class="title"><span>FLLC_AUTH_GATEWAY.EXE</span><span>□ ×</span></div>
+    <div class="body">
+      <div class="screen">
+        <b>PERSONFU GRID:</b> GitHub Pages is a public portal. Real authentication, memberships, and paid content gates live on FLLC.net.
+        <br><br>
+        <span class="danger">RULE:</span> no tokens or service keys are stored here.
+      </div>
+      <a class="btn google" href="https://www.fllc.net/login?provider=google&redirect=/members">Sign in with Google</a>
+      <a class="btn" href="https://www.fllc.net/login?redirect=/members">Email / password login</a>
+      <a class="btn" href="https://www.fllc.net/members">View membership plans</a>
+      <p class="foot">After authentication, FLLC.net syncs the Supabase session and subscription tier. CyberWorld and GitHub Pages use FLLC as the account authority.</p>
+    </div>
+  </main>
+</body>
+</html>
