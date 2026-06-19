@@ -1,0 +1,94 @@
+{
+  "schema": "personfu.repo-intelligence.v1",
+  "updatedUtc": "2026-06-18T00:00:00Z",
+  "brand": {
+    "operator": "PersonFu",
+    "company": "FLLC",
+    "theme": "early-00s cyberpunk OSINT threat-hunter developer portal",
+    "mainSite": "https://fllc.net",
+    "developerPortal": "https://personfu.github.io",
+    "cyberWorld": "https://cyberworld.fllc.net",
+    "accountGateway": "https://www.fllc.net/login?provider=google&redirect=/members"
+  },
+  "contentSplit": {
+    "freePercent": 50,
+    "basicPercent": 15,
+    "premiumPercent": 35,
+    "rule": "Public content teaches concepts and report discipline; paid tiers add deeper walkthroughs, visual simulators, downloadable templates, and guided labs."
+  },
+  "safetyBoundary": [
+    "owned infrastructure",
+    "written authorization",
+    "contracted assessment",
+    "bug bounty scope",
+    "CTF or synthetic target",
+    "defensive validation and reporting"
+  ],
+  "blockedContent": [
+    "credential theft",
+    "persistence",
+    "stealth or evasion",
+    "live-target exploitation without authorization",
+    "doxxing or personal-data abuse",
+    "destructive payloads"
+  ],
+  "lanes": [
+    {
+      "id": "exploit-intelligence",
+      "label": "Exploit Intelligence",
+      "repos": ["CVE-EXPLOIT-MAPPER", "CVE-Intelligence", "RoguePlanet"],
+      "free": ["CVE briefing notes", "patch urgency explainers", "toy scoring demos"],
+      "basic": ["triage templates", "executive summary builders"],
+      "premium": ["interactive exploit-chain heatmaps", "patch validation dashboards", "guided synthetic incident labs"]
+    },
+    {
+      "id": "osint-surface",
+      "label": "OSINT Surface Mapping",
+      "repos": ["awesome-osint", "phoneinfoga", "visualize-web3-realtime", "GovINT"],
+      "free": ["public-source catalog", "consent-first scope guide", "source quality scorecards"],
+      "basic": ["case note templates", "passive DNS and CT walkthroughs"],
+      "premium": ["3D infrastructure map overlays", "timeline correlation labs", "graph-based report workbench"]
+    },
+    {
+      "id": "red-team-labs",
+      "label": "Red Team Labs",
+      "repos": ["CyberWorld", "jwt_tool", "CISSQLexe", "Command-Control"],
+      "free": ["toy JWT and SQL audit labs", "scope-first checklists", "browser CTF missions"],
+      "basic": ["lab answer review packs", "report-ready screenshots and rubric"],
+      "premium": ["mission simulator unlocks", "defender telemetry replay", "operator notebook exports"]
+    },
+    {
+      "id": "defensive-engineering",
+      "label": "Defensive Engineering",
+      "repos": ["gitleaks", "secretfinder", "awesome-threat-intelligence"],
+      "free": ["redaction helpers", "source validation scripts", "safe sample reports"],
+      "basic": ["team checklists", "pipeline guardrail patterns"],
+      "premium": ["SOC workflow exercises", "detection tuning walkthroughs", "custom report generation"]
+    },
+    {
+      "id": "hardware-rf-aerospace",
+      "label": "Hardware, RF, and Aerospace Visualization",
+      "repos": ["CyberWorld", "FurulieLLC", "NASA-ASCEND-WEBSITE"],
+      "free": ["concept explainers", "static schematics", "mission-control UI previews"],
+      "basic": ["interactive SVG pinouts", "waterfall screenshots", "field log templates"],
+      "premium": ["WebGL/Three.js/mission-control simulators", "synthetic RF lab sequences", "Cesium-style globe overlays"]
+    }
+  ],
+  "automationTargets": [
+    {
+      "name": "repo-audit-rollup",
+      "cadence": "weekly",
+      "outputs": ["README refresh", "stale-link list", "safe-content ratio check", "membership routing check"]
+    },
+    {
+      "name": "content-lane-planner",
+      "cadence": "per release",
+      "outputs": ["free/basic/premium content map", "blog ideas", "lab unlock candidates", "report-pack backlog"]
+    },
+    {
+      "name": "portal-visual-health",
+      "cadence": "per deploy",
+      "outputs": ["login link check", "CyberWorld link check", "mobile visual smoke check", "GitHub Pages static path check"]
+    }
+  ]
+}
