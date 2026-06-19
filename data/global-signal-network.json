@@ -1,0 +1,79 @@
+{
+  "schema": "personfu.global-signal-network.v1",
+  "updatedUtc": "2026-06-19T00:00:00Z",
+  "canonicalDomain": "https://personfu.com",
+  "role": "super developer identity, global social proof, federation map, and alternative-network directory",
+  "relationshipToFllc": {
+    "personfuCom": "developer identity and global technical signal",
+    "fllcNet": "company, services, memberships, billing, and client conversion",
+    "cyberworld": "training universe and interactive labs"
+  },
+  "networkLanes": [
+    {
+      "id": "fediverse",
+      "label": "Fediverse / ActivityPub",
+      "platforms": ["Mastodon", "Pixelfed", "PeerTube", "Lemmy", "WriteFreely", "BookWyrm"],
+      "purpose": "non-centralized publishing, verified identity links, long-tail technical community",
+      "verification": "Add rel=\"me\" links after exact account URLs are created."
+    },
+    {
+      "id": "chat",
+      "label": "Global chat and community",
+      "platforms": ["Matrix", "XMPP", "IRC/Libera", "Discord bridge", "Revolt"],
+      "purpose": "developer rooms, bug bounty discussion, cyber lab announcements, low-friction global access",
+      "verification": "Publish official room aliases and moderation policy."
+    },
+    {
+      "id": "developer-forges",
+      "label": "Developer forges beyond GitHub",
+      "platforms": ["Codeberg", "GitLab", "SourceHut", "Forgejo", "Gitea"],
+      "purpose": "mirrors, resilience, non-US-friendly forge presence, backup discovery paths",
+      "verification": "Mirror only public-safe repos; keep GitHub as primary unless a project moves."
+    },
+    {
+      "id": "atproto-nostr",
+      "label": "ATProto / Nostr",
+      "platforms": ["Bluesky", "Nostr", "Damus/Amethyst clients"],
+      "purpose": "domain handles, signed posts, portable identity experiments",
+      "verification": "Use .well-known/atproto-did or DNS TXT for Bluesky after DID exists; use NIP-05 only after a public key is selected."
+    },
+    {
+      "id": "onion-i2p",
+      "label": "Onion / I2P mirror lane",
+      "platforms": ["Tor onion service", "I2P eepsite", "static signed releases"],
+      "purpose": "resilient access, censorship-resistant mirrors, signed static content, privacy-first readership",
+      "verification": "Requires a server or static mirror pipeline; GitHub Pages cannot directly serve an onion address."
+    },
+    {
+      "id": "regional",
+      "label": "Non-US and regional networks",
+      "platforms": ["Mastodon regional instances", "VK public mirror only if needed", "WeChat public info card if legally appropriate", "Telegram channel", "LINE official", "Kakao", "Element/Matrix"],
+      "purpose": "global reach without relying only on US consumer platforms",
+      "verification": "Keep content legal, public-safe, and brand-consistent per region."
+    }
+  ],
+  "identityFilesToEnableWhenReady": [
+    {
+      "path": ".well-known/atproto-did",
+      "for": "Bluesky custom handle",
+      "needs": "actual did:plc... value copied from Bluesky"
+    },
+    {
+      "path": ".well-known/nostr.json",
+      "for": "Nostr NIP-05",
+      "needs": "actual npub/hex public key"
+    },
+    {
+      "path": "index.html rel=me links",
+      "for": "Mastodon/Pixelfed/PeerTube verification",
+      "needs": "exact profile URLs after accounts are created"
+    }
+  ],
+  "contentBoundary": [
+    "authorized security education",
+    "public-source OSINT literacy",
+    "developer portfolio proof",
+    "signed releases and mirrors",
+    "no credential theft, doxxing, evasion, persistence, or unauthorized target workflows"
+  ]
+}
