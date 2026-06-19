@@ -26,6 +26,22 @@ The portal may use red-team, exploit-hunter, and operator language, but public c
 
 Do not publish credential theft, persistence, evasion, unauthorized exploitation, doxxing, or live-target attack workflows.
 
+## Repo Intelligence Manifest
+
+The portal now includes a machine-readable ecosystem map at `data/personfu-repo-intelligence.json` and a generated summary at `data/personfu-portal-summary.md`.
+
+To regenerate the summary after changing the manifest:
+
+```bash
+node scripts/render-portal-manifest.mjs
+```
+
+The manifest preserves the FLLC content model:
+
+- 50% free public education and previews
+- 15% basic member reports/templates
+- 35% premium simulations, labs, and visual workbenches
+
 ## Core Links
 
 - Main site: <https://fllc.net>
