@@ -100,10 +100,11 @@
 <body>
   <main>
     <h1>Route Alias</h1>
-    <p id="message">Resolving the requested CyberWorld path...</p>
-    <p class="meta">This page catches lower-case routes and forwards them to the existing training pages on GitHub Pages.</p>
+    <p id="message">Resolving the requested PersonFu GitHub Pages path...</p>
+    <p class="meta">personfu.github.io is reserved for CyberWorld and GovINT. personfu.com stays separate for the Person Finder product.</p>
     <div class="links">
       <a class="primary" href="/cyberworld.html">Open CyberWorld</a>
+      <a href="/GovINT/">Open GovINT</a>
       <a href="/CyberWorld/login/">Open login matrix</a>
       <a href="/CyberWorld_login/">Open training gate</a>
     </div>
@@ -112,6 +113,7 @@
   (() => {
     const path = (location.pathname || "").toLowerCase();
     const targets = [
+      { prefix: "/govint", target: "/GovINT/" },
       { prefix: "/cyberworld/login", target: "/CyberWorld/login/" },
       { prefix: "/cyberworld", target: "/cyberworld.html" },
     ];
@@ -122,7 +124,7 @@
       }
     }
     const message = document.getElementById("message");
-    message.textContent = "This route is not mapped yet. Use the links below to enter the range.";
+    message.textContent = "This route is not mapped yet. Use the links below to enter CyberWorld or GovINT.";
   })();
   </script>
 </body>
