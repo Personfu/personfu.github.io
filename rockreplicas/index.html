@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Original Rock Replicas | Custom Stone Work</title>
+  <meta name="description" content="Original Rock Replicas manufactures and installs custom stone veneer for Arizona and California homes, landscapes, interiors, exteriors, and commercial spaces." />
+  <style>
+    :root { --brown:#24140b; --brown2:#5b3519; --copper:#c78a4a; --sand:#f6ead8; --cream:#fff8ec; --ink:#211915; --muted:#6b625b; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--cream); color:var(--ink); font-family: Arial, Helvetica, sans-serif; line-height:1.55; }
+    a { color:inherit; text-decoration:none; }
+    .top { position:sticky; top:0; z-index:5; display:flex; justify-content:space-between; align-items:center; gap:16px; padding:18px clamp(18px,5vw,64px); background:rgba(36,20,11,.94); color:white; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:900; text-transform:uppercase; letter-spacing:.04em; }
+    .mark { width:48px; height:48px; display:grid; place-items:center; border:2px solid rgba(255,255,255,.7); border-radius:999px; color:#ffe1ad; }
+    .nav { display:flex; gap:18px; flex-wrap:wrap; font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; color:#f5e5cd; }
+    .hero { min-height:720px; display:grid; align-items:center; padding:90px clamp(18px,5vw,64px); color:white; background:linear-gradient(90deg, rgba(24,12,5,.96), rgba(72,39,17,.75), rgba(24,12,5,.35)), radial-gradient(circle at 75% 20%, rgba(199,138,74,.45), transparent 28rem), #24140b; }
+    .hero-inner { max-width:1120px; }
+    .kicker { margin:0 0 14px; color:#ffc979; font-size:13px; font-weight:900; letter-spacing:.18em; text-transform:uppercase; }
+    h1 { max-width:980px; margin:0; font-size:clamp(48px,9vw,104px); line-height:.92; letter-spacing:-.07em; text-transform:uppercase; }
+    .lead { max-width:760px; margin:24px 0 0; color:#f2dec1; font-size:clamp(18px,2vw,23px); }
+    .actions { display:flex; flex-wrap:wrap; gap:14px; margin-top:32px; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; min-height:52px; padding:14px 20px; border-radius:999px; font-weight:900; text-transform:uppercase; letter-spacing:.08em; font-size:13px; }
+    .primary { background:#f2b15f; color:#24140b; }
+    .secondary { border:1px solid rgba(255,255,255,.55); color:#fff6e8; }
+    .wrap { width:min(1180px, calc(100% - 36px)); margin:0 auto; }
+    .intro { display:grid; grid-template-columns:1.1fr .9fr; gap:50px; padding:80px 0; align-items:end; }
+    h2 { margin:0; color:var(--brown); font-size:clamp(34px,5vw,62px); line-height:.98; letter-spacing:-.05em; text-transform:uppercase; }
+    .intro p, .card p, .split p, .process p, .cta p { color:var(--muted); font-size:17px; }
+    .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; padding-bottom:72px; }
+    .card { min-height:250px; padding:24px; border-radius:24px; background:white; box-shadow:0 22px 70px rgba(91,53,25,.10); border:1px solid rgba(91,53,25,.12); }
+    .card h3 { margin:0 0 12px; color:var(--brown2); font-size:23px; }
+    .split { display:grid; grid-template-columns:.9fr 1.1fr; gap:16px; padding:70px 0; }
+    .panel { border-radius:28px; padding:clamp(26px,5vw,48px); background:linear-gradient(135deg, #24140b, #5b3519); color:white; }
+    .panel h2, .panel p { color:white; }
+    .products { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:clamp(26px,5vw,48px); border-radius:28px; background:#f1dfc3; }
+    .pill { min-height:74px; display:flex; align-items:center; padding:18px; border-radius:18px; background:#fff8eb; font-weight:900; color:var(--brown); }
+    .process { padding:72px 0; }
+    .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:28px; }
+    .step { padding:24px; border-radius:18px; border-left:5px solid var(--copper); background:white; font-weight:800; }
+    .num { display:block; margin-bottom:12px; color:var(--copper); font-weight:900; }
+    .cta { display:grid; grid-template-columns:1fr 360px; gap:28px; align-items:center; margin:42px auto; padding:clamp(28px,5vw,56px); border-radius:30px; background:linear-gradient(135deg, #24140b, #6a3d1c); color:white; }
+    .cta h2, .cta p { color:white; }
+    .box { display:grid; gap:14px; padding:20px; border-radius:20px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); font-weight:900; overflow-wrap:anywhere; }
+    footer { display:flex; justify-content:space-between; gap:16px; padding:30px 0 50px; color:var(--muted); }
+    @media (max-width:920px) { .intro,.split,.cta { grid-template-columns:1fr; } .grid,.steps { grid-template-columns:repeat(2,1fr); } .top { align-items:flex-start; flex-direction:column; } }
+    @media (max-width:620px) { .hero { min-height:650px; padding-top:60px; } .grid,.steps,.products { grid-template-columns:1fr; } footer { flex-direction:column; } }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="./"><span class="mark">ORR</span><span>Original Rock Replicas</span></a>
+    <nav class="nav"><a href="#products">Products</a><a href="#process">Process</a><a href="#contact">Contact</a></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="kicker">Arizona + California custom manufactured stone veneer</p>
+        <h1>Custom stone work for your lifestyle.</h1>
+        <p class="lead">Original Rock Replicas manufactures and installs durable, lightweight stone veneer for homes, landscapes, interiors, exteriors, fireplaces, entries, walls, and commercial spaces.</p>
+        <div class="actions"><a class="btn primary" href="mailto:INFO@ROCKREPLICA.COM">Request a quote</a><a class="btn secondary" href="tel:+14809457866">Call (480) 945-7866</a></div>
+      </div>
+    </section>
+    <section class="wrap intro">
+      <div><p class="kicker">What we build</p><h2>Stone veneer shaped around the job, not forced from a generic catalog.</h2></div>
+      <p>Choose the rock type, scale, color, finish, and install pattern. The result is stone work that fits the architecture and the environment.</p>
+    </section>
+    <section class="wrap grid">
+      <article class="card"><h3>Exterior Stone Veneer</h3><p>Entries, facades, columns, patios, outdoor kitchens, pool features, and landscape walls.</p></article>
+      <article class="card"><h3>Interior Stone Features</h3><p>Fireplaces, accent walls, wine rooms, showrooms, counters, and specialty spaces.</p></article>
+      <article class="card"><h3>Custom Color Matching</h3><p>Stone profiles can be shaped, colored, and finished to match natural references or existing structures.</p></article>
+      <article class="card"><h3>Commercial + Residential</h3><p>Built for homeowners, builders, designers, contractors, architects, and property managers.</p></article>
+    </section>
+    <section id="products" class="wrap split">
+      <div class="panel"><p class="kicker">Products</p><h2>Seven custom rock types.</h2><p>Each profile can be colored and finished to match regional stone, existing construction, or a project-specific design reference.</p></div>
+      <div class="products"><span class="pill">Field Stone</span><span class="pill">River Rock</span><span class="pill">Ledge Rock</span><span class="pill">Cobblestone</span><span class="pill">Castle Rock</span><span class="pill">Moss Rock</span><span class="pill">River Ledge Rock</span></div>
+    </section>
+    <section id="process" class="wrap process"><p class="kicker">Process</p><h2>From concept to installed stone.</h2><div class="steps"><div class="step"><span class="num">01</span>Review project surface, measurements, and visual target.</div><div class="step"><span class="num">02</span>Select rock type, shape range, color family, and install approach.</div><div class="step"><span class="num">03</span>Manufacture the custom stone veneer pieces for the design.</div><div class="step"><span class="num">04</span>Install, finish, and inspect the completed stone work.</div></div></section>
+    <section id="contact" class="wrap cta"><div><p class="kicker">Contact</p><h2>Send the project details and get the conversation moving.</h2><p>Share photos, dimensions, target stone look, location, and timeline.</p></div><div class="box"><a href="tel:+14809457866">(480) 945-7866</a><a href="mailto:INFO@ROCKREPLICA.COM">INFO@ROCKREPLICA.COM</a><a class="btn primary" href="mailto:INFO@ROCKREPLICA.COM">Email now</a></div></section>
+  </main>
+  <footer class="wrap"><span>Original Rock Replicas, Inc.</span><span>Custom stone work for Arizona and California.</span></footer>
+</body>
+</html>
