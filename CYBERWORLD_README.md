@@ -275,6 +275,31 @@ CyberWorld teaches:
 
 ---
 
+## 🎓 Hacker Academy — the Educational Campaign
+
+The heart of the "educational" in educational MMORPG. Press **A** in CyberWorld
+(or open the **Hacker Academy** desktop icon) to launch a full campaign of **24
+hands-on, in-browser cybersecurity challenges** across five skill domains. Every
+challenge teaches a concept, checks a *real* solve, then explains why it matters —
+and pays XP straight into your operative on the live grid.
+
+| Domain | Sample challenges (all interactive) |
+|--------|--------------------------------------|
+| 🔐 **Cryptography** | Base64/hex/ROT decoders (live tools), single-byte **XOR brute-forcer**, hash identification, real **SHA-256 dictionary crack** (hashes your guess in-browser via SubtleCrypto) |
+| 🕸️ **Web Exploitation** | **SQL-injection login bypass** (watch the query build as you type), missing **security-header** audit, **JWT `alg:none`** forgery, IDOR, path traversal |
+| 📡 **Recon & OSINT** | Port/service exposure, encoded-log extraction, **IOC (IPv4) extraction**, OSINT footprint analysis |
+| 🔬 **Forensics** | **Log hunting** (find the attack line), acrostic **steganography**, cleartext **PCAP** credential recovery, attack-**timeline ordering** |
+| 🛡️ **Blue Team / Defense** | **Phishing** red-flag spotting, **incident-response phase ordering**, MFA vs credential stuffing, least privilege |
+
+Challenges gate sequentially within a domain, are graded client-side with real
+validators, and completions broadcast to the global mission feed. Files:
+`CyberWorld/cw-academy.js` + `cw-academy.css`. Deep-link with
+`CyberWorld/?academy=1` or `?academy=1&challenge=<id>`.
+
+**Connectors used in-world:** the Academy's **DISPATCHES** tab pulls the live
+GitHub repo's recent commits (as "grid patches") and open issues (as "community
+contracts") via the GitHub API — a real, working GitHub integration inside the game.
+
 ## 🛰️ Live Grid — Multiplayer Backend (Supabase)
 
 CyberWorld is now a **real MMO**: a persistent, shared grid backed by Supabase,

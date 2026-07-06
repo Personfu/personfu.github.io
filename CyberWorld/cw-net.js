@@ -450,6 +450,10 @@
 	}
 	function resolveMission(id) {
 		try {
+			var acad = window.__cwAcademy && window.__cwAcademy.challengeName ? window.__cwAcademy.challengeName(id) : null;
+			if (acad) return { name: acad, xp: 0 };
+		} catch (e) {}
+		try {
 			var list = window.__cwGameplay && window.__cwGameplay.missions ? window.__cwGameplay.missions() : [];
 			var found = list.filter(function (x) { return x.id === id; })[0];
 			if (found) return { name: found.title, xp: (found.reward && found.reward.xp) || 0 };
