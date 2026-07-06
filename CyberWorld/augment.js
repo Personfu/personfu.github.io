@@ -48,7 +48,8 @@
 		hangar:          { launch: 'hangar' },
 		blackhangar:     { launch: 'hangar' },
 		hangar3d:        { launch: 'hangar' },
-		dogfight:        { launch: 'dogfight' },
+		dogfight:        { field: true },
+		fieldroute:      { field: true },
 		simulator:       { launch: 'simulator' },
 		nexussimulator:  { launch: 'simulator' },
 		mathviz:         { launch: 'mathviz' },
@@ -85,7 +86,7 @@
 		commsboard:      { launch: 'discuss' },
 		redopssimulator: { launch: 'redops' },
 		intelexchange:   { launch: 'intel' },
-		dogfightdeck:    { launch: 'dogfight' },
+		dogfightdeck:    { field: true },
 		nodeatlas:       { launch: 'nodes' },
 		aiopslab:        { launch: 'ai' },
 		adversarydb:     { launch: 'adversaries' },
@@ -107,7 +108,7 @@
 		{ id: 'research', label: 'Research', icon: '📖' },
 		{ id: 'ai', label: 'AI Module', icon: '🤖' },
 		{ id: 'nodes', label: 'Nodes', icon: '🕸️' },
-		{ id: 'dogfight', label: 'Dogfight', icon: '🛩️' },
+		{ id: 'dogfight', label: 'Field Route', icon: '🛩️' },
 		{ id: 'discuss', label: 'Discuss', icon: '💬' },
 		{ id: 'codex', label: 'CyberWorld Codex', icon: '📚' },
 		{ id: 'stars', label: 'Stars', icon: '⭐' },
@@ -184,6 +185,15 @@
 			return true;
 		}
 		if (a.external) { window.open(a.external, '_blank', 'noopener'); toast('Opening ' + info.raw + ' ↗'); return true; }
+		if (a.field) {
+			toast('Launching Field Route');
+			if (window.__cwGameplay && window.__cwGameplay.startMission) {
+				window.__cwGameplay.startMission('mc-convoy');
+				return true;
+			}
+			window.location.assign(window.location.pathname + '?launch=cyberworld');
+			return true;
+		}
 		if (a.launch)   {
 			var url = window.location.pathname + '?launch=' + encodeURIComponent(a.launch);
 			window.location.assign(url);
@@ -205,6 +215,15 @@
 		}
 		if (a.launch) {
 			window.location.assign(cyberWorldUrl('?launch=' + encodeURIComponent(a.launch)));
+			return true;
+		}
+		if (a.field) {
+			toast('Launching Field Route');
+			if (window.__cwGameplay && window.__cwGameplay.startMission) {
+				window.__cwGameplay.startMission('mc-convoy');
+				return true;
+			}
+			window.location.assign(cyberWorldUrl('?launch=cyberworld'));
 			return true;
 		}
 		if (a.external) {
@@ -305,9 +324,9 @@
 			return;
 		}
 		var a = info.action;
-		btn.dataset.cwRoute = a.external ? 'external' : (a.launch ? 'launch' : 'info');
+		btn.dataset.cwRoute = a.external ? 'external' : (a.launch ? 'launch' : (a.field ? 'field' : 'info'));
 		btn.setAttribute('aria-label', info.raw + (a.external ? ' (opens new tab)' : ''));
-		btn.title = info.raw + (a.external ? ' — opens in new tab' : (a.launch ? ' — launch in world' : ''));
+		btn.title = info.raw + (a.external ? ' — opens in new tab' : (a.launch ? ' — launch in world' : (a.field ? ' — launch field route' : '')));
 		btn.setAttribute('role', 'button');
 		if (!btn.hasAttribute('tabindex')) btn.tabIndex = 0;
 		if (!btn.dataset.cwEvents) {

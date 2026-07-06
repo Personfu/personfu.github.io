@@ -40,8 +40,8 @@
 		try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch (e) {}
 	}
 	var state = loadState();
-	var FIELD_TARGET_PACKETS = 7;
-	var FIELD_MAX_DAEMONS = 5;
+	var FIELD_TARGET_PACKETS = 6;
+	var FIELD_MAX_DAEMONS = 4;
 
 	function xpForLevel(L) { return Math.floor(100 * Math.pow(1.35, L - 1)); }
 	function gainXp(n) {
@@ -94,9 +94,21 @@
 		{ id: 'dn-convoy',   sector: 'Darknet Depths',  title: 'Black Relay Convoy',
 		  brief: 'Run a hostile relay corridor while watcher daemons sweep the packet lanes.',
 		  reward: { xp: 180, credits: 280, item: 'RELAY-TRACE' }, kind: 'field', req: { level: 5 } },
+		{ id: 'dn-cave',     sector: 'Darknet Depths',  title: 'Map the Relay Cave',
+		  brief: 'Descend into the Dark Relay Cave, tag watcher nests, and pull the route map without triggering a trace spike.',
+		  reward: { xp: 210, credits: 320, item: 'CAVE-MAP' }, kind: 'field', req: { level: 5 } },
+		{ id: 'dn-matriarch', sector: 'Darknet Depths', title: 'Relay Matriarch',
+		  brief: 'Challenge the watcher boss that controls the cave beacon lattice.',
+		  reward: { xp: 280, credits: 420, item: 'WATCHER-CORE' }, kind: 'combat', enemy: 'RELAY-MATRIARCH', req: { level: 6 } },
 		{ id: 'sc-raid',     sector: 'Stormcore',       title: 'Stormcore Breach',
 		  brief: 'Push through Stormcore ICE and tag the throne node.',
-		  reward: { xp: 250, credits: 400, item: 'STORM-KEY' }, kind: 'combat', enemy: 'STORMCORE-ICE', req: { level: 6 } }
+		  reward: { xp: 250, credits: 400, item: 'STORM-KEY' }, kind: 'combat', enemy: 'STORMCORE-ICE', req: { level: 6 } },
+		{ id: 'sc-caves',    sector: 'Stormcore',       title: 'Firewall Caves',
+		  brief: 'Navigate the storm-lit firewall caves, collect calibration shards, and open the raid backdoor.',
+		  reward: { xp: 320, credits: 520, item: 'FIREWALL-CALIBRATOR' }, kind: 'field', req: { level: 7 } },
+		{ id: 'sc-overseer', sector: 'Stormcore',       title: 'Overseer Blackout',
+		  brief: 'Face the Stormcore Overseer in a defensive boss fight and break the blackout loop.',
+		  reward: { xp: 480, credits: 800, item: 'OVERSEER-SEAL' }, kind: 'combat', enemy: 'STORM-OVERSEER', req: { level: 8 } }
 	];
 
 	var ENEMY_TEMPLATES = {
@@ -115,6 +127,18 @@
 		'STORMCORE-ICE': {
 			baseHp: 220, atk: 18, def: 8,
 			loot: { credits: 250, item: 'ICE-CORE' },
+			tactic: 'fortify',
+			boss: true
+		},
+		'RELAY-MATRIARCH': {
+			baseHp: 180, atk: 16, def: 6,
+			loot: { credits: 210, item: 'MATRIARCH-SIGNAL' },
+			tactic: 'pressure',
+			boss: true
+		},
+		'STORM-OVERSEER': {
+			baseHp: 320, atk: 22, def: 10,
+			loot: { credits: 420, item: 'BLACKOUT-KERNEL' },
 			tactic: 'fortify',
 			boss: true
 		},
@@ -728,6 +752,8 @@
 		node.style.setProperty('--y', Math.round(obj.y) + 'px');
 	}
 	function routeNameForMission(mission) {
+		if (mission && mission.id === 'sc-caves') return 'Stormcore Firewall Caves';
+		if (mission && mission.id === 'dn-cave') return 'Dark Relay Cave Survey';
 		if (mission && mission.id === 'dn-convoy') return 'Black Relay Convoy';
 		if (mission && mission.id === 'mc-convoy') return 'City Gate Convoy';
 		return 'City Gate Practice Route';
@@ -750,8 +776,8 @@
 		};
 	}
 	function spawnDaemon(bounds, i, mission) {
-		var hard = mission && mission.id === 'dn-convoy';
-		var speed = hard ? randBetween(0.72, 1.08) : randBetween(0.48, 0.82);
+		var hard = mission && /^(dn-convoy|dn-cave|sc-caves)$/.test(mission.id);
+		var speed = hard ? randBetween(0.55, 0.82) : randBetween(0.36, 0.62);
 		var lanes = [0.47, 0.62, 0.78, 0.54, 0.86];
 		var rows = [0.24, 0.72, 0.42, 0.84, 0.58];
 		return {
@@ -767,7 +793,7 @@
 		return {
 			x: clamp(bounds.width * (i ? 0.74 : 0.29), 110, bounds.width - 90),
 			y: clamp(bounds.height * (i ? 0.36 : 0.64), 124, bounds.height - 96),
-			range: i ? 118 : 96,
+			range: i ? 92 : 78,
 			hot: false
 		};
 	}
@@ -810,10 +836,10 @@
 			ticking: false,
 			routeName: 'City Gate Practice Route',
 			mission: null,
-			player: { x: 180, y: 180, speed: 3.8 },
+			player: { x: 180, y: 180, speed: 4.65 },
 			score: 0,
 			heat: 0,
-			shield: state.shield,
+			shield: Math.max(58, state.shield + 24, state.maxShield + 18),
 			pulseCooldown: 0,
 			dashCooldown: 0,
 			gateOpen: false,
@@ -838,10 +864,10 @@
 		ops.active = true;
 		ops.mission = mission || null;
 		ops.routeName = routeNameForMission(mission);
-		ops.player = { x: Math.max(110, rect.width * 0.16), y: Math.max(132, rect.height * 0.5), speed: 3.8 };
+		ops.player = { x: Math.max(110, rect.width * 0.16), y: Math.max(132, rect.height * 0.5), speed: 4.65 };
 		ops.score = 0;
 		ops.heat = 0;
-		ops.shield = Math.max(20, state.shield);
+		ops.shield = Math.max(58, state.shield + 24, state.maxShield + 18);
 		ops.pulseCooldown = 0;
 		ops.dashCooldown = 0;
 		ops.gateOpen = false;
@@ -862,7 +888,7 @@
 			ops.packetNodes.push(pn);
 			placeLiveNode(pn, p);
 		}
-		var daemonCount = mission && mission.id === 'dn-convoy' ? FIELD_MAX_DAEMONS : 4;
+		var daemonCount = mission && /^(dn-convoy|dn-cave|sc-caves)$/.test(mission.id) ? FIELD_MAX_DAEMONS : 3;
 		for (i = 0; i < daemonCount; i++) {
 			var d = spawnDaemon(rect, i, mission);
 			var dn = liveEntity('lo-daemon ' + d.type, d.type === 'sentinel' ? 'Sentinel ICE' : 'Watcher daemon');
@@ -918,9 +944,9 @@
 			liveToast('Pulse recharging');
 			return;
 		}
-		liveOps.pulseCooldown = 88;
-		liveOps.heat = Math.max(0, liveOps.heat - 26);
-		liveOps.daemons.forEach(function (d) { d.stun = Math.max(d.stun, 54); });
+		liveOps.pulseCooldown = 58;
+		liveOps.heat = Math.max(0, liveOps.heat - 34);
+		liveOps.daemons.forEach(function (d) { d.stun = Math.max(d.stun, 68); });
 		liveOps.log.push('Pulse fired: daemons stunned, trace heat reduced.');
 		liveOps.root.style.setProperty('--pulse-x', Math.round(liveOps.player.x) + 'px');
 		liveOps.root.style.setProperty('--pulse-y', Math.round(liveOps.player.y) + 'px');
@@ -1015,7 +1041,7 @@
 		liveOps.player.y = clamp(liveOps.player.y + dy * speed * dt, 74, Math.max(92, rect.height - 58));
 		if (dashing) {
 			liveOps.dashCooldown = 82;
-			liveOps.heat = Math.min(100, liveOps.heat + 5);
+			liveOps.heat = Math.min(100, liveOps.heat + 3);
 			liveOps.playerNode.classList.add('dash');
 			setTimeout(function () { if (liveOps && liveOps.playerNode) liveOps.playerNode.classList.remove('dash'); }, 180);
 		}
@@ -1029,21 +1055,21 @@
 			} else {
 				liveOps.daemonNodes[i].classList.remove('stunned');
 				var distance = dist(liveOps.player, d);
-				if (distance < 190) {
-					d.vx += clamp((liveOps.player.x - d.x) / 900, -0.08, 0.08);
-					d.vy += clamp((liveOps.player.y - d.y) / 900, -0.08, 0.08);
+				if (distance < 160) {
+					d.vx += clamp((liveOps.player.x - d.x) / 1100, -0.055, 0.055);
+					d.vy += clamp((liveOps.player.y - d.y) / 1100, -0.055, 0.055);
 				}
-				d.vx = clamp(d.vx, -1.32, 1.32);
-				d.vy = clamp(d.vy, -1.08, 1.08);
+				d.vx = clamp(d.vx, -0.96, 0.96);
+				d.vy = clamp(d.vy, -0.78, 0.78);
 				d.x += d.vx * dt;
 				d.y += d.vy * dt;
 				if (d.x < 72 || d.x > rect.width - 62) d.vx *= -1;
 				if (d.y < 88 || d.y > rect.height - 66) d.vy *= -1;
 				d.x = clamp(d.x, 72, Math.max(88, rect.width - 62));
 				d.y = clamp(d.y, 88, Math.max(104, rect.height - 66));
-				if (distance < 34) {
-					liveOps.heat = Math.min(100, liveOps.heat + 1.25 * dt);
-					liveOps.shield = Math.max(0, liveOps.shield - 0.22 * dt);
+				if (distance < 29) {
+					liveOps.heat = Math.min(100, liveOps.heat + 0.82 * dt);
+					liveOps.shield = Math.max(0, liveOps.shield - 0.13 * dt);
 				}
 			}
 			placeLiveNode(liveOps.daemonNodes[i], d);
@@ -1052,7 +1078,7 @@
 			var hot = dist(liveOps.player, tower) < tower.range;
 			tower.hot = hot;
 			liveOps.towerNodes[i].classList.toggle('hot', hot);
-			if (hot) liveOps.heat = Math.min(100, liveOps.heat + 0.38 * dt);
+			if (hot) liveOps.heat = Math.min(100, liveOps.heat + 0.22 * dt);
 		});
 		liveOps.packets.forEach(function (p, i) {
 			if (p.collected) return;
@@ -1078,7 +1104,7 @@
 		}
 		liveOps.heat = Math.max(0, liveOps.heat - 0.08 * dt);
 		if (liveOps.heat >= 100 || liveOps.shield <= 0) {
-			state.hp = Math.max(20, state.hp - 10);
+			state.hp = Math.max(20, state.hp - 6);
 			state.shield = Math.max(0, Math.round(liveOps.shield));
 			saveState();
 			liveOps.log.push('Trace spike: route reset, HP reduced.');
@@ -1135,11 +1161,24 @@
 		window.__cwOpenConsole = openConsoleTab;
 	}
 
+	function autoStartLaunchRoute() {
+		if (window.__cwDogfightRerouted) return;
+		var launch = new URLSearchParams(window.location.search || '').get('launch');
+		if (!launch || launch.toLowerCase() !== 'dogfight') return;
+		window.__cwDogfightRerouted = true;
+		setTimeout(function () {
+			toast('Dogfight rebuilt as Field Route');
+			var m = MISSIONS.find(function (x) { return x.id === 'mc-convoy'; });
+			if (m) startMission(m);
+		}, 900);
+	}
+
 	function boot() {
 		if (!document.body) return;
 		mountFab();
 		mountLiveOps();
 		wireRoutes();
+		autoStartLaunchRoute();
 		try { console.log('%c[CyberWorld gameplay] ready — press M', 'color:#00ff9c;font-weight:bold'); } catch (e) {}
 	}
 	document.addEventListener('DOMContentLoaded', boot, { once: true });

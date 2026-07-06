@@ -26,6 +26,52 @@
 }
 
 /* ---------- HUD polish ---------- */
+.cw-app {
+	min-height: 100vh !important;
+	display: grid !important;
+	grid-template-rows: auto minmax(0, 1fr) auto !important;
+	overflow: hidden !important;
+}
+.cw-topbar {
+	min-height: 58px !important;
+	padding: 8px 14px !important;
+	gap: 12px !important;
+	flex-wrap: wrap !important;
+	align-items: center !important;
+}
+.cw-brand {
+	min-width: min(280px, 100%) !important;
+}
+.cw-status {
+	display: flex !important;
+	flex-wrap: wrap !important;
+	gap: 7px !important;
+	justify-content: flex-end !important;
+	min-width: 0 !important;
+}
+.cw-status .pill {
+	white-space: nowrap !important;
+}
+.cw-shell {
+	min-height: 0 !important;
+	overflow: hidden !important;
+}
+.cw-bottombar {
+	min-height: 36px !important;
+	display: grid !important;
+	grid-template-columns: auto minmax(0, 1fr) auto !important;
+	align-items: center !important;
+	gap: 12px !important;
+	padding: 6px 12px !important;
+	overflow: hidden !important;
+}
+.cw-bottombar > span {
+	white-space: nowrap !important;
+}
+.cw-bottombar .marquee {
+	min-width: 0 !important;
+	overflow: hidden !important;
+}
 .cw-panel header {
 	font-weight: 700;
 	font-size: 12px;
@@ -193,6 +239,20 @@
 
 /* ---------- Mobile / narrow polish ---------- */
 @media (max-width: 720px) {
+	.cw-topbar {
+		min-height: 74px !important;
+		align-content: center !important;
+	}
+	.cw-status {
+		justify-content: flex-start !important;
+		width: 100% !important;
+	}
+	.cw-bottombar {
+		grid-template-columns: 1fr auto !important;
+	}
+	.cw-bottombar .marquee {
+		display: none !important;
+	}
 	.win98-icons-grid {
 		grid-template-columns: repeat(auto-fit, minmax(72px, 1fr)) !important;
 		gap: 8px !important;

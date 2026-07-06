@@ -23,8 +23,68 @@
   function lerp(a, b, t) { return a + (b - a) * t; }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
   function rankFor(L) { return L >= 40 ? 'LEGEND' : L >= 30 ? 'PHANTOM' : L >= 22 ? 'ARCHITECT' : L >= 15 ? 'ELITE' : L >= 9 ? 'OPERATIVE' : L >= 4 ? 'AGENT' : 'ROOKIE'; }
+  function todayKey() {
+    var d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  }
 
   var DOMAIN_COLORS = { crypto: '#00ffcc', web: '#ff2bd6', recon: '#4db5ff', forensics: '#ffb454', defense: '#7CFF6B' };
+  var PLAZA_HOTSPOTS = [
+    { id: 'academy', label: 'ACADEMY', title: 'Hacker Academy', icon: 'A', kind: 'academy', x: 0.20, y: 0.32, w: 168, h: 94, color: '#00ffcc', action: 'academy', desc: 'Start guided cyber lessons and earn XP.' },
+    { id: 'field', label: 'FIELD ROUTE', title: 'Field Route Portal', icon: 'F', kind: 'portal', x: 0.58, y: 0.26, w: 180, h: 102, color: '#7CFF6B', action: 'field', desc: 'Launch the live shard convoy route.' },
+    { id: 'net', label: 'NET CAFE', title: 'Net Cafe', icon: 'N', kind: 'cafe', x: 0.79, y: 0.37, w: 176, h: 96, color: '#ff2bd6', action: 'net', desc: 'Open chat, roster, ranks, and faction tools.' },
+    { id: 'console', label: 'CONSOLE', title: 'Ops Console', icon: 'C', kind: 'console', x: 0.32, y: 0.77, w: 170, h: 92, color: '#fcee09', action: 'console', desc: 'Manage missions, inventory, combat, and field stats.' },
+    { id: 'profile', label: 'PROFILE', title: 'Profile Booth', icon: 'P', kind: 'profile', x: 0.82, y: 0.72, w: 158, h: 94, color: '#4db5ff', action: 'profile', desc: 'View the live operative dossier.' },
+    { id: 'map', label: 'SECTOR GATE', title: 'Sector Gate', icon: 'G', kind: 'gate', x: 0.63, y: 0.78, w: 176, h: 96, color: '#00ffcc', action: 'map', desc: 'Open the sector node map.' }
+  ];
+  var PLAZA_ACTIVITIES = [
+    { id: 'daily-cache', label: 'DAILY CACHE', title: 'Daily Cache', icon: '$', x: 0.50, y: 0.61, r: 30, color: '#fcee09', action: 'cache', desc: 'Claim one plaza credit cache per day.' },
+    { id: 'emote-pad', label: 'EMOTE PAD', title: 'Signal Pad', icon: '*', x: 0.47, y: 0.48, r: 28, color: '#ff2bd6', action: 'emote', desc: 'Broadcast a visible room emote.' },
+    { id: 'mission-board', label: 'MISSION BOARD', title: 'Mission Board', icon: '!', x: 0.12, y: 0.58, r: 27, color: '#ffb454', action: 'console', desc: 'Jump straight to active operations.' },
+    { id: 'relay-cave', label: 'RELAY CAVE', title: 'Dark Relay Cave', icon: 'D', x: 0.08, y: 0.78, r: 29, color: '#7CFF6B', action: 'mission:dn-convoy', desc: 'Enter the watcher cave route once your operative can survive it.' },
+    { id: 'storm-boss', label: 'STORM BOSS', title: 'Stormcore Raid Gate', icon: 'B', x: 0.92, y: 0.83, r: 31, color: '#ff2bd6', action: 'mission:sc-raid', desc: 'Challenge the Stormcore ICE boss encounter.' },
+    { id: 'help-terminal', label: 'HELP TERMINAL', title: 'Plaza Guide', icon: '?', x: 0.92, y: 0.52, r: 27, color: '#7CFF6B', action: 'guide', desc: 'Get a quick tour of movement, chat, and kiosks.' }
+  ];
+  var PLAZA_NPCS = [
+    { id: 'warden', name: 'Patch Warden', title: 'Route Marshal', x: 0.34, y: 0.52, color: '#ffb454',
+      mission: 'mc-convoy',
+      lines: [
+        { test: 'mission:mc-convoy', text: 'Clean first run. Now the city trusts your routing. The Relay Cave opens when your tier catches up.' },
+        { test: 'default', text: 'First contract: route the City Gate Convoy. Shards first, heat second, exfil only when the gate burns green.' }
+      ] },
+    { id: 'mentor', name: 'Blue Mentor', title: 'Academy Keeper', x: 0.64, y: 0.51, color: '#4db5ff',
+      action: 'academy',
+      lines: [
+        { test: 'level:4', text: 'You are past the basics. Build clean habits now: scoped recon, evidence trails, and defensive fixes.' },
+        { test: 'default', text: 'CyberWorld rewards discipline. The Academy is where you turn tricks into methods and methods into rank.' }
+      ] },
+    { id: 'relay', name: 'Relay Tech', title: 'Cave Scout', x: 0.50, y: 0.68, color: '#00ffcc',
+      mission: 'dn-convoy',
+      lines: [
+        { test: 'mission:dn-convoy', text: 'Black Relay logs are in. Stormcore is the next wall, and it will not fold to button mashing.' },
+        { test: 'level:5', text: 'The Relay Cave is live. Watchers hunt in pairs down there; pulse early and keep shield in reserve.' },
+        { test: 'default', text: 'The cave route is sealed until you have enough field rank. Clear City Gate, train, then come back.' }
+      ] }
+  ];
+  var PLAZA_EMOTES = [
+    'signals ready',
+    'drops a firewall marker',
+    'checks packet lanes',
+    'flags the plaza board',
+    'salutes the route crew'
+  ];
+  var WORLD_ASSET_URLS = {
+    operative: '/CyberWorld/assets/cyberworld/operative-sprite.svg',
+    shard: '/CyberWorld/assets/cyberworld/data-shard.svg',
+    daemon: '/CyberWorld/assets/cyberworld/watcher-daemon.svg',
+    gate: '/CyberWorld/assets/cyberworld/exfil-gate.svg'
+  };
+  var WORLD_ASSETS = {};
+  Object.keys(WORLD_ASSET_URLS).forEach(function (key) {
+    var img = new Image();
+    img.src = WORLD_ASSET_URLS[key];
+    WORLD_ASSETS[key] = img;
+  });
 
   function getOp() {
     var g = loadJSON('cw.operative.v1', {}) || {};
@@ -36,6 +96,37 @@
       xp: Math.max(0, parseInt(g.xp, 10) || 0),
       credits: Math.max(0, parseInt(g.credits, 10) || 0)
     };
+  }
+  function gameplayState() {
+    return loadJSON('cw.operative.v1', {}) || {};
+  }
+  function missionDone(id) {
+    var g = gameplayState();
+    return !!(g.completed && g.completed[id]);
+  }
+  function storyArc() {
+    var op = getOp();
+    if (!missionDone('mc-convoy')) return 'Act I - City Gate Convoy';
+    if (op.level < 5 || !missionDone('dn-convoy')) return 'Act II - Dark Relay Cave';
+    if (op.level < 6 || !missionDone('sc-raid')) return 'Act III - Stormcore Raid';
+    return 'Act IV - Open Contracts';
+  }
+  function passesDialogueTest(test) {
+    if (!test || test === 'default') return true;
+    var bits = String(test).split(':');
+    if (bits[0] === 'mission') return missionDone(bits[1]);
+    if (bits[0] === 'level') return getOp().level >= (parseInt(bits[1], 10) || 1);
+    return false;
+  }
+  function npcDialogue(npc) {
+    var lines = npc.lines || [{ test: 'default', text: npc.line || '' }];
+    for (var i = 0; i < lines.length; i++) {
+      if (lines[i].test !== 'default' && passesDialogueTest(lines[i].test)) return lines[i].text;
+    }
+    for (var j = 0; j < lines.length; j++) {
+      if (lines[j].test === 'default') return lines[j].text;
+    }
+    return npc.line || '';
   }
 
   // ------------------------------------------------------------ sound engine (WebAudio, no assets)
@@ -92,7 +183,7 @@
   // ------------------------------------------------------------ state
   var W = {
     root: null, canvas: null, ctx: null, dpr: 1, w: 0, h: 0,
-    view: 'grid',        // 'grid' | 'sector'
+    view: 'plaza',       // 'plaza' | 'grid' | 'sector'
     sector: null,        // active sector id
     trans: 1,            // transition progress 0..1
     sectors: [],         // computed sector layout
@@ -101,6 +192,11 @@
     particles: [],
     packets: [],
     hover: null,
+    focus: null,
+    keys: {},
+    avatar: { x: 0, y: 0, tx: 0, ty: 0, ready: false, dir: 1 },
+    plazaBubble: { text: '', until: 0, speaker: '' },
+    emoteIndex: 0,
     t: 0,
     lastLevel: 1, lastDone: 0,
     booted: false, open: false, raf: null
@@ -128,6 +224,8 @@
           '<div class="cwg-stat on"><b id="cwg-online">1</b>ONLINE</div>' +
         '</div>' +
         '<div class="cwg-topbtns">' +
+          '<button class="cwg-tb" id="cwg-btn-plaza">PLAZA</button>' +
+          '<button class="cwg-tb" id="cwg-btn-map">MAP</button>' +
           '<button class="cwg-tb" id="cwg-btn-console">CONSOLE</button>' +
           '<button class="cwg-tb" id="cwg-btn-ranks">RANKS</button>' +
           '<button class="cwg-tb" id="cwg-btn-snd" data-on="1"><span class="snd">🔊 SND</span></button>' +
@@ -141,6 +239,16 @@
         '<div class="obj" id="cwg-obj">—</div><div class="objsub" id="cwg-objsub"></div>' +
         '<button class="go" id="cwg-obj-go">▸ ENGAGE</button>' +
         '<div class="breakdown" id="cwg-breakdown"></div></div>' +
+      '<div class="cwg-hud" id="cwg-action"><div class="lbl" id="cwg-action-lbl">CITY GATE PLAZA</div>' +
+        '<div class="obj" id="cwg-action-title">Walk to a kiosk</div><div class="objsub" id="cwg-action-sub">Click the plaza or use WASD / arrows to move.</div>' +
+        '<button class="go" id="cwg-action-go">TALK</button></div>' +
+      '<div class="cwg-hud" id="cwg-social">' +
+        '<button data-social="emote" title="Broadcast an emote">EMOTE</button>' +
+        '<button data-social="chat" title="Focus plaza chat">CHAT</button>' +
+        '<button data-social="friends" title="Open NET roster">CREW</button>' +
+        '<button data-social="cache" title="Claim daily cache">CACHE</button>' +
+        '<button data-social="map" title="Open sector map">MAP</button>' +
+      '</div>' +
       // comms
       '<div class="cwg-hud" id="cwg-comms"><div id="cwg-comms-feed"></div>' +
         '<div id="cwg-comms-bar"><input id="cwg-comms-input" maxlength="280" placeholder="broadcast to the grid…" autocomplete="off"><button id="cwg-comms-send">SEND</button></div></div>' +
@@ -167,14 +275,23 @@
     window.addEventListener('resize', resize);
     document.addEventListener('keydown', function (e) {
       if (e.target && /input|textarea|select/i.test(e.target.tagName)) return;
+      var key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
       if (e.key === 'g' || e.key === 'G') { e.preventDefault(); W.open ? closeWorld() : openWorld(); }
+      else if (W.open && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d'].indexOf(key) !== -1) { W.keys[key] = true; e.preventDefault(); }
       else if (e.key === 'Escape' && W.open && W.view === 'sector') { toGrid(); }
+      else if (e.key === 'Escape' && W.open && W.view === 'grid') { toPlaza(); }
       else if (e.key === 'Escape' && W.open) { closeWorld(); }
+    });
+    document.addEventListener('keyup', function (e) {
+      var key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+      if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d'].indexOf(key) !== -1) W.keys[key] = false;
     });
   }
 
   function bindHud() {
     document.getElementById('cwg-btn-exit').addEventListener('click', closeWorld);
+    document.getElementById('cwg-btn-plaza').addEventListener('click', toPlaza);
+    document.getElementById('cwg-btn-map').addEventListener('click', toGrid);
     document.getElementById('cwg-btn-ranks').addEventListener('click', function () { try { window.__cwNet && window.__cwNet.open(); } catch (e) {} Audio2.blip(520); });
     document.getElementById('cwg-btn-console').addEventListener('click', function () { try { window.__cwGameplay && window.__cwGameplay.open(); } catch (e) {} Audio2.blip(560); });
     document.getElementById('cwg-btn-snd').addEventListener('click', function () {
@@ -184,6 +301,10 @@
       if (on) Audio2.blip(660);
     });
     document.getElementById('cwg-obj-go').addEventListener('click', function () { engageNext(); });
+    document.getElementById('cwg-action-go').addEventListener('click', function () { activateFocus(); });
+    document.querySelectorAll('#cwg-social button').forEach(function (b) {
+      b.addEventListener('click', function () { runPlazaSocial(b.dataset.social); });
+    });
     var send = function () {
       var inp = document.getElementById('cwg-comms-input'); if (!inp) return;
       var body = inp.value.trim(); if (!body) return; inp.value = '';
@@ -247,6 +368,7 @@
     var boot = document.getElementById('cwg-boot');
     if (boot) { boot.style.transition = 'opacity .6s'; boot.style.opacity = '0'; setTimeout(function () { boot.classList.add('gone'); }, 620); }
     refreshData(true);
+    toPlaza();
   }
 
   // ------------------------------------------------------------ open / close
@@ -258,7 +380,7 @@
     resize();
     var boot = document.getElementById('cwg-boot');
     if (boot && !boot.classList.contains('gone')) { runBoot(); document.getElementById('cwg-jackin').onclick = jackIn; }
-    else refreshData(true);
+    else { refreshData(true); if (W.view !== 'sector') toPlaza(); }
     startLoop();
   }
   function closeWorld() {
@@ -318,6 +440,7 @@
     var d = (W.wd.domains || []).filter(function (x) { return x.id === id; })[0];
     if (!d) return;
     W.sector = id; W.view = 'sector'; W.trans = 0;
+    if (W.root) W.root.dataset.view = 'sector';
     setText('cwg-crumb-txt', 'THE GRID // ' + d.name);
     // lay nodes along an arc path
     W.nodes = d.nodes.map(function (nd, i) {
@@ -326,8 +449,21 @@
     });
     Audio2.blip(440, 0.14, 'sawtooth');
     renderSide();
+    renderBreakdown();
   }
-  function toGrid() { W.view = 'grid'; W.sector = null; W.trans = 0; setText('cwg-crumb-txt', 'THE GRID // SECTOR SELECT'); Audio2.blip(330, 0.12); renderSide(); }
+  function toPlaza() {
+    W.view = 'plaza';
+    W.sector = null;
+    W.trans = 0;
+    W.focus = null;
+    if (W.root) W.root.dataset.view = 'plaza';
+    setText('cwg-crumb-txt', 'CITY GATE PLAZA // OPEN WORLD');
+    setActionPanel(null);
+    Audio2.blip(420, 0.1);
+    renderSide();
+    renderBreakdown();
+  }
+  function toGrid() { W.view = 'grid'; W.sector = null; W.trans = 0; if (W.root) W.root.dataset.view = 'grid'; setText('cwg-crumb-txt', 'THE GRID // SECTOR SELECT'); Audio2.blip(330, 0.12); renderSide(); renderBreakdown(); }
 
   // ------------------------------------------------------------ side panel / objectives
   function firstUnsolved() {
@@ -352,7 +488,11 @@
     else pushMsg({ callsign: 'GRID', faction: 'NEUTRAL', body: 'All sectors cleared, operative. Legend status.' });
   }
   function renderSide() {
-    if (W.view === 'sector' && W.sector) {
+    if (W.view === 'plaza') {
+      setText('cwg-side-lbl', 'CITY GATE PLAZA');
+      setText('cwg-obj', storyArc());
+      setText('cwg-objsub', 'Walk to districts, talk to NPCs, claim cache, run field routes, and open boss gates.');
+    } else if (W.view === 'sector' && W.sector) {
       var d = (W.wd.domains || []).filter(function (x) { return x.id === W.sector; })[0];
       setText('cwg-side-lbl', d.name + ' // ' + d.done + '/' + d.total);
       var nd = d.nodes.filter(function (n) { return !n.done && n.unlocked; })[0];
@@ -367,6 +507,12 @@
   }
   function renderBreakdown() {
     var host = document.getElementById('cwg-breakdown'); if (!host) return;
+    if (W.view === 'plaza') {
+      host.innerHTML = PLAZA_HOTSPOTS.concat(PLAZA_ACTIVITIES).map(function (h) {
+        return '<div class="brow"><span class="bi">' + h.icon + '</span><span>' + esc(h.label) + '</span><span class="bp">OPEN</span></div>';
+      }).join('');
+      return;
+    }
     var wd = W.wd || { domains: [] };
     host.innerHTML = wd.domains.map(function (d) {
       return '<div class="brow"><span class="bi">' + d.icon + '</span><span>' + esc(d.name.split(' ')[0]) + '</span><span class="bp">' + d.done + '/' + d.total + '</span></div>';
@@ -461,6 +607,36 @@
   function ambient() { return { x: Math.random() * W.w, y: Math.random() * W.h, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, life: -1, color: 'rgba(0,255,204,0.35)', size: Math.random() * 1.6 + 0.3, amb: true }; }
   function centerX() { return W.w / 2; }
   function centerY() { return W.h / 2 + 10; }
+  function roundRect(c, x, y, w, h, r) {
+    var rr = Math.min(r || 0, w / 2, h / 2);
+    c.beginPath();
+    c.moveTo(x + rr, y);
+    c.lineTo(x + w - rr, y);
+    c.quadraticCurveTo(x + w, y, x + w, y + rr);
+    c.lineTo(x + w, y + h - rr);
+    c.quadraticCurveTo(x + w, y + h, x + w - rr, y + h);
+    c.lineTo(x + rr, y + h);
+    c.quadraticCurveTo(x, y + h, x, y + h - rr);
+    c.lineTo(x, y + rr);
+    c.quadraticCurveTo(x, y, x + rr, y);
+    c.closePath();
+  }
+  function drawTextPill(c, text, x, y, color) {
+    c.save();
+    c.font = "700 13px 'Share Tech Mono',monospace";
+    c.textAlign = 'center';
+    c.textBaseline = 'middle';
+    var w = c.measureText(text).width + 34;
+    c.fillStyle = 'rgba(2, 9, 14, 0.92)';
+    c.strokeStyle = color || '#00ffcc';
+    c.lineWidth = 1.5;
+    roundRect(c, x - w / 2, y - 17, w, 34, 8);
+    c.fill();
+    c.stroke();
+    c.fillStyle = color || '#00ffcc';
+    c.fillText(text, x, y);
+    c.restore();
+  }
 
   function sectorPos(s) {
     var R = Math.min(W.w, W.h) * s.orbit;
@@ -486,11 +662,11 @@
     drawGridLines(c);
     updateParticles(c);
 
-    if (W.view === 'grid') drawGridView(c);
+    if (W.view === 'plaza') drawPlazaView(c);
+    else if (W.view === 'grid') drawGridView(c);
     else drawSectorView(c);
 
-    // other players (only on grid view)
-    if (W.view === 'grid') drawPlayers(c);
+    if (W.view === 'grid' || W.view === 'plaza') drawPlayers(c);
   }
 
   function drawGridLines(c) {
@@ -618,7 +794,20 @@
 
   // ------------------------------------------------------------ interaction
   function hitTest(mx, my) {
-    if (W.view === 'grid') {
+    if (W.view === 'plaza') {
+      for (var p = 0; p < PLAZA_NPCS.length; p++) {
+        var npc = PLAZA_NPCS[p]; if (!npc._pos) continue;
+        if (Math.hypot(mx - npc._pos.x, my - npc._pos.y) <= 30) return { type: 'npc', id: npc.id, npc: npc, x: npc._pos.x, y: npc._pos.y };
+      }
+      for (var a = 0; a < PLAZA_ACTIVITIES.length; a++) {
+        var act = PLAZA_ACTIVITIES[a]; if (!act._pos) continue;
+        if (Math.hypot(mx - act._pos.x, my - act._pos.y) <= act.r + 12) return { type: 'activity', id: act.id, activity: act, x: act._pos.x, y: act._pos.y };
+      }
+      for (var q = 0; q < PLAZA_HOTSPOTS.length; q++) {
+        var h = PLAZA_HOTSPOTS[q]; if (!h._pos) continue;
+        if (Math.abs(mx - h._pos.x) <= h._pos.w / 2 && Math.abs(my - h._pos.y) <= h._pos.h / 2 + 16) return { type: 'hotspot', id: h.id, hotspot: h, x: h._pos.x, y: h._pos.y };
+      }
+    } else if (W.view === 'grid') {
       for (var i = 0; i < W.sectors.length; i++) {
         var s = W.sectors[i]; if (!s._pos) continue;
         if (Math.hypot(mx - s._pos.x, my - s._pos.y) <= (s._r || 30) + 6) return { type: 'sector', id: s.id, s: s, x: s._pos.x, y: s._pos.y };
@@ -643,9 +832,36 @@
   function onClick(e) {
     Audio2.resume();
     var r = W.canvas.getBoundingClientRect();
-    var h = hitTest(e.clientX - r.left, e.clientY - r.top);
-    if (!h) { if (W.view === 'sector') { /* click empty to go back */ } return; }
-    if (h.type === 'sector') { openSector(h.id); }
+    var mx = e.clientX - r.left, my = e.clientY - r.top;
+    var h = hitTest(mx, my);
+    if (!h) {
+      if (W.view === 'plaza') {
+        var b = plazaBounds();
+        W.avatar.tx = clamp(mx, b.left + 34, b.right - 34);
+        W.avatar.ty = clamp(my, b.top + 48, b.bottom - 34);
+        W.focus = null;
+        setActionPanel(null);
+        return;
+      }
+      if (W.view === 'sector') { /* click empty to stay in sector */ }
+      return;
+    }
+    if (h.type === 'hotspot') {
+      W.avatar.tx = h.x;
+      W.avatar.ty = h.y + h.hotspot.h / 2 + 20;
+      setActionPanel(h);
+      sayInPlaza('System', h.hotspot.title + ' selected.');
+    } else if (h.type === 'activity') {
+      W.avatar.tx = h.x;
+      W.avatar.ty = h.y + h.activity.r + 28;
+      setActionPanel(h);
+      sayInPlaza('System', h.activity.title + ' selected.');
+    } else if (h.type === 'npc') {
+      W.avatar.tx = h.x;
+      W.avatar.ty = h.y + 38;
+      setActionPanel(h);
+      sayInPlaza(h.npc.name, npcDialogue(h.npc));
+    } else if (h.type === 'sector') { openSector(h.id); }
     else if (h.type === 'node') {
       if (h.nd.done) { launchChallenge(h.id); }        // review
       else if (h.nd.unlocked) { launchChallenge(h.id); }
@@ -654,7 +870,13 @@
   }
   function showTip(cx, cy, h) {
     var tip = document.getElementById('cwg-tip'); if (!tip) return;
-    if (h.type === 'sector') {
+    if (h.type === 'hotspot') {
+      tip.innerHTML = '<div class="tt">' + esc(h.hotspot.title) + '</div><div class="td">' + esc(h.hotspot.desc) + '</div><div class="tr">click to walk here</div>';
+    } else if (h.type === 'activity') {
+      tip.innerHTML = '<div class="tt">' + esc(h.activity.title) + '</div><div class="td">' + esc(h.activity.desc) + '</div><div class="tr">click to inspect</div>';
+    } else if (h.type === 'npc') {
+      tip.innerHTML = '<div class="tt">' + esc(h.npc.name) + '</div><div class="td">' + esc(npcDialogue(h.npc)) + '</div><div class="tr">click to talk</div>';
+    } else if (h.type === 'sector') {
       tip.innerHTML = '<div class="tt">' + esc(h.s.name) + '</div><div class="td">' + h.s.done + ' / ' + h.s.total + ' nodes breached</div><div class="tr">▸ click to enter sector</div>';
     } else {
       var nd = h.nd;
@@ -675,7 +897,422 @@
 
   // ------------------------------------------------------------ public API + boot
   function exposeWorldApi() {
-    window.__cwWorld = { open: openWorld, close: closeWorld, refresh: function () { refreshData(); }, toGrid: toGrid };
+    window.__cwWorld = { open: openWorld, close: closeWorld, refresh: function () { refreshData(); }, toGrid: toGrid, toPlaza: toPlaza, view: function () { return W.view; } };
+  }
+
+  function plazaBounds() {
+    var marginX = clamp(W.w * 0.08, 28, 112);
+    var top = clamp(W.h * 0.16, 82, 132);
+    var bottom = W.h - clamp(W.h * 0.16, 116, 168);
+    return { left: marginX, right: W.w - marginX, top: top, bottom: bottom };
+  }
+
+  function initAvatar() {
+    if (W.avatar.ready) return;
+    var b = plazaBounds();
+    W.avatar.x = (b.left + b.right) / 2;
+    W.avatar.y = b.top + (b.bottom - b.top) * 0.56;
+    W.avatar.tx = W.avatar.x;
+    W.avatar.ty = W.avatar.y;
+    W.avatar.ready = true;
+  }
+
+  function plazaPoint(item) {
+    var b = plazaBounds();
+    return {
+      x: lerp(b.left, b.right, item.x),
+      y: lerp(b.top, b.bottom, item.y),
+      w: item.w,
+      h: item.h
+    };
+  }
+
+  function drawPlazaView(c) {
+    initAvatar();
+    updateAvatar();
+    var b = plazaBounds();
+    drawPlazaSkyline(c, b);
+    drawPlazaFloor(c, b);
+    drawPlazaRoutes(c, b);
+    drawPlazaHotspots(c);
+    drawPlazaActivities(c);
+    drawPlazaNpcs(c);
+    drawAvatar(c);
+    drawPlazaBubble(c);
+  }
+
+  function drawPlazaSkyline(c, b) {
+    c.save();
+    var y = Math.max(74, b.top - 78);
+    c.fillStyle = 'rgba(0, 8, 16, 0.88)';
+    c.fillRect(0, 0, W.w, b.top + 36);
+    for (var i = 0; i < 22; i++) {
+      var bw = 42 + (i % 5) * 13;
+      var bh = 44 + ((i * 31) % 72);
+      var x = (i * 79 + Math.sin(i) * 28) % (W.w + 80) - 40;
+      c.fillStyle = i % 3 === 0 ? 'rgba(7,22,35,0.95)' : 'rgba(3,15,28,0.95)';
+      c.fillRect(x, y + 78 - bh, bw, bh);
+      c.strokeStyle = i % 4 === 0 ? 'rgba(255,43,214,0.20)' : 'rgba(0,232,255,0.20)';
+      c.strokeRect(x + 0.5, y + 78 - bh + 0.5, bw - 1, bh - 1);
+      c.fillStyle = i % 4 === 0 ? 'rgba(255,43,214,0.55)' : 'rgba(252,238,9,0.45)';
+      for (var wy = y + 88 - bh; wy < y + 60; wy += 17) {
+        for (var wx = x + 8; wx < x + bw - 8; wx += 17) {
+          if ((wx + wy + i) % 3) c.fillRect(wx, wy, 5, 7);
+        }
+      }
+    }
+    c.restore();
+  }
+
+  function drawPlazaFloor(c, b) {
+    c.save();
+    c.fillStyle = 'rgba(1, 8, 14, 0.72)';
+    c.strokeStyle = 'rgba(0,255,204,0.2)';
+    c.lineWidth = 1.5;
+    roundRect(c, b.left, b.top, b.right - b.left, b.bottom - b.top, 18);
+    c.fill();
+    c.stroke();
+    var cx = (b.left + b.right) / 2;
+    var cy = b.top + (b.bottom - b.top) * 0.55;
+    var grd = c.createRadialGradient(cx, cy, 12, cx, cy, Math.max(b.right - b.left, b.bottom - b.top) * 0.55);
+    grd.addColorStop(0, 'rgba(0,255,204,0.18)');
+    grd.addColorStop(0.42, 'rgba(255,43,214,0.07)');
+    grd.addColorStop(1, 'rgba(0,0,0,0)');
+    c.fillStyle = grd;
+    c.fillRect(b.left, b.top, b.right - b.left, b.bottom - b.top);
+    c.strokeStyle = 'rgba(255,255,255,0.045)';
+    for (var x = b.left + 30; x < b.right; x += 54) { c.beginPath(); c.moveTo(x, b.top); c.lineTo(x, b.bottom); c.stroke(); }
+    for (var y = b.top + 30; y < b.bottom; y += 54) { c.beginPath(); c.moveTo(b.left, y); c.lineTo(b.right, y); c.stroke(); }
+    c.strokeStyle = 'rgba(0,255,204,0.22)';
+    c.lineWidth = 2;
+    c.beginPath(); c.moveTo(b.left + 40, cy); c.lineTo(b.right - 40, cy); c.stroke();
+    c.beginPath(); c.moveTo(cx, b.top + 38); c.lineTo(cx, b.bottom - 38); c.stroke();
+    c.fillStyle = 'rgba(252,238,9,0.08)';
+    roundRect(c, cx - 125, cy - 42, 250, 84, 14);
+    c.fill();
+    c.fillStyle = 'rgba(0,232,255,0.09)';
+    c.beginPath();
+    c.ellipse(cx, cy + 4, 88 + Math.sin(W.t * 2) * 3, 30, 0, 0, Math.PI * 2);
+    c.fill();
+    c.restore();
+    drawTextPill(c, 'CITY GATE PLAZA', cx, b.top + 34, '#fcee09');
+  }
+
+  function drawPlazaRoutes(c, b) {
+    var cx = (b.left + b.right) / 2;
+    var cy = b.top + (b.bottom - b.top) * 0.56;
+    c.save();
+    c.setLineDash([10, 13]);
+    c.lineDashOffset = -W.t * 34;
+    c.lineWidth = 2;
+    PLAZA_HOTSPOTS.forEach(function (h) {
+      var p = plazaPoint(h);
+      c.strokeStyle = h.color.replace(')', ',0.26)');
+      if (c.strokeStyle === h.color) c.strokeStyle = h.color;
+      c.globalAlpha = 0.35;
+      c.beginPath();
+      c.moveTo(cx, cy);
+      c.quadraticCurveTo((cx + p.x) / 2, cy - 48, p.x, p.y + p.h / 2 + 14);
+      c.stroke();
+    });
+    c.setLineDash([]);
+    c.globalAlpha = 1;
+    c.restore();
+  }
+
+  function drawPlazaHotspots(c) {
+    PLAZA_HOTSPOTS.forEach(function (h) {
+      var p = plazaPoint(h);
+      h._pos = p;
+      var hover = W.hover && W.hover.type === 'hotspot' && W.hover.id === h.id;
+      var focus = W.focus && W.focus.type === 'hotspot' && W.focus.id === h.id;
+      c.save();
+      c.shadowColor = h.color;
+      c.shadowBlur = hover || focus ? 28 : 14;
+      c.fillStyle = focus ? 'rgba(12,24,28,0.98)' : 'rgba(3,14,20,0.9)';
+      c.strokeStyle = h.color;
+      c.lineWidth = hover || focus ? 3 : 1.5;
+      roundRect(c, p.x - p.w / 2, p.y - p.h / 2, p.w, p.h, 12);
+      c.fill();
+      c.stroke();
+      c.fillStyle = 'rgba(255,255,255,0.05)';
+      c.fillRect(p.x - p.w / 2 + 10, p.y - p.h / 2 + 10, p.w - 20, 10);
+      c.fillStyle = 'rgba(0,0,0,0.24)';
+      c.fillRect(p.x - p.w / 2 + 12, p.y + p.h / 2 - 22, p.w - 24, 13);
+      if (h.kind === 'portal' || h.kind === 'gate') {
+        c.strokeStyle = h.color;
+        c.lineWidth = 4;
+        c.beginPath();
+        c.arc(p.x, p.y + 4, Math.min(p.w, p.h) * 0.28 + Math.sin(W.t * 3) * 2, 0, Math.PI * 2);
+        c.stroke();
+      } else if (h.kind === 'academy' || h.kind === 'cafe') {
+        c.fillStyle = h.color;
+        for (var i = 0; i < 4; i++) c.fillRect(p.x - 54 + i * 28, p.y - 28, 13, 20);
+      } else if (h.kind === 'console') {
+        c.strokeStyle = h.color;
+        c.beginPath();
+        c.arc(p.x, p.y - 2, 25, 0, Math.PI * 2);
+        c.stroke();
+      }
+      c.restore();
+      c.fillStyle = h.color;
+      c.font = "700 20px 'VT323',monospace";
+      c.textAlign = 'center';
+      c.textBaseline = 'middle';
+      c.fillText(h.icon, p.x, p.y - 10);
+      c.font = "700 11px 'Share Tech Mono',monospace";
+      c.fillStyle = '#eafcff';
+      c.fillText(h.label, p.x, p.y + 15);
+      c.strokeStyle = 'rgba(255,255,255,0.14)';
+      c.beginPath(); c.arc(p.x, p.y + p.h / 2 + 12, 34, 0, Math.PI * 2); c.stroke();
+    });
+  }
+
+  function drawPlazaActivities(c) {
+    PLAZA_ACTIVITIES.forEach(function (a) {
+      var p = plazaPoint({ x: a.x, y: a.y, w: a.r * 2, h: a.r * 2 });
+      a._pos = p;
+      var hover = W.hover && W.hover.type === 'activity' && W.hover.id === a.id;
+      var focus = W.focus && W.focus.type === 'activity' && W.focus.id === a.id;
+      c.save();
+      c.shadowColor = a.color;
+      c.shadowBlur = hover || focus ? 24 : 11;
+      c.fillStyle = focus ? 'rgba(21,19,7,0.96)' : 'rgba(3,12,18,0.9)';
+      c.strokeStyle = a.color;
+      c.lineWidth = hover || focus ? 3 : 1.5;
+      c.beginPath();
+      c.arc(p.x, p.y, a.r, 0, Math.PI * 2);
+      c.fill();
+      c.stroke();
+      c.strokeStyle = 'rgba(255,255,255,0.15)';
+      c.beginPath();
+      c.arc(p.x, p.y, a.r + 8 + Math.sin(W.t * 4) * 2, 0, Math.PI * 2);
+      c.stroke();
+      c.fillStyle = a.color;
+      c.font = "700 17px 'VT323',monospace";
+      c.textAlign = 'center';
+      c.textBaseline = 'middle';
+      c.fillText(a.icon, p.x, p.y - 1);
+      c.restore();
+      c.font = "700 9px 'Share Tech Mono',monospace";
+      c.textAlign = 'center';
+      c.fillStyle = '#dffbff';
+      c.fillText(a.label, p.x, p.y + a.r + 18);
+    });
+  }
+
+  function drawPlazaNpcs(c) {
+    PLAZA_NPCS.forEach(function (npc) {
+      var p = plazaPoint({ x: npc.x, y: npc.y, w: 1, h: 1 });
+      npc._pos = p;
+      var hover = W.hover && W.hover.type === 'npc' && W.hover.id === npc.id;
+      c.save();
+      c.shadowColor = npc.color;
+      c.shadowBlur = hover ? 20 : 10;
+      c.fillStyle = 'rgba(2,8,14,0.96)';
+      c.strokeStyle = npc.color;
+      c.lineWidth = hover ? 3 : 1.5;
+      c.beginPath(); c.arc(p.x, p.y, hover ? 19 : 16, 0, Math.PI * 2); c.fill(); c.stroke();
+      c.fillStyle = npc.color;
+      c.beginPath(); c.arc(p.x, p.y - 3, 5, 0, Math.PI * 2); c.fill();
+      c.fillRect(p.x - 5, p.y + 3, 10, 10);
+      c.restore();
+      c.font = "9px 'Share Tech Mono',monospace";
+      c.textAlign = 'center';
+      c.fillStyle = '#dffbff';
+      c.fillText(npc.name, p.x, p.y + 31);
+      c.fillStyle = npc.color;
+      c.font = "8px 'Share Tech Mono',monospace";
+      c.fillText(npc.title || 'NPC', p.x, p.y + 43);
+    });
+  }
+
+  function updateAvatar() {
+    var b = plazaBounds();
+    var dx = (W.keys.ArrowRight || W.keys.d ? 1 : 0) - (W.keys.ArrowLeft || W.keys.a ? 1 : 0);
+    var dy = (W.keys.ArrowDown || W.keys.s ? 1 : 0) - (W.keys.ArrowUp || W.keys.w ? 1 : 0);
+    if (dx || dy) {
+      if (dx && dy) { dx *= 0.707; dy *= 0.707; }
+      W.avatar.tx = clamp(W.avatar.x + dx * 34, b.left + 34, b.right - 34);
+      W.avatar.ty = clamp(W.avatar.y + dy * 34, b.top + 48, b.bottom - 34);
+      if (dx) W.avatar.dir = dx > 0 ? 1 : -1;
+    }
+    var vx = W.avatar.tx - W.avatar.x;
+    var vy = W.avatar.ty - W.avatar.y;
+    var d = Math.sqrt(vx * vx + vy * vy);
+    if (d > 1) {
+      var step = Math.min(d, 4.8);
+      W.avatar.x += vx / d * step;
+      W.avatar.y += vy / d * step;
+      if (Math.abs(vx) > 0.5) W.avatar.dir = vx > 0 ? 1 : -1;
+    }
+  }
+
+  function drawAvatar(c) {
+    var bob = Math.sin(W.t * 8) * 2;
+    c.save();
+    c.translate(W.avatar.x, W.avatar.y + bob);
+    c.scale(W.avatar.dir, 1);
+    c.shadowColor = '#00ffcc';
+    c.shadowBlur = 22;
+    if (WORLD_ASSETS.operative && WORLD_ASSETS.operative.complete) {
+      c.drawImage(WORLD_ASSETS.operative, -34, -68, 68, 78);
+    } else {
+      c.fillStyle = '#00ffcc';
+      c.fillRect(-13, -42, 26, 38);
+    }
+    c.restore();
+    c.strokeStyle = 'rgba(0,255,204,0.7)';
+    c.lineWidth = 1.5;
+    c.beginPath(); c.ellipse(W.avatar.x, W.avatar.y + 9, 34, 11, 0, 0, Math.PI * 2); c.stroke();
+    c.strokeStyle = 'rgba(252,238,9,0.55)';
+    c.beginPath(); c.arc(W.avatar.tx, W.avatar.ty, 10 + Math.sin(W.t * 7) * 2, 0, Math.PI * 2); c.stroke();
+  }
+
+  function drawPlazaBubble(c) {
+    if (!W.plazaBubble.text || Date.now() > W.plazaBubble.until) return;
+    var text = W.plazaBubble.speaker + ': ' + W.plazaBubble.text;
+    var maxW = Math.min(520, W.w - 48);
+    c.save();
+    c.font = "700 11px 'Share Tech Mono',monospace";
+    var metrics = c.measureText(text);
+    var w = Math.min(maxW, metrics.width + 32);
+    var x = clamp(W.avatar.x - w / 2, 18, W.w - w - 18);
+    var y = clamp(W.avatar.y - 118, 82, W.h - 160);
+    c.fillStyle = 'rgba(2,10,16,0.96)';
+    c.strokeStyle = '#00ffcc';
+    c.lineWidth = 1.5;
+    roundRect(c, x, y, w, 42, 8);
+    c.fill();
+    c.stroke();
+    c.fillStyle = '#eafcff';
+    c.textAlign = 'center';
+    c.textBaseline = 'middle';
+    c.fillText(text.length > 86 ? text.slice(0, 83) + '...' : text, x + w / 2, y + 21);
+    c.restore();
+  }
+
+  function setActionPanel(target) {
+    var action = document.getElementById('cwg-action');
+    if (!action) return;
+    var go = document.getElementById('cwg-action-go');
+    W.focus = target || null;
+    if (!target) {
+      action.dataset.active = '0';
+      setText('cwg-action-lbl', 'CITY GATE PLAZA');
+      setText('cwg-action-title', 'Walk to a kiosk');
+      setText('cwg-action-sub', 'Click the plaza or use WASD / arrows to move.');
+      if (go) go.textContent = 'TALK';
+      return;
+    }
+    action.dataset.active = '1';
+    if (target.type === 'npc') {
+      setText('cwg-action-lbl', 'OPERATIVE NEARBY');
+      setText('cwg-action-title', target.npc.name);
+      setText('cwg-action-sub', npcDialogue(target.npc));
+      if (go) go.textContent = target.npc.mission ? 'START ASSIGNMENT' : 'TALK';
+      return;
+    }
+    if (target.type === 'activity') {
+      setText('cwg-action-lbl', 'PLAZA INTERACTIVE');
+      setText('cwg-action-title', target.activity.title);
+      setText('cwg-action-sub', target.activity.desc);
+      if (go) go.textContent = target.activity.action.indexOf('mission:') === 0 ? 'ENTER ' + target.activity.label : 'ACTIVATE ' + target.activity.label;
+      return;
+    }
+    setText('cwg-action-lbl', 'INTERACTIVE KIOSK');
+    setText('cwg-action-title', target.hotspot.title);
+    setText('cwg-action-sub', target.hotspot.desc);
+    if (go) go.textContent = 'ACTIVATE ' + target.hotspot.label;
+  }
+
+  function activateFocus() {
+    if (!W.focus) {
+      sayInPlaza('Guide', 'Click a building, NPC, or the floor. This is the social plaza hub.');
+      return;
+    }
+    if (W.focus.type === 'npc') {
+      var line = npcDialogue(W.focus.npc);
+      sayInPlaza(W.focus.npc.name, line);
+      pushMsg({ callsign: W.focus.npc.name, faction: 'NEUTRAL', body: line });
+      Audio2.blip(640, 0.08, 'triangle');
+      if (W.focus.npc.mission && (!missionDone(W.focus.npc.mission) || W.focus.npc.id === 'relay')) {
+        setTimeout(function () { startGameplayMission(W.focus.npc.mission); }, 240);
+      } else if (W.focus.npc.action) {
+        runPlazaAction(W.focus.npc.action);
+      }
+      return;
+    }
+    var h = W.focus.hotspot || W.focus.activity;
+    Audio2.blip(720, 0.08, 'triangle');
+    runPlazaAction(h.action, h);
+  }
+
+  function sayInPlaza(speaker, text) {
+    W.plazaBubble = { speaker: speaker || 'Guide', text: text || '', until: Date.now() + 3200 };
+  }
+
+  function startGameplayMission(id) {
+    closeWorld();
+    setTimeout(function () {
+      try { window.__cwGameplay && window.__cwGameplay.startMission && window.__cwGameplay.startMission(id); } catch (e) {}
+    }, 160);
+  }
+
+  function runPlazaAction(action, source) {
+    if (!action) return;
+    if (action.indexOf('mission:') === 0) { startGameplayMission(action.split(':')[1]); return; }
+    if (action === 'academy') { try { window.__cwAcademy && window.__cwAcademy.open(); } catch (e) {} return; }
+    if (action === 'net') { try { window.__cwNet && window.__cwNet.open(); } catch (e) {} return; }
+    if (action === 'console') { try { window.__cwGameplay && window.__cwGameplay.open(); } catch (e) {} return; }
+    if (action === 'profile') { window.open('/profile.html', '_blank', 'noopener'); return; }
+    if (action === 'map') { toGrid(); return; }
+    if (action === 'field') { startGameplayMission('mc-convoy'); return; }
+    if (action === 'cache') { claimDailyCache(); return; }
+    if (action === 'emote') { plazaEmote(); return; }
+    if (action === 'guide') {
+      sayInPlaza('Guide', 'Click the ground to walk. Pick a district, talk to NPCs for assignments, use Space/Pulse in field routes, and return here between runs.');
+      pushMsg({ callsign: 'Guide', faction: 'NEUTRAL', body: 'City Gate Plaza connects Academy, Field, NET, Profile, Console, Relay Cave, and Stormcore.' });
+      return;
+    }
+    if (source) sayInPlaza('System', source.title + ' is online.');
+  }
+
+  function claimDailyCache() {
+    var key = 'cw.plaza.cacheDay';
+    if (localStorage.getItem(key) === todayKey()) {
+      sayInPlaza('Cache', 'Already claimed today. Come back after the next city reset.');
+      Audio2.blip(180, 0.14, 'sawtooth');
+      return;
+    }
+    localStorage.setItem(key, todayKey());
+    try { window.__cwGameplay && window.__cwGameplay.gainCredits && window.__cwGameplay.gainCredits(125); } catch (e) {}
+    try { window.__cwGameplay && window.__cwGameplay.gainItem && window.__cwGameplay.gainItem('PLAZA-CACHE', 1); } catch (e) {}
+    sayInPlaza('Cache', '+125 credits and PLAZA-CACHE logged to inventory.');
+    pushMsg({ callsign: 'Cache', faction: 'NEUTRAL', body: getOp().callsign + ' claimed the daily plaza cache.' });
+    burstAt(W.avatar.x, W.avatar.y - 20, 32, '#fcee09');
+  }
+
+  function plazaEmote() {
+    var op = getOp();
+    var body = op.callsign + ' ' + PLAZA_EMOTES[W.emoteIndex % PLAZA_EMOTES.length] + '.';
+    W.emoteIndex++;
+    sayInPlaza(op.callsign, body.replace(op.callsign + ' ', ''));
+    pushMsg({ callsign: 'EMOTE', faction: op.faction, body: body });
+    burstAt(W.avatar.x, W.avatar.y - 34, 18, '#ff2bd6');
+  }
+
+  function runPlazaSocial(kind) {
+    if (kind === 'emote') { plazaEmote(); return; }
+    if (kind === 'chat') {
+      var input = document.getElementById('cwg-comms-input');
+      if (input) input.focus();
+      sayInPlaza('Guide', 'Type in the plaza chat bar and press Enter.');
+      return;
+    }
+    if (kind === 'friends') { runPlazaAction('net'); return; }
+    if (kind === 'cache') { claimDailyCache(); return; }
+    if (kind === 'map') { toGrid(); }
   }
 
   function boot() {
