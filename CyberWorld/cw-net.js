@@ -272,6 +272,7 @@
 			NET.roster = list;
 			renderRoster();
 			paintTopbar();
+			emitRoster();
 		});
 		chan.subscribe(function (status) {
 			if (status === 'SUBSCRIBED') { NET.gridChan = chan; trackPresence(); }
@@ -283,6 +284,7 @@
 		var chan = NET.sb.channel('cw:chat')
 			.on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'cw_chat' }, function (payload) {
 				appendChat(payload.new, true);
+				if (window.__cwEmitChat) window.__cwEmitChat(payload.new);
 			})
 			.subscribe(function (status) { if (status === 'SUBSCRIBED') NET.chatChan = chan; });
 		// Backfill recent history for the active channel.
@@ -727,6 +729,9 @@
 	}
 
 	// ---------------------------------------------------------------- public API
+	var rosterSubs = [], chatSubs = [];
+	function emitRoster() { rosterSubs.forEach(function (cb) { try { cb(NET.roster.slice()); } catch (e) {} }); }
+	window.__cwEmitChat = function (m) { chatSubs.forEach(function (cb) { try { cb(m); } catch (e) {} }); };
 	window.__cwNet = {
 		state: function () { return JSON.parse(JSON.stringify({ me: NET.me, online: NET.online, roster: NET.roster.length })); },
 		open: function () { togglePanel(true); },
@@ -734,7 +739,17 @@
 		sync: syncOperative,
 		logMission: logMission,
 		award: award,
-		leaderboard: function () { return NET.leaderboard.slice(); }
+		leaderboard: function () { return NET.leaderboard.slice(); },
+		roster: function () { return NET.roster.slice(); },
+		me: function () { return JSON.parse(JSON.stringify(NET.me)); },
+		online: function () { return NET.online; },
+		sendChat: function (body, channel) {
+			if (!NET.online || !body) return Promise.resolve(false);
+			return rpc('cw_post_chat', { p_device_id: NET.device, p_callsign: NET.me.callsign, p_faction: NET.me.faction, p_channel: channel || 'GLOBAL', p_body: body }).then(function () { return true; }).catch(function () { return false; });
+		},
+		onRoster: function (cb) { if (typeof cb === 'function') { rosterSubs.push(cb); cb(NET.roster.slice()); } },
+		onChat: function (cb) { if (typeof cb === 'function') chatSubs.push(cb); },
+		leaderboardData: function () { return NET.leaderboard.slice(); }
 	};
 
 	// ---------------------------------------------------------------- start

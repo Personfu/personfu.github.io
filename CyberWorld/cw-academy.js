@@ -889,7 +889,24 @@
     goChallenge: function (id) { var c = chById(id); if (!c) return false; toggle(true); openChallenge(id); return true; },
     challengeName: function (id) { var c = chById(id); return c ? c.title : null; },
     progress: function () { return { done: CH.filter(function (c) { return isDone(c.id); }).length, total: CH.length }; },
-    challenges: function () { return CH.map(function (c) { return { id: c.id, title: c.title, xp: c.xp }; }); }
+    challenges: function () { return CH.map(function (c) { return { id: c.id, title: c.title, xp: c.xp }; }); },
+    // Rich world data for the game client (THE GRID): domains + per-challenge state.
+    worldData: function () {
+      return {
+        domains: DOMAINS.map(function (d) {
+          var list = chOfDomain(d.id);
+          return {
+            id: d.id, icon: d.icon, name: d.name, desc: d.desc,
+            done: list.filter(function (c) { return isDone(c.id); }).length,
+            total: list.length,
+            nodes: list.map(function (c) {
+              return { id: c.id, title: c.title, tier: c.tier, xp: c.xp, credits: c.credits,
+                       done: isDone(c.id), unlocked: chUnlocked(c) || isDone(c.id) };
+            })
+          };
+        })
+      };
+    }
   };
 
   // ------------------------------------------------------------ deep-link auto-open
