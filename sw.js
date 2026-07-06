@@ -4,7 +4,7 @@
  * Strategy: Cache-First for assets, Network-First for HTML pages.
  */
 
-const CACHE_VERSION = 'fllc-v17-cyberworld-login-bypass-20260512';
+const CACHE_VERSION = 'fllc-v18-cyberworld-grid-net-20260706';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 
@@ -91,6 +91,8 @@ self.addEventListener('fetch', event => {
     url.pathname === '/CyberWorld/augment.js' ||
     url.pathname === '/CyberWorld/gameplay.css' ||
     url.pathname === '/CyberWorld/gameplay.js' ||
+    url.pathname === '/CyberWorld/cw-net.css' ||
+    url.pathname === '/CyberWorld/cw-net.js' ||
     url.pathname.startsWith('/CyberWorld/_next/static/chunks/');
   if (isHotAsset) {
     event.respondWith(

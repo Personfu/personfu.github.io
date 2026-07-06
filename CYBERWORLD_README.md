@@ -275,12 +275,58 @@ CyberWorld teaches:
 
 ---
 
+## 🛰️ Live Grid — Multiplayer Backend (Supabase)
+
+CyberWorld is now a **real MMO**: a persistent, shared grid backed by Supabase,
+served entirely from static GitHub Pages (no game server to run).
+
+**What's live:**
+- **Persistent operatives** — level / XP / credits / missions sync to the cloud,
+  keyed by a per-browser device id, with an anonymous auth session for future
+  account linking. Progress is **anti-cheat clamped server-side** (monotonic:
+  a stale client can never lower your standing).
+- **Realtime presence** — every connected operative appears on the live grid
+  roster; the topbar "OPS ONLINE" count is now real, driven by Supabase Presence.
+- **Global + faction chat** — persisted and delivered live over Postgres change
+  streams (`#GLOBAL`, `#GHOSTNET`, `#IRONWALL`, `#NULLSEC`, `#DAEMON`, `#MISSION`).
+- **Global leaderboard** — ranked by level then XP, refreshed continuously.
+- **Live mission feed** — mission completions broadcast to every operative.
+- **Achievements** — a server catalog, evaluated client-side and awarded idempotently.
+- **Factions** — declare allegiance (GhostNet / IronWall / NullSec / Daemon).
+
+**How it's wired (all writes go through validated `SECURITY DEFINER` RPCs; tables
+are public-read only):**
+
+| Table / RPC | Purpose |
+|-------------|---------|
+| `cw_operatives` | Public roster + leaderboard rows |
+| `cw_chat` | World/faction chat (realtime) |
+| `cw_mission_log` | Global mission feed (realtime) |
+| `cw_achievements` / `cw_operative_achievements` | Achievement catalog + unlocks |
+| `cw_sync_operative(...)` | Upsert + clamp progress, update presence timestamp |
+| `cw_post_chat(...)` | Rate-limited chat post (1 msg / 1.2s / device) |
+| `cw_log_mission(...)` | Append to the global feed |
+| `cw_award_achievement(...)` | Idempotent achievement unlock |
+
+**Client:** `CyberWorld/cw-net.js` + `cw-net.css` — a framework-free layer that
+loads `@supabase/supabase-js` from CDN, mounts a Windows 98-styled NET dock
+(press **N**) with GRID / CHAT / RANKS / OPS / YOU tabs, and re-mounts itself
+after React hydration so it never gets wiped. It reads the solo save
+(`cw.operative.v1`) so cloud identity stays unified with single-player progress,
+and flips `window.__cwMultiplayerOnline` so the existing status pill reads
+**GRID ONLINE**. Fully degrades to solo mode if the grid is unreachable.
+
+The `profile.html` dossier reads the same identity and shows your live level,
+XP-to-next-level bar, global rank, faction, and achievements.
+
 ## 🔗 Files
 
-- **cyberworld-game.html** — Main game (20 nodes, all mechanics)
+- **CyberWorld/** — Main game (compiled bundle + augment/gameplay/net layers)
+- **CyberWorld/cw-net.js / cw-net.css** — Live multiplayer grid (Supabase)
+- **profile.html** — Live cloud operative dossier
 - **ctf-trail.html** — Original linear CTF trail (preserved)
 - **cyberworld-design.md** — Full design document
-- **index.html** — Main landing page with desktop icons
+- **index.html** — Main landing page (Windows 98 operator desktop)
 
 ---
 
