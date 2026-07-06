@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">CyberWorld exfil gate</title>
+  <desc id="desc">Original glowing extraction portal with segmented ring.</desc>
+  <defs>
+    <radialGradient id="core" cx="50%" cy="50%" r="48%">
+      <stop offset="0" stop-color="#eaffff"/>
+      <stop offset=".28" stop-color="#00e8ff"/>
+      <stop offset=".62" stop-color="#1537ff"/>
+      <stop offset="1" stop-color="#02070d"/>
+    </radialGradient>
+    <filter id="gateGlow" x="-55%" y="-55%" width="210%" height="210%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0 0 0 0 0 .95 0 0 0 0 1 0 0 0 .75 0"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <circle cx="64" cy="64" r="46" fill="url(#core)" stroke="#00e8ff" stroke-width="4" filter="url(#gateGlow)"/>
+  <circle cx="64" cy="64" r="28" fill="none" stroke="#fcee09" stroke-width="3" stroke-dasharray="10 7"/>
+  <path d="M64 15v22M64 91v22M15 64h22M91 64h22M29 29l16 16M83 83l16 16M99 29 83 45M45 83 29 99" stroke="#ff2bd6" stroke-width="5" stroke-linecap="round"/>
+  <path d="M49 63h27M67 52l12 12-12 12" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

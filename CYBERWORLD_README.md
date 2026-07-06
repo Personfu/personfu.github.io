@@ -225,25 +225,25 @@ Load Node → Display Narrative & Scenario →
 
 ## 🚀 Phase 2: Subscriber Tier (80+ Nodes)
 
-Future expansion with:
+Next production expansions should stay sandboxed, educational, and defensive:
 
-**Tier 5 (Real Exploits):** CVE-2024 variants, LLM jailbreaks  
-**Tier 6 (APT Simulation):** Multi-stage attack chains  
-**Tier 7 (Defense Evasion):** OSINT obfuscation, C2 infrastructure  
-**Tier 8 (Threat Intel):** Real-world TTPs from advisories  
-**Tier 9 (Incident Response):** Forensic analysis at scale  
-**Tier 10 (System Masters):** Building resilient infrastructure  
+**Tier 5 (Vulnerability Analysis):** CVE root-cause walkthroughs with safe reproduction boundaries
+**Tier 6 (Adversary Emulation):** Logged, lab-only attack-chain timelines for detection practice
+**Tier 7 (Detection Resilience):** Evasion-attempt indicators, logging gaps, and tuning drills
+**Tier 8 (Threat Intelligence):** Mapping public advisories to defensive controls and detections
+**Tier 9 (Incident Response):** Evidence preservation, scoping, and forensic timelines at scale
+**Tier 10 (System Masters):** Building resilient infrastructure and measurable hardening plans
 
 ---
 
 ## 📝 Development Timeline
 
-**Phase 1a (DONE):** Architecture + UI Framework  
-**Phase 1b (IN PROGRESS):** Resource System + Game State  
-**Phase 1c (TODO):** Challenge Balancing + Beta Testing  
-**Phase 1d (TODO):** Random Events + Polish  
-**Phase 2 (TODO Month 2):** 80+ Advanced Nodes  
-**Phase 3 (TODO Month 3):** Leaderboards + Daily Challenges  
+**Phase 1a (SHIPPED):** Architecture + UI Framework
+**Phase 1b (SHIPPED):** Resource System + Game State
+**Phase 1c (SHIPPED):** Challenge Balancing + Browser QA
+**Phase 1d (SHIPPED):** Field Mode + Sprite Polish
+**Phase 2 (PLANNED):** Advanced Defensive Lab Nodes
+**Phase 3 (PLANNED):** Seasonal Leaderboards + Daily Challenges
 
 ---
 
@@ -275,12 +275,83 @@ CyberWorld teaches:
 
 ---
 
+## 🎓 Hacker Academy — the Educational Campaign
+
+The heart of the "educational" in educational MMORPG. Press **A** in CyberWorld
+(or open the **Hacker Academy** desktop icon) to launch a full campaign of **24
+hands-on, in-browser cybersecurity challenges** across five skill domains. Every
+challenge teaches a concept, checks a *real* solve, then explains why it matters —
+and pays XP straight into your operative on the live grid.
+
+| Domain | Sample challenges (all interactive) |
+|--------|--------------------------------------|
+| 🔐 **Cryptography** | Base64/hex/ROT decoders (live tools), single-byte **XOR brute-forcer**, hash identification, real **SHA-256 dictionary crack** (hashes your guess in-browser via SubtleCrypto) |
+| 🕸️ **Web Exploitation** | **SQL-injection login bypass** (watch the query build as you type), missing **security-header** audit, **JWT `alg:none`** forgery, IDOR, path traversal |
+| 📡 **Recon & OSINT** | Port/service exposure, encoded-log extraction, **IOC (IPv4) extraction**, OSINT footprint analysis |
+| 🔬 **Forensics** | **Log hunting** (find the attack line), acrostic **steganography**, cleartext **PCAP** credential recovery, attack-**timeline ordering** |
+| 🛡️ **Blue Team / Defense** | **Phishing** red-flag spotting, **incident-response phase ordering**, MFA vs credential stuffing, least privilege |
+
+Challenges gate sequentially within a domain, are graded client-side with real
+validators, and completions broadcast to the global mission feed. Files:
+`CyberWorld/cw-academy.js` + `cw-academy.css`. Deep-link with
+`CyberWorld/?academy=1` or `?academy=1&challenge=<id>`.
+
+**Connectors used in-world:** the Academy's **DISPATCHES** tab pulls the live
+GitHub repo's recent commits (as "grid patches") and open issues (as "community
+contracts") via the GitHub API — a real, working GitHub integration inside the game.
+
+## 🛰️ Live Grid — Multiplayer Backend (Supabase)
+
+CyberWorld is now a **real MMO**: a persistent, shared grid backed by Supabase,
+served entirely from static GitHub Pages (no game server to run).
+
+**What's live:**
+- **Persistent operatives** — level / XP / credits / missions sync to the cloud,
+  keyed by a per-browser device id, with an anonymous auth session for future
+  account linking. Progress is **anti-cheat clamped server-side** (monotonic:
+  a stale client can never lower your standing).
+- **Realtime presence** — every connected operative appears on the live grid
+  roster; the topbar "OPS ONLINE" count is now real, driven by Supabase Presence.
+- **Global + faction chat** — persisted and delivered live over Postgres change
+  streams (`#GLOBAL`, `#GHOSTNET`, `#IRONWALL`, `#NULLSEC`, `#DAEMON`, `#MISSION`).
+- **Global leaderboard** — ranked by level then XP, refreshed continuously.
+- **Live mission feed** — mission completions broadcast to every operative.
+- **Achievements** — a server catalog, evaluated client-side and awarded idempotently.
+- **Factions** — declare allegiance (GhostNet / IronWall / NullSec / Daemon).
+
+**How it's wired (all writes go through validated `SECURITY DEFINER` RPCs; tables
+are public-read only):**
+
+| Table / RPC | Purpose |
+|-------------|---------|
+| `cw_operatives` | Public roster + leaderboard rows |
+| `cw_chat` | World/faction chat (realtime) |
+| `cw_mission_log` | Global mission feed (realtime) |
+| `cw_achievements` / `cw_operative_achievements` | Achievement catalog + unlocks |
+| `cw_sync_operative(...)` | Upsert + clamp progress, update presence timestamp |
+| `cw_post_chat(...)` | Rate-limited chat post (1 msg / 1.2s / device) |
+| `cw_log_mission(...)` | Append to the global feed |
+| `cw_award_achievement(...)` | Idempotent achievement unlock |
+
+**Client:** `CyberWorld/cw-net.js` + `cw-net.css` — a framework-free layer that
+loads `@supabase/supabase-js` from CDN, mounts a Windows 98-styled NET dock
+(press **N**) with GRID / CHAT / RANKS / OPS / YOU tabs, and re-mounts itself
+after React hydration so it never gets wiped. It reads the solo save
+(`cw.operative.v1`) so cloud identity stays unified with single-player progress,
+and flips `window.__cwMultiplayerOnline` so the existing status pill reads
+**GRID ONLINE**. Fully degrades to solo mode if the grid is unreachable.
+
+The `profile.html` dossier reads the same identity and shows your live level,
+XP-to-next-level bar, global rank, faction, and achievements.
+
 ## 🔗 Files
 
-- **cyberworld-game.html** — Main game (20 nodes, all mechanics)
+- **CyberWorld/** — Main game (compiled bundle + augment/gameplay/net layers)
+- **CyberWorld/cw-net.js / cw-net.css** — Live multiplayer grid (Supabase)
+- **profile.html** — Live cloud operative dossier
 - **ctf-trail.html** — Original linear CTF trail (preserved)
 - **cyberworld-design.md** — Full design document
-- **index.html** — Main landing page with desktop icons
+- **index.html** — Main landing page (Windows 98 operator desktop)
 
 ---
 

@@ -18,7 +18,8 @@
 		shield: 30, maxShield: 30,
 		inventory: { 'PING-BREACH': 1, 'PATCH-KIT': 2 },
 		completed: {},
-		flags: { run: { active: false, missionId: null } }
+		flags: { run: { active: false, missionId: null } },
+		field: { clears: 0, bestRoute: 0 }
 	};
 	function loadState() {
 		try {
@@ -28,6 +29,7 @@
 			return Object.assign({}, DEFAULT_STATE, s, {
 				inventory: Object.assign({}, DEFAULT_STATE.inventory, s.inventory || {}),
 				completed: s.completed || {},
+				field: Object.assign({}, DEFAULT_STATE.field, s.field || {}),
 				flags: Object.assign({}, DEFAULT_STATE.flags, s.flags || {}, {
 					run: Object.assign({}, DEFAULT_STATE.flags.run, (s.flags && s.flags.run) || {})
 				})
@@ -38,6 +40,8 @@
 		try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch (e) {}
 	}
 	var state = loadState();
+	var FIELD_TARGET_PACKETS = 7;
+	var FIELD_MAX_DAEMONS = 5;
 
 	function xpForLevel(L) { return Math.floor(100 * Math.pow(1.35, L - 1)); }
 	function gainXp(n) {
@@ -72,6 +76,9 @@
 		{ id: 'tut-scan',    sector: 'Mainframe Core',  title: 'Scan Open Ports',
 		  brief: 'Run a quick port sweep on three known service nodes.',
 		  reward: { xp: 35, credits: 50, item: 'PORT-MAP' }, kind: 'instant' },
+		{ id: 'mc-convoy',   sector: 'Mainframe Core',  title: 'Route the Data Convoy',
+		  brief: 'Pilot the operative through the city grid, collect encrypted shards, and exfil before trace heat spikes.',
+		  reward: { xp: 70, credits: 120, item: 'DATA-SHARD' }, kind: 'field', req: { level: 1 } },
 		{ id: 'lan-sniff',   sector: 'LAN Valley',      title: 'Sniff Suspicious Beacons',
 		  brief: 'Capture three beacon frames from the rogue access point.',
 		  reward: { xp: 60, credits: 90, item: 'PCAP' }, kind: 'instant', req: { level: 2 } },
@@ -84,6 +91,9 @@
 		{ id: 'dn-rootkit',  sector: 'Darknet Depths',  title: 'Exfil the Rootkit Sample',
 		  brief: 'Breach the cartel locker and extract a rootkit signature.',
 		  reward: { xp: 150, credits: 220, item: 'ROOTKIT-SIG' }, kind: 'combat', enemy: 'CARTEL-WARDEN', req: { level: 4 } },
+		{ id: 'dn-convoy',   sector: 'Darknet Depths',  title: 'Black Relay Convoy',
+		  brief: 'Run a hostile relay corridor while watcher daemons sweep the packet lanes.',
+		  reward: { xp: 180, credits: 280, item: 'RELAY-TRACE' }, kind: 'field', req: { level: 5 } },
 		{ id: 'sc-raid',     sector: 'Stormcore',       title: 'Stormcore Breach',
 		  brief: 'Push through Stormcore ICE and tag the throne node.',
 		  reward: { xp: 250, credits: 400, item: 'STORM-KEY' }, kind: 'combat', enemy: 'STORMCORE-ICE', req: { level: 6 } }
@@ -206,6 +216,9 @@
 				}
 				render();
 			}, m);
+		} else if (m.kind === 'field') {
+			toggle(false);
+			activateLiveOps(m);
 		}
 	}
 
@@ -376,6 +389,7 @@
 			+   '</header>'
 			+   '<div class="cw-gp-tabs">'
 			+     '<button data-tab="run" class="active">Run</button>'
+			+     '<button data-tab="field">Field</button>'
 			+     '<button data-tab="combat">Combat</button>'
 			+     '<button data-tab="inventory">Inventory</button>'
 			+     '<button data-tab="profile">Profile</button>'
@@ -418,6 +432,7 @@
 			if (m.reward.xp) rwd.push(m.reward.xp + ' XP');
 			if (m.reward.credits) rwd.push(m.reward.credits + 'c');
 			if (m.reward.item) rwd.push(m.reward.item);
+			if (m.kind === 'field') rwd.push('FIELD RUN');
 			return ''
 				+ '<div class="cw-gp-mission ' + (done ? 'done' : locked ? 'locked' : '') + '">'
 				+   '<div class="m-head">'
@@ -431,7 +446,7 @@
 				          ? '<span class="m-done">COMPLETE</span>'
 				          : locked
 				            ? '<span class="m-lock">REQ TIER ' + (m.req && m.req.level || '?') + '</span>'
-				            : '<button class="m-start" data-mid="' + m.id + '">' + (m.kind === 'combat' ? 'ENGAGE' : 'EXECUTE') + '</button>')
+				            : '<button class="m-start" data-mid="' + m.id + '">' + (m.kind === 'combat' ? 'ENGAGE' : (m.kind === 'field' ? 'FIELD' : 'EXECUTE')) + '</button>')
 				+   '</div>'
 				+ '</div>';
 		}).join('');
@@ -445,7 +460,8 @@
 		}
 		if (!current) current = getNextMission();
 		var completed = Object.keys(state.completed).length;
-		var ready = current ? (current.kind === 'combat' ? 'ENGAGE' : 'EXECUTE') : 'TRAIN';
+		var ready = current ? (current.kind === 'combat' ? 'ENGAGE' : (current.kind === 'field' ? 'FIELD' : 'EXECUTE')) : 'TRAIN';
+		var fieldStatus = liveOps && liveOps.active ? 'FIELD ONLINE' : 'FIELD STANDBY';
 		return ''
 			+ '<div class="cw-gp-run">'
 			+   '<div class="cw-gp-run-hero">'
@@ -454,7 +470,10 @@
 			+       '<strong>' + escapeHtml(current ? current.title : 'NO MISSIONS LEFT') + '</strong>'
 			+       '<p>' + escapeHtml(current ? current.brief : 'The district is clear. Use combat training, reset the operative, or replay cleared sectors.') + '</p>'
 			+     '</div>'
-			+     '<button class="cw-gp-run-start" data-mid="' + (current ? current.id : '') + '">' + ready + '</button>'
+			+     '<div class="cw-gp-run-actions">'
+			+       '<button class="cw-gp-run-start" data-mid="' + (current ? current.id : '') + '">' + ready + '</button>'
+			+       '<button class="cw-gp-field-toggle" type="button">' + fieldStatus + '</button>'
+			+     '</div>'
 			+   '</div>'
 			+   '<div class="cw-gp-run-grid">'
 			+     '<div class="cw-gp-run-card"><span>Sector</span><strong>' + escapeHtml(current ? current.sector : 'NONE') + '</strong></div>'
@@ -468,6 +487,41 @@
 					return '<button class="cw-gp-run-node ' + (active ? 'active ' : '') + (done ? 'done' : '') + '" data-mid="' + m.id + '"><span>' + escapeHtml(m.title) + '</span><small>' + escapeHtml(m.sector) + '</small></button>';
 				}).join('')
 			+   '</div>'
+			+ '</div>';
+	}
+
+	function renderField() {
+		var active = liveOps && liveOps.active;
+		var route = active ? liveOps.routeName : 'City Gate Practice Route';
+		var packets = active ? liveOps.score : 0;
+		var heat = active ? Math.round(liveOps.heat) : 0;
+		var shields = active ? Math.round(liveOps.shield) : state.shield;
+		var best = state.field && state.field.bestRoute ? state.field.bestRoute : 0;
+		return ''
+			+ '<div class="cw-gp-field">'
+			+   '<div class="cw-gp-field-hero">'
+			+     '<div class="field-sprite" aria-hidden="true"></div>'
+			+     '<div>'
+			+       '<span class="cw-gp-run-kicker">' + (active ? 'FIELD ACTIVE' : 'FIELD READY') + '</span>'
+			+       '<strong>' + escapeHtml(route) + '</strong>'
+			+       '<p>Move with WASD or arrows. Collect encrypted shards, avoid daemons and firewall towers, pulse to cool trace heat, then enter the exfil gate.</p>'
+			+     '</div>'
+			+   '</div>'
+			+   '<div class="cw-gp-run-grid">'
+			+     '<div class="cw-gp-run-card"><span>Packets</span><strong>' + packets + ' / ' + FIELD_TARGET_PACKETS + '</strong></div>'
+			+     '<div class="cw-gp-run-card"><span>Trace Heat</span><strong>' + heat + '%</strong></div>'
+			+     '<div class="cw-gp-run-card"><span>Field Shield</span><strong>' + shields + '</strong></div>'
+			+     '<div class="cw-gp-run-card"><span>Clears</span><strong>' + ((state.field && state.field.clears) || 0) + '</strong></div>'
+			+     '<div class="cw-gp-run-card"><span>Best Route</span><strong>' + best + '</strong></div>'
+			+     '<div class="cw-gp-run-card"><span>Mode</span><strong>' + (active ? 'LIVE' : 'STANDBY') + '</strong></div>'
+			+   '</div>'
+			+   '<div class="cw-gp-field-actions">'
+			+     '<button class="field-launch" type="button">' + (active ? 'RESTART FIELD' : 'LAUNCH FIELD') + '</button>'
+			+     '<button class="field-pulse" type="button" ' + (!active ? 'disabled' : '') + '>PULSE</button>'
+			+     '<button class="field-extract" type="button" ' + (!active ? 'disabled' : '') + '>EXTRACT</button>'
+			+     '<button class="field-standdown" type="button" ' + (!active ? 'disabled' : '') + '>STAND DOWN</button>'
+			+   '</div>'
+			+   '<div class="cw-gp-field-log">' + ((active && liveOps.log.length) ? liveOps.log.slice(-5).map(escapeHtml).join('<br>') : 'No active route. Launch the field to start a playable convoy run.') + '</div>'
 			+ '</div>';
 	}
 
@@ -487,6 +541,11 @@
 			+     '<span class="cb-target-kicker">TARGET LOCKED</span>'
 			+     '<strong>' + escapeHtml(c.enemyId) + '</strong>'
 			+     '<small>MODE ' + escapeHtml(c.mission ? c.mission.kind.toUpperCase() : 'TRAIN') + ' · ' + (c.turn === 'player' ? 'YOUR MOVE' : 'ENEMY MOVE') + '</small>'
+			+   '</div>'
+			+   '<div class="cb-arena" aria-hidden="true">'
+			+     '<div class="cb-operator"></div>'
+			+     '<div class="cb-lane"></div>'
+			+     '<div class="cb-enemy-sprite ' + (c.enemy.boss ? 'boss' : '') + '"></div>'
 			+   '</div>'
 			+   '<div class="cb-enemy">'
 			+     '<div class="cb-bar"><span style="width:' + pct + '%"></span></div>'
@@ -543,15 +602,21 @@
 		var foot = root.querySelector('.cw-gp-foot');
 
 		if (tab === 'run')        body.innerHTML = renderRun();
+		else if (tab === 'field') body.innerHTML = renderField();
 		else if (tab === 'missions')   body.innerHTML = renderMissions();
 		else if (tab === 'combat') body.innerHTML = renderCombat();
 		else if (tab === 'inventory') body.innerHTML = renderInventory();
 		else if (tab === 'profile') body.innerHTML = renderProfile();
 
+		var fieldActive = liveOps && liveOps.active;
 		foot.innerHTML = ''
 			+ '<span>TIER ' + state.level + '</span>'
-			+ '<span>HP ' + state.hp + '/' + state.maxHp + '</span>'
-			+ '<span>SHIELD ' + state.shield + '/' + state.maxShield + '</span>'
+			+ (fieldActive
+				? '<span>FIELD SHIELD ' + Math.max(0, Math.round(liveOps.shield)) + '</span>'
+					+ '<span>HEAT ' + Math.round(liveOps.heat) + '%</span>'
+					+ '<span>PACKETS ' + liveOps.score + '/' + FIELD_TARGET_PACKETS + '</span>'
+				: '<span>HP ' + state.hp + '/' + state.maxHp + '</span>'
+					+ '<span>SHIELD ' + state.shield + '/' + state.maxShield + '</span>')
 			+ '<span>' + state.credits + 'c</span>'
 			+ '<span>XP ' + state.xp + '/' + xpForLevel(state.level) + '</span>';
 
@@ -567,6 +632,22 @@
 			var m = MISSIONS.find(function (x) { return x.id === runStart.dataset.mid; }) || getNextMission();
 			if (m) startMission(m);
 		});
+		var fieldToggle = body.querySelector('.cw-gp-field-toggle');
+		if (fieldToggle) fieldToggle.addEventListener('click', function () {
+			activateLiveOps(null);
+			toggle(false);
+		});
+		var fieldLaunch = body.querySelector('.field-launch');
+		if (fieldLaunch) fieldLaunch.addEventListener('click', function () {
+			activateLiveOps(null);
+			toggle(false);
+		});
+		var fieldPulse = body.querySelector('.field-pulse');
+		if (fieldPulse) fieldPulse.addEventListener('click', function () { pulseLiveOps(); render(); });
+		var fieldExtract = body.querySelector('.field-extract');
+		if (fieldExtract) fieldExtract.addEventListener('click', function () { tryFieldExtract(); render(); });
+		var fieldStanddown = body.querySelector('.field-standdown');
+		if (fieldStanddown) fieldStanddown.addEventListener('click', function () { deactivateLiveOps('Field route suspended'); render(); });
 		body.querySelectorAll('.m-start').forEach(function (b) {
 			b.addEventListener('click', function () {
 				var m = MISSIONS.find(function (x) { return x.id === b.dataset.mid; });
@@ -599,15 +680,30 @@
 
 	// ---------- Trigger surface ----------
 	function mountFab() {
-		if (document.querySelector('.cw-gp-fab')) return;
-		var fab = document.createElement('button');
-		fab.type = 'button';
-		fab.className = 'cw-gp-fab';
-		fab.setAttribute('aria-label', 'Open Operative Console (M)');
-		fab.title = 'Operative Console (M)';
-		fab.textContent = 'CONSOLE';
-		fab.addEventListener('click', function () { toggle(); });
-		document.body.appendChild(fab);
+		if (!document.querySelector('.cw-gp-fab')) {
+			var fab = document.createElement('button');
+			fab.type = 'button';
+			fab.className = 'cw-gp-fab';
+			fab.setAttribute('aria-label', 'Open Operative Console (M)');
+			fab.title = 'Operative Console (M)';
+			fab.textContent = 'CONSOLE';
+			fab.addEventListener('click', function () { toggle(); });
+			document.body.appendChild(fab);
+		}
+		if (!document.querySelector('.cw-field-fab')) {
+			var field = document.createElement('button');
+			field.type = 'button';
+			field.className = 'cw-field-fab';
+			field.setAttribute('aria-label', 'Launch field mode');
+			field.title = 'Field Mode (WASD / arrows)';
+			field.textContent = 'FIELD';
+			field.addEventListener('click', function () {
+				if (liveOps && liveOps.active) deactivateLiveOps('Field route suspended');
+				else activateLiveOps(null);
+			});
+			document.body.appendChild(field);
+		}
+		updateFieldFab();
 	}
 
 	// ---------- Live Ops layer ----------
@@ -618,149 +714,407 @@
 		liveOps.toast.textContent = msg;
 		liveOps.toast.classList.add('show');
 		clearTimeout(liveOps.toastTimer);
-		liveOps.toastTimer = setTimeout(function () { liveOps.toast.classList.remove('show'); }, 900);
+		liveOps.toastTimer = setTimeout(function () { liveOps.toast.classList.remove('show'); }, 1200);
 	}
-	function randBetween(min, max) { return min + Math.random() * (max - min); }
+	function randBetween(min, max) { return min + Math.random() * Math.max(0, max - min); }
+	function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 	function dist(a, b) {
 		var dx = a.x - b.x, dy = a.y - b.y;
 		return Math.sqrt(dx * dx + dy * dy);
 	}
 	function placeLiveNode(node, obj) {
+		if (!node || !obj) return;
 		node.style.setProperty('--x', Math.round(obj.x) + 'px');
 		node.style.setProperty('--y', Math.round(obj.y) + 'px');
 	}
-	function spawnPacket(bounds) {
-		return { x: randBetween(90, Math.max(110, bounds.width - 90)), y: randBetween(120, Math.max(140, bounds.height - 120)) };
+	function routeNameForMission(mission) {
+		if (mission && mission.id === 'dn-convoy') return 'Black Relay Convoy';
+		if (mission && mission.id === 'mc-convoy') return 'City Gate Convoy';
+		return 'City Gate Practice Route';
 	}
-	function spawnDaemon(bounds, i) {
+	function liveEntity(className, label) {
+		var node = document.createElement('div');
+		node.className = className;
+		node.dataset.liveEntity = '1';
+		node.setAttribute('aria-hidden', 'true');
+		if (label) node.title = label;
+		return node;
+	}
+	function spawnPacket(bounds, i) {
+		var cols = [0.18, 0.34, 0.51, 0.68, 0.82, 0.44, 0.72];
+		var rows = [0.24, 0.58, 0.34, 0.68, 0.46, 0.79, 0.22];
 		return {
-			x: randBetween(120, Math.max(140, bounds.width - 120)),
-			y: randBetween(140, Math.max(160, bounds.height - 120)),
-			vx: (i % 2 ? 1 : -1) * randBetween(0.35, 0.75),
-			vy: (i % 3 ? 1 : -1) * randBetween(0.22, 0.55)
+			x: clamp(bounds.width * cols[i % cols.length] + randBetween(-22, 22), 92, bounds.width - 72),
+			y: clamp(bounds.height * rows[i % rows.length] + randBetween(-18, 18), 104, bounds.height - 84),
+			collected: false
 		};
+	}
+	function spawnDaemon(bounds, i, mission) {
+		var hard = mission && mission.id === 'dn-convoy';
+		var speed = hard ? randBetween(0.72, 1.08) : randBetween(0.48, 0.82);
+		var lanes = [0.47, 0.62, 0.78, 0.54, 0.86];
+		var rows = [0.24, 0.72, 0.42, 0.84, 0.58];
+		return {
+			x: clamp(bounds.width * lanes[i % lanes.length], 118, bounds.width - 78),
+			y: clamp(bounds.height * rows[i % rows.length], 118, bounds.height - 88),
+			vx: (i % 2 ? 1 : -1) * speed,
+			vy: (i % 3 ? 1 : -1) * speed * 0.62,
+			stun: 0,
+			type: i === FIELD_MAX_DAEMONS - 1 && hard ? 'sentinel' : 'watcher'
+		};
+	}
+	function spawnTower(bounds, i) {
+		return {
+			x: clamp(bounds.width * (i ? 0.74 : 0.29), 110, bounds.width - 90),
+			y: clamp(bounds.height * (i ? 0.36 : 0.64), 124, bounds.height - 96),
+			range: i ? 118 : 96,
+			hot: false
+		};
+	}
+	function clearLiveEntities() {
+		if (!liveOps || !liveOps.root) return;
+		liveOps.root.querySelectorAll('[data-live-entity="1"]').forEach(function (node) {
+			node.remove();
+		});
 	}
 	function mountLiveOps() {
 		var viewport = document.querySelector('.cw-stage .viewport');
-		if (!viewport || document.querySelector('.cw-win98-desktop')) return;
-		if (liveOps && liveOps.root && liveOps.root.isConnected) return;
+		if (!viewport) return null;
+		if (liveOps && liveOps.root && liveOps.root.isConnected) return liveOps;
 		if (getComputedStyle(viewport).position === 'static') viewport.style.position = 'relative';
 		var root = document.createElement('div');
 		root.className = 'cw-live-ops';
-		root.innerHTML = '<div class="lo-player" aria-hidden="true"></div><div class="cw-live-toast"></div>';
+		root.innerHTML = ''
+			+ '<div class="lo-field-grid" aria-hidden="true"></div>'
+			+ '<div class="lo-player" aria-hidden="true"></div>'
+			+ '<div class="lo-gate" aria-hidden="true"></div>'
+			+ '<div class="cw-live-toast"></div>';
 		var hud = document.createElement('div');
 		hud.className = 'cw-live-hud';
-		hud.innerHTML = '<span id="lo-score">Packets 0/5</span><span id="lo-heat">Heat 0%</span><span class="warn">WASD / arrows move - Space pulse</span>';
+		hud.innerHTML = ''
+			+ '<span id="lo-route">Field standby</span>'
+			+ '<span id="lo-objective">Launch route</span>'
+			+ '<span id="lo-score">Packets 0/' + FIELD_TARGET_PACKETS + '</span>'
+			+ '<span id="lo-heat">Heat 0%</span>'
+			+ '<span id="lo-shield">Shield 0</span>'
+			+ '<span class="warn">WASD/arrows move - Space pulse - E exfil - Esc stand down</span>';
 		viewport.appendChild(root);
 		viewport.appendChild(hud);
-		var rect = viewport.getBoundingClientRect();
 		liveOps = {
 			root: root,
 			hud: hud,
 			toast: root.querySelector('.cw-live-toast'),
-			player: { x: Math.max(120, rect.width * .48), y: Math.max(160, rect.height * .58), speed: 3.4 },
+			playerNode: root.querySelector('.lo-player'),
+			gateNode: root.querySelector('.lo-gate'),
+			active: false,
+			ticking: false,
+			routeName: 'City Gate Practice Route',
+			mission: null,
+			player: { x: 180, y: 180, speed: 3.8 },
 			score: 0,
 			heat: 0,
+			shield: state.shield,
+			pulseCooldown: 0,
+			dashCooldown: 0,
+			gateOpen: false,
 			last: performance.now(),
 			packets: [],
 			daemons: [],
+			towers: [],
 			packetNodes: [],
-			daemonNodes: []
+			daemonNodes: [],
+			towerNodes: [],
+			log: []
 		};
+		updateLiveHud();
+		return liveOps;
+	}
+	function resetLiveOps(mission) {
+		var ops = mountLiveOps();
+		if (!ops) return null;
+		var viewport = document.querySelector('.cw-stage .viewport');
+		var rect = viewport.getBoundingClientRect();
+		clearLiveEntities();
+		ops.active = true;
+		ops.mission = mission || null;
+		ops.routeName = routeNameForMission(mission);
+		ops.player = { x: Math.max(110, rect.width * 0.16), y: Math.max(132, rect.height * 0.5), speed: 3.8 };
+		ops.score = 0;
+		ops.heat = 0;
+		ops.shield = Math.max(20, state.shield);
+		ops.pulseCooldown = 0;
+		ops.dashCooldown = 0;
+		ops.gateOpen = false;
+		ops.packets = [];
+		ops.daemons = [];
+		ops.towers = [];
+		ops.packetNodes = [];
+		ops.daemonNodes = [];
+		ops.towerNodes = [];
+		ops.log = ['Route online: ' + ops.routeName, 'Collect shards, avoid trace heat, exfil clean.'];
+		ops.last = performance.now();
 		var i;
-		for (i = 0; i < 5; i++) {
-			var p = spawnPacket(rect);
-			var pn = document.createElement('div');
-			pn.className = 'lo-packet';
-			root.appendChild(pn);
-			liveOps.packets.push(p);
-			liveOps.packetNodes.push(pn);
+		for (i = 0; i < FIELD_TARGET_PACKETS; i++) {
+			var p = spawnPacket(rect, i);
+			var pn = liveEntity('lo-packet', 'Encrypted data shard');
+			ops.root.appendChild(pn);
+			ops.packets.push(p);
+			ops.packetNodes.push(pn);
 			placeLiveNode(pn, p);
 		}
-		for (i = 0; i < 3; i++) {
-			var d = spawnDaemon(rect, i);
-			var dn = document.createElement('div');
-			dn.className = 'lo-daemon';
-			root.appendChild(dn);
-			liveOps.daemons.push(d);
-			liveOps.daemonNodes.push(dn);
+		var daemonCount = mission && mission.id === 'dn-convoy' ? FIELD_MAX_DAEMONS : 4;
+		for (i = 0; i < daemonCount; i++) {
+			var d = spawnDaemon(rect, i, mission);
+			var dn = liveEntity('lo-daemon ' + d.type, d.type === 'sentinel' ? 'Sentinel ICE' : 'Watcher daemon');
+			ops.root.appendChild(dn);
+			ops.daemons.push(d);
+			ops.daemonNodes.push(dn);
 			placeLiveNode(dn, d);
 		}
-		placeLiveNode(root.querySelector('.lo-player'), liveOps.player);
-		liveToast('Live ops online');
-		requestAnimationFrame(tickLiveOps);
+		for (i = 0; i < 2; i++) {
+			var t = spawnTower(rect, i);
+			var tn = liveEntity('lo-tower', 'Firewall tower');
+			ops.root.appendChild(tn);
+			ops.towers.push(t);
+			ops.towerNodes.push(tn);
+			placeLiveNode(tn, t);
+		}
+		placeLiveNode(ops.playerNode, ops.player);
+		placeLiveNode(ops.gateNode, { x: rect.width - 124, y: rect.height * 0.5 });
+		ops.gateNode.classList.remove('open');
+		document.body.classList.add('cw-live-mode');
+		updateFieldFab();
+		updateLiveHud();
+		liveToast('Field route online');
+		if (!ops.ticking) {
+			ops.ticking = true;
+			requestAnimationFrame(tickLiveOps);
+		}
+		return ops;
+	}
+	function activateLiveOps(mission) {
+		resetLiveOps(mission || null);
+	}
+	function deactivateLiveOps(reason) {
+		if (!liveOps) return;
+		liveOps.active = false;
+		liveOps.log.push(reason || 'Field route suspended');
+		document.body.classList.remove('cw-live-mode');
+		updateFieldFab();
+		updateLiveHud();
+		liveToast(reason || 'Field route suspended');
+	}
+	function updateFieldFab() {
+		var btn = document.querySelector('.cw-field-fab');
+		if (!btn) return;
+		var active = liveOps && liveOps.active;
+		btn.classList.toggle('active', !!active);
+		btn.textContent = active ? 'STAND DOWN' : 'FIELD';
+		btn.setAttribute('aria-label', active ? 'Stand down field mode' : 'Launch field mode');
+	}
+	function pulseLiveOps() {
+		if (!liveOps || !liveOps.active) return;
+		if (liveOps.pulseCooldown > 0) {
+			liveToast('Pulse recharging');
+			return;
+		}
+		liveOps.pulseCooldown = 88;
+		liveOps.heat = Math.max(0, liveOps.heat - 26);
+		liveOps.daemons.forEach(function (d) { d.stun = Math.max(d.stun, 54); });
+		liveOps.log.push('Pulse fired: daemons stunned, trace heat reduced.');
+		liveOps.root.style.setProperty('--pulse-x', Math.round(liveOps.player.x) + 'px');
+		liveOps.root.style.setProperty('--pulse-y', Math.round(liveOps.player.y) + 'px');
+		liveOps.root.classList.add('pulse');
+		setTimeout(function () { if (liveOps && liveOps.root) liveOps.root.classList.remove('pulse'); }, 260);
+		liveToast('Pulse fired');
+		updateLiveHud();
+	}
+	function tryFieldExtract() {
+		if (!liveOps || !liveOps.active) return;
+		if (!liveOps.gateOpen) {
+			liveToast('Gate locked: collect all shards');
+			return;
+		}
+		var gatePos = { x: parseFloat(liveOps.gateNode.style.getPropertyValue('--x')) || 0, y: parseFloat(liveOps.gateNode.style.getPropertyValue('--y')) || 0 };
+		if (dist(liveOps.player, gatePos) > 72) {
+			liveToast('Move into the exfil gate');
+			return;
+		}
+		completeFieldRun();
+	}
+	function completeFieldRun() {
+		if (!liveOps || !liveOps.active) return;
+		state.field = state.field || { clears: 0, bestRoute: 0 };
+		state.field.clears++;
+		state.field.bestRoute = Math.max(state.field.bestRoute || 0, liveOps.score);
+		state.shield = Math.max(20, Math.min(state.maxShield, Math.round(liveOps.shield)));
+		saveState();
+		var mission = liveOps.mission;
+		liveOps.log.push('Exfil complete: route secured.');
+		deactivateLiveOps('Exfil complete');
+		if (mission) completeMission(mission);
+		else {
+			gainXp(45);
+			gainCredits(75);
+			gainItem('DATA-SHARD', 1);
+		}
+		if (root && open) render();
+	}
+	function updateLiveHud() {
+		if (!liveOps || !liveOps.hud) return;
+		var route = liveOps.hud.querySelector('#lo-route');
+		var objective = liveOps.hud.querySelector('#lo-objective');
+		var score = liveOps.hud.querySelector('#lo-score');
+		var heat = liveOps.hud.querySelector('#lo-heat');
+		var shield = liveOps.hud.querySelector('#lo-shield');
+		if (route) route.textContent = liveOps.active ? liveOps.routeName : 'Field standby';
+		if (objective) {
+			if (!liveOps.active) objective.textContent = 'Launch route';
+			else if (liveOps.gateOpen) objective.textContent = 'Gate open - exfil';
+			else objective.textContent = 'Collect ' + Math.max(0, FIELD_TARGET_PACKETS - liveOps.score) + ' shards';
+		}
+		if (score) score.textContent = 'Packets ' + liveOps.score + '/' + FIELD_TARGET_PACKETS;
+		if (heat) {
+			heat.textContent = 'Heat ' + Math.round(liveOps.heat) + '%';
+			heat.style.setProperty('--value', clamp(liveOps.heat, 0, 100) + '%');
+			heat.classList.toggle('danger', liveOps.heat >= 72);
+			heat.classList.toggle('caution', liveOps.heat >= 42 && liveOps.heat < 72);
+		}
+		if (shield) {
+			shield.textContent = 'Shield ' + Math.max(0, Math.round(liveOps.shield));
+			shield.style.setProperty('--value', clamp((liveOps.shield / state.maxShield) * 100, 0, 100) + '%');
+			shield.classList.toggle('danger', liveOps.shield <= Math.max(8, state.maxShield * 0.25));
+		}
 	}
 	function tickLiveOps(now) {
 		if (!liveOps || !liveOps.root || !liveOps.root.isConnected) return;
+		if (!liveOps.active) {
+			liveOps.ticking = false;
+			updateLiveHud();
+			return;
+		}
 		var viewport = document.querySelector('.cw-stage .viewport');
-		if (!viewport || document.querySelector('.cw-win98-desktop')) {
-			if (liveOps.root) liveOps.root.remove();
-			if (liveOps.hud) liveOps.hud.remove();
-			liveOps = null;
+		if (!viewport) {
+			deactivateLiveOps('Field viewport unavailable');
+			return;
+		}
+		if (open) {
+			updateLiveHud();
+			requestAnimationFrame(tickLiveOps);
 			return;
 		}
 		var rect = viewport.getBoundingClientRect();
-		var dt = Math.min(32, now - liveOps.last) / 16.666;
+		var dt = Math.min(32, Math.max(0, now - liveOps.last)) / 16.666;
 		liveOps.last = now;
 		var dx = (liveKeys.ArrowRight || liveKeys.d ? 1 : 0) - (liveKeys.ArrowLeft || liveKeys.a ? 1 : 0);
 		var dy = (liveKeys.ArrowDown || liveKeys.s ? 1 : 0) - (liveKeys.ArrowUp || liveKeys.w ? 1 : 0);
-		if (dx && dy) { dx *= .707; dy *= .707; }
-		liveOps.player.x = Math.max(74, Math.min(rect.width - 42, liveOps.player.x + dx * liveOps.player.speed * dt));
-		liveOps.player.y = Math.max(86, Math.min(rect.height - 66, liveOps.player.y + dy * liveOps.player.speed * dt));
-		placeLiveNode(liveOps.root.querySelector('.lo-player'), liveOps.player);
+		if (dx && dy) { dx *= 0.707; dy *= 0.707; }
+		var dashing = (liveKeys.Shift || liveKeys.shift) && liveOps.dashCooldown <= 0 && (dx || dy);
+		var speed = liveOps.player.speed * (dashing ? 2.05 : 1);
+		liveOps.player.x = clamp(liveOps.player.x + dx * speed * dt, 56, Math.max(74, rect.width - 54));
+		liveOps.player.y = clamp(liveOps.player.y + dy * speed * dt, 74, Math.max(92, rect.height - 58));
+		if (dashing) {
+			liveOps.dashCooldown = 82;
+			liveOps.heat = Math.min(100, liveOps.heat + 5);
+			liveOps.playerNode.classList.add('dash');
+			setTimeout(function () { if (liveOps && liveOps.playerNode) liveOps.playerNode.classList.remove('dash'); }, 180);
+		}
+		liveOps.dashCooldown = Math.max(0, liveOps.dashCooldown - dt);
+		liveOps.pulseCooldown = Math.max(0, liveOps.pulseCooldown - dt);
+		placeLiveNode(liveOps.playerNode, liveOps.player);
 		liveOps.daemons.forEach(function (d, i) {
-			d.x += d.vx * dt; d.y += d.vy * dt;
-			if (d.x < 82 || d.x > rect.width - 60) d.vx *= -1;
-			if (d.y < 100 || d.y > rect.height - 72) d.vy *= -1;
-			placeLiveNode(liveOps.daemonNodes[i], d);
-			if (dist(liveOps.player, d) < 28) {
-				liveOps.heat = Math.min(100, liveOps.heat + 0.8 * dt);
+			if (d.stun > 0) {
+				d.stun = Math.max(0, d.stun - dt);
+				liveOps.daemonNodes[i].classList.add('stunned');
+			} else {
+				liveOps.daemonNodes[i].classList.remove('stunned');
+				var distance = dist(liveOps.player, d);
+				if (distance < 190) {
+					d.vx += clamp((liveOps.player.x - d.x) / 900, -0.08, 0.08);
+					d.vy += clamp((liveOps.player.y - d.y) / 900, -0.08, 0.08);
+				}
+				d.vx = clamp(d.vx, -1.32, 1.32);
+				d.vy = clamp(d.vy, -1.08, 1.08);
+				d.x += d.vx * dt;
+				d.y += d.vy * dt;
+				if (d.x < 72 || d.x > rect.width - 62) d.vx *= -1;
+				if (d.y < 88 || d.y > rect.height - 66) d.vy *= -1;
+				d.x = clamp(d.x, 72, Math.max(88, rect.width - 62));
+				d.y = clamp(d.y, 88, Math.max(104, rect.height - 66));
+				if (distance < 34) {
+					liveOps.heat = Math.min(100, liveOps.heat + 1.25 * dt);
+					liveOps.shield = Math.max(0, liveOps.shield - 0.22 * dt);
+				}
 			}
+			placeLiveNode(liveOps.daemonNodes[i], d);
+		});
+		liveOps.towers.forEach(function (tower, i) {
+			var hot = dist(liveOps.player, tower) < tower.range;
+			tower.hot = hot;
+			liveOps.towerNodes[i].classList.toggle('hot', hot);
+			if (hot) liveOps.heat = Math.min(100, liveOps.heat + 0.38 * dt);
 		});
 		liveOps.packets.forEach(function (p, i) {
 			if (p.collected) return;
-			if (dist(liveOps.player, p) < 24) {
+			if (dist(liveOps.player, p) < 36) {
 				p.collected = true;
-				liveOps.packetNodes[i].style.display = 'none';
+				liveOps.packetNodes[i].classList.add('collected');
 				liveOps.score++;
-				gainCredits(8);
-				if (liveOps.score >= 5) {
-					gainXp(20);
-					liveToast('Packet route secured');
-				} else {
-					liveToast('Packet captured');
-				}
+				liveOps.heat = Math.max(0, liveOps.heat - 3);
+				gainCredits(10);
+				liveOps.log.push('Shard captured: ' + liveOps.score + '/' + FIELD_TARGET_PACKETS);
+				liveToast('Shard captured');
 			}
 		});
-		if (liveKeys[' '] || liveKeys.Spacebar) {
-			liveOps.heat = Math.max(0, liveOps.heat - 1.4 * dt);
-		} else {
-			liveOps.heat = Math.max(0, liveOps.heat - 0.12 * dt);
+		if (!liveOps.gateOpen && liveOps.score >= FIELD_TARGET_PACKETS) {
+			liveOps.gateOpen = true;
+			liveOps.gateNode.classList.add('open');
+			liveOps.log.push('Exfil gate open. Move east and press E.');
+			liveToast('Exfil gate open');
 		}
-		var score = liveOps.hud.querySelector('#lo-score');
-		var heat = liveOps.hud.querySelector('#lo-heat');
-		if (score) score.textContent = 'Packets ' + liveOps.score + '/5';
-		if (heat) heat.textContent = 'Heat ' + Math.round(liveOps.heat) + '%';
-		if (liveOps.heat >= 100) {
-			liveOps.heat = 35;
-			state.hp = Math.max(20, state.hp - 8);
+		if (liveOps.gateOpen && dist(liveOps.player, { x: rect.width - 124, y: rect.height * 0.5 }) < 64) {
+			completeFieldRun();
+			return;
+		}
+		liveOps.heat = Math.max(0, liveOps.heat - 0.08 * dt);
+		if (liveOps.heat >= 100 || liveOps.shield <= 0) {
+			state.hp = Math.max(20, state.hp - 10);
+			state.shield = Math.max(0, Math.round(liveOps.shield));
 			saveState();
-			liveToast('Trace spike - keep moving');
+			liveOps.log.push('Trace spike: route reset, HP reduced.');
+			liveToast('Trace spike - route reset');
+			resetLiveOps(liveOps.mission);
+			requestAnimationFrame(tickLiveOps);
+			return;
 		}
+		updateLiveHud();
 		requestAnimationFrame(tickLiveOps);
 	}
 
 	document.addEventListener('keydown', function (ev) {
 		if (ev.target && /input|textarea|select/i.test(ev.target.tagName)) return;
-		if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','W','A','S','D',' '].indexOf(ev.key) !== -1) {
-			liveKeys[ev.key.length === 1 ? ev.key.toLowerCase() : ev.key] = true;
-			if (ev.key !== 'm' && ev.key !== 'M') ev.preventDefault();
+		var key = ev.key.length === 1 ? ev.key.toLowerCase() : ev.key;
+		var fieldActive = !!(liveOps && liveOps.active);
+		var canDriveField = fieldActive && !open;
+		if (canDriveField && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','Shift'].indexOf(key) !== -1) {
+			liveKeys[key] = true;
+			ev.preventDefault();
+		}
+		if (canDriveField && (key === ' ' || key === 'Spacebar')) {
+			ev.preventDefault();
+			pulseLiveOps();
+		}
+		if (canDriveField && key === 'e') {
+			ev.preventDefault();
+			tryFieldExtract();
 		}
 		if (ev.key === 'm' || ev.key === 'M') { ev.preventDefault(); toggle(); }
+		else if (ev.key === 'Escape' && fieldActive && !open) { ev.preventDefault(); deactivateLiveOps('Field route suspended'); }
 		else if (ev.key === 'Escape' && open) { toggle(false); }
 	});
 	document.addEventListener('keyup', function (ev) {
-		liveKeys[ev.key.length === 1 ? ev.key.toLowerCase() : ev.key] = false;
+		var key = ev.key.length === 1 ? ev.key.toLowerCase() : ev.key;
+		liveKeys[key] = false;
 	});
 
 	// Hook augment routes: pressing in-game shortcuts also surfaces relevant missions.

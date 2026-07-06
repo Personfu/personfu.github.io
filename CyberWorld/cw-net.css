@@ -1,0 +1,220 @@
+/* CyberWorld NET — Windows 98 x cyberpunk styling for the multiplayer HUD.
+   Scoped under #cwnet-* so it never collides with the compiled bundle. */
+
+:root {
+	--cwn-neon: #00ffcc;
+	--cwn-neon2: #ff2bd6;
+	--cwn-gray: #c0c0c0;
+	--cwn-dark: #808080;
+	--cwn-navy: #000080;
+	--cwn-navy2: #1084d0;
+	--cwn-ink: #05121a;
+	--cwn-panel: #0a1620;
+}
+
+/* ---------------- dock button ---------------- */
+#cwnet-dock {
+	position: fixed; right: 14px; bottom: 14px; z-index: 90000;
+	display: flex; align-items: center; gap: 7px;
+	padding: 7px 12px; cursor: pointer; user-select: none;
+	background: var(--cwn-gray);
+	border: 2px solid; border-color: #fff #000 #000 #fff;
+	box-shadow: 2px 2px 0 #000, 0 0 14px rgba(0, 255, 204, .25);
+	font: 700 12px 'VT323', 'Share Tech Mono', monospace; color: #000;
+	letter-spacing: 1px;
+}
+#cwnet-dock:active { border-color: #000 #fff #fff #000; }
+#cwnet-dock .cwnet-dot {
+	width: 10px; height: 10px; border-radius: 50%;
+	background: #b33; box-shadow: 0 0 6px #b33; transition: all .3s;
+}
+#cwnet-dock .cwnet-dot[data-on="1"] {
+	background: var(--cwn-neon); box-shadow: 0 0 8px var(--cwn-neon);
+	animation: cwnetPulse 1.6s infinite;
+}
+@keyframes cwnetPulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+#cwnet-dock .cwnet-dock-count {
+	font-size: 11px; color: var(--cwn-navy); background: #000;
+	padding: 1px 6px; border: 1px solid var(--cwn-dark);
+	color: var(--cwn-neon); text-shadow: 0 0 4px var(--cwn-neon);
+}
+
+/* ---------------- panel window ---------------- */
+#cwnet-panel {
+	position: fixed; right: 14px; bottom: 58px; z-index: 90001;
+	width: 380px; max-width: calc(100vw - 20px); height: 500px; max-height: calc(100vh - 90px);
+	display: flex; flex-direction: column;
+	background: var(--cwn-gray);
+	border: 2px solid; border-color: #fff #000 #000 #fff;
+	box-shadow: 3px 3px 0 #000, 0 0 26px rgba(0, 255, 204, .18);
+	font-family: 'Share Tech Mono', monospace;
+}
+.cwnet-titlebar {
+	display: flex; align-items: center; gap: 8px; padding: 3px 5px; cursor: move; flex-shrink: 0;
+	background: linear-gradient(90deg, var(--cwn-navy), var(--cwn-navy2));
+}
+.cwnet-title { flex: 1; color: #fff; font: 700 12px 'Share Tech Mono', monospace; letter-spacing: .5px; }
+.cwnet-badge {
+	font: 700 9px 'Share Tech Mono', monospace; padding: 2px 6px; letter-spacing: 1px;
+	background: #300; color: #ff8a8a; border: 1px solid #a44;
+}
+.cwnet-badge[data-on="1"] { background: #012b22; color: var(--cwn-neon); border-color: #067; text-shadow: 0 0 4px var(--cwn-neon); }
+.cwnet-x {
+	width: 18px; height: 15px; background: var(--cwn-gray); border: 1px solid;
+	border-color: #fff #000 #000 #fff; cursor: pointer; font-size: 10px; line-height: 1; color: #000;
+}
+.cwnet-x:active { border-color: #000 #fff #fff #000; }
+
+/* ---------------- tabs ---------------- */
+.cwnet-tabs { display: flex; gap: 2px; padding: 4px 4px 0; background: var(--cwn-gray); flex-shrink: 0; }
+.cwnet-tab {
+	flex: 1; padding: 4px 2px; cursor: pointer; font: 700 10px 'Share Tech Mono', monospace;
+	background: var(--cwn-gray); border: 2px solid; border-color: #fff #000 #000 #fff;
+	border-bottom: none; color: #333; letter-spacing: .5px;
+}
+.cwnet-tab.active { background: var(--cwn-ink); color: var(--cwn-neon); text-shadow: 0 0 4px var(--cwn-neon); }
+
+/* ---------------- views ---------------- */
+.cwnet-views {
+	flex: 1; overflow: hidden; background: var(--cwn-ink);
+	border: 2px inset var(--cwn-dark); margin: 0 4px 4px; position: relative;
+}
+.cwnet-view { position: absolute; inset: 0; display: none; flex-direction: column; overflow: hidden; }
+.cwnet-view.active { display: flex; }
+.cwnet-empty { padding: 20px 12px; text-align: center; color: #5c7f88; font-size: 12px; }
+
+/* ---------------- roster (grid) ---------------- */
+.cwnet-roster { flex: 1; overflow-y: auto; padding: 6px; }
+.cwnet-roster-head, .cwnet-board-head {
+	color: var(--cwn-neon); font-size: 10px; letter-spacing: 1px; padding: 3px 4px 6px;
+	border-bottom: 1px solid #123; margin-bottom: 4px; position: sticky; top: 0; background: var(--cwn-ink);
+}
+.cwnet-roster-row {
+	display: flex; align-items: center; gap: 7px; padding: 5px 6px; font-size: 12px; color: #cfeef2;
+	border-bottom: 1px dotted #12242c;
+}
+.cwnet-roster-row.me { background: rgba(0, 255, 204, .08); }
+.cwnet-r-lvl { color: var(--cwn-neon2); font-weight: 700; min-width: 30px; }
+.cwnet-r-cs { flex: 1; color: #eafcff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cwnet-r-rank { font-size: 9px; color: #6fa; letter-spacing: .5px; }
+.cwnet-fac {
+	font-size: 9px; padding: 1px 5px; border: 1px solid; border-radius: 2px; letter-spacing: .5px;
+	background: rgba(0, 0, 0, .35);
+}
+
+/* ---------------- chat ---------------- */
+.cwnet-chan { display: flex; flex-wrap: wrap; gap: 3px; padding: 5px 5px 4px; background: #071118; flex-shrink: 0; border-bottom: 1px solid #12242c; }
+.cwnet-chan-btn {
+	font: 700 9px 'Share Tech Mono', monospace; padding: 2px 6px; cursor: pointer;
+	background: #0c1c26; color: #6b9aa6; border: 1px solid #17323d;
+}
+.cwnet-chan-btn.active { background: var(--cwn-neon); color: #001; border-color: var(--cwn-neon); }
+.cwnet-chat-feed { flex: 1; overflow-y: auto; padding: 6px; display: flex; flex-direction: column; gap: 3px; }
+.cwnet-msg { font-size: 12px; line-height: 1.4; color: #d6f2f7; word-break: break-word; }
+.cwnet-msg.me { background: rgba(0, 255, 204, .06); }
+.cwnet-msg-cs { font-weight: 700; margin-right: 5px; }
+.cwnet-msg-ch { color: #ffb454; font-size: 9px; margin-right: 5px; }
+.cwnet-chat-bar { display: flex; gap: 4px; padding: 5px; background: var(--cwn-gray); flex-shrink: 0; }
+#cwnet-chat-input {
+	flex: 1; padding: 4px 6px; font: 400 12px 'Share Tech Mono', monospace;
+	background: #001; color: var(--cwn-neon); border: 2px inset var(--cwn-dark); outline: none;
+}
+#cwnet-chat-send {
+	padding: 3px 10px; cursor: pointer; font: 700 10px 'Share Tech Mono', monospace;
+	background: var(--cwn-gray); border: 2px solid; border-color: #fff #000 #000 #fff; color: #000;
+}
+#cwnet-chat-send:active { border-color: #000 #fff #fff #000; }
+
+/* ---------------- leaderboard ---------------- */
+.cwnet-board { flex: 1; overflow-y: auto; padding: 6px; }
+.cwnet-board-head { display: grid; grid-template-columns: 34px 1fr 34px 60px 42px; gap: 4px; font-size: 9px; }
+.cwnet-board-row {
+	display: grid; grid-template-columns: 34px 1fr 34px 60px 42px; gap: 4px; align-items: center;
+	padding: 4px 2px; font-size: 12px; color: #cfeef2; border-bottom: 1px dotted #12242c;
+}
+.cwnet-board-row.me { background: rgba(0, 255, 204, .1); color: #fff; }
+.cwnet-b-rank { text-align: center; font-weight: 700; }
+.cwnet-b-cs { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cwnet-b-lvl { color: var(--cwn-neon2); text-align: center; font-weight: 700; }
+.cwnet-b-xp { color: var(--cwn-neon); text-align: right; }
+.cwnet-b-miss { text-align: right; color: #6fa; }
+
+/* ---------------- ops feed ---------------- */
+.cwnet-ops-feed { flex: 1; overflow-y: auto; padding: 6px; display: flex; flex-direction: column; gap: 3px; }
+.cwnet-ops-row {
+	display: grid; grid-template-columns: 1fr 1.4fr auto auto; gap: 6px; align-items: center;
+	font-size: 11px; color: #cfeef2; padding: 4px 4px; border-bottom: 1px dotted #12242c;
+}
+.cwnet-ops-cs { color: var(--cwn-neon); font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cwnet-ops-name { color: #eafcff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cwnet-ops-xp { color: var(--cwn-neon2); font-weight: 700; }
+.cwnet-ops-t { color: #5c7f88; font-size: 9px; }
+
+/* ---------------- YOU / identity ---------------- */
+.cwnet-you { flex: 1; overflow-y: auto; padding: 8px; }
+.cwnet-id-card { background: #071118; border: 1px solid #17323d; padding: 8px; margin-bottom: 8px; }
+.cwnet-id-top { display: flex; align-items: center; gap: 10px; }
+.cwnet-id-av {
+	width: 42px; height: 42px; display: grid; place-items: center; font: 700 22px 'VT323', monospace;
+	color: #fff; background: #001; border: 2px solid var(--cwn-neon); box-shadow: 0 0 10px rgba(0, 255, 204, .4);
+}
+.cwnet-id-cs { font-size: 16px; color: #eafcff; font-weight: 700; letter-spacing: .5px; }
+.cwnet-id-sub { font-size: 10px; color: var(--cwn-neon); letter-spacing: 1px; }
+.cwnet-id-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; margin-top: 8px; }
+.cwnet-id-stats span { font-size: 9px; color: #6b9aa6; text-align: center; padding: 4px 2px; background: #050d12; border: 1px solid #123; }
+.cwnet-id-stats b { display: block; font-size: 13px; color: var(--cwn-neon); margin-top: 2px; }
+.cwnet-id-row { display: flex; gap: 4px; align-items: center; margin-bottom: 8px; }
+.cwnet-id-row label { font-size: 9px; color: #6b9aa6; letter-spacing: 1px; }
+#cwnet-cs-input {
+	flex: 1; padding: 4px 6px; font: 400 12px 'Share Tech Mono', monospace;
+	background: #001; color: var(--cwn-neon); border: 2px inset var(--cwn-dark); outline: none;
+}
+#cwnet-cs-save {
+	padding: 3px 10px; cursor: pointer; font: 700 10px 'Share Tech Mono', monospace;
+	background: var(--cwn-gray); border: 2px solid; border-color: #fff #000 #000 #fff; color: #000;
+}
+.cwnet-id-facs-label { font-size: 9px; color: #6b9aa6; letter-spacing: 1px; margin: 6px 0 4px; }
+.cwnet-id-facs { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.cwnet-fac-pick {
+	text-align: left; padding: 5px 7px; cursor: pointer; background: #050d12;
+	border: 1px solid; font-family: 'Share Tech Mono', monospace;
+}
+.cwnet-fac-pick b { display: block; font-size: 11px; letter-spacing: .5px; }
+.cwnet-fac-pick small { display: block; font-size: 8px; color: #6b9aa6; margin-top: 2px; }
+.cwnet-fac-pick.active { background: rgba(0, 255, 204, .1); box-shadow: inset 0 0 0 1px currentColor; }
+.cwnet-ach { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 2px; }
+.cwnet-ach-badge {
+	display: flex; align-items: center; gap: 6px; padding: 5px 6px; font-size: 10px;
+	background: #050d12; border: 1px solid #123; color: #445c64; opacity: .6;
+}
+.cwnet-ach-badge.got { color: #eafcff; opacity: 1; border-color: #2a5; box-shadow: 0 0 6px rgba(0, 255, 120, .2); }
+.cwnet-ach-ic { font-size: 15px; filter: grayscale(1); }
+.cwnet-ach-badge.got .cwnet-ach-ic { filter: none; }
+.cwnet-ach-nm { font-size: 8px; letter-spacing: .5px; }
+
+/* ---------------- toasts ---------------- */
+#cwnet-toasts { position: fixed; right: 14px; bottom: 92px; z-index: 90050; display: flex; flex-direction: column; gap: 6px; pointer-events: none; }
+.cwnet-toast {
+	max-width: 300px; padding: 8px 12px; font: 400 12px 'Share Tech Mono', monospace; color: #eafcff;
+	background: rgba(6, 18, 26, .96); border-left: 3px solid var(--cwn-neon);
+	box-shadow: 2px 2px 0 #000, 0 0 14px rgba(0, 255, 204, .2);
+	transform: translateX(0); transition: transform .35s, opacity .35s; opacity: 1;
+}
+.cwnet-toast.ok { border-left-color: var(--cwn-neon); }
+.cwnet-toast.warn { border-left-color: #ffb454; }
+.cwnet-toast.out { transform: translateX(120%); opacity: 0; }
+
+/* scrollbars: retro chunky */
+.cwnet-roster::-webkit-scrollbar, .cwnet-chat-feed::-webkit-scrollbar,
+.cwnet-board::-webkit-scrollbar, .cwnet-ops-feed::-webkit-scrollbar,
+.cwnet-you::-webkit-scrollbar { width: 12px; }
+.cwnet-roster::-webkit-scrollbar-thumb, .cwnet-chat-feed::-webkit-scrollbar-thumb,
+.cwnet-board::-webkit-scrollbar-thumb, .cwnet-ops-feed::-webkit-scrollbar-thumb,
+.cwnet-you::-webkit-scrollbar-thumb { background: var(--cwn-gray); border: 2px solid; border-color: #fff #000 #000 #fff; }
+.cwnet-roster::-webkit-scrollbar-track, .cwnet-chat-feed::-webkit-scrollbar-track,
+.cwnet-board::-webkit-scrollbar-track, .cwnet-ops-feed::-webkit-scrollbar-track,
+.cwnet-you::-webkit-scrollbar-track { background: #0a1620; }
+
+@media (max-width: 520px) {
+	#cwnet-panel { width: calc(100vw - 16px); right: 8px; bottom: 56px; height: calc(100vh - 80px); }
+}

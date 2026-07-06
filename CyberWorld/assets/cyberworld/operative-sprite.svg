@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 112" role="img" aria-labelledby="title desc">
+  <title id="title">CyberWorld operative sprite</title>
+  <desc id="desc">Original neon armored field operative with visor, coat, and uplink pack.</desc>
+  <defs>
+    <linearGradient id="suit" x1="18" y1="12" x2="78" y2="104" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1cf8ff"/>
+      <stop offset=".36" stop-color="#126a8c"/>
+      <stop offset="1" stop-color="#06121f"/>
+    </linearGradient>
+    <linearGradient id="coat" x1="20" y1="44" x2="80" y2="108" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#08263e"/>
+      <stop offset=".55" stop-color="#06101c"/>
+      <stop offset="1" stop-color="#01050b"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0 0 0 0 0 .95 0 0 0 0 1 0 0 0 .75 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <path d="M31 43 20 63l5 35 16 8 14-1 17-8 5-34-12-20Z" fill="url(#coat)" stroke="#00e8ff" stroke-width="2"/>
+  <path d="M38 39h20l9 19-8 25H37l-8-25Z" fill="url(#suit)" stroke="#8af7ff" stroke-width="1.5"/>
+  <path d="M36 19 48 9l13 10 6 17-8 12H37l-8-12Z" fill="#071522" stroke="#00e8ff" stroke-width="2"/>
+  <path d="M34 31h28l-4 10H38Z" fill="#001923" stroke="#fcee09" stroke-width="1.5" filter="url(#glow)"/>
+  <path d="M39 33h18l-2 5H41Z" fill="#fcee09"/>
+  <path d="M45 49h6v31h-6Z" fill="#02101a"/>
+  <path d="M36 58h24M34 69h28" stroke="#00e8ff" stroke-width="1.4" opacity=".75"/>
+  <path d="M24 64 11 78l7 8 14-10ZM72 64l13 14-7 8-14-10Z" fill="#08314a" stroke="#00e8ff" stroke-width="1.7"/>
+  <path d="M34 100 28 111h14l6-10ZM62 100l6 11H54l-6-10Z" fill="#02070d" stroke="#00e8ff" stroke-width="1.6"/>
+  <path d="M64 42h11l6 18-6 4-7-14Z" fill="#13071b" stroke="#ff2bd6" stroke-width="1.4"/>
+  <circle cx="73" cy="47" r="3" fill="#ff2bd6"/>
+  <path d="M22 57c-5 5-8 12-8 21M74 57c5 5 8 12 8 21" fill="none" stroke="#00e8ff" stroke-width="1" opacity=".45"/>
+</svg>

@@ -1,0 +1,137 @@
+/* THE GRID — CyberWorld's flagship game client.
+   A full-screen, living world map that unifies the Academy, multiplayer presence,
+   chat, and progression into one cohesive experience. Windows 98 x cyberpunk,
+   scoped under #cwg-* / .cwg-* so it never collides with anything else. */
+
+:root{
+  --cwg-neon:#00ffcc;--cwg-neon2:#ff2bd6;--cwg-amber:#ffb454;--cwg-blue:#4db5ff;
+  --cwg-ink:#02060c;--cwg-panel:rgba(6,16,24,.82);--cwg-line:#123039;
+}
+
+/* Fold standalone net/academy docks; keep the operative console reachable. */
+#cwnet-dock,#cwa-dock{display:none !important}
+
+#cwg-root{position:fixed;inset:0;z-index:80000;display:none;font-family:'Share Tech Mono',monospace;color:var(--cwg-neon);overflow:hidden;background:#01040a}
+#cwg-root.on{display:block}
+#cwg-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:crosshair}
+
+/* ---- CRT overlay: scanlines + vignette + flicker ---- */
+#cwg-crt{position:absolute;inset:0;pointer-events:none;z-index:5;
+  background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.55) 100%)}
+#cwg-crt::before{content:'';position:absolute;inset:0;
+  background:linear-gradient(rgba(0,0,0,0) 50%,rgba(0,0,0,.14) 50%);background-size:100% 3px;mix-blend-mode:multiply}
+#cwg-crt::after{content:'';position:absolute;inset:0;background:rgba(0,255,204,.012);animation:cwgFlicker 6s infinite}
+@keyframes cwgFlicker{0%,97%,100%{opacity:.5}98%{opacity:.9}99%{opacity:.3}}
+
+/* ---- boot / jack-in ---- */
+#cwg-boot{position:absolute;inset:0;z-index:40;background:#01040a;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:18px;padding:24px}
+#cwg-boot.gone{display:none}
+.cwg-bootlog{width:min(560px,92vw);min-height:150px;font-size:13px;line-height:1.7;color:var(--cwg-neon);text-shadow:0 0 6px rgba(0,255,204,.5);white-space:pre-wrap}
+.cwg-bootlog .ok{color:var(--cwg-amber)}
+.cwg-cursor{display:inline-block;width:9px;height:15px;background:var(--cwg-neon);animation:cwgBlink 1s steps(2) infinite;vertical-align:-2px}
+@keyframes cwgBlink{50%{opacity:0}}
+#cwg-jackin{padding:12px 34px;font:700 16px 'VT323','Share Tech Mono',monospace;letter-spacing:3px;cursor:pointer;
+  background:linear-gradient(180deg,#00d9a8,#00816a);color:#001;border:3px solid;border-color:#8effe0 #004b3b #004b3b #8effe0;
+  box-shadow:0 0 24px rgba(0,255,204,.4);opacity:0;transition:opacity .5s;text-transform:uppercase}
+#cwg-jackin.ready{opacity:1;animation:cwgPulseBtn 1.6s infinite}
+#cwg-jackin:active{border-color:#004b3b #8effe0 #8effe0 #004b3b}
+@keyframes cwgPulseBtn{0%,100%{box-shadow:0 0 24px rgba(0,255,204,.4)}50%{box-shadow:0 0 40px rgba(0,255,204,.75)}}
+.cwg-boot-brand{font:700 30px 'VT323',monospace;letter-spacing:8px;color:#eafcff;text-shadow:0 0 14px var(--cwg-neon)}
+.cwg-boot-sub{font-size:11px;letter-spacing:4px;color:var(--cwg-amber)}
+
+/* ---- HUD ---- */
+.cwg-hud{position:absolute;z-index:10;pointer-events:none}
+.cwg-hud *{pointer-events:auto}
+#cwg-hud-top{top:0;left:0;right:0;display:flex;align-items:center;gap:12px;padding:8px 12px;
+  background:linear-gradient(180deg,rgba(2,8,14,.92),rgba(2,8,14,0))}
+.cwg-id{display:flex;align-items:center;gap:10px}
+.cwg-av{width:38px;height:38px;display:grid;place-items:center;font:700 18px 'VT323',monospace;color:#fff;
+  background:#001;border:2px solid var(--cwg-neon);box-shadow:0 0 12px rgba(0,255,204,.5)}
+.cwg-id-main .nm{font-size:14px;color:#eafcff;font-weight:700;letter-spacing:.5px}
+.cwg-id-main .rk{font-size:10px;color:var(--cwg-neon);letter-spacing:1px}
+.cwg-xpwrap{flex:1;max-width:320px;min-width:120px}
+.cwg-xprow{display:flex;justify-content:space-between;font-size:10px;color:#9fc4cf;margin-bottom:3px}
+.cwg-xpbar{height:12px;background:#02060c;border:1px solid var(--cwg-line);overflow:hidden;position:relative}
+.cwg-xpfill{height:100%;width:0;background:linear-gradient(90deg,var(--cwg-neon),var(--cwg-blue));box-shadow:0 0 10px var(--cwg-neon);transition:width .6s ease}
+.cwg-stats{display:flex;gap:8px}
+.cwg-stat{background:var(--cwg-panel);border:1px solid var(--cwg-line);padding:4px 10px;text-align:center;font-size:9px;color:#9fc4cf;letter-spacing:1px}
+.cwg-stat b{display:block;font-size:14px;color:var(--cwg-neon)}
+.cwg-stat.cr b{color:var(--cwg-amber)}
+.cwg-stat.on b{color:var(--cwg-neon2)}
+.cwg-topbtns{display:flex;gap:6px;margin-left:auto}
+.cwg-tb{padding:6px 11px;cursor:pointer;font:700 10px 'Share Tech Mono',monospace;letter-spacing:1px;
+  background:var(--cwg-panel);color:var(--cwg-neon);border:1px solid var(--cwg-line)}
+.cwg-tb:hover{border-color:var(--cwg-neon);box-shadow:0 0 10px rgba(0,255,204,.25)}
+.cwg-tb.exit{color:#ffb0b0;border-color:#5a2a2a}
+.cwg-tb[data-on="0"] .snd{opacity:.4}
+
+/* objectives / sector info panel (right) */
+#cwg-side{top:66px;right:12px;width:230px;background:var(--cwg-panel);border:1px solid var(--cwg-line);
+  padding:12px;backdrop-filter:blur(2px)}
+#cwg-side .lbl{color:var(--cwg-amber);font-size:9px;letter-spacing:2px;margin-bottom:8px}
+#cwg-side .obj{font-size:12px;color:#eafcff;line-height:1.5;margin-bottom:4px}
+#cwg-side .objsub{font-size:10px;color:#9fc4cf;margin-bottom:12px}
+#cwg-side .go{width:100%;padding:7px;cursor:pointer;font:700 11px 'Share Tech Mono',monospace;
+  background:linear-gradient(180deg,#00d9a8,#00816a);color:#001;border:2px solid;border-color:#8effe0 #004b3b #004b3b #8effe0;letter-spacing:1px}
+#cwg-side .breakdown{margin-top:12px;display:flex;flex-direction:column;gap:5px}
+#cwg-side .brow{display:flex;align-items:center;gap:7px;font-size:10px;color:#9fc4cf}
+#cwg-side .brow .bi{width:16px;text-align:center}
+#cwg-side .brow .bp{margin-left:auto;color:var(--cwg-neon)}
+
+/* breadcrumb (which view) */
+#cwg-crumb{top:66px;left:12px;background:var(--cwg-panel);border:1px solid var(--cwg-line);padding:6px 12px;
+  font-size:11px;color:var(--cwg-neon);letter-spacing:1px}
+#cwg-crumb .back{color:var(--cwg-amber);cursor:pointer;margin-right:6px}
+#cwg-crumb .back:hover{text-decoration:underline}
+
+/* comms ticker (bottom) */
+#cwg-comms{left:12px;right:12px;bottom:10px;display:flex;flex-direction:column;gap:6px}
+#cwg-comms-feed{max-height:96px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;gap:2px}
+.cwg-msg{font-size:11px;color:#cfeef2;text-shadow:0 0 4px rgba(0,0,0,.9);opacity:0;animation:cwgMsgIn .4s forwards}
+.cwg-msg .cs{font-weight:700;margin-right:6px}
+@keyframes cwgMsgIn{to{opacity:1}}
+#cwg-comms-bar{display:flex;gap:6px;max-width:520px}
+#cwg-comms-input{flex:1;padding:6px 9px;background:rgba(0,16,24,.85);color:var(--cwg-neon);border:1px solid var(--cwg-line);
+  font:400 12px 'Share Tech Mono',monospace;outline:none}
+#cwg-comms-input:focus{border-color:var(--cwg-neon)}
+#cwg-comms-send{padding:5px 12px;cursor:pointer;font:700 10px 'Share Tech Mono',monospace;
+  background:var(--cwg-panel);color:var(--cwg-neon);border:1px solid var(--cwg-line)}
+
+/* hover tooltip on canvas nodes */
+#cwg-tip{position:absolute;z-index:20;pointer-events:none;display:none;background:rgba(2,10,16,.95);
+  border:1px solid var(--cwg-neon);padding:7px 10px;font-size:11px;color:#eafcff;max-width:230px;
+  box-shadow:0 0 14px rgba(0,255,204,.3)}
+#cwg-tip .tt{color:var(--cwg-neon);font-weight:700;margin-bottom:3px}
+#cwg-tip .td{color:#9fc4cf;font-size:10px}
+#cwg-tip .tr{color:var(--cwg-amber);font-size:10px;margin-top:3px}
+
+/* level-up banner */
+#cwg-levelup{position:absolute;left:50%;top:38%;transform:translate(-50%,-50%);z-index:30;display:none;
+  text-align:center;pointer-events:none}
+#cwg-levelup.show{display:block;animation:cwgLU 2.4s forwards}
+#cwg-levelup .big{font:700 46px 'VT323',monospace;letter-spacing:6px;color:#fff;text-shadow:0 0 20px var(--cwg-neon),0 0 40px var(--cwg-neon)}
+#cwg-levelup .sm{font-size:14px;letter-spacing:4px;color:var(--cwg-amber)}
+@keyframes cwgLU{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}15%{opacity:1;transform:translate(-50%,-50%) scale(1)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.1)}}
+#cwg-flash{position:absolute;inset:0;z-index:29;background:radial-gradient(circle,rgba(0,255,204,.35),transparent 60%);
+  opacity:0;pointer-events:none}
+#cwg-flash.hit{animation:cwgFlash .6s}
+@keyframes cwgFlash{0%{opacity:0}20%{opacity:1}100%{opacity:0}}
+
+/* xp floaters */
+.cwg-float{position:absolute;z-index:25;pointer-events:none;font:700 15px 'VT323',monospace;color:var(--cwg-neon);
+  text-shadow:0 0 8px var(--cwg-neon);animation:cwgFloat 1.3s forwards}
+@keyframes cwgFloat{0%{opacity:0;transform:translateY(0) scale(.8)}20%{opacity:1}100%{opacity:0;transform:translateY(-46px) scale(1.1)}}
+
+/* relaunch button when grid is closed */
+#cwg-relaunch{position:fixed;right:14px;bottom:14px;z-index:70000;display:none;align-items:center;gap:8px;
+  padding:8px 14px;cursor:pointer;user-select:none;background:#c0c0c0;border:2px solid;border-color:#fff #000 #000 #fff;
+  box-shadow:2px 2px 0 #000,0 0 16px rgba(0,255,204,.3);font:700 12px 'VT323','Share Tech Mono',monospace;color:#000;letter-spacing:1px}
+#cwg-relaunch.show{display:flex}
+#cwg-relaunch:active{border-color:#000 #fff #fff #000}
+
+@media(max-width:640px){
+  #cwg-side{display:none}
+  .cwg-stats{display:none}
+  #cwg-hud-top{flex-wrap:wrap}
+}

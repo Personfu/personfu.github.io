@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" role="img" aria-labelledby="title desc">
+  <title id="title">CyberWorld data shard</title>
+  <desc id="desc">Original encrypted data crystal collectible.</desc>
+  <defs>
+    <linearGradient id="crystal" x1="14" y1="10" x2="56" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f9ff7a"/>
+      <stop offset=".42" stop-color="#00e8ff"/>
+      <stop offset="1" stop-color="#1b1fff"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0 0 0 0 0 .9 0 0 0 0 1 0 0 0 .7 0"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <path d="M36 4 62 26 54 61 36 70 18 61 10 26Z" fill="url(#crystal)" stroke="#eaffff" stroke-width="2" filter="url(#glow)"/>
+  <path d="M36 4v66M10 26h52M18 61l18-35 18 35M18 61l18-57 18 57" fill="none" stroke="#00101a" stroke-width="1.4" opacity=".45"/>
+  <path d="M26 30h20M23 38h26M28 46h16" stroke="#fcee09" stroke-width="2" stroke-linecap="round"/>
+</svg>

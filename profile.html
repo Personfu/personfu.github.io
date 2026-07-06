@@ -4,33 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Operative Dossier // CyberWorld</title>
+<meta name="description" content="Your live CyberWorld operative dossier — level, XP, rank, faction, global standing, and achievements synced across the grid.">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
+:root{--bg:#030811;--bg2:#050d1a;--card:#07111f;--cyan:#00e8ff;--green:#00ff9c;--gold:#ffdf78;--pink:#ff2bd6;--text:#a0c8d8;--bright:#dffbff;--border:rgba(0,232,255,0.12)}
 html,body{height:100%;font-family:'Courier New',monospace;background:var(--bg);color:var(--text);overflow-x:hidden}
 body{display:flex;flex-direction:column}
 header{background:var(--bg2);border-bottom:1px solid var(--border);padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
 .logo{color:var(--cyan);font-weight:bold;font-size:13px;letter-spacing:2px}
 .sep{color:#1a3050}
 .cat{color:var(--gold);font-size:10px;letter-spacing:1px}
-.hdr-right{margin-left:auto}
+.hdr-right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.link-status{font-size:9px;letter-spacing:1px;padding:2px 7px;border:1px solid #a44;color:#ff8a8a;background:#200}
+.link-status[data-on="1"]{border-color:#067;color:var(--green);background:#012b22}
 .btn-sm{color:var(--green);font-size:10px;text-decoration:none;border:1px solid var(--green);padding:3px 8px}
 .btn-sm:hover{background:var(--green);color:var(--bg)}
-main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:880px;width:100%;margin:0 auto}
-.hero{border:1px solid var(--border);background:var(--card);padding:18px}
-.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:8px}
-.hero h1{color:var(--bright);font-size:20px;margin-bottom:6px;letter-spacing:1px}
-.hero .brief{font-size:12px;line-height:1.65;margin-bottom:14px}
+main{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px;max-width:900px;width:100%;margin:0 auto}
+.hero{border:1px solid var(--border);background:linear-gradient(135deg,#07111f,#0a1830);padding:18px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(rgba(0,232,255,.02) 50%,transparent 50%);background-size:100% 4px;pointer-events:none}
+.kicker{color:var(--gold);font-size:10px;letter-spacing:2px;margin-bottom:10px}
+.id-top{display:flex;align-items:center;gap:16px}
+.avatar{width:64px;height:64px;flex-shrink:0;display:grid;place-items:center;font-size:30px;font-weight:bold;color:#fff;background:#001;border:2px solid var(--cyan);box-shadow:0 0 16px rgba(0,232,255,.4)}
+.id-main h1{color:var(--bright);font-size:22px;margin-bottom:4px;letter-spacing:1px}
+.id-sub{font-size:11px;color:var(--cyan);letter-spacing:1px}
+.rank-badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:2px 9px;font-size:10px;letter-spacing:1px;margin-top:6px}
+.xp-wrap{margin-top:14px}
+.xp-bar-lbl{display:flex;justify-content:space-between;font-size:10px;color:var(--text);margin-bottom:4px}
+.xp-bar{height:14px;background:#02060d;border:1px solid var(--border);position:relative;overflow:hidden}
+.xp-fill{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--cyan));box-shadow:0 0 10px var(--cyan);transition:width .8s ease}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:620px){.grid2{grid-template-columns:1fr}.grid4{grid-template-columns:1fr 1fr}}
 .card{border:1px solid var(--border);background:var(--card);padding:14px}
 .card-lbl{color:var(--cyan);font-size:10px;letter-spacing:1px;margin-bottom:10px}
-.stat-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border)}
+.metric{text-align:center;padding:12px 6px}
+.metric b{display:block;font-size:22px;color:var(--bright);letter-spacing:1px}
+.metric.pink b{color:var(--pink)}.metric.green b{color:var(--green)}.metric.gold b{color:var(--gold)}
+.metric span{font-size:9px;color:var(--text);letter-spacing:1px}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border)}
 .stat-row:last-child{border-bottom:none}
 .stat-key{color:var(--text);font-size:11px}
 .stat-val{color:var(--bright);font-size:11px;font-weight:bold}
-.rank-badge{display:inline-block;border:1px solid var(--gold);color:var(--gold);padding:2px 8px;font-size:10px;letter-spacing:1px;margin-top:8px}
-.note{font-size:10px;color:#446;margin-top:6px}
+.ach-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.ach{display:flex;align-items:center;gap:8px;padding:8px;background:#050d16;border:1px solid var(--border);opacity:.5}
+.ach.got{opacity:1;border-color:#2a5;box-shadow:0 0 8px rgba(0,255,120,.15)}
+.ach .ic{font-size:20px;filter:grayscale(1)}
+.ach.got .ic{filter:none}
+.ach .meta b{display:block;font-size:9px;color:var(--bright);letter-spacing:.5px}
+.ach .meta small{font-size:8px;color:var(--text)}
+.board-row{display:grid;grid-template-columns:34px 1fr 40px 70px;gap:6px;align-items:center;padding:5px 2px;font-size:11px;border-bottom:1px solid var(--border)}
+.board-row.me{background:rgba(0,255,156,.08);color:var(--bright)}
+.board-row .r{text-align:center;font-weight:bold;color:var(--gold)}
+.board-row .cs{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.board-row .lv{text-align:center;color:var(--pink);font-weight:bold}
+.board-row .xp{text-align:right;color:var(--cyan)}
+.note{font-size:10px;color:#446;margin-top:8px;line-height:1.5}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.actions input{flex:1;min-width:120px;padding:5px 8px;background:#001;color:var(--green);border:1px solid var(--border);font-family:inherit;font-size:12px}
+.actions button{padding:5px 12px;background:transparent;color:var(--cyan);border:1px solid var(--cyan);font-family:inherit;font-size:11px;cursor:pointer;letter-spacing:1px}
+.actions button:hover{background:var(--cyan);color:var(--bg)}
+.fac-picks{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:8px}
+.fac-pick{text-align:left;padding:6px 8px;background:#050d16;border:1px solid;cursor:pointer;font-family:inherit}
+.fac-pick b{display:block;font-size:11px}.fac-pick small{font-size:8px;color:var(--text)}
+.fac-pick.active{box-shadow:inset 0 0 0 1px currentColor}
 footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px;font-size:10px;color:#334;flex-shrink:0}
 </style>
 </head>
@@ -39,40 +75,235 @@ footer{background:var(--bg2);border-top:1px solid var(--border);padding:5px 16px
   <span class="logo">CYBERWORLD</span>
   <span class="sep">//</span>
   <span class="cat">OPERATIVE DOSSIER</span>
-  <div class="hdr-right"><a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a></div>
+  <div class="hdr-right">
+    <span class="link-status" id="link-status" data-on="0">SOLO</span>
+    <a class="btn-sm" href="/CyberWorld/" target="_top">MMO HUB</a>
+  </div>
 </header>
 <main>
   <section class="hero">
     <div class="kicker">PROFILE MODULE // MAINFRAME CORE DISTRICT</div>
-    <h1>Operative Dossier</h1>
-    <p class="brief">Your in-world service record. Stats are tracked locally in your browser via localStorage — nothing is sent to any server.</p>
+    <div class="id-top">
+      <div class="avatar" id="avatar">O</div>
+      <div class="id-main">
+        <h1 id="op-name">OPERATIVE</h1>
+        <div class="id-sub" id="op-faction">Unaligned</div>
+        <span class="rank-badge" id="op-rank">ROOKIE</span>
+      </div>
+    </div>
+    <div class="xp-wrap">
+      <div class="xp-bar-lbl"><span id="xp-label">LEVEL 1</span><span id="xp-next">0 / 100 XP</span></div>
+      <div class="xp-bar"><div class="xp-fill" id="xp-fill"></div></div>
+    </div>
   </section>
+
+  <div class="grid4">
+    <div class="card metric green"><b id="m-level">1</b><span>LEVEL</span></div>
+    <div class="card metric"><b id="m-xp">0</b><span>TOTAL XP</span></div>
+    <div class="card metric gold"><b id="m-credits">0</b><span>CREDITS</span></div>
+    <div class="card metric pink"><b id="m-miss">0</b><span>MISSIONS</span></div>
+  </div>
+
   <div class="grid2">
-    <div class="card" id="stats-card">
-      <div class="card-lbl">SESSION RECORD</div>
-      <div class="stat-row"><span class="stat-key">OPERATIVE</span><span class="stat-val" id="op-name">UNKNOWN</span></div>
-      <div class="stat-row"><span class="stat-key">RANK</span><span class="stat-val" id="op-rank">CIVILIAN</span></div>
-      <div class="stat-row"><span class="stat-key">XP</span><span class="stat-val" id="op-xp">0</span></div>
-      <div class="stat-row"><span class="stat-key">CREDITS</span><span class="stat-val" id="op-credits">0 cr</span></div>
-      <div class="stat-row"><span class="stat-key">REPUTATION</span><span class="stat-val" id="op-rep">NEUTRAL</span></div>
+    <div class="card">
+      <div class="card-lbl">GLOBAL STANDING</div>
+      <div class="stat-row"><span class="stat-key">GRID RANK</span><span class="stat-val" id="op-globalrank">—</span></div>
+      <div class="stat-row"><span class="stat-key">OPERATIVES REGISTERED</span><span class="stat-val" id="op-total">—</span></div>
+      <div class="stat-row"><span class="stat-key">FACTION</span><span class="stat-val" id="op-faction2">Unaligned</span></div>
+      <div class="stat-row"><span class="stat-key">ACHIEVEMENTS</span><span class="stat-val" id="op-achcount">0</span></div>
     </div>
     <div class="card">
-      <div class="card-lbl">CLEARANCE INFO</div>
-      <p style="font-size:11px;line-height:1.7">Your dossier reflects XP and rank earned through Portal Network missions. Complete wargames tiers and CTF flags to earn promotions. Reputation shifts with district choices in Darknet Depths and Mainframe Core.</p>
-      <p class="note">All progress is stored in localStorage key <code>cw.operative.v1</code>. Clearing browser data resets progress.</p>
+      <div class="card-lbl">IDENTITY CONTROLS</div>
+      <div class="actions">
+        <input id="cs-input" maxlength="24" placeholder="callsign">
+        <button id="cs-save">SET CALLSIGN</button>
+      </div>
+      <div class="fac-picks" id="fac-picks"></div>
+      <p class="note">Progress lives in <code>cw.operative.v1</code> and syncs to the CyberWorld grid under device id <code>cw.device.v1</code>. Changes appear on the live leaderboard.</p>
     </div>
+  </div>
+
+  <div class="card">
+    <div class="card-lbl">ACHIEVEMENTS</div>
+    <div class="ach-grid" id="ach-grid"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-lbl">TOP OPERATIVES // LIVE GRID</div>
+    <div id="board"><div class="note">Linking to grid…</div></div>
   </div>
 </main>
 <footer>CYBERWORLD // FLLC GRID // OPERATIVE DOSSIER // MAINFRAME CORE</footer>
+
 <script>
-try{
-  const d=JSON.parse(localStorage.getItem('cw.operative.v1')||'{}');
-  if(d.name)document.getElementById('op-name').textContent=d.name;
-  if(d.rank)document.getElementById('op-rank').textContent=d.rank;
-  if(typeof d.xp==='number')document.getElementById('op-xp').textContent=d.xp;
-  if(typeof d.credits==='number')document.getElementById('op-credits').textContent=d.credits+' cr';
-  if(d.reputation)document.getElementById('op-rep').textContent=d.reputation;
-}catch(e){}
+'use strict';
+(function () {
+  var SB_URL = 'https://byjiuxpljjgnejwrhtnq.supabase.co';
+  var SB_KEY = 'sb_publishable_bvW5FctJrdM3jGdbW6QOiw_klgzmfvy';
+  var CDN = ['https://esm.sh/@supabase/supabase-js@2.45.4','https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/+esm'];
+  var FACTIONS = {
+    GHOSTNET:{label:'GhostNet',color:'#00ffcc',blurb:'Silent infiltration & recon.'},
+    IRONWALL:{label:'IronWall',color:'#4db5ff',blurb:'Defense, hardening, blue team.'},
+    NULLSEC:{label:'NullSec',color:'#ff2bd6',blurb:'Exploit dev & offensive research.'},
+    DAEMON:{label:'Daemon',color:'#ffb454',blurb:'Automation, malware analysis.'},
+    NEUTRAL:{label:'Unaligned',color:'#c0c0c0',blurb:'No allegiance declared.'}
+  };
+  var ACH_META = {
+    first_login:{icon:'🔌',name:'GRID JACK-IN'}, first_mission:{icon:'💥',name:'FIRST BREACH'},
+    level_5:{icon:'🎖️',name:'FIELD AGENT'}, level_10:{icon:'🥈',name:'SEASONED OPERATIVE'},
+    level_20:{icon:'🥇',name:'GRID ELITE'}, missions_10:{icon:'📟',name:'TASK RUNNER'},
+    missions_25:{icon:'👻',name:'GHOST IN THE WIRE'}, chatter:{icon:'📡',name:'SIGNAL SENDER'},
+    credits_5k:{icon:'💳',name:'CREDIT BARON'}, streak_7:{icon:'🔥',name:'ALWAYS ONLINE'}
+  };
+  function $(id){return document.getElementById(id);}
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+  function loadJSON(k,f){try{var r=localStorage.getItem(k);return r?JSON.parse(r):f;}catch(e){return f;}}
+  function saveJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+  function xpForLevel(L){return Math.floor(100*Math.pow(1.35,L-1));}
+
+  function deviceId(){
+    var d=localStorage.getItem('cw.device.v1');
+    if(d&&d.length>=8)return d;
+    try{d='cwd-'+crypto.randomUUID();}catch(e){d='cwd-'+Date.now().toString(36)+Math.random().toString(36).slice(2,12);}
+    try{localStorage.setItem('cw.device.v1',d);}catch(e){}
+    return d;
+  }
+  var DEVICE=deviceId();
+
+  function readLocal(){
+    var g=loadJSON('cw.operative.v1',{})||{};
+    var net=loadJSON('cw.net.v1',{})||{};
+    var completed=g.completed?Object.keys(g.completed).length:0;
+    return {
+      callsign:g.callsign||net.callsign||('OPERATIVE-'+Math.floor(Math.random()*9000+1000)),
+      faction:net.faction||'GHOSTNET',
+      level:Math.max(1,parseInt(g.level,10)||1),
+      xp:Math.max(0,parseInt(g.xp,10)||0),
+      credits:Math.max(0,parseInt(g.credits,10)||0),
+      missions:completed
+    };
+  }
+
+  var ME=readLocal();
+  var sb=null;
+
+  function rankFor(L){return L>=40?'LEGEND':L>=30?'PHANTOM':L>=22?'ARCHITECT':L>=15?'ELITE':L>=9?'OPERATIVE':L>=4?'AGENT':'ROOKIE';}
+
+  function paint(){
+    var fx=FACTIONS[ME.faction]||FACTIONS.NEUTRAL;
+    $('avatar').textContent=(ME.callsign||'O').charAt(0).toUpperCase();
+    $('avatar').style.borderColor=fx.color;
+    $('avatar').style.boxShadow='0 0 16px '+fx.color+'66';
+    $('op-name').textContent=ME.callsign;
+    $('op-faction').textContent=fx.label;
+    $('op-faction').style.color=fx.color;
+    $('op-faction2').textContent=fx.label;
+    $('op-rank').textContent=ME.rank||rankFor(ME.level);
+    $('m-level').textContent=ME.level;
+    $('m-xp').textContent=ME.xp.toLocaleString();
+    $('m-credits').textContent=ME.credits.toLocaleString();
+    $('m-miss').textContent=ME.missions;
+    var need=xpForLevel(ME.level);
+    var into=Math.max(0,Math.min(ME.xp,need));
+    $('xp-label').textContent='LEVEL '+ME.level;
+    $('xp-next').textContent=into+' / '+need+' XP';
+    $('xp-fill').style.width=Math.round(into/need*100)+'%';
+    if(!$('cs-input').value)$('cs-input').value=ME.callsign;
+  }
+
+  function buildFacPicks(){
+    var host=$('fac-picks');host.innerHTML='';
+    Object.keys(FACTIONS).filter(function(k){return k!=='NEUTRAL';}).forEach(function(k){
+      var f=FACTIONS[k];
+      var b=document.createElement('button');
+      b.className='fac-pick'+(k===ME.faction?' active':'');
+      b.style.borderColor=f.color;b.style.color=f.color;
+      b.innerHTML='<b>'+f.label+'</b><small>'+f.blurb+'</small>';
+      b.onclick=function(){var net=loadJSON('cw.net.v1',{})||{};net.faction=k;saveJSON('cw.net.v1',net);ME.faction=k;buildFacPicks();paint();sync();};
+      host.appendChild(b);
+    });
+  }
+
+  function renderAch(owned){
+    var host=$('ach-grid');host.innerHTML='';var count=0;
+    Object.keys(ACH_META).forEach(function(code){
+      var m=ACH_META[code];var got=owned.indexOf(code)!==-1;if(got)count++;
+      var d=document.createElement('div');d.className='ach'+(got?' got':'');
+      d.innerHTML='<span class="ic">'+m.icon+'</span><div class="meta"><b>'+esc(m.name)+'</b><small>'+(got?'UNLOCKED':'LOCKED')+'</small></div>';
+      host.appendChild(d);
+    });
+    $('op-achcount').textContent=count;
+  }
+
+  function renderBoard(rows){
+    var host=$('board');
+    if(!rows||!rows.length){host.innerHTML='<div class="note">No ranked operatives yet.</div>';return;}
+    host.innerHTML='';
+    rows.forEach(function(o,i){
+      var fx=FACTIONS[o.faction]||FACTIONS.NEUTRAL;
+      var row=document.createElement('div');
+      row.className='board-row'+(o.callsign===ME.callsign?' me':'');
+      var medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1);
+      row.innerHTML='<span class="r">'+medal+'</span>'+
+        '<span class="cs" style="color:'+fx.color+'">'+esc(o.callsign)+'</span>'+
+        '<span class="lv">'+(o.level||1)+'</span>'+
+        '<span class="xp">'+(o.xp||0).toLocaleString()+'</span>';
+      host.appendChild(row);
+    });
+  }
+
+  function rpc(fn,args){return sb.rpc(fn,args).then(function(r){if(r.error)throw r.error;return r.data;});}
+
+  function sync(){
+    if(!sb)return Promise.resolve();
+    var fresh=readLocal();
+    ME.level=fresh.level;ME.xp=fresh.xp;ME.credits=fresh.credits;ME.missions=fresh.missions;
+    return rpc('cw_sync_operative',{p_device_id:DEVICE,p_callsign:ME.callsign,p_faction:ME.faction,
+      p_level:ME.level,p_xp:ME.xp,p_credits:ME.credits,p_missions:ME.missions})
+      .then(function(row){if(row){ME.rank=row.rank_title;ME.level=row.level;ME.xp=row.xp;ME.credits=row.credits;ME.missions=row.missions_completed;}paint();return refreshCloud();});
+  }
+
+  function refreshCloud(){
+    if(!sb)return Promise.resolve();
+    var pBoard=sb.from('cw_operatives').select('callsign,faction,level,xp').order('level',{ascending:false}).order('xp',{ascending:false}).limit(15);
+    var pTotal=sb.from('cw_operatives').select('id',{count:'exact',head:true});
+    var pAbove=sb.from('cw_operatives').select('id',{count:'exact',head:true}).or('level.gt.'+ME.level+',and(level.eq.'+ME.level+',xp.gt.'+ME.xp+')');
+    var pAch=sb.from('cw_operative_achievements').select('code').eq('device_id',DEVICE);
+    return Promise.all([pBoard,pTotal,pAbove,pAch]).then(function(res){
+      if(res[0].data)renderBoard(res[0].data);
+      var total=res[1].count||0,above=res[2].count||0;
+      $('op-total').textContent=total.toLocaleString();
+      $('op-globalrank').textContent='#'+(above+1)+' of '+total;
+      renderAch((res[3].data||[]).map(function(a){return a.code;}));
+    }).catch(function(){});
+  }
+
+  function saveCallsign(){
+    var v=$('cs-input').value.trim().slice(0,24);
+    if(v.length<2)return;
+    var g=loadJSON('cw.operative.v1',{})||{};g.callsign=v;saveJSON('cw.operative.v1',g);
+    var net=loadJSON('cw.net.v1',{})||{};net.callsign=v;saveJSON('cw.net.v1',net);
+    ME.callsign=v;paint();sync();
+  }
+
+  function loadSB(i){i=i||0;if(i>=CDN.length)return Promise.reject();return import(CDN[i]).catch(function(){return loadSB(i+1);});}
+
+  // Boot
+  paint();buildFacPicks();renderAch([]);
+  $('cs-save').onclick=saveCallsign;
+  $('cs-input').addEventListener('keydown',function(e){if(e.key==='Enter')saveCallsign();});
+
+  loadSB().then(function(mod){
+    sb=mod.createClient(SB_URL,SB_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
+    return sb.auth.getSession().then(function(r){if(r&&r.data&&r.data.session)return;return sb.auth.signInAnonymously().catch(function(){});});
+  }).then(function(){
+    $('link-status').textContent='GRID LINK';$('link-status').dataset.on='1';
+    return sync();
+  }).catch(function(){
+    $('link-status').textContent='SOLO';$('link-status').dataset.on='0';
+    var host=$('board');if(host)host.innerHTML='<div class="note">Grid offline — showing local dossier only.</div>';
+  });
+})();
 </script>
 </body>
 </html>
