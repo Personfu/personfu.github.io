@@ -135,6 +135,10 @@
 	// ---------------------------------------------------------------
 	var toastEl = null;
 	var toastTimer = null;
+	var visualUpgradeTimer = null;
+	var visualObserverStarted = false;
+	var legacyUpgradeReady = false;
+	var legacyUpgradeTimer = null;
 	function toast(msg) {
 		if (!toastEl) {
 			toastEl = document.createElement('div');
@@ -510,24 +514,161 @@
 		}, 2500);
 	}
 
+	var LEGACY_WORLD_ACTIONS = [
+		{ match: ['the grid'], label: 'THE GRID', route: { grid: true } },
+		{ match: ['world portals', 'world map', 'map'], label: 'WORLD MAP', route: { district: 'map' } },
+		{ match: ['plaza'], label: 'CITY GATE PLAZA', route: { plaza: true } },
+		{ match: ['ops board'], label: 'SOC TOWER', route: { district: 'soc' } },
+		{ match: ['hacker academy'], label: 'ACADEMY', route: { district: 'academy' } },
+		{ match: ['district jobs'], label: 'FIELD ROUTE', route: { district: 'field' } },
+		{ match: ['city codex'], label: 'CITY CODEX', route: { external: '/cyberworld-codex.html' } },
+		{ match: ['quick ping breach', 'quick ping_breach'], label: 'PING GATEWAY', route: { mission: 'tut-ping', district: 'academy' } },
+		{ match: ['open cyber deck', 'inventory'], label: 'OPS CONSOLE', route: { district: 'console' } },
+		{ match: ['black hangar'], label: 'STORMCORE HANGAR', route: { district: 'storm' } },
+		{ match: ['dogfight'], label: 'FIELD ROUTE', route: { district: 'field' } },
+		{ match: ['console'], label: 'OPS CONSOLE', route: { district: 'console' } },
+		{ match: ['field'], label: 'FIELD ROUTE', route: { district: 'field' } }
+	];
+
+	function legacyLabelKey(text) {
+		return String(text || '').replace(/\[[^\]]*\]/g, '').replace(/\/\/.*/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+	}
+
+	function legacyActionFor(rawText) {
+		var key = legacyLabelKey(rawText);
+		if (!key) return null;
+		for (var i = 0; i < LEGACY_WORLD_ACTIONS.length; i++) {
+			var item = LEGACY_WORLD_ACTIONS[i];
+			for (var j = 0; j < item.match.length; j++) {
+				if (key.indexOf(item.match[j]) !== -1) return item;
+			}
+		}
+		return null;
+	}
+
+	function clearWorldBootGate() {
+		try { sessionStorage.setItem('cwg.booted', '1'); } catch (e) {}
+		var boot = document.getElementById('cwg-boot');
+		if (boot) boot.classList.add('gone');
+		try { if (window.__cwWorld && window.__cwWorld.refresh) window.__cwWorld.refresh(); } catch (e) {}
+	}
+
+	function runWorldRoute(route) {
+		if (!route) return false;
+		if (route.external) {
+			window.location.assign(new URL(route.external, window.location.origin).href);
+			return true;
+		}
+		if (window.__cwWorld && window.__cwWorld.open) {
+			window.__cwWorld.open();
+			setTimeout(clearWorldBootGate, 40);
+			if (route.plaza && window.__cwWorld.toPlaza) {
+				setTimeout(function () { window.__cwWorld.toPlaza(); }, 80);
+			} else if (route.district && window.__cwWorld.toDistrict) {
+				setTimeout(function () { window.__cwWorld.toDistrict(route.district); }, 80);
+			} else if (route.grid && window.__cwWorld.toGrid) {
+				setTimeout(function () { window.__cwWorld.toGrid(); }, 80);
+			}
+		} else {
+			window.location.assign(cyberWorldUrl('?launch=cyberworld'));
+			return true;
+		}
+		if (route.mission && window.__cwGameplay && window.__cwGameplay.startMission) {
+			setTimeout(function () { window.__cwGameplay.startMission(route.mission); }, 220);
+		}
+		return true;
+	}
+
+	function routeLegacyButtonEvent(ev, btn, action) {
+		if (!btn || !action) return;
+		var now = Date.now();
+		if (now - (btn.__cwLegacyLastRoute || 0) < 350) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			ev.stopImmediatePropagation();
+			return;
+		}
+		btn.__cwLegacyLastRoute = now;
+		ev.preventDefault();
+		ev.stopPropagation();
+		ev.stopImmediatePropagation();
+		toast('Routing ' + action.label + ' through CyberWorld');
+		runWorldRoute(action.route);
+	}
+
+	function bindLegacyWorldButton(btn) {
+		if (!btn || btn.__cwLegacyBound) return;
+		btn.__cwLegacyBound = true;
+		['pointerdown', 'mousedown', 'click'].forEach(function (eventName) {
+			btn.addEventListener(eventName, function (ev) {
+				var action = legacyActionFor(btn.textContent || btn.dataset.cwLegacyRouted || '');
+				if (!action) return;
+				routeLegacyButtonEvent(ev, btn, action);
+			}, true);
+		});
+	}
+
+	function handleLegacyWorldButton(ev) {
+		var btn = ev.target && ev.target.closest && ev.target.closest('button');
+		if (!btn || btn.closest('#cwg-root') || btn.closest('.cwo-root') || btn.closest('.win98-icons-grid')) return;
+		var action = legacyActionFor(btn.textContent || '');
+		if (!action) return;
+		routeLegacyButtonEvent(ev, btn, action);
+	}
+
+	function upgradeLegacyWorldLabels(root) {
+		if (!legacyUpgradeReady) return;
+		var scope = root || document;
+		scope.querySelectorAll('button').forEach(function (btn) {
+			if (btn.closest('#cwg-root') || btn.closest('.cwo-root') || btn.closest('.win98-icons-grid')) return;
+			var action = legacyActionFor(btn.textContent || '');
+			if (!action || btn.dataset.cwLegacyRouted === action.label) return;
+			btn.dataset.cwLegacyRouted = action.label;
+			btn.textContent = action.label;
+			btn.title = action.label + ' - routed to CyberWorld';
+			bindLegacyWorldButton(btn);
+		});
+		scope.querySelectorAll('h1,h2,h3,header,span,div').forEach(function (el) {
+			if (el.closest('#cwg-root') || el.closest('.cwo-root')) return;
+			if ((el.textContent || '').trim().toUpperCase() === 'ACTIONS') el.textContent = 'WORLD ACTIONS';
+		});
+	}
+
 	// ---------------------------------------------------------------
 	// Boot
 	// ---------------------------------------------------------------
-	function boot() {
+	function runVisualUpgrades() {
 		ensureShortcutSurface(document);
 		annotateAll(document);
 		mountBackdrop();
+		mountSidebarToggle();
+		localizeDockedFrames();
+		legacyUpgradeReady = true;
+		upgradeLegacyWorldLabels(document);
+	}
+
+	function boot() {
 		mountMpPill();
 		if (!document.__cwPortalButtonsCaptured) {
 			document.addEventListener('pointerdown', handlePortalButton, true);
 			document.addEventListener('mousedown', handlePortalButton, true);
 			document.addEventListener('click', handlePortalButton, true);
+			document.addEventListener('pointerdown', handleLegacyWorldButton, true);
+			document.addEventListener('mousedown', handleLegacyWorldButton, true);
+			document.addEventListener('click', handleLegacyWorldButton, true);
 			setInterval(localizeDockedFrames, 800);
+			setInterval(function () { upgradeLegacyWorldLabels(document); }, 1200);
 			document.__cwPortalButtonsCaptured = true;
+		}
+		if (!legacyUpgradeTimer) {
+			legacyUpgradeTimer = setTimeout(runVisualUpgrades, 1800);
 		}
 
 		// React renders shortcuts after hydration — observe and re-annotate
-		var mo = new MutationObserver(function (mutations) {
+		if (!visualObserverStarted) {
+			visualObserverStarted = true;
+			var mo = new MutationObserver(function (mutations) {
+			if (!legacyUpgradeReady) return;
 			for (var i = 0; i < mutations.length; i++) {
 				var m = mutations[i];
 				if (m.addedNodes && m.addedNodes.length) {
@@ -540,13 +681,13 @@
 						if (n.classList && n.classList.contains('win98-bg')) buildPeriodicBackdrop(n);
 						else if (n.querySelector) { var bg = n.querySelector('.win98-bg'); if (bg) buildPeriodicBackdrop(bg); }
 						localizeDockedFrames();
+						upgradeLegacyWorldLabels(n);
 					}
 				}
 			}
 		});
-		mo.observe(document.body, { childList: true, subtree: true });
-		mountSidebarToggle();
-
+			mo.observe(document.body, { childList: true, subtree: true });
+		}
 		patchPhaserRuntime();
 
 		// Helpful console banner for debugging

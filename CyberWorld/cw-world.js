@@ -280,6 +280,54 @@
     WORLD_ASSETS[key] = img;
   });
 
+  var SECTOR_DECKS = {
+    crypto: {
+      label: 'CIPHER VAULT',
+      brief: 'Encoding, hashing, and evidence-preserving decrypt drills.',
+      skyline: ['KEYSTORE', 'HASH STACK', 'SIGNAL WELL'],
+      links: [
+        { id: 'academy', label: 'ACADEMY', title: 'Cipher Lab', x: 0.18, y: 0.72, color: '#00ffcc', action: 'district:academy', desc: 'Open Professor Cipher training without leaving the world.' },
+        { id: 'console', label: 'OPS CONSOLE', title: 'Mission Console', x: 0.82, y: 0.72, color: '#fcee09', action: 'district:console', desc: 'Review gear, rewards, and live campaign objectives.' }
+      ]
+    },
+    web: {
+      label: 'APPLICATION ALLEY',
+      brief: 'Safe web bug labs, access-control reasoning, and service hardening.',
+      skyline: ['AUTH GATE', 'API SPINE', 'WAF ROOF'],
+      links: [
+        { id: 'academy', label: 'WEB CLASS', title: 'Academy Web Wing', x: 0.18, y: 0.72, color: '#ff2bd6', action: 'district:academy', desc: 'Open safe web exploitation and remediation lessons.' },
+        { id: 'net', label: 'NET CAFE', title: 'Crew Review', x: 0.82, y: 0.72, color: '#4db5ff', action: 'district:net', desc: 'Bring findings into comms, roster, and chat.' }
+      ]
+    },
+    recon: {
+      label: 'SIGNAL MARKET',
+      brief: 'Recon, OSINT quality, exposure triage, and clean reporting.',
+      skyline: ['OSINT BAZAAR', 'PACKET HARBOR', 'MAP TOWER'],
+      links: [
+        { id: 'map', label: 'WORLD MAP', title: 'Network Topology', x: 0.18, y: 0.72, color: '#00e8ff', action: 'district:map', desc: 'Open the 11-zone topology and locked district gates.' },
+        { id: 'field', label: 'FIELD ROUTE', title: 'Signal Route', x: 0.82, y: 0.72, color: '#7CFF6B', action: 'district:field', desc: 'Run route movement, shards, pulse timing, and exfil.' }
+      ]
+    },
+    forensics: {
+      label: 'EVIDENCE DOCK',
+      brief: 'Logs, timelines, captures, and artifact handling.',
+      skyline: ['CASE VAULT', 'PCAP DOCK', 'TIMELINE LIFT'],
+      links: [
+        { id: 'lab', label: 'PLAYER LAB', title: 'Evidence Shelf', x: 0.18, y: 0.72, color: '#4db5ff', action: 'district:lab', desc: 'Open your badge shelf, tools rack, and dossier desk.' },
+        { id: 'relay', label: 'RELAY CAVE', title: 'Cave Scout Route', x: 0.82, y: 0.72, color: '#7CFF6B', action: 'district:relay', desc: 'Inspect watcher nests and the Relay Matriarch gate.' }
+      ]
+    },
+    defense: {
+      label: 'SOC DEFENSE DECK',
+      brief: 'Alert triage, containment, hardening, and detection logic.',
+      skyline: ['SOC TOWER', 'FIREWALL CORE', 'INCIDENT BRIDGE'],
+      links: [
+        { id: 'soc', label: 'SOC TOWER', title: 'Blue-Team Ops', x: 0.18, y: 0.72, color: '#00e8ff', action: 'district:soc', desc: 'Work with Nova and Agent Zero on live alert triage.' },
+        { id: 'storm', label: 'STORMCORE', title: 'Raid Gate', x: 0.82, y: 0.72, color: '#ff2bd6', action: 'district:storm', desc: 'Inspect boss requirements and Stormcore route gates.' }
+      ]
+    }
+  };
+
   function getOp() {
     var g = loadJSON('cw.operative.v1', {}) || {};
     var net = loadJSON('cw.net.v1', {}) || {};
@@ -418,6 +466,7 @@
     trans: 1,            // transition progress 0..1
     sectors: [],         // computed sector layout
     nodes: [],           // computed node layout (current sector)
+    sectorLinks: [],     // real portals/actions inside the current sector
     players: [],         // presence-driven other players
     particles: [],
     packets: [],
@@ -692,9 +741,12 @@
   }
 
   function openSector(id) {
-    var d = (W.wd.domains || []).filter(function (x) { return x.id === id; })[0];
+    if (!W.wd || !W.wd.domains) refreshData(true);
+    var domains = (W.wd && W.wd.domains) || [];
+    var d = domains.filter(function (x) { return x.id === id; })[0];
     if (!d) return;
     W.sector = id; W.district = null; W.view = 'sector'; W.trans = 0;
+    W.focus = null;
     if (W.root) W.root.dataset.view = 'sector';
     setText('cwg-crumb-txt', 'THE GRID // ' + d.name);
     // lay nodes along an arc path
@@ -702,6 +754,8 @@
       return { id: nd.id, title: nd.title, tier: nd.tier, xp: nd.xp, done: nd.done, unlocked: nd.unlocked,
                color: DOMAIN_COLORS[id] || '#00ffcc', idx: i, total: d.nodes.length, pulse: Math.random() * 6 };
     });
+    W.sectorLinks = sectorLinks(id);
+    setActionPanel(null);
     Audio2.blip(440, 0.14, 'sawtooth');
     renderSide();
     renderBreakdown();
@@ -710,6 +764,7 @@
     W.view = 'plaza';
     W.sector = null;
     W.district = null;
+    W.sectorLinks = [];
     W.trans = 0;
     W.focus = null;
     if (W.root) W.root.dataset.view = 'plaza';
@@ -725,6 +780,7 @@
     W.view = 'district';
     W.sector = null;
     W.district = id;
+    W.sectorLinks = [];
     W.trans = 0;
     W.focus = null;
     if (W.root) W.root.dataset.view = 'district';
@@ -741,7 +797,34 @@
     renderSide();
     renderBreakdown();
   }
-  function toGrid() { W.view = 'grid'; W.sector = null; W.district = null; W.trans = 0; if (W.root) W.root.dataset.view = 'grid'; setText('cwg-crumb-txt', 'THE GRID // SECTOR SELECT'); Audio2.blip(330, 0.12); renderSide(); renderBreakdown(); }
+  function toGrid() { W.view = 'grid'; W.sector = null; W.district = null; W.sectorLinks = []; W.focus = null; W.trans = 0; if (W.root) W.root.dataset.view = 'grid'; setText('cwg-crumb-txt', 'THE GRID // SECTOR SELECT'); setActionPanel(null); Audio2.blip(330, 0.12); renderSide(); renderBreakdown(); }
+
+  function sectorDeck(id) {
+    return SECTOR_DECKS[id] || {
+      label: 'OPS DECK',
+      brief: 'Challenge nodes and linked CyberWorld terminals.',
+      skyline: ['NODE BRIDGE', 'OPS TOWER', 'PORTAL ARRAY'],
+      links: []
+    };
+  }
+
+  function sectorLinks(id) {
+    var deck = sectorDeck(id);
+    return (deck.links || []).map(function (link, idx) {
+      return {
+        id: link.id,
+        label: link.label,
+        title: link.title,
+        x: link.x,
+        y: link.y,
+        color: link.color || DOMAIN_COLORS[id] || '#00ffcc',
+        action: link.action,
+        desc: link.desc,
+        idx: idx,
+        pulse: Math.random() * 6
+      };
+    });
+  }
 
   // ------------------------------------------------------------ side panel / objectives
   function firstUnsolved() {
@@ -770,6 +853,21 @@
     else pushMsg({ callsign: 'GRID', faction: 'NEUTRAL', body: 'All sectors cleared, operative. Legend status.' });
   }
   function renderSide() {
+    if (W.view === 'sector' && W.sector) {
+      var sector = (W.wd.domains || []).filter(function (x) { return x.id === W.sector; })[0];
+      if (!sector) return;
+      var deck = sectorDeck(W.sector);
+      var nextNode = sector.nodes.filter(function (n) { return !n.done && n.unlocked; })[0];
+      setText('cwg-side-lbl', deck.label + ' // ' + sector.done + '/' + sector.total);
+      if (nextNode) {
+        setText('cwg-obj', nextNode.title);
+        setText('cwg-objsub', 'Tier ' + nextNode.tier + ' / +' + nextNode.xp + ' XP / ' + deck.brief);
+      } else {
+        setText('cwg-obj', 'SECTOR CLEARED');
+        setText('cwg-objsub', 'Every node breached. Use the linked portals for next progression.');
+      }
+      return;
+    }
     if (W.view === 'plaza') {
       setText('cwg-side-lbl', 'CITY GATE PLAZA');
       setText('cwg-obj', storyArc());
@@ -794,6 +892,19 @@
   }
   function renderBreakdown() {
     var host = document.getElementById('cwg-breakdown'); if (!host) return;
+    if (W.view === 'sector' && W.sector) {
+      var rows = [];
+      W.sectorLinks.forEach(function (link) {
+        rows.push('<div class="brow portal"><span class="bi">' + esc((link.label || '?').charAt(0)) + '</span><span>' + esc(link.label) + '</span><span class="bp">PORTAL</span></div>');
+      });
+      W.nodes.slice(0, 9).forEach(function (node) {
+        var state = node.done ? 'done' : (node.unlocked ? 'open' : 'locked');
+        var label = node.done ? 'DONE' : (node.unlocked ? 'OPEN' : 'LOCKED');
+        rows.push('<div class="brow ' + state + '"><span class="bi">T' + esc(node.tier) + '</span><span>' + esc(node.title) + '</span><span class="bp">' + label + '</span></div>');
+      });
+      host.innerHTML = rows.join('');
+      return;
+    }
     if (W.view === 'plaza') {
       host.innerHTML = PLAZA_HOTSPOTS.concat(PLAZA_ACTIVITIES).map(function (h) {
         return '<div class="brow"><span class="bi">' + h.icon + '</span><span>' + esc(h.label) + '</span><span class="bp">OPEN</span></div>';
@@ -1085,6 +1196,198 @@
     });
   }
 
+  function sectorNodePoint(nd, bounds) {
+    var count = Math.max(1, nd.total || W.nodes.length || 1);
+    var cols = Math.min(4, Math.max(1, count));
+    var row = Math.floor(nd.idx / cols);
+    var col = nd.idx % cols;
+    var innerLeft = bounds.left + bounds.w * 0.19;
+    var innerRight = bounds.left + bounds.w * 0.81;
+    var x = cols <= 1 ? bounds.left + bounds.w / 2 : lerp(innerLeft, innerRight, col / Math.max(1, cols - 1));
+    var y = bounds.top + bounds.h * 0.46 + row * 92;
+    return { x: x, y: y };
+  }
+
+  function sectorLinkPoint(link, bounds) {
+    return {
+      x: bounds.left + bounds.w * clamp(link.x || 0.5, 0.08, 0.92),
+      y: bounds.top + bounds.h * clamp(link.y || 0.72, 0.14, 0.90)
+    };
+  }
+
+  function drawSectorGate(c, link, bounds) {
+    var p = sectorLinkPoint(link, bounds);
+    var hover = W.hover && W.hover.type === 'sectorLink' && W.hover.id === link.id;
+    var focus = W.focus && W.focus.type === 'sectorLink' && W.focus.link && W.focus.link.id === link.id;
+    link.pulse += 0.035;
+    var color = link.color || '#00ffcc';
+    var r = 38 + Math.sin(link.pulse) * 2 + (hover || focus ? 6 : 0);
+    c.save();
+    c.shadowColor = color;
+    c.shadowBlur = hover || focus ? 30 : 18;
+    c.strokeStyle = color;
+    c.lineWidth = hover || focus ? 3 : 2;
+    c.beginPath();
+    c.ellipse(p.x, p.y, r * 0.78, r * 1.18, 0, 0, Math.PI * 2);
+    c.stroke();
+    c.beginPath();
+    c.ellipse(p.x, p.y, r * 0.42, r * 0.86, 0, 0, Math.PI * 2);
+    c.stroke();
+    c.globalAlpha = 0.26;
+    c.fillStyle = color;
+    c.beginPath();
+    c.ellipse(p.x, p.y, r * 0.78, r * 1.18, 0, 0, Math.PI * 2);
+    c.fill();
+    c.globalAlpha = 1;
+    c.fillStyle = '#eafcff';
+    c.font = "700 11px 'Share Tech Mono',monospace";
+    c.textAlign = 'center';
+    c.fillText(link.label, p.x, p.y + r + 22);
+    c.fillStyle = color;
+    c.font = "700 9px 'Share Tech Mono',monospace";
+    c.fillText('PORTAL', p.x, p.y + r + 35);
+    c.restore();
+    link._pos = p;
+    link._r = r + 18;
+  }
+
+  function drawSectorMissionNode(c, nd, bounds) {
+    var p = sectorNodePoint(nd, bounds);
+    nd.pulse += 0.045;
+    var hover = W.hover && W.hover.type === 'node' && W.hover.id === nd.id;
+    var focus = W.focus && W.focus.type === 'node' && W.focus.nd && W.focus.nd.id === nd.id;
+    var color = nd.color || '#00ffcc';
+    var w = 154;
+    var h = 66;
+    c.save();
+    c.shadowColor = nd.done ? '#00ff9c' : (nd.unlocked ? color : 'rgba(120,140,150,.45)');
+    c.shadowBlur = hover || focus ? 26 : (nd.unlocked ? 13 : 2);
+    c.fillStyle = nd.done ? 'rgba(0,40,24,0.95)' : (nd.unlocked ? 'rgba(4,14,20,0.96)' : 'rgba(8,10,15,0.92)');
+    c.strokeStyle = nd.done ? '#00ff9c' : (nd.unlocked ? color : 'rgba(120,140,150,.55)');
+    c.lineWidth = hover || focus ? 3 : 2;
+    roundRect(c, p.x - w / 2, p.y - h / 2, w, h, 10);
+    c.fill();
+    c.stroke();
+    c.fillStyle = nd.unlocked || nd.done ? '#eafcff' : '#687783';
+    c.font = "700 10px 'Share Tech Mono',monospace";
+    c.textAlign = 'center';
+    c.textBaseline = 'middle';
+    var title = nd.title.length > 21 ? nd.title.slice(0, 20) + '.' : nd.title;
+    c.fillText(title, p.x, p.y - 8);
+    c.fillStyle = nd.done ? '#00ff9c' : (nd.unlocked ? color : '#7b8790');
+    c.font = "700 9px 'Share Tech Mono',monospace";
+    c.fillText((nd.done ? 'CLEARED' : nd.unlocked ? 'BREACH' : 'LOCKED') + ' / TIER ' + nd.tier, p.x, p.y + 14);
+    c.restore();
+    nd._pos = p;
+    nd._r = Math.max(w, h) / 2;
+  }
+
+  function drawSectorView(c) {
+    var d = (W.wd.domains || []).filter(function (x) { return x.id === W.sector; })[0];
+    if (!d) return;
+    var deck = sectorDeck(W.sector);
+    var col = DOMAIN_COLORS[W.sector] || '#00ffcc';
+    var marginLeft = clamp(W.w * 0.08, 76, 156);
+    var marginRight = clamp(W.w * 0.20, 260, 340);
+    var b = {
+      left: marginLeft,
+      top: clamp(W.h * 0.15, 96, 138),
+      w: Math.max(420, W.w - marginLeft - marginRight),
+      h: Math.max(430, W.h - clamp(W.h * 0.30, 220, 300))
+    };
+    b.bottom = b.top + b.h;
+    c.save();
+    c.fillStyle = 'rgba(2,7,12,0.54)';
+    c.strokeStyle = 'rgba(0,255,204,0.20)';
+    c.lineWidth = 1.4;
+    roundRect(c, b.left, b.top, b.w, b.h, 22);
+    c.fill();
+    c.stroke();
+
+    var floorTop = b.top + b.h * 0.31;
+    c.fillStyle = 'rgba(2,18,25,0.62)';
+    c.beginPath();
+    c.moveTo(b.left + b.w * 0.12, floorTop);
+    c.lineTo(b.left + b.w * 0.88, floorTop);
+    c.lineTo(b.left + b.w * 0.96, b.bottom - 20);
+    c.lineTo(b.left + b.w * 0.04, b.bottom - 20);
+    c.closePath();
+    c.fill();
+    c.strokeStyle = 'rgba(0,232,255,0.14)';
+    c.lineWidth = 1;
+    for (var gx = 0; gx <= 8; gx++) {
+      var tx = b.left + b.w * (0.10 + gx * 0.10);
+      c.beginPath();
+      c.moveTo(tx, floorTop);
+      c.lineTo(lerp(b.left + b.w * 0.04, b.left + b.w * 0.96, gx / 8), b.bottom - 20);
+      c.stroke();
+    }
+    for (var gy = 0; gy <= 5; gy++) {
+      var y = lerp(floorTop, b.bottom - 20, gy / 5);
+      c.beginPath();
+      c.moveTo(lerp(b.left + b.w * 0.12, b.left + b.w * 0.04, gy / 5), y);
+      c.lineTo(lerp(b.left + b.w * 0.88, b.left + b.w * 0.96, gy / 5), y);
+      c.stroke();
+    }
+
+    var names = deck.skyline || [];
+    for (var i = 0; i < 3; i++) {
+      var bx = b.left + b.w * (0.21 + i * 0.29);
+      var bw = b.w * 0.16;
+      var bh = 78 + i * 18;
+      c.fillStyle = 'rgba(4,12,20,0.94)';
+      c.strokeStyle = i === 1 ? col : 'rgba(0,232,255,0.40)';
+      roundRect(c, bx - bw / 2, floorTop - bh, bw, bh, 10);
+      c.fill();
+      c.stroke();
+      c.fillStyle = i === 1 ? col : 'rgba(252,238,9,0.75)';
+      for (var win = 0; win < 4; win++) c.fillRect(bx - bw / 2 + 18 + win * 22, floorTop - bh + 22 + (win % 2) * 16, 9, 9);
+      c.fillStyle = '#eafcff';
+      c.font = "700 9px 'Share Tech Mono',monospace";
+      c.textAlign = 'center';
+      c.fillText((names[i] || 'OPS NODE').slice(0, 18), bx, floorTop - bh - 12);
+    }
+
+    c.fillStyle = col;
+    c.font = "700 28px 'VT323',monospace";
+    c.textAlign = 'center';
+    c.fillText(d.name, b.left + b.w / 2, b.top + 42);
+    c.fillStyle = '#dffbff';
+    c.font = "700 11px 'Share Tech Mono',monospace";
+    c.fillText(deck.brief, b.left + b.w / 2, b.top + 66);
+    c.fillStyle = '#fcee09';
+    c.font = "700 10px 'Share Tech Mono',monospace";
+    c.fillText(d.done + ' / ' + d.total + ' nodes breached - portals are live actions', b.left + b.w / 2, b.top + 84);
+
+    W.sectorLinks.forEach(function (link) { drawSectorGate(c, link, b); });
+    W.nodes.forEach(function (nd) { drawSectorMissionNode(c, nd, b); });
+
+    c.strokeStyle = 'rgba(252,238,9,0.30)';
+    c.setLineDash([9, 12]);
+    W.sectorLinks.forEach(function (link) {
+      if (!link._pos) return;
+      W.nodes.forEach(function (nd) {
+        if (!nd._pos || !nd.unlocked) return;
+        c.beginPath();
+        c.moveTo(link._pos.x, link._pos.y);
+        c.lineTo(nd._pos.x, nd._pos.y);
+        c.stroke();
+      });
+    });
+    c.setLineDash([]);
+
+    var op = getOp();
+    drawAgentSprite(c, {
+      x: b.left + b.w / 2,
+      y: b.bottom - 72,
+      scale: 0.88,
+      look: op.look || { frame: 'ghost', suit: col, accent: '#ff2bd6', hair: '#0c1118', coat: '#08131c' },
+      name: op.callsign,
+      title: 'OPERATIVE'
+    });
+    c.restore();
+  }
+
   function drawPlayers(c) {
     var cx = centerX(), cy = centerY(), R = Math.min(W.w, W.h);
     W.players.forEach(function (p) {
@@ -1145,6 +1448,10 @@
         if (Math.hypot(mx - s._pos.x, my - s._pos.y) <= (s._r || 30) + 6) return { type: 'sector', id: s.id, s: s, x: s._pos.x, y: s._pos.y };
       }
     } else {
+      for (var sl = 0; sl < W.sectorLinks.length; sl++) {
+        var link = W.sectorLinks[sl]; if (!link._pos) continue;
+        if (Math.hypot(mx - link._pos.x, my - link._pos.y) <= (link._r || 54)) return { type: 'sectorLink', id: link.id, link: link, x: link._pos.x, y: link._pos.y };
+      }
       for (var j = 0; j < W.nodes.length; j++) {
         var nd = W.nodes[j]; if (!nd._pos) continue;
         if (Math.hypot(mx - nd._pos.x, my - nd._pos.y) <= (nd._r || 20) + 6) return { type: 'node', id: nd.id, nd: nd, x: nd._pos.x, y: nd._pos.y };
@@ -1199,14 +1506,34 @@
       setActionPanel(h);
       sayInPlaza(h.node.label || 'District', h.node.title + ' selected.');
     } else if (h.type === 'sector') { openSector(h.id); }
+    else if (h.type === 'sectorLink') {
+      setActionPanel(h);
+      sayInPlaza(h.link.label, h.link.title + ' selected.');
+    }
     else if (h.type === 'node') {
-      if (h.nd.done) { launchChallenge(h.id); }        // review
-      else if (h.nd.unlocked) { launchChallenge(h.id); }
-      else { Audio2.blip(160, 0.2, 'sawtooth'); floatText(h.x, h.y - 20, 'LOCKED'); }
+      setActionPanel(h);
+      sayInPlaza('Node', h.nd.title + ' selected.');
     }
   }
   function showTip(cx, cy, h) {
     var tip = document.getElementById('cwg-tip'); if (!tip) return;
+    if (h.type === 'sectorLink') {
+      tip.innerHTML = '<div class="tt">' + esc(h.link.title) + '</div><div class="td">' + esc(h.link.desc) + '</div><div class="tr">PORTAL - click to inspect</div>';
+      tip.style.display = 'block';
+      var linkTw = tip.offsetWidth, linkTh = tip.offsetHeight;
+      tip.style.left = clamp(cx + 14, 6, W.w - linkTw - 6) + 'px';
+      tip.style.top = clamp(cy + 14, 6, W.h - linkTh - 6) + 'px';
+      return;
+    }
+    if (h.type === 'node') {
+      var node = h.nd;
+      tip.innerHTML = '<div class="tt">' + esc(node.title) + '</div><div class="td">Tier ' + node.tier + ' / +' + node.xp + ' XP</div><div class="tr">' + (node.done ? 'CLEARED - click to review' : node.unlocked ? 'OPEN - click to inspect' : 'LOCKED') + '</div>';
+      tip.style.display = 'block';
+      var nodeTw = tip.offsetWidth, nodeTh = tip.offsetHeight;
+      tip.style.left = clamp(cx + 14, 6, W.w - nodeTw - 6) + 'px';
+      tip.style.top = clamp(cy + 14, 6, W.h - nodeTh - 6) + 'px';
+      return;
+    }
     if (h.type === 'hotspot') {
       tip.innerHTML = '<div class="tt">' + esc(h.hotspot.title) + '</div><div class="td">' + esc(h.hotspot.desc) + '</div><div class="tr">click to walk here</div>';
     } else if (h.type === 'activity') {
@@ -1237,7 +1564,7 @@
 
   // ------------------------------------------------------------ public API + boot
   function exposeWorldApi() {
-    window.__cwWorld = { open: openWorld, close: closeWorld, refresh: function () { refreshData(); }, toGrid: toGrid, toPlaza: toPlaza, toDistrict: toDistrict, view: function () { return W.view; } };
+    window.__cwWorld = { open: openWorld, close: closeWorld, refresh: function () { refreshData(); }, toGrid: toGrid, toPlaza: toPlaza, toDistrict: toDistrict, toSector: openSector, view: function () { return W.view; } };
   }
 
   function plazaArtReady() {
@@ -2297,13 +2624,34 @@
     if (!target) {
       var scene = districtScene();
       action.dataset.active = '0';
-      setText('cwg-action-lbl', scene && W.view === 'district' ? scene.label : 'CITY GATE PLAZA');
-      setText('cwg-action-title', scene && W.view === 'district' ? 'Walk to a terminal' : 'Walk to a kiosk');
-      setText('cwg-action-sub', 'Click the floor or use WASD / arrows to move.');
-      if (go) go.textContent = 'TALK';
+      if (W.view === 'sector' && W.sector) {
+        setText('cwg-action-lbl', sectorDeck(W.sector).label);
+        setText('cwg-action-title', 'Select a terminal or portal');
+        setText('cwg-action-sub', 'Click a mission terminal to inspect it, or a portal gate to move to a real district.');
+        if (go) go.textContent = 'SCAN';
+      } else {
+        setText('cwg-action-lbl', scene && W.view === 'district' ? scene.label : 'CITY GATE PLAZA');
+        setText('cwg-action-title', scene && W.view === 'district' ? 'Walk to a terminal' : 'Walk to a kiosk');
+        setText('cwg-action-sub', 'Click the floor or use WASD / arrows to move.');
+        if (go) go.textContent = 'TALK';
+      }
       return;
     }
     action.dataset.active = '1';
+    if (target.type === 'sectorLink') {
+      setText('cwg-action-lbl', 'SECTOR PORTAL');
+      setText('cwg-action-title', target.link.title);
+      setText('cwg-action-sub', target.link.desc);
+      if (go) go.textContent = 'ENTER ' + target.link.label;
+      return;
+    }
+    if (target.type === 'node') {
+      setText('cwg-action-lbl', 'MISSION TERMINAL');
+      setText('cwg-action-title', target.nd.title);
+      setText('cwg-action-sub', target.nd.done ? 'Cleared. Open to review the training record.' : (target.nd.unlocked ? 'Ready: Tier ' + target.nd.tier + ' / +' + target.nd.xp + ' XP.' : 'Locked. Clear earlier terminals in this sector first.'));
+      if (go) go.textContent = target.nd.done ? 'REVIEW NODE' : (target.nd.unlocked ? 'BREACH NODE' : 'LOCKED');
+      return;
+    }
     if (target.type === 'npc') {
       setText('cwg-action-lbl', 'OPERATIVE NEARBY');
       setText('cwg-action-title', target.npc.name);
@@ -2360,6 +2708,16 @@
       runDistrictAction(W.focus.node);
       return;
     }
+    if (W.focus.type === 'sectorLink') {
+      Audio2.blip(720, 0.08, 'triangle');
+      runSectorLinkAction(W.focus.link);
+      return;
+    }
+    if (W.focus.type === 'node') {
+      Audio2.blip(620, 0.08, 'triangle');
+      runSectorNodeAction(W.focus.nd);
+      return;
+    }
     Audio2.blip(720, 0.08, 'triangle');
     runPlazaAction(h.action, h);
   }
@@ -2414,6 +2772,27 @@
     if (action === 'cache') { claimDailyCache(); return; }
     if (action === 'emote') { plazaEmote(); return; }
     sayInPlaza('System', node.title + ' is online.');
+  }
+
+  function runSectorLinkAction(link) {
+    if (!link || !link.action) return;
+    if (link.action.indexOf('district:') === 0) { toDistrict(link.action.split(':')[1]); return; }
+    if (link.action.indexOf('mission:') === 0) { startGameplayMission(link.action.split(':')[1]); return; }
+    if (link.action === 'plaza') { toPlaza(); return; }
+    if (link.action === 'map') { toDistrict('map'); return; }
+    if (link.action === 'console') { runPlazaAction('console'); return; }
+    sayInPlaza('System', link.title + ' is online.');
+  }
+
+  function runSectorNodeAction(node) {
+    if (!node) return;
+    if (node.done || node.unlocked) {
+      launchChallenge(node.id);
+      return;
+    }
+    Audio2.blip(160, 0.2, 'sawtooth');
+    floatText(node._pos ? node._pos.x : centerX(), node._pos ? node._pos.y - 20 : centerY(), 'LOCKED');
+    sayInPlaza('System', 'Locked. Clear earlier terminals in this sector first.');
   }
 
   function runPlazaAction(action, source) {
@@ -2494,12 +2873,14 @@
     try {
       var p = new URLSearchParams(window.location.search || '');
       var suppress = p.get('nogrid') === '1';
+      var legacy = p.get('legacy') === '1';
       var launch = (p.get('launch') || '').toLowerCase();
       var onboard = loadJSON('cw.onboarding.v1', {}) || {};
       var onboardingPending = !onboard.complete && p.get('skiponboarding') !== '1';
       // Don't hijack if the user explicitly deep-linked into the academy or another launch.
       var academyDeep = p.get('academy') === '1' || launch === 'academy';
-      if (!suppress && !academyDeep && !onboardingPending && !sessionStorage.getItem('cwg.autoclosed')) {
+      if (!suppress && !legacy && !academyDeep && !onboardingPending) {
+        try { sessionStorage.removeItem('cwg.autoclosed'); } catch (e) {}
         setTimeout(openWorld, 600);
       } else {
         document.getElementById('cwg-relaunch').classList.add('show');

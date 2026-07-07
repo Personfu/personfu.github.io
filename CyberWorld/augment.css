@@ -1233,6 +1233,106 @@ html body [class*="portalBody"] > [class*="portalGrid"] {
 	overflow: auto !important;
 }
 
+/* Legacy React shell bridge. These controls still exist in the exported
+   bundle, so make them read as routed CyberWorld terminals instead of an old
+   cramped button dump. */
+.cw-app:not(:has(.cw-win98-desktop)) [class*="cyber-module"][class*="hudTop"],
+.cw-app:not(:has(.cw-win98-desktop)) [class*="hudTop"] {
+	right: 296px !important;
+	max-width: calc(100vw - 372px) !important;
+}
+.cw-app:not(:has(.cw-win98-desktop)) [class*="cyber-module"][class*="hudSide"],
+.cw-app:not(:has(.cw-win98-desktop)) [class*="hudSide"] {
+	left: auto !important;
+	right: 18px !important;
+	top: 104px !important;
+	bottom: 86px !important;
+	transform: none !important;
+	width: 248px !important;
+	max-width: 248px !important;
+	max-height: calc(100vh - 204px) !important;
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 8px !important;
+	padding: 10px !important;
+	overflow: visible !important;
+	border: 1px solid rgba(0, 232, 255, .5) !important;
+	border-radius: 12px !important;
+	background:
+		linear-gradient(180deg, rgba(3, 16, 27, .94), rgba(1, 8, 15, .88)),
+		repeating-linear-gradient(0deg, rgba(0, 232, 255, .08) 0, rgba(0, 232, 255, .08) 1px, transparent 1px, transparent 5px) !important;
+	box-shadow: 0 0 28px rgba(0, 232, 255, .2), inset 0 0 24px rgba(0, 232, 255, .06) !important;
+	backdrop-filter: blur(10px) !important;
+	z-index: 14 !important;
+	scrollbar-width: none !important;
+}
+.cw-app:not(:has(.cw-win98-desktop)) [class*="cyber-module"][class*="hudSide"]::-webkit-scrollbar,
+.cw-app:not(:has(.cw-win98-desktop)) [class*="hudSide"]::-webkit-scrollbar {
+	display: none !important;
+}
+.cw-app:not(:has(.cw-win98-desktop)) [class*="cyber-module"][class*="nodeNavHeader"],
+.cw-app:not(:has(.cw-win98-desktop)) [class*="nodeNavHeader"] {
+	width: 100% !important;
+	margin: 0 0 2px !important;
+	padding: 7px 8px !important;
+	border-bottom: 1px solid rgba(252, 238, 9, .48) !important;
+	color: #fcee09 !important;
+	text-align: right !important;
+	font: 900 10px/1 "Courier New", Consolas, monospace !important;
+	letter-spacing: 2px !important;
+	text-transform: uppercase !important;
+}
+.cw-app:not(:has(.cw-win98-desktop)) [class*="cyber-module"][class*="hudSide"] [class*="btnAction"],
+.cw-app:not(:has(.cw-win98-desktop)) [class*="hudSide"] [class*="btnAction"],
+.cw-app:not(:has(.cw-win98-desktop)) button[data-cw-legacy-routed] {
+	appearance: none !important;
+	position: relative !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	width: 100% !important;
+	max-width: none !important;
+	min-height: 34px !important;
+	height: auto !important;
+	margin: 0 !important;
+	padding: 8px 10px !important;
+	border: 1px solid rgba(0, 232, 255, .48) !important;
+	border-radius: 7px !important;
+	background: linear-gradient(90deg, rgba(0, 232, 255, .12), rgba(0, 255, 204, .05)) !important;
+	color: #dffbff !important;
+	text-align: left !important;
+	font: 800 10px/1.12 "Courier New", Consolas, monospace !important;
+	letter-spacing: 1px !important;
+	text-transform: uppercase !important;
+	white-space: normal !important;
+	overflow: hidden !important;
+	text-overflow: ellipsis !important;
+	box-shadow: inset 3px 0 0 rgba(0, 232, 255, .62) !important;
+	cursor: pointer !important;
+}
+.cw-app:not(:has(.cw-win98-desktop)) [class*="cyber-module"][class*="hudSide"] [class*="btnAction"]::after,
+.cw-app:not(:has(.cw-win98-desktop)) [class*="hudSide"] [class*="btnAction"]::after,
+.cw-app:not(:has(.cw-win98-desktop)) button[data-cw-legacy-routed]::after {
+	content: "ROUTE" !important;
+	margin-left: 8px !important;
+	color: #fcee09 !important;
+	font-size: 8px !important;
+	letter-spacing: 1.4px !important;
+	opacity: .82 !important;
+}
+.cw-app:not(:has(.cw-win98-desktop)) [class*="cyber-module"][class*="hudSide"] [class*="btnAction"]:hover,
+.cw-app:not(:has(.cw-win98-desktop)) [class*="hudSide"] [class*="btnAction"]:hover,
+.cw-app:not(:has(.cw-win98-desktop)) button[data-cw-legacy-routed]:hover {
+	border-color: rgba(252, 238, 9, .82) !important;
+	color: #fcee09 !important;
+	background: linear-gradient(90deg, rgba(252, 238, 9, .18), rgba(0, 232, 255, .07)) !important;
+	box-shadow: 0 0 16px rgba(252, 238, 9, .2), inset 3px 0 0 #fcee09 !important;
+}
+.cw-app:not(:has(.cw-win98-desktop)) [class*="missionPanel"],
+.cw-app:not(:has(.cw-win98-desktop)) [class*="briefingPanel"] {
+	max-width: min(272px, calc(100vw - 316px)) !important;
+}
+
 @media (max-width: 860px) {
 	.cw-app:has(.cw-win98-desktop) .cw-shell,
 	.cw-app:not(:has(.cw-win98-desktop)) .cw-shell {

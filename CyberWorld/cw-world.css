@@ -85,9 +85,12 @@
 #cwg-side .go{width:100%;padding:7px;cursor:pointer;font:700 11px 'Share Tech Mono',monospace;
   background:linear-gradient(180deg,#00d9a8,#00816a);color:#001;border:2px solid;border-color:#8effe0 #004b3b #004b3b #8effe0;letter-spacing:1px}
 #cwg-side .breakdown{margin-top:12px;display:flex;flex-direction:column;gap:5px}
-#cwg-side .brow{display:flex;align-items:center;gap:7px;font-size:10px;color:#9fc4cf}
+#cwg-side .brow{display:grid;grid-template-columns:22px minmax(0,1fr) auto;align-items:center;gap:7px;min-height:22px;font-size:10px;color:#9fc4cf}
 #cwg-side .brow .bi{width:16px;text-align:center}
 #cwg-side .brow .bp{margin-left:auto;color:var(--cwg-neon)}
+#cwg-side .brow span:nth-child(2){min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#cwg-side .brow.portal .bp{color:var(--cwg-blue)}
+#cwg-side .brow.open .bp{color:var(--cwg-neon)}
 #cwg-side .brow.locked{opacity:.65}
 #cwg-side .brow.locked .bp{color:var(--cwg-amber)}
 #cwg-side .brow.done .bp{color:#00ff9c}
@@ -96,7 +99,8 @@
 #cwg-action{display:none;right:12px;bottom:86px;width:286px;background:var(--cwg-panel);border:1px solid var(--cwg-line);
   padding:12px;backdrop-filter:blur(2px);box-shadow:0 0 18px rgba(0,255,204,.12)}
 #cwg-root[data-view="plaza"] #cwg-action,
-#cwg-root[data-view="district"] #cwg-action{display:block}
+#cwg-root[data-view="district"] #cwg-action,
+#cwg-root[data-view="sector"] #cwg-action{display:block}
 #cwg-action[data-active="1"]{border-color:rgba(252,238,9,.58);box-shadow:0 0 22px rgba(252,238,9,.16)}
 #cwg-action .lbl{color:var(--cwg-amber);font-size:9px;letter-spacing:2px;margin-bottom:8px}
 #cwg-action .obj{font-size:13px;color:#eafcff;line-height:1.45;margin-bottom:4px}
@@ -142,6 +146,9 @@ body:has(#cwg-root.on) .cw-field-fab{display:none !important}
 
 #cwg-root[data-art="district"] #cwg-side,
 #cwg-root[data-art="district"] #cwg-action{background:rgba(2,9,15,.86);border-color:rgba(0,255,204,.34);box-shadow:0 0 20px rgba(0,255,204,.12),inset 0 0 24px rgba(0,255,204,.04)}
+
+#cwg-root[data-view="sector"] #cwg-side,
+#cwg-root[data-view="sector"] #cwg-action{background:rgba(2,9,15,.88);border-color:rgba(0,255,204,.34);box-shadow:0 0 20px rgba(0,255,204,.12),inset 0 0 24px rgba(0,255,204,.04)}
 
 /* breadcrumb (which view) */
 #cwg-crumb{top:66px;left:12px;background:var(--cwg-panel);border:1px solid var(--cwg-line);padding:6px 12px;
