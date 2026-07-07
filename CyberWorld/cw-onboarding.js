@@ -334,6 +334,7 @@
 		$('#cwo-claim-gear').addEventListener('click', function () {
 			try { window.__cwGameplay && window.__cwGameplay.completeTutorialReward && window.__cwGameplay.completeTutorialReward(); } catch (e) {}
 			saveJSON(ONBOARD_KEY, Object.assign(loadJSON(ONBOARD_KEY, {}) || {}, { tutorialRewarded: Date.now() }));
+			state.step = 'tutorial';
 			render();
 		});
 		$('#cwo-skip-tutorial').addEventListener('click', finish);
