@@ -76,6 +76,9 @@
 		{ id: 'tut-scan',    sector: 'Mainframe Core',  title: 'Scan Open Ports',
 		  brief: 'Run a quick port sweep on three known service nodes.',
 		  reward: { xp: 35, credits: 50, item: 'PORT-MAP' }, kind: 'instant' },
+		{ id: 'soc-triage',  sector: 'SOC Tower',       title: 'Alert Triage I',
+		  brief: 'Agent Zero and Nova present three sandbox log entries. Flag repeated failed logins from an unknown node, restore the firewall rule, and document the incident.',
+		  reward: { xp: 100, credits: 90, item: 'LOG-LENS' }, kind: 'instant', req: { mission: 'tut-ping' } },
 		{ id: 'mc-convoy',   sector: 'Mainframe Core',  title: 'Route the Data Convoy',
 		  brief: 'Pilot the operative through the city grid, collect encrypted shards, and exfil before trace heat spikes.',
 		  reward: { xp: 70, credits: 120, item: 'DATA-SHARD' }, kind: 'field', req: { level: 1 } },
@@ -190,6 +193,7 @@
 	function missionAvailable(m) {
 		if (state.completed[m.id]) return false;
 		if (m.req && m.req.level && state.level < m.req.level) return false;
+		if (m.req && m.req.mission && !state.completed[m.req.mission]) return false;
 		return true;
 	}
 
@@ -1229,6 +1233,9 @@
 		state.inventory['STARTER-DECK'] = (state.inventory['STARTER-DECK'] || 0) + 1;
 		state.inventory['PATCH-KIT'] = (state.inventory['PATCH-KIT'] || 0) + 1;
 		state.inventory['PORT-MAP'] = (state.inventory['PORT-MAP'] || 0) + 1;
+		state.inventory['LOG-LENS'] = (state.inventory['LOG-LENS'] || 0) + 1;
+		state.inventory['FIRST-LOGIN-BADGE'] = (state.inventory['FIRST-LOGIN-BADGE'] || 0) + 1;
+		state.inventory['BYTE-BOND'] = (state.inventory['BYTE-BOND'] || 0) + 1;
 		state.credits += 75;
 		state.xp += 35;
 		saveState();

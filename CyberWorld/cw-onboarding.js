@@ -8,35 +8,72 @@
 	var NET_KEY = 'cw.net.v1';
 	var ONBOARD_KEY = 'cw.onboarding.v1';
 	var PATHS = {
-		sentinel: {
-			label: 'Iron Sentinel',
+		soc: {
+			label: 'SOC Cadet',
 			faction: 'IRONWALL',
 			suit: '#4db5ff',
 			accent: '#00ffcc',
-			desc: 'Defender path: shields, hardening, incident response, and holding the line.'
+			frame: 'sentinel',
+			desc: 'Blue-team recruit: triage alerts, harden systems, and keep evidence clean.'
 		},
-		ghost: {
-			label: 'Ghost Analyst',
+		sysadmin: {
+			label: 'SysAdmin Apprentice',
+			faction: 'IRONWALL',
+			suit: '#ffb454',
+			accent: '#fcee09',
+			frame: 'tinker',
+			desc: 'Ops builder: patching, permissions, tickets, uptime, and calm recovery.'
+		},
+		red: {
+			label: 'Red Team Trainee',
+			faction: 'NULLSEC',
+			suit: '#ff355f',
+			accent: '#ffb454',
+			frame: 'runner',
+			desc: 'Safe lab adversary: scoped testing, exploit reasoning, and clean reports.'
+		},
+		osint: {
+			label: 'OSINT Scout',
 			faction: 'GHOSTNET',
 			suit: '#00ffcc',
-			accent: '#ff2bd6',
-			desc: 'Recon path: evidence, OSINT, traffic analysis, and quiet route control.'
+			accent: '#7CFF6B',
+			frame: 'ghost',
+			desc: 'Evidence hunter: public sources, attribution quality, and signal checks.'
 		},
-		runner: {
-			label: 'Null Runner',
+		packet: {
+			label: 'Packet Rookie',
+			faction: 'GHOSTNET',
+			suit: '#fcee09',
+			accent: '#00e8ff',
+			frame: 'runner',
+			desc: 'Network courier: packets, routing, DNS, DHCP, and field movement.'
+		},
+		hardware: {
+			label: 'Hardware Tinkerer',
+			faction: 'DAEMON',
+			suit: '#b87962',
+			accent: '#ffb454',
+			frame: 'tinker',
+			desc: 'Workbench path: devices, sensors, firmware clues, and repair craft.'
+		},
+		cloud: {
+			label: 'Cloud Initiate',
+			faction: 'IRONWALL',
+			suit: '#d9f4ff',
+			accent: '#4db5ff',
+			frame: 'sentinel',
+			desc: 'Cloud defender: identity, least privilege, logs, storage, and posture.'
+		},
+		space: {
+			label: 'Space Cyber Cadet',
 			faction: 'NULLSEC',
 			suit: '#ff2bd6',
-			accent: '#fcee09',
-			desc: 'Research path: exploit labs, adversary thinking, and controlled breach drills.'
-		},
-		tinker: {
-			label: 'Daemon Tinker',
-			faction: 'DAEMON',
-			suit: '#ffb454',
-			accent: '#7CFF6B',
-			desc: 'Automation path: malware triage, scripts, sensors, and tool-building.'
+			accent: '#00e8ff',
+			frame: 'ghost',
+			desc: 'Orbital analyst: satellite systems, cosmic routing, and weird edge cases.'
 		}
 	};
+	var PATH_ALIASES = { sentinel: 'soc', ghost: 'osint', runner: 'red', tinker: 'hardware' };
 	var HAIR = ['#101827', '#29140f', '#ccd6e0', '#111111'];
 	var CINEMATIC = [
 		{
@@ -60,7 +97,7 @@
 	var state = {
 		step: 'auth',
 		authMode: 'signup',
-		path: 'ghost',
+		path: 'soc',
 		hair: HAIR[0],
 		callsign: '',
 		cinema: 0,
@@ -82,6 +119,10 @@
 	function saveJSON(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
 	function hasSave() { return !!localStorage.getItem(SAVE_KEY); }
 	function onboardingDone() { return !!(loadJSON(ONBOARD_KEY, {}) || {}).complete; }
+	function normalizePath(id) {
+		var key = String(id || state.path || 'soc');
+		return PATHS[key] ? key : (PATH_ALIASES[key] || 'soc');
+	}
 	function netAuth() {
 		try { return window.__cwNet && window.__cwNet.authState ? window.__cwNet.authState() : { ready: false, online: false }; }
 		catch (e) { return { ready: false, online: false }; }
@@ -94,12 +135,13 @@
 		var net = loadJSON(NET_KEY, {}) || {};
 		return {
 			callsign: op.callsign || net.callsign || '',
-			path: (op.flags && op.flags.path) || net.path || state.path,
+			path: normalizePath((op.flags && op.flags.path) || net.path || state.path),
 			look: op.look || net.look || null
 		};
 	}
 	function setNetProfile(profile) {
 		var net = loadJSON(NET_KEY, {}) || {};
+		profile.path = normalizePath(profile.path);
 		net.callsign = profile.callsign;
 		net.faction = PATHS[profile.path].faction;
 		net.path = profile.path;
@@ -108,7 +150,8 @@
 		netSync();
 	}
 	function profileFromState() {
-		var path = PATHS[state.path] || PATHS.ghost;
+		state.path = normalizePath(state.path);
+		var path = PATHS[state.path] || PATHS.soc;
 		var callsign = (state.callsign || '').trim().slice(0, 24) || ('OPERATIVE-' + Math.floor(Math.random() * 9000 + 1000));
 		return {
 			callsign: callsign,
@@ -118,7 +161,7 @@
 				suit: path.suit,
 				accent: path.accent,
 				hair: state.hair,
-				frame: state.path
+				frame: path.frame || state.path
 			}
 		};
 	}
@@ -228,6 +271,7 @@
 				'<label>Callsign<input id="cwo-callsign" maxlength="24" value="' + esc(state.callsign || '') + '" placeholder="Operative_7X" autocomplete="off"></label>' +
 				'<div class="cwo-section-label">Pick Your Path</div>' +
 				'<div class="cwo-paths">' + cards + '</div>' +
+				'<div class="cwo-byte-card"><div class="cwo-byte-bot"><i></i></div><div><b>Byte Companion Bond</b><p>Byte is your starter chrome robot companion: field hints, room callouts, badge celebrations, and no gameplay paywall.</p></div><span>Starter Badge</span></div>' +
 				'<div class="cwo-section-label">Hair / Hood Tone</div>' +
 				'<div class="cwo-swatches">' + hair + '</div>' +
 				'<div class="cwo-maker-actions"><button class="cwo-secondary" id="cwo-back-auth" type="button">Back</button><button class="cwo-primary" id="cwo-start-fresh" type="button">Start Fresh Operative</button></div>' +
@@ -253,11 +297,11 @@
 		var op = loadJSON(SAVE_KEY, {}) || {};
 		var done = !!(op.flags && op.flags.tutorialDone);
 		return '<section class="cwo-tutorial">' +
-			'<div class="cwo-prof">' + avatarMarkup() + '<div><h2>Professor Cipher</h2><p>City Gate is your first field lab. You will learn movement, NPC contact, and one defensive operation before any gear is issued.</p></div></div>' +
+			'<div class="cwo-prof">' + avatarMarkup() + '<div><h2>Agent Zero + Professor Cipher</h2><p>City Gate is your first field lab. Learn movement, NPC contact, and a sandboxed alert triage before gear is issued.</p></div></div>' +
 			'<div class="cwo-questline">' +
 				questCard('1', 'Move In The Plaza', 'Open the world, click the plaza floor, and talk to Patch Warden. Movement should feel deliberate, not twitchy.', 'Open Plaza', 'cwo-open-plaza') +
-				questCard('2', 'Run PING The Gateway', 'Open Missions and complete the first instant operation. This is your Professor Oak moment, but for defenders.', 'Open Mission Console', 'cwo-open-missions') +
-				questCard('3', 'Claim Starter Kit', done ? 'Starter gear already issued: STARTER-DECK, PATCH-KIT, PORT-MAP, 75 credits.' : 'Claim this only after orientation. It marks the tutorial complete and syncs to the live grid.', done ? 'Issued' : 'Claim Gear', 'cwo-claim-gear', done) +
+				questCard('2', 'Run Agent Zero Alert Triage', 'Open Missions and complete the safe failed-login triage drill. Correctly flag the unknown-node brute-force pattern.', 'Open Mission Console', 'cwo-open-missions') +
+				questCard('3', 'Claim Starter Kit', done ? 'Starter gear already issued: STARTER-DECK, LOG-LENS, FIRST-LOGIN-BADGE, PORT-MAP, 75 credits.' : 'Claim this only after orientation. It marks the tutorial complete and syncs Byte, starter gear, and your first badge to the live grid.', done ? 'Issued' : 'Claim Gear', 'cwo-claim-gear', done) +
 			'</div>' +
 			'<div class="cwo-maker-actions"><button class="cwo-secondary" id="cwo-skip-tutorial" type="button">Skip Tutorial</button><button class="cwo-primary" id="cwo-finish-onboarding" type="button">Enter CyberWorld</button></div>' +
 		'</section>';

@@ -30,19 +30,19 @@
 
   var DOMAIN_COLORS = { crypto: '#00ffcc', web: '#ff2bd6', recon: '#4db5ff', forensics: '#ffb454', defense: '#7CFF6B' };
   var PLAZA_HOTSPOTS = [
-    { id: 'academy', label: 'ACADEMY', title: 'Hacker Academy', icon: 'A', kind: 'academy', x: 0.18, y: 0.30, w: 230, h: 150, color: '#00ffcc', action: 'academy', desc: 'Start guided cyber lessons and earn XP.' },
-    { id: 'field', label: 'FIELD ROUTE', title: 'Field Route Portal', icon: 'F', kind: 'portal', x: 0.50, y: 0.19, w: 230, h: 170, color: '#7CFF6B', action: 'field', desc: 'Launch the live shard convoy route.' },
-    { id: 'net', label: 'NET CAFE', title: 'Net Cafe', icon: 'N', kind: 'cafe', x: 0.67, y: 0.29, w: 230, h: 150, color: '#ff2bd6', action: 'net', desc: 'Open chat, roster, ranks, and faction tools.' },
-    { id: 'console', label: 'CONSOLE', title: 'Ops Console', icon: 'C', kind: 'console', x: 0.32, y: 0.61, w: 220, h: 156, color: '#fcee09', action: 'console', desc: 'Manage missions, inventory, combat, and field stats.' },
-    { id: 'profile', label: 'PROFILE', title: 'Profile Booth', icon: 'P', kind: 'profile', x: 0.84, y: 0.49, w: 190, h: 150, color: '#4db5ff', action: 'profile', desc: 'View the live operative dossier.' },
-    { id: 'map', label: 'SECTOR GATE', title: 'Sector Gate', icon: 'G', kind: 'gate', x: 0.79, y: 0.70, w: 250, h: 166, color: '#00ffcc', action: 'map', desc: 'Open the sector node map.' }
+    { id: 'academy', label: 'ACADEMY', title: 'Hacker Academy', icon: 'A', kind: 'academy', x: 0.18, y: 0.30, w: 230, h: 150, color: '#00ffcc', action: 'district:academy', desc: 'Enter Professor Cipher training hall.' },
+    { id: 'field', label: 'FIELD ROUTE', title: 'Field Route Portal', icon: 'F', kind: 'portal', x: 0.50, y: 0.19, w: 230, h: 170, color: '#7CFF6B', action: 'district:field', desc: 'Walk into the live shard convoy staging bay.' },
+    { id: 'net', label: 'NET CAFE', title: 'Net Cafe', icon: 'N', kind: 'cafe', x: 0.67, y: 0.29, w: 230, h: 150, color: '#ff2bd6', action: 'district:net', desc: 'Enter chat, roster, ranks, and faction tools.' },
+    { id: 'console', label: 'SOC TOWER', title: 'SOC Tower', icon: 'S', kind: 'console', x: 0.32, y: 0.61, w: 220, h: 156, color: '#fcee09', action: 'district:soc', desc: 'Enter blue-team alert triage and mission control.' },
+    { id: 'profile', label: 'PLAYER LAB', title: 'Player Lab', icon: 'L', kind: 'profile', x: 0.84, y: 0.49, w: 190, h: 150, color: '#4db5ff', action: 'district:lab', desc: 'Visit your room, badge shelf, tool rack, and dossier.' },
+    { id: 'map', label: 'WORLD MAP', title: 'Network Map', icon: 'M', kind: 'gate', x: 0.79, y: 0.70, w: 250, h: 166, color: '#00ffcc', action: 'district:map', desc: 'Open the 11-zone CyberWorld network map.' }
   ];
   var PLAZA_ACTIVITIES = [
     { id: 'daily-cache', label: 'DAILY CACHE', title: 'Daily Cache', icon: '$', x: 0.50, y: 0.82, r: 30, color: '#fcee09', action: 'cache', desc: 'Claim one plaza credit cache per day.' },
     { id: 'emote-pad', label: 'EMOTE PAD', title: 'Signal Pad', icon: '*', x: 0.49, y: 0.52, r: 28, color: '#ff2bd6', action: 'emote', desc: 'Broadcast a visible room emote.' },
-    { id: 'mission-board', label: 'MISSION BOARD', title: 'Mission Board', icon: '!', x: 0.60, y: 0.86, r: 27, color: '#ffb454', action: 'console', desc: 'Jump straight to active operations.' },
-    { id: 'relay-cave', label: 'RELAY CAVE', title: 'Dark Relay Cave', icon: 'D', x: 0.38, y: 0.67, r: 29, color: '#7CFF6B', action: 'mission:dn-convoy', desc: 'Enter the watcher cave route once your operative can survive it.' },
-    { id: 'storm-boss', label: 'STORM BOSS', title: 'Stormcore Raid Gate', icon: 'B', x: 0.90, y: 0.86, r: 31, color: '#ff2bd6', action: 'mission:sc-raid', desc: 'Challenge the Stormcore ICE boss encounter.' },
+    { id: 'mission-board', label: 'MISSION BOARD', title: 'Mission Board', icon: '!', x: 0.60, y: 0.86, r: 27, color: '#ffb454', action: 'district:console', desc: 'Review active operations before launching.' },
+    { id: 'relay-cave', label: 'RELAY CAVE', title: 'Dark Relay Cave', icon: 'D', x: 0.38, y: 0.67, r: 29, color: '#7CFF6B', action: 'district:relay', desc: 'Enter the watcher cave staging route.' },
+    { id: 'storm-boss', label: 'STORM BOSS', title: 'Stormcore Raid Gate', icon: 'B', x: 0.90, y: 0.86, r: 31, color: '#ff2bd6', action: 'district:storm', desc: 'Inspect Stormcore boss gates and raid routes.' },
     { id: 'help-terminal', label: 'HELP TERMINAL', title: 'Plaza Guide', icon: '?', x: 0.80, y: 0.54, r: 27, color: '#7CFF6B', action: 'guide', desc: 'Get a quick tour of movement, chat, and kiosks.' }
   ];
   var PLAZA_NPCS = [
@@ -52,11 +52,11 @@
         { test: 'mission:mc-convoy', text: 'Clean first run. Now the city trusts your routing. The Relay Cave opens when your tier catches up.' },
         { test: 'default', text: 'First contract: route the City Gate Convoy. Shards first, heat second. Every clean route cuts power from the Null Crown.' }
       ] },
-    { id: 'mentor', name: 'Blue Mentor', title: 'Academy Keeper', x: 0.64, y: 0.39, color: '#4db5ff',
-      action: 'academy',
+    { id: 'mentor', name: 'Byte', title: 'Companion Unit', x: 0.64, y: 0.39, color: '#4db5ff',
+      action: 'district:net',
       lines: [
-        { test: 'level:4', text: 'You are past the basics. Build clean habits now: scoped recon, evidence trails, and defensive fixes.' },
-        { test: 'default', text: 'Professor Cipher says the Overseer wins when defenders rush. The Academy turns panic into method, and method into rank.' }
+        { test: 'level:4', text: 'You are past the basics. Your lab shelf is going to need more room for badges, tools, and field logs.' },
+        { test: 'default', text: 'I am Byte, your chrome companion unit. I track chat, badges, missions, and every terminal worth clicking.' }
       ] },
     { id: 'relay', name: 'Relay Tech', title: 'Cave Scout', x: 0.34, y: 0.61, color: '#00ffcc',
       mission: 'dn-convoy',
@@ -64,12 +64,30 @@
         { test: 'mission:dn-convoy', text: 'Black Relay logs are in. Stormcore is the next wall, and it will not fold to button mashing.' },
         { test: 'level:5', text: 'The Relay Cave is live. Watchers hunt in pairs down there; pulse early and keep shield in reserve.' },
         { test: 'default', text: 'The Null Crown nests below the Relay Cave. Clear City Gate, train, then come back when you can survive watcher pairs.' }
+      ] },
+    { id: 'zero', name: 'Agent Zero', title: 'Onboarding Handler', x: 0.43, y: 0.47, color: '#ff2bd6',
+      mission: 'soc-triage',
+      lines: [
+        { test: 'mission:soc-triage', text: 'Nice triage. Unknown node, repeated failed logins, after midnight: you escalated the right signal and restored the firewall rule.' },
+        { test: 'mission:tut-ping', text: 'Your uplink is clean. Come to SOC Tower and triage the unknown-node login alert. No fail state, just evidence and judgment.' },
+        { test: 'default', text: 'First prove your gateway ping with Professor Cipher. Then I will hand you the SOC alert drill and the Log Lens.' }
+      ] },
+    { id: 'cipher', name: 'Professor Cipher', title: 'Threat Architect', x: 0.51, y: 0.48, color: '#fcee09',
+      action: 'district:academy',
+      lines: [
+        { test: 'mission:sc-raid', text: 'The Overseer is wounded. The Null Crown will try to hide behind identity noise and corrupted relays now.' },
+        { test: 'mission:dn-cave', text: 'You mapped the cave. Next lesson: Stormcore does not need faster clicks. It needs calm evidence and timed shields.' },
+        { test: 'mission:tut-ping', text: 'Good. You have a clean uplink. City Gate needs routes secured, then the Relay Cave opens below us.' },
+        { test: 'default', text: 'Welcome to CyberWorld. The Null Crown feeds on rushed defenders. I teach operatives to slow down, verify, and take sectors back.' }
       ] }
   ];
   var NPC_LOOKS = {
     warden: { frame: 'runner', suit: '#ffb454', accent: '#fcee09', hair: '#3a2114', skin: '#b8785f', coat: '#1f1720' },
     mentor: { frame: 'bot', suit: '#d9f4ff', accent: '#4db5ff', hair: '#eef8ff', skin: '#d9f4ff', coat: '#14283a' },
-    relay: { frame: 'ghost', suit: '#00ffcc', accent: '#7CFF6B', hair: '#0b1418', skin: '#8b5d50', coat: '#08231f' }
+    relay: { frame: 'ghost', suit: '#00ffcc', accent: '#7CFF6B', hair: '#0b1418', skin: '#8b5d50', coat: '#08231f' },
+    zero: { frame: 'ghost', suit: '#ff2bd6', accent: '#00ffcc', hair: '#071018', skin: '#8b5d50', coat: '#10151f' },
+    nova: { frame: 'runner', suit: '#7CFF6B', accent: '#00e8ff', hair: '#ff2bd6', skin: '#b8785f', coat: '#071827' },
+    cipher: { frame: 'tinker', suit: '#fcee09', accent: '#00ffcc', hair: '#253044', skin: '#c69275', coat: '#162033' }
   };
   var PLAZA_CROWD = [
     { id: 'bot-patrol-a', name: 'GuardBot', title: 'Firewall Unit', x: 0.39, y: 0.30, dir: 1, look: { frame: 'bot', suit: '#dbe9f4', accent: '#00e8ff', hair: '#eef8ff', coat: '#183040' } },
@@ -86,9 +104,171 @@
     'flags the plaza board',
     'salutes the route crew'
   ];
+  var DISTRICT_SCENES = {
+    academy: {
+      label: 'ACADEMY',
+      title: 'Professor Cipher Academy',
+      subtitle: 'Defensive method before speed',
+      color: '#00ffcc',
+      accent: '#fcee09',
+      type: 'academy',
+      objective: 'Train fundamentals, complete the first ping, and unlock clean field work.',
+      nodes: [
+        { id: 'cipher', kind: 'npc', label: 'PROFESSOR CIPHER', title: 'Threat Architect', x: 0.50, y: 0.43, color: '#fcee09', look: 'cipher', action: 'academy', desc: 'Open the Academy lessons and challenge deck.' },
+        { id: 'ping', kind: 'terminal', label: 'PING GATEWAY', title: 'First Defensive Ping', x: 0.25, y: 0.62, color: '#00ffcc', action: 'mission:tut-ping', mission: 'tut-ping', desc: 'Professor Cipher checks your clean blue-team uplink.' },
+        { id: 'scan', kind: 'terminal', label: 'PORT SCAN', title: 'Scan Open Ports', x: 0.75, y: 0.62, color: '#4db5ff', action: 'mission:tut-scan', mission: 'tut-scan', desc: 'Practice careful service discovery without drama.' },
+        { id: 'return', kind: 'door', label: 'PLAZA DOOR', title: 'Return To City Gate', x: 0.09, y: 0.82, color: '#ffb454', action: 'plaza', desc: 'Walk back to City Gate Plaza.' }
+      ]
+    },
+    field: {
+      label: 'FIELD ROUTE',
+      title: 'Shard Convoy Launch Bay',
+      subtitle: 'Live movement route',
+      color: '#7CFF6B',
+      accent: '#00e8ff',
+      type: 'field',
+      objective: 'Choose a route, collect shards, manage trace heat, and exfil clean.',
+      nodes: [
+        { id: 'city-convoy', kind: 'portal', label: 'CITY CONVOY', title: 'Route The Data Convoy', x: 0.31, y: 0.58, color: '#7CFF6B', action: 'mission:mc-convoy', mission: 'mc-convoy', desc: 'The first real route through City Gate lanes.' },
+        { id: 'black-relay', kind: 'portal', label: 'BLACK RELAY', title: 'Black Relay Convoy', x: 0.58, y: 0.45, color: '#00ffcc', action: 'mission:dn-convoy', mission: 'dn-convoy', desc: 'Watcher pairs sweep this route. Requires field discipline.' },
+        { id: 'firewall-caves', kind: 'portal', label: 'FIREWALL CAVES', title: 'Stormcore Firewall Caves', x: 0.77, y: 0.66, color: '#ff2bd6', action: 'mission:sc-caves', mission: 'sc-caves', desc: 'Storm-lit shard route that opens the raid backdoor.' },
+        { id: 'return', kind: 'door', label: 'PLAZA DOOR', title: 'Return To City Gate', x: 0.10, y: 0.84, color: '#ffb454', action: 'plaza', desc: 'Walk back to City Gate Plaza.' }
+      ]
+    },
+    net: {
+      label: 'NET CAFE',
+      title: 'Net Cafe Social Terminal',
+      subtitle: 'Crew, chat, ranks, factions',
+      color: '#ff2bd6',
+      accent: '#00e8ff',
+      type: 'net',
+      objective: 'Use the live roster and global comms to make the plaza feel occupied.',
+      nodes: [
+        { id: 'chat', kind: 'terminal', label: 'GLOBAL CHAT', title: 'Global Chat Terminal', x: 0.31, y: 0.57, color: '#ff2bd6', action: 'net', desc: 'Open live chat, faction roster, ranks, and crew tools.' },
+        { id: 'crew', kind: 'npc', label: 'BYTE', title: 'Net Guide', x: 0.56, y: 0.42, color: '#4db5ff', look: 'mentor', action: 'net', desc: 'Byte tracks crews, factions, and live operatives.' },
+        { id: 'emote', kind: 'terminal', label: 'SIGNAL PAD', title: 'Emote Signal Pad', x: 0.75, y: 0.67, color: '#fcee09', action: 'emote', desc: 'Broadcast a visible social signal into the room feed.' },
+        { id: 'return', kind: 'door', label: 'PLAZA DOOR', title: 'Return To City Gate', x: 0.09, y: 0.82, color: '#ffb454', action: 'plaza', desc: 'Walk back to City Gate Plaza.' }
+      ]
+    },
+    soc: {
+      label: 'SOC TOWER',
+      title: 'Blue-Team Operations Room',
+      subtitle: 'Triage, contain, document',
+      color: '#00e8ff',
+      accent: '#7CFF6B',
+      type: 'soc',
+      objective: 'Work with Nova and Agent Zero to classify alerts, restore firewall rules, and unlock your lab.',
+      nodes: [
+        { id: 'nova', kind: 'npc', label: 'NOVA', title: 'SOC Lead', x: 0.36, y: 0.43, color: '#7CFF6B', look: 'nova', action: 'mission:soc-triage', mission: 'soc-triage', desc: 'Review the unknown-node failed-login alert and make the call.' },
+        { id: 'triage', kind: 'terminal', label: 'ALERT TRIAGE', title: 'Alert Triage I', x: 0.56, y: 0.56, color: '#fcee09', action: 'mission:soc-triage', mission: 'soc-triage', desc: 'Flag the suspicious failed-login pattern and restore the firewall rule.' },
+        { id: 'mission-control', kind: 'terminal', label: 'MISSION CONTROL', title: 'Ops Mission Console', x: 0.75, y: 0.42, color: '#00ffcc', action: 'console', desc: 'Open the full mission console, inventory, and combat deck.' },
+        { id: 'lab-link', kind: 'door', label: 'PLAYER LAB', title: 'Player Lab Lift', x: 0.82, y: 0.78, color: '#4db5ff', action: 'district:lab', desc: 'Visit your personal lab, badge shelf, and tool rack.' },
+        { id: 'return', kind: 'door', label: 'PLAZA ELEVATOR', title: 'Return To City Gate', x: 0.09, y: 0.83, color: '#ffb454', action: 'plaza', desc: 'Ride back to City Gate Plaza.' }
+      ]
+    },
+    lab: {
+      label: 'PLAYER LAB',
+      title: 'Personal Sandbox Room',
+      subtitle: 'Badges, tools, server rack, Byte dock',
+      color: '#4db5ff',
+      accent: '#ff2bd6',
+      type: 'lab',
+      objective: 'Use your room as the earned home base: inspect badges, tools, dossier, and the world map.',
+      nodes: [
+        { id: 'terminal', kind: 'terminal', label: 'CRT CONSOLE', title: 'Operator Console', x: 0.30, y: 0.56, color: '#ffb454', action: 'console', desc: 'Open missions, inventory, and field stats from your desk terminal.' },
+        { id: 'tools', kind: 'terminal', label: 'TOOLS RACK', title: 'Log Lens Rack', x: 0.48, y: 0.42, color: '#00ffcc', action: 'console', desc: 'Log Lens equipped. Empty slots unlock through more quests.' },
+        { id: 'badges', kind: 'terminal', label: 'BADGE SHELF', title: 'Badge Shelf', x: 0.70, y: 0.56, color: '#fcee09', action: 'console', desc: 'Starter, First Login, and Alert Triage badges live here once earned.' },
+        { id: 'map', kind: 'portal', label: 'WORLD MAP', title: 'CyberWorld Network Map', x: 0.82, y: 0.40, color: '#00e8ff', action: 'district:map', desc: 'Open the 11-zone network topology map.' },
+        { id: 'return', kind: 'door', label: 'PLAZA DOOR', title: 'Return To City Gate', x: 0.09, y: 0.83, color: '#ffb454', action: 'plaza', desc: 'Walk back to City Gate Plaza.' }
+      ]
+    },
+    map: {
+      label: 'WORLD MAP',
+      title: 'CyberWorld Network Topology',
+      subtitle: '3 / 11 districts currently connected',
+      color: '#00ffcc',
+      accent: '#fcee09',
+      type: 'map',
+      objective: 'Cyber Plaza, SOC Tower, and Player Lab are live. The rest are visible future district gates.',
+      nodes: [
+        { id: 'cyber-plaza', kind: 'portal', label: 'CYBER PLAZA', title: 'Cyber Plaza', x: 0.50, y: 0.52, color: '#00ffcc', action: 'plaza', desc: 'The social hub and routing center.' },
+        { id: 'soc-tower', kind: 'portal', label: 'SOC TOWER', title: 'SOC Tower', x: 0.50, y: 0.26, color: '#00e8ff', action: 'district:soc', desc: 'Blue-team alert triage and operations.' },
+        { id: 'player-lab', kind: 'portal', label: 'PLAYER LAB', title: 'Player Lab', x: 0.50, y: 0.11, color: '#fcee09', action: 'district:lab', desc: 'Your personal sandbox room and badge shelf.' },
+        { id: 'red-lab', kind: 'portal', label: 'RED TEAM LAB', title: 'Red Team Lab', x: 0.74, y: 0.26, color: '#ff355f', action: 'locked', locked: true, lockLabel: 'LOCKED', unlockText: 'Future safe attack-defense CTF district.' },
+        { id: 'sysadmin', kind: 'portal', label: 'SYSADMIN ALLEY', title: 'SysAdmin Alley', x: 0.83, y: 0.46, color: '#ffb454', action: 'locked', locked: true, lockLabel: 'LOCKED', unlockText: 'Future patching, permissions, and ticket queue district.' },
+        { id: 'packet', kind: 'portal', label: 'PACKET HARBOR', title: 'Packet Harbor', x: 0.74, y: 0.70, color: '#fcee09', action: 'locked', locked: true, lockLabel: 'LOCKED', unlockText: 'Future networks, routing, subnetting, DNS, and DHCP district.' },
+        { id: 'osint', kind: 'portal', label: 'OSINT BAZAAR', title: 'OSINT Bazaar', x: 0.50, y: 0.82, color: '#7CFF6B', action: 'locked', locked: true, lockLabel: 'LOCKED', unlockText: 'Future public-source investigation and evidence quality district.' },
+        { id: 'cloud', kind: 'portal', label: 'CLOUD CITADEL', title: 'Cloud Citadel', x: 0.26, y: 0.70, color: '#4db5ff', action: 'locked', locked: true, lockLabel: 'LOCKED', unlockText: 'Future identity, logs, storage, and posture district.' },
+        { id: 'hardware', kind: 'portal', label: 'HARDWARE HANGAR', title: 'Hardware Hangar', x: 0.17, y: 0.46, color: '#b87962', action: 'locked', locked: true, lockLabel: 'LOCKED', unlockText: 'Future device, firmware, sensor, and repair district.' },
+        { id: 'museum', kind: 'portal', label: 'MALWARE MUSEUM', title: 'Malware Museum', x: 0.26, y: 0.26, color: '#ff2bd6', action: 'locked', locked: true, lockLabel: 'LOCKED', unlockText: 'Future malware triage and behavior exhibit district.' },
+        { id: 'space', kind: 'portal', label: 'SPACE SYSTEMS', title: 'Space Systems Command', x: 0.50, y: 0.94, color: '#d9f4ff', action: 'locked', locked: true, lockLabel: 'LOCKED', unlockText: 'Future orbital and satellite cybersecurity district.' }
+      ]
+    },
+    console: {
+      label: 'OPS CONSOLE',
+      title: 'Mission Control Deck',
+      subtitle: 'Campaign, inventory, combat',
+      color: '#fcee09',
+      accent: '#00ffcc',
+      type: 'console',
+      objective: 'Review the campaign ladder, loadout, missions, and combat encounters.',
+      nodes: [
+        { id: 'missions', kind: 'terminal', label: 'MISSIONS', title: 'Mission Console', x: 0.34, y: 0.55, color: '#fcee09', action: 'console', desc: 'Open the full mission, inventory, and combat console.' },
+        { id: 'daily', kind: 'terminal', label: 'DAILY CACHE', title: 'Daily Cache Uplink', x: 0.58, y: 0.42, color: '#00ffcc', action: 'cache', desc: 'Claim a daily cache if the city reset is ready.' },
+        { id: 'bosslog', kind: 'terminal', label: 'BOSS DOSSIER', title: 'Null Crown Dossier', x: 0.76, y: 0.67, color: '#ff2bd6', action: 'district:storm', desc: 'Inspect Stormcore boss gates and raid route requirements.' },
+        { id: 'return', kind: 'door', label: 'PLAZA DOOR', title: 'Return To City Gate', x: 0.09, y: 0.83, color: '#ffb454', action: 'plaza', desc: 'Walk back to City Gate Plaza.' }
+      ]
+    },
+    profile: {
+      label: 'PROFILE',
+      title: 'Operative Dossier Bay',
+      subtitle: 'Identity, look, rank, starter gear',
+      color: '#4db5ff',
+      accent: '#00ffcc',
+      type: 'profile',
+      objective: 'Inspect the operative identity and reopen the creator path when needed.',
+      nodes: [
+        { id: 'dossier', kind: 'terminal', label: 'DOSSIER', title: 'Operative Profile', x: 0.32, y: 0.54, color: '#4db5ff', action: 'profile', desc: 'Open the profile page for your live operative.' },
+        { id: 'creator', kind: 'terminal', label: 'CREATOR', title: 'Character Creator', x: 0.58, y: 0.42, color: '#00ffcc', action: 'creator', desc: 'Return to the character creator and path selection.' },
+        { id: 'loadout', kind: 'terminal', label: 'LOADOUT', title: 'Starter Gear Audit', x: 0.76, y: 0.66, color: '#fcee09', action: 'console', desc: 'Review gear and starter items in the ops console.' },
+        { id: 'return', kind: 'door', label: 'PLAZA DOOR', title: 'Return To City Gate', x: 0.09, y: 0.82, color: '#ffb454', action: 'plaza', desc: 'Walk back to City Gate Plaza.' }
+      ]
+    },
+    relay: {
+      label: 'RELAY CAVE',
+      title: 'Dark Relay Cave Threshold',
+      subtitle: 'Null Crown watcher nests',
+      color: '#7CFF6B',
+      accent: '#00ffcc',
+      type: 'cave',
+      objective: 'Descend only when your level and route discipline can survive watcher pairs.',
+      nodes: [
+        { id: 'scout', kind: 'npc', label: 'RELAY TECH', title: 'Cave Scout', x: 0.36, y: 0.44, color: '#00ffcc', look: 'relay', action: 'mission:dn-cave', mission: 'dn-cave', desc: 'Map watcher nests and build the cave route map.' },
+        { id: 'convoy', kind: 'portal', label: 'BLACK RELAY', title: 'Black Relay Convoy', x: 0.59, y: 0.58, color: '#7CFF6B', action: 'mission:dn-convoy', mission: 'dn-convoy', desc: 'Run the hostile relay corridor.' },
+        { id: 'matriarch', kind: 'portal', label: 'MATRIARCH', title: 'Relay Matriarch Boss', x: 0.77, y: 0.43, color: '#ff2bd6', action: 'mission:dn-matriarch', mission: 'dn-matriarch', desc: 'Challenge the watcher boss controlling the cave lattice.' },
+        { id: 'return', kind: 'door', label: 'PLAZA LIFT', title: 'Return To City Gate', x: 0.10, y: 0.83, color: '#ffb454', action: 'plaza', desc: 'Ride the lift back to City Gate Plaza.' }
+      ]
+    },
+    storm: {
+      label: 'STORMCORE',
+      title: 'Stormcore Raid Gate',
+      subtitle: 'The Overseer holds the blackout loop',
+      color: '#ff2bd6',
+      accent: '#00e8ff',
+      type: 'storm',
+      objective: 'Open the map, breach Stormcore ICE, clear firewall caves, and face the Overseer.',
+      nodes: [
+        { id: 'map', kind: 'portal', label: 'SECTOR MAP', title: 'The Grid Sector Map', x: 0.28, y: 0.64, color: '#00e8ff', action: 'map', desc: 'Open the sector node map.' },
+        { id: 'ice', kind: 'portal', label: 'ICE RAID', title: 'Stormcore Breach', x: 0.51, y: 0.47, color: '#ff2bd6', action: 'mission:sc-raid', mission: 'sc-raid', desc: 'Push through Stormcore ICE and tag the throne node.' },
+        { id: 'overseer', kind: 'portal', label: 'OVERSEER', title: 'Overseer Blackout', x: 0.75, y: 0.63, color: '#fcee09', action: 'mission:sc-overseer', mission: 'sc-overseer', desc: 'Face the Stormcore Overseer in the campaign boss fight.' },
+        { id: 'return', kind: 'door', label: 'PLAZA GATE', title: 'Return To City Gate', x: 0.09, y: 0.83, color: '#ffb454', action: 'plaza', desc: 'Walk back to City Gate Plaza.' }
+      ]
+    }
+  };
   var WORLD_ASSET_URLS = {
     plaza: '/CyberWorld/assets/cyberworld/city-gate-plaza-art.png',
     operative: '/CyberWorld/assets/cyberworld/operative-sprite.svg',
+    storybook: '/CyberWorld/assets/cyberworld/storybook-cyberworld-reference.png',
     shard: '/CyberWorld/assets/cyberworld/data-shard.svg',
     daemon: '/CyberWorld/assets/cyberworld/watcher-daemon.svg',
     gate: '/CyberWorld/assets/cyberworld/exfil-gate.svg'
@@ -119,6 +299,38 @@
   function missionDone(id) {
     var g = gameplayState();
     return !!(g.completed && g.completed[id]);
+  }
+  function missionMeta(id) {
+    if (!id) return null;
+    try {
+      var list = window.__cwGameplay && window.__cwGameplay.missions ? window.__cwGameplay.missions() : [];
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].id === id) return list[i];
+      }
+    } catch (e) {}
+    return null;
+  }
+  function missionStatus(id) {
+    var m = missionMeta(id);
+    var op = getOp();
+    if (missionDone(id)) return { state: 'done', label: 'CLEARED', reason: 'Mission already cleared.' };
+    if (m && m.req && m.req.mission && !missionDone(m.req.mission)) {
+      var prereq = missionMeta(m.req.mission);
+      return { state: 'locked', label: 'REQ', reason: 'Requires ' + (prereq ? prereq.title : m.req.mission) + ' first.' };
+    }
+    if (m && m.req && m.req.level && op.level < m.req.level) {
+      return { state: 'locked', label: 'LVL ' + m.req.level, reason: 'Requires LVL ' + m.req.level + '. Current LVL ' + op.level + '.' };
+    }
+    return { state: 'open', label: 'OPEN', reason: m ? m.brief : 'Ready.' };
+  }
+  function nodeStatus(node) {
+    if (!node) return { state: 'open', label: 'OPEN', reason: '' };
+    if (node.locked) return { state: 'locked', label: node.lockLabel || 'LOCKED', reason: node.unlockText || node.desc || 'Locked.' };
+    if (node.mission) return missionStatus(node.mission);
+    return { state: 'open', label: node.action === 'plaza' ? 'BACK' : 'OPEN', reason: node.desc || 'Ready.' };
+  }
+  function districtScene(id) {
+    return DISTRICT_SCENES[id || W.district] || null;
   }
   function storyArc() {
     var op = getOp();
@@ -200,8 +412,9 @@
   // ------------------------------------------------------------ state
   var W = {
     root: null, canvas: null, ctx: null, dpr: 1, w: 0, h: 0,
-    view: 'plaza',       // 'plaza' | 'grid' | 'sector'
+    view: 'plaza',       // 'plaza' | 'district' | 'grid' | 'sector'
     sector: null,        // active sector id
+    district: null,      // active plaza district id
     trans: 1,            // transition progress 0..1
     sectors: [],         // computed sector layout
     nodes: [],           // computed node layout (current sector)
@@ -310,6 +523,7 @@
       else if (W.open && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d'].indexOf(key) !== -1) { W.keys[key] = true; e.preventDefault(); }
       else if (e.key === 'Escape' && W.open && W.view === 'sector') { toGrid(); }
       else if (e.key === 'Escape' && W.open && W.view === 'grid') { toPlaza(); }
+      else if (e.key === 'Escape' && W.open && W.view === 'district') { toPlaza(); }
       else if (e.key === 'Escape' && W.open) { closeWorld(); }
     });
     document.addEventListener('keyup', function (e) {
@@ -321,7 +535,7 @@
   function bindHud() {
     document.getElementById('cwg-btn-exit').addEventListener('click', closeWorld);
     document.getElementById('cwg-btn-plaza').addEventListener('click', toPlaza);
-    document.getElementById('cwg-btn-map').addEventListener('click', toGrid);
+    document.getElementById('cwg-btn-map').addEventListener('click', function () { toDistrict('map'); });
     document.getElementById('cwg-btn-ranks').addEventListener('click', function () { try { window.__cwNet && window.__cwNet.open(); } catch (e) {} Audio2.blip(520); });
     document.getElementById('cwg-btn-console').addEventListener('click', function () { try { window.__cwGameplay && window.__cwGameplay.open(); } catch (e) {} Audio2.blip(560); });
     document.getElementById('cwg-btn-snd').addEventListener('click', function () {
@@ -480,7 +694,7 @@
   function openSector(id) {
     var d = (W.wd.domains || []).filter(function (x) { return x.id === id; })[0];
     if (!d) return;
-    W.sector = id; W.view = 'sector'; W.trans = 0;
+    W.sector = id; W.district = null; W.view = 'sector'; W.trans = 0;
     if (W.root) W.root.dataset.view = 'sector';
     setText('cwg-crumb-txt', 'THE GRID // ' + d.name);
     // lay nodes along an arc path
@@ -495,6 +709,7 @@
   function toPlaza() {
     W.view = 'plaza';
     W.sector = null;
+    W.district = null;
     W.trans = 0;
     W.focus = null;
     if (W.root) W.root.dataset.view = 'plaza';
@@ -504,7 +719,29 @@
     renderSide();
     renderBreakdown();
   }
-  function toGrid() { W.view = 'grid'; W.sector = null; W.trans = 0; if (W.root) W.root.dataset.view = 'grid'; setText('cwg-crumb-txt', 'THE GRID // SECTOR SELECT'); Audio2.blip(330, 0.12); renderSide(); renderBreakdown(); }
+  function toDistrict(id) {
+    var scene = districtScene(id);
+    if (!scene) return;
+    W.view = 'district';
+    W.sector = null;
+    W.district = id;
+    W.trans = 0;
+    W.focus = null;
+    if (W.root) W.root.dataset.view = 'district';
+    setText('cwg-crumb-txt', scene.label + ' // ' + scene.title.toUpperCase());
+    setActionPanel(null);
+    var p = districtSpawnPoint();
+    W.avatar.x = p.x;
+    W.avatar.y = p.y;
+    W.avatar.tx = p.x;
+    W.avatar.ty = p.y;
+    W.avatar.ready = true;
+    Audio2.arp([330, 440, 660], 55);
+    sayInPlaza(scene.label, scene.subtitle);
+    renderSide();
+    renderBreakdown();
+  }
+  function toGrid() { W.view = 'grid'; W.sector = null; W.district = null; W.trans = 0; if (W.root) W.root.dataset.view = 'grid'; setText('cwg-crumb-txt', 'THE GRID // SECTOR SELECT'); Audio2.blip(330, 0.12); renderSide(); renderBreakdown(); }
 
   // ------------------------------------------------------------ side panel / objectives
   function firstUnsolved() {
@@ -519,6 +756,10 @@
     return null;
   }
   function engageNext() {
+    if (W.view === 'district' && W.focus) {
+      activateFocus();
+      return;
+    }
     if (W.view === 'sector' && W.sector) {
       var d = (W.wd.domains || []).filter(function (x) { return x.id === W.sector; })[0];
       var nd = d && d.nodes.filter(function (n) { return !n.done && n.unlocked; })[0];
@@ -533,6 +774,11 @@
       setText('cwg-side-lbl', 'CITY GATE PLAZA');
       setText('cwg-obj', storyArc());
       setText('cwg-objsub', 'Professor Cipher has flagged the Null Crown. Talk to NPCs, train, run routes, and unlock boss gates.');
+    } else if (W.view === 'district' && districtScene()) {
+      var scene = districtScene();
+      setText('cwg-side-lbl', scene.label);
+      setText('cwg-obj', scene.title);
+      setText('cwg-objsub', scene.objective);
     } else if (W.view === 'sector' && W.sector) {
       var d = (W.wd.domains || []).filter(function (x) { return x.id === W.sector; })[0];
       setText('cwg-side-lbl', d.name + ' // ' + d.done + '/' + d.total);
@@ -551,6 +797,13 @@
     if (W.view === 'plaza') {
       host.innerHTML = PLAZA_HOTSPOTS.concat(PLAZA_ACTIVITIES).map(function (h) {
         return '<div class="brow"><span class="bi">' + h.icon + '</span><span>' + esc(h.label) + '</span><span class="bp">OPEN</span></div>';
+      }).join('');
+      return;
+    }
+    if (W.view === 'district' && districtScene()) {
+      host.innerHTML = districtScene().nodes.map(function (node) {
+        var status = nodeStatus(node);
+        return '<div class="brow ' + esc(status.state) + '"><span class="bi">' + esc((node.label || '?').charAt(0)) + '</span><span>' + esc(node.label || node.title) + '</span><span class="bp">' + esc(status.label) + '</span></div>';
       }).join('');
       return;
     }
@@ -732,10 +985,11 @@
     updateParticles(c);
 
     if (W.view === 'plaza') drawPlazaView(c);
+    else if (W.view === 'district') drawDistrictView(c);
     else if (W.view === 'grid') drawGridView(c);
     else drawSectorView(c);
 
-    if (W.view === 'grid' || W.view === 'plaza') drawPlayers(c);
+    if (W.view === 'grid' || W.view === 'plaza' || W.view === 'district') drawPlayers(c);
   }
 
   function drawGridLines(c) {
@@ -876,6 +1130,15 @@
         var h = PLAZA_HOTSPOTS[q]; if (!h._pos) continue;
         if (Math.abs(mx - h._pos.x) <= h._pos.w / 2 && Math.abs(my - h._pos.y) <= h._pos.h / 2 + 16) return { type: 'hotspot', id: h.id, hotspot: h, x: h._pos.x, y: h._pos.y };
       }
+    } else if (W.view === 'district' && districtScene()) {
+      var nodes = districtScene().nodes;
+      for (var dn = 0; dn < nodes.length; dn++) {
+        var node = nodes[dn]; if (!node._pos) continue;
+        var radius = node.kind === 'npc' ? 44 : (node.kind === 'portal' ? 72 : 58);
+        if (Math.hypot(mx - node._pos.x, my - node._pos.y) <= radius) {
+          return { type: 'district', id: node.id, node: node, x: node._pos.x, y: node._pos.y };
+        }
+      }
     } else if (W.view === 'grid') {
       for (var i = 0; i < W.sectors.length; i++) {
         var s = W.sectors[i]; if (!s._pos) continue;
@@ -904,8 +1167,8 @@
     var mx = e.clientX - r.left, my = e.clientY - r.top;
     var h = hitTest(mx, my);
     if (!h) {
-      if (W.view === 'plaza') {
-        var b = plazaBounds();
+      if (W.view === 'plaza' || W.view === 'district') {
+        var b = movementBounds();
         W.avatar.tx = clamp(mx, b.left + 34, b.right - 34);
         W.avatar.ty = clamp(my, b.top + 48, b.bottom - 34);
         W.focus = null;
@@ -930,6 +1193,11 @@
       W.avatar.ty = h.y + 38;
       setActionPanel(h);
       sayInPlaza(h.npc.name, npcDialogue(h.npc));
+    } else if (h.type === 'district') {
+      W.avatar.tx = h.x;
+      W.avatar.ty = h.y + (h.node.kind === 'npc' ? 70 : 86);
+      setActionPanel(h);
+      sayInPlaza(h.node.label || 'District', h.node.title + ' selected.');
     } else if (h.type === 'sector') { openSector(h.id); }
     else if (h.type === 'node') {
       if (h.nd.done) { launchChallenge(h.id); }        // review
@@ -945,6 +1213,9 @@
       tip.innerHTML = '<div class="tt">' + esc(h.activity.title) + '</div><div class="td">' + esc(h.activity.desc) + '</div><div class="tr">click to inspect</div>';
     } else if (h.type === 'npc') {
       tip.innerHTML = '<div class="tt">' + esc(h.npc.name) + '</div><div class="td">' + esc(npcDialogue(h.npc)) + '</div><div class="tr">click to talk</div>';
+    } else if (h.type === 'district') {
+      var status = nodeStatus(h.node);
+      tip.innerHTML = '<div class="tt">' + esc(h.node.title) + '</div><div class="td">' + esc(status.state === 'locked' ? status.reason : h.node.desc) + '</div><div class="tr">' + esc(status.label + ' - click to inspect') + '</div>';
     } else if (h.type === 'sector') {
       tip.innerHTML = '<div class="tt">' + esc(h.s.name) + '</div><div class="td">' + h.s.done + ' / ' + h.s.total + ' nodes breached</div><div class="tr">▸ click to enter sector</div>';
     } else {
@@ -966,7 +1237,7 @@
 
   // ------------------------------------------------------------ public API + boot
   function exposeWorldApi() {
-    window.__cwWorld = { open: openWorld, close: closeWorld, refresh: function () { refreshData(); }, toGrid: toGrid, toPlaza: toPlaza, view: function () { return W.view; } };
+    window.__cwWorld = { open: openWorld, close: closeWorld, refresh: function () { refreshData(); }, toGrid: toGrid, toPlaza: toPlaza, toDistrict: toDistrict, view: function () { return W.view; } };
   }
 
   function plazaArtReady() {
@@ -1050,6 +1321,319 @@
     return { x: W.w * 0.48, y: W.h * 0.535 };
   }
 
+  function districtBounds() {
+    var marginX = clamp(W.w * 0.10, 76, 172);
+    var top = clamp(W.h * 0.17, 92, 148);
+    var bottom = W.h - clamp(W.h * 0.15, 104, 150);
+    return { left: marginX, right: W.w - marginX, top: top, bottom: bottom };
+  }
+
+  function movementBounds() {
+    return W.view === 'district' ? districtBounds() : plazaBounds();
+  }
+
+  function districtSpawnPoint() {
+    var b = districtBounds();
+    return { x: (b.left + b.right) / 2, y: b.bottom - 56 };
+  }
+
+  function districtPoint(node, b) {
+    return {
+      x: lerp(b.left, b.right, node.x),
+      y: lerp(b.top, b.bottom, node.y)
+    };
+  }
+
+  function drawDistrictView(c) {
+    initAvatar();
+    updateAvatar();
+    var scene = districtScene();
+    if (!scene) { toPlaza(); return; }
+    var b = districtBounds();
+    if (W.root) W.root.dataset.art = 'district';
+    drawDistrictRoom(c, scene, b);
+    drawDistrictConnections(c, scene, b);
+    drawDistrictNodes(c, scene, b);
+    drawAvatar(c);
+    drawPlazaBubble(c);
+  }
+
+  function drawDistrictRoom(c, scene, b) {
+    var color = scene.color || '#00ffcc';
+    var accent = scene.accent || '#ff2bd6';
+    var cx = (b.left + b.right) / 2;
+    var floorTop = b.top + (b.bottom - b.top) * 0.42;
+    c.save();
+    var bg = c.createRadialGradient(cx, floorTop, 20, cx, floorTop, Math.max(W.w, W.h) * 0.7);
+    bg.addColorStop(0, 'rgba(8,24,34,0.96)');
+    bg.addColorStop(0.58, scene.type === 'storm' ? 'rgba(30,4,30,0.95)' : 'rgba(4,15,24,0.95)');
+    bg.addColorStop(1, '#01040a');
+    c.fillStyle = bg;
+    c.fillRect(0, 0, W.w, W.h);
+
+    c.fillStyle = 'rgba(2, 9, 15, 0.88)';
+    roundRect(c, b.left, b.top, b.right - b.left, b.bottom - b.top, 18);
+    c.fill();
+    c.strokeStyle = color;
+    c.globalAlpha = 0.24;
+    c.lineWidth = 1.5;
+    c.stroke();
+    c.globalAlpha = 1;
+
+    c.fillStyle = 'rgba(1,6,11,0.82)';
+    c.beginPath();
+    c.moveTo(b.left + 18, b.top + 14);
+    c.lineTo(b.right - 18, b.top + 14);
+    c.lineTo(b.right - 72, floorTop + 22);
+    c.lineTo(b.left + 72, floorTop + 22);
+    c.closePath();
+    c.fill();
+    c.strokeStyle = 'rgba(255,255,255,0.08)';
+    c.stroke();
+
+    c.fillStyle = 'rgba(2,12,18,0.88)';
+    c.beginPath();
+    c.moveTo(b.left + 72, floorTop);
+    c.lineTo(b.right - 72, floorTop);
+    c.lineTo(b.right - 12, b.bottom - 6);
+    c.lineTo(b.left + 12, b.bottom - 6);
+    c.closePath();
+    c.fill();
+    c.strokeStyle = 'rgba(255,255,255,0.08)';
+    c.stroke();
+
+    c.strokeStyle = color;
+    c.globalAlpha = 0.18;
+    c.lineWidth = 1;
+    for (var i = 0; i <= 8; i++) {
+      var t = i / 8;
+      var x1 = lerp(cx, b.left + 42, t);
+      var x2 = lerp(cx, b.right - 42, t);
+      c.beginPath(); c.moveTo(x1, floorTop); c.lineTo(b.left + t * (b.right - b.left), b.bottom - 10); c.stroke();
+      if (i > 0) { c.beginPath(); c.moveTo(x2, floorTop); c.lineTo(b.right - t * (b.right - b.left), b.bottom - 10); c.stroke(); }
+    }
+    for (var r = 0; r < 7; r++) {
+      var yy = lerp(floorTop + 16, b.bottom - 18, r / 6);
+      c.globalAlpha = 0.08 + r * 0.018;
+      c.beginPath();
+      c.moveTo(lerp(cx, b.left + 18, r / 6), yy);
+      c.lineTo(lerp(cx, b.right - 18, r / 6), yy);
+      c.stroke();
+    }
+    c.globalAlpha = 1;
+
+    c.font = "700 28px 'VT323',monospace";
+    c.textAlign = 'center';
+    c.fillStyle = color;
+    c.shadowColor = color;
+    c.shadowBlur = 14;
+    c.fillText(scene.label, cx, b.top + 46);
+    c.font = "700 11px 'Share Tech Mono',monospace";
+    c.fillStyle = '#dffbff';
+    c.shadowBlur = 0;
+    c.fillText(scene.subtitle, cx, b.top + 66);
+
+    drawDistrictSetDressing(c, scene, b, floorTop, color, accent);
+    c.restore();
+  }
+
+  function drawDistrictSetDressing(c, scene, b, floorTop, color, accent) {
+    var cx = (b.left + b.right) / 2;
+    c.save();
+    c.globalCompositeOperation = 'screen';
+    if (scene.type === 'storm') {
+      c.strokeStyle = '#ff2bd6';
+      c.lineWidth = 5;
+      c.shadowColor = '#ff2bd6';
+      c.shadowBlur = 34;
+      c.beginPath(); c.ellipse(cx, floorTop - 4, 112 + Math.sin(W.t * 2) * 5, 58, 0, 0, Math.PI * 2); c.stroke();
+      c.strokeStyle = '#fcee09';
+      c.lineWidth = 2;
+      c.beginPath(); c.moveTo(cx - 34, floorTop - 68); c.lineTo(cx, floorTop - 106); c.lineTo(cx + 34, floorTop - 68); c.stroke();
+    } else if (scene.type === 'cave') {
+      c.strokeStyle = '#7CFF6B';
+      c.lineWidth = 3;
+      c.shadowColor = '#7CFF6B';
+      c.shadowBlur = 18;
+      for (var rib = 0; rib < 5; rib++) {
+        var rr = 78 + rib * 32 + Math.sin(W.t + rib) * 3;
+        c.beginPath(); c.ellipse(cx, floorTop + 34, rr, 34 + rib * 9, 0, Math.PI * 1.08, Math.PI * 1.92); c.stroke();
+      }
+    } else if (scene.type === 'field') {
+      c.strokeStyle = '#7CFF6B';
+      c.lineWidth = 2;
+      c.shadowColor = '#7CFF6B';
+      c.shadowBlur = 16;
+      for (var lane = 0; lane < 4; lane++) {
+        var y = floorTop + 28 + lane * 28;
+        c.setLineDash([14, 12]);
+        c.lineDashOffset = -W.t * (28 + lane * 4);
+        c.beginPath(); c.moveTo(b.left + 92, y); c.lineTo(b.right - 92, y); c.stroke();
+      }
+      c.setLineDash([]);
+    } else if (scene.type === 'soc') {
+      c.shadowColor = '#00e8ff';
+      c.shadowBlur = 12;
+      for (var m = 0; m < 7; m++) {
+        var mx = lerp(b.left + 106, b.right - 106, m / 6);
+        var my = b.top + 96 + (m % 2) * 26;
+        c.strokeStyle = m % 3 ? '#00e8ff' : '#7CFF6B';
+        c.lineWidth = 1.5;
+        roundRect(c, mx - 48, my, 96, 46, 5);
+        c.stroke();
+        c.fillStyle = m % 3 ? 'rgba(0,232,255,0.08)' : 'rgba(124,255,107,0.08)';
+        c.fill();
+        c.beginPath(); c.moveTo(mx - 34, my + 30); c.lineTo(mx - 14, my + 19); c.lineTo(mx + 5, my + 25); c.lineTo(mx + 36, my + 12); c.stroke();
+      }
+    } else if (scene.type === 'lab') {
+      c.strokeStyle = '#4db5ff';
+      c.lineWidth = 2;
+      c.shadowColor = '#4db5ff';
+      c.shadowBlur = 12;
+      roundRect(c, b.right - 246, b.top + 86, 178, 86, 8);
+      c.stroke();
+      c.fillStyle = 'rgba(77,181,255,0.08)';
+      c.fill();
+      c.fillStyle = '#fcee09';
+      for (var badge = 0; badge < 3; badge++) {
+        c.beginPath(); c.arc(b.right - 214 + badge * 44, b.top + 122, 10, 0, Math.PI * 2); c.fill();
+      }
+      c.strokeStyle = '#ff2bd6';
+      roundRect(c, b.left + 82, b.top + 96, 150, 72, 7);
+      c.stroke();
+      c.fillStyle = 'rgba(255,43,214,0.08)';
+      c.fill();
+    } else if (scene.type === 'map') {
+      var ref = WORLD_ASSETS.storybook;
+      if (ref && ref.complete && ref.naturalWidth > 0) {
+        c.globalAlpha = 0.24;
+        drawCoverImage(c, ref, b.left + 40, b.top + 88, 260, 146);
+        c.globalAlpha = 1;
+        c.strokeStyle = '#fcee09';
+        c.lineWidth = 1.5;
+        roundRect(c, b.left + 40, b.top + 88, 260, 146, 8);
+        c.stroke();
+      }
+      c.strokeStyle = '#00ffcc';
+      c.lineWidth = 1.5;
+      c.shadowColor = '#00ffcc';
+      c.shadowBlur = 12;
+      c.beginPath(); c.arc(cx, floorTop + 84, 138, 0, Math.PI * 2); c.stroke();
+      c.beginPath(); c.arc(cx, floorTop + 84, 86, 0, Math.PI * 2); c.stroke();
+    } else {
+      for (var p = 0; p < 4; p++) {
+        var x = lerp(b.left + 130, b.right - 130, p / 3);
+        c.strokeStyle = p % 2 ? accent : color;
+        c.lineWidth = 1.5;
+        roundRect(c, x - 48, b.top + 92 + (p % 2) * 18, 96, 54, 7);
+        c.fillStyle = p % 2 ? 'rgba(255,43,214,0.08)' : 'rgba(0,255,204,0.08)';
+        c.fill();
+        c.stroke();
+      }
+    }
+    c.restore();
+  }
+
+  function drawDistrictConnections(c, scene, b) {
+    var start = districtSpawnPoint();
+    c.save();
+    c.setLineDash([8, 12]);
+    c.lineDashOffset = -W.t * 38;
+    c.lineWidth = 2;
+    scene.nodes.forEach(function (node) {
+      if (node.action === 'plaza') return;
+      var p = districtPoint(node, b);
+      c.strokeStyle = node.color || scene.color;
+      c.globalAlpha = W.focus && W.focus.id === node.id ? 0.52 : 0.18;
+      c.beginPath();
+      c.moveTo(start.x, start.y);
+      c.quadraticCurveTo((start.x + p.x) / 2, Math.min(start.y, p.y) - 38, p.x, p.y + 12);
+      c.stroke();
+    });
+    c.restore();
+  }
+
+  function drawDistrictNodes(c, scene, b) {
+    scene.nodes.forEach(function (node, i) {
+      var p = districtPoint(node, b);
+      node._pos = p;
+      var hover = W.hover && W.hover.type === 'district' && W.hover.id === node.id;
+      var focus = W.focus && W.focus.type === 'district' && W.focus.id === node.id;
+      var status = nodeStatus(node);
+      var locked = status.state === 'locked';
+      var cleared = status.state === 'done';
+      var color = locked ? '#60727c' : (cleared ? '#00ff9c' : (node.color || scene.color));
+      c.save();
+      c.globalAlpha = locked ? 0.58 : 1;
+      if (node.kind === 'npc') {
+        var look = NPC_LOOKS[node.look] || NPC_LOOKS[node.id] || NPC_LOOKS.mentor;
+        drawAgentSprite(c, {
+          x: p.x,
+          y: p.y + 42,
+          scale: 0.92,
+          dir: i % 2 ? -1 : 1,
+          seed: i * 2.1,
+          look: look,
+          hover: hover || focus,
+          label: node.label,
+          title: node.title,
+          labelColor: color
+        });
+        drawTalkBubble(c, p.x + 28, p.y - 36, hover || focus ? 'TALK' : '');
+      } else if (node.kind === 'portal') {
+        c.shadowColor = color;
+        c.shadowBlur = hover || focus ? 32 : 18;
+        c.strokeStyle = color;
+        c.lineWidth = hover || focus ? 4 : 2.4;
+        c.beginPath(); c.ellipse(p.x, p.y, 46 + Math.sin(W.t * 4 + i) * 3, 68, 0, 0, Math.PI * 2); c.stroke();
+        c.beginPath(); c.ellipse(p.x, p.y, 25, 42 + Math.sin(W.t * 5 + i) * 2, 0, 0, Math.PI * 2); c.stroke();
+        c.fillStyle = 'rgba(1,8,14,0.72)';
+        c.beginPath(); c.ellipse(p.x, p.y + 54, 54, 13, 0, 0, Math.PI * 2); c.fill();
+      } else if (node.kind === 'door') {
+        c.shadowColor = color;
+        c.shadowBlur = hover || focus ? 18 : 8;
+        c.fillStyle = 'rgba(5,12,18,0.92)';
+        c.strokeStyle = color;
+        c.lineWidth = hover || focus ? 3 : 1.5;
+        roundRect(c, p.x - 42, p.y - 60, 84, 100, 7); c.fill(); c.stroke();
+        c.strokeStyle = 'rgba(255,255,255,0.18)';
+        c.beginPath(); c.moveTo(p.x, p.y - 54); c.lineTo(p.x, p.y + 34); c.stroke();
+      } else {
+        c.shadowColor = color;
+        c.shadowBlur = hover || focus ? 22 : 10;
+        c.fillStyle = 'rgba(2,10,16,0.92)';
+        c.strokeStyle = color;
+        c.lineWidth = hover || focus ? 3 : 1.6;
+        roundRect(c, p.x - 56, p.y - 38, 112, 76, 8); c.fill(); c.stroke();
+        c.fillStyle = color;
+        c.globalAlpha = locked ? 0.28 : 0.18 + Math.sin(W.t * 3 + i) * 0.05;
+        c.fillRect(p.x - 44, p.y - 25, 88, 36);
+        c.globalAlpha = locked ? 0.58 : 1;
+        c.fillStyle = '#eafcff';
+        c.fillRect(p.x - 38, p.y + 21, 76, 5);
+      }
+      c.restore();
+
+      if (node.kind !== 'npc') {
+        c.save();
+        c.font = "700 10px 'Share Tech Mono',monospace";
+        c.textAlign = 'center';
+        c.fillStyle = color;
+        c.shadowColor = '#001018';
+        c.shadowBlur = 5;
+        c.fillText(node.label, p.x, p.y + 88);
+        c.font = "700 9px 'Share Tech Mono',monospace";
+        c.fillStyle = locked ? '#ffb454' : (cleared ? '#00ff9c' : '#dffbff');
+        c.fillText(status.label, p.x, p.y + 101);
+        c.restore();
+      }
+
+      if (hover || focus) {
+        drawTextPill(c, node.title, p.x, Math.max(90, p.y - 88), color);
+      }
+    });
+  }
+
   function drawOriginPadMask(c) {
     var p = artSpawnPoint();
     c.save();
@@ -1087,8 +1671,12 @@
 
   function initAvatar() {
     if (W.avatar.ready) return;
-    var b = plazaBounds();
-    if (plazaArtReady()) {
+    var b = movementBounds();
+    if (W.view === 'district') {
+      var d = districtSpawnPoint();
+      W.avatar.x = d.x;
+      W.avatar.y = d.y;
+    } else if (plazaArtReady()) {
       var p = artSpawnPoint();
       W.avatar.x = p.x;
       W.avatar.y = p.y;
@@ -1599,7 +2187,7 @@
   }
 
   function updateAvatar() {
-    var b = plazaBounds();
+    var b = movementBounds();
     var dx = (W.keys.ArrowRight || W.keys.d ? 1 : 0) - (W.keys.ArrowLeft || W.keys.a ? 1 : 0);
     var dy = (W.keys.ArrowDown || W.keys.s ? 1 : 0) - (W.keys.ArrowUp || W.keys.w ? 1 : 0);
     if (dx || dy) {
@@ -1707,10 +2295,11 @@
     var go = document.getElementById('cwg-action-go');
     W.focus = target || null;
     if (!target) {
+      var scene = districtScene();
       action.dataset.active = '0';
-      setText('cwg-action-lbl', 'CITY GATE PLAZA');
-      setText('cwg-action-title', 'Walk to a kiosk');
-      setText('cwg-action-sub', 'Click the plaza or use WASD / arrows to move.');
+      setText('cwg-action-lbl', scene && W.view === 'district' ? scene.label : 'CITY GATE PLAZA');
+      setText('cwg-action-title', scene && W.view === 'district' ? 'Walk to a terminal' : 'Walk to a kiosk');
+      setText('cwg-action-sub', 'Click the floor or use WASD / arrows to move.');
       if (go) go.textContent = 'TALK';
       return;
     }
@@ -1727,6 +2316,19 @@
       setText('cwg-action-title', target.activity.title);
       setText('cwg-action-sub', target.activity.desc);
       if (go) go.textContent = target.activity.action.indexOf('mission:') === 0 ? 'ENTER ' + target.activity.label : 'ACTIVATE ' + target.activity.label;
+      return;
+    }
+    if (target.type === 'district') {
+      var status = nodeStatus(target.node);
+      setText('cwg-action-lbl', districtScene() ? districtScene().label + ' INTERACTIVE' : 'DISTRICT INTERACTIVE');
+      setText('cwg-action-title', target.node.title);
+      setText('cwg-action-sub', status.state === 'locked' ? status.reason : target.node.desc);
+      if (go) {
+        if (target.node.action === 'plaza') go.textContent = 'RETURN TO PLAZA';
+        else if (status.state === 'locked') go.textContent = status.label === 'LOCKED' ? 'LOCKED' : 'LOCKED ' + status.label;
+        else if (target.node.action && target.node.action.indexOf('mission:') === 0) go.textContent = status.state === 'done' ? 'CLEARED' : 'START ' + target.node.label;
+        else go.textContent = 'ACTIVATE ' + target.node.label;
+      }
       return;
     }
     setText('cwg-action-lbl', 'INTERACTIVE KIOSK');
@@ -1753,6 +2355,11 @@
       return;
     }
     var h = W.focus.hotspot || W.focus.activity;
+    if (W.focus.type === 'district') {
+      Audio2.blip(720, 0.08, 'triangle');
+      runDistrictAction(W.focus.node);
+      return;
+    }
     Audio2.blip(720, 0.08, 'triangle');
     runPlazaAction(h.action, h);
   }
@@ -1762,15 +2369,57 @@
   }
 
   function startGameplayMission(id) {
+    var status = missionStatus(id);
+    if (status.state === 'locked') {
+      sayInPlaza('System', status.reason);
+      pushMsg({ callsign: 'System', faction: 'NEUTRAL', body: status.reason });
+      Audio2.blip(160, 0.18, 'sawtooth');
+      return;
+    }
+    if (status.state === 'done') {
+      sayInPlaza('System', 'Mission already cleared. Use the console to review the record.');
+      Audio2.blip(220, 0.12, 'triangle');
+      return;
+    }
     closeWorld();
     setTimeout(function () {
       try { window.__cwGameplay && window.__cwGameplay.startMission && window.__cwGameplay.startMission(id); } catch (e) {}
     }, 160);
   }
 
+  function runDistrictAction(node) {
+    if (!node || !node.action) return;
+    var status = nodeStatus(node);
+    if (status.state === 'locked' || node.action === 'locked') {
+      sayInPlaza('Map', status.reason);
+      pushMsg({ callsign: 'Map', faction: 'NEUTRAL', body: status.reason });
+      Audio2.blip(160, 0.18, 'sawtooth');
+      return;
+    }
+    if (status.state === 'done' && node.action.indexOf('mission:') === 0) {
+      sayInPlaza(node.label, 'Cleared. Check the mission log for the reward trail and next unlock.');
+      Audio2.blip(420, 0.1, 'triangle');
+      return;
+    }
+    var action = node.action;
+    if (action.indexOf('mission:') === 0) { startGameplayMission(action.split(':')[1]); return; }
+    if (action.indexOf('district:') === 0) { toDistrict(action.split(':')[1]); return; }
+    if (action === 'plaza') { toPlaza(); return; }
+    if (action === 'academy') { try { window.__cwAcademy && window.__cwAcademy.open(); } catch (e) {} return; }
+    if (action === 'net') { try { window.__cwNet && window.__cwNet.open(); } catch (e) {} return; }
+    if (action === 'console') { try { window.__cwGameplay && window.__cwGameplay.open(); } catch (e) {} return; }
+    if (action === 'creator') { try { window.__cwOnboarding && window.__cwOnboarding.open && window.__cwOnboarding.open('creator'); } catch (e) {} return; }
+    if (action === 'profile') { window.open('/profile.html', '_blank', 'noopener'); return; }
+    if (action === 'map') { toGrid(); return; }
+    if (action === 'cache') { claimDailyCache(); return; }
+    if (action === 'emote') { plazaEmote(); return; }
+    sayInPlaza('System', node.title + ' is online.');
+  }
+
   function runPlazaAction(action, source) {
     if (!action) return;
     if (action.indexOf('mission:') === 0) { startGameplayMission(action.split(':')[1]); return; }
+    if (action.indexOf('district:') === 0) { toDistrict(action.split(':')[1]); return; }
     if (action === 'academy') { try { window.__cwAcademy && window.__cwAcademy.open(); } catch (e) {} return; }
     if (action === 'net') { try { window.__cwNet && window.__cwNet.open(); } catch (e) {} return; }
     if (action === 'console') { try { window.__cwGameplay && window.__cwGameplay.open(); } catch (e) {} return; }
@@ -1780,8 +2429,8 @@
     if (action === 'cache') { claimDailyCache(); return; }
     if (action === 'emote') { plazaEmote(); return; }
     if (action === 'guide') {
-      sayInPlaza('Guide', 'Click the ground to walk. Pick a district, talk to NPCs for assignments, use Space/Pulse in field routes, and return here between runs.');
-      pushMsg({ callsign: 'Guide', faction: 'NEUTRAL', body: 'City Gate Plaza connects Academy, Field, NET, Profile, Console, Relay Cave, and Stormcore.' });
+      sayInPlaza('Guide', 'Click the ground to walk. Enter Academy, SOC Tower, Player Lab, Net Cafe, Relay Cave, or the World Map; use Space/Pulse in field routes.');
+      pushMsg({ callsign: 'Guide', faction: 'NEUTRAL', body: 'City Gate Plaza connects Academy, Field Route, Net Cafe, SOC Tower, Player Lab, Relay Cave, and the 11-zone World Map.' });
       return;
     }
     if (source) sayInPlaza('System', source.title + ' is online.');
@@ -1821,13 +2470,13 @@
     }
     if (kind === 'friends') { runPlazaAction('net'); return; }
     if (kind === 'cache') { claimDailyCache(); return; }
-    if (kind === 'map') { toGrid(); }
+    if (kind === 'map') { toDistrict('map'); }
   }
 
   function runPlazaDock(kind) {
     Audio2.blip(760, 0.06, 'triangle');
     if (kind === 'skills') { runPlazaAction('academy'); return; }
-    if (kind === 'map') { toGrid(); return; }
+    if (kind === 'map') { toDistrict('map'); return; }
     if (kind === 'faction') { runPlazaAction('net'); return; }
     if (kind === 'shop') { claimDailyCache(); return; }
     if (kind === 'inventory' || kind === 'loadout' || kind === 'missions') {
