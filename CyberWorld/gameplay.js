@@ -40,7 +40,7 @@
 		try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch (e) {}
 	}
 	var state = loadState();
-	var FIELD_TARGET_PACKETS = 6;
+	var FIELD_TARGET_PACKETS = 5;
 	var FIELD_MAX_DAEMONS = 3;
 
 	function xpForLevel(L) { return Math.floor(100 * Math.pow(1.35, L - 1)); }
@@ -245,9 +245,14 @@
 				render();
 			}, m);
 		} else if (m.kind === 'field') {
-			toggle(false);
-			activateLiveOps(m);
+			launchFieldRoute(m);
 		}
+	}
+
+	function launchFieldRoute(mission) {
+		try { if (window.__cwWorld && window.__cwWorld.close) window.__cwWorld.close(); } catch (e) {}
+		activateLiveOps(mission || null);
+		toggle(false);
 	}
 
 	// ---------- Combat engine ----------
@@ -418,8 +423,10 @@
 			+   '<div class="cw-gp-tabs">'
 			+     '<button data-tab="run" class="active">Run</button>'
 			+     '<button data-tab="field">Field</button>'
+			+     '<button data-tab="missions">Missions</button>'
 			+     '<button data-tab="combat">Combat</button>'
 			+     '<button data-tab="inventory">Inventory</button>'
+			+     '<button data-tab="loadout">Loadout</button>'
 			+     '<button data-tab="profile">Profile</button>'
 			+   '</div>'
 			+   '<div class="cw-gp-body"></div>'
@@ -430,17 +437,43 @@
 		root.querySelector('.cw-gp-close').addEventListener('click', toggle);
 		root.querySelectorAll('.cw-gp-tabs button').forEach(function (b) {
 			b.addEventListener('click', function () {
-				root.querySelectorAll('.cw-gp-tabs button').forEach(function (x) { x.classList.remove('active'); });
-				b.classList.add('active');
-				root.dataset.tab = b.dataset.tab;
+				setConsoleTab(b.dataset.tab);
 				render();
 			});
+		});
+		root.addEventListener('click', function (ev) {
+			var field = ev.target && ev.target.closest ? ev.target.closest('.cw-gp-loadout-field') : null;
+			if (field) {
+				ev.preventDefault();
+				launchFieldRoute(null);
+				return;
+			}
+			var train = ev.target && ev.target.closest ? ev.target.closest('.cw-gp-loadout-train') : null;
+			if (train) {
+				ev.preventDefault();
+				setConsoleTab('combat');
+				startCombat('TRAINING-DAEMON', function () { render(); });
+			}
 		});
 		root.dataset.tab = 'run';
 		return root;
 	}
-	function toggle(force) {
+	function setConsoleTab(tab) {
 		ensureRoot();
+		var allowed = { run: true, field: true, missions: true, combat: true, inventory: true, loadout: true, profile: true };
+		var next = allowed[tab] ? tab : 'run';
+		root.dataset.tab = next;
+		root.querySelectorAll('.cw-gp-tabs button').forEach(function (b) {
+			b.classList.toggle('active', b.dataset.tab === next);
+		});
+	}
+	function toggle(force, tab) {
+		ensureRoot();
+		if (typeof force === 'string') {
+			tab = force;
+			force = true;
+		}
+		if (tab) setConsoleTab(tab);
 		open = (typeof force === 'boolean') ? force : !open;
 		root.classList.toggle('open', open);
 		if (open) render();
@@ -603,6 +636,34 @@
 		}).join('') + '</ul>';
 	}
 
+	function renderLoadout() {
+		var patch = state.inventory['PATCH-KIT'] || 0;
+		var deck = state.inventory['STARTER-DECK'] || 0;
+		var best = state.field && state.field.bestRoute ? state.field.bestRoute : 0;
+		return ''
+			+ '<div class="cw-gp-loadout">'
+			+   '<div class="cw-gp-run-hero">'
+			+     '<div>'
+			+       '<span class="cw-gp-run-kicker">ACTIVE LOADOUT</span>'
+			+       '<strong>Defender Starter Rig</strong>'
+			+       '<p>Balanced blue-team kit for story missions, field routes, and boss prep. Patch kits restore HP in combat; route stats improve with clean exfils.</p>'
+			+     '</div>'
+			+     '<div class="cw-gp-run-actions">'
+			+       '<button class="cw-gp-loadout-field" type="button">FIELD ROUTE</button>'
+			+       '<button class="cw-gp-loadout-train" type="button">TRAIN</button>'
+			+     '</div>'
+			+   '</div>'
+			+   '<div class="cw-gp-run-grid">'
+			+     '<div class="cw-gp-run-card"><span>Deck</span><strong>' + (deck ? 'STARTER-DECK' : 'UNISSUED') + '</strong></div>'
+			+     '<div class="cw-gp-run-card"><span>Patch Kits</span><strong>' + patch + '</strong></div>'
+			+     '<div class="cw-gp-run-card"><span>Field Clears</span><strong>' + ((state.field && state.field.clears) || 0) + '</strong></div>'
+			+     '<div class="cw-gp-run-card"><span>Best Route</span><strong>' + best + '</strong></div>'
+			+     '<div class="cw-gp-run-card"><span>Shield</span><strong>' + state.shield + ' / ' + state.maxShield + '</strong></div>'
+			+     '<div class="cw-gp-run-card"><span>Credits</span><strong>' + state.credits + 'c</strong></div>'
+			+   '</div>'
+			+ '</div>';
+	}
+
 	function renderProfile() {
 		var need = xpForLevel(state.level);
 		var pct = Math.floor(100 * state.xp / need);
@@ -634,6 +695,7 @@
 		else if (tab === 'missions')   body.innerHTML = renderMissions();
 		else if (tab === 'combat') body.innerHTML = renderCombat();
 		else if (tab === 'inventory') body.innerHTML = renderInventory();
+		else if (tab === 'loadout') body.innerHTML = renderLoadout();
 		else if (tab === 'profile') body.innerHTML = renderProfile();
 
 		var fieldActive = liveOps && liveOps.active;
@@ -662,13 +724,11 @@
 		});
 		var fieldToggle = body.querySelector('.cw-gp-field-toggle');
 		if (fieldToggle) fieldToggle.addEventListener('click', function () {
-			activateLiveOps(null);
-			toggle(false);
+			launchFieldRoute(null);
 		});
 		var fieldLaunch = body.querySelector('.field-launch');
 		if (fieldLaunch) fieldLaunch.addEventListener('click', function () {
-			activateLiveOps(null);
-			toggle(false);
+			launchFieldRoute(null);
 		});
 		var fieldPulse = body.querySelector('.field-pulse');
 		if (fieldPulse) fieldPulse.addEventListener('click', function () { pulseLiveOps(); render(); });
@@ -687,7 +747,7 @@
 		});
 		var train = body.querySelector('.cw-gp-train');
 		if (train) train.addEventListener('click', function () {
-			root.dataset.tab = 'combat';
+			setConsoleTab('combat');
 			startCombat('TRAINING-DAEMON', function () { render(); });
 		});
 		var rest = body.querySelector('.pf-rest');
@@ -781,7 +841,7 @@
 	}
 	function spawnDaemon(bounds, i, mission) {
 		var hard = mission && /^(dn-convoy|dn-cave|sc-caves)$/.test(mission.id);
-		var speed = hard ? randBetween(0.38, 0.58) : randBetween(0.26, 0.44);
+		var speed = hard ? randBetween(0.28, 0.42) : randBetween(0.16, 0.28);
 		var lanes = [0.47, 0.62, 0.78, 0.54, 0.86];
 		var rows = [0.24, 0.72, 0.42, 0.84, 0.58];
 		return {
@@ -840,7 +900,7 @@
 			ticking: false,
 			routeName: 'City Gate Practice Route',
 			mission: null,
-			player: { x: 180, y: 180, speed: 3.25 },
+			player: { x: 180, y: 180, speed: 2.65 },
 			score: 0,
 			heat: 0,
 			shield: Math.max(58, state.shield + 24, state.maxShield + 18),
@@ -868,7 +928,7 @@
 		ops.active = true;
 		ops.mission = mission || null;
 		ops.routeName = routeNameForMission(mission);
-		ops.player = { x: Math.max(110, rect.width * 0.16), y: Math.max(132, rect.height * 0.5), speed: 3.25 };
+		ops.player = { x: Math.max(110, rect.width * 0.16), y: Math.max(132, rect.height * 0.5), speed: 2.65 };
 		ops.score = 0;
 		ops.heat = 0;
 		ops.shield = Math.max(58, state.shield + 24, state.maxShield + 18);
@@ -948,7 +1008,7 @@
 			liveToast('Pulse recharging');
 			return;
 		}
-		liveOps.pulseCooldown = 58;
+		liveOps.pulseCooldown = 46;
 		liveOps.heat = Math.max(0, liveOps.heat - 34);
 		liveOps.daemons.forEach(function (d) { d.stun = Math.max(d.stun, 68); });
 		liveOps.log.push('Pulse fired: daemons stunned, trace heat reduced.');
@@ -1040,7 +1100,7 @@
 		var dy = (liveKeys.ArrowDown || liveKeys.s ? 1 : 0) - (liveKeys.ArrowUp || liveKeys.w ? 1 : 0);
 		if (dx && dy) { dx *= 0.707; dy *= 0.707; }
 		var dashing = (liveKeys.Shift || liveKeys.shift) && liveOps.dashCooldown <= 0 && (dx || dy);
-		var speed = liveOps.player.speed * (dashing ? 1.55 : 1);
+		var speed = liveOps.player.speed * (dashing ? 1.35 : 1);
 		liveOps.player.x = clamp(liveOps.player.x + dx * speed * dt, 56, Math.max(74, rect.width - 54));
 		liveOps.player.y = clamp(liveOps.player.y + dy * speed * dt, 74, Math.max(92, rect.height - 58));
 		if (dashing) {
@@ -1060,11 +1120,11 @@
 				liveOps.daemonNodes[i].classList.remove('stunned');
 				var distance = dist(liveOps.player, d);
 				if (distance < 160) {
-					d.vx += clamp((liveOps.player.x - d.x) / 1450, -0.038, 0.038);
-					d.vy += clamp((liveOps.player.y - d.y) / 1450, -0.038, 0.038);
+					d.vx += clamp((liveOps.player.x - d.x) / 1750, -0.026, 0.026);
+					d.vy += clamp((liveOps.player.y - d.y) / 1750, -0.026, 0.026);
 				}
-				d.vx = clamp(d.vx, -0.68, 0.68);
-				d.vy = clamp(d.vy, -0.55, 0.55);
+				d.vx = clamp(d.vx, -0.48, 0.48);
+				d.vy = clamp(d.vy, -0.40, 0.40);
 				d.x += d.vx * dt;
 				d.y += d.vy * dt;
 				if (d.x < 72 || d.x > rect.width - 62) d.vx *= -1;
@@ -1125,7 +1185,8 @@
 		if (ev.target && /input|textarea|select/i.test(ev.target.tagName)) return;
 		var key = ev.key.length === 1 ? ev.key.toLowerCase() : ev.key;
 		var fieldActive = !!(liveOps && liveOps.active);
-		var canDriveField = fieldActive && !open;
+		var worldOpen = !!document.querySelector('#cwg-root.on');
+		var canDriveField = fieldActive && !open && !worldOpen;
 		if (canDriveField && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','Shift'].indexOf(key) !== -1) {
 			liveKeys[key] = true;
 			ev.preventDefault();
@@ -1140,29 +1201,37 @@
 		}
 		if (ev.key === 'm' || ev.key === 'M') { ev.preventDefault(); toggle(); }
 		else if (ev.key === 'Escape' && fieldActive && !open) { ev.preventDefault(); deactivateLiveOps('Field route suspended'); }
-		else if (ev.key === 'Escape' && open) { toggle(false); }
+		else if (ev.key === 'Escape' && open) { ev.preventDefault(); toggle(false); }
 	});
 	document.addEventListener('keyup', function (ev) {
 		var key = ev.key.length === 1 ? ev.key.toLowerCase() : ev.key;
 		liveKeys[key] = false;
 	});
+	document.addEventListener('click', function (ev) {
+		if (ev.defaultPrevented || !root || !root.contains(ev.target)) return;
+		var field = ev.target && ev.target.closest ? ev.target.closest('.cw-gp-loadout-field') : null;
+		if (field) {
+			ev.preventDefault();
+			launchFieldRoute(null);
+			return;
+		}
+		var train = ev.target && ev.target.closest ? ev.target.closest('.cw-gp-loadout-train') : null;
+		if (train) {
+			ev.preventDefault();
+			setConsoleTab('combat');
+			startCombat('TRAINING-DAEMON', function () { render(); });
+		}
+	});
 
 	// Hook augment routes: pressing in-game shortcuts also surfaces relevant missions.
 	// Backwards-compatible: only registers if augment.js exposed __cwAddRoute.
 	function wireRoutes() {
-		if (typeof window.__cwAddRoute !== 'function') return;
 		var openConsoleTab = function (tab) {
-			toggle(true);
-			if (root) {
-				root.dataset.tab = tab;
-				root.querySelectorAll('.cw-gp-tabs button').forEach(function (b) {
-					b.classList.toggle('active', b.dataset.tab === tab);
-				});
-				render();
-			}
+			toggle(true, tab || 'run');
 		};
-		// Provide overrides for in-game shortcuts that should open the console instead of full reload.
 		window.__cwOpenConsole = openConsoleTab;
+		if (typeof window.__cwAddRoute !== 'function') return;
+		// Provide overrides for in-game shortcuts that should open the console instead of full reload.
 	}
 
 	function autoStartLaunchRoute() {
@@ -1248,7 +1317,7 @@
 	// Public API
 	window.__cwGameplay = {
 		state: function () { return JSON.parse(JSON.stringify(state)); },
-		open: function () { toggle(true); },
+		open: function (tab) { toggle(true, tab); },
 		close: function () { toggle(false); },
 		toggle: toggle,
 		gainXp: gainXp,

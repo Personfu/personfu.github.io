@@ -139,13 +139,14 @@
 
 .cw-gp-tabs {
 	display: flex;
+	flex-wrap: wrap;
 	gap: 4px;
 	padding: 6px 10px;
 	background: #02070d;
 	border-bottom: 1px solid #00e8ff33;
 }
 .cw-gp-tabs button {
-	flex: 1;
+	flex: 1 1 92px;
 	padding: 7px 10px;
 	background: transparent;
 	border: 1px solid #00e8ff33;

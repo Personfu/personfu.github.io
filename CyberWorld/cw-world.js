@@ -473,6 +473,7 @@
     hover: null,
     focus: null,
     keys: {},
+    panel: null,
     avatar: { x: 0, y: 0, tx: 0, ty: 0, ready: false, dir: 1 },
     plazaBubble: { text: '', until: 0, speaker: '' },
     emoteIndex: 0,
@@ -525,6 +526,11 @@
       '<div class="cwg-hud" id="cwg-action"><div class="lbl" id="cwg-action-lbl">CITY GATE PLAZA</div>' +
         '<div class="obj" id="cwg-action-title">Walk to a kiosk</div><div class="objsub" id="cwg-action-sub">Click the plaza or use WASD / arrows to move.</div>' +
         '<button class="go" id="cwg-action-go">TALK</button></div>' +
+      '<div class="cwg-hud" id="cwg-panel" data-open="0" aria-hidden="true">' +
+        '<header><div><span class="lbl" id="cwg-panel-kicker">COMMAND</span><strong id="cwg-panel-title">Cyber Deck</strong></div>' +
+        '<button type="button" class="x" id="cwg-panel-close" aria-label="Close command panel">X</button></header>' +
+        '<div class="body" id="cwg-panel-body"></div>' +
+      '</div>' +
       '<div class="cwg-hud" id="cwg-dock">' +
         '<button data-dock="inventory"><span class="ico">I</span><span>INVENTORY</span><small>1</small></button>' +
         '<button data-dock="skills"><span class="ico">S</span><span>SKILLS</span><small>2</small></button>' +
@@ -567,8 +573,15 @@
     window.addEventListener('resize', resize);
     document.addEventListener('keydown', function (e) {
       if (e.target && /input|textarea|select/i.test(e.target.tagName)) return;
+      if (e.defaultPrevented) return;
+      if (W.open && overlayHasInputPriority()) return;
       var key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
       if (e.key === 'g' || e.key === 'G') { e.preventDefault(); W.open ? closeWorld() : openWorld(); }
+      else if (W.open && e.key === 'Escape' && W.panel) { e.preventDefault(); closeWorldPanel(); }
+      else if (W.open && key === '?') { e.preventDefault(); showWorldPanel('controls'); }
+      else if (W.open && W.view === 'plaza' && /^[1-7]$/.test(key)) { e.preventDefault(); runDockByIndex(parseInt(key, 10)); }
+      else if (W.open && W.view === 'plaza' && ['i','k','l','m','q','f','b'].indexOf(key) !== -1) { e.preventDefault(); runDockHotkey(key); }
+      else if (W.open && W.panel && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d'].indexOf(key) !== -1) { e.preventDefault(); }
       else if (W.open && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d'].indexOf(key) !== -1) { W.keys[key] = true; e.preventDefault(); }
       else if (e.key === 'Escape' && W.open && W.view === 'sector') { toGrid(); }
       else if (e.key === 'Escape' && W.open && W.view === 'grid') { toPlaza(); }
@@ -595,6 +608,11 @@
     });
     document.getElementById('cwg-obj-go').addEventListener('click', function () { engageNext(); });
     document.getElementById('cwg-action-go').addEventListener('click', function () { activateFocus(); });
+    document.getElementById('cwg-panel-close').addEventListener('click', closeWorldPanel);
+    document.getElementById('cwg-panel-body').addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('[data-panel-action]') : null;
+      if (btn) runWorldPanelAction(btn.dataset.panelAction);
+    });
     document.querySelectorAll('#cwg-dock button').forEach(function (b) {
       b.addEventListener('click', function () { runPlazaDock(b.dataset.dock); });
     });
@@ -683,6 +701,7 @@
   }
   function closeWorld() {
     if (!W.root) return;
+    closeWorldPanel();
     W.root.classList.remove('on');
     W.open = false;
     document.getElementById('cwg-relaunch').classList.add('show');
@@ -745,6 +764,7 @@
     var domains = (W.wd && W.wd.domains) || [];
     var d = domains.filter(function (x) { return x.id === id; })[0];
     if (!d) return;
+    closeWorldPanel();
     W.sector = id; W.district = null; W.view = 'sector'; W.trans = 0;
     W.focus = null;
     if (W.root) W.root.dataset.view = 'sector';
@@ -761,6 +781,7 @@
     renderBreakdown();
   }
   function toPlaza() {
+    closeWorldPanel();
     W.view = 'plaza';
     W.sector = null;
     W.district = null;
@@ -777,6 +798,7 @@
   function toDistrict(id) {
     var scene = districtScene(id);
     if (!scene) return;
+    closeWorldPanel();
     W.view = 'district';
     W.sector = null;
     W.district = id;
@@ -797,7 +819,7 @@
     renderSide();
     renderBreakdown();
   }
-  function toGrid() { W.view = 'grid'; W.sector = null; W.district = null; W.sectorLinks = []; W.focus = null; W.trans = 0; if (W.root) W.root.dataset.view = 'grid'; setText('cwg-crumb-txt', 'THE GRID // SECTOR SELECT'); setActionPanel(null); Audio2.blip(330, 0.12); renderSide(); renderBreakdown(); }
+  function toGrid() { closeWorldPanel(); W.view = 'grid'; W.sector = null; W.district = null; W.sectorLinks = []; W.focus = null; W.trans = 0; if (W.root) W.root.dataset.view = 'grid'; setText('cwg-crumb-txt', 'THE GRID // SECTOR SELECT'); setActionPanel(null); Audio2.blip(330, 0.12); renderSide(); renderBreakdown(); }
 
   function sectorDeck(id) {
     return SECTOR_DECKS[id] || {
@@ -1561,6 +1583,11 @@
   function stopLoop() { if (W.raf) { cancelAnimationFrame(W.raf); W.raf = null; } }
 
   function setText(id, v) { var el = document.getElementById(id); if (el) el.textContent = v; }
+  function overlayHasInputPriority() {
+    var net = document.getElementById('cwnet-panel');
+    return !!document.querySelector('.cw-gp-root.open, #cwa-win.open, #cwo-root.on') ||
+      !!(net && net.style.display !== 'none');
+  }
 
   // ------------------------------------------------------------ public API + boot
   function exposeWorldApi() {
@@ -2839,6 +2866,184 @@
     burstAt(W.avatar.x, W.avatar.y - 34, 18, '#ff2bd6');
   }
 
+  function panelButton(label, action, tone) {
+    return '<button type="button" class="' + (tone || '') + '" data-panel-action="' + esc(action) + '">' + esc(label) + '</button>';
+  }
+
+  function openGameplayTab(tab) {
+    closeWorldPanel();
+    try {
+      if (window.__cwGameplay && window.__cwGameplay.open) {
+        window.__cwGameplay.open(tab || 'run');
+        Audio2.blip(620, 0.08, 'triangle');
+        return;
+      }
+    } catch (e) {}
+    sayInPlaza('Console', 'Operative console is still loading. Try again in a moment.');
+  }
+
+  function panelInventory() {
+    var state = gameplayState();
+    var inv = state.inventory || {};
+    var keys = Object.keys(inv).sort();
+    var rows = keys.length ? keys.slice(0, 12).map(function (k) {
+      return '<div class="cwg-p-row"><strong>' + esc(k) + '</strong><span>x' + esc(inv[k]) + '</span></div>';
+    }).join('') : '<div class="cwg-p-empty">No items yet. Complete the tutorial, claim cache, or clear missions.</div>';
+    return rows + '<div class="cwg-p-actions">'
+      + panelButton('Open Inventory Console', 'console:inventory', 'primary')
+      + panelButton('Claim Daily Cache', 'cache')
+      + '</div>';
+  }
+
+  function panelSkills() {
+    var rows = [
+      ['Academy Training', 'Scope, browser safety, auth, APIs, SIEM, cloud timelines.', 'academy'],
+      ['First Defensive Ping', 'Professor Cipher verifies your clean uplink.', 'mission:tut-ping'],
+      ['Port Scan Drill', 'Practice careful service discovery from the Academy deck.', 'mission:tut-scan'],
+      ['SOC Alert Triage', 'Flag the unknown-node login pattern and restore the firewall rule.', 'mission:soc-triage']
+    ].map(function (r) {
+      return '<div class="cwg-p-card"><strong>' + esc(r[0]) + '</strong><p>' + esc(r[1]) + '</p>' + panelButton('Open', r[2], 'primary') + '</div>';
+    }).join('');
+    return '<div class="cwg-p-grid">' + rows + '</div>';
+  }
+
+  function panelLoadout() {
+    var state = gameplayState();
+    var inv = state.inventory || {};
+    var field = state.field || {};
+    return '<div class="cwg-p-grid">'
+      + '<div class="cwg-p-card"><strong>Defender Starter Rig</strong><p>Deck: ' + esc(inv['STARTER-DECK'] ? 'STARTER-DECK ONLINE' : 'not issued') + '</p><p>Patch kits: ' + esc(inv['PATCH-KIT'] || 0) + '</p></div>'
+      + '<div class="cwg-p-card"><strong>Field Record</strong><p>Clears: ' + esc(field.clears || 0) + '</p><p>Best route: ' + esc(field.bestRoute || 0) + '</p></div>'
+      + '</div><div class="cwg-p-actions">'
+      + panelButton('Open Loadout Console', 'console:loadout', 'primary')
+      + panelButton('Launch Field Route', 'mission:mc-convoy')
+      + panelButton('Training Combat', 'console:combat')
+      + '</div>';
+  }
+
+  function panelMissions() {
+    var list = [];
+    try { list = window.__cwGameplay && window.__cwGameplay.missions ? window.__cwGameplay.missions() : []; } catch (e) { list = []; }
+    var rows = list.slice(0, 9).map(function (m) {
+      var status = missionStatus(m.id);
+      var action = status.state === 'open' ? panelButton(m.kind === 'field' ? 'Run' : 'Start', 'mission:' + m.id, 'primary') : '<span class="cwg-p-state">' + esc(status.label) + '</span>';
+      return '<div class="cwg-p-mission"><div><strong>' + esc(m.title) + '</strong><p>' + esc(m.sector) + ' / ' + esc(m.kind.toUpperCase()) + '</p></div>' + action + '</div>';
+    }).join('');
+    return rows + '<div class="cwg-p-actions">'
+      + panelButton('Open Mission Console', 'console:missions', 'primary')
+      + panelButton('World Map', 'district:map')
+      + '</div>';
+  }
+
+  function panelFaction() {
+    var op = getOp();
+    return '<div class="cwg-p-card wide"><strong>' + esc(op.faction) + ' CREW LINK</strong><p>Callsign ' + esc(op.callsign) + ' / ' + esc(rankFor(op.level)) + '. Crew chat, roster, and faction presence are live through the NET panel.</p></div>'
+      + '<div class="cwg-p-actions">'
+      + panelButton('Open Crew Roster', 'net', 'primary')
+      + panelButton('Broadcast Emote', 'emote')
+      + panelButton('Open Profile', 'profile')
+      + '</div>';
+  }
+
+  function panelShop() {
+    var credits = getOp().credits;
+    return '<div class="cwg-p-shop">'
+      + '<div class="cwg-p-card"><strong>PATCH-KIT</strong><p>35 credits / restores HP in combat.</p>' + panelButton('Buy 1', 'buy:PATCH-KIT:35', 'primary') + '</div>'
+      + '<div class="cwg-p-card"><strong>TRACE-TONIC</strong><p>50 credits / prep item for route runs and mission rewards.</p>' + panelButton('Buy 1', 'buy:TRACE-TONIC:50') + '</div>'
+      + '<div class="cwg-p-card"><strong>FIELD-BEACON</strong><p>90 credits / marker for convoy routing progress.</p>' + panelButton('Buy 1', 'buy:FIELD-BEACON:90') + '</div>'
+      + '</div><div class="cwg-p-actions"><span class="cwg-p-balance">' + esc(credits) + ' credits</span>'
+      + panelButton('Claim Daily Cache', 'cache', 'primary')
+      + panelButton('Inventory', 'console:inventory')
+      + '</div>';
+  }
+
+  function panelControls() {
+    return '<div class="cwg-p-controls">'
+      + '<div><strong>Move</strong><span>WASD / arrows</span></div>'
+      + '<div><strong>Interact</strong><span>Click target, then ENGAGE / TALK</span></div>'
+      + '<div><strong>Dock</strong><span>1-7, I, K, L, M, Q, F, B</span></div>'
+      + '<div><strong>Field</strong><span>WASD / arrows, Space pulse, E exfil, Esc stand down</span></div>'
+      + '<div><strong>Close</strong><span>Esc closes panels first</span></div>'
+      + '</div>';
+  }
+
+  function showWorldPanel(kind) {
+    var panel = document.getElementById('cwg-panel');
+    var body = document.getElementById('cwg-panel-body');
+    if (!panel || !body) return;
+    var title = 'Cyber Deck';
+    var kicker = 'COMMAND';
+    var html = '';
+    if (kind === 'inventory') { title = 'Inventory'; kicker = 'ITEMS'; html = panelInventory(); }
+    else if (kind === 'skills') { title = 'Skills'; kicker = 'TRAINING'; html = panelSkills(); }
+    else if (kind === 'loadout') { title = 'Loadout'; kicker = 'GEAR'; html = panelLoadout(); }
+    else if (kind === 'missions') { title = 'Missions'; kicker = 'OPS'; html = panelMissions(); }
+    else if (kind === 'faction') { title = 'Faction'; kicker = 'CREW'; html = panelFaction(); }
+    else if (kind === 'shop') { title = 'Shop'; kicker = 'CACHE'; html = panelShop(); }
+    else { title = 'Controls'; kicker = 'INPUT'; html = panelControls(); kind = 'controls'; }
+    W.panel = kind;
+    setText('cwg-panel-kicker', kicker);
+    setText('cwg-panel-title', title);
+    body.innerHTML = html;
+    panel.dataset.open = '1';
+    panel.setAttribute('aria-hidden', 'false');
+    Audio2.blip(700, 0.06, 'triangle');
+  }
+
+  function closeWorldPanel() {
+    W.panel = null;
+    var panel = document.getElementById('cwg-panel');
+    if (!panel) return;
+    panel.dataset.open = '0';
+    panel.setAttribute('aria-hidden', 'true');
+  }
+
+  function buyShopItem(item, cost) {
+    var state = gameplayState();
+    state.credits = Math.max(0, parseInt(state.credits, 10) || 0);
+    if (state.credits < cost) {
+      sayInPlaza('Shop', 'Need ' + cost + ' credits for ' + item + '.');
+      Audio2.blip(160, 0.14, 'sawtooth');
+      return;
+    }
+    state.inventory = state.inventory || {};
+    state.credits -= cost;
+    state.inventory[item] = (state.inventory[item] || 0) + 1;
+    try { localStorage.setItem('cw.operative.v1', JSON.stringify(state)); } catch (e) {}
+    refreshData();
+    sayInPlaza('Shop', item + ' added to inventory.');
+    pushMsg({ callsign: 'Shop', faction: 'NEUTRAL', body: getOp().callsign + ' bought ' + item + '.' });
+    showWorldPanel('shop');
+  }
+
+  function runWorldPanelAction(action) {
+    if (!action) return;
+    if (action.indexOf('console:') === 0) { openGameplayTab(action.split(':')[1]); return; }
+    if (action.indexOf('district:') === 0) { closeWorldPanel(); toDistrict(action.split(':')[1]); return; }
+    if (action.indexOf('mission:') === 0) { closeWorldPanel(); startGameplayMission(action.split(':')[1]); return; }
+    if (action.indexOf('buy:') === 0) {
+      var parts = action.split(':');
+      buyShopItem(parts[1], parseInt(parts[2], 10) || 0);
+      return;
+    }
+    if (action === 'academy') { closeWorldPanel(); runPlazaAction('academy'); return; }
+    if (action === 'net') { closeWorldPanel(); runPlazaAction('net'); return; }
+    if (action === 'profile') { closeWorldPanel(); runPlazaAction('profile'); return; }
+    if (action === 'emote') { plazaEmote(); return; }
+    if (action === 'cache') { claimDailyCache(); showWorldPanel('shop'); return; }
+    if (action === 'close') { closeWorldPanel(); }
+  }
+
+  function runDockByIndex(index) {
+    var order = ['inventory', 'skills', 'loadout', 'map', 'missions', 'faction', 'shop'];
+    runPlazaDock(order[index - 1]);
+  }
+
+  function runDockHotkey(key) {
+    var map = { i: 'inventory', k: 'skills', l: 'loadout', m: 'map', q: 'missions', f: 'faction', b: 'shop' };
+    runPlazaDock(map[key]);
+  }
+
   function runPlazaSocial(kind) {
     if (kind === 'emote') { plazaEmote(); return; }
     if (kind === 'chat') {
@@ -2847,21 +3052,20 @@
       sayInPlaza('Guide', 'Type in the plaza chat bar and press Enter.');
       return;
     }
-    if (kind === 'friends') { runPlazaAction('net'); return; }
-    if (kind === 'cache') { claimDailyCache(); return; }
+    if (kind === 'friends') { showWorldPanel('faction'); return; }
+    if (kind === 'cache') { showWorldPanel('shop'); return; }
     if (kind === 'map') { toDistrict('map'); }
   }
 
   function runPlazaDock(kind) {
     Audio2.blip(760, 0.06, 'triangle');
-    if (kind === 'skills') { runPlazaAction('academy'); return; }
+    if (kind === 'inventory') { showWorldPanel('inventory'); return; }
+    if (kind === 'skills') { showWorldPanel('skills'); return; }
+    if (kind === 'loadout') { showWorldPanel('loadout'); return; }
     if (kind === 'map') { toDistrict('map'); return; }
-    if (kind === 'faction') { runPlazaAction('net'); return; }
-    if (kind === 'shop') { claimDailyCache(); return; }
-    if (kind === 'inventory' || kind === 'loadout' || kind === 'missions') {
-      runPlazaAction('console');
-      return;
-    }
+    if (kind === 'missions') { showWorldPanel('missions'); return; }
+    if (kind === 'faction') { showWorldPanel('faction'); return; }
+    if (kind === 'shop') { showWorldPanel('shop'); return; }
     sayInPlaza('System', 'Dock channel online.');
   }
 

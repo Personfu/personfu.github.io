@@ -596,11 +596,16 @@
 		runWorldRoute(action.route);
 	}
 
+	function isInternalCyberWorldControl(el) {
+		return !!(el && el.closest && el.closest('#cwg-root,#cwg-relaunch,#cwo-root,#cwa-win,#cwnet-panel,.cw-gp-root,.win98-icons-grid'));
+	}
+
 	function bindLegacyWorldButton(btn) {
 		if (!btn || btn.__cwLegacyBound) return;
 		btn.__cwLegacyBound = true;
 		['pointerdown', 'mousedown', 'click'].forEach(function (eventName) {
 			btn.addEventListener(eventName, function (ev) {
+				if (isInternalCyberWorldControl(btn)) return;
 				var action = legacyActionFor(btn.textContent || btn.dataset.cwLegacyRouted || '');
 				if (!action) return;
 				routeLegacyButtonEvent(ev, btn, action);
@@ -610,7 +615,7 @@
 
 	function handleLegacyWorldButton(ev) {
 		var btn = ev.target && ev.target.closest && ev.target.closest('button');
-		if (!btn || btn.closest('#cwg-root') || btn.closest('.cwo-root') || btn.closest('.win98-icons-grid')) return;
+		if (!btn || isInternalCyberWorldControl(btn)) return;
 		var action = legacyActionFor(btn.textContent || '');
 		if (!action) return;
 		routeLegacyButtonEvent(ev, btn, action);
@@ -620,7 +625,7 @@
 		if (!legacyUpgradeReady) return;
 		var scope = root || document;
 		scope.querySelectorAll('button').forEach(function (btn) {
-			if (btn.closest('#cwg-root') || btn.closest('.cwo-root') || btn.closest('.win98-icons-grid')) return;
+			if (isInternalCyberWorldControl(btn)) return;
 			var action = legacyActionFor(btn.textContent || '');
 			if (!action || btn.dataset.cwLegacyRouted === action.label) return;
 			btn.dataset.cwLegacyRouted = action.label;
@@ -629,7 +634,7 @@
 			bindLegacyWorldButton(btn);
 		});
 		scope.querySelectorAll('h1,h2,h3,header,span,div').forEach(function (el) {
-			if (el.closest('#cwg-root') || el.closest('.cwo-root')) return;
+			if (isInternalCyberWorldControl(el)) return;
 			if ((el.textContent || '').trim().toUpperCase() === 'ACTIONS') el.textContent = 'WORLD ACTIONS';
 		});
 	}
