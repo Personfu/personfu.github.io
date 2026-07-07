@@ -124,6 +124,7 @@
 		activeChannel: 'GLOBAL',
 		achieved: loadJSON('cw.net.achievements', {}) || {},
 		lastCompletedKeys: null,
+		session: null,
 		booted: false
 	};
 
@@ -167,9 +168,14 @@
 				auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false },
 				realtime: { params: { eventsPerSecond: 8 } }
 			});
+			NET.sb.auth.onAuthStateChange(function (_event, session) {
+				NET.session = session || null;
+				renderIdentity();
+			});
 			// Best-effort anonymous identity for account linking; ignore if disabled.
 			return NET.sb.auth.getSession().then(function (res) {
-				if (res && res.data && res.data.session) return;
+				NET.session = (res && res.data && res.data.session) || null;
+				if (NET.session) return;
 				return NET.sb.auth.signInAnonymously().catch(function () {});
 			});
 		}).then(function () {
@@ -214,6 +220,60 @@
 		return NET.sb.rpc(fn, args).then(function (res) {
 			if (res.error) throw res.error;
 			return res.data;
+		});
+	}
+	function waitForAuthClient() {
+		if (NET.sb) return Promise.resolve(NET.sb);
+		return new Promise(function (resolve, reject) {
+			var tries = 0;
+			var iv = setInterval(function () {
+				tries++;
+				if (NET.sb) { clearInterval(iv); resolve(NET.sb); }
+				else if (tries > 80) { clearInterval(iv); reject(new Error('Supabase client not ready')); }
+			}, 125);
+		});
+	}
+	function authState() {
+		var user = NET.session && NET.session.user;
+		return {
+			online: NET.online,
+			ready: !!NET.sb,
+			signedIn: !!user,
+			anonymous: !!(user && user.is_anonymous),
+			email: user && user.email ? user.email : '',
+			userId: user && user.id ? user.id : ''
+		};
+	}
+	function signUpPassword(email, password, meta) {
+		return waitForAuthClient().then(function (sb) {
+			return sb.auth.signUp({
+				email: email,
+				password: password,
+				options: { data: meta || {} }
+			});
+		}).then(function (res) {
+			if (res.error) throw res.error;
+			NET.session = (res.data && res.data.session) || NET.session;
+			return authState();
+		});
+	}
+	function signInPassword(email, password) {
+		return waitForAuthClient().then(function (sb) {
+			return sb.auth.signInWithPassword({ email: email, password: password });
+		}).then(function (res) {
+			if (res.error) throw res.error;
+			NET.session = (res.data && res.data.session) || NET.session;
+			syncOperative().catch(function () {});
+			return authState();
+		});
+	}
+	function signOutAuth() {
+		return waitForAuthClient().then(function (sb) {
+			return sb.auth.signOut();
+		}).then(function (res) {
+			if (res.error) throw res.error;
+			NET.session = null;
+			return authState();
 		});
 	}
 
@@ -743,6 +803,10 @@
 		roster: function () { return NET.roster.slice(); },
 		me: function () { return JSON.parse(JSON.stringify(NET.me)); },
 		online: function () { return NET.online; },
+		authState: authState,
+		authSignUp: signUpPassword,
+		authSignIn: signInPassword,
+		authSignOut: signOutAuth,
 		sendChat: function (body, channel) {
 			if (!NET.online || !body) return Promise.resolve(false);
 			return rpc('cw_post_chat', { p_device_id: NET.device, p_callsign: NET.me.callsign, p_faction: NET.me.faction, p_channel: channel || 'GLOBAL', p_body: body }).then(function () { return true; }).catch(function () { return false; });

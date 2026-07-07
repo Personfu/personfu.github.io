@@ -50,21 +50,34 @@
       mission: 'mc-convoy',
       lines: [
         { test: 'mission:mc-convoy', text: 'Clean first run. Now the city trusts your routing. The Relay Cave opens when your tier catches up.' },
-        { test: 'default', text: 'First contract: route the City Gate Convoy. Shards first, heat second, exfil only when the gate burns green.' }
+        { test: 'default', text: 'First contract: route the City Gate Convoy. Shards first, heat second. Every clean route cuts power from the Null Crown.' }
       ] },
     { id: 'mentor', name: 'Blue Mentor', title: 'Academy Keeper', x: 0.64, y: 0.39, color: '#4db5ff',
       action: 'academy',
       lines: [
         { test: 'level:4', text: 'You are past the basics. Build clean habits now: scoped recon, evidence trails, and defensive fixes.' },
-        { test: 'default', text: 'CyberWorld rewards discipline. The Academy is where you turn tricks into methods and methods into rank.' }
+        { test: 'default', text: 'Professor Cipher says the Overseer wins when defenders rush. The Academy turns panic into method, and method into rank.' }
       ] },
     { id: 'relay', name: 'Relay Tech', title: 'Cave Scout', x: 0.34, y: 0.61, color: '#00ffcc',
       mission: 'dn-convoy',
       lines: [
         { test: 'mission:dn-convoy', text: 'Black Relay logs are in. Stormcore is the next wall, and it will not fold to button mashing.' },
         { test: 'level:5', text: 'The Relay Cave is live. Watchers hunt in pairs down there; pulse early and keep shield in reserve.' },
-        { test: 'default', text: 'The cave route is sealed until you have enough field rank. Clear City Gate, train, then come back.' }
+        { test: 'default', text: 'The Null Crown nests below the Relay Cave. Clear City Gate, train, then come back when you can survive watcher pairs.' }
       ] }
+  ];
+  var NPC_LOOKS = {
+    warden: { frame: 'runner', suit: '#ffb454', accent: '#fcee09', hair: '#3a2114', skin: '#b8785f', coat: '#1f1720' },
+    mentor: { frame: 'bot', suit: '#d9f4ff', accent: '#4db5ff', hair: '#eef8ff', skin: '#d9f4ff', coat: '#14283a' },
+    relay: { frame: 'ghost', suit: '#00ffcc', accent: '#7CFF6B', hair: '#0b1418', skin: '#8b5d50', coat: '#08231f' }
+  };
+  var PLAZA_CROWD = [
+    { id: 'bot-patrol-a', name: 'GuardBot', title: 'Firewall Unit', x: 0.39, y: 0.30, dir: 1, look: { frame: 'bot', suit: '#dbe9f4', accent: '#00e8ff', hair: '#eef8ff', coat: '#183040' } },
+    { id: 'bot-patrol-b', name: 'GuardBot', title: 'Firewall Unit', x: 0.54, y: 0.35, dir: -1, look: { frame: 'bot', suit: '#dbe9f4', accent: '#7CFF6B', hair: '#eef8ff', coat: '#183040' } },
+    { id: 'blackhat', name: 'ZeroTrace', title: 'Rogue Signal', x: 0.71, y: 0.40, dir: -1, look: { frame: 'ghost', suit: '#171c24', accent: '#ff2bd6', hair: '#05070d', skin: '#a16b56', coat: '#0b1018' } },
+    { id: 'cadet-a', name: 'Cadet', title: 'Academy', x: 0.24, y: 0.48, dir: 1, look: { frame: 'sentinel', suit: '#4db5ff', accent: '#00ffcc', hair: '#341a12', skin: '#b87962', coat: '#081827' } },
+    { id: 'cipher-aide', name: 'Aide', title: 'Cipher Lab', x: 0.46, y: 0.27, dir: -1, look: { frame: 'tinker', suit: '#7CFF6B', accent: '#fcee09', hair: '#173018', skin: '#c08b68', coat: '#102018' } },
+    { id: 'route-runner', name: 'Runner', title: 'Shard Courier', x: 0.58, y: 0.58, dir: 1, look: { frame: 'runner', suit: '#ff2bd6', accent: '#00e8ff', hair: '#130f1c', skin: '#8e5b4c', coat: '#160f26' } }
   ];
   var PLAZA_EMOTES = [
     'signals ready',
@@ -95,7 +108,9 @@
       faction: net.faction || 'GHOSTNET',
       level: Math.max(1, parseInt(g.level, 10) || 1),
       xp: Math.max(0, parseInt(g.xp, 10) || 0),
-      credits: Math.max(0, parseInt(g.credits, 10) || 0)
+      credits: Math.max(0, parseInt(g.credits, 10) || 0),
+      look: g.look || net.look || null,
+      path: (g.flags && g.flags.path) || net.path || 'ghost'
     };
   }
   function gameplayState() {
@@ -107,10 +122,11 @@
   }
   function storyArc() {
     var op = getOp();
+    if (!missionDone('tut-ping')) return 'Prologue - Professor Cipher';
     if (!missionDone('mc-convoy')) return 'Act I - City Gate Convoy';
-    if (op.level < 5 || !missionDone('dn-convoy')) return 'Act II - Dark Relay Cave';
-    if (op.level < 6 || !missionDone('sc-raid')) return 'Act III - Stormcore Raid';
-    return 'Act IV - Open Contracts';
+    if (op.level < 5 || !missionDone('dn-convoy')) return 'Act II - Null Crown Relays';
+    if (op.level < 6 || !missionDone('sc-raid')) return 'Act III - Stormcore Overseer';
+    return 'Act IV - Hunt The Null Crown';
   }
   function passesDialogueTest(test) {
     if (!test || test === 'default') return true;
@@ -351,6 +367,8 @@
     'establishing uplink to FLLC grid ......... OK',
     'negotiating ICE handshake ................ OK',
     'decrypting operative session ............. OK',
+    'loading Null Crown threat model .......... OK',
+    'calibrating Professor Cipher channel ..... OK',
     'loading sector topology .................. OK',
     'syncing presence channel ................. OK',
     'calibrating neural interface ............. OK'
@@ -514,7 +532,7 @@
     if (W.view === 'plaza') {
       setText('cwg-side-lbl', 'CITY GATE PLAZA');
       setText('cwg-obj', storyArc());
-      setText('cwg-objsub', 'Walk to districts, talk to NPCs, claim cache, run field routes, and open boss gates.');
+      setText('cwg-objsub', 'Professor Cipher has flagged the Null Crown. Talk to NPCs, train, run routes, and unlock boss gates.');
     } else if (W.view === 'sector' && W.sector) {
       var d = (W.wd.domains || []).filter(function (x) { return x.id === W.sector; })[0];
       setText('cwg-side-lbl', d.name + ' // ' + d.done + '/' + d.total);
@@ -981,6 +999,45 @@
     c.restore();
   }
 
+  function drawPlazaAtmosphere(c) {
+    c.save();
+    c.globalCompositeOperation = 'screen';
+    for (var i = 0; i < 18; i++) {
+      var lane = i / 18;
+      var x = (lane * W.w * 1.3 + W.t * (18 + i * 0.8)) % (W.w + 220) - 110;
+      var y = W.h * (0.18 + ((i * 37) % 58) / 100);
+      c.globalAlpha = 0.08 + (i % 3) * 0.03;
+      c.strokeStyle = i % 2 ? '#00ffcc' : '#ff2bd6';
+      c.lineWidth = 1;
+      c.beginPath();
+      c.moveTo(x, y);
+      c.lineTo(x + 86, y - 26);
+      c.stroke();
+    }
+    c.globalAlpha = 0.22;
+    c.strokeStyle = '#00e8ff';
+    c.lineWidth = 1.4;
+    for (var r = 0; r < 4; r++) {
+      var px = (W.w * (0.18 + r * 0.21) + Math.sin(W.t * 0.9 + r) * 28);
+      var py = W.h * (0.28 + r * 0.075) + Math.cos(W.t * 0.7 + r) * 9;
+      c.beginPath();
+      c.ellipse(px, py, 18 + r * 5, 5 + r, 0, 0, Math.PI * 2);
+      c.stroke();
+    }
+    c.globalAlpha = 0.18 + Math.sin(W.t * 1.8) * 0.05;
+    c.fillStyle = '#ff2bd6';
+    c.beginPath();
+    c.moveTo(W.w * 0.87, W.h * 0.10);
+    c.lineTo(W.w * 0.90, W.h * 0.16);
+    c.lineTo(W.w * 0.94, W.h * 0.12);
+    c.lineTo(W.w * 0.92, W.h * 0.22);
+    c.lineTo(W.w * 0.86, W.h * 0.22);
+    c.lineTo(W.w * 0.84, W.h * 0.12);
+    c.closePath();
+    c.fill();
+    c.restore();
+  }
+
   function plazaBounds() {
     if (plazaArtReady()) return { left: 0, right: W.w, top: 0, bottom: W.h };
     var marginX = clamp(W.w * 0.08, 28, 112);
@@ -989,11 +1046,56 @@
     return { left: marginX, right: W.w - marginX, top: top, bottom: bottom };
   }
 
+  function artSpawnPoint() {
+    return { x: W.w * 0.48, y: W.h * 0.535 };
+  }
+
+  function drawOriginPadMask(c) {
+    var p = artSpawnPoint();
+    c.save();
+    var veil = c.createRadialGradient(p.x, p.y - 48, 8, p.x, p.y - 32, 120);
+    veil.addColorStop(0, 'rgba(3,13,22,1)');
+    veil.addColorStop(0.58, 'rgba(3,13,22,0.96)');
+    veil.addColorStop(1, 'rgba(3,13,22,0)');
+    c.fillStyle = veil;
+    c.fillRect(p.x - 128, p.y - 132, 256, 184);
+    c.fillStyle = 'rgba(2,14,24,0.96)';
+    roundRect(c, p.x - 78, p.y - 116, 156, 86, 10);
+    c.fill();
+    c.strokeStyle = 'rgba(0,232,255,0.28)';
+    c.lineWidth = 1;
+    c.stroke();
+    c.fillStyle = 'rgba(0,232,255,0.08)';
+    for (var i = 0; i < 5; i++) {
+      c.fillRect(p.x - 66 + i * 28, p.y - 104, 14, 64);
+    }
+    c.strokeStyle = 'rgba(0,255,204,0.22)';
+    for (var gy = -100; gy <= -42; gy += 14) {
+      c.beginPath(); c.moveTo(p.x - 70, p.y + gy); c.lineTo(p.x + 70, p.y + gy); c.stroke();
+    }
+    c.globalCompositeOperation = 'screen';
+    c.strokeStyle = 'rgba(0,255,204,0.42)';
+    c.lineWidth = 1.4;
+    c.beginPath(); c.ellipse(p.x, p.y + 8, 36, 12, 0, 0, Math.PI * 2); c.stroke();
+    c.strokeStyle = 'rgba(255,43,214,0.30)';
+    c.beginPath(); c.ellipse(p.x, p.y - 1, 54, 17, 0, 0, Math.PI * 2); c.stroke();
+    c.strokeStyle = 'rgba(0,232,255,0.22)';
+    c.beginPath(); c.moveTo(p.x - 42, p.y + 8); c.lineTo(p.x + 42, p.y + 8); c.stroke();
+    c.beginPath(); c.moveTo(p.x, p.y - 20); c.lineTo(p.x, p.y + 26); c.stroke();
+    c.restore();
+  }
+
   function initAvatar() {
     if (W.avatar.ready) return;
     var b = plazaBounds();
-    W.avatar.x = (b.left + b.right) / 2;
-    W.avatar.y = b.top + (b.bottom - b.top) * 0.56;
+    if (plazaArtReady()) {
+      var p = artSpawnPoint();
+      W.avatar.x = p.x;
+      W.avatar.y = p.y;
+    } else {
+      W.avatar.x = (b.left + b.right) / 2;
+      W.avatar.y = b.top + (b.bottom - b.top) * 0.56;
+    }
     W.avatar.tx = W.avatar.x;
     W.avatar.ty = W.avatar.y;
     W.avatar.ready = true;
@@ -1017,6 +1119,8 @@
     if (W.root) W.root.dataset.art = hasArt ? 'plaza' : 'fallback';
     if (hasArt) {
       drawPlazaArt(c);
+      drawOriginPadMask(c);
+      drawPlazaAtmosphere(c);
     } else {
       drawPlazaSkyline(c, b);
       drawPlazaFloor(c, b);
@@ -1024,6 +1128,7 @@
     drawPlazaRoutes(c, b, hasArt);
     drawPlazaHotspots(c, hasArt);
     drawPlazaActivities(c, hasArt);
+    drawPlazaCrowd(c, hasArt);
     drawPlazaNpcs(c, hasArt);
     drawAvatar(c);
     drawPlazaBubble(c);
@@ -1259,50 +1364,237 @@
     });
   }
 
+  function drawAgentSprite(c, cfg) {
+    cfg = cfg || {};
+    var look = cfg.look || {};
+    var x = cfg.x || 0;
+    var y = cfg.y || 0;
+    var scale = cfg.scale || 1;
+    var dir = cfg.dir || 1;
+    var seed = cfg.seed || 0;
+    var variant = look.frame || cfg.variant || 'sentinel';
+    var suit = look.suit || '#00ffcc';
+    var accent = look.accent || '#4db5ff';
+    var hair = look.hair || '#101827';
+    var skin = look.skin || '#bd755b';
+    var coat = look.coat || '#07111a';
+    var moving = !!cfg.moving;
+    var hover = !!cfg.hover;
+    var bob = Math.sin(W.t * (moving ? 9.5 : 4.4) + seed) * (moving ? 2.4 : 1.1);
+    var stride = moving ? Math.sin(W.t * 10.5 + seed) * 3.2 : Math.sin(W.t * 2.3 + seed) * 0.45;
+    var lean = Math.sin(W.t * 6 + seed) * (moving ? 0.045 : 0.016);
+    var bot = variant === 'bot';
+    c.save();
+    c.imageSmoothingEnabled = false;
+    c.translate(x, y + bob);
+    c.scale(scale * dir, scale);
+    c.fillStyle = 'rgba(0,0,0,0.48)';
+    c.beginPath(); c.ellipse(0, 11, hover ? 32 : 27, hover ? 10 : 8, 0, 0, Math.PI * 2); c.fill();
+    c.globalCompositeOperation = 'screen';
+    c.strokeStyle = accent;
+    c.globalAlpha = hover ? 0.72 : 0.42;
+    c.lineWidth = 1.2;
+    c.beginPath(); c.ellipse(0, 9, 35, 11, 0, 0, Math.PI * 2); c.stroke();
+    c.globalCompositeOperation = 'source-over';
+    c.globalAlpha = 1;
+    c.rotate(lean);
+
+    if (bot) {
+      c.shadowColor = accent;
+      c.shadowBlur = hover ? 16 : 8;
+      c.fillStyle = '#07131b';
+      roundRect(c, -21, -50, 42, 44, 8); c.fill();
+      c.fillStyle = suit;
+      roundRect(c, -17, -47, 34, 38, 6); c.fill();
+      c.strokeStyle = '#1c3140';
+      c.lineWidth = 2;
+      c.stroke();
+      c.fillStyle = coat;
+      roundRect(c, -11, -36, 22, 19, 4); c.fill();
+      c.fillStyle = accent;
+      c.fillRect(-7, -30, 14, 5);
+      c.fillRect(-3, -22, 6, 5);
+      c.fillStyle = '#eafcff';
+      c.fillRect(-27, -43, 10, 24);
+      c.fillRect(17, -43, 10, 24);
+      c.fillStyle = accent;
+      c.fillRect(-27, -22, 10, 5);
+      c.fillRect(17, -22, 10, 5);
+      c.fillStyle = '#f4fbff';
+      c.fillRect(-14 + stride * 0.2, -12, 10, 24);
+      c.fillRect(4 - stride * 0.2, -12, 10, 24);
+      c.fillStyle = '#304b5c';
+      c.fillRect(-15 + stride * 0.32, 11, 12, 5);
+      c.fillRect(3 - stride * 0.32, 11, 12, 5);
+      c.fillStyle = '#f4fbff';
+      roundRect(c, -19, -77, 38, 31, 9); c.fill();
+      c.strokeStyle = '#2b4555';
+      c.lineWidth = 2;
+      c.stroke();
+      c.fillStyle = '#082031';
+      roundRect(c, -13, -68, 26, 10, 4); c.fill();
+      c.fillStyle = accent;
+      c.fillRect(-9, -65, 6, 3);
+      c.fillRect(4, -65, 6, 3);
+      c.strokeStyle = accent;
+      c.beginPath(); c.moveTo(0, -77); c.lineTo(0, -86); c.stroke();
+      c.fillStyle = '#fcee09';
+      c.beginPath(); c.arc(0, -88, 3, 0, Math.PI * 2); c.fill();
+    } else {
+      c.shadowColor = accent;
+      c.shadowBlur = hover ? 15 : 7;
+      if (variant === 'ghost' || variant === 'runner') {
+        c.fillStyle = variant === 'ghost' ? '#060b13' : coat;
+        c.beginPath();
+        c.moveTo(-23, -58);
+        c.lineTo(23, -58);
+        c.lineTo(29, -8);
+        c.lineTo(12, 7);
+        c.lineTo(0, -4);
+        c.lineTo(-12, 7);
+        c.lineTo(-29, -8);
+        c.closePath();
+        c.fill();
+      }
+      c.fillStyle = '#061018';
+      c.fillRect(-13 + stride * 0.22, -13, 9, 27);
+      c.fillRect(4 - stride * 0.22, -13, 9, 27);
+      c.fillStyle = suit;
+      c.fillRect(-14 + stride * 0.36, 12, 11, 5);
+      c.fillRect(3 - stride * 0.36, 12, 11, 5);
+      c.fillStyle = '#081722';
+      c.fillRect(-27, -42, 9, 31);
+      c.fillRect(18, -42, 9, 31);
+      c.fillStyle = accent;
+      c.fillRect(-26, -25, 4, 13);
+      c.fillRect(22, -25, 4, 13);
+      c.fillStyle = variant === 'sentinel' ? suit : coat;
+      roundRect(c, -20, -51, 40, 45, 6); c.fill();
+      c.strokeStyle = variant === 'sentinel' ? '#bdfcff' : suit;
+      c.lineWidth = 1.5;
+      c.stroke();
+      c.fillStyle = '#020910';
+      roundRect(c, -12, -36, 24, 24, 4); c.fill();
+      c.fillStyle = accent;
+      c.fillRect(-8, -31, 16, 5);
+      c.fillRect(-3, -23, 6, 7);
+      c.fillStyle = suit;
+      c.fillRect(-18, -47, 5, 34);
+      c.fillRect(13, -47, 5, 34);
+      if (variant === 'sentinel') {
+        c.fillStyle = 'rgba(220,245,255,0.92)';
+        roundRect(c, -27, -48, 12, 22, 5); c.fill();
+        roundRect(c, 15, -48, 12, 22, 5); c.fill();
+        c.strokeStyle = accent;
+        c.stroke();
+      }
+      if (variant === 'tinker') {
+        c.strokeStyle = '#fcee09';
+        c.lineWidth = 1.4;
+        c.beginPath(); c.arc(24, -59, 8 + Math.sin(W.t * 5 + seed), 0, Math.PI * 2); c.stroke();
+        c.fillStyle = '#fcee09';
+        c.fillRect(21, -62, 6, 6);
+      }
+      c.fillStyle = skin;
+      roundRect(c, -14, -68, 28, 27, 8); c.fill();
+      c.strokeStyle = 'rgba(0,0,0,0.42)';
+      c.lineWidth = 1;
+      c.stroke();
+      c.fillStyle = hair;
+      if (variant === 'ghost' || variant === 'runner') {
+        c.beginPath();
+        c.moveTo(-20, -63);
+        c.quadraticCurveTo(0, -82, 20, -63);
+        c.lineTo(15, -50);
+        c.lineTo(-15, -50);
+        c.closePath();
+        c.fill();
+      } else {
+        c.fillRect(-18, -72, 36, 14);
+        c.fillRect(-20, -64, 9, 12);
+        c.fillRect(11, -64, 9, 11);
+        c.fillRect(-10, -75, 14, 6);
+      }
+      c.fillStyle = accent;
+      c.shadowColor = accent;
+      c.shadowBlur = 7;
+      c.fillRect(-10, -56, 20, 4);
+      c.fillStyle = 'rgba(255,255,255,0.65)';
+      c.fillRect(6, -55, 3, 2);
+    }
+    c.restore();
+    if (cfg.label) {
+      c.save();
+      c.font = "700 " + (cfg.player ? 11 : 10) + "px 'Share Tech Mono',monospace";
+      c.textAlign = 'center';
+      c.fillStyle = cfg.labelColor || accent;
+      c.shadowColor = '#001018';
+      c.shadowBlur = 5;
+      c.fillText(cfg.label, x, y - 76 * scale);
+      if (cfg.title) {
+        c.font = "700 8px 'Share Tech Mono',monospace";
+        c.fillStyle = '#dffbff';
+        c.fillText(cfg.title, x, y - 63 * scale);
+      }
+      c.restore();
+    }
+  }
+
+  function drawPlazaCrowd(c, hasArt) {
+    if (!hasArt) return;
+    PLAZA_CROWD.forEach(function (agent, i) {
+      var p = plazaPoint({ x: agent.x, y: agent.y, w: 1, h: 1 });
+      var footY = p.y + 31;
+      var scale = clamp(0.58 + p.y / Math.max(1, W.h) * 0.28, 0.62, 0.82);
+      drawAgentSprite(c, {
+        x: p.x,
+        y: footY,
+        scale: scale,
+        dir: agent.dir || 1,
+        seed: i * 1.7,
+        look: agent.look,
+        moving: false,
+        label: false
+      });
+    });
+  }
+
   function drawPlazaNpcs(c, hasArt) {
     PLAZA_NPCS.forEach(function (npc) {
       var p = plazaPoint({ x: npc.x, y: npc.y, w: 1, h: 1 });
-      npc._pos = p;
+      var footY = hasArt ? p.y + 31 : p.y + 16;
+      npc._pos = { x: p.x, y: footY - 20 };
       var hover = W.hover && W.hover.type === 'npc' && W.hover.id === npc.id;
+      var look = NPC_LOOKS[npc.id] || { frame: 'sentinel', suit: npc.color, accent: npc.color, hair: '#101827', coat: '#07111a' };
+      var scale = hasArt ? clamp(0.62 + p.y / Math.max(1, W.h) * 0.25, 0.68, 0.86) : 0.82;
       if (hasArt) {
-        c.save();
-        c.globalAlpha = hover ? 1 : 0.92;
-        c.shadowColor = npc.color;
-        c.shadowBlur = hover ? 18 : 8;
-        c.strokeStyle = npc.color;
-        c.lineWidth = hover ? 3 : 1.5;
-        c.beginPath();
-        c.ellipse(p.x, p.y + 31, hover ? 30 : 24, hover ? 10 : 8, 0, 0, Math.PI * 2);
-        c.stroke();
-        c.restore();
-        drawTalkBubble(c, p.x + 24, p.y - 74, hover ? 'TALK' : '');
-        c.font = "700 12px 'Share Tech Mono',monospace";
-        c.textAlign = 'center';
-        c.fillStyle = npc.color;
-        c.fillText(npc.name, p.x, p.y - 48);
-        c.fillStyle = '#dffbff';
-        c.font = "9px 'Share Tech Mono',monospace";
-        c.fillText(npc.title || 'NPC', p.x, p.y - 34);
+        drawAgentSprite(c, {
+          x: p.x,
+          y: footY,
+          scale: scale,
+          dir: npc.id === 'mentor' ? -1 : 1,
+          seed: (npc.id.charCodeAt(0) || 1) * 0.1,
+          look: look,
+          hover: hover,
+          label: npc.name,
+          title: npc.title || 'NPC',
+          labelColor: npc.color
+        });
+        drawTalkBubble(c, p.x + 26 * scale, footY - 82 * scale, hover ? 'TALK' : '');
         return;
       }
-      c.save();
-      c.shadowColor = npc.color;
-      c.shadowBlur = hover ? 20 : 10;
-      c.fillStyle = 'rgba(2,8,14,0.96)';
-      c.strokeStyle = npc.color;
-      c.lineWidth = hover ? 3 : 1.5;
-      c.beginPath(); c.arc(p.x, p.y, hover ? 19 : 16, 0, Math.PI * 2); c.fill(); c.stroke();
-      c.fillStyle = npc.color;
-      c.beginPath(); c.arc(p.x, p.y - 3, 5, 0, Math.PI * 2); c.fill();
-      c.fillRect(p.x - 5, p.y + 3, 10, 10);
-      c.restore();
-      c.font = "9px 'Share Tech Mono',monospace";
-      c.textAlign = 'center';
-      c.fillStyle = '#dffbff';
-      c.fillText(npc.name, p.x, p.y + 31);
-      c.fillStyle = npc.color;
-      c.font = "8px 'Share Tech Mono',monospace";
-      c.fillText(npc.title || 'NPC', p.x, p.y + 43);
+      drawAgentSprite(c, {
+        x: p.x,
+        y: footY,
+        scale: scale,
+        dir: npc.id === 'mentor' ? -1 : 1,
+        seed: (npc.id.charCodeAt(0) || 1) * 0.1,
+        look: look,
+        hover: hover,
+        label: npc.name,
+        title: npc.title || 'NPC',
+        labelColor: npc.color
+      });
     });
   }
 
@@ -1312,22 +1604,25 @@
     var dy = (W.keys.ArrowDown || W.keys.s ? 1 : 0) - (W.keys.ArrowUp || W.keys.w ? 1 : 0);
     if (dx || dy) {
       if (dx && dy) { dx *= 0.707; dy *= 0.707; }
-      W.avatar.tx = clamp(W.avatar.x + dx * 34, b.left + 34, b.right - 34);
-      W.avatar.ty = clamp(W.avatar.y + dy * 34, b.top + 48, b.bottom - 34);
+      W.avatar.tx = clamp(W.avatar.x + dx * 18, b.left + 34, b.right - 34);
+      W.avatar.ty = clamp(W.avatar.y + dy * 18, b.top + 48, b.bottom - 34);
       if (dx) W.avatar.dir = dx > 0 ? 1 : -1;
     }
     var vx = W.avatar.tx - W.avatar.x;
     var vy = W.avatar.ty - W.avatar.y;
     var d = Math.sqrt(vx * vx + vy * vy);
     if (d > 1) {
-      var step = Math.min(d, 4.8);
+      var step = Math.min(d, 2.35);
       W.avatar.x += vx / d * step;
       W.avatar.y += vy / d * step;
       if (Math.abs(vx) > 0.5) W.avatar.dir = vx > 0 ? 1 : -1;
     }
+    W.avatar.moving = d > 1.4 || !!(dx || dy);
   }
 
   function drawAvatar(c) {
+    var op = getOp();
+    if (op.look) { drawCustomAvatar(c, op.look, op.callsign); return; }
     var bob = Math.sin(W.t * 8) * 2;
     c.save();
     c.translate(W.avatar.x, W.avatar.y + bob);
@@ -1346,6 +1641,41 @@
     c.beginPath(); c.ellipse(W.avatar.x, W.avatar.y + 9, 34, 11, 0, 0, Math.PI * 2); c.stroke();
     c.strokeStyle = 'rgba(252,238,9,0.55)';
     c.beginPath(); c.arc(W.avatar.tx, W.avatar.ty, 10 + Math.sin(W.t * 7) * 2, 0, Math.PI * 2); c.stroke();
+  }
+
+  function drawCustomAvatar(c, look, callsign) {
+    var stride = W.avatar.moving ? Math.sin(W.t * 12) * 2.4 : 0;
+    var suit = look.suit || '#00ffcc';
+    var accent = look.accent || '#ff2bd6';
+    var playerLook = Object.assign({ frame: 'sentinel', skin: '#bd755b', coat: '#07111a' }, look || {});
+    drawAgentSprite(c, {
+      x: W.avatar.x,
+      y: W.avatar.y,
+      scale: 1,
+      dir: W.avatar.dir,
+      seed: 4.2,
+      look: playerLook,
+      moving: W.avatar.moving,
+      hover: true,
+      player: true,
+      label: callsign || 'OPERATIVE',
+      labelColor: suit
+    });
+    c.save();
+    c.strokeStyle = suit;
+    c.lineWidth = 1.5;
+    c.beginPath(); c.ellipse(W.avatar.x, W.avatar.y + 10, 27, 8, 0, 0, Math.PI * 2); c.stroke();
+    c.strokeStyle = accent;
+    c.beginPath(); c.arc(W.avatar.tx, W.avatar.ty, 10 + Math.sin(W.t * 7) * 2, 0, Math.PI * 2); c.stroke();
+    if (W.avatar.moving) {
+      c.strokeStyle = 'rgba(0,232,255,0.55)';
+      c.lineWidth = 1;
+      c.beginPath();
+      c.moveTo(W.avatar.x - 13 + stride, W.avatar.y + 15);
+      c.lineTo(W.avatar.x + 13 - stride, W.avatar.y + 15);
+      c.stroke();
+    }
+    c.restore();
   }
 
   function drawPlazaBubble(c) {
@@ -1516,9 +1846,11 @@
       var p = new URLSearchParams(window.location.search || '');
       var suppress = p.get('nogrid') === '1';
       var launch = (p.get('launch') || '').toLowerCase();
+      var onboard = loadJSON('cw.onboarding.v1', {}) || {};
+      var onboardingPending = !onboard.complete && p.get('skiponboarding') !== '1';
       // Don't hijack if the user explicitly deep-linked into the academy or another launch.
       var academyDeep = p.get('academy') === '1' || launch === 'academy';
-      if (!suppress && !academyDeep && !sessionStorage.getItem('cwg.autoclosed')) {
+      if (!suppress && !academyDeep && !onboardingPending && !sessionStorage.getItem('cwg.autoclosed')) {
         setTimeout(openWorld, 600);
       } else {
         document.getElementById('cwg-relaunch').classList.add('show');

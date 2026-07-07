@@ -13,12 +13,12 @@
 	var SAVE_KEY = 'cw.operative.v1';
 	var DEFAULT_STATE = {
 		callsign: 'OPERATIVE-' + Math.floor(Math.random() * 9000 + 1000),
-		level: 1, xp: 0, credits: 250,
+		level: 1, xp: 0, credits: 0,
 		hp: 100, maxHp: 100,
 		shield: 30, maxShield: 30,
-		inventory: { 'PING-BREACH': 1, 'PATCH-KIT': 2 },
+		inventory: {},
 		completed: {},
-		flags: { run: { active: false, missionId: null } },
+		flags: { run: { active: false, missionId: null }, tutorialDone: false, path: 'sentinel' },
 		field: { clears: 0, bestRoute: 0 }
 	};
 	function loadState() {
@@ -41,7 +41,7 @@
 	}
 	var state = loadState();
 	var FIELD_TARGET_PACKETS = 6;
-	var FIELD_MAX_DAEMONS = 4;
+	var FIELD_MAX_DAEMONS = 3;
 
 	function xpForLevel(L) { return Math.floor(100 * Math.pow(1.35, L - 1)); }
 	function gainXp(n) {
@@ -71,8 +71,8 @@
 	// ---------- Mission catalog ----------
 	var MISSIONS = [
 		{ id: 'tut-ping',    sector: 'Mainframe Core',  title: 'PING the Gateway',
-		  brief: 'Send a discovery ping to the FLLC gateway and confirm uplink.',
-		  reward: { xp: 25, credits: 40 }, kind: 'instant' },
+		  brief: 'Professor Cipher teaches your first defensive operation: identify the gateway, send a discovery ping, and confirm a clean blue-team uplink.',
+		  reward: { xp: 35, credits: 60, item: 'STARTER-DECK' }, kind: 'instant' },
 		{ id: 'tut-scan',    sector: 'Mainframe Core',  title: 'Scan Open Ports',
 		  brief: 'Run a quick port sweep on three known service nodes.',
 		  reward: { xp: 35, credits: 50, item: 'PORT-MAP' }, kind: 'instant' },
@@ -777,7 +777,7 @@
 	}
 	function spawnDaemon(bounds, i, mission) {
 		var hard = mission && /^(dn-convoy|dn-cave|sc-caves)$/.test(mission.id);
-		var speed = hard ? randBetween(0.55, 0.82) : randBetween(0.36, 0.62);
+		var speed = hard ? randBetween(0.38, 0.58) : randBetween(0.26, 0.44);
 		var lanes = [0.47, 0.62, 0.78, 0.54, 0.86];
 		var rows = [0.24, 0.72, 0.42, 0.84, 0.58];
 		return {
@@ -836,7 +836,7 @@
 			ticking: false,
 			routeName: 'City Gate Practice Route',
 			mission: null,
-			player: { x: 180, y: 180, speed: 4.65 },
+			player: { x: 180, y: 180, speed: 3.25 },
 			score: 0,
 			heat: 0,
 			shield: Math.max(58, state.shield + 24, state.maxShield + 18),
@@ -864,7 +864,7 @@
 		ops.active = true;
 		ops.mission = mission || null;
 		ops.routeName = routeNameForMission(mission);
-		ops.player = { x: Math.max(110, rect.width * 0.16), y: Math.max(132, rect.height * 0.5), speed: 4.65 };
+		ops.player = { x: Math.max(110, rect.width * 0.16), y: Math.max(132, rect.height * 0.5), speed: 3.25 };
 		ops.score = 0;
 		ops.heat = 0;
 		ops.shield = Math.max(58, state.shield + 24, state.maxShield + 18);
@@ -1036,12 +1036,12 @@
 		var dy = (liveKeys.ArrowDown || liveKeys.s ? 1 : 0) - (liveKeys.ArrowUp || liveKeys.w ? 1 : 0);
 		if (dx && dy) { dx *= 0.707; dy *= 0.707; }
 		var dashing = (liveKeys.Shift || liveKeys.shift) && liveOps.dashCooldown <= 0 && (dx || dy);
-		var speed = liveOps.player.speed * (dashing ? 2.05 : 1);
+		var speed = liveOps.player.speed * (dashing ? 1.55 : 1);
 		liveOps.player.x = clamp(liveOps.player.x + dx * speed * dt, 56, Math.max(74, rect.width - 54));
 		liveOps.player.y = clamp(liveOps.player.y + dy * speed * dt, 74, Math.max(92, rect.height - 58));
 		if (dashing) {
 			liveOps.dashCooldown = 82;
-			liveOps.heat = Math.min(100, liveOps.heat + 3);
+			liveOps.heat = Math.min(100, liveOps.heat + 2);
 			liveOps.playerNode.classList.add('dash');
 			setTimeout(function () { if (liveOps && liveOps.playerNode) liveOps.playerNode.classList.remove('dash'); }, 180);
 		}
@@ -1056,11 +1056,11 @@
 				liveOps.daemonNodes[i].classList.remove('stunned');
 				var distance = dist(liveOps.player, d);
 				if (distance < 160) {
-					d.vx += clamp((liveOps.player.x - d.x) / 1100, -0.055, 0.055);
-					d.vy += clamp((liveOps.player.y - d.y) / 1100, -0.055, 0.055);
+					d.vx += clamp((liveOps.player.x - d.x) / 1450, -0.038, 0.038);
+					d.vy += clamp((liveOps.player.y - d.y) / 1450, -0.038, 0.038);
 				}
-				d.vx = clamp(d.vx, -0.96, 0.96);
-				d.vy = clamp(d.vy, -0.78, 0.78);
+				d.vx = clamp(d.vx, -0.68, 0.68);
+				d.vy = clamp(d.vy, -0.55, 0.55);
 				d.x += d.vx * dt;
 				d.y += d.vy * dt;
 				if (d.x < 72 || d.x > rect.width - 62) d.vx *= -1;
@@ -1068,8 +1068,8 @@
 				d.x = clamp(d.x, 72, Math.max(88, rect.width - 62));
 				d.y = clamp(d.y, 88, Math.max(104, rect.height - 66));
 				if (distance < 29) {
-					liveOps.heat = Math.min(100, liveOps.heat + 0.82 * dt);
-					liveOps.shield = Math.max(0, liveOps.shield - 0.13 * dt);
+					liveOps.heat = Math.min(100, liveOps.heat + 0.55 * dt);
+					liveOps.shield = Math.max(0, liveOps.shield - 0.09 * dt);
 				}
 			}
 			placeLiveNode(liveOps.daemonNodes[i], d);
@@ -1078,7 +1078,7 @@
 			var hot = dist(liveOps.player, tower) < tower.range;
 			tower.hot = hot;
 			liveOps.towerNodes[i].classList.toggle('hot', hot);
-			if (hot) liveOps.heat = Math.min(100, liveOps.heat + 0.22 * dt);
+			if (hot) liveOps.heat = Math.min(100, liveOps.heat + 0.15 * dt);
 		});
 		liveOps.packets.forEach(function (p, i) {
 			if (p.collected) return;
@@ -1102,7 +1102,7 @@
 			completeFieldRun();
 			return;
 		}
-		liveOps.heat = Math.max(0, liveOps.heat - 0.08 * dt);
+		liveOps.heat = Math.max(0, liveOps.heat - 0.055 * dt);
 		if (liveOps.heat >= 100 || liveOps.shield <= 0) {
 			state.hp = Math.max(20, state.hp - 6);
 			state.shield = Math.max(0, Math.round(liveOps.shield));
@@ -1200,6 +1200,44 @@
 		}).observe(document.body, { childList: true, subtree: true });
 	} catch (e) {}
 
+	function freshState(profile) {
+		var base = JSON.parse(JSON.stringify(DEFAULT_STATE));
+		base.callsign = (profile && profile.callsign) || ('OPERATIVE-' + Math.floor(Math.random() * 9000 + 1000));
+		base.flags.path = (profile && profile.path) || 'sentinel';
+		base.flags.origin = (profile && profile.origin) || 'city-gate';
+		base.look = Object.assign({
+			suit: '#00ffcc',
+			hair: '#111827',
+			accent: '#ff2bd6',
+			frame: 'street'
+		}, (profile && profile.look) || {});
+		return base;
+	}
+	function resetFresh(profile) {
+		state = freshState(profile || {});
+		saveState();
+		if (liveOps && liveOps.active) deactivateLiveOps('Fresh operative profile loaded');
+		render();
+		try { if (window.__cwNet && window.__cwNet.sync) window.__cwNet.sync(); } catch (e) {}
+		return JSON.parse(JSON.stringify(state));
+	}
+	function completeTutorialReward() {
+		if (state.flags && state.flags.tutorialDone) return false;
+		state.flags = state.flags || {};
+		state.flags.tutorialDone = true;
+		state.inventory = state.inventory || {};
+		state.inventory['STARTER-DECK'] = (state.inventory['STARTER-DECK'] || 0) + 1;
+		state.inventory['PATCH-KIT'] = (state.inventory['PATCH-KIT'] || 0) + 1;
+		state.inventory['PORT-MAP'] = (state.inventory['PORT-MAP'] || 0) + 1;
+		state.credits += 75;
+		state.xp += 35;
+		saveState();
+		render();
+		try { if (window.__cwNet && window.__cwNet.sync) window.__cwNet.sync(); } catch (e) {}
+		toast('Tutorial complete - starter gear issued');
+		return true;
+	}
+
 	// Public API
 	window.__cwGameplay = {
 		state: function () { return JSON.parse(JSON.stringify(state)); },
@@ -1209,6 +1247,8 @@
 		gainXp: gainXp,
 		gainCredits: gainCredits,
 		gainItem: gainItem,
+		resetFresh: resetFresh,
+		completeTutorialReward: completeTutorialReward,
 		startMission: function (id) {
 			var m = MISSIONS.find(function (x) { return x.id === id; });
 			if (m) startMission(m);
