@@ -1,140 +1,71 @@
 /**
- * FLLC CYBERWORLD SERVICE WORKER v1.0
- * Provides offline-first caching for all public game assets.
- * Strategy: Cache-First for assets, Network-First for HTML pages.
+ * FLLC CYBERWORLD SERVICE WORKER
+ * Retires public/offline game caches and hands legacy member routes to FLLC.
  */
 
-const CACHE_VERSION = 'fllc-v22-cyberworld-controls-20260707';
-const STATIC_CACHE  = `${CACHE_VERSION}-static`;
-const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
+const MEMBER_GATEWAY = 'https://www.fllc.net/cyberworld';
 
-/* Core assets to pre-cache on install */
-const PRECACHE_ASSETS = [
-  '/',
-  '/index.html',
-  '/cyberworld.html',
-  '/wargames.html',
+const LEGACY_MEMBER_ROUTES = new Set([
+  '/adversaries.html',
+  '/ai.html',
   '/arcade.html',
-  '/signal-lab.html',
-  '/redops.html',
-  '/forensics.html',
-  '/intel.html',
-  '/hangar.html',
+  '/ctf-trail.html',
+  '/cyber.html',
+  '/cyberos-iso.html',
+  '/cyberworld-codex.html',
+  '/cyberworld-game.html',
+  '/cyberworld.html',
+  '/discuss.html',
+  '/dogfight-legacy.html',
   '/dogfight.html',
-  '/js/hangar-static.js',
-  '/js/cyber-dogfight.js',
-  '/rpg/index.html',
-  '/rpg/login.html',
-  '/rpg/js/game.js',
-  '/rpg/js/scenes/SceneBoot.js',
-  '/rpg/js/scenes/SceneLogin.js',
-  '/rpg/js/scenes/SceneCharacter.js',
-  '/rpg/js/scenes/SceneTutorial.js',
-  '/rpg/js/scenes/SceneOperationsDeck.js',
-  '/rpg/js/scenes/SceneLobby.js',
-  '/rpg/js/scenes/SceneWorldMap.js',
-  '/rpg/js/scenes/SceneMinigame.js',
-  '/js/cyberworld-world.js',
-  '/js/wargames-engine.js',
-  '/js/multiplayer-client.js',
-  '/js/story-sync.js',
-  '/js/signal-lab.js',
-  '/js/redops-missions.js',
+  '/forensics.html',
+  '/games.html',
+  '/hangar-legacy.html',
+  '/hangar.html',
+  '/intel.html',
+  '/nodes.html',
+  '/profile.html',
+  '/redops.html',
+  '/research.html',
+  '/signal-lab.html',
+  '/simulator.html',
+  '/stars.html',
+  '/wargames.html',
+]);
+
+const LEGACY_MEMBER_PREFIXES = [
+  '/CyberWorld/',
+  '/CyberWorld_login/',
+  '/legacy/',
+  '/rpg/',
+  '/simulator/',
 ];
 
-/* ── INSTALL: pre-cache static assets ── */
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
+  event.waitUntil(self.skipWaiting());
+});
+
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.open(STATIC_CACHE).then(cache => {
-      return Promise.allSettled(
-        PRECACHE_ASSETS.map(url =>
-          cache.add(url).catch(() => { /* silently skip missing assets */ })
-        )
-      );
-    }).then(() => self.skipWaiting())
+    caches
+      .keys()
+      .then((keys) => Promise.all(keys.filter((key) => key.startsWith('fllc-')).map((key) => caches.delete(key))))
+      .then(() => self.clients.claim()),
   );
 });
 
-/* ── ACTIVATE: delete old cache versions ── */
-self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys
-          .filter(k => k.startsWith('fllc-') && k !== STATIC_CACHE && k !== DYNAMIC_CACHE)
-          .map(k => caches.delete(k))
-      )
-    ).then(() => self.clients.claim())
-  );
-});
-
-/* ── FETCH: Cache-First for JS/CSS/images, Network-First for HTML ── */
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', (event) => {
   const { request } = event;
+  if (request.mode !== 'navigate') return;
+
   const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
 
-  /* Keep the login flow out of the game/offline cache layer. */
-  if (url.origin === self.location.origin && url.pathname.startsWith('/CyberWorld_login/')) return;
+  const isLegacyMemberRoute =
+    LEGACY_MEMBER_ROUTES.has(url.pathname) ||
+    LEGACY_MEMBER_PREFIXES.some((prefix) => url.pathname.startsWith(prefix));
 
-  /* Only handle same-origin and Google Fonts */
-  const isGoogleFonts = url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com';
-  if (!isGoogleFonts && url.origin !== self.location.origin) return;
-
-  const isHotAsset =
-    url.pathname === '/hangar.html' ||
-    url.pathname === '/js/hangar-static.js' ||
-    url.pathname === '/dogfight.html' ||
-    url.pathname === '/js/cyber-dogfight.js' ||
-    url.pathname === '/CyberWorld/' ||
-    url.pathname === '/CyberWorld/index.html' ||
-    url.pathname === '/CyberWorld/augment.css' ||
-    url.pathname === '/CyberWorld/augment.js' ||
-    url.pathname === '/CyberWorld/gameplay.css' ||
-    url.pathname === '/CyberWorld/gameplay.js' ||
-    url.pathname === '/CyberWorld/cw-net.css' ||
-    url.pathname === '/CyberWorld/cw-net.js' ||
-    url.pathname === '/CyberWorld/cw-academy.css' ||
-    url.pathname === '/CyberWorld/cw-academy.js' ||
-    url.pathname === '/CyberWorld/cw-world.css' ||
-    url.pathname === '/CyberWorld/cw-world.js' ||
-    url.pathname.startsWith('/CyberWorld/_next/static/chunks/');
-  if (isHotAsset) {
-    event.respondWith(
-      fetch(request, { cache: 'no-store' })
-        .then(response => {
-          const clone = response.clone();
-          caches.open(DYNAMIC_CACHE).then(c => c.put(request, clone));
-          return response;
-        })
-        .catch(() => caches.match(request))
-    );
-    return;
+  if (isLegacyMemberRoute) {
+    event.respondWith(Response.redirect(MEMBER_GATEWAY, 302));
   }
-
-  /* HTML pages: Network-First (stay up to date when online) */
-  if (request.destination === 'document') {
-    event.respondWith(
-      fetch(request)
-        .then(response => {
-          const clone = response.clone();
-          caches.open(DYNAMIC_CACHE).then(c => c.put(request, clone));
-          return response;
-        })
-        .catch(() => caches.match(request).then(r => r || caches.match('/index.html')))
-    );
-    return;
-  }
-
-  /* Everything else: Cache-First */
-  event.respondWith(
-    caches.match(request).then(cached => {
-      if (cached) return cached;
-      return fetch(request).then(response => {
-        if (!response || response.status !== 200 || response.type === 'error') return response;
-        const clone = response.clone();
-        caches.open(DYNAMIC_CACHE).then(c => c.put(request, clone));
-        return response;
-      }).catch(() => { /* network failure, return nothing */ });
-    })
-  );
 });

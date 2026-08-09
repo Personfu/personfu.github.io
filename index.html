@@ -162,30 +162,36 @@ function drawWallpaper(){
 drawWallpaper();
 window.addEventListener('resize',drawWallpaper);
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {
+    // The launcher remains usable when service workers are unavailable.
+  });
+}
+
 /* ── APPS / ICONS ─────────────────────────────────────────────── */
 const APPS=[
-  {id:'cyberworld', icon:'🌐', label:'CyberWorld MMORPG',   url:'CyberWorld/',              desc:'Main MMORPG game hub', openTab:true},
-  {id:'academy',    icon:'🎓', label:'Hacker Academy',      url:'CyberWorld/?academy=1',    desc:'24 interactive cybersecurity challenges — learn & earn XP', openTab:true},
-  {id:'hangar',     icon:'✈️', label:'Hangar 3D',           url:'hangar.html',              desc:'22 verified 3D models', openTab:true},
-  {id:'mathviz',    icon:'∑',  label:'Math Visualization',  url:'simulator.html',           desc:'Interactive mathematical visualization lab', openTab:true},
-  {id:'ctf',        icon:'🏴', label:'CTF Trail',           url:'ctf-trail.html',           desc:'Badge-gated quest', openTab:true},
-  {id:'wargames',   icon:'⚔️', label:'WarGames Academy',    url:'wargames.html',            desc:'Mainframe classroom', openTab:true},
-  {id:'signal',     icon:'📡', label:'Signal Lab',          url:'signal-lab.html',          desc:'Packet analysis', openTab:true},
-  {id:'forensics',  icon:'🔬', label:'Forensics Lab',       url:'forensics.html',           desc:'Evidence room', openTab:true},
-  {id:'redops',     icon:'🔴', label:'RedOps Arena',        url:'redops.html',              desc:'Sanctioned adversary', openTab:true},
-  {id:'intel',      icon:'🧠', label:'Intel Desk',          url:'intel.html',               desc:'OSINT & analysis', openTab:true},
-  {id:'adversaries',icon:'👾', label:'Adversaries',         url:'adversaries.html',         desc:'Threat actor profiles', openTab:true},
-  {id:'research',   icon:'📖', label:'Research',            url:'research.html',            desc:'FLLC research hub', openTab:true},
-  {id:'ai',         icon:'🤖', label:'AI Module',           url:'ai.html',                  desc:'AI/ML tools', openTab:true},
-  {id:'nodes',      icon:'🕸️', label:'Nodes',               url:'nodes.html',               desc:'Network nodes', openTab:true},
-  {id:'arcade',    icon:'🕹️', label:'Arcade',              url:'arcade.html',              desc:'Cyber arcade cabinet floor', openTab:true},
-  {id:'games',     icon:'🎮', label:'Games Hub',           url:'games.html',               desc:'Browser game archive', openTab:true},
-  {id:'iso',       icon:'💿', label:'ISO Builder',         url:'cyberos-iso.html',         desc:'CyberOS foundry / lab ISO builder', openTab:true},
-  {id:'dogfight',   icon:'🛩️', label:'Dogfight',            url:'dogfight.html',            desc:'Flight combat sim', openTab:true},
-  {id:'discuss',    icon:'💬', label:'Discuss',             url:'discuss.html',             desc:'Community board', openTab:true},
-  {id:'codex',      icon:'📚', label:'CyberWorld Codex',    url:'cyberworld-codex.html',    desc:'Lore & world guide', openTab:true},
-  {id:'stars',      icon:'⭐', label:'Stars',               url:'stars.html',               desc:'Starfield explorer', openTab:true},
-  {id:'profile',    icon:'🪪', label:'Profile',             url:'profile.html',             desc:'Operative profile', openTab:true},
+  {id:'cyberworld', icon:'🌐', label:'CyberWorld MMORPG',   url:'https://www.fllc.net/cyberworld', desc:'Protected FLLC member grid', openTab:true},
+  {id:'academy',    icon:'🎓', label:'Hacker Academy',      url:'https://www.fllc.net/cyberworld', desc:'Member defensive training and progression', openTab:true},
+  {id:'hangar',     icon:'✈️', label:'Hangar 3D',           url:'https://www.fllc.net/cyberworld', desc:'Member 3D hangar terminal', openTab:true},
+  {id:'mathviz',    icon:'∑',  label:'Math Visualization',  url:'https://www.fllc.net/cyberworld', desc:'Member visualization lab', openTab:true},
+  {id:'ctf',        icon:'🏴', label:'CTF Trail',           url:'https://www.fllc.net/cyberworld', desc:'Badge-gated member quest', openTab:true},
+  {id:'wargames',   icon:'⚔️', label:'WarGames Academy',    url:'https://www.fllc.net/cyberworld', desc:'Member mainframe classroom', openTab:true},
+  {id:'signal',     icon:'📡', label:'Signal Lab',          url:'https://www.fllc.net/cyberworld', desc:'Member packet analysis', openTab:true},
+  {id:'forensics',  icon:'🔬', label:'Forensics Lab',       url:'https://www.fllc.net/cyberworld', desc:'Member evidence room', openTab:true},
+  {id:'redops',     icon:'🔴', label:'RedOps Arena',        url:'https://www.fllc.net/cyberworld', desc:'Scoped member simulator', openTab:true},
+  {id:'intel',      icon:'🧠', label:'Intel Desk',          url:'https://www.fllc.net/cyberworld', desc:'Member OSINT and analysis', openTab:true},
+  {id:'adversaries',icon:'👾', label:'Adversaries',         url:'https://www.fllc.net/cyberworld', desc:'Member threat profiles', openTab:true},
+  {id:'research',   icon:'📖', label:'Research',            url:'https://www.fllc.net/cyberworld', desc:'Member research terminal', openTab:true},
+  {id:'ai',         icon:'🤖', label:'AI Module',           url:'https://www.fllc.net/cyberworld', desc:'Member AI operations bench', openTab:true},
+  {id:'nodes',      icon:'🕸️', label:'Nodes',               url:'https://www.fllc.net/cyberworld', desc:'Member network map', openTab:true},
+  {id:'arcade',     icon:'🕹️', label:'Arcade',              url:'https://www.fllc.net/cyberworld', desc:'Member arcade floor', openTab:true},
+  {id:'games',      icon:'🎮', label:'Games Hub',           url:'https://www.fllc.net/cyberworld', desc:'Member browser game archive', openTab:true},
+  {id:'iso',        icon:'💿', label:'ISO Builder',         url:'https://www.fllc.net/cyberworld', desc:'Member lab builder terminal', openTab:true},
+  {id:'dogfight',   icon:'🛩️', label:'Dogfight',            url:'https://www.fllc.net/cyberworld', desc:'Member flight simulator', openTab:true},
+  {id:'discuss',    icon:'💬', label:'Discuss',             url:'https://www.fllc.net/cyberworld', desc:'Member operations board', openTab:true},
+  {id:'codex',      icon:'📚', label:'CyberWorld Codex',    url:'https://www.fllc.net/cyberworld', desc:'Member lore and world guide', openTab:true},
+  {id:'stars',      icon:'⭐', label:'Stars',               url:'https://www.fllc.net/cyberworld', desc:'Member starfield terminal', openTab:true},
+  {id:'profile',    icon:'🪪', label:'Profile',             url:'https://www.fllc.net/cyberworld', desc:'Member operative dossier', openTab:true},
   {id:'github',     icon:'🐙', label:'Source Code',         url:'https://github.com/Personfu/personfu.github.io', desc:'GitHub repo', ext:true},
 ];
 
