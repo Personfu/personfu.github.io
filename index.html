@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Personfu CyberWorld — Operator Desktop</title>
-<meta name="description" content="CyberWorld FLLC operator desktop. Windows 98-style interface with a clean operator background. Access all cybersecurity tools, games, and labs from one unified desktop.">
+<meta name="description" content="PersonFu Network operator desktop: launch live planetary intelligence, public-source research, CyberWorld, Rock Replicas, NASA ASCEND, membership, billing, and open source projects from one working gateway.">
 <link rel="canonical" href="https://personfu.github.io/">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
 <style>
@@ -103,7 +103,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 
 <!-- start menu -->
 <div id="start-menu">
-  <div class="sm-banner">CyberWorld</div>
+  <div class="sm-banner">PersonFu Network</div>
   <div class="sm-items" id="sm-items"></div>
 </div>
 
@@ -170,29 +170,19 @@ if ('serviceWorker' in navigator) {
 
 /* ── APPS / ICONS ─────────────────────────────────────────────── */
 const APPS=[
-  {id:'cyberworld', icon:'🌐', label:'CyberWorld MMORPG',   url:'https://www.fllc.net/cyberworld', desc:'Protected FLLC member grid', openTab:true},
-  {id:'academy',    icon:'🎓', label:'Hacker Academy',      url:'https://www.fllc.net/cyberworld', desc:'Member defensive training and progression', openTab:true},
-  {id:'hangar',     icon:'✈️', label:'Hangar 3D',           url:'https://www.fllc.net/cyberworld', desc:'Member 3D hangar terminal', openTab:true},
-  {id:'mathviz',    icon:'∑',  label:'Math Visualization',  url:'https://www.fllc.net/cyberworld', desc:'Member visualization lab', openTab:true},
-  {id:'ctf',        icon:'🏴', label:'CTF Trail',           url:'https://www.fllc.net/cyberworld', desc:'Badge-gated member quest', openTab:true},
-  {id:'wargames',   icon:'⚔️', label:'WarGames Academy',    url:'https://www.fllc.net/cyberworld', desc:'Member mainframe classroom', openTab:true},
-  {id:'signal',     icon:'📡', label:'Signal Lab',          url:'https://www.fllc.net/cyberworld', desc:'Member packet analysis', openTab:true},
-  {id:'forensics',  icon:'🔬', label:'Forensics Lab',       url:'https://www.fllc.net/cyberworld', desc:'Member evidence room', openTab:true},
-  {id:'redops',     icon:'🔴', label:'RedOps Arena',        url:'https://www.fllc.net/cyberworld', desc:'Scoped member simulator', openTab:true},
-  {id:'intel',      icon:'🧠', label:'Intel Desk',          url:'https://www.fllc.net/cyberworld', desc:'Member OSINT and analysis', openTab:true},
-  {id:'adversaries',icon:'👾', label:'Adversaries',         url:'https://www.fllc.net/cyberworld', desc:'Member threat profiles', openTab:true},
-  {id:'research',   icon:'📖', label:'Research',            url:'https://www.fllc.net/cyberworld', desc:'Member research terminal', openTab:true},
-  {id:'ai',         icon:'🤖', label:'AI Module',           url:'https://www.fllc.net/cyberworld', desc:'Member AI operations bench', openTab:true},
-  {id:'nodes',      icon:'🕸️', label:'Nodes',               url:'https://www.fllc.net/cyberworld', desc:'Member network map', openTab:true},
-  {id:'arcade',     icon:'🕹️', label:'Arcade',              url:'https://www.fllc.net/cyberworld', desc:'Member arcade floor', openTab:true},
-  {id:'games',      icon:'🎮', label:'Games Hub',           url:'https://www.fllc.net/cyberworld', desc:'Member browser game archive', openTab:true},
-  {id:'iso',        icon:'💿', label:'ISO Builder',         url:'https://www.fllc.net/cyberworld', desc:'Member lab builder terminal', openTab:true},
-  {id:'dogfight',   icon:'🛩️', label:'Dogfight',            url:'https://www.fllc.net/cyberworld', desc:'Member flight simulator', openTab:true},
-  {id:'discuss',    icon:'💬', label:'Discuss',             url:'https://www.fllc.net/cyberworld', desc:'Member operations board', openTab:true},
-  {id:'codex',      icon:'📚', label:'CyberWorld Codex',    url:'https://www.fllc.net/cyberworld', desc:'Member lore and world guide', openTab:true},
-  {id:'stars',      icon:'⭐', label:'Stars',               url:'https://www.fllc.net/cyberworld', desc:'Member starfield terminal', openTab:true},
-  {id:'profile',    icon:'🪪', label:'Profile',             url:'https://www.fllc.net/cyberworld', desc:'Member operative dossier', openTab:true},
-  {id:'github',     icon:'🐙', label:'Source Code',         url:'https://github.com/Personfu/personfu.github.io', desc:'GitHub repo', ext:true},
+  {id:'liveworld',   icon:'🌍', label:'FLLC Live World',      url:'https://www.fllc.net', desc:'Live planetary intelligence and cyber defense', openTab:true},
+  {id:'skyops',      icon:'🛰️', label:'SkyOps Globe',         url:'https://www.fllc.net/#live-theater', desc:'Flights, satellites, hazards, cameras, and sourced reporting', openTab:true},
+  {id:'cameras',     icon:'📹', label:'Camera Atlas',         url:'https://www.fllc.net/cameras', desc:'Official public camera directories and live views', openTab:true},
+  {id:'intel',       icon:'🧠', label:'Intelligence Desk',    url:'https://www.fllc.net/intelligence', desc:'Defensive briefings, world monitoring, and OSINT', openTab:true},
+  {id:'cyberworld',  icon:'🌐', label:'CyberWorld',           url:'https://www.fllc.net/cyberworld', desc:'Member cyber range, progression, labs, and games', openTab:true},
+  {id:'personfu',    icon:'🔎', label:'PersonFu Search',      url:'https://personfu.com', desc:'Privacy-aware public-signal search and reports', openTab:true},
+  {id:'members',     icon:'🪪', label:'Member Workbench',     url:'https://www.fllc.net/members', desc:'Saved work, member tools, and purchased access', openTab:true},
+  {id:'pricing',     icon:'💳', label:'Plans + Pricing',      url:'https://www.fllc.net/pricing', desc:'Free access and low-cost recurring workbenches', openTab:true},
+  {id:'billing',     icon:'🧾', label:'Billing Controls',     url:'https://www.fllc.net/billing', desc:'Manage renewal, cancellation, and receipts', openTab:true},
+  {id:'rockreplicas',icon:'🪨', label:'Rock Replicas',        url:'https://rockreplicas.com', desc:'Custom lightweight rock veneer and project inquiries', openTab:true},
+  {id:'nasaascend',  icon:'🚀', label:'NASA ASCEND Mission', url:'https://pcnasaascend.com', desc:'Phoenix College high-altitude mission control', openTab:true},
+  {id:'discord',     icon:'💬', label:'CyberWorld Discord',  url:'https://discord.gg/Cd9qyvht7X', desc:'Community, releases, and sourced intel discussion', openTab:true},
+  {id:'github',      icon:'🐙', label:'Open Source',          url:'https://github.com/Personfu', desc:'Public repositories and engineering work', ext:true},
 ];
 
 /* ── WINDOW MANAGER ───────────────────────────────────────────── */
