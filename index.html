@@ -10,7 +10,7 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --w98-bg:#008080;--w98-desktop:#008080;--w98-title:#000080;--w98-title-end:#1084d0;
+  --w98-bg:#030817;--w98-desktop:#030817;--w98-title:#111c63;--w98-title-end:#5d19a8;
   --w98-gray:#c0c0c0;--w98-darkgray:#808080;--w98-white:#fff;--w98-black:#000;
   --neon:#00ffcc;--neon2:#ff2bd6;--dim:#005f5f;
 }
@@ -21,7 +21,7 @@ body{background:var(--w98-desktop);position:relative}
 #wallpaper{position:fixed;inset:0;z-index:0;pointer-events:none}
 
 /* ── DESKTOP ── */
-#desktop{position:fixed;inset:0 0 28px 0;z-index:1;padding:8px}
+#desktop{position:fixed;inset:0 0 28px 0;z-index:1;padding:8px 472px 8px 8px}
 .icon-grid{display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px;padding:4px}
 
 /* ── ICON ── */
@@ -80,6 +80,23 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 
 /* ── GLITCH anim ── */
 @keyframes glitch{0%,100%{text-shadow:0 0 6px var(--neon)}50%{text-shadow:2px 0 0 var(--neon2),-2px 0 0 var(--neon)}}
+
+/* ── MISSION BRIEF ── */
+#mission-brief{position:fixed;right:18px;top:18px;z-index:3;width:min(440px,calc(100vw - 150px));overflow:hidden;border:1px solid rgba(0,255,204,.52);border-radius:4px;background:#02050e;color:#dffcff;box-shadow:0 22px 70px rgba(0,0,0,.55),0 0 34px rgba(0,255,204,.12);user-select:text}
+#mission-brief::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,5,14,.98),rgba(2,5,14,.82),rgba(2,5,14,.35)),url('assets/fllc-constellation-v1.webp') center/cover no-repeat;opacity:.88}
+.brief-inner{position:relative;padding:20px}
+.brief-kicker{display:flex;align-items:center;gap:8px;font-size:9px;font-weight:700;letter-spacing:2px;color:var(--neon)}
+.brief-dot{width:7px;height:7px;border-radius:50%;background:var(--neon);box-shadow:0 0 12px var(--neon)}
+.brief-title{margin-top:14px;font:400 32px/1 'VT323',monospace;letter-spacing:1px;color:#fff;text-shadow:0 0 18px rgba(0,255,204,.3)}
+.brief-copy{margin-top:10px;max-width:370px;font-size:11px;line-height:1.6;color:#afd4dc}
+.brief-paths{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:16px}
+.brief-link{display:flex;min-height:42px;align-items:center;justify-content:center;padding:7px;border:1px solid rgba(255,255,255,.16);background:rgba(2,5,14,.74);color:#e9ffff;text-align:center;text-decoration:none;font-size:9px;font-weight:700;letter-spacing:.5px}
+.brief-link:hover,.brief-link:focus{border-color:var(--neon);background:rgba(0,255,204,.12);color:var(--neon);outline:none}
+.brief-link.primary{background:var(--neon);color:#00100d;border-color:var(--neon)}
+.brief-link.primary:hover,.brief-link.primary:focus{background:#fff;color:#000}
+.brief-status{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding-top:11px;border-top:1px solid rgba(255,255,255,.1);font-size:8px;letter-spacing:1px;color:#7fa6af}
+.brief-status span{padding:3px 5px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.45)}
+@media(max-width:720px){#mission-brief{display:none}#desktop{padding-right:8px}}
 </style>
 </head>
 <body>
@@ -91,6 +108,23 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 <div id="desktop">
   <div class="icon-grid" id="icon-grid"></div>
 </div>
+
+<aside id="mission-brief" aria-label="FLLC mission briefing">
+  <div class="brief-inner">
+    <div class="brief-kicker"><span class="brief-dot"></span> PERSONFU NETWORK // FLLC UPLINK</div>
+    <div class="brief-title">THE WORLD IS LIVE. PICK A SIGNAL.</div>
+    <p class="brief-copy">Launch live planetary systems, defensive intelligence, original CyberWorld training, engineering work, or a commercial FLLC engagement from one operator gateway.</p>
+    <nav class="brief-paths" aria-label="Primary FLLC destinations">
+      <a class="brief-link primary" href="https://www.fllc.net/skyops">LIVE WORLD</a>
+      <a class="brief-link" href="https://www.fllc.net/about/projects">CONSTELLATION</a>
+      <a class="brief-link" href="https://www.fllc.net/cyberworld">CYBERWORLD</a>
+      <a class="brief-link" href="https://www.fllc.net/intelligence">INTELLIGENCE</a>
+      <a class="brief-link" href="https://www.fllc.net/services">SERVICES</a>
+      <a class="brief-link" href="https://www.fllc.net/shop">SHOP</a>
+    </nav>
+    <div class="brief-status"><span>PUBLIC WORLD: OPEN</span><span>SAFE LABS</span><span>SOURCE-AWARE</span><span>ORIGINAL SYSTEMS</span></div>
+  </div>
+</aside>
 
 <!-- taskbar -->
 <div id="taskbar">
@@ -119,13 +153,14 @@ function drawWallpaper(){
   const H=wallpaperCanvas.height=window.innerHeight;
 
   const bg=wallpaperCtx.createLinearGradient(0,0,0,H);
-  bg.addColorStop(0,'#10989a');
-  bg.addColorStop(1,'#0a7476');
+  bg.addColorStop(0,'#07122e');
+  bg.addColorStop(0.55,'#090622');
+  bg.addColorStop(1,'#02050d');
   wallpaperCtx.fillStyle=bg;
   wallpaperCtx.fillRect(0,0,W,H);
 
   const glow=wallpaperCtx.createRadialGradient(W*0.5,H*0.38,40,W*0.5,H*0.38,Math.max(W,H)*0.74);
-  glow.addColorStop(0,'rgba(0,255,218,0.24)');
+  glow.addColorStop(0,'rgba(0,255,218,0.16)');
   glow.addColorStop(1,'rgba(0,0,0,0)');
   wallpaperCtx.fillStyle=glow;
   wallpaperCtx.fillRect(0,0,W,H);
@@ -171,13 +206,20 @@ if ('serviceWorker' in navigator) {
 /* ── APPS / ICONS ─────────────────────────────────────────────── */
 const APPS=[
   {id:'liveworld',   icon:'🌍', label:'FLLC Live World',      url:'https://www.fllc.net', desc:'Live planetary intelligence and cyber defense', openTab:true},
-  {id:'skyops',      icon:'🛰️', label:'SkyOps Globe',         url:'https://www.fllc.net/#live-theater', desc:'Flights, satellites, hazards, cameras, and sourced reporting', openTab:true},
+  {id:'skyops',      icon:'🛰️', label:'SkyOps Globe',         url:'https://www.fllc.net/skyops', desc:'Flights, satellites, hazards, cameras, and sourced reporting', openTab:true},
+  {id:'now',         icon:'⚡', label:'FLLC Right Now',        url:'https://www.fllc.net/now', desc:'Fresh planetary and defensive signal readout', openTab:true},
+  {id:'live3d',      icon:'✈️', label:'Live 3D Airspace',      url:'https://www.fllc.net/engineering/aviation/live-3d', desc:'Current ADS-B observations with original 3D aircraft', openTab:true},
+  {id:'satellites',  icon:'🌌', label:'Orbital Engineering',  url:'https://www.fllc.net/engineering/satellite', desc:'Satellite catalogs, groups, elements, and orbital context', openTab:true},
   {id:'cameras',     icon:'📹', label:'Camera Atlas',         url:'https://www.fllc.net/cameras', desc:'Official public camera directories and live views', openTab:true},
   {id:'intel',       icon:'🧠', label:'Intelligence Desk',    url:'https://www.fllc.net/intelligence', desc:'Defensive briefings, world monitoring, and OSINT', openTab:true},
   {id:'cyberworld',  icon:'🌐', label:'CyberWorld',           url:'https://www.fllc.net/cyberworld', desc:'Member cyber range, progression, labs, and games', openTab:true},
+  {id:'training',    icon:'🎓', label:'Operator Academy',     url:'https://www.fllc.net/training', desc:'Structured defensive learning and scoped practice', openTab:true},
+  {id:'projects',    icon:'✨', label:'FLLC Constellation',   url:'https://www.fllc.net/about/projects', desc:'Every working FLLC system in one explorable directory', openTab:true},
   {id:'personfu',    icon:'🔎', label:'PersonFu Search',      url:'https://personfu.com', desc:'Privacy-aware public-signal search and reports', openTab:true},
   {id:'members',     icon:'🪪', label:'Member Workbench',     url:'https://www.fllc.net/members', desc:'Saved work, member tools, and purchased access', openTab:true},
   {id:'pricing',     icon:'💳', label:'Plans + Pricing',      url:'https://www.fllc.net/pricing', desc:'Free access and low-cost recurring workbenches', openTab:true},
+  {id:'services',    icon:'🧰', label:'FLLC Services',        url:'https://www.fllc.net/services', desc:'Security, intelligence, engineering, and digital delivery', openTab:true},
+  {id:'shop',        icon:'🛒', label:'Operator Shop',        url:'https://www.fllc.net/shop', desc:'Memberships, digital resources, support, and scoped products', openTab:true},
   {id:'billing',     icon:'🧾', label:'Billing Controls',     url:'https://www.fllc.net/billing', desc:'Manage renewal, cancellation, and receipts', openTab:true},
   {id:'rockreplicas',icon:'🪨', label:'Rock Replicas',        url:'https://rockreplicas.com', desc:'Custom lightweight rock veneer and project inquiries', openTab:true},
   {id:'nasaascend',  icon:'🚀', label:'NASA ASCEND Mission', url:'https://pcnasaascend.com', desc:'Phoenix College high-altitude mission control', openTab:true},
