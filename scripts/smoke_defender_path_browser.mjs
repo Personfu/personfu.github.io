@@ -6,6 +6,10 @@ import { readFile, mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { pathToFileURL, fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
+
+const require = createRequire(import.meta.url);
+const { CASES } = require('../CyberWorld_login/defender-path.js');
 
 const repo = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const page = pathToFileURL(join(repo, 'CyberWorld_login', 'defender-path.html')).href;
@@ -67,17 +71,33 @@ try {
   assert.equal(await evaluate("document.getElementById('progress-meter').getAttribute('aria-valuenow')"), '10');
   assert.deepEqual(await evaluate("JSON.parse(localStorage.getItem('cyberworld.defender-path.v1'))"), ['d01']);
 
-  const scrollBefore = await evaluate('window.scrollY');
-  await evaluate("document.querySelectorAll('.mission')[4].click()");
-  assert.equal(await evaluate("document.querySelector('.case .tag').textContent.includes('D05')"), true);
-  assert.equal(await evaluate('window.scrollY'), scrollBefore, 'Selecting a case jumped the page');
-  assert.equal(await evaluate("document.activeElement.classList.contains('mission')"), true, 'Keyboard focus was lost');
-  await evaluate("document.querySelector('select[name=sign-in]').value='idp';document.querySelector('select[name=binary]').value='edr';document.querySelector('select[name=domain]').value='dns';document.querySelector('.question button[type=submit]').click()");
-  assert.equal(await evaluate("document.getElementById('progress-meter').getAttribute('aria-valuenow')"), '20');
+  for (let index = 1; index < CASES.length; index++) {
+    const c = CASES[index];
+    const scrollBefore = await evaluate('window.scrollY');
+    await evaluate(`document.querySelectorAll('.mission')[${index}].click()`);
+    assert.equal(await evaluate("document.querySelector('.case .tag').textContent"), `${c.stage} · path ${c.range} · ${c.id.toUpperCase()}`);
+    assert.equal(await evaluate('window.scrollY'), scrollBefore, `${c.id} selection jumped the page`);
+    assert.equal(await evaluate("document.activeElement.classList.contains('mission')"), true, `${c.id} lost keyboard focus`);
+    const expected = JSON.stringify(c.expected);
+    const solve = `(() => {
+      const answer=${expected}; const form=document.querySelector('.question');
+      if (${JSON.stringify(c.type)}==='single') form.querySelector('input[value="'+answer+'"]').click();
+      else if (${JSON.stringify(c.type)}==='multi') answer.forEach(id=>form.querySelector('input[value="'+id+'"]').click());
+      else if (${JSON.stringify(c.type)}==='order') answer.forEach((id,i)=>form.querySelector('select[name="'+(i+1)+'"]').value=id);
+      else if (${JSON.stringify(c.type)}==='match') Object.entries(answer).forEach(([id,value])=>form.querySelector('select[name="'+id+'"]').value=value);
+      else form.querySelector('input[name="estimate"]').value=String(answer);
+      form.querySelector('button[type="submit"]').click();
+    })()`;
+    await evaluate(solve);
+    const closure = await evaluate("({ok:!!document.querySelector('.feedback.ok'),feedback:document.querySelector('.feedback')?.textContent,values:[...document.querySelectorAll('.question select')].map(s=>s.value)})");
+    assert.equal(closure.ok, true, `${c.id} did not close: ${JSON.stringify(closure)}`);
+    assert.equal(await evaluate("document.getElementById('progress-meter').getAttribute('aria-valuenow')"), String((index + 1) * 10));
+  }
+  assert.equal(await evaluate("JSON.parse(localStorage.getItem('cyberworld.defender-path.v1')).length"), 10);
 
   await command('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
   assert.equal(await evaluate('document.documentElement.scrollWidth <= window.innerWidth'), true, 'Mobile body overflows horizontally');
-  console.log('Defender Path browser smoke passed: wrong answer, hint, solve, focus, no scroll jump, matching, and 390px layout.');
+  console.log('Defender Path browser smoke passed: wrong answer, hint, all ten cases, focus, no scroll jump, and 390px layout.');
 } finally {
   socket?.close();
   chrome.kill();

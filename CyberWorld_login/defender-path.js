@@ -300,7 +300,7 @@
       let answer;
       if (c.type === 'single') answer = form.querySelector('input[name="decision"]:checked')?.value || null;
       else if (c.type === 'multi') answer = [...form.querySelectorAll('input[name="decision"]:checked')].map(function (input) { return input.value; });
-      else if (c.type === 'order') answer = c.items.map(function (_, index) { return form.elements[String(index + 1)].value; });
+      else if (c.type === 'order') answer = c.items.map(function (_, index) { return form.querySelector('select[name="' + (index + 1) + '"]').value; });
       else if (c.type === 'match') answer = Object.fromEntries(c.items.map(function (item) { return [item[0], form.elements[item[0]].value]; }));
       else if (c.type === 'numeric') answer = form.elements.estimate.value.trim() ? Number(form.elements.estimate.value) : null;
       const incomplete = answer == null || (Array.isArray(answer) && (!answer.length || answer.some(function (value) { return !value; }))) ||
