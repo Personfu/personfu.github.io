@@ -507,6 +507,8 @@ const algNoneJwt = (payload) =>
     fail("console navigation must not discard the verified training session");
   if (!entryHtml.includes('href="https://www.fllc.net/CyberWorld/"'))
     fail("training entry is missing the separate member-game route");
+  if (!labHtml.includes('if(openTier === 1 && !hasVerifiedSession)') || !labHtml.includes('renderMissionRelay(t,verified)'))
+    fail("direct lab entry must route unsessioned trainees through the training gate");
   log("scope", "OK training badge is separate from FLLC membership; guided assists are opt-in");
 }
 
