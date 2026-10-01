@@ -257,7 +257,7 @@
       return null;
     }
 
-    function renderMissionRelay(t){
+    function renderMissionRelay(t, hasVerifiedSession){
       const focus = document.getElementById("opsFocus");
       const narrative = document.getElementById("opsNarrative");
       const list = document.getElementById("nextActions");
@@ -313,6 +313,14 @@
       };
 
       const openTier = nextOpenTier(t.tiers);
+      if(openTier === 1 && !hasVerifiedSession){
+        focus.textContent = "Node 0 :: establish a local training session";
+        narrative.textContent = "Start at the public training gate with fictional inputs. It creates a short-lived browser session for the strict Tier 1 audit; it is not an FLLC account sign-in.";
+        list.innerHTML = "<li>Open the training gate.</li><li>Use an invented handle and passphrase—never real credentials.</li><li>Return here automatically, then enter the Console.</li>";
+        nextLink.href = "index.html";
+        nextLink.textContent = "Start at training gate →";
+        return;
+      }
       if(openTier === null){
         focus.textContent = "All nodes closed :: training run complete";
         narrative.textContent = "Every finding is confirmed. Your browser-local badge records this run; it does not unlock or change FLLC membership.";
@@ -366,7 +374,7 @@
         document.getElementById("sa").textContent=shortHash(asset.file);
         document.getElementById("sm").innerHTML='<span class="ok">verified</span> '+shortHash(manifest.signature.value);
         document.getElementById("target").textContent="0x"+manifest.master_xor;
-        setLine(verified ? "Training session verified" : "Open training mode · no member sign-in required","ok");
+        setLine(verified ? "Training session verified" : "No FLLC sign-in required · begin at the training gate","ok");
         const t=await tally(manifest);
         for (const tier of [1,2,3,4,5]) {
           const tn = document.getElementById("t"+tier+"n");
@@ -378,7 +386,7 @@
         document.getElementById("master").innerHTML=
           "<strong>"+t.count+"/"+manifest.findings.length+"</strong> confirmed -- partial XOR = <code>0x"+t.acc+"</code> -- target <code>0x"+manifest.master_xor+"</code>"+
           (closed?' <span class="ok">-- TRAINING RUN COMPLETE --</span>':'');
-        renderMissionRelay(t);
+        renderMissionRelay(t,verified);
         showTrainingBadge(closed);
       }catch(e){
         setLine("Verification failed: "+(e&&e.message||e),"bad");
