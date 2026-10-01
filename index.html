@@ -22,7 +22,7 @@ body{background:var(--w98-desktop);position:relative}
 #wallpaper{position:fixed;inset:0;z-index:0;pointer-events:none}
 
 /* ── DESKTOP ── */
-#desktop{position:fixed;inset:0 0 28px 0;z-index:1;padding:8px 472px 8px 8px}
+#desktop{position:fixed;inset:0 0 28px 0;z-index:1;padding:8px 472px 8px 8px;overflow:auto;scrollbar-color:#14858c #061328}
 .icon-grid{display:flex;flex-wrap:wrap;align-content:flex-start;gap:8px;padding:4px}
 
 /* ── ICON ── */
@@ -151,7 +151,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
   <div class="sm-banner">PersonFu Network</div>
   <div class="sm-content">
     <div class="sm-head">
-      <div class="sm-headline"><span>FLLC SIGNAL DECK // 21 MODULES</span><kbd>CTRL + K</kbd></div>
+      <div class="sm-headline"><span>FLLC SIGNAL DECK // PROJECTS + MISSIONS</span><kbd>CTRL + K</kbd></div>
       <label><span class="sr-only">Search PersonFu and FLLC modules</span><input id="sm-search" class="sm-search" type="search" autocomplete="off" placeholder="Search world, cameras, training, services..."></label>
     </div>
     <div class="sm-items" id="sm-items"></div>
@@ -245,6 +245,18 @@ const APPS=[
   {id:'nasaascend',  icon:'🚀', label:'NASA ASCEND Mission', url:'https://pcnasaascend.com', desc:'Phoenix College high-altitude mission control', openTab:true},
   {id:'discord',     icon:'💬', label:'CyberWorld Discord',  url:'https://discord.gg/Cd9qyvht7X', desc:'Community, releases, and sourced intel discussion', openTab:true},
   {id:'github',      icon:'🐙', label:'Open Source',          url:'https://github.com/Personfu', desc:'Public repositories and engineering work', ext:true},
+  {id:'repoatlas',   icon:'🗃️', label:'Repo Atlas',            url:'repo-atlas.html', desc:'Search every public Personfu repository; originals and forks are labeled'},
+  {id:'signalvault', icon:'🧩', label:'Signal Vault CTF',      url:'signal-vault.html', desc:'Original browser-only defensive puzzles and evidence challenges'},
+  {id:'nsa2026',     icon:'🔐', label:'Codebreaker Fork',      url:'https://github.com/Personfu/NSA-Codebreaker-2026', desc:'Public Codebreaker repository — fork, not original FLLC IP', openTab:true},
+  {id:'cveintel',    icon:'🛡️', label:'CVE Intelligence',      url:'https://github.com/Personfu/CVE-Intelligence', desc:'Original Personfu vulnerability-intelligence repository', openTab:true},
+  {id:'nasatmat',    icon:'🚀', label:'ASCEND T-MATS',         url:'https://github.com/Personfu/NASA-ASCEND-T-MATS', desc:'Original aerospace engineering repository', openTab:true},
+  {id:'cissql',      icon:'🗄️', label:'SQL Learning',         url:'https://github.com/Personfu/CISSQLexe', desc:'Original guided SQL learning project', openTab:true},
+  {id:'spywatch',    icon:'👁️', label:'SpyWatch',             url:'https://github.com/Personfu/SpyWatch', desc:'Original Personfu public-source monitoring repository', openTab:true},
+  {id:'cybercard',   icon:'🃏', label:'CyberCard',            url:'https://github.com/Personfu/CYBERCARD', desc:'Original Personfu project source', openTab:true},
+  {id:'stonk',       icon:'📈', label:'Stonk',                url:'https://github.com/Personfu/Stonk', desc:'Original Personfu finance project source', openTab:true},
+  {id:'cyberflipper',icon:'📟', label:'CyberFlipper Fork',    url:'https://github.com/Personfu/CyberFlipper', desc:'Personfu fork of a Flipper Zero custom project', openTab:true},
+  {id:'cyberchef',   icon:'🧪', label:'CyberChef Fork',       url:'https://github.com/Personfu/CyberChef', desc:'Personfu fork of GCHQ CyberChef; upstream credit in Repo Atlas', openTab:true},
+  {id:'webatlas',    icon:'🔗', label:'Website Atlas',        url:'repo-atlas.html#websites', desc:'FLLC destinations, hosted repo sites, and clearly labeled external references'},
 ];
 
 /* ── WINDOW MANAGER ───────────────────────────────────────────── */
@@ -252,8 +264,8 @@ let zTop=100, openWins={};
 
 function openApp(app){
   if(openWins[app.id]){focusWin(app.id);return;}
-  if(app.ext){window.open(app.url,'_blank');return;}
-  if(app.openTab){window.open(app.url,'_blank');return;}
+  if(app.ext){window.open(app.url,'_blank','noopener,noreferrer');return;}
+  if(app.openTab){window.open(app.url,'_blank','noopener,noreferrer');return;}
   const w=document.createElement('div');
   w.className='win98-window';
   w.id='win-'+app.id;
@@ -290,8 +302,11 @@ function openApp(app){
 
   function moduleUrl(){
     if(!isLocal) return baseUrl;
-    const sep = baseUrl.includes('?') ? '&' : '?';
-    return baseUrl + sep + 'cw_frame=' + Date.now();
+    const hashIndex=baseUrl.indexOf('#');
+    const path=hashIndex<0?baseUrl:baseUrl.slice(0,hashIndex);
+    const fragment=hashIndex<0?'':baseUrl.slice(hashIndex);
+    const sep=path.includes('?')?'&':'?';
+    return path+sep+'cw_frame='+Date.now()+fragment;
   }
 
   function showLoading(msg){
@@ -335,7 +350,7 @@ function openApp(app){
     showIssue('Module failed to load. Try retry, or open in a new tab.');
   });
   retryBtn.addEventListener('click',loadFrame);
-  openBtn.addEventListener('click',()=>window.open(baseUrl,'_blank'));
+  openBtn.addEventListener('click',()=>window.open(baseUrl,'_blank','noopener,noreferrer'));
   loadFrame();
   openWins[app.id]=w;
   makeDraggable(w);
@@ -412,7 +427,7 @@ APPS.forEach(app=>{
   div.tabIndex=0;
   div.setAttribute('role','button');
   div.setAttribute('aria-label',app.label+' — double-click to open');
-  div.title=app.label+' — double-click to open in new tab';
+  div.title=app.label+' — '+app.desc+' — double-click to open';
   div.innerHTML='<div class="icon-img">'+app.icon+'</div><div class="icon-label">'+app.label+'</div>';
   div.addEventListener('dblclick',()=>openApp(app));
   div.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openApp(app);}});

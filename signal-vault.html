@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Four original, browser-only CyberWorld CTF puzzles about evidence, routing, decoding, and image analysis.">
+  <title>Signal Vault // CyberWorld Arcade</title>
+  <link rel="stylesheet" href="css/signal-vault.css">
+  <script type="module" src="js/signal-vault-ui.js"></script>
+</head>
+<body>
+  <a class="skip" href="#mission">Skip to puzzles</a>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="PersonFu desktop home"><span class="brand-mark">F</span><span><b>CYBERWORLD</b><small>PERSONFU // FLLC GRID</small></span></a>
+    <nav aria-label="Sector navigation"><a href="ctf-trail.html">CTF TRAIL</a><a href="CyberWorld_login/lab.html">LABS</a><a href="CyberWorld/">CITY</a></nav>
+    <span class="top-status"><span class="status-light"></span> LOCAL TRAINING</span>
+  </header>
+
+  <main id="mission">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <p class="eyebrow">OPS BRIEFING // ORIGINAL PUZZLE ARCADE</p>
+        <h1 id="page-title">SIGNAL <em>VAULT</em></h1>
+        <p class="lede">Four sealed evidence rooms. No real systems, no borrowed targets, no simulated exploit traffic. Solve what the fictional record supports—and stop where it does not.</p>
+        <div class="hero-actions"><a class="primary-link" href="#timeline">OPEN FIRST ROOM <span aria-hidden="true">↘</span></a><a class="secondary-link" href="CyberWorld_login/lab.html">CONTINUE TO LABS <span aria-hidden="true">↗</span></a></div>
+        <p class="local-note">Browser-only · No account · Progress stays on this device · Keyboard and touch friendly</p>
+      </div>
+      <div class="hero-meter" aria-label="Vault progress"><span class="meter-label">CLEARANCE / 04</span><strong id="progress-count">00</strong><div class="meter-track"><span id="progress-fill"></span></div><span id="progress-caption">Rooms cleared</span><div class="signal-glyph" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+    </section>
+
+    <div class="room-index" aria-label="Puzzle rooms"><a href="#timeline"><span>01</span> EVIDENCE CHAIN</a><a href="#routing"><span>02</span> POLICY ROUTER</a><a href="#cipher"><span>03</span> BYTE DECODER</a><a href="#bitplane"><span>04</span> CHANNEL LENS</a></div>
+
+    <section class="puzzle" id="timeline" aria-labelledby="timeline-title">
+      <div class="section-head"><span class="room-number">ROOM 01 / FORENSICS</span><span class="badge" data-badge="timeline">UNCLEARED</span></div>
+      <h2 id="timeline-title">The order of evidence</h2>
+      <p class="brief">An alert claims the fictional Orion mailbox forwarded one message. Select the three records that actually support a related chain, then order them by observed time. Use the arrow buttons to reorder the whole board.</p>
+      <div class="room-layout"><div><h3>OBSERVATION BOARD</h3><div id="timeline-records" class="record-list" role="group" aria-label="Reorder and select evidence records"></div></div><aside class="intel-panel"><h3>ANALYST NOTE</h3><p>Same clock does not mean same cause. A backup on another host and a kiosk preference change may be nearby in time but unrelated in scope.</p><p class="counter">DEFENSIVE COUNTER // Preserve originals and tie each claim to a source, identity, and timestamp.</p></aside></div>
+      <div class="room-actions"><button id="check-timeline" class="check-button" type="button">VERIFY CHAIN</button><button class="hint-button" type="button" data-hint="timeline">REVEAL HINT 1/3</button></div>
+      <p class="hint-text" id="timeline-hint" hidden></p><p class="feedback" id="timeline-feedback" role="status" aria-live="polite">Select three records and arrange them.</p>
+    </section>
+
+    <section class="puzzle" id="routing" aria-labelledby="routing-title">
+      <div class="section-head"><span class="room-number">ROOM 02 / DEFENSIVE ROUTING</span><span class="badge" data-badge="routing">UNCLEARED</span></div>
+      <h2 id="routing-title">Policy, not color</h2>
+      <p class="brief">Dispatch four fictional packets to the lane that matches their handling rule. An attractive packet color is not a routing policy.</p>
+      <div class="room-layout"><div><h3>DISPATCH CONSOLE</h3><div id="route-packets" class="packet-list"></div></div><aside class="intel-panel"><h3>LANE POLICY</h3><ul id="route-rules"></ul><p class="counter">DEFENSIVE COUNTER // Separate sensitive identity data, immutable public media, preserved evidence, and untrusted files.</p></aside></div>
+      <div class="room-actions"><button id="check-routing" class="check-button" type="button">RUN POLICY CHECK</button><button class="hint-button" type="button" data-hint="routing">REVEAL HINT 1/3</button></div>
+      <p class="hint-text" id="routing-hint" hidden></p><p class="feedback" id="routing-feedback" role="status" aria-live="polite">Assign every packet to a lane.</p>
+    </section>
+
+    <section class="puzzle" id="cipher" aria-labelledby="cipher-title">
+      <div class="section-head"><span class="room-number">ROOM 03 / ENCODING</span><span class="badge" data-badge="cipher">UNCLEARED</span></div>
+      <h2 id="cipher-title">The byte strip</h2>
+      <p class="brief">An archivist recovered a short ASCII phrase encoded as hexadecimal bytes. Decode it; there is no server or secret endpoint behind this strip.</p>
+      <div class="byte-display" aria-label="Hexadecimal bytes">53 <span>43</span> 4F <span>50</span> 45 <b>2D</b> 46 <span>49</span> 52 <span>53</span> 54</div>
+      <div class="decoder-row"><div><label for="cipher-answer">DECODED PHRASE</label><input id="cipher-answer" type="text" maxlength="32" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="TYPE THE ASCII MESSAGE"></div><button id="check-cipher" class="check-button" type="button">VERIFY DECODE</button></div>
+      <p class="counter">DEFENSIVE COUNTER // Encoding changes representation, not trust. Validate scope before acting on decoded content.</p>
+      <div class="room-actions"><button class="hint-button" type="button" data-hint="cipher">REVEAL HINT 1/3</button></div><p class="hint-text" id="cipher-hint" hidden></p><p class="feedback" id="cipher-feedback" role="status" aria-live="polite">Every pair represents one printable ASCII byte.</p>
+    </section>
+
+    <section class="puzzle" id="bitplane" aria-labelledby="bitplane-title">
+      <div class="section-head"><span class="room-number">ROOM 04 / IMAGE FORENSICS</span><span class="badge" data-badge="bitplane">UNCLEARED</span></div>
+      <h2 id="bitplane-title">The channel lens</h2>
+      <p class="brief">This original, synthetic signal mural contains a low-contrast annotation. Switch channels to read it, then distinguish what the pixels show from what they cannot prove.</p>
+      <div class="lens-shell" data-channel="composite" id="lens-shell">
+        <svg viewBox="0 0 640 240" role="img" aria-labelledby="mural-title mural-desc" xmlns="http://www.w3.org/2000/svg">
+          <title id="mural-title">Fictional signal mural with selectable color channels</title><desc id="mural-desc">A stylized skyline and waveform. One channel contains a text annotation.</desc>
+          <defs><linearGradient id="night" x2="0" y2="1"><stop stop-color="#090b29"/><stop offset="1" stop-color="#0b2334"/></linearGradient><pattern id="scan" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 7.5H8" stroke="#54d5f5" stroke-opacity=".12"/></pattern></defs>
+          <rect width="640" height="240" fill="url(#night)"/><path d="M0 171 64 149 118 167 184 128 233 141 300 91 357 123 418 74 492 116 550 93 640 120V240H0Z" fill="#112544"/><path d="M0 179 58 170 111 189 171 162 250 184 320 153 410 176 505 151 640 171" fill="none" stroke="#18dce5" stroke-opacity=".36" stroke-width="3"/>
+          <g class="red-layer" fill="none" stroke="#fa4d93" stroke-width="3"><path d="M27 51h99l28 29 25-47 32 59 30-32 30 4 39 31 35-47 50 25 39-19 69 39 54-57 62 30"/><circle cx="153" cy="80" r="10"/><circle cx="415" cy="73" r="7"/></g>
+          <g class="green-layer" fill="#47e3ac"><rect x="31" y="134" width="19" height="39"/><rect x="69" y="118" width="19" height="55"/><rect x="110" y="143" width="28" height="30"/><rect x="260" y="114" width="23" height="59"/><rect x="355" y="102" width="28" height="71"/><rect x="475" y="123" width="34" height="50"/><rect x="565" y="105" width="19" height="68"/></g>
+          <g class="blue-layer"><path d="M63 209h514" stroke="#5accff" stroke-width="2" stroke-dasharray="18 10"/><text x="320" y="104" text-anchor="middle" fill="#8fefff" font-family="monospace" font-weight="900" font-size="39" letter-spacing="7">NODE-7</text><path d="M210 114h220" stroke="#7ddcff" stroke-width="2"/></g>
+          <rect width="640" height="240" fill="url(#scan)"/><path d="M10 13h44M10 13v18M630 13h-44M630 13v18M10 227h44M10 227v-18M630 227h-44M630 227v-18" fill="none" stroke="#98eaff" stroke-opacity=".7" stroke-width="2"/>
+        </svg>
+        <span class="mural-corner">SYNTHETIC FRAME / 04</span>
+      </div>
+      <fieldset class="channel-controls"><legend>COLOR CHANNEL</legend><label><input type="radio" name="channel" value="composite" checked> COMPOSITE</label><label><input type="radio" name="channel" value="red"> RED</label><label><input type="radio" name="channel" value="green"> GREEN</label><label><input type="radio" name="channel" value="blue"> BLUE</label></fieldset>
+      <div class="lens-questions"><div><label for="bitplane-answer">VISIBLE ANNOTATION</label><input id="bitplane-answer" type="text" maxlength="16" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="READ THE LABEL"></div><div><label for="bitplane-claim">WHAT DOES IT ESTABLISH?</label><select id="bitplane-claim"><option value="">Choose the bounded conclusion</option><option value="bounded">Only that this synthetic image contains an annotation</option><option value="location">A verified real-world location</option><option value="actor">The identity of a real threat actor</option></select></div></div>
+      <p class="counter">DEFENSIVE COUNTER // An image annotation is a clue to verify, never independent proof of provenance, geolocation, or attribution.</p>
+      <div class="room-actions"><button id="check-bitplane" class="check-button" type="button">FILE IMAGE FINDING</button><button class="hint-button" type="button" data-hint="bitplane">REVEAL HINT 1/3</button></div><p class="hint-text" id="bitplane-hint" hidden></p><p class="feedback" id="bitplane-feedback" role="status" aria-live="polite">Inspect the channels and file only what the pixels support.</p>
+    </section>
+
+    <section class="endcap" aria-labelledby="endcap-title"><div><p class="eyebrow">MISSION WRAP</p><h2 id="endcap-title">Knowledge is the reward.</h2><p>Cleared rooms remain saved locally until you reset them. Practice the same principles in CyberWorld’s longer lab missions.</p></div><div class="endcap-actions"><a class="primary-link" href="CyberWorld_login/lab.html">OPEN CYBERWORLD LABS <span aria-hidden="true">↗</span></a><button id="reset-progress" class="reset-button" type="button">RESET LOCAL PROGRESS</button></div><p class="reset-status" id="reset-status" role="status" aria-live="polite"></p></section>
+  </main>
+  <footer><span>PERSONFU / FLLC · ORIGINAL FICTIONAL TRAINING CONTENT</span><a href="index.html">RETURN TO DESKTOP ↑</a></footer>
+</body>
+</html>
