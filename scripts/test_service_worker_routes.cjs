@@ -32,6 +32,7 @@ for (const route of [
   '/CyberWorld_login/defender-path.html',
   '/CyberWorld_login/crypto.html',
   '/CyberWorld_login/intercept.html',
+  '/ctf-trail.html',
 ]) assert.equal(navigate(route), undefined, `Public training route was redirected: ${route}`);
 
 for (const route of [
@@ -40,7 +41,6 @@ for (const route of [
   '/rpg/login.html',
   '/legacy/index.html',
   '/simulator/index.html',
-  '/ctf-trail.html',
 ]) {
   const response = navigate(route);
   assert.equal(response?.status, 302, `Member route lost its redirect: ${route}`);
@@ -52,8 +52,11 @@ assert.equal(navigate('https://other.invalid/CyberWorld/'), undefined, 'Cross-or
 const gate = readFileSync(join(root, 'CyberWorld_login', 'index.html'), 'utf8');
 const trainingWorker = readFileSync(join(root, 'CyberWorld_login', 'sw-ctf.js'), 'utf8');
 const casebook = readFileSync(join(root, 'CyberWorld_login', 'defender-path.html'), 'utf8');
+const ctfTrail = readFileSync(join(root, 'ctf-trail.html'), 'utf8');
 assert.match(gate, /serviceWorker\.register\("sw-ctf\.js",\s*\{\s*scope:\s*"\.\/"\s*\}\)/);
 assert.match(trainingWorker, /const SCOPE\s*=\s*"\/CyberWorld_login\/"/);
-assert.match(casebook, /href="challenge\.html"/);
-assert.doesNotMatch(casebook, /href="\.\.\/ctf-trail\.html"/, 'Public casebook must not link through a redirected legacy route');
+assert.match(casebook, /href="\.\.\/ctf-trail\.html"/);
+assert.match(ctfTrail, /href="\/CyberWorld_login\/challenge\.html"/);
+assert.match(ctfTrail, /href="\/CyberWorld_login\/defender-path\.html"/);
+assert.doesNotMatch(ctfTrail, /<script\b|<form\b/i, 'Public CTF index must not contain a member-only runtime or login form');
 console.log('Root service worker leaves public CTF pages to the training scope and still redirects protected legacy routes.');

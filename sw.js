@@ -9,7 +9,6 @@ const LEGACY_MEMBER_ROUTES = new Set([
   '/adversaries.html',
   '/ai.html',
   '/arcade.html',
-  '/ctf-trail.html',
   '/cyber.html',
   '/cyberos-iso.html',
   '/cyberworld-codex.html',
