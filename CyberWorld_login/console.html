@@ -79,7 +79,7 @@
 
     header {
       display: grid;
-      grid-template-columns: 80px 1fr;
+      grid-template-columns: 80px minmax(0, 1fr);
       gap: 16px;
       align-items: center;
       margin-bottom: 18px;
@@ -90,6 +90,7 @@
     }
     h1 {
       margin: 0;
+      overflow-wrap: anywhere;
       color: var(--cyan);
       font-size: clamp(1.6rem, 4.4vw, 2.2rem);
       letter-spacing: 0.16em;
@@ -202,9 +203,9 @@
       gap: 8px;
       margin-top: 8px;
     }
-    .finding input {
+    .finding input[type="text"], .finding select {
       width: 100%;
-      min-height: 36px;
+      min-height: 44px;
       padding: 0.5rem 0.7rem;
       border: 1px solid rgba(0, 255, 231, 0.6);
       border-radius: 4px;
@@ -213,9 +214,9 @@
       font: inherit;
       font-size: 0.78rem;
     }
-    .finding input:focus { outline: none; border-color: var(--pink); }
+    .finding input:focus-visible, .finding select:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
     .finding button {
-      min-height: 36px;
+      min-height: 44px;
       padding: 0 14px;
       border: 1px solid rgba(0, 255, 231, 0.6);
       border-radius: 4px;
@@ -228,6 +229,27 @@
       cursor: pointer;
     }
     .finding button:hover { border-color: var(--pink); color: var(--cyan); }
+    .finding button:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+    .finding .hint-button { margin-top: 6px; }
+    .finding .hint-button:disabled { opacity: 0.7; cursor: wait; }
+    .finding details { margin-top: 8px; }
+    .finding summary { color: var(--muted); cursor: pointer; font-size: 0.75rem; }
+    .finding summary:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+    .finding .observation {
+      margin: 10px 0;
+      padding: 8px 10px;
+      border: 1px solid rgba(0, 255, 231, 0.18);
+      border-radius: 4px;
+    }
+    .finding .observation legend { color: var(--text); font-size: 0.78rem; line-height: 1.5; }
+    .finding .observation-result { min-height: 1.2em; }
+    @media (max-width: 520px) {
+      main { padding: 18px; }
+      header { grid-template-columns: 56px minmax(0, 1fr); gap: 10px; }
+      header img { width: 54px; height: 54px; }
+      h1 { font-size: 1.15rem; letter-spacing: 0.08em; }
+      .finding .row { grid-template-columns: 1fr; }
+    }
     .finding .result {
       display: block;
       min-height: 1.2em;
@@ -308,7 +330,8 @@
 
     <div class="training">
       <strong>Training console</strong> — independent re-verification of the local
-      session, the PNG seal, and the manifest. No data leaves the browser.
+      session, the PNG seal, and the manifest. Findings stay in this browser;
+      verification fetches only same-origin training assets.
       <br><small>
         Reference: <a href="challenge.html">brief</a> ·
         <a href="manifest.json">manifest.json</a> ·
@@ -355,13 +378,16 @@
     <section class="panel-block" style="margin-top:14px">
       <h2>Ten-finding rubric — self-check (local only)</h2>
       <p style="margin:0 0 10px;font-size:.78rem;color:var(--muted)">
-        For each finding, type the canonical token from CHALLENGE.md §B.
-        The page hashes it locally with SHA-256 and shows whether the first
-        4 bytes match the manifest's published commitment. When all ten
-        match, the XOR of the prefixes equals the published
-        <code>master_xor</code>. No network traffic is generated.
+        Inspect the gate and answer each observation check. A correct answer
+        confirms the finding against the signed manifest. Analysts may also
+        paste a canonical token directly; SHA-256 checks its first four bytes
+        against the published commitment. When all ten match, their XOR
+        contributes to the published <code>master_xor</code>. Answers stay
+        in this browser; optional hints are fetched from this site on demand.
       </p>
-      <ol class="findings" id="findings"></ol>
+      <ol class="findings" id="findings" aria-label="Tier 1 findings">
+        <li class="finding" role="status">Loading verified findings…</li>
+      </ol>
 
       <div class="master" id="master">
         Master accumulator: <strong>—</strong>
@@ -584,32 +610,102 @@
     }
 
     // ---------------- finding rubric ----------------
+    const tier1Checks = Object.freeze({
+      1: { question: "What did the Gate do with the submitted handle and passphrase?", options: ["Send them to a login API", "Process them locally without a credential POST", "Store them in a server cookie"], correct: 1, token: "cyberworld:F01:client-side-auth-only", evidence: "Check the Gate network requests after submitting training-only inputs." },
+      2: { question: "Where is the training session cw.r stored?", options: ["Browser sessionStorage", "A backend database", "An HttpOnly authentication cookie"], correct: 0, token: "cyberworld:F02:sessionStorage:cw.r", evidence: "Inspect Application → Session Storage; this token is training state, not real authentication." },
+      3: { question: "Which Content-Security-Policy allowance permits the Gate bootstrap script?", options: ["script-src 'unsafe-inline'", "No script-src policy", "unsafe-eval only"], correct: 0, token: "cyberworld:F03:csp:script-src:unsafe-inline", evidence: "Inspect the Gate CSP meta tag and inline script." },
+      4: { question: "What are the hidden website and middleName inputs for?", options: ["Real identity verification", "Bot-friction honeypots, not authorization", "Sending an administrator alert"], correct: 1, token: "cyberworld:F04:honeypot:website,middleName", evidence: "Inspect the Gate form source; hidden fields cannot establish trust." },
+      5: { question: "Why does the console hash assets/seal.png?", options: ["To bind training state to exact asset bytes", "To identify the player", "To download a password list"], correct: 0, token: "cyberworld:F05:assets/seal.png:bound-asset", evidence: "Compare the asset fingerprint here with manifest.json." },
+      6: { question: "Which two PNG channels carry the embedded exercise data?", options: ["EXIF and JPEG comments", "Alpha-channel LSB and IEND trailer bytes", "DNS and HTTP headers"], correct: 1, token: "cyberworld:F06:alpha-lsb+iend-trailer", evidence: "Review the alpha-lsb and iend tail values in Live Audit." },
+      7: { question: "Why can the weak-passphrase screen be bypassed?", options: ["It is only a client-side Set/Bloom filter", "It is checked by the member gateway", "The PNG authorizes every passphrase"], correct: 0, token: "cyberworld:F07:bloom-filter+set:client-only", evidence: "Inspect the Gate script; a browser-side filter is not server-side policy." },
+      8: { question: "What does the 18-bit Hashcash stamp establish?", options: ["Verified human identity", "Only local computation, not identity", "Paid FLLC membership"], correct: 1, token: "cyberworld:F08:hashcash:sha256:18bits:client", evidence: "Inspect proofOfWork() in the Gate script and the stamp recheck above." },
+      9: { question: "How should the Gate's inline bootstrap be classified in this lab?", options: ["An intentional client-side training artifact", "Evidence of a real outbound malware implant", "A server-issued access control"], correct: 0, token: "cyberworld:F09:inline-bootstrap-is-the-artifact", evidence: "Read the Gate source and verify what it actually sends or stores." },
+      10: { question: "What does this console independently recheck?", options: ["Only the handle's spelling", "Session signature, asset, manifest, and proof-of-work", "A live member subscription"], correct: 1, token: "cyberworld:F10:console.html:revalidates", evidence: "Read the Live Audit results and verification functions on this page." }
+    });
+    const escapeHTML = (value) => String(value).replace(/[&<>"']/g, (char) => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+    }[char]));
+    let hintsPromise = null;
+    async function loadHints() {
+      if (!hintsPromise) {
+        hintsPromise = fetch("hints.json", { cache: "no-store", credentials: "same-origin" })
+          .then((response) => {
+            if (!response.ok) throw new Error("hints:fetch");
+            return response.json();
+          })
+          .then((data) => {
+            if (!data || typeof data.hints !== "object" || !data.hints) throw new Error("hints:format");
+            return data.hints;
+          });
+      }
+      try { return await hintsPromise; }
+      catch (error) { hintsPromise = null; throw error; }
+    }
+    function showFindingError(message) {
+      const root = document.getElementById("findings");
+      root.replaceChildren();
+      const item = document.createElement("li");
+      item.className = "finding bad";
+      item.setAttribute("role", "alert");
+      item.textContent = message;
+      root.appendChild(item);
+    }
     function renderFindings(manifest) {
       const root = document.getElementById("findings");
-      root.innerHTML = "";
+      if (!Array.isArray(manifest.findings)) throw new Error("manifest:findings");
+      root.replaceChildren();
+      let count = 0;
       for (const f of manifest.findings) {
         if (f.tier !== 1) continue; // console shows Tier-1 only; Tier 2/3 live in lab/crypto/intel
+        if (!Number.isInteger(f.n) || !/^[a-f0-9]{8}$/.test(f.answer_sha256_prefix))
+          throw new Error("manifest:finding-format");
+        count += 1;
+        const label = `F${String(f.n).padStart(2, "0")}`;
+        const hintId = `hint-${f.n}`;
+        const check = tier1Checks[f.n];
+        if (!check) throw new Error("manifest:tier-1-check-missing");
         const li = document.createElement("li");
         li.className = "finding";
         li.dataset.expected = f.answer_sha256_prefix;
         li.dataset.n = String(f.n);
         li.innerHTML =
           `<header>
-            <span class="num">F${String(f.n).padStart(2, "0")}</span>
-            <span class="title">${f.title.replace(/[&<>]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}</span>
+            <span class="num">${label}</span>
+            <span class="title">${escapeHTML(typeof f.title === "string" ? f.title : "Untitled finding")}</span>
           </header>
-          <p class="hint">Hint: ${f.hint.replace(/[&<>]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}</p>
-          <div class="row">
-            <input type="text" placeholder="paste canonical token here" autocomplete="off">
-            <button type="button">Check</button>
-          </div>
-          <span class="result meta">Expected prefix: <code>${f.answer_sha256_prefix}</code></span>`;
+          <button class="hint-button" type="button" aria-controls="${hintId}" aria-expanded="false">Show ${label} hint</button>
+          <p class="hint" id="${hintId}" hidden aria-live="polite"></p>
+          <fieldset class="observation">
+            <legend>${escapeHTML(check.question)}</legend>
+            <div class="row">
+              <select aria-label="${label} observation" required>
+                <option value="">Choose an observation</option>
+                ${check.options.map((option, index) => `<option value="${index}">${escapeHTML(option)}</option>`).join("")}
+              </select>
+              <button class="observation-button" type="button" aria-label="Confirm ${label} observation">Confirm</button>
+            </div>
+            <p class="observation-result meta" role="status" aria-live="polite">${escapeHTML(check.evidence)}</p>
+          </fieldset>
+          <details>
+            <summary>Advanced: use canonical token instead</summary>
+            <div class="row">
+              <input type="text" aria-label="${label} canonical token" placeholder="paste canonical token here" autocomplete="off" spellcheck="false">
+              <button class="check-button" type="button" aria-label="Check ${label} token">Check</button>
+            </div>
+          </details>
+          <span class="result meta" role="status" aria-live="polite">Expected prefix: <code>${f.answer_sha256_prefix}</code></span>`;
         root.appendChild(li);
       }
+      if (count === 0) throw new Error("manifest:tier-1-empty");
       attachFindingHandlers(manifest);
     }
 
-    function readSolved(){ try{ return JSON.parse(sessionStorage.getItem("cw.solved")||"{}"); } catch { return {}; } }
+    function readSolved(){
+      try {
+        const value = JSON.parse(sessionStorage.getItem("cw.solved") || "{}");
+        return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+      } catch { return {}; }
+    }
     function writeSolved(m){ sessionStorage.setItem("cw.solved", JSON.stringify(m)); }
 
     function attachFindingHandlers(manifest) {
@@ -618,12 +714,40 @@
       const solved = readSolved();
       root.querySelectorAll(".finding").forEach((node) => {
         const input  = node.querySelector("input");
-        const button = node.querySelector("button");
+        const button = node.querySelector(".check-button");
+        const hintButton = node.querySelector(".hint-button");
+        const hint = node.querySelector(".hint");
+        const observation = node.querySelector(".observation select");
+        const observationButton = node.querySelector(".observation-button");
+        const observationResult = node.querySelector(".observation-result");
         const out    = node.querySelector(".result");
         const n      = Number(node.dataset.n);
+        const observationCheck = tier1Checks[n];
         if (typeof solved[String(n)] === "string") {
           input.value = solved[String(n)];
         }
+        hintButton.addEventListener("click", async () => {
+          if (hintButton.getAttribute("aria-expanded") === "true") {
+            hint.hidden = true;
+            hintButton.setAttribute("aria-expanded", "false");
+            hintButton.textContent = `Show F${String(n).padStart(2, "0")} hint`;
+            return;
+          }
+          hint.hidden = false;
+          hint.textContent = "Loading hint…";
+          hintButton.disabled = true;
+          hintButton.setAttribute("aria-expanded", "true");
+          try {
+            const hints = await loadHints();
+            hint.textContent = typeof hints[String(n)] === "string"
+              ? `Hint: ${hints[String(n)]}` : "No hint is available for this finding.";
+          } catch {
+            hint.textContent = "Hint unavailable. Continue using the player brief, then try again.";
+          } finally {
+            hintButton.disabled = false;
+            hintButton.textContent = `Hide F${String(n).padStart(2, "0")} hint`;
+          }
+        });
         async function check() {
           const value = input.value.trim();
           const map = readSolved();
@@ -631,7 +755,7 @@
             out.className = "result meta";
             out.textContent = "Expected prefix: " + node.dataset.expected;
             delete map[String(n)]; writeSolved(map);
-            updateMaster(manifest);
+            await updateMaster(manifest);
             return;
           }
           const hex = await sha256Hex(value);
@@ -645,8 +769,27 @@
             out.textContent = "Mismatch -- got " + prefix + " -- expected " + node.dataset.expected;
             delete map[String(n)]; writeSolved(map);
           }
-          updateMaster(manifest);
+          await updateMaster(manifest);
         }
+        observationButton.addEventListener("click", async () => {
+          if (observation.value === "") {
+            observationResult.className = "observation-result bad";
+            observationResult.textContent = "Choose an observation first.";
+            return;
+          }
+          if (Number(observation.value) !== observationCheck.correct) {
+            observationResult.className = "observation-result bad";
+            observationResult.textContent = `Not yet. ${observationCheck.evidence}`;
+            return;
+          }
+          input.value = observationCheck.token;
+          await check();
+          const matched = readSolved()[String(n)] === observationCheck.token;
+          observationResult.className = `observation-result ${matched ? "ok" : "bad"}`;
+          observationResult.textContent = matched
+            ? `Confirmed. ${observationCheck.evidence}`
+            : "Observation was correct, but its signed-manifest commitment did not match. Refresh and retry.";
+        });
         button.addEventListener("click", check);
         input.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); check(); } });
         input.addEventListener("input", () => {
@@ -732,8 +875,11 @@
         try {
           const manifest = await loadManifest();
           renderFindings(manifest);
-          updateMaster(manifest);
-        } catch {}
+          await updateMaster(manifest);
+        } catch (error) {
+          showFindingError("Finding controls unavailable. Reopen the gate and retry the console.");
+          setStatus(`<span class="bad">Boot blocked:</span> session missing and finding data unavailable (${escapeHTML(error.message || error)}).`, "bad");
+        }
         return;
       }
 
@@ -742,6 +888,7 @@
       document.getElementById("v-issued").textContent  = fmtTime(session.i);
       document.getElementById("v-expires").textContent = fmtTime(session.e);
 
+      let verifiedManifest = null;
       try {
         setStatus("Re-fetching asset…");
         const asset = await readAsset();
@@ -768,16 +915,25 @@
           throw new Error("manifest:asset-binding");
         }
 
-        setLine("Access granted", "ok");
-        setStatus(`<span class="ok">All checks passed.</span> Local session, asset binding, manifest HMAC, and Hashcash stamp all verified independently.`, "ok");
-
-        renderFindings(manifest);
-        updateMaster(manifest);
+        verifiedManifest = manifest;
       } catch (err) {
         const reason = err && err.message ? err.message : String(err);
         setLine("Session rejected", "bad");
-        setStatus(`<span class="bad">Verification failed:</span> ${reason}. Console stayed open so the failure can be inspected.`, "bad");
+        setStatus(`<span class="bad">Verification failed:</span> ${escapeHTML(reason)}. Return to the gate to establish a new training session.`, "bad");
+        showFindingError("Verification failed. Return to the gate and retry Tier 1.");
         sessionStorage.removeItem(settings.sessionKey);
+        return;
+      }
+
+      setLine("Training session verified", "ok");
+      setStatus(`<span class="ok">All checks passed.</span> Local session, asset binding, manifest HMAC, and Hashcash stamp all verified independently.`, "ok");
+      try {
+        renderFindings(verifiedManifest);
+        await updateMaster(verifiedManifest);
+      } catch (err) {
+        const reason = err && err.message ? err.message : String(err);
+        showFindingError("Verification passed, but Tier 1 controls could not load. Refresh to retry.");
+        setStatus(`<span class="bad">Finding controls unavailable:</span> ${escapeHTML(reason)}. Your verified session was retained.`, "bad");
       }
     }
 
@@ -785,10 +941,6 @@
       sessionStorage.removeItem(settings.sessionKey);
       window.location.replace("index.html");
     });
-    document.getElementById("enter").addEventListener("click", () => {
-      sessionStorage.removeItem(settings.sessionKey);
-    });
-
     boot();
   })();
   </script>

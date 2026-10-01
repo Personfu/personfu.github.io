@@ -247,7 +247,7 @@ public_manifest = {
         "sw":        "/CyberWorld_login/sw-ctf.js",
         "hints":     "/CyberWorld_login/hints.json",
         "robots":    "/CyberWorld_login/robots.txt",
-        "mmo_grant": "localStorage.cw.role = 'operator' (post Tier 4); 'superoperator' (post Tier 5)",
+        "training_completion": "33/33 verified findings create a browser-local training badge; FLLC game membership is verified separately",
     },
     "asset_fingerprints": {
         "seal.png":            hashlib.sha256(seal).hexdigest(),
