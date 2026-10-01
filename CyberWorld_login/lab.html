@@ -18,37 +18,50 @@
     :root { --cyan:#00ffe7; --pink:#ff0055; --text:#edf8fb; --muted:#8ba8b7; --warn:#ffbf00; --ok:#20d978; --panel:rgba(9,13,25,0.94); }
     *{box-sizing:border-box} [hidden]{display:none!important}
     html,body{min-height:100%;margin:0}
-    body{min-height:100vh;color:var(--text);background:radial-gradient(circle at 50% 28%,rgba(0,255,231,.16),rgba(0,255,231,.03) 30%,transparent 58%),linear-gradient(135deg,#0a171d 0%,#101528 51%,#244f60 100%);font-family:"Courier New",Consolas,ui-monospace,monospace}
+    html{font-size:18px}
+    body{min-height:100vh;color:var(--text);background:radial-gradient(circle at 13% 8%,rgba(0,255,231,.14),transparent 35%),radial-gradient(circle at 87% 12%,rgba(191,83,255,.12),transparent 35%),linear-gradient(145deg,#040a12 0%,#0b1124 54%,#0b2230 100%);font-family:"Courier New",Consolas,ui-monospace,monospace}
     body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(0,255,231,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,231,.05) 1px,transparent 1px);background-size:32px 32px;pointer-events:none;z-index:0}
     body::after{content:"";position:fixed;inset:0;background:linear-gradient(transparent,rgba(0,0,0,.2),transparent);background-size:100% 4px;opacity:.32;pointer-events:none;z-index:0}
-    main{position:relative;z-index:1;width:min(720px,calc(100vw - 32px));margin:32px auto;padding:24px 26px 22px;border:1px solid var(--cyan);border-radius:10px;background:linear-gradient(180deg,rgba(13,18,34,.98),rgba(8,11,22,.96)),var(--panel);box-shadow:0 0 34px rgba(0,255,231,.23),0 0 90px rgba(0,255,231,.1),inset 0 0 24px rgba(0,255,231,.04)}
+    main{position:relative;z-index:1;width:min(1120px,calc(100vw - 28px));margin:24px auto 48px;padding:0 26px 26px;border:1px solid rgba(0,255,231,.48);background:linear-gradient(180deg,rgba(12,18,35,.98),rgba(6,10,20,.98)),var(--panel);box-shadow:0 0 0 1px rgba(255,255,255,.035) inset,0 18px 80px rgba(0,0,0,.55),0 0 54px rgba(0,255,231,.08)}
+    .window-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 -26px 24px;padding:9px 15px;border-bottom:1px solid rgba(0,255,231,.38);background:linear-gradient(90deg,#063948,#11163c 63%,#331340);color:#e8fcff;font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+    .window-bar .lights{display:flex;gap:6px}.window-bar .lights i{display:block;width:8px;height:8px;border:1px solid currentColor;transform:rotate(45deg)}
     .training{margin:0 0 14px;padding:8px 12px;border:1px dashed var(--warn);border-radius:5px;background:rgba(255,191,0,.05);color:var(--warn);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;text-align:center}
     .training a{color:var(--cyan);text-decoration:none;border-bottom:1px dotted var(--cyan)}
-    h1{margin:0;color:var(--cyan);font-size:clamp(1.5rem,4.6vw,2rem);letter-spacing:.18em;text-transform:uppercase;text-shadow:0 0 14px rgba(0,255,231,.78)}
-    .sub{margin:4px 0 18px;color:var(--pink);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
-    .ops-brief{margin:0 0 14px;padding:12px 14px;border:1px solid rgba(0,255,231,.35);border-radius:7px;background:rgba(8,13,23,.72)}
+    h1{margin:0;color:var(--cyan);font-size:clamp(2rem,4.7vw,3.25rem);line-height:1.04;letter-spacing:.07em;text-transform:uppercase;text-shadow:0 0 26px rgba(0,255,231,.35)}
+    h1 span{display:block;margin-top:8px;color:#df8ef5;font-size:.42em;letter-spacing:.22em;text-shadow:none}
+    .sub{margin:12px 0 0;color:var(--pink);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+    .hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(240px,.85fr);align-items:end;gap:26px;margin:0 0 22px}
+    .hero p{max-width:58ch;margin:13px 0 0;color:#a9c6d4;font-size:.9rem;line-height:1.65}
+    .hero aside{padding:14px 16px;border:1px solid rgba(255,191,0,.38);background:rgba(255,191,0,.035);font-size:.74rem;line-height:1.55;color:#e9d49e}
+    .hero aside strong{display:block;margin-bottom:4px;color:var(--warn);letter-spacing:.12em}
+    .ops-brief{margin:0 0 18px;padding:18px 20px;border:1px solid rgba(0,255,231,.35);background:linear-gradient(135deg,rgba(6,35,48,.83),rgba(12,15,34,.9))}
     .ops-brief h2{margin:0 0 8px;color:var(--cyan);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
-    .ops-brief p{margin:0;color:var(--text);font-size:.8rem;line-height:1.55}
+    .ops-brief p{margin:0;color:var(--text);font-size:.89rem;line-height:1.6}
     .ops-brief p + p{margin-top:8px;color:var(--muted)}
     .ops-actions{margin:10px 0 0;padding-left:18px;display:grid;gap:4px}
-    .ops-actions li{color:var(--text);font-size:.76rem;line-height:1.5}
+    .ops-actions li{color:var(--text);font-size:.8rem;line-height:1.5}
     .ops-actions li::marker{color:var(--pink)}
+    .next-link{display:inline-flex;align-items:center;min-height:42px;margin-top:14px;padding:0 15px;border:1px solid var(--cyan);background:rgba(0,255,231,.12);color:var(--cyan);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-decoration:none;text-transform:uppercase}
+    .next-link:hover,.next-link:focus-visible{background:var(--cyan);color:#041016}
     .tiers{display:grid;grid-template-columns:1fr;gap:12px}
-    @media(min-width:640px){.tiers{grid-template-columns:1fr 1fr}}
-    @media(min-width:980px){.tiers{grid-template-columns:1fr 1fr 1fr 1fr 1fr}}
-    .tier{padding:14px;border:1px solid rgba(0,255,231,.4);border-radius:7px;background:rgba(8,13,23,.7);display:flex;flex-direction:column;gap:8px}
-    .tier h2{margin:0;color:var(--cyan);font-size:.78rem;letter-spacing:.16em;text-transform:uppercase}
+    @media(min-width:700px){.tiers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(min-width:1050px){.tiers{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    .tier{--accent:var(--cyan);min-width:0;min-height:248px;padding:18px;border:1px solid rgba(0,255,231,.32);border-top:3px solid var(--accent);background:linear-gradient(180deg,rgba(15,29,45,.96),rgba(7,13,26,.96));display:flex;flex-direction:column;gap:9px;transition:transform .18s ease,border-color .18s ease}
+    .tier:hover{transform:translateY(-3px);border-color:var(--accent)}
+    .tier[data-tier="2"],.tier[data-tier="5"]{--accent:#c78bff}.tier[data-tier="3"]{--accent:#ffbf66}.tier[data-tier="4"]{--accent:#ff5a9e}
+    .tier h2{margin:0;color:var(--accent);font-size:.9rem;letter-spacing:.1em;text-transform:uppercase}
     .tier .num{font-size:1.8rem;color:var(--text);font-weight:700;letter-spacing:.05em}
     .tier .num small{font-size:.6em;color:var(--muted)}
-    .tier .bar{height:6px;border-radius:3px;background:#0a121e;border:1px solid rgba(0,255,231,.25);overflow:hidden}
-    .tier .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--pink));transition:width .25s ease}
-    .tier .meta{color:var(--muted);font-size:.72rem;line-height:1.5}
-    .tier a{display:inline-grid;place-items:center;min-height:36px;padding:0 12px;border:1px solid rgba(0,255,231,.6);border-radius:4px;color:var(--text);background:#080d17;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+    .tier .bar{height:7px;background:#0a121e;border:1px solid rgba(0,255,231,.25);overflow:hidden}
+    .tier .bar > span{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--cyan));transition:width .25s ease}
+    .tier .meta{flex:1;color:#a9c1cf;font-size:.81rem;line-height:1.58}
+    .tier a{display:inline-grid;place-items:center;min-height:44px;padding:0 12px;border:1px solid var(--accent);color:var(--text);background:#080d17;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
     .tier a:hover{border-color:var(--pink);color:var(--cyan)}
     .master{margin-top:16px;padding:12px;border:1px solid rgba(0,255,231,.5);border-radius:6px;background:rgba(0,255,231,.04);color:var(--text);font-size:.82rem;line-height:1.55}
     .master strong{color:var(--cyan);letter-spacing:.1em}
     .master code{color:var(--warn)}
     .master .ok{color:var(--ok)} .master .bad{color:var(--pink)} .master .meta{color:var(--muted);font-size:.72rem}
+    .badge{margin-top:12px;padding:12px 14px;border:1px solid rgba(32,217,120,.55);background:rgba(32,217,120,.07);color:#a9f5cb;font-size:.78rem;line-height:1.55}
     .toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
     .toolbar a,.toolbar button{display:inline-grid;place-items:center;min-height:38px;padding:0 14px;border:1px solid rgba(0,255,231,.6);border-radius:4px;color:var(--text);background:#080d17;font:inherit;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;cursor:pointer}
     .toolbar .primary{color:#061018;background:linear-gradient(90deg,var(--cyan),var(--pink));border-color:transparent;font-weight:800}
@@ -56,16 +69,26 @@
     .fp{display:grid;grid-template-columns:max-content 1fr;gap:4px 10px;margin:14px 0 0;font-size:.72rem}
     .fp dt{color:var(--muted)} .fp dd{margin:0;word-break:break-all;color:var(--text)}
     .fp .ok{color:var(--ok)} .fp .bad{color:var(--pink)}
+    :focus-visible{outline:2px solid var(--warn);outline-offset:3px}
+    @media(max-width:699px){main{width:min(100%,calc(100vw - 16px));margin:8px auto 26px;padding:0 16px 18px}.window-bar{margin:0 -16px 20px}.hero{grid-template-columns:1fr;gap:13px}.tier{min-height:0}.fp{grid-template-columns:1fr;gap:2px}.fp dd{margin-bottom:7px}}
+    @media(prefers-reduced-motion:reduce){.tier,.tier .bar>span{transition:none}}
   </style>
 </head>
 <body>
   <main>
+    <div class="window-bar"><span>FLLC / CYBERWORLD / TRAINING.EXE</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
     <div class="training" role="note">
-      Training lab · <a href="challenge.html">brief</a> · <a href="manifest.json">manifest</a>
+      Browser-local training sandbox · <a href="challenge.html">mission brief</a> · <a href="manifest.json">signed manifest</a>
     </div>
 
-    <h1>CyberWorld :: Lab</h1>
-    <p class="sub" id="stateLine">Verifying session...</p>
+    <div class="hero">
+      <div>
+        <h1>CyberWorld<span>// Training Lab</span></h1>
+        <p class="sub" id="stateLine" role="status">Verifying training session...</p>
+        <p>Five distinct defensive challenges. Investigate the simulated system, confirm findings, and close the 33-signal training run.</p>
+      </div>
+      <aside><strong>TRAINING ≠ MEMBER ACCESS</strong>Challenge progress and the completion badge live only in this browser. The live MMO uses your FLLC account and separate paid-member verification.</aside>
+    </div>
 
     <section class="ops-brief" aria-labelledby="ops-title">
       <h2 id="ops-title">Mission Relay</h2>
@@ -74,41 +97,42 @@
       <ol class="ops-actions" id="nextActions">
         <li>Wait for manifest verification.</li>
       </ol>
+      <a class="next-link" id="nextNode" href="console.html">Continue recommended node →</a>
     </section>
 
     <div class="tiers">
       <div class="tier" data-tier="1">
         <h2>Tier 1 -- Defensive Audit</h2>
         <div class="num" id="t1n">0<small>/10</small></div>
-        <div class="bar"><span id="t1bar" style="width:0%"></span></div>
+        <div class="bar" role="progressbar" aria-label="Defensive Audit progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><span id="t1bar" style="width:0%"></span></div>
         <p class="meta">10 observations about the auth surface itself. Self-check rubric and live re-verification of session/asset/manifest.</p>
         <a href="console.html">Open console</a>
       </div>
       <div class="tier" data-tier="2">
         <h2>Tier 2 -- Cryptanalysis</h2>
         <div class="num" id="t2n">0<small>/5</small></div>
-        <div class="bar"><span id="t2bar" style="width:0%"></span></div>
+        <div class="bar" role="progressbar" aria-label="Cryptanalysis progress" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><span id="t2bar" style="width:0%"></span></div>
         <p class="meta">RSA-toy factor + decrypt, ECDSA P-256 verify, 16-bit HMAC collision, Vigenere break. Web Crypto + BigInt.</p>
         <a href="crypto.html">Open crypto lab</a>
       </div>
       <div class="tier" data-tier="3">
         <h2>Tier 3 -- Threat Intel</h2>
         <div class="num" id="t3n">0<small>/5</small></div>
-        <div class="bar"><span id="t3bar" style="width:0%"></span></div>
+        <div class="bar" role="progressbar" aria-label="Threat Intel progress" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0"><span id="t3bar" style="width:0%"></span></div>
         <p class="meta">May-2026 CVE attribution, MITRE ATT&amp;CK technique mapping, NIST IR phase, threat actor, zero-width-space stego.</p>
         <a href="intel.html">Open intel desk</a>
       </div>
       <div class="tier" data-tier="4">
         <h2>Tier 4 -- Burp Workbench</h2>
         <div class="num" id="t4n">0<small>/10</small></div>
-        <div class="bar"><span id="t4bar" style="width:0%"></span></div>
+        <div class="bar" role="progressbar" aria-label="Burp Workbench progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><span id="t4bar" style="width:0%"></span></div>
         <p class="meta">Service-worker backend at <code>/api/v1/*</code>. JWT alg=none, IDOR, path traversal, X-Forwarded-For trust, HPP, race, chained master flag. Real Burp / curl exercises.</p>
         <a href="intercept.html">Open intercept</a>
       </div>
       <div class="tier" data-tier="5">
         <h2>Tier 5 -- Deeper Chain</h2>
         <div class="num" id="t5n">0<small>/3</small></div>
-        <div class="bar"><span id="t5bar" style="width:0%"></span></div>
+        <div class="bar" role="progressbar" aria-label="Deeper Chain progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"><span id="t5bar" style="width:0%"></span></div>
         <p class="meta">JWT HS256/RS256 key confusion (RFC 8725 sec. 3.1), Object.prototype pollution via deep-merge (CWE-1321), and SW cache-vs-auth confusion (CWE-639).</p>
         <a href="intercept.html#tier5">Open intercept</a>
       </div>
@@ -117,6 +141,7 @@
     <div class="master" id="master">
       <strong>0/33</strong> confirmed -- partial XOR = <code>0x00000000</code> -- target <code id="target">0x--------</code>
     </div>
+    <div class="badge" id="trainingBadge" hidden></div>
 
     <dl class="fp">
       <dt>session.e</dt><dd id="se">--</dd>
@@ -125,12 +150,12 @@
     </dl>
 
     <div class="toolbar">
-      <a class="primary" href="/cyberworld.html">[ENTER_CYBERWORLD]</a>
+      <a class="primary" href="https://www.fllc.net/CyberWorld/">Open FLLC member game</a>
       <a href="console.html">Console</a>
       <a href="crypto.html">Crypto</a>
       <a href="intel.html">Intel</a>
       <a href="intercept.html">Intercept</a>
-      <button id="exit" type="button">Exit</button>
+      <button id="exit" type="button">Back to gate</button>
     </div>
   </main>
 
@@ -236,7 +261,8 @@
       const focus = document.getElementById("opsFocus");
       const narrative = document.getElementById("opsNarrative");
       const list = document.getElementById("nextActions");
-      if(!focus || !narrative || !list) return;
+      const nextLink = document.getElementById("nextNode");
+      if(!focus || !narrative || !list || !nextLink) return;
 
       const briefs = {
         1: {
@@ -288,16 +314,34 @@
 
       const openTier = nextOpenTier(t.tiers);
       if(openTier === null){
-        focus.textContent = "All nodes closed :: Superoperator signal active";
-        narrative.textContent = "Every finding is confirmed. Jump back into CyberWorld and claim high-tier operator content.";
-        list.innerHTML = "<li>Enter CyberWorld main world.</li><li>Confirm grant source and timestamp in local storage.</li><li>Replay favorite node for speed-run training.</li>";
+        focus.textContent = "All nodes closed :: training run complete";
+        narrative.textContent = "Every finding is confirmed. Your browser-local badge records this run; it does not unlock or change FLLC membership.";
+        list.innerHTML = "<li>Review the mission brief and your evidence trail.</li><li>Replay any node for more practice.</li><li>Open the separately authenticated FLLC game when ready.</li>";
+        nextLink.href = "challenge.html";
+        nextLink.textContent = "Review mission brief →";
         return;
       }
 
       const b = briefs[openTier];
-      focus.textContent = b.label;
+      focus.textContent = b.label + " · " + t.tiers[openTier].ok + "/" + t.tiers[openTier].total + " findings confirmed";
       narrative.textContent = b.text;
       list.innerHTML = b.actions.map((a)=>"<li>"+a+"</li>").join("");
+      nextLink.href = ({1:"console.html",2:"crypto.html",3:"intel.html",4:"intercept.html",5:"intercept.html#tier5"})[openTier];
+      nextLink.textContent = "Continue " + b.label.split(" :: ")[1] + " →";
+    }
+
+    function showTrainingBadge(currentRunComplete){
+      const el=document.getElementById("trainingBadge");
+      if(!el) return;
+      let badge=null;
+      try { badge=JSON.parse(localStorage.getItem("cw.training.badge.v1")||"null"); } catch {}
+      if(currentRunComplete && !(badge?.kind==="CyberWorld defensive lab completion" && badge.findings===33 && Number.isFinite(Date.parse(badge.completedAt)))){
+        badge={kind:"CyberWorld defensive lab completion",findings:33,completedAt:new Date().toISOString()};
+        try { localStorage.setItem("cw.training.badge.v1", JSON.stringify(badge)); } catch {}
+      }
+      if(badge?.kind!=="CyberWorld defensive lab completion" || badge.findings!==33 || !Number.isFinite(Date.parse(badge.completedAt))) return;
+      el.hidden=false;
+      el.textContent=(currentRunComplete ? "TRAINING BADGE ISSUED" : "PREVIOUS TRAINING BADGE")+" · 33/33 findings · "+new Date(badge.completedAt).toUTCString()+" · Stored only in this browser; not an FLLC credential or access grant.";
     }
 
     async function boot(){
@@ -322,35 +366,25 @@
         document.getElementById("sa").textContent=shortHash(asset.file);
         document.getElementById("sm").innerHTML='<span class="ok">verified</span> '+shortHash(manifest.signature.value);
         document.getElementById("target").textContent="0x"+manifest.master_xor;
-        setLine(verified ? "Access granted" : "Deep-link training mode","ok");
+        setLine(verified ? "Training session verified" : "Open training mode · no member sign-in required","ok");
         const t=await tally(manifest);
         for (const tier of [1,2,3,4,5]) {
           const tn = document.getElementById("t"+tier+"n");
           const tb = document.getElementById("t"+tier+"bar");
           if (tn) tn.innerHTML = t.tiers[tier].ok+"<small>/"+t.tiers[tier].total+"</small>";
-          if (tb) tb.style.width = (t.tiers[tier].ok/Math.max(1,t.tiers[tier].total)*100)+"%";
+          if (tb) { tb.style.width = (t.tiers[tier].ok/Math.max(1,t.tiers[tier].total)*100)+"%"; tb.parentElement.setAttribute("aria-valuenow",String(t.tiers[tier].ok)); tb.parentElement.setAttribute("aria-valuemax",String(t.tiers[tier].total)); }
         }
         const closed=(t.count===manifest.findings.length && t.acc===manifest.master_xor);
         document.getElementById("master").innerHTML=
           "<strong>"+t.count+"/"+manifest.findings.length+"</strong> confirmed -- partial XOR = <code>0x"+t.acc+"</code> -- target <code>0x"+manifest.master_xor+"</code>"+
-          (closed?' <span class="ok">-- LINEAR CODE CLOSED -- OPERATOR_GRANT issued</span>':'');
+          (closed?' <span class="ok">-- TRAINING RUN COMPLETE --</span>':'');
         renderMissionRelay(t);
-        // MMO handoff: when every tier closes, mark the browser as
-        // 'superoperator' (Tier 5 closure) so /cyberworld.html can
-        // unlock the highest-tier content. Tier 4 closure alone marks
-        // 'operator'; intercept.html writes the partial grant itself.
-        if (closed) {
-          try {
-            localStorage.setItem("cw.role", "superoperator");
-            localStorage.setItem("cw.grant_ts", new Date().toISOString());
-            localStorage.setItem("cw.grant_source", "CyberWorld_login:tier1-5");
-          } catch {}
-        }
+        showTrainingBadge(closed);
       }catch(e){
         setLine("Verification failed: "+(e&&e.message||e),"bad");
       }
     }
-    document.getElementById("exit").addEventListener("click",()=>{ sessionStorage.removeItem(settings.sessionKey); sessionStorage.removeItem(settings.solvedKey); location.replace("index.html"); });
+    document.getElementById("exit").addEventListener("click",()=>{ location.assign("index.html"); });
     if(window.top!==window.self){ document.documentElement.style.display="none"; try{ window.top.location=window.location.href; }catch{ return; } }
     boot();
   })();

@@ -54,21 +54,44 @@
     th{color:var(--cyan);letter-spacing:.05em}
     .ioc-line{font-size:.78rem;color:var(--text)}
     .ioc-line .ts{color:var(--muted)}
+    :root{--violet:#a68cff;--line:rgba(135,211,255,.28)}
+    body{background:radial-gradient(circle at 82% 12%,rgba(142,72,255,.2),transparent 34%),radial-gradient(circle at 9% 70%,rgba(0,255,231,.1),transparent 38%),#070913}
+    body::before{background-size:40px 40px;opacity:.52}
+    main{width:min(1080px,calc(100vw - 28px));padding:0;margin:24px auto 48px;border-color:var(--line);border-radius:2px;box-shadow:0 18px 70px #000b,0 0 36px rgba(94,67,214,.16)}
+    .window-bar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 15px;border-bottom:1px solid #6a58ad;background:linear-gradient(90deg,#251458,#101b45 65%,#102d3c);font-size:.72rem;font-weight:bold;letter-spacing:.14em;text-transform:uppercase}.window-bar .lights{display:flex;gap:6px;align-items:center}.window-bar .lights i{width:10px;height:10px;border:1px solid #fff7;background:var(--pink);box-shadow:0 0 7px var(--pink)}.window-bar .lights i:nth-child(2){background:var(--warn);box-shadow:0 0 7px var(--warn)}.window-bar .lights i:nth-child(3){background:var(--cyan);box-shadow:0 0 7px var(--cyan)}
+    .shell{padding:28px clamp(16px,3vw,36px) 32px}.training{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 24px;padding:0 0 12px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:none;text-align:left;font-size:.72rem;letter-spacing:.09em}.training a{color:var(--text)}.training a:hover{color:var(--cyan)}
+    .hero{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(210px,.75fr);gap:18px;align-items:end;margin-bottom:20px}.eyebrow{margin:0 0 8px;color:var(--violet);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase}h1{font-size:clamp(2rem,5vw,3.5rem);line-height:1;letter-spacing:.075em}.sub{margin:11px 0 0;color:var(--muted);font-size:.82rem;letter-spacing:.08em;line-height:1.5}.hero-status{padding:13px 16px;border:1px solid var(--line);background:#080f22}.hero-status strong{display:block;margin-bottom:6px;color:var(--warn);font-size:.7rem;letter-spacing:.16em}.hero-status span{font-size:.82rem;line-height:1.45}
+    .ops{margin:0 0 18px;padding:16px 18px;border-color:var(--line);border-left:3px solid var(--cyan);border-radius:0;background:linear-gradient(90deg,rgba(0,255,231,.08),rgba(8,13,23,.65))}.ops h2{font-size:.8rem}.ops p{font-size:.9rem}.ops p+p{margin-top:7px}
+    .brief{position:relative;padding:19px 21px;border-color:var(--line);border-radius:0;background:linear-gradient(145deg,#10182d,#090f20);font-size:.9rem}.brief p{margin-top:0}.brief .source-label{display:block;margin:0 0 9px;color:var(--warn);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase}.brief ul{font-size:.85rem!important}.brief li{margin:4px 0}
+    .jump{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 19px}.jump a{display:inline-flex;min-height:38px;align-items:center;padding:0 12px;border:1px solid var(--line);color:var(--text);background:#0c1326;font-size:.76rem;text-decoration:none}.jump a:hover,.jump a:focus-visible{border-color:var(--pink);color:var(--cyan)}
+    .ch{scroll-margin-top:18px;position:relative;margin:13px 0;padding:22px;border-color:var(--line);border-left:3px solid var(--violet);border-radius:0;background:linear-gradient(145deg,rgba(18,24,47,.96),rgba(7,12,25,.93))}.ch[data-state="confirmed"]{border-left-color:var(--ok)}.ch h2{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 10px;font-size:1rem;letter-spacing:.055em}.ch h2 .n{font-size:.76rem;letter-spacing:.12em}.ch .done{margin-left:auto;padding:4px 7px;border:1px solid var(--line);color:var(--muted);font-size:.67rem;letter-spacing:.12em}.ch[data-state="confirmed"] .done{color:var(--ok);border-color:var(--ok)}.ch p{font-size:.9rem;line-height:1.65}.ch p.hint{font-size:.84rem;line-height:1.6}.ch pre{font-size:.85rem;padding:12px;white-space:pre-wrap;overflow-wrap:anywhere}
+    details.hintbox{margin:12px 0;padding:10px 12px;border:1px solid var(--line);background:#080f20;color:var(--muted);font-size:.84rem;line-height:1.6}details.hintbox summary{cursor:pointer;color:var(--warn);font-weight:bold}details.hintbox p{margin:8px 0 0;font-size:.84rem}
+    .row{grid-template-columns:minmax(0,1fr) auto;gap:10px}.row input,.row button,.toolbar a{min-height:44px;font-size:.85rem}.row button{padding:0 18px;font-weight:bold}.row input:focus-visible,.row button:focus-visible,.toolbar a:focus-visible,summary:focus-visible{outline:2px solid var(--warn);outline-offset:2px}.row input::placeholder{color:#8192aa}
+    .result{font-size:.86rem;line-height:1.5;overflow-wrap:anywhere}.progress{padding:12px;border:1px solid var(--line);font-size:.85rem;background:#080f20}.toolbar{margin-top:16px}.toolbar a{padding:0 16px}.toolbar .primary{background:var(--cyan);color:#05111c}
+    .sources{margin:17px 0;padding:16px 18px;border:1px solid var(--line);background:#090f20}.sources h2{margin:0 0 6px;color:var(--cyan);font-size:.8rem;letter-spacing:.13em;text-transform:uppercase}.sources p{margin:0 0 9px;color:var(--muted);font-size:.81rem;line-height:1.5}.sources ul{margin:0;padding-left:21px;columns:2}.sources li{margin:5px 0;font-size:.8rem}.sources a{color:#bcafff;text-decoration-thickness:1px;text-underline-offset:3px}.sources a:hover{color:var(--cyan)}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:690px){main{width:calc(100vw - 16px);margin:8px auto 24px}.shell{padding:18px 14px 22px}.hero{grid-template-columns:1fr}.window-bar{font-size:.62rem}.ch{padding:16px 14px}.row,.row[style]{grid-template-columns:1fr!important}.row button{width:100%}.toolbar a{flex:1 1 45%}.ch h2 .done{margin-left:0}.training{line-height:1.5}.sources ul{columns:1}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
   </style>
 </head>
 <body>
   <main>
+    <div class="window-bar"><span>CyberWorld / training station / intelligence</span><span class="lights" aria-hidden="true"><i></i><i></i><i></i></span></div>
+    <div class="shell">
     <div class="training" role="note">
-      Tier 3 -- May 2026 Intel · <a href="lab.html">lab</a> · <a href="challenge.html">brief</a>
+      <span>ARCHIVAL TRAINING CASE // Not a live intelligence feed or account grant.</span><span><a href="lab.html">Mission map</a> · <a href="challenge.html">Rules</a></span>
     </div>
-    <h1>Intel Desk</h1>
-    <p class="sub" id="stateLine">Verifying session...</p>
+    <header class="hero">
+      <div><p class="eyebrow">Tier 03 / five local challenges</p><h1>Intel Desk</h1><p class="sub" id="stateLine" role="status">Loading challenge manifest...</p></div>
+      <div class="hero-status"><strong>MISSION OBJECTIVE</strong><span>Separate documented facts, analytic labels, and fictional evidence. Confirm five findings from a dated case file.</span></div>
+    </header>
 
     <section class="ops" aria-labelledby="ops-title">
       <h2 id="ops-title">Intel Mission Context</h2>
-      <p>You are feeding live threat intelligence into CyberWorld command routing. Every answer here sharpens your intercept decisions in Tier 4/5.</p>
-      <p>Play this as an analyst sprint: attribution first, framework mapping second, stego extraction last.</p>
+      <p>This May 26, 2026 exercise blends public advisory history with a fictional Phoenix Operations brief. Nothing on this page is a current alert or live indicator.</p>
+      <p>Identify the cited vulnerability, technique, response action, historical cluster label, and hidden training flag.</p>
     </section>
+    <nav class="jump" aria-label="Jump to finding"><a href="#f16">F16 / Advisory</a><a href="#f17">F17 / ATT&amp;CK</a><a href="#f18">F18 / Respond</a><a href="#f19">F19 / Attribution</a><a href="#f20">F20 / Decode</a></nav>
 
     <!--
       Editorial brief. The flag for F20 is embedded as zero-width
@@ -77,106 +100,126 @@
       source reveals U+200B / U+200D codepoints.
     -->
     <section class="brief">
+      <span class="source-label">Case file / frozen 26 May 2026 / fictional wrapper</span>
       <p><strong>Phoenix‌​‍​​​‍‍​​‍​​‍‍​​​‍​​‍‍​​​‍​​​​‍‍​​‍‍​​‍​​​‍‍​​​​​​‍‍​​‍​​​‍‍​‍‍​Operations -- May 2026 quarterly brief.</strong>
-         The quarter opened with a <em>Next.js middleware authorization-bypass</em> advisory
-         (March 2025) that defenders were still mopping up; defenders were also
-         rotating secrets exposed by the March 2025 GitHub Actions
-         supply-chain compromise. Mandiant continued tracking
-         <em>UNC5337</em>'s long campaign against Ivanti Connect Secure (the December 2024
-         pre-auth stack overflow). The standing guidance below stays in force:</p>
+         The dossier references the March 2025 <em>Next.js middleware authorization-bypass</em> advisory
+         and a separate March 2025 GitHub Actions supply-chain compromise. It also quotes Mandiant's
+         original <em>UNC5337</em> label for Ivanti Connect Secure exploitation that began in December 2024;
+         Mandiant later merged that cluster into UNC5221. The checklist below is exercise context, not
+         an instruction to treat every system as compromised:</p>
       <ul style="margin:6px 0;padding-left:22px;color:var(--muted);font-size:.78rem;line-height:1.6">
         <li>Pin third-party GitHub Actions to a full commit SHA, not a tag.</li>
         <li>Server-side authorize every route -- middleware-only checks are bypassable.</li>
         <li>Force passkey / WebAuthn for admin paths; disable SMS OTP fallback.</li>
-        <li>Verify <code>xz-utils</code> &lt; 5.6.0 or &ge; 5.4.6 (CVE-2024-3094).</li>
-        <li>Treat any Ivanti Connect Secure exposed pre-Jan-2025 as compromised.</li>
+        <li>Check whether affected <code>xz</code> 5.6.0 or 5.6.1 builds were installed (CVE-2024-3094).</li>
+        <li>Review Ivanti exposure and compromise indicators against vendor guidance.</li>
       </ul>
     </section>
 
     <!-- F16 -->
-    <section class="ch" data-n="16">
-      <h2><span class="n">F16</span> CVE attribution</h2>
+    <section class="ch" data-n="16" id="f16">
+      <h2><span class="n">F16</span> CVE attribution <span class="done">PENDING</span></h2>
       <p>A Next.js application accepts an HTTP header <code>x-middleware-subrequest</code> from
          an unauthenticated user and the middleware-based authorization gate is bypassed,
          giving the caller admin-only routes. Name the CVE (CVE-YYYY-NNNNN).</p>
-      <p class="hint">Disclosed March 2025; affects Next.js &lt; 15.2.3 / 14.2.25 / 13.5.9 / 12.3.5.</p>
+      <details class="hintbox"><summary>Read a clue</summary><p>Published in March 2025. The vendor patched Next.js 15 in 15.2.3, 14 in 14.2.25, 13 in 13.5.9, and 12 in 12.3.5. Use the primary advisory linked in the source desk below.</p></details>
       <div class="row">
+        <label class="sr-only" for="i16">Next.js middleware bypass CVE identifier</label>
         <input type="text" id="i16" placeholder="CVE-2025-#####" autocomplete="off">
         <button type="button" data-n="16">Check</button>
       </div>
-      <span class="result" id="r16"></span>
+      <span class="result" id="r16" role="status"></span>
     </section>
 
     <!-- F17 -->
-    <section class="ch" data-n="17">
-      <h2><span class="n">F17</span> MITRE ATT&amp;CK technique</h2>
+    <section class="ch" data-n="17" id="f17">
+      <h2><span class="n">F17</span> MITRE ATT&amp;CK technique <span class="done">PENDING</span></h2>
       <p>An adversary signs in to a corporate web app using stolen username and password.
          No exploit is required; the credentials simply work. Map this to a MITRE ATT&amp;CK
          technique ID (Txxxx).</p>
-      <p class="hint">Enterprise matrix, Initial Access tactic. The technique is one of the most-reported.</p>
+      <details class="hintbox"><summary>Read a clue</summary><p>This maps the use of an already-valid account, not the theft of the password. The base Enterprise technique is enough; see MITRE's source entry below.</p></details>
       <div class="row">
+        <label class="sr-only" for="i17">MITRE ATT&amp;CK technique identifier</label>
         <input type="text" id="i17" placeholder="T#### or T####.###" autocomplete="off">
         <button type="button" data-n="17">Check</button>
       </div>
-      <span class="result" id="r17"></span>
+      <span class="result" id="r17" role="status"></span>
     </section>
 
     <!-- F18 -->
-    <section class="ch" data-n="18">
-      <h2><span class="n">F18</span> NIST SP 800-61 phase</h2>
+    <section class="ch" data-n="18" id="f18">
+      <h2><span class="n">F18</span> Incident-response action <span class="done">PENDING</span></h2>
       <p>You've identified the supply-chain compromise root cause, rotated all secrets that
          were exposed in CI logs since 2025-03-14, and pinned the offending GitHub Action
-         to a full commit SHA across all repos. Which NIST SP 800-61 Rev.3
-         incident-response phase are you in?</p>
-      <pre>Preparation -> Detection & Analysis -> Containment -> Eradication -> Recovery</pre>
-      <p class="hint">"Removing the root cause of the incident from the environment."</p>
+         to a full commit SHA across all repos. Which classic incident-response action
+         best describes removing the root cause from the environment?</p>
+      <pre>Contain the incident -> remove its cause -> restore and monitor</pre>
+      <details class="hintbox"><summary>Framework nuance</summary><p>The old SP 800-61 Rev.2 lifecycle grouped containment, eradication, and recovery. Rev.3 is a CSF 2.0 community profile; it does not use the five-step list as separate phases. The answer here is an action, not a Rev.3 phase.</p></details>
       <div class="row">
+        <label class="sr-only" for="i18">Incident response action</label>
         <input type="text" id="i18" placeholder="one word" autocomplete="off">
         <button type="button" data-n="18">Check</button>
       </div>
-      <span class="result" id="r18"></span>
+      <span class="result" id="r18" role="status"></span>
     </section>
 
     <!-- F19 -->
-    <section class="ch" data-n="19">
-      <h2><span class="n">F19</span> Actor attribution</h2>
+    <section class="ch" data-n="19" id="f19">
+      <h2><span class="n">F19</span> Historical attribution <span class="done">PENDING</span></h2>
       <p>From December 2024 onward, an undisclosed actor exploited a pre-authentication stack
-         overflow in Ivanti Connect Secure / Policy Secure / Neurons-for-ZTA gateways
-         (CVE-2025-0282). Mandiant's tracker for this campaign is which UNC cluster?</p>
-      <p class="hint">UNC#### -- the cluster's first disclosed reference is in Mandiant's January 2025 advisory.</p>
+         overflow in Ivanti Connect Secure gateways (CVE-2025-0282).
+         What UNC label did Mandiant's January 2025 advisory originally use for the cluster?
+         Use the historical label, even though Mandiant later merged it into UNC5221.</p>
+      <details class="hintbox"><summary>Read a clue</summary><p>The answer is UNC followed by four digits. The original advisory and its updated merger note are linked below.</p></details>
       <div class="row">
+        <label class="sr-only" for="i19">Historical UNC cluster label</label>
         <input type="text" id="i19" placeholder="UNC####" autocomplete="off">
         <button type="button" data-n="19">Check</button>
       </div>
-      <span class="result" id="r19"></span>
+      <span class="result" id="r19" role="status"></span>
     </section>
 
     <!-- F20 -->
-    <section class="ch" data-n="20">
-      <h2><span class="n">F20</span> Zero-width-space steganography</h2>
+    <section class="ch" data-n="20" id="f20">
+      <h2><span class="n">F20</span> Zero-width-space steganography <span class="done">PENDING</span></h2>
       <p>The brief above contains an invisible payload between two of its words. Zero-width
          space (<code>U+200B</code>) encodes binary 0; zero-width joiner (<code>U+200D</code>)
          encodes binary 1; eight characters per ASCII byte, MSB first.</p>
-      <p class="hint">Try selecting the entire brief paragraph, copy-pasting into a hex viewer, or
-         running <code>btoa</code> on the substring after stripping non-ZWSP/ZWJ characters.
-         The page can also auto-extract via the button below.</p>
+      <p class="hint">Look between “Phoenix” and “Operations” in the brief. Keep only U+200B and U+200D,
+         map them to bits, group eight bits into a byte, then decode the bytes as text. The local tool
+         below can demonstrate the extraction; it will not submit the answer for you.</p>
       <div class="row">
+        <label class="sr-only" for="i20">Extracted training flag</label>
         <input type="text" id="i20" placeholder="extracted flag" autocomplete="off" autocapitalize="characters">
         <button type="button" data-n="20">Check</button>
       </div>
       <div class="row" style="grid-template-columns:1fr auto">
-        <span class="result" id="r20"></span>
+        <span class="result" id="r20" role="status"></span>
         <button type="button" id="b20-auto">Auto-extract</button>
       </div>
     </section>
 
-    <div class="progress" id="progress">--/5 confirmed locally</div>
+    <div class="progress" id="progress" role="status">--/5 confirmed locally</div>
+
+    <aside class="sources" aria-labelledby="sources-title">
+      <h2 id="sources-title">Source desk / primary records</h2>
+      <p>The advisory and framework references are real; Phoenix Operations and the hidden flag are fictional training material. These sources support the dated prompts, not a claim of current activity.</p>
+      <ul>
+        <li><a href="https://github.com/vercel/next.js/security/advisories/GHSA-f82v-jwr5-mffw" target="_blank" rel="noopener noreferrer">Next.js maintainer advisory / CVE-2025-29927</a></li>
+        <li><a href="https://github.com/advisories/ghsa-mrrh-fwg8-r2c3" target="_blank" rel="noopener noreferrer">GitHub Advisory Database / tj-actions incident</a></li>
+        <li><a href="https://attack.mitre.org/techniques/T1078/" target="_blank" rel="noopener noreferrer">MITRE ATT&amp;CK / Valid Accounts</a></li>
+        <li><a href="https://csrc.nist.gov/pubs/sp/800/61/r3/final" target="_blank" rel="noopener noreferrer">NIST SP 800-61 Rev.3</a></li>
+        <li><a href="https://cloud.google.com/blog/topics/threat-intelligence/ivanti-connect-secure-vpn-zero-day/" target="_blank" rel="noopener noreferrer">Mandiant / Ivanti CVE-2025-0282</a></li>
+        <li><a href="https://nvd.nist.gov/vuln/detail/CVE-2024-3094" target="_blank" rel="noopener noreferrer">NVD / xz CVE-2024-3094</a></li>
+      </ul>
+    </aside>
 
     <div class="toolbar">
       <a class="primary" href="lab.html">Back to lab</a>
       <a href="crypto.html">Tier 2: Crypto</a>
       <a href="console.html">Console</a>
       <a href="challenge.html">Brief</a>
+    </div>
     </div>
   </main>
 
@@ -217,7 +260,10 @@
         if(f.tier!==3) continue;
         total++;
         const tok=solved[String(f.n)];
-        if(tok && (await sha256Hex(tok)).slice(0,8)===f.answer_sha256_prefix) ok++;
+        const confirmed=!!tok && (await sha256Hex(tok)).slice(0,8)===f.answer_sha256_prefix;
+        const card=document.querySelector('.ch[data-n="'+f.n+'"]');
+        if(card){ card.dataset.state=confirmed?"confirmed":"pending"; card.querySelector(".done").textContent=confirmed?"CONFIRMED":"PENDING"; }
+        if(confirmed) ok++;
       }
       document.getElementById("progress").innerHTML =
         '<span class="'+(ok===total?"ok":"")+'">'+ok+"/"+total+" confirmed locally"+
@@ -240,12 +286,12 @@
     }
     function checkF18(input){
       const v = normalize(input).toLowerCase();
-      if(v==="eradication") return { ok:true, msg:"correct -- NIST SP 800-61 Eradication phase" };
-      return { ok:false, msg:"that's not the right phase" };
+      if(v==="eradication") return { ok:true, msg:"Correct: eradication removes the cause before recovery and monitoring." };
+      return { ok:false, msg:"Not the action that removes the root cause. Think beyond containment." };
     }
     function checkF19(input){
       const v = normalize(input).toUpperCase().replace(/[^A-Z0-9]/g,"");
-      if(v==="UNC5337") return { ok:true, msg:"correct -- UNC5337 (Ivanti Connect Secure Dec 2024)" };
+      if(v==="UNC5337") return { ok:true, msg:"Correct historical label: UNC5337. Mandiant later merged it into UNC5221." };
       return { ok:false, msg:"not the right cluster" };
     }
     function checkF20(input){
@@ -302,18 +348,22 @@
       }
     });
 
+    document.addEventListener("keydown", (ev) => {
+      if(ev.key!=="Enter" || ev.target.tagName!=="INPUT") return;
+      const n=ev.target.id.match(/^i(16|17|18|19|20)$/)?.[1];
+      if(n) document.querySelector('button[data-n="'+n+'"]').click();
+    });
+
     // ----- session guard -----
     if(window.top !== window.self){ document.documentElement.style.display="none"; try{ window.top.location=window.location.href; }catch{ return; } }
     (async () => {
       try {
-        const raw = sessionStorage.getItem("cw.r");
-        const sessionMode = raw ? "Session OK" : "Training mode";
         const r = await fetch("manifest.json", {cache:"no-store", credentials:"same-origin"});
         if(!r.ok) throw new Error("manifest");
         const m = await r.json();
         if(m.schema!=="cyberworld.training.manifest.v5") throw new Error("schema");
         window.__manifest = m;
-        document.getElementById("stateLine").textContent = sessionMode + " -- 5 challenges, all local";
+        document.getElementById("stateLine").textContent = "Archival training mode // 5 findings // progress stored in this browser tab";
         document.getElementById("stateLine").style.color = "var(--ok)";
         await refreshProgress();
       } catch (e) {

