@@ -35,7 +35,8 @@ const LEGACY_MEMBER_ROUTES = new Set([
 
 const LEGACY_MEMBER_PREFIXES = [
   '/CyberWorld/',
-  '/CyberWorld_login/',
+  // /CyberWorld_login/ is the public, browser-local training range.
+  // Its own scoped sw-ctf.js provides only fictional challenge endpoints.
   '/legacy/',
   '/rpg/',
   '/simulator/',
