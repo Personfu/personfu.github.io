@@ -48,3 +48,13 @@ test('repo atlas provides safe external links, search, tabs, and a compact load-
   assert.match(atlas, /list\.slice\(0,visibleRepos\)/);
   assert.match(desktop, /return path\+sep\+'cw_frame='\+Date\.now\(\)\+fragment/);
 });
+
+test('first-visit missions are accessible on small screens and label member access honestly', () => {
+  assert.match(desktop, /id="desktop">\s*<aside id="mission-brief"/);
+  assert.match(desktop, /#mission-brief\{position:relative;right:auto;top:auto;width:100%/);
+  assert.doesNotMatch(desktop, /#mission-brief\{display:none\}/);
+  assert.match(desktop, /href="signal-vault\.html"[^>]*>.*PUBLIC \/\/ PLAY NOW/);
+  assert.match(desktop, /href="https:\/\/www\.fllc\.net\/cyberworld"[^>]*>.*BASIC ACCESS REQUIRED/);
+  assert.match(desktop, /href="repo-atlas\.html">BROWSE REPO ATLAS/);
+  assert.match(desktop, /if\(singleTap\(\)\)openApp\(app\)/);
+});
