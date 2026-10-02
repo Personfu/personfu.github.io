@@ -100,14 +100,34 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 .brief-dot{width:7px;height:7px;border-radius:50%;background:var(--neon);box-shadow:0 0 12px var(--neon)}
 .brief-title{margin-top:14px;font:400 32px/1 'VT323',monospace;letter-spacing:1px;color:#fff;text-shadow:0 0 18px rgba(0,255,204,.3)}
 .brief-copy{margin-top:10px;max-width:370px;font-size:11px;line-height:1.6;color:#afd4dc}
-.brief-paths{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:16px}
-.brief-link{display:flex;min-height:42px;align-items:center;justify-content:center;padding:7px;border:1px solid rgba(255,255,255,.16);background:rgba(2,5,14,.74);color:#e9ffff;text-align:center;text-decoration:none;font-size:9px;font-weight:700;letter-spacing:.5px}
+.brief-paths{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:16px}
+.brief-link{display:flex;min-height:104px;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:8px;padding:10px;border:1px solid rgba(255,255,255,.2);background:rgba(2,5,14,.82);color:#e9ffff;text-align:left;text-decoration:none;letter-spacing:.3px}
+.brief-link strong{font-size:11px;line-height:1.2}
+.brief-link em{font-size:9px;font-style:normal;font-weight:400;line-height:1.35;color:#9ec5ca}
+.brief-link small{font-size:8px;font-weight:700;letter-spacing:1px;color:var(--neon)}
 .brief-link:hover,.brief-link:focus{border-color:var(--neon);background:rgba(0,255,204,.12);color:var(--neon);outline:none}
 .brief-link.primary{background:var(--neon);color:#00100d;border-color:var(--neon)}
+.brief-link.primary em,.brief-link.primary small{color:#003d32}
 .brief-link.primary:hover,.brief-link.primary:focus{background:#fff;color:#000}
+.brief-link.primary:hover em,.brief-link.primary:focus em,.brief-link.primary:hover small,.brief-link.primary:focus small{color:#143d38}
+.brief-more{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.brief-more a{padding:4px 6px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.4);color:#b8eaf1;text-decoration:none;font-size:9px}
+.brief-more a:hover,.brief-more a:focus-visible{border-color:var(--neon);color:var(--neon)}
 .brief-status{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;padding-top:11px;border-top:1px solid rgba(255,255,255,.1);font-size:8px;letter-spacing:1px;color:#7fa6af}
 .brief-status span{padding:3px 5px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.45)}
-@media(max-width:720px){#mission-brief{display:none}#desktop{padding-right:8px}}
+@media(max-width:720px){
+  #desktop{padding:8px;scrollbar-gutter:stable}
+  #mission-brief{position:relative;right:auto;top:auto;width:100%;margin-bottom:10px}
+  .brief-inner{padding:14px}
+  .brief-title{margin-top:8px;font-size:28px}
+  .brief-copy{margin-top:6px;font-size:11px}
+  .brief-paths{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:11px}
+  .brief-link{min-height:84px}
+  .brief-link.primary{grid-column:1/-1;min-height:70px}
+  .brief-status{margin-top:9px;padding-top:8px}
+  .win98-window{min-width:0;min-height:0}
+}
+@media(max-width:360px){.brief-link{padding:8px}.brief-link strong{font-size:10px}}
 </style>
 </head>
 <body>
@@ -117,25 +137,22 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;back
 
 <!-- desktop icons -->
 <div id="desktop">
-  <div class="icon-grid" id="icon-grid"></div>
-</div>
-
-<aside id="mission-brief" aria-label="FLLC mission briefing">
+  <aside id="mission-brief" aria-label="Choose a PersonFu mission">
   <div class="brief-inner">
     <div class="brief-kicker"><span class="brief-dot"></span> PERSONFU NETWORK // FLLC UPLINK</div>
-    <div class="brief-title">THE WORLD IS LIVE. PICK A SIGNAL.</div>
-    <p class="brief-copy">Launch live planetary systems, defensive intelligence, original CyberWorld training, engineering work, or a commercial FLLC engagement from one operator gateway.</p>
-    <nav class="brief-paths" aria-label="Primary FLLC destinations">
-      <a class="brief-link primary" href="https://www.fllc.net/skyops">LIVE WORLD</a>
-      <a class="brief-link" href="https://www.fllc.net/about/projects">CONSTELLATION</a>
-      <a class="brief-link" href="https://www.fllc.net/cyberworld">CYBERWORLD</a>
-      <a class="brief-link" href="https://www.fllc.net/intelligence">INTELLIGENCE</a>
-      <a class="brief-link" href="https://www.fllc.net/services">SERVICES</a>
-      <a class="brief-link" href="https://www.fllc.net/shop">SHOP</a>
+    <div class="brief-title">PICK YOUR FIRST SIGNAL.</div>
+    <p class="brief-copy">Four public puzzles are ready now. Explore the live world, or enter the member game when you have Basic access.</p>
+    <nav class="brief-paths" aria-label="Start exploring PersonFu">
+      <a class="brief-link primary" href="signal-vault.html"><strong>PLAY SIGNAL VAULT ↗</strong><em>Four original, browser-only defensive puzzles.</em><small>PUBLIC // PLAY NOW</small></a>
+      <a class="brief-link" href="https://www.fllc.net/skyops"><strong>EXPLORE LIVE WORLD ↗</strong><em>Map layers with source and freshness context.</em><small>PUBLIC // EXPLORE</small></a>
+      <a class="brief-link" href="https://www.fllc.net/cyberworld"><strong>ENTER CYBERWORLD ↗</strong><em>Member game, missions, and progression.</em><small>BASIC ACCESS REQUIRED</small></a>
     </nav>
-    <div class="brief-status"><span>PUBLIC WORLD: OPEN</span><span>SAFE LABS</span><span>SOURCE-AWARE</span><span>ORIGINAL SYSTEMS</span></div>
+    <div class="brief-more"><a href="repo-atlas.html">BROWSE REPO ATLAS ↗</a><a href="https://www.fllc.net/about/projects">FLLC CONSTELLATION ↗</a><a href="https://www.fllc.net/services">SERVICES ↗</a></div>
+    <div class="brief-status"><span>ONE TAP ON TOUCH</span><span>DOUBLE-CLICK DESKTOP ICONS</span></div>
   </div>
-</aside>
+  </aside>
+  <div class="icon-grid" id="icon-grid" aria-label="PersonFu desktop applications"></div>
+</div>
 
 <!-- taskbar -->
 <div id="taskbar">
@@ -271,9 +288,10 @@ function openApp(app){
   w.id='win-'+app.id;
   // position cascaded
   const count=Object.keys(openWins).length;
-  const left=80+count*22, top=40+count*22;
-  const winW=Math.min(900,window.innerWidth-left-10);
-  const winH=Math.min(640,window.innerHeight-top-40);
+  const compact=window.innerWidth<=720;
+  const left=compact?8:80+count*22, top=compact?8:40+count*22;
+  const winW=compact?window.innerWidth-16:Math.min(900,window.innerWidth-left-10);
+  const winH=compact?window.innerHeight-44:Math.min(640,window.innerHeight-top-40);
   w.style.cssText='left:'+left+'px;top:'+top+'px;width:'+winW+'px;height:'+winH+'px';
   const eid = CSS.escape(app.id);
   w.innerHTML =
@@ -426,14 +444,16 @@ APPS.forEach(app=>{
   div.className='icon';
   div.tabIndex=0;
   div.setAttribute('role','button');
-  div.setAttribute('aria-label',app.label+' — double-click to open');
-  div.title=app.label+' — '+app.desc+' — double-click to open';
+  div.setAttribute('aria-label',app.label+' — open application');
+  div.title=app.label+' — '+app.desc+' — double-click on desktop or tap once on touch';
   div.innerHTML='<div class="icon-img">'+app.icon+'</div><div class="icon-label">'+app.label+'</div>';
-  div.addEventListener('dblclick',()=>openApp(app));
+  const singleTap=()=>window.matchMedia('(pointer:coarse)').matches||window.innerWidth<=720;
+  div.addEventListener('dblclick',()=>{if(!singleTap())openApp(app);});
   div.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openApp(app);}});
   div.addEventListener('click',()=>{
     document.querySelectorAll('.icon').forEach(i=>i.classList.remove('selected'));
     div.classList.add('selected');
+    if(singleTap())openApp(app);
   });
   grid.appendChild(div);
 });
