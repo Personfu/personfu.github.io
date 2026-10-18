@@ -3,7 +3,7 @@
  * The build derives VERSION from the complete public runtime contents.
  */
 'use strict';
-const VERSION = 'cw-ascension-public-3d-8867ff9dc52c23bb';
+const VERSION = 'cw-ascension-public-3d-7e60ef70b922ab50';
 const PREFIX = 'cw-ascension-public-';
 const ENTRY = '/CyberWorld/ascension.html';
 const MEMBER_GATEWAY = 'https://www.fllc.net/cyberworld';
@@ -19,6 +19,7 @@ const FILES = [
   '/CyberWorld/cw-academy.js',
   '/CyberWorld/ascension-net.js',
   '/CyberWorld/ascension-data.js',
+  '/CyberWorld/ascension-downloads.js',
   '/CyberWorld/ascension-campaign.js',
   '/CyberWorld/ascension-city.js',
   '/CyberWorld/ascension-shell.js',
