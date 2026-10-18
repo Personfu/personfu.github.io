@@ -1,0 +1,33 @@
+name: CyberWorld public game checks
+on:
+  pull_request:
+    paths:
+      - 'CyberWorld/**'
+      - 'scripts/**'
+      - 'tools/**'
+      - 'types/**'
+      - 'package*.json'
+      - 'tsconfig.json'
+      - 'index.html'
+      - 'sw.js'
+      - '.github/workflows/ascension-quality.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-game:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run build
+      - run: npm test
+      - run: node scripts/test-desktop-atlas.mjs
+      - run: node scripts/test-signal-vault.mjs
+      - run: node scripts/test_defender_path.cjs

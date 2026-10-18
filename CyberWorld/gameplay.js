@@ -21,39 +21,90 @@
 		flags: { run: { active: false, missionId: null }, tutorialDone: false, path: 'sentinel' },
 		field: { clears: 0, bestRoute: 0 }
 	};
+	var memoryOnly = false;
+	function plainObject(value) { return !!value && typeof value === 'object' && !Array.isArray(value); }
+	function boundedNumber(value, fallback, max) {
+		var n = Number(value);
+		return Number.isFinite(n) ? Math.max(0, Math.min(max, Math.floor(n))) : fallback;
+	}
+	function sanitizeState(value) {
+		var s = plainObject(value) ? value : {};
+		var next = Object.assign(JSON.parse(JSON.stringify(DEFAULT_STATE)), s);
+		next.callsign = typeof s.callsign === 'string' ? s.callsign.slice(0, 24) : DEFAULT_STATE.callsign;
+		next.level = Math.max(1, boundedNumber(s.level, 1, 100));
+		next.xp = boundedNumber(s.xp, 0, 100000000);
+		next.credits = boundedNumber(s.credits, 0, 100000000);
+		next.maxHp = Math.max(1, boundedNumber(s.maxHp, 100, 100000));
+		next.maxShield = boundedNumber(s.maxShield, 30, 100000);
+		next.hp = boundedNumber(s.hp, next.maxHp, next.maxHp);
+		next.shield = boundedNumber(s.shield, next.maxShield, next.maxShield);
+		next.inventory = {};
+		if (plainObject(s.inventory)) Object.keys(s.inventory).forEach(function (id) {
+			if (id === '__proto__' || id === 'constructor' || id === 'prototype') return;
+			var count = boundedNumber(s.inventory[id], 0, 100000);
+			if (count) next.inventory[id.slice(0, 100)] = count;
+		});
+		next.completed = {};
+		if (plainObject(s.completed)) Object.keys(s.completed).forEach(function (id) {
+			if (id !== '__proto__' && id !== 'constructor' && id !== 'prototype' && s.completed[id]) next.completed[id] = s.completed[id];
+		});
+		next.field = Object.assign({}, DEFAULT_STATE.field, plainObject(s.field) ? s.field : {});
+		next.flags = Object.assign({}, DEFAULT_STATE.flags, plainObject(s.flags) ? s.flags : {});
+		next.flags.run = Object.assign({}, DEFAULT_STATE.flags.run, plainObject(next.flags.run) ? next.flags.run : {});
+		return next;
+	}
 	function loadState() {
+		if (memoryOnly && state) return sanitizeState(state);
 		try {
 			var raw = localStorage.getItem(SAVE_KEY);
-			if (!raw) return Object.assign({}, DEFAULT_STATE);
-			var s = JSON.parse(raw);
-			return Object.assign({}, DEFAULT_STATE, s, {
-				inventory: Object.assign({}, DEFAULT_STATE.inventory, s.inventory || {}),
-				completed: s.completed || {},
-				field: Object.assign({}, DEFAULT_STATE.field, s.field || {}),
-				flags: Object.assign({}, DEFAULT_STATE.flags, s.flags || {}, {
-					run: Object.assign({}, DEFAULT_STATE.flags.run, (s.flags && s.flags.run) || {})
-				})
-			});
-		} catch (e) { return Object.assign({}, DEFAULT_STATE); }
+			return sanitizeState(raw ? JSON.parse(raw) : {});
+		} catch (e) { memoryOnly = true; return sanitizeState(state || {}); }
+	}
+	// Preserve writes made by Academy or another tab while this console is open.
+	// Only locally changed fields replace the latest stored value.
+	function mergeChanges(base, local, latest) {
+		if (JSON.stringify(base) === JSON.stringify(local)) return latest;
+		if (!plainObject(local) || !plainObject(base)) return local;
+		var result = Object.assign({}, plainObject(latest) ? latest : {});
+		Object.keys(base).concat(Object.keys(local)).forEach(function (key) {
+			if (key === '__proto__' || key === 'constructor' || key === 'prototype') return;
+			if (!Object.prototype.hasOwnProperty.call(local, key)) { delete result[key]; return; }
+			result[key] = mergeChanges(base[key], local[key], result[key]);
+		});
+		return result;
 	}
 	function saveState() {
-		try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); } catch (e) {}
+		state = sanitizeState(mergeChanges(stateBaseline, state, loadState()));
+		try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); memoryOnly = false; } catch (e) { memoryOnly = true; }
+		stateBaseline = JSON.parse(JSON.stringify(state));
 	}
 	var state = loadState();
+	var stateBaseline = JSON.parse(JSON.stringify(state));
+	function refreshState() {
+		state = loadState();
+		stateBaseline = JSON.parse(JSON.stringify(state));
+		return JSON.parse(JSON.stringify(state));
+	}
 	var FIELD_TARGET_PACKETS = 5;
 	var FIELD_MAX_DAEMONS = 3;
 
 	function xpForLevel(L) { return Math.floor(100 * Math.pow(1.35, L - 1)); }
-	function gainXp(n) {
+	function applyXp(n) {
+		var leveled = false;
 		state.xp += n;
 		while (state.xp >= xpForLevel(state.level)) {
 			state.xp -= xpForLevel(state.level);
 			state.level++;
 			state.maxHp += 10; state.hp = state.maxHp;
 			state.maxShield += 5; state.shield = state.maxShield;
-			toast('LEVEL UP — TIER ' + state.level);
+			leveled = true;
 		}
+		return leveled;
+	}
+	function gainXp(n) {
+		var leveled = applyXp(n);
 		saveState(); render();
+		if (leveled) toast('LEVEL UP — TIER ' + state.level);
 	}
 	function gainCredits(n) { state.credits += n; saveState(); render(); }
 	function gainItem(id, qty) {
@@ -219,17 +270,27 @@
 	}
 
 	function completeMission(m) {
+		refreshState();
+		if (state.completed[m.id]) return false;
 		state.completed[m.id] = Date.now();
-		if (m.reward.xp) gainXp(m.reward.xp);
-		if (m.reward.credits) gainCredits(m.reward.credits);
-		if (m.reward.item) gainItem(m.reward.item, 1);
-		toast('MISSION COMPLETE: ' + m.title);
+		var leveled = m.reward.xp ? applyXp(m.reward.xp) : false;
+		if (m.reward.credits) state.credits += m.reward.credits;
+		if (m.reward.item) state.inventory[m.reward.item] = (state.inventory[m.reward.item] || 0) + 1;
 		if (state.flags.run && state.flags.run.missionId === m.id) {
-			clearActiveRun();
+			state.flags.run.active = false;
+			state.flags.run.missionId = null;
 		}
+		// One stored snapshot includes both the receipt and every reward. A reload
+		// cannot observe a completion marker without its credits, item, and XP.
+		saveState();
+		render();
+		toast((leveled ? 'LEVEL ' + state.level + ' — ' : '') + 'MISSION COMPLETE: ' + m.title);
+		return true;
 	}
 
 	function startMission(m) {
+		if (window.CW_ASCENSION) { if (window.__cwAscension) window.__cwAscension.startMission(); return; }
+		refreshState();
 		if (!missionAvailable(m)) { toast('Mission locked'); return; }
 		setActiveRun(m);
 		if (root) root.dataset.tab = (m.kind === 'combat' ? 'combat' : 'run');
@@ -468,6 +529,13 @@
 		});
 	}
 	function toggle(force, tab) {
+		if (window.CW_ASCENSION) {
+			if (window.__cwAscension) {
+				if (force === false) window.__cwAscension.close();
+				else window.__cwAscension.openDeck(tab === 'run' || tab === 'field' || tab === 'combat' ? 'missions' : tab || 'missions');
+			}
+			return;
+		}
 		ensureRoot();
 		if (typeof force === 'string') {
 			tab = force;
@@ -768,6 +836,7 @@
 
 	// ---------- Trigger surface ----------
 	function mountFab() {
+		if (window.CW_ASCENSION) return;
 		if (!document.querySelector('.cw-gp-fab')) {
 			var fab = document.createElement('button');
 			fab.type = 'button';
@@ -868,6 +937,7 @@
 		});
 	}
 	function mountLiveOps() {
+		if (window.CW_ASCENSION) return;
 		var viewport = document.querySelector('.cw-stage .viewport');
 		if (!viewport) return null;
 		if (liveOps && liveOps.root && liveOps.root.isConnected) return liveOps;
@@ -1182,6 +1252,13 @@
 	}
 
 	document.addEventListener('keydown', function (ev) {
+		if (window.CW_ASCENSION) {
+			if (ev.defaultPrevented || (ev.target && /input|textarea|select/i.test(ev.target.tagName))) return;
+			var publicModal = document.getElementById('cwas-modal');
+			if ((document.body.dataset && document.body.dataset.phase !== 'playing') || (publicModal && !publicModal.hidden)) return;
+			if ((ev.key === 'm' || ev.key === 'M') && window.__cwAscension) { ev.preventDefault(); window.__cwAscension.openDeck('map'); }
+			return;
+		}
 		if (ev.target && /input|textarea|select/i.test(ev.target.tagName)) return;
 		var key = ev.key.length === 1 ? ev.key.toLowerCase() : ev.key;
 		var fieldActive = !!(liveOps && liveOps.active);
@@ -1247,6 +1324,7 @@
 	}
 
 	function boot() {
+		if (window.CW_ASCENSION) return;
 		if (!document.body) return;
 		mountFab();
 		mountLiveOps();
@@ -1295,6 +1373,7 @@
 		return JSON.parse(JSON.stringify(state));
 	}
 	function completeTutorialReward() {
+		refreshState();
 		if (state.flags && state.flags.tutorialDone) return false;
 		state.flags = state.flags || {};
 		state.flags.tutorialDone = true;
@@ -1316,13 +1395,40 @@
 
 	// Public API
 	window.__cwGameplay = {
-		state: function () { return JSON.parse(JSON.stringify(state)); },
+		state: refreshState,
+		refresh: function () { var latest = refreshState(); render(); return latest; },
+		persistence: function () { return { saved: !memoryOnly, mode: memoryOnly ? 'session' : 'local' }; },
+		storageStatus: function () { return { persistent: !memoryOnly }; },
+		replaceState: function (next) {
+			state = sanitizeState(next);
+			stateBaseline = JSON.parse(JSON.stringify(state));
+			try { localStorage.setItem(SAVE_KEY, JSON.stringify(state)); memoryOnly = false; } catch (e) { memoryOnly = true; }
+			render(); return JSON.parse(JSON.stringify(state));
+		},
+		updateProfile: function (profile) {
+			refreshState();
+			var p = plainObject(profile) ? profile : {};
+			if (typeof p.callsign === 'string') state.callsign = p.callsign.slice(0, 24);
+			if (typeof p.path === 'string') state.flags.path = p.path.slice(0, 40);
+			if (plainObject(p.look)) state.look = Object.assign({}, state.look || {}, p.look);
+			saveState(); render(); return JSON.parse(JSON.stringify(state));
+		},
 		open: function (tab) { toggle(true, tab); },
 		close: function () { toggle(false); },
 		toggle: toggle,
-		gainXp: gainXp,
-		gainCredits: gainCredits,
-		gainItem: gainItem,
+		gainXp: function (n) { refreshState(); gainXp(boundedNumber(n, 0, 1000000)); },
+		gainCredits: function (n) { refreshState(); gainCredits(boundedNumber(n, 0, 1000000)); },
+		gainItem: function (id, qty) { refreshState(); var count = boundedNumber(qty, 1, 100000); if (count && typeof id === 'string' && id.length <= 100 && !/^(?:__proto__|constructor|prototype)$/.test(id)) gainItem(id, count); },
+		completeMission: function (id, reward) {
+			refreshState();
+			if (typeof id !== 'string' || !/^[a-z0-9][a-z0-9:._-]{0,99}$/i.test(id) || state.completed[id]) return false;
+			var known = MISSIONS.find(function (m) { return m.id === id; });
+			var r = plainObject(reward) ? reward : ((known && known.reward) || {});
+			var item = typeof r.item === 'string' && !/^(?:__proto__|constructor|prototype)$/.test(r.item) ? r.item.slice(0, 100) : null;
+			return completeMission({ id: id, title: r.title || (known && known.title) || 'Signal contained', reward: {
+				xp: boundedNumber(r.xp, 0, 1000000), credits: boundedNumber(r.credits, 0, 1000000), item: item
+			} });
+		},
 		resetFresh: resetFresh,
 		completeTutorialReward: completeTutorialReward,
 		startMission: function (id) {
@@ -1331,4 +1437,7 @@
 		},
 		missions: function () { return MISSIONS.slice(); }
 	};
+	window.addEventListener('storage', function (event) {
+		if (event.key === SAVE_KEY) { refreshState(); render(); }
+	});
 })();

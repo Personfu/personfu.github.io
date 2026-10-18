@@ -379,6 +379,7 @@
   var view = { screen: 'overview', domain: null, challenge: null };
 
   function ensureMounted() {
+    if (window.CW_ASCENSION) return;
     if (!document.body) return;
     mountDock();
     mountWin();
@@ -432,6 +433,13 @@
     renderOverview();
   }
   function toggle(force) {
+    if (window.CW_ASCENSION) {
+      if (window.__cwAscension) {
+        if (force === false) window.__cwAscension.close();
+        else window.__cwAscension.openDeck('academy');
+      }
+      return;
+    }
     ensureMounted();
     var w = document.getElementById('cwa-win'); if (!w) return;
     var show = force === undefined ? !w.classList.contains('open') : force;
@@ -900,8 +908,8 @@
   window.__cwAcademy = {
     open: function () { toggle(true); },
     close: function () { toggle(false); },
-    goOverview: function () { toggle(true); showScreen('overview'); renderOverview(); },
-    goChallenge: function (id) { var c = chById(id); if (!c) return false; toggle(true); openChallenge(id); return true; },
+    goOverview: function () { if (window.CW_ASCENSION) { toggle(true); return; } toggle(true); showScreen('overview'); renderOverview(); },
+    goChallenge: function (id) { var c = chById(id); if (!c) return false; if (window.CW_ASCENSION) { toggle(true); return true; } toggle(true); openChallenge(id); return true; },
     challengeName: function (id) { var c = chById(id); return c ? c.title : null; },
     progress: function () { return { done: CH.filter(function (c) { return isDone(c.id); }).length, total: CH.length }; },
     challenges: function () { return CH.map(function (c) { return { id: c.id, title: c.title, xp: c.xp }; }); },
@@ -926,6 +934,7 @@
 
   // ------------------------------------------------------------ deep-link auto-open
   function checkAutoOpen() {
+    if (window.CW_ASCENSION) return;
     try {
       var p = new URLSearchParams(window.location.search || '');
       var launch = (p.get('launch') || '').toLowerCase();

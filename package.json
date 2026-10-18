@@ -1,0 +1,27 @@
+{
+  "name": "cyberworld-ascension-static",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Verification tools for the static CyberWorld browser game",
+  "scripts": {
+    "typecheck": "tsc --project tsconfig.json",
+    "lint": "node scripts/validate-static.cjs lint",
+    "build": "node scripts/build-ascension-3d.cjs && node scripts/validate-static.cjs build",
+    "test": "node scripts/test-ascension-unit.cjs",
+    "test:network": "node scripts/test_ascension_net.cjs",
+    "test:browser": "node scripts/test-ascension-campaign-browser.cjs && playwright test",
+    "test:browser:campaign": "node scripts/test-ascension-campaign-browser.cjs",
+    "test:static": "node scripts/validate-static.cjs build",
+    "assets:registry": "node scripts/ascension-asset-registry.cjs",
+    "benchmark": "node scripts/benchmark-ascension.cjs",
+    "probe:peers": "node scripts/probe-ascension-peers.cjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "typescript": "7.0.2"
+  },
+  "dependencies": {
+    "esbuild": "0.28.2",
+    "three": "0.186.1"
+  }
+}

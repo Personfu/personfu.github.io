@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM"],
+    "types": [],
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true,
+    "strict": true,
+    "skipLibCheck": false
+  },
+  "include": [
+    "types/**/*.ts",
+    "CyberWorld/ascension-*.js",
+    "CyberWorld/src/**/*.js",
+    "CyberWorld/cw-world.js",
+    "CyberWorld/gameplay.js",
+    "sw.js"
+  ],
+  "exclude": ["node_modules", "CyberWorld/_next", "dist", "CyberWorld/ascension-world3d.js", "CyberWorld/ascension-response3d.js"]
+}

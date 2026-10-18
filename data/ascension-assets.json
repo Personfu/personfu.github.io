@@ -1,0 +1,183 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-18T21:51:44.324Z",
+  "countingMethod": "Indexed triangle faces (or position-count/3 for nonindexed geometry); instanced counts multiplied by instances. Composite counts exclude shadow/postprocessing passes and report label sprites separately.",
+  "models": [
+    {
+      "id": "sentinel",
+      "provenance": "Original project-authored procedural model builder",
+      "source": "CyberWorld/src/ascension-world3d.js",
+      "sourceSha256": "164982456cad956855bfff2b033d2e96752dac6f684f50ea1fc7f63694dbe1d6",
+      "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
+      "parameters": {
+        "frame": "sentinel"
+      },
+      "meshTriangles": 10020,
+      "spriteTriangles": 0,
+      "meshes": 35,
+      "uniqueGeometries": 6,
+      "uniqueMaterials": 15
+    },
+    {
+      "id": "ghost",
+      "provenance": "Original project-authored procedural model builder",
+      "source": "CyberWorld/src/ascension-world3d.js",
+      "sourceSha256": "164982456cad956855bfff2b033d2e96752dac6f684f50ea1fc7f63694dbe1d6",
+      "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
+      "parameters": {
+        "frame": "ghost"
+      },
+      "meshTriangles": 10068,
+      "spriteTriangles": 0,
+      "meshes": 36,
+      "uniqueGeometries": 7,
+      "uniqueMaterials": 16
+    },
+    {
+      "id": "runner",
+      "provenance": "Original project-authored procedural model builder",
+      "source": "CyberWorld/src/ascension-world3d.js",
+      "sourceSha256": "164982456cad956855bfff2b033d2e96752dac6f684f50ea1fc7f63694dbe1d6",
+      "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
+      "parameters": {
+        "frame": "runner"
+      },
+      "meshTriangles": 10664,
+      "spriteTriangles": 0,
+      "meshes": 38,
+      "uniqueGeometries": 5,
+      "uniqueMaterials": 17
+    },
+    {
+      "id": "tinker",
+      "provenance": "Original project-authored procedural model builder",
+      "source": "CyberWorld/src/ascension-world3d.js",
+      "sourceSha256": "164982456cad956855bfff2b033d2e96752dac6f684f50ea1fc7f63694dbe1d6",
+      "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
+      "parameters": {
+        "frame": "tinker"
+      },
+      "meshTriangles": 11220,
+      "spriteTriangles": 0,
+      "meshes": 39,
+      "uniqueGeometries": 5,
+      "uniqueMaterials": 18
+    },
+    {
+      "id": "referenceTower",
+      "provenance": "Original project-authored procedural model builder",
+      "source": "CyberWorld/src/ascension-world3d.js",
+      "sourceSha256": "164982456cad956855bfff2b033d2e96752dac6f684f50ea1fc7f63694dbe1d6",
+      "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
+      "parameters": {
+        "width": 8,
+        "depth": 8,
+        "height": 16,
+        "interactive": false
+      },
+      "meshTriangles": 952,
+      "spriteTriangles": 0,
+      "meshes": 15,
+      "uniqueGeometries": 2,
+      "uniqueMaterials": 10
+    },
+    {
+      "id": "referenceVenue",
+      "provenance": "Original project-authored procedural model builder",
+      "source": "CyberWorld/src/ascension-world3d.js",
+      "sourceSha256": "164982456cad956855bfff2b033d2e96752dac6f684f50ea1fc7f63694dbe1d6",
+      "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
+      "parameters": {
+        "width": 8,
+        "depth": 8,
+        "height": 16,
+        "interactive": true
+      },
+      "meshTriangles": 1024,
+      "spriteTriangles": 2,
+      "meshes": 21,
+      "uniqueGeometries": 2,
+      "uniqueMaterials": 13
+    }
+  ],
+  "primitives": [
+    {
+      "id": "unit-box",
+      "constructor": "BoxGeometry(1,1,1)",
+      "triangles": 12
+    },
+    {
+      "id": "world-sphere",
+      "constructor": "SphereGeometry(1,16,12)",
+      "triangles": 352
+    },
+    {
+      "id": "world-cylinder",
+      "constructor": "CylinderGeometry(1,1,1,20)",
+      "triangles": 80
+    },
+    {
+      "id": "world-capsule",
+      "constructor": "CapsuleGeometry(1,1,4,12)",
+      "triangles": 216
+    },
+    {
+      "id": "world-ring",
+      "constructor": "TorusGeometry(radius,width,6,64)",
+      "triangles": 768
+    },
+    {
+      "id": "operative-visor",
+      "constructor": "SphereGeometry(1,18,8,0,PI,PI*.36,PI*.23)",
+      "triangles": 288
+    },
+    {
+      "id": "arena-ring",
+      "constructor": "TorusGeometry(radius,thickness,8,48)",
+      "triangles": 768
+    },
+    {
+      "id": "arena-conduit",
+      "constructor": "TubeGeometry(curve,32,.042,6,false)",
+      "triangles": 384
+    },
+    {
+      "id": "arena-conduit-sheath",
+      "constructor": "TubeGeometry(curve,32,.14,8,false)",
+      "triangles": 512
+    },
+    {
+      "id": "octahedron",
+      "constructor": "OctahedronGeometry(radius,0)",
+      "triangles": 8
+    },
+    {
+      "id": "icosahedron",
+      "constructor": "IcosahedronGeometry(radius,0)",
+      "triangles": 20
+    }
+  ],
+  "renderingDependency": {
+    "package": "three",
+    "version": "0.186.1",
+    "license": "MIT",
+    "copyright": "Copyright © 2010–2026 three.js authors",
+    "source": "https://github.com/mrdoob/three.js",
+    "distributedLicense": "CyberWorld/THIRD_PARTY_LICENSES.txt"
+  },
+  "supportingArt": [
+    {
+      "path": "CyberWorld/assets/cyberworld/ascension-plaza.webp",
+      "provenance": "Original image generated for this project using OpenAI image generation; see docs/ASCENSION-ART.md",
+      "use": "Supporting social-preview/offline illustration, not the playable 3D world",
+      "triangles": null,
+      "sha256": "75b713bce2fb36a0e5db319c1ae803bfd8399ba8356b9363eb38649524cecf33"
+    }
+  ],
+  "limitations": [
+    "Reference tower counts vary with dimensions and facade window count.",
+    "These counts are per model, not total visible scene draw calls.",
+    "Material/texture GPU allocations and renderer performance require a browser capture.",
+    "No imported commercial-game model, character, agency seal or licensed franchise asset is used by these builders."
+  ]
+}
