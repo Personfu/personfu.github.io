@@ -365,6 +365,13 @@ import { createCityAudio } from './ascension-audio.js';
     const rampLength=Math.hypot(11,4.2);
     const ramp=new THREE.Mesh(new THREE.BoxGeometry(3.2,.18,rampLength),material(0x394b59));
     ramp.position.set(13,2.1,17.5);ramp.rotation.x=-Math.atan2(4.2,11);ramp.receiveShadow=true;ramp.castShadow=true;parent.add(ramp);walkableMeshes.push(ramp);
+    const rampSign = textSprite('ROOFTOP ACCESS / FOLLOW AMBER', '#ffbe65', 3.5);
+    rampSign.position.set(13,2.9,10.8); parent.add(rampSign);
+    for (let step=0;step<9;step++) {
+      const z=12.25+step*1.15, y=(z-12)/11*4.2+.11;
+      const left=box(parent,12.84,y,z,.42,.022,.075,C.amber,true,{emissiveIntensity:.35});left.rotation.y=-.58;
+      const right=box(parent,13.16,y,z,.42,.022,.075,C.amber,true,{emissiveIntensity:.35});right.rotation.y=.58;
+    }
     for(const x of [11.45,14.55]){
       const rail=box(parent,x,3.0,17.5,.07,.07,rampLength,0x82919c);rail.rotation.x=-Math.atan2(4.2,11);
       for(let step=0;step<6;step++)cylinder(parent,x,(step/5*4.2)/2+.5,12+step/5*11,.035,step/5*4.2+1,0x607d8a);
@@ -597,7 +604,11 @@ import { createCityAudio } from './ascension-audio.js';
   function toPlaza() { ensureMounted(); state.view = 'plaza'; state.district = null; rebuild(null); }
   function toDistrict(id) { ensureMounted(); if (!['soc','academy','lab','net','map','field','relay','storm','profile','console'].includes(id)) return;
     if (['field','relay','storm'].includes(id)) { dispatch('ascension:mission', {id}); return; }
-    state.view = 'district'; state.district = id === 'profile' ? 'lab' : id === 'console' ? 'soc' : id; rebuild(state.district); }
+    const nextDistrict = id === 'profile' ? 'lab' : id === 'console' ? 'soc' : id;
+    // Stage a readable arrival even if the player orbited behind a city wall.
+    // Subsequent camera movement inside this district remains player-controlled.
+    if (state.district !== nextDistrict) state.orbit = .12;
+    state.view = 'district'; state.district = nextDistrict; rebuild(state.district); }
   function snapshot() {
     return { view: state.view, district: state.district, width: state.width, height: state.height,
       avatar: { x: (state.position.x + 50) / 100 * state.width, y: (state.position.z + 50) / 100 * state.height,

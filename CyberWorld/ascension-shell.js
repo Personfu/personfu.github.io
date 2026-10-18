@@ -298,7 +298,8 @@
       if (obj) { text('cwas-objective-title', obj.title || 'Codebreaker: Ascension'); text('cwas-objective-copy', obj.description || 'Investigate the first signal.'); text('cwas-step-title', obj.step || 'Open your case file'); text('cwas-step-copy', obj.hint || 'Review the evidence in your Cyberdeck.'); text('cwas-mission-number', obj.index || '01 / 07'); }
     }
     var count = state.completed ? Object.keys(state.completed).length : 0;
-    if (count) text('cwas-radio-copy', 'A recovered signal opens another district. Check your case file for the next operation.');
+    var total = window.CW_ASCENSION_DATA && window.CW_ASCENSION_DATA.missions ? window.CW_ASCENSION_DATA.missions.length : 7;
+    text('cwas-radio-copy', count >= total ? 'Black Freight is resolved. Return to the plaza, finish field training, or download your earned case files.' : count ? 'Your evidence chain is growing. Open the case file for the next Black Freight operation.' : "The city looks normal. That is the problem.");
     var over = !!state.overclockActive || !!state.overclockUntil && state.overclockUntil > Date.now();
     document.body.classList.toggle('overclock-active', over);
     text('cwas-overclock-charge', over ? 'NETWORK VISIBLE' : (typeof state.overclock === 'number' ? Math.round(state.overclock) + '% CHARGE' : 'REVEAL THE SIGNAL'));

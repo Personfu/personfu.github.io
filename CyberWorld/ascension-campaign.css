@@ -99,3 +99,12 @@
   #cwas-modal .cwas-adversary-body { grid-template-columns: 1fr; }
 }
 @media (prefers-reduced-motion:reduce) { #cwas-modal * { transition: none !important; animation: none !important; } }
+/* Offline case files and byte-level evidence inspection. */
+.cwas-artifact-tools{margin:0 0 1.2rem;padding:1rem;border:1px solid #397b84;background:linear-gradient(115deg,#0a2630,#101b29);border-radius:9px}
+.cwas-artifact-tools p{margin:.4rem 0 .8rem;color:#c0d7df}
+.cwas-inspector-controls{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.cwas-byte-view{max-height:390px;overflow:auto;padding:1rem;background:#051119;border:1px solid #397b84;border-radius:8px;font:13px/1.65 ui-monospace,Consolas,monospace;color:#c4f7ea;white-space:pre;tab-size:2}
+#cwas-modal pre.cwas-byte-view{white-space:pre;word-break:normal;overflow-wrap:normal;max-width:100%;overflow-x:auto}
+[data-evidence-summary]{color:#b6d5df;overflow-wrap:anywhere;font:12px/1.5 ui-monospace,Consolas,monospace}
+[data-evidence-mode][aria-pressed=true]{border-color:#5eead4;box-shadow:inset 0 0 0 1px #5eead4}
+@media(max-width:620px){.cwas-inspector-controls{grid-template-columns:1fr}.cwas-artifact-tools .cwas-btn{width:100%}.cwas-byte-view{max-height:300px;font-size:11px}}

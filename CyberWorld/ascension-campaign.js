@@ -144,6 +144,7 @@
     function input(label, name, placeholder, value) { return '<label class="cwas-field">' + esc(label) + '<input name="' + esc(name) + '" autocomplete="off" spellcheck="false" placeholder="' + esc(placeholder || '') + '" value="' + esc(value || '') + '"></label>'; }
     function select(label, name, options, value) { return '<label class="cwas-field">' + esc(label) + '<select name="' + esc(name) + '"><option value="">Choose from the evidence…</option>' + options.map(function (o) { return '<option value="' + esc(o[0]) + '"' + (o[0] === value ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select></label>'; }
     function panel(title, body) { return '<section class="cwas-panel"><h3>' + esc(title) + '</h3>' + body + '</section>'; }
+    function caseFiles(m) { return win.CW_ASCENSION_DOWNLOADS ? win.CW_ASCENSION_DOWNLOADS.controls(m, state.completed[m.id] === true) : ''; }
     function table(head, rows) { return '<div class="cwas-table-scroll"><table class="cwas-evidence"><thead><tr>' + head.map(function (h) { return '<th scope="col">' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' + rows.map(function (r) { return '<tr>' + r.map(function (v) { return '<td>' + esc(v) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>'; }
     function status(text, good) {
       var node = doc.getElementById('cwas-status');
@@ -180,6 +181,9 @@
       if (win.__cwWorld && win.__cwWorld.setMovement) win.__cwWorld.setMovement(0, 0);
       if (tab) activeTab = tab;
       modal.innerHTML = '<div class="cwas-dialog" tabindex="-1"><header class="cwas-dialog-header"><div><span class="cwas-eyebrow">CYBERDECK / SIMULATION</span><h2 id="cwas-dialog-title">' + esc(title) + '</h2></div><button type="button" class="cwas-close" data-close aria-label="Close CyberDeck">×</button></header><nav class="cwas-deck-tabs" aria-label="CyberDeck applications">' + [['missions','Operations'],['journal','Journal'],['inventory','Loadout'],['codex','Codex'],['map','Map'],['academy','Academy'],['arcade','Arcade']].map(function (t) { return '<button type="button" data-action="tab" data-value="' + t[0] + '"' + (activeTab === t[0] ? ' aria-current="page"' : '') + '>' + t[1] + '</button>'; }).join('') + '</nav><div class="cwas-dialog-content">' + html + '</div><div id="cwas-status" class="cwas-status" role="status" aria-live="polite">' + (saveOk ? 'Local progress saved. No external targets or live traffic.' : 'Storage unavailable. Keep this tab open to retain this session.') + '</div></div>';
+      var content = modal.querySelector('.cwas-dialog-content');
+      if (state.active && (html.indexOf('data-puzzle=') >= 0 || html.indexOf('cwas-case-top') >= 0 || html.indexOf('cwas-reward') >= 0)) content.insertAdjacentHTML('afterbegin', caseFiles(mission(state.active)));
+      if (title === 'Operative / LOADOUT') content.insertAdjacentHTML('beforeend', panel('DOWNLOAD YOUR ACHIEVEMENTS', DATA.missions.filter(function (m) { return state.completed[m.id]; }).map(caseFiles).join('') || '<p>File a case to unlock its original badge, certificate, and module receipt.</p>'));
       dialog = modal.querySelector('.cwas-dialog'); dialog.focus();
     }
     function closeModal() {
@@ -301,7 +305,7 @@
     }
     function renderArcade() {
       var el=doc.getElementById('cwas-arcade-play');if(!el)return;
-      if(arcadeRun.index===8){state.arcade.best=Math.max(state.arcade.best,arcadeRun.score);save();el.innerHTML=panel('RUN COMPLETE', '<h3>'+arcadeRun.score+' / 8 CORRECT</h3><p>DNS resolves names, HTTPS carries encrypted web traffic, and NTP synchronizes clocks. Ports are clues; inspect protocol evidence too.</p>'+button('Play again','arcade-start'));return;}
+      if(arcadeRun.index===8){state.arcade.best=Math.max(state.arcade.best,arcadeRun.score);save();var best=modal.querySelector('.cwas-panel strong');if(best)best.textContent=state.arcade.best+' / 8 CORRECT';el.innerHTML=panel('RUN COMPLETE', '<h3>'+arcadeRun.score+' / 8 CORRECT</h3><p>DNS resolves names, HTTPS carries encrypted web traffic, and NTP synchronizes clocks. Ports are clues; inspect protocol evidence too.</p>'+button('Play again','arcade-start'));return;}
       var packet=arcadeRun.packets[arcadeRun.index];el.innerHTML=panel('PACKET '+(arcadeRun.index+1)+' / 8','<pre>'+esc(packet[0])+'</pre><div class="cwas-actions">'+button('DNS','arcade-answer','DNS')+button('HTTPS','arcade-answer','HTTPS')+button('NTP','arcade-answer','NTP')+'</div><p>'+esc(arcadeRun.feedback)+'</p>');
     }
     function toggleOverclock() {
@@ -322,6 +326,17 @@
       if(action==='close'){closeModal();return;}
       if(action==='tab'){openDeck(value);return;}
       if(action==='mission'){rememberForm();startMission(value);return;}
+      if(action==='case-download'||action==='case-inspect'||action==='reward-download'){
+        var downloads=win.CW_ASCENSION_DOWNLOADS, chosen=mission(value);
+        if(!downloads||!DATA.missions.some(function(item){return item.id===value;})||!canStart(state,value)){status('Open an available case before accessing its files.',false);return;}
+        if(action==='reward-download'){
+          if(!state.completed[value]){status('File the case before downloading its earned badge and module.',false);return;}
+          var operative=win.__cwGameplay&&win.__cwGameplay.state?win.__cwGameplay.state():{};
+          downloads.download(win,'cyberworld-'+chosen.id+'-earned-rewards.zip',downloads.zip(downloads.reward(chosen,true,operative.callsign)),'application/zip');status('Earned badge, certificate, and module receipt downloaded. No account details or private notes are included.',true);return;
+        }
+        if(action==='case-download'){downloads.download(win,'cyberworld-'+chosen.id+'-mission.zip',downloads.zip(downloads.artifacts(chosen)),'application/zip');status('Mission evidence pack downloaded for offline analysis. Synthetic evidence; no answer key.',true);return;}
+        rememberForm();show(chosen.title+' / EVIDENCE INSPECTOR','<p class="cwas-lead">Inspect the same bytes used in the downloadable mission pack. Search filters matching text lines; hex mode preserves every byte and its offset.</p><div id="cwas-evidence-inspector"></div><div class="cwas-actions">'+button('Return to case','mission',chosen.id)+'</div>','missions');downloads.mount(win,doc.getElementById('cwas-evidence-inspector'),chosen);return;
+      }
       if(action==='enter-soc'){closeModal();if(win.__cwWorld&&win.__cwWorld.toDistrict)win.__cwWorld.toDistrict('soc');return;}
       if(action==='investigate'){r.stage='puzzle';if(m.id==='route-zero'&&state.overclock===0)state.overclock=30;save();showPuzzle(m);return;}
       if(action==='hint'){rememberForm();r.hints=Math.min(3,r.hints+1);save();doc.getElementById('cwas-hint').textContent=m.hints[r.hints-1];return;}

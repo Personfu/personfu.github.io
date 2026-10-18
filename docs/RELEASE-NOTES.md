@@ -28,6 +28,13 @@ Containment preserves evidence, isolates the affected producer, rotates its toke
 restores the trusted route and visibly verifies recovery. It is a 3D systems-recovery
 simulation, not third-person action combat.
 
+Every available case now offers an offline evidence ZIP, with a brief, original
+artifacts and integrity manifest. Route Zero includes a valid six-record synthetic
+PCAP plus CSV, JSON and endpoint logs. The evidence inspector selects files,
+searches records and displays raw hex/ASCII offsets. Individual artifacts can be
+downloaded directly. Filed cases unlock original badge SVGs, certificates and
+module receipts; private notes and account data never enter those souvenirs.
+
 XP, credits, modules, notes, discoveries and conversation memory persist locally.
 Versioned exports exclude private account data. Imports validate before writing,
 journal prior values and recover from interruption. Mission receipts and rewards
@@ -42,7 +49,7 @@ archived engines and FLLC member gateways remain preserved.
 ## Build, playtest and critique evidence
 
 - TypeScript compatibility/bridge checks, scoped syntax/security lint, static build
-  and eight deterministic suites pass. The build verifies local asset closure.
+  and nine deterministic suites pass. The build verifies local asset closure.
 - The actual Chrome campaign test completes all seven acts, with incorrect-answer
   checks, reversible recovery, tool outputs, reload resume and idempotent rewards.
 - Browser coverage includes creator, movement, graphics settings, modal pause,

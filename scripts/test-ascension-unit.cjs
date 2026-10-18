@@ -5,6 +5,7 @@ const root = path.resolve(__dirname, '..');
 const suites = [
   ['Authored content schema', ['scripts/validate-content.cjs']],
   ['Campaign invariants', ['scripts/test-ascension-campaign.cjs']],
+  ['Downloadable case artifact integrity', ['scripts/browser-downloads-smoke.cjs', '--fixtures-only']],
   ['Animated rig and local asset closure', ['scripts/test_ascension_rig.cjs']],
   ['Shared-engine state contracts', ['scripts/test_ascension_engine.cjs']],
   ['Guest presence', ['scripts/test_ascension_net.cjs']],
