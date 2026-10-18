@@ -77,7 +77,7 @@ function build() {
   visit('CyberWorld/ascension.html');
   visit('index.html');
   for (const file of javascriptFiles().filter(file => /\/ascension-/.test(file) && !bundled(file))) {
-    for (const match of read(file).matchAll(/["']((?:\.\.?\/|\/|assets\/)[^"'\n]+\.(?:webp|png|jpe?g|svg|ogg|mp3|wav|json))(?:[?#][^"']*)?["']/gi)) resolveReference('CyberWorld/ascension.html', match[1], false);
+    for (const match of read(file).matchAll(/["']((?:\.\.?\/|\/|assets\/)[^"'\n]+\.(?:webp|png|jpe?g|svg|ogg|mp3|wav|json|glb|md))(?:[?#][^"']*)?["']/gi)) resolveReference('CyberWorld/ascension.html', match[1], false);
   }
   const game = read('CyberWorld/ascension.html');
   if (!/window\.CW_ASCENSION\s*=\s*true/.test(game)) fail('Ascension entry must enable its isolated public game mode');
@@ -88,7 +88,7 @@ function build() {
   if (exists('CyberWorld/ascension-sw.js')) {
     const worker = read('CyberWorld/ascension-sw.js');
     const runtimeList = worker.match(/const FILES = \[([\s\S]*?)\];/)[1] + worker.match(/const ENTRY = '[^']+';/)[0];
-    const offlineFiles = [...new Set([...runtimeList.matchAll(/['"](\/(?:CyberWorld|assets)\/[^'"\n]+\.(?:html|js|css|webmanifest|webp|png|svg|txt))['"]/g)].map(match => match[1]))];
+    const offlineFiles = [...new Set([...runtimeList.matchAll(/['"](\/(?:CyberWorld|assets)\/[^'"\n]+\.(?:html|js|css|webmanifest|webp|png|svg|txt|glb|md))['"]/g)].map(match => match[1]))];
     let offlineBytes = 0;
     for (const file of offlineFiles) {
       resolveReference('CyberWorld/ascension-sw.js', file, true);

@@ -1,14 +1,15 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-18T22:05:45.042Z",
+  "generatedAt": "2026-10-18T22:23:41.875Z",
   "countingMethod": "Indexed triangle faces (or position-count/3 for nonindexed geometry); instanced counts multiplied by instances. Composite counts exclude shadow/postprocessing passes and report label sprites separately.",
   "models": [
     {
       "id": "sentinel",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "164982456cad956855bfff2b033d2e96752dac6f684f50ea1fc7f63694dbe1d6",
+      "sourceSha256": "d2367e124d2af38928236af794336d04f43c7dd56192266577c4da01ff870bb3",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
+      "use": "Asset-load/failure fallback only",
       "parameters": {
         "frame": "sentinel"
       },
@@ -22,8 +23,9 @@
       "id": "ghost",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "164982456cad956855bfff2b033d2e96752dac6f684f50ea1fc7f63694dbe1d6",
+      "sourceSha256": "d2367e124d2af38928236af794336d04f43c7dd56192266577c4da01ff870bb3",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
+      "use": "Asset-load/failure fallback only",
       "parameters": {
         "frame": "ghost"
       },
@@ -37,8 +39,9 @@
       "id": "runner",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "164982456cad956855bfff2b033d2e96752dac6f684f50ea1fc7f63694dbe1d6",
+      "sourceSha256": "d2367e124d2af38928236af794336d04f43c7dd56192266577c4da01ff870bb3",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
+      "use": "Asset-load/failure fallback only",
       "parameters": {
         "frame": "runner"
       },
@@ -52,8 +55,9 @@
       "id": "tinker",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "164982456cad956855bfff2b033d2e96752dac6f684f50ea1fc7f63694dbe1d6",
+      "sourceSha256": "d2367e124d2af38928236af794336d04f43c7dd56192266577c4da01ff870bb3",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
+      "use": "Asset-load/failure fallback only",
       "parameters": {
         "frame": "tinker"
       },
@@ -67,8 +71,9 @@
       "id": "referenceTower",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "164982456cad956855bfff2b033d2e96752dac6f684f50ea1fc7f63694dbe1d6",
+      "sourceSha256": "d2367e124d2af38928236af794336d04f43c7dd56192266577c4da01ff870bb3",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
+      "use": "Authored environment reference",
       "parameters": {
         "width": 8,
         "depth": 8,
@@ -85,8 +90,9 @@
       "id": "referenceVenue",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "164982456cad956855bfff2b033d2e96752dac6f684f50ea1fc7f63694dbe1d6",
+      "sourceSha256": "d2367e124d2af38928236af794336d04f43c7dd56192266577c4da01ff870bb3",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
+      "use": "Authored environment reference",
       "parameters": {
         "width": 8,
         "depth": 8,
@@ -98,6 +104,50 @@
       "meshes": 21,
       "uniqueGeometries": 2,
       "uniqueMaterials": 13
+    }
+  ],
+  "licensedModels": [
+    {
+      "id": "quaternius-cyberpunk-character",
+      "path": "CyberWorld/assets/cyberworld/models/Character.glb",
+      "creator": "Quaternius",
+      "pack": "Cyberpunk Game Kit",
+      "source": "https://quaternius.com/packs/cyberpunkgamekit.html",
+      "license": "CC0 1.0 (pack-specific page and original release)",
+      "licenseFile": "CyberWorld/assets/cyberworld/models/CHARACTER-LICENSE.md",
+      "sha256": "e3f0912206908cbf3a68846f8f55856495c2c81231642998a42ff850ff1347a3",
+      "bytes": 899196,
+      "bones": 25,
+      "animations": [
+        "Death",
+        "Gun_Shoot",
+        "HitRecieve",
+        "HitRecieve_2",
+        "Idle_Gun_Pointing",
+        "Idle_Gun_Shoot",
+        "Idle_Neutral",
+        "Idle_Sword",
+        "Interact",
+        "Kick_Left",
+        "Kick_Right",
+        "Punch_Left",
+        "Punch_Right",
+        "Roll",
+        "Run",
+        "Run_Back",
+        "Run_Left",
+        "Run_Right",
+        "Run_Shoot",
+        "Sword_Slash",
+        "Walk",
+        "Wave"
+      ],
+      "use": "Player, character creator, citizens, NPCs and actual peer avatars; palette changed at runtime; unused sword hidden",
+      "meshTriangles": 7520,
+      "spriteTriangles": 0,
+      "meshes": 10,
+      "uniqueGeometries": 10,
+      "uniqueMaterials": 7
     }
   ],
   "primitives": [

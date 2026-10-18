@@ -16,6 +16,8 @@ test('true 3D city, creator, movement, modal pause and settings work', async ({ 
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('/CyberWorld/ascension.html');
   await page.waitForFunction(() => window.__cwWorld && window.__cwWorld.snapshot().renderer === 'webgl');
+  await page.waitForFunction(() => window.__cwWorld.snapshot().diagnostics.characterAsset === 'ready');
+  expect(await page.evaluate(() => window.__cwWorld.snapshot().diagnostics.riggedCharacters)).toBeGreaterThan(0);
   await expect(page.locator('#cwas-title')).toBeVisible();
   await page.screenshot({ path: path.join(screenshotDir, 'ascension-title.png') });
   await page.locator('#cwas-begin').click();
@@ -114,6 +116,7 @@ test('installed public game reloads offline without escaping into member routes'
   await page.waitForFunction(() => window.__cwAscensionShell && window.__cwWorld);
   await page.locator('#cwas-continue').click();
   await expect(page.locator('#cwas-callsign')).toHaveText('OFFLINE-QA');
+  await page.waitForFunction(() => window.__cwWorld.snapshot().diagnostics.characterAsset === 'ready');
   await expect.poll(() => page.locator('#cwas-presence-label').innerText()).toMatch(/SOLO|BROWSER|OFFLINE|LOCAL/);
   await context.setOffline(false);
 });

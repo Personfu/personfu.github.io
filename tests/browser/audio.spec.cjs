@@ -1,0 +1,32 @@
+const { test, expect } = require('@playwright/test');
+
+test('sound is opt-in, reacts to interior and Overclock, and keeps its preference on Continue', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto('/CyberWorld/ascension.html');
+  await page.waitForFunction(() => window.__cwWorld?.snapshot().diagnostics.audio);
+  const sound = () => page.evaluate(() => window.__cwWorld.snapshot().diagnostics.audio);
+  expect(await sound()).toMatchObject({ enabled: false, state: 'uninitialized', voices: 0 });
+  await page.locator('#cwas-begin').click();
+  await page.locator('#cwas-handle').fill('SOUND-QA');
+  await page.locator('#cwas-creator-form button[type="submit"]').click();
+  await page.locator('#cwas-audio').click();
+  await expect.poll(sound).toMatchObject({ enabled: true, state: 'running', mode: 'city' });
+  await page.keyboard.down('w');
+  await page.waitForTimeout(1300);
+  await page.keyboard.up('w');
+  expect((await sound()).voices).toBeLessThanOrEqual(32);
+  await page.locator('#cwas-radio-open').click();
+  await page.locator('[data-action="enter-soc"]').click();
+  await expect.poll(sound).toMatchObject({ mode: 'interior' });
+  await page.keyboard.press('q');
+  await expect.poll(sound).toMatchObject({ mode: 'overclock' });
+  await page.reload();
+  await page.waitForFunction(() => window.__cwAscensionShell);
+  expect(await sound()).toMatchObject({ enabled: false, state: 'uninitialized' });
+  await page.locator('#cwas-continue').click();
+  await expect.poll(sound).toMatchObject({ enabled: true, state: 'running' });
+  await page.locator('#cwas-audio').click();
+  expect((await sound()).enabled).toBe(false);
+  expect(errors).toEqual([]);
+});

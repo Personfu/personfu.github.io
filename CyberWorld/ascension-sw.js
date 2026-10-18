@@ -3,7 +3,7 @@
  * The build derives VERSION from the complete public runtime contents.
  */
 'use strict';
-const VERSION = 'cw-ascension-public-3d-794d9ae05aed5637';
+const VERSION = 'cw-ascension-public-3d-8867ff9dc52c23bb';
 const PREFIX = 'cw-ascension-public-';
 const ENTRY = '/CyberWorld/ascension.html';
 const MEMBER_GATEWAY = 'https://www.fllc.net/cyberworld';
@@ -25,6 +25,8 @@ const FILES = [
   '/CyberWorld/ascension-world3d.js',
   '/CyberWorld/ascension-response3d.js',
   '/CyberWorld/THIRD_PARTY_LICENSES.txt',
+  '/CyberWorld/assets/cyberworld/models/Character.glb',
+  '/CyberWorld/assets/cyberworld/models/CHARACTER-LICENSE.md',
   '/assets/favicon.svg',
 ];
 const ALLOWED = new Set(FILES);

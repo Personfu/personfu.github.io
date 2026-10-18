@@ -23,12 +23,17 @@ function modelStats(group) {
   const sourcePath = 'CyberWorld/src/ascension-world3d.js';
   const source = fs.readFileSync(path.join(root, sourcePath), 'utf8');
   const helperStart = source.indexOf('  const shared = {'), helperEnd = source.indexOf('  function textSprite(');
-  const buildingStart = source.indexOf('  function building('), agentStart = source.indexOf('  function makeAgent('), agentEnd = source.indexOf('  function gait(');
+  const buildingStart = source.indexOf('  function building('), agentStart = source.indexOf('  function makeProceduralAgent('), agentEnd = source.indexOf('  function attachCharacterRig(');
   if ([helperStart, helperEnd, buildingStart, agentStart, agentEnd].some(index => index < 0)) throw new Error('Scene builder structure changed; update the geometry registry extractor.');
   const context = vm.createContext({ THREE });
   vm.runInContext('const C={cyan:0x48ffd5}; const materials=new Map(); function collision(){} function textSprite(){return new THREE.Sprite(new THREE.SpriteMaterial());}\n' +
     source.slice(helperStart, helperEnd) + source.slice(buildingStart, agentStart) + source.slice(agentStart, agentEnd) +
-    '\nglobalThis.models={}; for(const frame of ["sentinel","ghost","runner","tinker"]) models[frame]=makeAgent(undefined,undefined,frame); models.referenceTower=building(new THREE.Group(),0,0,8,8,16,0x48ffd5,"",false); models.referenceVenue=building(new THREE.Group(),0,0,8,8,16,0x48ffd5,"Reference",true);', context);
+    '\nglobalThis.models={}; for(const frame of ["sentinel","ghost","runner","tinker"]) models[frame]=makeProceduralAgent(undefined,undefined,frame); models.referenceTower=building(new THREE.Group(),0,0,8,8,16,0x48ffd5,"",false); models.referenceVenue=building(new THREE.Group(),0,0,8,8,16,0x48ffd5,"Reference",true);', context);
+  const modelPath = 'CyberWorld/assets/cyberworld/models/Character.glb';
+  const modelBytes = fs.readFileSync(path.join(root,modelPath));
+  const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
+  const rig = await new GLTFLoader().parseAsync(modelBytes.buffer.slice(modelBytes.byteOffset,modelBytes.byteOffset+modelBytes.byteLength),'');
+  let rigBones=0; rig.scene.traverse(node=>{if(node.isBone)rigBones++;});
   const primitives = [
     ['unit-box', new THREE.BoxGeometry(1, 1, 1), 'BoxGeometry(1,1,1)'],
     ['world-sphere', new THREE.SphereGeometry(1, 16, 12), 'SphereGeometry(1,16,12)'],
@@ -47,13 +52,14 @@ function modelStats(group) {
     schemaVersion: 1,
     generatedAt: new Date().toISOString(),
     countingMethod: 'Indexed triangle faces (or position-count/3 for nonindexed geometry); instanced counts multiplied by instances. Composite counts exclude shadow/postprocessing passes and report label sprites separately.',
-    models: Object.entries(context.models).map(([id, group]) => ({ id, ...original, parameters: id.startsWith('reference') ? { width: 8, depth: 8, height: 16, interactive: id === 'referenceVenue' } : { frame: id }, ...modelStats(group) })),
+    models: Object.entries(context.models).map(([id, group]) => ({ id, ...original, use:id.startsWith('reference')?'Authored environment reference':'Asset-load/failure fallback only', parameters: id.startsWith('reference') ? { width: 8, depth: 8, height: 16, interactive: id === 'referenceVenue' } : { frame: id }, ...modelStats(group) })),
+    licensedModels: [{ id:'quaternius-cyberpunk-character',path:modelPath,creator:'Quaternius',pack:'Cyberpunk Game Kit',source:'https://quaternius.com/packs/cyberpunkgamekit.html',license:'CC0 1.0 (pack-specific page and original release)',licenseFile:'CyberWorld/assets/cyberworld/models/CHARACTER-LICENSE.md',sha256:sha(modelBytes),bytes:modelBytes.length,bones:rigBones,animations:rig.animations.map(clip=>clip.name),use:'Player, character creator, citizens, NPCs and actual peer avatars; palette changed at runtime; unused sword hidden',...modelStats(rig.scene) }],
     primitives,
     renderingDependency: { package: 'three', version: require('../node_modules/three/package.json').version, license: 'MIT', copyright: 'Copyright © 2010–2026 three.js authors', source: 'https://github.com/mrdoob/three.js', distributedLicense: 'CyberWorld/THIRD_PARTY_LICENSES.txt' },
     supportingArt: [{ path: 'CyberWorld/assets/cyberworld/ascension-plaza.webp', provenance: 'Original image generated for this project using OpenAI image generation; see docs/ASCENSION-ART.md', use: 'Supporting social-preview/offline illustration, not the playable 3D world', triangles: null, sha256: sha(fs.readFileSync(path.join(root, 'CyberWorld/assets/cyberworld/ascension-plaza.webp'))) }],
     limitations: ['Reference tower counts vary with dimensions and facade window count.', 'These counts are per model, not total visible scene draw calls.', 'Material/texture GPU allocations and renderer performance require a browser capture.', 'No imported commercial-game model, character, agency seal or licensed franchise asset is used by these builders.'],
   };
   fs.writeFileSync(path.join(root, 'data/ascension-assets.json'), JSON.stringify(registry, null, 2) + '\n');
-  fs.writeFileSync(path.join(root, 'CyberWorld/THIRD_PARTY_LICENSES.txt'), 'CyberWorld browser rendering dependency\nThree.js ' + registry.renderingDependency.version + '\nhttps://github.com/mrdoob/three.js\n\n' + fs.readFileSync(path.join(root, 'node_modules/three/LICENSE'), 'utf8'));
-  console.log('Measured original model registry: ' + registry.models.length + ' composites and ' + primitives.length + ' geometry primitives; complete Three.js MIT notice copied for static distribution.');
+  fs.writeFileSync(path.join(root, 'CyberWorld/THIRD_PARTY_LICENSES.txt'), 'CyberWorld browser rendering dependency\nThree.js ' + registry.renderingDependency.version + '\nhttps://github.com/mrdoob/three.js\n\n' + fs.readFileSync(path.join(root, 'node_modules/three/LICENSE'), 'utf8') + '\n\n' + fs.readFileSync(path.join(root,'CyberWorld/assets/cyberworld/models/CHARACTER-LICENSE.md'),'utf8'));
+  console.log('Measured asset registry: ' + registry.models.length + ' authored composites, ' + primitives.length + ' geometry primitives and 1 credited Quaternius animated rig. Complete Three.js notice and model provenance copied for static distribution.');
 })().catch(error => { console.error(error); process.exitCode = 1; });
