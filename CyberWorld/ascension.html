@@ -29,6 +29,7 @@
   <script defer src="ascension-data.js"></script>
   <script defer src="ascension-downloads.js"></script>
   <script defer src="ascension-campaign.js"></script>
+  <script defer src="ascension-field.js"></script>
   <script defer src="ascension-city.js"></script>
   <script defer src="ascension-shell.js"></script>
 </head>
@@ -47,6 +48,7 @@
         <p id="cwas-objective-copy">Meet Agent Zero. Something in the freight network is arriving before it was sent.</p>
         <div class="cwas-objective-step"><span id="cwas-step-index">01</span><div><strong id="cwas-step-title">Establish contact</strong><small id="cwas-step-copy">Find Agent Zero in Cyber Plaza.</small></div></div>
         <button class="cwas-text-button" id="cwas-objective-open">OPEN CASE FILE <span>↗</span></button>
+        <button class="cwas-text-button" id="cwas-field-open">STREET CONTRACT / THE LAST MILE <span>↗</span></button>
       </aside>
       <nav class="cwas-sectors" aria-label="Sector navigation"><span>SECTOR NAV</span><button data-district="plaza" title="Cyber Plaza"><b>01</b>PLAZA</button><button data-district="soc" title="SOC Tower"><b>02</b>SOC TOWER</button><button data-district="academy" title="Hacker Academy"><b>03</b>ACADEMY</button><button data-district="lab" title="Your personal lab"><b>04</b>YOUR LAB</button><button data-deck="map" title="World map"><b>05</b>THE GRID</button><button data-deck="codex" title="Intelligence codex"><b>06</b>CODEX</button></nav>
       <aside class="cwas-location" aria-label="Location and presence"><div><span class="cwas-eyebrow">THE GRID / SECTOR 01</span><strong id="cwas-location-name">CYBER PLAZA</strong></div><canvas id="cwas-minimap" width="226" height="132" aria-label="Minimap. Your operative is shown in cyan."></canvas><div class="cwas-presence"><span id="cwas-presence-dot"></span><span id="cwas-presence-label">CONNECTING TO GRID</span><button id="cwas-roster" title="Show actual connected operatives">↗</button></div><div id="cwas-peer-list" hidden></div></aside>

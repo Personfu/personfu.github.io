@@ -12,7 +12,7 @@ const requiredFiles = [
   'ascension.html', 'ascension.webmanifest', 'ascension.css',
   'ascension-campaign.css', 'gameplay.css', 'cw-academy.css', 'cw-world.css',
   'gameplay.js', 'cw-academy.js', 'ascension-net.js', 'ascension-data.js',
-  'ascension-campaign.js', 'ascension-downloads.js', 'ascension-city.js', 'ascension-shell.js',
+  'ascension-campaign.js', 'ascension-downloads.js', 'ascension-city.js', 'ascension-field.js', 'ascension-shell.js',
   'ascension-world3d.js', 'ascension-response3d.js', 'ascension-sw.js',
   'THIRD_PARTY_LICENSES.txt', 'assets/favicon.svg',
   'assets/cyberworld/operative-sprite.svg', 'assets/cyberworld/data-shard.svg',
@@ -47,7 +47,7 @@ function workerContract(source) {
   const context = { URL, Request, Response, Set, Promise, self: { addEventListener() {} } };
   const result = vm.runInNewContext(source + '\n({ files: FILES, entry: ENTRY, prefix: PREFIX, version: VERSION });', context);
   const files = Array.from(result.files);
-  if (files.length !== 21 || new Set(files).size !== 21 || result.entry !== basePath + '/ascension.html' || result.prefix !== cachePrefix || !result.version.startsWith(cachePrefix)) throw new Error('Public offline snapshot must contain exactly 21 isolated resources.');
+  if (files.length !== 22 || new Set(files).size !== 22 || result.entry !== basePath + '/ascension.html' || result.prefix !== cachePrefix || !result.version.startsWith(cachePrefix)) throw new Error('Public offline snapshot must contain exactly 22 isolated resources.');
   if (files.some(url => !url.startsWith(basePath + '/') || /(?:^|\/)(?:api|auth|login|account|member)(?:\/|\.)/i.test(url))) throw new Error('Offline snapshot escaped the public game.');
   return { files: files.sort(), entry: result.entry, prefix: result.prefix, version: result.version };
 }
@@ -173,7 +173,7 @@ function exportPublic(options = {}) {
   }
   const report = {
     schemaVersion: 1,
-    source: { directory: 'CyberWorld/', favicon: 'assets/favicon.svg', contract: 'Explicit 28-file public game allowlist; rebuilt from current maintained source bytes', files: prepared.sources },
+    source: { directory: 'CyberWorld/', favicon: 'assets/favicon.svg', contract: 'Explicit 29-file public game allowlist; rebuilt from current maintained source bytes', files: prepared.sources },
     deployment: 'Personfu/personfu.github.io static user-site mount; public game only',
     aliases: [basePath + '/', basePath + '/index.html', basePath + '/ascension.html'],
     transforms: ['UTF-8 text normalized to LF; GLB binary preserved', 'Public mount canonical, manifest and worker paths', 'Mount-local favicon and fictional adversary portrait references; optional remote font links omitted', 'Independent worker cache namespace and content-derived version', 'Public home converges on canonical entry under service-worker control'],

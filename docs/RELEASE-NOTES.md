@@ -2,6 +2,24 @@
 
 2026-10-18 · first playable production milestone, not the completed MMO vision.
 
+## The Last Mile expansion
+
+A new street contract asks operatives to protect a clinic supply line without
+disconnecting essential services. Inspect three physical devices around the city,
+corroborate an independent baseline and a service dependency, then operate the
+continuity pedestal. Unsupported routing choices explain their consequences and
+leave the investigation intact. Recovery requires preserving evidence, isolating
+the affected uplink, restoring the verified lane and measuring the delivery.
+
+The world responds: freight, fallback and clinic paths change state, device lights
+and signs update, and the medical supply drone resumes its actual 3D route after
+verification. Motion respects pause and reduced-motion settings. The contract
+works alongside the original seven cases and survives save export/import. Its
+evidence ZIP includes logs, CSV observations and blank offline notes; the earned
+kit includes an original badge, Continuity Prism receipt and preserved field report.
+Rewards use the existing idempotent receipt, so reloads and repeated downloads
+cannot award duplicate XP, credits or modules.
+
 ## Playable in this release
 
 The public entry is `/play-cyberworld/`, linked from the existing operator
