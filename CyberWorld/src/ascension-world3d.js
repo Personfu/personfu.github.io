@@ -3,8 +3,12 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { clone as cloneSkeleton } from 'three/addons/utils/SkeletonUtils.js';
+import { createCityAudio } from './ascension-audio.js';
 
-// Original CyberWorld geometry. Every terminal and packet is fictional game state.
+// Original CyberWorld environment with a credited Quaternius character rig.
+// Every terminal and packet is fictional game state.
 // This engine replaces only the public Ascension renderer; legacy worlds survive.
 (() => {
   'use strict';
@@ -29,34 +33,12 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
   const groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
   const materials = new Map();
   const worldLabels = new Set(), labelPosition = new THREE.Vector3();
-  const audio = { ctx: null, gain: null, enabled: false, voices: [] };
-  function setSoundEnabled(on) {
-    audio.enabled = !!on;
-    if (on && !audio.ctx) {
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audio.ctx = new AudioContext(); audio.gain = audio.ctx.createGain();
-        audio.gain.gain.value = .035; audio.gain.connect(audio.ctx.destination);
-        [55, 82.41].forEach((frequency, index) => {
-          const oscillator = audio.ctx.createOscillator(), gain = audio.ctx.createGain();
-          oscillator.frequency.value = frequency; oscillator.type = 'sine'; gain.gain.value = index ? .15 : .3;
-          oscillator.connect(gain); gain.connect(audio.gain); oscillator.start(); audio.voices.push(oscillator);
-        });
-      } catch (_) { audio.ctx = null; return false; }
-    }
-    if (audio.ctx) {
-      audio.gain.gain.setTargetAtTime(on ? .035 : 0, audio.ctx.currentTime, .15);
-      if (on) audio.ctx.resume().catch(() => {});
-    }
-    return audio.enabled;
-  }
-  function cue(frequency = 440) {
-    if (!audio.enabled || !audio.ctx) return;
-    const oscillator = audio.ctx.createOscillator(), gain = audio.ctx.createGain(), now = audio.ctx.currentTime;
-    oscillator.frequency.value = frequency; oscillator.type = 'sine';
-    gain.gain.setValueAtTime(.0001, now); gain.gain.exponentialRampToValueAtTime(.045, now + .025); gain.gain.exponentialRampToValueAtTime(.0001, now + .22);
-    oscillator.connect(gain); gain.connect(audio.ctx.destination); oscillator.start(); oscillator.stop(now + .25);
-  }
+  const cityAudio = createCityAudio();
+  function setSoundEnabled(on) { return cityAudio.setEnabled(on); }
+  function cue(frequency = 440) { cityAudio.cue(frequency); }
+  const characterURL = new URL('assets/cyberworld/models/Character.glb', document.currentScript?.src || document.baseURI).href;
+  const characterAgents = new Set(), rigGeometries = new Set();
+  let characterPromise, characterTemplate, characterStatus = 'unrequested';
   const shared = {
     box: new THREE.BoxGeometry(1, 1, 1),
     sphere: new THREE.SphereGeometry(1, 16, 12),
@@ -189,7 +171,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     return group;
   }
 
-  function makeAgent(color = C.cyan, skin = 0xb47c61, frame = 'sentinel') {
+  function makeProceduralAgent(color = C.cyan, skin = 0xb47c61, frame = 'sentinel') {
     const group = new THREE.Group(), parts = {};
     const coat = frame === 'ghost' ? 0x10131f : 0x172538;
     function rounded(parent, x, y, z, w, h, d, surface, glow = false) {
@@ -249,8 +231,84 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     group.traverse(mesh => { if (mesh.isMesh) mesh.castShadow = true; });
     group.userData.parts = parts; group.userData.walk = 0; return group;
   }
-  function gait(agent, moving, dt) {
+  function attachCharacterRig(agent) {
+    if (!characterTemplate || agent.userData.disposed || agent.userData.rig) return;
+    const rig = cloneSkeleton(characterTemplate.scene), config = agent.userData.character;
+    const accent = new THREE.Color(config.color), jacket = accent.clone().lerp(new THREE.Color(0x18283d),.70);
+    const shadow = jacket.clone().multiplyScalar(.52), pants = new THREE.Color(0x101924);
+    const palette = { Material:jacket, Main:jacket, Accent:accent, Accent_Dark:shadow, Black:pants, Blade:new THREE.Color(0x889da6), Blade_Edge:accent };
+    rig.traverse(node => {
+      // The kit includes a sword attachment; field operatives carry a CyberDeck
+      // in this game. Do not show a weapon merely because it exists in the kit.
+      if (node.name === 'Sword') node.visible = false;
+      if (!node.isMesh) return;
+      node.frustumCulled = false;
+      node.castShadow = agent.userData.castCharacterShadow;
+      node.receiveShadow = true;
+      const recolor = original => {
+        const surface = original.clone();
+        if (palette[surface.name] && surface.color) surface.color.copy(palette[surface.name]);
+        surface.roughness = .72; surface.metalness = .12;
+        if (surface.name === 'Accent' && surface.emissive) { surface.emissive.copy(accent); surface.emissiveIntensity=.10; }
+        return surface;
+      };
+      node.material = Array.isArray(node.material) ? node.material.map(recolor) : recolor(node.material);
+    });
+    const mixer = new THREE.AnimationMixer(rig), actions = {};
+    ['Idle_Neutral','Walk','Run','Interact','Wave'].forEach(name => {
+      const clip = THREE.AnimationClip.findByName(characterTemplate.animations,name);
+      if (clip) actions[name] = mixer.clipAction(clip);
+    });
+    actions.Idle_Neutral?.play(); mixer.update(0);
+    function visibleBounds() {
+      rig.updateMatrixWorld(true);
+      rig.traverseVisible(node=>{if(node.isSkinnedMesh)node.skeleton.update();});
+      const bounds = new THREE.Box3();
+      // setFromObject(root) includes invisible attachments and cached bind-pose
+      // bounds. Normalize the visible, posed vertices only, so the feet contact
+      // the actual floor instead of floating above a hidden sword's bounds.
+      rig.traverseVisible(node=>{if(node.isMesh)bounds.union(new THREE.Box3().setFromObject(node,true));});
+      return bounds;
+    }
+    const bounds = visibleBounds(), size = bounds.getSize(new THREE.Vector3());
+    rig.scale.multiplyScalar(2.17 / Math.max(.01,size.y));
+    const aligned = visibleBounds(), center = aligned.getCenter(new THREE.Vector3());
+    rig.position.x -= center.x; rig.position.y -= aligned.min.y; rig.position.z -= center.z;
+    agent.userData.rig = { root:rig,mixer,actions,current:actions.Idle_Neutral,name:'Idle_Neutral' };
+    if (agent.userData.fallback) { agent.remove(agent.userData.fallback); releaseGroup(agent.userData.fallback); agent.userData.fallback=null; }
+    agent.add(rig);
+  }
+  function loadCharacterRig() {
+    if (characterPromise) return characterPromise;
+    characterStatus = 'loading';
+    characterPromise = new GLTFLoader().loadAsync(characterURL).then(gltf => {
+      characterTemplate = gltf; characterStatus = 'ready';
+      gltf.scene.traverse(node => { if(node.isMesh)rigGeometries.add(node.geometry); });
+      characterAgents.forEach(attachCharacterRig); return gltf;
+    }).catch(() => { characterStatus = 'fallback'; return null; });
+    return characterPromise;
+  }
+  function makeAgent(color = C.cyan, skin = 0xb47c61, frame = 'sentinel') {
+    const group = new THREE.Group();
+    group.userData.character={color,skin,frame}; group.userData.castCharacterShadow=true;
+    group.userData.walk=0; group.userData.fallback=makeProceduralAgent(color,skin,frame);
+    group.add(group.userData.fallback); characterAgents.add(group);
+    if (characterTemplate) attachCharacterRig(group); else loadCharacterRig();
+    return group;
+  }
+  function gait(agent, moving, dt, running = false) {
     if (!agent) return;
+    const rig = agent.userData.rig;
+    if (rig) {
+      const name = moving ? (running && rig.actions.Run ? 'Run' : 'Walk') : 'Idle_Neutral';
+      const next = rig.actions[name] || rig.actions.Idle_Neutral;
+      if(next && rig.current!==next) { rig.current?.fadeOut(.18); next.reset().fadeIn(.18).play(); rig.current=next; rig.name=name; }
+      if (!state.reducedMotion) rig.mixer.update(dt);
+      agent.position.y=agent.userData.groundY||0; return;
+    }
+    if (agent.userData.fallback) {
+      agent.position.y=agent.userData.groundY||0; gait(agent.userData.fallback,moving,dt,running); return;
+    }
     if (!state.reducedMotion) agent.userData.walk += dt * (moving ? 10 : 1);
     const phase = agent.userData.walk, swing = moving && !state.reducedMotion ? Math.sin(phase) * .55 : 0;
     const p = agent.userData.parts;
@@ -263,6 +321,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     const style=styles[id]||['sentinel',0xc59370];
     const agent = makeAgent(color,style[1],style[0]);
     agent.scale.setScalar(id==='zero'?1.08:id==='lyra'?.94:id==='byte'?.96:1);
+    agent.userData.castCharacterShadow=false;
     agent.traverse(mesh=>{if(mesh.isMesh)mesh.castShadow=false;});
     agent.position.set(x, 0, z); parent.add(agent);
     const label = textSprite(title, '#' + color.toString(16).padStart(6, '0'), 2.5); label.position.set(0, 2.75, 0); agent.add(label);
@@ -425,9 +484,14 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     if (!group) return;
     scene?.remove(group);
     const geometries = new Set(), ownMaterials = new Set(), textures = new Set();
-    const cached = new Set(materials.values()), sharedGeometry = new Set(Object.values(shared));
+    const cached = new Set(materials.values()), sharedGeometry = new Set([...Object.values(shared),...rigGeometries]);
     group.traverse(node => {
+      if (node.userData.character) {
+        node.userData.disposed=true; characterAgents.delete(node);
+        if(node.userData.rig){node.userData.rig.mixer.stopAllAction();node.userData.rig.mixer.uncacheRoot(node.userData.rig.root);}
+      }
       if (node.isSprite) worldLabels.delete(node);
+      if (node.isSkinnedMesh) node.skeleton.dispose();
       if (node.geometry && !sharedGeometry.has(node.geometry)) geometries.add(node.geometry);
       const list = Array.isArray(node.material) ? node.material : node.material ? [node.material] : [];
       list.forEach(mat => { if (!cached.has(mat)) { ownMaterials.add(mat); if (mat.map) textures.add(mat.map); } });
@@ -543,7 +607,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
       targets: targets.map(target=>({id:target.id,title:target.title,x:target.x,z:target.z,action:target.action})),
       focus: state.focus ? { id: state.focus.id, type: '3d', x: state.focus.x, z: state.focus.z } : null,
       overclock: state.overclock, reducedMotion: state.reducedMotion, renderer: 'webgl',
-      diagnostics: { renderer: 'webgl', drawCalls: renderer?.info.render.calls || 0, triangles: renderer?.info.render.triangles || 0, fps: Math.round(state.fps), quality: state.quality, graphics: { ...state.graphics } } };
+      diagnostics: { renderer: 'webgl', drawCalls: renderer?.info.render.calls || 0, triangles: renderer?.info.render.triangles || 0, fps: Math.round(state.fps), quality: state.quality, graphics: { ...state.graphics }, characterAsset:characterStatus, characterAnimation:actor?.userData.rig?.name||'procedural-fallback', riggedCharacters:[...characterAgents].filter(agent=>agent.userData.rig).length, audio:cityAudio.snapshot() } };
   }
   function blocked() {
     if (document.body.dataset.phase && document.body.dataset.phase !== 'playing') return true;
@@ -695,7 +759,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
       if(key==='e'){event.preventDefault();interact();}
     });
     document.addEventListener('keyup',event=>state.keys.delete(event.key.toLowerCase()));
-    window.addEventListener('blur',clearMovement);document.addEventListener('visibilitychange',()=>{if(document.hidden)clearMovement();});
+    window.addEventListener('blur',clearMovement);document.addEventListener('visibilitychange',()=>{if(document.hidden)clearMovement();cityAudio.update({moving:false,paused:document.hidden,hidden:document.hidden,view:state.view,district:state.district,overclock:state.overclock});});
     canvas.addEventListener('contextmenu',event=>event.preventDefault());
     let down=null;
     canvas.addEventListener('pointerdown',event=>{if(blocked())return;down={x:event.clientX,y:event.clientY,startX:event.clientX,startY:event.clientY,button:event.button,type:event.pointerType};if(event.button===2){state.orbiting=true;canvas.setPointerCapture(event.pointerId);}});
@@ -734,7 +798,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
       if(!collides(state.position.x,nz))state.position.z=nz;
       state.position.y=elevation(state.position.x,state.position.z);
       state.facing=Math.atan2(delta.x,delta.z);}
-    actor.position.copy(state.position);actor.userData.groundY=state.position.y;actor.rotation.y=state.facing;gait(actor,state.moving,dt);
+    actor.position.copy(state.position);actor.userData.groundY=state.position.y;actor.rotation.y=state.facing;gait(actor,state.moving,dt,state.keys.has('shift'));
   }
   function renderWorld() {
     renderer.info.reset();
@@ -776,13 +840,14 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
   }
   let peerTime=0, pathTime=0, backgroundPaused=false;
   function tick(now) {
-    frameId=requestAnimationFrame(tick);if(!state.open||!renderer)return;
+    frameId=requestAnimationFrame(tick);if(!state.open||!renderer){cityAudio.update({paused:true,hidden:document.hidden,moving:false});return;}
     const elapsed=state.last?Math.max(.001,(now-state.last)/1000):1/60;
     const dt=Math.min(.05,elapsed);state.last=now;
     const modal=document.getElementById('cwas-modal');
     const pauseBackground=(modal&&!modal.hidden)||document.body.dataset.phase==='creator';
     if(pauseBackground){
       clearMovement(); context.hidden=true;
+      cityAudio.update({moving:false,view:state.view,district:state.district,overclock:state.overclock,paused:true,hidden:document.hidden});
       if(!backgroundPaused){
         renderWorld();
         window.__cwAscensionNet?.publishPosition({x:(state.position.x+50)/100,y:(state.position.z+50)/100,zone:state.district||'plaza',facing:state.facing,moving:false});
@@ -795,6 +860,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
     state.fps += (1 / elapsed - state.fps) * .05;
     const simulationDt=dt*(state.overclock ? .2 : 1);if(!state.reducedMotion)state.time+=simulationDt;
     updatePlayer(dt);
+    cityAudio.update({moving:state.moving,running:state.keys.has('shift'),view:state.view,district:state.district,overclock:state.overclock,paused:blocked(),hidden:document.hidden});
     const title=document.body.dataset.phase==='title'||document.body.dataset.phase==='creator';
     if(title){const angle=state.reducedMotion ? .58 : .58+Math.sin(state.time*.045)*.18;
       playerPos.set(Math.sin(angle)*34,19,Math.cos(angle)*34);camera.position.lerp(playerPos,1-Math.exp(-dt*2));camera.lookAt(0,2.3,-4);
@@ -846,6 +912,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
       if (disposed) return;
       const dt = previous ? Math.min(.05, (now - previous) / 1000) : 1/60; previous = now;
       if (!state.reducedMotion) elapsed += dt;
+      gait(previewAgent,false,dt);
       previewAgent.rotation.y = .38 + Math.sin(elapsed * .32) * .25;
       previewRenderer.render(previewScene, previewCamera); previewFrame = requestAnimationFrame(draw);
     }

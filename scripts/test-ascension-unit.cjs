@@ -5,6 +5,7 @@ const root = path.resolve(__dirname, '..');
 const suites = [
   ['Authored content schema', ['scripts/validate-content.cjs']],
   ['Campaign invariants', ['scripts/test-ascension-campaign.cjs']],
+  ['Animated rig and local asset closure', ['scripts/test_ascension_rig.cjs']],
   ['Shared-engine state contracts', ['scripts/test_ascension_engine.cjs']],
   ['Guest presence', ['scripts/test_ascension_net.cjs']],
   ['Protected/public root routes', ['scripts/test_service_worker_routes.cjs']],

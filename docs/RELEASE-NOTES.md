@@ -11,6 +11,14 @@ investigations. Operative creation, city/interiors and containment use actual We
 geometry. The camera follows from third person, supports mouse/touch orbit and zoom,
 and avoids blocking geometry. Keyboard, touch and gamepad share the movement bridge.
 
+The final art pass replaces primitive humanoids with a credited, locally bundled
+Quaternius rig: 25 bones, actual idle/walk/run animations and independent skeletons
+for the operative, citizens and connected peers. Outfit colors carry through the
+3D creator. Visible posed vertices ground the feet; the unused sword is hidden.
+An original adaptive synth score, footsteps, rain and server ambience respond
+to movement, interiors and Overclock. Sound remains opt-in. Nearby characters
+and entrances expose a visible, usable interaction prompt on desktop and phone.
+
 The city includes an authored shop street, loading alley, scheduled citizen routes,
 a walkable maintenance ramp and rooftop, a hidden archive, a quartermaster and a
 three-repeater field route. Characters remember authored conversations locally.
@@ -34,7 +42,7 @@ archived engines and FLLC member gateways remain preserved.
 ## Build, playtest and critique evidence
 
 - TypeScript compatibility/bridge checks, scoped syntax/security lint, static build
-  and seven deterministic suites pass. The build verifies local asset closure.
+  and eight deterministic suites pass. The build verifies local asset closure.
 - The actual Chrome campaign test completes all seven acts, with incorrect-answer
   checks, reversible recovery, tool outputs, reload resume and idempotent rewards.
 - Browser coverage includes creator, movement, graphics settings, modal pause,
@@ -47,16 +55,16 @@ archived engines and FLLC member gateways remain preserved.
   corrected label occlusion, coplanar shimmer, camera obstruction, excessive glow,
   mobile camera input and HUD dominance. The final opening has no unhandled errors.
 
-See [independent verdict](qa/independent-critique.md), [33-second actual gameplay](qa/opening-gameplay.webm),
+See [latest independent verdict](evidence/INDEPENDENT-PLAYTEST.md), [35-second actual gameplay](evidence/ascension-rig-walkthrough.webm),
 [performance measurements](ASCENSION-PERFORMANCE.md), [asset registry](ASCENSION-ASSET-REGISTRY.md)
 and [verification scope](ascension-verification.md). Desktop GPU numbers and phone
 viewport emulation do not establish physical-phone or Safari performance.
 
 ## Remaining production gates
 
-The original procedural character/environment art and rigid-part animation are
-below a modern AAA bar. Bespoke production rigs, richer materials, spatial mission
-staging, action encounters, cinematic bosses, dynamic music and deeper authored
+The current licensed character rig and procedural environment art are
+below a modern AAA bar. Bespoke character variety, richer materials, spatial mission
+staging, action encounters, cinematic bosses, production music and deeper authored
 district life remain substantial work. Scripted game AI is not a live generative
 NPC service. Presence is not authoritative co-op or an MMO server. Cloud identity
 migration, moderation, large Operations, world streaming, full content editors,

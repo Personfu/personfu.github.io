@@ -13,7 +13,7 @@ Use Node.js 22 or later, then run `npm ci` using the committed lockfile.
 | `npm run typecheck` | TypeScript compiler validates strict new network contracts and parses selected preserved/new browser JavaScript with `allowJs`, `checkJs: false`, and `noEmit`. This is compatibility/syntax coverage for legacy JavaScript, not a claim of full semantic typing. |
 | `npm run lint` | Checks the syntax of Ascension scripts, the modified world/gameplay/worker scripts, verification tools and entry inline scripts. New game scripts are also checked for dynamic code execution and obvious embedded private keys or live secrets. No legacy code is reformatted. |
 | `npm run build` | Bundles both 3D scenes and pinned Three.js locally with esbuild, derives a content-versioned offline snapshot, validates Ascension and desktop local references, recursively checks styles and manifest resources and confirms the public entry loads both 3D bundles. The static source tree is deployment output; no duplicate legacy assets or `dist` copy is generated. |
-| `npm test` | Runs campaign, shared engine, presence, public/member route, bounded offline worker and static resource suites. |
+| `npm test` | Runs eight suites: content schema, campaign, real animated rig/independent skeletons, shared engine, presence, public/member route, bounded offline worker and static resources. |
 | `npm run test:network` | Runs deterministic tests for public presence protocol handling, actual local-tab discovery, privacy, movement throttling, failures and cleanup. |
 | `npm run test:browser` | Runs the existing full campaign browser suite followed by the project's Playwright browser tests. Use the configured local Chromium executable for this environment. |
 

@@ -36,6 +36,7 @@ function round(value, digits = 2) { return Number(Number(value).toFixed(digits))
       const errors = []; page.on('pageerror', error => errors.push(error.message));
       await page.goto('http://127.0.0.1:' + server.address().port + '/CyberWorld/ascension.html', { waitUntil: 'domcontentloaded' });
       await page.waitForFunction(() => window.__cwWorld?.snapshot().diagnostics?.drawCalls > 0 && window.__cwAscensionShell, null, { timeout: 25000 });
+      await page.waitForFunction(() => window.__cwWorld.snapshot().diagnostics.characterAsset === 'ready', null, { timeout: 25000 });
       const firstRenderedWorldMs = await page.evaluate(() => performance.now());
       await page.locator('#cwas-begin').click();
       await page.locator('#cwas-handle').fill('LOCAL-RENDER-QA');
@@ -79,6 +80,7 @@ function round(value, digits = 2) { return Number(Number(value).toFixed(digits))
         sampleDurationMs: round(frameSample.durationMs), sampledFrames: frameSample.frames, averageFps: round(frameSample.averageFps), medianFrameMs: round(frameSample.medianFrameMs), p95FrameMs: round(frameSample.p95FrameMs),
         averageDrawCalls: round(average(calls)), averageTriangles: Math.round(average(triangles)), maximumTriangles: Math.max(...triangles),
         jsHeapUsedBytes: metric('JSHeapUsedSize'), jsHeapTotalBytes: metric('JSHeapTotalSize'), gpu: resources.gpu, canvasPixels: resources.canvasPixels,
+        characterAsset: frameSample.scenes.at(-1)?.characterAsset, riggedCharacters: frameSample.scenes.at(-1)?.riggedCharacters,
         presenceMode: resources.presenceStatus.mode, pageErrors: errors };
       results.push(result);
       console.log(scenario.id + ': ' + result.averageFps + ' FPS, ' + result.averageDrawCalls + ' calls, ' + result.averageTriangles + ' triangles, ' + round(result.jsHeapUsedBytes / 1024 / 1024) + ' MiB JS heap.');

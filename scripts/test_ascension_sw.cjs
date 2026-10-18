@@ -41,6 +41,8 @@ function fetchEvent(pathname, mode = 'cors', method = 'GET') {
   assert.equal(publicCache.size, declaredFiles.length, 'The complete explicit public resource set is cached');
   assert.ok(publicCache.size <= 32, 'Offline resource count remains bounded');
   assert.ok(publicCache.has('/CyberWorld/THIRD_PARTY_LICENSES.txt'), 'Complete rendering license remains available offline');
+  assert.ok(publicCache.has('/CyberWorld/assets/cyberworld/models/Character.glb'), 'Animated operative stays available offline');
+  assert.ok(publicCache.has('/CyberWorld/assets/cyberworld/models/CHARACTER-LICENSE.md'), 'Character provenance stays available offline');
   assert.ok(fetches.every(request => request.credentials === 'omit'));
   assert.ok(fetches.every(request => !/auth|api\/|profile|login/.test(new URL(request.url).pathname)));
   const initialSize = publicCache.size;

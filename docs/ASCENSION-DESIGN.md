@@ -5,7 +5,8 @@ Content version: 1. Release target: public browser vertical slice, 2026-10-18.
 **Pitch:** A playable cyber-city where the operative's superpower is visibility.
 Explore the Grid, find a signal, build an evidence chain, contain the affected
 system, and return with a better CyberDeck. Cinematic awareness and traversal
-inspire the pacing; all characters, narrative, art, and code remain original.
+inspire the pacing. The narrative, characters and environment are original;
+the credited Quaternius rig supplies licensed character geometry and animation.
 
 ## 1. Current state and preservation inventory
 
