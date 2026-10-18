@@ -3,13 +3,17 @@ on:
   pull_request:
     paths:
       - 'CyberWorld/**'
+      - 'play-cyberworld/**'
       - 'scripts/**'
       - 'tools/**'
       - 'types/**'
       - 'package*.json'
       - 'tsconfig.json'
       - 'index.html'
+      - 'cyberworld.html'
+      - 'cyberworld-game.html'
       - 'sw.js'
+      - '.gitattributes'
       - '.github/workflows/ascension-quality.yml'
   workflow_dispatch:
 permissions:
@@ -27,6 +31,8 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run build
+      - name: Verify committed public Pages output
+        run: git diff --exit-code -- play-cyberworld
       - run: npm test
       - run: node scripts/test-desktop-atlas.mjs
       - run: node scripts/test-signal-vault.mjs

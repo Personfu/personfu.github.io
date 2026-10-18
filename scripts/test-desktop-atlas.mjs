@@ -54,7 +54,7 @@ test('first-visit missions are accessible on small screens and label member acce
   assert.match(desktop, /#mission-brief\{position:relative;right:auto;top:auto;width:100%/);
   assert.doesNotMatch(desktop, /#mission-brief\{display:none\}/);
   assert.match(desktop, /href="signal-vault\.html"[^>]*>.*PUBLIC \/\/ PLAY NOW/);
-  assert.match(desktop, /href="CyberWorld\/ascension\.html"[^>]*>.*FREE \/\/ NO ACCOUNT \/\/ PLAY NOW/);
+  assert.match(desktop, /href="play-cyberworld\/"[^>]*>.*FREE \/\/ NO ACCOUNT \/\/ PLAY NOW/);
   assert.match(desktop, /id:'membergrid'.*url:'https:\/\/www\.fllc\.net\/cyberworld'.*protected FLLC member/);
   assert.match(desktop, /href="repo-atlas\.html">BROWSE REPO ATLAS/);
   assert.match(desktop, /if\(singleTap\(\)\)openApp\(app\)/);

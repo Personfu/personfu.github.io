@@ -6,7 +6,7 @@
   "scripts": {
     "typecheck": "tsc --project tsconfig.json",
     "lint": "node scripts/validate-static.cjs lint",
-    "build": "node scripts/build-ascension-3d.cjs && node scripts/validate-static.cjs build",
+    "build": "node scripts/build-ascension-3d.cjs && node scripts/export-cyberworld-public.cjs && node scripts/validate-static.cjs build",
     "test": "node scripts/test-ascension-unit.cjs",
     "test:network": "node scripts/test_ascension_net.cjs",
     "test:browser": "node scripts/browser-downloads-smoke.cjs && node scripts/test-ascension-campaign-browser.cjs && playwright test",

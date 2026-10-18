@@ -1,0 +1,108 @@
+{
+  "date": "2026-10-18T23:03:18.283Z",
+  "browser": "155.0.8059.80",
+  "source": "maintained public runtime; export inventory verified separately",
+  "home": "/play-cyberworld/",
+  "canonical": "/play-cyberworld/ascension.html",
+  "world": "webgl",
+  "movement": 1.1797799999999956,
+  "operative": {
+    "name": "PAGES-OPERATIVE",
+    "keys": [
+      "cw.ascension.v1",
+      "cw.ascension.profile.v1",
+      "cw.sound",
+      "cw.net.v1",
+      "cw.operative.v1"
+    ]
+  },
+  "cache": {
+    "controller": "http://127.0.0.1:11160/play-cyberworld/ascension-sw.js",
+    "caches": [
+      "cw-ascension-play-3cf27ebd75ccb9c3"
+    ],
+    "modelBytes": 899196,
+    "modelSha256": "e3f0912206908cbf3a68846f8f55856495c2c81231642998a42ff850ff1347a3"
+  },
+  "offline": {
+    "url": "http://127.0.0.1:11160/play-cyberworld/ascension.html",
+    "callsign": "PAGES-OPERATIVE",
+    "renderer": "webgl",
+    "network": {
+      "mode": "browser",
+      "label": "THIS BROWSER",
+      "online": false,
+      "connecting": false,
+      "peers": 0,
+      "sessionId": "cw-79d16ae5-1a58-4324-99de-2154126eba44",
+      "reason": "Network unavailable; local play continues"
+    },
+    "diagnostics": {
+      "renderer": "webgl",
+      "drawCalls": 252,
+      "triangles": 144704,
+      "fps": 92,
+      "quality": "high",
+      "graphics": {
+        "resolution": 1.6,
+        "shadows": true,
+        "effects": true,
+        "shadowSize": 2048
+      },
+      "characterAsset": "ready",
+      "characterAnimation": "Idle_Neutral",
+      "riggedCharacters": 10,
+      "audio": {
+        "enabled": false,
+        "state": "uninitialized",
+        "voices": 0,
+        "mode": "city"
+      }
+    },
+    "campaign": {
+      "version": 1,
+      "contentVersion": 1,
+      "active": null,
+      "records": {
+        "route-zero": {
+          "stage": "brief",
+          "mistakes": 0,
+          "hints": 0,
+          "answer": {},
+          "containment": {
+            "snapshot": false,
+            "isolated": false,
+            "rotated": false,
+            "restored": false,
+            "verified": false
+          },
+          "testsPassed": false,
+          "hashesCompared": false
+        }
+      },
+      "completed": {},
+      "journal": [
+        {
+          "at": "2026-10-18T23:03:15.652Z",
+          "text": "Agent Zero established the Black Freight case: signed manifests, unauthorized routes."
+        }
+      ],
+      "notes": "PAGES OFFLINE EVIDENCE: signed manifest route mismatch.",
+      "overclock": 30,
+      "seenZero": true,
+      "academy": false,
+      "arcade": {
+        "best": 0
+      }
+    },
+    "missionDownload": {
+      "filename": "cyberworld-route-zero-mission.zip",
+      "bytes": 5062,
+      "containsSyntheticPcap": true
+    },
+    "creditsAvailable": true
+  },
+  "authRequests": [],
+  "localHttpFailures": [],
+  "pageErrors": []
+}

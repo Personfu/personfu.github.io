@@ -18,7 +18,8 @@ working Win98 operator desktop. It must remain that desktop.
 | Existing area | Actual state | Ascension treatment |
 | --- | --- | --- |
 | Root desktop, OPS BRIEFING, app windows | Working shell and ecosystem links | Add a public game launch; preserve shell and existing apps |
-| `/CyberWorld/` | Separate project-site deployment overrides this repository's copied gateway | Integrate Ascension runtime in the project deployment; keep member subroutes distinct |
+| `/CyberWorld/` | Separate project-site deployment overrides this repository's copied gateway; private build currently blocked | Keep maintained sources here; export public game to `/play-cyberworld/` without changing the private project |
+| `/play-cyberworld/` | Explicit generated public runtime in the user site | Launch the tested public 3D alpha; isolate offline caches and local assets |
 | `cyberworld.html`, `cyberworld-game.html` | Compatibility redirects | Preserve; do not silently repoint memberships |
 | `CyberWorld/cw-world.js` | Substantial dormant canvas engine | Preserve legacy rendering; public 3D uses its compatible world API |
 | `gameplay.js`, `cw-academy.js` | Missions, gear, XP, graded challenges | Preserve shared operative and Academy content |
@@ -27,7 +28,7 @@ working Win98 operator desktop. It must remain that desktop.
 | CTF Trail, Defender Path, Signal Vault | Separate public training experiences | Retain working routes; connect through clearly labelled portals |
 | WarGames, RedOps, Signal Lab, arcade, simulator | Historical game modules; some member-routed | Inventory destinations before enabling district links |
 | GovINT, Repo Atlas, FLLC, NASA/maker pages | Separate products and projects | Cross-links with purpose; retain distinct identity and routes |
-| Root `sw.js` | Redirects member game routes to FLLC | Narrow exceptions for the public project home and Ascension entry |
+| Root `sw.js` | Redirects member game routes to FLLC | Narrow exceptions for public game entries, including `/play-cyberworld/` |
 
 ### Duplication map and technical debt
 

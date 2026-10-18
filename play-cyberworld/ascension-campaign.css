@@ -1,0 +1,110 @@
+/* Scoped evidence, casebook, and response UI for the existing CyberWorld shell. */
+#cwas-modal[hidden] { display: none !important; }
+#cwas-modal.is-open { display: flex; position: fixed; inset: 0; z-index: 10000; align-items: center; justify-content: center; padding: 24px; background: rgba(2,6,19,.88); backdrop-filter: blur(10px); }
+#cwas-modal .cwas-dialog { width: min(1080px, 100%); max-height: min(92dvh, 1000px); display: flex; flex-direction: column; overflow: hidden; color: #e8f5ff; background: #0b1124; border: 1px solid #3b5a7e; box-shadow: 0 24px 100px #000b, 0 0 60px #007b9e18; border-radius: 12px; font-family: 'Share Tech Mono', 'Courier New', monospace; }
+#cwas-modal .cwas-dialog:focus { outline: none; }
+#cwas-modal .cwas-dialog-header { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 24px 28px 20px; border-bottom: 1px solid #25334f; background: linear-gradient(120deg,#102038,#12112c); }
+#cwas-modal h2 { font-size: clamp(19px,2.4vw,29px); line-height: 1.25; letter-spacing: .025em; margin: 8px 0 0; color: #f0f8ff; }
+#cwas-modal h3 { font-size: 16px; line-height: 1.5; color: #e4f4ff; margin: 0 0 10px; }
+#cwas-modal p { line-height: 1.7; margin: 8px 0 16px; }
+#cwas-modal a { color: #76e7ec; text-underline-offset: 4px; }
+#cwas-modal button, #cwas-modal input, #cwas-modal select, #cwas-modal textarea { font: inherit; }
+#cwas-modal button { cursor: pointer; }
+#cwas-modal button:focus-visible, #cwas-modal input:focus-visible, #cwas-modal select:focus-visible, #cwas-modal textarea:focus-visible, #cwas-modal a:focus-visible { outline: 3px solid #f1d47e; outline-offset: 3px; }
+#cwas-modal .cwas-close { min-width: 44px; min-height: 44px; color: #bed3ed; background: #101a30; border: 1px solid #405572; border-radius: 6px; font-size: 28px; }
+#cwas-modal .cwas-eyebrow { color: #6fd9df; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+#cwas-modal .cwas-dialog-content { padding: 26px 28px 30px; overflow-y: auto; overscroll-behavior: contain; }
+#cwas-modal .cwas-deck-tabs { display: flex; flex-shrink: 0; overflow-x: auto; padding: 6px 20px; gap: 3px; border-bottom: 1px solid #28334c; background: #080f21; }
+#cwas-modal .cwas-deck-tabs button { min-height: 44px; padding: 10px 14px; color: #9aadc9; background: transparent; border: 0; border-bottom: 2px solid transparent; white-space: nowrap; }
+#cwas-modal .cwas-deck-tabs button[aria-current] { color: #82f4e1; border-bottom-color: #61deca; }
+#cwas-modal .cwas-lead { font-size: 16px; color: #c0d2e9; max-width: 82ch; }
+#cwas-modal .cwas-panel { padding: 20px; margin: 18px 0; border: 1px solid #2d3d5a; background: #0e172c; border-radius: 8px; min-width: 0; }
+#cwas-modal .cwas-panel pre, #cwas-modal pre { padding: 16px; line-height: 1.65; background: #070d1c; border: 1px solid #24334b; border-radius: 5px; color: #a9e9df; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; }
+#cwas-modal .cwas-case-top { display: flex; align-items: center; justify-content: space-between; color: #90a8c8; margin-bottom: 25px; }
+#cwas-modal .cwas-case-id { color: #f7c66c; font-size: 24px; letter-spacing: .15em; }
+#cwas-modal .cwas-btn { min-height: 44px; padding: 12px 16px; border: 1px solid #3b617c; color: #bcefe9; background: #112a3a; border-radius: 5px; line-height: 1.4; transition: background .15s, border-color .15s; }
+#cwas-modal .cwas-btn:hover { background: #183f50; border-color: #7bddcd; }
+#cwas-modal .cwas-primary { background: #72e8cd; color: #061a22; border-color: #72e8cd; font-weight: 700; }
+#cwas-modal .cwas-primary:hover { background: #a1f6e4; }
+#cwas-modal .cwas-btn:disabled { opacity: .52; cursor: default; background: #152034; color: #a1aec2; border-color: #35445b; }
+#cwas-modal .cwas-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: 22px 0 8px; }
+#cwas-modal .cwas-status { flex-shrink: 0; padding: 13px 28px; border-top: 1px solid #34405a; background: #091322; color: #9ab1cb; line-height: 1.55; font-size: 12px; }
+#cwas-modal .cwas-status[data-tone='good'] { color: #8cf3ca; }
+#cwas-modal .cwas-status[data-tone='notice'] { color: #f9d490; }
+#cwas-modal .cwas-form-grid, #cwas-modal .cwas-compare, #cwas-modal .cwas-stat-grid, #cwas-modal .cwas-codex-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+#cwas-modal .cwas-compare .cwas-panel, #cwas-modal .cwas-codex-grid .cwas-panel { margin: 0; }
+#cwas-modal .cwas-field { display: flex; flex-direction: column; gap: 9px; margin: 18px 0; color: #b8cce4; font-size: 13px; }
+#cwas-modal .cwas-field input, #cwas-modal .cwas-field select, #cwas-modal .cwas-field textarea { min-width: 0; width: 100%; box-sizing: border-box; min-height: 46px; border: 1px solid #445875; border-radius: 5px; padding: 12px; background: #080e20; color: #f0f5ff; font-size: 14px; }
+#cwas-modal .cwas-field input::placeholder, #cwas-modal .cwas-field textarea::placeholder { color: #778eac; }
+#cwas-modal .cwas-field textarea { resize: vertical; }
+#cwas-modal .cwas-table-scroll { width: 100%; overflow-x: auto; border: 1px solid #344260; border-radius: 6px; margin: 20px 0; }
+#cwas-modal .cwas-evidence { width: 100%; border-collapse: collapse; font-size: 12px; text-align: left; }
+#cwas-modal .cwas-evidence th { color: #91d8e1; background: #142039; font-size: 11px; letter-spacing: .04em; }
+#cwas-modal .cwas-evidence td, #cwas-modal .cwas-evidence th { padding: 13px 12px; border-bottom: 1px solid #24314a; white-space: nowrap; }
+#cwas-modal .cwas-evidence tr:last-child td { border-bottom: 0; }
+#cwas-modal .cwas-evidence tbody tr:hover { background: #15243a; }
+#cwas-modal .cwas-workbench { padding: 16px; margin: 20px 0; border: 1px solid #3b4b68; background: #0d1930; border-radius: 6px; }
+#cwas-modal output { display: block; margin-top: 14px; color: #a7eedc; white-space: pre-wrap; line-height: 1.7; font-size: 13px; overflow-wrap: anywhere; }
+#cwas-modal .cwas-hint { color: #d4b7ff; line-height: 1.7; padding: 14px 0; font-size: 13px; }
+#cwas-modal .cwas-fine { color: #92a6bf; font-size: 12px; line-height: 1.7; margin-top: 24px; }
+#cwas-modal .cwas-progress { display: flex; align-items: center; gap: 22px; margin: 26px 0; color: #78e9d6; font-size: 12px; }
+#cwas-modal progress { flex: 1; height: 8px; accent-color: #78e9d6; }
+#cwas-modal .cwas-mission-list { display: grid; gap: 12px; }
+#cwas-modal .cwas-mission-card { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px; background: #0f1a2f; border: 1px solid #354562; border-left: 3px solid #67d8cf; border-radius: 7px; }
+#cwas-modal .cwas-mission-card p { color: #afc2dc; font-size: 13px; margin-bottom: 10px; }
+#cwas-modal .cwas-mission-card small { color: #e6c283; font-size: 11px; }
+#cwas-modal .cwas-mission-card h3 { margin-top: 6px; }
+#cwas-modal .cwas-mission-card .cwas-btn { flex-shrink: 0; }
+#cwas-modal .cwas-mission-card.is-locked { border-left-color: #59627c; }
+#cwas-modal .cwas-transmission { display: grid; grid-template-columns: 70px 1fr; gap: 0 24px; padding: 24px 0; }
+#cwas-modal .cwas-npc-portrait { grid-row: span 2; display: grid; place-items: center; width: 70px; height: 90px; background: #2d163a; color: #f69fee; border: 1px solid #a968bd; font-size: 40px; border-radius: 6px; }
+#cwas-modal blockquote { margin: 0 0 15px; color: #f0e5ff; font-size: 19px; line-height: 1.65; }
+#cwas-modal .cwas-response-canvas { display: block; width: 100%; height: auto; border: 1px solid #425672; border-radius: 8px; margin: 20px 0; }
+#cwas-modal .cwas-response-arena { position: relative; overflow: hidden; border: 1px solid #425672; border-radius: 8px; margin: 20px 0; background: #050b17; }
+#cwas-modal .cwas-response-arena .cwas-response-canvas { border: 0; border-radius: 0; margin: 0; }
+#cwas-modal .cwas-arena-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+#cwas-modal .cwas-arena-label { position: absolute; left: 0; top: 0; white-space: nowrap; background: #071325dd; border: 1px solid #4c7a8b88; padding: 5px 8px; font-size: clamp(7px, .7vw, 10px); letter-spacing: .04em; color: #b9e8ee; border-radius: 3px; }
+#cwas-modal .cwas-targets { display: flex; flex-wrap: wrap; gap: 10px; }
+#cwas-modal .cwas-targets [aria-pressed='true'] { border-color: #f5cf77; color: #f5dfad; background: #332b25; }
+#cwas-modal .cwas-response-checklist { display: grid; grid-template-columns: repeat(auto-fit,minmax(145px,1fr)); gap: 8px; padding: 0; margin: 24px 0; list-style-position: inside; font-size: 12px; }
+#cwas-modal .cwas-response-checklist li { padding: 12px; background: #162039; border: 1px solid #34445c; border-radius: 4px; color: #9aafcd; line-height: 1.5; }
+#cwas-modal .cwas-response-checklist li.is-done { background: #113228; border-color: #54b98c; color: #9aefc3; }
+#cwas-modal .cwas-response-checklist li.is-done::after { content: ' ✓'; }
+#cwas-modal .cwas-reward { padding: 22px; margin: 22px 0; background: linear-gradient(110deg,#12352e,#111c32); border: 1px solid #58ae9c; border-radius: 8px; }
+#cwas-modal .cwas-reward h3 { font-size: 24px; margin: 10px 0; }
+#cwas-modal .cwas-journal { list-style: none; padding: 0; }
+#cwas-modal .cwas-journal li { border-left: 2px solid #436681; padding: 5px 20px; margin-bottom: 12px; }
+#cwas-modal .cwas-journal time { color: #88a5c6; font-size: 11px; }
+#cwas-modal details { border-bottom: 1px solid #35415a; padding: 14px 0; }
+#cwas-modal summary { cursor: pointer; color: #b7e5e8; line-height: 1.6; }
+#cwas-modal .cwas-adversary-body { display: grid; grid-template-columns: 88px minmax(0,1fr); gap: 20px; padding-top: 20px; }
+#cwas-modal .cwas-adversary-body img { width: 88px; height: 88px; border: 1px solid #485574; border-radius: 8px; background: #080e20; }
+#cwas-modal .cwas-research-dossier .cwas-eyebrow { display: block; margin-top: 18px; color: #f2c979; }
+#cwas-modal .cwas-research-dossier small { color: #9bacc6; }
+.cwas-overclock #cwas-modal .cwas-evidence { box-shadow: inset 0 0 25px #a259eb19; }
+.cwas-overclock #cwas-modal .cwas-evidence td:nth-child(1), .cwas-overclock #cwas-modal .cwas-evidence td:nth-child(5) { color: #f4ceff; background: #733c831f; }
+@media (max-width:700px) {
+  #cwas-modal.is-open { padding: 8px; }
+  #cwas-modal .cwas-dialog { max-height: 96dvh; border-radius: 8px; }
+  #cwas-modal .cwas-dialog-header { padding: 16px; }
+  #cwas-modal .cwas-dialog-content { padding: 20px 16px; }
+  #cwas-modal .cwas-status { padding: 12px 16px; }
+  #cwas-modal .cwas-form-grid, #cwas-modal .cwas-compare, #cwas-modal .cwas-stat-grid, #cwas-modal .cwas-codex-grid { grid-template-columns: 1fr; }
+  #cwas-modal .cwas-mission-card { align-items: stretch; flex-direction: column; gap: 12px; padding: 18px; }
+  #cwas-modal .cwas-mission-card .cwas-btn { align-self: flex-start; }
+  #cwas-modal .cwas-transmission { grid-template-columns: 48px 1fr; gap: 0 16px; }
+  #cwas-modal .cwas-npc-portrait { width: 48px; height: 70px; }
+  #cwas-modal blockquote { font-size: 16px; }
+  #cwas-modal .cwas-response-checklist { grid-template-columns: 1fr 1fr; }
+  #cwas-modal .cwas-adversary-body { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion:reduce) { #cwas-modal * { transition: none !important; animation: none !important; } }
+/* Offline case files and byte-level evidence inspection. */
+.cwas-artifact-tools{margin:0 0 1.2rem;padding:1rem;border:1px solid #397b84;background:linear-gradient(115deg,#0a2630,#101b29);border-radius:9px}
+.cwas-artifact-tools p{margin:.4rem 0 .8rem;color:#c0d7df}
+.cwas-inspector-controls{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.cwas-byte-view{max-height:390px;overflow:auto;padding:1rem;background:#051119;border:1px solid #397b84;border-radius:8px;font:13px/1.65 ui-monospace,Consolas,monospace;color:#c4f7ea;white-space:pre;tab-size:2}
+#cwas-modal pre.cwas-byte-view{white-space:pre;word-break:normal;overflow-wrap:normal;max-width:100%;overflow-x:auto}
+[data-evidence-summary]{color:#b6d5df;overflow-wrap:anywhere;font:12px/1.5 ui-monospace,Consolas,monospace}
+[data-evidence-mode][aria-pressed=true]{border-color:#5eead4;box-shadow:inset 0 0 0 1px #5eead4}
+@media(max-width:620px){.cwas-inspector-controls{grid-template-columns:1fr}.cwas-artifact-tools .cwas-btn{width:100%}.cwas-byte-view{max-height:300px;font-size:11px}}

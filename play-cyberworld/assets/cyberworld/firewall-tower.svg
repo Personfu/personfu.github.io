@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 116" role="img" aria-labelledby="title desc">
+  <title id="title">CyberWorld firewall tower</title>
+  <desc id="desc">Original hazard tower projecting detection cones.</desc>
+  <defs>
+    <linearGradient id="tower" x1="24" y1="8" x2="72" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff6b6b"/>
+      <stop offset=".38" stop-color="#441221"/>
+      <stop offset="1" stop-color="#050509"/>
+    </linearGradient>
+  </defs>
+  <path d="M31 34h34l8 72H23Z" fill="url(#tower)" stroke="#ff2b55" stroke-width="2"/>
+  <path d="M42 8h12l15 26H27Z" fill="#170611" stroke="#ff2b55" stroke-width="2"/>
+  <circle cx="48" cy="25" r="9" fill="#ff2b55"/>
+  <circle cx="48" cy="25" r="4" fill="#fcee09"/>
+  <path d="M32 51h32M30 67h36M28 83h40" stroke="#fcee09" stroke-width="1.8" opacity=".8"/>
+  <path d="M17 106h62v8H17Z" fill="#07070b" stroke="#00e8ff" stroke-width="1.5"/>
+  <path d="M10 32c10-14 24-22 38-22s28 8 38 22M18 43c8-9 18-14 30-14s22 5 30 14" fill="none" stroke="#ff2b55" stroke-width="2" opacity=".45"/>
+</svg>

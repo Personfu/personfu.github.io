@@ -2,3 +2,9 @@
 # sources under CyberWorld/src; do not rewrite shader whitespace during review.
 CyberWorld/ascension-world3d.js linguist-generated=true -whitespace
 CyberWorld/ascension-response3d.js linguist-generated=true -whitespace
+
+# Pages serves committed mirror bytes directly; manifests hash LF-normalized text.
+play-cyberworld/** text eol=lf
+play-cyberworld/**/*.glb -text
+play-cyberworld/ascension-world3d.js linguist-generated=true -whitespace
+play-cyberworld/ascension-response3d.js linguist-generated=true -whitespace

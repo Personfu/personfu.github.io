@@ -13,7 +13,7 @@ function exists(file) { try { return fs.statSync(path.join(root, file)).isFile()
 function javascriptFiles() {
   const sources = fs.existsSync(path.join(root, 'CyberWorld/src')) ? fs.readdirSync(path.join(root, 'CyberWorld/src')).filter(name => /^ascension-.*\.js$/.test(name)).map(name => 'CyberWorld/src/' + name) : [];
   return fs.readdirSync(path.join(root, 'CyberWorld')).filter(name => /^ascension-.*\.js$/.test(name)).map(name => 'CyberWorld/' + name)
-    .concat(sources, ['CyberWorld/cw-world.js', 'CyberWorld/gameplay.js', 'sw.js', 'scripts/test_ascension_net.cjs', 'scripts/test_ascension_sw.cjs', 'scripts/test-ascension-unit.cjs', 'scripts/build-ascension-3d.cjs', 'scripts/ascension-asset-registry.cjs', 'scripts/benchmark-ascension.cjs', 'scripts/probe-ascension-peers.cjs', 'scripts/validate-static.cjs']);
+    .concat(sources, ['CyberWorld/cw-world.js', 'CyberWorld/gameplay.js', 'sw.js', 'scripts/test_ascension_net.cjs', 'scripts/test_ascension_sw.cjs', 'scripts/test-ascension-unit.cjs', 'scripts/build-ascension-3d.cjs', 'scripts/export-cyberworld-public.cjs', 'scripts/test-public-mount.cjs', 'scripts/ascension-asset-registry.cjs', 'scripts/benchmark-ascension.cjs', 'scripts/probe-ascension-peers.cjs', 'scripts/validate-static.cjs']);
 }
 function bundled(file) { return /^CyberWorld\/ascension-(?:world|response)3d\.js$/.test(file); }
 function lint() {
@@ -76,6 +76,11 @@ function build() {
   }
   visit('CyberWorld/ascension.html');
   visit('index.html');
+  visit('play-cyberworld/index.html');
+  visit('play-cyberworld/ascension.html');
+  try {
+    require('./export-cyberworld-public.cjs').verifyExport(path.join(root, 'play-cyberworld'), JSON.parse(read('play-cyberworld/ascension-deployment.json')));
+  } catch (error) { fail('Public mount: ' + error.message); }
   for (const file of javascriptFiles().filter(file => /\/ascension-/.test(file) && !bundled(file))) {
     for (const match of read(file).matchAll(/["']((?:\.\.?\/|\/|assets\/)[^"'\n]+\.(?:webp|png|jpe?g|svg|ogg|mp3|wav|json|glb|md))(?:[?#][^"']*)?["']/gi)) resolveReference('CyberWorld/ascension.html', match[1], false);
   }
