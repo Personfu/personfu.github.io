@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-18T21:51:44.324Z",
+  "generatedAt": "2026-10-18T22:05:45.042Z",
   "countingMethod": "Indexed triangle faces (or position-count/3 for nonindexed geometry); instanced counts multiplied by instances. Composite counts exclude shadow/postprocessing passes and report label sprites separately.",
   "models": [
     {

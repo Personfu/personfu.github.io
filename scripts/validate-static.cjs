@@ -87,7 +87,8 @@ function build() {
   }
   if (exists('CyberWorld/ascension-sw.js')) {
     const worker = read('CyberWorld/ascension-sw.js');
-    const offlineFiles = [...new Set([...worker.matchAll(/['"](\/(?:CyberWorld|assets)\/[^'"\n]+\.(?:html|js|css|webmanifest|webp|png|svg|txt))['"]/g)].map(match => match[1]))];
+    const runtimeList = worker.match(/const FILES = \[([\s\S]*?)\];/)[1] + worker.match(/const ENTRY = '[^']+';/)[0];
+    const offlineFiles = [...new Set([...runtimeList.matchAll(/['"](\/(?:CyberWorld|assets)\/[^'"\n]+\.(?:html|js|css|webmanifest|webp|png|svg|txt))['"]/g)].map(match => match[1]))];
     let offlineBytes = 0;
     for (const file of offlineFiles) {
       resolveReference('CyberWorld/ascension-sw.js', file, true);
