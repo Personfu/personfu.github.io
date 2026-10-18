@@ -33,6 +33,9 @@ for (const route of [
   '/CyberWorld_login/crypto.html',
   '/CyberWorld_login/intercept.html',
   '/ctf-trail.html',
+  '/CyberWorld/ascension.html',
+  '/cyberworld.html',
+  '/cyberworld-game.html',
 ]) assert.equal(navigate(route), undefined, `Public training route was redirected: ${route}`);
 
 for (const route of [

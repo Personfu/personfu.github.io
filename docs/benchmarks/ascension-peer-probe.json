@@ -1,0 +1,554 @@
+{
+  "capturedAt": "2026-10-18T21:52:25.771Z",
+  "browser": "155.0.8059.80",
+  "snapshots": [
+    {
+      "second": 0,
+      "snapshot": [
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 0,
+            "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+            "reason": "Public guest presence connected"
+          },
+          "peers": []
+        },
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 0,
+            "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+            "reason": "Public guest presence connected"
+          },
+          "peers": []
+        }
+      ]
+    },
+    {
+      "second": 2,
+      "snapshot": [
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+              "transport": "cloud"
+            }
+          ]
+        },
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+              "transport": "cloud"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "second": 4,
+      "snapshot": [
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+              "transport": "cloud"
+            }
+          ]
+        },
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+              "transport": "cloud"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "second": 6,
+      "snapshot": [
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+              "transport": "cloud"
+            }
+          ]
+        },
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+              "transport": "cloud"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "second": 8,
+      "snapshot": [
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+              "transport": "cloud"
+            }
+          ]
+        },
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+              "transport": "cloud"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "second": 10,
+      "snapshot": [
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+              "transport": "cloud"
+            }
+          ]
+        },
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+              "transport": "cloud"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "second": 12,
+      "snapshot": [
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+              "transport": "cloud"
+            }
+          ]
+        },
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+              "transport": "cloud"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "second": 14,
+      "snapshot": [
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+              "transport": "cloud"
+            }
+          ]
+        },
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+              "transport": "cloud"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "second": 16,
+      "snapshot": [
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+              "transport": "cloud"
+            }
+          ]
+        },
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+              "transport": "cloud"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "second": 18,
+      "snapshot": [
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+              "transport": "cloud"
+            }
+          ]
+        },
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+              "transport": "cloud"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "second": 20,
+      "snapshot": [
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+              "transport": "cloud"
+            }
+          ]
+        },
+        {
+          "status": {
+            "mode": "cloud",
+            "label": "LIVE GRID",
+            "online": true,
+            "connecting": false,
+            "peers": 1,
+            "sessionId": "cw-87333037-60db-4611-a50d-af130d647317",
+            "reason": "Public guest presence connected"
+          },
+          "peers": [
+            {
+              "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+              "transport": "cloud"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "departure": [
+    {
+      "second": 0,
+      "status": {
+        "mode": "cloud",
+        "label": "LIVE GRID",
+        "online": true,
+        "connecting": false,
+        "peers": 1,
+        "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+        "reason": "Public guest presence connected"
+      },
+      "departedStillPresent": true
+    },
+    {
+      "second": 2,
+      "status": {
+        "mode": "cloud",
+        "label": "LIVE GRID",
+        "online": true,
+        "connecting": false,
+        "peers": 0,
+        "sessionId": "cw-70cdaa15-58ea-4536-8987-30afdb45f40c",
+        "reason": "Public guest presence connected"
+      },
+      "departedStillPresent": false
+    }
+  ],
+  "protocol": [
+    {
+      "tab": "one",
+      "event": "phx_reply",
+      "ref": "1",
+      "status": "ok"
+    },
+    {
+      "tab": "one",
+      "event": "presence_state",
+      "ref": null,
+      "stateCount": 0
+    },
+    {
+      "tab": "one",
+      "event": "phx_reply",
+      "ref": "2",
+      "status": "ok"
+    },
+    {
+      "tab": "one",
+      "event": "presence_diff",
+      "ref": null,
+      "joins": 1,
+      "leaves": 0
+    },
+    {
+      "tab": "two",
+      "event": "phx_reply",
+      "ref": "1",
+      "status": "ok"
+    },
+    {
+      "tab": "two",
+      "event": "presence_state",
+      "ref": null,
+      "stateCount": 0
+    },
+    {
+      "tab": "two",
+      "event": "phx_reply",
+      "ref": "2",
+      "status": "ok"
+    },
+    {
+      "tab": "two",
+      "event": "presence_diff",
+      "ref": null,
+      "joins": 1,
+      "leaves": 0
+    },
+    {
+      "tab": "two",
+      "event": "presence_diff",
+      "ref": null,
+      "joins": 1,
+      "leaves": 0
+    },
+    {
+      "tab": "one",
+      "event": "presence_diff",
+      "ref": null,
+      "joins": 1,
+      "leaves": 0
+    },
+    {
+      "tab": "one",
+      "event": "phx_reply",
+      "ref": "114",
+      "status": "ok"
+    },
+    {
+      "tab": "two",
+      "event": "phx_reply",
+      "ref": "122",
+      "status": "ok"
+    },
+    {
+      "tab": "one",
+      "event": "phx_reply",
+      "ref": "140",
+      "status": "ok"
+    },
+    {
+      "tab": "two",
+      "event": "phx_reply",
+      "ref": "163",
+      "status": "ok"
+    },
+    {
+      "tab": "one",
+      "event": "presence_diff",
+      "ref": null,
+      "joins": 0,
+      "leaves": 1
+    }
+  ],
+  "verified": true,
+  "reciprocalCloudAtSecond": 2,
+  "departedAbsentAtSecond": 2,
+  "networkSourceSha256": "659733e7a0435caa773c5b64451cc9dd7d7f750897bbbe6ddb1884582a6f1a05"
+}

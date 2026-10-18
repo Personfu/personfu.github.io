@@ -1,0 +1,4 @@
+# Built scene bundles include upstream GLSL template literals. Review authored
+# sources under CyberWorld/src; do not rewrite shader whitespace during review.
+CyberWorld/ascension-world3d.js linguist-generated=true -whitespace
+CyberWorld/ascension-response3d.js linguist-generated=true -whitespace

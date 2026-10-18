@@ -16,6 +16,17 @@
   if (window.__cwWorldLoaded) return;
   window.__cwWorldLoaded = true;
 
+  var ASCENSION = !!window.CW_ASCENSION;
+  function dispatchAction(action, target) {
+    if (!ASCENSION) return false;
+    return !document.dispatchEvent(new CustomEvent('cw:action', {
+      cancelable: true, detail: { action: action, target: target || null }
+    }));
+  }
+  function emitView() {
+    if (ASCENSION) document.dispatchEvent(new CustomEvent('cw:view', { bubbles: true, detail: { view: W.view, district: W.district } }));
+  }
+
   // ------------------------------------------------------------ helpers
   function loadJSON(k, f) { try { var r = localStorage.getItem(k); return r ? JSON.parse(r) : f; } catch (e) { return f; } }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
@@ -265,8 +276,12 @@
       ]
     }
   };
+  if (ASCENSION) {
+    PLAZA_ACTIVITIES.push({ id: 'codebreaker', label: 'CODEBREAKER', title: 'The First Signal', icon: 'C', x: 0.19, y: 0.73, r: 30, color: '#ffb454', action: 'ascension:mission', desc: 'Follow Agent Zero into the Codebreaker campaign.' });
+    DISTRICT_SCENES.soc.nodes.push({ id: 'codebreaker-signal', kind: 'terminal', label: 'CODEBREAKER', title: 'Supply Chain Signal', x: 0.57, y: 0.78, color: '#ffb454', action: 'ascension:mission', desc: 'Inspect the intercepted freight telemetry and contain the relay.' });
+  }
   var WORLD_ASSET_URLS = {
-    plaza: '/CyberWorld/assets/cyberworld/city-gate-plaza-art.png',
+    plaza: ASCENSION ? '/CyberWorld/assets/cyberworld/ascension-plaza.webp' : '/CyberWorld/assets/cyberworld/city-gate-plaza-art.png',
     operative: '/CyberWorld/assets/cyberworld/operative-sprite.svg',
     storybook: '/CyberWorld/assets/cyberworld/storybook-cyberworld-reference.png',
     shard: '/CyberWorld/assets/cyberworld/data-shard.svg',
@@ -477,10 +492,29 @@
     avatar: { x: 0, y: 0, tx: 0, ty: 0, ready: false, dir: 1 },
     plazaBubble: { text: '', until: 0, speaker: '' },
     emoteIndex: 0,
-    t: 0,
+    t: 0, delta: 1, simDelta: 1, lastFrame: 0, overclock: false,
+    reducedMotion: false, motionPreference: false,
+    movement: { x: 0, y: 0 },
     lastLevel: 1, lastDone: 0,
     booted: false, open: false, raf: null
   };
+  var motionQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+  function setReducedMotion(active) {
+    W.motionPreference = !!active;
+    W.reducedMotion = W.motionPreference || !!(motionQuery && motionQuery.matches);
+    if (W.root) W.root.dataset.reducedMotion = W.reducedMotion ? 'true' : 'false';
+    if (W.reducedMotion) W.particles = [];
+    else if (W.w && !W.particles.length) for (var i = 0; i < 70; i++) W.particles.push(ambient());
+    return W.reducedMotion;
+  }
+  if (ASCENSION) {
+    setReducedMotion(false);
+    if (motionQuery) {
+      var motionChanged = function () { setReducedMotion(W.motionPreference); };
+      if (motionQuery.addEventListener) motionQuery.addEventListener('change', motionChanged);
+      else if (motionQuery.addListener) motionQuery.addListener(motionChanged);
+    }
+  }
 
   // ------------------------------------------------------------ boot / mount
   function ensureMounted() {
@@ -558,6 +592,15 @@
     W.root = root;
     W.canvas = document.getElementById('cwg-canvas');
     W.ctx = W.canvas.getContext('2d');
+    if (ASCENSION) {
+      root.dataset.ascension = 'true';
+      root.dataset.reducedMotion = W.reducedMotion ? 'true' : 'false';
+      setText('cwg-online', '0');
+      var online = document.getElementById('cwg-online');
+      if (online && online.parentNode) online.parentNode.lastChild.textContent = 'CONNECTED';
+      var legacyBoot = document.getElementById('cwg-boot');
+      if (legacyBoot) legacyBoot.classList.add('gone');
+    }
 
     // relaunch button (visible when grid closed)
     if (!document.getElementById('cwg-relaunch')) {
@@ -579,10 +622,11 @@
       if (e.key === 'g' || e.key === 'G') { e.preventDefault(); W.open ? closeWorld() : openWorld(); }
       else if (W.open && e.key === 'Escape' && W.panel) { e.preventDefault(); closeWorldPanel(); }
       else if (W.open && key === '?') { e.preventDefault(); showWorldPanel('controls'); }
+      else if (ASCENSION && W.open && (key === 'e' || key === 'Enter')) { e.preventDefault(); interactNearest(); }
       else if (W.open && W.view === 'plaza' && /^[1-7]$/.test(key)) { e.preventDefault(); runDockByIndex(parseInt(key, 10)); }
       else if (W.open && W.view === 'plaza' && ['i','k','l','m','q','f','b'].indexOf(key) !== -1) { e.preventDefault(); runDockHotkey(key); }
       else if (W.open && W.panel && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d'].indexOf(key) !== -1) { e.preventDefault(); }
-      else if (W.open && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d'].indexOf(key) !== -1) { W.keys[key] = true; e.preventDefault(); }
+      else if (W.open && ['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','Shift'].indexOf(key) !== -1) { W.keys[key] = true; e.preventDefault(); }
       else if (e.key === 'Escape' && W.open && W.view === 'sector') { toGrid(); }
       else if (e.key === 'Escape' && W.open && W.view === 'grid') { toPlaza(); }
       else if (e.key === 'Escape' && W.open && W.view === 'district') { toPlaza(); }
@@ -590,16 +634,18 @@
     });
     document.addEventListener('keyup', function (e) {
       var key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-      if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d'].indexOf(key) !== -1) W.keys[key] = false;
+      if (['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','w','a','s','d','Shift'].indexOf(key) !== -1) W.keys[key] = false;
     });
+    window.addEventListener('blur', clearMovement);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) clearMovement(); });
   }
 
   function bindHud() {
     document.getElementById('cwg-btn-exit').addEventListener('click', closeWorld);
     document.getElementById('cwg-btn-plaza').addEventListener('click', toPlaza);
     document.getElementById('cwg-btn-map').addEventListener('click', function () { toDistrict('map'); });
-    document.getElementById('cwg-btn-ranks').addEventListener('click', function () { try { window.__cwNet && window.__cwNet.open(); } catch (e) {} Audio2.blip(520); });
-    document.getElementById('cwg-btn-console').addEventListener('click', function () { try { window.__cwGameplay && window.__cwGameplay.open(); } catch (e) {} Audio2.blip(560); });
+    document.getElementById('cwg-btn-ranks').addEventListener('click', function () { runPlazaAction('net'); Audio2.blip(520); });
+    document.getElementById('cwg-btn-console').addEventListener('click', function () { runPlazaAction('console'); Audio2.blip(560); });
     document.getElementById('cwg-btn-snd').addEventListener('click', function () {
       var on = !Audio2.enabled; Audio2.setEnabled(on);
       this.dataset.on = on ? '1' : '0';
@@ -623,6 +669,9 @@
       var inp = document.getElementById('cwg-comms-input'); if (!inp) return;
       var body = inp.value.trim(); if (!body) return; inp.value = '';
       Audio2.blip(720, 0.08);
+      if (ASCENSION && (!window.__cwNet || !window.__cwNet.online || !window.__cwNet.online())) {
+        pushMsg({ callsign: 'LOCAL', faction: 'NEUTRAL', body: 'Comms are offline. No message was sent.' }); return;
+      }
       try { if (window.__cwNet && window.__cwNet.sendChat) window.__cwNet.sendChat(body, 'GLOBAL'); } catch (e) {}
       pushMsg({ callsign: getOp().callsign, faction: getOp().faction, body: body });
     };
@@ -704,6 +753,7 @@
     closeWorldPanel();
     W.root.classList.remove('on');
     W.open = false;
+    clearMovement();
     document.getElementById('cwg-relaunch').classList.add('show');
     stopLoop();
   }
@@ -720,10 +770,14 @@
     setText('cwg-cr', op.credits.toLocaleString());
     var maxHp = 900 + op.level * 80;
     var maxEp = 600 + op.level * 40;
-    setText('cwg-hptxt', maxHp + '/' + maxHp);
-    setText('cwg-eptxt', maxEp + '/' + maxEp);
-    var hpFill = document.getElementById('cwg-hpfill'); if (hpFill) hpFill.style.width = '100%';
-    var epFill = document.getElementById('cwg-epfill'); if (epFill) epFill.style.width = '100%';
+    var saved = ASCENSION ? gameplayState() : {};
+    if (ASCENSION) { maxHp = Math.max(1, Number(saved.maxHp) || 100); maxEp = Math.max(1, Number(saved.maxShield) || 30); }
+    var hp = ASCENSION ? clamp(Number(saved.hp) || 0, 0, maxHp) : maxHp;
+    var ep = ASCENSION ? clamp(Number(saved.shield) || 0, 0, maxEp) : maxEp;
+    setText('cwg-hptxt', hp + '/' + maxHp);
+    setText('cwg-eptxt', ep + '/' + maxEp);
+    var hpFill = document.getElementById('cwg-hpfill'); if (hpFill) hpFill.style.width = (hp / maxHp * 100) + '%';
+    var epFill = document.getElementById('cwg-epfill'); if (epFill) epFill.style.width = (ep / maxEp * 100) + '%';
     var need = xpForLevel(op.level), into = clamp(op.xp, 0, need);
     setText('cwg-xptxt', into + '/' + need + ' XP');
     var fill = document.getElementById('cwg-xpfill'); if (fill) fill.style.width = Math.round(into / need * 100) + '%';
@@ -779,6 +833,7 @@
     Audio2.blip(440, 0.14, 'sawtooth');
     renderSide();
     renderBreakdown();
+    emitView();
   }
   function toPlaza() {
     closeWorldPanel();
@@ -788,12 +843,14 @@
     W.sectorLinks = [];
     W.trans = 0;
     W.focus = null;
+    if (ASCENSION) W.avatar.ready = false;
     if (W.root) W.root.dataset.view = 'plaza';
     setText('cwg-crumb-txt', 'CITY GATE PLAZA // OPEN WORLD');
     setActionPanel(null);
     Audio2.blip(420, 0.1);
     renderSide();
     renderBreakdown();
+    emitView();
   }
   function toDistrict(id) {
     var scene = districtScene(id);
@@ -818,8 +875,9 @@
     sayInPlaza(scene.label, scene.subtitle);
     renderSide();
     renderBreakdown();
+    emitView();
   }
-  function toGrid() { closeWorldPanel(); W.view = 'grid'; W.sector = null; W.district = null; W.sectorLinks = []; W.focus = null; W.trans = 0; if (W.root) W.root.dataset.view = 'grid'; setText('cwg-crumb-txt', 'THE GRID // SECTOR SELECT'); setActionPanel(null); Audio2.blip(330, 0.12); renderSide(); renderBreakdown(); }
+  function toGrid() { closeWorldPanel(); W.view = 'grid'; W.sector = null; W.district = null; W.sectorLinks = []; W.focus = null; W.trans = 0; if (W.root) W.root.dataset.view = 'grid'; setText('cwg-crumb-txt', 'THE GRID // SECTOR SELECT'); setActionPanel(null); Audio2.blip(330, 0.12); renderSide(); renderBreakdown(); emitView(); }
 
   function sectorDeck(id) {
     return SECTOR_DECKS[id] || {
@@ -975,13 +1033,16 @@
   // ------------------------------------------------------------ presence -> players
   function syncPlayers(list) {
     var me = null; try { me = (window.__cwNet && window.__cwNet.me) ? window.__cwNet.me() : null; } catch (e) {}
-    var others = (list || []).filter(function (p) { return !me || p.callsign !== me.callsign; });
-    setText('cwg-online', (list && list.length) || 1);
+    var others = (list || []).filter(function (p) { return !me || (ASCENSION ? (p.device || p.sessionId) !== (me.device || me.sessionId) : p.callsign !== me.callsign); });
+    setText('cwg-online', (list && list.length) || (ASCENSION ? 0 : 1));
     // keep drifting positions stable across updates
     var prev = {}; W.players.forEach(function (p) { prev[p.key] = p; });
     W.players = others.slice(0, 24).map(function (p, i) {
       var key = p.device || p.callsign || ('p' + i);
       var ex = prev[key];
+      if (ASCENSION) return { key: key, callsign: p.callsign || p.handle || 'OPERATIVE', level: p.level || 1, faction: p.faction,
+        x: clamp(Number(p.x) || 0, 0, 1), y: clamp(Number(p.y) || 0, 0, 1), zone: p.zone || 'plaza',
+        dir: p.facing < 0 ? -1 : 1, moving: !!p.moving, look: p.look || { frame: 'ghost', suit: '#4db5ff', accent: '#00ffcc', hair: '#101827', coat: '#0b1824' } };
       return ex || {
         key: key, callsign: p.callsign || 'OP', level: p.level || 1, faction: p.faction,
         a: Math.random() * Math.PI * 2, r: 0.12 + Math.random() * 0.16, spd: 0.1 + Math.random() * 0.25,
@@ -1007,13 +1068,15 @@
     flash();
     burstAt(centerX(), centerY(), 80, '#ffb454');
   }
-  function flash() { var f = document.getElementById('cwg-flash'); if (f) { f.classList.remove('hit'); void f.offsetWidth; f.classList.add('hit'); } }
+  function flash() { if (W.reducedMotion) return; var f = document.getElementById('cwg-flash'); if (f) { f.classList.remove('hit'); void f.offsetWidth; f.classList.add('hit'); } }
   function floatText(x, y, txt) {
     var el = document.createElement('div'); el.className = 'cwg-float'; el.textContent = txt;
+    if (W.reducedMotion) el.style.animation = 'none';
     el.style.left = x + 'px'; el.style.top = y + 'px';
     W.root.appendChild(el); setTimeout(function () { el.remove(); }, 1300);
   }
   function burstAt(x, y, n, color) {
+    if (W.reducedMotion) return;
     for (var i = 0; i < n; i++) {
       var a = Math.random() * Math.PI * 2, s = 1 + Math.random() * 4;
       W.particles.push({ x: x, y: y, vx: Math.cos(a) * s, vy: Math.sin(a) * s, life: 1, color: color || '#00ffcc', size: 1 + Math.random() * 2 });
@@ -1029,7 +1092,7 @@
     W.canvas.style.width = W.w + 'px'; W.canvas.style.height = W.h + 'px';
     W.ctx.setTransform(W.dpr, 0, 0, W.dpr, 0, 0);
     // seed ambient particles once
-    if (!W.particles.length) for (var i = 0; i < 70; i++) W.particles.push(ambient());
+    if (!W.reducedMotion && !W.particles.length) for (var i = 0; i < 70; i++) W.particles.push(ambient());
   }
   function ambient() { return { x: Math.random() * W.w, y: Math.random() * W.h, vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3, life: -1, color: 'rgba(0,255,204,0.35)', size: Math.random() * 1.6 + 0.3, amb: true }; }
   function centerX() { return W.w / 2; }
@@ -1107,8 +1170,8 @@
 
   function draw() {
     var c = W.ctx; if (!c) return;
-    W.t += 0.016;
-    W.trans = Math.min(1, W.trans + 0.06);
+    if (!W.reducedMotion) W.t += ASCENSION ? W.simDelta / 60 : 0.016;
+    W.trans = W.reducedMotion ? 1 : Math.min(1, W.trans + 0.06 * (ASCENSION ? W.delta : 1));
     c.clearRect(0, 0, W.w, W.h);
     // background gradient
     var g = c.createRadialGradient(centerX(), centerY(), 20, centerX(), centerY(), Math.max(W.w, W.h) * 0.75);
@@ -1123,6 +1186,41 @@
     else drawSectorView(c);
 
     if (W.view === 'grid' || W.view === 'plaza' || W.view === 'district') drawPlayers(c);
+    if (ASCENSION && W.overclock) drawOverclock(c);
+    if (ASCENSION && window.__cwAscensionNet && W.avatar.ready && (W.view === 'plaza' || W.view === 'district')) {
+      window.__cwAscensionNet.publishPosition({ x: W.avatar.x / Math.max(1, W.w), y: W.avatar.y / Math.max(1, W.h),
+        zone: W.district || W.view, facing: W.avatar.dir, moving: !!W.avatar.moving });
+    }
+  }
+
+  // Overclock reveals the fictional network while slowing its traffic simulation.
+  function drawOverclock(c) {
+    var targets = [];
+    if (W.view === 'plaza') targets = PLAZA_HOTSPOTS.concat(PLAZA_ACTIVITIES);
+    else if (W.view === 'district' && districtScene()) targets = districtScene().nodes;
+    c.save();
+    c.fillStyle = 'rgba(0, 22, 35, 0.13)'; c.fillRect(0, 0, W.w, W.h);
+    c.strokeStyle = '#58fff1'; c.lineWidth = 1.5; c.setLineDash([6, 8]);
+    c.lineDashOffset = -W.t * 36;
+    targets.forEach(function (target, index) {
+      var p = target._pos;
+      if (!p) return;
+      c.globalAlpha = 0.40;
+      c.beginPath(); c.moveTo(W.avatar.x, W.avatar.y - 26); c.lineTo(p.x, p.y); c.stroke();
+      var progress = (W.t * 0.32 + index * 0.17) % 1;
+      var x = lerp(W.avatar.x, p.x, progress), y = lerp(W.avatar.y - 26, p.y, progress);
+      c.globalAlpha = 1; c.fillStyle = '#8affee'; c.fillRect(x - 3, y - 3, 6, 6);
+      var hot = target.action === 'ascension:mission' || target.id === 'triage' || target.id === 'console';
+      c.strokeStyle = hot ? '#ffb454' : '#58fff1';
+      c.beginPath(); c.arc(p.x, p.y, hot ? 42 : 26, 0, Math.PI * 2); c.stroke();
+      if (hot) {
+        c.font = "12px 'Share Tech Mono', monospace"; c.textAlign = 'center'; c.fillStyle = '#ffce88';
+        c.fillText('EVIDENCE PATH', p.x, p.y - 48);
+      }
+    });
+    c.setLineDash([]); c.globalAlpha = 1;
+    c.strokeStyle = 'rgba(88,255,241,0.5)'; c.lineWidth = 3; c.strokeRect(3, 3, W.w - 6, W.h - 6);
+    c.restore();
   }
 
   function drawGridLines(c) {
@@ -1149,7 +1247,7 @@
     });
     // sectors
     W.sectors.forEach(function (s) {
-      var p = sectorPos(s); s.pulse += 0.05;
+      var p = sectorPos(s); if (!W.reducedMotion) s.pulse += 0.05;
       var pct = s.total ? s.done / s.total : 0;
       var r = 30 + pct * 12 + Math.sin(s.pulse) * 2;
       var isHover = W.hover && W.hover.type === 'sector' && W.hover.id === s.id;
@@ -1198,7 +1296,7 @@
     }
     // nodes
     W.nodes.forEach(function (nd) {
-      var p = nodePos(nd); nd.pulse += 0.06;
+      var p = nodePos(nd); if (!W.reducedMotion) nd.pulse += 0.06;
       var isHover = W.hover && W.hover.type === 'node' && W.hover.id === nd.id;
       var r = 20 + Math.sin(nd.pulse) * 1.5 + (isHover ? 4 : 0);
       c.save();
@@ -1241,7 +1339,7 @@
     var p = sectorLinkPoint(link, bounds);
     var hover = W.hover && W.hover.type === 'sectorLink' && W.hover.id === link.id;
     var focus = W.focus && W.focus.type === 'sectorLink' && W.focus.link && W.focus.link.id === link.id;
-    link.pulse += 0.035;
+    if (!W.reducedMotion) link.pulse += 0.035;
     var color = link.color || '#00ffcc';
     var r = 38 + Math.sin(link.pulse) * 2 + (hover || focus ? 6 : 0);
     c.save();
@@ -1275,7 +1373,7 @@
 
   function drawSectorMissionNode(c, nd, bounds) {
     var p = sectorNodePoint(nd, bounds);
-    nd.pulse += 0.045;
+    if (!W.reducedMotion) nd.pulse += 0.045;
     var hover = W.hover && W.hover.type === 'node' && W.hover.id === nd.id;
     var focus = W.focus && W.focus.type === 'node' && W.focus.nd && W.focus.nd.id === nd.id;
     var color = nd.color || '#00ffcc';
@@ -1413,7 +1511,13 @@
   function drawPlayers(c) {
     var cx = centerX(), cy = centerY(), R = Math.min(W.w, W.h);
     W.players.forEach(function (p) {
-      p.a += p.spd * 0.01;
+      if (ASCENSION) {
+        if (p.zone !== (W.district || W.view)) return;
+        drawAgentSprite(c, { x: p.x * W.w, y: p.y * W.h, scale: 0.76, dir: p.dir, moving: p.moving,
+          look: p.look, label: p.callsign, title: 'OPERATIVE', labelColor: '#8ed6ff' });
+        return;
+      }
+      if (!W.reducedMotion) p.a += p.spd * 0.01 * (ASCENSION ? W.simDelta : 1);
       var x = cx + Math.cos(p.a) * R * p.r, y = cy + Math.sin(p.a) * R * p.r * 0.7;
       c.save(); c.shadowColor = p.color; c.shadowBlur = 8;
       c.beginPath(); c.arc(x, y, 5, 0, 7); c.fillStyle = p.color; c.fill(); c.restore();
@@ -1425,14 +1529,16 @@
   }
 
   function updateParticles(c) {
+    if (W.reducedMotion) return;
     for (var i = W.particles.length - 1; i >= 0; i--) {
       var p = W.particles[i];
-      p.x += p.vx; p.y += p.vy;
+      var dt = ASCENSION ? W.simDelta : 1;
+      p.x += p.vx * dt; p.y += p.vy * dt;
       if (p.amb) {
         if (p.x < 0) p.x = W.w; if (p.x > W.w) p.x = 0; if (p.y < 0) p.y = W.h; if (p.y > W.h) p.y = 0;
         c.globalAlpha = 0.5; c.fillStyle = p.color; c.fillRect(p.x, p.y, p.size, p.size); c.globalAlpha = 1;
       } else {
-        p.vx *= 0.94; p.vy *= 0.94; p.life -= 0.02;
+        p.vx *= Math.pow(0.94, dt); p.vy *= Math.pow(0.94, dt); p.life -= 0.02 * dt;
         if (p.life <= 0) { W.particles.splice(i, 1); continue; }
         c.globalAlpha = p.life; c.fillStyle = p.color;
         c.beginPath(); c.arc(p.x, p.y, p.size, 0, 7); c.fill(); c.globalAlpha = 1;
@@ -1491,6 +1597,7 @@
     if (h) showTip(e.clientX, e.clientY, h); else hideTip();
   }
   function onClick(e) {
+    if (ASCENSION && overlayHasInputPriority()) return;
     Audio2.resume();
     var r = W.canvas.getBoundingClientRect();
     var mx = e.clientX - r.left, my = e.clientY - r.top;
@@ -1579,19 +1686,70 @@
   function hideTip() { var t = document.getElementById('cwg-tip'); if (t) t.style.display = 'none'; }
 
   // ------------------------------------------------------------ loop
-  function startLoop() { if (W.raf) return; (function tick() { if (!W.open) { W.raf = null; return; } draw(); W.raf = requestAnimationFrame(tick); })(); }
-  function stopLoop() { if (W.raf) { cancelAnimationFrame(W.raf); W.raf = null; } }
+  function startLoop() {
+    if (W.raf) return;
+    W.lastFrame = 0;
+    function tick(time) {
+      if (!W.open) { W.raf = null; return; }
+      W.delta = W.lastFrame ? clamp((time - W.lastFrame) / (1000 / 60), 0, 3) : 1;
+      W.lastFrame = time;
+      W.simDelta = W.delta * (W.overclock ? 0.20 : 1);
+      draw(); W.raf = requestAnimationFrame(tick);
+    }
+    W.raf = requestAnimationFrame(tick);
+  }
+  function stopLoop() { if (W.raf) { cancelAnimationFrame(W.raf); W.raf = null; } W.lastFrame = 0; }
 
   function setText(id, v) { var el = document.getElementById(id); if (el) el.textContent = v; }
   function overlayHasInputPriority() {
     var net = document.getElementById('cwnet-panel');
+    if (ASCENSION) {
+      var priority = ['cwas-modal', 'cwas-title', 'cwas-creator'].some(function (id) {
+        var node = document.getElementById(id);
+        return node && !node.hidden && node.getAttribute('aria-hidden') !== 'true' && getComputedStyle(node).display !== 'none';
+      });
+      if (priority) return true;
+    }
     return !!document.querySelector('.cw-gp-root.open, #cwa-win.open, #cwo-root.on') ||
       !!(net && net.style.display !== 'none');
   }
 
   // ------------------------------------------------------------ public API + boot
   function exposeWorldApi() {
-    window.__cwWorld = { open: openWorld, close: closeWorld, refresh: function () { refreshData(); }, toGrid: toGrid, toPlaza: toPlaza, toDistrict: toDistrict, toSector: openSector, view: function () { return W.view; } };
+    window.__cwWorld = {
+      open: openWorld, close: closeWorld, refresh: function () { refreshData(); },
+      toGrid: toGrid, toPlaza: toPlaza, toDistrict: toDistrict, toSector: openSector,
+      view: function () { return W.view; },
+      snapshot: function () { return { avatar: Object.assign({}, W.avatar), width: W.w, height: W.h, view: W.view, district: W.district, focus: W.focus ? { id: W.focus.id, type: W.focus.type, x: W.focus.x, y: W.focus.y } : null, overclock: W.overclock, reducedMotion: W.reducedMotion }; },
+      setOverclock: function (active) { W.overclock = !!active; if (W.root) W.root.dataset.overclock = W.overclock ? 'true' : 'false'; return W.overclock; },
+      setReducedMotion: setReducedMotion,
+      setMovement: function (x, y) {
+        W.movement.x = clamp(Number(x) || 0, -1, 1); W.movement.y = clamp(Number(y) || 0, -1, 1);
+        if (!W.movement.x && !W.movement.y) { W.avatar.tx = W.avatar.x; W.avatar.ty = W.avatar.y; }
+      },
+      interact: interactNearest
+    };
+  }
+
+  function clearMovement() {
+    W.keys = {}; W.movement = { x: 0, y: 0 };
+    W.avatar.tx = W.avatar.x; W.avatar.ty = W.avatar.y;
+  }
+
+  function interactNearest() {
+    if (!W.open || overlayHasInputPriority()) return;
+    if (W.focus) { activateFocus(); return; }
+    var items = W.view === 'plaza' ? PLAZA_NPCS.concat(PLAZA_ACTIVITIES, PLAZA_HOTSPOTS) : (districtScene() || {}).nodes || [];
+    var nearest = null, distance = 190;
+    items.forEach(function (item) {
+      if (!item._pos) return;
+      var d = Math.hypot(item._pos.x - W.avatar.x, item._pos.y - W.avatar.y);
+      if (d < distance) { nearest = item; distance = d; }
+    });
+    if (nearest) {
+      setActionPanel(hitTest(nearest._pos.x, nearest._pos.y));
+      activateFocus();
+    } else sayInPlaza('Guide', 'Move closer to a person or terminal, then interact.');
   }
 
   function plazaArtReady() {
@@ -2061,7 +2219,7 @@
     if (W.root) W.root.dataset.art = hasArt ? 'plaza' : 'fallback';
     if (hasArt) {
       drawPlazaArt(c);
-      drawOriginPadMask(c);
+      if (!ASCENSION) drawOriginPadMask(c);
       drawPlazaAtmosphere(c);
     } else {
       drawPlazaSkyline(c, b);
@@ -2203,7 +2361,7 @@
         c.stroke();
         c.setLineDash([]);
         c.restore();
-        if (hover || focus) {
+        if (ASCENSION || hover || focus) {
           drawTextPill(c, h.title, p.x, Math.max(80, p.y - p.h * 0.52), h.color);
         }
         return;
@@ -2276,7 +2434,7 @@
         c.textBaseline = 'middle';
         c.fillText(a.icon, p.x, p.y);
         c.restore();
-        if (hover || focus) drawTextPill(c, a.title, p.x, p.y - a.r - 18, a.color);
+        if (ASCENSION || hover || focus) drawTextPill(c, a.title, p.x, p.y - a.r - 18, a.color);
         return;
       }
       c.save();
@@ -2541,11 +2699,14 @@
   }
 
   function updateAvatar() {
+    if (ASCENSION && (overlayHasInputPriority() || W.panel)) { clearMovement(); W.avatar.moving = false; return; }
     var b = movementBounds();
     var dx = (W.keys.ArrowRight || W.keys.d ? 1 : 0) - (W.keys.ArrowLeft || W.keys.a ? 1 : 0);
     var dy = (W.keys.ArrowDown || W.keys.s ? 1 : 0) - (W.keys.ArrowUp || W.keys.w ? 1 : 0);
+    if (ASCENSION) { dx += W.movement.x; dy += W.movement.y; }
     if (dx || dy) {
-      if (dx && dy) { dx *= 0.707; dy *= 0.707; }
+      var magnitude = Math.hypot(dx, dy);
+      if (magnitude > 1) { dx /= magnitude; dy /= magnitude; }
       W.avatar.tx = clamp(W.avatar.x + dx * 18, b.left + 34, b.right - 34);
       W.avatar.ty = clamp(W.avatar.y + dy * 18, b.top + 48, b.bottom - 34);
       if (dx) W.avatar.dir = dx > 0 ? 1 : -1;
@@ -2554,7 +2715,7 @@
     var vy = W.avatar.ty - W.avatar.y;
     var d = Math.sqrt(vx * vx + vy * vy);
     if (d > 1) {
-      var step = Math.min(d, 2.35);
+      var step = Math.min(d, ASCENSION ? 2.65 * W.delta * (W.keys.Shift ? 1.7 : 1) : 2.35);
       W.avatar.x += vx / d * step;
       W.avatar.y += vy / d * step;
       if (Math.abs(vx) > 0.5) W.avatar.dir = vx > 0 ? 1 : -1;
@@ -2717,7 +2878,11 @@
       sayInPlaza('Guide', 'Click a building, NPC, or the floor. This is the social plaza hub.');
       return;
     }
+    if (ASCENSION && (W.view === 'plaza' || W.view === 'district') && Math.hypot(W.focus.x - W.avatar.x, W.focus.y - W.avatar.y) > 200) {
+      sayInPlaza('Guide', 'Walk closer before interacting.'); return;
+    }
     if (W.focus.type === 'npc') {
+      if (dispatchAction('npc:' + W.focus.npc.id, W.focus.npc)) return;
       var line = npcDialogue(W.focus.npc);
       sayInPlaza(W.focus.npc.name, line);
       pushMsg({ callsign: W.focus.npc.name, faction: 'NEUTRAL', body: line });
@@ -2754,6 +2919,7 @@
   }
 
   function startGameplayMission(id) {
+    if (dispatchAction('mission:' + id, { id: id })) return;
     var status = missionStatus(id);
     if (status.state === 'locked') {
       sayInPlaza('System', status.reason);
@@ -2774,6 +2940,7 @@
 
   function runDistrictAction(node) {
     if (!node || !node.action) return;
+    if (dispatchAction(node.action, node)) return;
     var status = nodeStatus(node);
     if (status.state === 'locked' || node.action === 'locked') {
       sayInPlaza('Map', status.reason);
@@ -2824,6 +2991,7 @@
 
   function runPlazaAction(action, source) {
     if (!action) return;
+    if (dispatchAction(action, source)) return;
     if (action.indexOf('mission:') === 0) { startGameplayMission(action.split(':')[1]); return; }
     if (action.indexOf('district:') === 0) { toDistrict(action.split(':')[1]); return; }
     if (action === 'academy') { try { window.__cwAcademy && window.__cwAcademy.open(); } catch (e) {} return; }
@@ -3018,6 +3186,7 @@
 
   function runWorldPanelAction(action) {
     if (!action) return;
+    if (dispatchAction(action, null)) return;
     if (action.indexOf('console:') === 0) { openGameplayTab(action.split(':')[1]); return; }
     if (action.indexOf('district:') === 0) { closeWorldPanel(); toDistrict(action.split(':')[1]); return; }
     if (action.indexOf('mission:') === 0) { closeWorldPanel(); startGameplayMission(action.split(':')[1]); return; }
@@ -3080,7 +3249,7 @@
       var legacy = p.get('legacy') === '1';
       var launch = (p.get('launch') || '').toLowerCase();
       var onboard = loadJSON('cw.onboarding.v1', {}) || {};
-      var onboardingPending = !onboard.complete && p.get('skiponboarding') !== '1';
+      var onboardingPending = !ASCENSION && !onboard.complete && p.get('skiponboarding') !== '1';
       // Don't hijack if the user explicitly deep-linked into the academy or another launch.
       var academyDeep = p.get('academy') === '1' || launch === 'academy';
       if (!suppress && !legacy && !academyDeep && !onboardingPending) {

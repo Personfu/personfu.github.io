@@ -1,6 +1,7 @@
 # Dependencies
 node_modules/
 package-lock.json
+!/package-lock.json
 
 # Environment secrets — NEVER commit these
 .env
@@ -19,6 +20,8 @@ Thumbs.db
 # Build artifacts
 dist/
 build/
+test-results/
+playwright-report/
 
 # Local database files (dev only)
 multiplayer-server/db.json
@@ -27,3 +30,4 @@ multiplayer-server/db.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+playwright-*-results/
