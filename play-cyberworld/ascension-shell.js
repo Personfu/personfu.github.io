@@ -79,7 +79,7 @@
     if (window.__cwAscensionNet) window.__cwAscensionNet.start(profile || currentProfile());
     var snap = read('cw.ascension.position.v1', null);
     if (snap && snap.zone && NAMES[snap.zone] && snap.zone !== 'plaza' && snap.zone !== 'sector' && snap.zone !== 'grid') window.__cwWorld.toDistrict(snap.zone);
-    updateHud(); toast('Welcome to the Grid, ' + (profile || currentProfile()).callsign + '. Find Agent Zero.');
+    updateHud(); toast('Welcome to the Grid, ' + (profile || currentProfile()).callsign + (campaign()?.state().seenZero ? '. Your case files and street contract are ready.' : '. Find Agent Zero.'));
   }
   function openDeck(tab) { if (campaign() && campaign().openDeck) campaign().openDeck(tab || 'missions'); }
   function toggleHud() { var compact = document.body.classList.toggle('cwas-immersive'); $('cwas-hud-toggle').textContent = compact ? 'HUD +' : 'HUD −'; $('cwas-hud-toggle').setAttribute('aria-pressed', String(!compact)); }
@@ -287,6 +287,7 @@
     document.querySelectorAll('[data-district]').forEach(function (button) { button.classList.toggle('active', button.dataset.district === zone); });
     var state = campaign() && campaign().state ? campaign().state() : null;
     if (state) updateObjective(state);
+    if ($('cwas-field-open') && window.__cwCity) { var field = window.__cwCity.state().field; text('cwas-field-open', field?.phase === 'complete' ? 'LAST MILE / FIELD KIT ↗' : 'STREET CONTRACT / ' + (field?.samples.length ? field.samples.length + '/3 SOURCES ↗' : 'THE LAST MILE ↗')); }
     if (Date.now() - minimapTime > 120) { drawMinimap(snap); minimapTime = Date.now(); }
     if (window.__cwAscensionNet) updatePresence();
   }
@@ -374,6 +375,7 @@
     $('cwas-radio-open').onclick=function(){if(campaign())campaign().talkZero();};
     $('cwas-overclock').onclick=function(){if(campaign())campaign().toggleOverclock();};
     $('cwas-settings').onclick=openSettings;$('cwas-audio').onclick=toggleSound;
+    $('cwas-field-open').onclick=function(){window.__cwCity?.openField();};
     $('cwas-hud-toggle').onclick=toggleHud;
     $('cwas-roster').onclick=function(){$('cwas-peer-list').hidden=!$('cwas-peer-list').hidden;updatePresence();};
     $('cwas-touch-interact').onclick=function(){window.__cwWorld.interact();};

@@ -23,15 +23,16 @@ redirects. Mission evidence and earned reward ZIPs are generated locally, includ
 when the installed game is offline.
 
 `play-cyberworld/` is generated output: edit maintained sources, then rebuild.
-The exporter uses an explicit 28-file contract from `CyberWorld/` plus the root
-favicon and writes the same game to `index.html`. Its deployment manifest records
-exact SHA-256 digests and byte lengths for all 29 exported files; the manifest
-itself is the thirtieth file. Text is normalized to LF and the GLB model is copied
+The exporter uses an explicit 29-file public contract, including the root favicon,
+and writes the same game to `index.html`. Its deployment manifest records
+exact SHA-256 digests and byte lengths for all 30 exported files; the manifest
+itself is the thirty-first file. Text is normalized to LF and the GLB model is copied
 byte for byte. Favicon and fictional portrait references stay inside the mount;
 optional remote font links are omitted. No source commit or private checkout is
 needed to regenerate. Git attributes preserve these exact bytes on checkout.
 
-The worker snapshot contains exactly 21 local URLs. Its version derives from all
+The worker snapshot contains exactly 22 local URLs, including the Last Mile field
+contract model. Its version derives from all
 exported game bytes, and public credits stay readable through controlled offline
 navigations. Focused regression checks compare committed output with a fresh
 export, reject incorrect hashes/lengths or extra files, and prove failed installs

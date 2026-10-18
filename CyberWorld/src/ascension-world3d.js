@@ -33,6 +33,14 @@ import { createCityAudio } from './ascension-audio.js';
   const groundPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
   const materials = new Map();
   const worldLabels = new Set(), labelPosition = new THREE.Vector3();
+  const fieldSites = [
+    { id: 'field-uplink', title: 'FREIGHT UPLINK', x: -6, z: -17, color: C.amber, description: 'The Last Mile: inspect the freight transmitter before changing its shared route.' },
+    { id: 'field-backup', title: 'FALLBACK RELAY', x: -28, z: -6, color: C.blue, description: 'The Last Mile: verify an independent fallback in Service Alley 03.' },
+    { id: 'field-clinic', title: 'CLINIC SUPPLY', x: 10, z: 3, color: C.cyan, description: 'The Last Mile: inspect the held medical delivery and its clean supply route.' },
+    { id: 'field-switch', title: 'ROUTE SWITCH', x: -12, z: 1, color: C.violet, description: 'The Last Mile: preserve evidence, contain the freight uplink and restore clinic deliveries.' },
+  ];
+  const fieldSampleIds = new Set(fieldSites.map(site => site.id));
+  let fieldState = { phase: 'available', samples: [], route: null, steps: [], feedback: '' }, fieldWorld = null;
   const cityAudio = createCityAudio();
   function setSoundEnabled(on) { return cityAudio.setEnabled(on); }
   function cue(frequency = 440) { cityAudio.cue(frequency); }
@@ -410,6 +418,122 @@ import { createCityAudio } from './ascension-audio.js';
     const step=Math.min(distance,item.speed*dt);item.mesh.position.x+=dx/distance*step;item.mesh.position.z+=dz/distance*step;item.mesh.rotation.y=Math.atan2(dx,dz);gait(item.mesh,true,dt);
   }
 
+  function fieldLabel(previous, text, color, parent, y, width = 3.5) {
+    if (previous?.userData.fieldText === text) return previous;
+    if (previous) { previous.removeFromParent(); worldLabels.delete(previous); previous.material.map.dispose(); previous.material.dispose(); }
+    const label = textSprite(text, color, width); label.userData.fieldText = text;
+    label.position.y = y; parent.add(label); return label;
+  }
+  function normaliseField(value) {
+    const source = value && typeof value === 'object' ? value : {};
+    return {
+      phase: ['available','survey','routing','complete'].includes(source.phase) ? source.phase : 'available',
+      samples: Array.isArray(source.samples) ? [...new Set(source.samples.filter(id => fieldSampleIds.has(id)))] : [],
+      route: source.route === 'fallback' ? 'fallback' : null,
+      steps: Array.isArray(source.steps) ? [...new Set(source.steps.filter(step => ['snapshot','isolate','restore','verify'].includes(step)))] : [],
+      feedback: typeof source.feedback === 'string' ? source.feedback.slice(0, 240) : '',
+    };
+  }
+  function setFieldState(value) {
+    fieldState = normaliseField(value);
+    if (!fieldWorld) return;
+    const complete = fieldState.phase === 'complete', isolated = fieldState.steps.includes('isolate');
+    const fallback = fieldState.route === 'fallback', restored = fieldState.steps.includes('restore');
+    fieldWorld.terminals.forEach((terminal, id) => {
+      const sampled = fieldState.samples.includes(id);
+      const color = complete || sampled ? '#77f5ad' : '#' + terminal.site.color.toString(16).padStart(6, '0');
+      terminal.lamp.material.color.set(color); terminal.lamp.material.emissive.set(color);
+      const status = id === 'field-uplink' ? (isolated ? 'FREIGHT / CONTAINED' : 'FREIGHT / SHARED ROUTE')
+        : id === 'field-backup' ? (fallback ? 'FALLBACK / CONNECTED' : 'FALLBACK / INDEPENDENT')
+        : id === 'field-clinic' ? (complete ? 'CLINIC / DELIVERIES LIVE' : 'CLINIC / DELIVERY HELD')
+        : complete ? 'LAST MILE / RECOVERED' : fieldState.steps.includes('snapshot') ? 'ROUTE / EVIDENCE SAVED' : 'LAST MILE / INSPECT';
+      terminal.label = fieldLabel(terminal.label, status, color, terminal.marker, terminal.labelHeight, 3.65);
+      terminal.marker.userData.target.description = complete ? 'The Last Mile is recovered. Inspect the evidence and claim your field reward.' : terminal.site.description;
+    });
+    fieldWorld.links.forEach(link => {
+      const active = link.kind === 'freight' ? !isolated : link.kind === 'fallback' ? fallback : restored;
+      const color = link.kind === 'clinic' && restored ? 0x77f5ad : link.color;
+      link.mesh.material.color.setHex(color); link.mesh.material.emissive.setHex(color);
+      link.mesh.material.opacity = active ? .76 : .13;
+      link.packet.material.color.setHex(color); link.packet.material.emissive.setHex(color);
+      link.packet.visible = active && !state.reducedMotion;
+      link.active = active;
+    });
+    fieldWorld.droneStatus = fieldLabel(fieldWorld.droneStatus, complete ? 'MEDICAL / EN ROUTE' : 'MEDICAL / HOLD', complete ? '#77f5ad' : '#ffbe65', fieldWorld.drone, 1.05, 2.6);
+    if (!complete) { fieldWorld.drone.position.set(10,1.25,3); fieldWorld.drone.rotation.y=0; fieldWorld.segment=1; fieldWorld.moving=false; }
+  }
+  function authorFieldContract(parent) {
+    const group = new THREE.Group(); group.userData.dynamic = true; parent.add(group);
+    fieldWorld = { group, terminals: new Map(), links: [], drone: null, droneStatus: null, segment: 1, moving: false,
+      droneRoute: [[10,3],[10,11],[5,14],[-5,14],[-7,8],[4,7],[10,3]] };
+    fieldSites.forEach(site => {
+      const marker = markTarget(group, site.id, site.title, 'studio:field', site.x, site.z, site.color, site.description);
+      // Replace the generic marker sign with a compact stateful device label.
+      const oldLabel = marker.children.find(child => child.isSprite);
+      if (oldLabel) { oldLabel.removeFromParent(); worldLabels.delete(oldLabel); oldLabel.material.map.dispose(); oldLabel.material.dispose(); }
+      if (site.id === 'field-uplink') {
+        box(marker,0,.8,0,1.35,1.25,1.1,0x33424e); box(marker,0,1.5,0,1.55,.14,1.3,0x152330);
+        for (const x of [-.46,.46]) { cylinder(marker,x,2.15,0,.055,2.9,0x84949d); for(let y=1.5;y<3.5;y+=.5)box(marker,0,y,0,.98,.035,.05,0x5b707b); }
+        const dish = new THREE.Mesh(new THREE.SphereGeometry(.82,18,8,0,Math.PI*2,0,Math.PI*.43),material(0x8a9aa2,false,{side:THREE.DoubleSide,metalness:.8}));
+        dish.position.set(0,3.35,0); dish.rotation.x=-.85; marker.add(dish);
+        box(marker,0,1,-.58,.95,.58,.05,site.color,true); cylinder(marker,0,3.87,0,.055,.45,site.color,true);
+      } else if (site.id === 'field-backup') {
+        box(marker,0,.25,0,1.9,.2,1.2,0x566574);
+        for(const x of [-.62,0,.62]) { cylinder(marker,x,1.12,0,.24,1.6,0x24394c); ring(marker,x,1.74,0,.25,site.color,.035); box(marker,x,.88,.26,.09,.6,.04,site.color,true); }
+        box(marker,0,2.06,0,2.05,.15,1.2,0x162537);
+        const panel=box(marker,0,2.48,-.12,2.05,.09,1.4,0x3b6d97);panel.rotation.x=-.4;
+        for(const x of [-.65,0,.65]){const seam=box(marker,x,2.49,-.12,.025,.015,1.32,site.color,true);seam.rotation.x=-.4;}
+        box(marker,.9,1.3,.44,.3,.7,.18,0x101d2b);box(marker,.9,1.4,.54,.18,.4,.025,site.color,true);
+      } else if (site.id === 'field-clinic') {
+        cylinder(marker,0,.28,0,1.06,.18,0x536774);ring(marker,0,.39,0,.95,site.color,.04);
+        box(marker,0,.4,0,.77,.025,.2,0xc7e6e4,true);box(marker,0,.4,0,.2,.025,.77,0xc7e6e4,true);
+        for(const x of [-1.08,1.08])cylinder(marker,x,1.35,-.85,.055,2.7,0x617e8d);
+        box(marker,0,2.7,-.85,2.55,.17,.6,0x2e4a55);box(marker,0,2.78,-.85,.8,.025,.18,site.color,true);
+        box(marker,-1.3,.58,-.1,.55,.82,.8,0xdae3dc);box(marker,-1.3,.65,.32,.32,.12,.025,site.color,true);box(marker,-1.3,.65,.32,.1,.36,.025,site.color,true);
+      } else {
+        cylinder(marker,0,.43,0,.7,.55,0x35414e);cylinder(marker,0,1.01,0,.24,.8,0x536b78);
+        const desk=box(marker,0,1.46,0,1.95,.18,1.15,0x172d3e);desk.rotation.x=.15;
+        for(let i=0;i<3;i++){const x=-.63+i*.63;box(marker,x,1.57,-.04,.43,.06,.65,[C.amber,C.blue,C.cyan][i],true);cylinder(marker,x,1.78,-.52,.065,.46,0x6e8293);}
+        ring(marker,0,.18,0,1.08,site.color,.03);
+      }
+      const lamp=new THREE.Mesh(shared.sphere,material(site.color,true).clone());lamp.scale.setScalar(.11);lamp.position.set(.66,site.id==='field-uplink'?1.45:1.95,.5);marker.add(lamp);
+      fieldWorld.terminals.set(site.id,{site,marker,lamp,label:null,labelHeight:site.id==='field-uplink'?4.5:3.3});
+      collision(site.x,site.z,site.id==='field-clinic'?1.1:.9,site.id==='field-clinic'?1:.7,site.id==='field-uplink'?4:2.9);
+      batchStaticMeshes(marker);
+    });
+    const createLink=(kind,points,color)=>{
+      const curve = new THREE.CatmullRomCurve3(points.map(point => new THREE.Vector3(...point)));
+      const mesh=new THREE.Mesh(new THREE.TubeGeometry(curve,32,.025,4,false),new THREE.MeshStandardMaterial({color,emissive:color,emissiveIntensity:.8,transparent:true,opacity:.6,depthWrite:false}));group.add(mesh);
+      const packet=new THREE.Mesh(shared.sphere,material(color,true).clone());packet.scale.setScalar(.11);group.add(packet);
+      fieldWorld.links.push({kind,color,curve,mesh,packet,active:false});
+    };
+    createLink('freight',[[-6,2.7,-17],[-5,3,-9],[-8,2.3,-3],[-12,1.8,1]],C.amber);
+    createLink('fallback',[[-28,2.1,-6],[-27,2.4,-3],[-24,2.8,0],[-18,2.5,1],[-12,1.8,1]],C.blue);
+    // The clean route skirts the central monument instead of passing through it.
+    createLink('clinic',[[-12,1.8,1],[-9,2.4,4],[-3,2.5,5],[4,2.4,5],[10,1.9,3]],C.amber);
+    const drone=new THREE.Group();drone.userData.dynamic=true;drone.position.set(10,1.25,3);group.add(drone);fieldWorld.drone=drone;
+    box(drone,0,0,0,.72,.22,.95,0xb9d3d5);box(drone,0,-.33,0,.66,.42,.73,0x263e50);
+    box(drone,0,-.35,.38,.34,.1,.025,C.cyan,true);box(drone,0,-.35,.38,.1,.3,.025,C.cyan,true);
+    for(const x of [-.66,.66])for(const z of [-.54,.54]){box(drone,x*.5,.02,z*.5,.72,.05,.07,0x6c8796);cylinder(drone,x,.12,z,.3,.035,0x132d3b);ring(drone,x,.16,z,.31,C.cyan,.018);}
+    batchStaticMeshes(drone);
+    animated.push({type:'field'});
+    setFieldState(window.__cwCity?.state?.().field);
+  }
+  function updateFieldWorld(dt) {
+    if (!fieldWorld) return;
+    const complete=fieldState.phase==='complete', running=complete&&!state.reducedMotion&&!blocked()&&!document.hidden;
+    fieldWorld.moving=running;
+    const drone=fieldWorld.drone;
+    if(running){
+      const target=fieldWorld.droneRoute[fieldWorld.segment],dx=target[0]-drone.position.x,dz=target[1]-drone.position.z,distance=Math.hypot(dx,dz);
+      if(distance<.12)fieldWorld.segment=(fieldWorld.segment+1)%fieldWorld.droneRoute.length;
+      else {const stride=Math.min(distance,dt*2.3);drone.position.x+=dx/distance*stride;drone.position.z+=dz/distance*stride;drone.rotation.y=Math.atan2(dx,dz);}
+      drone.position.y=THREE.MathUtils.damp(drone.position.y,2.75,2,dt)+Math.sin(state.time*2)*.0015;
+    }
+    fieldWorld.links.forEach((link,index)=>{link.packet.visible=link.active&&!state.reducedMotion;if(link.packet.visible)link.packet.position.copy(link.curve.getPoint((state.time*.18+index*.28)%1));});
+  }
+  document.addEventListener('cw:field-state',event=>setFieldState(event.detail));
+
   function makeCity() {
     city = new THREE.Group(); scene.add(city);
     floor = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), material(0x14212c, false, { roughness: .38, metalness: .63 }));
@@ -471,6 +595,7 @@ import { createCityAudio } from './ascension-audio.js';
     npc(city, 'byte', 'BYTE / GUIDE', 'ascension:mission', 4.8, 6.8, C.amber, 'Open your active operation.');
     markTarget(city, 'codebreaker', 'CODEBREAKER SIGNAL', 'ascension:mission', -7, -1, C.amber, 'Investigate the Ghost Freight case.');
     authorStreet(city);
+    authorFieldContract(city);
     // Hanging service conduits and elevated transit make the skyline a volume.
     for (const x of [-28,28]) {
       box(city, x, 8, 0, .5, .5, 62, 0x223340);
@@ -511,6 +636,7 @@ import { createCityAudio } from './ascension-audio.js';
     animated.length = 0; peers.forEach(peer => releaseGroup(peer.mesh)); peers.clear();
     if (city) { releaseGroup(city); city = null; }
     if (room) { releaseGroup(room); room = null; }
+    fieldWorld = null;
     rain = null;
   }
   function consoleStation(parent, x, z, color, label) {
@@ -616,6 +742,10 @@ import { createCityAudio } from './ascension-audio.js';
         dir: Math.sin(state.facing) >= 0 ? 1 : -1, moving: state.moving, worldX: state.position.x, worldZ: state.position.z, ready: !!actor },
       world: { x: state.position.x, y: state.position.y, z: state.position.z },
       targets: targets.map(target=>({id:target.id,title:target.title,x:target.x,z:target.z,action:target.action})),
+      field: { ...fieldState, samples: [...fieldState.samples], steps: [...fieldState.steps],
+        targets: fieldSites.map(site=>({id:site.id,x:site.x,z:site.z,action:'studio:field'})),
+        convoy: { recovered:fieldState.phase==='complete',moving:!!fieldWorld?.moving&&!state.reducedMotion&&!blocked()&&!document.hidden,
+          position:fieldWorld ? {x:fieldWorld.drone.position.x,y:fieldWorld.drone.position.y,z:fieldWorld.drone.position.z} : null } },
       focus: state.focus ? { id: state.focus.id, type: '3d', x: state.focus.x, z: state.focus.z } : null,
       overclock: state.overclock, reducedMotion: state.reducedMotion, renderer: 'webgl',
       diagnostics: { renderer: 'webgl', drawCalls: renderer?.info.render.calls || 0, triangles: renderer?.info.render.triangles || 0, fps: Math.round(state.fps), quality: state.quality, graphics: { ...state.graphics }, characterAsset:characterStatus, characterAnimation:actor?.userData.rig?.name||'procedural-fallback', riggedCharacters:[...characterAgents].filter(agent=>agent.userData.rig).length, audio:cityAudio.snapshot() } };
@@ -885,6 +1015,7 @@ import { createCityAudio } from './ascension-audio.js';
       if(item.type==='core'){item.core.rotation.y=state.time*.35;item.core.position.y=2.7+Math.sin(state.time*.7)*.2;}
       else if(item.type==='transit'){item.car.position.set(28,8.75,Math.sin(state.time*.08)*27);}
       else if(item.type==='crowd')updateCrowd(item,simulationDt);
+      else if(item.type==='field')updateFieldWorld(simulationDt);
       else gait(item,false,dt);
     });
     if(rain){rain.visible=!state.reducedMotion&&state.graphics.effects;const positions=rain.geometry.attributes.position;

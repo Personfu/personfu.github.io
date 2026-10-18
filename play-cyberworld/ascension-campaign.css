@@ -108,3 +108,19 @@
 [data-evidence-summary]{color:#b6d5df;overflow-wrap:anywhere;font:12px/1.5 ui-monospace,Consolas,monospace}
 [data-evidence-mode][aria-pressed=true]{border-color:#5eead4;box-shadow:inset 0 0 0 1px #5eead4}
 @media(max-width:620px){.cwas-inspector-controls{grid-template-columns:1fr}.cwas-artifact-tools .cwas-btn{width:100%}.cwas-byte-view{max-height:300px;font-size:11px}}
+/* The Last Mile: physical source cards and consequential continuity decisions. */
+#cwas-field-open{display:block;color:#ffce83;letter-spacing:1px;padding-top:10px;min-height:32px;text-align:left}
+.cwas-field-strip{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;border:1px solid #328c87;background:#102f32;padding:14px;font:12px/1.5 ui-monospace,Consolas,monospace;color:#baf7e9}
+.cwas-field-sources{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0}
+.cwas-field-sources .cwas-panel{min-width:0;margin:0;padding:16px;background:#0b202a;border:1px solid #315760}
+.cwas-field-sources .cwas-panel>span{font:10px ui-monospace,Consolas,monospace;color:#7edac9;letter-spacing:1px}
+.cwas-field-sources h3{margin-top:12px!important}.cwas-field-sources p{font-size:12px!important}
+.cwas-field-sources summary{cursor:pointer;color:#c5f7e9;font-size:12px;line-height:1.6;padding:8px 0}
+#cwas-modal .cwas-field-evidence{padding:14px;background:#040d15;border-left:2px solid #52ddc7;white-space:pre-wrap;overflow-wrap:anywhere;font:12px/1.65 ui-monospace,Consolas,monospace;color:#c6e7e5;max-height:300px;overflow:auto}
+.cwas-field-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:20px}
+.cwas-field-choices button{min-height:52px;white-space:normal;text-align:left}
+.cwas-field-feedback{border-left:3px solid #ffce83;background:#3e301c;padding:12px 16px;color:#ffe1ad!important}
+.cwas-field-complete{border:1px solid #52ddc7;padding:18px;background:linear-gradient(120deg,#0e342e,#102333);margin:20px 0}
+.cwas-field-dialog>header>[data-city-action=close]{flex:0 0 44px;width:44px;min-width:44px;min-height:44px;padding:0;text-align:center}.cwas-field-dialog>header>div{min-width:0}.cwas-field-dialog>header small{letter-spacing:1px;line-height:1.5}
+@media(max-width:700px){.cwas-field-sources,.cwas-field-choices{grid-template-columns:1fr}.cwas-field-dialog .cwas-dialog-body{padding:18px}.cwas-field-dialog .cwas-actions{display:grid;gap:10px}.cwas-field-dialog .cwas-btn{width:100%}#cwas-field-open{font-size:8px;letter-spacing:.4px}}
+@media(max-width:600px){#cwas-objective-open,#cwas-field-open{position:static;display:block;min-height:40px;padding:8px 0 0;text-align:left}.cwas-objective h1{margin-bottom:4px}}
