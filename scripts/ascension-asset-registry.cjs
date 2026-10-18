@@ -6,7 +6,7 @@ const path = require('node:path');
 const vm = require('node:vm');
 const crypto = require('node:crypto');
 const root = path.resolve(__dirname, '..');
-const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
+const sha = bytes => crypto.createHash('sha256').update(typeof bytes === 'string' ? bytes.replace(/\r\n/g, '\n') : bytes).digest('hex');
 function triangles(geometry) { return (geometry.index ? geometry.index.count : geometry.attributes.position.count) / 3; }
 function modelStats(group) {
   let meshTriangles = 0, spriteTriangles = 0, meshes = 0;

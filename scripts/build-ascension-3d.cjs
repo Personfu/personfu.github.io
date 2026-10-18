@@ -42,7 +42,8 @@ if (!process.exitCode) {
   const worker = fs.readFileSync(workerPath, 'utf8');
   const hash = crypto.createHash('sha256');
   hash.update(worker.replace(/const VERSION = '[^']+';/, "const VERSION = 'CONTENT_VERSION';"));
-  const files = [...new Set([...worker.matchAll(/['"](\/(?:CyberWorld|assets)\/[^'"\n]+\.(?:html|js|css|webmanifest|webp|png|svg|txt))['"]/g)].map(match => match[1]))].sort();
+  const runtimeList = worker.match(/const FILES = \[([\s\S]*?)\];/)[1] + worker.match(/const ENTRY = '[^']+';/)[0];
+  const files = [...new Set([...runtimeList.matchAll(/['"](\/(?:CyberWorld|assets)\/[^'"\n]+\.(?:html|js|css|webmanifest|webp|png|svg|txt))['"]/g)].map(match => match[1]))].sort();
   for (const file of files) { hash.update(file); hash.update(fs.readFileSync(path.join(root, '.' + file))); }
   const version = 'cw-ascension-public-3d-' + hash.digest('hex').slice(0, 16);
   const updated = worker.replace(/const VERSION = '[^']+';/, "const VERSION = '" + version + "';");

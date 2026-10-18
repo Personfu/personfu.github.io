@@ -61,7 +61,9 @@ function fetchEvent(pathname, mode = 'cors', method = 'GET') {
   const unavailable = await fetchEvent('/CyberWorld/ascension.html', 'navigate');
   assert.equal(unavailable.status, 503, 'Unavailable uncached offline resources receive an honest failure');
   storageUnavailable = false;
-  for (const protectedPath of ['/CyberWorld/', '/CyberWorld/index.html', '/CyberWorld/login/index.html']) {
+  assert.equal(fetchEvent('/CyberWorld/', 'navigate'), undefined, 'Project home remains a public network navigation');
+  assert.equal(fetchEvent('/CyberWorld/index.html', 'navigate'), undefined, 'Project index remains public');
+  for (const protectedPath of ['/CyberWorld/login/index.html', '/CyberWorld/member/profile.html']) {
     const response = await fetchEvent(protectedPath, 'navigate');
     assert.equal(response.status, 302);
     assert.equal(response.headers.get('location'), 'https://www.fllc.net/cyberworld');
