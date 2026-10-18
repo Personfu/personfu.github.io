@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#070c13">
+  <title>CyberWorld — Codebreaker: Ascension</title>
+  <meta name="description" content="Enter a playable cyberpunk city. Reconstruct the evidence. See the network. An original, free browser cybersecurity RPG from Person / FLLC.">
+  <link rel="canonical" href="https://personfu.github.io/play-cyberworld/ascension.html">
+  <meta property="og:title" content="CyberWorld // Codebreaker: Ascension">
+  <meta property="og:description" content="The network is alive. Your superpower is visibility. Play the original browser cybersecurity RPG.">
+  <meta property="og:image" content="https://personfu.github.io/docs/screenshots/ascension-plaza.png">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="ascension.webmanifest">
+  <link rel="stylesheet" href="gameplay.css">
+  <link rel="stylesheet" href="cw-academy.css">
+  <link rel="stylesheet" href="cw-world.css">
+  <link rel="stylesheet" href="ascension.css">
+  <link rel="stylesheet" href="ascension-campaign.css">
+  <script>window.CW_ASCENSION=true;</script>
+  <script defer src="gameplay.js"></script>
+  <script defer src="cw-academy.js"></script>
+  <script defer src="ascension-net.js"></script>
+  <script defer src="ascension-world3d.js"></script>
+  <script defer src="ascension-response3d.js"></script>
+  <script defer src="ascension-data.js"></script>
+  <script defer src="ascension-downloads.js"></script>
+  <script defer src="ascension-campaign.js"></script>
+  <script defer src="ascension-city.js"></script>
+  <script defer src="ascension-shell.js"></script>
+</head>
+<body class="ascension-theme cwas-immersive" data-phase="title">
+  <a href="#cwas-controls" class="cwas-skip">Skip to game controls</a>
+  <div id="cwas-shell">
+    <header class="cwas-topbar">
+      <a class="cwas-brand" href="../index.html" title="Return to the PersonFu operator desktop"><span class="cwas-brand-mark" aria-hidden="true">◈</span><span>CYBERWORLD<small>PERSON / FLLC</small></span></a>
+      <div class="cwas-chapter">CODEBREAKER <span>/</span> ASCENSION <i>VOL. 01</i></div>
+      <div class="cwas-top-actions"><span class="cwas-simulation"><i></i> SIMULATION</span><button id="cwas-hud-toggle" title="Toggle detailed HUD (H)" aria-pressed="false">HUD +</button><button id="cwas-audio" aria-pressed="false" title="Enable game audio">SOUND OFF</button><button id="cwas-settings" title="Game settings and help">⋮<span class="cwas-sr">Settings</span></button></div>
+    </header>
+    <div id="cwas-ingame" hidden>
+      <aside class="cwas-objective" aria-label="Current operation">
+        <div class="cwas-eyebrow"><span class="cwas-live-dot"></span> ACTIVE OPERATION <span id="cwas-mission-number">01 / 07</span></div>
+        <h1 id="cwas-objective-title">The wrong arrival</h1>
+        <p id="cwas-objective-copy">Meet Agent Zero. Something in the freight network is arriving before it was sent.</p>
+        <div class="cwas-objective-step"><span id="cwas-step-index">01</span><div><strong id="cwas-step-title">Establish contact</strong><small id="cwas-step-copy">Find Agent Zero in Cyber Plaza.</small></div></div>
+        <button class="cwas-text-button" id="cwas-objective-open">OPEN CASE FILE <span>↗</span></button>
+      </aside>
+      <nav class="cwas-sectors" aria-label="Sector navigation"><span>SECTOR NAV</span><button data-district="plaza" title="Cyber Plaza"><b>01</b>PLAZA</button><button data-district="soc" title="SOC Tower"><b>02</b>SOC TOWER</button><button data-district="academy" title="Hacker Academy"><b>03</b>ACADEMY</button><button data-district="lab" title="Your personal lab"><b>04</b>YOUR LAB</button><button data-deck="map" title="World map"><b>05</b>THE GRID</button><button data-deck="codex" title="Intelligence codex"><b>06</b>CODEX</button></nav>
+      <aside class="cwas-location" aria-label="Location and presence"><div><span class="cwas-eyebrow">THE GRID / SECTOR 01</span><strong id="cwas-location-name">CYBER PLAZA</strong></div><canvas id="cwas-minimap" width="226" height="132" aria-label="Minimap. Your operative is shown in cyan."></canvas><div class="cwas-presence"><span id="cwas-presence-dot"></span><span id="cwas-presence-label">CONNECTING TO GRID</span><button id="cwas-roster" title="Show actual connected operatives">↗</button></div><div id="cwas-peer-list" hidden></div></aside>
+      <div class="cwas-operative"><span class="cwas-op-monogram" id="cwas-monogram">P</span><div><strong id="cwas-callsign">OPERATIVE</strong><small id="cwas-rank">ROOKIE / IRONWALL</small><div class="cwas-progress-track"><i id="cwas-xp-fill"></i></div></div><b id="cwas-level">01<small>LEVEL</small></b></div>
+      <aside class="cwas-radio" aria-label="Mission transmission"><div class="cwas-radio-icon" aria-hidden="true">⌁</div><div><span>INCOMING / AGENT ZERO</span><p id="cwas-radio-copy">The city looks normal. That's the problem.</p><button id="cwas-radio-open">READ TRANSMISSION <span>→</span></button></div></aside>
+      <div class="cwas-bottom-center"><div class="cwas-position"><span class="cwas-live-dot"></span><span id="cwas-zone">CYBER PLAZA</span><i>YOUR SUPERPOWER IS VISIBILITY.</i></div><nav id="cwas-controls" class="cwas-hotbar" aria-label="Game controls"><button id="cwas-overclock"><kbd>Q</kbd><span class="cwas-action-icon">ϟ</span><span>OVERCLOCK<small id="cwas-overclock-charge">100% READY</small></span></button><button data-deck="missions"><kbd>TAB</kbd><span class="cwas-action-icon">▤</span><span>CYBERDECK<small>OPERATIONS</small></span></button><button data-deck="journal"><kbd>J</kbd><span class="cwas-action-icon">⌑</span><span>CASE NOTES<small>EVIDENCE</small></span></button><button data-deck="inventory"><kbd>I</kbd><span class="cwas-action-icon">◇</span><span>LOADOUT<small>YOUR GEAR</small></span></button></nav><p class="cwas-controls-hint"><span class="cwas-desktop-hint"><kbd>WASD</kbd> move · <kbd>E</kbd> interact · Right-drag look · Scroll zoom · <kbd>Esc</kbd> pause</span><span class="cwas-mobile-hint">ARROWS to move · DRAG to look · E to interact</span></p></div>
+      <div class="cwas-touch" aria-label="Touch controls"><div class="cwas-dpad"><button data-move="0,-1" aria-label="Move up">↑</button><button data-move="-1,0" aria-label="Move left">←</button><button data-move="0,1" aria-label="Move down">↓</button><button data-move="1,0" aria-label="Move right">→</button></div><button id="cwas-touch-interact">E <span>INTERACT</span></button></div>
+      <div class="cwas-save-status" id="cwas-save-status" role="status">LOCAL SAVE READY</div>
+    </div>
+    <section id="cwas-title" aria-labelledby="cwas-title-heading">
+      <div class="cwas-title-copy"><div class="cwas-title-kicker"><span>AN ORIGINAL 3D BROWSER RPG</span><i>001 — BLACK FREIGHT</i></div><h1 id="cwas-title-heading">THE NETWORK<br>IS <em>ALIVE.</em></h1><p class="cwas-title-description">A city built on trust.<br>A signal that shouldn't exist.<br>And you, somewhere between the two.</p><div class="cwas-title-actions"><button class="cwas-primary" id="cwas-begin">ENTER THE GRID <span>↗</span></button><button id="cwas-continue" class="cwas-secondary" hidden>CONTINUE OPERATION <span>→</span></button></div><div class="cwas-title-meta"><span><b>07</b> CONNECTED OPERATIONS</span><span><b>3D</b> A WORLD TO EXPLORE</span></div></div>
+      <div class="cwas-title-case"><span class="cwas-case-index">CASE FILE // 001</span><div class="cwas-case-line"></div><span class="cwas-classification">ANOMALY DETECTED</span><h2>CODEBREAKER:<br><em>ASCENSION</em></h2><p>Investigate. Reconstruct. Contain.<br>The first signal is waiting.</p><div class="cwas-case-tags"><span>CRYPTOANALYSIS</span><span>PACKET FORENSICS</span><span>DEFENSIVE OPERATIONS</span></div></div>
+      <footer class="cwas-title-footer"><span><i class="cwas-live-dot"></i> CYBER PLAZA / LOCAL SIMULATION</span><span>NO INSTALL. NO ACCOUNT. JUST A SIGNAL.</span><a href="../index.html">OPERATOR DESKTOP ↗</a></footer>
+    </section>
+    <section id="cwas-creator" hidden aria-labelledby="cwas-creator-heading"><div class="cwas-creator-art"><canvas id="cwas-avatar-preview" width="480" height="560" aria-label="Preview of your original Cyberworld operative"></canvas><span>OPERATIVE // PREVIEW</span><p>THE PERSON BEHIND<br>THE SIGNAL IS <em>YOU.</em></p></div><form id="cwas-creator-form"><div class="cwas-eyebrow">01 / IDENTITY INITIALIZATION</div><h1 id="cwas-creator-heading">LEAVE A<br><em>SIGNATURE.</em></h1><p>Your handle. Your discipline. Your corner of the Grid.</p><label class="cwas-field">CALLSIGN<input id="cwas-handle" name="callsign" maxlength="20" minlength="2" pattern="[A-Za-z0-9_\- ]{2,20}" required autocomplete="off" placeholder="e.g. PERSON" value="PERSON"></label><fieldset class="cwas-palette"><legend>NEON SIGNATURE</legend><button type="button" data-color="#48ffd5" style="--swatch:#48ffd5" class="selected" aria-label="Cyan signature" aria-pressed="true"></button><button type="button" data-color="#b797ff" style="--swatch:#b797ff" aria-label="Violet signature" aria-pressed="false"></button><button type="button" data-color="#ffbe65" style="--swatch:#ffbe65" aria-label="Amber signature" aria-pressed="false"></button><button type="button" data-color="#ff6f9d" style="--swatch:#ff6f9d" aria-label="Rose signature" aria-pressed="false"></button></fieldset><label class="cwas-field">SPECIALIZATION<select id="cwas-specialization" name="path"><option value="soc">SOC CADET / IRONWALL</option><option value="osint">OSINT SCOUT / GHOSTNET</option><option value="packet">PACKET ROOKIE / GHOSTNET</option><option value="red">REVERSE ENGINEER / NULLSEC</option><option value="sysadmin">SYSADMIN APPRENTICE / IRONWALL</option><option value="hardware">HARDWARE TINKERER / DAEMON</option><option value="cloud">CLOUD INITIATE / IRONWALL</option><option value="space">SPACE CYBER CADET / NULLSEC</option></select></label><p class="cwas-creator-note">Every discipline can solve every operation. Your choice shapes your identity, never your access.</p><button class="cwas-primary" type="submit">INITIALIZE OPERATIVE <span>→</span></button><button class="cwas-text-button" id="cwas-creator-back" type="button">← RETURN</button></form></section>
+  </div>
+  <div id="cwas-modal" class="cwas-modal" role="dialog" aria-modal="true" aria-label="Cyberdeck" hidden></div>
+  <div id="cwas-toast" role="status" aria-live="polite"></div>
+  <noscript><main style="position:fixed;inset:20px;z-index:999999;background:#07121b;padding:30px;color:white">CyberWorld needs JavaScript to run its local simulation. <a href="../index.html" style="color:#48ffd5">Return to the operator desktop</a>.</main></noscript>
+</body>
+</html>

@@ -3,7 +3,7 @@
  * The build derives VERSION from the complete public runtime contents.
  */
 'use strict';
-const VERSION = 'cw-ascension-public-3d-7e60ef70b922ab50';
+const VERSION = 'cw-ascension-public-3d-8bdb8f8a39a12f06';
 const PREFIX = 'cw-ascension-public-';
 const ENTRY = '/CyberWorld/ascension.html';
 const MEMBER_GATEWAY = 'https://www.fllc.net/cyberworld';
@@ -75,9 +75,9 @@ self.addEventListener('fetch', event => {
   // GitHub serves this prefix from Personfu/CyberWorld's project deployment.
   // Its public home launches Ascension; account/member subroutes stay separate.
   if (request.mode === 'navigate' && (url.pathname === '/CyberWorld/' || url.pathname === '/CyberWorld/index.html')) return;
-  // This worker can control member navigations under its scope. Preserve their
-  // established gateway rather than bypassing the root worker's route policy.
-  if (request.mode === 'navigate' && url.pathname.startsWith('/CyberWorld/') && url.pathname !== ENTRY) {
+  // Explicit public resources include human-readable credits and provenance.
+  // Other scoped navigations retain the established member gateway.
+  if (request.mode === 'navigate' && url.pathname.startsWith('/CyberWorld/') && !ALLOWED.has(url.pathname)) {
     event.respondWith(Response.redirect(MEMBER_GATEWAY, 302));
     return;
   }

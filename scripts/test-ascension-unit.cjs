@@ -11,6 +11,7 @@ const suites = [
   ['Guest presence', ['scripts/test_ascension_net.cjs']],
   ['Protected/public root routes', ['scripts/test_service_worker_routes.cjs']],
   ['Public offline worker', ['scripts/test_ascension_sw.cjs']],
+  ['Public user-site game mount', ['scripts/test-public-mount.cjs']],
   ['Static public asset closure', ['scripts/validate-static.cjs', 'build']],
 ];
 let failures = 0;

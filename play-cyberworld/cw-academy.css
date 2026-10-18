@@ -1,0 +1,154 @@
+/* CyberWorld Academy — the educational campaign layer.
+   Windows 98 x cyberpunk. Scoped under #cwa-* so it never touches the bundle. */
+
+:root{
+  --cwa-neon:#00ffcc;--cwa-neon2:#ff2bd6;--cwa-amber:#ffb454;--cwa-blue:#4db5ff;
+  --cwa-gray:#c0c0c0;--cwa-dark:#808080;--cwa-navy:#000080;--cwa-navy2:#1084d0;
+  --cwa-ink:#050e15;--cwa-ink2:#08141d;--cwa-line:#12303c;--cwa-text:#bfe6ee;
+}
+
+/* ---- launcher dock ---- */
+#cwa-dock{
+  position:fixed;right:14px;bottom:58px;z-index:90000;display:flex;align-items:center;gap:7px;
+  padding:7px 12px;cursor:pointer;user-select:none;background:var(--cwa-gray);
+  border:2px solid;border-color:#fff #000 #000 #fff;box-shadow:2px 2px 0 #000,0 0 14px rgba(255,180,84,.25);
+  font:700 12px 'VT323','Share Tech Mono',monospace;color:#000;letter-spacing:1px;
+}
+#cwa-dock:active{border-color:#000 #fff #fff #000}
+#cwa-dock .cwa-dock-ic{font-size:14px}
+#cwa-dock .cwa-dock-prog{font-size:11px;background:#000;color:var(--cwa-amber);padding:1px 6px;border:1px solid var(--cwa-dark);text-shadow:0 0 4px var(--cwa-amber)}
+
+/* ---- window ---- */
+#cwa-win{
+  position:fixed;z-index:90002;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(960px,96vw);height:min(680px,92vh);display:none;flex-direction:column;
+  background:var(--cwa-gray);border:2px solid;border-color:#fff #000 #000 #fff;
+  box-shadow:3px 3px 0 #000,0 0 30px rgba(0,255,204,.16);font-family:'Share Tech Mono',monospace;
+}
+#cwa-win.open{display:flex}
+.cwa-title{display:flex;align-items:center;gap:8px;padding:3px 5px;cursor:move;flex-shrink:0;background:linear-gradient(90deg,var(--cwa-navy),var(--cwa-navy2))}
+.cwa-title h2{flex:1;color:#fff;font:700 13px 'Share Tech Mono',monospace;letter-spacing:.5px;margin:0}
+.cwa-title .cwa-lvlpill{font:700 10px 'Share Tech Mono',monospace;background:#012b22;color:var(--cwa-neon);border:1px solid #067;padding:2px 7px;text-shadow:0 0 4px var(--cwa-neon)}
+.cwa-x{width:18px;height:15px;background:var(--cwa-gray);border:1px solid;border-color:#fff #000 #000 #fff;cursor:pointer;font-size:10px;line-height:1;color:#000}
+.cwa-x:active{border-color:#000 #fff #fff #000}
+
+.cwa-menubar{display:flex;gap:2px;padding:3px 4px;background:var(--cwa-gray);flex-shrink:0;border-bottom:1px solid var(--cwa-dark)}
+.cwa-mbtn{padding:3px 12px;cursor:pointer;font:700 10px 'Share Tech Mono',monospace;background:var(--cwa-gray);border:2px solid;border-color:#fff #000 #000 #fff;color:#333;letter-spacing:.5px}
+.cwa-mbtn.active{background:var(--cwa-ink);color:var(--cwa-neon);text-shadow:0 0 4px var(--cwa-neon)}
+
+.cwa-body{flex:1;overflow:hidden;background:var(--cwa-ink);border:2px inset var(--cwa-dark);margin:4px;position:relative}
+.cwa-screen{position:absolute;inset:0;display:none;overflow:auto}
+.cwa-screen.active{display:block}
+
+/* ---- campaign overview ---- */
+.cwa-hero{padding:16px 18px;border-bottom:1px solid var(--cwa-line);background:linear-gradient(135deg,#07131c,#0a1b28)}
+.cwa-hero .k{color:var(--cwa-amber);font-size:10px;letter-spacing:2px;margin-bottom:6px}
+.cwa-hero h1{color:#eafcff;font-size:20px;margin:0 0 6px;letter-spacing:1px}
+.cwa-hero p{color:var(--cwa-text);font-size:12px;line-height:1.6;max-width:640px}
+.cwa-overall{display:flex;gap:14px;margin-top:12px;flex-wrap:wrap}
+.cwa-ostat{background:#050d14;border:1px solid var(--cwa-line);padding:8px 14px;text-align:center}
+.cwa-ostat b{display:block;font-size:20px;color:var(--cwa-neon)}
+.cwa-ostat span{font-size:9px;color:var(--cwa-text);letter-spacing:1px}
+
+.cwa-domains{padding:14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.cwa-domain{background:var(--cwa-ink2);border:1px solid var(--cwa-line);padding:14px;cursor:pointer;transition:.15s}
+.cwa-domain:hover{border-color:var(--cwa-neon);box-shadow:0 0 14px rgba(0,255,204,.12)}
+.cwa-domain .dh{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.cwa-domain .di{font-size:26px}
+.cwa-domain .dn{color:#eafcff;font-size:14px;font-weight:700;letter-spacing:.5px}
+.cwa-domain .dd{color:var(--cwa-text);font-size:11px;line-height:1.5;margin-bottom:10px;min-height:32px}
+.cwa-pbar{height:10px;background:#02060c;border:1px solid var(--cwa-line);overflow:hidden}
+.cwa-pfill{height:100%;width:0;background:linear-gradient(90deg,var(--cwa-neon),var(--cwa-blue));transition:width .6s}
+.cwa-pmeta{display:flex;justify-content:space-between;font-size:10px;color:var(--cwa-text);margin-top:5px}
+
+/* ---- track list (challenge index for a domain) ---- */
+.cwa-track{padding:14px}
+.cwa-back{display:inline-block;color:var(--cwa-neon);font-size:11px;cursor:pointer;margin-bottom:12px;border:1px solid var(--cwa-line);padding:4px 10px}
+.cwa-back:hover{background:var(--cwa-neon);color:#001}
+.cwa-clist{display:flex;flex-direction:column;gap:8px}
+.cwa-crow{display:flex;align-items:center;gap:12px;padding:11px 13px;background:var(--cwa-ink2);border:1px solid var(--cwa-line);cursor:pointer}
+.cwa-crow:hover{border-color:var(--cwa-neon)}
+.cwa-crow.locked{opacity:.5;cursor:not-allowed}
+.cwa-crow.done{border-color:#2a5}
+.cwa-cstatus{width:26px;text-align:center;font-size:16px}
+.cwa-cinfo{flex:1}
+.cwa-cinfo .ct{color:#eafcff;font-size:13px;font-weight:700}
+.cwa-cinfo .cs{color:var(--cwa-text);font-size:11px;margin-top:2px}
+.cwa-ctier{font-size:9px;color:var(--cwa-amber);border:1px solid var(--cwa-amber);padding:2px 6px;letter-spacing:.5px}
+.cwa-crew{font-size:10px;color:var(--cwa-neon);white-space:nowrap}
+
+/* ---- challenge view ---- */
+.cwa-chal{padding:16px 18px;max-width:760px;margin:0 auto}
+.cwa-chal h1{color:#eafcff;font-size:18px;margin:0 0 4px;letter-spacing:.5px}
+.cwa-chal .dom{color:var(--cwa-amber);font-size:10px;letter-spacing:1px;margin-bottom:14px}
+.cwa-sec{margin-bottom:16px;background:var(--cwa-ink2);border:1px solid var(--cwa-line);padding:13px 15px}
+.cwa-sec .lbl{color:var(--cwa-neon);font-size:10px;letter-spacing:1px;margin-bottom:8px}
+.cwa-sec p{color:var(--cwa-text);font-size:12.5px;line-height:1.65}
+.cwa-sec.learn{border-left:3px solid var(--cwa-blue)}
+.cwa-sec.learn .lbl{color:var(--cwa-blue)}
+.cwa-mono{font-family:'Share Tech Mono',monospace;background:#02060c;border:1px solid var(--cwa-line);color:var(--cwa-amber);padding:10px 12px;font-size:12px;word-break:break-all;white-space:pre-wrap;margin-top:8px;line-height:1.6}
+.cwa-tool{margin-top:10px}
+.cwa-tool label{display:block;color:var(--cwa-text);font-size:10px;letter-spacing:1px;margin:8px 0 4px}
+.cwa-input,.cwa-textarea{width:100%;padding:7px 9px;background:#001018;color:var(--cwa-neon);border:2px inset var(--cwa-dark);font:400 13px 'Share Tech Mono',monospace;outline:none}
+.cwa-textarea{min-height:64px;resize:vertical}
+.cwa-slider{width:100%;margin:6px 0}
+.cwa-out{margin-top:8px;background:#001;border:1px dashed var(--cwa-line);color:var(--cwa-neon);padding:9px 11px;font-size:12.5px;min-height:20px;word-break:break-all;white-space:pre-wrap}
+.cwa-btn{padding:6px 14px;cursor:pointer;font:700 11px 'Share Tech Mono',monospace;background:var(--cwa-gray);border:2px solid;border-color:#fff #000 #000 #fff;color:#000;letter-spacing:.5px}
+.cwa-btn:active{border-color:#000 #fff #fff #000}
+.cwa-btn.primary{background:linear-gradient(180deg,#00d9a8,#00a37e);color:#001;border-color:#7fffe6 #005f49 #005f49 #7fffe6}
+.cwa-btn.ghost{background:var(--cwa-ink2);color:var(--cwa-neon);border:1px solid var(--cwa-line)}
+.cwa-answer-row{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.cwa-answer-row .cwa-input{flex:1;min-width:180px}
+
+.cwa-opts{display:flex;flex-direction:column;gap:7px;margin-top:6px}
+.cwa-opt{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;background:#02080e;border:1px solid var(--cwa-line);cursor:pointer;font-size:12.5px;color:var(--cwa-text)}
+.cwa-opt:hover{border-color:var(--cwa-neon)}
+.cwa-opt.sel{border-color:var(--cwa-neon);background:rgba(0,255,204,.08);color:#eafcff}
+.cwa-opt .box{width:16px;height:16px;border:1px solid var(--cwa-neon);flex-shrink:0;display:grid;place-items:center;font-size:11px;color:var(--cwa-neon)}
+.cwa-opt.correct{border-color:#2a5;background:rgba(0,255,120,.1)}
+.cwa-opt.wrong{border-color:#c44;background:rgba(255,60,60,.08)}
+
+.cwa-order{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.cwa-ostep{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#02080e;border:1px solid var(--cwa-line);font-size:12px;color:var(--cwa-text)}
+.cwa-ostep .n{color:var(--cwa-amber);font-weight:700;width:20px}
+.cwa-ostep .txt{flex:1}
+.cwa-ostep .mv{display:flex;gap:3px}
+.cwa-ostep .mv button{width:22px;height:20px;cursor:pointer;background:var(--cwa-gray);border:1px solid;border-color:#fff #000 #000 #fff;font-size:10px}
+
+.cwa-login{background:#0a0f16;border:1px solid var(--cwa-line);padding:14px;margin-top:8px}
+.cwa-login .sqlprev{font-size:11px;color:var(--cwa-amber);background:#02060c;border:1px solid var(--cwa-line);padding:8px;margin-top:8px;word-break:break-all;white-space:pre-wrap}
+
+.cwa-verdict{margin-top:14px;padding:12px 14px;font-size:12.5px;line-height:1.6;display:none}
+.cwa-verdict.show{display:block}
+.cwa-verdict.ok{background:rgba(0,255,120,.08);border:1px solid #2a5;color:#c9ffe0}
+.cwa-verdict.no{background:rgba(255,60,60,.06);border:1px solid #c44;color:#ffd6d6}
+.cwa-verdict .why{margin-top:8px;color:var(--cwa-text)}
+.cwa-nav{display:flex;justify-content:space-between;margin-top:16px;gap:8px}
+
+.cwa-loghunt{margin-top:8px;font-family:'Share Tech Mono',monospace}
+.cwa-logline{padding:6px 9px;background:#02060c;border:1px solid #0c1c26;color:#9fc4cf;font-size:11px;cursor:pointer;white-space:pre-wrap;word-break:break-all;margin-bottom:3px}
+.cwa-logline:hover{border-color:var(--cwa-neon);color:#eafcff}
+.cwa-logline.picked{border-color:var(--cwa-amber)}
+
+/* ---- dispatches (github connector) ---- */
+.cwa-disp{padding:14px 16px}
+.cwa-disp h3{color:var(--cwa-neon);font-size:12px;letter-spacing:1px;margin:0 0 4px}
+.cwa-disp .sub{color:var(--cwa-text);font-size:11px;margin-bottom:12px}
+.cwa-disp-list{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+.cwa-disp-item{background:var(--cwa-ink2);border:1px solid var(--cwa-line);padding:9px 12px;font-size:11px}
+.cwa-disp-item a{color:var(--cwa-neon);text-decoration:none}
+.cwa-disp-item a:hover{text-decoration:underline}
+.cwa-disp-item .meta{color:var(--cwa-text);font-size:9px;margin-top:3px;letter-spacing:.5px}
+.cwa-disp-item .sha{color:var(--cwa-amber)}
+
+.cwa-empty{padding:24px 14px;text-align:center;color:#5c7f88;font-size:12px}
+
+/* chunky scrollbars */
+.cwa-screen::-webkit-scrollbar{width:14px}
+.cwa-screen::-webkit-scrollbar-thumb{background:var(--cwa-gray);border:2px solid;border-color:#fff #000 #000 #fff}
+.cwa-screen::-webkit-scrollbar-track{background:#0a1620}
+
+@media(max-width:560px){
+  #cwa-win{width:100vw;height:100vh;top:0;left:0;transform:none}
+  .cwa-domains{grid-template-columns:1fr}
+}

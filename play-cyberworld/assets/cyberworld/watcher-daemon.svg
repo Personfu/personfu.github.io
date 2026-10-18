@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 104 88" role="img" aria-labelledby="title desc">
+  <title id="title">CyberWorld watcher daemon</title>
+  <desc id="desc">Original hostile surveillance drone with magenta eye and fins.</desc>
+  <defs>
+    <linearGradient id="body" x1="16" y1="10" x2="88" y2="78" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3b0b45"/>
+      <stop offset=".52" stop-color="#15061f"/>
+      <stop offset="1" stop-color="#030409"/>
+    </linearGradient>
+    <filter id="pinkGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 1 0 0 0 0 .1 0 0 0 0 .85 0 0 0 .75 0"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <path d="M13 42 28 19h48l15 23-13 24H26Z" fill="url(#body)" stroke="#ff2bd6" stroke-width="2"/>
+  <path d="M5 31 25 42 5 53ZM99 31 79 42l20 11Z" fill="#090b14" stroke="#00e8ff" stroke-width="1.5"/>
+  <ellipse cx="52" cy="42" rx="22" ry="15" fill="#090513" stroke="#ff2bd6" stroke-width="1.5"/>
+  <circle cx="52" cy="42" r="9" fill="#ff2bd6" filter="url(#pinkGlow)"/>
+  <circle cx="52" cy="42" r="3" fill="#fcee09"/>
+  <path d="M35 20 28 8h10l7 12ZM69 20l7-12h-10l-7 12ZM35 66l-7 14h10l7-14ZM69 66l7 14h-10l-7-14Z" fill="#02070d" stroke="#00e8ff" stroke-width="1.3"/>
+  <path d="M30 34h-9M83 34h-9M30 50h-9M83 50h-9" stroke="#fcee09" stroke-width="1.6" stroke-linecap="round"/>
+</svg>

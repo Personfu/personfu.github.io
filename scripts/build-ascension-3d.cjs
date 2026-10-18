@@ -41,10 +41,16 @@ if (!process.exitCode) {
   const workerPath = path.join(root, 'CyberWorld/ascension-sw.js');
   const worker = fs.readFileSync(workerPath, 'utf8');
   const hash = crypto.createHash('sha256');
-  hash.update(worker.replace(/const VERSION = '[^']+';/, "const VERSION = 'CONTENT_VERSION';"));
+  // Git checkouts may use CRLF on Windows and LF on Pages/CI. Hash the same
+  // canonical text bytes so rebuilding does not create platform-only versions.
+  hash.update(worker.replace(/\r\n?/g, '\n').replace(/const VERSION = '[^']+';/, "const VERSION = 'CONTENT_VERSION';"));
   const runtimeList = worker.match(/const FILES = \[([\s\S]*?)\];/)[1] + worker.match(/const ENTRY = '[^']+';/)[0];
   const files = [...new Set([...runtimeList.matchAll(/['"](\/(?:CyberWorld|assets)\/[^'"\n]+\.(?:html|js|css|webmanifest|webp|png|svg|txt|glb|md))['"]/g)].map(match => match[1]))].sort();
-  for (const file of files) { hash.update(file); hash.update(fs.readFileSync(path.join(root, '.' + file))); }
+  for (const file of files) {
+    const bytes = fs.readFileSync(path.join(root, '.' + file));
+    hash.update(file);
+    hash.update(file.endsWith('.glb') ? bytes : Buffer.from(bytes.toString('utf8').replace(/\r\n?/g, '\n')));
+  }
   const version = 'cw-ascension-public-3d-' + hash.digest('hex').slice(0, 16);
   const updated = worker.replace(/const VERSION = '[^']+';/, "const VERSION = '" + version + "';");
   if (updated !== worker) fs.writeFileSync(workerPath, updated);

@@ -8,6 +8,9 @@ const MEMBER_GATEWAY = 'https://www.fllc.net/cyberworld';
 // Ascension is a new, original public game. Protected legacy/member routes
 // retain their existing gateway; this exception never authorizes member data.
 const PUBLIC_GAME_ROUTES = new Set([
+  '/play-cyberworld/',
+  '/play-cyberworld/index.html',
+  '/play-cyberworld/ascension.html',
   '/CyberWorld/',
   '/CyberWorld/index.html',
   '/CyberWorld/ascension.html',

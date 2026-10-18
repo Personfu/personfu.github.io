@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" role="img" aria-labelledby="title desc">
+  <title id="title">CyberWorld sentinel ICE</title>
+  <desc id="desc">Original armored intrusion countermeasure sentinel.</desc>
+  <defs>
+    <linearGradient id="armor" x1="15" y1="9" x2="92" y2="98" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fcee09"/>
+      <stop offset=".32" stop-color="#ff7a1a"/>
+      <stop offset=".72" stop-color="#341006"/>
+      <stop offset="1" stop-color="#040303"/>
+    </linearGradient>
+    <filter id="amberGlow" x="-45%" y="-45%" width="190%" height="190%">
+      <feGaussianBlur stdDeviation="2.6" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 1 0 0 0 0 .65 0 0 0 0 0 0 0 0 .65 0"/>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <path d="M54 5 94 28v52l-40 23-40-23V28Z" fill="url(#armor)" stroke="#fcee09" stroke-width="2.2" filter="url(#amberGlow)"/>
+  <path d="M54 17 81 33v34L54 83 27 67V33Z" fill="#090a0f" stroke="#ffb347" stroke-width="1.6"/>
+  <path d="M35 43h38v13H35Z" fill="#fcee09"/>
+  <path d="M41 45h8v9h-8ZM59 45h8v9h-8Z" fill="#160700"/>
+  <path d="M32 70 17 92M76 70l15 22M29 25 10 15M79 25l19-10" stroke="#fcee09" stroke-width="4" stroke-linecap="round"/>
+  <path d="M41 62h26M45 70h18" stroke="#ff2bd6" stroke-width="2" stroke-linecap="round"/>
+</svg>

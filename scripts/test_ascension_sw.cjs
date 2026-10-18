@@ -56,6 +56,11 @@ function fetchEvent(pathname, mode = 'cors', method = 'GET') {
   assert.match(await offline.text(), /public:\/CyberWorld\/ascension.html/);
   const bundle = await fetchEvent('/CyberWorld/ascension-world3d.js');
   assert.equal(bundle.status, 200, 'The bundled 3D runtime is available offline');
+  for (const credit of ['/CyberWorld/THIRD_PARTY_LICENSES.txt', '/CyberWorld/assets/cyberworld/models/CHARACTER-LICENSE.md']) {
+    const response = await fetchEvent(credit, 'navigate');
+    assert.equal(response.status, 200, 'Public credits are readable as offline navigations');
+    assert.equal(response.redirected, false);
+  }
   online = true; storageUnavailable = true;
   const noStorage = await fetchEvent('/CyberWorld/ascension.html', 'navigate');
   assert.equal(noStorage.status, 200, 'Unavailable browser storage must not break online play');

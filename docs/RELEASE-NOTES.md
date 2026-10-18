@@ -4,7 +4,7 @@
 
 ## Playable in this release
 
-The public entry is `/CyberWorld/ascension.html`, linked from the existing operator
+The public entry is `/play-cyberworld/`, linked from the existing operator
 desktop and public game aliases. A guest creates an operative, explores the 3D
 plaza, talks to Agent Zero, enters SOC Tower and completes seven connected original
 investigations. Operative creation, city/interiors and containment use actual WebGL
