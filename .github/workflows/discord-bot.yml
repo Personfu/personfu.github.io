@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: discord-bot/package.json
+          cache-dependency-path: discord-bot/package-lock.json
 
       - name: Install Discord bot dependencies
         working-directory: discord-bot
