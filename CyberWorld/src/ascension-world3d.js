@@ -6,6 +6,8 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { clone as cloneSkeleton } from 'three/addons/utils/SkeletonUtils.js';
 import { createCityAudio } from './ascension-audio.js';
+import { createCombat, command as combatCommand, advance as advanceCombat } from './ascension-combat-model.mjs';
+import { createArena } from './ascension-arena.js';
 
 // Original CyberWorld environment with a credited Quaternius character rig.
 // Every terminal and packet is fictional game state.
@@ -41,6 +43,7 @@ import { createCityAudio } from './ascension-audio.js';
   ];
   const fieldSampleIds = new Set(fieldSites.map(site => site.id));
   let fieldState = { phase: 'available', samples: [], route: null, steps: [], feedback: '' }, fieldWorld = null;
+  let combat = null, arenaView = null;
   const cityAudio = createCityAudio();
   function setSoundEnabled(on) { return cityAudio.setEnabled(on); }
   function cue(frequency = 440) { cityAudio.cue(frequency); }
@@ -263,7 +266,7 @@ import { createCityAudio } from './ascension-audio.js';
       node.material = Array.isArray(node.material) ? node.material.map(recolor) : recolor(node.material);
     });
     const mixer = new THREE.AnimationMixer(rig), actions = {};
-    ['Idle_Neutral','Walk','Run','Interact','Wave'].forEach(name => {
+    ['Idle_Neutral','Walk','Run','Interact','Wave','Idle_Sword','Punch_Left','Punch_Right','Kick_Right','Roll','HitRecieve','Death'].forEach(name => {
       const clip = THREE.AnimationClip.findByName(characterTemplate.animations,name);
       if (clip) actions[name] = mixer.clipAction(clip);
     });
@@ -308,6 +311,11 @@ import { createCityAudio } from './ascension-audio.js';
     if (!agent) return;
     const rig = agent.userData.rig;
     if (rig) {
+      if (rig.combatRemaining > 0) {
+        rig.combatRemaining = Math.max(0,rig.combatRemaining-dt);
+        if (!state.reducedMotion) rig.mixer.update(dt);
+        agent.position.y=agent.userData.groundY||0; return;
+      }
       const name = moving ? (running && rig.actions.Run ? 'Run' : 'Walk') : 'Idle_Neutral';
       const next = rig.actions[name] || rig.actions.Idle_Neutral;
       if(next && rig.current!==next) { rig.current?.fadeOut(.18); next.reset().fadeIn(.18).play(); rig.current=next; rig.name=name; }
@@ -323,6 +331,16 @@ import { createCityAudio } from './ascension-audio.js';
     p.leftArm.rotation.x = swing; p.rightArm.rotation.x = -swing;
     p.leftLeg.rotation.x = -swing; p.rightLeg.rotation.x = swing;
     agent.position.y = (agent.userData.groundY||0)+(!state.reducedMotion && moving ? Math.abs(Math.sin(phase)) * .035 : 0);
+  }
+  function animateCombat(agent,kind,dt=0,hold=false) {
+    const rig=agent?.userData.rig;if(!rig){if(agent)gait(agent,false,dt);return;}
+    const names={strike:'Punch_Right',combo:'Kick_Right',burst:'Kick_Right',dodge:'Roll',windup:'Idle_Sword',attack:'Punch_Left',recover:'Punch_Left',hit:'HitRecieve',dead:'Death'};
+    const name=names[kind]; const next=rig.actions[name];if(!next)return;
+    if(rig.combatKind===kind&&((hold&&rig.current===next)||rig.combatRemaining>.05)){rig.combatRemaining=Math.max(0,rig.combatRemaining-dt);if(!state.reducedMotion)rig.mixer.update(dt);return;}
+    rig.current?.fadeOut(.07);next.reset().setLoop(THREE.LoopOnce,1);next.clampWhenFinished=true;
+    next.setEffectiveTimeScale(kind==='dead'?1:kind==='windup'?.7:1.8);next.fadeIn(.06).play();
+    rig.current=next;rig.name=name;rig.combatKind=kind;rig.combatRemaining=kind==='dead'?100:kind==='windup'?.28:.38;
+    if(!state.reducedMotion)rig.mixer.update(dt);
   }
   function npc(parent, id, title, action, x, z, color, description) {
     const styles={zero:['ghost',0x9d6b55],cipher:['tinker',0xcf9a77],byte:['runner',0x9b735e],lyra:['tinker',0x715247],patch:['runner',0xc59370],nova:['sentinel',0x9a6b55]};
@@ -398,6 +416,7 @@ import { createCityAudio } from './ascension-audio.js';
     const roofBeacon=markTarget(parent,'trace-three','TRACE 03 / ROOFTOP RELAY','studio:beacon',21,29,C.cyan,'A physical signal beacon. Interact to record its local evidence.');roofBeacon.position.y=4.2;roofBeacon.userData.target.y=4.2;
     npc(parent,'lyra','LYRA / FABRICATION','studio:vendor',7.5,17,C.amber,'Inspect locally crafted modules and hardware tradeoffs.');
     npc(parent,'patch','PATCH / FIELDCRAFT','studio:trainer',-9.5,14,C.blue,'Train evidence discipline before the next operation.');
+    markTarget(parent,'breach-foundry','BREACH FOUNDRY / COMBAT','combat:enter',-17,14,C.pink,'Enter a three-wave sparring simulation. Strike, evade, and disrupt the construct swarm.');
     const crew=[
       {name:'Mara / courier',color:C.amber,route:[[-7,7],[-7,13],[2,15],[7,10],[7,4]]},
       {name:'Ivo / night shift',color:C.violet,route:[[8,-4],[8,-8],[2,-8],[-7,-8],[-8,-3]]},
@@ -632,6 +651,7 @@ import { createCityAudio } from './ascension-audio.js';
     geometries.forEach(value=>value.dispose()); ownMaterials.forEach(value=>value.dispose()); textures.forEach(value=>value.dispose());
   }
   function clearSceneObjects() {
+    if(arenaView){arenaView.dispose();arenaView=null;}
     targets.length = 0; obstacles.length = 0; pickables.length = 0; walkableMeshes.length = 0; clearPaths();
     animated.length = 0; peers.forEach(peer => releaseGroup(peer.mesh)); peers.clear();
     if (city) { releaseGroup(city); city = null; }
@@ -700,7 +720,9 @@ import { createCityAudio } from './ascension-audio.js';
   function dispatch(action, target = null) {
     const event = new CustomEvent('cw:action', { cancelable: true, detail: { action, target } });
     if (!document.dispatchEvent(event)) return;
-    if (action.startsWith('district:')) toDistrict(action.split(':')[1]);
+    if(action==='combat:enter')startCombat();
+    else if(action==='combat:leave')leaveCombat();
+    else if (action.startsWith('district:')) toDistrict(action.split(':')[1]);
     else if (action === 'plaza') toPlaza();
     else if (action === 'academy') window.__cwAscension?.openDeck('academy');
     else if (action === 'ascension:arcade') window.__cwAscension?.openDeck('arcade');
@@ -718,7 +740,12 @@ import { createCityAudio } from './ascension-audio.js';
   function rebuild(id) {
     clearSceneObjects(); state.focus = null; state.keys.clear(); state.movement.set(0,0);
     if (!id) { makeCity(); state.position.set(0,0,10); state.destination.copy(state.position); }
-    else makeInterior(id);
+    else if(id==='arena') {
+      room=new THREE.Group();scene.add(room);
+      arenaView=createArena({THREE,parent:room,makeAgent,textSprite,gait,animateCombat,releaseGroup,getPlayerAgent:()=>actor});
+      markTarget(room,'arena-exit','RETURN TO CYBER PLAZA','combat:leave',0,9.8,C.cyan,'Leave the sparring simulation. Your completed city cases remain safe.');
+      state.position.set(0,0,6);state.destination.copy(state.position);
+    } else makeInterior(id);
     if (actor) releaseGroup(actor);
     const p = profile(); actor = makeAgent(p.color, 0xa97559, p.op.look?.frame); scene.add(actor);
     actor.position.copy(state.position);
@@ -727,14 +754,48 @@ import { createCityAudio } from './ascension-audio.js';
     camera.position.copy(state.position).add(new THREE.Vector3(8,9,12));
     refresh(); viewEvent();
   }
-  function toPlaza() { ensureMounted(); state.view = 'plaza'; state.district = null; rebuild(null); }
-  function toDistrict(id) { ensureMounted(); if (!['soc','academy','lab','net','map','field','relay','storm','profile','console'].includes(id)) return;
+  function toPlaza() { ensureMounted(); combat=null;document.body.classList.remove('cwas-in-combat');state.view = 'plaza'; state.district = null; rebuild(null); }
+  function toDistrict(id) { ensureMounted(); if (!['soc','academy','lab','net','map','field','relay','storm','profile','console','arena'].includes(id)) return;
+    if(id!=='arena'){combat=null;document.body.classList.remove('cwas-in-combat');}
     if (['field','relay','storm'].includes(id)) { dispatch('ascension:mission', {id}); return; }
     const nextDistrict = id === 'profile' ? 'lab' : id === 'console' ? 'soc' : id;
     // Stage a readable arrival even if the player orbited behind a city wall.
     // Subsequent camera movement inside this district remains player-controlled.
     if (state.district !== nextDistrict) state.orbit = .12;
     state.view = 'district'; state.district = nextDistrict; rebuild(state.district); }
+  function startCombat() {
+    if(document.body.dataset.phase!=='playing'||blocked())return false;
+    combat=combatCommand(createCombat(),'start');
+    state.overclock=false;state.distance=15;
+    document.body.classList.add('cwas-in-combat');toDistrict('arena');state.orbit=.55;
+    combat={...combat,player:{...combat.player,x:state.position.x,z:state.position.z,facing:state.facing}};
+    document.dispatchEvent(new CustomEvent('cw:combat-state',{detail:JSON.parse(JSON.stringify(combat))}));
+    return true;
+  }
+  function combatAction(action) {
+    if(!combat||combat.phase!=='active'||blocked()||document.hidden)return false;
+    combat={...combat,player:{...combat.player,x:state.position.x,z:state.position.z,facing:state.facing}};
+    const before=combat;
+    combat=combatCommand(combat,action);
+    const accepted=(combat.cooldowns[action]||0)>(before.cooldowns[action]||0);
+    if(accepted&&action==='dodge') {
+      let x=(state.keys.has('d')||state.keys.has('arrowright')?1:0)-(state.keys.has('a')||state.keys.has('arrowleft')?1:0)+state.movement.x;
+      let z=(state.keys.has('s')||state.keys.has('arrowdown')?1:0)-(state.keys.has('w')||state.keys.has('arrowup')?1:0)+state.movement.y;
+      const length=Math.hypot(x,z);
+      if(length>.05){const rx=x*Math.cos(state.orbit)+z*Math.sin(state.orbit),rz=-x*Math.sin(state.orbit)+z*Math.cos(state.orbit);x=rx/length;z=rz/length;}else{x=Math.sin(state.facing);z=Math.cos(state.facing);}
+      for(let i=0;i<12;i++){const nx=state.position.x+x*2.8/12,nz=state.position.z+z*2.8/12;if(!collides(nx,state.position.z))state.position.x=nx;if(!collides(state.position.x,nz))state.position.z=nz;}
+      state.destination.copy(state.position);actor.position.copy(state.position);
+      combat={...combat,player:{...combat.player,x:state.position.x,z:state.position.z,facing:state.facing}};
+    }
+    if(accepted) {
+      const target=combat.enemies.filter(enemy=>enemy.hp>0).sort((a,b)=>Math.hypot(a.x-state.position.x,a.z-state.position.z)-Math.hypot(b.x-state.position.x,b.z-state.position.z))[0];
+      if(target&&action!=='dodge'){state.facing=Math.atan2(target.x-state.position.x,target.z-state.position.z);actor.rotation.y=state.facing;}
+      animateCombat(actor,action==='strike'&&combat.combo>=3?'combo':action);cue(action==='burst'?190:action==='dodge'?760:430);
+    }
+    if(before.phase!==combat.phase)document.dispatchEvent(new CustomEvent('cw:combat-state',{detail:JSON.parse(JSON.stringify(combat))}));
+    return accepted;
+  }
+  function leaveCombat(){state.distance=9.5;state.orbit=.25;toPlaza();}
   function snapshot() {
     return { view: state.view, district: state.district, width: state.width, height: state.height,
       avatar: { x: (state.position.x + 50) / 100 * state.width, y: (state.position.z + 50) / 100 * state.height,
@@ -742,6 +803,7 @@ import { createCityAudio } from './ascension-audio.js';
         dir: Math.sin(state.facing) >= 0 ? 1 : -1, moving: state.moving, worldX: state.position.x, worldZ: state.position.z, ready: !!actor },
       world: { x: state.position.x, y: state.position.y, z: state.position.z },
       targets: targets.map(target=>({id:target.id,title:target.title,x:target.x,z:target.z,action:target.action})),
+      combat: combat ? JSON.parse(JSON.stringify(combat)) : null,
       field: { ...fieldState, samples: [...fieldState.samples], steps: [...fieldState.steps],
         targets: fieldSites.map(site=>({id:site.id,x:site.x,z:site.z,action:'studio:field'})),
         convoy: { recovered:fieldState.phase==='complete',moving:!!fieldWorld?.moving&&!state.reducedMotion&&!blocked()&&!document.hidden,
@@ -820,7 +882,7 @@ import { createCityAudio } from './ascension-audio.js';
     return state.quality;
   }
   function setOverclock(active) {
-    state.overclock=!!active;
+    state.overclock=combat?false:!!active;
     if (root) root.dataset.overclock=String(state.overclock);
     return state.overclock;
   }
@@ -911,6 +973,7 @@ import { createCityAudio } from './ascension-audio.js';
     canvas.addEventListener('pointerup',event=>{
       if(state.orbiting){state.orbiting=false;down=null;return;}if(!down||blocked())return;
       const moved=Math.hypot(event.clientX-down.x,event.clientY-down.y);down=null;if(moved>8)return;
+      if(combat&&event.button===0&&event.pointerType!=='touch'){combatAction('strike');return;}
       pointer.set(event.clientX/state.width*2-1,-event.clientY/state.height*2+1);ray.setFromCamera(pointer,camera);
       const hits=ray.intersectObjects(pickables,true);if(hits.length){let node=hits[0].object;while(node&&!node.userData.target)node=node.parent;
         if(node?.userData.target){const target=node.userData.target;const destination=new THREE.Vector3(target.x,elevation(target.x,target.z+1.6),target.z+1.6);navigate(destination);if(Math.abs((target.y||0)-state.position.y)<=1.5&&Math.hypot(target.x-state.position.x,target.z-state.position.z,(target.y||0)-state.position.y)<4.1)dispatch(target.action,{id:target.id,title:target.title});return;}}
@@ -924,7 +987,7 @@ import { createCityAudio } from './ascension-audio.js';
     canvas.addEventListener('webglcontextrestored',()=>window.__cwAscensionShell?.toast('3D renderer restored.'));
   }
   function updatePlayer(dt) {
-    if(blocked()){clearMovement();return;}
+    if(blocked()||(combat&&combat.phase!=='active')){clearMovement();if(actor)gait(actor,false,dt);return;}
     let x=(state.keys.has('d')||state.keys.has('arrowright')?1:0)-(state.keys.has('a')||state.keys.has('arrowleft')?1:0)+state.movement.x;
     let z=(state.keys.has('s')||state.keys.has('arrowdown')?1:0)-(state.keys.has('w')||state.keys.has('arrowup')?1:0)+state.movement.y;
     const keyboard=Math.hypot(x,z)>.01;
@@ -956,7 +1019,7 @@ import { createCityAudio } from './ascension-audio.js';
       const depth = -labelPosition.z, size = label.userData.labelSize;
       const scale = Math.min(1, maxWidth * Math.max(.1,depth) / (size.width * projection));
       label.scale.set(size.width * scale,size.height * scale,1);
-      label.material.opacity = THREE.MathUtils.clamp((depth-2)/3,0,1);
+      label.material.opacity = THREE.MathUtils.clamp((depth-2)/3,0,1) * (label.userData.feedbackOpacity ?? 1);
       label.visible = depth > 2;
     });
   }
@@ -1001,6 +1064,13 @@ import { createCityAudio } from './ascension-audio.js';
     state.fps += (1 / elapsed - state.fps) * .05;
     const simulationDt=dt*(state.overclock ? .2 : 1);if(!state.reducedMotion)state.time+=simulationDt;
     updatePlayer(dt);
+    if(combat) {
+      const phaseBefore=combat.phase,healthBefore=combat.health;
+      if(!blocked()&&!document.hidden)combat=advanceCombat(combat,dt,{x:state.position.x,z:state.position.z,facing:state.facing});
+      if(combat.health<healthBefore){animateCombat(actor,combat.phase==='defeat'?'dead':'hit');cue(140);}
+      arenaView?.update(combat,dt,{reducedMotion:state.reducedMotion||document.hidden});
+      if(phaseBefore!==combat.phase)document.dispatchEvent(new CustomEvent('cw:combat-state',{detail:JSON.parse(JSON.stringify(combat))}));
+    }
     cityAudio.update({moving:state.moving,running:state.keys.has('shift'),view:state.view,district:state.district,overclock:state.overclock,paused:blocked(),hidden:document.hidden});
     const title=document.body.dataset.phase==='title'||document.body.dataset.phase==='creator';
     if(title){const angle=state.reducedMotion ? .58 : .58+Math.sin(state.time*.045)*.18;
@@ -1020,8 +1090,8 @@ import { createCityAudio } from './ascension-audio.js';
     });
     if(rain){rain.visible=!state.reducedMotion&&state.graphics.effects;const positions=rain.geometry.attributes.position;
       if(rain.visible){for(let i=0;i<positions.count;i++){let y=positions.getY(i)-simulationDt*12;if(y<0)y=32;positions.setY(i,y);}positions.needsUpdate=true;}}
-    if(now-peerTime>120){updatePeers(Math.max(.12,(now-peerTime)/1000));peerTime=now;}
-    if(state.overclock!==pathMode||(state.overclock&&(now-pathTime>500||pathAnchor.distanceTo(state.position)>2))){updatePaths();pathMode=state.overclock;pathAnchor.copy(state.position);pathTime=now;}
+    if(now-peerTime>120){if(!combat)updatePeers(Math.max(.12,(now-peerTime)/1000));peerTime=now;}
+    if(!combat&&(state.overclock!==pathMode||(state.overclock&&(now-pathTime>500||pathAnchor.distanceTo(state.position)>2)))){updatePaths();pathMode=state.overclock;pathAnchor.copy(state.position);pathTime=now;}
     paths.forEach(path=>{const t=(state.time*.32+path.userData.offset)%1;path.userData.packet.position.copy(path.userData.curve.getPoint(t));});
     const target=blocked()?null:nearest();state.focus=target;context.hidden=!target;
     if(target){const titleEl=document.getElementById('cwg-action-title'),sub=document.getElementById('cwg-action-sub');if(titleEl.textContent!==target.title)titleEl.textContent=target.title;if(sub.textContent!==target.description)sub.textContent=target.description;}
@@ -1067,6 +1137,7 @@ import { createCityAudio } from './ascension-audio.js';
     refresh, toPlaza, toDistrict, toGrid(){toDistrict('map');},toSector(){toDistrict('academy');},
     view(){return state.view;},snapshot,setMovement,interact,setOverclock,setReducedMotion,
     setSoundEnabled,setGraphicsQuality,createPreview,
+    startCombat,combatAction,leaveCombat,
   };
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',ensureMounted,{once:true});else ensureMounted();
 })();

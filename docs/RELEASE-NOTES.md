@@ -2,6 +2,27 @@
 
 2026-10-18 · first playable production milestone, not the completed MMO vision.
 
+## Breach Foundry combat expansion
+
+Enter Breach Foundry from the street beacon or the Combat button. Fight three
+escalating waves of original training constructs, ending with a shielded Prism
+Warden. Chain animated strikes into a stagger finisher, break shields with a
+containment burst, dodge fixed ground warnings and slow enemies with Overclock.
+Constructs pursue, telegraph attacks, deal damage and can defeat the operative.
+Victory and defeat offer clear retry and return paths.
+
+WASD movement, left click/J strikes, K burst, Space dodge and L/Q Overclock are
+supported alongside touch controls and gamepad face buttons. Animated enemies
+have visible health and shields; the arena includes bounded hit effects and a
+fading posed dodge afterimage. Reduced motion and pause settings remain active.
+The first victory earns 260 XP, 140 credits and a Phase Gauntlet; repeat victories
+improve a saved combat record without duplicating those rewards. The practice
+pack and earned badge/receipt pack download locally and work offline.
+
+The supplied Path of Neo archive was inspected as a native Windows reference.
+No files from it are distributed or executed. Combat uses original CyberWorld
+code, arena art and fiction with the existing credited Quaternius character rig.
+
 ## The Last Mile expansion
 
 A new street contract asks operatives to protect a clinic supply line without
@@ -44,7 +65,7 @@ Earned credits buy focus cells; Overclock slows simulated traffic and reveals pa
 CyberDeck tools reconstruct bytes, test bounds and calculate actual SHA-256 digests.
 Containment preserves evidence, isolates the affected producer, rotates its token,
 restores the trusted route and visibly verifies recovery. It is a 3D systems-recovery
-simulation, not third-person action combat.
+simulation. Breach Foundry adds a separate third-person action encounter.
 
 Every available case now offers an offline evidence ZIP, with a brief, original
 artifacts and integrity manifest. Route Zero includes a valid six-record synthetic
