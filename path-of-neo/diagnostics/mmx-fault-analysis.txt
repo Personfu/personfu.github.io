@@ -1,0 +1,132 @@
+PATH OF NEO: FIRST ORIGINAL-GAME MMX FAULT
+Recorded 2026-10-19T00:17:27.130Z
+
+Evidence
+--------
+The SingleThreaded interpreter run started 2026-10-19 00:07 UTC. The first
+original-game access violation retained in interpreter-fault-seh.log occurs
+around 00:10:39-40 on thread 0120:
+  code C0000005, instruction 00648677, read address 0871BC00
+  EAX=00FFFF80 ESI=0071B800 EBX=0A4C0820 EDI=0A4C0020
+  ECX=00000000 EDX=000000FF ESP=7F20FA78 EBP=7F20FAA8
+
+Static disassembly of the unchanged archive executable:
+  00648670  0F C5 C4 00   pextrw eax,mm4,0
+  00648674  C1 E8 08      shr eax,8
+  00648677  0F 6F BC C6 00 08 00 00
+                         movq mm7,[esi+eax*8+800h]
+
+PEXTRW extracts a 16-bit word into a 32-bit register with zero extension.
+Therefore the following logical shift must produce a value in 0..255.
+The observed 00FFFF80 is incompatible with correct zero extension. It is
+exactly the result of sign-extending word 8000h to FFFF8000h then shifting
+right eight. The effective address matches the observed fault exactly:
+  0071B800 + (00FFFF80 * 8) + 800 = 0871BC00
+Correct extraction would produce index 80h and address 0071C400.
+The surrounding routine uses three tables spaced 800h bytes apart, packed
+MMX adds, arithmetic shifts and unsigned byte packing to produce two RGB
+output rows. Its structure is a YUV-to-RGB conversion routine; this role is
+an inference from the code, not a recovered symbol name.
+
+Subsequent exception processing calls game handlers 0065E502, 005FBF08,
+then 00E5BF08. Handler 00E5BF08 faults at 00E5BF0F (an IN instruction),
+producing recursive C0000096 EXCEPTION_PRIV_INSTRUCTION handling. These
+secondary faults must not replace 00648677 as the first useful game fault.
+Earlier 002c syscall C0000005 and 00dc RPC 6BA events occurred before the
+main game loaded and were handled; they are separate from this fault.
+
+Confirmed emulator source defect
+--------------------------------
+Build 96 source revision: f96673d8c9bb5150422521c5a625f9278e405925
+common_pextrwR32Mmx assigns the return of simde_mm_extract_pi16 directly
+to cpu->reg[r1].u32. The bundled SIMDe function returns int16_t. C++
+conversion of a negative int16_t to U32 preserves the sign through integer
+promotion, producing FFFFxxxx rather than the required 0000xxxx.
+
+Primary sources at the exact runtime revision:
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/source/emulation/cpu/common/common_sse.cpp
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/lib/simde/simde/x86/sse.h
+
+The optimized Wasm JIT pextrwRegMmx emits I16X8_EXTRACT_LANE_U, which is
+unsigned. Interpreter execution and JIT warmup/fallback still use the signed
+common helper, so a JIT runtime can encounter this defect before compiling
+the relevant block. This also explains why a generic D3D9 triangle can pass
+while this original-game conversion path fails.
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/source/emulation/cpu/wasm/jitWasmCodeGen.cpp
+
+The durable emulator fix is an explicit U16 conversion before the U32
+assignment, with signed-bit test coverage (8000h, FFFFh, all four lanes,
+all eight destination registers). It requires rebuilding the runtime.
+
+Contained optional guest workaround
+-----------------------------------
+No executable or archive was modified by this analysis. A browser-session
+read overlay can replace C1 E8 08 (shr eax,8) with 0F B6 C4
+(movzx eax,ah) at the reviewed sites below. This extracts the desired
+high byte of the lower word directly and is correct for both zero-extended
+and incorrectly sign-extended PEXTRW results. No file size or branch target
+changes are needed. This has not yet been validated by gameplay.
+
+Guard requirements:
+  File: Matrix3W32S.bin
+  Size: 23052288 bytes
+  SHA-256: 3d1ee3070537bc228287fe3a4194e5fc7b229a69e0bf67b30cf1ef56f596d7aa
+  Verify the SHA of the entire original entry before enabling the overlay.
+  Verify all 24 seven-byte context sequences before changing any site.
+  Replace only the last three bytes of each context.
+  On mismatch, fail the optional profile visibly; do not scan/guess.
+  Leave the source ZIP unchanged and disclose the optional compatibility fix.
+
+EFLAGS review
+-------------
+SHR changes integer flags; MOVZX does not. All 24 sites are inside the
+single straight-line unrolled block of the routine beginning 00648540.
+For every reviewed site, no branch, flag-dependent integer instruction,
+flag save or call occurs before flags are overwritten by AND, or by the
+loop's ADD/CMP at 006489F9/006489FC for the final site. Intervening MMX
+instructions, MOV/PEXTRW and PREFETCHT0 do not consume integer flags.
+Consecutive reviewed SHR sites are all replaced as one set. Thus the
+changed temporary flags are not used by this routine. No additional
+functions or matching byte patterns outside this block are approved here.
+
+Reviewed sites (file offset, virtual address, seven-byte original context,
+next remaining integer flag overwrite):
+0x24862e   0x64862e   0FC5C000C1E808   0x648648 and         eax,edx
+0x24865d   0x64865d   0FC5C200C1E808   0x648695 and         eax,edx
+0x248674   0x648674   0FC5C400C1E808   0x648695 and         eax,edx
+0x248683   0x648683   0FC5C500C1E808   0x648695 and         eax,edx
+0x2486ae   0x6486ae   0FC5C001C1E808   0x6486c8 and         eax,edx
+0x2486de   0x6486de   0FC5C201C1E808   0x6486f5 and         eax,edx
+0x24872d   0x64872d   0FC5C002C1E808   0x648747 and         eax,edx
+0x24875d   0x64875d   0FC5C202C1E808   0x648795 and         eax,edx
+0x248774   0x648774   0FC5C401C1E808   0x648795 and         eax,edx
+0x248783   0x648783   0FC5C501C1E808   0x648795 and         eax,edx
+0x2487ae   0x6487ae   0FC5C003C1E808   0x6487c8 and         eax,edx
+0x2487de   0x6487de   0FC5C203C1E808   0x6487f5 and         eax,edx
+0x24882d   0x64882d   0FC5C100C1E808   0x648847 and         eax,edx
+0x24885d   0x64885d   0FC5C300C1E808   0x648895 and         eax,edx
+0x248874   0x648874   0FC5C402C1E808   0x648895 and         eax,edx
+0x248883   0x648883   0FC5C502C1E808   0x648895 and         eax,edx
+0x2488ae   0x6488ae   0FC5C101C1E808   0x6488c8 and         eax,edx
+0x2488de   0x6488de   0FC5C301C1E808   0x6488f5 and         eax,edx
+0x24892d   0x64892d   0FC5C102C1E808   0x648947 and         eax,edx
+0x24895d   0x64895d   0FC5C302C1E808   0x648995 and         eax,edx
+0x248974   0x648974   0FC5C403C1E808   0x648995 and         eax,edx
+0x248983   0x648983   0FC5C503C1E808   0x648995 and         eax,edx
+0x2489ae   0x6489ae   0FC5C103C1E808   0x6489c8 and         eax,edx
+0x2489de   0x6489de   0FC5C303C1E808   0x6489f9 add         ecx,8
+
+All replacements: C1E808 -> 0FB6C4; 24 sites, 72 replaced bytes.
+
+Preserved diagnostics
+---------------------
+interpreter-startup-seh.log: original startup snapshot, 644963 bytes.
+interpreter-recent-seh.log: earlier previous+current logs, 3585050 bytes.
+interpreter-fault-seh.log: snapshot containing the first game fault,
+4068056 bytes. Log timestamps apply to beacon batches; individual adjacent
+lines can be interleaved across guest threads.
+
+Additional arithmetic verification: all 65536 possible 16-bit words were
+checked. Zero-extended PEXTRW followed by SHR 8 equals MOVZX EAX,AH for
+both correct and sign-extended intermediate values in every case. This is
+a mathematical verification of the rewrite, not guest runtime validation.

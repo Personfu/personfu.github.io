@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="An experimental browser player for your own Path of Neo game files.">
+  <title>Path of Neo · Browser player</title>
+  <link rel="stylesheet" href="player.css">
+</head>
+<body>
+  <main>
+    <a class="back" href="../">← Person's desktop</a>
+    <header>
+      <p class="eyebrow">PERSONFU / LOCAL GAME PLAYER</p>
+      <h1>Path of Neo</h1>
+      <p class="intro">Your copy. In your browser.</p>
+    </header>
+    <section id="setup" aria-label="Set up your game">
+      <p>Choose your original game ZIP to begin. Your game files stay on this device.</p>
+      <div class="actions">
+        <button id="choose-zip" class="primary">Choose game ZIP</button>
+        <button id="play" disabled>Start game <span aria-hidden="true">→</span></button>
+      </div>
+      <p id="status" role="status" aria-live="polite">Preparing the local file reader…</p>
+      <details>
+        <summary>Player options</summary>
+        <label for="mode">Execution mode</label>
+        <select id="mode">
+          <option value="SingleThreadedJit">Faster</option>
+          <option value="SingleThreaded">Compatibility</option>
+        </select>
+        <p class="hint">Try Compatibility if the faster mode fails to start.</p>
+        <button id="choose-dll">Choose DirectX library (optional)</button>
+        <p class="hint">Uses the built-in library by default. If needed, choose your own <code>d3dx9_27.dll</code>.</p>
+        <p id="library-status" class="hint"></p>
+        <button id="clear" class="quiet">Forget selected files and clear game cache</button>
+      </details>
+      <p class="notice">Experimental player. The startup crash has a compatibility fix; complete menus and gameplay are still being verified. Initial preparation can take several minutes. Desktop Chrome or Edge is required.</p>
+    </section>
+    <section id="player" hidden aria-label="Game player">
+      <div class="player-bar">
+        <span id="running-status">Game running locally</span>
+        <div><button id="fullscreen">Full screen</button><button id="stop">Back to setup</button></div>
+      </div>
+      <div id="screen"></div>
+      <p class="hint">Click the game to focus controls. Esc releases a locked pointer.</p>
+    </section>
+    <footer>
+      <span>Independent compatibility project</span>
+      <a href="SOURCES.txt">Runtime sources and licenses</a>
+      <a href="https://github.com/Personfu/personfu.github.io/tree/main/path-of-neo">Player source</a>
+    </footer>
+  </main>
+  <script src="local-source.js"></script>
+  <script src="player.js"></script>
+</body>
+</html>

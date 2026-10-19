@@ -1,0 +1,29 @@
+PATH OF NEO BROWSER PLAYER
+
+This public package contains the compatibility player and open-source runtime only.
+Select your own game ZIP through the local file picker. An optional DirectX DLL
+is also read from your own selected file; no Microsoft DLL is distributed here.
+
+Boxedwine build 96
+Source revision: f96673d8c9bb5150422521c5a625f9278e405925
+Source and build instructions:
+https://github.com/danoon2/Boxedwine/tree/f96673d8c9bb5150422521c5a625f9278e405925
+Corresponding source archive:
+https://github.com/danoon2/Boxedwine/archive/f96673d8c9bb5150422521c5a625f9278e405925.zip
+Official binary bundle:
+https://boxedwine.org/builds/branches/master/builds/96/artifacts/build-96.zip
+License: see Boxedwine-LICENSE.txt and upstream source licenses.
+
+Guest filesystem: official TinyCore 15 / Wine 11.0 web runtime, version 20.
+Original archive: https://boxedwine.org/v2/latest/TinyCore15Wine11.0-web.zip
+SHA-256 of the exact bundled boxedwine.zip: 21beaeea9566fe214a5d5fd4d605cae467166d1e6cd1458a8e6fef79fe5bb631
+Wine sources: https://github.com/wine-mirror/wine/tree/wine-11.0
+Boxedwine Wine build/patch sources: https://github.com/danoon2/Boxedwine/tree/f96673d8c9bb5150422521c5a625f9278e405925/tools
+Tiny Core sources and licenses: http://www.tinycorelinux.net/
+
+The runtime binaries are unchanged. A guarded, optional compatibility overlay
+changes 24 audited high-byte extractions in browser memory. The original game
+ZIP stays unchanged. See diagnostics/mmx-fault-analysis.txt and the source patch.
+
+The game is not included. This independent project is not affiliated with the
+game publisher or rights holders. Complete menu/gameplay verification is pending.

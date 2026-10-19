@@ -1,0 +1,79 @@
+BOXEDWINE BUILD 96: MMX PEXTRW SOURCE AUDIT
+
+Exact runtime source revision:
+f96673d8c9bb5150422521c5a625f9278e405925
+
+Confirmed defect
+----------------
+common_pextrwR32Mmx, common_sse.cpp:395-399, assigns the result of
+simde_mm_extract_pi16 directly to a U32 register. In this revision the
+bundled SIMDe function returns int16_t and reads a signed i16 lane
+(sse.h:2662-2676). A lane with bit 15 set therefore becomes FFFFxxxx
+in the 32-bit register instead of 0000xxxx. The supplied patch adds the
+explicit U16 cast already used by the adjacent memory-target helper.
+
+This exactly accounts for the independently captured game state:
+  pextrw eax,mm4,0; shr eax,8
+  wrong lane 8000 -> FFFF8000 -> 00FFFF80
+  correct lane 8000 -> 00008000 -> 00000080
+  observed ESI 0071B800 + (00FFFF80 * 8) + 800 = 0871BC00
+  corrected address: 0071B800 + (80 * 8) + 800 = 0071C400
+
+The numerical agreement and signed helper establish a concrete CPU defect.
+This audit does not establish that correcting it resolves every remaining
+game compatibility or rendering problem.
+
+Primary sources, pinned to the actual build revision:
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/source/emulation/cpu/common/common_sse.cpp#L395-L405
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/lib/simde/simde/x86/sse.h#L2662-L2676
+
+Interpreter and JIT coverage
+----------------------------
+normal_sse.h:33 expands SSE_RR_I8 into a call to common_##name. The common
+SSE definition registers pextrwR32Mmx with that macro, so both ordinary
+interpreter targets use the defective helper.
+
+The Wasm JIT backend is already correct: pextrwRegMmx at
+jitWasmCodeGen.cpp:9329-9333 emits I16X8_EXTRACT_LANE_U then writes b32.
+The emitter names opcode 19h as the unsigned lane extract. The shared
+JitMMX lowering calls this backend method for register PEXTRW.
+
+Selecting a JIT browser target does not bypass the defect reliably.
+common/cpu.h:188-198 defines JIT_RUN_COUNT=200 for Emscripten Wasm JIT.
+jitCodeGen.cpp:1183-1255 runs cold blocks through the normal instruction
+table until that count is reached. Pending browser compilation and failed
+installation also permit interpreter execution. No public startup argument
+to force first-execution compilation was found in startupArgs.cpp or the
+Emscripten build instructions at this revision. JIT_RUN_COUNT is a build
+macro, not a startup setting. Lowering it alone would still leave possible
+pending/fallback interpreter execution.
+
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/source/emulation/cpu/normal/normal_sse.h
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/source/emulation/cpu/common/common_sse_def.h
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/source/emulation/cpu/jit/jitMMX.cpp
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/source/emulation/cpu/wasm/jitWasmCodeGen.cpp#L9329-L9333
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/source/emulation/cpu/wasm/wasmEmitter.h#L210-L215
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/source/emulation/cpu/common/cpu.h#L188-L198
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/source/emulation/cpu/jit/jitCodeGen.cpp#L1183-L1255
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/source/sdl/startupArgs.cpp
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/project/emscripten/buildInstructions.md
+
+Regression coverage recommendation
+----------------------------------
+The shipped MMX PEXTRW test uses lane value 2222h, which cannot expose the
+signed conversion. Extend it with 8000h, FFFFh, 7FFFh and 0000h, all four
+source lanes and all destination registers, in interpreter and JIT modes.
+Existing runPextrwMmx already loops over source and destination registers.
+Test an immediate with its upper bits set too, preserving imm & 3 behavior.
+The adjacent memory-target PEXTRW already truncates to U16. XMM PEXTRW
+uses a different SIMDe helper returning a zero-extended lane and is not
+implicated by this particular defect.
+
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/source/test/cpu/testSSE.cpp#L677-L698
+https://github.com/danoon2/Boxedwine/blob/f96673d8c9bb5150422521c5a625f9278e405925/source/test/cpu/testSSE.cpp#L2013
+
+Patch status
+------------
+boxedwine-pextrw.patch changes one emulator source line only. It has not
+been applied to the downloaded runtime, compiled, run, or submitted
+externally. It must be rebuilt into the browser runtime for a durable fix.

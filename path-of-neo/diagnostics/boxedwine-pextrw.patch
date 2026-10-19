@@ -1,0 +1,12 @@
+diff --git a/source/emulation/cpu/common/common_sse.cpp b/source/emulation/cpu/common/common_sse.cpp
+--- a/source/emulation/cpu/common/common_sse.cpp
++++ b/source/emulation/cpu/common/common_sse.cpp
+@@ -395,7 +395,7 @@
+ void common_pextrwR32Mmx(CPU* cpu, U32 r1, U32 r2, U8 imm) {
+     simde__m64 m = {};
+     m.u64[0] = cpu->fpu.getMMX(r2)->q;
+-    cpu->reg[r1].u32 = simde_mm_extract_pi16(m, imm & 3);
++    cpu->reg[r1].u32 = (U16)simde_mm_extract_pi16(m, imm & 3);
+ }
+ 
+ void common_pextrwE16Mmx(CPU* cpu, U32 reg, U32 address, U8 imm) {
