@@ -62,10 +62,13 @@ jobs:
       - name: Check for exposed secrets / security issues
         run: |
           echo "Scanning for accidentally committed secrets..."
-          # Fail if API keys or tokens look hardcoded (not env vars)
+          # Fail if API keys or tokens look hardcoded (not env vars).
+          # eyJhbGciOiJub25l is base64url for {"alg":"none": an unsigned JWT
+          # (e.g. the CyberWorld Academy alg:none lesson) holds no secret.
           if grep -rn --include="*.html" --include="*.js" \
             -E "(api[_-]?key|apikey|password|secret|token)\s*[:=]\s*['\"][A-Za-z0-9+/]{20,}" \
-            . 2>/dev/null | grep -v "placeholder\|example\|YOUR_\|REPLACE"; then
+            . 2>/dev/null | grep -v "placeholder\|example\|YOUR_\|REPLACE" \
+            | grep -v "[:=]\s*['\"]eyJhbGciOiJub25l"; then
             echo "ERROR: Possible hardcoded secret detected above. Review immediately."
             exit 1
           fi
