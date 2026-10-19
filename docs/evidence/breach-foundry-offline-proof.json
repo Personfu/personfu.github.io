@@ -1,0 +1,83 @@
+{
+  "proof": "breach-foundry-generated-mount-offline-v1",
+  "result": "pass",
+  "started_utc": "2026-10-19T00:55:57.575Z",
+  "profile": "fresh synthetic guest",
+  "state_grants": false,
+  "gameplay_input": "visible UI buttons and physical keyboard events only",
+  "external_requests": "blocked",
+  "snapshot": {
+    "version": "cw-ascension-play-ee7f45dea2f954c7",
+    "resources": 24
+  },
+  "world_sha256": "ff3cb3c8d1989bd7fb0f58e3677e6912bd59f11bbeb9f5d23719d30f5cf78617",
+  "local_server_stopped_before_reload": true,
+  "checks": [
+    "24 exact cached public resources",
+    "operative created using the UI",
+    "online ZIP independently verified",
+    "localhost server stopped",
+    "actual entry reloaded offline",
+    "saved operative continued using the UI",
+    "rigged WebGL arena rendered offline",
+    "keyboard movement",
+    "keyboard strike damaged a construct",
+    "offline ZIP matches online guide"
+  ],
+  "offline": {
+    "navigator_online": false,
+    "controlled": true,
+    "wave": 1,
+    "phase": "active",
+    "score": 10,
+    "rigged_characters": 3,
+    "draw_calls": 151,
+    "triangles": 61044,
+    "keyboard_distance": 4.363,
+    "kit": {
+      "sha256": "c36a85c86b1043094b100549719a1d2df5661389590fb259f752081d8b296a91",
+      "bytes": 1963,
+      "files": [
+        {
+          "name": "breach-foundry-field-guide.txt",
+          "bytes": 1045,
+          "sha256": "45526bde14c3773cf08f98dae9aba2943af253e34cdbeab240a76c9789e2e4cf"
+        },
+        {
+          "name": "practice-log.csv",
+          "bytes": 84,
+          "sha256": "56b776aed0413eb96038d4cfc3223f8609dc90024e1f9f6196682a99e8557c76"
+        },
+        {
+          "name": "defense-counters.json",
+          "bytes": 450,
+          "sha256": "2b7bae4c2c40407091716f17c055232d12af9ff04a68a8ee6e8819b800d732c6"
+        }
+      ]
+    }
+  },
+  "online_kit": {
+    "sha256": "c36a85c86b1043094b100549719a1d2df5661389590fb259f752081d8b296a91",
+    "bytes": 1963,
+    "files": [
+      {
+        "name": "breach-foundry-field-guide.txt",
+        "bytes": 1045,
+        "sha256": "45526bde14c3773cf08f98dae9aba2943af253e34cdbeab240a76c9789e2e4cf"
+      },
+      {
+        "name": "practice-log.csv",
+        "bytes": 84,
+        "sha256": "56b776aed0413eb96038d4cfc3223f8609dc90024e1f9f6196682a99e8557c76"
+      },
+      {
+        "name": "defense-counters.json",
+        "bytes": 450,
+        "sha256": "2b7bae4c2c40407091716f17c055232d12af9ff04a68a8ee6e8819b800d732c6"
+      }
+    ]
+  },
+  "local_resource_requests": 46,
+  "screenshot": "breach-foundry-offline.png",
+  "elapsed_seconds": 25.483
+}

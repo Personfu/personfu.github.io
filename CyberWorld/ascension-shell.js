@@ -210,6 +210,7 @@
       Object.keys(source[key]).slice(0, 500).forEach(function (id) { if (/^[A-Za-z0-9_.:-]{1,100}$/.test(id) && !['__proto__','constructor','prototype'].includes(id)) out[key][id] = integer(source[key][id], 0, key === 'inventory' ? 9999 : 9000000000000000); });
     });
     out.flags = { run: { active: false, missionId: null }, tutorialDone: !!(source.flags && source.flags.tutorialDone), path: source.flags && PATHS[source.flags.path] ? source.flags.path : 'soc' };
+    if(source.flags && source.flags.combatBest && typeof source.flags.combatBest==='object' && !Array.isArray(source.flags.combatBest)) out.flags.combatBest={score:integer(source.flags.combatBest.score,0,9999999),wins:integer(source.flags.combatBest.wins,0,100000)};
     out.look = {};
     ['suit','accent','hair','coat','skin'].forEach(function (key) { if (source.look && /^#[0-9a-f]{6}$/i.test(source.look[key])) out.look[key] = source.look[key]; });
     out.look.frame = source.look && ['sentinel','ghost','runner','tinker','street','bot'].includes(source.look.frame) ? source.look.frame : 'sentinel';
@@ -343,7 +344,7 @@
     var key=event.key.toLowerCase();
     if(key==='tab'){event.preventDefault();event.stopImmediatePropagation();openDeck('missions');}
     else if(key==='h'){event.preventDefault();event.stopImmediatePropagation();toggleHud();}
-    else if(key==='q'){event.preventDefault();event.stopImmediatePropagation();if(campaign())campaign().toggleOverclock();}
+    else if(key==='q'){event.preventDefault();event.stopImmediatePropagation();if(window.__cwWorld.snapshot().combat)window.__cwWorld.combatAction('overclock');else if(campaign())campaign().toggleOverclock();}
     else if(key==='j'||key==='i'){event.preventDefault();event.stopImmediatePropagation();openDeck(key==='j'?'journal':'inventory');}
     else if(key==='e'){event.preventDefault();event.stopImmediatePropagation();window.__cwWorld.interact();}
   }
@@ -355,7 +356,7 @@
   }
   var gamepadButtons=[],gamepadActive=false;
   function gamepadTick(){
-    if(phase==='playing'&&$('cwas-modal').hidden&&navigator.getGamepads){var pad=Array.from(navigator.getGamepads()).find(Boolean);if(pad){var x=Math.abs(pad.axes[0])>.18?pad.axes[0]:0,y=Math.abs(pad.axes[1])>.18?pad.axes[1]:0;if(x||y||gamepadActive)window.__cwWorld.setMovement(x,y);gamepadActive=!!(x||y);[0,2,3].forEach(function(i){if(pad.buttons[i]&&pad.buttons[i].pressed&&!gamepadButtons[i]){if(i===0)window.__cwWorld.interact();if(i===2&&campaign())campaign().toggleOverclock();if(i===3)openDeck('missions');}gamepadButtons[i]=!!(pad.buttons[i]&&pad.buttons[i].pressed);});}else if(gamepadActive){window.__cwWorld.setMovement(0,0);gamepadActive=false;gamepadButtons=[];}}
+    if(phase==='playing'&&$('cwas-modal').hidden&&navigator.getGamepads){var pad=Array.from(navigator.getGamepads()).find(Boolean);if(pad){var x=Math.abs(pad.axes[0])>.18?pad.axes[0]:0,y=Math.abs(pad.axes[1])>.18?pad.axes[1]:0;if(x||y||gamepadActive)window.__cwWorld.setMovement(x,y);gamepadActive=!!(x||y);var arena=!!window.__cwWorld.snapshot().combat;[0,1,2,3].forEach(function(i){if(pad.buttons[i]&&pad.buttons[i].pressed&&!gamepadButtons[i]){if(arena)window.__cwWorld.combatAction(['strike','dodge','burst','overclock'][i]);else {if(i===0)window.__cwWorld.interact();if(i===2&&campaign())campaign().toggleOverclock();if(i===3)openDeck('missions');}}gamepadButtons[i]=!!(pad.buttons[i]&&pad.buttons[i].pressed);});}else if(gamepadActive){window.__cwWorld.setMovement(0,0);gamepadActive=false;gamepadButtons=[];}}
     requestAnimationFrame(gamepadTick);
   }
   function boot(){

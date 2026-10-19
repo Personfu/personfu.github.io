@@ -1,0 +1,53 @@
+/* Original Breach Foundry combat HUD. The city remains the stage. */
+body.cwas-in-combat .cwas-objective,body.cwas-in-combat .cwas-location,body.cwas-in-combat .cwas-operative,body.cwas-in-combat .cwas-radio,body.cwas-in-combat .cwas-bottom-center,body.cwas-in-combat .cwas-sectors,body.cwas-in-combat #cwas-touch-interact,body.cwas-in-combat #cwg-action,body.cwas-in-combat #cwas-hud-toggle{display:none!important}
+body.cwas-in-combat #cwas-toast{display:none!important}
+#cwas-combat-open{position:static;display:block;color:#b797ff;min-height:44px;padding:10px 0 0;text-align:left;width:100%}
+#cwcombat-hud{position:fixed;inset:0;z-index:80020;pointer-events:none;color:#edf4f7;font-family:'Space Grotesk',sans-serif}
+#cwcombat-hud button{pointer-events:auto;min-height:44px;border:1px solid #7694ab59;background:#0a1625ed;color:#eafff9;font:11px 'Share Tech Mono',monospace;letter-spacing:.5px;border-radius:3px;touch-action:manipulation}
+#cwcombat-hud button:hover:not(:disabled){border-color:#48ffd5;background:#12343c}
+#cwcombat-hud button:focus-visible{outline:2px solid #48ffd5;outline-offset:3px}
+#cwcombat-hud button:disabled{opacity:.65;cursor:default}
+#cwcombat-hud .cwcombat-status{position:absolute;top:100px;left:28px;width:min(340px,calc(100vw - 56px));padding:16px;background:linear-gradient(135deg,#07131bef,#0b172bd6);border:1px solid #b797ff42;box-shadow:0 8px 32px #0005;border-radius:4px}
+.cwcombat-status-heading{display:flex;gap:12px;justify-content:space-between;align-items:center;margin-bottom:14px}
+.cwcombat-status h1{font:700 19px 'Orbitron',sans-serif;letter-spacing:.2px;margin:8px 0 0}
+#cwcombat-hud .cwas-eyebrow{font-size:8px;letter-spacing:1px;color:#b797ff}
+#cwcombat-exit{padding:8px 12px;flex-shrink:0}
+.cwcombat-vital{margin-top:10px}
+.cwcombat-vital label{display:flex;justify-content:space-between;font:10px 'Share Tech Mono',monospace;color:#b9cbd6;letter-spacing:1px;margin-bottom:6px}
+.cwcombat-vital b{color:#eafff9;font-weight:400}
+.cwcombat-vital progress{appearance:none;-webkit-appearance:none;display:block;width:100%;height:8px;border:0;background:#1d2c3a;border-radius:1px;overflow:hidden;accent-color:#48ffd5}
+.cwcombat-vital progress::-webkit-progress-bar{background:#1d2c3a}
+.cwcombat-vital progress::-webkit-progress-value{background:linear-gradient(90deg,#1dbf9b,#73ffe4)}
+.cwcombat-vital progress::-moz-progress-bar{background:#48ffd5}
+.cwcombat-energy progress{height:5px;accent-color:#b797ff}
+.cwcombat-energy progress::-webkit-progress-value{background:linear-gradient(90deg,#7862cf,#cfb7ff)}
+.cwcombat-energy progress::-moz-progress-bar{background:#b797ff}
+.cwcombat-counts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;border-top:1px solid #7896aa36;padding-top:12px;margin-top:15px}
+.cwcombat-counts span{font:8px 'Share Tech Mono',monospace;letter-spacing:.7px;color:#9aafbf}
+.cwcombat-counts b{display:block;font:500 17px 'Space Grotesk',sans-serif;color:#f5ffff;margin-top:4px;white-space:nowrap}
+.cwcombat-bottom{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);width:min(620px,calc(100vw - 40px));text-align:center}
+#cwcombat-feedback{font:11px/1.5 'Share Tech Mono',monospace;color:#e1f8f6;letter-spacing:.5px;text-shadow:0 2px 7px #000,0 1px 2px #000;margin:0 0 12px;min-height:17px;background:#07131bba;border-radius:3px;padding:7px 10px}
+.cwcombat-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+#cwcombat-hud .cwcombat-actions button{min-width:0;min-height:82px;padding:10px 8px 8px;position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;background:linear-gradient(135deg,#071c29f5,#12172df5);box-shadow:0 7px 22px #0006;border-color:#b797ff52;overflow:hidden}
+.cwcombat-actions kbd{position:absolute;left:7px;top:7px;font:8px 'Share Tech Mono',monospace;color:#a9b8cc;border:1px solid #6e8ba651;border-radius:2px;padding:2px 3px}
+.cwcombat-action-icon{color:#48ffd5;font-size:29px;line-height:30px}
+.cwcombat-actions strong{font:11px 'Share Tech Mono',monospace;letter-spacing:.6px}
+.cwcombat-actions small{font:9px 'Share Tech Mono',monospace;color:#acc0cd;letter-spacing:0}
+#cwcombat-hud .cwcombat-charged{border-color:#48ffd5;box-shadow:inset 0 0 22px #48ffd51c,0 0 20px #48ffd52c}
+#cwcombat-hud #cwcombat-brief{min-height:32px;margin-top:5px;font-size:8px;color:#b7c3d5;background:#07131bc9;border-color:transparent;padding:5px 12px}
+#cwcombat-result{position:absolute;inset:82px 0 0;display:flex;align-items:center;justify-content:center;pointer-events:none;background:#03091165;padding:20px;overflow:auto}
+.cwcombat-result-card{pointer-events:auto;width:min(600px,100%);max-height:100%;overflow:auto;background:linear-gradient(145deg,#071722fa,#14172dfc);border:1px solid #b797ff8c;box-shadow:0 30px 120px #000b;padding:30px;border-radius:5px}
+.cwcombat-result-card h2{font:800 clamp(24px,4vw,37px)/1.2 'Orbitron',sans-serif;margin:15px 0 16px;letter-spacing:-.5px}
+.cwcombat-result-card>p{color:#b9cbd7;font-size:13px;line-height:1.75;margin:0 0 16px}
+.cwcombat-result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:16px 0;border-top:1px solid #7f98b13d;border-bottom:1px solid #7f98b13d;margin:0 0 18px}
+.cwcombat-result-stats dt{font:9px 'Share Tech Mono',monospace;letter-spacing:1px;color:#a4b8ca}
+.cwcombat-result-stats dd{font:600 26px 'Space Grotesk',sans-serif;color:#48ffd5;margin:4px 0 0}
+.cwcombat-result-card .cwcombat-reward-copy{font:10px/1.8 'Share Tech Mono',monospace;color:#d7c5ff}
+.cwcombat-result-actions{display:flex;gap:10px;flex-wrap:wrap}
+#cwcombat-hud .cwcombat-result-actions button{min-height:46px;padding:12px 15px;flex-grow:1}
+#cwcombat-hud #cwcombat-retry{background:#48ffd5;color:#071822;border-color:#48ffd5}
+#cwcombat-hud #cwcombat-reward{width:100%;border-color:#b797ff70;color:#d7c5ff}
+.cwcombat-result-card .cwcombat-lesson{font:10px/1.7 'Share Tech Mono',monospace;color:#8fa8b8;border-top:1px solid #7f98b12e;margin:20px 0 0;padding-top:14px}
+@media(max-width:900px){body.cwas-in-combat .cwas-dpad{bottom:24px!important;left:20px!important}#cwcombat-hud .cwcombat-status{top:83px;left:20px;width:300px}.cwcombat-bottom{left:auto;right:20px;bottom:18px;transform:none;width:min(390px,calc(100vw - 190px))}.cwcombat-actions{grid-template-columns:repeat(2,1fr)}#cwcombat-feedback{font-size:10px;margin-bottom:8px}#cwcombat-hud .cwcombat-actions button{min-height:70px}.cwcombat-action-icon{font-size:24px;line-height:26px}.cwcombat-actions kbd{font-size:6px}.cwcombat-actions small{font-size:8px}#cwcombat-hud #cwcombat-brief{font-size:7px}}
+@media(max-width:600px){#cwcombat-hud .cwcombat-status{top:76px;left:14px;width:calc(100vw - 28px);padding:12px}.cwcombat-status-heading{margin-bottom:10px}.cwcombat-status h1{font-size:16px;margin-top:6px}#cwcombat-hud .cwas-eyebrow{font-size:7px}.cwcombat-vital{margin-top:8px}.cwcombat-counts{padding-top:9px;margin-top:10px;gap:8px}.cwcombat-counts b{font-size:16px}.cwcombat-counts span{font-size:7px}.cwcombat-bottom{right:14px;bottom:12px;width:calc(100vw - 178px)}#cwcombat-feedback{position:fixed;bottom:184px;right:0;width:calc(100vw - 28px);font-size:10px;text-align:center;margin:0}#cwcombat-hud .cwcombat-actions button{min-height:68px;padding:8px 3px;gap:3px}.cwcombat-actions strong{font-size:9px;letter-spacing:0}.cwcombat-actions small{font-size:7px}.cwcombat-actions kbd{display:none}.cwcombat-actions{gap:6px}#cwcombat-hud #cwcombat-brief{margin-top:4px;min-height:32px;font-size:6px;padding:5px 2px;width:100%;white-space:normal}body.cwas-in-combat .cwas-dpad{left:14px!important;bottom:28px!important;grid-template-columns:repeat(3,40px);grid-template-rows:repeat(2,44px)}body.cwas-in-combat .cwas-dpad button{min-height:44px}#cwcombat-result{top:70px;padding:14px}.cwcombat-result-card{padding:20px}.cwcombat-result-card>p{font-size:12px}.cwcombat-result-card h2{font-size:25px}.cwcombat-result-card .cwcombat-lesson{font-size:9px}.cwcombat-result-stats dd{font-size:23px}}
+@media(max-height:620px) and (min-width:601px){#cwcombat-hud .cwcombat-status{top:78px;left:18px;width:270px;padding:10px}.cwcombat-status h1{font-size:15px}.cwcombat-counts{margin-top:9px;padding-top:8px}.cwcombat-bottom{right:18px;left:auto;transform:none;width:390px;bottom:10px}#cwcombat-result{top:70px;padding:12px}.cwcombat-result-card{padding:20px}}

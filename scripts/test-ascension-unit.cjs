@@ -6,6 +6,7 @@ const suites = [
   ['Authored content schema', ['scripts/validate-content.cjs']],
   ['Campaign invariants', ['scripts/test-ascension-campaign.cjs']],
   ['Spatial continuity contract', ['scripts/test-ascension-field.cjs']],
+  ['Real-time combat simulation', ['scripts/test-ascension-combat.cjs']],
   ['City migration and field reward recovery', ['scripts/test-ascension-field-city.cjs']],
   ['Downloadable case artifact integrity', ['scripts/browser-downloads-smoke.cjs', '--fixtures-only']],
   ['Animated rig and local asset closure', ['scripts/test_ascension_rig.cjs']],

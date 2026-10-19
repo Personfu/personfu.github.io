@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-18T23:44:41.900Z",
+  "generatedAt": "2026-10-19T00:42:22.246Z",
   "countingMethod": "Indexed triangle faces (or position-count/3 for nonindexed geometry); instanced counts multiplied by instances. Composite counts exclude shadow/postprocessing passes and report label sprites separately.",
   "models": [
     {
       "id": "sentinel",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "8b42c7554c019df8fdf120f9075b37e62ca68601a7c73aad6d8ed6d92aa999fb",
+      "sourceSha256": "fc85c11300712b04f301a533aa008ba4b041674fa3dc8f2beb571b980968b435",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
       "use": "Asset-load/failure fallback only",
       "parameters": {
@@ -23,7 +23,7 @@
       "id": "ghost",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "8b42c7554c019df8fdf120f9075b37e62ca68601a7c73aad6d8ed6d92aa999fb",
+      "sourceSha256": "fc85c11300712b04f301a533aa008ba4b041674fa3dc8f2beb571b980968b435",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
       "use": "Asset-load/failure fallback only",
       "parameters": {
@@ -39,7 +39,7 @@
       "id": "runner",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "8b42c7554c019df8fdf120f9075b37e62ca68601a7c73aad6d8ed6d92aa999fb",
+      "sourceSha256": "fc85c11300712b04f301a533aa008ba4b041674fa3dc8f2beb571b980968b435",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
       "use": "Asset-load/failure fallback only",
       "parameters": {
@@ -55,7 +55,7 @@
       "id": "tinker",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "8b42c7554c019df8fdf120f9075b37e62ca68601a7c73aad6d8ed6d92aa999fb",
+      "sourceSha256": "fc85c11300712b04f301a533aa008ba4b041674fa3dc8f2beb571b980968b435",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
       "use": "Asset-load/failure fallback only",
       "parameters": {
@@ -71,7 +71,7 @@
       "id": "referenceTower",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "8b42c7554c019df8fdf120f9075b37e62ca68601a7c73aad6d8ed6d92aa999fb",
+      "sourceSha256": "fc85c11300712b04f301a533aa008ba4b041674fa3dc8f2beb571b980968b435",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
       "use": "Authored environment reference",
       "parameters": {
@@ -90,7 +90,7 @@
       "id": "referenceVenue",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "8b42c7554c019df8fdf120f9075b37e62ca68601a7c73aad6d8ed6d92aa999fb",
+      "sourceSha256": "fc85c11300712b04f301a533aa008ba4b041674fa3dc8f2beb571b980968b435",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
       "use": "Authored environment reference",
       "parameters": {
