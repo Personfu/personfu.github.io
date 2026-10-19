@@ -2,6 +2,7 @@
 node_modules/
 package-lock.json
 !/package-lock.json
+!/discord-bot/package-lock.json
 
 # Environment secrets — NEVER commit these
 .env
