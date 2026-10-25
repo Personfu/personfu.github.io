@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Network Toolkit — PersonFu</title>
+<style>
+:root{color-scheme:light;--gray:#c0c0c0;--white:#fff;--black:#000;--navy:#000080;--teal:#008080;--ink:#151515;--green:#007a24}
+*{box-sizing:border-box}body{margin:0;background:#008080;color:var(--ink);font:14px Tahoma,Arial,sans-serif;padding:12px}
+.window{max-width:1080px;margin:0 auto;background:var(--gray);border:2px solid;border-color:#fff #404040 #404040 #fff;box-shadow:2px 2px #000}
+.title{background:linear-gradient(90deg,#000080,#1084d0);color:#fff;font-weight:bold;padding:7px 9px;display:flex;justify-content:space-between}.title small{font-weight:normal}
+.intro{padding:12px;border-bottom:1px solid #888;line-height:1.5}.intro strong{color:var(--navy)}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:10px;padding:10px}
+.card{background:#eee;border:2px solid;border-color:#fff #777 #777 #fff;padding:10px;min-width:0}
+h2{font-size:15px;margin:0 0 8px;color:var(--navy)}p{margin:5px 0 9px;line-height:1.4}
+label{display:block;font-size:12px;margin:8px 0 3px}input,textarea,select{width:100%;font:13px Consolas,monospace;padding:7px;border:2px inset #aaa;background:#fff;color:#111}
+textarea{min-height:65px;resize:vertical}button{font:bold 12px Tahoma,Arial,sans-serif;padding:6px 10px;margin-top:8px;background:var(--gray);border:2px solid;border-color:#fff #333 #333 #fff;cursor:pointer}button:active{border-color:#333 #fff #fff #333}
+.output{margin-top:8px;background:#fff;border:2px inset #aaa;padding:8px;min-height:34px;white-space:pre-wrap;overflow-wrap:anywhere;font:12px Consolas,monospace}
+.note{color:#444;font-size:11px}.status{min-height:1.2em;color:var(--green);font-size:12px}
+.footer{padding:7px 10px;border-top:1px solid #888;font-size:11px}
+@media(max-width:520px){body{padding:5px}.tools{padding:6px;gap:7px}.intro{padding:8px}}
+</style>
+</head>
+<body>
+<main class="window">
+  <header class="title"><span>🧰 PersonFu Network Toolkit</span><small>LOCAL BROWSER TOOLS</small></header>
+  <section class="intro"><strong>In-house utilities, running on this device.</strong> Inputs stay in this page. These helpers calculate address ranges, validate syntax, draft commands, and hash text locally. They do not contact a target, scan a network, or call a third-party service.</section>
+  <section class="tools">
+    <article class="card">
+      <h2>IPv4 Subnet Calculator</h2><p>Enter an IPv4 address and prefix length.</p>
+      <label for="cidr">Address / prefix</label><input id="cidr" value="192.168.1.10/24" autocomplete="off">
+      <button id="calc4">Calculate range</button><div id="out4" class="output" aria-live="polite">Network, broadcast, and usable host range will appear here.</div>
+    </article>
+    <article class="card">
+      <h2>Address Syntax Check</h2><p>Check IPv4 or IPv6 address formatting locally.</p>
+      <label for="address">IP address</label><input id="address" placeholder="2001:db8::1" autocomplete="off">
+      <button id="checkip">Check address</button><div id="outip" class="output" aria-live="polite">No network request is made.</div>
+    </article>
+    <article class="card">
+      <h2>Authorized Scan Command Draft</h2><p>Prepare a command for a system you own or are authorized to assess. This page will not run it.</p>
+      <label for="host">Target hostname or IP</label><input id="host" placeholder="192.0.2.10 or lab.example" autocomplete="off">
+      <label for="ports">Ports (comma separated)</label><input id="ports" value="22,80,443" autocomplete="off">
+      <button id="draftscan">Draft Nmap command</button><div id="outscan" class="output" aria-live="polite">Command preview will appear here.</div>
+      <p class="note">Use only within your authorization scope. The command is shown as text and is never executed.</p>
+    </article>
+    <article class="card">
+      <h2>Ping / Traceroute Command Draft</h2><p>Build a local terminal command for an authorized destination.</p>
+      <label for="routehost">Hostname or IP</label><input id="routehost" placeholder="example.com" autocomplete="off">
+      <label for="routeos">Command style</label><select id="routeos"><option value="unix">Linux / macOS</option><option value="windows">Windows</option></select>
+      <button id="draftroute">Draft commands</button><div id="outroute" class="output" aria-live="polite">Ping and route commands will appear here.</div>
+    </article>
+    <article class="card">
+      <h2>SHA-256 Text Hash</h2><p>Hash text in this browser. Nothing is uploaded.</p>
+      <label for="hashinput">Text to hash</label><textarea id="hashinput" placeholder="Enter text"></textarea>
+      <button id="hashbtn">Calculate SHA-256</button><div id="outhash" class="output" aria-live="polite">Digest will appear here.</div><div id="hashstatus" class="status" aria-live="polite"></div>
+    </article>
+    <article class="card">
+      <h2>Quick Reference</h2>
+      <p><strong>Private IPv4:</strong> 10/8, 172.16/12, 192.168/16</p>
+      <p><strong>Documentation ranges:</strong> 192.0.2/24, 198.51.100/24, 203.0.113/24</p>
+      <p><strong>IPv6 documentation:</strong> 2001:db8::/32</p>
+      <p class="note">Reference values are for documentation and examples. They are not reachable targets.</p>
+    </article>
+  </section>
+  <footer class="footer">PersonFu Network Toolkit · Browser-only calculations · No external service dependency</footer>
+</main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const set=(id,value)=>{$(id).textContent=value};
+function parseV4(value){
+  const parts=value.split('.');
+  if(parts.length!==4)return null;
+  const nums=parts.map(p=>/^(0|[1-9]\d{0,2})$/.test(p)?Number(p):-1);
+  if(nums.some(n=>n<0||n>255))return null;
+  return nums.reduce((n,p)=>(n*256+p)>>>0,0)>>>0;
+}
+function fmtV4(n){return [n>>>24,(n>>>16)&255,(n>>>8)&255,n&255].join('.')}
+$('calc4').addEventListener('click',()=>{
+  const m=$('cidr').value.trim().match(/^(.+?)\/(\d{1,2})$/), out=$('out4');
+  if(!m){set('out4','Enter an address with a prefix, such as 192.168.1.10/24.');return}
+  const ip=parseV4(m[1]), prefix=Number(m[2]);
+  if(ip===null||prefix>32){set('out4','Invalid IPv4 address or prefix. Prefix must be 0–32.');return}
+  const mask=prefix===0?0:(0xffffffff<<(32-prefix))>>>0, net=(ip&mask)>>>0, broad=(net|(~mask>>>0))>>>0;
+  const total=2**(32-prefix), usable=prefix>=31?total:Math.max(0,total-2);
+  set('out4',['Network: '+fmtV4(net)+'/'+prefix,'Mask: '+fmtV4(mask),'Broadcast: '+fmtV4(broad),'Total addresses: '+total.toLocaleString(),'Usable hosts (traditional): '+usable.toLocaleString(),prefix<31?'Host range: '+fmtV4((net+1)>>>0)+' – '+fmtV4((broad-1)>>>0):'Point-to-point range: '+fmtV4(net)+' – '+fmtV4(broad)].join('\n'));
+});
+$('checkip').addEventListener('click',()=>{
+  const v=$('address').value.trim(), n=parseV4(v);
+  if(n!==null){set('outip','Valid IPv4 address: '+fmtV4(n));return}
+  try{
+    if(!v||v.includes('%')||!v.includes(':'))throw 0;
+    const parsed=new URL('http://['+v+']/');
+    if(!parsed.hostname)throw 0;
+    set('outip','Valid IPv6 address syntax. This checks formatting only; it does not test reachability.');
+  }catch(_){set('outip','Not a valid IPv4 or IPv6 address. IPv6 zone identifiers are not accepted.')}
+});
+function validHost(s){return s.length>0&&s.length<=253&&!/[\s\/\\]/.test(s)&&/^[a-zA-Z0-9.:-]+$/.test(s)&&!s.startsWith('-')}
+$('draftscan').addEventListener('click',()=>{
+  const host=$('host').value.trim(), raw=$('ports').value.trim(), out=$('outscan');
+  const ports=raw.split(',').map(x=>x.trim());
+  if(!validHost(host)){set('outscan','Enter a hostname or IP address using letters, digits, dots, hyphens, or colons.');return}
+  if(!ports.length||ports.some(p=>!/^\d{1,5}$/.test(p)||Number(p)<1||Number(p)>65535)){set('outscan','Ports must be comma-separated numbers from 1 to 65535.');return}
+  set('outscan','nmap -Pn -p '+[...new Set(ports)].join(',')+' '+host+'\n\nPreview only — not executed by this page.');
+});
+$('draftroute').addEventListener('click',()=>{
+  const host=$('routehost').value.trim();
+  if(!validHost(host)){set('outroute','Enter a valid hostname or IP address.');return}
+  const win=$('routeos').value==='windows';
+  set('outroute',win?'ping '+host+'\ntracert '+host:'ping -c 4 '+host+'\ntraceroute '+host+'\n\nPreview only — not executed by this page.');
+});
+$('hashbtn').addEventListener('click',async()=>{
+  set('hashstatus','');
+  if(!crypto.subtle){set('hashstatus','Web Crypto is unavailable in this browser context.');return}
+  try{
+    const bytes=new TextEncoder().encode($('hashinput').value);
+    const digest=await crypto.subtle.digest('SHA-256',bytes);
+    set('outhash',Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join(''));
+  }catch(_){set('hashstatus','Unable to calculate the hash in this browser.')}
+});
+</script>
+</body>
+</html>
