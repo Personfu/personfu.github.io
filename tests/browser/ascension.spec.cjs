@@ -8,6 +8,7 @@ async function initialize(page, name = 'GRID-QA') {
   await page.locator('#cwas-begin').click();
   await page.locator('#cwas-handle').fill(name);
   await page.locator('#cwas-creator-form button[type="submit"]').click();
+  if (await page.locator('#cwr-dismiss').isVisible()) await page.locator('#cwr-dismiss').click();
   await expect(page.locator('body')).toHaveAttribute('data-phase', 'playing');
 }
 test('true 3D city, creator, movement, modal pause and settings work', async ({ page }) => {
@@ -26,6 +27,7 @@ test('true 3D city, creator, movement, modal pause and settings work', async ({ 
   await page.locator('#cwas-specialization').selectOption('packet');
   await page.screenshot({ path: path.join(screenshotDir, 'ascension-operative.png') });
   await page.locator('#cwas-creator-form button[type="submit"]').click();
+  if (await page.locator('#cwr-dismiss').isVisible()) await page.locator('#cwr-dismiss').click();
   await expect(page.locator('#cwas-callsign')).toHaveText('PERSON-QA');
   const before = await page.evaluate(() => window.__cwWorld.snapshot().world);
   await page.keyboard.down('d');

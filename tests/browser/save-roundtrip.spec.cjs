@@ -31,6 +31,7 @@ async function initialize(page,name='RESTORE-QA') {
   await page.waitForFunction(()=>window.__cwAscensionShell&&window.__cwAscension&&window.__cwWorld);
   await page.locator('#cwas-begin').click();await page.locator('#cwas-handle').fill(name);
   await page.locator('#cwas-creator-form button[type=submit]').click();
+  if (await page.locator('#cwr-dismiss').isVisible()) await page.locator('#cwr-dismiss').click();
   await expect(page.locator('body')).toHaveAttribute('data-phase','playing');
 }
 async function exportFromSettings(page) {

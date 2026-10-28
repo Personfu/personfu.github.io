@@ -10,6 +10,7 @@ test('sound is opt-in, reacts to interior and Overclock, and keeps its preferenc
   await page.locator('#cwas-begin').click();
   await page.locator('#cwas-handle').fill('SOUND-QA');
   await page.locator('#cwas-creator-form button[type="submit"]').click();
+  if (await page.locator('#cwr-dismiss').isVisible()) await page.locator('#cwr-dismiss').click();
   await page.locator('#cwas-audio').click();
   await expect.poll(sound).toMatchObject({ enabled: true, state: 'running', mode: 'city' });
   await page.keyboard.down('w');

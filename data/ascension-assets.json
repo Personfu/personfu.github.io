@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-19T00:42:22.246Z",
+  "generatedAt": "2026-10-28T05:54:46.002Z",
   "countingMethod": "Indexed triangle faces (or position-count/3 for nonindexed geometry); instanced counts multiplied by instances. Composite counts exclude shadow/postprocessing passes and report label sprites separately.",
   "models": [
     {
       "id": "sentinel",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "fc85c11300712b04f301a533aa008ba4b041674fa3dc8f2beb571b980968b435",
+      "sourceSha256": "c9a0009c1f3c20c3937f34a2c86c69c52c5ced4d2aa17b6d6d262c2a74bb66a0",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
       "use": "Asset-load/failure fallback only",
       "parameters": {
@@ -23,7 +23,7 @@
       "id": "ghost",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "fc85c11300712b04f301a533aa008ba4b041674fa3dc8f2beb571b980968b435",
+      "sourceSha256": "c9a0009c1f3c20c3937f34a2c86c69c52c5ced4d2aa17b6d6d262c2a74bb66a0",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
       "use": "Asset-load/failure fallback only",
       "parameters": {
@@ -39,7 +39,7 @@
       "id": "runner",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "fc85c11300712b04f301a533aa008ba4b041674fa3dc8f2beb571b980968b435",
+      "sourceSha256": "c9a0009c1f3c20c3937f34a2c86c69c52c5ced4d2aa17b6d6d262c2a74bb66a0",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
       "use": "Asset-load/failure fallback only",
       "parameters": {
@@ -55,7 +55,7 @@
       "id": "tinker",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "fc85c11300712b04f301a533aa008ba4b041674fa3dc8f2beb571b980968b435",
+      "sourceSha256": "c9a0009c1f3c20c3937f34a2c86c69c52c5ced4d2aa17b6d6d262c2a74bb66a0",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
       "use": "Asset-load/failure fallback only",
       "parameters": {
@@ -71,7 +71,7 @@
       "id": "referenceTower",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "fc85c11300712b04f301a533aa008ba4b041674fa3dc8f2beb571b980968b435",
+      "sourceSha256": "c9a0009c1f3c20c3937f34a2c86c69c52c5ced4d2aa17b6d6d262c2a74bb66a0",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
       "use": "Authored environment reference",
       "parameters": {
@@ -80,17 +80,17 @@
         "height": 16,
         "interactive": false
       },
-      "meshTriangles": 952,
+      "meshTriangles": 554,
       "spriteTriangles": 0,
-      "meshes": 15,
-      "uniqueGeometries": 2,
-      "uniqueMaterials": 10
+      "meshes": 26,
+      "uniqueGeometries": 3,
+      "uniqueMaterials": 13
     },
     {
       "id": "referenceVenue",
       "provenance": "Original project-authored procedural model builder",
       "source": "CyberWorld/src/ascension-world3d.js",
-      "sourceSha256": "fc85c11300712b04f301a533aa008ba4b041674fa3dc8f2beb571b980968b435",
+      "sourceSha256": "c9a0009c1f3c20c3937f34a2c86c69c52c5ced4d2aa17b6d6d262c2a74bb66a0",
       "modelLicense": "No separate model license is declared in the repository; this registry does not grant a new license.",
       "use": "Authored environment reference",
       "parameters": {
@@ -99,11 +99,11 @@
         "height": 16,
         "interactive": true
       },
-      "meshTriangles": 1024,
+      "meshTriangles": 626,
       "spriteTriangles": 2,
-      "meshes": 21,
-      "uniqueGeometries": 2,
-      "uniqueMaterials": 13
+      "meshes": 32,
+      "uniqueGeometries": 3,
+      "uniqueMaterials": 16
     }
   ],
   "licensedModels": [
@@ -207,6 +207,11 @@
       "triangles": 20
     }
   ],
+  "runtimeWardrobe": {
+    "source": "CyberWorld/src/ascension-visual-materials.js",
+    "sha256": "9decf107a5793e4376d23d9647119fc31ae7b70e82bb0493fccbbd8d1620d9cd",
+    "provenance": "Original bone-attached streetwear, visor and coat; additional runtime geometry is measured by browser renderer counters."
+  },
   "renderingDependency": {
     "package": "three",
     "version": "0.186.1",
@@ -222,6 +227,14 @@
       "use": "Supporting social-preview/offline illustration, not the playable 3D world",
       "triangles": null,
       "sha256": "75b713bce2fb36a0e5db319c1ae803bfd8399ba8356b9363eb38649524cecf33"
+    },
+    {
+      "path": "CyberWorld/assets/cyberworld/cyberworld-keyart.webp",
+      "provenance": "Original key art generated with the built-in image_gen tool; full prompt and packaging in docs/CYBERPUNK-ART.md",
+      "use": "Title cinematic plate and shared texture on two in-world 3D billboards; not a claim of runtime graphics fidelity",
+      "triangles": null,
+      "bytes": 300764,
+      "sha256": "3f95ddd431e6a24a8c0e6cc81b83d659479aea6f06cb4cf2d33cc433e44c2070"
     }
   ],
   "limitations": [

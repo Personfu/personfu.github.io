@@ -66,6 +66,7 @@ async function main() {
     await page.goto(`http://127.0.0.1:${server.address().port}/CyberWorld/ascension.html`, { waitUntil: 'domcontentloaded' });
     await page.waitForFunction(() => window.__cwAscension && window.CW_ASCENSION_DOWNLOADS);
     await page.locator('#cwas-begin').click(); await page.locator('#cwas-handle').fill('FILE-OPERATIVE'); await page.locator('#cwas-creator-form button[type=submit]').click();
+    if (await page.locator('#cwr-dismiss').isVisible()) await page.locator('#cwr-dismiss').click();
     await page.waitForFunction(() => document.body.dataset.phase === 'playing');
     await page.evaluate(() => window.__cwAscension.startMission('route-zero'));
     assert.equal(await page.locator('[data-action=reward-download]').count(), 0);

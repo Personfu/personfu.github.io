@@ -20,6 +20,8 @@ async function initialize(page, handle = 'FOUNDRY-QA') {
   await page.locator('#cwas-handle').fill(handle);
   await page.locator('#cwas-creator-form button[type=submit]').click();
   await expect(page.locator('body')).toHaveAttribute('data-phase', 'playing');
+  const explore = page.locator('#cwr-dismiss');
+  if (await explore.isVisible()) await explore.click();
 }
 async function state(page) { return page.evaluate(() => window.__cwWorld.snapshot().combat); }
 async function download(page, selector) {
@@ -67,7 +69,17 @@ async function clearArena(page) {
   throw new Error('Combat coach timed out before clearing the three visible waves.');
 }
 
-test('Breach Foundry uses real movement, combo abilities, three waves, one-time rewards and valid downloadable souvenirs', async ({ page }) => {
+async function begin(page, pace, open = true) {
+  if (open) await page.locator('#cwas-combat-open').click();
+  await expect(page.locator('#cwcombat-prep')).toBeVisible();
+  await page.locator(`[name="cwcombat-pace"][value="${pace}"]`).check();
+  await page.locator('#cwcombat-prep-start').click();
+  await expect(page.locator('#cwcombat-prep')).toBeHidden();
+  await expect(page.locator('#cwcombat-hud')).toBeVisible();
+  expect((await state(page)).difficulty).toBe(pace);
+}
+
+test('Standard sparring remains available after a calm briefing and grants the arena reward once', async ({ page }) => {
   test.setTimeout(240000);
   const errors = []; page.on('pageerror', error => errors.push(error.message));
   await initialize(page);
@@ -75,6 +87,12 @@ test('Breach Foundry uses real movement, combo abilities, three waves, one-time 
   expect(await page.evaluate(() => window.__cwCombatUI.rewardFiles())).toBeNull();
   expect(await page.evaluate(() => window.__cwCombatUI.downloadReward())).toBe(false);
   await page.locator('#cwas-combat-open').click();
+  await expect(page.locator('#cwcombat-prep')).toBeVisible();
+  expect(await state(page)).toBeNull();
+  const kit = unzip((await download(page, '#cwcombat-prep-kit')).bytes);
+  expect(kit['breach-foundry-field-guide.txt'].toString()).toContain('DEFENSIVE COUNTER');
+  expect(JSON.parse(kit['defense-counters.json'])).toMatchObject({ synthetic: true, live_targets: false });
+  await begin(page, 'standard', false);
   await expect(page.locator('#cwcombat-hud')).toBeVisible();
   await expect(page.locator('body')).toHaveClass(/cwas-in-combat/);
   await expect(page.locator('.cwas-objective')).toBeHidden();
@@ -85,26 +103,23 @@ test('Breach Foundry uses real movement, combo abilities, three waves, one-time 
   expect(Math.hypot(moved.x - initial.x, moved.z - initial.z)).toBeGreaterThan(.5);
   await page.keyboard.press('j');
   await expect(page.locator('#cwas-modal')).toBeHidden();
-  await expect(page.locator('#cwcombat-strike')).toBeDisabled();
+  expect((await state(page)).cooldowns.strike).toBeGreaterThan(0);
   await page.keyboard.press('l');
   expect((await state(page)).overclockUntil).toBeGreaterThan((await state(page)).time);
   await page.locator('#cwas-settings').click();
   const paused = await state(page); await page.waitForTimeout(450);
   expect((await state(page)).time).toBe(paused.time);
   await page.keyboard.press('Escape');
-  const kit = unzip((await download(page, '#cwcombat-brief')).bytes);
-  expect(kit['breach-foundry-field-guide.txt'].toString()).toContain('DEFENSIVE COUNTER');
-  expect(JSON.parse(kit['defense-counters.json'])).toMatchObject({ synthetic: true, live_targets: false });
   // File I/O and screenshots are intentionally outside the scored run. Start
   // fresh through the same Leave / Enter controls available to a player.
   await page.locator('#cwcombat-exit').click();
-  await page.locator('#cwas-combat-open').click();
+  await begin(page, 'standard');
   fs.mkdirSync(evidenceDir, { recursive: true });
   await page.screenshot({ path: path.join(evidenceDir, 'breach-foundry-live-combat.png') });
   const won = await clearArena(page);
   expect(won.kills).toBe(8); expect(won.wave).toBe(3);
   await expect(page.locator('#cwcombat-result')).toBeVisible();
-  await expect(page.locator('#cwcombat-result')).toContainText('FIRST VICTORY');
+  await expect(page.locator('#cwcombat-result')).toContainText('FIRST WIN');
   const earned = await page.evaluate(() => window.__cwGameplay.state());
   expect(earned.credits).toBe(before.credits + 140);
   expect(earned.inventory['PHASE-GAUNTLET']).toBe(1);
@@ -115,32 +130,43 @@ test('Breach Foundry uses real movement, combo abilities, three waves, one-time 
   const receipt = JSON.parse(reward['phase-gauntlet-receipt.json']);
   expect(receipt).toMatchObject({ module: 'PHASE-GAUNTLET', official_certification: false, local_victories: 1 });
   await page.screenshot({ path: path.join(evidenceDir, 'breach-foundry-victory.png') });
-  await page.locator('#cwcombat-retry').click();
-  await clearArena(page);
-  await expect(page.locator('#cwcombat-result')).toContainText('NO REPEAT XP, CREDITS OR GEAR');
+  await download(page, '#cwcombat-reward');
   const repeated = await page.evaluate(() => window.__cwGameplay.state());
   expect({ xp: repeated.xp, credits: repeated.credits, level: repeated.level }).toEqual({ xp: earned.xp, credits: earned.credits, level: earned.level });
   expect(repeated.inventory['PHASE-GAUNTLET']).toBe(1);
-  expect(repeated.flags.combatBest.wins).toBe(2);
+  expect(repeated.flags.combatBest.wins).toBe(1);
   await page.locator('#cwcombat-return').click();
   await expect(page.locator('#cwcombat-hud')).toBeHidden();
   expect(await state(page)).toBeNull();
   await page.reload(); await page.waitForFunction(() => window.__cwCombatUI && window.__cwAscensionShell);
   await page.locator('#cwas-continue').click();
   expect((await page.evaluate(() => window.__cwGameplay.state())).inventory['PHASE-GAUNTLET']).toBe(1);
-  expect((await page.evaluate(() => window.__cwGameplay.state())).flags.combatBest.wins).toBe(2);
+  expect((await page.evaluate(() => window.__cwGameplay.state())).flags.combatBest.wins).toBe(1);
   expect(errors).toEqual([]);
 });
 
 test.describe('phone combat', () => {
 test.use({ hasTouch: true });
-test('combat defeat can retry without losing campaign progress and phone abilities stay tappable', async ({ page }) => {
+test('phone Practice waits for Start, never attacks and awards a small token instead of arena gear', async ({ page }) => {
   test.setTimeout(90000);
   await page.setViewportSize({ width: 390, height: 844 });
   await initialize(page, 'FOUNDRY-PHONE');
   const before = await page.evaluate(() => window.__cwGameplay.state());
   await page.locator('#cwas-combat-open').click();
+  await expect(page.locator('#cwcombat-prep')).toBeVisible();
+  await expect(page.locator('[name="cwcombat-pace"][value="rookie"]')).toBeChecked();
+  const city = await page.evaluate(() => window.__cwWorld.snapshot().world);
+  await page.keyboard.down('w'); await page.waitForTimeout(500); await page.keyboard.up('w');
+  expect(await page.evaluate(() => window.__cwWorld.snapshot().world)).toEqual(city);
+  expect(await state(page)).toBeNull();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
+  fs.mkdirSync(evidenceDir, { recursive: true });
+  await page.screenshot({ path: path.join(evidenceDir, 'breach-foundry-gentle-prep-phone.png') });
+  await begin(page, 'practice', false);
   await expect(page.locator('#cwcombat-hud')).toBeVisible();
+  await page.waitForTimeout(1200);
+  expect((await state(page)).health).toBe(100);
+  expect((await state(page)).eligibleReward).toBe(false);
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
   for (const ability of ['strike', 'burst', 'dodge', 'overclock']) {
     const bounds = await page.locator('#cwcombat-' + ability).boundingBox();
@@ -154,18 +180,58 @@ test('combat defeat can retry without losing campaign progress and phone abiliti
   await page.mouse.down(); await page.waitForTimeout(300); await page.mouse.up();
   const afterPad = await page.evaluate(() => window.__cwWorld.snapshot().world);
   expect(Math.hypot(afterPad.x - position.x, afterPad.z - position.z)).toBeGreaterThan(.2);
-  await page.locator('#cwcombat-dodge').tap();
-  expect((await state(page)).dodges).toBe(1);
-  fs.mkdirSync(evidenceDir, { recursive: true });
-  await page.screenshot({ path: path.join(evidenceDir, 'breach-foundry-phone.png') });
-  await expect.poll(async () => (await state(page)).phase, { timeout: 55000, intervals: [500] }).toBe('defeat');
-  await expect(page.locator('#cwcombat-result')).toContainText('SIGNAL INTERRUPTED');
-  expect(await page.evaluate(() => window.__cwGameplay.state())).toEqual(before);
-  await page.locator('#cwcombat-retry').tap();
-  expect((await state(page)).health).toBe(100);
-  expect((await state(page)).wave).toBe(1);
-  await page.locator('#cwcombat-exit').tap();
+  const backPad = await page.locator('[data-move="-1,0"]').boundingBox();
+  await page.mouse.move(backPad.x + backPad.width / 2, backPad.y + backPad.height / 2);
+  await page.mouse.down(); await page.waitForTimeout(300); await page.mouse.up();
+  await page.locator('#cwcombat-overclock').tap();
+  expect((await state(page)).overclockUntil).toBeGreaterThan((await state(page)).time);
+  const punch = await page.locator('#cwcombat-strike').boundingBox();
+  await page.mouse.move(punch.x + punch.width / 2, punch.y + punch.height / 2);
+  await page.mouse.down();
+  try { await expect.poll(async () => (await state(page)).phase, { timeout: 12000, intervals: [100] }).toBe('victory'); }
+  finally { await page.mouse.up(); }
+  await expect(page.locator('#cwcombat-result')).toContainText('First moves. Nice work!');
+  const earned = await page.evaluate(() => window.__cwGameplay.state());
+  expect(earned.completed['combat:breach-foundry']).toBeFalsy();
+  expect(earned.inventory['PHASE-GAUNTLET']).toBeFalsy();
+  expect(earned.flags.combatBest).toEqual(before.flags.combatBest);
+  await expect.poll(() => page.evaluate(() => window.__cwGameplay.state().inventory['TRAINING-TOKEN'])).toBe(1);
+  const note = unzip((await download(page, '#cwcombat-practice-reward')).bytes);
+  expect(note['first-moves-practice-note.txt'].toString()).toContain('No Phase Gauntlet');
+  await page.screenshot({ path: path.join(evidenceDir, 'breach-foundry-practice-phone-win.png') });
+  await page.locator('#cwcombat-return').tap();
   await expect(page.locator('#cwcombat-hud')).toBeHidden();
-  expect(await page.evaluate(() => window.__cwGameplay.state())).toEqual(before);
+  expect((await page.evaluate(() => window.__cwGameplay.state())).inventory['TRAINING-TOKEN']).toBe(1);
 });
+});
+
+test('default Rookie can be won with only held Punch, and Help safely pauses the match', async ({ page }) => {
+  test.setTimeout(90000);
+  await initialize(page, 'FIRST-ROOKIE-WIN');
+  await page.locator('#cwas-combat-open').click();
+  await expect(page.locator('[name="cwcombat-pace"][value="rookie"]')).toBeChecked();
+  expect(await state(page)).toBeNull();
+  await begin(page, 'rookie', false);
+  expect((await state(page)).health).toBe(120);
+  expect((await state(page)).totalEnemies).toBe(4);
+  await page.locator('#cwcombat-brief').click();
+  await expect(page.locator('#cwcombat-prep-copy')).toContainText('paused');
+  const paused = await state(page); await page.waitForTimeout(600);
+  expect((await state(page)).time).toBe(paused.time);
+  await page.locator('#cwcombat-prep-start').click();
+  await expect(page.locator('#cwcombat-feedback')).not.toHaveText('');
+  await page.keyboard.down('j');
+  try { await expect.poll(async () => (await state(page)).phase, { timeout: 65000, intervals: [200] }).toBe('victory'); }
+  finally { await page.keyboard.up('j'); }
+  expect((await state(page)).kills).toBe(4);
+  await expect(page.locator('#cwcombat-defeated')).toHaveText('4 / 4');
+  await expect(page.locator('#cwcombat-result')).toContainText('You did it!');
+  expect((await page.evaluate(() => window.__cwGameplay.state())).inventory['PHASE-GAUNTLET']).toBe(1);
+  fs.mkdirSync(evidenceDir, { recursive: true });
+  await page.screenshot({ path: path.join(evidenceDir, 'breach-foundry-rookie-simple-win.png') });
+  await page.locator('#cwcombat-retry').click();
+  await expect(page.locator('[name="cwcombat-pace"][value="rookie"]')).toBeChecked();
+  expect(await state(page)).toBeNull();
+  await page.locator('#cwcombat-prep-back').click();
+  await expect(page.locator('#cwcombat-prep')).toBeHidden();
 });

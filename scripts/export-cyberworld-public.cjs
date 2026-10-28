@@ -12,7 +12,7 @@ const requiredFiles = [
   'ascension.html', 'ascension.webmanifest', 'ascension.css',
   'ascension-campaign.css', 'gameplay.css', 'cw-academy.css', 'cw-world.css',
   'gameplay.js', 'cw-academy.js', 'ascension-net.js', 'ascension-data.js',
-  'ascension-campaign.js', 'ascension-downloads.js', 'ascension-city.js', 'ascension-field.js', 'ascension-shell.js', 'ascension-combat.js', 'ascension-combat.css',
+  'ascension-campaign.js', 'ascension-downloads.js', 'ascension-city.js', 'ascension-field.js', 'ascension-shell.js', 'ascension-combat.js', 'ascension-combat.css', 'ascension-rookie.js', 'ascension-rookie.css', 'ascension-theme.css',
   'ascension-world3d.js', 'ascension-response3d.js', 'ascension-sw.js',
   'THIRD_PARTY_LICENSES.txt', 'assets/favicon.svg',
   'assets/cyberworld/operative-sprite.svg', 'assets/cyberworld/data-shard.svg',
@@ -20,6 +20,7 @@ const requiredFiles = [
   'assets/cyberworld/firewall-tower.svg', 'assets/cyberworld/exfil-gate.svg',
   'assets/cyberworld/models/Character.glb',
   'assets/cyberworld/models/CHARACTER-LICENSE.md',
+  'assets/cyberworld/cyberworld-keyart.webp',
 ];
 const digest = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 function inventory(directory, prefix = '') {
@@ -39,6 +40,9 @@ function validateModel(bytes) {
   if (!document.buffers?.length || document.buffers.some(buffer => buffer.uri !== undefined || buffer.byteLength > binaryLength) || (document.images ?? []).some(image => image.uri !== undefined)) throw new Error('Character dependencies must be embedded.');
   if (!document.skins?.length || !document.animations?.length) throw new Error('Character rig and animations are required.');
 }
+function validateArtwork(bytes) {
+  if (bytes.length < 16 || bytes.toString('ascii', 0, 4) !== 'RIFF' || bytes.toString('ascii', 8, 12) !== 'WEBP' || bytes.readUInt32LE(4) + 8 !== bytes.length || bytes.length > 1024 * 1024) throw new Error('Invalid or oversized public WebP artwork.');
+}
 function replaceContract(source, before, after, label) {
   if (!source.includes(before)) throw new Error('Source contract changed: ' + label);
   return source.replace(before, after);
@@ -47,7 +51,7 @@ function workerContract(source) {
   const context = { URL, Request, Response, Set, Promise, self: { addEventListener() {} } };
   const result = vm.runInNewContext(source + '\n({ files: FILES, entry: ENTRY, prefix: PREFIX, version: VERSION });', context);
   const files = Array.from(result.files);
-  if (files.length !== 24 || new Set(files).size !== 24 || result.entry !== basePath + '/ascension.html' || result.prefix !== cachePrefix || !result.version.startsWith(cachePrefix)) throw new Error('Public offline snapshot must contain exactly 24 isolated resources.');
+  if (files.length !== 28 || new Set(files).size !== 28 || result.entry !== basePath + '/ascension.html' || result.prefix !== cachePrefix || !result.version.startsWith(cachePrefix)) throw new Error('Public offline snapshot must contain exactly 28 isolated resources.');
   if (files.some(url => !url.startsWith(basePath + '/') || /(?:^|\/)(?:api|auth|login|account|member)(?:\/|\.)/i.test(url))) throw new Error('Offline snapshot escaped the public game.');
   return { files: files.sort(), entry: result.entry, prefix: result.prefix, version: result.version };
 }
@@ -68,8 +72,9 @@ function prepare(sourceRoot = root) {
     const absolute = path.join(sourceRoot, sourceName);
     if (!fs.lstatSync(absolute).isFile()) throw new Error('Source must be a regular file: ' + sourceName);
     const original = fs.readFileSync(absolute);
-    const bytes = name.endsWith('.glb') ? original : Buffer.from(original.toString('utf8').replace(/\r\n?/g, '\n'));
+    const bytes = /\.(?:glb|webp)$/.test(name) ? original : Buffer.from(original.toString('utf8').replace(/\r\n?/g, '\n'));
     if (name.endsWith('.glb')) validateModel(bytes);
+    if (name.endsWith('.webp')) validateArtwork(bytes);
     if (name.endsWith('.js')) new vm.Script(bytes.toString('utf8'), { filename: sourceName });
     files.set(name, bytes);
     sources.push({ path: sourceName, sha256: digest(bytes), bytes: bytes.length });
@@ -133,6 +138,7 @@ function verifyExport(output, report) {
     if (bytes.length !== file.bytes || digest(bytes) !== file.sha256) throw new Error('Export integrity check failed: ' + file.path);
     files.set(file.path, bytes);
     if (file.path.endsWith('.glb')) { validateModel(bytes); continue; }
+    if (file.path.endsWith('.webp')) { validateArtwork(bytes); continue; }
     const source = bytes.toString('utf8');
     if (source.includes('\r')) throw new Error('Public text must use LF: ' + file.path);
     if (file.path.endsWith('.js')) {
@@ -173,10 +179,10 @@ function exportPublic(options = {}) {
   }
   const report = {
     schemaVersion: 1,
-    source: { directory: 'CyberWorld/', favicon: 'assets/favicon.svg', contract: 'Explicit 31-file public game allowlist; rebuilt from current maintained source bytes', files: prepared.sources },
+    source: { directory: 'CyberWorld/', favicon: 'assets/favicon.svg', contract: 'Explicit 35-file public game allowlist; rebuilt from current maintained source bytes', files: prepared.sources },
     deployment: 'Personfu/personfu.github.io static user-site mount; public game only',
     aliases: [basePath + '/', basePath + '/index.html', basePath + '/ascension.html'],
-    transforms: ['UTF-8 text normalized to LF; GLB binary preserved', 'Public mount canonical, manifest and worker paths', 'Mount-local favicon and fictional adversary portrait references; optional remote font links omitted', 'Independent worker cache namespace and content-derived version', 'Public home converges on canonical entry under service-worker control'],
+    transforms: ['UTF-8 text normalized to LF; GLB and WebP binaries preserved', 'Public mount canonical, manifest and worker paths', 'Mount-local favicon and fictional adversary portrait references; optional remote font links omitted', 'Independent worker cache namespace and content-derived version', 'Public home converges on canonical entry under service-worker control'],
     offline: prepared.offline,
     files: [...prepared.files].map(([name, bytes]) => ({ path: name, sha256: digest(bytes), bytes: bytes.length })),
   };

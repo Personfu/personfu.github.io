@@ -26,6 +26,7 @@ async function run() {
     await page.locator('#cwas-creator-form').waitFor({state:'visible'});
     await page.locator('#cwas-handle').fill('CAMPAIGN-QA');
     await page.locator('#cwas-creator-form button[type=submit]').click();
+    if (await page.locator('#cwr-dismiss').isVisible()) await page.locator('#cwr-dismiss').click();
     await page.waitForFunction(()=>document.body.dataset.phase==='playing');
     await page.evaluate(()=>window.__cwAscension.talkZero());
     await page.locator('[data-action=enter-soc]').click();

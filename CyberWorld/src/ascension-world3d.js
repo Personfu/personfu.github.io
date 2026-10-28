@@ -8,6 +8,9 @@ import { clone as cloneSkeleton } from 'three/addons/utils/SkeletonUtils.js';
 import { createCityAudio } from './ascension-audio.js';
 import { createCombat, command as combatCommand, advance as advanceCombat } from './ascension-combat-model.mjs';
 import { createArena } from './ascension-arena.js';
+import { createRookieWorld } from './ascension-rookie-world.js';
+import { createCyberpunkDistrict } from './ascension-city-art.js';
+import { createFacadeSurface, dressOperative } from './ascension-visual-materials.js';
 
 // Original CyberWorld environment with a credited Quaternius character rig.
 // Every terminal and packet is fictional game state.
@@ -22,7 +25,7 @@ import { createArena } from './ascension-arena.js';
     position: new THREE.Vector3(0, 0, 10), destination: new THREE.Vector3(0, 0, 10),
     movement: new THREE.Vector2(), keys: new Set(), facing: 0, moving: false, waypoints: [],
     overclock: false, reducedMotion: false, motionPreference: false, focus: null,
-    time: 0, phase: 0, last: 0, orbit: 0.25, distance: 9.5, orbiting: false, quality: 'high', fps: 60,
+    time: 0, phase: 0, last: 0, orbit: 0.25, elevation: .46, distance: 9.5, orbiting: false, quality: 'high', fps: 60,
     graphics: { resolution: 1.6, shadows: true, effects: true, shadowSize: 2048 },
   };
   let renderer, scene, camera, root, canvas, world, actor, context, frameId, composer;
@@ -44,6 +47,58 @@ import { createArena } from './ascension-arena.js';
   const fieldSampleIds = new Set(fieldSites.map(site => site.id));
   let fieldState = { phase: 'available', samples: [], route: null, steps: [], feedback: '' }, fieldWorld = null;
   let combat = null, arenaView = null;
+  let impactTime = 0, impactStrength = 0, impactStop = 0;
+  let attackPointer = null;
+  const impactEvents = new Set();
+  let districtArt = null, streetTexture = null, environmentTarget = null;
+  const keyartURL = new URL('assets/cyberworld/cyberworld-keyart.webp', document.currentScript?.src || document.baseURI).href;
+  function wetStreet() {
+    if (streetTexture) return streetTexture;
+    const image = document.createElement('canvas'); image.width = image.height = 256;
+    const paint = image.getContext('2d'), pixels = paint.createImageData(256, 256);
+    let seed = 17191;
+    for (let i = 0; i < pixels.data.length; i += 4) {
+      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+      const grain = (seed >>> 27) + 135;
+      pixels.data[i] = grain; pixels.data[i+1] = grain + 7; pixels.data[i+2] = grain + 12; pixels.data[i+3] = 255;
+    }
+    paint.putImageData(pixels, 0, 0); paint.strokeStyle = '#41556b40'; paint.lineWidth = .7;
+    for (let i = 0; i < 16; i++) { paint.beginPath(); paint.moveTo(i * 17, 0); paint.lineTo(i * 17 + 6, 116); paint.lineTo(i * 17 - 4, 256); paint.stroke(); }
+    streetTexture = new THREE.CanvasTexture(image); streetTexture.colorSpace = THREE.SRGBColorSpace;
+    streetTexture.wrapS = streetTexture.wrapT = THREE.RepeatWrapping; streetTexture.repeat.set(12, 12); streetTexture.anisotropy = Math.min(4, renderer.capabilities.getMaxAnisotropy());
+    return streetTexture;
+  }
+  function lightReflections() {
+    const studio = new THREE.Scene(), shapes = [], surfaces = [];
+    const shell = new THREE.MeshBasicMaterial({ color: 0x0a1523, side: THREE.BackSide }); surfaces.push(shell);
+    const roomShape = new THREE.BoxGeometry(30, 22, 30); shapes.push(roomShape); studio.add(new THREE.Mesh(roomShape, shell));
+    for (const [color,x,y,z,turn] of [[0x32e8ff,-12,5,0,Math.PI/2],[0xff238e,12,6,0,-Math.PI/2],[0xb3ceff,0,10,-5,0]]) {
+      const shape = new THREE.PlaneGeometry(5, 12), surface = new THREE.MeshBasicMaterial({ color, side: THREE.DoubleSide });
+      surface.color.multiplyScalar(2.2); shapes.push(shape); surfaces.push(surface);
+      const light = new THREE.Mesh(shape, surface); light.position.set(x,y,z); light.rotation.y = turn; studio.add(light);
+    }
+    const generator = new THREE.PMREMGenerator(renderer);
+    environmentTarget = generator.fromScene(studio, .04, .1, 100, { size: 64 });
+    scene.environment = environmentTarget.texture; scene.environmentIntensity = .45;
+    generator.dispose(); shapes.forEach(shape => shape.dispose()); surfaces.forEach(surface => surface.dispose());
+  }
+  let rookieView = null, rookieState = { active: false, job: null, companion: false, targets: [] };
+  function setRookieState(value) {
+    rookieState = value && typeof value === 'object' ? value : { active: false, targets: [] };
+    if (!rookieView) return;
+    rookieView.update(rookieState, 0, { player: state.position, paused: true, reducedMotion: state.reducedMotion });
+    for (let i = targets.length - 1; i >= 0; i--) if (targets[i].rookie) targets.splice(i, 1);
+    for (let i = pickables.length - 1; i >= 0; i--) if (pickables[i].userData.rookiePick) pickables.splice(i, 1);
+    rookieView.group.traverse(node => {
+      if (!node.userData.rookieTarget) return;
+      delete node.userData.target; node.userData.rookiePick = true;
+      const item = rookieState.active && rookieState.targets?.find(t => t.id === node.userData.rookieTarget.id && t.state !== 'done');
+      if (!item || !node.visible) return;
+      const target = { id: item.id, title: item.title, x: item.x, z: item.z, action: 'rookie:interact', description: item.kind === 'beacon' ? 'Match the word on the beacon. No timer or penalty.' : 'Walk through the glow, or use Walk here. No puzzle or special tool needed.', rookie: true, autoCollect: item.kind !== 'beacon', mesh: node };
+      node.userData.target = target; targets.push(target); pickables.push(node);
+    });
+  }
+  document.addEventListener('cw:rookie-state', event => setRookieState(event.detail));
   const cityAudio = createCityAudio();
   function setSoundEnabled(on) { return cityAudio.setEnabled(on); }
   function cue(frequency = 440) { cityAudio.cue(frequency); }
@@ -151,16 +206,21 @@ import { createArena } from './ascension-arena.js';
     box(group, 0, height + 0.18, 0, width + 0.4, 0.36, depth + 0.4, 0x2a3b4b);
     box(group, -width / 2 + 0.12, height / 2, depth / 2 + 0.02, 0.12, height, 0.08, accent, true);
     box(group, width / 2 - 0.12, height / 2, depth / 2 + 0.02, 0.12, height, 0.08, accent, true);
-    // Batched facade windows keep skyline draw calls bounded.
-    const columns = Math.max(2, Math.floor(width / 1.25)), rows = Math.max(2, Math.floor((height - 2) / 1.5));
-    const count = columns * rows, panes = new THREE.InstancedMesh(shared.box, material(accent, true, { emissiveIntensity: 0.62 }), count);
-    const transform = new THREE.Object3D();
-    for (let row = 0, i = 0; row < rows; row++) for (let col = 0; col < columns; col++, i++) {
-      transform.position.set(-width * .4 + col * width * .8 / Math.max(1, columns - 1), 2.3 + row * (height - 3.1) / Math.max(1, rows - 1), depth / 2 + .04);
-      transform.scale.set(.46, .65, .04); transform.updateMatrix(); panes.setMatrixAt(i, transform.matrix);
-      panes.setColorAt(i, new THREE.Color().setHex((i * 13 + row) % 5 === 0 ? 0x15232d : accent));
+    const facadeKey = 'facade:' + accent;
+    if (!materials.has(facadeKey)) materials.set(facadeKey, createFacadeSurface(THREE, accent));
+    const facade = materials.get(facadeKey);
+    for (const side of [0, -1, 1]) {
+      const face = new THREE.Mesh(shared.plane, facade);
+      face.position.set(side ? side * (width / 2 + .025) : 0, height / 2, side ? 0 : depth / 2 + .065);
+      face.rotation.y = side * Math.PI / 2; face.scale.set(side ? depth : width, height, 1);
+      face.receiveShadow = true; group.add(face);
     }
-    group.add(panes);
+    for (let y = 3.5; y < height; y += 4.2) box(group, 0, y, depth / 2 + .15, width + .25, .16, .34, 0x425364);
+    for (const side of [-1,1]) {
+      cylinder(group, side * (width / 2 - .42), height / 2, depth / 2 + .22, .07, height, 0x3d5361);
+      box(group, side * width * .30, .95, depth / 2 + .3, width * .20, 1.85, .4, 0x0b1420);
+      box(group, side * width * .30, 1.93, depth / 2 + .55, width * .23, .07, .1, accent, true);
+    }
     box(group, 0, height + 0.6, 0, 2.4, 0.8, 2.2, 0x35414a);
     for (let i = 0; i < 3; i++) box(group, -1 + i * .6, height + 1.05, -.3, .08, .18, 1.3, 0x080f18);
     cylinder(group, width * .32, height + 1.6, -.6, .06, 3.0, 0x566879);
@@ -245,9 +305,9 @@ import { createArena } from './ascension-arena.js';
   function attachCharacterRig(agent) {
     if (!characterTemplate || agent.userData.disposed || agent.userData.rig) return;
     const rig = cloneSkeleton(characterTemplate.scene), config = agent.userData.character;
-    const accent = new THREE.Color(config.color), jacket = accent.clone().lerp(new THREE.Color(0x18283d),.70);
+    const accent = new THREE.Color(config.color), jacket = accent.clone().lerp(new THREE.Color(0x182434),.91);
     const shadow = jacket.clone().multiplyScalar(.52), pants = new THREE.Color(0x101924);
-    const palette = { Material:jacket, Main:jacket, Accent:accent, Accent_Dark:shadow, Black:pants, Blade:new THREE.Color(0x889da6), Blade_Edge:accent };
+    const palette = { Material:new THREE.Color(config.skin), Main:jacket, Accent:accent.clone().lerp(jacket,.76), Accent_Dark:shadow, Black:pants, Blade:new THREE.Color(0x889da6), Blade_Edge:accent };
     rig.traverse(node => {
       // The kit includes a sword attachment; field operatives carry a CyberDeck
       // in this game. Do not show a weapon merely because it exists in the kit.
@@ -285,6 +345,7 @@ import { createArena } from './ascension-arena.js';
     rig.scale.multiplyScalar(2.17 / Math.max(.01,size.y));
     const aligned = visibleBounds(), center = aligned.getCenter(new THREE.Vector3());
     rig.position.x -= center.x; rig.position.y -= aligned.min.y; rig.position.z -= center.z;
+    dressOperative(THREE, rig, { ...config, castShadow: agent.userData.castCharacterShadow });
     agent.userData.rig = { root:rig,mixer,actions,current:actions.Idle_Neutral,name:'Idle_Neutral' };
     if (agent.userData.fallback) { agent.remove(agent.userData.fallback); releaseGroup(agent.userData.fallback); agent.userData.fallback=null; }
     agent.add(rig);
@@ -555,12 +616,13 @@ import { createArena } from './ascension-arena.js';
 
   function makeCity() {
     city = new THREE.Group(); scene.add(city);
-    floor = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), material(0x14212c, false, { roughness: .38, metalness: .63 }));
+    const road = material(0x10202c, false, { roughness: .27, metalness: .76 }); road.map = wetStreet();
+    floor = new THREE.Mesh(new THREE.PlaneGeometry(200, 200), road);
     // The plaza inset has its own top at y=0. Keeping the large ground beneath
     // it prevents coplanar depth shimmer in the title's low aerial camera.
     floor.rotation.x = -Math.PI / 2; floor.position.y = -.055; floor.receiveShadow = true; city.add(floor);
     walkableMeshes.push(floor);
-    cylinder(city, 0, -.10, 0, 12.2, .2, 0x24333f);
+    const plazaDeck = cylinder(city, 0, -.10, 0, 12.2, .2, 0x142b38); plazaDeck.material.map = streetTexture; plazaDeck.material.roughness = .28; plazaDeck.material.metalness = .76;
     ring(city, 0, .025, 0, 11.5, C.cyan, .027); ring(city, 0, .026, 0, 10.85, C.violet, .014);
     cylinder(city, 0, .12, 0, 2.6, .24, 0x131f2d); ring(city, 0, .265, 0, 2.3, C.amber);
     collision(0,0,2.4,2.4);
@@ -615,6 +677,8 @@ import { createArena } from './ascension-arena.js';
     markTarget(city, 'codebreaker', 'CODEBREAKER SIGNAL', 'ascension:mission', -7, -1, C.amber, 'Investigate the Ghost Freight case.');
     authorStreet(city);
     authorFieldContract(city);
+    rookieView = createRookieWorld({ THREE, parent: city, textSprite, releaseGroup });
+    setRookieState(window.__cwRookie?.worldState?.() || rookieState);
     // Hanging service conduits and elevated transit make the skyline a volume.
     for (const x of [-28,28]) {
       box(city, x, 8, 0, .5, .5, 62, 0x223340);
@@ -629,6 +693,8 @@ import { createArena } from './ascension-arena.js';
     const rainGeometry = new THREE.BufferGeometry(); rainGeometry.setAttribute('position', new THREE.BufferAttribute(drops, 3));
     rain = new THREE.Points(rainGeometry, new THREE.PointsMaterial({ color: 0x9cd5ed, size: .035, transparent: true, opacity: .32, depthWrite: false })); city.add(rain);
     batchStaticMeshes(city);
+    districtArt = createCyberpunkDistrict({ THREE, parent: city, textSprite, releaseGroup, artURL: keyartURL });
+    markTarget(city, 'intel-board', 'THREAT INTEL / DOSSIERS', 'console:codex', -10, -5, C.blue, 'Explore optional agency and threat-actor reference cards. No quiz is required.');
   }
 
   function releaseGroup(group) {
@@ -652,6 +718,8 @@ import { createArena } from './ascension-arena.js';
   }
   function clearSceneObjects() {
     if(arenaView){arenaView.dispose();arenaView=null;}
+    if(rookieView){rookieView.dispose();rookieView=null;}
+    if(districtArt){districtArt.dispose();districtArt=null;}
     targets.length = 0; obstacles.length = 0; pickables.length = 0; walkableMeshes.length = 0; clearPaths();
     animated.length = 0; peers.forEach(peer => releaseGroup(peer.mesh)); peers.clear();
     if (city) { releaseGroup(city); city = null; }
@@ -742,7 +810,7 @@ import { createArena } from './ascension-arena.js';
     if (!id) { makeCity(); state.position.set(0,0,10); state.destination.copy(state.position); }
     else if(id==='arena') {
       room=new THREE.Group();scene.add(room);
-      arenaView=createArena({THREE,parent:room,makeAgent,textSprite,gait,animateCombat,releaseGroup,getPlayerAgent:()=>actor});
+      arenaView=createArena({THREE,parent:room,makeAgent,textSprite,gait,animateCombat,releaseGroup,getPlayerAgent:()=>actor,artURL:keyartURL});
       markTarget(room,'arena-exit','RETURN TO CYBER PLAZA','combat:leave',0,9.8,C.cyan,'Leave the sparring simulation. Your completed city cases remain safe.');
       state.position.set(0,0,6);state.destination.copy(state.position);
     } else makeInterior(id);
@@ -761,19 +829,38 @@ import { createArena } from './ascension-arena.js';
     const nextDistrict = id === 'profile' ? 'lab' : id === 'console' ? 'soc' : id;
     // Stage a readable arrival even if the player orbited behind a city wall.
     // Subsequent camera movement inside this district remains player-controlled.
-    if (state.district !== nextDistrict) state.orbit = .12;
+    if (state.district !== nextDistrict) { state.orbit = .12; state.elevation = .46; }
     state.view = 'district'; state.district = nextDistrict; rebuild(state.district); }
-  function startCombat() {
+  function startCombat(options = {}) {
     if(document.body.dataset.phase!=='playing'||blocked())return false;
-    combat=combatCommand(createCombat(),'start');
-    state.overclock=false;state.distance=15;
+    combat=combatCommand(createCombat(options),'start');
+    state.overclock=false;state.distance=options.difficulty==='blackout'?9.8:15;
+    impactEvents.clear();impactTime=0;impactStop=0;impactStrength=0;attackPointer=null;
     document.body.classList.add('cwas-in-combat');toDistrict('arena');state.orbit=.55;
+    if(options.difficulty==='blackout'){
+      state.orbit=.12;state.elevation=.30;
+      camera.position.copy(state.position).add(new THREE.Vector3(Math.sin(state.orbit)*state.distance,state.distance*state.elevation,Math.cos(state.orbit)*state.distance));
+      avoidCameraObstacles(camera.position);camera.lookAt(state.position.x,state.position.y+1.4,state.position.z);
+    }
     combat={...combat,player:{...combat.player,x:state.position.x,z:state.position.z,facing:state.facing}};
     document.dispatchEvent(new CustomEvent('cw:combat-state',{detail:JSON.parse(JSON.stringify(combat))}));
     return true;
   }
   function combatAction(action) {
     if(!combat||combat.phase!=='active'||blocked()||document.hidden)return false;
+    // A short, real lunge closes the final few steps for the action mission.
+    // It requires a punch command and available cooldown, never grants a hit.
+    if(combat.difficulty==='blackout'&&action==='strike'&&combat.cooldowns.strike<=0){
+      const target=combat.enemies.filter(enemy=>enemy.hp>0).sort((a,b)=>Math.hypot(a.x-state.position.x,a.z-state.position.z)-Math.hypot(b.x-state.position.x,b.z-state.position.z))[0];
+      if(target){
+        const dx=target.x-state.position.x,dz=target.z-state.position.z,length=Math.hypot(dx,dz);
+        if(length>2.2&&length<=6.2){
+          const travel=Math.min(2.4,length-2.2);
+          for(let i=0;i<12;i++){const nx=state.position.x+dx/length*travel/12,nz=state.position.z+dz/length*travel/12;if(!collides(nx,state.position.z))state.position.x=nx;if(!collides(state.position.x,nz))state.position.z=nz;}
+          state.facing=Math.atan2(dx,dz);state.destination.copy(state.position);actor.position.copy(state.position);actor.rotation.y=state.facing;
+        }
+      }
+    }
     combat={...combat,player:{...combat.player,x:state.position.x,z:state.position.z,facing:state.facing}};
     const before=combat;
     combat=combatCommand(combat,action);
@@ -790,20 +877,26 @@ import { createArena } from './ascension-arena.js';
     if(accepted) {
       const target=combat.enemies.filter(enemy=>enemy.hp>0).sort((a,b)=>Math.hypot(a.x-state.position.x,a.z-state.position.z)-Math.hypot(b.x-state.position.x,b.z-state.position.z))[0];
       if(target&&action!=='dodge'){state.facing=Math.atan2(target.x-state.position.x,target.z-state.position.z);actor.rotation.y=state.facing;}
-      animateCombat(actor,action==='strike'&&combat.combo>=3?'combo':action);cue(action==='burst'?190:action==='dodge'?760:430);
+      animateCombat(actor,action==='strike'&&combat.combo>=3?'combo':action);
+      if(combat.difficulty==='blackout')cityAudio.impact(action);else cue(action==='burst'?190:action==='dodge'?760:430);
     }
     if(before.phase!==combat.phase)document.dispatchEvent(new CustomEvent('cw:combat-state',{detail:JSON.parse(JSON.stringify(combat))}));
     return accepted;
   }
-  function leaveCombat(){state.distance=9.5;state.orbit=.25;toPlaza();}
+  function leaveCombat(){state.distance=9.5;state.orbit=.25;state.elevation=.46;toPlaza();}
   function snapshot() {
     return { view: state.view, district: state.district, width: state.width, height: state.height,
       avatar: { x: (state.position.x + 50) / 100 * state.width, y: (state.position.z + 50) / 100 * state.height,
         tx: (state.destination.x + 50) / 100 * state.width, ty: (state.destination.z + 50) / 100 * state.height,
         dir: Math.sin(state.facing) >= 0 ? 1 : -1, moving: state.moving, worldX: state.position.x, worldZ: state.position.z, ready: !!actor },
       world: { x: state.position.x, y: state.position.y, z: state.position.z },
+      cameraOrbit: state.orbit,
+      cameraElevation: state.elevation,
+      cameraPosition: { x: camera.position.x, y: camera.position.y, z: camera.position.z },
+      cityArt: districtArt ? { ...districtArt.group.userData.cyberpunkStats, environment: !!environmentTarget, texturedStreet: !!streetTexture } : null,
       targets: targets.map(target=>({id:target.id,title:target.title,x:target.x,z:target.z,action:target.action})),
       combat: combat ? JSON.parse(JSON.stringify(combat)) : null,
+      rookie: { ...rookieState, targets: (rookieState.targets || []).map(item => ({ ...item })), view: rookieView ? { ...rookieView.group.userData.rookieStats } : null },
       field: { ...fieldState, samples: [...fieldState.samples], steps: [...fieldState.steps],
         targets: fieldSites.map(site=>({id:site.id,x:site.x,z:site.z,action:'studio:field'})),
         convoy: { recovered:fieldState.phase==='complete',moving:!!fieldWorld?.moving&&!state.reducedMotion&&!blocked()&&!document.hidden,
@@ -814,7 +907,8 @@ import { createArena } from './ascension-arena.js';
   }
   function blocked() {
     if (document.body.dataset.phase && document.body.dataset.phase !== 'playing') return true;
-    return ['cwas-modal','cwas-title','cwas-creator'].some(id => { const el = document.getElementById(id); return el && !el.hidden && getComputedStyle(el).display !== 'none'; });
+    if (document.body.classList.contains('cwas-combat-preparing')) return true;
+    return ['cwas-modal','cwas-title','cwas-creator','cwr-modal'].some(id => { const el = document.getElementById(id); return el && !el.hidden && getComputedStyle(el).display !== 'none'; });
   }
   function clearMovement() { state.keys.clear(); state.movement.set(0,0); state.destination.copy(state.position); state.waypoints=[]; state.moving = false; }
   function navigate(point) {
@@ -839,6 +933,7 @@ import { createArena } from './ascension-arena.js';
   function interact() {
     if (blocked()) return;
     const target = nearest();
+    if (target?.autoCollect) { clearMovement(); navigate(new THREE.Vector3(target.x, elevation(target.x, target.z), target.z)); return; }
     if (target) { clearMovement(); cue(580); dispatch(target.action, { id: target.id, title: target.title, action: target.action }); }
     else window.__cwAscensionShell?.toast('Move closer to a person, doorway or terminal.');
   }
@@ -939,16 +1034,17 @@ import { createArena } from './ascension-arena.js';
     renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
     scene=new THREE.Scene();scene.background=new THREE.Color(0x081425);
     camera=new THREE.PerspectiveCamera(49,innerWidth/innerHeight,.15,250);camera.position.set(23,16,27);
-    scene.add(new THREE.HemisphereLight(0x8ab7dc,0x18212d,2.2));
-    sceneLight=new THREE.AmbientLight(0x7c8cba,.55);scene.add(sceneLight);
-    sun=new THREE.DirectionalLight(0xffdfbe,2.7);sun.position.set(-18,38,20);sun.castShadow=true;
+    scene.add(new THREE.HemisphereLight(0x8ab7dc,0x101b31,1.7));
+    sceneLight=new THREE.AmbientLight(0x7c8cba,.4);scene.add(sceneLight);
+    sun=new THREE.DirectionalLight(0xb6cbe7,2.2);sun.position.set(-18,38,20);sun.castShadow=true;
     sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-34,right:34,top:34,bottom:-34,near:1,far:100});sun.shadow.bias=-.0005;sun.shadow.normalBias=.035;scene.add(sun);
-    const rim=new THREE.DirectionalLight(C.violet,1.4);rim.position.set(12,12,-25);scene.add(rim);
-    const bounce=new THREE.DirectionalLight(0x49d2dc,.7);bounce.position.set(-12,5,-5);scene.add(bounce);
+    const rim=new THREE.DirectionalLight(0xff329d,1.6);rim.position.set(12,12,-25);scene.add(rim);
+    const bounce=new THREE.DirectionalLight(0x49d2dc,1.05);bounce.position.set(-12,5,-5);scene.add(bounce);
+    lightReflections();
     const moon=new THREE.Mesh(new THREE.SphereGeometry(4,24,16),new THREE.MeshBasicMaterial({color:0xb7cbe5}));moon.position.set(-50,60,-100);scene.add(moon);
     clockQuery=window.matchMedia?.('(prefers-reduced-motion: reduce)');setReducedMotion(false);clockQuery?.addEventListener?.('change',()=>setReducedMotion(state.motionPreference));
     composer=new EffectComposer(renderer);composer.addPass(new RenderPass(scene,camera));
-    composer.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.12,.45,1.65));
+    composer.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.24,.55,1.10));
     composer.addPass(new OutputPass());renderer.info.autoReset=false;
     if(innerWidth<720)setGraphicsQuality('low');
     bindInput();state.open=true;rebuild(null);frameId=requestAnimationFrame(tick);
@@ -965,23 +1061,26 @@ import { createArena } from './ascension-arena.js';
     window.addEventListener('blur',clearMovement);document.addEventListener('visibilitychange',()=>{if(document.hidden)clearMovement();cityAudio.update({moving:false,paused:document.hidden,hidden:document.hidden,view:state.view,district:state.district,overclock:state.overclock});});
     canvas.addEventListener('contextmenu',event=>event.preventDefault());
     let down=null;
-    canvas.addEventListener('pointerdown',event=>{if(blocked())return;down={x:event.clientX,y:event.clientY,startX:event.clientX,startY:event.clientY,button:event.button,type:event.pointerType};if(event.button===2){state.orbiting=true;canvas.setPointerCapture(event.pointerId);}});
+    canvas.addEventListener('pointerdown',event=>{if(blocked())return;down={x:event.clientX,y:event.clientY,startX:event.clientX,startY:event.clientY,button:event.button,type:event.pointerType};if(event.button===0&&event.pointerType!=='touch'&&combat?.difficulty==='blackout'&&combat.phase==='active'){attackPointer=event.pointerId;canvas.setPointerCapture(event.pointerId);combatAction('strike');}if(event.button===2){state.orbiting=true;canvas.setPointerCapture(event.pointerId);}});
     canvas.addEventListener('pointermove',event=>{
       if(down?.type==='touch'&&!state.orbiting&&Math.hypot(event.clientX-down.startX,event.clientY-down.startY)>6){state.orbiting=true;canvas.setPointerCapture(event.pointerId);}
-      if(state.orbiting&&down){state.orbit+=(event.clientX-down.x)*.006;down.x=event.clientX;down.y=event.clientY;}
+      if(state.orbiting&&down){state.orbit+=(event.clientX-down.x)*.006;state.elevation=THREE.MathUtils.clamp(state.elevation+(event.clientY-down.y)*.004,.10,.95);down.x=event.clientX;down.y=event.clientY;}
     });
     canvas.addEventListener('pointerup',event=>{
+      if(attackPointer===event.pointerId)attackPointer=null;
       if(state.orbiting){state.orbiting=false;down=null;return;}if(!down||blocked())return;
       const moved=Math.hypot(event.clientX-down.x,event.clientY-down.y);down=null;if(moved>8)return;
       if(combat&&event.button===0&&event.pointerType!=='touch'){combatAction('strike');return;}
       pointer.set(event.clientX/state.width*2-1,-event.clientY/state.height*2+1);ray.setFromCamera(pointer,camera);
-      const hits=ray.intersectObjects(pickables,true);if(hits.length){let node=hits[0].object;while(node&&!node.userData.target)node=node.parent;
-        if(node?.userData.target){const target=node.userData.target;const destination=new THREE.Vector3(target.x,elevation(target.x,target.z+1.6),target.z+1.6);navigate(destination);if(Math.abs((target.y||0)-state.position.y)<=1.5&&Math.hypot(target.x-state.position.x,target.z-state.position.z,(target.y||0)-state.position.y)<4.1)dispatch(target.action,{id:target.id,title:target.title});return;}}
+      const hits=ray.intersectObjects(pickables,true).filter(hit=>{for(let node=hit.object;node;node=node.parent)if(!node.visible)return false;return true;});if(hits.length){let node=hits[0].object;while(node&&!node.userData.target)node=node.parent;
+        if(node?.userData.target){const target=node.userData.target;const z=target.z+(target.rookie?0:1.6);const destination=new THREE.Vector3(target.x,elevation(target.x,z),z);navigate(destination);if(Math.abs((target.y||0)-state.position.y)<=1.5&&Math.hypot(target.x-state.position.x,target.z-state.position.z,(target.y||0)-state.position.y)<4.1)dispatch(target.action,{id:target.id,title:target.title});return;}}
       const walkHit=ray.intersectObjects(walkableMeshes,false)[0];
       const point=walkHit?walkHit.point.clone():new THREE.Vector3();
       if((walkHit||ray.ray.intersectPlane(groundPlane,point))&&Math.abs(point.x)<48&&Math.abs(point.z)<48){point.y=elevation(point.x,point.z);navigate(point);}
     });
-    canvas.addEventListener('pointercancel',()=>{state.orbiting=false;down=null;clearMovement();});
+    canvas.addEventListener('pointercancel',()=>{attackPointer=null;state.orbiting=false;down=null;clearMovement();});
+    canvas.addEventListener('lostpointercapture',()=>{attackPointer=null;});
+    window.addEventListener('blur',()=>{attackPointer=null;});
     canvas.addEventListener('wheel',event=>{if(blocked())return;event.preventDefault();state.distance=THREE.MathUtils.clamp(state.distance+event.deltaY*.012,8,23);},{passive:false});
     canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();window.__cwAscensionShell?.toast('3D renderer paused. Your case remains saved.');});
     canvas.addEventListener('webglcontextrestored',()=>window.__cwAscensionShell?.toast('3D renderer restored.'));
@@ -991,7 +1090,8 @@ import { createArena } from './ascension-arena.js';
     let x=(state.keys.has('d')||state.keys.has('arrowright')?1:0)-(state.keys.has('a')||state.keys.has('arrowleft')?1:0)+state.movement.x;
     let z=(state.keys.has('s')||state.keys.has('arrowdown')?1:0)-(state.keys.has('w')||state.keys.has('arrowup')?1:0)+state.movement.y;
     const keyboard=Math.hypot(x,z)>.01;
-    const speed=state.keys.has('shift')?7.2:4.2;
+    const actionRun=combat?.difficulty==='blackout';
+    const speed=state.keys.has('shift')?(actionRun?9:7.2):(actionRun?5.8:4.2);
     if(keyboard){state.waypoints=[];const angle=state.orbit;const rotatedX=x*Math.cos(angle)+z*Math.sin(angle),rotatedZ=-x*Math.sin(angle)+z*Math.cos(angle);x=rotatedX;z=rotatedZ;
       const length=Math.max(1,Math.hypot(x,z));state.destination.copy(state.position).add(new THREE.Vector3(x/length*speed*dt,0,z/length*speed*dt));}
     if(state.position.distanceTo(state.destination)<.16&&state.waypoints.length)state.destination.copy(state.waypoints.shift());
@@ -1014,9 +1114,12 @@ import { createArena } from './ascension-arena.js';
     camera.updateMatrixWorld();
     const maxWidth = state.width < 600 ? 125 : 160;
     const projection = state.height / (2 * Math.tan(camera.fov * Math.PI / 360));
+    const guided = document.body.classList.contains('cwr-guided');
     worldLabels.forEach(label => {
-      label.getWorldPosition(labelPosition); labelPosition.applyMatrix4(camera.matrixWorldInverse);
+      if (guided && !label.userData.rookieLabel) { label.visible = false; return; }
+      label.getWorldPosition(labelPosition); const labelDistance=labelPosition.distanceTo(state.position);labelPosition.applyMatrix4(camera.matrixWorldInverse);
       const depth = -labelPosition.z, size = label.userData.labelSize;
+      if(!state.district&&!label.userData.rookieLabel&&labelDistance>14){label.visible=false;return;}
       const scale = Math.min(1, maxWidth * Math.max(.1,depth) / (size.width * projection));
       label.scale.set(size.width * scale,size.height * scale,1);
       label.material.opacity = THREE.MathUtils.clamp((depth-2)/3,0,1) * (label.userData.feedbackOpacity ?? 1);
@@ -1039,8 +1142,11 @@ import { createArena } from './ascension-arena.js';
       }
     };
     obstacles.forEach(obstacle => consider(obstacle.x,obstacle.z,obstacle.halfX,obstacle.halfZ,obstacle.height));
-    if (state.district) { consider(-11.6,0,.25,12,6.6); consider(11.6,0,.25,12,6.6); consider(0,-11.6,12,.25,6.6); }
-    return desired.copy(cameraFocus).addScaledVector(cameraDirection,clearDistance);
+    if(state.district==='arena'){consider(-17.4,0,2.7,16,20);consider(17.4,0,2.7,16,20);consider(0,-17.8,17,3,19);}
+    else if (state.district) { consider(-11.6,0,.25,12,6.6); consider(11.6,0,.25,12,6.6); consider(0,-11.6,12,.25,6.6); }
+    desired.copy(cameraFocus).addScaledVector(cameraDirection,clearDistance);
+    desired.y = Math.max(desired.y, elevation(desired.x, desired.z) + .75);
+    return desired;
   }
   let peerTime=0, pathTime=0, backgroundPaused=false;
   function tick(now) {
@@ -1063,23 +1169,43 @@ import { createArena } from './ascension-arena.js';
     // wall-clock frame rate instead of an artificial 20 fps minimum.
     state.fps += (1 / elapsed - state.fps) * .05;
     const simulationDt=dt*(state.overclock ? .2 : 1);if(!state.reducedMotion)state.time+=simulationDt;
-    updatePlayer(dt);
+    impactStop=Math.max(0,impactStop-dt);impactTime=Math.max(0,impactTime-dt);
+    const actionDt=combat?.difficulty==='blackout'&&impactStop>0?0:dt;
+    updatePlayer(actionDt);
+    if(blocked()||document.hidden||combat?.phase!=='active')attackPointer=null;
+    if(attackPointer!==null&&combat?.difficulty==='blackout'&&combat.cooldowns.strike<=0)combatAction('strike');
+    rookieView?.update(rookieState, dt, { player: state.position, paused: blocked() || document.hidden, reducedMotion: state.reducedMotion });
+    districtArt?.update(dt, { paused: blocked() || document.hidden, reducedMotion: state.reducedMotion });
     if(combat) {
       const phaseBefore=combat.phase,healthBefore=combat.health;
-      if(!blocked()&&!document.hidden)combat=advanceCombat(combat,dt,{x:state.position.x,z:state.position.z,facing:state.facing});
+      if(!blocked()&&!document.hidden)combat=advanceCombat(combat,actionDt,{x:state.position.x,z:state.position.z,facing:state.facing});
+      if(combat.difficulty==='blackout'){
+        for(const event of combat.events){if(impactEvents.has(event.id))continue;impactEvents.add(event.id);
+          if(['hit','kill','shield-break'].includes(event.type))cityAudio.impact(event.type);
+          if(!state.reducedMotion&&['hit','combo','kill','shield-break','enemy-attack'].includes(event.type)&&!(event.type==='enemy-attack'&&!event.hit)){
+            impactTime=.16;impactStrength=event.type==='kill'?.16:event.type==='combo'?.12:.055;impactStop=event.type==='kill'?.055:.028;
+          }
+        }
+        if(impactEvents.size>150){const live=new Set(combat.events.map(event=>event.id));for(const id of impactEvents)if(!live.has(id))impactEvents.delete(id);}
+      }
       if(combat.health<healthBefore){animateCombat(actor,combat.phase==='defeat'?'dead':'hit');cue(140);}
-      arenaView?.update(combat,dt,{reducedMotion:state.reducedMotion||document.hidden});
+      arenaView?.update(combat,actionDt,{reducedMotion:state.reducedMotion||document.hidden});
       if(phaseBefore!==combat.phase)document.dispatchEvent(new CustomEvent('cw:combat-state',{detail:JSON.parse(JSON.stringify(combat))}));
     }
-    cityAudio.update({moving:state.moving,running:state.keys.has('shift'),view:state.view,district:state.district,overclock:state.overclock,paused:blocked(),hidden:document.hidden});
+    cityAudio.update({moving:state.moving,running:state.keys.has('shift'),view:state.view,district:state.district,overclock:state.overclock,combat:combat?.difficulty==='blackout'&&combat.phase==='active',paused:blocked(),hidden:document.hidden});
     const title=document.body.dataset.phase==='title'||document.body.dataset.phase==='creator';
     if(title){const angle=state.reducedMotion ? .58 : .58+Math.sin(state.time*.045)*.18;
       playerPos.set(Math.sin(angle)*34,19,Math.cos(angle)*34);camera.position.lerp(playerPos,1-Math.exp(-dt*2));camera.lookAt(0,2.3,-4);
     }else{
-      const offset=new THREE.Vector3(Math.sin(state.orbit)*state.distance,state.distance*.46,Math.cos(state.orbit)*state.distance);
+      const offset=new THREE.Vector3(Math.sin(state.orbit)*state.distance,state.distance*state.elevation,Math.cos(state.orbit)*state.distance);
       playerPos.copy(state.position).add(offset);avoidCameraObstacles(playerPos);
       camera.position.lerp(playerPos,1-Math.exp(-dt*5));avoidCameraObstacles(camera.position);
-      camera.lookAt(state.position.x,state.position.y+1.5,state.position.z);
+      const target=combat?.difficulty==='blackout'?combat.enemies.filter(enemy=>enemy.hp>0).sort((a,b)=>Math.hypot(a.x-state.position.x,a.z-state.position.z)-Math.hypot(b.x-state.position.x,b.z-state.position.z))[0]:null;
+      const frame=target&&Math.hypot(target.x-state.position.x,target.z-state.position.z)<9?.18:0;
+      if(impactTime>0&&!state.reducedMotion){const kick=impactStrength*impactTime/.16;camera.position.x+=Math.sin(now*.12)*kick;camera.position.y+=Math.cos(now*.09)*kick*.65;}
+      camera.lookAt(state.position.x+(target?target.x-state.position.x:0)*frame,state.position.y+1.4,state.position.z+(target?target.z-state.position.z:0)*frame);
+      const fov=combat?.difficulty==='blackout'?(state.keys.has('shift')&&!state.reducedMotion?54:49)+(impactTime>0&&!state.reducedMotion?impactTime*7:0):49;
+      if(Math.abs(camera.fov-fov)>.02){camera.fov+=(fov-camera.fov)*(1-Math.exp(-dt*9));camera.updateProjectionMatrix();}
     }
     animated.forEach(item=>{
       if(item.type==='core'){item.core.rotation.y=state.time*.35;item.core.position.y=2.7+Math.sin(state.time*.7)*.2;}
@@ -1094,7 +1220,7 @@ import { createArena } from './ascension-arena.js';
     if(!combat&&(state.overclock!==pathMode||(state.overclock&&(now-pathTime>500||pathAnchor.distanceTo(state.position)>2)))){updatePaths();pathMode=state.overclock;pathAnchor.copy(state.position);pathTime=now;}
     paths.forEach(path=>{const t=(state.time*.32+path.userData.offset)%1;path.userData.packet.position.copy(path.userData.curve.getPoint(t));});
     const target=blocked()?null:nearest();state.focus=target;context.hidden=!target;
-    if(target){const titleEl=document.getElementById('cwg-action-title'),sub=document.getElementById('cwg-action-sub');if(titleEl.textContent!==target.title)titleEl.textContent=target.title;if(sub.textContent!==target.description)sub.textContent=target.description;}
+    if(target){const titleEl=document.getElementById('cwg-action-title'),sub=document.getElementById('cwg-action-sub'),go=document.getElementById('cwg-action-go');if(titleEl.textContent!==target.title)titleEl.textContent=target.title;if(sub.textContent!==target.description)sub.textContent=target.description;const label=target.autoCollect?'WALK HERE':'E / INTERACT';if(go.textContent!==label)go.textContent=label;}
     if(window.__cwAscensionNet&&actor)window.__cwAscensionNet.publishPosition({x:(state.position.x+50)/100,y:(state.position.z+50)/100,z:state.position.y,zone:state.district||'plaza',facing:state.facing,moving:state.moving});
     updateWorldLabels(); renderWorld();
   }

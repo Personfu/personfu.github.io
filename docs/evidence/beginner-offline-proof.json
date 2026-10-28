@@ -1,0 +1,110 @@
+{
+  "proof": "cyberworld-beginner-generated-mount-offline-v1",
+  "result": "pass",
+  "started_utc": "2026-10-28T06:03:44.315Z",
+  "profile": "fresh synthetic guest",
+  "state_grants": false,
+  "gameplay_input": "visible UI buttons and physical keyboard events only",
+  "external_requests": "blocked",
+  "snapshot": {
+    "version": "cw-ascension-play-d0e35450a4894856",
+    "resources": 28
+  },
+  "world_sha256": "01e6b5baf9c2646cc66986d9b3385aa8c3e92e4047446a1027506eb6575417d7",
+  "local_server_stopped_before_reload": true,
+  "checks": [
+    "28 exact cached public resources",
+    "operative created using the UI",
+    "online ZIP independently verified",
+    "localhost server stopped",
+    "actual entry reloaded offline",
+    "saved operative continued using the UI",
+    "rigged WebGL arena rendered offline",
+    "keyboard movement",
+    "keyboard strike damaged a construct",
+    "offline ZIP matches online guide",
+    "First Light completed offline with ordinary movement and color choice",
+    "earned companion and independent badge ZIP offline",
+    "Blackout Run completed with six real defeats offline",
+    "earned Relay Runner and independently verified reward ZIP offline"
+  ],
+  "offline": {
+    "navigator_online": false,
+    "controlled": true,
+    "wave": 1,
+    "phase": "active",
+    "score": 10,
+    "rigged_characters": 2,
+    "draw_calls": 136,
+    "triangles": 108002,
+    "keyboard_distance": 4.536,
+    "kit": {
+      "sha256": "52bd7cc8f156a3c268248f7b9c629faf229d30538a71cebcd917d7e11943d414",
+      "bytes": 2170,
+      "files": [
+        {
+          "name": "breach-foundry-field-guide.txt",
+          "bytes": 1252,
+          "sha256": "393e9bd95a05466d159038f603aa6abe741d81d228387de03682e29269c70673"
+        },
+        {
+          "name": "practice-log.csv",
+          "bytes": 84,
+          "sha256": "56b776aed0413eb96038d4cfc3223f8609dc90024e1f9f6196682a99e8557c76"
+        },
+        {
+          "name": "defense-counters.json",
+          "bytes": 450,
+          "sha256": "2b7bae4c2c40407091716f17c055232d12af9ff04a68a8ee6e8819b800d732c6"
+        }
+      ]
+    }
+  },
+  "online_kit": {
+    "sha256": "52bd7cc8f156a3c268248f7b9c629faf229d30538a71cebcd917d7e11943d414",
+    "bytes": 2170,
+    "files": [
+      {
+        "name": "breach-foundry-field-guide.txt",
+        "bytes": 1252,
+        "sha256": "393e9bd95a05466d159038f603aa6abe741d81d228387de03682e29269c70673"
+      },
+      {
+        "name": "practice-log.csv",
+        "bytes": 84,
+        "sha256": "56b776aed0413eb96038d4cfc3223f8609dc90024e1f9f6196682a99e8557c76"
+      },
+      {
+        "name": "defense-counters.json",
+        "bytes": 450,
+        "sha256": "2b7bae4c2c40407091716f17c055232d12af9ff04a68a8ee6e8819b800d732c6"
+      }
+    ]
+  },
+  "local_resource_requests": 56,
+  "screenshot": "beginner-combat-offline.png",
+  "beginner_adventure": {
+    "result": "pass",
+    "input": "visible buttons and physical keyboard",
+    "completed": "First Light",
+    "companion": true,
+    "reward_zip_bytes": 1593,
+    "reward_zip_sha256": "5b3a7d6a3688752633d7e15c5a8d2afb8d6b2ace749a154806757ceebc424a73",
+    "screenshot": "rookie-first-light-offline.png"
+  },
+  "blackout": {
+    "result": "pass",
+    "stages": [
+      1,
+      2,
+      3
+    ],
+    "kills": 6,
+    "relay_restored": true,
+    "reward": "RELAY-RUNNER",
+    "reward_zip_bytes": 2168,
+    "reward_zip_sha256": "bfa328e3ea7cf056b2cdb4119971780b1048e6813732697ff67e64b30e246849",
+    "screenshot": "blackout-run-offline.png"
+  },
+  "elapsed_seconds": 37.432
+}
