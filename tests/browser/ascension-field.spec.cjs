@@ -15,6 +15,7 @@ async function initialize(page, handle = 'LAST-MILE-QA') {
   await page.locator('#cwas-begin').click();
   await page.locator('#cwas-handle').fill(handle);
   await page.locator('#cwas-creator-form button[type=submit]').click();
+  if (await page.locator('#cwr-dismiss').isVisible()) await page.locator('#cwr-dismiss').click();
   await expect(page.locator('body')).toHaveAttribute('data-phase', 'playing');
 }
 

@@ -49,12 +49,14 @@ function harness(source, failingPath = null) {
     verifyExport(committedOutput, committedReport);
     assert.deepEqual(committedReport, report, 'Committed public deployment metadata must match a fresh maintained-source export; run npm run build');
     for (const file of report.files) assert.deepEqual(fs.readFileSync(path.join(committedOutput, file.path)), fs.readFileSync(path.join(output, file.path)), 'Committed public bytes drifted: ' + file.path);
-    assert.equal(report.files.length, 32);
-    assert.equal(report.source.files.length, 31);
-    assert.equal(report.offline.files.length, 24);
+    assert.equal(report.files.length, 36);
+    assert.equal(report.source.files.length, 35);
+    assert.equal(report.offline.files.length, 28);
     assert.ok(report.offline.files.every(url => url.startsWith('/play-cyberworld/')));
     assert.equal(JSON.stringify(exportPublic({ output })), JSON.stringify(report), 'Repeated exports have identical manifests and versions');
     const model = 'assets/cyberworld/models/Character.glb';
+    const artwork = 'assets/cyberworld/cyberworld-keyart.webp';
+    assert.deepEqual(fs.readFileSync(path.join(output, artwork)), fs.readFileSync(path.join(root, 'CyberWorld', artwork)), 'Generated WebP is preserved byte for byte, without UTF-8 conversion');
     assert.deepEqual(fs.readFileSync(path.join(output, model)), fs.readFileSync(path.join(root, 'CyberWorld', model)), 'GLB is copied byte for byte');
     const html = fs.readFileSync(path.join(output, 'index.html'), 'utf8');
     assert.match(html, /https:\/\/personfu\.github\.io\/play-cyberworld\/ascension\.html/);
@@ -79,7 +81,7 @@ function harness(source, failingPath = null) {
       fs.mkdirSync(path.dirname(target), { recursive: true });
       fs.copyFileSync(path.join(root, source), target);
     }
-    for (const file of requiredFiles.filter(file => !file.endsWith('.glb'))) {
+    for (const file of requiredFiles.filter(file => !/\.(?:glb|webp)$/.test(file))) {
       const source = file === 'assets/favicon.svg' ? file : 'CyberWorld/' + file;
       const target = path.join(sourceRoot, source);
       fs.writeFileSync(target, fs.readFileSync(target, 'utf8').replace(/\r\n?/g, '\n'));
@@ -106,7 +108,7 @@ function harness(source, failingPath = null) {
     await worker.lifecycle('activate');
     assert.equal(worker.stores.has(cachePrefix + 'old'), false);
     for (const name of ['cw-ascension-public-3d-other', 'cw-ascension-public-project-other', 'personfu-root-cache']) assert.ok(worker.stores.has(name), 'Other game/root caches survive activation: ' + name);
-    assert.equal(worker.stores.get(worker.contract.version).size, 24);
+    assert.equal(worker.stores.get(worker.contract.version).size, 28);
     assert.ok(worker.requests.every(request => request.credentials === 'omit' && new URL(request.url).pathname.startsWith('/play-cyberworld/')));
     worker.state.online = false;
     for (const alias of ['/play-cyberworld/', '/play-cyberworld/index.html']) {
@@ -119,7 +121,7 @@ function harness(source, failingPath = null) {
     assert.match(await response.text(), /public:\/play-cyberworld\/ascension\.html/);
     assert.equal((await worker.fetch('/play-cyberworld/ascension-world3d.js')).status, 200);
     for (const credit of ['/play-cyberworld/THIRD_PARTY_LICENSES.txt', '/play-cyberworld/assets/cyberworld/models/CHARACTER-LICENSE.md']) assert.equal((await worker.fetch(credit, 'navigate')).status, 200, 'Cached public credits remain readable');
-    assert.equal(worker.stores.get(worker.contract.version).size, 24, 'Aliases and queries cannot enlarge cache');
+    assert.equal(worker.stores.get(worker.contract.version).size, 28, 'Aliases and queries cannot enlarge cache');
     const requestCount = worker.requests.length;
     assert.equal((await worker.fetch('/play-cyberworld/login/index.html', 'navigate')).headers.get('location'), 'https://www.fllc.net/cyberworld');
     assert.equal(worker.fetch('/play-cyberworld/api/progress'), undefined);
@@ -129,7 +131,7 @@ function harness(source, failingPath = null) {
     assert.equal(worker.requests.length, requestCount, 'Private, foreign and non-GET requests never enter cache flow');
     worker.activatePatch();
     assert.equal(worker.state.skipped, 1);
-    console.log('Public mount: deterministic 31-source/32-output contract, exact integrity, local closure, source edits, isolated caches, failed install and offline aliases pass.');
+    console.log('Public mount: deterministic 35-source/36-output contract, exact integrity, local closure, source edits, isolated caches, failed install and offline aliases pass.');
   } finally {
     // temporary is an absolute directory created by mkdtemp above, never user data.
     fs.rmSync(temporary, { recursive: true, force: true });

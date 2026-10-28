@@ -56,16 +56,34 @@
     var callsign = $('cwas-handle').value.trim();
     if (!/^[A-Za-z0-9_\- ]{2,20}$/.test(callsign)) { $('cwas-handle').setCustomValidity('Use 2–20 letters, numbers, spaces, underscores or hyphens.'); $('cwas-handle').reportValidity(); return; }
     var path = $('cwas-specialization').value, spec = PATHS[path] || PATHS.soc;
-    var profile = { version: 1, callsign: callsign, path: path, faction: spec.faction, color: color };
+    commitIdentity({ version: 1, callsign: callsign, path: path, faction: spec.faction, color: color });
+  }
+  function commitIdentity(profile, lookOverride) {
+    var spec = PATHS[profile.path] || PATHS.soc;
     backup('cw.operative.v1'); backup('cw.net.v1');
     var op = window.__cwGameplay.state();
-    op.callsign = callsign;
-    op.flags = Object.assign({}, op.flags, { path: path, origin: 'ascension-plaza' });
-    op.look = Object.assign({}, op.look, { frame: spec.frame, suit: color, accent: '#b797ff', hair: '#111827', coat: '#0b1622', skin: '#a97559' });
+    op.callsign = profile.callsign;
+    op.flags = Object.assign({}, op.flags, { path: profile.path, origin: 'ascension-plaza' });
+    op.look = Object.assign({}, op.look, { frame: spec.frame, suit: profile.color, accent: '#b797ff', hair: '#111827', coat: '#0b1622', skin: '#a97559' }, lookOverride || {});
     if (window.__cwGameplay.replaceState) window.__cwGameplay.replaceState(op);
     else if (!save('cw.operative.v1', op)) toast('Storage is unavailable. You can still play; export before leaving.');
-    save('cw.net.v1', Object.assign({}, read('cw.net.v1', {}), { callsign: callsign, faction: spec.faction }));
+    save('cw.net.v1', Object.assign({}, read('cw.net.v1', {}), { callsign: profile.callsign, faction: profile.faction }));
     inMemoryProfile = profile; save(PROFILE_KEY, profile); window.__cwGameplay.refresh(); enterWorld(profile);
+  }
+  function quickPlayAction() {
+    if (!window.__cwWorld || !window.__cwGameplay || !window.__cwCombatUI) { toast('The mission is still loading. Try again in a moment.'); return false; }
+    if (!$('cwas-modal').hidden) closeModal();
+    if (window.__cwRookie) window.__cwRookie.close();
+    var profile = inMemoryProfile || read(PROFILE_KEY, null), savedOperative = read('cw.operative.v1', null);
+    if (profile) enterWorld(profile);
+    else if (savedOperative) {
+      // A legacy operative is a returning player too. Keep all identity,
+      // appearance, inventory and progress; only remember its public profile.
+      var op = window.__cwGameplay.state(), path = Object.prototype.hasOwnProperty.call(PATHS, op.flags && op.flags.path) ? op.flags.path : 'soc';
+      profile = { version: 1, callsign: op.callsign || 'OPERATIVE', path: path, faction: (read('cw.net.v1', {}) || {}).faction || PATHS[path].faction, color: op.look && op.look.suit || '#48ffd5' };
+      inMemoryProfile = profile; save(PROFILE_KEY, profile); enterWorld(profile);
+    } else commitIdentity({ version: 1, callsign: 'GUEST RUNNER', path: 'packet', faction: 'GHOSTNET', color: '#48ffd5' }, { frame: 'ghost', accent: '#48ffd5' });
+    return window.__cwCombatUI.start({ difficulty: 'blackout' });
   }
   function enterWorld(profile) {
     window.__cwGameplay.refresh();
@@ -79,7 +97,8 @@
     if (window.__cwAscensionNet) window.__cwAscensionNet.start(profile || currentProfile());
     var snap = read('cw.ascension.position.v1', null);
     if (snap && snap.zone && NAMES[snap.zone] && snap.zone !== 'plaza' && snap.zone !== 'sector' && snap.zone !== 'grid') window.__cwWorld.toDistrict(snap.zone);
-    updateHud(); toast('Welcome to the Grid, ' + (profile || currentProfile()).callsign + (campaign()?.state().seenZero ? '. Your case files and street contract are ready.' : '. Find Agent Zero.'));
+    window.__cwRookie?.enterWorld();
+    updateHud(); if(!document.body.classList.contains('cwr-guided')) toast('Welcome, ' + (profile || currentProfile()).callsign + '. Quick Play has easy adventures. Take your time.');
   }
   function openDeck(tab) { if (campaign() && campaign().openDeck) campaign().openDeck(tab || 'missions'); }
   function toggleHud() { var compact = document.body.classList.toggle('cwas-immersive'); $('cwas-hud-toggle').textContent = compact ? 'HUD +' : 'HUD −'; $('cwas-hud-toggle').setAttribute('aria-pressed', String(!compact)); }
@@ -210,6 +229,7 @@
       Object.keys(source[key]).slice(0, 500).forEach(function (id) { if (/^[A-Za-z0-9_.:-]{1,100}$/.test(id) && !['__proto__','constructor','prototype'].includes(id)) out[key][id] = integer(source[key][id], 0, key === 'inventory' ? 9999 : 9000000000000000); });
     });
     out.flags = { run: { active: false, missionId: null }, tutorialDone: !!(source.flags && source.flags.tutorialDone), path: source.flags && PATHS[source.flags.path] ? source.flags.path : 'soc' };
+    if(source.flags && source.flags.rookie && window.CW_ROOKIE) out.flags.rookie=window.CW_ROOKIE.normalize(source.flags.rookie);
     if(source.flags && source.flags.combatBest && typeof source.flags.combatBest==='object' && !Array.isArray(source.flags.combatBest)) out.flags.combatBest={score:integer(source.flags.combatBest.score,0,9999999),wins:integer(source.flags.combatBest.wins,0,100000)};
     out.look = {};
     ['suit','accent','hair','coat','skin'].forEach(function (key) { if (source.look && /^#[0-9a-f]{6}$/i.test(source.look[key])) out.look[key] = source.look[key]; });
@@ -259,6 +279,7 @@
       if (file.size > 262144) throw new Error('Save file exceeds 256 KB.');
       var data = JSON.parse(await file.text());
       if (data.format !== 'cyberworld-ascension' || data.version !== 1) throw new Error('Use an Ascension version 1 save.');
+      if (data.operative?.flags?.rookie && (!window.CW_ROOKIE || !window.CW_ROOKIE.valid(data.operative.flags.rookie))) throw new Error('Quick Play progress is invalid. Your current adventure has not changed.');
       var op = cleanOperative(data.operative);
       if (!campaign() || typeof campaign().validateState !== 'function') throw new Error('Campaign import is still loading.');
       if (!campaign().validateState(data.campaign)) throw new Error('Campaign save is invalid.');
@@ -336,6 +357,7 @@
     else preview3d = window.__cwWorld.createPreview($('cwas-avatar-preview'), profile);
   }
   function handleKey(event) {
+    if(document.body.classList.contains('cwr-dialog-open') || document.body.classList.contains('cwas-combat-preparing')) return;
     if (event.key === 'Tab' && !$('cwas-modal').hidden) { trapFocus(event); return; }
     if (/^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)) return;
     if (phase !== 'playing') return;
@@ -356,7 +378,19 @@
   }
   var gamepadButtons=[],gamepadActive=false;
   function gamepadTick(){
-    if(phase==='playing'&&$('cwas-modal').hidden&&navigator.getGamepads){var pad=Array.from(navigator.getGamepads()).find(Boolean);if(pad){var x=Math.abs(pad.axes[0])>.18?pad.axes[0]:0,y=Math.abs(pad.axes[1])>.18?pad.axes[1]:0;if(x||y||gamepadActive)window.__cwWorld.setMovement(x,y);gamepadActive=!!(x||y);var arena=!!window.__cwWorld.snapshot().combat;[0,1,2,3].forEach(function(i){if(pad.buttons[i]&&pad.buttons[i].pressed&&!gamepadButtons[i]){if(arena)window.__cwWorld.combatAction(['strike','dodge','burst','overclock'][i]);else {if(i===0)window.__cwWorld.interact();if(i===2&&campaign())campaign().toggleOverclock();if(i===3)openDeck('missions');}}gamepadButtons[i]=!!(pad.buttons[i]&&pad.buttons[i].pressed);});}else if(gamepadActive){window.__cwWorld.setMovement(0,0);gamepadActive=false;gamepadButtons=[];}}
+    var pad=navigator.getGamepads?Array.from(navigator.getGamepads()).find(Boolean):null;
+    var blocked=phase!=='playing'||!$('cwas-modal').hidden||document.body.classList.contains('cwr-dialog-open')||document.body.classList.contains('cwas-combat-preparing')||document.hidden;
+    if(blocked||!pad){
+      if(gamepadActive)window.__cwWorld.setMovement(0,0);
+      gamepadActive=false;
+      // Track held buttons while paused so closing a dialog cannot fire them.
+      gamepadButtons=pad?[0,1,2,3].map(function(i){return !!(pad.buttons[i]&&pad.buttons[i].pressed);}):[];
+    }else{
+      var x=Math.abs(pad.axes[0])>.18?pad.axes[0]:0,y=Math.abs(pad.axes[1])>.18?pad.axes[1]:0;
+      if(x||y||gamepadActive)window.__cwWorld.setMovement(x,y);gamepadActive=!!(x||y);
+      var arena=!!window.__cwWorld.snapshot().combat;
+      [0,1,2,3].forEach(function(i){if(pad.buttons[i]&&pad.buttons[i].pressed&&!gamepadButtons[i]){if(arena)window.__cwWorld.combatAction(['strike','dodge','burst','overclock'][i]);else {if(i===0)window.__cwWorld.interact();if(i===2&&campaign())campaign().toggleOverclock();if(i===3)openDeck('missions');}}gamepadButtons[i]=!!(pad.buttons[i]&&pad.buttons[i].pressed);});
+    }
     requestAnimationFrame(gamepadTick);
   }
   function boot(){
@@ -364,6 +398,7 @@
     recoverRestore();applySettings();var oldBoot=$('cwg-boot');if(oldBoot)oldBoot.classList.add('gone');window.__cwWorld.open();window.__cwWorld.toPlaza();
     $('cwas-continue').hidden=!read(PROFILE_KEY,null)&&!read('cw.operative.v1',null);
     $('cwas-begin').onclick=function(){var profile=read(PROFILE_KEY,null);if(profile){$('cwas-handle').value=profile.callsign;color=profile.color||color;$('cwas-specialization').value=profile.path||'soc';}setPhase('creator');};
+    if($('cwas-blackout-play'))$('cwas-blackout-play').onclick=quickPlayAction;
     $('cwas-continue').onclick=function(){enterWorld(currentProfile());};
     $('cwas-creator-back').onclick=function(){cancelAnimationFrame(avatarFrame);setPhase('title');};
     $('cwas-creator-form').onsubmit=createOperative;
@@ -389,6 +424,6 @@
     setInterval(updateHud,300);requestAnimationFrame(gamepadTick);
     registerOfflineRuntime();
   }
-  window.__cwAscensionShell={toast:toast,openSettings:openSettings,updateHud:updateHud,exportSave:exportSave};
+  window.__cwAscensionShell={toast:toast,openSettings:openSettings,updateHud:updateHud,exportSave:exportSave,quickPlayAction:quickPlayAction};
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();

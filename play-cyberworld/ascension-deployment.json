@@ -3,12 +3,12 @@
   "source": {
     "directory": "CyberWorld/",
     "favicon": "assets/favicon.svg",
-    "contract": "Explicit 31-file public game allowlist; rebuilt from current maintained source bytes",
+    "contract": "Explicit 35-file public game allowlist; rebuilt from current maintained source bytes",
     "files": [
       {
         "path": "CyberWorld/ascension.html",
-        "sha256": "60552d4c4e69ea71ffa33327d39a7f6e0e62e47a1be66f08ec2f5c631f5fadbd",
-        "bytes": 11465
+        "sha256": "52c751841eea8e2a8f8481bb0be8f0472c6146083814c6c82f5ddcf8b305bb95",
+        "bytes": 11939
       },
       {
         "path": "CyberWorld/ascension.webmanifest",
@@ -57,13 +57,13 @@
       },
       {
         "path": "CyberWorld/ascension-data.js",
-        "sha256": "cb4d87ba2b9b350ea9ff8c8d92fa8063c585e37403f664d8c06b4c74c097b3dd",
-        "bytes": 19511
+        "sha256": "6fb07ff9b546d6189e3827e6a1bd63342a21f213eda75b9953ceb85b987c90bc",
+        "bytes": 28577
       },
       {
         "path": "CyberWorld/ascension-campaign.js",
-        "sha256": "60c567c2b52205fc03bd766dd9b5d82540c51be84dabf6da2108693a1ebf9a95",
-        "bytes": 54352
+        "sha256": "46fac4193ece1a7b0d3008280b112cf4c7a50c58bd82570be1b0243f15615914",
+        "bytes": 67782
       },
       {
         "path": "CyberWorld/ascension-downloads.js",
@@ -82,23 +82,38 @@
       },
       {
         "path": "CyberWorld/ascension-shell.js",
-        "sha256": "084bf101360208a454d5e1fe101fc931dbddc2c38166ff5bee9b27b65599a21d",
-        "bytes": 39085
+        "sha256": "e34d90e68b580b1fef399783582625d1bb798a668c494d17e79d3251b69186ff",
+        "bytes": 41512
       },
       {
         "path": "CyberWorld/ascension-combat.js",
-        "sha256": "6f5cc43ad62fd8bbca7bcf9edb3d4a8bc0b009784b383a0ecb677ca93bb5ebc9",
-        "bytes": 16434
+        "sha256": "e7111e55194b93df8c3509e0e8d0677f859852b1a90a53f792b1e563e48d892f",
+        "bytes": 37631
       },
       {
         "path": "CyberWorld/ascension-combat.css",
-        "sha256": "fed56748601e19cb05146cbd0ae008e38c4617c7cc9504f8c76873fe370a11a8",
-        "bytes": 8312
+        "sha256": "b7f8907e0727bf6528bd8802b931a87d920f8ad5a813bdb7a7bbfef0dfdb7a3d",
+        "bytes": 19108
+      },
+      {
+        "path": "CyberWorld/ascension-rookie.js",
+        "sha256": "fc36ac9f13eb53d5fcca58f8f5296cafc7f6e39c408990ca6bc20fe2e0b9821a",
+        "bytes": 26150
+      },
+      {
+        "path": "CyberWorld/ascension-rookie.css",
+        "sha256": "5d07a8f79b3d44c2003ea12397704499bd52ca055737c818e181a4cbc25da433",
+        "bytes": 7317
+      },
+      {
+        "path": "CyberWorld/ascension-theme.css",
+        "sha256": "85789828ebe2f060b5458303c2a7d388269ceac067c751a3618f47a6ba4b2d82",
+        "bytes": 28838
       },
       {
         "path": "CyberWorld/ascension-world3d.js",
-        "sha256": "ff3cb3c8d1989bd7fb0f58e3677e6912bd59f11bbeb9f5d23719d30f5cf78617",
-        "bytes": 884774
+        "sha256": "01e6b5baf9c2646cc66986d9b3385aa8c3e92e4047446a1027506eb6575417d7",
+        "bytes": 927777
       },
       {
         "path": "CyberWorld/ascension-response3d.js",
@@ -107,13 +122,13 @@
       },
       {
         "path": "CyberWorld/ascension-sw.js",
-        "sha256": "b26f9e444c51d3c3c84c350958ca6bc7022d8cc62146a8e0aab206ad76d26aa3",
-        "bytes": 4630
+        "sha256": "de99262d4533f19b313d4799d1007012886deeaa0e3b741e46e112ecbff0d77e",
+        "bytes": 4800
       },
       {
         "path": "CyberWorld/THIRD_PARTY_LICENSES.txt",
-        "sha256": "550772cdaeaac986243fa077b384622a7c386b64badd5a1f8cf613a5e4e7e195",
-        "bytes": 2992
+        "sha256": "a565cfd65ada80c8fcb58dc19c9beb97203dd2960f8d969bc0e673f1e1e40064",
+        "bytes": 3260
       },
       {
         "path": "assets/favicon.svg",
@@ -159,6 +174,11 @@
         "path": "CyberWorld/assets/cyberworld/models/CHARACTER-LICENSE.md",
         "sha256": "2fdf301a253807c8637924c83e4d23fc0dc5eb82762e6cdc651f45b5f2628f3b",
         "bytes": 1816
+      },
+      {
+        "path": "CyberWorld/assets/cyberworld/cyberworld-keyart.webp",
+        "sha256": "3f95ddd431e6a24a8c0e6cc81b83d659479aea6f06cb4cf2d33cc433e44c2070",
+        "bytes": 300764
       }
     ]
   },
@@ -169,7 +189,7 @@
     "/play-cyberworld/ascension.html"
   ],
   "transforms": [
-    "UTF-8 text normalized to LF; GLB binary preserved",
+    "UTF-8 text normalized to LF; GLB and WebP binaries preserved",
     "Public mount canonical, manifest and worker paths",
     "Mount-local favicon and fictional adversary portrait references; optional remote font links omitted",
     "Independent worker cache namespace and content-derived version",
@@ -188,11 +208,15 @@
       "/play-cyberworld/ascension-field.js",
       "/play-cyberworld/ascension-net.js",
       "/play-cyberworld/ascension-response3d.js",
+      "/play-cyberworld/ascension-rookie.css",
+      "/play-cyberworld/ascension-rookie.js",
       "/play-cyberworld/ascension-shell.js",
+      "/play-cyberworld/ascension-theme.css",
       "/play-cyberworld/ascension-world3d.js",
       "/play-cyberworld/ascension.css",
       "/play-cyberworld/ascension.html",
       "/play-cyberworld/ascension.webmanifest",
+      "/play-cyberworld/assets/cyberworld/cyberworld-keyart.webp",
       "/play-cyberworld/assets/cyberworld/models/CHARACTER-LICENSE.md",
       "/play-cyberworld/assets/cyberworld/models/Character.glb",
       "/play-cyberworld/assets/favicon.svg",
@@ -204,14 +228,14 @@
     ],
     "entry": "/play-cyberworld/ascension.html",
     "prefix": "cw-ascension-play-",
-    "version": "cw-ascension-play-ee7f45dea2f954c7",
-    "bytes": 2793405
+    "version": "cw-ascension-play-d0e35450a4894856",
+    "bytes": 3257135
   },
   "files": [
     {
       "path": "ascension.html",
-      "sha256": "5c0312cbdab7d272e56116976c494c17bdee571bc39a0f72625ef60f084443fd",
-      "bytes": 11148
+      "sha256": "a529f9ea1086b92af06ccd287450184792b607dd9c35b6fccd536da455ee8b8c",
+      "bytes": 11622
     },
     {
       "path": "ascension.webmanifest",
@@ -260,13 +284,13 @@
     },
     {
       "path": "ascension-data.js",
-      "sha256": "f1ab1cb5e6c4d69f8a1a98cb3f2185d0a789819970f58afd921a1af72201a2b2",
-      "bytes": 19506
+      "sha256": "ff23c6535763bf12c298174cb13b50cbfeb429108d1b48c822efb2f6866d0014",
+      "bytes": 28572
     },
     {
       "path": "ascension-campaign.js",
-      "sha256": "60c567c2b52205fc03bd766dd9b5d82540c51be84dabf6da2108693a1ebf9a95",
-      "bytes": 54352
+      "sha256": "46fac4193ece1a7b0d3008280b112cf4c7a50c58bd82570be1b0243f15615914",
+      "bytes": 67782
     },
     {
       "path": "ascension-downloads.js",
@@ -285,23 +309,38 @@
     },
     {
       "path": "ascension-shell.js",
-      "sha256": "084bf101360208a454d5e1fe101fc931dbddc2c38166ff5bee9b27b65599a21d",
-      "bytes": 39085
+      "sha256": "e34d90e68b580b1fef399783582625d1bb798a668c494d17e79d3251b69186ff",
+      "bytes": 41512
     },
     {
       "path": "ascension-combat.js",
-      "sha256": "6f5cc43ad62fd8bbca7bcf9edb3d4a8bc0b009784b383a0ecb677ca93bb5ebc9",
-      "bytes": 16434
+      "sha256": "e7111e55194b93df8c3509e0e8d0677f859852b1a90a53f792b1e563e48d892f",
+      "bytes": 37631
     },
     {
       "path": "ascension-combat.css",
-      "sha256": "fed56748601e19cb05146cbd0ae008e38c4617c7cc9504f8c76873fe370a11a8",
-      "bytes": 8312
+      "sha256": "b7f8907e0727bf6528bd8802b931a87d920f8ad5a813bdb7a7bbfef0dfdb7a3d",
+      "bytes": 19108
+    },
+    {
+      "path": "ascension-rookie.js",
+      "sha256": "fc36ac9f13eb53d5fcca58f8f5296cafc7f6e39c408990ca6bc20fe2e0b9821a",
+      "bytes": 26150
+    },
+    {
+      "path": "ascension-rookie.css",
+      "sha256": "5d07a8f79b3d44c2003ea12397704499bd52ca055737c818e181a4cbc25da433",
+      "bytes": 7317
+    },
+    {
+      "path": "ascension-theme.css",
+      "sha256": "85789828ebe2f060b5458303c2a7d388269ceac067c751a3618f47a6ba4b2d82",
+      "bytes": 28838
     },
     {
       "path": "ascension-world3d.js",
-      "sha256": "ff3cb3c8d1989bd7fb0f58e3677e6912bd59f11bbeb9f5d23719d30f5cf78617",
-      "bytes": 884774
+      "sha256": "01e6b5baf9c2646cc66986d9b3385aa8c3e92e4047446a1027506eb6575417d7",
+      "bytes": 927777
     },
     {
       "path": "ascension-response3d.js",
@@ -310,13 +349,13 @@
     },
     {
       "path": "ascension-sw.js",
-      "sha256": "00aebd90f1b19992d51f9fd939157302d21986c8f014630929da3227cf2d5798",
-      "bytes": 4849
+      "sha256": "9038bf68b10e9d8af8bc50189258c91484221f75dc44a27e3c184ca405a9df87",
+      "bytes": 5039
     },
     {
       "path": "THIRD_PARTY_LICENSES.txt",
-      "sha256": "550772cdaeaac986243fa077b384622a7c386b64badd5a1f8cf613a5e4e7e195",
-      "bytes": 2992
+      "sha256": "a565cfd65ada80c8fcb58dc19c9beb97203dd2960f8d969bc0e673f1e1e40064",
+      "bytes": 3260
     },
     {
       "path": "assets/favicon.svg",
@@ -364,9 +403,14 @@
       "bytes": 1816
     },
     {
+      "path": "assets/cyberworld/cyberworld-keyart.webp",
+      "sha256": "3f95ddd431e6a24a8c0e6cc81b83d659479aea6f06cb4cf2d33cc433e44c2070",
+      "bytes": 300764
+    },
+    {
       "path": "index.html",
-      "sha256": "5c0312cbdab7d272e56116976c494c17bdee571bc39a0f72625ef60f084443fd",
-      "bytes": 11148
+      "sha256": "a529f9ea1086b92af06ccd287450184792b607dd9c35b6fccd536da455ee8b8c",
+      "bytes": 11622
     }
   ]
 }

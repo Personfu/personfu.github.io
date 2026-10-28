@@ -1,0 +1,202 @@
+{
+  "capturedAt": "2026-10-28T05:55:46.439Z",
+  "method": "Two real entry clicks, ordinary movement and held Punch; no health, position or reward grants.",
+  "results": [
+    {
+      "label": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "diagnostics": {
+        "renderer": "webgl",
+        "drawCalls": 200,
+        "triangles": 124854,
+        "fps": 161,
+        "quality": "high",
+        "graphics": {
+          "resolution": 1.6,
+          "shadows": true,
+          "effects": true,
+          "shadowSize": 2048
+        },
+        "characterAsset": "ready",
+        "characterAnimation": "Punch_Right",
+        "riggedCharacters": 3,
+        "audio": {
+          "enabled": false,
+          "state": "uninitialized",
+          "voices": 0,
+          "mode": "interior"
+        }
+      },
+      "combat": {
+        "health": 120,
+        "objective": {
+          "id": "intercept-breach",
+          "title": "Intercept breach",
+          "instruction": "Stop the two intruders before they reach the relay. Move close and attack; amber ground means dodge.",
+          "stage": 1,
+          "totalStages": 3,
+          "defeated": 0,
+          "totalTargets": 6,
+          "stageDefeated": 0,
+          "stageTargets": 2,
+          "stageComplete": false,
+          "completed": false,
+          "relayRestored": false
+        },
+        "hits": 2
+      },
+      "look": {
+        "frame": "ghost",
+        "suit": "#48ffd5",
+        "accent": "#48ffd5",
+        "hair": "#111827",
+        "coat": "#0b1622",
+        "skin": "#a97559"
+      },
+      "ui": {
+        "health": {
+          "x": 28,
+          "y": 100,
+          "width": 250,
+          "height": 183,
+          "top": 100,
+          "right": 278,
+          "bottom": 283,
+          "left": 28
+        },
+        "objective": {
+          "x": 1062,
+          "y": 100,
+          "width": 350,
+          "height": 172.765625,
+          "top": 100,
+          "right": 1412,
+          "bottom": 272.765625,
+          "left": 1062
+        },
+        "prompt": {
+          "x": 410,
+          "y": 688.21875,
+          "width": 620,
+          "height": 36.59375,
+          "top": 688.21875,
+          "right": 1030,
+          "bottom": 724.8125,
+          "left": 410
+        },
+        "actions": {
+          "x": 410,
+          "y": 736.8125,
+          "width": 620,
+          "height": 96.1875,
+          "top": 736.8125,
+          "right": 1030,
+          "bottom": 833,
+          "left": 410
+        }
+      },
+      "errors": []
+    },
+    {
+      "label": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "diagnostics": {
+        "renderer": "webgl",
+        "drawCalls": 93,
+        "triangles": 69302,
+        "fps": 165,
+        "quality": "low",
+        "graphics": {
+          "resolution": 1,
+          "shadows": false,
+          "effects": false,
+          "shadowSize": 1024
+        },
+        "characterAsset": "ready",
+        "characterAnimation": "Punch_Right",
+        "riggedCharacters": 3,
+        "audio": {
+          "enabled": false,
+          "state": "uninitialized",
+          "voices": 0,
+          "mode": "interior"
+        }
+      },
+      "combat": {
+        "health": 120,
+        "objective": {
+          "id": "intercept-breach",
+          "title": "Intercept breach",
+          "instruction": "Stop the two intruders before they reach the relay. Move close and attack; amber ground means dodge.",
+          "stage": 1,
+          "totalStages": 3,
+          "defeated": 0,
+          "totalTargets": 6,
+          "stageDefeated": 0,
+          "stageTargets": 2,
+          "stageComplete": false,
+          "completed": false,
+          "relayRestored": false
+        },
+        "hits": 1
+      },
+      "look": {
+        "frame": "ghost",
+        "suit": "#48ffd5",
+        "accent": "#48ffd5",
+        "hair": "#111827",
+        "coat": "#0b1622",
+        "skin": "#a97559"
+      },
+      "ui": {
+        "health": {
+          "x": 14,
+          "y": 378,
+          "width": 142,
+          "height": 158,
+          "top": 378,
+          "right": 156,
+          "bottom": 536,
+          "left": 14
+        },
+        "objective": {
+          "x": 14,
+          "y": 82,
+          "width": 362,
+          "height": 146,
+          "top": 82,
+          "right": 376,
+          "bottom": 228,
+          "left": 14
+        },
+        "prompt": {
+          "x": 14,
+          "y": 566.25,
+          "width": 362,
+          "height": 31,
+          "top": 566.25,
+          "right": 376,
+          "bottom": 597.25,
+          "left": 14
+        },
+        "actions": {
+          "x": 164,
+          "y": 609.25,
+          "width": 212,
+          "height": 174.75,
+          "top": 609.25,
+          "right": 376,
+          "bottom": 784,
+          "left": 164
+        }
+      },
+      "errors": []
+    }
+  ]
+}

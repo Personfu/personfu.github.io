@@ -20,6 +20,7 @@ test('physical field route, rooftop discovery and remembered quartermaster trans
   await page.goto('/CyberWorld/ascension.html');
   await page.waitForFunction(()=>window.__cwCity&&window.__cwAscensionShell);
   await page.locator('#cwas-begin').click();await page.locator('#cwas-handle').fill('FIELD-QA');await page.locator('#cwas-creator-form button[type=submit]').click();
+  if (await page.locator('#cwr-dismiss').isVisible()) await page.locator('#cwr-dismiss').click();
   await page.keyboard.down('Shift');
   await walk(page,-9.5,14);await page.keyboard.press('e');
   await expect(page.locator('#cwas-city-title')).toContainText('Patch');

@@ -7,6 +7,7 @@ test('phone evidence inspector contains long hex rows and exports a real case pa
   await page.locator('#cwas-begin').click();
   await page.locator('#cwas-handle').fill('EVIDENCE-PHONE');
   await page.locator('#cwas-creator-form button[type="submit"]').click();
+  if (await page.locator('#cwr-dismiss').isVisible()) await page.locator('#cwr-dismiss').click();
   await page.locator('#cwas-objective-open').click();
   const download = page.waitForEvent('download');
   await page.locator('[data-action="case-download"]').click();

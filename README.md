@@ -53,6 +53,8 @@ node scripts/preview-ascension.cjs
 
 Open the local URL printed by the preview server. Browser checks use installed Chrome; no browser is downloaded during dependency installation.
 
+Start **Play Blackout Run → Start** for the short action mission without a character form or technical quiz. The title also offers Create Operative; Quick Play contains five gentle adventures, and the seven investigations include optional coaching. See [Blackout Run](docs/BLACKOUT-RUN.md) and [beginner design](docs/BEGINNER-DESIGN.md).
+
 Three.js sources live in `CyberWorld/src/`. The build bundles them into static browser scripts and verifies asset closure. GitHub Pages serves the source tree directly; no framework server is needed. Existing compiled Next assets and the previous canvas world remain preserved.
 
 The TypeScript check parses the legacy/new JavaScript and validates strict bridge contracts; this repository does not claim complete semantic typing of every archived script. See [verification scope](docs/ascension-verification.md).

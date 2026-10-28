@@ -109,7 +109,7 @@ export function createCityAudio() {
     if (hidden) { volume(master, 0, .03); return; }
     const interior = value.view === 'district' || !!value.district;
     volume(master, value.paused ? .11 : .34, .3);
-    volume(rain.gain, interior ? .009 : .1, 1.2);
+    volume(rain.gain, interior && value.district!=='arena' ? .009 : .1, 1.2);
     volume(servers, interior ? .075 : .02, 1.1);
     const time = ctx.currentTime;
     if (value.moving && !value.paused && time - lastStep > (value.running ? .29 : .43)) {
@@ -117,13 +117,14 @@ export function createCityAudio() {
     }
     // Schedule from the audio clock, never catch up a burst after a slow frame.
     if (time < nextBeat) return;
-    nextBeat = time + (value.overclock ? .52 : .357);
+    nextBeat = time + (value.overclock ? .52 : value.combat ? .26 : .357);
     const nextChord = Math.floor(beat / 32) % harmony.length, notes = harmony[nextChord];
     if (nextChord !== chord) {
       chord = nextChord;
       pads.forEach((oscillator, index) => oscillator.frequency.setTargetAtTime(hz(notes[index + 1]), time, .8));
     }
     if (!value.paused) {
+      if(value.combat&&beat%2===0)impact('pulse');
       if (beat % 4 === 0) note(hz(notes[0]), interior ? .08 : .065, 1.3);
       if (beat % 2 === 0) note(hz(notes[motif[(beat / 2) % 8]] + 12), value.overclock ? .047 : .023, 1.15, 'sine', Math.sin(beat * .9) * .48);
       if (value.overclock && beat % 4 === 2) note(hz(notes[2] + 24), .018, .65, 'triangle', -.4);
@@ -137,6 +138,22 @@ export function createCityAudio() {
     note(Math.max(80, Math.min(1800, frequency * 1.5)), .026, .45, 'sine', .2);
   }
 
+  function impact(kind='hit') {
+    if(!enabled||!ctx||document.hidden||current.paused||voices.size>=28)return false;
+    const time=ctx.currentTime,source=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),gain=ctx.createGain();
+    const heavy=kind==='burst'||kind==='kill',pulse=kind==='pulse',swoosh=kind==='dodge'||kind==='strike';
+    source.buffer=rain.buffer;filter.type=swoosh?'bandpass':'lowpass';filter.frequency.value=swoosh?2300:heavy?1100:620;filter.Q.value=.7;
+    const duration=pulse?.075:swoosh?.13:heavy?.28:.14;
+    gain.gain.setValueAtTime(pulse?.025:swoosh?.16:heavy?.55:.36,time);gain.gain.exponentialRampToValueAtTime(.0001,time+duration);
+    source.connect(filter);filter.connect(gain);gain.connect(master);track(source,[filter,gain],time+duration+.02);
+    if(!swoosh){
+      const oscillator=ctx.createOscillator(),bass=ctx.createGain();oscillator.frequency.setValueAtTime(heavy?170:pulse?96:130,time);oscillator.frequency.exponentialRampToValueAtTime(40,time+duration);
+      bass.gain.setValueAtTime(pulse?.09:heavy?.32:.21,time);bass.gain.exponentialRampToValueAtTime(.0001,time+duration);
+      oscillator.connect(bass);bass.connect(master);track(oscillator,[bass],time+duration+.02);
+    }
+    return true;
+  }
+
   document.addEventListener('visibilitychange', () => {
     if (!ctx) return;
     if (document.hidden) {
@@ -147,5 +164,5 @@ export function createCityAudio() {
   });
   window.addEventListener('pagehide', () => { if (ctx) ctx.suspend().catch(() => {}); });
   window.addEventListener('pageshow', () => { if (ctx && enabled && !document.hidden) ctx.resume().catch(() => {}); });
-  return { setEnabled, update, cue, snapshot: () => ({ enabled, state: ctx?.state || 'uninitialized', voices: voices.size, mode: current.overclock ? 'overclock' : current.district ? 'interior' : 'city' }) };
+  return { setEnabled, update, cue, impact, snapshot: () => ({ enabled, state: ctx?.state || 'uninitialized', voices: voices.size, mode: current.overclock ? 'overclock' : current.district ? 'interior' : 'city' }) };
 }

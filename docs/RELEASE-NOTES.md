@@ -2,6 +2,47 @@
 
 2026-10-18 · first playable production milestone, not the completed MMO vision.
 
+## 2026-10-27 / Start with a little win
+
+Play Blackout Run now starts a short action mission in two clicks, without a
+character form or technical quiz. Three stages and six opponents lead to a
+once-only Relay Runner reward and downloadable mission receipt. A street-level
+camera, faster movement, assisted strikes, impact feedback and original hacker
+outfits accompany a rebuilt neon street encounter. See `BLACKOUT-RUN.md`.
+
+The Signal Noir art pass gives the city a stronger hacker/cyberpunk identity:
+original cinematic key art, actual elevated 3D billboards, data arches, agency
+casework signs, a red-team malware lab, server banks, rooftop circuits, an abstract
+cipher-eye tower and textured wet streets with cool and magenta reflections.
+The interface uses the same palette and clearer glass panels. Equation and
+ShinyHunters appear in optional primary-source dossiers; Illuminate is fictional.
+The art supports the actual WebGL world rather than replacing gameplay with a
+static screenshot. See `CYBERPUNK-ART.md` for the prompt and provenance.
+
+The opening now recommends First Light: follow a glowing trail, collect three
+sparks and match a visible color to restore a beacon. No network terminology,
+countdown or prior knowledge is needed. Completion unlocks an original smiling
+orb companion that follows the actual operative through the plaza, plus a badge
+download. Progress survives an interrupted visit and save export/import.
+
+Quick Play also offers a five-spark treasure hunt, a friendly drone delivery
+route, five rounds of visible color matching and harmless combat practice. First
+wins award small, idempotent rewards; later runs update local records. These jobs
+work alongside the existing campaign and can be left freely. Beginner guides and
+earned souvenirs download locally without private notes or account information.
+
+Combat waits at a clear briefing until the player presses Start. Rookie is the
+default: fewer opponents, slower attacks, longer warnings, cheaper dodges and
+health recovery. Holding Punch works with keyboard or touch. Practice has one
+stationary target that never attacks and cannot grant arena gear. Standard keeps
+the original encounter. Help pauses an active fight and resumes it in place.
+
+All seven investigation cases now offer an optional Coach with plain-language
+goals, a glossary and one explained clue at a time. Explicit clue buttons can
+fill a field or run the real supplied tool; verification, recovery and filing
+remain player actions. Specific feedback explains revised findings. The earlier
+manual approach remains available as solo mode, and old saves still import.
+
 ## Breach Foundry combat expansion
 
 Enter Breach Foundry from the street beacon or the Combat button. Fight three
