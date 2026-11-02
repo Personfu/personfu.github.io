@@ -1,5 +1,5 @@
 [phases.build]
-cmds = ["npm install --omit=dev"]
+cmds = ["npm ci --omit=dev"]
 
 [start]
 cmd = "node index.js"

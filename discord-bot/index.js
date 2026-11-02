@@ -28,12 +28,15 @@ const {
   ActionRowBuilder,
 } = require('discord.js');
 const cron   = require('node-cron');
-const fetch  = require('node-fetch');
+const { fetchCVEs: nvdFetch } = require('./lib/nvd');
+const { buildDailyBriefing, buildCVEAlert, buildCVEEmbed } = require('./lib/briefing');
 const fs     = require('fs');
 const path   = require('path');
 
 // ─── Validate required env vars ───────────────────────────────────────────────
-const REQUIRED = ['DISCORD_TOKEN', 'DISCORD_CLIENT_ID', 'DISCORD_GUILD_ID'];
+process.env.DISCORD_CLIENT_ID ||= '1170817211837992981';
+process.env.DISCORD_GUILD_ID  ||= '1159996494691188765';
+const REQUIRED = ['DISCORD_TOKEN'];
 for (const v of REQUIRED) {
   if (!process.env[v]) {
     console.error(`[BOOT] Missing required env var: ${v}`);
@@ -49,13 +52,18 @@ const CH_GENERAL        = process.env.CHANNEL_GENERAL;
 const SITE_URL          = process.env.SITE_URL || 'https://personfu.github.io';
 const NVD_KEY           = process.env.NVD_API_KEY || '';
 const NEXUS_API         = process.env.NEXUS_API_URL || 'https://personfugithubio-production.up.railway.app';
+const ANNOUNCE_ON_BOOT  = /^(1|true|yes)$/i.test(process.env.ANNOUNCE_ON_BOOT || '');
+const BRIEFING_IN_PROCESS = /^(1|true|yes)$/i.test(process.env.BRIEFING_IN_PROCESS || '');
+
+const fetchCVEs = (limit, severity) => nvdFetch(limit, severity, { apiKey: NVD_KEY });
 
 // ─── Bot client ───────────────────────────────────────────────────────────────
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.GuildMembers,
+    // GuildMembers is a *privileged* intent; requesting it without enabling
+    // it in the Developer Portal makes login fail with "Used disallowed
+    // intents". Nothing here needs it, so it is not requested.
   ],
 });
 
@@ -84,8 +92,9 @@ client.once(Events.ClientReady, async (c) => {
     status: 'online',
   });
 
-  // Post boot message to general if configured
-  if (CH_GENERAL) {
+  // Post boot message to general only when explicitly enabled — otherwise
+  // every redeploy/restart spams #general.
+  if (CH_GENERAL && ANNOUNCE_ON_BOOT) {
     const ch = await safeGetChannel(CH_GENERAL);
     if (ch) {
       const embed = new EmbedBuilder()
@@ -103,12 +112,20 @@ client.once(Events.ClientReady, async (c) => {
   }
 
   // ── Cron: Daily briefing at 09:00 UTC ──────────────────────────────────────
-  cron.schedule('0 9 * * *', () => postDailyBriefing(), { timezone: 'UTC' });
+  // The GitHub Actions workflow (.github/workflows/discord-bot.yml) already
+  // posts the daily briefing. Only post from this process when asked to, so
+  // the channel does not get the same briefing twice.
+  if (BRIEFING_IN_PROCESS) {
+    cron.schedule('0 9 * * *', () => postDailyBriefing(), { timezone: 'UTC' });
+  }
 
   // ── Cron: Hourly CVE monitor ───────────────────────────────────────────────
   cron.schedule('0 * * * *', () => postCriticalCVEs(), { timezone: 'UTC' });
 
-  console.log('[CRON] Daily briefing @ 09:00 UTC | CVE monitor @ every hour');
+  console.log(`[CRON] CVE monitor @ every hour${BRIEFING_IN_PROCESS ? ' | daily briefing @ 09:00 UTC' : ' (daily briefing handled by GitHub Actions)'}`);
+
+  // Prime the CVE de-dup cache so the first hourly tick only posts new CVEs.
+  postCriticalCVEs();
 });
 
 // ─── Interaction handler ──────────────────────────────────────────────────────
@@ -132,114 +149,49 @@ client.on(Events.InteractionCreate, async (interaction) => {
 // ─── Daily Briefing ──────────────────────────────────────────────────────────
 async function postDailyBriefing() {
   const ch = await safeGetChannel(CH_ANNOUNCE);
-  if (!ch) return;
+  if (!ch) { console.warn('[BRIEFING] CHANNEL_ANNOUNCEMENTS not set or not reachable — skipped.'); return; }
 
-  const date = new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-  const cves = await fetchCVEs(3).catch(() => []);
+  let cves = [], cveError = null;
+  try { cves = await fetchCVEs(3, 'CRITICAL'); }
+  catch (e) { cveError = e; console.warn('[BRIEFING] NVD fetch failed:', e.message); }
 
-  const embed = new EmbedBuilder()
-    .setColor(0x00ff41)
-    .setTitle(`📋 DAILY OPERATIVE BRIEFING — ${date}`)
-    .setDescription('FLLC CyberWorld daily threat intelligence & operations summary')
-    .setThumbnail('https://personfu.github.io/favicon.ico')
-    .addFields({ name: '⚡ SITE STATUS', value: '🟢 All systems nominal', inline: true })
-    .addFields({ name: '🎮 RPG STATUS',  value: '🟢 6 APTs active | 4 Daemons live', inline: true })
-    .addFields({ name: '\u200b', value: '\u200b', inline: false });
-
-  if (cves.length > 0) {
-    const cveText = cves.map(c => {
-      const sev = c.metrics?.cvssMetricV31?.[0]?.cvssData?.baseSeverity
-               || c.metrics?.cvssMetricV2?.[0]?.baseSeverity || 'N/A';
-      const score = c.metrics?.cvssMetricV31?.[0]?.cvssData?.baseScore
-                 || c.metrics?.cvssMetricV2?.[0]?.cvssData?.baseScore || '?';
-      const id = c.cve?.id || 'UNKNOWN';
-      const desc = (c.cve?.descriptions?.[0]?.value || '').slice(0, 120);
-      return `**${id}** [${sev} ${score}]\n${desc}…`;
-    }).join('\n\n');
-    embed.addFields({ name: '🚨 TOP CRITICAL CVEs', value: cveText.slice(0, 1024) });
+  try {
+    await ch.send(buildDailyBriefing(SITE_URL, cves, { cveError }));
+    cves.forEach(v => postedCVEs.add(v.cve?.id));
+    console.log(`[CRON] Daily briefing posted at ${new Date().toUTCString()}`);
+  } catch (e) {
+    console.error('[BRIEFING] send failed:', e.message);
   }
-
-  embed.addFields(
-    { name: '🔗 Quick Links', value:
-      `[🌐 CyberWorld RPG](${SITE_URL}/cyberworld.html) • [🕹 Arcade](${SITE_URL}/arcade.html) • [📡 Intel Hub](${SITE_URL}/intel.html) • [⚔️ War Games](${SITE_URL}/wargames.html)`
-    }
-  ).setFooter({ text: 'FURIOS-INT CyberOS v2026.3-FLLC | Daily Briefing' });
-
-  const row = new ActionRowBuilder().addComponents(
-    new ButtonBuilder().setLabel('🌐 Launch RPG').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/cyberworld.html`),
-    new ButtonBuilder().setLabel('🕹 Arcade').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/arcade.html`),
-    new ButtonBuilder().setLabel('📡 Intel Hub').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/intel.html`),
-  );
-
-  await ch.send({ embeds: [embed], components: [row] }).catch(console.error);
-  console.log(`[CRON] Daily briefing posted at ${new Date().toUTCString()}`);
 }
 
 // ─── Hourly CVE Monitor ───────────────────────────────────────────────────────
+// Only posts CVEs that have not been posted before by this process, so the
+// channel is not flooded with the same 24h window every hour.
+const postedCVEs = new Set();
+let cveMonitorPrimed = false;
+
 async function postCriticalCVEs() {
   const ch = await safeGetChannel(CH_CVE);
   if (!ch) return;
 
   try {
-    const cves = await fetchCVEs(5, 'CRITICAL');
-    if (!cves.length) return;
+    const cves  = await fetchCVEs(20, 'CRITICAL');
+    const fresh = cves.filter(v => v.cve?.id && !postedCVEs.has(v.cve.id));
+    fresh.forEach(v => postedCVEs.add(v.cve.id));
 
-    const embed = new EmbedBuilder()
-      .setColor(0xff003c)
-      .setTitle('🚨 CRITICAL CVE ALERT — HOURLY MONITOR')
-      .setDescription(`${cves.length} CRITICAL vulnerabilities detected in last 24 hours`)
-      .setFooter({ text: `Source: NVD API | ${new Date().toUTCString()}` });
+    // First run after a restart: remember what already exists instead of
+    // re-announcing it (the daily CI job / previous process covered it).
+    if (!cveMonitorPrimed) { cveMonitorPrimed = true; return; }
+    if (!fresh.length) return;
 
-    for (const c of cves.slice(0, 5)) {
-      const id    = c.cve?.id || 'N/A';
-      const desc  = (c.cve?.descriptions?.[0]?.value || 'No description').slice(0, 200);
-      const score = c.metrics?.cvssMetricV31?.[0]?.cvssData?.baseScore
-                 || c.metrics?.cvssMetricV2?.[0]?.cvssData?.baseScore || 'N/A';
-      embed.addFields({ name: `${id} [${score}]`, value: desc });
-    }
-
-    const row = new ActionRowBuilder().addComponents(
-      new ButtonBuilder().setLabel('📡 Full Intel Hub').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/intel.html`),
-    );
-    await ch.send({ embeds: [embed], components: [row] }).catch(() => {});
+    await ch.send(buildCVEAlert(SITE_URL, fresh.slice(0, 5)));
+    console.log(`[CVE-MONITOR] Posted ${Math.min(fresh.length, 5)} new CRITICAL CVEs.`);
   } catch (e) {
     console.warn('[CVE-MONITOR]', e.message);
   }
-}
 
-// ─── NVD CVE fetch helper ─────────────────────────────────────────────────────
-async function fetchCVEs(limit = 5, severity = 'CRITICAL') {
-  const now  = new Date();
-  const from = new Date(now.getTime() - 24 * 3600 * 1000).toISOString().replace('Z', '+00:00');
-  const to   = now.toISOString().replace('Z', '+00:00');
-  const key  = NVD_KEY ? `&apiKey=${NVD_KEY}` : '';
-  const url  = `https://services.nvd.nist.gov/rest/json/cves/2.0?cvssV3Severity=${severity}&pubStartDate=${from}&pubEndDate=${to}&resultsPerPage=${limit}${key}`;
-  const res  = await fetch(url, { headers: { 'User-Agent': 'FLLC-CyberBot/2.6.5' } });
-  if (!res.ok) throw new Error(`NVD HTTP ${res.status}`);
-  const data = await res.json();
-  return data.vulnerabilities?.map(v => v) || [];
-}
-
-// ─── CVE embed builder (shared with commands) ─────────────────────────────────
-function buildCVEEmbed(cves, title) {
-  const embed = new EmbedBuilder()
-    .setColor(0xff003c)
-    .setTitle(title || '🔍 CVE RESULTS')
-    .setFooter({ text: `Source: NVD | ${new Date().toUTCString()}` });
-  if (!cves.length) {
-    embed.setDescription('No matching CVEs found.');
-    return embed;
-  }
-  for (const c of cves.slice(0, 5)) {
-    const id    = c.cve?.id || 'N/A';
-    const desc  = (c.cve?.descriptions?.[0]?.value || 'No description').slice(0, 200);
-    const score = c.metrics?.cvssMetricV31?.[0]?.cvssData?.baseScore
-               || c.metrics?.cvssMetricV2?.[0]?.cvssData?.baseScore || 'N/A';
-    const sev   = c.metrics?.cvssMetricV31?.[0]?.cvssData?.baseSeverity
-               || c.metrics?.cvssMetricV2?.[0]?.baseSeverity || '?';
-    embed.addFields({ name: `${id}  [${sev} ${score}]`, value: desc });
-  }
-  return embed;
+  // Keep memory bounded.
+  if (postedCVEs.size > 5000) postedCVEs.clear();
 }
 
 // ─── Safe channel getter ──────────────────────────────────────────────────────

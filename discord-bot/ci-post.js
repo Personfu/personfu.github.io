@@ -1,129 +1,115 @@
 /**
- * ci-post.js — CI-only runner: posts daily briefing then exits.
- * Invoked by .github/workflows/discord-bot.yml with CI_MODE=true.
- * Does NOT start cron or stay alive.
+ * ci-post.js — CI-only runner: posts the daily briefing (+ critical CVE alert)
+ * then exits. Invoked by .github/workflows/discord-bot.yml.
+ *
+ * Uses the Discord REST API directly instead of logging in to the gateway:
+ * no websocket, no intents, nothing that can hang the job. Exits non-zero
+ * when a post fails so a broken bot shows up as a red workflow run instead
+ * of a silent green one.
+ *
+ * Env:
+ *   DISCORD_TOKEN           (required unless DRY_RUN=1)
+ *   CHANNEL_ANNOUNCEMENTS   daily briefing target
+ *   CHANNEL_CVE_ALERTS      critical CVE alert target (optional)
+ *   NVD_API_KEY             optional, raises NVD rate limits
+ *   SITE_URL                default https://personfu.github.io
+ *   DRY_RUN=1               build the messages and print them, post nothing
  */
 require('dotenv').config();
 
-const {
-  Client,
-  GatewayIntentBits,
-  EmbedBuilder,
-  ButtonBuilder,
-  ButtonStyle,
-  ActionRowBuilder,
-} = require('discord.js');
-const fetch = require('node-fetch');
+const { REST, Routes } = require('discord.js');
+const { fetchCVEs } = require('./lib/nvd');
+const { buildDailyBriefing, buildCVEAlert } = require('./lib/briefing');
 
-const TOKEN    = process.env.DISCORD_TOKEN;
-const CH_ANN   = process.env.CHANNEL_ANNOUNCEMENTS;
-const CH_CVE   = process.env.CHANNEL_CVE_ALERTS;
-const SITE_URL = process.env.SITE_URL || 'https://personfu.github.io';
+const TOKEN    = (process.env.DISCORD_TOKEN || '').trim();
+const CH_ANN   = (process.env.CHANNEL_ANNOUNCEMENTS || '').trim();
+const CH_CVE   = (process.env.CHANNEL_CVE_ALERTS || '').trim();
+const SITE_URL = (process.env.SITE_URL || 'https://personfu.github.io').replace(/\/+$/, '');
 const NVD_KEY  = process.env.NVD_API_KEY || '';
+const DRY_RUN  = /^(1|true|yes)$/i.test(process.env.DRY_RUN || '');
 
-if (!TOKEN) { console.error('[CI] DISCORD_TOKEN not set'); process.exit(1); }
+// REST client is created up front; the config checks below only decide
+// whether we proceed, they never gate how the credential is used.
+const rest = new REST({ version: '10', timeout: 15_000 }).setToken(TOKEN || 'dry-run');
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+// Hard stop so a stuck network call can never burn a whole Actions job.
+setTimeout(() => { console.error('[CI] Timed out after 120s.'); process.exit(1); }, 120_000).unref();
 
-client.once('ready', async () => {
-  console.log(`[CI] Logged in as ${client.user.tag}`);
+function serialize(payload) {
+  return {
+    embeds:     (payload.embeds || []).map(e => (e.toJSON ? e.toJSON() : e)),
+    components: (payload.components || []).map(c => (c.toJSON ? c.toJSON() : c)),
+  };
+}
+
+async function send(rest, channelId, payload, label) {
+  const body = serialize(payload);
+  if (DRY_RUN) {
+    console.log(`[CI][DRY_RUN] ${label} → channel ${channelId || '(unset)'}\n${JSON.stringify(body, null, 2)}`);
+    return;
+  }
   try {
-    await postBriefing();
-    await postCVEs();
-    console.log('[CI] All posts complete. Exiting.');
+    await rest.post(Routes.channelMessages(channelId), { body });
+    console.log(`[CI] ${label} posted to ${channelId}.`);
   } catch (e) {
-    console.error('[CI] Post error:', e.message);
-  } finally {
-    client.destroy();
-    process.exit(0);
+    const hint = {
+      401: 'DISCORD_TOKEN is invalid or was reset — update the repo secret.',
+      403: 'Bot lacks View Channel / Send Messages / Embed Links in that channel.',
+      404: 'Channel ID not found — check the CHANNEL_* secret/variable.',
+    }[e.status] || '';
+    throw new Error(`${label} failed (HTTP ${e.status ?? '?'}): ${e.message}${hint ? ` — ${hint}` : ''}`);
   }
-});
-
-async function postBriefing() {
-  if (!CH_ANN) { console.log('[CI] CHANNEL_ANNOUNCEMENTS not configured — skipping briefing.'); return; }
-  const ch = await client.channels.fetch(CH_ANN).catch(() => null);
-  if (!ch) { console.log('[CI] Cannot fetch announcements channel.'); return; }
-
-  const date = new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-  const cves = await fetchCVEs(3).catch(() => []);
-
-  const embed = new EmbedBuilder()
-    .setColor(0x00ff41)
-    .setTitle(`📋 DAILY OPERATIVE BRIEFING — ${date}`)
-    .setDescription('FLLC CyberWorld daily intelligence summary & operations update')
-    .addFields(
-      { name: '⚡ SYSTEM STATUS', value: '🟢 All systems nominal • All 4 engines online', inline: true },
-      { name: '🎮 RPG STATUS',    value: '🟢 6 APTs active • 4 Daemons live • War Games open', inline: true },
-      { name: '\u200b', value: '\u200b' },
-    );
-
-  if (cves.length > 0) {
-    const txt = cves.map(c => {
-      const id    = c.cve?.id || '?';
-      const sev   = c.metrics?.cvssMetricV31?.[0]?.cvssData?.baseSeverity || c.metrics?.cvssMetricV2?.[0]?.baseSeverity || 'N/A';
-      const score = c.metrics?.cvssMetricV31?.[0]?.cvssData?.baseScore    || c.metrics?.cvssMetricV2?.[0]?.cvssData?.baseScore || '?';
-      const desc  = (c.cve?.descriptions?.[0]?.value || '').slice(0, 100);
-      return `**${id}** [${sev} ${score}] — ${desc}…`;
-    }).join('\n\n');
-    embed.addFields({ name: '🚨 TODAY\'s CRITICAL CVEs', value: txt.slice(0, 1024) });
-  }
-
-  embed.addFields({
-    name: '🔗 Quick Access',
-    value: `[🌐 RPG](${SITE_URL}/cyberworld.html) • [🕹 Arcade](${SITE_URL}/arcade.html) • [📡 Intel](${SITE_URL}/intel.html) • [⚔️ War Games](${SITE_URL}/wargames.html) • [☠️ Adversaries](${SITE_URL}/adversaries.html)`,
-  }).setFooter({ text: `FURIOS-INT CyberOS v2026.3-FLLC • Automated Daily Briefing` }).setTimestamp();
-
-  const row = new ActionRowBuilder().addComponents(
-    new ButtonBuilder().setLabel('🌐 CyberWorld RPG').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/cyberworld.html`),
-    new ButtonBuilder().setLabel('📡 Intel Hub').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/intel.html`),
-    new ButtonBuilder().setLabel('⚔️ War Games').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/wargames.html`),
-  );
-
-  await ch.send({ embeds: [embed], components: [row] });
-  console.log('[CI] Daily briefing posted.');
 }
 
-async function postCVEs() {
-  if (!CH_CVE) { console.log('[CI] CHANNEL_CVE_ALERTS not configured — skipping CVE post.'); return; }
-  const ch = await client.channels.fetch(CH_CVE).catch(() => null);
-  if (!ch) return;
-
-  const cves = await fetchCVEs(5, 'CRITICAL').catch(() => []);
-  if (!cves.length) { console.log('[CI] No CRITICAL CVEs in last 24h.'); return; }
-
-  const embed = new EmbedBuilder()
-    .setColor(0xff003c)
-    .setTitle(`🚨 CRITICAL CVE ALERT — ${new Date().toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'})}`)
-    .setDescription(`**${cves.length}** CRITICAL CVEs published in last 24 hours — FURIOS-INT Intel Stream`);
-
-  for (const c of cves.slice(0, 5)) {
-    const id    = c.cve?.id || 'N/A';
-    const desc  = (c.cve?.descriptions?.[0]?.value || 'No description').slice(0, 200);
-    const score = c.metrics?.cvssMetricV31?.[0]?.cvssData?.baseScore || c.metrics?.cvssMetricV2?.[0]?.cvssData?.baseScore || 'N/A';
-    embed.addFields({ name: `${id} [CVSS ${score}]`, value: desc });
+(async () => {
+  if (!DRY_RUN && !TOKEN) {
+    console.error('[CI] DISCORD_TOKEN is not set. Add it under Settings → Secrets and variables → Actions.');
+    process.exit(1);
+  }
+  if (!CH_ANN && !CH_CVE) {
+    console.error('[CI] Neither CHANNEL_ANNOUNCEMENTS nor CHANNEL_CVE_ALERTS is set — nothing to post to.');
+    process.exit(1);
   }
 
-  embed.addFields({ name: '📡 Full Intel', value: `[Live CVE Search](${SITE_URL}/intel.html)` })
-       .setFooter({ text: `Source: NVD API • FURIOS-INT • ${new Date().toUTCString()}` });
+  if (!DRY_RUN) {
+    try {
+      const me = await rest.get(Routes.user('@me'));
+      console.log(`[CI] Authenticated as ${me.username} (${me.id})`);
+    } catch (e) {
+      console.error(`[CI] Discord auth failed (HTTP ${e.status ?? '?'}): ${e.message}. Is DISCORD_TOKEN current?`);
+      process.exit(1);
+    }
+  }
 
-  const row = new ActionRowBuilder().addComponents(
-    new ButtonBuilder().setLabel('📡 Intel Hub').setStyle(ButtonStyle.Link).setURL(`${SITE_URL}/intel.html`),
-  );
+  let cves = [], cveError = null;
+  try {
+    cves = await fetchCVEs(5, 'CRITICAL', { apiKey: NVD_KEY });
+    console.log(`[CI] NVD returned ${cves.length} CRITICAL CVE(s) for the last 24h.`);
+  } catch (e) {
+    cveError = e;
+    console.warn(`[CI] NVD fetch failed — posting briefing without CVEs: ${e.message}`);
+  }
 
-  await ch.send({ embeds: [embed], components: [row] });
-  console.log(`[CI] Posted ${cves.length} CRITICAL CVEs.`);
-}
+  const failures = [];
 
-async function fetchCVEs(limit = 5, severity = 'CRITICAL') {
-  const now  = new Date();
-  const from = new Date(now - 24 * 3600 * 1000).toISOString().replace('Z', '+00:00');
-  const to   = now.toISOString().replace('Z', '+00:00');
-  const key  = NVD_KEY ? `&apiKey=${NVD_KEY}` : '';
-  const url  = `https://services.nvd.nist.gov/rest/json/cves/2.0?cvssV3Severity=${severity}&pubStartDate=${from}&pubEndDate=${to}&resultsPerPage=${limit}${key}`;
-  const res  = await fetch(url, { headers: { 'User-Agent': 'FLLC-CyberBot/2.6.5' }, signal: AbortSignal.timeout(10000) });
-  if (!res.ok) throw new Error(`NVD ${res.status}`);
-  const data = await res.json();
-  return data.vulnerabilities || [];
-}
+  if (CH_ANN) {
+    await send(rest, CH_ANN, buildDailyBriefing(SITE_URL, cves.slice(0, 3), { cveError }), 'Daily briefing')
+      .catch(e => failures.push(e));
+  } else {
+    console.log('[CI] CHANNEL_ANNOUNCEMENTS not configured — skipping briefing.');
+  }
 
-client.login(TOKEN).catch(e => { console.error('[CI] Login failed:', e.message); process.exit(1); });
+  if (CH_CVE && cves.length) {
+    await send(rest, CH_CVE, buildCVEAlert(SITE_URL, cves, '🚨 CRITICAL CVE ALERT — last 24h'), 'CVE alert')
+      .catch(e => failures.push(e));
+  } else if (CH_CVE) {
+    console.log('[CI] No CRITICAL CVEs to alert on.');
+  }
+
+  if (failures.length) {
+    failures.forEach(e => console.error(`[CI] ${e.message}`));
+    process.exit(1);
+  }
+  console.log('[CI] Done.');
+  process.exit(0);
+})().catch(e => { console.error('[CI] Unexpected error:', e); process.exit(1); });
