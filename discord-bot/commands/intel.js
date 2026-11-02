@@ -45,7 +45,7 @@ module.exports = {
         .setTitle(`${icon} FURIOS-INT // LIVE ${sev} CVE FEED`)
         .setDescription(
           `**${cves.length}** ${sev} vulnerabilities published in the last 24 hours\n` +
-          `Source: [NVD National Vulnerability Database](https://nvd.nist.gov) • CIRCL.LU backup`
+          `Source: [NVD National Vulnerability Database](https://nvd.nist.gov)`
         );
 
       if (!cves.length) {
@@ -54,16 +54,21 @@ module.exports = {
         for (const v of cves.slice(0, count)) {
           const cve    = v.cve || v;
           const id     = cve.id || 'N/A';
-          const desc   = (cve.descriptions?.[0]?.value || 'No description.').slice(0, 200);
-          const score  = v.metrics?.cvssMetricV31?.[0]?.cvssData?.baseScore
-                      || v.metrics?.cvssMetricV2?.[0]?.cvssData?.baseScore  || '?';
-          const vec    = v.metrics?.cvssMetricV31?.[0]?.cvssData?.attackVector || '';
+          const full   = (cve.descriptions || []).find(d => d.lang === 'en')?.value
+                      || cve.descriptions?.[0]?.value || 'No description.';
+          const desc   = full.length > 200 ? full.slice(0, 199) + '…' : full;
+          // NVD 2.0 nests metrics under the cve object, not the wrapper.
+          const m      = cve.metrics || v.metrics || {};
+          const score  = m.cvssMetricV31?.[0]?.cvssData?.baseScore
+                      ?? m.cvssMetricV30?.[0]?.cvssData?.baseScore
+                      ?? m.cvssMetricV2?.[0]?.cvssData?.baseScore ?? '?';
+          const vec    = m.cvssMetricV31?.[0]?.cvssData?.attackVector || '';
           const vecStr = ATTACK_VEC[vec] || vec || '—';
           const pub    = cve.published ? new Date(cve.published).toLocaleDateString('en-US') : '?';
 
           embed.addFields({
             name:  `${icon} ${id}  [CVSS ${score}]  ${vecStr}`,
-            value: `${desc}…\n*Published: ${pub}*`,
+            value: `${desc}\n*Published: ${pub}*`,
           });
         }
       }

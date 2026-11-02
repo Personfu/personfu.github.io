@@ -9,7 +9,7 @@ const { REST, Routes } = require('discord.js');
 const fs   = require('fs');
 const path = require('path');
 
-const TOKEN     = process.env.DISCORD_TOKEN;
+const TOKEN     = (process.env.DISCORD_TOKEN || '').trim();
 const CLIENT_ID = process.env.DISCORD_CLIENT_ID || '1170817211837992981';
 const GUILD_ID  = process.env.DISCORD_GUILD_ID  || '1159996494691188765';
 
@@ -36,6 +36,9 @@ const rest = new REST().setToken(TOKEN);
     console.log(`✓ Deployed ${data.length} commands.`);
     data.forEach(c => console.log(`  /${c.name}`));
   } catch (err) {
-    console.error('Deploy error:', err);
+    console.error(`Deploy error (HTTP ${err.status ?? '?'}): ${err.message}`);
+    if (err.status === 401) console.error('→ DISCORD_TOKEN is invalid or was reset.');
+    if (err.status === 403) console.error('→ Bot is not in the guild, or was invited without the applications.commands scope.');
+    process.exitCode = 1;
   }
 })();

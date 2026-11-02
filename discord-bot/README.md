@@ -45,11 +45,20 @@
 
 | Schedule | Channel | Content |
 |---|---|---|
-| Daily 09:00 UTC | `CHANNEL_ANNOUNCEMENTS` | Daily briefing: top CVEs, system status, site links |
-| Every hour | `CHANNEL_CVE_ALERTS` | CRITICAL CVEs from NVD API |
-| On bot boot | `CHANNEL_GENERAL` | Online embed with all hub links |
+| Daily 09:00 UTC (GitHub Actions) | `CHANNEL_ANNOUNCEMENTS` | Daily briefing: newest CRITICAL CVEs + site links |
+| Daily 09:00 UTC (GitHub Actions) | `CHANNEL_CVE_ALERTS` | CRITICAL CVE alert (only when there are any) |
+| Every hour (running bot) | `CHANNEL_CVE_ALERTS` | **Newly published** CRITICAL CVEs only — no reposts |
+| On bot boot (opt-in) | `CHANNEL_GENERAL` | Online embed — set `ANNOUNCE_ON_BOOT=1` |
 
-GitHub Actions also posts the daily briefing via `ci-post.js` (stateless, exits after posting).
+The daily briefing is posted by GitHub Actions via `ci-post.js` (REST-only, exits
+after posting, fails the run loudly on bad token / missing channel / missing
+permissions). Set `BRIEFING_IN_PROCESS=1` only if you want the long-running bot
+to post it instead.
+
+Preview the briefing locally without posting anything:
+```bash
+npm run preview
+```
 
 ---
 
@@ -58,8 +67,11 @@ GitHub Actions also posts the daily briefing via `ci-post.js` (stateless, exits 
 ### 1. Install dependencies
 ```bash
 cd discord-bot
-npm install
+npm ci
 ```
+`package-lock.json` is committed — CI uses `npm ci`, which refuses to run
+without it. After changing dependencies run `npm install` and commit the
+updated lockfile.
 
 ### 2. Configure environment
 ```bash
@@ -106,6 +118,11 @@ See `.github/workflows/discord-bot.yml`. Add these as **GitHub Secrets**:
 Set these as **Repository Variables** (or they use defaults):
 - `DISCORD_CLIENT_ID` → `1170817211837992981`
 - `DISCORD_GUILD_ID` → `1159996494691188765`
+- `CHANNEL_*` may also be set as variables (channel IDs aren't secret).
+  `CHANNEL_ANNOUNCEMENTS` falls back to the server's #announcements channel.
+
+Run it by hand from **Actions → Discord Bot — Daily FLLC Briefing Post → Run
+workflow**; tick *dry_run* to see the payload in the log without posting.
 
 ---
 
