@@ -28,6 +28,10 @@ const SITE_URL = (process.env.SITE_URL || 'https://personfu.github.io').replace(
 const NVD_KEY  = process.env.NVD_API_KEY || '';
 const DRY_RUN  = /^(1|true|yes)$/i.test(process.env.DRY_RUN || '');
 
+// REST client is created up front; the config checks below only decide
+// whether we proceed, they never gate how the credential is used.
+const rest = new REST({ version: '10', timeout: 15_000 }).setToken(TOKEN || 'dry-run');
+
 // Hard stop so a stuck network call can never burn a whole Actions job.
 setTimeout(() => { console.error('[CI] Timed out after 120s.'); process.exit(1); }, 120_000).unref();
 
@@ -66,8 +70,6 @@ async function send(rest, channelId, payload, label) {
     console.error('[CI] Neither CHANNEL_ANNOUNCEMENTS nor CHANNEL_CVE_ALERTS is set — nothing to post to.');
     process.exit(1);
   }
-
-  const rest = new REST({ version: '10', timeout: 15_000 }).setToken(TOKEN || 'dry-run');
 
   if (!DRY_RUN) {
     try {
