@@ -33,3 +33,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 playwright-*-results/
+
+# Verified ephemeral QA browser, never public Pages output
+.cache/
+__pycache__/

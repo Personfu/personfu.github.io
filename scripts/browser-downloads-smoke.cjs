@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const http = require('node:http');
 const { crc32: standardCRC32 } = require('node:zlib');
-const { chromium } = require('@playwright/test');
+const { launchSecureBrowser } = require('./secure-browser.cjs');
 const cases = require('../CyberWorld/ascension-data.js').missions;
 const files = require('../CyberWorld/ascension-downloads.js');
 const root = path.resolve(__dirname, '..');
@@ -60,7 +60,7 @@ async function main() {
   await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
   let browser;
   try {
-    browser = await chromium.launch({ headless: true, channel: 'chrome' });
+    browser = await launchSecureBrowser({ headless: true });
     const page = await browser.newPage({ viewport: { width: 1440, height: 960 }, serviceWorkers: 'block', reducedMotion: 'reduce' });
     const errors = []; page.on('pageerror', error => errors.push(error.message));
     await page.goto(`http://127.0.0.1:${server.address().port}/CyberWorld/ascension.html`, { waitUntil: 'domcontentloaded' });

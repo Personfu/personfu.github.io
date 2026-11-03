@@ -20,12 +20,12 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
-      - name: Set up Node.js 20
-        uses: actions/setup-node@v4
+      - name: Set up patched Node.js 24
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
-          node-version: '20'
+          node-version: '24.22.1'
           cache: 'npm'
           cache-dependency-path: discord-bot/package.json
 
@@ -65,7 +65,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Verify all bot command files present
         run: |
@@ -90,7 +90,7 @@ jobs:
         run: |
           if grep -rn --include="*.js" --include="*.json" \
             -E '(token|secret|password)\s*[:=]\s*['\''"][A-Za-z0-9._\-]{20,}['\''"]' \
-            discord-bot/ 2>/dev/null | grep -vi 'example\|placeholder\|YOUR_\|process\.env'; then
+            discord-bot/ 2>/dev/null | grep -vi 'example\|placeholder\|YOUR_\|process\.env' > /dev/null; then
             echo "ERROR: Possible hardcoded secret in bot source."
             exit 1
           fi
