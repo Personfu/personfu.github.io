@@ -1,3 +1,5 @@
+import subprocess
+import sys
 import importlib.util
 from io import BytesIO
 from pathlib import Path
@@ -22,6 +24,11 @@ class BrowserArchiveBoundaryTests(unittest.TestCase):
                 archive.writestr(item, b"inert fixture")
         stream.seek(0)
         return ZipFile(stream)
+
+    def test_local_archive_override_is_rejected_before_io(self):
+        result = subprocess.run([sys.executable, str(Path(__file__).with_name("install-secure-browser.py")), "--archive", "synthetic-unused-path"], capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("overrides are unsupported", result.stderr)
 
     def test_rejects_paths_outside_expected_root(self):
         for name in ("../outside", "/chrome-linux64/chrome", "chrome-linux64/../outside", "chrome-linux64\\chrome", "C:/chrome-linux64/chrome", "other/chrome"):

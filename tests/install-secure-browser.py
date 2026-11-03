@@ -1,5 +1,5 @@
 """Install only the reviewed Chrome archive; no shell or browser-profile changes."""
-import argparse
+import sys
 import hashlib
 import json
 import os
@@ -44,7 +44,7 @@ def safe_members(archive, root):
     return members
 
 
-def install(local_archive=None):
+def install():
     machine = platform.machine().lower()
     if machine not in ("amd64", "x86_64"):
         raise ValueError("No reviewed browser pin for this architecture")
@@ -61,22 +61,21 @@ def install(local_archive=None):
         raise FileExistsError("Browser target exists; use a fresh checkout or review that cache")
     with tempfile.TemporaryDirectory(prefix="install-", dir=base) as temporary:
         stage = Path(temporary)
-        archive_path = Path(local_archive).resolve() if local_archive else stage / pin["archive"]
-        if not local_archive:
-            browser_platform = {"linux-x64": "linux64", "win32-x64": "win64"}[key]
-            url = f"https://storage.googleapis.com/chrome-for-testing-public/{PIN['version']}/{browser_platform}/{pin['archive']}"
-            # Refuse redirects so the reviewed origin and immutable path remain authoritative.
-            class NoRedirect(urllib.request.HTTPRedirectHandler):
-                def redirect_request(self, req, fp, code, msg, headers, newurl):
-                    raise ValueError("Unexpected browser download redirect")
-            opener = urllib.request.build_opener(NoRedirect())
-            size = 0
-            with opener.open(url, timeout=60) as response, archive_path.open("xb") as output:
-                while chunk := response.read(1024 * 1024):
-                    size += len(chunk)
-                    if size > pin["bytes"]:
-                        raise ValueError("Browser archive exceeds pinned size")
-                    output.write(chunk)
+        archive_path = stage / pin["archive"]
+        browser_platform = {"linux-x64": "linux64", "win32-x64": "win64"}[key]
+        url = f"https://storage.googleapis.com/chrome-for-testing-public/{PIN['version']}/{browser_platform}/{pin['archive']}"
+        # Refuse redirects so the reviewed origin and immutable path remain authoritative.
+        class NoRedirect(urllib.request.HTTPRedirectHandler):
+            def redirect_request(self, req, fp, code, msg, headers, newurl):
+                raise ValueError("Unexpected browser download redirect")
+        opener = urllib.request.build_opener(NoRedirect())
+        size = 0
+        with opener.open(url, timeout=60) as response, archive_path.open("xb") as output:
+            while chunk := response.read(1024 * 1024):
+                size += len(chunk)
+                if size > pin["bytes"]:
+                    raise ValueError("Browser archive exceeds pinned size")
+                output.write(chunk)
         if archive_path.stat().st_size != pin["bytes"] or digest(archive_path) != pin["sha256"]:
             raise ValueError("Browser archive SHA-256 or size mismatch")
         extracted = stage / "verified"
@@ -110,6 +109,6 @@ def install(local_archive=None):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--archive", help="Optional local archive, subject to the same pinned hash")
-    install(parser.parse_args().archive)
+    if len(sys.argv) != 1:
+        raise SystemExit("Archive path overrides are unsupported; only the pinned official download is allowed")
+    install()
