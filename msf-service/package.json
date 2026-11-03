@@ -1,7 +1,7 @@
 {
   "name": "furios-msf-service",
   "version": "1.0.0",
-  "description": "FURIOS-INT Metasploit companion service — module catalog, CVE mapping, TTP reference, console sim",
+  "description": "FURIOS-INT Metasploit companion service \u2014 module catalog, CVE mapping, TTP reference, console sim",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -13,6 +13,8 @@
     "express": "^4.21.2",
     "express-rate-limit": "^7.4.1"
   },
-  "engines": { "node": ">=20.0.0" },
+  "engines": {
+    "node": "^22.23.4 || ^24.22.1 || ^26.12.1"
+  },
   "license": "MIT"
 }

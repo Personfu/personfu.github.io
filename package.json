@@ -14,7 +14,8 @@
     "test:static": "node scripts/validate-static.cjs build",
     "assets:registry": "node scripts/ascension-asset-registry.cjs",
     "benchmark": "node scripts/benchmark-ascension.cjs",
-    "probe:peers": "node scripts/probe-ascension-peers.cjs"
+    "probe:peers": "node scripts/probe-ascension-peers.cjs",
+    "test:service-boundaries": "node --test tests/service-boundaries.test.cjs"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

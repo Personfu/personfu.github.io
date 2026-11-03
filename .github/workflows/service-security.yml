@@ -1,0 +1,21 @@
+name: Game service security boundaries
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24.22.1'
+      - run: npm ci --ignore-scripts --no-fund
+      - run: npm ci --ignore-scripts --no-fund --prefix msf-service
+      - run: npm ci --ignore-scripts --no-fund --prefix multiplayer-server
+      - run: npm run test:service-boundaries
+      - run: npm audit --audit-level=low
+      - run: npm audit --audit-level=low --prefix msf-service
+      - run: npm audit --audit-level=low --prefix multiplayer-server

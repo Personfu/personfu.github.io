@@ -869,158 +869,21 @@ function ssrfBlock(hostname) {
 const limiterOsint = rateLimit({ windowMs: 60000, max: 20, standardHeaders: true, legacyHeaders: false, message: { error: 'OSINT rate limit: 20/min.' } });
 
 // GET /api/osint/rdap?domain=example.com
-app.get('/api/osint/rdap', limiterOsint, async (req, res) => {
-  const domain = sanitizeDomain(req.query.domain);
-  if (!domain) return res.status(400).json({ error: 'Valid domain required' });
-  const ck = `rdap:${domain}`;
-  const hit = await rGet(ck);
-  if (hit) return res.json({ ...hit, cached: true });
-  try {
-    const r = await fetch(`https://rdap.org/domain/${encodeURIComponent(domain)}`, {
-      headers: { 'Accept': 'application/json', 'User-Agent': 'FURIOS-OSINT/3.0' },
-      signal: AbortSignal.timeout(8000)
-    });
-    if (!r.ok) return res.status(502).json({ error: `RDAP ${r.status}` });
-    const d = await r.json();
-    const result = {
-      domain: d.ldhName || domain,
-      status: d.status || [],
-      registrar: (d.entities || []).find(e => (e.roles || []).includes('registrar'))
-        ?.vcardArray?.[1]?.find(f => f[0] === 'fn')?.[3] || 'unknown',
-      nameservers: (d.nameservers || []).map(n => n.ldhName),
-      events: (d.events || []).map(e => ({ action: e.eventAction, date: e.eventDate })),
-      handle: d.handle
-    };
-    await rSet(ck, result, 3600);
-    return res.json(result);
-  } catch (e) { return res.status(502).json({ error: 'RDAP failed', detail: e.message }); }
-});
+app.get('/api/osint/rdap', limiterOsint, async (req, res) => { return res.status(410).json({ error: 'Real-target queries and execution are unavailable. Use the fictional in-game sandbox.', mode: 'simulation-only' }); });
 
 // GET /api/osint/crtsh?domain=example.com
-app.get('/api/osint/crtsh', limiterOsint, async (req, res) => {
-  const domain = sanitizeDomain(req.query.domain);
-  if (!domain) return res.status(400).json({ error: 'Valid domain required' });
-  const ck = `crtsh:${domain}`;
-  const hit = await rGet(ck);
-  if (hit) return res.json({ ...hit, cached: true });
-  try {
-    const r = await fetch(`https://crt.sh/?q=%.${encodeURIComponent(domain)}&output=json`, {
-      headers: { 'User-Agent': 'FURIOS-OSINT/3.0' },
-      signal: AbortSignal.timeout(14000)
-    });
-    if (!r.ok) return res.status(502).json({ error: `crt.sh ${r.status}` });
-    const data = await r.json();
-    const seen = new Set();
-    const subdomains = data.map(e => e.name_value.split('\n')).flat()
-      .filter(s => { if (seen.has(s)) return false; seen.add(s); return true; })
-      .filter(s => s.endsWith(domain)).sort();
-    const result = {
-      domain, subdomains, count: subdomains.length,
-      sampleCerts: data.slice(0, 5).map(c => ({
-        id: c.id, issuer: c.issuer_name,
-        notBefore: c.not_before, notAfter: c.not_after, name: c.name_value
-      }))
-    };
-    await rSet(ck, result, 1800);
-    return res.json(result);
-  } catch (e) { return res.status(502).json({ error: 'crt.sh failed', detail: e.message }); }
-});
+app.get('/api/osint/crtsh', limiterOsint, async (req, res) => { return res.status(410).json({ error: 'Real-target queries and execution are unavailable. Use the fictional in-game sandbox.', mode: 'simulation-only' }); });
 
 // GET /api/osint/dns?domain=example.com&type=ALL
 const dnsLib = require('dns').promises;
-app.get('/api/osint/dns', limiterOsint, async (req, res) => {
-  const domain = sanitizeDomain(req.query.domain);
-  const type = String(req.query.type || 'ALL').toUpperCase();
-  const ALLOWED = ['A', 'AAAA', 'MX', 'NS', 'TXT', 'CNAME', 'SOA', 'ALL'];
-  if (!domain) return res.status(400).json({ error: 'Valid domain required' });
-  if (!ALLOWED.includes(type)) return res.status(400).json({ error: 'Invalid type' });
-  const ck = `dns:${domain}:${type}`;
-  const hit = await rGet(ck);
-  if (hit) return res.json({ ...hit, cached: true });
-  const recs = {};
-  const resolveOne = async (t) => {
-    try {
-      switch (t) {
-        case 'A':     recs.A     = await dnsLib.resolve4(domain);     break;
-        case 'AAAA':  recs.AAAA  = await dnsLib.resolve6(domain);     break;
-        case 'MX':    recs.MX    = await dnsLib.resolveMx(domain);    break;
-        case 'NS':    recs.NS    = await dnsLib.resolveNs(domain);    break;
-        case 'TXT':   recs.TXT   = await dnsLib.resolveTxt(domain);   break;
-        case 'CNAME': recs.CNAME = await dnsLib.resolveCname(domain); break;
-        case 'SOA':   recs.SOA   = await dnsLib.resolveSoa(domain);   break;
-      }
-    } catch (_) { recs[t] = null; }
-  };
-  if (type === 'ALL') await Promise.all(['A','AAAA','MX','NS','TXT','CNAME'].map(resolveOne));
-  else await resolveOne(type);
-  const result = { domain, records: recs };
-  await rSet(ck, result, 300);
-  return res.json(result);
-});
+app.get('/api/osint/dns', limiterOsint, async (req, res) => { return res.status(410).json({ error: 'Real-target queries and execution are unavailable. Use the fictional in-game sandbox.', mode: 'simulation-only' }); });
 
 // GET /api/osint/ip?ip=8.8.8.8
-app.get('/api/osint/ip', limiterOsint, async (req, res) => {
-  const ip = sanitizeIp(req.query.ip);
-  if (!ip) return res.status(400).json({ error: 'Valid public IP required' });
-  const ck = `ip:${ip}`;
-  const hit = await rGet(ck);
-  if (hit) return res.json({ ...hit, cached: true });
-  try {
-    const r = await fetch(`https://ipwho.is/${encodeURIComponent(ip)}`, {
-      headers: { 'User-Agent': 'FURIOS-OSINT/3.0' },
-      signal: AbortSignal.timeout(6000)
-    });
-    if (!r.ok) return res.status(502).json({ error: `ipwho.is ${r.status}` });
-    const d = await r.json();
-    const result = {
-      ip: d.ip, type: d.type,
-      country: d.country, country_code: d.country_code,
-      region: d.region, city: d.city,
-      isp: d.connection && d.connection.isp,
-      org: d.connection && d.connection.org,
-      asn: d.connection && d.connection.asn,
-      lat: d.latitude, lon: d.longitude,
-      is_eu: d.is_eu
-    };
-    await rSet(ck, result, 3600);
-    return res.json(result);
-  } catch (e) { return res.status(502).json({ error: 'IP lookup failed', detail: e.message }); }
-});
+app.get('/api/osint/ip', limiterOsint, async (req, res) => { return res.status(410).json({ error: 'Real-target queries and execution are unavailable. Use the fictional in-game sandbox.', mode: 'simulation-only' }); });
 
-// GET /api/tools/headers?url=https://example.com  (SSRF-safe)
+// Retired real-target header query: game tooling must remain fictional.
 const limiterHeaders = rateLimit({ windowMs: 60000, max: 15, standardHeaders: true, legacyHeaders: false, message: { error: 'Header check rate limit.' } });
-app.get('/api/tools/headers', limiterHeaders, async (req, res) => {
-  if (!req.query.url) return res.status(400).json({ error: 'url required' });
-  let target;
-  try {
-    target = new URL(req.query.url);
-    if (!['http:', 'https:'].includes(target.protocol)) throw new Error('bad protocol');
-    if (ssrfBlock(target.hostname)) return res.status(400).json({ error: 'Private URLs not allowed' });
-  } catch (e) { return res.status(400).json({ error: 'Invalid URL' }); }
-
-  const ck = `headers:${target.origin}`;
-  const hit = await rGet(ck);
-  if (hit) return res.json({ ...hit, cached: true });
-  try {
-    const r = await fetch(target.origin + '/', {
-      method: 'HEAD', redirect: 'follow',
-      headers: { 'User-Agent': 'FURIOS-SecurityAudit/3.0' },
-      signal: AbortSignal.timeout(8000)
-    });
-    const hdrs = Object.fromEntries(r.headers.entries());
-    const SEC_HDRS = [
-      'strict-transport-security', 'content-security-policy', 'x-frame-options',
-      'x-content-type-options', 'referrer-policy', 'permissions-policy',
-      'cross-origin-opener-policy', 'cross-origin-resource-policy', 'cross-origin-embedder-policy'
-    ];
-    const analysis = {};
-    for (const h of SEC_HDRS) analysis[h] = { present: h in hdrs, value: hdrs[h] || null };
-    const score = Math.round(SEC_HDRS.filter(h => h in hdrs).length / SEC_HDRS.length * 100);
-    const result = { url: target.origin, status: r.status, securityHeaders: analysis, securityScore: score };
-    await rSet(ck, result, 600);
-    return res.json(result);
-  } catch (e) { return res.status(502).json({ error: 'Fetch failed', detail: e.message }); }
-});
+app.get('/api/tools/headers', limiterHeaders, async (req, res) => { return res.status(410).json({ error: 'Real-target queries and execution are unavailable. Use the fictional in-game sandbox.', mode: 'simulation-only' }); });
 
 // ═══════════════════════════════════════════
 // Threat Intelligence Feeds (server-cached)
@@ -1037,9 +900,9 @@ app.get('/api/threat/nvd', async (req, res) => {
   try {
     const params = new URLSearchParams({ resultsPerPage: String(limit), startIndex: '0' });
     if (severity) params.set('cvssV3Severity', severity);
-    if (process.env.NVD_API_KEY) params.set('apiKey', process.env.NVD_API_KEY);
-    const r = await fetch(`https://services.nvd.nist.gov/rest/json/cves/2.0?${params}`, {
-      headers: { 'User-Agent': 'FURIOS-Intel/3.0' },
+      const r = await fetch(`https://services.nvd.nist.gov/rest/json/cves/2.0?${params}`, {
+      headers: { 'User-Agent': 'FURIOS-Intel/3.0', ...(process.env.NVD_API_KEY ? { apiKey: process.env.NVD_API_KEY } : {}) },
+      redirect: 'error',
       signal: AbortSignal.timeout(12000)
     });
     if (!r.ok) return res.status(502).json({ error: `NVD ${r.status}` });
@@ -1065,7 +928,7 @@ app.get('/api/threat/nvd', async (req, res) => {
       io.emit('cve:alert', { cveId: c.id, severity: c.severity, score: c.score, description: c.description.slice(0, 200), at: new Date().toISOString() });
     });
     return res.json(result);
-  } catch (e) { return res.status(502).json({ error: 'NVD failed', detail: e.message }); }
+  } catch (e) { return res.status(502).json({ error: 'NVD failed', detail: "Request failed" }); }
 });
 
 // GET /api/threat/cisa-kev?limit=20&search=apache
@@ -1084,7 +947,7 @@ app.get('/api/threat/cisa-kev', async (req, res) => {
       const data = await r.json();
       all = data.vulnerabilities || [];
       await rSet(ck, all, 3600);
-    } catch (e) { return res.status(502).json({ error: 'CISA KEV failed', detail: e.message }); }
+    } catch (e) { return res.status(502).json({ error: 'CISA KEV failed', detail: "Request failed" }); }
   }
   const filtered = search
     ? all.filter(v => [(v.cveID||''),(v.vulnerabilityName||''),(v.product||''),(v.vendorProject||'')]
@@ -1129,28 +992,11 @@ app.get('/api/threat/mitre', (req, res) => {
 // ═══════════════════════════════════════════
 // Metasploit RPC Proxy + Console Simulation
 // ═══════════════════════════════════════════
-const MSF_RPC_URL  = process.env.MSF_RPC_URL  || '';
-const MSF_RPC_PASS = process.env.MSF_RPC_PASS || '';
-let msfToken = null;
 
-async function msfAuth() {
-  if (!MSF_RPC_URL || !MSF_RPC_PASS) return null;
-  try {
-    const r = await fetch(`${MSF_RPC_URL}/api/v1/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: 'msf', password: MSF_RPC_PASS }),
-      signal: AbortSignal.timeout(5000)
-    });
-    const d = await r.json();
-    msfToken = d.token || null;
-    if (msfToken) console.log('[MSF] RPC authenticated — live Metasploit connected');
-    return msfToken;
-  } catch (e) {
-    console.warn('[MSF] RPC auth failed:', e.message);
-    return null;
-  }
-}
+
+
+
+
 
 // GET /api/tools/msf/search?q=eternalblue&type=exploit
 app.get('/api/tools/msf/search', async (req, res) => {
@@ -1158,15 +1004,7 @@ app.get('/api/tools/msf/search', async (req, res) => {
   const type     = String(req.query.type     || '');
   const category = String(req.query.category || '');
 
-  if (MSF_RPC_URL && msfToken) {
-    try {
-      const r = await fetch(`${MSF_RPC_URL}/api/v1/modules/search?q=${encodeURIComponent(q)}`, {
-        headers: { 'Authorization': `Bearer ${msfToken}` },
-        signal: AbortSignal.timeout(6000)
-      });
-      if (r.ok) return res.json({ source: 'live-msf', ...(await r.json()) });
-    } catch (_) {}
-  }
+
 
   let mods = MSF_MODULES;
   if (q)        mods = mods.filter(m => m.name.includes(q) || m.desc.toLowerCase().includes(q) || (m.cve||'').includes(q));
@@ -1190,18 +1028,7 @@ app.get('/api/tools/msf/module', (req, res) => {
 });
 
 // GET /api/tools/msf/sessions (live RPC or empty)
-app.get('/api/tools/msf/sessions', authRequired, async (req, res) => {
-  if (MSF_RPC_URL && msfToken) {
-    try {
-      const r = await fetch(`${MSF_RPC_URL}/api/v1/sessions`, {
-        headers: { 'Authorization': `Bearer ${msfToken}` },
-        signal: AbortSignal.timeout(5000)
-      });
-      if (r.ok) return res.json(await r.json());
-    } catch (_) {}
-  }
-  return res.json({ sessions: [], note: 'Set MSF_RPC_URL + MSF_RPC_PASS to connect live Metasploit' });
-});
+app.get('/api/tools/msf/sessions', authRequired, async (req, res) => { return res.json({ sessions: [], mode: 'simulation-only' }); });
 
 // POST /api/tools/msf/console — proxy or educational simulation
 const limiterMsfConsole = rateLimit({ windowMs: 60000, max: 10, standardHeaders: true, legacyHeaders: false, message: { error: 'MSF console: 10 commands/min.' } });
@@ -1212,17 +1039,7 @@ app.post('/api/tools/msf/console', authRequired, limiterMsfConsole, async (req, 
   if (!cmd) return res.status(400).json({ error: 'command required' });
   if (MSF_DENY.test(cmd)) return res.status(400).json({ error: 'Command not permitted in training mode.' });
 
-  if (MSF_RPC_URL && msfToken) {
-    try {
-      const r = await fetch(`${MSF_RPC_URL}/api/v1/consoles`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${msfToken}` },
-        body: JSON.stringify({ command: cmd }),
-        signal: AbortSignal.timeout(8000)
-      });
-      if (r.ok) return res.json(await r.json());
-    } catch (_) {}
-  }
+
 
   // Educational simulation
   const SIM = {
@@ -1293,37 +1110,12 @@ app.post('/api/admin/cve-alert', adminAuth, (req, res) => {
 });
 
 // ── GET /api/msf/health — proxy to msf-service ──────────────────────────────
-app.get('/api/msf/health', async (_req, res) => {
-  if (!MSF_RPC_URL) return res.json({ status: 'no-msf-url', catalog: 'local' });
-  const baseUrl = MSF_RPC_URL.replace(/\/api\/v1.*$/, '');
-  try {
-    const r = await fetch(`${baseUrl}/health`, { signal: AbortSignal.timeout(4000) });
-    const data = r.ok ? await r.json() : { status: 'error', code: r.status };
-    return res.json(data);
-  } catch (e) {
-    return res.status(502).json({ status: 'unreachable', error: e.message });
-  }
-});
+app.get('/api/msf/health', async (_req, res) => { return res.json({ status: 'simulation-only', catalog: 'local', live: false }); });
 
 // ── Metasploit-Framework RPC Gateway proxy ───────────────────────────────────
-const MSF_GW_URL = process.env.MSF_GW_URL || 'http://metasploit-framework.railway.internal:8888';
 
-async function msfGwProxy(path, req, res) {
-  try {
-    const url = `${MSF_GW_URL}${path}${req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : ''}`;
-    const opts = { signal: AbortSignal.timeout(8000), headers: { 'User-Agent': 'FURIOS-NEXUS/3.0' } };
-    if (req.method === 'POST') {
-      opts.method = 'POST';
-      opts.headers['Content-Type'] = 'application/json';
-      opts.body = JSON.stringify(req.body);
-    }
-    const r = await fetch(url, opts);
-    const data = r.ok ? await r.json() : { error: `MSF-GW ${r.status}` };
-    return res.status(r.ok ? 200 : r.status).json(data);
-  } catch (e) {
-    return res.status(502).json({ error: 'msf-gateway unreachable', detail: e.message });
-  }
-}
+
+async function msfGwProxy(path, req, res) { return res.status(410).json({ error: 'Live network tooling is disabled in this fictional training game.', mode: 'simulation-only' }); }
 
 // These routes augment (don't replace) the local catalog-based routes above
 app.get('/api/msf-gw/health',   (_req, res) => msfGwProxy('/health',      _req, res));
@@ -1331,25 +1123,9 @@ app.get('/api/msf-gw/modules',  (req,  res) => msfGwProxy('/api/modules', req,  
 app.post('/api/msf-gw/console', (req,  res) => msfGwProxy('/api/console', req,  res));
 
 // ── OWASP Orizon proxy ───────────────────────────────────────────────────────
-const ORIZON_URL = process.env.ORIZON_URL || 'http://owasp-orizon.railway.internal:8080';
 
-async function orizonProxy(path, req, res) {
-  try {
-    const qs = req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '';
-    const url = `${ORIZON_URL}${path}${qs}`;
-    const opts = { signal: AbortSignal.timeout(8000), headers: { 'User-Agent': 'FURIOS-NEXUS/3.0' } };
-    if (req.method === 'POST') {
-      opts.method = 'POST';
-      opts.headers['Content-Type'] = 'application/json';
-      opts.body = JSON.stringify(req.body);
-    }
-    const r = await fetch(url, opts);
-    const data = r.ok ? await r.json() : { error: `ORIZON ${r.status}` };
-    return res.status(r.ok ? 200 : r.status).json(data);
-  } catch (e) {
-    return res.status(502).json({ error: 'orizon-service unreachable', detail: e.message });
-  }
-}
+
+async function orizonProxy(path, req, res) { return res.status(410).json({ error: 'Live network tooling is disabled in this fictional training game.', mode: 'simulation-only' }); }
 
 // Rate limiter for scan endpoint
 const limiterScan = rateLimit({ windowMs: 60000, max: 20, standardHeaders: true, legacyHeaders: false });
@@ -1364,7 +1140,7 @@ app.get( '/api/orizon/cwe/:id', (req, res) => {
 });
 
 // ── GET /api/stats ──────────────────────────────────────────────────────────
-app.get('/api/stats', async (req, res) => {
+app.get('/api/stats', adminAuth, async (req, res) => {
   const world = await store.getWorldMeta().catch(() => ({}));
   let userCount = 0;
   if (usePostgres) {
@@ -1378,9 +1154,9 @@ app.get('/api/stats', async (req, res) => {
     memory: process.memoryUsage(),
     db: usePostgres ? 'postgres' : 'json-file',
     redis: redis ? 'connected' : 'in-memory',
-    msfRpc: MSF_RPC_URL ? 'configured' : 'catalog-only',
-    msfGateway: MSF_GW_URL ? 'configured' : 'unavailable',
-    orizon: ORIZON_URL ? 'configured' : 'unavailable',
+    msfRpc: "simulation-only",
+    msfGateway: "simulation-only",
+    orizon: "simulation-only",
     operatives: userCount, onlineNow: io.engine.clientsCount,
     world: { operation: world.operation, globalThreat: world.globalThreat },
     cacheSize: CACHE.size
@@ -1457,7 +1233,7 @@ io.on('connection', (socket) => {
 });
 
 // ── Startup ──
-(async () => {
+async function start() {
   try {
     await ensureSchema();
   } catch (err) {
@@ -1466,11 +1242,7 @@ io.on('connection', (socket) => {
   }
 
   // Attempt Metasploit RPC auth if configured
-  if (MSF_RPC_URL) {
-    await msfAuth();
-    // Re-auth every 30 minutes (token expiry)
-    setInterval(msfAuth, 30 * 60 * 1000);
-  }
+
 
   // Warm the CISA KEV cache in background
   fetch('https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json', {
@@ -1489,6 +1261,8 @@ io.on('connection', (socket) => {
     console.log(`[STATS] Endpoint:  /api/stats`);
     if (usePostgres) console.log('[DB] Connected to PostgreSQL');
     if (stripe) console.log('[Stripe] Webhook endpoint: POST /api/stripe/webhook');
-    if (MSF_RPC_URL) console.log(`[MSF] Live RPC configured at ${MSF_RPC_URL}`);
+
   });
-})();
+}
+if (require.main === module) start();
+module.exports = { app, server };
