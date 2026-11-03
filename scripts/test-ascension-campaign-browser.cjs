@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const http = require('node:http');
-const { chromium } = require('@playwright/test');
+const { launchSecureBrowser } = require('./secure-browser.cjs');
 const data = require('../CyberWorld/ascension-data.js');
 const root = path.resolve(__dirname, '..');
 const mime = {'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.webp':'image/webp','.json':'application/json','.webmanifest':'application/manifest+json'};
@@ -17,7 +17,7 @@ async function run() {
   await new Promise(resolve => server.listen(0,'127.0.0.1',resolve));
   let browser;
   try {
-    browser=await chromium.launch({headless:true,channel:'chrome'});
+    browser=await launchSecureBrowser({headless:true});
     const page=await browser.newPage({viewport:{width:1440,height:960},reducedMotion:'no-preference',serviceWorkers:'block'});
     const errors=[];page.on('pageerror',e=>{errors.push(e.message);console.error('Campaign browser error:',e.message);});
     await page.goto(`http://127.0.0.1:${server.address().port}/CyberWorld/ascension.html`,{waitUntil:'domcontentloaded'});

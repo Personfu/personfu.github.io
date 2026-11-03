@@ -1,0 +1,35 @@
+name: Verified browser runtime
+on:
+  pull_request:
+    paths: ['scripts/**', 'tests/**', 'playwright.config.cjs', 'package*.json', '.github/workflows/browser-runtime-security.yml']
+  push:
+    branches: [main]
+    paths: ['scripts/**', 'tests/**', 'playwright.config.cjs', 'package*.json', '.github/workflows/browser-runtime-security.yml']
+permissions:
+  contents: read
+jobs:
+  browser-security:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      CHROME_DEVEL_SANDBOX: /usr/lib/fllc-ci/chrome-sandbox
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24.22.1
+      - run: npm ci --ignore-scripts --strict-peer-deps --legacy-peer-deps=false
+      - run: npm audit --audit-level=low
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run build
+      - run: git diff --exit-code -- play-cyberworld CyberWorld
+      - run: npm test
+      - run: node --check scripts/secure-browser.cjs
+      - run: node --test tests/security/browser-policy.test.mjs tests/security/browser-owner.test.cjs
+      - run: python3 tests/test_browser_installer.py
+      - run: python3 tests/install-secure-browser.py
+      - run: npx --no-install playwright install-deps chromium
+      - run: python3 tests/check-linux-sandbox.py
+      - run: node tests/security/browser-inert-smoke.cjs
+      - run: npx --no-install playwright test --list

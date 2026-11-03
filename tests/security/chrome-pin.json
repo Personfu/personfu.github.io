@@ -1,0 +1,23 @@
+{
+  "version": "156.0.8078.80",
+  "minimumVersion": "156.0.8078.73",
+  "advisory": "https://nvd.nist.gov/vuln/detail/CVE-2026-118306",
+  "source": "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json",
+  "platforms": {
+    "linux-x64": {
+      "archive": "chrome-linux64.zip",
+      "root": "chrome-linux64",
+      "executable": "chrome",
+      "sha256": "b711c720f774be355197f32edf37e0651418ba036d92446ee2da19ac017540a7",
+      "bytes": 201329937,
+      "sandboxSha256": "be9f5d4be90fa60b985ad3069812b144ba7331fed0c3f980c6d9399d37d60314"
+    },
+    "win32-x64": {
+      "archive": "chrome-win64.zip",
+      "root": "chrome-win64",
+      "executable": "chrome.exe",
+      "sha256": "16edb57d6107bf1c48a7c149b8d78b155fe614410093796dd72441fd6640540f",
+      "bytes": 208152768
+    }
+  }
+}
