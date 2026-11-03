@@ -2,6 +2,8 @@
 node_modules/
 package-lock.json
 !/package-lock.json
+!/msf-service/package-lock.json
+!/multiplayer-server/package-lock.json
 
 # Environment secrets — NEVER commit these
 .env

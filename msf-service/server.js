@@ -3,7 +3,7 @@
  * ═══════════════════════════════════════════════════════════════════
  *  FURIOS-INT MSF-SERVICE — server.js
  *  Metasploit Framework companion API for Railway
- *  Connects to Metasploit RPC when configured, simulates when not.
+ *  Fictional catalog and simulation only; no connection to real tooling.
  * ═══════════════════════════════════════════════════════════════════
  */
 
@@ -15,9 +15,9 @@ const crypto     = require('crypto');
 
 const PORT         = Number(process.env.PORT || 4567);
 const ADMIN_KEY    = process.env.ADMIN_KEY || '';
-const MSF_RPC_HOST = process.env.MSF_RPC_HOST || 'localhost';
-const MSF_RPC_PORT = Number(process.env.MSF_RPC_PORT || 55553);
-const MSF_RPC_PASS = process.env.MSF_RPC_PASS || '';
+
+
+
 const NEXUS_URL    = process.env.NEXUS_URL || 'https://personfugithubio-production.up.railway.app';
 
 const app = express();
@@ -114,40 +114,12 @@ for (const m of MODULES) {
 // ══════════════════════════════════════════════
 // Metasploit RPC (msgpack HTTP) — optional live
 // ══════════════════════════════════════════════
-let msfToken = null;
-const MSF_BASE = `http://${MSF_RPC_HOST}:${MSF_RPC_PORT}`;
 
-async function msfRpcCall(method, params = []) {
-  if (!MSF_RPC_PASS) return null;
-  try {
-    // Metasploit RPC uses JSON-RPC over HTTP on modern versions
-    const r = await fetch(`${MSF_BASE}/api/v1/${method}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', ...(msfToken ? { 'Authorization': `Bearer ${msfToken}` } : {}) },
-      body: JSON.stringify(params[0] || {}),
-      signal: AbortSignal.timeout(6000)
-    });
-    if (!r.ok) return null;
-    return await r.json();
-  } catch (_) { return null; }
-}
 
-async function msfLogin() {
-  if (!MSF_RPC_PASS) return false;
-  try {
-    const r = await fetch(`${MSF_BASE}/api/v1/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: 'msf', password: MSF_RPC_PASS }),
-      signal: AbortSignal.timeout(5000)
-    });
-    if (!r.ok) return false;
-    const d = await r.json();
-    msfToken = d.token || null;
-    if (msfToken) console.log('[MSF] RPC authenticated via Metasploit API');
-    return !!msfToken;
-  } catch (e) { console.warn('[MSF] RPC login failed:', e.message); return false; }
-}
+
+
+
+
 
 // ══════════════════════════════════════════════
 // Console simulation
@@ -195,7 +167,7 @@ function simulateConsole(cmd) {
 app.get('/health', (_req, res) => {
   res.json({
     ok: true, service: 'furios-msf-service', version: '1.0.0',
-    modules: MODULES.length, msfRpc: msfToken ? 'live' : 'simulation',
+    modules: MODULES.length, msfRpc: "simulation-only",
     uptime: Math.floor(process.uptime()), timestamp: new Date().toISOString()
   });
 });
@@ -349,33 +321,16 @@ app.post('/api/console', async (req, res) => {
   if (CMD_DENY.test(cmd)) return res.status(400).json({ error: 'Command not permitted in training mode.' });
 
   // Try live RPC first
-  if (msfToken) {
-    const live = await msfRpcCall('consoles', [{ command: cmd }]);
-    if (live) return res.json({ ...live, mode: 'live' });
-  }
+
 
   return res.json(simulateConsole(cmd));
 });
 
 // POST /api/console/live — admin-only live RPC passthrough
-app.post('/api/console/live', adminGuard, async (req, res) => {
-  const cmd = String((req.body || {}).command || '').slice(0, 500).trim();
-  if (!cmd) return res.status(400).json({ error: 'command required' });
-  if (!msfToken) return res.status(503).json({ error: 'Live MSF RPC not connected', simulation: simulateConsole(cmd) });
-  const live = await msfRpcCall('consoles', [{ command: cmd }]);
-  return live ? res.json({ ...live, mode: 'live' }) : res.status(502).json({ error: 'MSF RPC call failed' });
-});
+app.post('/api/console/live', adminGuard, async (req, res) => { return res.status(410).json({ error: 'Real-target queries and execution are unavailable. Use the fictional in-game sandbox.', mode: 'simulation-only' }); });
 
-// ── Startup ────────────────────────────────────────────────────────────────
-(async () => {
-  if (MSF_RPC_PASS) {
-    await msfLogin();
-    setInterval(msfLogin, 25 * 60 * 1000);
-  }
-  app.listen(PORT, '0.0.0.0', () => {
-    console.log(`[MSF-SERVICE] Listening on 0.0.0.0:${PORT}`);
-    console.log(`[MSF-SERVICE] Modules: ${MODULES.length} | CVE mappings: ${Object.keys(CVE_MAP).length}`);
-    console.log(`[MSF-SERVICE] RPC: ${MSF_RPC_PASS ? `${MSF_BASE}` : 'simulation mode (set MSF_RPC_PASS)'}`);
-    console.log(`[MSF-SERVICE] Nexus: ${NEXUS_URL}`);
-  });
-})();
+// Start only when launched directly; tests import the app without network setup.
+if (require.main === module) {
+  app.listen(PORT, '0.0.0.0', () => console.log('[MSF-SERVICE] Fictional catalog simulation ready'));
+}
+module.exports = { app };

@@ -129,3 +129,19 @@ Frontend (GitHub Pages)          Backend (Render)
                                 │ users, world_state        │
                                 └──────────────────────────┘
 ```
+
+## Security and privacy boundaries
+
+Real-target OSINT/header queries and live MSF/scan gateways are unavailable in
+this fictional game. Those legacy routes return an explicit denial; module
+catalogs and educational simulations remain. An arbitrary URL fetcher cannot
+be made safe by a hostname prefix regex: DNS resolution and redirects can
+cross that boundary. The game now has no such target-fetch path.
+
+Operational `/api/stats` data requires the admin guard, and public error bodies
+use generic text instead of upstream exception details. Keep admin/signing
+credentials in private service configuration. Run the root typecheck, lint,
+static build, and `npm run test:service-boundaries`; the latter uses disposable
+loopback servers with outbound fetch blocked and no production database or
+payment credentials. Service dependency locks and supported patched Node floors
+are maintained separately from the static site's build.
