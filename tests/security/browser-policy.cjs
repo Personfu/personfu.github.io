@@ -26,7 +26,7 @@ function assertPatchedVersion(version) {
     }
     if (actual[index] < minimum[index]) {
       throw new Error(
-        "Browser is vulnerable to CVE-2026-118306; no page may open."
+        "Browser is vulnerable under the reviewed security floor; no page may open."
       );
     }
   }
