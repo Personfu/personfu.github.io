@@ -3,7 +3,7 @@
 The static game uses Playwright 1.64.1, but that package bundles Chromium
 156.0.8078.4. CVE-2026-118306 affects Chrome before 156.0.8078.73. Updating
 the driver alone does not fix the browser. QA now uses the exact official Chrome
-for Testing 156.0.8078.80 archive and checks its size, SHA-256, extracted executable
+for Testing 157.0.8103.38 archive and checks its size, SHA-256, extracted executable
 receipt and actual running version before opening pages. The system Chrome channel
 and user browser profile are never selected.
 
@@ -39,3 +39,10 @@ Sources reviewed November 3, 2026:
 - [Chromium Ubuntu sandbox guidance](https://chromium.googlesource.com/chromium/src/+/main/docs/security/apparmor-userns-restrictions.md)
 
 - [Node.js October security releases](https://nodejs.org/en/blog/vulnerability/october-2026-security-releases)
+
+
+## November 3 browser security release
+
+Reviewed November 4, 2026: [Google's Chrome 157 release](https://chromereleases.googleblog.com/2026/11/stable-channel-update-for-desktop.html) lists 213 security fixes, including seven critical issues: CVE-2026-121156, CVE-2026-121229, CVE-2026-121246, CVE-2026-121035, CVE-2026-121247, CVE-2026-121203 and CVE-2026-121126. The reviewed runtime and minimum accepted version are now 157.0.8103.38. The earlier 156.0.8078.73 floor addressed CVE-2026-118306 only; the previously reviewed 156.0.8078.80 pin is no longer sufficient for this release. This does not establish that every fixed issue was exploitable in this harness.
+
+Both supported archives have fresh size/SHA-256 pins; Linux uses the matching helper from the same archive. Boundary tests reject the former pin and 157.0.8103.37, and accept 157.0.8103.38. Archive validation, executable receipts, actual browser-version preflight, sandbox enforcement and all existing application assertions remain required. No package-manager, release-age, host-security or retry policy is relaxed. Running services, previously downloaded caches and published artifacts still require independent rollout evidence.

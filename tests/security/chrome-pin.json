@@ -1,23 +1,34 @@
 {
-  "version": "156.0.8078.80",
-  "minimumVersion": "156.0.8078.73",
-  "advisory": "https://nvd.nist.gov/vuln/detail/CVE-2026-118306",
+  "version": "157.0.8103.38",
+  "minimumVersion": "157.0.8103.38",
+  "advisory": "https://chromereleases.googleblog.com/2026/11/stable-channel-update-for-desktop.html",
   "source": "https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json",
   "platforms": {
     "linux-x64": {
       "archive": "chrome-linux64.zip",
       "root": "chrome-linux64",
       "executable": "chrome",
-      "sha256": "b711c720f774be355197f32edf37e0651418ba036d92446ee2da19ac017540a7",
-      "bytes": 201329937,
-      "sandboxSha256": "be9f5d4be90fa60b985ad3069812b144ba7331fed0c3f980c6d9399d37d60314"
+      "sha256": "8cdeb344e9b2cefe59f4aea8d1d93d5d93054c03cde217665c16fc1f62e72a66",
+      "bytes": 203502190,
+      "sandboxSha256": "8f93aa6b8dbf07073b2baedf2ae7b169515922bc097043de9dca27f6c7905704"
     },
     "win32-x64": {
       "archive": "chrome-win64.zip",
       "root": "chrome-win64",
       "executable": "chrome.exe",
-      "sha256": "16edb57d6107bf1c48a7c149b8d78b155fe614410093796dd72441fd6640540f",
-      "bytes": 208152768
+      "sha256": "ae0deef27d449e1d7529df7705d609bab102de48464da13567ed3dd2ee1a0586",
+      "bytes": 210600182
     }
-  }
+  },
+  "advisories": [
+    "CVE-2026-121156",
+    "CVE-2026-121229",
+    "CVE-2026-121246",
+    "CVE-2026-121035",
+    "CVE-2026-121247",
+    "CVE-2026-121203",
+    "CVE-2026-121126",
+    "CVE-2026-118306"
+  ],
+  "reviewedAt": "2026-11-04T14:06:07.107707+00:00"
 }
