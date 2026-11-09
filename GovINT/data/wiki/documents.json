@@ -1,0 +1,544 @@
+{
+  "documents": [
+    {
+      "id": "odni-uap-2021",
+      "title": "Preliminary Assessment: Unidentified Aerial Phenomena",
+      "issuing_body": "Office of the Director of National Intelligence",
+      "date": "2021-06-25",
+      "summary": "The first official unclassified UAP report mandated by the FY2021 Intelligence Authorization Act. Documents 144 UAP reports from U.S. government sources between 2004–2021. Concludes most remain unexplained. 18 cases exhibit unusual movement characteristics.",
+      "url": "https://www.odni.gov/files/ODNI/documents/assessments/Preliminary-Assessment-UAP-20210625.pdf",
+      "az_relevance": "Arizona hosts three major UAP-proximate military ranges (Barry Goldwater, Yuma Proving Ground, Fort Huachuca Electronic Proving Ground). Multiple incidents in UAPTF dataset occurred over southwestern US military airspace.",
+      "highlights": [
+        "144 UAP reports analyzed (2004–2021)",
+        "18 cases with unusual flight characteristics",
+        "No non-terrestrial explanation identified but not ruled out",
+        "Pentagon admitted stigma discouraged reporting",
+        "UAPTF concluded UAPs pose national security concern"
+      ],
+      "topics": ["anomaly", "ufo", "defense", "classified", "policy"],
+      "reliability": "official"
+    },
+    {
+      "id": "odni-uap-2022",
+      "title": "2022 Annual Report on Unidentified Aerial Phenomena",
+      "issuing_body": "Office of the Director of National Intelligence",
+      "date": "2023-01-12",
+      "summary": "Second annual UAP report covering incidents through 2022. Database grew to 510 reports. Expanded categories include airborne clutter, natural atmospheric phenomena, USG/industry developmental programs, foreign adversary systems, and 'other' — the residual unexplained cases.",
+      "url": "https://www.odni.gov/files/ODNI/documents/assessments/2022-Annual-Report-UAP.pdf",
+      "az_relevance": "Southwestern US military training ranges and restricted airspace corridors are disproportionately represented in UAP encounter data due to sensor density and pilot activity.",
+      "highlights": [
+        "510 total UAP reports by end of 2022 (up from 144)",
+        "171 new reports in the reporting period",
+        "26 cases characterized as demonstrating 'unusual flight characteristics'",
+        "AARO formally established October 2022",
+        "Congress mandated biennial reporting requirement"
+      ],
+      "topics": ["anomaly", "ufo", "defense", "policy"],
+      "reliability": "official"
+    },
+    {
+      "id": "odni-uap-2023",
+      "title": "2023 Annual Report on Unidentified Anomalous Phenomena",
+      "issuing_body": "Office of the Director of National Intelligence / AARO",
+      "date": "2024-03-05",
+      "summary": "Third annual report, now covering 'anomalous phenomena' beyond aerial. AARO database exceeds 800 reports. Legislation in FY2024 NDAA expanded mandate to include UAP from 1945 to present. First report to cover submerged, transmedium, and space-based objects.",
+      "url": "https://www.odni.gov/files/ODNI/documents/assessments/2024-Annual-Report-UAP.pdf",
+      "az_relevance": "Barry Goldwater Range and Davis-Monthan AFB airspace are designated as high-surveillance zones. Any UAP in that corridor would be captured by military sensors.",
+      "highlights": [
+        "800+ total reports in AARO database",
+        "Expanded mandate: aerial, submerged, transmedium, and space-based objects",
+        "NDAA FY2024 Section 1841: Heritage Sites Program for historical UAP data",
+        "AARO launched secure reporting mechanism for cleared personnel",
+        "Grusch disclosures prompted expanded investigation scope"
+      ],
+      "topics": ["anomaly", "ufo", "defense", "policy", "classified"],
+      "reliability": "official"
+    },
+    {
+      "id": "aaro-historical-vol1",
+      "title": "AARO Historical Record Report — Volume I",
+      "issuing_body": "All-domain Anomaly Resolution Office (AARO), Department of Defense",
+      "date": "2024-03-08",
+      "summary": "AARO's historical review of US government UAP investigations from 1945–2024. Covers Project Sign, Project Grudge, Project Blue Book, the Condon Committee, and post-1969 classified programs. Concludes no credible evidence of extraterrestrial origin or government cover-up of retrieved craft as of this volume.",
+      "url": "https://www.aaro.mil/Portals/136/PDFs/AARO_Historical_Record_Report_Vol1_2024.pdf",
+      "az_relevance": "Project Blue Book investigated multiple Arizona incidents. The 1953 Kingman alleged crash and 1975 Travis Walton case are included in historical database.",
+      "highlights": [
+        "Covers 1945–1994 US government UAP programs",
+        "Project Blue Book: 12,618 cases investigated, 701 'unknowns'",
+        "Addresses claims of retrieved materials — none substantiated by evidence",
+        "Documents IC and DoD bureaucratic history of UAP handling",
+        "Identifies key individuals who reported alleged programs"
+      ],
+      "topics": ["anomaly", "ufo", "defense", "classified", "history"],
+      "reliability": "official"
+    },
+    {
+      "id": "nasa-uap-report-2023",
+      "title": "NASA UAP Independent Study Team — Final Report",
+      "issuing_body": "NASA",
+      "date": "2023-09-14",
+      "summary": "NASA's independent study team report on UAP. Recommends NASA take leading role in UAP data collection. Identifies need for better calibrated sensors and data sharing between civilian and military domains. Notes that current data is insufficient to draw conclusions about UAP nature.",
+      "url": "https://science.nasa.gov/wp-content/uploads/2023/09/uap-independent-study-team-final-report.pdf",
+      "az_relevance": "NASA Flagstaff (Lowell Observatory heritage), Kitt Peak National Observatory, and the VATT on Mount Graham all contribute astronomical sensor data relevant to UAP detection from Arizona.",
+      "highlights": [
+        "16-member independent study team convened 2022",
+        "Calls for NASA to be 'honest broker' of UAP data",
+        "Recommends AI/ML tools for UAP detection in existing telescope data",
+        "Describes the 'stigma problem' preventing scientific reporting",
+        "Notes UAP data quality insufficient for scientific conclusions"
+      ],
+      "topics": ["anomaly", "ufo", "research", "policy"],
+      "reliability": "official"
+    },
+    {
+      "id": "grusch-testimony-2023",
+      "title": "David Grusch Congressional Testimony — House Oversight UAP Hearing",
+      "issuing_body": "U.S. House Committee on Oversight and Accountability",
+      "date": "2023-07-26",
+      "summary": "Testimony from former NRO and NGA intelligence officer David Grusch, who alleged the U.S. government has a multi-decade program recovering non-human craft and biologics. Grusch claims he was denied access to programs. Testified alongside Ryan Graves (UAP reporting advocate) and David Fravor (Tic Tac encounter).",
+      "url": "https://oversight.house.gov/hearing/unidentified-anomalous-phenomena-implications-for-national-security-public-safety-and-government-transparency/",
+      "az_relevance": "Multiple retrieval program sites alleged by Grusch involve southwestern US locations. Barry Goldwater Range and Tucson-area facilities mentioned in affiliated researcher accounts.",
+      "highlights": [
+        "Grusch: 'I was informed in the course of my official duties of a multi-decade UAP crash retrieval and reverse-engineering program'",
+        "David Fravor testified about the 2004 USS Nimitz Tic Tac encounter",
+        "Ryan Graves described ongoing UAP near military training areas",
+        "DoD and ODNI denied specific allegations but confirmed UAP investigations",
+        "Hearing triggered calls for Whistleblower Protection Act expansion"
+      ],
+      "topics": ["anomaly", "ufo", "classified", "defense", "policy"],
+      "reliability": "witness"
+    },
+    {
+      "id": "uap-disclosure-act-2023",
+      "title": "Unidentified Anomalous Phenomena Disclosure Act of 2023 (Senate Bill S.2226)",
+      "issuing_body": "U.S. Senate / Congress",
+      "date": "2023-07-14",
+      "summary": "Legislation introduced by Senators Schumer and Rounds that would have created a Presidential Review Board to declassify and release UAP records. Modeled after the JFK Records Act. Key provisions stripped in final NDAA compromise — UAPDA did not pass in full but provisions included in FY2024 NDAA.",
+      "url": "https://www.congress.gov/bill/118th-congress/senate-bill/2226",
+      "az_relevance": "Senator Mark Kelly (AZ) co-sponsored UAP-related provisions and sits on the Senate Armed Services Committee, which oversees Davis-Monthan, Luke AFB, and Fort Huachuca.",
+      "highlights": [
+        "Presidential Review Board modeled after JFK Records Act",
+        "25-year automatic declassification with national security override",
+        "Required all executive agencies to inventory UAP records",
+        "Stripped in compromise — NDAA FY2024 contained reduced provisions",
+        "Set precedent for government transparency on UAP"
+      ],
+      "topics": ["anomaly", "ufo", "policy", "classified"],
+      "reliability": "official"
+    },
+    {
+      "id": "cia-ufo-collection",
+      "title": "CIA UFO Collection — FOIA Reading Room",
+      "issuing_body": "Central Intelligence Agency",
+      "date": "1978-2001",
+      "summary": "CIA's declassified UFO-related records released via FOIA, available in the CIA FOIA Reading Room. Includes Project Blue Book-era analysis, foreign intelligence assessments of UFO incidents, and internal memos on Soviet UAP research programs.",
+      "url": "https://www.cia.gov/readingroom/collection/ufos-fact-or-fiction",
+      "az_relevance": "CIA's domestic analysis of Arizona sightings, particularly 1950s-era incidents near military installations, are included in the collection.",
+      "highlights": [
+        "Documents span 1940s–1990s",
+        "Includes analysis of Soviet UAP research programs",
+        "Robertson Panel 1953 documents included",
+        "Foreign intelligence assessments of worldwide sightings",
+        "Electronic FOIA reading room access"
+      ],
+      "topics": ["anomaly", "ufo", "classified", "history"],
+      "reliability": "declassified"
+    },
+    {
+      "id": "dod-uap-task-force-2020",
+      "title": "DoD UAP Task Force Establishment Memo",
+      "issuing_body": "Department of Defense",
+      "date": "2020-08-04",
+      "summary": "Secretary of Defense Esper officially established the Unidentified Aerial Phenomena Task Force (UAPTF) under the Office of the Under Secretary of Defense for Intelligence and Security. Directed the Navy to lead the UAPTF. Predecessor to AARO.",
+      "url": "https://www.defense.gov/News/Releases/Release/Article/2165713/uap-task-force/",
+      "az_relevance": "Davis-Monthan AFB and Luke AFB fall within UAPTF reporting jurisdiction. Any military pilot encounters in Arizona airspace would be reported to UAPTF/AARO.",
+      "highlights": [
+        "UAPTF officially established August 4, 2020",
+        "Navy designated as lead component",
+        "Directed to detect, identify, and attribute UAPs",
+        "Mandated 180-day report to Congress",
+        "Superseded by AARO in 2022"
+      ],
+      "topics": ["anomaly", "ufo", "defense", "policy"],
+      "reliability": "official"
+    },
+    {
+      "id": "navy-uap-videos-2020",
+      "title": "DoD Official Release — UAP Declassified Videos (FLIR1, Gimbal, GoFast)",
+      "issuing_body": "Department of Defense / U.S. Navy",
+      "date": "2020-04-27",
+      "summary": "The DoD officially confirmed and released three Navy UAP encounter videos: FLIR1 (2004 Nimitz/Tic Tac, filmed by F/A-18 pilots), Gimbal (2015, USS Theodore Roosevelt), and GoFast (2015). These represent the first official DoD acknowledgment of UAP videos depicting unidentified objects.",
+      "url": "https://www.defense.gov/News/Releases/Release/Article/2165713/",
+      "az_relevance": "The Nimitz carrier group operated off the California/Baja coast — within the Pacific Command area that monitors Arizona-origin flights. 2015 Roosevelt incidents occurred near the Atlantic but involve the same sensor systems used in Arizona military exercises.",
+      "highlights": [
+        "FLIR1/Tic Tac: November 14, 2004 off San Diego coast",
+        "Gimbal: January 2015, U.S. East Coast",
+        "GoFast: January 2015, U.S. East Coast",
+        "Videos previously leaked by To The Stars Academy (2017)",
+        "First official DoD acknowledgment of UAP videos"
+      ],
+      "topics": ["anomaly", "ufo", "defense"],
+      "reliability": "official"
+    },
+    {
+      "id": "project-blue-book-files",
+      "title": "Project Blue Book Case Files — National Archives",
+      "issuing_body": "U.S. Air Force / National Archives and Records Administration",
+      "date": "1947-1969",
+      "summary": "Digitized records of the U.S. Air Force's Project Blue Book, the official USAF investigation of UFO reports from 1947–1969. 12,618 case files. 701 listed as 'unidentified.' Available through the National Archives. Arizona cases included from Prescott, Tucson, and Phoenix.",
+      "url": "https://www.archives.gov/research/military/air-force/ufos.html",
+      "az_relevance": "Multiple Arizona cases in Blue Book files, including reports near Luke AFB, Williams AFB (now Chandler), and Davis-Monthan. Tucson corridor particularly active in 1950s–60s reports.",
+      "highlights": [
+        "12,618 total cases investigated",
+        "701 remain classified as 'unidentified'",
+        "Concluded July 1969 — no threat to national security",
+        "Condon Report recommended discontinuation",
+        "Arizona incidents in 1950s–60s among documented cases"
+      ],
+      "topics": ["anomaly", "ufo", "history", "classified"],
+      "reliability": "declassified"
+    },
+    {
+      "id": "crs-r41108",
+      "title": "CRS Report R41108 — Intelligence Community Overview",
+      "issuing_body": "Congressional Research Service",
+      "date": "2013-08-01",
+      "summary": "Congressional Research Service report providing a comprehensive overview of the U.S. Intelligence Community structure, budget, and oversight mechanisms. Covers roles of CIA, NSA, DIA, NRO, NGA, and military intelligence branches including those based at Fort Huachuca.",
+      "url": "https://crsreports.congress.gov/product/pdf/R/R41108",
+      "az_relevance": "Fort Huachuca (USAICoE) is Arizona's primary IC nexus. Fort trains all Army HUMINT, SIGINT, IMINT, GEOINT, and CI professionals — pipeline for all 17 IC agencies.",
+      "highlights": [
+        "IC budget analysis and oversight structure",
+        "17 member agency roles and missions",
+        "Military intelligence vs civilian agency distinctions",
+        "Fort Huachuca role in IC training pipeline",
+        "Post-9/11 IC restructuring implications"
+      ],
+      "topics": ["classified", "defense", "policy"],
+      "reliability": "official"
+    },
+    {
+      "id": "az-water-crisis-2023",
+      "title": "Reclamation — Colorado River Basin Water Supply and Demand Study",
+      "issuing_body": "U.S. Bureau of Reclamation",
+      "date": "2024-01-15",
+      "summary": "Bureau of Reclamation assessment of Colorado River water supply and demand through 2060. Projects structural imbalance between supply and demand. Lake Mead and Powell elevations, Tier shortage declarations, and CAP delivery reductions for Arizona quantified.",
+      "url": "https://www.usbr.gov/lc/region/g4000/riverops.html",
+      "az_relevance": "Arizona is the most affected state from Colorado River shortage declarations. CAP is Arizona's largest water delivery system serving 80% of the state population. Tier 1 and 2 shortage cuts directly impact Arizona agriculture and municipalities.",
+      "highlights": [
+        "Tier 1 shortage declared August 2021 — first ever",
+        "Arizona cut 512,000 acre-feet in 2022",
+        "Lake Mead at historic lows 2022 (1,041 feet, near dead pool)",
+        "CAP receives lowest priority among Colorado River users",
+        "Post-2026 operating rules under negotiation"
+      ],
+      "topics": ["water", "infra", "policy"],
+      "reliability": "official"
+    },
+    {
+      "id": "cbp-tucson-sector",
+      "title": "CBP Tucson Sector — Annual Statistical Report",
+      "issuing_body": "U.S. Customs and Border Protection",
+      "date": "2024-01-01",
+      "summary": "Tucson Sector annual statistics on border enforcement activity. Covers apprehensions, gotaways, drug seizures, and technology deployments including autonomous surveillance towers (AST), vehicle sensors, and integrated fixed towers (IFT).",
+      "url": "https://www.cbp.gov/border-security/along-us-borders/border-patrol-sectors/tucson-sector",
+      "az_relevance": "Tucson Sector covers 262 miles of the Arizona-Mexico border — the most active corridor for unauthorized crossings. Fort Huachuca's intelligence capabilities directly support CBP operations.",
+      "highlights": [
+        "262-mile Arizona border coverage area",
+        "Autonomous Surveillance Towers deployed across sector",
+        "Integrated Fixed Tower (IFT) network established",
+        "Ground-penetrating radar and seismic sensors",
+        "Air and Marine Operations integration with Fort Huachuca"
+      ],
+      "topics": ["border", "infra", "defense"],
+      "reliability": "official"
+    },
+    {
+      "id": "dod-policy-48",
+      "title": "DoD Instruction 3200.11 — Major Range and Test Facility Base",
+      "issuing_body": "Department of Defense",
+      "date": "2022-10-14",
+      "summary": "DoD instruction governing Major Range and Test Facility Bases (MRTFBs), including the Barry M. Goldwater Range. Defines management, access, scheduling, and safety requirements for major DoD test and training ranges.",
+      "url": "https://www.esd.whs.mil/Portals/54/Documents/DD/issuances/dodi/320011p.pdf",
+      "az_relevance": "Barry Goldwater Range (2.7M acres) is a designated MRTFB managed under this instruction. Governs all live-fire training, electronic warfare testing, and allied nation training at BMGR.",
+      "highlights": [
+        "BMGR is a Major Range and Test Facility Base under DoD regulation",
+        "Governs access by foreign military partners for training",
+        "Safety requirements for live-fire and EW testing",
+        "Cost reimbursement for allied nation use of U.S. ranges"
+      ],
+      "topics": ["defense", "policy"],
+      "reliability": "official"
+    },
+    {
+      "id": "volt-typhoon-cisa-2023",
+      "title": "People's Republic of China State-Sponsored Cyber Actor — Volt Typhoon",
+      "issuing_body": "CISA / NSA / FBI (Joint Advisory AA23-144A)",
+      "date": "2023-05-24",
+      "summary": "Joint advisory from CISA, NSA, FBI, and Five Eyes partners documenting Chinese state-sponsored actor Volt Typhoon's pre-positioning within U.S. critical infrastructure — including water, energy, transportation, and communications. Actor uses 'living off the land' techniques to avoid detection. Assessed intent: disrupt critical infrastructure in event of geopolitical conflict, particularly Taiwan.",
+      "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-144a",
+      "az_relevance": "Southwest utilities including Palo Verde NGS and CAP canal SCADA are potential Volt Typhoon targets. Fort Huachuca NETCOM manages Army network infrastructure that borders these civilian systems.",
+      "highlights": [
+        "Volt Typhoon confirmed pre-positioning in U.S. critical infrastructure",
+        "Living off the land (LOTL) — no custom malware used",
+        "Persistent access maintained for multiple years in some cases",
+        "Sectors targeted: water, energy, communications, transportation, government",
+        "Intent: develop capability for disruptive attacks during potential conflict"
+      ],
+      "topics": ["cyber", "defense", "classified", "policy"],
+      "reliability": "official"
+    },
+    {
+      "id": "nrc-palo-verde-inspection",
+      "title": "Palo Verde Nuclear Generating Station — NRC Inspection Report 2023",
+      "issuing_body": "Nuclear Regulatory Commission",
+      "date": "2023-09-15",
+      "summary": "NRC resident and regional inspection reports for Palo Verde Units 1-3. Covers cybersecurity program status, physical security assessment, operational performance indicators, and corrective action programs. Most significant findings are issued as inspection results; some cybersecurity specifics are protected as Safeguards Information (SGI).",
+      "url": "https://www.nrc.gov/reactors/operating/ops-experience/cybersecurity.html",
+      "az_relevance": "Palo Verde is the largest nuclear plant in the U.S., located 55 miles west of Phoenix. Serves 4 million customers in AZ, CA, NM, TX. Uses treated Phoenix metro wastewater for cooling.",
+      "highlights": [
+        "Annual NRC inspections evaluate cybersecurity program under 10 CFR 73.54",
+        "Palo Verde maintains Defense-in-Depth cybersecurity architecture",
+        "Physical protection plan classified as Safeguards Information",
+        "10-mile Emergency Planning Zone covers parts of Maricopa County",
+        "License renewals approved through 2045-2047 (Renewal 1)"
+      ],
+      "topics": ["cyber", "infra", "defense", "policy"],
+      "reliability": "official"
+    },
+    {
+      "id": "usbr-colorado-shortage-2023",
+      "title": "Colorado River Basin — Tier 3 Shortage Declaration 2023",
+      "issuing_body": "Bureau of Reclamation",
+      "date": "2022-08-22",
+      "summary": "Bureau of Reclamation's official declaration of Tier 3 shortage on the Colorado River for 2023 operations. Reduces Arizona's CAP deliveries by 720,000 acre-feet — 25% of the state's total Colorado River entitlement. The most severe shortage tier in the history of the Law of the River.",
+      "url": "https://www.usbr.gov/lc/region/g4000/24mo.pdf",
+      "az_relevance": "Direct Arizona impact: Pinal County agriculture zeroed out; some municipal CAP deliveries reduced; tribal nations with junior water rights face cuts while Winters Doctrine senior rights are protected.",
+      "highlights": [
+        "Tier 3 declared — first time in Colorado River history",
+        "Arizona CAP cuts: 720,000 acre-feet (25% of total allocation)",
+        "Lake Mead reached all-time record low in July 2022: 1,040 ft",
+        "Post-2026 operations negotiations required — 2007 Interim Guidelines expire",
+        "7-state talks ongoing for new operating rules"
+      ],
+      "topics": ["water", "policy", "infra"],
+      "reliability": "official"
+    },
+    {
+      "id": "gao-ift-border-2022",
+      "title": "GAO-22-105082: Border Security — CBP Surveillance Technology Assessment",
+      "issuing_body": "Government Accountability Office",
+      "date": "2022-06-07",
+      "summary": "GAO assessment of CBP's Integrated Fixed Tower (IFT), Remote Video Surveillance System (RVSS), and Autonomous Surveillance Tower (AST) programs. Found CBP lacks performance metrics to assess whether surveillance technology is achieving border security goals. Recommends DHS establish specific outcome measures for all technology programs.",
+      "url": "https://www.gao.gov/products/gao-22-105082",
+      "az_relevance": "Tucson Sector has the highest concentration of IFT towers (55 towers, Elbit Systems). GAO report directly assesses technology performance in the Arizona corridor.",
+      "highlights": [
+        "CBP deployed $2.5B+ in border surveillance technology in 5 years",
+        "Elbit Systems IFT: 55 towers, Tucson Sector, $145M contract",
+        "Anduril AST: $250M contract, rapidly deployable AI detection towers",
+        "GAO: DHS cannot measure whether technology reduces crossings",
+        "Recommend outcome-based metrics for surveillance investment"
+      ],
+      "topics": ["border", "cyber", "defense", "policy"],
+      "reliability": "official"
+    },
+    {
+      "id": "epa-navajo-uranium-cleanup",
+      "title": "EPA Five-Year Plan for Abandoned Uranium Mines on Navajo Nation",
+      "issuing_body": "Environmental Protection Agency",
+      "date": "2020-10-01",
+      "summary": "EPA's coordinated five-year cleanup plan for abandoned uranium mines on the Navajo Nation, in collaboration with Navajo Nation EPA, BIA, DOE, NRC, and NIOSH. Documents over 500 highest-priority mines, groundwater contamination extent, and remediation status. Part of the broader legacy of uranium mining that fueled the U.S. nuclear weapons program 1944-1986.",
+      "url": "https://www.epa.gov/navajo-nation-uranium-cleanup",
+      "az_relevance": "Over 1,000 abandoned uranium mines located on or near the Navajo Nation in northeastern Arizona. Documented groundwater contamination affecting drinking water for residents without piped water access.",
+      "highlights": [
+        "1,000+ abandoned uranium mines on/near Navajo Nation in AZ",
+        "Groundwater contamination: uranium levels up to 100x EPA standard in some wells",
+        "U.S. government did not inform Navajo miners of radiation health risks",
+        "RECA (1990) provided $100,000 to miners with qualifying cancers",
+        "RECA Amendments (2022) expanded coverage areas and cancer types"
+      ],
+      "topics": ["water", "history", "policy", "tribal"],
+      "reliability": "official"
+    },
+    {
+      "id": "doj-usao-az-corruption",
+      "title": "DOJ USAO District of Arizona — Public Corruption Press Releases",
+      "issuing_body": "U.S. Attorney's Office, District of Arizona",
+      "date": "2024-01-01",
+      "summary": "Ongoing public record of federal corruption prosecutions in Arizona. The USAO-AZ regularly announces indictments, guilty pleas, and sentencing in public corruption, election fraud, bribery, civil rights violations, and human trafficking cases with government nexus. Primary source for federal-level accountability reporting in Arizona.",
+      "url": "https://www.justice.gov/usao-az/pr",
+      "az_relevance": "Arizona-specific federal prosecutions including Arpaio contempt conviction, multiple border area bribery cases, election administration investigations, and state official misconduct referrals.",
+      "highlights": [
+        "USAO-AZ jurisdiction covers all federal crimes in Arizona",
+        "Public Integrity Section handles elected official corruption",
+        "Border area bribery cases (CBP officer corruption) regularly prosecuted",
+        "All press releases publicly searchable by keyword",
+        "Arpaio criminal contempt conviction (2017) most prominent recent case"
+      ],
+      "topics": ["policy", "border", "history"],
+      "reliability": "official"
+    },
+    {
+      "id": "dea-ndta-2023",
+      "title": "DEA National Drug Threat Assessment 2023",
+      "issuing_body": "Drug Enforcement Administration",
+      "date": "2023-11-01",
+      "summary": "DEA's annual threat assessment covering drug trafficking organizations, cartel activities, trafficking routes, and drug seizure trends. Arizona features prominently due to the Tucson and Yuma sectors' significance in fentanyl and methamphetamine trafficking. Sinaloa Cartel and CJNG are identified as primary threats in the Arizona-Sonora border corridor.",
+      "url": "https://www.dea.gov/sites/default/files/2023-11/DEA_NDTA_2023-Final.pdf",
+      "az_relevance": "Tucson sector is identified as a primary fentanyl entry point. Arizona-Sonora border corridor controlled primarily by Sinaloa Cartel (western) and expanding CJNG (eastern). Phoenix is identified as a major drug distribution hub.",
+      "highlights": [
+        "Sinaloa Cartel dominates Lukeville-Ajo corridor for fentanyl",
+        "CJNG expanding into Nogales-Sasabe corridor",
+        "Fentanyl pills now primarily trafficked through POEs (not remote crossings)",
+        "Arizona meth seizures remain among highest in nation",
+        "Phoenix identified as distribution hub for Western U.S."
+      ],
+      "topics": ["border", "defense", "policy"],
+      "reliability": "official"
+    },
+    {
+      "id": "nps-fort-huachuca-landmark",
+      "title": "Fort Huachuca National Historic Landmark — NPS Documentation",
+      "issuing_body": "National Park Service",
+      "date": "1976-05-03",
+      "summary": "National Historic Landmark designation for Fort Huachuca, honoring its role in the Buffalo Soldiers' history and the Apache Wars. Documents the 10th Cavalry Regiment's service, the frontier campaign against Geronimo, and WWII-era segregated military training. Primary historical record for the Buffalo Soldiers' Arizona service.",
+      "url": "https://www.nps.gov/nr/travel/american_latino_heritage/Fort_Huachuca.html",
+      "az_relevance": "Fort Huachuca is located in Sierra Vista, AZ. The landmark designation covers the original frontier cavalry post through WWII. The active installation continues operations adjacent to the historic site.",
+      "highlights": [
+        "10th Cavalry (Buffalo Soldiers) stationed here 1885-1931",
+        "Geronimo's final campaign conducted from Huachuca region (1885-1886)",
+        "92nd Infantry Division (Buffalo Division) trained here WWII",
+        "National Historic Landmark designated 1976",
+        "Buffalo Soldier Monument dedicated 1992 on 125th anniversary of 10th Cavalry"
+      ],
+      "topics": ["history", "defense"],
+      "reliability": "official"
+    },
+    {
+      "id": "cisa-ics-water-advisory",
+      "title": "CISA Advisory AA21-042A — Compromise of U.S. Water Treatment Facility",
+      "issuing_body": "CISA / FBI / EPA (Joint Advisory)",
+      "date": "2021-02-10",
+      "summary": "Joint advisory issued following the Oldsmar, Florida water treatment plant cyberattack (February 5, 2021). Attacker used TeamViewer to access ICS, attempted to increase sodium hydroxide 100x. Advisory covers water sector ICS vulnerabilities: remote access tools, legacy operating systems, default credentials, internet-exposed HMIs. Applicable to all Arizona water utilities.",
+      "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-042a",
+      "az_relevance": "Arizona has hundreds of water utilities using similar remote access technology to Oldsmar's system. CAP canal SCADA, municipal water SCADA, and small rural water systems all face the vulnerabilities documented in this advisory.",
+      "highlights": [
+        "Oldsmar attacker used TeamViewer; attempted 100x increase in sodium hydroxide",
+        "Plant operator noticed cursor moving and reversed the change",
+        "Advisory: remove remote access software if not required",
+        "Use multi-factor authentication on all remote access",
+        "Segment OT networks from corporate IT networks",
+        "Apply NIST SP 800-82 guidance for ICS environments"
+      ],
+      "topics": ["cyber", "water", "infra", "policy"],
+      "reliability": "official"
+    },
+    {
+      "id": "senate-intel-rpt-election-russia",
+      "title": "Senate Intelligence Committee — Russian Interference Vol. 1: Election Infrastructure",
+      "issuing_body": "U.S. Senate Select Committee on Intelligence",
+      "date": "2019-07-25",
+      "summary": "Volume 1 of the Senate Intelligence Committee's bipartisan report on Russian interference with U.S. elections. Documents GRU scanning of election infrastructure in all 50 states in 2016, including Arizona's voter registration systems. Identifies specific attack vectors and recommends enhanced federal-state cooperation for election cybersecurity.",
+      "url": "https://www.intelligence.senate.gov/sites/default/files/documents/Report_Volume1.pdf",
+      "az_relevance": "Arizona voter registration database portal was probed by Russian GRU actors in 2016. DHS notified Arizona in 2017. State subsequently deployed CISA Albert network sensors across all 15 counties and implemented enhanced security for election management systems.",
+      "highlights": [
+        "GRU probed or scanned election infrastructure in all 50 states",
+        "Arizona voter registration system among states specifically targeted",
+        "No vote tallies altered — paper audit trails provide protection",
+        "DHS failed to timely notify all states of breaches",
+        "Recommends federal election security minimum standards"
+      ],
+      "topics": ["cyber", "policy", "history"],
+      "reliability": "official"
+    },
+    {
+      "id": "brnovich-v-dnc-2021",
+      "title": "Brnovich v. Democratic National Committee — 594 U.S. 647 (2021)",
+      "issuing_body": "U.S. Supreme Court",
+      "date": "2021-07-01",
+      "summary": "Supreme Court decision (6-3, Justice Alito) upholding two Arizona voting provisions challenged under Section 2 of the Voting Rights Act: the out-of-precinct rule (discarding ballots cast in wrong precinct) and HB 2023 (prohibiting third-party ballot collection). The ruling significantly narrowed the evidentiary standard for Section 2 claims and is broadly regarded as limiting future VRA challenges to voting restrictions nationally.",
+      "url": "https://www.supremecourt.gov/opinions/20pdf/19-1257_g204.pdf",
+      "az_relevance": "Case arose entirely from Arizona election law. The ruling directly governs how Arizona runs its elections. Dark money involvement in the case — an Arizona dark money group supporting the ballot collection ban — was itself part of the controversy discussed in oral argument.",
+      "highlights": [
+        "Upheld Arizona out-of-precinct rule under VRA Section 2",
+        "Upheld HB 2023 ban on third-party ballot collection (ballot harvesting)",
+        "Established new factors for evaluating Section 2 vote-denial claims",
+        "Dissent (Justice Kagan): ruling guts VRA Section 2 protections",
+        "National impact: limits future challenges to voting restrictions"
+      ],
+      "topics": ["policy", "history"],
+      "reliability": "official"
+    },
+    {
+      "id": "reca-amendments-2022",
+      "title": "Radiation Exposure Compensation Act Amendments Act of 2022",
+      "issuing_body": "U.S. Congress / Department of Justice",
+      "date": "2022-06-01",
+      "summary": "Legislation expanding RECA coverage to additional downwinder counties in Arizona, Nevada, Utah, and New Mexico; additional cancer types; and increased compensation amounts ($150,000 for downwinders, up from $50,000). Extends the program through 2024. Also expands coverage for uranium mine workers in previously excluded areas. Signed into law as part of broader appropriations legislation.",
+      "url": "https://www.justice.gov/civil/common/reca",
+      "az_relevance": "Additional Arizona counties added to RECA downwinder coverage zone beyond original (Coconino, Mohave, Navajo, Apache, Yavapai). Uranium mine workers across the Navajo Nation also benefit from expanded miner coverage provisions.",
+      "highlights": [
+        "Downwinder compensation increased to $150,000 (from $50,000)",
+        "Additional Arizona counties added to downwinder eligibility zone",
+        "Additional cancer types added to qualifying conditions",
+        "Program extended through June 7, 2024",
+        "Expanded coverage for uranium miners and ore transporters"
+      ],
+      "topics": ["history", "policy", "tribal"],
+      "reliability": "official"
+    },
+    {
+      "id": "titan-missile-museum-nhl",
+      "title": "Titan Missile Museum — National Historic Landmark Documentation",
+      "issuing_body": "National Park Service / Smithsonian Institution",
+      "date": "1994-10-03",
+      "summary": "NHL designation for Titan II Complex 571-7 at Green Valley, Arizona — the sole preserved Titan II ICBM silo in the world. Documents the Titan II missile system's role in nuclear deterrence 1963-1984, the 390th Strategic Missile Wing at Davis-Monthan AFB, and the strategic significance of 18 missiles surrounding Tucson. The 9-megaton W53 warhead made each Titan II one of the most powerful weapons ever deployed.",
+      "url": "https://titanmissilemuseum.org",
+      "az_relevance": "18 Titan II silos were operationally deployed in a ring around Tucson from 1963-1984. Each carried a 9-megaton W53 warhead. The ring was managed by the 390th Strategic Missile Wing at Davis-Monthan AFB. One preserved silo at Green Valley is now a Smithsonian affiliate and public museum.",
+      "highlights": [
+        "18 Titan II silos in ring around Tucson, 1963-1984",
+        "9-megaton W53 warhead — largest yield ever deployed by U.S. military",
+        "390th Strategic Missile Wing at Davis-Monthan AFB",
+        "Hypergolic fuel (Aerozine-50 + NTO) — catastrophic accident risk demonstrated at Damascus AR 1980",
+        "Only preserved Titan II silo in world; NHL and Smithsonian affiliate"
+      ],
+      "topics": ["defense", "history"],
+      "reliability": "official"
+    },
+    {
+      "id": "resolution-copper-ndaa-2014",
+      "title": "NDAA FY2015 Section 3003 — Southeast Arizona Land Exchange (Resolution Copper)",
+      "issuing_body": "U.S. Congress / USDA Forest Service",
+      "date": "2014-12-19",
+      "summary": "Section 3003 of the FY2015 National Defense Authorization Act authorized transfer of 2,400 acres of Tonto National Forest (including Oak Flat / Chi'chil Biłdagoteel) to Resolution Copper Mining, LLC (Rio Tinto/BHP JV) in exchange for other federal lands. The provision was inserted as a midnight rider without standalone committee vote. Oak Flat had been protected from mining since a 1955 Eisenhower executive order. The San Carlos Apache Tribe and allied tribes oppose the transfer as destruction of a sacred site.",
+      "url": "https://www.fs.usda.gov/project/?project=57214",
+      "az_relevance": "Oak Flat is located in Pinal/Gila County, AZ, 6 miles from Superior. The proposed block cave mine would create a 1.8-mile wide, 1,100-foot deep surface subsidence crater eliminating the site. Apache Stronghold v. United States (9th Circuit) litigation ongoing as of 2025.",
+      "highlights": [
+        "Section 3003 inserted without standalone committee vote (midnight rider)",
+        "2,400 acres of Tonto National Forest transferred to Rio Tinto/BHP Resolution Copper",
+        "Oak Flat protected since 1955 Eisenhower executive order — overridden by NDAA",
+        "San Carlos Apache: Chi'chil Biłdagoteel is sacred site, Apache Stronghold v. US pending",
+        "Proposed block cave mine: 40B lbs copper, 1.8-mile wide surface crater"
+      ],
+      "topics": ["tribal", "policy", "history"],
+      "reliability": "official"
+    },
+    {
+      "id": "nci-i131-fallout-1997",
+      "title": "NCI Report — I-131 Thyroid Dose Estimates from Nevada Atmospheric Tests (1997)",
+      "issuing_body": "National Cancer Institute",
+      "date": "1997-10-01",
+      "summary": "The definitive public health study on radioactive iodine-131 fallout from Nevada Test Site atmospheric nuclear tests (1951-1962). Estimated thyroid radiation doses for every U.S. county from 100+ atmospheric tests. Found that Americans born between 1951-1971 were exposed to I-131 from fallout. Northern and western Arizona counties received significant I-131 deposition; thyroid doses estimated for children consuming local dairy milk from cows grazing on fallout-contaminated pasture.",
+      "url": "https://www.cancer.gov/about-cancer/causes-prevention/risk/radiation/i131",
+      "az_relevance": "Northern Arizona (Coconino, Navajo, Mohave, Yavapai counties) received measurable I-131 fallout from multiple NTS tests. Shot Harry (May 19, 1953) fallout tracked through Arizona. I-131 concentrates in dairy milk, particularly dangerous for children's thyroid glands.",
+      "highlights": [
+        "I-131 fallout reached every U.S. county from 1951-1962 atmospheric tests",
+        "NTS tests conducted 65 miles from Las Vegas, 230+ miles from Phoenix",
+        "Arizona counties in primary downwinder zone per dose estimates",
+        "Shot Harry (May 19, 1953) — one of the most contaminating tests; fallout tracked through AZ",
+        "Children consuming local milk had highest thyroid doses"
+      ],
+      "topics": ["history", "policy"],
+      "reliability": "official"
+    }
+  ]
+}

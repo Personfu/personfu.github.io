@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-05-17T11:40:13.784904Z",
+  "items": [
+    {
+      "title": "Red Flag Warning issued May 17 at 4:00AM PDT until May 18 at 8:00PM PDT by NWS Hanford CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:00:00-07:00",
+      "summary": "* AFFECTED AREA...Fire weather zone 579 West Side Hills on the\nCoastal Range. Fire weather zone 580 San Joaquin Valley.\n\n* WIND...GUSTING TO 35 MPH SATURDAY AND SUNDAY.\n\n* HUMIDITY...20% OR LESS SATURDAY AND SUNDAY THEN 15% OR LESS\nMONDAY\n\n* HIGHEST THREAT...FAST-MOVING GRASS FIRES\n\n* IMPACTS...Any fires that develop will likely spread rapidly.\nOutdoor burning is not recommended.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "West Side Hills; San Joaquin Valley"
+    },
+    {
+      "title": "Red Flag Warning issued May 17 at 4:00AM PDT until May 17 at 11:00PM PDT by NWS Hanford CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:00:00-07:00",
+      "summary": "* AFFECTED AREA...Fire weather zone 298 Indian Wells Valley.\nFire weather zone 299 Kern County Desert.\n\n* WIND...FOR THE MOJAVE DESERT WEST WINDS 20 TO 30 MPH WITH\nGUSTS UP TO 45 MPH EXPECTED. FOR THE MOJAVE SLOPES WEST WINDS\n35 TO 45 WITH GUSTS UP TO 70 MPH.\n\n* HUMIDITY...10 TO 20 PERCENT MINIMUM RELATIVE HUMIDITY.\n\n* HIGHEST THREAT...FAST-MOVING GRASS FIRES.\n\n* IMPACTS...Any fires that develop will likely spread rapidly.\nOutdoor burning is not recommended.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Indian Wells Valley; Kern County Desert"
+    },
+    {
+      "title": "Frost Advisory issued May 17 at 5:59AM CDT until May 17 at 8:00AM CDT by NWS Grand Forks ND",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T05:59:00-05:00",
+      "summary": "* WHAT...Temperatures as low as 33 will result in frost formation.\n\n* WHERE...Lake Of The Woods, North Beltrami, South Beltrami, East\nMarshall, Kittson, and Roseau Counties.\n\n* WHEN...Until 8 AM CDT this morning.\n\n* IMPACTS...Frost could harm sensitive outdoor vegetation. Sensitive\noutdoor plants may be killed if left uncovered.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kittson; Roseau; Lake Of The Woods; East Marshall; North Beltrami; South Beltrami"
+    },
+    {
+      "title": "Flood Warning issued May 17 at 5:57AM CDT until May 18 at 8:00PM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T05:57:00-05:00",
+      "summary": "...The National Weather Service in Kansas City/Pleasant Hill has\nissued a Flood Warning for the following rivers in Missouri...\n\nGrand River near Pattonsburg affecting Gentry and Daviess Counties.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Grand River near Pattonsburg.\n\n* WHEN...From early this morning to Monday evening.\n\n* IMPACTS...At 25.0 feet, low-lying farmland begins to flood.\n\n* ADDITIONAL DETAILS...\n- At 5:30 AM CDT Sunday the stage was 24.3 feet.\n- Bankfull stage is 25.0 feet.\n- F",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Daviess, MO; Gentry, MO"
+    },
+    {
+      "title": "Winter Weather Advisory issued May 17 at 4:27AM MDT until May 18 at 6:00PM MDT by NWS Denver CO",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:27:00-06:00",
+      "summary": "* WHAT...Snow expected. Total snow accumulations of 3 to 15 inches.\nWinds gusting as high as 45 mph.\n\n* WHERE...Rocky Mountain National Park and the Medicine Bow Range,\nthe Mountains of Summit County, the Mosquito Range, and the Indian\nPeaks.\n\n* WHEN...From midnight tonight to 6 PM MDT Monday.\n\n* IMPACTS...Travel could be very difficult. The hazardous conditions\nwill impact the Monday morning and evening commutes.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "South and East Jackson/Larimer/North and Northeast Grand/Northwest Boulder Counties Above 9000 Feet; South and Southeast Grand/West Central and Southwest Boulder/Gilpin/Clear Creek/Summit/North and West Park Counties Above 9000 Feet"
+    },
+    {
+      "title": "Special Weather Statement issued May 17 at 6:17AM EDT by NWS Buffalo NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T06:17:00-04:00",
+      "summary": "Patchy areas of dense fog will be possible close to the Lake\nOntario shore northeastward along the Saint Lawrence River through\nmid morning. The worst of the fog should remain just west of the\nCity of Watertown. Be prepared for rapid changes in visibility\nover a short distance if traveling in this area this morning and\nleave extra time to reach your destination.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Jefferson"
+    },
+    {
+      "title": "Flood Warning issued May 17 at 5:13AM CDT until May 18 at 3:00PM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T05:13:00-05:00",
+      "summary": "...The National Weather Service in Kansas City/Pleasant Hill has\nissued a Flood Warning for the following rivers in Missouri...\n\nThompson River at Trenton affecting Grundy and Livingston Counties.\n\n* WHAT...Minor flooding is occurring and minor flooding is forecast.\n\n* WHERE...Thompson River at Trenton.\n\n* WHEN...From early this morning to Monday afternoon.\n\n* IMPACTS...At 28.0 feet, low lying areas north of the gage are\nflooded.\n\n* ADDITIONAL DETAILS...\n- At 4:45 AM CDT Sunday the stage was 27.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Grundy, MO; Livingston, MO"
+    },
+    {
+      "title": "Marine Weather Statement issued May 17 at 5:52AM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T05:52:00-04:00",
+      "summary": "Air temperatures will rise into the 80s and in some cases around\n90 across the Tri- State area today. However, water temperatures\nremain in the 50s.\n\nThe cold water temperatures can quickly cause hypothermia and\nphysical incapacitation to anyone suddenly immersed in the water.\nWhen the water temperature is below 60 degrees, the average\nsubmerged person could lose dexterity within minutes and be unable\nto accomplish simple tasks. Anyone going out on small boats, canoes\nor kayaks should plan accor",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Long Island Sound East of New Haven CT/Port Jefferson NY to the Mouth of the Connecticut River; Long Island Sound East of the Mouth of the Connecticut River; Long Island Sound West of New Haven CT/Port Jefferson NY; New York Harbor; Peconic and Gardiners Bays; South Shore Bays from Jones Inlet through Shinnecock Bay; Moriches Inlet NY to Montauk Point NY out 20 NM; Fire Island Inlet NY to Moriches Inlet NY out 20 NM; Sandy Hook NJ to Fire Island Inlet NY out 20 NM"
+    },
+    {
+      "title": "Marine Weather Statement issued May 17 at 4:47AM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:47:00-05:00",
+      "summary": "A Marine Weather Statement has been issued for the following areas...\n\nNearshore Waters from Winthrop Harbor to Calumet Harbor...\nNearshore Waters from Calumet Harbor to Michigan City...\nOpen Waters from Winthrop Harbor to Michigan City out to Mid\nLake...\n\nAt 445 AM CDT, Doppler radar indicated a gust front, capable of\nproducing winds to 25 to 30 knots from the north-northeast. This\ngust front was located along a line extending from 8 nm west of\nPleasant Prairie to near Winthrop Harbor to 28 nm ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Winthrop Harbor to Wilmette Harbor IL; Wilmette Harbor to Northerly Island IL; Northerly Island to Calumet Harbor IL; Calumet Harbor IL to Gary IN; Gary to Burns Harbor IN; Burns Harbor to Michigan City IN; Lake Michigan from Winthrop Harbor to Wilmette Harbor IL 5NM offshore to Mid Lake; Lake Michigan from Wilmette Harbor to Michigan City in 5NM offshore to Mid Lake"
+    },
+    {
+      "title": "Hydrologic Outlook issued May 17 at 4:42AM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:42:00-05:00",
+      "summary": "ESFEAX\n\n102 River at Maryville\n\nThis hydrologic outlook is based on the forecast rainfall for the\nnext 24 hours and estimated runoff from earlier rainfall. Crests may\nvary if actual rainfall or runoff is greater or less than\nanticipated.\n\nLocation: 102 River at Maryville\nFlood stage: 18.0 feet\nLatest stage: 10.6 feet at 4 AM Sunday\nMaximum Forecast Stage: 18.1 feet at 7 PM Sunday May 17\n\n\nFld   Obs             Forecasts\nLocation        Stg   Stg   Day/Time  Sun   Mon   Tue\n7am   7am   7am\n102 Ri",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Unknown",
+      "area": "Andrew, MO; Nodaway, MO"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 4:07AM CDT until May 17 at 10:00PM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:07:00-05:00",
+      "summary": "* WHAT...South winds to 25 kt expected.\n\n* WHERE...Calumet Harbor IL to Michigan City IN, and Wilmette\nHarbor to Calumet Harbor IL.\n\n* WHEN...From 1 PM this afternoon to 10 PM CDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Wilmette Harbor to Northerly Island IL; Northerly Island to Calumet Harbor IL; Calumet Harbor IL to Gary IN; Gary to Burns Harbor IN; Burns Harbor to Michigan City IN"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 2:04AM PDT until May 17 at 9:00PM PDT by NWS Portland OR",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T02:04:00-07:00",
+      "summary": "* WHAT...Seas 6 to 8 ft at 12 seconds and north winds 15 to 20 kt\nwith gusts up to 25 kt expected.\n\n* WHERE...Coastal waters from Cape Foulweather to Florence OR\nout 10 NM and Waters from Cape Foulweather to Florence OR from\n10 to 60 NM.\n\n* WHEN...From 3 PM this afternoon to 9 PM PDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Cape Foulweather to Florence OR out 10 nm; Waters from Cape Foulweather to Florence OR from 10 to 60 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 2:04AM PDT until May 17 at 8:00AM PDT by NWS Portland OR",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T02:04:00-07:00",
+      "summary": "* WHAT...Rough bar conditions expected. Seas 9 to 11 ft during a\nvery strong ebb current.\n\n* WHERE...In the Main Channel of the Columbia River Bar.\n\n* WHEN...Until 8 AM PDT this morning.\n\n* IMPACTS...Conditions will be hazardous to small craft,\nespecially when operating near to, or attempting to cross, the\nColumbia River Bar.\n\n* ADDITIONAL DETAILS...Very strong ebb current of 7.33 kt at 526\nAM Sunday. Seas 10 to 11 ft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Columbia River Bar"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 2:02AM PDT until May 18 at 5:00AM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T02:02:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, west winds 15 to 25\nkt. For the second Small Craft Advisory, west winds 15 to 25\nkt.\n\n* WHERE...Central U. S. Waters Strait Of Juan De Fuca.\n\n* WHEN...For the first Small Craft Advisory, until 3 AM PDT\nearly this morning. For the second Small Craft Advisory, from\n5 PM this afternoon to 5 AM PDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Central U.S. Waters Strait Of Juan De Fuca"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 2:02AM PDT until May 18 at 5:00AM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T02:02:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, west winds 15 to 25\nkt. For the second Small Craft Advisory, west winds 15 to 25\nkt.\n\n* WHERE...East Entrance U. S. Waters Strait Of Juan De Fuca.\n\n* WHEN...For the first Small Craft Advisory, until 3 AM PDT\nearly this morning. For the second Small Craft Advisory, from\n5 PM this afternoon to 5 AM PDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "East Entrance U.S. Waters Strait Of Juan De Fuca"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 4:51AM EDT until May 18 at 12:00PM EDT by NWS Gaylord MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:51:00-04:00",
+      "summary": "* WHAT...Highest gusts up to 25 kts from the southeast and\nhighest waves around 4 feet expected.\n\n* WHERE...Whitefish Bay (U. S. Portion)/Whitefish Point to Point\nIroquois MI and St. Marys River Point Iroquois to E.\nPotagannissing Bay.\n\n* WHEN...From 11 PM this evening to noon EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Whitefish Bay (U.S. Portion)/Whitefish Point to Point Iroquois MI; St. Marys River Point Iroquois to E. Potagannissing Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 4:51AM EDT until May 18 at 8:00PM EDT by NWS Gaylord MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:51:00-04:00",
+      "summary": "* WHAT...Highest gusts up to 30 kts from the southeast and\nhighest waves around 7 feet expected.\n\n* WHERE...Seul Choix Point to 5NM West of Mackinac Bridge.\n\n* WHEN...From 8 PM this evening to 8 PM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Seul Choix Point to 5NM West of Mackinac Bridge"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 4:51AM EDT until May 18 at 8:00PM EDT by NWS Gaylord MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:51:00-04:00",
+      "summary": "* WHAT...Highest gusts up to 30 kts from the south and highest\nwaves around 6 feet expected.\n\n* WHERE...Grand Traverse Bay south of a line Grand Traverse\nLight to Norwood MI, Norwood MI to 5NM West of Mackinac Bridge\nincluding Little Traverse Bay, Sleeping Bear Point to Grand\nTraverse Light MI, Point Betsie to Sleeping Bear Point MI and\nManistee to Point Betsie MI.\n\n* WHEN...From 11 PM this evening to 8 PM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Grand Traverse Bay south of a line Grand Traverse Light to Norwood MI; Norwood MI to 5NM West of Mackinac Bridge including Little Traverse Bay; Sleeping Bear Point to Grand Traverse Light MI; Point Betsie to Sleeping Bear Point MI; Manistee to Point Betsie MI"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 4:46AM EDT until May 18 at 8:00PM EDT by NWS Grand Rapids MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:46:00-04:00",
+      "summary": "* WHAT...South winds 15 to 25 knots with gusts up to 30 knots\nand waves 3 to 6 feet expected.\n\n* WHERE...Holland to Manistee.\n\n* WHEN...From 11 PM this evening to 8 PM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.\n\n* ADDITIONAL DETAILS...South winds will increase this evening and\ncontinue strong the rest of tonight and into Monday. The largest\nwaves will be found from Grand Haven northward up the shore.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Holland to Grand Haven MI; Grand Haven to Whitehall MI; Whitehall to Pentwater MI; Pentwater to Manistee MI"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 4:39AM EDT until May 18 at 11:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:39:00-04:00",
+      "summary": "* WHAT...Southeast winds 15 to 25 kt with gusts up to 30 kt and\nwaves 1 to 3 ft expected.\n\n* WHERE...Munising to Grand Marais MI and Grand Marais to\nWhitefish Point MI.\n\n* WHEN...From 10 PM this evening to 11 AM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Munising to Grand Marais MI; Grand Marais to Whitefish Point MI"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 4:39AM EDT until May 18 at 11:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:39:00-04:00",
+      "summary": "* WHAT...East winds 10 to 20 kt with gusts up to 25 kt and waves\n2 to 5 ft expected.\n\n* WHERE...Point Isabelle to Lower Entrance of Portage Canal MI\nand Lower Entrance of Portage Canal To Huron Islands MI\nIncluding Keweenaw and Huron Bays.\n\n* WHEN...From 1 PM this afternoon to 11 AM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Point Isabelle to Lower Entrance of Portage Canal MI; Portage Lake to Huron Island MI to Lower Entrance of Portage Canal To Huron Islands MI Including Keweenaw and Huron Bays"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 4:39AM EDT until May 18 at 2:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:39:00-04:00",
+      "summary": "* WHAT...East winds 15 to 20 kt with gusts up to 25 kt and waves\n1 to 3 ft expected.\n\n* WHERE...Ontonagon to Upper Entrance of Portage Canal MI and\nUpper Entrance of Portage Canal to Eagle River MI.\n\n* WHEN...From 2 PM this afternoon to 2 AM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Ontonagon to Upper Entrance of Portage Canal MI; Upper Entrance of Portage Canal to Eagle River MI"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 4:39AM EDT until May 18 at 2:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:39:00-04:00",
+      "summary": "* WHAT...East winds 10 to 20 kt with gusts up to 30 kt and waves\n3 to 6 ft expected.\n\n* WHERE...Eagle River to Manitou Island MI and Manitou Island to\nPoint Isabelle MI.\n\n* WHEN...From 8 PM this evening to 2 PM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Eagle River to Manitou Island MI; Manitou Island to Point Isabelle MI"
+    },
+    {
+      "title": "Gale Warning issued May 17 at 4:39AM EDT until May 17 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:39:00-04:00",
+      "summary": "* WHAT...Northeast winds 20 to 30 kt with gusts up to 35 kt and\nwaves 7 to 10 ft expected.\n\n* WHERE...Lake Superior west of a line from Saxon Harbor WI to\nGrand Portage MN beyond 5NM.\n\n* WHEN...From 2 PM EDT /1 PM CDT/ this afternoon to 11 PM EDT\n/10 PM CDT/ this evening.\n\n* IMPACTS...Strong winds will cause hazardous waves which could\ncapsize or damage vessels and reduce visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lake Superior west of a line from Saxon Harbor WI to Grand Portage MN beyond 5NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 4:39AM EDT until May 18 at 8:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:39:00-04:00",
+      "summary": "* WHAT...Southeast winds 10 to 20 kt with gusts up to 30 kt and\nwaves 1 to 4 ft expected.\n\n* WHERE...Huron Islands to Marquette MI and Marquette to\nMunising MI.\n\n* WHEN...From 11 PM this evening to 8 AM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Huron Islands to Marquette MI; Marquette to Munising MI"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 4:39AM EDT until May 18 at 8:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:39:00-04:00",
+      "summary": "* WHAT...South winds 10 to 20 kt with gusts up to 25 kt and\nwaves 2 to 4 ft expected.\n\n* WHERE...Green Bay North of line from Cedar River MI to Rock\nIsland Passage.\n\n* WHEN...From 5 AM to 8 PM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Green Bay North of line from Cedar River MI to Rock Island Passage"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 4:39AM EDT until May 18 at 5:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:39:00-04:00",
+      "summary": "* WHAT...Northeast winds 10 to 20 kt with gusts up to 30 kt and\nwaves 3 to 6 ft expected.\n\n* WHERE...Saxon Harbor WI to Black River MI and Black River to\nOntonagon MI.\n\n* WHEN...From 1 PM EDT /noon CDT/ this afternoon to 5 AM EDT /4\nAM CDT/ Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Saxon Harbor WI to Black River MI; Black River To Ontonagon MI"
+    },
+    {
+      "title": "Small Craft Advisory issued May 17 at 4:39AM EDT until May 18 at 8:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:39:00-04:00",
+      "summary": "* WHAT...South winds 15 to 25 kt with gusts up to 30 kt and\nwaves 4 to 7 ft expected.\n\n* WHERE...Seul Choix Point to Point Detour MI and 5NM East of a\nline from Fairport MI to Rock Island Passage.\n\n* WHEN...From 8 PM this evening to 8 PM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Seul Choix Point to Point Detour MI; 5NM East of a line from Fairport MI to Rock Island Passage"
+    },
+    {
+      "title": "Special Weather Statement issued May 17 at 4:35AM EDT by NWS Burlington VT",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:35:00-04:00",
+      "summary": "...Please check with state and local authorities regarding\nguidelines for allowed activities...\n\n* The warm air temperatures today in the mid 70s may cause people to\nunderestimate the dangers of the cold water temperatures which are\ncurrently in the 40s to around 50 degrees across Lake Champlain,\nand possibly colder in the regions smaller lakes and rivers.\n\n* The cold water temperatures can quickly cause hypothermia to anyone\nimmersed in the water. According to the US Coast Guard, when the\nwater",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northern St. Lawrence; Northern Franklin; Eastern Clinton; Southeastern St. Lawrence; Southern Franklin; Western Clinton; Western Essex; Eastern Essex; Southwestern St. Lawrence; Grand Isle; Western Franklin; Orleans; Essex; Western Chittenden; Lamoille; Caledonia; Washington; Western Addison; Orange; Western Rutland; Eastern Franklin; Eastern Chittenden; Eastern Addison; Eastern Rutland; Western Windsor; Eastern Windsor"
+    },
+    {
+      "title": "Flood Warning issued May 17 at 3:28AM CDT until May 17 at 12:00PM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T03:28:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is occurring.\n\n* WHERE...Northern Daviess County in north central Missouri...\nSouthern Grundy County in north central Missouri...\n\n* WHEN...Until noon CDT Sunday.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is imminent or occurring.\n\n* ADDITIONAL DETAILS...\n- At 326 AM CDT, local law enforcement reported extensive flooding\nacross the warned area.  Many roads are closed.  Use extreme\ncaution traveli",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Daviess, MO; Grundy, MO"
+    },
+    {
+      "title": "Wind Advisory issued May 17 at 3:21AM CDT until May 17 at 9:00PM CDT by NWS Wichita KS",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T03:21:00-05:00",
+      "summary": "* WHAT...South winds 25 to 35 mph with gusts up to 45 mph expected.\n\n* WHERE...Portions of central, east central, south central, and\nsoutheast Kansas.\n\n* WHEN...From 9 AM this morning to 9 PM CDT this evening.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Small\ntree limbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Russell; Lincoln; Barton; Ellsworth; Saline; Rice; McPherson; Marion; Chase; Reno; Harvey; Butler; Greenwood; Woodson; Kingman; Sedgwick; Harper; Sumner; Cowley; Elk; Chautauqua"
+    },
+    {
+      "title": "Wind Advisory issued May 17 at 1:16AM PDT until May 18 at 11:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T01:16:00-07:00",
+      "summary": "* WHAT...North to northeast winds 15 to 30 mph with gusts up to 50\nmph expected. Local gusts up to 60 mph.\n\n* WHERE...The Santa Cruz Mountains, North Bay Interior Mountains,\nEastern Santa Clara Hills, and East Bay Hills.\n\n* WHEN...From 11 PM this evening to 11 AM PDT Monday.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "North Bay Interior Mountains; Santa Cruz Mountains; Eastern Santa Clara Hills; East Bay Hills"
+    },
+    {
+      "title": "Fire Weather Watch issued May 17 at 2:15AM MDT until May 18 at 9:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T02:15:00-06:00",
+      "summary": "...RED FLAG WARNING REMAINS IN EFFECT FROM 10 AM TO 9 PM MDT TODAY\nDUE TO STRONG WINDS AND LOW RELATIVE HUMIDITY FOR PARTS OF WESTERN,\nMUCH OF CENTRAL, AND ALL EASTERN NEW MEXICO...\n\n...FIRE WEATHER WATCH REMAINS IN EFFECT FROM MONDAY MORNING THROUGH\nMONDAY EVENING DUE TO STRONG WINDS AND LOW RELATIVE HUMIDITY FOR\nSOUTHWESTERN, MUCH OF CENTRAL, AND ALL OF EASTERN NEW MEXICO...\n\n.Extremely poor humidity recovery observed this morning with many\nareas only reaching 15 to 25 percent come dawn. More ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Sangre de Cristo Mountains"
+    },
+    {
+      "title": "Coastal Flood Advisory issued May 17 at 4:10AM EDT until May 18 at 1:00AM EDT by NWS Wilmington NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:10:00-04:00",
+      "summary": "* WHAT...Up to one half foot of inundation above ground level\nexpected in low-lying areas near shorelines and tidal\nwaterways.\n\n* WHERE...The lower Cape Fear River including downtown\nWilmington.\n\n* WHEN...From 9 PM this evening to 1 AM EDT Monday.\n\n* IMPACTS...Portions of Battleship Road and USS North Carolina\nRoad observe minor coastal flooding up to one half foot in\ndepth. In downtown Wilmington, a block of Water Street\nobserves minor flooding up to one quarter foot in depth.\n\n* ADDITIONAL DET",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Inland New Hanover"
+    },
+    {
+      "title": "Coastal Flood Advisory issued May 17 at 4:10AM EDT until May 17 at 11:00PM EDT by NWS Wilmington NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T04:10:00-04:00",
+      "summary": "* WHAT...Up to one foot of inundation above ground level\nexpected in low-lying areas near shorelines and tidal\nwaterways.\n\n* WHERE...Coastal Horry and Coastal Georgetown Counties.\n\n* WHEN...From 7 PM to 11 PM EDT this evening.\n\n* IMPACTS...Vulnerable causeways to and from local beaches will\nexperience minor coastal flooding. Low-lying roads and\nlocations along the Intracoastal Waterway and adjacent tidal\ncreeks will observe minor coastal flooding. Check with local\nofficials for the latest inform",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Horry; Coastal Georgetown"
+    },
+    {
+      "title": "Winter Storm Warning issued May 17 at 1:50AM MDT until May 18 at 6:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T01:50:00-06:00",
+      "summary": "* WHAT...Heavy snow. Total snow accumulations 6 to 10 inches\nexpected with locally higher amounts. Winds could gust as high as\n30 to 40 mph with some drifting snow expected.\n\n* WHERE...South Laramie Range including the Interstate 80 Summit\nbetween Cheyenne and Laramie.\n\n* WHEN...From 6 PM this evening to 6 PM MDT Monday.\n\n* IMPACTS...Roads, and especially bridges and overpasses, will\nlikely become slick and hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "South Laramie Range"
+    },
+    {
+      "title": "Winter Storm Warning issued May 17 at 1:50AM MDT until May 18 at 6:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T01:50:00-06:00",
+      "summary": "* WHAT...Heavy snow and periods of drifting snow. Total snow\naccumulations 6 to 10 inches with higher amounts near the\nmountains. Winds could gust as high as 35 to 45 mph with periods\nof blowing and drifting snow.\n\n* WHERE...North Snowy Range Foothills including Arlington and Elk\nMountain along Interstate 80, and Ferris/Seminoe/Shirley Mountains.\n\n* WHEN...From 6 PM this evening to 6 PM MDT Monday.\n\n* IMPACTS...Roads, and especially bridges and overpasses, will\nlikely become slick and hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Ferris/Seminoe/Shirley Mountains; North Snowy Range Foothills"
+    },
+    {
+      "title": "Winter Weather Advisory issued May 17 at 1:50AM MDT until May 18 at 6:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T01:50:00-06:00",
+      "summary": "* WHAT...Snow and blowing snow expected. Total snow accumulations\nbetween 6 and 12 inches, with lower amounts on the western side of\nthe range. Winds gusting as high as 55 mph.\n\n* WHERE...Sierra Madre Range.\n\n* WHEN...From 10 PM this evening to 6 PM MDT Monday.\n\n* IMPACTS...Travel could be very difficult to impossible. The\nhazardous conditions could impact the Monday morning and evening\ncommutes. Strong winds could cause tree damage.\n\n* ADDITIONAL DETAILS...North to northeast facing slopes and r",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Sierra Madre Range"
+    },
+    {
+      "title": "Winter Storm Warning issued May 17 at 1:50AM MDT until May 18 at 6:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T01:50:00-06:00",
+      "summary": "* WHAT...Heavy snow and periods of blowing snow. Total snow\naccumulations 5 to 10 inches expected with locally higher amounts\nnear the mountains. Winds could gust as high as 45 mph.\n\n* WHERE...Central Carbon County.\n\n* WHEN...From midnight tonight to 6 PM MDT Monday.\n\n* IMPACTS...Visibilities may drop below 1/4 mile due to falling and\nblowing snow.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Central Carbon County"
+    },
+    {
+      "title": "Winter Weather Advisory issued May 17 at 1:50AM MDT until May 18 at 6:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T01:50:00-06:00",
+      "summary": "* WHAT...Snow expected. Total snow accumulations 2 to 5 inches.\nWinds gusting as high as 35 mph.\n\n* WHERE...Converse County Lower Elevations, Shirley Basin, Central\nLaramie Range and Southwest Platte County, and South Laramie Range\nFoothills.\n\n* WHEN...From midnight tonight to 6 PM MDT Monday.\n\n* IMPACTS...Travel could be very difficult. The hazardous conditions\ncould impact the Monday morning and evening commutes.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Converse County Lower Elevations; Shirley Basin; Central Laramie Range and Southwest Platte County; South Laramie Range Foothills"
+    },
+    {
+      "title": "Winter Storm Warning issued May 17 at 1:50AM MDT until May 18 at 6:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T01:50:00-06:00",
+      "summary": "* WHAT...Heavy snow possible. Total snow accumulations 10 to 20\ninches expected. Winds could gust as high as 30 to 40 mph with\nperiods of blowing and drifting snow, especially above 8500 feet.\n\n* WHERE...Snowy Range and North Laramie Range.\n\n* WHEN...From 6 PM this evening to 6 PM MDT Monday.\n\n* IMPACTS...Heavy wet snow. Roads, and especially bridges, will\nlikely become slick and hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "North Laramie Range; Snowy Range"
+    },
+    {
+      "title": "Winter Weather Advisory issued May 17 at 1:46AM MDT until May 18 at 6:00PM MDT by NWS Riverton WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T01:46:00-06:00",
+      "summary": "* WHAT...Snow expected. Total snow accumulations between 2 and 4\ninches. Winds gusting as high as 40 mph.\n\n* WHERE...South Lincoln County.\n\n* WHEN...From 6 PM this evening to 6 PM MDT Monday.\n\n* IMPACTS...Plan on slippery road conditions. The hazardous\nconditions could impact the Monday morning commute.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "South Lincoln County"
+    },
+    {
+      "title": "Special Weather Statement issued May 17 at 3:34AM EDT by NWS Caribou ME",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T03:34:00-04:00",
+      "summary": "* The warm air temperatures this weekend in the lower 70s may cause\npeople to underestimate the dangers of the cold water\ntemperatures which are currently only in the upper 40s on the\nlakes and in the mid 40s on the rivers.\n\n* The cold water temperatures can quickly cause hypothermia to\nanyone immersed in the water. According to the Maine Warden\nService, when the water temperatures are below 50 degrees, the\nchance of immediate incapacitation due to cold shock is extremely\nhigh. Anyone on small b",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northeast Aroostook; Northern Piscataquis; Northern Penobscot; Southeast Aroostook; Central Piscataquis; Central Penobscot; Southern Penobscot; Interior Hancock; Central Washington; Coastal Hancock; Coastal Washington; Southern Piscataquis; Northern Washington"
+    },
+    {
+      "title": "Freeze Warning issued May 17 at 1:31AM MDT until May 18 at 8:00AM MDT by NWS Boise ID",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T01:31:00-06:00",
+      "summary": "* WHAT...Sub-freezing temperatures as low as 30 expected.\n\n* WHERE...Western Magic Valley.\n\n* WHEN...From midnight tonight to 8 AM MDT Monday.\n\n* IMPACTS...Frost and freeze conditions could kill crops, other\nsensitive vegetation and possibly damage unprotected outdoor\nplumbing.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Western Magic Valley"
+    },
+    {
+      "title": "Special Weather Statement issued May 17 at 3:20AM EDT by NWS Gray ME",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T03:20:00-04:00",
+      "summary": "* The warm air temperatures in the 70s and 80s, except mid to upper\n60s in the western Maine mountains, may cause people to\nunderestimate the dangers of the cold water temperatures which are\ncurrently only around 50 degrees across Sebago Lake, Lake\nWinnipesaukee, and in the region's smaller lakes and rivers.\n\n* The cold water temperatures can quickly cause hypothermia to anyone\nimmersed in the water. According to the US Coast Guard, when the\nwater temperatures are at or below 50 degrees, the cha",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northern Oxford; Northern Franklin; Central Somerset; Southern Oxford; Southern Franklin; Southern Somerset; Interior York; Central Interior Cumberland; Androscoggin; Kennebec; Interior Waldo; Coastal York; Coastal Cumberland; Sagadahoc; Lincoln; Knox; Coastal Waldo; Interior Cumberland Highlands; Northern Coos; Southern Coos; Northern Grafton; Northern Carroll; Southern Grafton; Southern Carroll; Sullivan; Merrimack; Belknap; Strafford; Cheshire; Eastern Hillsborough; Interior Rockingham; Coastal Rockingham; Western And Central Hillsborough"
+    },
+    {
+      "title": "Rip Current Statement issued May 17 at 2:13AM CDT until May 18 at 7:00PM CDT by NWS Brownsville TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T02:13:00-05:00",
+      "summary": "* WHAT...Dangerous rip currents expected.\n\n* WHERE...Kenedy Island, Willacy Island and Cameron Island\nCounties.\n\n* WHEN...From Monday morning through Monday evening.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kenedy Island; Willacy Island; Cameron Island"
+    },
+    {
+      "title": "Wind Advisory issued May 17 at 2:08AM CDT until May 17 at 9:00PM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T02:08:00-05:00",
+      "summary": "* WHAT...South winds 20 to 30 mph with gusts up to 45 mph expected.\n\n* WHERE...Dewey, Kiowa, Custer, and Washita Counties.\n\n* WHEN...From 7 AM this morning to 9 PM CDT this evening.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Dewey; Custer; Washita; Kiowa"
+    },
+    {
+      "title": "Wind Advisory issued May 17 at 12:05AM PDT until May 18 at 7:00AM PDT by NWS Phoenix AZ",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T00:05:00-07:00",
+      "summary": "* WHAT...Northwest winds 15 to 25 mph with gusts up to 40 to 50 mph\nexpected.\n\n* WHERE...Western portion of Joshua Tree National Park, Eastern\nportion of Joshua Tree National Park, Chuckwalla Mountains,\nChiriaco Summit, Palo Verde Valley, and Chuckwalla Valley.\n\n* WHEN...From 11 PM this evening to 7 AM PDT Monday.\n\n* IMPACTS...Difficult driving conditions, especially for larger\nvehicles traveling along roads with crosswinds. Light, unsecured\nobjects may become airborne.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Joshua Tree NP West; Joshua Tree NP East; Chuckwalla Mountains; Chiriaco Summit; Palo Verde Valley; Chuckwalla Valley"
+    },
+    {
+      "title": "Wind Advisory issued May 17 at 12:05AM PDT until May 17 at 11:00PM PDT by NWS Phoenix AZ",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T00:05:00-07:00",
+      "summary": "* WHAT...West winds 20 to 30 mph with gusts up to 40 to 50 mph\nexpected.\n\n* WHERE...Western Imperial County, Salton Sea, and Imperial Valley.\n\n* WHEN...From 4 PM this afternoon to 11 PM PDT this evening.\n\n* IMPACTS...Difficult driving conditions, especially for larger\nvehicles traveling along roads with crosswinds. Light, unsecured\nobjects may become airborne.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Salton Sea; Imperial County West; Imperial Valley"
+    },
+    {
+      "title": "High Wind Warning issued May 17 at 12:01AM PDT until May 17 at 11:00PM PDT by NWS Elko NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-17T00:01:00-07:00",
+      "summary": "* WHAT...Northwest winds 30 to 40 mph with gusts up to 60 mph\nexpected.\n\n* WHERE...Northwestern Nye County.\n\n* WHEN...From 11 AM to 11 PM PDT Sunday.\n\n* IMPACTS...Damaging winds will blow down trees and power lines.\nAreas of blowing dust will reduce visibility to one mile or less\nin spots. Travel will be difficult, especially for high profile\nvehicles.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Northwestern Nye County"
+    }
+  ]
+}

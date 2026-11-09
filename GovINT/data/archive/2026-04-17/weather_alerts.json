@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-04-17T11:35:40.256046Z",
+  "items": [
+    {
+      "title": "Special Weather Statement issued April 17 at 7:23AM EDT by NWS Wilmington OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T07:23:00-04:00",
+      "summary": "Areas of fog have developed over the area, some of which are\nlocally dense with visibility under 1/2 mile at times.\n\nPlease be aware of this potential hazard when commuting this\nmorning.\n\nThe fog is expected to lift in the next hour as the sun mixes out\nair nearest the ground.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Hardin; Mercer; Auglaize; Darke; Shelby; Logan; Union; Delaware; Champaign; Clark; Madison"
+    },
+    {
+      "title": "Special Weather Statement issued April 17 at 6:48AM EDT by NWS Cleveland OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T06:48:00-04:00",
+      "summary": "Areas of fog have developed across northern Ohio this morning.\nSome of this fog may be locally dense with visibility as low as\none-quarter of a mile. Conditions are expected to improve later\nthis morning.\n\nIf driving, use your headlights, allow extra time to reach your\ndestination, give extra distance between you and the car in front\nof you, and be prepared for rapid changes to visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lucas; Wood; Ottawa; Sandusky; Erie; Lorain; Hancock; Seneca; Huron; Medina; Summit; Portage; Trumbull; Wyandot; Crawford; Richland; Ashland; Wayne; Stark; Mahoning; Marion; Morrow; Holmes; Knox"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 2:57AM PDT until April 17 at 12:00PM PDT by NWS Los Angeles/Oxnard CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T02:57:00-07:00",
+      "summary": "* WHAT...Hazardous sea conditions.\n\n* WHERE...Portions of the coastal waters of southwest\nCalifornia.\n\n* WHEN...Until noon PDT today.\n\n* IMPACTS...Conditions will be hazardous to small craft.\n\n* ADDITIONAL DETAILS...See the Coastal Waters Forecast (CWFLOX)\nfor more.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Point Piedras Blancas to Point Sal from 10 to 60 NM; Waters from Pt. Sal to Santa Cruz Island CA and westward 60 nm including San Miguel and Santa Rosa Islands; Outer waters from Santa Cruz Island to San Clemente Island to 60 NM offshore including San Nicolas and Santa Barbara Islands"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 2:57AM PDT until April 17 at 12:00PM PDT by NWS Los Angeles/Oxnard CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T02:57:00-07:00",
+      "summary": "* WHAT...Hazardous sea conditions.\n\n* WHERE...East Santa Barbara Channel from Pt. Conception to Pt.\nMugu CA including Santa Cruz Island and Inner waters from\nPoint Mugu to San Mateo Pt. CA including Santa Catalina and\nAnacapa Islands.\n\n* WHEN...From 6 AM this morning to noon PDT today.\n\n* IMPACTS...Conditions will be hazardous to small craft.\n\n* ADDITIONAL DETAILS...See the Coastal Waters Forecast (CWFLOX)\nfor more.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "East Santa Barbara Channel from Pt. Conception to Pt. Mugu CA including Santa Cruz Island; Inner waters from Point Mugu to San Mateo Pt. CA including Santa Catalina and Anacapa Islands"
+    },
+    {
+      "title": "Freeze Watch issued April 17 at 4:44AM CDT until April 18 at 9:00AM CDT by NWS North Platte NE",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T04:44:00-05:00",
+      "summary": "* WHAT...Sub-freezing temperatures with lows by Saturday morning in\nthe lower to middle 20s.\n\n* WHERE...Portions of central, north central, panhandle, southwest,\nand west central Nebraska.\n\n* WHEN...From this evening through Saturday morning.\n\n* IMPACTS...Frost and freeze conditions could kill crops, other\nsensitive vegetation and possibly damage unprotected outdoor\nplumbing.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Garden; Grant; Hooker; Thomas; Arthur; McPherson; Logan; Custer; Deuel; Keith; Perkins; Lincoln; Chase; Hayes; Frontier"
+    },
+    {
+      "title": "Marine Weather Statement issued April 17 at 5:38AM AST by NWS San Juan PR",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T05:38:00-04:00",
+      "summary": "The areas affected include...\nCaribbean Waters of Puerto Rico from 10 NM to 17N, including the\nCoastal Waters of Saint Croix...\nCoastal Waters of Southern Puerto Rico out 10 NM...\nMona Passage Southward to 17N...\n\nAt 538 AM AST, Doppler radar indicated a strong thunderstorm, capable\nof producing winds to around 30 knots. This thunderstorm was located\nover mainly areas of the Caribbean waters extending into the Moma\nPassage , moving west at 15 knots.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Caribbean Waters of Puerto Rico from 10 NM to 17N, including the Coastal Waters of Saint Croix; Coastal Waters of Southern Puerto Rico out 10 NM; Mona Passage Southward to 17N"
+    },
+    {
+      "title": "Special Weather Statement issued April 17 at 5:24AM EDT by NWS Buffalo NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T05:24:00-04:00",
+      "summary": "Surface observations and webcams show an areas of fog near Lake\nErie and the Upper Niagara River including the city of Buffalo\nearly this morning. Some of this fog may be locally dense, with\nvisibilities down to a quarter of a mile at times.\n\nIf driving this morning, use your headlights, allow extra time to\nreach your destination, and be prepared for rapid changes to\nvisibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northern Erie; Chautauqua; Southern Erie"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 17 at 5:09AM EDT until April 19 at 9:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T05:09:00-04:00",
+      "summary": "* WHAT...Visibility 1/4 mile or less in dense fog.\n\n* WHERE...Alger, Dickinson, Northern Schoolcraft, and Southern\nSchoolcraft Counties.\n\n* WHEN...Until 9 AM EDT /8 AM CDT/ Sunday.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Alger; Dickinson; Southern Schoolcraft; Northern Schoolcraft"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 5:01AM EDT until April 19 at 2:00AM EDT by NWS Northern Indiana",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T05:01:00-04:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to one quarter nautical mile or less. For the Small\nCraft Advisory, southerly winds becoming northwesterly on\nSaturday morning with gusts up to 25 mph. Waves 2 to 5 feet\nexpected.\n\n* WHERE...New Buffalo MI to St Joseph MI and Michigan City IN to\nNew Buffalo MI.\n\n* WHEN...For the Dense Fog Advisory, until 8 AM EDT this\nmorning. For the Small Craft Advisory, from 8 PM this evening\nto 2 AM EDT Sunday.\n\n* IMPACTS...Conditions will",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "New Buffalo MI to St Joseph MI; Michigan City IN to New Buffalo MI"
+    },
+    {
+      "title": "Hydrologic Outlook issued April 17 at 3:57AM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:57:00-05:00",
+      "summary": "ESFLOT\n\nAdditional thunderstorms are expected Friday afternoon and Friday\nnight across northern Illinois and northwest Indiana. Atmospheric\nconditions are favorable for some of these storms to produce\nlocally heavy rainfall.\n\nMany rivers across northern Illinois and northwest Indiana remain\nelevated. Soil moisture also remains elevated in many areas,\nespecially in northern Illinois along the Wisconsin border. Thus,\nany heavy rainfall that occurs could lead to flooding of rivers,\ncreeks, urban an",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Unknown",
+      "area": "Boone, IL; Cook, IL; De Kalb, IL; DuPage, IL; Ford, IL; Grundy, IL; Iroquois, IL; Kane, IL; Kankakee, IL; Kendall, IL; Lake, IL; La Salle, IL; Lee, IL; Livingston, IL; McHenry, IL; Ogle, IL; Will, IL; Winnebago, IL; Benton, IN; Jasper, IN; Lake, IN; Newton, IN; Porter, IN"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 3:52AM CDT until April 18 at 10:00PM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:52:00-05:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to 1/4 NM or less. For the Small Craft Advisory,\nsouthwest winds to 25 kt and significant waves to 5 ft\nexpected.\n\n* WHERE...Illinois and Indiana nearshore from Winthrop Harbor IL\nto Michigan City IN.\n\n* WHEN...For the Dense Fog Advisory, until 10 AM CDT this\nmorning. For the Small Craft Advisory, from 1 PM this\nafternoon to 10 PM CDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft. Low\nvisibility will make ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Winthrop Harbor to Wilmette Harbor IL; Wilmette Harbor to Northerly Island IL; Northerly Island to Calumet Harbor IL; Calumet Harbor IL to Gary IN; Gary to Burns Harbor IN; Burns Harbor to Michigan City IN"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 17 at 4:51AM EDT until April 17 at 11:00AM EDT by NWS Cleveland OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T04:51:00-04:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...In Ohio, Ashtabula Inland, Ashtabula Lakeshore, Cuyahoga,\nGeauga, and Lake Counties. In Pennsylvania, Crawford, Northern\nErie, and Southern Erie Counties.\n\n* WHEN...Until 11 AM EDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cuyahoga; Lake; Geauga; Ashtabula Inland; Ashtabula Lakeshore; Northern Erie; Southern Erie; Crawford"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 2:56AM CDT until April 18 at 10:00AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T02:56:00-05:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to 1 NM or less. For the Small Craft Advisory,\nsouthwest winds 15 to 25 kt with gusts up to 30 kt and waves 4\nto 6 ft expected.\n\n* WHERE...Lake Michigan nearshore waters from Washington Island\nto Sheboygan.\n\n* WHEN...For the Dense Fog Advisory, until 9 AM CDT this\nmorning. For the Small Craft Advisory, from 3 PM this\nafternoon to 10 AM CDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft. Low\nvisibility will ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Rock Island Passage to Sturgeon Bay WI; Sturgeon Bay to Two Rivers WI; Two Rivers to Sheboygan WI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 2:56AM CDT until April 18 at 4:00AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T02:56:00-05:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to 1 NM or less. For the Small Craft Advisory, south\nwinds 15 to 20 kt with gusts up to 30 kt and waves 1 to 4 ft\nexpected.\n\n* WHERE...Central and Southern Bay of Green Bay.\n\n* WHEN...For the Dense Fog Advisory, until 9 AM CDT this\nmorning. For the Small Craft Advisory, from 3 PM this\nafternoon to 4 AM CDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft. Low\nvisibility will make navigation difficult.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Green Bay south of line from  Cedar River to Rock Island Passage and north of a line from Oconto WI to Little Sturgeon Bay WI; Green Bay south of line from  Oconto WI to Little Sturgeon Bay WI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 3:55AM EDT until April 19 at 8:00AM EDT by NWS Grand Rapids MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:55:00-04:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to one quarter nautical mile or less. For the Small\nCraft Advisory, west winds 15 to 25 knots with gusts up to 30\nknots and waves 3 to 6 feet expected.\n\n* WHERE...St Joseph to Manistee.\n\n* WHEN...For the Dense Fog Advisory, until 8 PM EDT this\nevening. For the Small Craft Advisory, from 8 PM this evening\nto 8 AM EDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft. Low\nvisibility will make navigation difficult.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "St Joseph to South Haven MI; South Haven to Holland MI; Holland to Grand Haven MI; Grand Haven to Whitehall MI; Whitehall to Pentwater MI; Pentwater to Manistee MI"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 17 at 2:52AM CDT until April 17 at 9:00AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T02:52:00-05:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...Portions of central, east central, north central, and\nnortheast Wisconsin.\n\n* WHEN...Until 9 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Forest; Northern Marinette County; Langlade; Menominee; Northern Oconto County; Door; Shawano; Waupaca; Outagamie; Waushara; Winnebago; Southern Marinette County; Southern Oconto County"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 17 at 2:46AM CDT until April 17 at 9:00AM CDT by NWS Milwaukee/Sullivan WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T02:46:00-05:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in areas of dense fog.\n\n* WHERE...Fond du Lac, Rock, Dodge, and Jefferson Counties.\n\n* WHEN...Until 9 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Fond Du Lac; Dodge; Jefferson; Rock"
+    },
+    {
+      "title": "Wind Advisory issued April 17 at 12:31AM PDT until April 17 at 5:00AM PDT by NWS Las Vegas NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T00:31:00-07:00",
+      "summary": "* WHAT...North-northwest winds 15 to 25 mph with gusts up to 45 mph\nexpected.\n\n* WHERE...Portions of northwestern Arizona, southeastern California,\nand south-central and southern Nevada.\n\n* WHEN...Until 5 AM PDT / MST early this morning.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.\nWinds this strong can make driving difficult, especially for\nhigh-profile vehicles, particularly along east-west thoroughfares\nincludi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northwest Plateau; Lake Mead - AZ side; Eastern Sierra Slopes of Inyo County; White Mountains of Inyo County; Death Valley National Park; Owens Valley South; Owens Valley North; Lincoln County; Northeast Clark County; Western Clark and Southern Nye County; Sheep Range; Spring Mountains-Red Rock Canyon; Las Vegas Valley; Lake Mead - NV side"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 17 at 3:31AM EDT until April 17 at 11:00AM EDT by NWS Buffalo NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:31:00-04:00",
+      "summary": "* WHAT...Dense fog will reduce visibility to less than one\nnautical mile.\n\n* WHERE...The nearshore waters of Lake Erie from Ripley to\nBuffalo.\n\n* WHEN...Until 11 AM EDT this morning.\n\n* IMPACTS...Low visibility will make navigation difficult.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Ripley to Dunkirk NY; Dunkirk to Buffalo NY"
+    },
+    {
+      "title": "Wind Advisory issued April 17 at 12:31AM PDT until April 17 at 11:00AM PDT by NWS Las Vegas NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T00:31:00-07:00",
+      "summary": "* WHAT...North winds 20 to 30 mph with gusts up to 50 mph.\n\n* WHERE...In Arizona, Hualapai Mountains and Northwest Deserts. In\nCalifornia, Cadiz Basin, Eastern Mojave Desert, Morongo Basin, and\nWestern Mojave Desert. In Nevada, Southern Clark County.\n\n* WHEN...Until 11 AM PDT / MST this morning.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.\nWinds this strong can make driving difficult, especially for\nhigh-profile v",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Hualapai Mountains; Northwest Deserts; Western Mojave Desert; Eastern Mojave Desert, Including the Mojave National Preserve; Morongo Basin; Cadiz Basin; Southern Clark County"
+    },
+    {
+      "title": "Wind Advisory issued April 17 at 12:31AM PDT until April 17 at 5:00PM PDT by NWS Las Vegas NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T00:31:00-07:00",
+      "summary": "* WHAT...North winds 30 to 40 mph with gusts up to 55 mph.\n\n* WHERE...In Arizona, Lake Havasu and Fort Mohave and Lake Mohave -\nAZ side. In California, San Bernardino County-Upper Colorado River\nValley. In Nevada, Lake Mohave - NV side.\n\n* WHEN...Until 5 PM PDT / MST this afternoon.\n\n* IMPACTS...Winds this strong can make driving difficult, especially\nfor high-profile vehicles, particularly along east-west\nthoroughfares including Interstate 40. Strong winds will elevate\nwave heights on Lake Moha",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lake Havasu and Fort Mohave; Lake Mohave - AZ side; San Bernardino County-Upper Colorado River Valley; Lake Mohave - NV side"
+    },
+    {
+      "title": "Wind Advisory issued April 17 at 12:31AM PDT until April 17 at 5:00AM PDT by NWS Las Vegas NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T00:31:00-07:00",
+      "summary": "* WHAT...North-northwest winds 20 to 30 mph with gusts up to 50 mph.\n\n* WHERE...Esmeralda and Central Nye County.\n\n* WHEN...Until 5 AM PDT early this morning.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.\nWinds this strong can make driving difficult, especially for\nhigh-profile vehicles, particularly along east-west thoroughfares\nincluding Highway 95 west of Tonopah and State Route 374.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Esmeralda and Central Nye County"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 2:29AM CDT until April 19 at 4:00AM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T02:29:00-05:00",
+      "summary": "* WHAT...West winds 15 to 25 kt with gusts up to 30 kt and waves\n2 to 5 ft expected.\n\n* WHERE...Outer Apostle Islands Beyond 5 NM from Mainland.\n\n* WHEN...From 4 PM this afternoon to 4 AM CDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Outer Apostle Islands Beyond 5 NM from Mainland"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 2:29AM CDT until April 18 at 10:00PM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T02:29:00-05:00",
+      "summary": "* WHAT...West winds 10 to 20 kt with gusts up to 25 kt and waves\n1 to 3 ft expected.\n\n* WHERE...Silver Bay Harbor to Two Harbors MN and Two Harbors to\nDuluth MN.\n\n* WHEN...From 4 PM this afternoon to 10 PM CDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Silver Bay Harbor to Two Harbors MN; Two Harbors to Duluth MN"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 2:29AM CDT until April 18 at 10:00PM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T02:29:00-05:00",
+      "summary": "* WHAT...West winds 10 to 20 kt with gusts up to 25 kt and waves\n1 to 4 ft expected.\n\n* WHERE...Chequamegon Bay-Bayfield to Oak Point WI, Sand Island\nto Bayfield WI and Oak Point to Saxon Harbor WI.\n\n* WHEN...From 4 PM this afternoon to 10 PM CDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chequamegon Bay-Bayfield to Oak Point WI; Sand Island to Bayfield WI; Oak Point to Saxon Harbor WI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 2:29AM CDT until April 18 at 10:00PM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T02:29:00-05:00",
+      "summary": "* WHAT...West winds 15 to 25 kt and waves 2 to 5 ft expected.\n\n* WHERE...Duluth MN to Port Wing WI and Port Wing to Sand Island\nWI.\n\n* WHEN...From 4 PM this afternoon to 10 PM CDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Duluth MN to Port Wing WI; Port Wing to Sand Island WI"
+    },
+    {
+      "title": "Gale Warning issued April 17 at 2:29AM CDT until April 18 at 12:00AM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T02:29:00-05:00",
+      "summary": "* WHAT...Northwest winds 10 to 20 kt with gusts up to 35 kt and\nwaves 1 to 4 ft expected.\n\n* WHERE...Grand Portage to Grand Marais MN, Grand Marais to\nTaconite Harbor MN and Taconite Harbor to Silver Bay Harbor MN.\n\n* WHEN...From 5 PM this afternoon to midnight CDT tonight.\n\n* IMPACTS...Strong winds will cause hazardous waves which could\ncapsize or damage vessels and reduce visibility.\n\n* ADDITIONAL DETAILS...Northwest winds with gusts up to 25 knots\nwill likely continue through the day Saturday",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Grand Portage to Grand Marais MN; Grand Marais to Taconite Harbor MN; Taconite Harbor to Silver Bay Harbor MN"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 17 at 3:25AM EDT until April 17 at 11:00AM EDT by NWS Cleveland OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:25:00-04:00",
+      "summary": "* WHAT...Dense fog will reduce visibility to one nautical mile or\nless.\n\n* WHERE...The nearshore waters of Lake Erie from Maumee Bay OH\nto Ripley NY, and the open waters of Lake Erie from Maumee Bay\nOH to Buffalo NY.\n\n* WHEN...Until 11 AM EDT this morning.\n\n* IMPACTS...Low visibility will make navigation difficult.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Ripley to Buffalo NY extending from 5NM off shoreline to US-Canadian border; Maumee Bay to Reno Beach OH; Reno Beach to The Islands OH; The Islands to Vermilion OH; Vermilion to Avon Point OH; Avon Point to Willowick OH; Willowick to Geneva-on-the Lake OH; Geneva-on-the-Lake to Conneaut OH; Conneaut OH to Ripley NY; Detroit River Lt. to Maumee Bay OH to Reno Beach OH beyond 5NM offshoreline to US-Canadian border; Reno Beach to The Islands OH beyond 5NM off shoreline to US-Canadian border; The Islands to Vermilion OH beyond 5 nm off shoreline to US-Canadian border; Vermilion to Avon Point OH beyond 5 nm off shoreline to US-Canadian border; Avon Point to Willowick OH beyond 5 nm off shoreline to US-Canadian border; Willowick to Geneva-on-the-Lake OH beyond 5NM off shoreline to US-Canadian border; Geneva-on-the-Lake to Conneaut OH beyond 5 nm off shoreline to US-Canadian border; Conneaut OH to Ripley NY beyond 5 nm off shoreline to US-Canadian border"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 3:24AM EDT until April 18 at 11:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to less than one nautical mile. For the Small Craft\nAdvisory, southeast to south winds 10 to 20 kt with gusts up to\n30 kt this evening becoming northwest winds 10 to 20 kt with\ngusts up to 25 kt late tonight; waves 3 to 6 ft expected.\n\n* WHERE...Seul Choix Point to Point Detour MI and 5NM East of a\nline from Fairport MI to Rock Island Passage.\n\n* WHEN...For the Dense Fog Advisory, until 11 AM EDT this\nmorning. For the Small Cr",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Seul Choix Point to Point Detour MI; 5NM East of a line from Fairport MI to Rock Island Passage"
+    },
+    {
+      "title": "Gale Watch issued April 17 at 3:24AM EDT until April 18 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...For the Small Craft Advisory, southeast to south winds 15\nto 25 kt with gusts up to 30 kt today becoming west winds 10 to\n20 kt with gusts up to 25 kt this evening; waves 2 to 5 ft\nexpected. For the Gale Watch, west to northwest winds 15 to 25\nkt with a few gale force gusts up to 35 kt possible and waves 2\nto 5 ft possible.\n\n* WHERE...Point Isabelle to Lower Entrance of Portage Canal MI\nand Lower Entrance of Portage Canal To Huron Islands MI\nIncluding Keweenaw and Huron Bays.\n\n* WHEN...",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Point Isabelle to Lower Entrance of Portage Canal MI; Portage Lake to Huron Island MI to Lower Entrance of Portage Canal To Huron Islands MI Including Keweenaw and Huron Bays"
+    },
+    {
+      "title": "Gale Watch issued April 17 at 3:24AM EDT until April 18 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...For the Small Craft Advisory, southeast to south winds 15\nto 20 kt with gusts up to 30 kt and waves 1 to 4 ft expected.\nFor the Gale Watch, west to northwest winds 20 to 30 kt with\ngusts up to 35 kt and waves 6 to 11 ft possible.\n\n* WHERE...Grand Marais to Whitefish Point MI.\n\n* WHEN...For the Small Craft Advisory, from 2 PM this afternoon\nto 5 AM EDT Saturday. For the Gale Watch, from late tonight\nthrough Saturday evening.\n\n* IMPACTS...Strong winds can cause hazardous waves which could",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Grand Marais to Whitefish Point MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 3:24AM EDT until April 17 at 8:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...South winds 15 to 20 kt with gusts up to 30 kt and\nwaves 1 to 3 ft expected.\n\n* WHERE...Saxon Harbor WI to Black River MI.\n\n* WHEN...Until 8 PM EDT /7 PM CDT/ this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Saxon Harbor WI to Black River MI"
+    },
+    {
+      "title": "Gale Watch issued April 17 at 3:24AM EDT until April 18 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...West to northwest winds 20 to 25 kt with gusts up to 35\nkt and waves 6 to 9 ft possible.\n\n* WHERE...Lake Superior from Saxon Harbor WI to Upper Entrance\nto Portage Canal MI 5NM off shore to the US/Canadian border\nincluding Isle Royale National Park.\n\n* WHEN...From late tonight through Saturday evening.\n\n* IMPACTS...Strong winds can cause hazardous waves which could\ncapsize or damage vessels and reduce visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lake Superior from Saxon Harbor WI to Upper Entrance to Portage Canal MI 5NM off shore to the US/Canadian border including Isle Royale National Park"
+    },
+    {
+      "title": "Gale Watch issued April 17 at 3:24AM EDT until April 18 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...For the Small Craft Advisory, southeast winds 15 to 25 kt\nwith gusts up to 30 kt and waves 3 to 6 ft expected. For the\nGale Warning, southeast to south winds 15 to 25 kt with gusts up\nto 35 kt and waves 5 to 8 ft expected. For the Gale Watch, west\nto northwest winds 20 to 30 kt with gusts up to 35 kt and waves\n6 to 11 ft possible.\n\n* WHERE...Eagle River to Manitou Island MI and Manitou Island to\nPoint Isabelle MI.\n\n* WHEN...For the Small Craft Advisory, from 8 AM this morning to\n3 PM ED",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Eagle River to Manitou Island MI; Manitou Island to Point Isabelle MI"
+    },
+    {
+      "title": "Gale Watch issued April 17 at 3:24AM EDT until April 18 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...For the Small Craft Advisory, south winds 15 to 20 kt\nwith gusts up to 30 kt and waves 1 to 4 ft expected. For the\nGale Watch, west to northwest winds 15 to 25 kt with gusts up\nto 35 kt and waves 7 to 10 ft possible.\n\n* WHERE...Huron Islands to Marquette MI, Marquette to Munising\nMI and Munising to Grand Marais MI.\n\n* WHEN...For the Small Craft Advisory, from 11 AM this morning\nto 2 AM EDT Saturday. For the Gale Watch, from late tonight\nthrough Saturday evening.\n\n* IMPACTS...Strong wind",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Huron Islands to Marquette MI; Marquette to Munising MI; Munising to Grand Marais MI"
+    },
+    {
+      "title": "Gale Watch issued April 17 at 3:24AM EDT until April 18 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...West to northwest winds 20 to 30 kt with gusts up to 35\nkt and waves 8 to 13 ft possible.\n\n* WHERE...Lake Superior from Grand Marais MI to Whitefish Point\nMI 5NM off shore to the US/Canadian border.\n\n* WHEN...From late tonight through Saturday evening.\n\n* IMPACTS...Strong winds can cause hazardous waves which could\ncapsize or damage vessels and reduce visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lake Superior from Grand Marais MI to Whitefish Point MI 5NM off shore to the US/Canadian border"
+    },
+    {
+      "title": "Gale Warning issued April 17 at 3:24AM EDT until April 17 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...For the Small Craft Advisory, southeast winds 15 to 25 kt\nwith gusts up to 30 kt and waves 3 to 6 ft expected. For the\nGale Warning, southeast to south winds 15 to 25 kt with gusts up\nto 35 kt and waves 5 to 8 ft expected. For the Gale Watch, west\nto northwest winds 20 to 30 kt with gusts up to 35 kt and waves\n6 to 11 ft possible.\n\n* WHERE...Eagle River to Manitou Island MI and Manitou Island to\nPoint Isabelle MI.\n\n* WHEN...For the Small Craft Advisory, from 8 AM this morning to\n3 PM ED",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Eagle River to Manitou Island MI; Manitou Island to Point Isabelle MI"
+    },
+    {
+      "title": "Gale Watch issued April 17 at 3:24AM EDT until April 18 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, southeast to south winds 20 to 30\nkt with gusts up to 35 kt and waves 7 to 10 ft expected. For\nthe Gale Watch, west to northwest winds 20 to 30 kt with gusts\nup to 35 kt and waves 7 to 10 ft possible.\n\n* WHERE...Lake Superior from Upper Entrance to Portage Canal to\nManitou Island MI 5NM off shore to the US/Canadian Border and\nLake Superior West of Line from Manitou Island to Marquette MI\nBeyond 5NM from shore.\n\n* WHEN...For the Gale Warning, from 3 PM this afternoo",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lake Superior from Upper Entrance to Portage Canal to Manitou Island MI 5NM off shore to the US/Canadian Border; Lake Superior West of Line from Manitou Island to Marquette MI Beyond 5NM from shore"
+    },
+    {
+      "title": "Gale Watch issued April 17 at 3:24AM EDT until April 18 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, southeast to south winds 20 to 25\nkt with gusts up to 40 kt and waves 6 to 9 ft expected. For the\nGale Watch, west to northwest winds 20 to 30 kt with gusts up\nto 35 kt and waves 7 to 12 ft possible.\n\n* WHERE...Lake Superior East of a line from Manitou Island to\nMarquette MI and West of a line from Grand Marais MI to the\nUS/Canadian Border Beyond 5NM from shore.\n\n* WHEN...For the Gale Warning, from 3 PM this afternoon to\nmidnight EDT tonight. For the Gale Watch, fr",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lake Superior East of a line from Manitou Island to Marquette MI and West of a line from Grand Marais MI to the US/Canadian Border Beyond 5NM from shore"
+    },
+    {
+      "title": "Gale Watch issued April 17 at 3:24AM EDT until April 18 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...For the Small Craft Advisory, southwest winds 15 to 20 kt\nwith gusts up to 30 kt this afternoon becoming west winds 15 to\n25 kt with gusts up to 30 kt this evening; waves 3 to 6 ft\nexpected. For the Gale Watch, west winds 20 to 30 kt with gusts\nup to 35 kt and waves 7 to 10 ft possible.\n\n* WHERE...Black River to Ontonagon MI, Ontonagon to Upper\nEntrance of Portage Canal MI and Upper Entrance of Portage\nCanal to Eagle River MI.\n\n* WHEN...For the Small Craft Advisory, from 1 PM EDT /noon ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Black River To Ontonagon MI; Ontonagon to Upper Entrance of Portage Canal MI; Upper Entrance of Portage Canal to Eagle River MI"
+    },
+    {
+      "title": "Gale Warning issued April 17 at 3:24AM EDT until April 17 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, southeast to south winds 20 to 30\nkt with gusts up to 35 kt and waves 7 to 10 ft expected. For\nthe Gale Watch, west to northwest winds 20 to 30 kt with gusts\nup to 35 kt and waves 7 to 10 ft possible.\n\n* WHERE...Lake Superior from Upper Entrance to Portage Canal to\nManitou Island MI 5NM off shore to the US/Canadian Border and\nLake Superior West of Line from Manitou Island to Marquette MI\nBeyond 5NM from shore.\n\n* WHEN...For the Gale Warning, from 3 PM this afternoo",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lake Superior from Upper Entrance to Portage Canal to Manitou Island MI 5NM off shore to the US/Canadian Border; Lake Superior West of Line from Manitou Island to Marquette MI Beyond 5NM from shore"
+    },
+    {
+      "title": "Gale Warning issued April 17 at 3:24AM EDT until April 18 at 12:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, southeast to south winds 20 to 25\nkt with gusts up to 40 kt and waves 6 to 9 ft expected. For the\nGale Watch, west to northwest winds 20 to 30 kt with gusts up\nto 35 kt and waves 7 to 12 ft possible.\n\n* WHERE...Lake Superior East of a line from Manitou Island to\nMarquette MI and West of a line from Grand Marais MI to the\nUS/Canadian Border Beyond 5NM from shore.\n\n* WHEN...For the Gale Warning, from 3 PM this afternoon to\nmidnight EDT tonight. For the Gale Watch, fr",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lake Superior East of a line from Manitou Island to Marquette MI and West of a line from Grand Marais MI to the US/Canadian Border Beyond 5NM from shore"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 3:24AM EDT until April 18 at 2:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...For the Small Craft Advisory, southwest winds 15 to 20 kt\nwith gusts up to 30 kt this afternoon becoming west winds 15 to\n25 kt with gusts up to 30 kt this evening; waves 3 to 6 ft\nexpected. For the Gale Watch, west winds 20 to 30 kt with gusts\nup to 35 kt and waves 7 to 10 ft possible.\n\n* WHERE...Black River to Ontonagon MI, Ontonagon to Upper\nEntrance of Portage Canal MI and Upper Entrance of Portage\nCanal to Eagle River MI.\n\n* WHEN...For the Small Craft Advisory, from 1 PM EDT /noon ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Black River To Ontonagon MI; Ontonagon to Upper Entrance of Portage Canal MI; Upper Entrance of Portage Canal to Eagle River MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 17 at 3:24AM EDT until April 18 at 8:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T03:24:00-04:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to less than one nautical mile. For the Small Craft\nAdvisory, south winds 10 to 20 kt with gusts up to 25 kt\nbecoming northwest winds 10 to 15 kt with gusts up to 25 kt late\ntonight; waves 1 to 4 ft expected.\n\n* WHERE...Green Bay North of line from Cedar River MI to Rock\nIsland Passage.\n\n* WHEN...For the Dense Fog Advisory, until 11 AM EDT this\nmorning. For the Small Craft Advisory, from 10 PM this evening\nto 8 AM EDT Saturday",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Green Bay North of line from Cedar River MI to Rock Island Passage"
+    },
+    {
+      "title": "Small Craft Advisory issued April 16 at 2:16PM AKDT until April 17 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-16T23:23:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...S wind 25 kt. Seas 7 ft. Rain.\n.FRI...S wind 20 kt. Seas 6 ft. Rain.\n.FRI NIGHT...S wind 15 kt. Seas 6 ft. Rain.\n.SAT...W wind 10 kt. Seas 5 ft.\n.SAT NIGHT...W wind 15 kt. Seas 7 ft.\n.SUN...S wind 25 kt. Seas 10 ft.\n.MON...S wind 20 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Icy Cape to Cape Suckling from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 16 at 2:16PM AKDT until April 17 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-16T23:23:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...SE wind increasing to 25 kt. Seas building 7 ft. Rain.\n.FRI...SE wind 20 kt. Seas 7 ft. Rain.\n.FRI NIGHT...SE wind 25 kt. Seas 7 ft. Rain.\n.SAT...SE wind 15 kt. Seas 5 ft. Rain.\n.SAT NIGHT...W wind 10 kt. Seas 5 ft.\n.SUN...SE gale to",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Icy Cape to Cape Suckling out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 16 at 2:16PM AKDT until April 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-16T23:22:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...S wind increasing to 25 kt. Seas 5 ft. Periods of rain.\n.FRI...S wind 25 kt. Seas 5 ft. Rain.\n.FRI NIGHT...S wind 30 kt. Seas 5 ft. Rain.\n.SAT...S wind 10 kt. Seas 2 ft or less. Rain.\n.SAT NIGHT...S wind 15 kt. Seas 3 ft. Rain.\n.SUN...S wind 25 kt. Sea",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Northern Lynn Canal"
+    },
+    {
+      "title": "Wind Advisory issued April 17 at 1:22AM MDT until April 18 at 3:00AM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T01:22:00-06:00",
+      "summary": "* WHAT...North winds 25 to 35 mph with gusts up to 55 mph expected.\n\n* WHERE...Curry County.\n\n* WHEN...From 6 PM this evening to 3 AM MDT Saturday.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs may be blown down. Expect strong crosswinds on area roadways.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Curry County"
+    },
+    {
+      "title": "Wind Advisory issued April 17 at 1:22AM MDT until April 18 at 3:00AM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T01:22:00-06:00",
+      "summary": "* WHAT...For the Wind Advisory, north winds 25 to 35 mph with gusts\nup to 55 mph expected. For the Freeze Warning, sub-freezing\ntemperatures as low as 26 expected.\n\n* WHERE...Union County.\n\n* WHEN...For the Wind Advisory, from 6 PM this evening to 3 AM MDT\nSaturday. For the Freeze Warning, from midnight tonight to 9 AM MDT\nSaturday.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs may be blown down. Expect strong crosswinds on area roadways.\nFrost and freeze conditions cou",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Union County"
+    },
+    {
+      "title": "Wind Advisory issued April 17 at 1:22AM MDT until April 18 at 3:00AM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-17T01:22:00-06:00",
+      "summary": "* WHAT...For the Wind Advisory, north winds 25 to 35 mph with gusts\nup to 55 mph expected. For the Freeze Warning, sub-freezing\ntemperatures as low as 30 expected.\n\n* WHERE...Quay County.\n\n* WHEN...For the Wind Advisory, from 6 PM this evening to 3 AM MDT\nSaturday. For the Freeze Warning, from midnight tonight to 9 AM MDT\nSaturday.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs may be blown down. Expect strong crosswinds on area roadways.\nFrost and freeze conditions coul",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Quay County"
+    }
+  ]
+}

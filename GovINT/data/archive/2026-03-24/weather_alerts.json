@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-03-24T08:02:29.857738Z",
+  "items": [
+    {
+      "title": "High Wind Watch issued March 24 at 1:36AM MDT until March 25 at 3:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T01:36:00-06:00",
+      "summary": "* WHAT...West winds 25 to 35 mph with gusts up to 60 mph possible.\n\n* WHERE...North Snowy Range Foothills including Arlington and Elk\nMountain along Interstate 80.\n\n* WHEN...From 9 AM MDT this morning through Wednesday afternoon.\n\n* IMPACTS...Mainly to transportation. Strong cross winds will be\nhazardous to light weight or high profile vehicles, including\ncampers and tractor trailers.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "North Snowy Range Foothills"
+    },
+    {
+      "title": "Small Craft Advisory issued March 24 at 3:26AM EDT until March 25 at 5:00PM EDT by NWS Melbourne FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T03:26:00-04:00",
+      "summary": "* WHAT...Seas 5 to 7 feet expected.\n\n* WHERE...Sebastian Inlet to Jupiter Inlet 0-20 nm.\n\n* WHEN...From 11 PM this evening to 5 PM EDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Sebastian Inlet to Jupiter Inlet 0-20 nm"
+    },
+    {
+      "title": "Red Flag Warning issued March 24 at 1:21AM MDT until March 25 at 8:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T01:21:00-06:00",
+      "summary": "...RED FLAG WARNING ISSUED WEDNESDAY FOR GUSTY WINDS AND LOW\nHUMIDITY FOR FIRE WEATHER ZONES 417, 418, 419, 420, 421, 422, 423,\n430, 431, 432, 433, 434, 435, 436, AND 437...\n\nThe National Weather Service in Cheyenne has issued a Red Flag\nWarning, which is in effect from noon to 8 PM MDT Wednesday. The\nFire Weather Watch is no longer in effect.\n\n* AFFECTED AREA...FIRE WEATHER ZONES 421, 422, AND 423.\n\n* WIND...West winds 20 to 30 mph with gusts of 35 to 45 mph.\n\n* HUMIDITY...Between 12 and 17 per",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Ferris/Seminoe/Shirley Mountains; Central and West Carbon; Southwest Carbon County"
+    },
+    {
+      "title": "Red Flag Warning issued March 24 at 1:21AM MDT until March 25 at 8:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T01:21:00-06:00",
+      "summary": "...RED FLAG WARNING ISSUED WEDNESDAY FOR GUSTY WINDS AND LOW\nHUMIDITY FOR FIRE WEATHER ZONES 417, 418, 419, 420, 421, 422, 423,\n430, 431, 432, 433, 434, 435, 436, AND 437...\n\nThe National Weather Service in Cheyenne has issued a Red Flag\nWarning, which is in effect from noon to 8 PM MDT Wednesday.\n\n* AFFECTED AREA...Fire weather zone 420.\n\n* WIND...West winds 20 to 30 mph with gusts of 35 to 45 mph.\n\n* HUMIDITY...Between 12 and 17 percent.\n\n* IMPACTS...any fires that develop will likely spread r",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "North Laramie Valley/Shirley Basin"
+    },
+    {
+      "title": "Red Flag Warning issued March 24 at 1:21AM MDT until March 25 at 10:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T01:21:00-06:00",
+      "summary": "...RED FLAG WARNING ISSUED WEDNESDAY FOR GUSTY WINDS AND LOW\nHUMIDITY FOR FIRE WEATHER ZONES 417, 418, 419, 420, 421, 422, 423,\n430, 431, 432, 433, 434, 435, 436, AND 437...\n\nThe National Weather Service in Cheyenne has issued a Red Flag\nWarning, which is in effect from 11 AM to 10 PM MDT Wednesday.\n\n* AFFECTED AREA...Fire weather zone 419.\n\n* WIND...West winds 25 to 35 mph with gusts of 40 to 50 mph.\n\n* HUMIDITY...Between 12 and 17 percent.\n\n* HIGHEST THREAT...is located below 7000 ft in elevat",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "North Laramie Range and Adjacent High Plains"
+    },
+    {
+      "title": "Red Flag Warning issued March 24 at 1:21AM MDT until March 25 at 10:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T01:21:00-06:00",
+      "summary": "...RED FLAG WARNING ISSUED WEDNESDAY FOR GUSTY WINDS AND LOW\nHUMIDITY FOR FIRE WEATHER ZONES 417, 418, 419, 420, 421, 422, 423,\n430, 431, 432, 433, 434, 435, 436, AND 437...\n\nThe National Weather Service in Cheyenne has issued a Red Flag\nWarning, which is in effect from 11 AM to 10 PM MDT Wednesday.\nThe Fire Weather Watch is no longer in effect.\n\n* AFFECTED AREA...FIRE WEATHER ZONES 417, 418, 430, 431, 432,\n433, 434, 435, 436, AND 437\n\n* WIND...West winds 15 to 25 mph with gusts of 30 to 45 mph.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Pine Ridge/Nebraska National Forest; Box Butte/South Sioux/Niobrara River; Lower North Platte River Basin/Scottsbluff National Monument; Lodgepole Creek/Southern Nebraska Panhandle; Niobrara/Lower Elevations of Converse/Thunder Basin National Grassland; Middle North Platte River Basin/Niobrara and Converse High Plains; Laramie Foothills and High Plains; Laramie East High Plains; Bordeaux/Chugwater/Wheatland; Goshen/Middle-Lower North Platte River Basin"
+    },
+    {
+      "title": "Rip Current Statement issued March 24 at 3:09AM EDT until March 25 at 3:00AM EDT by NWS Melbourne FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T03:09:00-04:00",
+      "summary": "* WHAT...Dangerous rip currents and rough surf.\n\n* WHERE...Coastal Volusia and Northern Brevard Counties.\n\n* WHEN...Through late tonight.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Volusia; Mainland Northern Brevard; Northern Brevard Barrier Islands"
+    },
+    {
+      "title": "Small Craft Advisory issued March 24 at 3:02AM EDT until March 24 at 5:00PM EDT by NWS Grand Rapids MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T03:02:00-04:00",
+      "summary": "* WHAT...South winds 15 to 25 knots and waves 3 to 5 feet.\n\n* WHERE...Grand Haven to Manistee.\n\n* WHEN...From 10 AM this morning to 5 PM EDT this afternoon.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Grand Haven to Whitehall MI; Whitehall to Pentwater MI; Pentwater to Manistee MI"
+    },
+    {
+      "title": "Special Weather Statement issued March 24 at 2:44AM EDT by NWS Columbia SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T02:44:00-04:00",
+      "summary": "Fuels continue to remain dry across the region and several\ncontained wildfires were noted on the SC Forestry webpage.\nWhile winds will not be as strong as they were on Monday,\nnortheasterly winds around 10 to 15 mph are expected with gusts 20\nto 25 mph from mid morning through the afternoon before\ndiminishing a bit late this afternoon. Critical relative humidity\nwith values around 25 percent combining with dry fuels these winds\nsupport a continued elevated fire weather threat across the\nMidlands",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lincoln; McDuffie; Columbia; Richmond; Burke; Chesterfield; McCormick; Newberry; Fairfield; Kershaw; Edgefield; Saluda; Lexington; Richland; Lee; Aiken; Sumter; Barnwell; Calhoun; Clarendon; Bamberg; Northern Lancaster; Southern Lancaster; Northwestern Orangeburg; Central Orangeburg; Southeastern Orangeburg"
+    },
+    {
+      "title": "Special Weather Statement issued March 24 at 2:33AM EDT by NWS Binghamton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T02:33:00-04:00",
+      "summary": "Localized lake effect snow bands are leading to reduced\nvisibilities and snow-covered roads. Travelers should exercise\ncaution and be prepared for sudden changes in conditions,\nespecially along I-81 and State Route 17.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cortland; Broome"
+    },
+    {
+      "title": "Small Craft Advisory issued March 24 at 2:20AM EDT until March 25 at 5:00PM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T02:20:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, northeast winds 20 to 30 kt with\ngusts up to 35 kt and seas 7 to 12 ft. For the Small Craft\nAdvisory, northeast winds 15 to 20 kt with gusts up to 25 kt\nand seas 7 to 10 ft expected.\n\n* WHERE...All Southeast Georgia coastal waters from Altamaha\nSound GA to Fernandina Beach FL out to 60 NM and Coastal\nwaters from Fernandina Beach FL to St Augustine FL out to 60\nNM.\n\n* WHEN...For the Gale Warning, until 2 AM EDT Wednesday. For the\nSmall Craft Advisory, from 2 AM to 5",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Altamaha Sound to Fernandina Beach FL out 20 NM; Coastal waters from Fernandina Beach to St. Augustine FL out 20 NM; Waters from Altamaha Sound GA to Fernandina Beach FL from 20 to 60 NM; Waters from Fernandina Beach to St. Augustine FL from 20 to 60 NM"
+    },
+    {
+      "title": "Gale Watch issued March 23 at 11:02PM PDT until March 26 at 5:00PM PDT by NWS Eureka CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T23:02:00-07:00",
+      "summary": "* WHAT...North winds 20 to 30 kt with gusts up to 45 kt and seas\n7 to 11 feet possible.\n\n* WHERE...Cape Mendocino to Pt Arena out 10 nm.\n\n* WHEN...From Wednesday afternoon through Thursday afternoon.\n\n* IMPACTS...Strong winds can cause hazardous seas which could\ncapsize or damage vessels and reduce visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal waters from Cape Mendocino to Pt. Arena CA out 10 nm"
+    },
+    {
+      "title": "Gale Watch issued March 23 at 11:02PM PDT until March 26 at 5:00PM PDT by NWS Eureka CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T23:02:00-07:00",
+      "summary": "* WHAT...For the Small Craft Advisory, south winds 10 to 15 kt\nwith gusts up to 25 kt expected. For the Gale Watch, north\nwinds 20 to 30 kt with gusts up to 40 kt and seas 7 to 10 feet\npossible.\n\n* WHERE...Pt St George to Cape Mendocino out 10 nm.\n\n* WHEN...For the Small Craft Advisory, from 11 AM to 8 PM PDT\nTuesday. For the Gale Watch, from Wednesday evening through\nThursday afternoon.\n\n* IMPACTS...Strong winds can cause hazardous seas which could\ncapsize or damage vessels and reduce visibilit",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal waters from Pt. St. George to Cape Mendocino CA out 10 nm"
+    },
+    {
+      "title": "Gale Watch issued March 23 at 11:02PM PDT until March 27 at 6:00AM PDT by NWS Eureka CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T23:02:00-07:00",
+      "summary": "* WHAT...For the Small Craft Advisory, south winds 15 to 20 kt\nwith gusts up to 30 kt and seas 5 to 7 feet expected. For the\nGale Watch, north winds 25 to 35 kt with gusts up to 45 kt and\nseas 10 to 13 feet possible.\n\n* WHERE...Pt St George to Cape Mendocino 10 to 60 nm.\n\n* WHEN...For the Small Craft Advisory, from 8 AM to 8 PM PDT\nTuesday. For the Gale Watch, from Wednesday evening through\nlate Thursday night.\n\n* IMPACTS...Strong winds can cause hazardous seas which could\ncapsize or damage vess",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Waters from Pt. St. George to Cape Mendocino CA from 10 to 60 nm"
+    },
+    {
+      "title": "Gale Watch issued March 23 at 11:02PM PDT until March 27 at 6:00AM PDT by NWS Eureka CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T23:02:00-07:00",
+      "summary": "* WHAT...North winds 25 to 35 kt with gusts up to 45 kt and seas\n9 to 14 feet possible.\n\n* WHERE...Cape Mendocino to Pt Arena 10 to 60 nm.\n\n* WHEN...From Wednesday afternoon through late Thursday night.\n\n* IMPACTS...Strong winds can cause hazardous seas which could\ncapsize or damage vessels and reduce visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Waters from Cape Mendocino to Pt. Arena CA from 10 to 60 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 11:02PM PDT until March 24 at 8:00PM PDT by NWS Eureka CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T23:02:00-07:00",
+      "summary": "* WHAT...For the Small Craft Advisory, south winds 10 to 15 kt\nwith gusts up to 25 kt expected. For the Gale Watch, north\nwinds 20 to 30 kt with gusts up to 40 kt and seas 7 to 10 feet\npossible.\n\n* WHERE...Pt St George to Cape Mendocino out 10 nm.\n\n* WHEN...For the Small Craft Advisory, from 11 AM to 8 PM PDT\nTuesday. For the Gale Watch, from Wednesday evening through\nThursday afternoon.\n\n* IMPACTS...Strong winds can cause hazardous seas which could\ncapsize or damage vessels and reduce visibilit",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Pt. St. George to Cape Mendocino CA out 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 11:02PM PDT until March 24 at 8:00PM PDT by NWS Eureka CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T23:02:00-07:00",
+      "summary": "* WHAT...For the Small Craft Advisory, south winds 15 to 20 kt\nwith gusts up to 30 kt and seas 5 to 7 feet expected. For the\nGale Watch, north winds 25 to 35 kt with gusts up to 45 kt and\nseas 10 to 13 feet possible.\n\n* WHERE...Pt St George to Cape Mendocino 10 to 60 nm.\n\n* WHEN...For the Small Craft Advisory, from 8 AM to 8 PM PDT\nTuesday. For the Gale Watch, from Wednesday evening through\nlate Thursday night.\n\n* IMPACTS...Strong winds can cause hazardous seas which could\ncapsize or damage vess",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Pt. St. George to Cape Mendocino CA from 10 to 60 nm"
+    },
+    {
+      "title": "Special Weather Statement issued March 24 at 2:01AM EDT by NWS Greenville-Spartanburg SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T02:01:00-04:00",
+      "summary": "Fuels remain quite dry across the region owing to breezy\nconditions and low relative humidity. Critical relative humidity\nis expected again today. Winds will be much less breezy on Tuesday\nafternoon than they were Monday; nonetheless, fire weather threat\nwill be elevated by virtue of dry fuels and excessively low\nrelative humidity. Outdoor fires will catch easily under these\nconditions.\n\nPlease refer to your local burn permitting authorities on whether\nyou can burn today. If you do burn, use ext",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Rabun; Habersham; Stephens; Franklin; Hart; Elbert; Cherokee; York; Anderson; Abbeville; Laurens; Union; Chester; Greenwood; Oconee Mountains; Pickens Mountains; Greenville Mountains; Greater Oconee; Greater Pickens; Central Greenville; Southern Greenville; Northern Spartanburg; Southern Spartanburg"
+    },
+    {
+      "title": "Special Weather Statement issued March 24 at 1:44AM EDT by NWS Greenville-Spartanburg SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T01:44:00-04:00",
+      "summary": "Fuels remain quite dry across the region owing to breezy\nconditions and low relative humidity. Critical relative humidity\nis expected again today. Winds will be much less breezy on Tuesday\nafternoon than they were Monday; nonetheless, fire weather threat\nwill be elevated by virtue of dry fuels and excessively low\nrelative humidity. Outdoor fires will catch easily under these\nconditions.\n\nPlease refer to your local burn permitting authorities on whether\nyou can burn today. If you do burn, use ext",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Rabun; Habersham; Stephens; Franklin; Hart; Elbert; Cherokee; York; Anderson; Abbeville; Laurens; Union; Chester; Greenwood; Oconee Mountains; Pickens Mountains; Greenville Mountains; Greater Oconee; Greater Pickens; Central Greenville; Southern Greenville; Northern Spartanburg; Southern Spartanburg"
+    },
+    {
+      "title": "Special Weather Statement issued March 24 at 12:55AM EDT by NWS Peachtree City GA",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-24T00:55:00-04:00",
+      "summary": "Relative Humidities of 25 percent or less can be expected for\n4 or more hours this afternoon into the evening. Winds will be\neasterly at 7 to 10 MPH and winds gusts up to 15 to 20 MPH.\n\nWith dry fuels, high fire danger conditions can be expected.\n\nPlease refer to your local burn permitting authorities\nwhether you may burn outdoors.  If you do burn outside,\nuse extreme caution.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Dade; Walker; Catoosa; Whitfield; Murray; Fannin; Gilmer; Union; Towns; Chattooga; Gordon; Pickens; Dawson; Lumpkin; White; Floyd; Bartow; Cherokee; Forsyth; Hall; Banks; Jackson; Madison; Polk; Paulding; Cobb; North Fulton; Gwinnett; Barrow; Clarke; Oconee; Oglethorpe; Wilkes; Haralson; Carroll; Douglas; South Fulton; DeKalb; Rockdale; Walton; Newton; Morgan; Greene; Taliaferro; Warren"
+    },
+    {
+      "title": "Fire Weather Watch issued March 23 at 10:21PM MDT until March 26 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T22:21:00-06:00",
+      "summary": "...FIRE WEATHER WATCH THURSDAY FROM 11 AM UNTIL 8 PM MDT FOR THE\nSANGRE DE CRISTO MOUNTAINS AND THE NORTHEAST AND CENTRAL\nHIGHLANDS DUE TO STRONG WINDS AND LOW HUMIDITY...\n\n.After an extended stretch of exceptionally warm and dry weather,\nwinds will trend stronger on Thursday afternoon. Wind gusts of 30\nto 40 mph will focus along the east slopes of the Sangre de Cristo\nmountains and the adjacent highlands. 7 to 10 hours of single\ndigit relative humidity is forecast for the Central and Northeast\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Sangre de Cristo Mountains; Northeast Highlands; Central Highlands"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 9:43PM CDT until March 24 at 5:00AM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T21:43:00-05:00",
+      "summary": "* WHAT...Southwest winds 10 to 20 kt with gusts up to 30 kt and\nwaves 2 to 5 ft expected.\n\n* WHERE...Grand Portage to Grand Marais MN.\n\n* WHEN...Until 5 AM CDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Grand Portage to Grand Marais MN"
+    },
+    {
+      "title": "Flood Warning issued March 23 at 8:47PM CDT until March 25 at 7:00PM CDT by NWS La Crosse WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T20:47:00-05:00",
+      "summary": "...The National Weather Service in La Crosse WI has issued a Flood\nWarning for the following rivers in Wisconsin...\n\nBlack River Near Galesville affecting La Crosse and Trempealeau\nCounties.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Black River near Galesville.\n\n* WHEN...From Tuesday afternoon to Wednesday evening.\n\n* IMPACTS...At 12.0 feet, Flooding mainly impacts wildlands and\nagricultural pasture land. The approaches on both ends of the\nCounty Road VV bridge over the Black River in Jac",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "La Crosse, WI; Trempealeau, WI"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:30PM HST until March 25 at 6:00AM HST by NWS Honolulu HI",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:30:00-10:00",
+      "summary": "* WHAT...Northeast winds 15 to 25 kt.\n\n* WHERE...Kauai Northwest Waters, Kauai Windward Waters, Kauai\nLeeward Waters, Kauai Channel, Oahu Windward Waters, Oahu\nLeeward Waters, Kaiwi Channel, Maui County Windward Waters,\nMaui County Leeward Waters, Maalaea Bay, Pailolo Channel,\nAlenuihaha Channel, Big Island Windward Waters, Big Island\nLeeward Waters and Big Island Southeast Waters.\n\n* WHEN...Until 6 AM HST Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kauai Northwest Waters; Kauai Windward Waters; Kauai Leeward Waters; Kauai Channel; Oahu Windward Waters; Oahu Leeward Waters; Kaiwi Channel; Maui County Windward Waters; Maui County Leeward Waters; Maalaea Bay; Pailolo Channel; Alenuihaha Channel; Big Island Windward Waters; Big Island Leeward Waters; Big Island Southeast Waters"
+    },
+    {
+      "title": "Coastal Flood Statement issued March 23 at 9:13PM EDT until March 24 at 6:00AM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T21:13:00-04:00",
+      "summary": "* WHAT...Up to one half foot of inundation above ground level\nexpected in low-lying areas near shorelines and tidal\nwaterways (11.7 to 11.8 feet Mean Lower Low Water).\n\n* WHERE...Eastern Plymouth MA County.\n\n* WHEN...From 2 AM to 6 AM EDT Tuesday.\n\n* IMPACTS...Some water on low lying roads and property.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Eastern Plymouth"
+    },
+    {
+      "title": "Winter Weather Advisory issued March 23 at 2:54PM HST until March 24 at 6:00AM HST by NWS Honolulu HI",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T14:54:00-10:00",
+      "summary": "...WINTER WEATHER ADVISORY FOR BIG ISLAND SUMMITS ABOVE 12000 FEET\nTHROUGH 6 AM HST TUESDAY...\n\n.An upper low will enhance moisture over the Big Island and bring\npotential for snow and freezing rain.\n\n* WHAT...Snow and freezing rain. Additional snow accumulations up to\ntwo inches.\n\n* WHERE...Big Island Summits above 12000 feet.\n\n* WHEN...Until 6 AM HST Tuesday.\n\n* IMPACTS...Travel could be very difficult. Blowing snow will\nsignificantly reduce visibility at times, with periods of zero\nvisibility",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Big Island Summit"
+    },
+    {
+      "title": "Air Quality Alert issued March 23 at 6:10PM MDT by NWS Pueblo CO",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T18:11:00-06:00",
+      "summary": "The Colorado Department of Public Health and Environment has\nissued the following...\n\nWHAT...Air Quality Health Advisory for Wildfire Smoke.\n\nWHERE...Fremont County. Locations include, but are not limited to\nPenrose, Fremont, and Canon City.\n\nWHEN...600 PM Monday March 23 to 900 AM Tuesday March 24\n\nIMPACTS...Periods of heavy smoke will be possible during the\novernight within the advisory area due to activity on the nearby\n24 wildfire.\n\nHEALTH INFORMATION...Public Health Recommendations: If smok",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Unknown",
+      "area": "Fremont, CO"
+    },
+    {
+      "title": "Flood Watch issued March 23 at 4:41PM PDT until March 26 at 11:00AM PDT by NWS Pendleton OR",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T16:41:00-07:00",
+      "summary": "River Levels for the Yakima River remain high and rain along the\nCascade crest on Tuesday is expected to raise water levels in the\nYakima River at Easton back above minor flood stage Tuesday night\nthrough Thursday morning.\n\n* WHAT...Flooding caused by excessive rainfall is possible.\n\n* WHERE...A portion of south central Washington, including the\nfollowing areas, Lower Slopes of the Eastern Washington Cascades\nCrest and Upper Slopes of the Eastern Washington Cascades Crest.\nThe watch is being iss",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Upper Slopes of the Eastern Washington Cascades Crest; Lower Slopes of the Eastern Washington Cascades Crest"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...SE wind 15 kt becoming N late. Seas 3 ft, except 7 ft\nnear ocean entrances.\n.TUE...N wind 25 kt. Seas 5 ft.\n.TUE NIGHT...N wind 30 kt. Seas 6 ft.\n.WED...N wind 25 kt. Seas 3 ft.\n.WED NIGHT...NE wind 20 kt. Seas 3 ft.\n.THU...SE wind 20 kt. Seas 4 ft.\n.F",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Southern Chatham Strait"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...E wind 15 kt. Seas 6 ft.\n.TUE...E wind 25 kt. Seas 7 ft.\n.TUE NIGHT...NE gale to 35 kt. Seas 12 ft.\n.WED...E gale to 35 kt. Seas 14 ft.\n.WED NIGHT...E wind 25 kt. Seas 9 ft.\n.THU...NE wind 25 kt. Seas 9 ft.\n.FRI...NE wind 20 kt. Seas",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Fairweather to Icy Cape from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...NE wind 15 kt. Seas 6 ft.\n.TUE...NE wind 30 kt. Seas 6 ft.\n.TUE NIGHT...NE wind 30 kt. Seas 6 ft. Light freezing spray\nlate.\n.WED...E wind 30 kt. Seas 6 ft. Light freezing spray.\n.WED NIGHT...E wind 30 kt. Seas 6 ft. Light freezing spray.\n.THU...E wind",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cross Sound"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...SE wind 15 kt becoming N. Seas 3 ft early in the\nevening then 2 ft or less, then then 3 ft late.\n.TUE...N wind 25 kt. Seas 5 ft.\n.TUE NIGHT...N wind 30 kt. Seas 5 ft. Light freezing spray.\n.WED...N wind 30 kt. Seas 5 ft. Light freezing spray.\n.WED NIGH",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Stephens Passage"
+    },
+    {
+      "title": "Gale Warning issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...N wind 15 kt. Seas building to 4 ft late. Light\nfreezing spray late.\n.TUE...N wind 35 kt. Seas 7 ft. Light freezing spray in the\nmorning.\n.TUE NIGHT...N gale to 35 kt. Seas 7 ft. Freezing spray.\n.WED...N gale to 35 kt. Seas 8 ft. Freezing spray.\n.WED N",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northern Lynn Canal"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...E wind 15 kt. Seas 3 ft.\n.TUE...E wind 25 kt. Seas 5 ft.\n.TUE NIGHT...E wind 25 kt. Seas 5 ft. Light freezing spray\nlate.\n.WED...E wind 25 kt. Seas 5 ft. Light freezing spray.\n.WED NIGHT...E wind 20 kt. Seas 4 ft. Light freezing spray.\n.THU...E wind 20",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Icy Strait"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...N wind 15 kt. Seas 2 ft or less. Light freezing spray\nlate.\n.TUE...N wind 20 kt increasing to 30 kt in the afternoon.\nSeas 5 ft. Light freezing spray in the morning.\n.TUE NIGHT...NW wind 30 kt. Seas 6 ft. Light freezing spray.\n.WED...N wind 30 kt. Seas",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Glacier Bay"
+    },
+    {
+      "title": "Gale Warning issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...N wind 20 kt. Seas building to 4 ft. Light freezing\nspray late.\n.TUE...N wind 35 kt. Seas 7 ft. Light freezing spray in the\nmorning.\n.TUE NIGHT...N gale to 35 kt. Seas 7 ft. Freezing spray.\n.WED...N gale to 35 kt. Seas 7 ft. Light freezing spray.\n.WED ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Southern Lynn Canal"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...E wind 15 kt becoming N. Seas 3 ft early in the\nevening then 2 ft or less, then then 3 ft late.\n.TUE...N wind 25 kt. Seas 5 ft.\n.TUE NIGHT...N wind 25 kt. Seas 5 ft. Light freezing spray\nlate.\n.WED...NE wind 25 kt. Seas 4 ft.\n.WED NIGHT...NE wind 20 kt",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Northern Chatham Strait"
+    },
+    {
+      "title": "Gale Warning issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Coastal Waters Forecast for Yakutat Bay\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...NE wind 15 kt. Seas 5 ft. Light freezing spray late.\n.TUE...NE wind 25 kt increasing to 35 kt in the afternoon.\nSeas 6 ft. Light freezing spray in the morning.\n.TUE NIGHT...NE gale to 45 kt. Seas 9 ft. Light freezing\nspray.\n.WED...NE gale to 40 kt. Seas 8 ft. Heavy freezing",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Yakutat Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...NE wind 20 kt. Seas 7 ft.\n.TUE...NE wind 30 kt. Seas 7 ft.\n.TUE NIGHT...NE gale to 40 kt. Seas 9 ft.\n.WED...NE gale to 40 kt. Seas 9 ft.\n.WED NIGHT...NE gale to 35 kt. Seas 8 ft.\n.THU...NE wind 30 kt. Seas 8 ft.\n.FRI...E wind 25 kt. ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Spencer to Cape Fairweather out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...E wind 20 kt increasing to 25 kt late. Seas 7 ft.\n.TUE...E wind 25 kt. Seas 9 ft.\n.TUE NIGHT...E gale to 35 kt. Seas 13 ft.\n.WED...E gale to 35 kt. Seas 12 ft.\n.WED NIGHT...E gale to 35 kt. Seas 12 ft.\n.THU...E wind 30 kt. Seas 12 ft",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Spencer to Cape Fairweather from 15 to 85 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...E wind 20 kt. Seas 7 ft.\n.TUE...NE wind 30 kt. Seas 8 ft.\n.TUE NIGHT...NE gale to 35 kt. Seas 10 ft.\n.WED...NE gale to 35 kt. Seas 8 ft.\n.WED NIGHT...NE wind 30 kt. Seas 7 ft.\n.THU...NE wind 30 kt. Seas 7 ft.\n.FRI...E wind 25 kt. Sea",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Edgecumbe to Cape Spencer out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...S wind 15 kt becoming SE 25 kt. Seas 9 ft.\n.TUE...NE wind 20 kt. Seas 8 ft.\n.TUE NIGHT...N wind 30 kt. Seas 10 ft.\n.WED...E wind 20 kt. Seas 6 ft.\n.WED NIGHT...E wind 25 kt. Seas 7 ft.\n.THU...E wind 30 kt. Seas 8 ft.\n.FRI...SE wind 2",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Decision to Cape Edgecumbe from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...E wind 15 kt. Seas 6 ft.\n.TUE...NE wind 30 kt. Seas 7 ft.\n.TUE NIGHT...NE gale to 40 kt. Gusts to 55 kt out of interior\nbays and passes. Seas 9 ft.\n.WED...NE gale to 35 kt. Gusts to 50 kt. Seas 10 ft.\n.WED NIGHT...NE wind 30 kt. Seas",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Fairweather to Icy Cape out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...SE wind 15 kt becoming E late. Seas 8 ft.\n.TUE...NE wind 20 kt. Seas 7 ft.\n.TUE NIGHT...NE wind 25 kt. Seas 7 ft.\n.WED...E wind 25 kt. Seas 6 ft.\n.WED NIGHT...E wind 25 kt. Seas 7 ft.\n.THU...E wind 25 kt. Seas 7 ft.\n.FRI...E wind 25 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Decision to Cape Edgecumbe out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...E wind 15 kt increasing to 25 kt late. Seas 7 ft\nbuilding to 9 ft.\n.TUE...NE wind 25 kt. Seas 10 ft.\n.TUE NIGHT...NE gale to 35 kt. Seas 13 ft.\n.WED...E gale to 35 kt. Seas 10 ft.\n.WED NIGHT...E wind 30 kt. Seas 10 ft.\n.THU...E wind ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Edgecumbe to Cape Spencer from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...SE wind 15 kt becoming E late. Seas 8 ft.\n.TUE...NE wind 20 kt. Seas 7 ft.\n.TUE NIGHT...NE wind 25 kt. Seas 7 ft.\n.WED...E wind 25 kt. Seas 6 ft.\n.WED NIGHT...E wind 25 kt. Seas 7 ft.\n.THU...E wind 25 kt. Seas 7 ft.\n.FRI...E wind 25 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Decision to Cape Edgecumbe out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...SE wind 20 kt. Seas 9 ft.\n.TUE...E wind 20 kt. Seas 7 ft.\n.TUE NIGHT...N wind 20 kt. Seas 7 ft.\n.WED...S wind 15 kt. Seas 7 ft.\n.WED NIGHT...S wind 20 kt. Seas 7 ft. Rain and snow.\n.THU...S wind 25 kt. Seas 8 ft.\n.FRI...S wind 20 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision from 15 to 90 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 3:29PM AKDT until March 24 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T15:29:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...E wind 15 kt. Seas 8 ft.\n.TUE...NE wind 20 kt. Seas 6 ft.\n.TUE NIGHT...N wind 20 kt. Seas 6 ft.\n.WED...E wind 15 kt. Seas 5 ft.\n.WED NIGHT...SE wind 20 kt. Seas 6 ft.\n.THU...SE wind 25 kt. Seas 8 ft.\n.FRI...S wind 20 kt. Seas 10 ft.\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 2:42PM AKDT until March 25 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T14:42:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TONIGHT...N wind increasing to 30 kt. Seas 3 ft. Freezing spray.\n.TUE...N wind 30 kt. Seas 3 ft. Freezing spray.\n.TUE NIGHT...N wind 30 kt. Seas 4 ft. Freezing spray.\n.WED...N wind 30 kt. Seas 3 ft.\n.WED N",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Valdez Narrows"
+    },
+    {
+      "title": "Small Craft Advisory issued March 23 at 2:42PM AKDT until March 25 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-03-23T14:42:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TONIGHT...NE wind 15 kt. Seas 3 ft.\n.TUE...NE wind 20 kt. Seas 4 ft.\n.TUE NIGHT...NE wind 25 kt. Seas 4 ft. Freezing spray.\n.WED...NE wind 20 kt. Seas 3 ft.\n.WED NIGHT...NE wind 15 kt. Seas 2 ft.\n.THU THRO",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Central and Eastern Prince William Sound"
+    }
+  ]
+}

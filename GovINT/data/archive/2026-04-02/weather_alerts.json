@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-04-02T11:34:03.436562Z",
+  "items": [
+    {
+      "title": "Special Weather Statement issued April 2 at 7:32AM EDT by NWS Albany NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T07:32:00-04:00",
+      "summary": "Light rain and freezing rain is moving into southern Vermont this\nmorning. The freezing rain will be patchy and above 2000 feet in\nelevation in the southern Greens of Bennington and western Windham\nCounties through noon. Temperatures continue to hover near\nfreezing in these higher elevations. Some light ice accretions\nof a light glaze to a few hundredths may occur on untreated\nsurfaces. Caution should be used on the roadways this morning.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Bennington; Western Windham"
+    },
+    {
+      "title": "Special Weather Statement issued April 2 at 6:31AM CDT by NWS Topeka KS",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T06:31:00-05:00",
+      "summary": "At 630 AM CDT, Doppler radar was tracking a strong thunderstorm near\nAuburn, moving northeast at 40 mph.\n\nHAZARD...Dime to Penny size hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Minor hail damage to outdoor objects and vegetation is\npossible.\n\nLocations impacted include...\nTopeka, Tecumseh, Auburn, Meriden, Pauline, Berryton, and Grantville.\n\nThis includes the following highways...\nInterstate 70 between mile markers 352 and 355.\nKansas Turnpike between mile markers 167 and 188.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Jefferson; Shawnee"
+    },
+    {
+      "title": "Special Weather Statement issued April 2 at 7:18AM EDT by NWS Indianapolis IN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T07:18:00-04:00",
+      "summary": "Patchy dense fog across Central Indiana is reducing visibility to\na quarter mile or less at times. If traveling this morning, be\nprepared for fog that could suddenly reduce visibilities. Expect fog\nto dissipate through mid to late morning. Slow down and allow\nextra time to reach your destination.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Carroll; Warren; Tippecanoe; Clinton; Howard; Fountain; Montgomery; Boone; Tipton; Hamilton; Madison; Delaware; Randolph; Vermillion; Parke; Putnam; Hendricks; Marion; Hancock; Henry; Vigo; Clay; Owen; Morgan; Johnson; Shelby; Rush; Sullivan; Greene; Monroe; Brown; Bartholomew; Decatur; Knox; Daviess; Martin; Lawrence; Jackson; Jennings"
+    },
+    {
+      "title": "Flood Warning issued April 2 at 7:17AM EDT until April 2 at 8:56PM EDT by NWS Cleveland OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T07:17:00-04:00",
+      "summary": "...The National Weather Service in Cleveland OH has issued a Flood\nWarning for the following rivers in Ohio...\n\nMahoning River At Warren affecting Trumbull County.\n\nFor the Mahoning River...including Leavittsburg, Warren,\nYoungstown...Minor flooding is forecast.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Mahoning River at Warren.\n\n* WHEN...Until this evening.\n\n* IMPACTS...At 10.0 feet, River is out of banks, southern portions\nof South Park Road threatened. Flooding can be expected at Walnu",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Trumbull, OH"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 3:15AM AKDT until April 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:15:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds becoming E 10 kt in the afternoon. Seas 2 ft\nor less.\n.TONIGHT...SE wind 15 kt increasing to 25 kt late. Seas 4 ft.\nSnow in the evening, then rain late.\n.FRI...SE wind 15 kt. Seas 3 ft. Rain.\n.FRI NIGHT...SE wind 15 kt. Seas 3 ft. Rain shower",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Sumner Strait"
+    },
+    {
+      "title": "Gale Warning issued April 2 at 3:15AM AKDT until April 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:15:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...NW wind 10 kt early in the morning becoming light, then\nbecoming SE 15 kt in the afternoon. Seas building to 3 ft in the\nafternoon.\n.TONIGHT...SE wind 35 kt diminishing to 25 kt late. Seas 11 ft.\nRain.\n.FRI...SE wind 20 kt. Gusts to 40 kt in the morning.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Clarence Strait"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 3:14AM AKDT until April 2 at 10:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:14:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 15 to\n25 kt expected. For the Gale Warning, southeast winds 25 to 35\nkt with gusts up to 40 kt expected. For the second Small Craft\nAdvisory, southeast winds 15 to 25 kt with gusts up to 35 kt and\nseas 6 to 9 ft expected.\n\n* WHERE...Clarence Strait.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM to 10 PM\nAKDT this evening. For the Gale Warning, from 10 PM this\nevening to 1 AM AKDT Friday. For the second Small Craft\nAdvisory, f",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Clarence Strait"
+    },
+    {
+      "title": "Gale Warning issued April 2 at 3:14AM AKDT until April 3 at 1:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:14:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 15 to\n25 kt expected. For the Gale Warning, southeast winds 25 to 35\nkt with gusts up to 40 kt expected. For the second Small Craft\nAdvisory, southeast winds 15 to 25 kt with gusts up to 35 kt and\nseas 6 to 9 ft expected.\n\n* WHERE...Clarence Strait.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM to 10 PM\nAKDT this evening. For the Gale Warning, from 10 PM this\nevening to 1 AM AKDT Friday. For the second Small Craft\nAdvisory, f",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Clarence Strait"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 3:14AM AKDT until April 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:14:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...N wind 10 kt early in the morning becoming light, then\nbecoming SE 15 kt in the afternoon. Seas 5 ft.\n.TONIGHT...S wind 25 kt. Seas 9 ft. Rain.\n.FRI...S wind 20 kt. Seas 7 ft. Rain.\n.FRI NIGHT...S wind 20 kt. Seas 7 ft. Rain showers.\n.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 3:14AM AKDT until April 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:14:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...NW wind 10 kt becoming E. Seas 5 ft.\n.TONIGHT...E wind 20 kt increasing to 25 kt late. Seas 7 ft\nincreasing to 9 ft late.\n.FRI...SE wind 25 kt. Seas 10 ft. Snow in the morning. Rain.\n.FRI NIGHT...SE wind 25 kt. Seas 8 ft.\n.SAT...SE win",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Fairweather to Icy Cape from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 3:14AM AKDT until April 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:14:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds becoming E 15 kt. Seas 6 ft.\n.TONIGHT...E wind 20 kt increasing to 25 kt late. Seas 6 ft\nincreasing to 8 ft late.\n.FRI...E wind 25 kt. Seas 9 ft.\n.FRI NIGHT...SE wind 25 kt. Seas 8 ft.\n.SAT...SE wind 25 kt. Seas 8 ft.\n.SUN.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Icy Cape to Cape Suckling from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 3:14AM AKDT until April 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:14:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...N wind 10 kt becoming SE in the morning, then increasing\nto 25 kt in the afternoon. Seas 6 ft. Rain in the afternoon.\n.TONIGHT...S wind 25 kt. Seas 9 ft. Rain.\n.FRI...S wind 20 kt. Seas 8 ft.\n.FRI NIGHT...S wind 20 kt. Seas 7 ft.\n.SAT.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision from 15 to 90 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 3:14AM AKDT until April 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:14:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...NE wind 10 kt becoming SE in the afternoon. Seas 5 ft.\n.TONIGHT...SE wind 25 kt. Seas 9 ft. Rain late.\n.FRI...S wind 20 kt. Seas 7 ft. Rain.\n.FRI NIGHT...S wind 20 kt. Seas 7 ft. Rain showers.\n.SAT...SE wind 15 kt. Seas 7 ft.\n.SUN...E ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Decision to Cape Edgecumbe out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 3:14AM AKDT until April 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:14:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...NE wind 10 kt becoming SE 25 kt in the afternoon. Seas\n6 ft.\n.TONIGHT...S wind 25 kt. Seas 10 ft. Rain.\n.FRI...S wind 20 kt. Seas 8 ft. Rain in the morning.\n.FRI NIGHT...S wind 20 kt. Seas 7 ft.\n.SAT...S wind 15 kt. Seas 7 ft.\n.SUN...S",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Decision to Cape Edgecumbe from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 3:14AM AKDT until April 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:14:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...N wind 10 kt becoming E. Seas 6 ft.\n.TONIGHT...E wind 30 kt. Seas 10 ft.\n.FRI...S wind 20 kt. Seas 8 ft. Rain.\n.FRI NIGHT...S wind 20 kt. Seas 7 ft.\n.SAT...SE wind 15 kt. Seas 7 ft.\n.SUN...E wind 10 kt. Seas 4 ft.\n.MON...NW wind 20 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Edgecumbe to Cape Spencer from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 3:14AM AKDT until April 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:14:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...NW wind 10 kt becoming E 20 kt. Seas 6 ft.\n.TONIGHT...E wind 30 kt. Seas 10 ft.\n.FRI...SE wind 25 kt. Seas 10 ft. Rain.\n.FRI NIGHT...SE wind 25 kt. Seas 7 ft.\n.SAT...SE wind 20 kt. Seas 7 ft.\n.SUN...SE wind 10 kt. Seas 4 ft.\n.MON...NW ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Spencer to Cape Fairweather from 15 to 85 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 3:14AM AKDT until April 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:14:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds becoming E 20 kt. Seas 5 ft.\n.TONIGHT...E wind 30 kt. Seas 7 ft.\n.FRI...E wind 30 kt. Seas 9 ft. Snow in the morning. Rain.\n.FRI NIGHT...SE wind 25 kt. Seas 7 ft. Rain.\n.SAT...SE wind 20 kt. Seas 7 ft.\n.SUN...E wind 10 kt. ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Spencer to Cape Fairweather out to 15 NM"
+    },
+    {
+      "title": "Special Weather Statement issued April 2 at 5:53AM CDT by NWS San Angelo TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T05:53:00-05:00",
+      "summary": "At 552 AM CDT, Doppler radar was tracking a strong thunderstorm over\nThe Intersection Of Us-\n83 And Ranch Road 1773, or 10 miles south of Menard, moving east at\n35 mph.\n\nHAZARD...Wind gusts up to 40 mph and nickel size hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects. Minor hail damage to vegetation is\npossible.\n\nLocations impacted include...\nMason, Saline, Streeter, Camp Air, Long Mountain, Grit, Katemcy,\nLondon, Hext, The Inte",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Menard; Kimble; Mason"
+    },
+    {
+      "title": "Special Weather Statement issued April 2 at 6:43AM EDT by NWS Wilmington OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T06:43:00-04:00",
+      "summary": "Patchy dense fog will be present early this morning. Use caution\nand remain alert for rapid changes in visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Franklin; Ripley; Dearborn; Fayette; Butler; Warren; Clinton; Ross; Hamilton; Clermont; Brown; Highland; Adams; Pike; Scioto"
+    },
+    {
+      "title": "Flood Warning issued April 2 at 5:33AM CDT until April 4 at 1:13PM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T05:33:00-05:00",
+      "summary": "...The National Weather Service in Springfield MO has issued a Flood\nWarning for the following rivers in Missouri...\n\nMarmaton River near Nevada affecting Vernon County.\n\nFor the Marmaton River...including Nevada...Minor flooding is\nforecast.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Marmaton River near Nevada.\n\n* WHEN...From this evening to early Saturday afternoon.\n\n* IMPACTS...At 24.0 feet, the county road west of the gage, Minnie\nBall Road, is impassable.\n\n* ADDITIONAL DETAILS...\n- At",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Vernon, MO"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 2:32AM AKDT until April 3 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T02:32:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 25 kt. Seas 8 ft. Rain.\n.TONIGHT...NE wind 25 kt. Seas 8 ft.\n.FRI...N wind 15 kt. Seas 6 ft.\n.FRI NIGHT...W wind 15 kt. Seas 6 ft.\n.SAT...NW wind 20 kt. Seas 5 ft.\n.SUN...W wind 15 kt. Seas",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marmot Island To Sitkinak from 15 to 85 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 2:32AM AKDT until April 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T02:32:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 25 kt. Seas 7 ft.\n.TONIGHT...NE wind 20 kt. Seas 6 ft.\n.FRI...NW wind 15 kt. Seas 5 ft.\n.FRI NIGHT...NW wind 15 kt. Seas 4 ft.\n.SAT...NW wind 15 kt. Seas 3 ft.\n.SUN...Variable wind 10 kt. S",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marmot Island to Sitkinak out to 15 NM"
+    },
+    {
+      "title": "Flood Warning issued April 2 at 5:16AM CDT until April 2 at 2:15PM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T05:16:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...Portions of central and west central Missouri, including\nthe following counties, in central Missouri, Cooper, Pettis and\nSaline. In west central Missouri, Henry, Johnson and Lafayette.\n\n* WHEN...Until 215 PM CDT Thursday.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is imminent or occurring. It will take\nseveral hours for all the water from these storms to work through\nlocal ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Cooper, MO; Henry, MO; Johnson, MO; Lafayette, MO; Pettis, MO; Saline, MO"
+    },
+    {
+      "title": "Special Weather Statement issued April 2 at 5:15AM CDT by NWS Bismarck ND",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T05:15:00-05:00",
+      "summary": "Areas of freezing drizzle and fog will impact much of western and\ncentral North Dakota early this morning. The freezing drizzle may\ndeposit a thin layer of ice on untreated and elevated surfaces,\nsuch as sidewalks and bridges. Fog will be dense at times in\nsouthwest parts of the state, with visibility reduced to one\nquarter mile or less.\n\nMotorists should use caution on the morning commute and be\nprepared for rapidly changing conditions. Do not use cruise\ncontrol and leave plenty of stopping dis",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Divide; Burke; Renville; Bottineau; Rolette; Williams; Mountrail; Ward; McHenry; Pierce; McKenzie; Dunn; Mercer; Oliver; McLean; Sheridan; Golden Valley; Billings; Stark; Morton; Burleigh; Slope; Hettinger; Grant; Bowman; Adams; Sioux"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 2:58AM PDT until April 2 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T02:58:00-07:00",
+      "summary": "* WHAT...Northwest winds 5 to 15 kt, rising to 10 to 20 kt with\ngusts to 25 kt and choppy waters expected.\n\n* WHERE...San Francisco Bay South of the Bay Bridge.\n\n* WHEN...From 3 PM this afternoon to 9 PM PDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "San Francisco Bay South of the Bay Bridge"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 2:58AM PDT until April 2 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T02:58:00-07:00",
+      "summary": "* WHAT...Northwest winds 5 to 15 kt, rising to 10 to 20 kt with\ngusts to 25 kt and choppy waters expected.\n\n* WHERE...San Pablo Bay, Suisun Bay, the West Delta and the San\nFrancisco Bay north of the Bay Bridge.\n\n* WHEN...From 3 PM this afternoon to 9 PM PDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "San Pablo Bay, Suisun Bay, the West Delta and  the San Francisco Bay north of the Bay Bridge"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 2 at 5:56AM EDT until April 2 at 9:00AM EDT by NWS Wilmington OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T05:56:00-04:00",
+      "summary": "* WHAT...Visibility 1/4 mile in dense fog.\n\n* WHERE...Portions of southeast Indiana and northeast and northern\nKentucky.\n\n* WHEN...Until 9 AM EDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Ohio; Switzerland; Carroll; Gallatin; Boone; Kenton; Campbell; Owen; Grant; Pendleton; Bracken; Robertson; Mason; Lewis"
+    },
+    {
+      "title": "Special Weather Statement issued April 2 at 5:38AM EDT by NWS Grand Rapids MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T05:38:00-04:00",
+      "summary": "Light freezing rain is possible this morning from I-96 to the north.\nTemperatures will be on the rise this morning, so the window for\nfreezing rain is short. Between 600am and 900am temperatures will\nrise above freezing ending the freezing rain threat for areas like\nMuskegon, Grand Rapids, Lansing, Alma, Greenville, Pentwater and\nLudington. Be prepared for a few slick spots this morning though\nbefore the temperatures warm up.\n\nInterior Central Lower Michigan is where some heavier icing may occur",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Mason; Oceana; Muskegon; Montcalm; Gratiot; Ottawa; Kent; Ionia; Clinton"
+    },
+    {
+      "title": "Flood Watch issued April 2 at 4:36AM CDT until April 5 at 5:00PM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T04:36:00-05:00",
+      "summary": "...The National Weather Service in Chicago IL has issued a Flood\nWatch for the following rivers in Illinois...\n\nIllinois River at La Salle affecting La Salle, Bureau and Putnam\nzones.\n\nFor the Illinois River (Upper)...including Morris, Ottawa, La\nSalle...flooding is possible.\n\n* WHAT...Flooding is possible.\n\n* WHERE...Illinois River from Starved Rock Lock and Dam downstream\nto confluence with Big Bureau Creek, including the La Salle gauge.\n\n* WHEN...From late Friday night to Sunday afternoon.\n\n*",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Bureau; Putnam; La Salle"
+    },
+    {
+      "title": "Flood Warning issued April 2 at 4:33AM CDT until April 3 at 3:37AM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T04:33:00-05:00",
+      "summary": "...The National Weather Service in Pleasant Hill MO has issued a\nFlood Warning for the following rivers in Missouri...\n\nMoniteau Creek near Fayette affecting Howard County.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Moniteau Creek near Fayette.\n\n* WHEN...Until late tonight.\n\n* IMPACTS...At 16.0 feet, Low-lying fields along Moniteau Creek\nflood.\n\n* ADDITIONAL DETAILS...\n- At 3:30 AM CDT Thursday the stage was 14.2 feet.\n- Forecast...The river is expected to rise above flood stage\nearly this",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Howard, MO"
+    },
+    {
+      "title": "Winter Storm Warning issued April 2 at 3:23AM MDT until April 4 at 6:00AM MDT by NWS Billings MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:23:00-06:00",
+      "summary": "* WHAT...Heavy snow expected. Total snow accumulations between 4 and\n8 inches. Winds gusting as high as 30 mph.\n\n* WHERE...Carter, Fallon, and Powder River.\n\n* WHEN...From midnight tonight to 6 AM MDT Saturday.\n\n* IMPACTS...Travel will be difficult due to snow, areas of blowing\nsnow and poor visibility, especially over the higher hills. This\nincludes Highway 12 from Miles City to Baker, and US-212 from\nBroadus to Alzada. Cool, wet, and windy conditions will be\nhazardous for young livestock.\n\n* A",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Fallon; Powder River; Carter"
+    },
+    {
+      "title": "Winter Weather Advisory issued April 2 at 3:23AM MDT until April 4 at 12:00AM MDT by NWS Billings MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:23:00-06:00",
+      "summary": "* WHAT...Periods of snow expected. Total snow accumulations between 3\nand 5 inches, greatest over the higher hills. Winds gusting as high\nas 30 mph.\n\n* WHERE...Custer.\n\n* WHEN...From 9 PM this evening to midnight MDT Friday Night.\n\n* IMPACTS...Travel will impacted by snow and poor visibility. This\nincludes I-94 through Miles City and US-12 east of Miles City over\nGovernment Hill. Cool, wet and windy conditions will be hazardous\nfor young livestock.\n\n* ADDITIONAL DETAILS...Heaviest snow is expect",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Custer"
+    },
+    {
+      "title": "Winter Weather Advisory issued April 2 at 3:23AM MDT until April 3 at 12:00PM MDT by NWS Billings MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:23:00-06:00",
+      "summary": "* WHAT...Snow and gusty north winds expected. Total snow\naccumulations of 1 to 4 inches. Winds gusting as high as 50 mph.\n\n* WHERE...Judith Gap.\n\n* WHEN...From 6 PM this evening to noon MDT Friday.\n\n* IMPACTS...Travel on US-191 through Judith Gap will impacted by\nsnow, periodic blowing snow and poor visibility. Cool, wet and\nwindy conditions will be hazardous for young livestock.\n\n* ADDITIONAL DETAILS...Heaviest snow is expected tonight through\nearly Friday morning.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Judith Gap"
+    },
+    {
+      "title": "Winter Weather Advisory issued April 2 at 3:23AM MDT until April 3 at 12:00PM MDT by NWS Billings MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:23:00-06:00",
+      "summary": "* WHAT...Periods of snow expected. Total snow accumulations between 2\nand 4 inches. Locally higher amounts along the western slopes of\nthe Absaroka Mountains.\n\n* WHERE...Paradise Valley.\n\n* WHEN...From 6 PM this evening to noon MDT Friday.\n\n* IMPACTS...Travel on US-89 through the Paradise Valley will impacted\nby snow and poor visibility. Cool, wet and windy conditions will be\nhazardous for young livestock.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Paradise Valley"
+    },
+    {
+      "title": "Flood Warning issued April 2 at 5:22AM EDT until April 2 at 5:15PM EDT by NWS Cleveland OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T05:22:00-04:00",
+      "summary": "* WHAT...Creek and river flooding caused by excessive rainfall is\nexpected.\n\n* WHERE...A portion of northwest Ohio, including the following\ncounty, Ottawa.\n\n* WHEN...Until 515 PM EDT Thursday.\n\n* IMPACTS...Streams and rivers continue to rise due to excess runoff\nfrom earlier rainfall. Low-water crossings may be inundated with\nwater and may not be passable.\n\n* ADDITIONAL DETAILS...\n- At 516 AM EDT, gauge reports indicated flooding is expected\nalong the Portage River. Flooding is ongoing or expect",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Ottawa, OH"
+    },
+    {
+      "title": "Flood Advisory issued April 2 at 4:19AM CDT until April 2 at 7:30AM CDT by NWS San Angelo TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T04:19:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of west central Texas, including the following\ncounties, Kimble, Mason, McCulloch, Menard and San Saba.\n\n* WHEN...Until 730 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\nWater over roadways.\n\n* ADDITIONAL DETAILS...\n- At 418 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Between 1 and 2.25 inche",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kimble, TX; McCulloch, TX; Mason, TX; Menard, TX; San Saba, TX"
+    },
+    {
+      "title": "Wind Advisory issued April 2 at 2:14AM PDT until April 2 at 8:00PM PDT by NWS Pendleton OR",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T02:14:00-07:00",
+      "summary": "* WHAT...West winds 25 to 35 mph with gusts of 35 to 50 mph expected.\n\n* WHERE...Eastern Columbia River Gorge of Oregon and Washington,\nLower Columbia Basin of Oregon, Foothills of the Southern Blue\nMountains of Oregon, North Central Oregon, Kittitas Valley, and\nSimcoe Highlands.\n\n* WHEN...From 11 AM this morning to 8 PM PDT this evening.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Eastern Columbia River Gorge of Oregon; Lower Columbia Basin of Oregon; Foothills of the Southern Blue Mountains of Oregon; North Central Oregon; Eastern Columbia River Gorge of Washington; Kittitas Valley; Simcoe Highlands"
+    },
+    {
+      "title": "Flood Warning issued April 2 at 4:12AM CDT until April 3 at 5:06AM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T04:12:00-05:00",
+      "summary": "...The National Weather Service in Springfield MO has issued a Flood\nWarning for the following rivers in Kansas...Missouri...\n\nLittle Osage River at Fulton affecting Bourbon County.\n\nLittle Osage River near Horton affecting Vernon County.\n\nFor the Little Osage River...including Fulton, Horton...Moderate\nflooding is forecast.\n\n* WHAT...Moderate flooding is forecast.\n\n* WHERE...Little Osage River at Fulton.\n\n* WHEN...Until late tonight.\n\n* IMPACTS...At 25.0 feet, Farmland at the gage site becomes ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Bourbon, KS"
+    },
+    {
+      "title": "Flood Warning issued April 2 at 4:12AM CDT until April 5 at 12:00AM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T04:12:00-05:00",
+      "summary": "...The National Weather Service in Springfield MO has issued a Flood\nWarning for the following rivers in Kansas...Missouri...\n\nLittle Osage River at Fulton affecting Bourbon County.\n\nLittle Osage River near Horton affecting Vernon County.\n\nFor the Little Osage River...including Fulton, Horton...Moderate\nflooding is forecast.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Little Osage River near Horton.\n\n* WHEN...Until early Sunday morning.\n\n* IMPACTS...At 45.0 feet, moderate flooding occurs at",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Vernon, MO"
+    },
+    {
+      "title": "Coastal Flood Statement issued April 2 at 5:08AM EDT until April 2 at 10:00PM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T05:08:00-04:00",
+      "summary": "* WHAT...Up to one half foot of inundation above ground level\nexpected in vulnerable areas near the waterfront and shoreline.\n\n* WHERE...In New Jersey, Hudson, Eastern Essex and Eastern Union\nCounties. In New York, Richmond (Staten Island) and Southern\nNassau Counties.\n\n* WHEN...This evening.\n\n* IMPACTS...Brief minor flooding of the more vulnerable locations\nnear the waterfront and shoreline.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Hudson; Eastern Essex; Eastern Union; Richmond (Staten Is.); Southern Nassau"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 4:02AM CDT until April 2 at 10:00AM CDT by NWS Houston/Galveston TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T04:02:00-05:00",
+      "summary": "* WHAT...South winds 20 to 25 kt and seas 4 to 6 ft.\n\n* WHERE...Portions of Gulf of America.\n\n* WHEN...Until 10 AM CDT this morning.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Matagorda Bay; Galveston Bay; Coastal waters from Freeport to Matagorda Ship Channel TX out 20 NM; Coastal waters from High Island to Freeport TX out 20 NM; Waters from Freeport to Matagorda Ship Channel TX from 20 to 60 NM"
+    },
+    {
+      "title": "Wind Advisory issued April 2 at 3:46AM CDT until April 2 at 7:00PM CDT by NWS St Louis MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:46:00-05:00",
+      "summary": "* WHAT...South winds 20 to 30 mph with gusts up to 45 mph expected.\n\n* WHERE...Portions of south central, southwest, and west central\nIllinois and central, east central, northeast, and southeast\nMissouri.\n\n* WHEN...From noon today to 7 PM CDT this evening.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Greene; Macoupin; Montgomery; Bond; Fayette; Clinton; Marion; Washington; Randolph; Adams; Brown; Pike; Calhoun; Jersey; Madison; St. Clair; Monroe; Knox; Lewis; Shelby; Marion; Monroe; Ralls; Pike; Audrain; Lincoln; St. Charles; St. Louis; St. Louis City; Jefferson; Ste. Genevieve"
+    },
+    {
+      "title": "Flash Flood Warning issued April 2 at 3:42AM CDT until April 2 at 9:45AM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:42:00-05:00",
+      "summary": "FFWEAX\n\nThe National Weather Service in Pleasant Hill MO has issued a\n\n* Flash Flood Warning for...\nCooper County in central Missouri...\n\n* Until 945 AM CDT Thursday.\n\n* At 342 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 1.5 and 2.5 inches of\nrain have fallen. The expected rainfall rate is 1 to 1.5 inches in\n1 hour. Additional rainfall amounts of 1 to 2 inches are possible\nin the warned area. Flash flooding is ongoing or expected to begin\nsh",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Cooper, MO"
+    },
+    {
+      "title": "Special Weather Statement issued April 2 at 4:42AM EDT by NWS Pittsburgh PA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T04:42:00-04:00",
+      "summary": "Areas of fog, some locally dense, will continue early this\nmorning. Visibilities will be reduced to a quarter of a mile or\nless in some areas. Use caution if traveling, and be alert for\nrapid changes in visibility over a short distance.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Tuscarawas; Carroll; Columbiana; Harrison; Jefferson; Belmont; Monroe; Lawrence; Butler; Beaver; Allegheny; Armstrong; Washington; Greene; Westmoreland; Fayette; Indiana; Hancock; Brooke; Ohio; Marshall; Wetzel; Marion; Monongalia"
+    },
+    {
+      "title": "Gale Warning issued April 2 at 3:39AM CDT until April 2 at 9:00PM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:39:00-05:00",
+      "summary": "* WHAT...For the Small Craft Advisory, east southeast winds 20 to\n30 kt and significant waves to 6 ft. For the Gale Warning, south\nwinds to 35 kt and significant waves to 6 ft occasionally to 8\nft expected.\n\n* WHERE...Calumet Harbor IL to Michigan City IN.\n\n* WHEN...For the first Small Craft Advisory, until 1 PM CDT this\nafternoon. For the Gale Warning, from 1 PM this afternoon to 9\nPM CDT this evening. For the second Small Craft Advisory, from\n9 PM this evening to 4 AM CDT Friday.\n\n* IMPACTS...",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Calumet Harbor IL to Gary IN; Gary to Burns Harbor IN; Burns Harbor to Michigan City IN"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 3:39AM CDT until April 3 at 4:00AM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:39:00-05:00",
+      "summary": "* WHAT...For the Small Craft Advisory, east southeast winds 20 to\n30 kt and significant waves to 6 ft. For the Gale Warning, south\nwinds to 35 kt and significant waves to 6 ft occasionally to 8\nft expected.\n\n* WHERE...Calumet Harbor IL to Michigan City IN.\n\n* WHEN...For the first Small Craft Advisory, until 1 PM CDT this\nafternoon. For the Gale Warning, from 1 PM this afternoon to 9\nPM CDT this evening. For the second Small Craft Advisory, from\n9 PM this evening to 4 AM CDT Friday.\n\n* IMPACTS...",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Calumet Harbor IL to Gary IN; Gary to Burns Harbor IN; Burns Harbor to Michigan City IN"
+    },
+    {
+      "title": "Small Craft Advisory issued April 2 at 3:39AM CDT until April 3 at 4:00AM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:39:00-05:00",
+      "summary": "* WHAT...For the Small Craft Advisory, east southeast winds 20 to\n30 kt and significant waves to 8 ft occasionally to 10 ft. For\nthe Gale Warning, south winds to 35 kt and significant waves to\n7 ft occasionally to 9 ft expected.\n\n* WHERE...Winthrop Harbor to Calumet Harbor IL.\n\n* WHEN...For the first Small Craft Advisory, until 1 PM CDT this\nafternoon. For the Gale Warning, from 1 PM this afternoon to 9\nPM CDT this evening. For the second Small Craft Advisory, from\n9 PM this evening to 4 AM CDT ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Winthrop Harbor to Wilmette Harbor IL; Wilmette Harbor to Northerly Island IL; Northerly Island to Calumet Harbor IL"
+    },
+    {
+      "title": "Gale Warning issued April 2 at 3:39AM CDT until April 2 at 9:00PM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:39:00-05:00",
+      "summary": "* WHAT...For the Small Craft Advisory, east southeast winds 20 to\n30 kt and significant waves to 8 ft occasionally to 10 ft. For\nthe Gale Warning, south winds to 35 kt and significant waves to\n7 ft occasionally to 9 ft expected.\n\n* WHERE...Winthrop Harbor to Calumet Harbor IL.\n\n* WHEN...For the first Small Craft Advisory, until 1 PM CDT this\nafternoon. For the Gale Warning, from 1 PM this afternoon to 9\nPM CDT this evening. For the second Small Craft Advisory, from\n9 PM this evening to 4 AM CDT ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Winthrop Harbor to Wilmette Harbor IL; Wilmette Harbor to Northerly Island IL; Northerly Island to Calumet Harbor IL"
+    },
+    {
+      "title": "Wind Advisory issued April 2 at 3:28AM CDT until April 2 at 7:00PM CDT by NWS Lincoln IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:28:00-05:00",
+      "summary": "* WHAT...South winds 20 to 30 mph with gusts up to 45 mph expected.\n\n* WHERE...Clay, Effingham, Lawrence, and Richland Counties.\n\n* WHEN...From 10 AM this morning to 7 PM CDT this evening.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Effingham; Clay; Richland; Lawrence"
+    },
+    {
+      "title": "Wind Advisory issued April 2 at 3:28AM CDT until April 2 at 7:00PM CDT by NWS Lincoln IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-02T03:28:00-05:00",
+      "summary": "* WHAT...South winds 25 to 35 mph with gusts up to 50 mph expected.\n\n* WHERE...Portions of central and west central Illinois.\n\n* WHEN...From noon today to 7 PM CDT this evening.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Knox; Stark; Peoria; Marshall; Woodford; Fulton; Tazewell; Schuyler; Mason; Cass; Menard; Scott; Morgan"
+    }
+  ]
+}

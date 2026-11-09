@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-04-14T11:40:28.479386Z",
+  "items": [
+    {
+      "title": "Flood Warning issued April 14 at 7:28AM EDT until April 15 at 2:00PM EDT by NWS Gaylord MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T07:28:00-04:00",
+      "summary": "...The National Weather Service in Gaylord MI has issued a Flood\nWarning for the following rivers in Michigan...\n\nBoardman River near Mayfield-Brown -Bridge Rd affecting Grand\nTraverse County.\n\nFor the Boardman River...including Mayfield--Brown Bridge Rd...\nModerate flooding is forecast.\n\n* WHAT...Minor flooding is occurring and moderate flooding is\nforecast to begin later this morning. This exceeds the flood of\nrecord.\n\n* WHERE...Boardman River near Mayfield--Brown Bridge Rd.\n\n* WHEN...From thi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Grand Traverse, MI"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 14 at 6:26AM CDT until April 14 at 9:00AM CDT by NWS Twin Cities/Chanhassen MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T06:26:00-05:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...Carver, Hennepin, and Ramsey Counties.\n\n* WHEN...Until 9 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Hennepin; Ramsey; Carver"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 14 at 6:22AM CDT until April 14 at 1:00PM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T06:22:00-05:00",
+      "summary": "* WHAT...Dense fog will reduce visibility to less than 1 NM.\n\n* WHERE...Portions of Lake Superior.\n\n* WHEN...Until 1 PM CDT this afternoon.\n\n* IMPACTS...Low visibility will make navigation difficult.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Taconite Harbor to Silver Bay Harbor MN; Silver Bay Harbor to Two Harbors MN; Two Harbors to Duluth MN; Duluth MN to Port Wing WI; Port Wing to Sand Island WI; Sand Island to Bayfield WI; Oak Point to Saxon Harbor WI; Outer Apostle Islands Beyond 5 NM from Mainland"
+    },
+    {
+      "title": "Extreme Wind Warning issued April 14 at 9:16PM ChST until April 15 at 12:15AM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T21:22:00+10:00",
+      "summary": "EWWGUM\n\nThe National Weather Service in Tiyan Guam has issued a\n\n* Extreme Wind Warning for...\nSaipan\nTinian\n\n* Until 1215 AM ChST.\n\n* At 916 PM ChST, Andersen AFB Doppler radar indicated western edge\nof the eyewall of Super Typhoon Sinlaku is moving into Tinian and\njust south of Saipan. Winds up to 150 mph are possible. Sinlaku's\nforward speed is around 3 hour motion to the northwest, estimated\nby radar. This slow motion means destructive winds in excess of\n115 mph will be prolonged once they a",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Extreme",
+      "area": "Saipan, MP; Tinian, MP"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 14 at 6:20AM CDT until April 14 at 1:00PM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T06:20:00-05:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...In Minnesota, Carlton and South St. Louis Counties. In\nWisconsin, Douglas County. This includes the Tribal Lands of the\nFond du Lac Band.\n\n* WHEN...Until 1 PM CDT this afternoon.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Carlton/South St. Louis; Douglas"
+    },
+    {
+      "title": "The Flood Watch has been cancelled.",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T06:08:00-05:00",
+      "summary": "The Flood Watch has been cancelled and is no longer in effect.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Bayfield; Ashland; Iron"
+    },
+    {
+      "title": "Flood Warning issued April 14 at 6:02AM CDT until April 14 at 11:00AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T06:02:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...Northwestern Outagamie County in northeastern Wisconsin...\nShawano County in northeastern Wisconsin...\nNorthern Waupaca County in northeastern Wisconsin...\n\n* WHEN...Until 1100 AM CDT.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is imminent or occurring.\n\n* ADDITIONAL DETAILS...\n- At 602 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Flooding is ongoing or ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Outagamie, WI; Shawano, WI; Waupaca, WI"
+    },
+    {
+      "title": "Marine Weather Statement issued April 14 at 6:40AM AST by NWS San Juan PR",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T06:40:00-04:00",
+      "summary": "The areas affected include...\nAtlantic Waters of Puerto Rico AND USVI from 10 NM to 19.5N...\nCoastal Waters east of Puerto Rico, around Vieques, and around and\njust north of Culebra and Saint John...\nCoastal Waters from Cabo San Juan to the waters between Anegada\nIsland and Virgin Gorda and North 10 NM...\nCoastal Waters of Northern Puerto Rico out 10 NM...\n\nAt 637 AM AST, Doppler radar indicated strong thunderstorms, capable\nof producing winds to around 30 knots. These thunderstorms were\nlocated",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Atlantic Waters of Puerto Rico AND USVI from 10 NM to 19.5N; Coastal Waters of Northern Puerto Rico out 10 NM; Coastal Waters from Cabo San Juan to the waters between Anegada Island and Virgin Gorda and North 10 NM; Coastal Waters east of Puerto Rico, around Vieques, and around and just north of Culebra and Saint John"
+    },
+    {
+      "title": "Flood Warning issued April 14 at 5:40AM CDT until April 16 at 7:00AM CDT by NWS La Crosse WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T05:40:00-05:00",
+      "summary": "...The National Weather Service in La Crosse WI has issued a Flood\nWarning for the following rivers in Wisconsin...\n\nTrempealeau River at Arcadia affecting Trempealeau and Buffalo\nCounties.\n\n* WHAT...Minor flooding is forecast. This approaches the flood of\nrecord.\n\n* WHERE...Trempealeau River at Arcadia.\n\n* WHEN...From this afternoon to Thursday morning.\n\n* IMPACTS...At 8.0 feet, Minor flooding begins. A few streets are\naffected by high water, and pumping operations begin.\n\n* ADDITIONAL DETAILS.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Buffalo, WI; Trempealeau, WI"
+    },
+    {
+      "title": "Special Weather Statement issued April 14 at 5:21AM CDT by NWS Des Moines IA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T05:21:00-05:00",
+      "summary": "WHAT...Areas of localized, shallow fog with visibilities under\none half mile at times.\n\nWHERE...Parts of north central Iowa, including portions of I-35\nand US Highway 20\n\nWHEN...through 8am\n\nIMPACTS...Drivers should be alert for reduced visibility at times.\n\nPREPAREDNESS AND PRECAUTIONARY ACTIONS...If driving this morning,\nplease use low beam headlights and allow extra travel time.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Emmet; Kossuth; Winnebago; Worth; Palo Alto; Hancock; Cerro Gordo; Pocahontas; Humboldt; Wright; Franklin; Sac; Calhoun; Webster; Hamilton; Hardin; Crawford; Carroll"
+    },
+    {
+      "title": "Flood Advisory issued April 14 at 8:10PM ChST until April 14 at 10:15PM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T20:10:00+10:00",
+      "summary": "* WHAT...Urban and small stream flooding caused by excessive\nrainfall is expected.\n\n* WHERE...Rota.\n\n* WHEN...Until 1015 PM ChST.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\n\n* ADDITIONAL DETAILS...\n- At 810 PM ChST, Doppler radar indicated heavy rain. This will\ncause urban and small stream flooding.\n- Additional rainfall amounts of 1 to 2 inches are expected\nover the area. This additional rain will result in minor\nflooding.\n- Some locations that will experience flooding in",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Rota, MP"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 3:08AM PDT until April 15 at 2:00AM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T03:08:00-07:00",
+      "summary": "* WHAT...West winds 20 to 30 kt.\n\n* WHERE...West Entrance U. S. Waters Strait Of Juan De Fuca.\n\n* WHEN...Until 2 AM PDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "West Entrance U.S. Waters Strait Of Juan De Fuca"
+    },
+    {
+      "title": "Flood Warning issued April 14 at 4:57AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T04:57:00-05:00",
+      "summary": "...The National Weather Service in Green Bay has issued a Flood\nWarning for the following rivers in Wisconsin...\n\nPeshtigo River near Porterfield affecting Marinette County.\n\n* WHAT...Minor flooding is occurring.\n\n* WHERE...Peshtigo River near Porterfield.\n\n* WHEN...From early this morning until further notice.\n\n* IMPACTS...At 12.0 feet, Area boat docks begin flooding and there is\nwidespread flooding of wooded lowland.\n\n* ADDITIONAL DETAILS...\n- At 4:00 AM CDT Tuesday the stage was 12.1 feet.\n- ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Marinette, WI"
+    },
+    {
+      "title": "Flood Advisory issued April 14 at 5:45AM AST until April 14 at 8:00AM AST by NWS San Juan PR",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T05:45:00-04:00",
+      "summary": "* WHAT...Urban and small stream flooding caused by excessive\nrainfall is expected.\n\n* WHERE...Ceiba, Fajardo, Luquillo and Rio Grande.\n\n* WHEN...Until 800 AM AST.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\nWater over roadways.\n\n* ADDITIONAL DETAILS...\n- At 544 AM AST, Doppler radar indicated heavy rain due to\nthunderstorms. This will cause urban and small stream\nflooding. Up to 1 inch of rain has fallen.\n- Additional rainfall amounts of 1 to 2 inches are expected\nover the ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Ceiba, PR; Fajardo, PR; Luquillo, PR; Rio Grande, PR"
+    },
+    {
+      "title": "Winter Weather Advisory issued April 14 at 2:33AM PDT until April 14 at 11:00PM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:33:00-07:00",
+      "summary": "* WHAT...Snow. Additional snow accumulations up 6 to 11 inches.\nWinds gusting as high as 40 mph.\n\n* WHERE...Olympics.\n\n* WHEN...Until 11 PM PDT this evening.\n\n* IMPACTS...Travel could be very difficult.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Olympics"
+    },
+    {
+      "title": "Special Weather Statement issued April 14 at 4:18AM CDT by NWS Grand Forks ND",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T04:18:00-05:00",
+      "summary": "Brief heavy snow may impact travel conditions for this mornings\ncommute within portions of the Devils Lake basin and northern Red\nRiver Valley. Heavy snow rates would greatly reduce visibility and\nmay lead to slippery roads. Snowfall totals up to 3 inches,\nmainly to grassy surfaces. The best chance for this occurring is\nfrom west and north of Devils Lake thru Cando to\nLangdon...Walhalla and Cavalier.\n\nIf you plan on traveling, allow extra time to reach your\ndestination. Keep your headlights on a",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kittson; Roseau; Lake Of The Woods; West Marshall; Towner; Cavalier; Pembina; Benson; Ramsey; Eastern Walsh County; Eddy; Nelson; Grand Forks; Western Walsh County"
+    },
+    {
+      "title": "Flood Warning issued April 14 at 4:17AM CDT until April 20 at 10:00AM CDT by NWS Milwaukee/Sullivan WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T04:17:00-05:00",
+      "summary": "...The National Weather Service in Milwaukee/Sullivan WI has issued\na Flood Warning for the following rivers in Wisconsin...\n\nWisconsin River At Portage affecting Columbia County.\n\n* WHAT...At least moderate flooding is forecast.\n\n* WHERE...Wisconsin River at Portage.\n\n* WHEN...From early this morning to late Monday morning.\n\n* IMPACTS...At 18.0 feet, water surrounds seasonal homes along Old\nRiver Rd in the Blackhawk Park area including water at the base of\nthe Caledonia/Lewiston Levee on Old Ri",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Columbia, WI"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 14 at 4:16AM CDT until April 14 at 8:00AM CDT by NWS La Crosse WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T04:16:00-05:00",
+      "summary": "* WHAT...Visibility 1/4 mile or less in dense fog.\n\n* WHERE...In Minnesota, Dodge, Fillmore, Mower, Olmsted, Wabasha,\nand Winona Counties. In Wisconsin, Clark, Buffalo, Jackson, and\nTrempealeau Counties.\n\n* WHEN...Until 8 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Wabasha; Dodge; Olmsted; Winona; Mower; Fillmore; Clark; Buffalo; Trempealeau; Jackson"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 2:09AM PDT until April 16 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:09:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 10\nto 20 kt. For the second Small Craft Advisory, northwest winds\n10 to 15 kt expected.\n\n* WHERE...Coastal Waters from Point Arena to Point Reyes\nCalifornia out to 10 NM.\n\n* WHEN...For the first Small Craft Advisory, until 3 AM PDT\nWednesday. For the second Small Craft Advisory, from 9 PM\nWednesday to 3 AM PDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Arena to Point Reyes California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 2:09AM PDT until April 16 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:09:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 15\nto 20 kt. For the second Small Craft Advisory, northwest winds\naround 15 kt and seas 8 to 10 ft expected.\n\n* WHERE...Waters from Point Reyes to Pigeon Point 10-60 NM.\n\n* WHEN...For the first Small Craft Advisory, until 3 AM PDT\nWednesday. For the second Small Craft Advisory, from 9 PM\nWednesday to 3 AM PDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Reyes to Pigeon Point 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 2:09AM PDT until April 16 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:09:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 15\nto 20 kt. For the second Small Craft Advisory, northwest winds\n10 to 20 kt and seas 8 to 10 ft expected.\n\n* WHERE...Waters from Point Arena to Point Reyes 10-60 NM.\n\n* WHEN...For the first Small Craft Advisory, until 3 AM PDT\nWednesday. For the second Small Craft Advisory, from 9 PM\nWednesday to 3 AM PDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Arena to Point Reyes 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 2:09AM PDT until April 16 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:09:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 15\nto 20 kt expected. For the second Small Craft Advisory,\nnorthwest winds 10 to 20 kt expected.\n\n* WHERE...Coastal Waters from Pigeon Point to Point Pinos\nCalifornia out to 10 NM.\n\n* WHEN...For the first Small Craft Advisory, from 3 PM this\nafternoon to 9 PM PDT this evening. For the second Small Craft\nAdvisory, from 9 PM Wednesday to 3 AM PDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Pigeon Point to Point Pinos California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 2:09AM PDT until April 16 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:09:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 15\nto 20 kt expected. For the second Small Craft Advisory,\nnorthwest winds 10 to 15 kt expected.\n\n* WHERE...Coastal Waters from Point Reyes to Pigeon Point\nCalifornia out to 10 NM.\n\n* WHEN...For the first Small Craft Advisory, from 3 PM this\nafternoon to 3 AM PDT Wednesday. For the second Small Craft\nAdvisory, from 3 PM Wednesday to 3 AM PDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Reyes to Pigeon Point California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 2:09AM PDT until April 16 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:09:00-07:00",
+      "summary": "* WHAT...Northwest winds 15 to 20 kt with gusts up to 30 kt\nexpected.\n\n* WHERE...Waters from Point Pinos to Point Piedras Blancas 10-\n60 NM.\n\n* WHEN...From 3 PM Wednesday to 3 AM PDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Pinos to Point Piedras Blancas 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 2:09AM PDT until April 16 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:09:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 10\nto 20 kt expected. For the second Small Craft Advisory,\nnorthwest winds 10 to 20 kt expected.\n\n* WHERE...Monterey Bay.\n\n* WHEN...For the first Small Craft Advisory, from 3 PM this\nafternoon to 9 PM PDT this evening. For the second Small Craft\nAdvisory, from 9 PM Wednesday to 3 AM PDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Monterey Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 2:09AM PDT until April 14 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:09:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 15\nto 20 kt expected. For the second Small Craft Advisory,\nnorthwest winds 10 to 20 kt expected.\n\n* WHERE...Coastal Waters from Pigeon Point to Point Pinos\nCalifornia out to 10 NM.\n\n* WHEN...For the first Small Craft Advisory, from 3 PM this\nafternoon to 9 PM PDT this evening. For the second Small Craft\nAdvisory, from 9 PM Wednesday to 3 AM PDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Pigeon Point to Point Pinos California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 2:09AM PDT until April 14 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:09:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 10\nto 20 kt expected. For the second Small Craft Advisory,\nnorthwest winds 10 to 20 kt expected.\n\n* WHERE...Monterey Bay.\n\n* WHEN...For the first Small Craft Advisory, from 3 PM this\nafternoon to 9 PM PDT this evening. For the second Small Craft\nAdvisory, from 9 PM Wednesday to 3 AM PDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Monterey Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 2:09AM PDT until April 15 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:09:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 15\nto 20 kt expected. For the second Small Craft Advisory,\nnorthwest winds 10 to 15 kt expected.\n\n* WHERE...Coastal Waters from Point Reyes to Pigeon Point\nCalifornia out to 10 NM.\n\n* WHEN...For the first Small Craft Advisory, from 3 PM this\nafternoon to 3 AM PDT Wednesday. For the second Small Craft\nAdvisory, from 3 PM Wednesday to 3 AM PDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Reyes to Pigeon Point California out to 10 nm"
+    },
+    {
+      "title": "Special Weather Statement issued April 14 at 4:06AM CDT by NWS Bismarck ND",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T04:06:00-05:00",
+      "summary": "Areas fog will reduce the visibility to one quarter mile in parts\nof south central North Dakota this morning. Motorists should be\nprepared for rapidly changing visibilities, and should use extra\ncaution traveling. Use low beam headlights and be extra cautious\nat intersections and railroad crossings.\n\nThe fog is expected to dissipate mid to late morning.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Emmons; Logan; McIntosh; Dickey"
+    },
+    {
+      "title": "Special Weather Statement issued April 14 at 5:05AM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T05:05:00-04:00",
+      "summary": "Areas of dense fog with visibilities of 1/4 mile or less have\ndeveloped early this morning from the I-10 corridor of North\nFlorida northward across most of Southeast Georgia. These\nconditions will continue until just after sunrise, then improving\nvisibilities are expected between 8am and 9am this morning.\n\nFog could also be increasingly dense near areas of smoke produced\nby wildfires. Use caution while driving this morning, leaving\nplenty of room between you and the vehicle in front of you.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Suwannee; Baker; Inland Nassau; Union; Bradford; Eastern Hamilton; Coastal Nassau; Coastal Duval; Western Hamilton; Trout River; Western Clay; Northern Columbia; Southeastern Columbia; Western Duval; Southwestern Columbia; Coffee; Jeff Davis; Bacon; Appling; Wayne; Atkinson; Pierce; Brantley; Inland Glynn; Coastal Glynn; Echols; Clinch; Inland Camden; Coastal Camden; Northern Ware; Northeastern Charlton; Southern Ware; Western Charlton"
+    },
+    {
+      "title": "Flood Advisory issued April 14 at 3:52AM CDT until April 14 at 10:00AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T03:52:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall will continue.\n\n* WHERE...Southeastern Marathon County in central Wisconsin...\nNortheastern Portage County in central Wisconsin...\nNorthern Calumet County in east central Wisconsin...\nManitowoc County in east central Wisconsin...\nNortheastern Winnebago County in east central Wisconsin...\nBrown County in northeastern Wisconsin...\nSouthern Door County in northeastern Wisconsin...\nKewaunee County in northeastern Wisconsin...\nSouthern Oconto County in n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Brown, WI; Calumet, WI; Door, WI; Kewaunee, WI; Manitowoc, WI; Marathon, WI; Oconto, WI; Outagamie, WI; Portage, WI; Shawano, WI; Waupaca, WI; Winnebago, WI"
+    },
+    {
+      "title": "Red Flag Warning issued April 14 at 3:32AM CDT until April 14 at 9:00PM CDT by NWS Hastings NE",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T03:32:00-05:00",
+      "summary": "...CRITICAL FIRE WEATHER CONDITIONS LIKELY THIS AFTERNOON IN\nCOUNTIES ALONG AND SOUTH OF THE NEBRASKA-KANSAS BORDER...\n\nThe National Weather Service in Hastings has issued a Red Flag\nWarning for wind and low relative humidity, which is in effect\nfrom noon today to 9 PM CDT this evening.\n\n* WINDS...From the southwest, sustained 15 to 20 MPH and gusting\nat least 25 to 30 MPH.\n\n* RELATIVE HUMIDITY...As low as around 20 percent.\n\n* IMPACTS...Any fire that develops will spread quickly. Outdoor\nburnin",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Harlan; Franklin; Webster; Nuckolls; Thayer"
+    },
+    {
+      "title": "Red Flag Warning issued April 14 at 3:27AM CDT until April 14 at 9:00PM CDT by NWS Omaha/Valley NE",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T03:27:00-05:00",
+      "summary": "The National Weather Service in Omaha/Valley has issued a Red\nFlag Warning for wind and low relative humidity, which is in\neffect from noon today to 9 PM CDT this evening.\n\n* AFFECTED AREA...Saline and Jefferson Counties.\n\n* TIMING...From noon today to 9 PM CDT this evening.\n\n* WINDS...Southwest 10 to 20 mph with gusts up to 35 mph.\n\n* RELATIVE HUMIDITY...As low as 19 percent.\n\n* IMPACTS...Any fires that develop will likely spread rapidly.\nOutdoor burning is not recommended.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Saline; Jefferson"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 14 at 2:56AM CDT until April 14 at 8:00AM CDT by NWS Aberdeen SD",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:56:00-05:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...Portions of central, north central, and northeast South\nDakota.\n\n* WHEN...Until 8 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Campbell; McPherson; Marshall; Roberts; Walworth; Edmunds; Day; Potter; Faulk; Clark; Codington; Sully; Hyde; Hand"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 3:50AM EDT until April 14 at 7:00PM EDT by NWS Buffalo NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T03:50:00-04:00",
+      "summary": "* WHAT...Southwest winds 15 to 25 knots expected.\n\n* WHERE...The Niagara River and Buffalo Harbor.\n\n* WHEN...From 10 AM this morning to 7 PM EDT this evening.\n\n* IMPACTS...Winds and/or waves will cause hazardous conditions\nthat could capsize or damage small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Upper Niagara River and Buffalo Harbor; Lower Niagara River"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 3:50AM EDT until April 14 at 7:00PM EDT by NWS Buffalo NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T03:50:00-04:00",
+      "summary": "* WHAT...Southwest winds 15 to 20 knots and waves 2 to 4 feet\nexpected.\n\n* WHERE...The nearshore waters of Lake Ontario from the Niagara\nRiver to Hamlin Beach.\n\n* WHEN...From 10 AM this morning to 7 PM EDT this evening.\n\n* IMPACTS...Winds and/or waves will cause hazardous conditions\nthat could capsize or damage small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Niagara River to Hamlin Beach NY"
+    },
+    {
+      "title": "Flood Warning issued April 14 at 2:40AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:40:00-05:00",
+      "summary": "...The National Weather Service in Green Bay has issued a Flood\nWarning for the following rivers in Wisconsin...\n\nEast River near East River near Greenleaf affecting Brown County.\n\n* WHAT...Minor flooding is occurring. This approaches the flood of\nrecord.\n\n* WHERE...East River near East River near Greenleaf.\n\n* WHEN...From early this morning until further notice.\n\n* IMPACTS...At 13.0 feet, At flood stage, widespread lowland and farm\nland flooding is occurring. Water may be covering parts of\nWrig",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Brown, WI"
+    },
+    {
+      "title": "Red Flag Warning issued April 14 at 2:40AM CDT until April 14 at 9:00PM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:40:00-05:00",
+      "summary": "The National Weather Service in Norman has issued a Red Flag\nWarning which is in effect from noon today to 9 PM CDT this\nevening. The Fire Weather Watch is no longer in effect.\n\n* WINDS...Southwest 20 to 30 mph with gusts up to 40 mph.\n\n* RELATIVE HUMIDITY...As low as 20 percent.\n\n* TEMPERATURES...Up to 89.\n\n* IMPACTS...Any fires that develop will likely spread rapidly.\nOutdoor burning is not recommended.\n\n* SEVERITY...\n\nFUELS (ERC)...70th-89th percentile...4 (out of 5).\n\nWEATHER...Near Critical",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Harper; Woods; Ellis; Woodward; Roger Mills; Beckham"
+    },
+    {
+      "title": "Lake Wind Advisory issued April 14 at 12:37AM PDT until April 15 at 11:00PM PDT by NWS Reno NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T00:37:00-07:00",
+      "summary": "* WHAT...Southwest winds 20 to 30 mph with gusts up to 45 mph and\nwave heights 1 to 3 feet.\n\n* WHERE...Greater Lake Tahoe Area.\n\n* WHEN...From 11 AM to 11 PM PDT Wednesday.\n\n* IMPACTS...Small boats, kayaks and paddle boards will be prone to\ncapsizing and should remain off lake waters until conditions\nimprove.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Greater Lake Tahoe Area; Greater Lake Tahoe Area"
+    },
+    {
+      "title": "Wind Advisory issued April 14 at 12:37AM PDT until April 15 at 11:00PM PDT by NWS Reno NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T00:37:00-07:00",
+      "summary": "* WHAT...Southwest winds 20 to 30 mph with gusts up to 50 mph with\nwind prone areas along US-395/I-580 gusting up to 60 mph.\n\n* WHERE...Greater Reno-Carson City-Minden Area.\n\n* WHEN...From 11 AM to 11 PM PDT Wednesday.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.\n\n* ADDITIONAL DETAILS...Winds may knock down burned trees in the\nDavis Fire burn area.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Greater Reno-Carson City-Minden Area"
+    },
+    {
+      "title": "Lake Wind Advisory issued April 14 at 12:26AM PDT until April 15 at 11:00PM PDT by NWS Reno NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T00:26:00-07:00",
+      "summary": "* WHAT...Southwest winds 20 to 30 mph with gusts up to 45 mph and\nwave heights 1 to 3 feet.\n\n* WHERE...Greater Lake Tahoe Area.\n\n* WHEN...From 11 AM to 11 PM PDT Wednesday.\n\n* IMPACTS...Small boats, kayaks and paddle boards will be prone to\ncapsizing and should remain off lake waters until conditions\nimprove.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Greater Lake Tahoe Area; Greater Lake Tahoe Area"
+    },
+    {
+      "title": "Wind Advisory issued April 14 at 12:26AM PDT until April 15 at 11:00PM PDT by NWS Reno NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T00:26:00-07:00",
+      "summary": "* WHAT...Southwest winds 20 to 30 mph with gusts up to 50 mph with\nwind prone areas along US-395/I-580 gusting up to 60 mph.\n\n* WHERE...Greater Reno-Carson City-Minden Area.\n\n* WHEN...From 11 AM to 11 PM PDT Wednesday.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.\n\n* ADDITIONAL DETAILS...Winds may knock down burned trees in the\nDavis Fire burn area.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Greater Reno-Carson City-Minden Area"
+    },
+    {
+      "title": "Special Weather Statement issued April 14 at 3:25AM EDT by NWS Raleigh NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T03:25:00-04:00",
+      "summary": "The combination of extremely dry fuels, very warm temperatures, gusty\nsouthwest winds, and reduced relative humidity will lead to an\nincreased risk of wildfires again today.\n\nMost dry grasses, dead leaves, and other tree litter could easily\nignite and spread fire quickly.\n\nA statewide burn ban issued by the North Carolina Forest Service\nis currently in place. Open burning of any kind is illegal.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Person; Forsyth; Guilford; Alamance; Orange; Durham; Davidson; Randolph; Chatham; Stanly; Montgomery; Moore; Lee; Harnett; Anson; Richmond; Scotland; Hoke; Cumberland"
+    },
+    {
+      "title": "Wind Advisory issued April 14 at 1:21AM MDT until April 14 at 7:00PM MDT by NWS Midland/Odessa TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T01:21:00-06:00",
+      "summary": "* WHAT...Southwest winds 25 to 35 mph with gusts up to 50 mph\nexpected.\n\n* WHERE...Eddy County Plains.\n\n* WHEN...From noon today to 7 PM MDT this evening.\n\n* IMPACTS...Gusty winds may blow around unsecured objects.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Eddy County Plains"
+    },
+    {
+      "title": "Wind Advisory issued April 14 at 1:18AM MDT until April 14 at 7:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T01:18:00-06:00",
+      "summary": "* WHAT...Southwest winds 25 to 35 mph with gusts up to 50 mph\nexpected.\n\n* WHERE...Central Highlands, South Central Mountains, Curry County,\nGuadalupe County, Quay County, Roosevelt County, Eastern San Miguel\nCounty, and Southwest Chaves County.\n\n* WHEN...From noon today to 7 PM MDT this evening.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs may be blown down. Expect strong crosswinds on area roadways,\nincluding I-40.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Central Highlands; South Central Mountains; Eastern San Miguel County; Guadalupe County; Quay County; Curry County; Roosevelt County; Southwest Chaves County"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 14 at 2:14AM CDT until April 14 at 9:00AM CDT by NWS Mobile AL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T02:14:00-05:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...Portions of south central and southwest Alabama, northwest\nFlorida, and southeast Mississippi.\n\n* WHEN...Until 9 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Choctaw; Washington; Clarke; Wilcox; Monroe; Conecuh; Butler; Crenshaw; Escambia; Covington; Mobile Inland; Baldwin Inland; Mobile Central; Baldwin Central; Escambia Inland; Santa Rosa Inland; Okaloosa Inland; Wayne; Perry; Greene; Stone; George"
+    },
+    {
+      "title": "Winter Storm Watch issued April 14 at 1:10AM MDT until April 17 at 6:00AM MDT by NWS Riverton WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T01:10:00-06:00",
+      "summary": "* WHAT...Heavy snow possible. Total snow accumulations between 9 and\n15 inches possible. Winds could gust as high as 55 mph.\n\n* WHERE...Absaroka Mountains, Teton and Gros Ventre Mountains, and\nYellowstone National Park.\n\n* WHEN...From Wednesday evening through late Thursday night.\n\n* IMPACTS...Travel could be very difficult, especially across Teton\nPass. Strong winds could cause limited visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Yellowstone National Park; Absaroka Mountains; Teton and Gros Ventre Mountains"
+    },
+    {
+      "title": "Small Craft Advisory issued April 14 at 3:06AM EDT until April 14 at 8:00PM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T03:06:00-04:00",
+      "summary": "* WHAT...South winds 10 to 15 kt with gusts up to 25 kt expected.\n\n* WHERE...Tidal Potomac River from Key Bridge to Smith Point VA,\nand Chesapeake Bay and adjoining estuaries north of Smith\nPoint VA.\n\n* WHEN...From 1 PM this afternoon to 8 PM EDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chesapeake Bay north of Pooles Island MD; Chesapeake Bay from Pooles Island to Sandy Point MD; Chesapeake Bay from Sandy Point to North Beach MD; Chesapeake Bay from North Beach to Drum Point MD; Chesapeake Bay from Drum Point MD to Smith Point VA; Tidal Potomac from Key Bridge to Indian Head MD; Tidal Potomac from Indian Head to Cobb Island MD; Tidal Potomac from Cobb Island MD to Smith Point VA; Patapsco River including Baltimore Harbor; Chester River to Queenstown MD; Eastern Bay; Choptank River to Cambridge MD and the Little Choptank River; Patuxent River to Broomes Island MD; Tangier Sound and the inland waters surrounding Bloodsworth Island"
+    },
+    {
+      "title": "Red Flag Warning issued April 14 at 12:45AM MDT until April 14 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-14T00:45:00-06:00",
+      "summary": "...RED FLAG WARNING FOR MUCH OF NORTHEASTERN AND EAST CENTRAL NEW\nMEXICO 12 PM TO 8 PM TODAY DUE TO STRONG WINDS AND LOW\nHUMIDITY...\n\n.Strong southwest winds and low humidity values return to the area\ntoday, expanding across a larger area of northeastern and east-\ncentral NM. This will bring the potential for rapid fire spread\nto areas that received little rainfall this past Friday and\nSaturday.\n\nThe National Weather Service in Albuquerque has issued a Red Flag\nWarning...which is in effect from ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Northeast Plains; Northeast Highlands; Central Highlands; East Central Plains"
+    },
+    {
+      "title": "Winter Weather Advisory issued April 13 at 11:34PM PDT until April 16 at 5:00AM PDT by NWS Spokane WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-13T23:34:00-07:00",
+      "summary": "* WHAT...Snow expected for elevations above 3000 ft. Total snow\naccumulations 4 to 9 inches. Winds gusting as high as 35 mph.\n\n* WHERE...Mullan, Dobson Pass, and Lookout Pass.\n\n* WHEN...From 8 PM Tuesday to 5 AM PDT Thursday.\n\n* IMPACTS...Travel could be difficult. Plan for winter driving\nconditions.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Central Panhandle Mountains"
+    }
+  ]
+}

@@ -1,0 +1,1234 @@
+{
+  "fetched_at": "2026-03-24T08:00:27.359064Z",
+  "total": 15452,
+  "federal": 1349,
+  "non_federal": 14103,
+  "states_count": 56,
+  "type_counts": {
+    "Unknown": 15452
+  },
+  "state_counts": {
+    "NY": 1335,
+    "DC": 1011,
+    "CA": 813,
+    "WI": 801,
+    "TX": 688,
+    "MI": 582,
+    "OH": 556,
+    "FL": 523,
+    "MN": 494,
+    "IL": 437,
+    "NC": 392,
+    "UT": 388,
+    "MA": 358,
+    "PA": 355,
+    "GA": 348,
+    "TN": 343,
+    "MO": 328,
+    "VA": 319,
+    "NJ": 309,
+    "AR": 296
+  },
+  "sample": [
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NJ"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "OR"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "TX"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "OH"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "AR"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "KY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "TN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "SD"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WV"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "UT"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "OH"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "OK"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "TN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "DC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "GA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "PA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MS"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "GA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "KY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NM"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CT"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CO"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NH"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NM"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NH"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "LA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MO"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NH"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "DC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "DC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CT"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "TX"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "TX"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "PA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "AZ"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "OH"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CT"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "KS"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WV"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NJ"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "AZ"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "OH"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "LA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WV"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "FL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "VT"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "PA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "TX"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "FL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "DC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NM"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NE"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "ME"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "TX"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "TN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "OK"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NJ"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CO"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "FL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "TN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "DC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "KY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "PA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "HI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "DC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "FL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NH"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "FL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "LA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "DC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MO"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "ME"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WV"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "AZ"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "KY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "OR"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "OH"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "PA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "FL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "AL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MD"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CO"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "GA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "AZ"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "AR"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "OH"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "UT"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WV"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "DC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MS"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NE"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "OR"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "DC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "AK"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "UT"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CT"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "DC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NJ"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "DC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "VA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NH"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "UT"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "GA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CT"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CO"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "ME"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "DC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "WI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NJ"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "IL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "DC"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "SD"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NV"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "TN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "PA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MI"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "CA"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MN"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "FL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "FL"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "NY"
+    },
+    {
+      "domain": "",
+      "type": "",
+      "agency": "",
+      "state": "MS"
+    }
+  ]
+}

@@ -1,0 +1,958 @@
+{
+  "timelines": [
+    {
+      "id": "az-military",
+      "title": "Arizona Military History",
+      "events": [
+        {
+          "date": "1877",
+          "title": "Fort Huachuca Established",
+          "body": "US Army establishes Camp Huachuca during the Apache Wars campaign against Geronimo. Buffalo Soldiers of the 10th Cavalry garrison the fort. Becomes permanent in 1882.",
+          "reliability": "verified",
+          "topics": [
+            "defense",
+            "history"
+          ]
+        },
+        {
+          "date": "1930",
+          "title": "Luke Field Reactivated as Army Air Corps Base",
+          "body": "Originally a WWI training field, Luke reopened for Army Air Corps operations west of Phoenix. Named after Medal of Honor recipient Frank Luke Jr., Arizona's WWI ace.",
+          "reliability": "verified",
+          "topics": [
+            "defense",
+            "aviation",
+            "history"
+          ]
+        },
+        {
+          "date": "1941",
+          "title": "Davis-Monthan Becomes Army Air Field",
+          "body": "Activated as major Army Air Force installation. B-24 and B-29 crews trained here. Tucson's low humidity and clear skies made it ideal for aviation training and aircraft storage.",
+          "reliability": "verified",
+          "topics": [
+            "defense",
+            "aviation"
+          ]
+        },
+        {
+          "date": "1943",
+          "title": "Yuma Army Air Field Activated",
+          "body": "Becomes primary gunnery training base. Year-round clear skies and vast unpopulated desert make Yuma ideal for aerial weapons testing — a role it maintains today.",
+          "reliability": "verified",
+          "topics": [
+            "defense",
+            "aviation"
+          ]
+        },
+        {
+          "date": "1946",
+          "title": "Aircraft Storage Begins at Davis-Monthan",
+          "body": "First surplus WWII aircraft stored in the Sonoran Desert. Caliche soil and low humidity prevent corrosion. What began with B-29s grew into the world's largest aircraft storage facility.",
+          "reliability": "verified",
+          "topics": [
+            "defense",
+            "aviation"
+          ]
+        },
+        {
+          "date": "1954",
+          "title": "U.S. Army Electronic Proving Ground Established at Fort Huachuca",
+          "body": "Fort Huachuca transitions from cavalry post to electronic intelligence center. Classified electronic warfare and signals testing begins in the remote Cochise County desert.",
+          "reliability": "verified",
+          "topics": [
+            "defense",
+            "classified",
+            "cyber"
+          ]
+        },
+        {
+          "date": "1967",
+          "title": "AMARG Formalized at Davis-Monthan",
+          "body": "Aerospace Maintenance and Regeneration Group formally established. Today holds 4,400+ aircraft from all service branches — the world's largest aircraft boneyard.",
+          "reliability": "verified",
+          "topics": [
+            "defense",
+            "aviation"
+          ]
+        },
+        {
+          "date": "1971",
+          "title": "U.S. Army Intelligence Center and School Established",
+          "body": "Fort Huachuca becomes the Army's central intelligence training facility. All Army HUMINT, SIGINT, IMINT, GEOINT, and counterintelligence professionals trained here.",
+          "reliability": "verified",
+          "topics": [
+            "defense",
+            "classified"
+          ]
+        },
+        {
+          "date": "1994",
+          "title": "Barry Goldwater Range Consolidation",
+          "body": "Luke AFB's Goldwater Range consolidated into a single 2.7 million-acre restricted airspace area — the largest in the United States. Used for live-fire training, weapons testing, and classified flight operations.",
+          "reliability": "verified",
+          "topics": [
+            "defense",
+            "aviation"
+          ]
+        },
+        {
+          "date": "2002",
+          "title": "NETCOM Activated at Fort Huachuca",
+          "body": "U.S. Army Network Enterprise Technology Command headquarters established. Fort Huachuca now manages Army global network infrastructure and cybersecurity in addition to intelligence training.",
+          "reliability": "verified",
+          "topics": [
+            "defense",
+            "cyber"
+          ]
+        },
+        {
+          "date": "2014",
+          "title": "Luke AFB Receives First F-35A",
+          "body": "Luke Air Force Base becomes the primary F-35A Lightning II training installation in the world. The $1.5 trillion program's largest training hub operates over Arizona skies.",
+          "reliability": "verified",
+          "topics": [
+            "defense",
+            "aviation"
+          ]
+        },
+        {
+          "date": "2021",
+          "title": "Integrated Fixed Tower (IFT) Network Goes Operational",
+          "body": "CBP deploys 53 Integrated Fixed Towers along the Arizona-Mexico border, primarily in the Tohono O'odham Nation. Each tower has radar, cameras, and AI-assisted detection feeding into a centralized operations center.",
+          "reliability": "verified",
+          "topics": [
+            "defense",
+            "border",
+            "infra"
+          ]
+        },
+        {
+          "date": "2024",
+          "title": "Autonomous Surveillance Towers Expanded",
+          "body": "DHS deploys next-generation autonomous surveillance towers (AST) along the Arizona border, capable of AI-driven target classification. Over 200 towers operational from Yuma to Douglas.",
+          "reliability": "verified",
+          "topics": [
+            "defense",
+            "border",
+            "cyber"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "az-uap",
+      "title": "Arizona UAP / Anomaly Timeline",
+      "events": [
+        {
+          "date": "1947-07",
+          "title": "Post-Arnold Arizona Reports Emerge",
+          "body": "Following Kenneth Arnold's famous Washington sighting, multiple Arizona reports flood local media. Tucson and Phoenix airports report unusual radar contacts. Air Force investigates, classifies results.",
+          "reliability": "media",
+          "topics": [
+            "anomaly",
+            "ufo"
+          ]
+        },
+        {
+          "date": "1947",
+          "title": "Project Sign Established — Arizona in Scope",
+          "body": "USAF establishes Project Sign to investigate UAP reports nationwide, including Arizona military airspace. Arizona's proximity to White Sands and other test ranges makes it a surveillance priority.",
+          "reliability": "verified",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "defense",
+            "classified"
+          ]
+        },
+        {
+          "date": "1953",
+          "title": "Kingman UFO Crash Claim",
+          "body": "Alleged disc-shaped craft recovery near Kingman, AZ on May 21, 1953. Arthur Stansel testified to being transported to the site under security. No official records confirm recovery. Project Blue Book has no Kingman file.",
+          "reliability": "disputed",
+          "topics": [
+            "anomaly",
+            "ufo"
+          ]
+        },
+        {
+          "date": "1975-11",
+          "title": "Travis Walton Abduction Claim — Heber, AZ",
+          "body": "Logger Travis Walton and six coworkers encounter a disc near Heber, AZ. Walton missing 5 days, coworkers pass polygraphs. Returns with account of being aboard craft. Became the book and film 'Fire in the Sky' (1993).",
+          "reliability": "witness",
+          "topics": [
+            "anomaly",
+            "ufo"
+          ]
+        },
+        {
+          "date": "1994",
+          "title": "Ruwa Zimbabwe-Style Mass Sighting Reports Near Luke AFB",
+          "body": "Multiple Arizona residents along the I-10 and I-17 corridors report structured craft operating near Luke AFB's restricted airspace. Reports filed with MUFON. USAF declines to comment.",
+          "reliability": "media",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "defense"
+          ]
+        },
+        {
+          "date": "1997-03-13",
+          "title": "The Phoenix Lights — Mass UAP Event",
+          "body": "Thousands of witnesses from Prescott to Tucson observe a massive V-shaped formation moving silently southward. A second event of stationary orbs appears over the Estrella Mountains. Two distinct events now recognized by researchers.",
+          "reliability": "witness",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "defense"
+          ]
+        },
+        {
+          "date": "1997-06",
+          "title": "Governor Symington Mock Press Conference",
+          "body": "Governor Fife Symington holds press conference presenting aide in alien costume as the 'culprit.' Ten years later in 2007, Symington reverses: 'I saw something that defied description as a pilot and former Air Force officer.'",
+          "reliability": "verified",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "policy"
+          ]
+        },
+        {
+          "date": "2007-02",
+          "title": "Phoenix Lights 10th Anniversary Sighting",
+          "body": "New formation of lights reported over Phoenix on the 10th anniversary. Phoenix Fire Department investigates. Later attributed to flares dropped by private pilot over the Estrella Mountains. Governor Symington publicly reverses his 1997 position same year.",
+          "reliability": "media",
+          "topics": [
+            "anomaly",
+            "ufo"
+          ]
+        },
+        {
+          "date": "2020-04-27",
+          "title": "Pentagon Officially Releases UAP Videos",
+          "body": "DoD officially confirms and releases three Navy UAP videos: FLIR1 (Tic Tac, 2004), Gimbal (2015), GoFast (2015). First official acknowledgment that military pilots encounter unexplained aerial objects. Renewed interest in Arizona military range sightings.",
+          "reliability": "verified",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "defense"
+          ]
+        },
+        {
+          "date": "2021-06-25",
+          "title": "ODNI Releases UAP Preliminary Assessment",
+          "body": "First official unclassified government UAP report. 144 incidents analyzed. 18 exhibit unusual movement. Report notes 'lack of data' as primary obstacle. Mentions stigma preventing pilot reporting — directly relevant to Luke and Davis-Monthan pilots.",
+          "reliability": "official",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "defense",
+            "policy"
+          ]
+        },
+        {
+          "date": "2022-10",
+          "title": "AARO Established — All-domain Anomaly Resolution Office",
+          "body": "DoD establishes AARO to replace UAPTF. New office has broader mandate covering aerial, submerged, transmedium, and space-based anomalous phenomena. Arizona military installations become formal reporting nodes.",
+          "reliability": "verified",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "defense",
+            "policy"
+          ]
+        },
+        {
+          "date": "2023-07-26",
+          "title": "Grusch Congressional Testimony — Retrieval Program Claims",
+          "body": "David Grusch, former NRO/NGA officer, testifies under oath to House Oversight Committee. Claims multi-decade non-human craft retrieval program. Ryan Graves describes ongoing UAP near military training areas. David Fravor testifies about 2004 Tic Tac encounter.",
+          "reliability": "witness",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "classified",
+            "defense"
+          ]
+        },
+        {
+          "date": "2023-09-14",
+          "title": "NASA UAP Study Team Releases Final Report",
+          "body": "NASA's 16-member independent study team recommends NASA become 'honest broker' of UAP data. Notes 'stigma problem' preventing scientific reporting. Calls for AI/ML tools to detect UAPs in existing telescope data — Arizona observatories (Kitt Peak, VATT) directly relevant.",
+          "reliability": "official",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "research"
+          ]
+        },
+        {
+          "date": "2024-03-08",
+          "title": "AARO Releases Historical Record — Vol. 1",
+          "body": "DoD AARO releases comprehensive historical review of US government UAP investigations 1945–2024. Covers Project Blue Book Arizona cases. Concludes no evidence of retrieved craft or extraterrestrial origin, though acknowledges significant classified program knowledge gaps.",
+          "reliability": "official",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "history",
+            "classified"
+          ]
+        },
+        {
+          "date": "2024",
+          "title": "AARO Secure Reporting Portal Launched",
+          "body": "AARO launches secure web portal for cleared U.S. government personnel to report UAP encounters. Fort Huachuca and Davis-Monthan personnel with clearances are among first to have formal protected reporting channel.",
+          "reliability": "verified",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "defense",
+            "policy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "az-water",
+      "title": "Arizona Water Crisis Timeline",
+      "events": [
+        {
+          "date": "1922-11-24",
+          "title": "Colorado River Compact Signed",
+          "body": "Seven basin states divide Colorado River water. Arizona refuses to sign — disputes with California over allocation. Does not ratify until 1944. The seeds of 100 years of water conflict planted at Santa Fe.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "policy",
+            "history"
+          ]
+        },
+        {
+          "date": "1944",
+          "title": "Arizona Ratifies Colorado River Compact",
+          "body": "After 22 years, Arizona finally ratifies. Receives 2.8 million acre-feet annually — third behind California (4.4M) and Colorado (3.86M). The allocation, designed for a wetter climate, will prove insufficient.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "policy"
+          ]
+        },
+        {
+          "date": "1963",
+          "title": "Arizona v. California — Supreme Court Victory",
+          "body": "Landmark Supreme Court ruling defines Arizona's water rights. Court affirms Arizona's right to 2.8 million acre-feet of main-stem Colorado River water annually. Opens door for Central Arizona Project.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "policy",
+            "history"
+          ]
+        },
+        {
+          "date": "1968",
+          "title": "Central Arizona Project Authorized",
+          "body": "Colorado River Basin Project Act authorizes construction of the CAP — a 336-mile aqueduct system to bring Colorado River water to Phoenix and Tucson. Cost: $4 billion. Largest and most expensive aqueduct in U.S. history at the time.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "infra"
+          ]
+        },
+        {
+          "date": "1985",
+          "title": "CAP Begins Water Deliveries",
+          "body": "First water flows from Lake Havasu through the CAP canal to Phoenix metro. Tucson receives CAP water in 1992. The project transforms Arizona's growth potential — and its dependence on the Colorado River.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "infra"
+          ]
+        },
+        {
+          "date": "2000",
+          "title": "Drought Begins — 23-Year 'Megadrought'",
+          "body": "A multi-decadal drought begins in the Colorado River Basin. Scientists later identify it as the worst in 1,200 years. Lake Mead and Lake Powell begin a slow, relentless decline accelerated by climate change.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "policy"
+          ]
+        },
+        {
+          "date": "2007",
+          "title": "Interim Guidelines for Lower Basin Shortages Established",
+          "body": "First shortage guidelines set elevation triggers for reduced water deliveries. Lake Mead at 1,075 feet = Tier 1 shortage. Arizona accepts lowest priority (CAP agricultural) to speed negotiations.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "policy"
+          ]
+        },
+        {
+          "date": "2021-08",
+          "title": "Tier 1 Shortage Declared — First in History",
+          "body": "Bureau of Reclamation declares first-ever shortage on the Colorado River. Arizona forced to cut 512,000 acre-feet — 18% of its total allocation. CAP agricultural water users cut to zero. Cities protected for now.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "policy"
+          ]
+        },
+        {
+          "date": "2022",
+          "title": "Lake Mead Reaches Historic Low of 1,041 Feet",
+          "body": "Lake Mead drops to 1,041 feet above sea level — approaching 'dead pool' at 895 feet where no water can flow through Hoover Dam. Tier 2 cuts imposed. Additional 592,000 acre-feet cut from Arizona's allocation.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "infra"
+          ]
+        },
+        {
+          "date": "2023-03",
+          "title": "Seven States Agree on Emergency Conservation Plan",
+          "body": "After months of failed negotiations, Lower Basin states propose 3 million acre-feet of voluntary conservation over 3 years in exchange for federal funding. Arizona, California, and Nevada sign on. Congress passes $4B Inflation Reduction Act water provisions.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "policy"
+          ]
+        },
+        {
+          "date": "2024",
+          "title": "Post-2026 Operating Rules Negotiations Begin",
+          "body": "All seven basin states begin formal negotiations for new Colorado River operating guidelines to replace 2007 interim rules expiring in 2026. Arizona's long-term water future hangs on the outcome. Desalination plant proposals resurface.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "policy"
+          ]
+        },
+        {
+          "date": "2025",
+          "title": "Pinal County Farmers Face Permanent Water Cutoffs",
+          "body": "Pinal County agricultural CAP users, stripped of CAP water, begin transition plans. Some farmland retired permanently. Cotton and alfalfa production impacted. Groundwater pumping accelerates in Central Arizona — raising aquifer depletion concerns.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "infra",
+            "policy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "uap-congressional",
+      "title": "UAP Congressional Disclosure Timeline",
+      "events": [
+        {
+          "date": "2017-12-16",
+          "title": "New York Times Reveals AATIP Program",
+          "body": "NYT reports on the secret Advanced Aerospace Threat Identification Program (AATIP) — a $22M Pentagon program to study UAPs. Co-founders Senators Reid, Stevens, and Inouye. Luis Elizondo named as director. Program ended 2012 but personnel continued informally.",
+          "reliability": "verified",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "defense",
+            "classified"
+          ]
+        },
+        {
+          "date": "2020-12-23",
+          "title": "FY2021 Intelligence Authorization Act — UAP Reporting Mandated",
+          "body": "Congress mandates a 180-day UAP report from DoD and ODNI. First legislative requirement for government transparency on UAPs. Signed into law with FY2021 omnibus. Sets the stage for the 2021 preliminary assessment.",
+          "reliability": "verified",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "policy",
+            "classified"
+          ]
+        },
+        {
+          "date": "2021-06-25",
+          "title": "ODNI Releases Preliminary UAP Assessment",
+          "body": "First government UAP report delivered to Congress: 144 incidents, 18 with unusual characteristics, no non-human origin identified but not ruled out. Report recommends expanded data collection infrastructure.",
+          "reliability": "official",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "policy"
+          ]
+        },
+        {
+          "date": "2022-05-17",
+          "title": "First Congressional UAP Hearing in 50 Years",
+          "body": "House Intelligence Subcommittee holds first open UAP hearing since 1969. Deputy SecDef Ronald Moultrie and Ronald Bray testify. 400 new UAP reports received since 2021 assessment. AARO establishment announced.",
+          "reliability": "verified",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "policy"
+          ]
+        },
+        {
+          "date": "2022-10",
+          "title": "AARO Established by Congress",
+          "body": "All-domain Anomaly Resolution Office created under USD(I&S). First director Sean Kirkpatrick appointed. Broader mandate than UAPTF: covers aerial, underwater, transmedium, and near-space anomalous phenomena.",
+          "reliability": "verified",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "defense",
+            "policy"
+          ]
+        },
+        {
+          "date": "2023-07-14",
+          "title": "UAP Disclosure Act of 2023 Introduced",
+          "body": "Senators Schumer and Rounds introduce S.2226 — modeled on JFK Records Act. Would create Presidential Review Board, mandate declassification of all UAP records since 1945, and require inventory from all executive agencies.",
+          "reliability": "verified",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "policy",
+            "classified"
+          ]
+        },
+        {
+          "date": "2023-07-26",
+          "title": "House Oversight UAP Hearing — Grusch, Graves, Fravor Testify",
+          "body": "David Grusch testifies under oath: 'non-human intelligence and non-human craft' retrieved by U.S. government. David Fravor describes Tic Tac encounter (2004). Ryan Graves describes ongoing UAP near training areas. Biggest UAP hearing in U.S. history by public attention.",
+          "reliability": "witness",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "classified",
+            "defense"
+          ]
+        },
+        {
+          "date": "2023-11",
+          "title": "UAPDA Stripped in NDAA Conference — Key Provisions Removed",
+          "body": "House-Senate NDAA conference strips most UAPDA provisions. Presidential Review Board eliminated. Declassification mandate narrowed. Final FY2024 NDAA retains some reporting requirements but falls short of Schumer-Rounds original intent.",
+          "reliability": "verified",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "policy"
+          ]
+        },
+        {
+          "date": "2024-02",
+          "title": "Senate Armed Services UAP Hearing — AARO Director Kirkpatrick Testifies",
+          "body": "Sean Kirkpatrick's final hearing as AARO director before resignation. Defends AARO findings, disputes Grusch claims. Acknowledges 'significant classified program access challenges.' Announces AARO has received 50+ firsthand claims from clearance holders.",
+          "reliability": "verified",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "defense",
+            "policy"
+          ]
+        },
+        {
+          "date": "2024-03-08",
+          "title": "AARO Historical Record Vol. 1 Released",
+          "body": "First volume of mandated historical review covers 1945–1994. Includes Project Sign, Grudge, Blue Book, and Robertson Panel. Concludes no credible evidence of extraterrestrial UAP or government retrieval programs, but acknowledges incomplete access to all SAP compartments.",
+          "reliability": "official",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "history",
+            "classified"
+          ]
+        },
+        {
+          "date": "2024",
+          "title": "AARO Secure Portal Launched — Cleared Personnel Reporting",
+          "body": "AARO launches secure online reporting mechanism for cleared U.S. government and defense contractor personnel. First protected channel for UAP witnesses with security clearances. Addresses the 'stigma and fear of retaliation' barrier identified in 2021 assessment.",
+          "reliability": "verified",
+          "topics": [
+            "anomaly",
+            "ufo",
+            "defense",
+            "policy"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "az-history",
+      "title": "Arizona History — Territory to State",
+      "events": [
+        {
+          "date": "1540",
+          "title": "Coronado Expedition Enters Arizona",
+          "body": "Francisco Vásquez de Coronado leads the first major Spanish expedition into present-day Arizona searching for the Seven Cities of Gold (Cíbola). Enters from Sonora through the San Pedro River valley. No gold found, but first European contact with Hopi, Zuni, and other Pueblo peoples documented.",
+          "reliability": "archived",
+          "topics": [
+            "history"
+          ]
+        },
+        {
+          "date": "1692",
+          "title": "Father Kino Establishes Arizona Missions",
+          "body": "Jesuit priest Eusebio Francisco Kino begins establishing missions in the Pimería Alta (southern Arizona/northern Sonora). Tumacácori and San Xavier del Bac (near modern Tucson) founded. Spanish colonial presence anchored in southern Arizona for 130 years.",
+          "reliability": "archived",
+          "topics": [
+            "history"
+          ]
+        },
+        {
+          "date": "1821",
+          "title": "Mexico Independence — Arizona Becomes Mexican Territory",
+          "body": "Mexico achieves independence from Spain. Arizona becomes part of the Mexican state of Sonora. Tucson is a small presidio town of ~500 residents. Apache raids prevent significant expansion of Mexican settlement beyond the immediate Tucson area.",
+          "reliability": "archived",
+          "topics": [
+            "history",
+            "border"
+          ]
+        },
+        {
+          "date": "1848",
+          "title": "Treaty of Guadalupe Hidalgo — Northern Arizona Ceded to U.S.",
+          "body": "Mexican-American War ends. Treaty cedes all of Arizona north of the Gila River to the United States. Tucson remains in Mexico. The new U.S.-Mexico boundary splits Tohono O'odham territory for the first time.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "border",
+            "tribal"
+          ]
+        },
+        {
+          "date": "1853",
+          "title": "Gadsden Purchase — $10M, Southern Arizona Becomes U.S.",
+          "body": "U.S. pays Mexico $10 million for 29,670 square miles including Tucson and all of southern Arizona. Motivated by transcontinental railroad routing. Negotiated by James Gadsden at direction of Secretary of War Jefferson Davis. The border is drawn where it remains today.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "border",
+            "policy"
+          ]
+        },
+        {
+          "date": "1861-02",
+          "title": "Bascom Affair — Apache Wars Intensify",
+          "body": "Lt. George Bascom attempts to arrest Chiricahua Apache leader Cochise at Apache Pass for a kidnapping he likely didn't commit. Cochise escapes, relatives captured and executed. Retaliatory cycle begins. The most intense phase of the Apache Wars — lasting 25 years — ignites from this single incident.",
+          "reliability": "archived",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "1863-02-24",
+          "title": "Arizona Territory Established",
+          "body": "President Lincoln signs the Organic Act creating Arizona Territory on February 24, 1863. Capital set at Prescott. Carved from western New Mexico Territory to deny it to Confederate influence and secure mineral wealth. Population: approximately 6,482 non-Native settlers.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "policy"
+          ]
+        },
+        {
+          "date": "1877-03-03",
+          "title": "Fort Huachuca Established During Apache Wars",
+          "body": "Captain Samuel Whitside establishes Camp Huachuca in the Huachuca Mountains, 15 miles from Mexico. Built to control Apache raiding routes. Buffalo Soldiers of the 10th Cavalry arrive in 1885. Becomes permanent fort in 1882. Today the Army's intelligence training center.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "1881-10-26",
+          "title": "Gunfight at the O.K. Corral — Tombstone",
+          "body": "Wyatt, Virgil, and Morgan Earp with Doc Holliday face the Clanton-McLaury Cowboys near the O.K. Corral on Fremont Street, Tombstone. 30-second gunfight kills Billy Clanton, Tom and Frank McLaury. Tombstone silver boom made it the 'most dangerous city in the west.' County Seat of Cochise County, named for the Apache leader.",
+          "reliability": "verified",
+          "topics": [
+            "history"
+          ]
+        },
+        {
+          "date": "1886-09-04",
+          "title": "Geronimo Surrenders — Apache Wars End",
+          "body": "Chiricahua Apache war leader Geronimo surrenders to General Nelson Miles at Skeleton Canyon, 65 miles from Fort Huachuca. The last armed Native American resistance in the continental U.S. ends. Geronimo and all Chiricahua Apache — including those who served as Army scouts — transported to Florida as prisoners of war. Never allowed to return to Arizona.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "defense",
+            "tribal"
+          ]
+        },
+        {
+          "date": "1912-02-14",
+          "title": "Arizona Statehood — 48th and Last Contiguous State",
+          "body": "Arizona admitted to the Union on Valentine's Day 1912 — last of the contiguous 48 states. President Taft initially vetoed statehood due to judge recall provisions in state constitution. Arizona removed the provision, achieved statehood, then immediately voted to add it back. Population: 204,354.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "policy"
+          ]
+        },
+        {
+          "date": "1916",
+          "title": "Punitive Expedition — Buffalo Soldiers Enter Mexico",
+          "body": "Pancho Villa raids Columbus, NM (March 9). General Pershing leads 10,000 troops into Mexico. 10th Cavalry (Buffalo Soldiers) from Fort Huachuca deployed. 1st Aero Squadron provides first combat aviation reconnaissance. Villa never caught. Expedition ends March 1917. Last major U.S. cavalry operation before mechanization.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "defense",
+            "border"
+          ]
+        },
+        {
+          "date": "1941",
+          "title": "Arizona Becomes the Nation's Training Ground — WWII",
+          "body": "Arizona's clear skies, open space, and year-round flying weather make it America's premier military training location. Luke Field (fighter pilots), Davis-Monthan (B-24/B-29), Williams Field, Yuma Gunnery School, and Falcon Field (British RAF pilots) all operational. Peak Arizona military population exceeds 150,000.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "1942-05",
+          "title": "Japanese American Internment Camps Opened in Arizona",
+          "body": "Following EO 9066, Poston War Relocation Center (peak 17,814) and Gila River WRA Center (peak 13,348) open on tribal reservation lands. Together the third-largest 'city' in Arizona during 1942-1945. Internees build their own facilities in desert heat. Federal government later acknowledges this as a gross constitutional violation — Civil Liberties Act (1988).",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "policy",
+            "tribal"
+          ]
+        },
+        {
+          "date": "1953-05",
+          "title": "Nuclear Fallout Reaches Arizona — Operation Upshot-Knothole",
+          "body": "Multiple Nevada Test Site detonations during Operation Upshot-Knothole (March-June 1953) produce fallout reaching Arizona. 'Dirty Harry' shot (May 19, 1953) — most contaminated shot in the series — fallout track reaches continental scale. The day after Shot Harry is the date of the alleged Kingman UAP crash (May 20, 1953).",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "1964",
+          "title": "Barry Goldwater Loses Presidential Race — Conservatism Transformed",
+          "body": "Arizona Senator Barry Goldwater loses 44 states to LBJ. But the networks, donor lists, and organizational infrastructure he built launch the conservative movement that produces Ronald Reagan's 1980 victory. Arizona's most consequential political figure remade American politics in defeat. His Goldwater-Nichols Act (1986) reorganizes the entire U.S. military command structure.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "policy",
+            "defense"
+          ]
+        },
+        {
+          "date": "1980",
+          "title": "Arizona Groundwater Management Act",
+          "body": "Arizona passes one of the most comprehensive groundwater laws in the nation. Creates Active Management Areas (AMAs) in most populated regions. Requires 100-year assured water supply for new developments. Establishes Arizona Department of Water Resources. The law's assumptions are now being tested as aquifers deplete faster than projected.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "policy",
+            "history"
+          ]
+        },
+        {
+          "date": "2010-04-23",
+          "title": "SB 1070 Signed — Arizona's Immigration Law",
+          "body": "Governor Jan Brewer signs Senate Bill 1070, requiring law enforcement to check immigration status on 'reasonable suspicion.' Most controversial immigration law in U.S. history at the time. Obama Administration sues. Supreme Court partially strikes it down in Arizona v. United States (2012), upholds the 'show me your papers' provision.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "border",
+            "policy"
+          ]
+        },
+        {
+          "date": "2021-04",
+          "title": "Cyber Ninjas 2020 Election Audit — Maricopa County",
+          "body": "Arizona State Senate contracts Cyber Ninjas (no election audit experience, CEO promoted fraud theories) to audit 2.1M Maricopa County ballots. Final report confirms Biden win. Audit methodology widely condemned by election security experts. CISA does not engage with partisan post-election audits. Cyber Ninjas dissolves January 2022 after failing to pay employees.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "cyber",
+            "policy"
+          ]
+        },
+        {
+          "date": "2023",
+          "title": "ADWR Announces 100-Year Water Supply Shortfall",
+          "body": "Arizona Department of Water Resources finds that some Phoenix metro areas face groundwater shortfalls within the 100-year planning horizon — invalidating the 'assured water supply' designation used to permit development in Rio Verde Highlands and parts of Queen Creek. Rio Verde Highlands cut off from Scottsdale water service January 2023.",
+          "reliability": "verified",
+          "topics": [
+            "water",
+            "policy",
+            "history"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "russia-coldwar",
+      "title": "Russia / USSR — Cold War to Present",
+      "events": [
+        {
+          "date": "1949",
+          "title": "First Soviet Nuclear Test (RDS-1)",
+          "body": "The USSR detonates its first atomic device at Semipalatinsk, ending the US nuclear monopoly and opening the arms race.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "1955",
+          "title": "Warsaw Pact Founded",
+          "body": "The Soviet Union and seven Eastern Bloc states form a collective-defense alliance in response to West Germany joining NATO.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "1957",
+          "title": "Sputnik 1 Launched",
+          "body": "The first artificial satellite triggers the space race and Western fears of Soviet missile capability.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "research"
+          ]
+        },
+        {
+          "date": "1962",
+          "title": "Cuban Missile Crisis",
+          "body": "Discovery of Soviet missiles in Cuba brings the US and USSR to the brink of nuclear war for thirteen days.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "1968",
+          "title": "Invasion of Czechoslovakia",
+          "body": "Warsaw Pact forces crush the Prague Spring reform movement, formalizing the Brezhnev Doctrine.",
+          "reliability": "verified",
+          "topics": [
+            "history"
+          ]
+        },
+        {
+          "date": "1979",
+          "title": "Soviet Invasion of Afghanistan",
+          "body": "The USSR intervenes to prop up a communist government, beginning a decade-long war that contributed to Soviet decline.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "1986",
+          "title": "Chernobyl Disaster",
+          "body": "A reactor explosion at the Chernobyl plant becomes history's worst nuclear accident and a symbol of systemic failure.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "infra"
+          ]
+        },
+        {
+          "date": "1991",
+          "title": "Dissolution of the USSR",
+          "body": "The Soviet Union formally dissolves into 15 independent states; the Russian Federation becomes the successor state.",
+          "reliability": "verified",
+          "topics": [
+            "history"
+          ]
+        },
+        {
+          "date": "1994",
+          "title": "First Chechen War",
+          "body": "Russia attempts to suppress Chechen independence in a costly conflict ending in a 1996 ceasefire.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "1999",
+          "title": "Second Chechen War",
+          "body": "Renewed conflict reasserts federal control over Chechnya; coincides with Putin's rise to power.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "2008",
+          "title": "Russo-Georgian War",
+          "body": "A five-day war over South Ossetia and Abkhazia; Russia recognizes the breakaway regions.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "2014",
+          "title": "Annexation of Crimea",
+          "body": "Russia annexes Crimea and backs separatists in eastern Ukraine, triggering the first major Western sanctions.",
+          "reliability": "official",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "2015",
+          "title": "Intervention in Syria",
+          "body": "Russia launches an air campaign supporting the Assad government, its first major out-of-area deployment since the USSR.",
+          "reliability": "verified",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "2018",
+          "title": "Skripal Poisoning",
+          "body": "A nerve-agent attack in Salisbury, UK, attributed to Russian military intelligence, prompts mass diplomatic expulsions.",
+          "reliability": "official",
+          "topics": [
+            "history",
+            "cyber"
+          ]
+        },
+        {
+          "date": "2022",
+          "title": "Full-Scale Invasion of Ukraine",
+          "body": "Russia launches a full-scale invasion of Ukraine, triggering the most extensive sanctions regime in modern history.",
+          "reliability": "official",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        },
+        {
+          "date": "2023",
+          "title": "Wagner Group Mutiny",
+          "body": "The Wagner private military company stages a short-lived armed mutiny; its leader dies in a plane crash two months later.",
+          "reliability": "official",
+          "topics": [
+            "history",
+            "defense"
+          ]
+        }
+      ]
+    }
+  ]
+}

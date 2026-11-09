@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-06-07T11:55:45.912784Z",
+  "items": [
+    {
+      "title": "Brisk Wind Advisory issued June 7 at 3:46AM AKDT until June 8 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:46:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TODAY...SW winds 20 kt. Fog.\n.TONIGHT...NW winds 25 kt.\n.MON...N winds 25 kt.\n.MON NIGHT...NW winds 20 kt.\n.TUE...SW winds 15 kt.\n.TUE NIGHT...SW winds 15 kt.\n.WED...S winds 20 kt.\n.THU...S winds 25 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Wales to Cape Espenberg out to 15 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued June 7 at 3:46AM AKDT until June 8 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:46:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TODAY...SW winds 15 kt. Fog. Rain showers.\n.TONIGHT...W winds 25 kt.\n.MON...NW winds 25 kt.\n.MON NIGHT...NW winds 25 kt.\n.TUE...W winds 10 kt.\n.TUE NIGHT...W winds 5 kt.\n.WED...SE winds 10 kt.\n.THU...S winds 10 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kotzebue Sound greater than 10 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 3:33AM AKDT until June 8 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:33:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...SE wind increasing to 25 kt in the morning. Seas 7 ft.\n.TONIGHT...E wind 20 kt. Seas 8 ft.\n.MON...E wind 20 kt. Seas 7 ft.\n.MON NIGHT...N wind 10 kt. Seas 6 ft.\n.TUE...NW wind 10 kt. Seas 6 ft.\n.WED...SW wind 10 kt. Seas 6 ft.\n.THU...W",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Decision to Cape Edgecumbe from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 3:33AM AKDT until June 8 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:33:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...SE wind 20 kt increasing to 25 kt. Seas 6 ft.\n.TONIGHT...SE wind 25 kt. Seas 8 ft.\n.MON...SE wind 20 kt. Seas 6 ft. Showers in the morning.\n.MON NIGHT...N wind 10 kt. Seas 5 ft.\n.TUE...W wind 10 kt. Seas 5 ft.\n.WED...SW wind 10 kt. Sea",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 3:33AM AKDT until June 8 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:33:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...E wind 25 kt. Seas 7 ft.\n.TONIGHT...E wind 25 kt. Seas 8 ft.\n.MON...E wind 15 kt becoming W in the afternoon. Seas 7 ft.\n.MON NIGHT...W wind 15 kt. Seas 5 ft.\n.TUE...W wind 15 kt. Seas 5 ft.\n.WED...W wind 10 kt. Seas 5 ft.\n.THU...W win",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Icy Cape to Cape Suckling from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 3:33AM AKDT until June 8 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:33:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...SE wind increasing to 25 kt in the morning. Seas building\nto 8 ft.\n.TONIGHT...E wind 20 kt. Seas 8 ft.\n.MON...E wind 15 kt. Seas 7 ft.\n.MON NIGHT...N wind 10 kt. Seas 6 ft.\n.TUE...NW wind 15 kt. Seas 5 ft.\n.WED...NW wind 10 kt. Seas 5 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Edgecumbe to Cape Spencer from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 3:33AM AKDT until June 8 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:33:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...SE wind increasing to 25 kt in the morning. Seas 7 ft.\n.TONIGHT...SE wind 25 kt. Seas 9 ft.\n.MON...SE wind 15 kt. Seas 7 ft.\n.MON NIGHT...NW wind 10 kt. Seas 6 ft.\n.TUE...W wind 10 kt. Seas 6 ft.\n.WED...SW wind 10 kt. Seas 6 ft.\n.THU..",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision from 15 to 90 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 3:32AM AKDT until June 8 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:32:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...SE wind 15 kt increasing to 25 kt in the morning. Seas 3\nft building to 8 ft. Near ocean entrances, seas building to 5 ft.\n.TONIGHT...SE wind 25 kt. Seas 8 ft.\n.MON...SE wind 20 kt. Seas 6 ft.\n.MON NIGHT...SE wind 10 kt. Seas 3 ft.\n.TUE...SE wind 15 kt. ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Clarence Strait"
+    },
+    {
+      "title": "Special Weather Statement issued June 7 at 6:26AM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T06:26:00-05:00",
+      "summary": "At 625 AM CDT, Doppler radar was tracking strong thunderstorms along\na line extending from 8 miles north of Lake Diversion to 11 miles\nsouthwest of Windthorst. Movement was east at 30 mph.\n\nHAZARD...Wind gusts of 40 mph and half inch hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects. Minor damage to outdoor objects is\npossible.\n\nLocations impacted include...\nSouthwestern Wichita Falls, Archer City, Iowa Park, Holliday,\nScotland, ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Wilbarger; Wichita; Baylor; Archer; Clay"
+    },
+    {
+      "title": "Flood Advisory issued June 7 at 6:22AM CDT until June 7 at 9:30AM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T06:22:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of southern Oklahoma, including the following\ncounties, Carter, Jefferson and Love.\n\n* WHEN...Until 930 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\nWater over roadways.\n\n* ADDITIONAL DETAILS...\n- At 621 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Up to 0.5 inches of rain have\nfallen.\n- Addi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Carter, OK; Jefferson, OK; Love, OK"
+    },
+    {
+      "title": "Flood Advisory issued June 7 at 6:07AM CDT until June 7 at 9:30AM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T06:07:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northern Texas, including the following\ncounty, Clay.\n\n* WHEN...Until 930 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\nWater over roadways.\n\n* ADDITIONAL DETAILS...\n- At 606 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Up to 1.5 inches of rain have\nfallen.\n- Additional rainfall amounts up ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Clay, TX"
+    },
+    {
+      "title": "Flash Flood Warning issued June 7 at 5:36AM CDT until June 7 at 9:00AM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T05:36:00-05:00",
+      "summary": "FFWOUN\n\nThe National Weather Service in Norman has issued a\n\n* Flash Flood Warning for...\nWest Central Archer County in northern Texas...\nEast Central Baylor County in northern Texas...\n\n* Until 900 AM CDT.\n\n* At 536 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 2 and 3 inches of rain\nhave fallen. Additional rainfall amounts up to 2 inches are\npossible in the warned area. Flash flooding is ongoing or expected\nto begin shortly.\n\nHAZARD...Flash ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Archer, TX; Baylor, TX"
+    },
+    {
+      "title": "Flood Advisory issued June 7 at 5:24AM CDT until June 7 at 7:30AM CDT by NWS Fort Worth TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T05:24:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...Tarrant County in north central Texas...\n\n* WHEN...Until 730 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\n\n* ADDITIONAL DETAILS...\n- At 523 AM CDT, Doppler radar and automated rain gauges indicated\nheavy rain due to thunderstorms. Minor flooding is ongoing or\nexpected to begin shortly in the advisory area. Up to 1 inch of\nrain has fallen.\n- Some locations that will experience flooding include...\nF",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Tarrant, TX"
+    },
+    {
+      "title": "Gale Warning issued June 7 at 2:57AM PDT until June 7 at 8:00PM PDT by NWS Eureka CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:57:00-07:00",
+      "summary": "* WHAT...For the Gale Warning, northwest winds 20 to 25 kt with\ngusts up to 35 kt and seas 7 to 10 feet expected. For the\nSmall Craft Advisory, northwest winds 15 to 25 kt with gusts\nup to 30 kt and seas 6 to 11 feet expected.\n\n* WHERE...Coastal waters from Cape Mendocino to Pt. Arena CA out\n10 nm.\n\n* WHEN...For the Gale Warning, from 11 AM this morning to 8 PM\nPDT this evening. For the Small Craft Advisory, until 11 AM\nPDT this morning.\n\n* IMPACTS...Strong winds will cause hazardous seas which ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal waters from Cape Mendocino to Pt. Arena CA out 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 2:57AM PDT until June 7 at 11:00PM PDT by NWS Eureka CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:57:00-07:00",
+      "summary": "* WHAT...Northwest winds 15 to 25 kt with gusts up to 35 kt and\nseas 6 to 11 feet expected.\n\n* WHERE...Waters from Cape Mendocino to Pt. Arena CA from 10 to\n60 nm.\n\n* WHEN...Until 11 PM PDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Cape Mendocino to Pt. Arena CA from 10 to 60 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 2:57AM PDT until June 7 at 11:00AM PDT by NWS Eureka CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:57:00-07:00",
+      "summary": "* WHAT...For the Gale Warning, northwest winds 20 to 25 kt with\ngusts up to 35 kt and seas 7 to 10 feet expected. For the\nSmall Craft Advisory, northwest winds 15 to 25 kt with gusts\nup to 30 kt and seas 6 to 11 feet expected.\n\n* WHERE...Coastal waters from Cape Mendocino to Pt. Arena CA out\n10 nm.\n\n* WHEN...For the Gale Warning, from 11 AM this morning to 8 PM\nPDT this evening. For the Small Craft Advisory, until 11 AM\nPDT this morning.\n\n* IMPACTS...Strong winds will cause hazardous seas which ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Cape Mendocino to Pt. Arena CA out 10 nm"
+    },
+    {
+      "title": "Flood Advisory issued June 7 at 4:48AM CDT until June 7 at 8:00AM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T04:48:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northern Texas, including the following\ncounties, Archer and Baylor.\n\n* WHEN...Until 800 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\n\n* ADDITIONAL DETAILS...\n- At 448 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Up to 1.5 inches of rain have\nfallen.\n- Additional rainfall amounts up to 2 i",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Archer, TX; Baylor, TX"
+    },
+    {
+      "title": "Flood Advisory issued June 7 at 4:46AM CDT until June 7 at 8:00AM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T04:46:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northern Texas, including the following\ncounties, Archer and Wichita.\n\n* WHEN...Until 800 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\nPonding of water in urban or other areas is occurring or is\nimminent.\n\n* ADDITIONAL DETAILS...\n- At 445 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Up to ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Archer, TX; Wichita, TX"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 1:39AM AKDT until June 8 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T01:39:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 25 kt. Seas 6 ft. Widespread rain showers.\n.TONIGHT...NE wind 25 kt. Seas 7 ft. Rain showers.\n.MON...NE wind 20 kt in the morning becoming variable 10 kt. Seas\n6 ft.\n.MON NIGHT...SW wind 15",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Barren Islands East"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 1:39AM AKDT until June 8 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T01:39:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 25 kt. Seas 7 ft. Widespread rain showers.\n.TONIGHT...NE wind 25 kt. Seas 8 ft. Rain showers.\n.MON...NE wind 20 kt. Seas 6 ft.\n.MON NIGHT...Variable wind 10 kt. Seas 4 ft.\n.TUE...Variable w",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Gore Point to Marmot Island from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 1:39AM AKDT until June 8 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T01:39:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 25 kt. Seas 6 ft.\n.TONIGHT...NE wind 25 kt. Seas 7 ft. Rain.\n.MON...NE wind 15 kt. Seas 6 ft. Rain showers.\n.MON NIGHT...Variable wind 10 kt. Seas 3 ft.\n.TUE...Variable wind 10 kt. Seas 3 f",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Cleare to Gore Point out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 1:39AM AKDT until June 8 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T01:39:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 25 kt. Seas 8 ft.\n.TONIGHT...E wind 25 kt. Seas 8 ft.\n.MON...E wind 15 kt. Seas 6 ft.\n.MON NIGHT...Variable wind 10 kt. Seas 5 ft.\n.TUE...Variable wind 10 kt. Seas 4 ft.\n.WED...Variable wind",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Suckling to Cape Cleare from 15 to 75 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 1:39AM AKDT until June 8 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T01:39:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 25 kt. Seas 7 ft. Rain.\n.TONIGHT...NE wind 25 kt. Seas 9 ft. Rain.\n.MON...NE wind 20 kt in the morning becoming variable 10 kt. Seas\n7 ft.\n.MON NIGHT...Variable wind 10 kt. Seas 4 ft.\n.TUE ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Cleare to Gore Point from 15 to 75 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 2:34AM PDT until June 8 at 3:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:34:00-07:00",
+      "summary": "* WHAT...Northwest winds 15 to 25 kt with gusts up to 30 kt and\nseas 8 to 11 ft expected.\n\n* WHERE...Waters from Point Pinos to Point Piedras Blancas 10-\n60 NM.\n\n* WHEN...Until 3 PM PDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Pinos to Point Piedras Blancas 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 2:34AM PDT until June 8 at 3:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:34:00-07:00",
+      "summary": "* WHAT...Northwest winds 15 to 25 kt with gusts up to 35 kt and\nseas 6 to 11 ft expected.\n\n* WHERE...Coastal Waters from Point Reyes to Pigeon Point\nCalifornia out to 10 NM.\n\n* WHEN...Until 3 PM PDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Reyes to Pigeon Point California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 2:34AM PDT until June 8 at 3:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:34:00-07:00",
+      "summary": "* WHAT...Northwest winds 20 to 30 kt with gusts up to 35 kt and\nseas 6 to 11 ft expected.\n\n* WHERE...Waters from Point Arena to Point Reyes 10-60 NM.\n\n* WHEN...Until 3 PM PDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Arena to Point Reyes 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 2:34AM PDT until June 8 at 3:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:34:00-07:00",
+      "summary": "* WHAT...Northwest winds 20 to 30 kt with gusts up to 35 kt and\nseas 8 to 12 ft expected.\n\n* WHERE...Waters from Pigeon Point to Point Pinos 10-60 NM.\n\n* WHEN...Until 3 PM PDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Pigeon Point to Point Pinos 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 2:34AM PDT until June 8 at 3:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:34:00-07:00",
+      "summary": "* WHAT...Northwest winds 15 to 25 kt with gusts up to 40 kt\nexpected.\n\n* WHERE...Coastal Waters from Point Pinos to Point Piedras\nBlancas California out to 10 NM.\n\n* WHEN...Until 3 PM PDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Pinos to Point Piedras Blancas California out to 10 nm"
+    },
+    {
+      "title": "Flood Advisory issued June 7 at 4:05AM CDT until June 7 at 7:15AM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T04:05:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northern Texas, including the following\ncounty, Baylor.\n\n* WHEN...Until 715 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\nWater over roadways.\n\n* ADDITIONAL DETAILS...\n- At 404 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Up to 1.5 inches of rain have\nfallen.\n- Additional rainfall amounts u",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Baylor, TX"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 1:58AM PDT until June 8 at 1:00PM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T01:58:00-07:00",
+      "summary": "* WHAT...Southeast winds 15 to 25 kt.\n\n* WHERE...Coastal Waters from Cape Flattery to Cape Shoalwater\nout to 10 nm.\n\n* WHEN...From 5 AM to 1 PM PDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters From Cape Flattery To James Island Out 10 Nm; Coastal Waters From James Island To Point Grenville Out 10 Nm; Coastal Waters From Point Grenville To Cape Shoalwater Out 10 Nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 1:58AM PDT until June 8 at 1:00PM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T01:58:00-07:00",
+      "summary": "* WHAT...Southeast winds 15 to 25 kt.\n\n* WHERE...Coastal Waters from Cape Flattery to Cape Shoalwater\n10 to 60 nm.\n\n* WHEN...From 11 PM this evening to 1 PM PDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters From Cape Flattery To James Island 10 To 60 Nm; Waters From James Island To Point Grenville 10 To 60 Nm; Coastal Waters From Point Grenville To Cape Shoalwater 10 To 60 Nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 1:57AM PDT until June 7 at 3:00PM PDT by NWS Los Angeles/Oxnard CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T01:57:00-07:00",
+      "summary": "* WHAT...Northwest winds 20 to 30 kt with gusts up to 35 kt and\ncombined seas 10 to 14 ft expected when conditions are worst.\n\n* WHERE...Point Piedras Blancas to Point Sal from 10 to 60 NM\nand Waters from Pt. Sal to Santa Cruz Island CA and westward\n60 nm including San Miguel and Santa Rosa Islands.\n\n* WHEN...For the Small Craft Advisory, until 3 PM PDT this\nafternoon. For the Gale Warning, from 3 PM this afternoon to 3\nAM PDT Monday.\n\n* IMPACTS...Strong winds will create dangerous sea condition",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Point Piedras Blancas to Point Sal from 10 to 60 NM; Waters from Pt. Sal to Santa Cruz Island CA and westward 60 nm including San Miguel and Santa Rosa Islands"
+    },
+    {
+      "title": "Dense Fog Advisory issued June 7 at 3:41AM CDT until June 7 at 9:00AM CDT by NWS Amarillo TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:41:00-05:00",
+      "summary": "* WHAT...Visibility less than one mile in dense fog.\n\n* WHERE...Carson, Hutchinson, Moore, Sherman, and Wheeler Counties.\n\n* WHEN...Until 9 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Sherman; Moore; Hutchinson; Carson; Wheeler"
+    },
+    {
+      "title": "Fire Weather Watch issued June 7 at 2:33AM MDT until June 9 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:33:00-06:00",
+      "summary": "...FIRE WEATHER WATCH IN EFFECT FROM TUESDAY AFTERNOON THROUGH\nTUESDAY EVENING DUE TO STRONG WINDS AND LOW RELATIVE HUMIDITY FOR THE\nNORTHWEST PLATEAU AND WEST CENTRAL MOUNTAINS...\n\n.Strong southwest winds with low humidity, hot temperatures, and deep\nmixing will elevate the risk for rapid fire spread over parts of\nnorthwest and west-central NM Tuesday. In addition, any dry lightning\nstrikes that occur over western NM Monday may lead to rapid fire\nspread Tuesday.\n\nThe National Weather Service in",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Northwest Plateau; West Central Mountains"
+    },
+    {
+      "title": "Flood Warning issued June 7 at 3:06AM CDT until June 9 at 3:04AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:06:00-05:00",
+      "summary": "...The National Weather Service in Tulsa OK has issued a Flood\nWarning for the following rivers in Oklahoma...\n\nPoteau River near Poteau affecting Le Flore County.\n\nPoteau River near Panama affecting Le Flore County.\n\n* WHAT...Moderate flooding is forecast.\n\n* WHERE...Poteau River near Panama.\n\n* WHEN...From this morning to early Tuesday morning.\n\n* IMPACTS...At 35.0 feet, moderate flooding of agricultural lands\noccur from Panama to Arkoma. Some local and county roads in the\nfloodplain become im",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Le Flore, OK"
+    },
+    {
+      "title": "Flood Warning issued June 7 at 3:06AM CDT until June 7 at 9:48PM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:06:00-05:00",
+      "summary": "...The National Weather Service in Tulsa OK has issued a Flood\nWarning for the following rivers in Oklahoma...\n\nPoteau River near Poteau affecting Le Flore County.\n\nPoteau River near Panama affecting Le Flore County.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Poteau River near Poteau.\n\n* WHEN...Until late this evening.\n\n* IMPACTS...At 26.0 feet, moderate valley flooding affects croplands\nand farm roads from southeast of Poteau to the mouth of Brazil\nCreek.\n\n* ADDITIONAL DETAILS...\n- At 2:4",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Le Flore, OK"
+    },
+    {
+      "title": "Special Weather Statement issued June 7 at 3:55AM EDT by NWS Raleigh NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:55:00-04:00",
+      "summary": "The combination of low relative humidity, breezy winds up to 10\nto 15 mph, and extremely dry fuels will lead to an increased fire\ndanger today for portions of eastern North Carolina.\n\nDry grasses, dead leaves, and other tree litter could easily\nignite and spread fire quickly. People in this area are urged to\nproperly dispose of cigarette butts, matches, and any other\nflammable items in appropriate containers. Exercise caution if\noperating any equipment that could create sparks, and keep\nvehicles",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Wayne; Sampson"
+    },
+    {
+      "title": "Flood Warning issued June 7 at 2:47AM CDT until June 8 at 9:00AM CDT by NWS Fort Worth TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:47:00-05:00",
+      "summary": "...The National Weather Service in Fort Worth has issued a Flood\nWarning for the following rivers in Texas...\n\nSouth Fork Sabine River Near Quinlan affecting Rockwall and Hunt\nCounties.\n\nFor the South Fork Sabine River...including Quinlan...Minor flooding\nis forecast.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...South Fork Sabine River near Quinlan.\n\n* WHEN...From this afternoon to Monday morning.\n\n* IMPACTS...At 15.0 feet, Minor out of bank flooding will occur.\n\n* ADDITIONAL DETAILS...\n- At",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Hunt, TX; Rockwall, TX"
+    },
+    {
+      "title": "Flood Warning issued June 7 at 2:45AM CDT until June 8 at 1:00AM CDT by NWS Fort Worth TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:45:00-05:00",
+      "summary": "...The National Weather Service in Fort Worth has issued a Flood\nWarning for the following rivers in Texas...\n\nWhite Rock Creek Near White Rock Creek At Greenville Ave affecting\nDallas County.\n\nWalnut Creek Near Mansfield affecting Tarrant County.\n\n* WHAT...Moderate flooding is forecast.\n\n* WHERE...Walnut Creek near Mansfield.\n\n* WHEN...Until late tonight.\n\n* IMPACTS...At 22.0 feet, Moderate flooding will occur along the\ncreek through Mansfield, downstream of Joe Pool Lake. At 22 feet,\nRetta Roa",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Tarrant, TX"
+    },
+    {
+      "title": "Flood Warning issued June 7 at 2:45AM CDT until June 7 at 7:00PM CDT by NWS Fort Worth TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:45:00-05:00",
+      "summary": "...The National Weather Service in Fort Worth has issued a Flood\nWarning for the following rivers in Texas...\n\nWhite Rock Creek Near White Rock Creek At Greenville Ave affecting\nDallas County.\n\nWalnut Creek Near Mansfield affecting Tarrant County.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...White Rock Creek near White Rock Creek At Greenville Ave.\n\n* WHEN...Until this evening.\n\n* IMPACTS...At 84.0 feet, Minor flooding will occur near the creek.\nBike paths in Moss Park downstream of the gage",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Dallas, TX"
+    },
+    {
+      "title": "Beach Hazards Statement issued June 7 at 2:42AM CDT until June 7 at 10:00PM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:42:00-05:00",
+      "summary": "* WHAT...Dangerous swimming conditions are expected along the\nLake Superior shoreline due to high wave action and strong rip\ncurrents.\n\n* WHERE...Minnesota Park Point and Wisconsin Point Beaches.\n\n* WHEN...From 1 PM CDT this afternoon through this evening.\n\n* IMPACTS...Life-threatening waves and rip currents are expected.\nStay out of the water and stay away from dangerous areas like\npiers and breakwalls.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Carlton/South St. Louis; Douglas"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 2:40AM CDT until June 7 at 10:00PM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:40:00-05:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to 1/4 to 1/2 NM. For the Small Craft Advisory,\nnortheast winds 10 to 20 kt with gusts up to 25 kt and waves 2\nto 4 ft expected.\n\n* WHERE...Silver Bay Harbor to Two Harbors MN, Two Harbors to\nDuluth MN, Duluth MN to Port Wing WI and Port Wing to Sand\nIsland WI.\n\n* WHEN...For the Dense Fog Advisory, until 10 AM CDT this\nmorning. For the Small Craft Advisory, from 1 PM this\nafternoon to 10 PM CDT this evening.\n\n* IMPACTS...Condi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Silver Bay Harbor to Two Harbors MN; Two Harbors to Duluth MN; Duluth MN to Port Wing WI; Port Wing to Sand Island WI"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 2:40AM CDT until June 7 at 10:00PM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:40:00-05:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to less than 1 NM. For the Small Craft Advisory,\nnortheast winds 10 to 15 kt with gusts up to 25 kt and waves 2\nto 4 ft expected.\n\n* WHERE...Grand Portage to Grand Marais MN and Grand Marais to\nTaconite Harbor MN.\n\n* WHEN...For the Dense Fog Advisory, until 10 AM CDT this\nmorning. For the Small Craft Advisory, from 4 PM this\nafternoon to 10 PM CDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft. Low\nvisi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Grand Portage to Grand Marais MN; Grand Marais to Taconite Harbor MN"
+    },
+    {
+      "title": "Flood Watch issued June 7 at 2:36AM CDT until June 7 at 7:00PM CDT by NWS Wichita KS",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T02:36:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall continues to be\npossible.\n\n* WHERE...A portion of southeast Kansas, including the following\ncounties, Chautauqua, Labette, Montgomery, Neosho and Wilson.\n\n* WHEN...From 7 AM CDT this morning through this evening.\n\n* IMPACTS...Excessive runoff may result in flooding of rivers,\ncreeks, streams, and other low-lying and flood-prone locations.\n\n* ADDITIONAL DETAILS...\n- Showers and storms producing high rainfall rates may occur\ntoday into this evening an",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Wilson; Neosho; Chautauqua; Montgomery; Labette"
+    },
+    {
+      "title": "Special Weather Statement issued June 7 at 3:31AM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:31:00-04:00",
+      "summary": "Dry, hot, and breezy conditions are expected today. The ongoing\ndrought has led to abnormally dry dead surface fuels across the\nregion. Min RH values of 25 to 35%, wind gusts to around 20 mph,\nand afternoon high temperatures in the low to mid 90s ahead of a\ncold front will lead to increased fire danger from mid morning\nthrough early evening today.\n\nResidents are urged to exercise caution handling any potential\nignition source...including machinery... cigarettes...and matches.\nBe sure to properly",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Hertford; Gates; Pasquotank; Camden; Western Currituck; Bertie; Chowan; Perquimans; Eastern Currituck"
+    },
+    {
+      "title": "Heat Advisory issued June 7 at 3:23AM AST until June 7 at 5:00PM AST by NWS San Juan PR",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:23:00-04:00",
+      "summary": "* WHAT...This level of heat affect most individuals sensitive to\nheat, especially those without effective cooling and/or adequate\nhydration. Impacts possible in some health system and in\nheat-sensitive industries.\n\n* WHERE...Coastal and urban areas of Puerto Rico, Culebra, Vieques,\nand the Virgin Islands.\n\n* WHEN...From 10 AM this morning to 5 PM AST this afternoon.\n\n* IMPACTS...Warm temperatures and high humidity would exacerbate\ncause heat illnesses during the period.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "San Juan and Vicinity; Northeast; Southeast; North Central; Ponce and Vicinity; Northwest; Mayaguez and Vicinity; Southwest; Culebra; Vieques; St.Thomas...St. John.. and Adjacent Islands; St Croix"
+    },
+    {
+      "title": "Lake Wind Advisory issued June 7 at 12:20AM PDT until June 8 at 6:00PM PDT by NWS Las Vegas NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T00:20:00-07:00",
+      "summary": "* WHAT...South winds 15 to 25 mph with gusts up to 35 mph expected.\n\n* WHERE...In Arizona, Lake Mead - AZ side and Lake Mohave - AZ side.\nIn Nevada, Lake Mead - NV side and Lake Mohave - NV side.\n\n* WHEN...From 10 AM PDT /10 AM MST/ to 6 PM PDT /6 PM MST/ Monday.\n\n* IMPACTS...Strong winds and rough waves on area lakes will create\nhazardous conditions for small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lake Mead - AZ side; Lake Mohave - AZ side; Lake Mead - NV side; Lake Mohave - NV side"
+    },
+    {
+      "title": "Beach Hazards Statement issued June 7 at 3:20AM EDT until June 7 at 8:00PM EDT by NWS Wilmington NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T03:20:00-04:00",
+      "summary": "* WHAT...Strong south to north longshore current. There is also a\nModerate Risk of rip currents expected.\n\n* WHERE...Coastal Horry and Coastal Georgetown Counties.\n\n* WHEN...Through this evening.\n\n* IMPACTS...Longshore currents can sweep swimmers and surfers into\nrip currents, piers, jetties, and other hazardous areas. It may\nsweep swimmers off their feet, making it difficult to return to\nshore.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Horry; Coastal Georgetown"
+    },
+    {
+      "title": "Small Craft Advisory issued June 6 at 11:15PM AKDT until June 7 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-06T23:18:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...S wind 15 kt. Seas 3 ft.\n.SUN...SE wind 25 kt. Seas 5 ft, except 7 ft near ocean\nentrances.\n.SUN NIGHT...SE wind 25 kt. Seas 5 ft.\n.MON...SE wind 20 kt. Seas 5 ft.\n.MON NIGHT...SE wind 15 kt. Seas 3 ft.\n.TUE...S wind 15 kt. Seas 3 ft.\n.WED...S wind 15 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Clarence Strait"
+    },
+    {
+      "title": "Small Craft Advisory issued June 7 at 12:15AM PDT until June 8 at 11:00PM PDT by NWS Portland OR",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-07T00:15:00-07:00",
+      "summary": "* WHAT...Seas 6 to 9 ft at 8 seconds and south winds 15 to 25 kt\nwith gusts up to 30 kt expected.\n\n* WHERE...Waters from Cape Falcon to Cape Foulweather OR from 10\nto 60 NM and Waters from Cape Foulweather to Florence OR from\n10 to 60 NM.\n\n* WHEN...From 11 PM this evening to 11 PM PDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Cape Falcon to Cape Foulweather OR from 10 to 60 nm; Waters from Cape Foulweather to Florence OR from 10 to 60 nm"
+    }
+  ]
+}

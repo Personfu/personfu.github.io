@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arizona ICS/SCADA Threat Landscape — PERSONFU // Arizona Public Intel Wiki</title>
+<link rel="stylesheet" href="../assets/css/fllc-govint.css">
+<link rel="stylesheet" href="../assets/css/legacy-context.css">
+</head>
+<body>
+<div class="legacy-context"><a href="../index.html">← GovINT research console</a><span>Legacy wiki background · check claims against the original records</span><a href="../dossiers.html">Explore research dossiers →</a></div>
+<header class="site-header">
+  <div class="site-brand">
+    <h1><span class="accent">PERSONFU</span><span class="sep">//</span>ARIZONA PUBLIC INTEL WIKI</h1>
+    <a href="https://www.fllc.net" class="fllc-badge" target="_blank" rel="noopener">FLLC.NET</a>
+  </div>
+  <div class="header-meta">
+    <span class="site-tagline">FLLC Intelligence Research &amp; Archive</span>
+    <span class="header-clock" id="header-clock"></span>
+  </div>
+</header>
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-link">Dashboard</a>
+  <a href="../arizona.html" class="nav-link">Arizona Watch</a>
+  <a href="../cyber.html" class="nav-link active">Cyber</a>
+  <a href="../government.html" class="nav-link">Government</a>
+  <a href="../defense.html" class="nav-link">Defense</a>
+  <a href="../borders.html" class="nav-link">Border &amp; Safety</a>
+  <a href="../infrastructure.html" class="nav-link">Infrastructure</a>
+  <a href="../archive.html" class="nav-link">Archive</a>
+  <a href="../anomalies.html" class="nav-link">Anomalies</a>
+  <a href="../timelines.html" class="nav-link">Timelines</a>
+  <a href="../maps.html" class="nav-link">Maps</a>
+  <a href="../reports.html" class="nav-link">Reports</a>
+  <a href="../documents.html" class="nav-link">Documents</a>
+  <a href="../methodology.html" class="nav-link">Methodology</a>
+</nav>
+<div class="page-wrap">
+  <div class="dossier-header">
+    <div class="flex-between flex-wrap gap-1">
+      <div>
+        <div class="dossier-title">Arizona ICS / SCADA Threat Landscape</div>
+        <div class="dossier-sub">Industrial Control Systems, Critical Infrastructure Attack Vectors, and Documented Incidents</div>
+      </div>
+      <div>
+        <span class="rel-badge rel-verified">VERIFIED</span>
+        <span class="stamp stamp-archive" style="margin-left:8px">DOSSIER</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpi-row" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem">
+    <div class="kpi-card"><div class="kpi-val">16</div><div class="kpi-label">Critical infrastructure sectors (CISA)</div></div>
+    <div class="kpi-card"><div class="kpi-val">SCADA</div><div class="kpi-label">Controls water, power, gas, and transport in AZ</div></div>
+    <div class="kpi-card"><div class="kpi-val">ICS-CERT</div><div class="kpi-label">Federal ICS vulnerability disclosure body</div></div>
+    <div class="kpi-card"><div class="kpi-val">OT</div><div class="kpi-label">Operational Technology — the attack surface of industry</div></div>
+  </div>
+
+  <div class="grid-3">
+    <div class="span-2 prose">
+
+      <h2>What Are ICS and SCADA Systems?</h2>
+      <p><strong>Industrial Control Systems (ICS)</strong> are computer systems that monitor and control industrial processes — power generation, water treatment, oil pipelines, manufacturing, and transportation. <strong>SCADA</strong> (Supervisory Control and Data Acquisition) is the most common type of ICS: software and hardware that collects data from remote sensors and allows operators to control physical processes from a central location.</p>
+      <p>These systems were designed decades ago, long before cybersecurity was a consideration. They were built to control physical processes reliably, not to defend against remote adversaries. The result is a pervasive security deficit at the heart of America's infrastructure — and Arizona's specifically.</p>
+      <p>In Arizona, ICS/SCADA systems control:</p>
+      <ul>
+        <li>The Central Arizona Project's 14 pumping plants and 336 miles of canal infrastructure</li>
+        <li>Palo Verde Nuclear Generating Station's process systems (separated from safety systems by regulatory requirement)</li>
+        <li>Salt River Project and APS power grid management</li>
+        <li>Tucson Water and Phoenix Water Services water treatment and distribution</li>
+        <li>Arizona Department of Transportation tunnel and highway systems</li>
+        <li>Kinder Morgan and other pipeline operators in the state</li>
+      </ul>
+
+      <h2>The Attack Surface — Why ICS Are Vulnerable</h2>
+
+      <h3>Legacy System Problem</h3>
+      <p>Many ICS systems in Arizona and nationwide were installed in the 1990s and early 2000s and have never been replaced. They run on operating systems that are no longer supported (Windows XP, Windows Server 2003) and use protocols (Modbus, DNP3, PROFIBUS) that have no built-in authentication or encryption. These systems cannot easily be patched or updated without risking operational disruption — and operators are reluctant to take critical infrastructure offline for security updates.</p>
+      <p>The result: some ICS systems in production use today have known vulnerabilities that have been documented in public ICS-CERT advisories for over a decade, unpatched.</p>
+
+      <h3>IT/OT Convergence — Creating the Opening</h3>
+      <p>As "smart" technology has enabled remote monitoring, efficiency improvements, and data analytics, organizations have connected their Operational Technology (OT) networks — which run ICS — to their Information Technology (IT) networks — which connect to corporate systems and eventually to the internet. This "IT/OT convergence" creates attack paths that didn't exist when ICS were air-gapped from any external network.</p>
+      <p>The classic attack path:</p>
+      <ol>
+        <li>Phishing email to a corporate IT employee → credential theft</li>
+        <li>Lateral movement through corporate IT network to find OT/IT boundary</li>
+        <li>Cross OT/IT boundary via poorly secured jump server, engineering workstation, or data historian</li>
+        <li>Reach the HMI (Human Machine Interface) — the window into the SCADA system</li>
+        <li>Modify setpoints, open/close valves, disrupt processes, or stage for destructive effects</li>
+      </ol>
+      <p>This is not theoretical. It is the attack path used in the Ukraine power grid attacks of December 2015 (BlackEnergy malware, power outages for 230,000 customers) and December 2016 (Industroyer/Crashoverride malware, designed to cause lasting physical damage).</p>
+
+      <h2>Volt Typhoon — Chinese Pre-Positioning in U.S. Infrastructure</h2>
+      <p>In May 2023, CISA, NSA, FBI, and international partners (UK NCSC, Australian ASD, Canadian CCCS, New Zealand NCSC) issued a joint advisory on <strong>Volt Typhoon</strong> — a Chinese state-sponsored threat actor that had been discovered pre-positioning in U.S. critical infrastructure, including water, communications, transportation, and energy sectors.</p>
+      <p>Key characteristics of Volt Typhoon activity relevant to Arizona:</p>
+      <ul>
+        <li><strong>"Living off the land" (LOTL) techniques:</strong> Volt Typhoon uses built-in Windows tools (wmic, ntdsutil, netsh, PowerShell) rather than custom malware, making detection extremely difficult. There is no "malware" for traditional antivirus to detect.</li>
+        <li><strong>Focus on pre-positioning, not immediate disruption:</strong> The advisory stated explicitly that Volt Typhoon's likely intent is to develop capabilities that could be activated to disrupt critical infrastructure in the event of a geopolitical crisis — particularly a Taiwan conflict</li>
+        <li><strong>Years of persistent access:</strong> Some Volt Typhoon intrusions dated back to 2021; the actor was able to maintain persistent access for years without detection</li>
+        <li><strong>Western U.S. focus:</strong> The initial advisory noted particular concentration in sectors and regions with strategic significance — including Southwest utilities that serve military installations</li>
+        <li><strong>Arizona relevance:</strong> Palo Verde Nuclear Generating Station, the CAP canal system, Luke AFB's power supply, and Fort Huachuca's utility infrastructure are all potential high-value targets for Chinese pre-positioning</li>
+      </ul>
+      <p><em>Source: <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-144a" target="_blank" rel="noopener">CISA Advisory AA23-144A: Volt Typhoon</a></em></p>
+
+      <h2>Sandworm / Russian OT Attacks — The Template</h2>
+      <p>Russia's Sandworm unit (GRU Unit 74455) has conducted the most destructive ICS attacks in history. Their campaigns provide the template for what adversaries can do to infrastructure systems like those in Arizona:</p>
+      <ul>
+        <li><strong>Ukraine December 2015:</strong> BlackEnergy malware disrupted power to 230,000 Ukrainian customers. Attackers also wiped ICS software to delay restoration — coordinated with military operations.</li>
+        <li><strong>Ukraine December 2016:</strong> Industroyer/Crashoverride malware — the first malware specifically designed to interact with and disrupt industrial control systems at the protocol level. Targeted Ukrainian power substations, caused outage, attempted hardware damage.</li>
+        <li><strong>NotPetya (June 2017):</strong> Wiper malware that masqueraded as ransomware. Caused $10 billion in global damage. Spread via M.E.Doc accounting software update — a supply chain attack. Hit Maersk, FedEx, Merck, and Ukrainian critical infrastructure.</li>
+        <li><strong>Triton/TRISIS (Saudi Arabia, 2017):</strong> First malware to specifically target Safety Instrumented Systems (SIS) — the last line of defense that causes industrial plants to safely shut down in emergencies. The goal was to disable the SIS so that a subsequent attack could cause a catastrophic physical accident. Triton was developed with significant nation-state resources (attributed to Russia's CNIIHM institute).</li>
+      </ul>
+      <p>The Triton/TRISIS attack is particularly relevant to Palo Verde: Triton targeted Schneider Electric Triconex SIS controllers, which are widely deployed in petrochemical and — potentially — nuclear facilities. The NRC's cybersecurity requirements for nuclear plants specifically address SIS protection, but the revelation that nation-states had developed malware targeting safety systems changed the regulatory conversation permanently.</p>
+
+      <h2>Water Sector ICS — Arizona's Most Exposed Attack Surface</h2>
+      <h3>The Oldsmar Model</h3>
+      <p>In February 2021, an attacker connected remotely to the Oldsmar, Florida water treatment plant via TeamViewer (a commercial remote access tool) and attempted to increase sodium hydroxide from 111 parts per million to 11,100 ppm — a level that would cause chemical burns to anyone who drank the water. A plant operator noticed the cursor moving on his screen and reversed the change. No contamination occurred.</p>
+      <p>The Oldsmar attack exposed fundamental security failures common to small and medium water utilities nationwide:</p>
+      <ul>
+        <li>TeamViewer installed on ICS-connected computers with shared passwords</li>
+        <li>Old operating systems (Windows 7, XP)</li>
+        <li>No multi-factor authentication on remote access systems</li>
+        <li>Single-operator plants with no independent oversight of process changes</li>
+      </ul>
+      <p>Arizona has hundreds of water utilities ranging from major municipalities (Phoenix Water Services, Tucson Water, SRP) to small rural water companies and tribal water utilities. The larger utilities have more resources for ICS security; the smaller ones often do not.</p>
+
+      <h3>Arizona-Specific Water ICS Vulnerabilities</h3>
+      <p>Documented concerns in the public record:</p>
+      <ul>
+        <li><strong>CAP automated control systems:</strong> The Central Arizona Project's SCADA system manages 14 pumping plants and all canal gate operations. It uses a mix of modern and legacy equipment. The CAP authority has implemented cybersecurity measures, but the scale of the infrastructure — 336 miles — creates a large attack surface. Remote pump stations in remote desert locations present physical access risks as well.</li>
+        <li><strong>Small rural water districts:</strong> Dozens of Arizona rural water systems serving communities of 500-5,000 people use legacy ICS that may have internet-connected HMIs with default credentials. CISA and EPA have conducted voluntary assessments of Arizona utilities; not all have participated.</li>
+        <li><strong>Tribal water systems:</strong> Tribal water utilities face the same challenges as rural water systems, often with less funding and fewer cybersecurity resources. Some rely on the same TeamViewer-type remote access tools that enabled the Oldsmar attack.</li>
+      </ul>
+
+      <h2>Key CISA Advisories Relevant to Arizona Infrastructure</h2>
+      <div class="doc-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+        <div class="doc-card">
+          <div class="doc-title"><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-144a" target="_blank" rel="noopener">AA23-144A: Volt Typhoon (2023)</a></div>
+          <div class="doc-summary">CISA/NSA/FBI/Five Eyes joint advisory on Chinese state actor pre-positioning in U.S. critical infrastructure. "Living off the land" TTPs. Sectors affected: water, energy, communications, transportation. Directly relevant to AZ utility ICS.</div>
+        </div>
+        <div class="doc-card">
+          <div class="doc-title"><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa21-042a" target="_blank" rel="noopener">AA21-042A: Water Treatment Facility Attack (2021)</a></div>
+          <div class="doc-summary">Post-Oldsmar advisory covering water/wastewater sector ICS security. Remote access risks (TeamViewer, VNC), unpatched SCADA systems, default credentials. Mitigation guidance applicable to all AZ water utilities.</div>
+        </div>
+        <div class="doc-card">
+          <div class="doc-title"><a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa22-047a" target="_blank" rel="noopener">AA22-047A: Russian ICS Threats (2022)</a></div>
+          <div class="doc-summary">CISA advisory warning that Russian state-sponsored actors have the capability to execute destructive attacks on U.S. critical infrastructure. Specific ICS vendor vulnerabilities. Energy sector focus — APS, SRP applicability.</div>
+        </div>
+        <div class="doc-card">
+          <div class="doc-title"><a href="https://www.cisa.gov/news-events/ics-advisories" target="_blank" rel="noopener">ICS-CERT: All Current Advisories</a></div>
+          <div class="doc-summary">CISA's ICS advisory feed — the definitive public source for newly disclosed vulnerabilities in industrial control system products. Filter for Schneider Electric, Siemens, Emerson, Rockwell Automation — vendors widely deployed in AZ infrastructure.</div>
+        </div>
+      </div>
+
+      <h2>The OT Security Vendor Landscape</h2>
+      <p>Arizona utilities and infrastructure operators are increasingly turning to specialized OT security vendors, a sector that barely existed before Stuxnet (2010) but has grown rapidly since:</p>
+      <ul>
+        <li><strong>Dragos:</strong> OT/ICS security monitoring platform. Maintains threat intelligence on nation-state ICS actors including Volt Typhoon, Sandworm, and CHERNOVITE. Provides monitoring services to utilities and critical infrastructure operators.</li>
+        <li><strong>Claroty:</strong> OT asset discovery and monitoring. Can map all OT assets on a network without active scanning (which can crash some ICS devices).</li>
+        <li><strong>Nozomi Networks:</strong> OT/IoT security platform. Deploys passive sensors on OT networks to detect anomalous behavior without disrupting operations.</li>
+        <li><strong>Waterfall Security (OneWay):</strong> Hardware-enforced unidirectional "data diode" — sends data from OT to IT with no possible inbound path from IT to OT. Used in nuclear power plants and other ultra-high-security environments including, reportedly, some Palo Verde systems.</li>
+      </ul>
+
+      <h2>NETCOM's OT Security Role</h2>
+      <p>Fort Huachuca's NETCOM does not directly defend civilian utility ICS. However, the Army's OT security capabilities — developed for military installation utilities — intersect with the civilian world in several ways:</p>
+      <ul>
+        <li>Army installations have their own ICS (power, water, HVAC, access control) that NETCOM and Army cyber elements defend</li>
+        <li>The Army Cyber Command's capability to respond to attacks on military-relevant infrastructure (Luke AFB power, Fort Huachuca water) represents a federal response capability adjacent to, but not directly serving, civilian utilities</li>
+        <li>Intelligence about adversary OT capabilities developed by Fort Huachuca-trained analysts feeds into the intelligence products that inform CISA's civilian infrastructure advisories</li>
+        <li>Exercise programs (Cyber Guard, Cyber Flag) involve both military and civilian critical infrastructure operators in joint exercises that strengthen overall OT security culture</li>
+      </ul>
+
+      <h2>Official Sources</h2>
+      <div class="doc-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem">
+        <div class="doc-card">
+          <div class="doc-title"><a href="https://www.cisa.gov/topics/industrial-control-systems" target="_blank" rel="noopener">CISA: Industrial Control Systems</a></div>
+          <div class="doc-summary">CISA ICS program hub. Advisories, assessments, training, and sector-specific guidance for ICS/SCADA security. Includes the ICS-CERT advisory archive.</div>
+        </div>
+        <div class="doc-card">
+          <div class="doc-title"><a href="https://www.nist.gov/publications/guide-industrial-control-systems-ics-security" target="_blank" rel="noopener">NIST SP 800-82 Rev 3: ICS Security Guide</a></div>
+          <div class="doc-summary">NIST's definitive guide to industrial control systems security. Architecture patterns, threat models, and control recommendations for OT/SCADA environments. Used by Arizona utilities for compliance planning.</div>
+        </div>
+        <div class="doc-card">
+          <div class="doc-title"><a href="https://www.nerc.com/pa/Stand/Pages/CIPStandards.aspx" target="_blank" rel="noopener">NERC CIP Standards</a></div>
+          <div class="doc-summary">Mandatory cybersecurity standards for bulk electric system operators. CIP-002 through CIP-014. APS and SRP must comply; WECC enforces in Arizona.</div>
+        </div>
+        <div class="doc-card">
+          <div class="doc-title"><a href="https://www.epa.gov/waterresilience/water-information-sharing-and-analysis-center-waterisac" target="_blank" rel="noopener">WaterISAC</a></div>
+          <div class="doc-summary">Water sector information sharing and analysis center. Threat intelligence specific to water utility ICS. Arizona water utilities can join for sector-specific threat feeds and incident information.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dossier-sidebar">
+      <h3>Key Terms</h3>
+      <ul style="font-size:11px;color:var(--muted)">
+        <li><strong>ICS</strong> — Industrial Control System</li>
+        <li><strong>SCADA</strong> — Supervisory Control &amp; Data Acquisition</li>
+        <li><strong>OT</strong> — Operational Technology</li>
+        <li><strong>IT</strong> — Information Technology</li>
+        <li><strong>HMI</strong> — Human Machine Interface</li>
+        <li><strong>PLC</strong> — Programmable Logic Controller</li>
+        <li><strong>RTU</strong> — Remote Terminal Unit</li>
+        <li><strong>SIS</strong> — Safety Instrumented System</li>
+        <li><strong>EWS</strong> — Engineering Workstation</li>
+        <li><strong>DCS</strong> — Distributed Control System</li>
+        <li><strong>LOTL</strong> — Living off the Land (attack technique)</li>
+        <li><strong>APT</strong> — Advanced Persistent Threat</li>
+      </ul>
+
+      <h3>Major Threat Actors vs ICS</h3>
+      <ul style="font-size:11px;color:var(--muted)">
+        <li>Sandworm (Russia / GRU) — most destructive ICS attacks in history; Ukraine 2015/2016</li>
+        <li>Volt Typhoon (China / MSS) — pre-positioning in US infra; confirmed 2023</li>
+        <li>Cyber Army of Russia — hacktivist front; DDoS, HMI manipulation claims</li>
+        <li>RASPITE/CHRYSENE (Iran) — energy sector focus</li>
+        <li>ELECTRUM (Russia-aligned) — power sector, SCADA expertise</li>
+        <li>XENOTIME (Russia-aligned) — developed Triton/TRISIS SIS malware</li>
+      </ul>
+
+      <h3>Reliability</h3>
+      <ul>
+        <li><span class="rel-badge rel-verified">Verified</span> — CISA advisories</li>
+        <li><span class="rel-badge rel-official">Official</span> — NIST, NERC</li>
+        <li><span class="rel-badge rel-archived">Archived</span> — ICS-CERT records</li>
+      </ul>
+
+      <h3>Topics</h3>
+      <ul>
+        <li><span class="tag tag-cyber">cyber</span></li>
+        <li><span class="tag tag-infra">infrastructure</span></li>
+        <li><span class="tag tag-defense">defense</span></li>
+        <li><span class="tag tag-water">water</span></li>
+        <li><span class="tag tag-classified">classified</span></li>
+      </ul>
+
+      <h3>Rabbit Holes</h3>
+      <ul>
+        <li><a href="arizona-cyber.html">Arizona Cyber Landscape</a></li>
+        <li><a href="az-nuclear.html">Palo Verde Nuclear</a></li>
+        <li><a href="fort-huachuca.html">NETCOM Global Networks</a></li>
+        <li><a href="water-politics.html">CAP Canal Infrastructure</a></li>
+        <li><a href="../cyber.html">Cyber Portal</a></li>
+        <li><a href="../infrastructure.html">Infrastructure Portal</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-2">
+    <a href="arizona-cyber.html" class="rabbit-hole">
+      <span class="rh-arrow">&rarr;</span>
+      <div class="rh-title">Arizona Cyber Landscape — the broader digital security picture</div>
+      <div class="rh-desc">ICS/SCADA threats are one layer. Election security, military networks, and ransomware targeting local government are the others. The full Arizona cyber picture.</div>
+    </a>
+    <a href="az-nuclear.html" class="rabbit-hole">
+      <span class="rh-arrow">&rarr;</span>
+      <div class="rh-title">Palo Verde Nuclear — the highest-value ICS target in Arizona</div>
+      <div class="rh-desc">The largest nuclear plant in the U.S. uses treated Phoenix sewage for cooling and operates under NRC cybersecurity mandates that were transformed by the discovery of Triton/TRISIS.</div>
+    </a>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="methodology">
+    <strong>METHODOLOGY:</strong> This wiki aggregates public-interest information from official government sources, FOIA releases,
+    and lawful public records for education and research. Content is tagged with reliability labels.
+    <a href="../methodology.html">Full Methodology &rarr;</a>
+  </div>
+  <div class="credits">Built by <strong>Personfu</strong> under the <strong>FLLC</strong> design system.</div>
+</footer>
+<div class="status-bar">
+  <span class="status-dot"></span>
+  <span>FLLC // PERSONFU</span>
+  <span>|</span>
+  <span id="status-update">Last update: &mdash;</span>
+  <span style="margin-left:auto">Educational &amp; Research Use Only</span>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

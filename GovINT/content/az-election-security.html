@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arizona Election Security — PERSONFU // Arizona Public Intel Wiki</title>
+<link rel="stylesheet" href="../assets/css/fllc-govint.css">
+<link rel="stylesheet" href="../assets/css/legacy-context.css">
+</head>
+<body>
+<div class="legacy-context"><a href="../index.html">← GovINT research console</a><span>Legacy wiki background · check claims against the original records</span><a href="../dossiers.html">Explore research dossiers →</a></div>
+<header class="site-header">
+  <div class="site-brand">
+    <h1><span class="accent">PERSONFU</span><span class="sep">//</span>ARIZONA PUBLIC INTEL WIKI</h1>
+    <a href="https://www.fllc.net" class="fllc-badge" target="_blank" rel="noopener">FLLC.NET</a>
+  </div>
+  <div class="header-meta">
+    <span class="site-tagline">FLLC Intelligence Research &amp; Archive</span>
+    <span class="header-clock" id="header-clock"></span>
+  </div>
+</header>
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-link">Dashboard</a>
+  <a href="../arizona.html" class="nav-link">Arizona Watch</a>
+  <a href="../cyber.html" class="nav-link active">Cyber</a>
+  <a href="../government.html" class="nav-link">Government</a>
+  <a href="../defense.html" class="nav-link">Defense</a>
+  <a href="../borders.html" class="nav-link">Border &amp; Safety</a>
+  <a href="../infrastructure.html" class="nav-link">Infrastructure</a>
+  <a href="../archive.html" class="nav-link">Archive</a>
+  <a href="../anomalies.html" class="nav-link">Anomalies</a>
+  <a href="../timelines.html" class="nav-link">Timelines</a>
+  <a href="../maps.html" class="nav-link">Maps</a>
+  <a href="../reports.html" class="nav-link">Reports</a>
+  <a href="../documents.html" class="nav-link">Documents</a>
+  <a href="../methodology.html" class="nav-link">Methodology</a>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-title">ARIZONA ELECTION SECURITY</div>
+  <div class="page-sub">Cyber Ninjas audit &middot; 2020 / 2022 controversies &middot; CISA EI-ISAC &middot; Legislative landscape</div>
+
+  <div class="kpi-row">
+    <div class="kpi-card"><div class="kpi-val">2.1M</div><div class="kpi-label">Maricopa Ballots Audited (2021)</div></div>
+    <div class="kpi-card"><div class="kpi-val">CISA</div><div class="kpi-label">#Protect2024 Program</div></div>
+    <div class="kpi-card"><div class="kpi-val">2016</div><div class="kpi-label">First AZ State Network Scan (Russia)</div></div>
+    <div class="kpi-card"><div class="kpi-val">ARS §16</div><div class="kpi-label">Arizona Revised Statutes — Elections</div></div>
+  </div>
+
+  <div class="grid-3 mb-2">
+    <div class="card span-2">
+      <div class="card-head"><span class="dot red"></span>The Cyber Ninjas Audit: Full Technical Record (2021)</div>
+      <div class="card-body">
+        <p>The Arizona State Senate's 2020 presidential election audit conducted by Cyber Ninjas is the most extensively documented and litigated election audit in U.S. history. Understanding it requires separating the political controversy from the documented technical facts.</p>
+        <h4 style="color:var(--accent);margin-top:12px;font-size:12px">Timeline of Events</h4>
+        <ul style="font-size:12px;color:var(--muted);margin-top:4px">
+          <li style="margin-bottom:4px"><strong>Nov 4, 2020:</strong> Maricopa County results show Biden leads by ~10,457 votes. AZ Secretary of State's hand count audit (1% mandatory under ARS §16-602) completed with no discrepancies.</li>
+          <li style="margin-bottom:4px"><strong>Nov 30, 2020:</strong> Maricopa County Board of Supervisors (4-1 Republican majority) certifies results after conducting additional machine logic-and-accuracy testing. Board Chairman Jack Sellers (R) states: "The election is over."</li>
+          <li style="margin-bottom:4px"><strong>Jan 13, 2021:</strong> AZ Senate subpoenas Maricopa County for ballots, voter rolls, and election equipment.</li>
+          <li style="margin-bottom:4px"><strong>Feb 2021:</strong> Maricopa County Board sues to quash subpoena. Maricopa Superior Court rules subpoena enforceable. Board complies.</li>
+          <li style="margin-bottom:4px"><strong>March 31, 2021:</strong> AZ Senate contracts Cyber Ninjas (Sarasota FL, CEO Doug Logan) for $150,000 (later supplemented by $5.7M in private donations through Arizona Audit Fund, a 501(c)(4) dark money entity).</li>
+          <li style="margin-bottom:4px"><strong>April 23 – July 31, 2021:</strong> Audit conducted at Veterans Memorial Coliseum, Phoenix. 2,089,563 ballots hand-counted. Additional contractors: Wake TSI (ballot scanning/imaging), CyFIR (digital forensics), StratTech Solutions (data recovery).</li>
+          <li style="margin-bottom:4px"><strong>Sept 24, 2021:</strong> Senate President Karen Fann releases audit report. Final hand count: Biden 99,844 votes MORE than the county's certified count; Trump 261 votes MORE. Biden's margin of victory remained intact — official margin confirmed 10,457.</li>
+        </ul>
+        <h4 style="color:var(--accent);margin-top:12px;font-size:12px">Technical Methodology Criticisms</h4>
+        <ul style="font-size:12px;color:var(--muted);margin-top:4px">
+          <li>Auditors used UV lights and microscopes to search for bamboo fibers in ballots — seeking evidence of allegedly fraudulent ballots imported from Asia. No bamboo fibers found.</li>
+          <li>Chain of custody for 2.1M ballots was disrupted when ballots left county custody without documented protocols compliant with ARS §16-1010.</li>
+          <li>Audit counting procedures were not consistent with established election audit standards (NIST SP 1800-19, CISA election security advisories).</li>
+          <li>Maricopa County noted auditors had no access to the actual routers and election management systems (EMS) used in 2020 — a different set of systems was provided to avoid contaminating law enforcement evidence holds and future election systems security.</li>
+          <li>CISA's election security advisory team was never consulted or brought in for independent validation of digital forensics claims.</li>
+          <li>Cyber Ninjas dissolved January 2022 after failing to comply with public records requests and being held in contempt. CEO Doug Logan stated the company had insufficient funds to pay $50,000/day sanctions.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="dot red"></span>Maricopa Election System Architecture</div>
+      <div class="card-body">
+        <p style="font-size:12px">Understanding the security of Arizona elections requires understanding the actual system design:</p>
+        <ul style="font-size:12px;color:var(--muted);margin-top:6px">
+          <li style="margin-bottom:6px"><strong>Dominion Voting Systems ImageCast:</strong> Maricopa County uses Dominion ImageCast ballot marking devices (BMDs) and optical scanners. The systems received VVSG (Voluntary Voting System Guidelines) certification from the EAC (Election Assistance Commission).</li>
+          <li style="margin-bottom:6px"><strong>Air Gap:</strong> Maricopa's election management system (EMS) is <strong>never connected to the internet</strong> during any phase of election programming, results tabulation, or canvass. USB media transfer protocols are documented and audited.</li>
+          <li style="margin-bottom:6px"><strong>Paper Ballot Audit Trail:</strong> All Arizona in-person voting produces a paper ballot that constitutes the official record. Optical scan results can always be audited against physical paper.</li>
+          <li style="margin-bottom:6px"><strong>Risk-Limiting Audits (RLA):</strong> AZ Secretary of State adopted RLA methodology for post-election audits — a statistically rigorous approach endorsed by NIST and CISA that provides provable error bounds.</li>
+          <li style="margin-bottom:6px"><strong>Logic and Accuracy Testing:</strong> Pre-election L&amp;A testing is open to public observation under ARS §16-449.</li>
+          <li style="margin-bottom:6px"><strong>Results Canvass:</strong> Multi-step canvass process requires bipartisan oversight at each stage before certification under ARS §16-648.</li>
+        </ul>
+        <div style="margin-top:8px">
+          <a href="https://azsos.gov/elections/election-security" target="_blank" rel="noopener" class="tag tag-cyber">AZ SOS Election Security</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-3 mb-2">
+    <div class="card span-3">
+      <div class="card-head"><span class="dot red"></span>2016: Russian Targeting of Arizona Elections Infrastructure</div>
+      <div class="card-body">
+        <p>The U.S. Senate Intelligence Committee's 2019 Report on Russian interference (Volume 1: Russian Efforts Against Election Infrastructure) documented that Russia scanned or probed election infrastructure in <strong>all 50 states</strong> in 2016. Arizona was specifically identified in the classified and partially declassified versions as among the states whose voter registration systems were accessed or probed by Russian GRU (military intelligence) actors.</p>
+        <div class="grid-3" style="margin-top:10px">
+          <div class="doc-card">
+            <div class="doc-title">GRU Unit 26165 / Fancy Bear</div>
+            <div class="doc-meta">Senate Intel Report Vol.1 (2019)</div>
+            <div class="doc-desc">Russian GRU Unit 26165 (APT28/Fancy Bear) conducted reconnaissance against U.S. election infrastructure in 2016. Arizona's publicly accessible voter registration database portal was probed. The probes tested for SQL injection vulnerabilities in voter registration lookup systems — attempting to enumerate voter records or modify registration data. No vote totals were altered (paper ballot backups would prevent this anyway).</div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-title">DHS / CISA Notification (2017)</div>
+            <div class="doc-meta">DHS Election Security Briefing</div>
+            <div class="doc-desc">DHS notified Arizona (and all 50 states) in 2017 that their election infrastructure had been targeted. Arizona Secretary of State Michele Reagan confirmed receipt of notification. The state subsequently hardened its voter registration system and implemented Albert sensors (network monitoring provided by EI-ISAC) on election-related networks. Albert sensors have since been deployed to all 15 Arizona counties.</div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-title">Mueller Report — Arizona Context</div>
+            <div class="doc-meta">Report on the Investigation (Vol. 1)</div>
+            <div class="doc-desc">The Mueller Report (Volume 1, April 2019) documented GRU's comprehensive campaign against U.S. election infrastructure. Indictments of GRU officers (e.g., United States v. Netyksho, 12 GRU officers charged July 2018) provided the most detailed public record of Russian election interference operations. While Arizona-specific activities were partially redacted, the indictment established the technical means used against Arizona-type voter registration systems.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-3 mb-2">
+    <div class="card">
+      <div class="card-head"><span class="dot red"></span>2022: Cochise County Certification Crisis</div>
+      <div class="card-body">
+        <p style="font-size:12px">In November 2022, the Cochise County Board of Supervisors became the first county board in Arizona to refuse to certify election results:</p>
+        <ul style="font-size:12px;color:var(--muted);margin-top:6px">
+          <li style="margin-bottom:5px"><strong>The Vote:</strong> Supervisors Tom Crosby (R) and Peggy Judd (R) voted 2-1 to refuse certification of the November 8 general election, citing unverified claims about machine tabulator accuracy. Supervisor Ann English (R) voted to certify.</li>
+          <li style="margin-bottom:5px"><strong>Legal Challenge:</strong> AZ Secretary of State Adrian Fontes and State Attorney General Kris Mayes filed suit in Cochise County Superior Court. Judge Casey McGinley ordered the board to certify by December 5.</li>
+          <li style="margin-bottom:5px"><strong>Contempt Finding:</strong> When the board missed the court-ordered deadline, Judge McGinley threatened contempt. The board finally certified December 5, the legal deadline.</li>
+          <li style="margin-bottom:5px"><strong>Criminal Referral:</strong> AZ AG Mayes referred Crosby and Judd to the Cochise County Attorney for criminal investigation related to their refusal to perform their statutory duty under ARS §16-648. The Cochise County Attorney (also R) declined to prosecute.</li>
+          <li style="margin-bottom:5px"><strong>SB 1026 Response:</strong> The AZ Legislature passed SB 1026 (2023) strengthening mandatory certification requirements and creating civil penalties for supervisors who refuse to certify without lawful basis.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="dot red"></span>CISA Election Security Programs</div>
+      <div class="card-body">
+        <p style="font-size:12px">CISA operates multiple election security programs Arizona participates in:</p>
+        <ul style="font-size:12px;color:var(--muted);margin-top:6px">
+          <li style="margin-bottom:5px"><strong>EI-ISAC (Election Infrastructure ISAC):</strong> Center for Internet Security (CIS) operates EI-ISAC with CISA funding, providing threat intelligence, Albert network sensors, and cybersecurity assessments to state/local election officials. All 15 AZ counties participate.</li>
+          <li style="margin-bottom:5px"><strong>Albert Sensors:</strong> Network intrusion detection sensors (funded free to election offices via HSGP/EAC grants) deployed at county election offices. The sensor network provides DHS/CISA with visibility into threats targeting election networks nationwide.</li>
+          <li style="margin-bottom:5px"><strong>#Protect2024:</strong> CISA's 2024 election security initiative including online training modules, physical security assessments, and tabletop exercises for election officials at state and county level.</li>
+          <li style="margin-bottom:5px"><strong>CISA CIRT:</strong> Cyber Incident Response Teams available on short notice to election offices experiencing active cyber incidents during election periods.</li>
+          <li style="margin-bottom:5px"><strong>Rumor Control:</strong> CISA's election.cisa.gov maintains an online resource debunking specific election misinformation claims with sourced fact-checking. AZ-specific content included during 2020 and 2022 cycles.</li>
+        </ul>
+        <div style="margin-top:8px">
+          <a href="https://www.cisa.gov/topics/election-security" target="_blank" rel="noopener" class="tag tag-cyber">CISA Election Security</a>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="dot"></span>Brnovich v. DNC (2021) — SCOTUS &amp; Dark Money</div>
+      <div class="card-body">
+        <p style="font-size:12px">In <strong>Brnovich v. Democratic National Committee</strong> (594 U.S. 647, 2021), the U.S. Supreme Court (6-3, Justice Alito) upheld two Arizona voting provisions challenged under Section 2 of the Voting Rights Act:</p>
+        <ul style="font-size:12px;color:var(--muted);margin-top:6px">
+          <li style="margin-bottom:5px"><strong>Out-of-Precinct Rule:</strong> Arizona law requiring in-person voters to cast ballots only in their assigned precinct (otherwise ballot is discarded) was upheld.</li>
+          <li style="margin-bottom:5px"><strong>Ballot Collection Law (HB 2023):</strong> Arizona's law making it a felony for anyone other than a family member, caregiver, or postal worker to collect mail ballots ("ballot harvesting ban") was upheld. The majority rejected statistical evidence that these rules had disparate racial impact sufficient to violate Section 2.</li>
+          <li style="margin-bottom:5px"><strong>National Significance:</strong> Brnovich significantly narrowed Section 2 VRA challenges to voting rules, affecting future election law challenges in Arizona and nationally.</li>
+          <li style="margin-bottom:5px"><strong>Dark Money in AZ Elections:</strong> Arizona's campaign finance landscape is heavily influenced by 501(c)(4) dark money organizations — none of which must disclose donors. The Cyber Ninjas audit itself was funded by $5.7M in dark money through "Arizona Audit Fund." AZSOS campaign finance database tracks PAC activity but not 501(c)(4) donors.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-3 mb-2">
+    <div class="card span-2">
+      <div class="card-head"><span class="dot"></span>Arizona Election Law Framework</div>
+      <div class="card-body">
+        <p>Arizona election law (Title 16, Arizona Revised Statutes) governs elections through a complex interplay of county-level administration and state oversight:</p>
+        <div class="doc-grid" style="margin-top:12px">
+          <div class="doc-card">
+            <div class="doc-title">Vote-by-Mail / PEVL</div>
+            <div class="doc-meta">ARS §16-542</div>
+            <div class="doc-desc">Arizona's Permanent Early Voter List (PEVL) allows registered voters to automatically receive mail ballots for every election. As of 2020, approximately 80% of Arizona voters were on PEVL. Voters must return mail ballots by 7pm on Election Day or drop at any in-county location. Signature verification required — county recorders compare to voter registration signature. Challenged/cured ballots require voter contact.</div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-title">Paper Ballot Mandate</div>
+            <div class="doc-meta">ARS §16-441 / HAVA</div>
+            <div class="doc-desc">All Arizona votes — whether cast in-person on BMDs or by mail — are recorded on paper. DRE (Direct Recording Electronic) voting machines with no paper trail are prohibited. The paper record provides an auditable trail independent of any electronic system. This is the most fundamental election security protection and applies to all 15 counties.</div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-title">Post-Election Audits</div>
+            <div class="doc-meta">ARS §16-602 / SOS Procedures</div>
+            <div class="doc-desc">Arizona mandates a 1% hand-count audit immediately after each primary and general election. Additionally, the Secretary of State may conduct Risk-Limiting Audits (RLAs). An RLA mathematically determines whether the reported winner would change under a full hand recount — providing a statistically rigorous confirmation of results with a user-specified confidence level (typically 95%).</div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-title">Voter Registration Security</div>
+            <div class="doc-meta">ARS §16-121 / SAVE Program</div>
+            <div class="doc-desc">Arizona requires documentary proof of citizenship (DPOC) for state-form voter registration — only state that enforces DPOC under ITCA v. Arizona (SCOTUS 2013 held NVRA preempts state requirement for federal form, but state form with DPOC requirement remains). AZ participates in USCIS SAVE (Systematic Alien Verification for Entitlements) program and cross-state voter roll comparison through ERIC (Electronic Registration Information Center).</div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-title">Certification Process</div>
+            <div class="doc-meta">ARS §16-648</div>
+            <div class="doc-desc">County boards of supervisors must certify results by the 3rd Monday after a general election. Secretary of State certifies statewide results by the 4th Monday. The Governor executes the Certificate of Ascertainment for presidential electors. Refusal to certify without lawful cause (as in Cochise County 2022) is subject to court order and, after 2023 reforms, civil penalties.</div>
+          </div>
+          <div class="doc-card">
+            <div class="doc-title">Voting Equipment Certification</div>
+            <div class="doc-meta">ARS §16-442 / EAC VVSG</div>
+            <div class="doc-desc">All voting systems used in Arizona must be certified by the EAC (Election Assistance Commission) under VVSG 1.1 or 2.0 standards and additionally certified by the Arizona Secretary of State. AZ SOS certification requires independent testing laboratory (ITL) review. Decertification of equipment can be ordered if security vulnerabilities are discovered — this process was used to decertify certain Dominion firmware versions after security research findings.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head"><span class="dot"></span>Foreign Influence Operations Targeting AZ</div>
+      <div class="card-body">
+        <p style="font-size:12px">Beyond direct infrastructure hacking, Arizona has been a significant target of foreign information operations designed to influence voter perceptions:</p>
+        <ul style="font-size:12px;color:var(--muted);margin-top:6px">
+          <li style="margin-bottom:5px"><strong>Internet Research Agency (IRA, Russia):</strong> The Mueller indictment (United States v. Internet Research Agency, Feb 2018) documented IRA operations targeting Arizona specifically — Facebook groups focused on immigration issues, Texas/Arizona border content, anti-immigration themes used to depress Democratic turnout and amplify divisions.</li>
+          <li style="margin-bottom:5px"><strong>Iran 2020 Operation:</strong> CISA/FBI joint advisory (Oct 27, 2020) identified Iranian actors spoofing "Proud Boys" emails threatening Democratic voters in Florida and Alaska, with similar operations targeting other swing states. ODNI attributed to Iran.</li>
+          <li style="margin-bottom:5px"><strong>China 2024 Influence:</strong> Microsoft Threat Intelligence reported Spamouflage (Chinese IO network) targeting U.S. elections in 2024 with AI-generated content. Arizona's Senate race (Gallego vs Lake) was among contested races amplified by foreign IO networks.</li>
+          <li style="margin-bottom:5px"><strong>Domestic Amplification:</strong> CISA's advisory AA24-010A documented how foreign IO content is often amplified by domestic actors who are unaware of or indifferent to its foreign origin. The Cyber Ninjas audit narratives spread via social media networks that overlapped with documented foreign IO amplification networks.</li>
+        </ul>
+        <div style="margin-top:8px">
+          <a href="https://www.cisa.gov/news-events/cybersecurity-advisories/aa24-010a" target="_blank" rel="noopener" class="tag tag-cyber">CISA AA24-010A</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card mb-2">
+    <div class="card-head"><span class="dot"></span>Official Sources &amp; Research Links</div>
+    <div class="card-body">
+      <ul style="font-size:12px;color:var(--muted);columns:2;gap:24px">
+        <li><a href="https://azsos.gov/elections/election-security" target="_blank" rel="noopener">AZ Secretary of State — Election Security</a></li>
+        <li><a href="https://www.cisa.gov/topics/election-security" target="_blank" rel="noopener">CISA Election Security Hub</a></li>
+        <li><a href="https://www.eac.gov/election-officials/voluntary-voting-system-guidelines-vvsg" target="_blank" rel="noopener">EAC — Voluntary Voting System Guidelines (VVSG)</a></li>
+        <li><a href="https://www.intelligence.senate.gov/publications/report-select-committee-intelligence-united-states-senate-russian-active-measures" target="_blank" rel="noopener">Senate Intel Report Vol.1 — Russian Election Infrastructure Targeting</a></li>
+        <li><a href="https://www.justice.gov/file/1080281/download" target="_blank" rel="noopener">Mueller Report Volume 1 (DOJ)</a></li>
+        <li><a href="https://www.judiciary.arizona.gov/sites/default/files/AuditReport.pdf" target="_blank" rel="noopener">Arizona State Senate Audit Final Report (2021)</a></li>
+        <li><a href="https://www.azleg.gov/ars/16/00602.htm" target="_blank" rel="noopener">ARS §16-602 — Post-Election Audit</a></li>
+        <li><a href="https://www.dhs.gov/publication/election-infrastructure-security" target="_blank" rel="noopener">DHS Election Infrastructure Security</a></li>
+        <li><a href="https://www.nist.gov/publications/framework-cyber-election-technology" target="_blank" rel="noopener">NIST — Framework for Cyber Election Technology</a></li>
+        <li><a href="https://www.supremecourt.gov/opinions/20pdf/19-1257_g204.pdf" target="_blank" rel="noopener">Brnovich v. DNC (SCOTUS 2021)</a></li>
+        <li><a href="https://howdoivote.az.gov" target="_blank" rel="noopener">AZ Voter Education Portal</a></li>
+        <li><a href="https://efts.free.law/recap/gov.uscourts.azd.1219099/gov.uscourts.azd.1219099.1.0.pdf" target="_blank" rel="noopener">Cyber Ninjas Records Court Order (CourtListener)</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="methodology">
+    <strong>METHODOLOGY:</strong> Election security information sourced from CISA advisories, EAC certification records, AZ Secretary of State official publications, Senate Intelligence Committee reports, and court documents available via CourtListener and PACER.
+    <a href="../methodology.html">Full Methodology &rarr;</a>
+  </div>
+  <div class="credits">Built by <strong>Personfu</strong> under the <strong>FLLC</strong> design system.</div>
+</footer>
+<div class="status-bar">
+  <span class="status-dot"></span>
+  <span>FLLC // PERSONFU</span>
+  <span>|</span>
+  <span id="status-update">Last update: &mdash;</span>
+  <span style="margin-left:auto">Educational &amp; Research Use Only</span>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

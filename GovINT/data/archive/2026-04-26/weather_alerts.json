@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-04-26T11:29:39.469320Z",
+  "items": [
+    {
+      "title": "Storm Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 50 kt. Seas 17 ft. Snow showers.\n.TONIGHT...S wind 40 kt. Seas 14 ft. Widespread rain and snow\nshowers.\n.MON...SW wind 30 kt. Seas 12 ft. Widespread rain and snow\nshowers.\n.MON NIGH",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Cape Sarichef to Nikoski Bering Side out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 40 kt diminishing to 30 kt in the afternoon. Seas\nin ice free waters 12 ft. Snow.\n.TONIGHT...SE wind 30 kt. Seas in ice free waters 14 ft.\n.MON...SE wind 30 kt. Seas in ice free wa",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kuskokwim Delta from 15 to 80 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 35 kt. Gusts to 50 kt. Seas 5 ft.\n.TONIGHT...S wind 30 kt. Gusts to 40 kt. Seas 5 ft. Rain showers and\nsnow showers.\n.MON...S wind 25 kt. Gusts to 35 kt. Seas 4 ft. Rain showers and",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Unalaska Bay"
+    },
+    {
+      "title": "Storm Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 50 kt. Seas 30 ft subsiding to 23 ft in the\nafternoon. Snow showers and rain showers.\n.TONIGHT...W wind 40 kt. Seas 20 ft. Widespread rain and snow\nshowers.\n.MON...W wind 40 kt. Sea",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Seguam to Adak Pacific Side from 15 to 75 NM"
+    },
+    {
+      "title": "Storm Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SW wind 50 kt. Seas 34 ft subsiding to 27 ft in the\nafternoon.\n.TONIGHT...SW wind 40 kt. Seas 22 ft. Widespread rain and snow\nshowers.\n.MON...SW wind 40 kt. Seas 21 ft. Rain showers and sn",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Nikolski to Seguam Pacific Side from 15 to 75 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 35 kt becoming SW 20 kt in the afternoon. Seas 15\nft. Rain.\n.TONIGHT...S wind 20 kt. Seas 18 ft.\n.MON...SW wind 25 kt. Seas 15 ft.\n.MON NIGHT...SW wind 25 kt. Seas 14 ft.\n.TUE...S w",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Castle Cape to Cape Tolstoi from 15 to 100 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 35 kt diminishing to 25 kt in the afternoon.\nRain.\n.TONIGHT...SE wind 20 kt.\n.MON...SE wind 15 kt.\n.MON NIGHT...SE wind 20 kt.\n.TUE...SE wind 25 kt.\n.WED THROUGH THU...SE wind 35 k",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Bristol Bay greater than 15 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 27 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 40 kt. Seas 19 ft.\n.TONIGHT...S wind 35 kt. Seas 17 ft.\n.MON...S wind 30 kt. Seas 12 ft.\n.MON NIGHT...S wind 30 kt. Seas 13 ft.\n.TUE...SW wind 30 kt. Seas 12 ft.\n.WED...SE wind 30 k",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Unimak Pass"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 27 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 40 kt. Seas 19 ft.\n.TONIGHT...S wind 40 kt. Seas 19 ft.\n.MON...S wind 30 kt. Seas 14 ft.\n.MON NIGHT...S wind 30 kt. Seas 12 ft.\n.TUE...S wind 30 kt. Seas 13 ft.\n.WED THROUGH THU...S",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Nelson Lagoon to Cape Sarichef from 15 to 70 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 27 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 45 kt. Seas 24 ft. Widespread rain and snow\nshowers.\n.TONIGHT...S wind 45 kt diminishing to 35 kt after midnight. Seas\n24 ft. Widespread rain and snow showers.\n.MON...S wind 30 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Pribilof Islands Nearshore Waters"
+    },
+    {
+      "title": "Small Craft Advisory issued April 26 at 3:10AM AKDT until April 27 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 30 kt. Seas 9 ft. Rain.\n.TONIGHT...S wind 20 kt. Seas 8 ft.\n.MON...SW wind 20 kt. Seas 6 ft.\n.MON NIGHT...S wind 20 kt. Seas 6 ft.\n.TUE...S wind 25 kt. Seas 7 ft.\n.WED...S wind 35 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Sitkinak to Castle Cape out to 15 NM"
+    },
+    {
+      "title": "Storm Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 50 kt. Seas 19 ft. Widespread rain and snow\nshowers.\n.TONIGHT...W wind 45 kt. Seas 20 ft. Widespread rain and snow\nshowers.\n.MON...W wind 35 kt. Seas 19 ft. Widespread rain and snow",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Seguam to Adak Bering Side from 15 to 85 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 35 kt diminishing to 25 kt in the afternoon. Seas\nin ice free waters 4 ft. Rain.\n.TONIGHT...SE wind 20 kt. Seas in ice free waters 2 ft.\n.MON...SE wind 15 kt. Seas in ice free wate",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Bristol Bay from Port Heiden to Cape Chichagof out to 15 NM"
+    },
+    {
+      "title": "Storm Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 50 kt. Seas 29 ft. Rain showers and snow showers.\n.TONIGHT...S wind 45 kt diminishing to 35 kt after midnight. Seas\n23 ft. Widespread rain and snow showers.\n.MON...SW wind 30 kt. Se",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Cape Sarichef to Nikoski Bering Side from 15 to 85 NM"
+    },
+    {
+      "title": "Storm Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SW wind 55 kt diminishing to 45 kt in the afternoon. Seas\n34 ft subsiding to 27 ft in the afternoon. Rain showers and snow\nshowers.\n.TONIGHT...SW wind 40 kt. Seas 21 ft. Widespread rain an",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Nikolski to Seguam Pacfic Side out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SW wind 35 kt. Seas 23 ft.\n.TONIGHT...S wind 30 kt. Seas 21 ft.\n.MON...S wind 30 kt. Seas 16 ft.\n.MON NIGHT...SW wind 30 kt. Seas 17 ft.\n.TUE...SW wind 30 kt. Seas 17 ft.\n.WED...S wind 35 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Tolstoi to Cape Sarichef from 15 to 100 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 35 kt. Snow.\n.TONIGHT...SE wind 30 kt.\n.MON...SE wind 30 kt.\n.MON NIGHT...E wind 25 kt.\n.TUE...E wind 25 kt.\n.WED THROUGH THU...E wind 30 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "North and West of Nunivak Island"
+    },
+    {
+      "title": "Storm Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SW wind 55 kt. Seas 29 ft. Widespread rain and snow\nshowers.\n.TONIGHT...SW wind 40 kt. Seas 21 ft. Widespread rain and snow\nshowers.\n.MON...SW wind 35 kt. Seas 17 ft. Widespread rain and s",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Nikolski to Seguam Bering Side from 15 to 85 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 35 kt. Seas in ice free waters 5 ft. Rain and\nsnow.\n.TONIGHT...SE wind 20 kt. Seas in ice free waters 5 ft.\n.MON...SE wind 20 kt. Seas in ice free waters 4 ft.\n.MON NIGHT...SE wind",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Bristol Bay from Cape Chichagof to Cape Pierce out to 15 NM"
+    },
+    {
+      "title": "Storm Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 50 kt. Gusts to 65 kt. Seas 17 ft. Widespread rain\nand snow showers.\n.TONIGHT...W wind 40 kt. Seas 17 ft. Widespread snow and rain\nshowers.\n.MON...W wind 40 kt. Seas 16 ft. Widespre",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Seguam to Adak Bering Side out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 30 kt. Seas 10 ft. Rain.\n.TONIGHT...S wind 20 kt. Seas 7 ft.\n.MON...S wind 20 kt. Seas 6 ft.\n.MON NIGHT...S wind 25 kt. Seas 7 ft.\n.TUE...S wind 25 kt. Seas 8 ft.\n.WED THROUGH THU..",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Castle Cape to Cape Tolstoi out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 35 kt. Seas 9 ft.\n.TONIGHT...S wind 30 kt. Seas 9 ft.\n.MON...S wind 30 kt. Seas 7 ft.\n.MON NIGHT...S wind 30 kt. Seas 8 ft.\n.TUE...S wind 30 kt. Seas 8 ft.\n.WED...SE wind 35 kt. Sea",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Nelson Lagoon to Cape Sarichef out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 26 at 3:10AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 30 kt. Seas 14 ft. Rain.\n.TONIGHT...S wind 20 kt. Seas 15 ft.\n.MON...SW wind 20 kt. Seas 13 ft.\n.MON NIGHT...SW wind 25 kt. Seas 11 ft.\n.TUE...S wind 25 kt. Seas 12 ft.\n.WED...S win",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Sitkinak to Castle Cape from 15 to 100 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 26 at 3:10AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 30 kt. Seas 17 ft.\n.TONIGHT...S wind 30 kt. Seas 16 ft.\n.MON...S wind 25 kt. Seas 11 ft. Rain showers and snow showers.\n.MON NIGHT...S wind 30 kt. Seas 12 ft.\n.TUE...S wind 30 kt. S",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Tolstoi to Cape Sarichef out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SW wind 45 kt. Seas 31 ft.\n.TONIGHT...SW wind 35 kt. Seas 22 ft. Rain showers and snow\nshowers.\n.MON...SW wind 35 kt. Seas 19 ft. Rain showers and snow showers.\n.MON NIGHT...SW wind 35 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Sarichef to Nikoski Pacific Side from 15 to 85 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SW wind 45 kt. Seas 27 ft.\n.TONIGHT...SW wind 35 kt. Seas 20 ft. Widespread rain and snow\nshowers.\n.MON...SW wind 35 kt. Seas 15 ft. Widespread rain and snow\nshowers.\n.MON NIGHT...SW wind ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Sarichef to Nikoski Pacific Side out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NW wind 40 kt. Seas 17 ft.\n.TONIGHT...NW wind 40 kt. Seas 17 ft.\n.MON...NW wind 40 kt. Seas 17 ft.\n.MON NIGHT...NW wind 30 kt. Seas 15 ft.\n.TUE...N wind 20 kt. Seas 10 ft.\n.WED...NE wind 1",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kiska to Attu Bering Side"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 40 kt. Seas in ice free waters 15 ft. Snow.\n.TONIGHT...E wind 35 kt. Seas in ice free waters 16 ft. Snow\nshowers and rain showers.\n.MON...E wind 35 kt. Seas in ice free waters 15 f",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Saint Matthew Island Waters"
+    },
+    {
+      "title": "Small Craft Advisory issued April 26 at 3:10AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 25 kt. Gusts to 45 kt in the morning. Seas 4 ft.\n.TONIGHT...S wind 25 kt. Seas 5 ft.\n.MON...S wind 25 kt. Seas 5 ft.\n.MON NIGHT...S wind 25 kt. Seas 5 ft.\n.TUE...S wind 25 kt. Seas",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Port Heiden to Nelson Lagoon out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NW wind 40 kt. Seas 16 ft.\n.TONIGHT...NW wind 40 kt. Seas 16 ft.\n.MON...NW wind 35 kt. Seas 16 ft.\n.MON NIGHT...W wind 30 kt. Seas 15 ft.\n.TUE...N wind 20 kt. Seas 10 ft.\n.WED...E wind 15 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kiska to Attu Pacific Side"
+    },
+    {
+      "title": "Small Craft Advisory issued April 26 at 3:10AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 30 kt. Seas 8 ft.\n.TONIGHT...S wind 30 kt. Seas 11 ft.\n.MON...S wind 25 kt. Seas 10 ft.\n.MON NIGHT...S wind 25 kt. Seas 9 ft.\n.TUE...S wind 25 kt. Seas 9 ft.\n.WED THROUGH THU...SE ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Port Heiden to Nelson Lagoon from 15 to 60 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 45 kt. Seas 20 ft. Widespread snow and rain\nshowers.\n.TONIGHT...W wind 45 kt. Seas 20 ft. Widespread snow and rain\nshowers.\n.MON...W wind 40 kt. Seas 19 ft. Rain showers and snow sh",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Adak to Kiska Bering Side"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 45 kt. Seas 19 ft. Snow showers.\n.TONIGHT...W wind 40 kt. Seas 19 ft. Snow showers.\n.MON...W wind 40 kt. Seas 19 ft.\n.MON NIGHT...W wind 35 kt. Seas 17 ft.\n.TUE...NW wind 30 kt. Sea",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Adak to Kiska Pacific Side"
+    },
+    {
+      "title": "Storm Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SW wind 55 kt diminishing to 45 kt in the afternoon. Seas\n28 ft subsiding to 22 ft in the afternoon. Rain showers and snow\nshowers.\n.TONIGHT...SW wind 40 kt. Seas 19 ft. Widespread rain an",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Nikolski to Seguam Bering Side out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 40 kt diminishing to 30 kt in the afternoon. Seas\nin ice free waters 7 ft. Rain and snow.\n.TONIGHT...SE wind 25 kt. Seas in ice free waters 8 ft.\n.MON...SE wind 25 kt. Seas in ice ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kuskokwim Delta and Etolin Strait out to 15 NM"
+    },
+    {
+      "title": "Storm Warning issued April 26 at 3:10AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T03:10:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 55 kt diminishing to 45 kt in the afternoon. Seas\n28 ft subsiding to 20 ft in the afternoon. Widespread rain and\nsnow showers.\n.TONIGHT...W wind 40 kt. Seas 18 ft. Widespread snow a",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Seguam to Adak Pacific Side out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 2:55AM AKDT until April 27 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T02:55:00-08:00",
+      "summary": "Offshore Waters Forecast for the Bering Sea\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 30 to 40 kt diminishing to 20 to 35 kt in the\nafternoon. Seas 16 to 21 ft. Widespread rain and snow showers.\n.TONIGHT...NE wind 20 to 35 kt. Seas 12 to 20 ft. Widespread rain\nand snow showers.\n.MON...NE wind 20 to 30 kt. Seas 9 to 15 ft. Rain showers and snow\nshow",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Bering Sea Offshore 171W to 180 and North of 56N"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 2:55AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T02:55:00-08:00",
+      "summary": "Offshore Waters Forecast for the Bering Sea\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 25 to 40 kt. Seas 14 to 22 ft. Widespread rain and\nsnow showers.\n.TONIGHT...W wind 25 to 40 kt. Seas 12 to 19 ft. Widespread rain\nand snow showers.\n.MON...W wind 25 to 35 kt. Seas 13 to 18 ft. Widespread rain and\nsnow showers.\n.MON NIGHT...W wind 20 to 35 kt. Seas ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Bering Sea Offshore 171W to 180 and South of 56N"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 2:55AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T02:55:00-08:00",
+      "summary": "Offshore Waters Forecast for the Bering Sea\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NW wind 30 to 40 kt. Seas 10 to 18 ft. Widespread snow\nand rain showers.\n.TONIGHT...NW wind 30 to 40 kt. Seas 17 ft. Widespread snow and\nrain showers.\n.MON...NW wind 25 to 35 kt. Seas 14 to 17 ft. Rain showers.\n.MON NIGHT...NW wind 15 to 30 kt. Seas 10 to 16 ft.\n.TUE THRO",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Bering Sea Offshore  West of 180 and East of the International Date Line"
+    },
+    {
+      "title": "Storm Warning issued April 26 at 2:55AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T02:55:00-08:00",
+      "summary": "Offshore Waters Forecast for the Bering Sea\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 35 to 50 kt. Seas 13 to 28 ft. Rain showers and snow\nshowers.\n.TONIGHT...S wind 30 to 45 kt. Seas 15 to 25 ft. Widespread rain\nand snow showers.\n.MON...S wind 30 kt. Seas 11 to 17 ft. Snow showers and rain\nshowers.\n.MON NIGHT...S wind 20 to 30 kt. Seas 9 to 14 ft.\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Bering Sea Offshore East of 171W"
+    },
+    {
+      "title": "Severe Thunderstorm Warning issued April 26 at 5:42AM CDT until April 26 at 6:45AM CDT by NWS Jackson MS",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T05:42:00-05:00",
+      "summary": "SVRJAN\n\nThe National Weather Service in Jackson has issued a\n\n* Severe Thunderstorm Warning for...\nClaiborne County in southwestern Mississippi...\nNorthwestern Lincoln County in south central Mississippi...\nFranklin County in southwestern Mississippi...\nJefferson County in southwestern Mississippi...\nCopiah County in central Mississippi...\n\n* Until 645 AM CDT.\n\n* At 542 AM CDT, a severe thunderstorm was located over Port Gibson,\nmoving southeast at 45 mph.\n\nHAZARD...60 mph wind gusts and quarter",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Claiborne, MS; Copiah, MS; Franklin, MS; Jefferson, MS; Lincoln, MS"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 26 at 6:23AM EDT until April 26 at 9:00AM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T06:23:00-04:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...Portions of the Big Bend and Panhandle of Florida.\n\n* WHEN...Until 9 AM EDT /8 AM CDT/ this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "North Walton; Central Walton; Holmes; Washington; Jackson; Inland Bay; Calhoun; Inland Gulf; Inland Franklin; Gadsden; Northern Liberty; Southern Liberty"
+    },
+    {
+      "title": "Small Craft Advisory issued April 26 at 2:20AM AKDT until April 26 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T02:20:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind increasing to 25 kt. Seas 5 ft. Rain.\n.TONIGHT...SE wind 20 kt. Seas 5 ft subsiding to 3 ft after\nmidnight. Rain.\n.MON...SW wind 15 kt. Seas 4 ft. Rain.\n.MON NIGHT...SW wind 20 kt. Seas 5 f",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Shelikof Strait"
+    },
+    {
+      "title": "Small Craft Advisory issued April 26 at 2:20AM AKDT until April 27 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T02:20:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 10 kt increasing to 20 kt in the afternoon. Seas\nbuilding to 4 ft.\n.TONIGHT...NE wind 25 kt. Seas 4 ft. Rain.\n.MON...NE wind 20 kt. Seas 5 ft. Rain.\n.MON NIGHT...S wind 20 kt. Seas 5 ft.\n.TU",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cook Inlet Kalgin Island to Point Bede"
+    },
+    {
+      "title": "Small Craft Advisory issued April 26 at 2:20AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T02:20:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 25 kt. Seas 9 ft. Rain.\n.TONIGHT...S wind 25 kt. Seas 9 ft. Rain.\n.MON...S wind 20 kt. Seas 8 ft. Rain.\n.MON NIGHT...SW wind 20 kt. Seas 8 ft.\n.TUE THROUGH WED...S wind 20 kt. Seas 8 ft.\n.T",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marmot Island to Sitkinak out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued April 26 at 2:20AM AKDT until April 27 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T02:20:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 20 kt increasing to 35 kt in the afternoon. Seas\n5 ft building to 10 ft in the afternoon. Rain.\n.TONIGHT...SE wind 35 kt. Seas 10 ft. Rain.\n.MON...SE wind 25 kt. Seas 8 ft. Rain.\n.MON NIGHT",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "West of Barren Islands Including Kamishak Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued April 26 at 2:20AM AKDT until April 27 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T02:20:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind increasing to 30 kt. Seas building to 11 ft. Rain.\n.TONIGHT...S wind 25 kt. Seas 12 ft. Rain.\n.MON...S wind 25 kt. Seas 11 ft. Rain.\n.MON NIGHT...SW wind 20 kt. Seas 10 ft.\n.TUE...S wind 20 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marmot Island To Sitkinak from 15 to 85 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 26 at 2:20AM AKDT until April 27 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T02:20:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind increasing to 25 kt. Seas 4 ft building to 7 ft in\nthe afternoon. Rain.\n.TONIGHT...S wind 25 kt. Seas 4 ft. Rain.\n.MON...SE wind 20 kt. Seas 4 ft. Rain.\n.MON NIGHT...SW wind 15 kt. Seas 2 f",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chiniak Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued April 26 at 2:20AM AKDT until April 27 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T02:20:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 15 kt increasing to 25 kt in the afternoon. Seas\n3 ft.\n.TONIGHT...E wind 25 kt. Seas 4 ft subsiding to 2 ft after\nmidnight. Rain.\n.MON...E wind 20 kt. Seas 3 ft. Rain.\n.MON NIGHT...S wind 2",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kachemak Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued April 26 at 2:20AM AKDT until April 27 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-26T02:20:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind increasing to 25 kt. Seas building to 8 ft. Rain.\n.TONIGHT...SE wind 25 kt. Seas 7 ft.\n.MON...SE wind 20 kt. Seas 6 ft. Rain.\n.MON NIGHT...SW wind 10 kt. Seas 2 ft.\n.TUE THROUGH WED...SE wi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marmot Bay"
+    }
+  ]
+}

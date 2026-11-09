@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-04-06T11:35:11.952430Z",
+  "items": [
+    {
+      "title": "Flood Warning issued April 6 at 7:33AM AST until April 6 at 10:30AM AST by NWS San Juan PR",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T07:33:00-04:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...Along Rio Blanco in Naguabo.\n\n* WHEN...Until 1030 AM AST.\n\n* IMPACTS...Streams continue to rise due to excess runoff from\nearlier rainfall. Low-water crossings are inundated with water and\nmay not be passable.\n\n* ADDITIONAL DETAILS...\n- At 729 AM AST, USGS gauge indicated that Rio Blanco reached\nminor flooding stage. Flooding is ongoing or expected to\nbegin shortly in the warned area. Between 1 and 2 inches of\nrain have falle",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Naguabo, PR"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 6:48AM EDT until April 6 at 3:00PM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T06:48:00-04:00",
+      "summary": "* WHAT...West winds 10 to 20 kt with gusts up to 30 kt.\n\n* WHERE...Long Island Sound, New York Harbor, Peconic and\nGardiners Bays, and South Shore Bays from Jones Inlet through\nShinnecock Bay.\n\n* WHEN...Until 3 PM EDT this afternoon.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Long Island Sound East of New Haven CT/Port Jefferson NY to the Mouth of the Connecticut River; Long Island Sound East of the Mouth of the Connecticut River; Long Island Sound West of New Haven CT/Port Jefferson NY; New York Harbor; Peconic and Gardiners Bays; South Shore Bays from Jones Inlet through Shinnecock Bay"
+    },
+    {
+      "title": "Lake Wind Advisory issued April 6 at 6:17AM EDT until April 6 at 10:00AM EDT by NWS Charleston SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T06:17:00-04:00",
+      "summary": "* WHAT...Northeast winds 15 to 20 knots gusting to 25 knots on Lake\nMoultrie.\n\n* WHERE...Lake Moultrie.\n\n* WHEN...Until 10 AM EDT this morning.\n\n* IMPACTS...Strong winds and rough waves on Lake Moultrie will create\nhazardous conditions for small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Inland Berkeley"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 5:01AM CDT until April 6 at 10:00AM CDT by NWS Mobile AL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T05:01:00-05:00",
+      "summary": "* WHAT...Northeast winds around 20 kt with gusts up to 25 kt and\nseas 1 to 3 ft.\n\n* WHERE...Northern Mobile Bay, Southern Mobile Bay and\nMississippi Sound.\n\n* WHEN...Until 10 AM CDT this morning.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "North Mobile Bay; South Mobile Bay; Mississippi Sound"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 5:01AM CDT until April 7 at 7:00AM CDT by NWS Mobile AL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T05:01:00-05:00",
+      "summary": "* WHAT...Northeast winds 20 to 25 kt with gusts up to 30 kt and\nseas 3 to 5 ft.\n\n* WHERE...Coastal waters from Pensacola FL to Pascagoula MS out\n20 NM, Coastal waters from Okaloosa Walton County Line FL to\nPensacola FL out 20 NM, Waters from Pensacola FL to Pascagoula\nMS from 20 to 60 NM and Waters from Okaloosa Walton County\nLine FL to Pensacola FL from 20 to 60 NM.\n\n* WHEN...Until 7 AM CDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Pensacola FL to Pascagoula MS out 20 NM; Coastal waters from Okaloosa-Walton County Line to Pensacola FL out 20 NM; Waters from Pensacola FL to Pascagoula MS from 20 to 60 NM; Waters from Okaloosa-Walton County Line to Pensacola FL from 20 to 60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 2:42AM PDT until April 7 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T02:42:00-07:00",
+      "summary": "* WHAT...Northwest winds 10 to 20 kt with gusts to 25 kt expected.\n\n* WHERE...Waters from Point Pinos to Point Piedras Blancas 10-\n60 NM.\n\n* WHEN...From 3 PM this afternoon to 3 AM PDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Pinos to Point Piedras Blancas 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 5:40AM EDT until April 6 at 10:00AM EDT by NWS Charleston SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T05:40:00-04:00",
+      "summary": "* WHAT...North winds around 15 kt with gusts up to 25 kt.\n\n* WHERE...Charleston Harbor.\n\n* WHEN...Until 10 AM EDT this morning.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Charleston Harbor"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 5:33AM EDT until April 7 at 10:00AM EDT by NWS Cleveland OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T05:33:00-04:00",
+      "summary": "* WHAT...Northwest winds 15 to 25 knots and waves 3 to 6 feet\nexpected.\n\n* WHERE...The nearshore waters of Lake Erie from the Islands OH\nto Ripley NY.\n\n* WHEN...From 10 PM this evening to 10 AM EDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "The Islands to Vermilion OH; Vermilion to Avon Point OH; Avon Point to Willowick OH; Willowick to Geneva-on-the Lake OH; Geneva-on-the-Lake to Conneaut OH; Conneaut OH to Ripley NY"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 5:30AM EDT until April 6 at 10:00AM EDT by NWS Mount Holly NJ",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T05:30:00-04:00",
+      "summary": "* WHAT...Northwest winds 10 to 20 kt with gusts up to 25 kt and\nchoppy waters.\n\n* WHERE...Delaware Bay waters north of East Point NJ to\nSlaughter Beach DE and Delaware Bay waters south of East Point\nNJ to Slaughter Beach DE.\n\n* WHEN...Until 10 AM EDT this morning.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Delaware Bay waters north of East Point NJ to Slaughter Beach DE; Delaware Bay waters south of East Point NJ to Slaughter Beach DE"
+    },
+    {
+      "title": "Red Flag Warning issued April 6 at 4:27AM CDT until April 6 at 9:00PM CDT by NWS Dodge City KS",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:27:00-05:00",
+      "summary": "The National Weather Service in Dodge City has issued a Red Flag\nWarning for wind and low relative humidity, which is in effect\nfrom noon today to 9 PM CDT this evening.\n\n* AFFECTED AREA...Fire Weather Zone 043 Scott, Fire Weather Zone\n044 Lane, Fire Weather Zone 045 Ness, Fire Weather Zone 064\nHodgeman, Fire Weather Zone 078 Ford and Fire Weather Zone 088\nClark.\n\n* TIMING...From noon today to 9 PM CDT this evening.\n\n* WINDS...South 15 to 25 mph with gusts up to 40 mph.\n\n* RELATIVE HUMIDITY...As",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Scott; Lane; Ness; Hodgeman; Ford; Clark"
+    },
+    {
+      "title": "Gale Warning issued April 6 at 2:02AM PDT until April 7 at 5:00AM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T02:02:00-07:00",
+      "summary": "* WHAT...West winds 20 to 30 kt, with gusts up to 40 kt.\n\n* WHERE...Central U. S. Waters Strait Of Juan De Fuca and East\nEntrance U. S. Waters Strait Of Juan De Fuca.\n\n* WHEN...From 11 AM this morning to 5 AM PDT Tuesday.\n\n* IMPACTS...Strong winds will cause hazardous seas which could\ncapsize or damage vessels and reduce visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Central U.S. Waters Strait Of Juan De Fuca; East Entrance U.S. Waters Strait Of Juan De Fuca"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 2:02AM PDT until April 7 at 2:00PM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T02:02:00-07:00",
+      "summary": "* WHAT...Northwest winds 15 to 25 kt and seas 7 to 12 ft.\n\n* WHERE...Coastal Waters From Point Grenville To Cape Shoalwater\nOut 10 Nm and Coastal Waters From Point Grenville To Cape\nShoalwater 10 To 60 Nm.\n\n* WHEN...From 2 PM this afternoon to 2 PM PDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters From Point Grenville To Cape Shoalwater Out 10 Nm; Coastal Waters From Point Grenville To Cape Shoalwater 10 To 60 Nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 4:25AM EDT until April 9 at 2:00PM EDT by NWS Tampa Bay Ruskin FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:25:00-04:00",
+      "summary": "* WHAT...Northeast winds 20 to 30 knots with gusts up to 35\nknots and seas 5 to 8 feet expected.\n\n* WHERE...Tampa Bay waters, Coastal waters from Tarpon Springs\nto Suwannee River FL out 20 NM, Coastal waters from Englewood\nto Tarpon Springs FL out 20 NM, Waters from Tarpon Springs to\nSuwannee River FL out 20 to 60 NM and Waters from Englewood to\nTarpon Springs FL out 20 to 60 NM.\n\n* WHEN...From 8 PM this evening to 2 PM EDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Tampa Bay waters; Coastal waters from Tarpon Springs to Suwannee River FL out 20 NM; Coastal waters from Englewood to Tarpon Springs FL out 20 NM; Waters from Tarpon Springs to Suwannee River FL out 20 to 60 NM; Waters from Englewood to Tarpon Springs FL out 20 to 60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 4:25AM EDT until April 9 at 2:00PM EDT by NWS Tampa Bay Ruskin FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:25:00-04:00",
+      "summary": "* WHAT...Northeast winds 15 to 25 knots with gusts up to 30\nknots and seas 4 to 7 feet expected.\n\n* WHERE...Charlotte Harbor and Pine Island Sound, Coastal waters\nfrom Bonita Beach to Englewood FL out 20 NM and Waters from\nBonita Beach to Englewood FL out 20 to 60 NM.\n\n* WHEN...From 2 PM Tuesday to 2 PM EDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Charlotte Harbor and Pine Island Sound; Coastal waters from Bonita Beach to Englewood FL out 20 NM; Waters from Bonita Beach to Englewood FL out 20 to 60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 1:10AM PDT until April 8 at 5:00AM PDT by NWS Portland OR",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T01:10:00-07:00",
+      "summary": "* WHAT...Seas 6 to 9 ft at 8 to 9 seconds and north winds 10 to\n20 kt with gusts up to 25 kt expected.\n\n* WHERE...Coastal Waters from Cape Shoalwater to Florence out 60\nNM.\n\n* WHEN...From 5 AM Tuesday to 5 AM PDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Cape Shoalwater WA to Cape Falcon OR out 10 nm; Coastal waters from Cape Falcon to Cape Foulweather OR out 10 nm; Coastal waters from Cape Foulweather to Florence OR out 10 nm; Waters from Cape Shoalwater WA to Cape Falcon OR from 10 to 60 nm; Waters from Cape Falcon to Cape Foulweather OR from 10 to 60 nm; Waters from Cape Foulweather to Florence OR from 10 to 60 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 4:04AM EDT until April 7 at 5:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northeast winds 10\nto 20 kt with gusts up to 30 kt and waves 2 to 5 ft expected.\nFor the Heavy Freezing Spray Warning, heavy freezing spray at\na rate of 2 cm per hour or greater expected, and may rapidly\naccumulate on vessels. For the Gale Warning, north winds 20 to\n25 kt with gusts up to 35 kt and waves 6 to 9 ft expected. For\nthe second Small Craft Advisory, north winds 10 to 20 kt with\ngusts up to 30 kt and waves 5 to 8 ft expected.\n\n* WHERE...Eagl",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Eagle River to Manitou Island MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 4:04AM EDT until April 7 at 5:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n20 kt with gusts up to 30 kt and waves up to 3 ft expected.\nFor the Gale Warning, north winds 15 to 25 kt with gusts up to\n40 kt and waves 4 to 7 ft expected. For the Heavy Freezing\nSpray Warning, heavy freezing spray at a rate of 2 cm per hour\nor greater expected, and may rapidly accumulate on vessels.\nFor the second Small Craft Advisory, north winds 15 to 25 kt\nwith gusts up to 30 kt and waves 4 to 7 ft expected.\n\n* WHERE...Manitou",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Manitou Island to Point Isabelle MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 4:04AM EDT until April 7 at 2:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n20 kt with gusts up to 30 kt and waves 2 to 5 ft expected. For\nthe Gale Warning, north winds 20 to 25 kt with gusts up to 35\nkt and waves 6 to 9 ft expected. For the second Small Craft\nAdvisory, north winds 15 to 20 kt with gusts up to 30 kt and\nwaves 6 to 9 ft expected.\n\n* WHERE...Ontonagon to Upper Entrance of Portage Canal MI.\n\n* WHEN...For the first Small Craft Advisory, from 7 AM to 10 AM\nEDT this morning. For the Gale Warning, ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Ontonagon to Upper Entrance of Portage Canal MI"
+    },
+    {
+      "title": "Heavy Freezing Spray Warning issued April 6 at 4:04AM EDT until April 7 at 2:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n15 kt with gusts up to 30 kt and waves 2 to 4 ft expected. For\nthe Gale Warning, north winds 15 to 25 kt with gusts up to 35\nkt and waves 5 to 8 ft expected. For the Heavy Freezing Spray\nWarning, heavy freezing spray at a rate of 2 cm per hour or\ngreater expected, and may rapidly accumulate on vessels. For\nthe second Small Craft Advisory, north winds 15 to 25 kt with\ngusts up to 30 kt and waves 5 to 8 ft expected.\n\n* WHERE...Grand Ma",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Grand Marais to Whitefish Point MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 4:04AM EDT until April 7 at 8:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n15 kt with gusts up to 30 kt and waves 1 to 2 ft expected. For\nthe Gale Warning, north winds 15 to 25 kt with gusts up to 40\nkt and waves 7 to 10 ft expected. For the Heavy Freezing Spray\nWarning, heavy freezing spray at a rate of 2 cm per hour or\ngreater expected, and may rapidly accumulate on vessels. For\nthe second Small Craft Advisory, northwest winds 10 to 20 kt\nwith gusts up to 30 kt and waves 6 to 9 ft expected.\n\n* WHERE...Hur",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Huron Islands to Marquette MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 4:04AM EDT until April 7 at 2:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n20 kt with gusts up to 30 kt and waves 2 to 4 ft expected. For\nthe Heavy Freezing Spray Warning, heavy freezing spray at a\nrate of 2 cm per hour or greater expected, and may rapidly\naccumulate on vessels. For the Gale Warning, north winds 20 to\n25 kt with gusts up to 35 kt and waves 6 to 9 ft expected. For\nthe second Small Craft Advisory, north winds 15 to 20 kt with\ngusts up to 30 kt and waves 6 to 9 ft expected.\n\n* WHERE...Upper En",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Upper Entrance of Portage Canal to Eagle River MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 4:04AM EDT until April 7 at 10:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n15 kt with gusts up to 30 kt and waves 2 to 4 ft expected. For\nthe Gale Warning, north winds 15 to 25 kt with gusts up to 35\nkt and waves 5 to 8 ft expected. For the Heavy Freezing Spray\nWarning, heavy freezing spray at a rate of 2 cm per hour or\ngreater expected, and may rapidly accumulate on vessels. For\nthe second Small Craft Advisory, north winds 15 to 25 kt with\ngusts up to 30 kt and waves 5 to 8 ft expected.\n\n* WHERE...Grand Ma",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Grand Marais to Whitefish Point MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 4:04AM EDT until April 7 at 12:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n20 kt with gusts up to 30 kt and waves 2 to 4 ft expected. For\nthe Heavy Freezing Spray Warning, heavy freezing spray at a\nrate of 2 cm per hour or greater expected, and may rapidly\naccumulate on vessels. For the Gale Warning, north winds 20 to\n25 kt with gusts up to 40 kt and waves 6 to 11 ft expected.\nFor the second Small Craft Advisory, northwest winds 15 to 25\nkt with gusts up to 30 kt and waves 7 to 10 ft expected.\n\n* WHERE...Ma",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marquette to Munising MI; Munising to Grand Marais MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 4:04AM EDT until April 6 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n15 kt with gusts up to 30 kt and waves 1 foot or less\nexpected. For the Gale Warning, north winds 15 to 25 kt with\ngusts up to 40 kt and waves 2 to 5 ft expected. For the second\nSmall Craft Advisory, north winds 10 to 20 kt with gusts up to\n30 kt and waves 2 to 5 ft expected.\n\n* WHERE...Point Isabelle to Lower Entrance of Portage Canal MI\nand Lower Entrance of Portage Canal To Huron Islands MI\nIncluding Keweenaw and Huron Bays.\n\n* WH",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Point Isabelle to Lower Entrance of Portage Canal MI; Portage Lake to Huron Island MI to Lower Entrance of Portage Canal To Huron Islands MI Including Keweenaw and Huron Bays"
+    },
+    {
+      "title": "Heavy Freezing Spray Warning issued April 6 at 4:04AM EDT until April 7 at 2:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, north winds 20 to 25 kt with\ngusts up to 40 kt and waves 5 to 8 ft expected. For the Heavy\nFreezing Spray Warning, heavy freezing spray at a rate of 2 cm\nper hour or greater expected, and may rapidly accumulate on\nvessels.\n\n* WHERE...Lake Superior from Grand Marais MI to Whitefish Point\nMI 5NM off shore to the US/Canadian border.\n\n* WHEN...For the Gale Warning, from 1 PM this afternoon to 6 PM\nEDT this evening. For the Heavy Freezing Spray Warning, from 5\nPM this a",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Lake Superior from Grand Marais MI to Whitefish Point MI 5NM off shore to the US/Canadian border"
+    },
+    {
+      "title": "Gale Warning issued April 6 at 4:04AM EDT until April 6 at 1:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...North winds 15 to 25 kt with gusts up to 35 kt and\nwaves 5 to 8 ft expected.\n\n* WHERE...Lake Superior from Saxon Harbor WI to Upper Entrance\nto Portage Canal MI 5NM off shore to the US/Canadian border\nincluding Isle Royale National Park.\n\n* WHEN...From 7 AM this morning to 1 PM EDT this afternoon.\n\n* IMPACTS...Strong winds will cause hazardous waves which could\ncapsize or damage vessels and reduce visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lake Superior from Saxon Harbor WI to Upper Entrance to Portage Canal MI 5NM off shore to the US/Canadian border including Isle Royale National Park"
+    },
+    {
+      "title": "Gale Warning issued April 6 at 4:04AM EDT until April 6 at 1:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n20 kt with gusts up to 30 kt and waves 2 to 4 ft expected. For\nthe Heavy Freezing Spray Warning, heavy freezing spray at a\nrate of 2 cm per hour or greater expected, and may rapidly\naccumulate on vessels. For the Gale Warning, north winds 20 to\n25 kt with gusts up to 35 kt and waves 6 to 9 ft expected. For\nthe second Small Craft Advisory, north winds 15 to 20 kt with\ngusts up to 30 kt and waves 6 to 9 ft expected.\n\n* WHERE...Upper En",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Upper Entrance of Portage Canal to Eagle River MI"
+    },
+    {
+      "title": "Gale Warning issued April 6 at 4:04AM EDT until April 6 at 1:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n15 kt with gusts up to 30 kt and waves 1 foot or less\nexpected. For the Gale Warning, north winds 15 to 25 kt with\ngusts up to 40 kt and waves 2 to 5 ft expected. For the second\nSmall Craft Advisory, north winds 10 to 20 kt with gusts up to\n30 kt and waves 2 to 5 ft expected.\n\n* WHERE...Point Isabelle to Lower Entrance of Portage Canal MI\nand Lower Entrance of Portage Canal To Huron Islands MI\nIncluding Keweenaw and Huron Bays.\n\n* WH",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Point Isabelle to Lower Entrance of Portage Canal MI; Portage Lake to Huron Island MI to Lower Entrance of Portage Canal To Huron Islands MI Including Keweenaw and Huron Bays"
+    },
+    {
+      "title": "Gale Warning issued April 6 at 4:04AM EDT until April 6 at 7:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n20 kt with gusts up to 30 kt and waves 2 to 4 ft expected. For\nthe Heavy Freezing Spray Warning, heavy freezing spray at a\nrate of 2 cm per hour or greater expected, and may rapidly\naccumulate on vessels. For the Gale Warning, north winds 20 to\n25 kt with gusts up to 40 kt and waves 6 to 11 ft expected.\nFor the second Small Craft Advisory, northwest winds 15 to 25\nkt with gusts up to 30 kt and waves 7 to 10 ft expected.\n\n* WHERE...Ma",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Marquette to Munising MI; Munising to Grand Marais MI"
+    },
+    {
+      "title": "Gale Warning issued April 6 at 4:04AM EDT until April 6 at 7:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, north winds 20 to 30 kt with\ngusts up to 40 kt and waves 6 to 9 ft expected. For the Heavy\nFreezing Spray Warning, heavy freezing spray at a rate of 2 cm\nper hour or greater expected, and may rapidly accumulate on\nvessels.\n\n* WHERE...Lake Superior East of a line from Manitou Island to\nMarquette MI and West of a line from Grand Marais MI to the\nUS/Canadian Border Beyond 5NM from shore.\n\n* WHEN...For the Gale Warning, from 10 AM this morning to 7 PM\nEDT this evening.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lake Superior East of a line from Manitou Island to Marquette MI and West of a line from Grand Marais MI to the US/Canadian Border Beyond 5NM from shore"
+    },
+    {
+      "title": "Gale Warning issued April 6 at 4:04AM EDT until April 6 at 6:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, north winds 20 to 25 kt with\ngusts up to 40 kt and waves 5 to 8 ft expected. For the Heavy\nFreezing Spray Warning, heavy freezing spray at a rate of 2 cm\nper hour or greater expected, and may rapidly accumulate on\nvessels.\n\n* WHERE...Lake Superior from Grand Marais MI to Whitefish Point\nMI 5NM off shore to the US/Canadian border.\n\n* WHEN...For the Gale Warning, from 1 PM this afternoon to 6 PM\nEDT this evening. For the Heavy Freezing Spray Warning, from 5\nPM this a",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lake Superior from Grand Marais MI to Whitefish Point MI 5NM off shore to the US/Canadian border"
+    },
+    {
+      "title": "Gale Warning issued April 6 at 4:04AM EDT until April 6 at 6:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, north winds 20 to 30 kt with\ngusts up to 40 kt and waves 7 to 10 ft expected. For the Heavy\nFreezing Spray Warning, heavy freezing spray at a rate of 2 cm\nper hour or greater expected, and may rapidly accumulate on\nvessels.\n\n* WHERE...Lake Superior West of Line from Manitou Island to\nMarquette MI Beyond 5NM from shore.\n\n* WHEN...For the Gale Warning, from 10 AM this morning to 6 PM\nEDT this evening. For the Heavy Freezing Spray Warning, from\nnoon today to 8 PM EDT ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lake Superior West of Line from Manitou Island to Marquette MI Beyond 5NM from shore"
+    },
+    {
+      "title": "Gale Warning issued April 6 at 4:04AM EDT until April 6 at 1:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n20 kt with gusts up to 30 kt and waves 2 to 5 ft expected. For\nthe Gale Warning, north winds 20 to 25 kt with gusts up to 35\nkt and waves 6 to 9 ft expected. For the second Small Craft\nAdvisory, north winds 15 to 20 kt with gusts up to 30 kt and\nwaves 6 to 9 ft expected.\n\n* WHERE...Ontonagon to Upper Entrance of Portage Canal MI.\n\n* WHEN...For the first Small Craft Advisory, from 7 AM to 10 AM\nEDT this morning. For the Gale Warning, ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Ontonagon to Upper Entrance of Portage Canal MI"
+    },
+    {
+      "title": "Gale Warning issued April 6 at 4:04AM EDT until April 6 at 2:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n20 kt with gusts up to 30 kt and waves up to 3 ft expected.\nFor the Gale Warning, north winds 15 to 25 kt with gusts up to\n40 kt and waves 4 to 7 ft expected. For the Heavy Freezing\nSpray Warning, heavy freezing spray at a rate of 2 cm per hour\nor greater expected, and may rapidly accumulate on vessels.\nFor the second Small Craft Advisory, north winds 15 to 25 kt\nwith gusts up to 30 kt and waves 4 to 7 ft expected.\n\n* WHERE...Manitou",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Manitou Island to Point Isabelle MI"
+    },
+    {
+      "title": "Gale Warning issued April 6 at 4:04AM EDT until April 6 at 2:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northeast winds 10\nto 20 kt with gusts up to 30 kt and waves 2 to 5 ft expected.\nFor the Heavy Freezing Spray Warning, heavy freezing spray at\na rate of 2 cm per hour or greater expected, and may rapidly\naccumulate on vessels. For the Gale Warning, north winds 20 to\n25 kt with gusts up to 35 kt and waves 6 to 9 ft expected. For\nthe second Small Craft Advisory, north winds 10 to 20 kt with\ngusts up to 30 kt and waves 5 to 8 ft expected.\n\n* WHERE...Eagl",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Eagle River to Manitou Island MI"
+    },
+    {
+      "title": "Gale Warning issued April 6 at 4:04AM EDT until April 6 at 6:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n15 kt with gusts up to 30 kt and waves 1 to 2 ft expected. For\nthe Gale Warning, north winds 15 to 25 kt with gusts up to 40\nkt and waves 7 to 10 ft expected. For the Heavy Freezing Spray\nWarning, heavy freezing spray at a rate of 2 cm per hour or\ngreater expected, and may rapidly accumulate on vessels. For\nthe second Small Craft Advisory, northwest winds 10 to 20 kt\nwith gusts up to 30 kt and waves 6 to 9 ft expected.\n\n* WHERE...Hur",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Huron Islands to Marquette MI"
+    },
+    {
+      "title": "Gale Warning issued April 6 at 4:04AM EDT until April 6 at 6:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T04:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, north winds 10 to\n15 kt with gusts up to 30 kt and waves 2 to 4 ft expected. For\nthe Gale Warning, north winds 15 to 25 kt with gusts up to 35\nkt and waves 5 to 8 ft expected. For the Heavy Freezing Spray\nWarning, heavy freezing spray at a rate of 2 cm per hour or\ngreater expected, and may rapidly accumulate on vessels. For\nthe second Small Craft Advisory, north winds 15 to 25 kt with\ngusts up to 30 kt and waves 5 to 8 ft expected.\n\n* WHERE...Grand Ma",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Grand Marais to Whitefish Point MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 12:49AM PDT until April 8 at 5:00PM PDT by NWS Medford OR",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T00:49:00-07:00",
+      "summary": "* WHAT...North winds 15 to 25 kt with gusts up to 30 kt and steep\nwind driven seas 5 to 7 ft.\n\n* WHERE...All areas, except beyond 1 to 2 nm from shore south of\nPort Orford and beyond 5 nm south of Brookings.\n\n* WHEN...From 5 AM Tuesday to 5 PM PDT Wednesday.\n\n* IMPACTS...Gusty winds and/or steep seas could capsize or\ndamage smaller vessels.\n\n* View the hazard area in detail at https://go.usa.gov/x6hks",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Florence to Cape Blanco OR out 10 nm; Coastal waters from Cape Blanco OR to Pt. St. George CA out 10 nm; Waters from Florence to Cape Blanco OR from 10 to 60 nm; Waters from Cape Blanco OR to Pt. St. George CA from 10 to 60 nm"
+    },
+    {
+      "title": "Fire Weather Watch issued April 6 at 2:17AM EDT until April 7 at 8:00PM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T02:17:00-04:00",
+      "summary": "...CRITICAL FIRE WEATHER CONDITIONS POSSIBLE ACROSS INLAND\nPORTIONS OF SOUTHEAST GA ON TUESDAY...\n\nThe National Weather Service in Jacksonville has issued a Fire\nWeather Watch for a combination of low humidity, gusty winds, and\ncritically dry fuels which is in effect from Tuesday afternoon\nthrough Tuesday evening.\n\n* AFFECTED AREA...In Georgia, Coffee, Jeff Davis, Bacon,\nAppling, Wayne, Atkinson, Pierce, Echols, Clinch and Northern\nWare.\n\n* TIMING...During the afternoon hours Tuesday 12 PM to 8 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Coffee; Jeff Davis; Bacon; Appling; Wayne; Atkinson; Pierce; Echols; Clinch; Northern Ware"
+    },
+    {
+      "title": "Gale Watch issued April 6 at 2:12AM EDT until April 9 at 5:00AM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T02:12:00-04:00",
+      "summary": "* WHAT...For the Small Craft Advisory, northeast winds 20 to 30\nkt with gusts up to 35 kt and seas 6 to 11 ft expected. For\nthe Gale Watch, northeast winds 25 to 30 kt with gusts up to\n40 kt and seas 10 to 15 ft possible.\n\n* WHERE...All Southeast Georgia and Northeast Florida coastal\nwaters from Altamaha Sound GA to Flagler Beach FL out to 60 NM.\n\n* WHEN...For the Small Craft Advisory, from 8 AM this morning to\n2 AM EDT Wednesday. For the Gale Watch, from late Tuesday\nnight through late Wednesda",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal waters from Altamaha Sound to Fernandina Beach FL out 20 NM; Coastal waters from Fernandina Beach to St. Augustine FL out 20 NM; Coastal waters from St. Augustine to Flagler Beach FL out 20 NM; Waters from Altamaha Sound GA to Fernandina Beach FL from 20 to 60 NM; Waters from Fernandina Beach to St. Augustine FL from 20 to 60 NM; Waters from St. Augustine to Flagler Beach FL from 20 to 60 NM"
+    },
+    {
+      "title": "High Wind Warning issued April 5 at 11:56PM MDT until April 7 at 9:00PM MDT by NWS Great Falls MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T23:56:00-06:00",
+      "summary": "* WHAT...West winds 40 to 50 mph with gusts up to 90 mph possible.\n\n* WHERE...The Rocky Mountain Front and adjacent foothills and\nplains, and Eastern Glacier, Western Toole, and Central Pondera\nCounties.\n\n* WHEN...From 3 AM to 9 PM MDT Tuesday.\n\n* IMPACTS...High winds may move loose debris, damage property and\ncause power outages. Travel could be difficult, especially for\nhigh profile vehicles.\n\n* ADDITIONAL DETAILS...Blowing dust may significantly reduce\nvisibility at times, especially along In",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "East Glacier Park Region; Northern High Plains; Eastern Glacier, Western Toole, and Central Pondera; Southern Rocky Mountain Front; Southern High Plains"
+    },
+    {
+      "title": "High Wind Warning issued April 5 at 11:56PM MDT until April 7 at 9:00PM MDT by NWS Great Falls MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T23:56:00-06:00",
+      "summary": "* WHAT...Southwest to west winds 30 to 40 mph with gusts up to 75\nmph possible. The strongest winds will occur along and west of the\nInterstate 15 corridor and north of the Montana Hwy 200 corridor.\n\n* WHERE...Portions of central and north central Montana.\n\n* WHEN...From 9 AM to 9 PM MDT Tuesday.\n\n* IMPACTS...Damaging winds may blow down trees and power lines.\nPower outages are possible. Travel could be very difficult,\nespecially for high profile or light weight vehicles. Blowing dust\ncould redu",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Eastern Toole and Liberty; Eastern Pondera and Eastern Teton; Western and Central Chouteau County; Cascade County below 5000ft; Judith Basin County and Judith Gap; Upper Blackfoot and MacDonald Pass; Gates of the Mountains; Little Belt and Highwood Mountains; Helena Valley; Big Belt, Bridger and Castle Mountains; Meagher County Valleys; Elkhorn and Boulder Mountains"
+    },
+    {
+      "title": "High Wind Warning issued April 5 at 11:56PM MDT until April 7 at 9:00PM MDT by NWS Great Falls MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T23:56:00-06:00",
+      "summary": "* WHAT...Southerly winds 30 to 40 mph with gusts up to 60 mph\npossible. Winds will shift westerly late Tuesday afternoon.\n\n* WHERE...Madison River Valley.\n\n* WHEN...From 9 AM to 9 PM MDT Tuesday.\n\n* IMPACTS...High winds may move loose debris, damage property and\ncause power outages. Travel could be difficult, especially for\nhigh profile vehicles.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Madison River Valley"
+    },
+    {
+      "title": "High Wind Warning issued April 5 at 11:56PM MDT until April 7 at 9:00PM MDT by NWS Great Falls MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T23:56:00-06:00",
+      "summary": "* WHAT...Southwest to west winds 30 to 40 mph with gusts up to 65\nmph possible.\n\n* WHERE...Beaverhead and Western Madison below 6000ft and Northwest\nBeaverhead County.\n\n* WHEN...From 9 AM to 9 PM MDT Tuesday.\n\n* IMPACTS...High winds may move loose debris, damage property and\ncause power outages. Travel could be difficult, especially for\nhigh profile vehicles.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Northwest Beaverhead County; Beaverhead and Western Madison below 6000ft"
+    },
+    {
+      "title": "Red Flag Warning issued April 5 at 11:55PM MDT until April 6 at 7:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T23:55:00-06:00",
+      "summary": "...RED FLAG WARNING FOR THE NORTHEAST HIGHLANDS AND NORTHEAST\nPLAINS FROM NOON TO 7 PM MDT MONDAY DUE TO STRONG WINDS AND LOW\nHUMIDITY...\n\n.Critical fire weather conditions are expected for northeast NM on\nMonday. A lee-side surface trough over southeast Colorado will\nlead to gusty south winds. Meanwhile, humidity values will lower\nto around 15 percent through the late afternoon where very dry\nfuels exist. Energy Release Components (ERCs) are near 90th\npercentile values. This combination of thes",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Northeast Plains; Northeast Highlands"
+    },
+    {
+      "title": "Fire Weather Watch issued April 6 at 1:55AM EDT until April 7 at 8:00PM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T01:55:00-04:00",
+      "summary": "The National Weather Service in Tallahassee has issued a Fire\nWeather Watch, which is in effect from Tuesday morning through\nTuesday evening.\n\n* AFFECTED AREA...Florida Fire weather zones 008, 009, 010, 011,\n012, 013, 014, 016, 017, 027, 112, 326, and 426. Georgia Fire\nweather zones 125, 127, 128, 129, 130, 131, 143, 144, 145, 146,\n147, 148, 155, 156, 157, 158, 159, 160, and 161.\n\n* WIND...Northeast 15 to 20 mph, with gusts of 25 to 30 mph.\n\n* HUMIDITY...As low as 22 to 28 percent.\n\n* IMPACTS...",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Central Walton; Holmes; Washington; Jackson; Inland Bay; Calhoun; Inland Gulf; Gadsden; Leon; Inland Wakulla; Coastal Bay; Northern Liberty; Southern Liberty; Dougherty; Worth; Turner; Tift; Ben Hill; Irwin; Miller; Baker; Mitchell; Colquitt; Cook; Berrien; Seminole; Decatur; Grady; Thomas; Brooks; Lowndes; Lanier"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 1:41AM EDT until April 8 at 8:00PM EDT by NWS Miami FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T01:41:00-04:00",
+      "summary": "* WHAT...East winds 20 to 25 kt with gusts up to 30 kt and seas 7\nto 10 ft expected.\n\n* WHERE...Coastal waters from Deerfield Beach to Ocean Reef FL\nout 20 NM and Waters from Deerfield Beach to Ocean Reef FL\nfrom 20 to 60 NM excluding the territorial waters of Bahamas.\n\n* WHEN...From 8 AM to 8 PM EDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Deerfield Beach to Ocean Reef FL out 20 NM; Waters from Deerfield Beach to Ocean Reef FL from 20 to 60 NM excluding the territorial waters of Bahamas"
+    },
+    {
+      "title": "Small Craft Advisory issued April 6 at 1:41AM EDT until April 8 at 8:00PM EDT by NWS Miami FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T01:41:00-04:00",
+      "summary": "* WHAT...East winds 20 to 30 kt with gusts up to 35 kt and seas\n8 to 13 ft expected.\n\n* WHERE...Coastal waters from Jupiter Inlet to Deerfield Beach\nFL out 20 NM and Waters from Jupiter Inlet to Deerfield Beach\nFL from 20 to 60 NM.\n\n* WHEN...From 8 PM Tuesday to 8 PM EDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Jupiter Inlet to Deerfield Beach FL out 20 NM; Waters from Jupiter Inlet to Deerfield Beach FL from 20 to 60 NM"
+    },
+    {
+      "title": "Rip Current Statement issued April 6 at 1:41AM EDT until April 8 at 8:00PM EDT by NWS Miami FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T01:41:00-04:00",
+      "summary": "* WHAT...Dangerous rip currents expected.\n\n* WHERE...Coastal Palm Beach County, Coastal Broward County and\nCoastal Miami Dade County.\n\n* WHEN...From Tuesday evening through Wednesday evening.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Palm Beach County; Coastal Broward County; Coastal Miami Dade County"
+    },
+    {
+      "title": "Gale Watch issued April 6 at 1:21AM EDT until April 9 at 4:00AM EDT by NWS Melbourne FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-06T01:21:00-04:00",
+      "summary": "* WHAT...For the Small Craft Advisory, northeast winds 15 to 25\nknots with gusts up to 30 knots and seas 4 to 7 feet expected.\nFor the Gale Watch, northeast winds 20 to 30 knots with gusts\nup to 40 knots and seas 8 to 13 feet possible.\n\n* WHERE...Volusia-Brevard County Line to Sebastian Inlet 0-20 nm.\n\n* WHEN...For the Small Craft Advisory, from 8 AM to 2 PM EDT\nTuesday. For the Gale Watch, from Tuesday afternoon through\nlate Wednesday night.\n\n* IMPACTS...Strong winds can cause hazardous seas wh",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Volusia-Brevard County Line to Sebastian Inlet 0-20 nm"
+    }
+  ]
+}

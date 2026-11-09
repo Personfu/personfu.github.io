@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-04-09T11:36:22.207498Z",
+  "items": [
+    {
+      "title": "Special Weather Statement issued April 9 at 9:34PM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T21:34:00+10:00",
+      "summary": "Tropical Depression 04W continues to organize north of Chuuk.\nThis system will continue to move very slowly northwest for\nanother 24 to 36 hours, before increasing forward speed as it\nstrengthens. The current forecasts have the system strengthening\ninto a typhoon or stronger, as it passes by Guam to the south. At\nthis time, at least Tropical Storm Force conditions are possible\nfor Guam and Typhoon Force conditions aren't out of the question,\nespecially for southern portions of Guam. Current fore",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Guam; Rota; Tinian; Saipan"
+    },
+    {
+      "title": "Flood Advisory issued April 9 at 7:13AM EDT until April 9 at 9:00AM EDT by NWS Melbourne FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T07:13:00-04:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of east central Florida, including the following\ncounty, St. Lucie.\n\n* WHEN...Until 900 AM EDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\nWater over roadways.\n\n* ADDITIONAL DETAILS...\n- At 713 AM EDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Between 1.5 and 3 inches of\nrain have fallen.\n- Additional r",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "St. Lucie, FL"
+    },
+    {
+      "title": "Special Weather Statement issued April 9 at 6:55AM EDT by NWS State College PA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T06:55:00-04:00",
+      "summary": "The combination of marginally dry and breezy conditions will\ncreate an elevated risk of wildfire spread across most of central\nPennsylvania today. Minimum relative humidity values will be\naround 30 percent with wind gusts from the south between 15 and 25\nmph.\n\nFor more information about wildfire danger and wildfire\nprevention and education, please visit the Pennsylvania Department\nof Conservation and Natural Resources website at\nhttp://dcnr.pa.gov/Communities/Wildfire.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Elk; Cameron; Northern Clinton; Clearfield; Northern Centre; Southern Centre; Cambria; Blair; Huntingdon; Mifflin; Juniata; Somerset; Bedford; Fulton; Franklin; Northern Lycoming; Sullivan; Southern Clinton; Southern Lycoming; Union; Snyder; Montour; Northumberland; Columbia; Perry; Dauphin; Schuylkill; Lebanon; Cumberland; Adams; York; Lancaster"
+    },
+    {
+      "title": "Frost Advisory issued April 9 at 3:52AM PDT until April 9 at 9:00AM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T03:52:00-07:00",
+      "summary": "* WHAT...Temperatures as low as 32 to 36 will result in frost\nformation.\n\n* WHERE...Eastern Strait of Juan de Fuca, Foothills and Valleys of\nthe North Cascades, Foothills of the Western and Southern Olympic\nPeninsula, Lake Crescent Area Including US 101, Lowlands of\nWestern Whatcom County, Foothills and Valleys of Central King\nCounty, Foothills and Valleys of Snohomish and Northern King\nCounties, and Willapa and Black Hills.\n\n* WHEN...Until 9 AM PDT this morning.\n\n* IMPACTS...Frost could harm se",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Foothills and Valleys of the North Cascades; Foothills and Valleys of Snohomish and Northern King Counties; Foothills and Valleys of Central King County; Lowlands of Western Whatcom County; Willapa and Black Hills; Eastern Strait of Juan de Fuca; Lake Crescent Area Including US 101; Foothills of the Western and Southern Olympic Peninsula"
+    },
+    {
+      "title": "Tropical Storm Watch issued April 9 at 8:19PM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T20:19:00+10:00",
+      "summary": "* WHAT...East winds 25 to 35 kt with gusts up to 45 kt and seas\n10 to 13 feet.\n\n* WHERE...Chuuk Coastal Waters.\n\n* WHEN...Through Friday night.\n\n* IMPACTS...Very strong winds will cause hazardous seas which\ncould capsize or damage vessels and reduce visibility.\n\n* ADDITIONAL DETAILS...Tropical Depression 04W was located just north\nof Weno and is slowly moving westward. 04W is expected to become\na tropical storm late tonight, potentially bringing tropical storm\nconditions to Weno.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Chuuk Coastal Waters"
+    },
+    {
+      "title": "Small Craft Advisory issued April 9 at 6:09AM EDT until April 9 at 5:00PM EDT by NWS Gaylord MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T06:09:00-04:00",
+      "summary": "* WHAT...Highest gusts up to 25 kts from the west and highest\nwaves around 6 feet.\n\n* WHERE...Portions of Lake Michigan.\n\n* WHEN...Until 5 PM EDT this afternoon.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Grand Traverse Bay south of a line Grand Traverse Light to Norwood MI; Seul Choix Point to 5NM West of Mackinac Bridge; Norwood MI to 5NM West of Mackinac Bridge including Little Traverse Bay; Sleeping Bear Point to Grand Traverse Light MI; Point Betsie to Sleeping Bear Point MI; Manistee to Point Betsie MI"
+    },
+    {
+      "title": "Special Weather Statement issued April 9 at 5:49AM EDT by NWS Binghamton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T05:49:00-04:00",
+      "summary": "The combination of dry fine fuels, southerly wind gusts of to 20\nto 30 mph, and relative humidity values as low as 20 to 35\npercent will contribute to an elevated risk for fire spread\non Thursday for portions of Central New York.\n\nThe annual statewide burn ban is in effect until May 14. No burn\npermits are issued.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Chemung; Tompkins; Madison; Southern Oneida; Cortland; Chenango; Otsego; Tioga; Broome; Delaware; Sullivan"
+    },
+    {
+      "title": "Special Weather Statement issued April 9 at 5:49AM EDT by NWS Binghamton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T05:49:00-04:00",
+      "summary": "The combination of dry fine fuels, southerly wind gusts of to 20\nto 30 mph, and relative humidity values as low as 20 to 35\npercent will contribute to an elevated risk for fire spread\non Thursday for Northeast Pennsylvania. Be sure to heed any local\nand state burning regulations.\n\nThis statement has been issued in coordination with the\nPennsylvania Department of Conservation and Natural Resources.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Bradford; Susquehanna; Northern Wayne; Wyoming; Lackawanna; Luzerne; Pike; Southern Wayne"
+    },
+    {
+      "title": "Special Weather Statement issued April 9 at 5:37AM EDT by NWS Mount Holly NJ",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T05:37:00-04:00",
+      "summary": "There is an elevated risk for fire spread today for portions of\neastern Pennsylvania. Minimum relative humidity values will drop\nto around 30 to 40 percent this afternoon. This will be\naccompanied by southerly winds with gusts up to 20 MPH. These\nconditions, along with the continued drying of fine fuels, could\nsupport the rapid spread of any fires that ignite, which could\nquickly become difficult to control. Conditions improve during the\nevening as the wind diminishes and the relative humidity\ni",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Carbon; Monroe; Berks; Lehigh; Northampton"
+    },
+    {
+      "title": "Special Weather Statement issued April 9 at 5:14AM EDT by NWS Peachtree City GA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T05:14:00-04:00",
+      "summary": "Relative Humidities of 25 percent or less can be expected for 4\nor more hours this afternoon into the evening. Winds will be\nnortheast to southeast at 7 to 12 MPH with gusts up to 20 MPH.\n\nWith dry fuels, high fire danger conditions can be expected.\n\nPlease refer to your local burn permitting authorities whether\nyou may burn outdoors. If you do burn outside, use extreme\ncaution.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Dade; Walker; Catoosa; Whitfield; Murray; Fannin; Gilmer; Union; Towns; Chattooga; Gordon; Pickens; Dawson; Lumpkin; White; Floyd; Bartow; Cherokee; Forsyth; Hall; Banks; Jackson; Madison; Polk; Paulding; Cobb; North Fulton; Gwinnett; Barrow; Clarke; Oconee; Oglethorpe; Wilkes; Haralson; Carroll; Douglas; South Fulton; DeKalb; Rockdale; Walton; Newton; Morgan; Greene; Taliaferro; Heard; Coweta; Fayette; Clayton; Spalding; Henry; Butts; Jasper; Putnam; Hancock; Warren; Troup; Meriwether; Pike; Upson; Lamar; Monroe; Jones; Baldwin; Glascock; Harris; Talbot"
+    },
+    {
+      "title": "Small Craft Advisory issued April 9 at 4:17AM EDT until April 9 at 6:00PM EDT by NWS Key West FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T04:17:00-04:00",
+      "summary": "* WHAT...Northeast winds near 20 knots.\n\n* WHERE...Hawk Channel from Craig Key to Halfmoon Shoal, Gulf\nwaters including the Dry Tortugas, and Florida Bay.\n\n* WHEN...In Effect.\n\n* IMPACTS...A Small Craft Advisory means that wind speeds of 20\nto 33 knots, or seas of 7 feet or greater, are expected to\nproduce hazardous conditions for small craft. These hazardous\nconditions may result in poor vessel handling and steering\nresponse, broaching, overturned dinghies and kayaks, slips and\nfalls on slipper",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Florida Bay including Barnes Sound, Blackwater Sound, and Buttonwood Sound; Bayside and Gulfside from Craig Key to West End of Seven Mile Bridge; Gulf of America from East Cape Sable to Chokoloskee 20 to 60 NM out and beyond 5 fathoms; Gulf of America including Dry Tortugas and Rebecca Shoal Channel; Gulf of America from West End of Seven Mile Bridge to Halfmoon Shoal out to 5 Fathoms; Hawk Channel from Craig Key to west end of Seven Mile Bridge out to the reef; Hawk Channel from west end of Seven Mile Bridge to Halfmoon Shoal out to the reef"
+    },
+    {
+      "title": "Special Weather Statement issued April 9 at 5:51PM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T17:51:00+10:00",
+      "summary": "Tropical Depression 04W formed north of Weno this morning. A Tropical\nStorm Watch has been issued for Fananu and Ulul. A Tropical Storm\nWatch means that tropical storm conditions, including damaging winds\nof 39 to 73 mph, are possible within the next 48 hours. For those\nelsewhere in Chuuk and Yap State, the forecast should be monitored\nclosely for changes in the path or strength of TD 04W. Many locations\nwill experience seas hazardous to small craft through the next several\ndays as swells emanat",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Yap Coastal Waters; Chuuk Coastal Waters"
+    },
+    {
+      "title": "Special Weather Statement issued April 9 at 2:37AM EDT by NWS Greenville-Spartanburg SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T02:37:00-04:00",
+      "summary": "Dry brush and leaf litter have become very dry in recent days due\nto breezy conditions and low relative humidity. These conditions\nare forecast again today. Relative humidity will fall below 25\npercent for much of the afternoon. Given the dry vegetation,\noutdoor fires will be able to spread quickly once started,\nincreasing the danger of wildfires.\n\nPlease refer to your local burn permitting authorities on whether\nyou can burn Thursday. If you do burn, use extreme caution since\nfires can quickly ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Rabun; Habersham; Stephens; Franklin; Hart; Elbert"
+    },
+    {
+      "title": "Frost Advisory issued April 9 at 2:37AM EDT until April 9 at 9:00AM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T02:37:00-04:00",
+      "summary": "* WHAT...Temperatures in the low to mid 30s will result in frost\nformation.\n\n* WHERE...Dorchester, Inland Worcester, Somerset, and Wicomico\nCounties.\n\n* WHEN...Until 9 AM EDT this morning.\n\n* IMPACTS...Frost could harm sensitive outdoor vegetation. Sensitive\noutdoor plants may be killed if left uncovered.\n\n* ADDITIONAL DETAILS...Localized rural sheltered locations will see\ntemperatures as low as 30 to 32 degrees.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dorchester; Wicomico; Somerset; Inland Worcester"
+    },
+    {
+      "title": "Frost Advisory issued April 9 at 2:37AM EDT until April 9 at 9:00AM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T02:37:00-04:00",
+      "summary": "* WHAT...Temperatures in the low to mid 30s will result in frost\nformation.\n\n* WHERE...Portions of northeast North Carolina and central, east\ncentral, north central, south central, and southeast Virginia.\n\n* WHEN...Until 9 AM EDT this morning.\n\n* IMPACTS...Frost could harm sensitive outdoor vegetation. Sensitive\noutdoor plants may be killed if left uncovered.\n\n* ADDITIONAL DETAILS...Localized rural sheltered locations will see\ntemperatures as low as 30 to 32 degrees.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Northampton; Hertford; Prince Edward; Cumberland; Goochland; Caroline; Mecklenburg; Lunenburg; Nottoway; Amelia; Powhatan; Westmoreland; Richmond; Brunswick; Dinwiddie; Prince George; Charles City; New Kent; Greensville; Sussex; Surry; Southampton; Western Hanover; Eastern Hanover; Western Chesterfield; Eastern Chesterfield (Including Col. Heights); Western Henrico (Including the City of Richmond); Eastern Henrico; Western King William; Eastern King William; Western King and Queen; Eastern King and Queen; Western Essex; Eastern Essex"
+    },
+    {
+      "title": "Freeze Warning issued April 9 at 2:37AM EDT until April 9 at 9:00AM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T02:37:00-04:00",
+      "summary": "* WHAT...Temperatures in the upper 20s to lower 30s expected.\n\n* WHERE...Eastern Louisa, Fluvanna, and Western Louisa Counties.\n\n* WHEN...Until 9 AM EDT this morning.\n\n* IMPACTS...Frost and freeze conditions could kill crops, other\nsensitive vegetation and possibly damage unprotected outdoor\nplumbing.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Fluvanna; Western Louisa; Eastern Louisa"
+    },
+    {
+      "title": "Special Weather Statement issued April 9 at 2:36AM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T02:36:00-04:00",
+      "summary": "Southerly wind gusts of 20 to 25 mph are expected to develop this\nafternoon. Still dry, with minimum relative humidity values\nbetween 15 to 25 percent. When combined with the lack of recent\nsignificant rainfall and exposed fine fuels and leaf litter,\nelevated fire weather potential will exist today.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Hartford; Tolland; Windham; Western Franklin; Eastern Franklin; Northern Worcester; Central Middlesex County; Western Essex; Western Hampshire; Western Hampden; Eastern Hampshire; Eastern Hampden; Southern Worcester; Southeast Middlesex; Northwest Middlesex County; Northwest Providence; Southeast Providence"
+    },
+    {
+      "title": "Special Weather Statement issued April 9 at 2:34AM EDT by NWS Burlington VT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T02:34:00-04:00",
+      "summary": "* AFFECTED AREA...Portions of northern New York and central,\nnorthwest and southern Vermont.\n\n* WINDS...South 15 to 25 mph with gusts 30 to 40 mph.\n\n* RELATIVE HUMIDITY...As low as 22 to 28 percent.\n\n* TEMPERATURES...57 to 62 degrees.\n\n* FUELS...Per coordination with our partners, the recent dry\nweather has caused fine dead fuels across the region to dry out.\n\n* ADDITIONAL DETAILS...The warmest temperatures, lowest humidities\nand strongest winds will occur between 1 PM and 5 PM Thursday\nfor most",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Eastern Clinton; Eastern Essex; Grand Isle; Western Franklin; Western Chittenden; Western Addison; Western Rutland"
+    },
+    {
+      "title": "Special Weather Statement issued April 9 at 2:10AM EDT by NWS Albany NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T02:10:00-04:00",
+      "summary": "Gusty south winds are expected today, with speeds up to 25 mph\nand minimum relative humidity values between 20 to 30 percent.\nWhen combined with the lack of recent significant rainfall and\nexposed fine fuels and leaf litter, elevated fire weather\npotential will exist Thursday for Litchfield County.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northern Litchfield; Southern Litchfield"
+    },
+    {
+      "title": "Special Weather Statement issued April 9 at 2:10AM EDT by NWS Albany NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T02:10:00-04:00",
+      "summary": "The combination of dry fine fuels, southerly wind gusts up to 15\nto 25 mph, and relative humidity values as low as 20 to 35 percent\nwill contribute to an elevated risk for fire spread today for\nportions of the Catskills and Mohawk Valley, with the lowest\nrelative humidity and strongest winds occurring this afternoon.\n\nAs a reminder, the annual statewide burn ban is in effect until\nMay 14. No burn permits are issued. Use extra caution if handling\nany potential ignition sources such as machinery o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Southern Herkimer; Montgomery; Schoharie; Western Greene; Western Ulster"
+    },
+    {
+      "title": "Special Weather Statement issued April 9 at 2:10AM EDT by NWS Albany NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T02:10:00-04:00",
+      "summary": "The combination of southerly wind gusts as high as 20 to 30 mph,\nrelative humidity values dropping as low as 20 to 30 percent, and\ndry fine dead fuels will lead to near critical fire weather\nconditions today in Bennington County, mainly for the lower\nelevations where snow has completely melted.\n\nIf any fires were to start, the weather and fuel conditions could\ncause fires to quickly get out of control and be difficult to\ncontain. For more information about the current fire danger\nrating, any bur",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Bennington"
+    },
+    {
+      "title": "Small Craft Advisory issued April 9 at 1:53AM EDT until April 10 at 3:00PM EDT by NWS Wilmington NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T01:53:00-04:00",
+      "summary": "* WHAT...Northeast winds 15 to 25 kt with gusts up to 30 kt and\nseas 4 to 7 ft.\n\n* WHERE...Southeast North Carolina and Northeast South Carolina\ncoastal waters.\n\n* WHEN...Until 3 PM EDT Friday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Surf City to Cape Fear NC out 20 nm; Coastal waters from Cape Fear NC to Little River Inlet SC out 20 nm; Coastal waters from Little River Inlet to Murrells Inlet SC out 20 nm; Coastal waters from Murrells Inlet to South Santee River SC out 20 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 9 at 1:51AM EDT until April 11 at 5:00PM EDT by NWS Newport/Morehead City NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T01:51:00-04:00",
+      "summary": "* WHAT...Northeast winds 15 to 25 kt with gusts up to 30 kt and\nseas 6 to 9 ft.\n\n* WHERE...The coastal waters from Ocracoke Inlet to Surf City.\n\n* WHEN...Until 5 PM EDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "S of Ocracoke Inlet NC to Cape Lookout NC out to 20 nm; S of Cape Lookout NC to Surf City NC out to 20 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 9 at 1:51AM EDT until April 13 at 12:00AM EDT by NWS Newport/Morehead City NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T01:51:00-04:00",
+      "summary": "* WHAT...Northeast winds 15 to 25 kt with gusts up to 30 kt and\nseas 6 to 9 ft.\n\n* WHERE...The coastal waters from Oregon Inlet to Ocracoke Inlet.\n\n* WHEN...Until midnight EDT Sunday night.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "S of Oregon Inlet NC to Cape Hatteras NC out to 20 nm; S of Cape Hatteras NC to Ocracoke Inlet NC out to 20 nm"
+    },
+    {
+      "title": "Rip Current Statement issued April 9 at 1:28AM EDT until April 9 at 8:00PM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T01:28:00-04:00",
+      "summary": "* WHAT...Dangerous rip currents expected.\n\n* WHERE...Bay County Beaches.\n\n* WHEN...Through this evening.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Bay"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 8:51PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T20:51:00-08:00",
+      "summary": "A front will bring snow to Point Hope Thursday afternoon through\nFriday morning. Southerly winds will gust upwards of 45 to 50 mph\nduring this time as well. There is a chance for some blowing snow\nat the onset but with temperatures rising near and above freezing\nThursday night, any blowing snow would be short lived. Snow\ntotals will be around 1 inch.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Western Arctic Coast"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 8:46PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T20:46:00-08:00",
+      "summary": "A front will bring a line of snow and rain Thursday afternoon\ninto Friday morning. The snow will be wet in nature as\ntemperatures rise up to 30F to 35F north/west of the Koyukuk River\nand up to 40F south of the Koyukuk River. Many locations,\nespecially away from the coast may mix with rain Thursday night.\nTotal snow accumulations will generally be around 1 to 3 inches.\n\nSoutherly winds along the coast will peak around 25 to 35 mph\nsouth of the Seward Peninsula, and 35 to 45 mph north of the\nSewa",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "South Slopes of the Western Brooks Range; Noatak Valley; Kivalina and Red Dog Dock; Lower Kobuk Valley; Baldwin Peninsula; Upper Kobuk Valleys; Southern Seward Peninsula Coast; Interior Seward Peninsula; Eastern Norton Sound and Nulato Hills; Yukon Delta Coast; Lower Yukon River; Lower Koyukuk Valley; Middle Yukon Valley; Lower Yukon and Innoko Valleys"
+    },
+    {
+      "title": "Wind Advisory issued April 9 at 12:45AM EDT until April 9 at 8:00PM EDT by NWS Melbourne FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T00:45:00-04:00",
+      "summary": "* WHAT...Northeast winds 15 to 25 mph with gusts near 35 mph.\n\n* WHERE...Coastal Indian River, Coastal Martin, Coastal Saint Lucie,\nCoastal Volusia, Mainland Northern Brevard, Mainland Southern\nBrevard, Northern Brevard Barrier Islands, and Southern Brevard\nBarrier Islands.\n\n* WHEN...Until 8 PM EDT this evening.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Volusia; Coastal Indian River; Coastal St. Lucie; Coastal Martin; Mainland Northern Brevard; Northern Brevard Barrier Islands; Mainland Southern Brevard; Southern Brevard Barrier Islands"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 8:44PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T20:44:00-08:00",
+      "summary": "Gusts through the Bering Strait Coast are expected to reach up to\n45 mph Thursday morning, with the highest gusts expected for St.\nLawrence Island, Wales, and Brevig Mission. Between 1-2 inches of\nsnow is expected for the area through Thursday.\n\nAnother round of precipitation is expected to begin Friday\nmorning, bringing another inch or so of snow. Mixed precipitation\nis possible with this second round, such as rain and freezing\nrain, as temperatures will be above freezing.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Shishmaref; Bering Strait Coast; St Lawrence Island"
+    },
+    {
+      "title": "Flood Warning issued April 8 at 10:43PM EDT until April 9 at 2:00PM EDT by NWS Detroit/Pontiac MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T22:43:00-04:00",
+      "summary": "...The Flood Warning continues for the following rivers in\nMichigan...\n\nShiawassee River At Owosso affecting Saginaw and Shiawassee\nCounties.\n\nFor the SHIAWASSEE...including Owosso...Minor flooding is forecast.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Shiawassee River at Owosso.\n\n* WHEN...Until early tomorrow afternoon.\n\n* ADDITIONAL DETAILS...\n- At 10:15 PM EDT Wednesday the stage was 7.0 feet.\n- Forecast...The river is expected to rise to a crest of 7.0\nfeet just after midnight tonight",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Saginaw, MI; Shiawassee, MI"
+    },
+    {
+      "title": "Flood Warning issued April 8 at 10:42PM EDT until April 10 at 2:00AM EDT by NWS Detroit/Pontiac MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T22:42:00-04:00",
+      "summary": "...The Flood Warning is extended for the following rivers in\nMichigan...\n\nSaginaw River At Saginaw affecting Saginaw and Bay Counties.\n\nFor the Saginaw River...including Saginaw...Minor flooding is\nforecast.\n\n* WHAT...Minor flooding is occurring and minor flooding is forecast.\n\n* WHERE...Saginaw River at Saginaw.\n\n* WHEN...Until early Friday morning.\n\n* ADDITIONAL DETAILS...\n- At 9:00 PM EDT Wednesday the stage was 18.7 feet.\n- Forecast...The river is expected to fall below flood stage\ntomorrow ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Bay, MI; Saginaw, MI"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 10:30PM EDT by NWS Jackson KY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T22:30:00-04:00",
+      "summary": "Temperatures will fall into the low-to-mid 30s early Thursday\nmorning in the sheltered rural hollows and valleys with areas of\nfrost expected. Cold-sensitive vegetation may be damaged.\nTemperatures should remain warm enough to prevent frost in urban\nareas and on ridges.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Rowan; Estill; Powell; Menifee; Jackson; Whitley; Knox; Bell; Harlan; Elliott; Morgan; Johnson; Wolfe; Magoffin; Floyd; Lee; Breathitt; Knott; Owsley; Perry; Clay; Leslie; Letcher; Martin; Pike"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 9:57PM EDT until April 11 at 8:00AM EDT by NWS Miami FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T21:57:00-04:00",
+      "summary": "* WHAT...Northeast winds 15 to 25 kt with gusts to 30 kt and rough\nbay waters.\n\n* WHERE...Biscayne Bay.\n\n* WHEN...Until 8 AM EDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Biscayne Bay"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 9:07PM EDT by NWS Peachtree City GA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T21:07:00-04:00",
+      "summary": "Relative Humidities of 25 percent or less can be expected for 4\nor more hours Thursday afternoon into the evening. Winds will be\nnortheast to southeast at 7 to 12 MPH with gusts up to 20 MPH.\n\nWith dry fuels, high fire danger conditions can be expected.\n\nPlease refer to your local burn permitting authorities whether\nyou may burn outdoors. If you do burn outside, use extreme\ncaution.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Dade; Walker; Catoosa; Whitfield; Murray; Fannin; Gilmer; Union; Towns; Chattooga; Gordon; Pickens; Dawson; Lumpkin; White; Floyd; Bartow; Cherokee; Forsyth; Hall; Banks; Jackson; Madison; Polk; Paulding; Cobb; North Fulton; Gwinnett; Barrow; Clarke; Oconee; Oglethorpe; Wilkes; Haralson; Carroll; Douglas; South Fulton; DeKalb; Rockdale; Walton; Newton; Morgan; Greene; Taliaferro; Heard; Coweta; Fayette; Clayton; Spalding; Henry; Butts; Jasper; Putnam; Hancock; Warren; Troup; Meriwether; Pike; Upson; Lamar; Monroe; Jones; Baldwin; Glascock; Harris; Talbot"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 3:02PM HST by NWS Honolulu HI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:02:00-10:00",
+      "summary": "|...KILAUEA EPISODE 44 PRECURSORY ACTIVITY RESUMED EARLY THIS\nMORNING...\n\nWHAT...An episodic fountaining eruption is expected within\nthe Kilauea summit caldera. The Hawaiian Volcano Observatory has\nindicated a potential eruption window extends through Wednesday,\nApril 15th. Fountaining episodes typically last less than 12\nhours but ash can remain in the air longer depending on wind and\nweather.\n\nIMPACTS...If an eruption occurs, varying levels of ash, Pele's\nhair, and other lightweight tephra may",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kona; Kohala; Big Island Interior; Big Island Summit; Big Island South; Big Island Southeast; Big Island East; Big Island North"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...SE winds 10 kt.\n.THU...S winds 25 kt.\n.THU NIGHT...S winds 20 kt. Blowing snow. Snow. Vsby 1 NM or\nless.\n.FRI...S winds 10 kt.\n.FRI NIGHT...S winds 15 kt.\n.SAT...S winds 15 kt.\n.SAT NIGHT...SE winds 10 kt.\n.SUN...NW winds 10 kt.\n.MON...W winds 5 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Norton Sound greater than 15 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...SE winds 10 kt becoming S 20 kt.\n.THU...S winds 25 kt. Blowing snow. Snow. Vsby 1 NM or less.\n.THU NIGHT...SW winds 15 kt.\n.FRI...S winds 20 kt.\n.FRI NIGHT...S winds 20 kt.\n.SAT...S winds 15 kt.\n.SAT NIGHT...S winds 10 kt.\n.SUN...W winds 10 kt.\n.MON...E winds 10 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Etolin Strait to Kwemeluk Pass from 15 to 90 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...NE winds 5 kt becoming SE.\n.THU...S winds 25 kt.\n.THU NIGHT...S winds 20 kt. Blowing snow. Snow.\n.FRI...S winds 10 kt.\n.FRI NIGHT...S winds 15 kt.\n.SAT...S winds 15 kt.\n.SAT NIGHT...SE winds 10 kt.\n.SUN...W winds 10 kt.\n.MON...W winds 10 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kwikpak Pass to Cape Stephens out to 15 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...SE winds 15 kt.\n.THU...S winds 25 kt.\n.THU NIGHT...S winds 20 kt. Snow.\n.FRI...S winds 10 kt.\n.FRI NIGHT...SE winds 15 kt.\n.SAT...S winds 10 kt. Snow.\n.SAT NIGHT...E winds 10 kt.\n.SUN...NW winds 5 kt.\n.MON...NW winds 5 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Moses Point to Sledge Island out to 15 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...SE winds 10 kt increasing to 20 kt.\n.THU...S winds 25 kt. Blowing snow. Snow. Vsby 1 NM or less.\n.THU NIGHT...SW winds 20 kt. Blowing snow. Vsby 1 NM or less.\n.FRI...S winds 15 kt.\n.FRI NIGHT...S winds 20 kt.\n.SAT...S winds 15 kt.\n.SAT NIGHT...SE winds 10 kt.\n.SUN..",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kwemeluk Pass to Kwikpak Pass from 15 to 90 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...E winds 15 kt.\n.THU...SE winds 25 kt. Blowing snow. Vsby 1 NM or less.\n.THU NIGHT...SE winds 25 kt. Blowing snow. Vsby 1 NM or less.\n.FRI...S winds 10 kt.\n.FRI NIGHT...SE winds 15 kt.\n.SAT...SE winds 15 kt.\n.SAT NIGHT...E winds 15 kt.\n.SUN...N winds 10 kt.\n.MON...W ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kotzebue Sound greater than 10 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...E winds 5 kt increasing to 15 kt.\n.THU...E winds 25 kt. Blowing snow. Vsby 1 NM or less.\n.THU NIGHT...SE winds 25 kt. Blowing snow. Snow. Vsby 1 NM or\nless.\n.FRI...S winds 10 kt.\n.FRI NIGHT...SE winds 15 kt.\n.SAT...SE winds 15 kt.\n.SAT NIGHT...E winds 15 kt.\n.SUN...",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Motherwood Point to Cape Krusenstern out to 10 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...NW winds 5 kt becoming S 15 kt.\n.THU...S winds 30 kt. Snow and rain.\n.THU NIGHT...SW winds 20 kt.\n.FRI...S winds 15 kt.\n.FRI NIGHT...S winds 20 kt.\n.SAT...S winds 15 kt. Snow and rain.\n.SAT NIGHT...S winds 10 kt.\n.SUN...W winds 10 kt.\n.MON...NW winds 15 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Etolin Strait to Dall Point out to 15 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...NE winds 5 kt becoming S 15 kt.\n.THU...S winds 25 kt. Blowing snow. Vsby 1 NM or less.\n.THU NIGHT...SW winds 20 kt.\n.FRI...S winds 10 kt.\n.FRI NIGHT...S winds 20 kt.\n.SAT...S winds 15 kt.\n.SAT NIGHT...S winds 10 kt.\n.SUN...W winds 10 kt.\n.MON...NW winds 10 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dall Point to Kwikpak Pass out to 15 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...E winds 15 kt.\n.THU...SE winds 25 kt. Blowing snow. Vsby 1 NM or less.\n.THU NIGHT...S winds 20 kt. Blowing snow. Vsby 1 NM or less.\n.FRI...S winds 10 kt.\n.FRI NIGHT...SE winds 15 kt.\n.SAT...SE winds 15 kt.\n.SAT NIGHT...E winds 10 kt.\n.SUN...N winds 10 kt.\n.MON...W w",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Espenberg to Motherwood Point out to 10 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...SE winds 15 kt increasing to 25 kt.\n.THU...SE winds 30 kt. Blowing snow. Snow. Vsby 1 NM or less.\n.THU NIGHT...S winds 25 kt. Blowing snow. Vsby 1 NM or less.\n.FRI...S winds 20 kt.\n.FRI NIGHT...SE winds 25 kt. Snow.\n.SAT...S winds 15 kt. Snow.\n.SAT NIGHT...E winds 1",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Sledge Island to Wales out to 15 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...SE winds 10 kt increasing to 25 kt.\n.THU...SE winds 30 kt. Blowing snow. Vsby 1 NM or less.\n.THU NIGHT...S winds 30 kt. Blowing snow. Snow. Vsby 1 NM or\nless.\n.FRI...S winds 15 kt.\n.FRI NIGHT...SE winds 20 kt.\n.SAT...SE winds 20 kt.\n.SAT NIGHT...E winds 15 kt.\n.SUN.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Krusenstern to Cape Thompson out to 15 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...SE winds 20 kt increasing to 30 kt. Blowing snow. Vsby\n1 NM or less.\n.THU...S winds 30 kt. Snow with rain.\n.THU NIGHT...SW winds 20 kt.\n.FRI...S winds 25 kt. Blowing snow. Vsby 1 NM or less.\n.FRI NIGHT...S winds 20 kt. Snow.\n.SAT...S winds 15 kt.\n.SAT NIGHT...SE win",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "North Side of Saint Lawrence Island out to 15 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...SE winds 25 kt.\n.THU...SE winds 30 kt. Blowing snow. Vsby 1 NM or less.\n.THU NIGHT...S winds 25 kt. Blowing snow. Vsby 1 NM or less.\n.FRI...S winds 20 kt. Blowing snow.\n.FRI NIGHT...S winds 20 kt.\n.SAT...SE winds 15 kt.\n.SAT NIGHT...E winds 10 kt.\n.SUN...N winds 10 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Wales to Cape Thompson greater than 15 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 8 at 3:49PM AKDT until April 9 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T15:49:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...SE winds 25 kt.\n.THU...SE winds 30 kt. Blowing snow. Vsby 1 NM or less.\n.THU NIGHT...S winds 25 kt. Blowing snow. Vsby 1 NM or less.\n.FRI...S winds 20 kt. Blowing snow.\n.FRI NIGHT...S winds 25 kt.\n.SAT...SE winds 15 kt.\n.SAT NIGHT...E winds 10 kt.\n.SUN...N winds 10 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Wales to Cape Espenberg out to 15 NM"
+    }
+  ]
+}

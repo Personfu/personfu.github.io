@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-04-10T11:34:37.023968Z",
+  "items": [
+    {
+      "title": "Small Craft Advisory issued April 10 at 3:33AM AKDT until April 11 at 6:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T03:33:00-08:00",
+      "summary": "* WHAT...Northwest wind 15 to 25 knots. Seas 6 to 8 ft expected.\n\n* WHERE...Dixon Entrance to Cape Decision from 15 to 90 NM.\n\n* WHEN...From 4 AM to 6 AM AKDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision from 15 to 90 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 3:33AM AKDT until April 11 at 6:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T03:33:00-08:00",
+      "summary": "* WHAT...North winds 20 to 30 kt with gusts up to 35 kt expected.\n\n* WHERE...Northern Lynn Canal.\n\n* WHEN...From 1 AM to 6 AM AKDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Northern Lynn Canal"
+    },
+    {
+      "title": "Flood Warning issued April 10 at 6:05AM CDT until April 10 at 3:30PM CDT by NWS Topeka KS",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T06:05:00-05:00",
+      "summary": "...The National Weather Service in Topeka KS has issued a Flood\nWarning for the following rivers in Kansas...\n\nBig Blue River near Blue Rapids affecting Marshall County.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Big Blue River near Blue Rapids.\n\n* WHEN...From this morning to late this afternoon.\n\n* IMPACTS...At 26.0 feet, Minor lowland flooding occurs from\nMarysville to Tuttle Creek Lake.\n\n* ADDITIONAL DETAILS...\n- At 5:15 AM CDT Friday the stage was 25.9 feet.\n- Forecast...The river is e",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Marshall, KS"
+    },
+    {
+      "title": "Special Weather Statement issued April 10 at 6:50AM EDT by NWS Pittsburgh PA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T06:50:00-04:00",
+      "summary": "The combination of marginally dry and breezy conditions will\ncreate an elevated risk of wildfire spread across most of central\nPennsylvania once again today. Minimum relative humidity values\nwill be between 25 and 35 percent over the bulk of the region,\nthough rain sneaking into northwest PA may limit those humidity\ndrops to the 40 percent range.\n\nWind gusts will be from the south to southwest between 15 and 25\nmph with an occasional 30 mph gust in higher terrain locations\nbetween noon and 5pm E",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Mercer; Venango; Forest; Lawrence; Butler; Clarion; Jefferson; Beaver; Allegheny; Armstrong; Washington; Greene; Westmoreland; Westmoreland Ridges; Fayette; Fayette Ridges; Indiana; Higher Elevations of Indiana"
+    },
+    {
+      "title": "Special Weather Statement issued April 10 at 6:04AM EDT by NWS Mount Holly NJ",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T06:04:00-04:00",
+      "summary": "Patchy fog, locally dense at times, will continue this morning.\nVisibilities at times will be less than one mile. If driving this\nmorning, be prepared for rapidly changing conditions. Use caution\nwhen traveling by reducing your speed, turning on your low beam\nheadlights, and following at a greater distance.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kent; Inland Sussex; Delaware Beaches; Kent; Queen Anne's; Talbot; Caroline"
+    },
+    {
+      "title": "Special Weather Statement issued April 10 at 5:53AM EDT by NWS State College PA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T05:53:00-04:00",
+      "summary": "The combination of marginally dry and breezy conditions will\ncreate an elevated risk of wildfire spread across most of central\nPennsylvania once again today. Minimum relative humidity values\nwill be between 30 and 35 percent over the bulk of the region, but\ncould drop as low as the mid 20s for several hours this\nafternoon.\n\nWind gusts will be from the south to southwest between 15 and 25\nmph. Some locations across the Central and Northern Mountains\ncould see gusts from the southwest topping 30 m",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Potter; Elk; Cameron; Northern Clinton; Clearfield; Northern Centre; Southern Centre; Cambria; Blair; Huntingdon; Mifflin; Juniata; Somerset; Bedford; Fulton; Franklin; Tioga; Northern Lycoming; Sullivan; Southern Clinton; Southern Lycoming; Union; Snyder; Montour; Northumberland; Columbia; Perry; Dauphin; Schuylkill; Lebanon; Cumberland; Adams; York; Lancaster"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 2:51AM PDT until April 11 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:51:00-07:00",
+      "summary": "* WHAT...South winds 15 to 25 kt with gusts up to 30 kt expected.\n\n* WHERE...Coastal Waters from Pigeon Point to Point Pinos\nCalifornia out to 10 NM.\n\n* WHEN...From 9 AM to 9 PM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Pigeon Point to Point Pinos California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 2:51AM PDT until April 11 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:51:00-07:00",
+      "summary": "* WHAT...South winds 20 to 25 kt with gusts up to 30 kt expected.\n\n* WHERE...Waters from Point Reyes to Pigeon Point 10-60 NM.\n\n* WHEN...From 3 PM to 9 PM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Reyes to Pigeon Point 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 2:51AM PDT until April 11 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:51:00-07:00",
+      "summary": "* WHAT...South winds 15 to 25 kt with gusts up to 30 kt expected.\n\n* WHERE...Waters from Point Pinos to Point Piedras Blancas 10-\n60 NM.\n\n* WHEN...From 3 PM to 9 PM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Pinos to Point Piedras Blancas 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 2:51AM PDT until April 11 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:51:00-07:00",
+      "summary": "* WHAT...South winds 15 to 25 kt with gusts up to 30 kt expected.\n\n* WHERE...Coastal Waters from Point Reyes to Pigeon Point\nCalifornia out to 10 NM.\n\n* WHEN...From 9 AM to 9 PM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Reyes to Pigeon Point California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 2:51AM PDT until April 11 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:51:00-07:00",
+      "summary": "* WHAT...South winds 15 to 25 kt with gusts up to 30 kt and\nrough waters expected.\n\n* WHERE...San Francisco Bay South of the Bay Bridge.\n\n* WHEN...From 3 PM to 9 PM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "San Francisco Bay South of the Bay Bridge"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 2:51AM PDT until April 11 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:51:00-07:00",
+      "summary": "* WHAT...South winds 20 to 25 kt with gusts up to 30 kt expected.\n\n* WHERE...Waters from Pigeon Point to Point Pinos 10-60 NM.\n\n* WHEN...From 3 PM to 9 PM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Pigeon Point to Point Pinos 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 2:51AM PDT until April 11 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:51:00-07:00",
+      "summary": "* WHAT...South winds 15 to 25 kt with gusts up to 30 kt expected.\n\n* WHERE...Monterey Bay.\n\n* WHEN...From 9 AM to 9 PM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Monterey Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 2:51AM PDT until April 11 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:51:00-07:00",
+      "summary": "* WHAT...South winds 15 to 20 kt with gusts up to 30 kt and\nchoppy waters expected.\n\n* WHERE...San Pablo Bay, Suisun Bay, the West Delta and the San\nFrancisco Bay north of the Bay Bridge.\n\n* WHEN...From 9 AM to 9 PM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "San Pablo Bay, Suisun Bay, the West Delta and  the San Francisco Bay north of the Bay Bridge"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 2:51AM PDT until April 11 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:51:00-07:00",
+      "summary": "* WHAT...South winds 15 to 25 kt with gusts up to 30 kt expected.\n\n* WHERE...Coastal Waters from Point Pinos to Point Piedras\nBlancas California out to 10 NM.\n\n* WHEN...From 9 AM to 9 PM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Pinos to Point Piedras Blancas California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 2:51AM PDT until April 11 at 3:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:51:00-07:00",
+      "summary": "* WHAT...South winds 10 to 20 kt expected.\n\n* WHERE...Coastal Waters from Point Arena to Point Reyes\nCalifornia out to 10 NM.\n\n* WHEN...From 9 AM to 3 PM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Arena to Point Reyes California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 5:50AM EDT until April 11 at 8:00PM EDT by NWS Caribou ME",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T05:50:00-04:00",
+      "summary": "* WHAT...Southwest winds 10 to 20 kt with gusts up to 25 kt,\nbecoming northwest tonight and seas 3 to 6 ft expected.\n\n* WHERE...Coastal Waters from Eastport, ME to Schoodic Point, ME\nout 25 NM and Coastal Waters from Schoodic Point, ME to\nStonington, ME out 25 NM.\n\n* WHEN...From 6 PM this evening to 8 PM EDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Eastport, ME to Schoodic Point, ME out 25 NM; Coastal Waters from Schoodic Point, ME to Stonington, ME out 25 NM"
+    },
+    {
+      "title": "Flood Watch issued April 10 at 4:44AM CDT until April 14 at 1:00AM CDT by NWS Milwaukee/Sullivan WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T04:44:00-05:00",
+      "summary": "...The National Weather Service in Milwaukee/Sullivan WI has issued\na Flood Watch for the following rivers in Wisconsin...Illinois...\n\nFox River Lower Near New Munster affecting Lake and Kenosha\nCounties.\n\n* WHAT...Flooding is possible.\n\n* WHERE...Fox River Lower near New Munster.\n\n* WHEN...From early this morning to early Tuesday morning.\n\n* IMPACTS...At 11.0 feet, Floodwaters begin to affect 77th St. in\nthe Town of Wheatland. Floodwaters are near some homes along\nRiverside Dr, Shorewood Dr, an",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Lake, IL; Kenosha, WI"
+    },
+    {
+      "title": "Special Weather Statement issued April 10 at 5:34AM EDT by NWS Raleigh NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T05:34:00-04:00",
+      "summary": "Areas of fog have developed over the northern Coastal Plain of\ncentral North Carolina. While widespread dense fog is not\ncurrently anticipated, motorists may experience reduced visibilities\nof a quarter mile or less at times, especially in low lying\nareas along Interstate 95 and the US-64 corridor. Visibilities\nshould improve by 9 AM this morning.\n\nIf driving this morning, make sure to allow extra driving time to\nreach your destination. Reduce driving speeds, increase following\ndistances, and us",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Vance; Warren; Halifax; Franklin; Nash; Edgecombe; Wilson"
+    },
+    {
+      "title": "High Surf Advisory issued April 10 at 5:18AM EDT until April 10 at 8:00PM EDT by NWS Melbourne FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T05:18:00-04:00",
+      "summary": "* WHAT...For the High Surf Advisory, large breaking waves of 6\nto 8 feet in the surf zone. For the High Rip Current Risk,\ndangerous rip currents.\n\n* WHERE...Coastal Volusia, Coastal Brevard, Coastal Indian River,\nCoastal Saint Lucie, and Coastal Martin Counties.\n\n* WHEN...For the High Surf Advisory, until 8 PM EDT this\nevening. For the High Rip Current Risk, through late Sunday\nnight.\n\n* IMPACTS...Dangerous swimming and surfing conditions and\nlocalized beach erosion. Rip currents can sweep even ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Volusia; Coastal Indian River; Coastal St. Lucie; Coastal Martin; Mainland Northern Brevard; Northern Brevard Barrier Islands; Mainland Southern Brevard; Southern Brevard Barrier Islands"
+    },
+    {
+      "title": "Rip Current Statement issued April 10 at 5:18AM EDT until April 13 at 2:00AM EDT by NWS Melbourne FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T05:18:00-04:00",
+      "summary": "* WHAT...For the High Surf Advisory, large breaking waves of 6\nto 8 feet in the surf zone. For the High Rip Current Risk,\ndangerous rip currents.\n\n* WHERE...Coastal Volusia, Coastal Brevard, Coastal Indian River,\nCoastal Saint Lucie, and Coastal Martin Counties.\n\n* WHEN...For the High Surf Advisory, until 8 PM EDT this\nevening. For the High Rip Current Risk, through late Sunday\nnight.\n\n* IMPACTS...Dangerous swimming and surfing conditions and\nlocalized beach erosion. Rip currents can sweep even ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Volusia; Coastal Indian River; Coastal St. Lucie; Coastal Martin; Mainland Northern Brevard; Northern Brevard Barrier Islands; Mainland Southern Brevard; Southern Brevard Barrier Islands"
+    },
+    {
+      "title": "Special Weather Statement issued April 10 at 7:10PM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T19:10:00+10:00",
+      "summary": "Tropical Storm Sinlaku (04W) continues to organize north-northwest of\nChuuk. This system is currently moving very slowly in a west to\nnorthwest direction, and this trend is expected to continue for\nanother roughly another 24 to 36 hours, before increasing slightly\nin forward speed. TS Sinlaku is expected to strengthen as it\napproaches the Marianas, possibly crossing Guam as a category 3\ntyphoon. Models continue to show a slight spread where TS Sinlaku's\ntrack could shift slightly north or south,",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Guam; Rota; Tinian; Saipan"
+    },
+    {
+      "title": "Rip Current Statement issued April 10 at 5:06AM EDT until April 11 at 6:00AM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T05:06:00-04:00",
+      "summary": "* WHAT...Dangerous rip currents.\n\n* WHERE...Walton County Beaches.\n\n* WHEN...Through late tonight.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "South Walton"
+    },
+    {
+      "title": "Special Weather Statement issued April 10 at 5:01AM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T05:01:00-04:00",
+      "summary": "Cameras and observations indicated that patchy dense fog has\ndeveloped across the MD Eastern Shore. Visibilities will average\nbetween one half and two miles, but could drop to less than a\nquarter mile at times. The fog will persist through around or\njust after sunrise.\n\nMotorists should be alert for sudden changes in visibility due to\nthe areas of fog. Drive at reduced speeds and use low beam\nheadlights only.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Dorchester"
+    },
+    {
+      "title": "Wind Advisory issued April 10 at 1:01AM PDT until April 10 at 11:00PM PDT by NWS Las Vegas NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T01:01:00-07:00",
+      "summary": "* WHAT...South winds 20 to 30 mph with gusts up to 45 mph expected.\nWesterly downslope winds will be possible later this\nafternoon/early this evening in the southern Owens Valley.\n\n* WHERE...Owens Valley.\n\n* WHEN...From noon today to 11 PM PDT this evening.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Owens Valley"
+    },
+    {
+      "title": "Wind Advisory issued April 10 at 1:01AM PDT until April 10 at 11:00PM PDT by NWS Las Vegas NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T01:01:00-07:00",
+      "summary": "* WHAT...Southerly-to-southwesterly winds 20 to 30 mph with gusts up\nto 45 mph expected.\n\n* WHERE...In California, Death Valley National Park, Morongo Basin,\nand Western Mojave Desert. In Nevada, Esmeralda and Central Nye\nCounty.\n\n* WHEN...From noon today to 11 PM PDT this evening.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Death Valley National Park; Western Mojave Desert; Morongo Basin; Esmeralda and Central Nye County"
+    },
+    {
+      "title": "Hydrologic Outlook issued April 10 at 5:55PM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T17:55:00+10:00",
+      "summary": "ESFGUM\n\nThis Hydrologic Outlook is for Guam, Rota, Tinian and Saipan.\n\nTropical Storm Sinlaku is slowly approaching the Marianas and is\nexpected to strengthen, possibly crossing Guam as a category 3\ntyphoon.\n\nThis is expected to produce 15 to 20 inches of rainfall between\nSunday night and Wednesday for Guam and Rota, with 8 to 15 inches\nexpected for Tinian and Saipan. Widespread showers, torrential rain\nand scattered thunderstorms are expected as Sinlaku moves through\nthe Marianas Tuesday throug",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Unknown",
+      "area": "Guam, GU; Rota, MP; Saipan, MP; Tinian, MP"
+    },
+    {
+      "title": "Rip Current Statement issued April 10 at 2:52AM CDT until April 11 at 6:00AM CDT by NWS Mobile AL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:52:00-05:00",
+      "summary": "* WHAT...Dangerous rip currents.\n\n* WHERE...In Alabama, Mobile Coastal and Baldwin Coastal\nCounties. In Florida, Escambia Coastal, Santa Rosa Coastal and\nOkaloosa Coastal Counties.\n\n* WHEN...Through late tonight.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Mobile Coastal; Baldwin Coastal; Escambia Coastal; Santa Rosa Coastal; Okaloosa Coastal"
+    },
+    {
+      "title": "Special Weather Statement issued April 10 at 3:21AM EDT by NWS Peachtree City GA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T03:21:00-04:00",
+      "summary": "Relative Humidities of 25 percent or less can be expected for\n4 or more hours this afternoon into the evening. Winds will be\neast to southeast at 3 to 6 MPH.\n\nWith dry fuels, high fire danger conditions can be expected.\n\nPlease refer to your local burn permitting authorities\nwhether you may burn outdoors.  If you do burn outside,\nuse extreme caution.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Dade; Walker; Catoosa; Whitfield; Murray; Fannin; Gilmer; Union; Towns; Chattooga; Gordon; Pickens; Dawson; Lumpkin; White; Floyd; Bartow; Cherokee; Forsyth; Hall; Banks; Jackson; Madison; Polk; Paulding; Cobb; North Fulton; Gwinnett; Barrow; Clarke; Oconee; Oglethorpe; Haralson; Carroll; Douglas; South Fulton; DeKalb; Rockdale; Walton; Coweta; Fayette; Clayton; Henry"
+    },
+    {
+      "title": "High Surf Advisory issued April 10 at 4:37PM ChST until April 12 at 6:00PM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T16:37:00+10:00",
+      "summary": "* WHAT...Large breaking waves of 8 to 12 feet and dangerous rip\ncurrents.\n\n* WHERE...North and east facing reefs of the Marianas.\n\n* WHEN...Until 6 PM ChST Sunday.\n\n* IMPACTS...Dangerous swimming and surfing conditions and\nlocalized beach erosion. Rip currents can sweep even the best\nswimmers away from shore into deeper water.\n\n* ADDITIONAL DETAILS...Strong to near-gale trade winds, enhanced by\nTS Sinlaku, are producing an east swell near 10 feet. This will\nproduce hazardous surf of 8 to 10 feet",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Guam; Rota; Tinian; Saipan"
+    },
+    {
+      "title": "Special Weather Statement issued April 10 at 2:35AM EDT by NWS Greenville-Spartanburg SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:35:00-04:00",
+      "summary": "Fine fuels remain very dry thanks to a lack of rainfall and\nlow relative humidity the last few days. Although winds will\nbe light today, relative humidity values are expected to fall\nbelow 25 percent again this afternoon and evening. Given the\ndry vegetation, outdoor fires will be able to spread quickly\nonce started.\n\nPlease refer to your local burn permitting authorities on whether\nyou can burn today. If you do burn, use extreme caution as fires\ncan quickly get out of hand under these condition",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Rabun; Habersham; Stephens; Franklin; Hart; Elbert"
+    },
+    {
+      "title": "Winter Weather Advisory issued April 9 at 11:32PM PDT until April 12 at 11:00PM PDT by NWS Las Vegas NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T23:32:00-07:00",
+      "summary": "* WHAT...Snow and strong winds will make for hazardous conditions in\nthe Eastern Sierra. Snow accumulations of 3 to 7 inches between\n8,000 and 9,500 feet expected. Snow accumulations of 8 to 12\ninches above 9,500 feet, with locally higher totals exceeding 1\nfoot possible along the ridgeline. Winds may gust as high as 60\nmph.\n\n* WHERE...Elevations above 8,000 feet in the Eastern Sierra Slopes.\n\n* WHEN...From 11 PM Friday to 11 PM PDT Sunday.\n\n* IMPACTS...Roads, and especially bridges and overpass",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Eastern Sierra Slopes of Inyo County"
+    },
+    {
+      "title": "Special Weather Statement issued April 10 at 2:32AM EDT by NWS Albany NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:32:00-04:00",
+      "summary": "The combination of dry fine fuels, southerly wind gusts between 25\nand 35 mph, and minimum relative humidity values between 30 to 35\npercent will contribute to an elevated risk for fire spread today\nfor portions of the Catskills and Hudson Valley. The lowest\nrelative humidity values and strongest winds will likely occur\nthis afternoon.\n\nAs a reminder, the annual statewide burn ban is in effect until\nMay 14. No burn permits are issued. Use extra caution if handling\nany potential ignition sources ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Western Schenectady; Eastern Schenectady; Western Albany; Eastern Albany; Western Rensselaer; Eastern Rensselaer; Western Greene; Eastern Greene; Western Columbia; Eastern Columbia; Western Ulster; Eastern Ulster; Western Dutchess; Eastern Dutchess"
+    },
+    {
+      "title": "Special Weather Statement issued April 10 at 2:31AM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:31:00-04:00",
+      "summary": "Cameras and observations indicated that patchy dense fog has\ndeveloped across a majority of the MD and VA Eastern Shore\ncounties. Visibilities will average between one half and two\nmiles, but could drop to less than a mile a times. The fog will\npersist through around or just after sunrise. If fog becomes more\nwidespread with visibilities less of or less than a quarter mile,\na Dense Fog Advisory may be needed.\n\nMotorists should be alert for sudden changes in visibility due to\nthe areas of fog. Dr",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Wicomico; Somerset; Inland Worcester; Accomack; Northampton"
+    },
+    {
+      "title": "Wind Advisory issued April 9 at 11:23PM PDT until April 11 at 5:00AM PDT by NWS Phoenix AZ",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T23:23:00-07:00",
+      "summary": "* WHAT...West winds 25 to 35 mph with gusts up to 55 mph expected.\n\n* WHERE...Southwest corner of Imperial County.\n\n* WHEN...From 5 PM Friday to 5 AM PDT Saturday.\n\n* IMPACTS...Difficult driving conditions, especially for larger\nvehicles traveling along roads with crosswinds. Light, unsecured\nobjects may become airborne.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Imperial County Southwest"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 2:09AM EDT until April 11 at 2:00PM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T02:09:00-04:00",
+      "summary": "* WHAT...Southwest winds 10 to 15 kt with gusts up to 25 kt late\nthis afternoon into this evening, then becoming NW by Saturday\nmorning. Seas of 4 to 6 feet expected.\n\n* WHERE...Sandy Hook NJ to Montauk Point NY out 20 nm.\n\n* WHEN...From 4 PM this afternoon to 2 PM EDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.\n\n* ADDITIONAL DETAILS...Seas are expected to gradually fall below\n5 feet during Saturday afternoon.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Moriches Inlet NY to Montauk Point NY out 20 nm; Fire Island Inlet NY to Moriches Inlet NY out 20 nm; Sandy Hook NJ to Fire Island Inlet NY out 20 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 1:51AM EDT until April 11 at 6:00AM EDT by NWS Mount Holly NJ",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T01:51:00-04:00",
+      "summary": "* WHAT...Southwest winds 5 to 15 kt and seas 4 to 6 ft expected.\n\n* WHERE...Coastal waters from Sandy Hook to Manasquan Inlet NJ\nout 20 nm, Coastal waters from Manasquan Inlet to Little Egg\nInlet NJ out 20 nm and Coastal waters from Little Egg Inlet to\nGreat Egg Inlet NJ out 20 nm.\n\n* WHEN...From 1 PM this afternoon to 6 AM EDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Sandy Hook to Manasquan Inlet NJ out 20 nm; Coastal waters from Manasquan Inlet to Little Egg Inlet NJ out 20 nm; Coastal waters from Little Egg Inlet to Great Egg Inlet NJ out 20 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 1:51AM EDT until April 11 at 6:00AM EDT by NWS Mount Holly NJ",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T01:51:00-04:00",
+      "summary": "* WHAT...South winds 10 to 15 kt and seas 4 to 6 ft expected.\n\n* WHERE...Coastal waters from Great Egg Inlet to Cape May NJ out\n20 nm, Coastal waters from Cape May NJ to Cape Henlopen DE out\n20 nm and Coastal waters from Cape Henlopen to Fenwick Island\nDE out 20 nm.\n\n* WHEN...From noon today to 6 AM EDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Great Egg Inlet to Cape May NJ out 20 nm; Coastal waters from Cape May NJ to Cape Henlopen DE out 20 nm; Coastal waters from Cape Henlopen to Fenwick Island DE out 20 nm"
+    },
+    {
+      "title": "Marine Weather Statement issued April 9 at 10:47PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T22:47:00-07:00",
+      "summary": "Two rounds of thunderstorms are expected to pass through the\ncoastal waters and bays. The first round is expected to arrive\nFriday morning and last through the day, with the second round\nexpected to pass through Saturday afternoon into Sunday. These\nthunderstorms bring the risk of frequent lightning, locally gusty\nwinds, localized heavy rainfall, accumulating small hail, and\nwaterspouts. Mariners should note the expected forecast and have a\nplan to reach safe harbor quickly if thunderstorms deve",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "San Pablo Bay, Suisun Bay, the West Delta and  the San Francisco Bay north of the Bay Bridge; San Francisco Bay South of the Bay Bridge; Monterey Bay; Coastal Waters from Point Arena to Point Reyes California out to 10 nm; Coastal Waters from Point Reyes to Pigeon Point California out to 10 nm; Coastal Waters from Pigeon Point to Point Pinos California out to 10 nm; Coastal Waters from Point Pinos to Point Piedras Blancas California out to 10 nm; Waters from Point Arena to Point Reyes 10-60 NM; Waters from Point Reyes to Pigeon Point 10-60 NM; Waters from Pigeon Point to Point Pinos 10-60 NM; Waters from Point Pinos to Point Piedras Blancas 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 1:44AM EDT until April 11 at 2:00PM EDT by NWS Gray ME",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T01:44:00-04:00",
+      "summary": "* WHAT...Southwest winds 15 to 25 kt with gusts up to 30 kt and\nseas 3 to 6 ft expected.\n\n* WHERE...Coastal Waters from Stonington, ME to Port Clyde, ME\nout 25 NM, Coastal Waters from Port Clyde, ME to Cape\nElizabeth, ME out 25 NM and Coastal Waters from Cape\nElizabeth, ME to Merrimack River, MA out 25 NM.\n\n* WHEN...From 2 PM this afternoon to 2 PM EDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Stonington, ME to Port Clyde, ME out 25 NM; Coastal Waters from Port Clyde, ME to Cape Elizabeth, ME out 25 NM; Coastal Waters from Cape Elizabeth, ME to Merrimack River, MA out 25 NM"
+    },
+    {
+      "title": "Wind Advisory issued April 9 at 10:43PM PDT until April 12 at 11:00PM PDT by NWS Hanford CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T22:43:00-07:00",
+      "summary": "* WHAT...Southwest winds 20 to 30 mph with gusts up to 50 mph\nexpected.\n\n* WHERE...Mojave Desert Slopes.\n\n* WHEN...From 11 AM Friday to 11 PM PDT Sunday.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.\n\n* ADDITIONAL DETAILS...Includes State Routes 14, 58, and 178, as\nwell as U.S. 395.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Mojave Desert Slopes"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 1:39AM EDT until April 11 at 2:00AM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T01:39:00-04:00",
+      "summary": "* WHAT...Southwest winds 10 to 15 kt with gusts up to 30 kt and\nseas 3 to 4 feet expected.\n\n* WHERE...In Massachusetts coastal waters, Cape Cod Bay,\nNantucket Sound, Vineyard Sound and Buzzards Bay. In Rhode\nIsland coastal waters, Rhode Island Sound.\n\n* WHEN...From noon today to 2 AM EDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Cod Bay; Nantucket Sound; Vineyard Sound; Buzzards Bay; Rhode Island Sound"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 1:39AM EDT until April 11 at 2:00AM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T01:39:00-04:00",
+      "summary": "* WHAT...South winds 10 to 20 kt with gusts up to 30 kt and seas\n2 to 4 feet expected.\n\n* WHERE...Massachusetts Bay and Ipswich Bay.\n\n* WHEN...From noon today to 2 AM EDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Massachusetts Bay and Ipswich Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 1:39AM EDT until April 12 at 2:00AM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T01:39:00-04:00",
+      "summary": "* WHAT...West winds 10 to 20 kt with gusts up to 25 kt and seas\n4 to 6 feet expected.\n\n* WHERE...Coastal waters from Provincetown MA to Chatham MA to\nNantucket MA out 20 nm.\n\n* WHEN...From noon today to 2 AM EDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Provincetown MA to Chatham MA to Nantucket MA out 20 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 1:39AM EDT until April 12 at 2:00AM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T01:39:00-04:00",
+      "summary": "* WHAT...West winds 10 to 20 kt with gusts up to 30 kt and seas\n4 to 6 feet expected.\n\n* WHERE...Coastal waters east of Ipswich Bay and the Stellwagen\nBank National Marine Sanctuary.\n\n* WHEN...From noon today to 2 AM EDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters east of Ipswich Bay and the Stellwagen Bank National Marine Sanctuary"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 1:39AM EDT until April 11 at 8:00PM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T01:39:00-04:00",
+      "summary": "* WHAT...Southwest winds 5 to 15 kt with gusts up to 25 kt and\nseas 4 to 6 feet expected.\n\n* WHERE...In Massachusetts coastal waters, Coastal Waters\nextending out to 25 nm South of Marthas Vineyard and\nNantucket. In Rhode Island coastal waters, Coastal Waters from\nMontauk NY to Marthas Vineyard extending out to 20 nm South of\nBlock Island.\n\n* WHEN...From noon today to 8 PM EDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters extending out to 25 nm South of Marthas Vineyard and Nantucket; Coastal Waters from Montauk NY to Marthas Vineyard extending out to 20 nm South of Block Island"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 1:33AM EDT until April 11 at 2:00PM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T01:33:00-04:00",
+      "summary": "* WHAT...North winds 10 to 15 kt with gusts up to 20 kt expected.\n\n* WHERE...Chesapeake Bay north of Pooles Island MD.\n\n* WHEN...From 8 AM to 2 PM EDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chesapeake Bay north of Pooles Island MD"
+    },
+    {
+      "title": "Small Craft Advisory issued April 10 at 1:33AM EDT until April 11 at 2:00PM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T01:33:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, south winds 10 to\n15 kt with gusts up to 20 kt expected. For the second Small\nCraft Advisory, north winds 10 to 15 kt with gusts up to 20 kt\nexpected.\n\n* WHERE...Chesapeake Bay from Pooles Island MD to Smith Point\nVA, Tidal Potomac from Cobb Island MD to Smith Point VA,\nChester River to Queenstown MD, Eastern Bay, Choptank River to\nCambridge MD and the Little Choptank River, and Tangier Sound\nand the inland waters surrounding Bloodsworth Island.\n\n* WH",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chesapeake Bay from Pooles Island to Sandy Point MD; Chesapeake Bay from Sandy Point to North Beach MD; Chesapeake Bay from North Beach to Drum Point MD; Chesapeake Bay from Drum Point MD to Smith Point VA; Tidal Potomac from Cobb Island MD to Smith Point VA; Chester River to Queenstown MD; Eastern Bay; Choptank River to Cambridge MD and the Little Choptank River; Tangier Sound and the inland waters surrounding Bloodsworth Island"
+    },
+    {
+      "title": "Flood Warning issued April 10 at 12:31AM EDT by NWS Binghamton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-10T00:31:00-04:00",
+      "summary": "...The Flood Warning continues for the following rivers in New\nYork...\n\nCayuga Lake At Ithaca affecting Tompkins County.\n\n* WHAT...Minor flooding is occurring and minor flooding is forecast.\n\n* WHERE...Cayuga Lake at Ithaca.\n\n* WHEN...Until further notice.\n\n* IMPACTS...At 384.0 feet, Water will affect some properties along\nthe lake shore in the towns of Ulysses, Trumansburg and Lansing.\nNo homes are flooded at this level. Parks near the lake may flood.\nWind waves may cause unusual land erosion a",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Tompkins, NY"
+    },
+    {
+      "title": "Marine Weather Statement issued April 9 at 9:17PM PDT by NWS Los Angeles/Oxnard CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-09T21:17:00-07:00",
+      "summary": "Isolated to scattered showers and possible thunderstorms are\nexpected to move into the southern California coastal waters,\nnorth of Point Conception Friday morning into Friday afternoon.\nThunderstorms will bring the threat of cloud to ocean lightning,\nlocally gusty winds, heavy rain, small hail, and waterspouts.\nThese conditions can create hazardous ocean conditions, especially\nfor smaller vessels. Mariners are advised to have a plan to reach\nsafe harbor quickly if thunderstorms develop.\n\nAnothe",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Point Piedras Blancas to Point Sal westward out to 10 NM; Point Piedras Blancas to Point Sal from 10 to 60 NM; Waters from Pt. Sal to Santa Cruz Island CA and westward 60 nm including San Miguel and Santa Rosa Islands"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+/* Retired compatibility file. Public GovINT research pages do not require a subscription. */

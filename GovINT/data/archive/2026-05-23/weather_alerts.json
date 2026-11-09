@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-05-23T11:41:31.263947Z",
+  "items": [
+    {
+      "title": "Severe Thunderstorm Warning issued May 23 at 6:36AM CDT until May 23 at 7:30AM CDT by NWS Shreveport LA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T06:36:00-05:00",
+      "summary": "SVRSHV\n\nThe National Weather Service in Shreveport has issued a\n\n* Severe Thunderstorm Warning for...\nNorthwestern Shelby County in eastern Texas...\nSouthwestern Cass County in northeastern Texas...\nCentral Harrison County in northeastern Texas...\nMarion County in northeastern Texas...\nSoutheastern Morris County in northeastern Texas...\nWestern Panola County in northeastern Texas...\n\n* Until 730 AM CDT.\n\n* At 636 AM CDT, severe thunderstorms were located along a line from\nover Cason to 8 miles n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Cass, TX; Harrison, TX; Marion, TX; Morris, TX; Panola, TX; Shelby, TX"
+    },
+    {
+      "title": "Special Marine Warning issued May 23 at 7:27AM EDT until May 23 at 9:30AM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T07:27:00-04:00",
+      "summary": "SMWTAE\n\nThe National Weather Service in Tallahassee has issued a\n\n* Special Marine Warning for...\nCoastal Waters From  Ochlockonee River to Apalachicola FL out to 20\nNm...\nCoastal Waters from Mexico Beach to Apalachicola out 20 NM...\nWaters from Mexico Beach to Apalachicola FL from 20 to 60 NM...\n\n* Until 930 AM EDT/830 AM CDT/.\n\n* At 727 AM EDT/627 AM CDT/, severe thunderstorms capable of\nproducing waterspouts were located along a line extending from 7 nm\nsouthwest of St George Island to near E",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Coastal Waters from Mexico Beach to Apalachicola out 20 NM; Coastal Waters From  Ochlockonee River to Apalachicola FL out to 20 Nm; Waters from Mexico Beach to Apalachicola FL from 20 to 60 NM"
+    },
+    {
+      "title": "Marine Weather Statement issued May 23 at 7:24AM EDT by NWS Wilmington NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T07:24:00-04:00",
+      "summary": "The areas affected include...\nCoastal waters from Cape Fear NC to Little River Inlet SC out 20\nNM...\nCoastal waters from Little River Inlet to Murrells Inlet SC out 20\nNM...\n\nAt 721 AM EDT, Doppler radar indicated a shower with some rotation\nindicated aloft. This shower is capable of producing a waterspout if\nthe rotation drops downward towards the water. This shower was\nlocated near Jungle, moving north at 25 knots.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Cape Fear NC to Little River Inlet SC out 20 NM; Coastal waters from Little River Inlet to Murrells Inlet SC out 20 NM"
+    },
+    {
+      "title": "Special Weather Statement issued May 23 at 6:16AM CDT by NWS Houston/Galveston TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T06:16:00-05:00",
+      "summary": "At 616 AM CDT, Doppler radar was tracking a cluster of strong\nthunderstorms along a line extending from near Porter Heights to near\nSan Jacinto State Park to near San Luis Pass. Movement was east at 40\nmph.\n\nHAZARD...Wind gusts up to 50 mph and pea size hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects. Minor hail damage to vegetation is\npossible.\n\nLocations impacted include...\nPasadena, Pearland, League City, Baytown, Galveston ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Montgomery; Northern Liberty; Inland Harris; Chambers; Inland Brazoria; Inland Galveston; Southern Liberty; Coastal Harris; Coastal Brazoria; Coastal Galveston; Brazoria Islands; Galveston Island; Bolivar Peninsula"
+    },
+    {
+      "title": "Severe Thunderstorm Warning issued May 23 at 6:14AM CDT until May 23 at 7:15AM CDT by NWS Shreveport LA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T06:14:00-05:00",
+      "summary": "SVRSHV\n\nThe National Weather Service in Shreveport has issued a\n\n* Severe Thunderstorm Warning for...\nSouthwestern Little River County in southwestern Arkansas...\nSouthern McCurtain County in southeastern Oklahoma...\nBowie County in northeastern Texas...\nCentral Camp County in northeastern Texas...\nWestern Cass County in northeastern Texas...\nNortheastern Franklin County in northeastern Texas...\nMorris County in northeastern Texas...\nRed River County in northeastern Texas...\nTitus County in nort",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Little River, AR; McCurtain, OK; Bowie, TX; Camp, TX; Cass, TX; Franklin, TX; Morris, TX; Red River, TX; Titus, TX"
+    },
+    {
+      "title": "Special Weather Statement issued May 23 at 6:11AM CDT by NWS Lake Charles LA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T06:11:00-05:00",
+      "summary": "At 611 AM CDT, Doppler radar was tracking a strong thunderstorm 8\nmiles south of Patterson, moving northeast at 10 mph.\n\nHAZARD...Wind gusts up to 50 mph and half inch hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects. Minor damage to vegetation and outdoor\nobjects is possible.\n\nLocations impacted include...\nMorgan City, Patterson, Berwick, Bayou Vista, Patterson Memorial\nAirport, and Amelia.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Upper St. Mary; Lower St. Mary"
+    },
+    {
+      "title": "Special Weather Statement issued May 23 at 6:11AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T06:11:00-05:00",
+      "summary": "At 610 AM CDT, Doppler radar indicated strong thunderstorms along a\nline extending from 2 miles north of Krebs to 2 miles west of\nHartshorne to 8 miles east of Blanco. Movement was northeast at 15\nmph.\n\nHAZARD...Wind gusts up to 40 mph and nickel size hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down small tree limbs and blow\naround unsecured objects. Minor hail damage to vegetation\nis possible.\n\nLocations in or near the path include...\nHartshorne...                     Kre",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Pittsburg; Latimer"
+    },
+    {
+      "title": "Special Weather Statement issued May 23 at 6:06AM CDT by NWS New Orleans LA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T06:06:00-05:00",
+      "summary": "At 605 AM CDT, Doppler radar was tracking a cluster of strong\nthunderstorms 10 miles south of Patterson, moving east at 15 mph.\n\nHAZARD...Winds in excess of 40 mph and penny size hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects. Minor damage to outdoor objects is\npossible.\n\nThis storm will remain over mainly rural areas of west central\nTerrebonne Parish.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lower Terrebonne"
+    },
+    {
+      "title": "Special Marine Warning issued May 23 at 5:55AM CDT until May 23 at 7:30AM CDT by NWS Lake Charles LA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T05:55:00-05:00",
+      "summary": "SMWLCH\n\nThe National Weather Service in Lake Charles has issued a\n\n* Special Marine Warning for...\nWaters from Intracoastal City to Cameron LA from 20 to 60 NM...\nWaters from Lower Atchafalaya River to Intracoastal City LA from 20\nto 60 NM...\n\n* Until 730 AM CDT.\n\n* At 555 AM CDT, a severe thunderstorm capable of producing\nwaterspouts was located near East Cameron 222, or 64 nm east of\nHigh Island A131, moving northeast at 25 knots.\n\nHAZARD...Waterspouts, wind gusts to 40 knots, and small hail.\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Waters from Intracoastal City to Cameron LA from 20 to 60 NM; Waters from Lower Atchafalaya River to Intracoastal City LA from 20 to 60 NM"
+    },
+    {
+      "title": "Severe Thunderstorm Warning issued May 23 at 5:44AM CDT until May 23 at 6:45AM CDT by NWS Shreveport LA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T05:44:00-05:00",
+      "summary": "SVRSHV\n\nThe National Weather Service in Shreveport has issued a\n\n* Severe Thunderstorm Warning for...\nSouthern Camp County in northeastern Texas...\nGregg County in northeastern Texas...\nWestern Harrison County in northeastern Texas...\nRusk County in northeastern Texas...\nUpshur County in northeastern Texas...\n\n* Until 645 AM CDT.\n\n* At 544 AM CDT, severe thunderstorms were located along a line from\nover Leesburg to near Ponta, or along a line from over Leesburg to\n12 miles northeast of Rusk, mov",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Camp, TX; Gregg, TX; Harrison, TX; Rusk, TX; Upshur, TX"
+    },
+    {
+      "title": "Dense Fog Advisory issued May 23 at 5:37AM CDT until May 23 at 10:00AM CDT by NWS Bismarck ND",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T05:37:00-05:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...Eastern Morton County.\n\n* WHEN...Until 10 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Eastern Morton"
+    },
+    {
+      "title": "Flood Advisory issued May 23 at 6:33AM EDT until May 23 at 9:30AM EDT by NWS Louisville KY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T06:33:00-04:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of central Kentucky, including the following\ncounties, Anderson, Franklin, Shelby and Spencer.\n\n* WHEN...Until 930 AM EDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\nWater over roadways.\n\n* ADDITIONAL DETAILS...\n- At 633 AM EDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Between 0.5 and 1.2 inches of\nrai",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Anderson, KY; Franklin, KY; Shelby, KY; Spencer, KY"
+    },
+    {
+      "title": "Flood Warning issued May 23 at 6:25AM EDT until May 24 at 8:00PM EDT by NWS Wilmington OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T06:25:00-04:00",
+      "summary": "...The National Weather Service in Wilmington has issued a Flood\nWarning for the following rivers...\n\nLittle Miami River at Spring Valley.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Little Miami River at Spring Valley.\n\n* WHEN...From this morning to Sunday evening.\n\n* IMPACTS...At 11.0 feet, Flooding impacts short areas of Middletown\nand Waynesville Roads, in addition to Corwin Road and Corwin Park.\nBackwater flooding may impact Route 725 in Sugarcreek Township,\nalong with flooding of Wash",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Greene, OH; Warren, OH"
+    },
+    {
+      "title": "Beach Hazards Statement issued May 23 at 5:24AM CDT until May 23 at 2:00PM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T05:24:00-05:00",
+      "summary": "* WHAT...Dangerous swimming conditions are expected along the\nLake Superior shoreline due to high wave action and strong rip\ncurrents.\n\n* WHERE...Minnesota Park Point and Wisconsin Point Beaches.\n\n* WHEN...Until 2 PM CDT this afternoon.\n\n* IMPACTS...High wave action can make swimming difficult on days\nsuch as this. Incoming waves in rapid succession can tire even\nan experienced swimmer quickly. Rip currents can move you away\nfrom land. To avoid being swept away, swim parallel to the shore\nto exi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Carlton/South St. Louis; Douglas"
+    },
+    {
+      "title": "Dense Fog Advisory issued May 23 at 5:05AM CDT until May 23 at 9:00AM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T05:05:00-05:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...Portions of southeast Kansas and central, southwest, and\nwest central Missouri.\n\n* WHEN...Until 9 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Bourbon; Crawford; Cherokee; Benton; Morgan; Vernon; St. Clair; Hickory; Camden; Barton; Cedar; Polk; Dallas; Laclede; Jasper; Dade; Greene; Webster; Wright; Newton; Lawrence; Christian; Douglas; McDonald; Barry; Stone; Taney; Ozark"
+    },
+    {
+      "title": "Gale Warning issued May 23 at 2:35AM PDT until May 24 at 3:00AM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T02:35:00-07:00",
+      "summary": "* WHAT...For the Small Craft Advisory, west winds 15 to 25 kt. For\nthe Gale Warning, west winds 25 to 35 kt.\n\n* WHERE...Central U. S. Waters Strait Of Juan De Fuca and East\nEntrance U. S. Waters Strait Of Juan De Fuca.\n\n* WHEN...For the Small Craft Advisory, until 5 AM PDT early this\nmorning. For the Gale Warning, from 2 PM this afternoon to 3\nAM PDT Sunday.\n\n* IMPACTS...Strong winds will cause hazardous seas which could\ncapsize or damage vessels and reduce visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Central U.S. Waters Strait Of Juan De Fuca; East Entrance U.S. Waters Strait Of Juan De Fuca"
+    },
+    {
+      "title": "Small Craft Advisory issued May 23 at 2:35AM PDT until May 24 at 3:00AM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T02:35:00-07:00",
+      "summary": "* WHAT...West winds 15 to 20 kt with frequent gusts to 25 kt.\n\n* WHERE...Admiralty Inlet.\n\n* WHEN...From 5 PM this afternoon to 3 AM PDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Admiralty Inlet"
+    },
+    {
+      "title": "Flood Advisory issued May 23 at 4:31AM CDT until May 23 at 7:30AM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T04:31:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...Portions of central and northern Oklahoma, including the\nfollowing counties, in central Oklahoma, Kingfisher and Logan. In\nnorthern Oklahoma, Garfield.\n\n* WHEN...Until 730 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\n\n* ADDITIONAL DETAILS...\n- At 431 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Between",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Garfield, OK; Kingfisher, OK; Logan, OK"
+    },
+    {
+      "title": "Special Weather Statement issued May 23 at 5:27AM EDT by NWS Caribou ME",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T05:27:00-04:00",
+      "summary": "* The warm air temperatures this weekend in the mid to upper 60s may\ncause people to underestimate the dangers of the cold water\ntemperatures which are currently only around 50 degrees on\nMoosehead Lake and in the middle to upper 50s on smaller lakes and\nrivers.\n\n* The cold water temperatures can quickly cause hypothermia to\nanyone immersed in the water. According to the Maine Warden\nService, when the water temperature is below 60 degrees, the\naverage submerged person could lose dexterity within",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northwest Aroostook; Northeast Aroostook; Northern Somerset; Northern Piscataquis; Northern Penobscot; Southeast Aroostook; Central Piscataquis; Central Penobscot; Southern Penobscot; Interior Hancock; Central Washington; Coastal Hancock; Coastal Washington; Southern Piscataquis; Northern Washington"
+    },
+    {
+      "title": "Rip Current Statement issued May 23 at 5:21AM EDT until May 23 at 11:00PM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T05:21:00-04:00",
+      "summary": "* WHAT...Dangerous rip currents expected.\n\n* WHERE...Gulf and Franklin County Beaches.\n\n* WHEN...From 9 AM EDT /8 AM CDT/ this morning through this\nevening.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Gulf; Coastal Franklin"
+    },
+    {
+      "title": "Special Weather Statement issued May 23 at 5:21AM EDT by NWS Caribou ME",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T05:21:00-04:00",
+      "summary": "* The warm air temperatures this weekend in the mid to upper 60s may\ncause people to underestimate the dangers of the cold water\ntemperatures which are currently only around 50 degrees on\nMoosehead Lake and in the middle to upper 50s on smaller lakes and\nrivers.\n\n* The cold water temperatures can quickly cause hypothermia to\nanyone immersed in the water. According to the Maine Warden\nService, when the water temperature is below 60 degrees, the\naverage submerged person could lose dexterity within",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northwest Aroostook; Northeast Aroostook; Northern Somerset; Northern Piscataquis; Northern Penobscot; Southeast Aroostook; Central Piscataquis; Central Penobscot; Southern Penobscot; Interior Hancock; Central Washington; Coastal Hancock; Coastal Washington; Southern Piscataquis; Northern Washington"
+    },
+    {
+      "title": "Flood Warning issued May 23 at 5:11AM EDT until May 23 at 11:15AM EDT by NWS Pittsburgh PA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T05:11:00-04:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...Southwestern Monroe County in east central Ohio...\nSoutheastern Noble County in east central Ohio...\n\n* WHEN...Until 1115 AM EDT Saturday.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is imminent or occurring. Low-water\ncrossings are inundated with water and may not be passable.\n\n* ADDITIONAL DETAILS...\n- At 511 AM EDT, Doppler radar indicated heavy rain. Flooding is\nongoing ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Monroe, OH; Noble, OH"
+    },
+    {
+      "title": "Special Weather Statement issued May 23 at 5:00AM EDT by NWS Charleston WV",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T05:00:00-04:00",
+      "summary": "Areas of fog will continue across portions of the area this\nmorning, especially across the higher elevations. Fog could be\ndense in some locations, with visibility a quarter of a mile or\nless. Use caution if traveling, and be alert for rapidly changing\nvisibility over a short distance, especially with interstate\ntravel. Use low beam headlights and allow for greater distances\nbetween vehicles.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Southeast Raleigh; Southeast Fayette"
+    },
+    {
+      "title": "Flood Warning issued May 23 at 4:42AM EDT until May 23 at 7:23PM EDT by NWS Wilmington OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T04:42:00-04:00",
+      "summary": "...The National Weather Service in Wilmington has issued a Flood\nWarning for the following rivers...\n\nMad River near Springfield.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Mad River near Springfield.\n\n* WHEN...From early this morning to this evening.\n\n* IMPACTS...At 14.0 feet, West 1st Street in Springfield Township\nfloods, including the Forest Lake Fishing and Campround area, with\nwater approaching some businesses along West 1st Street.  Spangler\nRoad downstream of Springfield also flood",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Clark, OH"
+    },
+    {
+      "title": "Flood Warning issued May 23 at 4:28AM EDT until May 23 at 6:31PM EDT by NWS Wilmington OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T04:28:00-04:00",
+      "summary": "...The National Weather Service in Wilmington has issued a Flood\nWarning for the following rivers...\n\nLittle Miami River near South Lebanon.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Little Miami River near South Lebanon.\n\n* WHEN...Until this evening.\n\n* IMPACTS...At 19.0 feet, Flooding of lowland areas occurs from\nSouth Lebanon to Foster.  Portions of Mason-Morrow-Millgrove Road\nare flooded, as well as Stubbs Mills Road near the river. Front\nStreet in Morrow floods.\n\n* ADDITIONAL DETAILS",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Warren, OH"
+    },
+    {
+      "title": "Beach Hazards Statement issued May 23 at 4:15AM EDT until May 23 at 8:00PM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T04:15:00-04:00",
+      "summary": "* WHAT...Breaking waves of 5 to 7 ft will result in rough surf\nconditions and a high risk of rip currents.\n\n* WHERE...In Maryland, Maryland Beaches County. In Virginia,\nVirginia Beach, and Accomack and Northampton Counties.\n\n* WHEN...Through this evening.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Maryland Beaches; Virginia Beach; Accomack; Northampton"
+    },
+    {
+      "title": "Flood Advisory issued May 23 at 4:02AM EDT until May 23 at 8:00PM EDT by NWS Wilmington OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T04:02:00-04:00",
+      "summary": "...The National Weather Service in Wilmington has issued a Flood\nAdvisory for the following rivers...\n\nOlentangy River near Worthington.\n\n* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...Olentangy River near Worthington.\n\n* WHEN...From early this morning to this evening.\n\n* IMPACTS...At 8.0 feet, Flooding of yards begins along the\nOlentangy River near Mount Air in northern Franklin County, only\nin low-lying areas between Olentangy River Road and the river.\n\n* ADDITIONAL DET",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Delaware, OH; Franklin, OH"
+    },
+    {
+      "title": "Dense Fog Advisory issued May 23 at 2:51AM CDT until May 23 at 9:00AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T02:51:00-05:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...Northern Crawford, Southern Crawford, Central and Southern\nFranklin, North and Central Sebastian, Northern Franklin, and\nSouthern Sebastian Counties.\n\n* WHEN...Until 9 AM CDT this morning.\n\n* IMPACTS...Visibilities are expected to be reduced to less than one\nquarter mile by dense fog. Rapidly changing visibility will create\nhazardous driving conditions.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northern Crawford; Northern Franklin; North and Central Sebastian; Southern Crawford; Central and Southern Franklin; Southern Sebastian"
+    },
+    {
+      "title": "Small Craft Advisory issued May 23 at 3:51AM EDT until May 24 at 4:00AM EDT by NWS Cleveland OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T03:51:00-04:00",
+      "summary": "* WHAT...Southeast winds 15 to 25 knots with gusts up to 35\nknots and waves 1 to 3 feet expected.\n\n* WHERE...The nearshore waters of Lake Erie from Avon Point OH\nto Ripley NY.\n\n* WHEN...From 7 AM this morning to 4 AM EDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Avon Point to Willowick OH; Willowick to Geneva-on-the Lake OH; Geneva-on-the-Lake to Conneaut OH; Conneaut OH to Ripley NY"
+    },
+    {
+      "title": "Small Craft Advisory issued May 23 at 3:49AM EDT until May 24 at 11:00PM EDT by NWS Buffalo NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T03:49:00-04:00",
+      "summary": "* WHAT...Southeast winds 15 to 25 knots expected and waves 3 to 5\nfeet expected..\n\n* WHERE...The nearshore waters of Lake Ontario from Sodus Bay to\nthe Saint Lawrence River.\n\n* WHEN...From 5 PM this afternoon to 11 PM EDT Sunday.\n\n* IMPACTS...Winds and/or waves will cause hazardous conditions\nthat could capsize or damage small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Sodus Bay to Mexico Bay NY; Mexico Bay NY to the St. Lawrence River"
+    },
+    {
+      "title": "Small Craft Advisory issued May 23 at 3:49AM EDT until May 24 at 4:00AM EDT by NWS Buffalo NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T03:49:00-04:00",
+      "summary": "* WHAT...Southeast winds 15 to 25 knots expected.\n\n* WHERE...The nearshore waters of Lake Erie from Ripley to\nDunkirk.\n\n* WHEN...From 11 AM this morning to 4 AM EDT Sunday.\n\n* IMPACTS...Winds and/or waves will cause hazardous conditions\nthat could capsize or damage small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Ripley to Dunkirk NY"
+    },
+    {
+      "title": "Small Craft Advisory issued May 23 at 3:49AM EDT until May 24 at 4:00AM EDT by NWS Buffalo NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T03:49:00-04:00",
+      "summary": "* WHAT...Southeast winds 15 to 25 knots and waves 3 to 6 feet\nexpected.\n\n* WHERE...The nearshore waters of Lake Ontario from the Niagara\nRiver to Sodus Bay.\n\n* WHEN...From 11 AM this morning to 4 AM EDT Sunday.\n\n* IMPACTS...Winds and/or waves will cause hazardous conditions\nthat could capsize or damage small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Niagara River to Hamlin Beach NY; Hamlin Beach to Sodus Bay NY"
+    },
+    {
+      "title": "Beach Hazards Statement issued May 23 at 3:47AM EDT until May 23 at 4:00PM EDT by NWS Detroit/Pontiac MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T03:47:00-04:00",
+      "summary": "* WHAT...High swim risk from high wave action and strong\ncurrents. Dangerous swimming conditions are expected.\n\n* WHERE...Macomb and Wayne Counties.\n\n* WHEN...Through this afternoon.\n\n* IMPACTS...Strong currents can pull swimmers into deep water\nand prevent return to shore.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Macomb; Wayne"
+    },
+    {
+      "title": "Hydrologic Outlook issued May 23 at 1:44AM MDT by NWS Billings MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T01:44:00-06:00",
+      "summary": "ESFBYZ\n\nUnseasonably warm temperatures this weekend into early next week will\nresult in higher flows on area waterways through next week as the\nremaining high elevation snowpack melts. Flooding is not expected at\nthis time. Rivers such as the Yellowstone and Clarks Fork of the\nYellowstone, Stillwater, and Boulder are expected to see flows double\nthe current rates by late in the week.\n\nSmaller streams and creeks flowing out of the mountains will see\nrises late this weekend into early next week, w",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Unknown",
+      "area": "Big Horn, MT; Carbon, MT; Park, MT; Stillwater, MT; Sweet Grass, MT; Yellowstone, MT; Sheridan, WY"
+    },
+    {
+      "title": "Small Craft Advisory issued May 23 at 3:42AM EDT until May 24 at 12:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T03:42:00-04:00",
+      "summary": "* WHAT...Southeast winds 10 to 15 kt with gusts up to 25 kt and\nwaves 2 to 4 ft expected.\n\n* WHERE...Huron Islands to Marquette MI.\n\n* WHEN...From noon today to midnight EDT tonight.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Huron Islands to Marquette MI"
+    },
+    {
+      "title": "Small Craft Advisory issued May 23 at 3:42AM EDT until May 23 at 11:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T03:42:00-04:00",
+      "summary": "* WHAT...East winds 15 to 20 kt with gusts up to 25 kt and waves\n2 to 4 ft expected.\n\n* WHERE...Seul Choix Point to Point Detour MI.\n\n* WHEN...Until 11 PM EDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Seul Choix Point to Point Detour MI"
+    },
+    {
+      "title": "Small Craft Advisory issued May 23 at 3:42AM EDT until May 24 at 12:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T03:42:00-04:00",
+      "summary": "* WHAT...Southeast winds 5 to 15 kt with gusts up to 25 kt and\nwaves 1 to 4 ft expected.\n\n* WHERE...Lower Entrance of Portage Canal To Huron Islands MI\nIncluding Keweenaw and Huron Bays.\n\n* WHEN...From noon today to midnight EDT tonight.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Portage Lake to Huron Island MI to Lower Entrance of Portage Canal To Huron Islands MI Including Keweenaw and Huron Bays"
+    },
+    {
+      "title": "Beach Hazards Statement issued May 23 at 3:39AM EDT until May 23 at 10:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T03:39:00-04:00",
+      "summary": "* WHAT...Dangerous swimming conditions are expected due to high\nwave action and strong rip currents.\n\n* WHERE...Southern Schoolcraft County.\n\n* WHEN...From 8 AM EDT this morning through this evening.\n\n* IMPACTS...High wave action and dangerous currents will lead to\nlife threatening swimming conditions. Waves in rapid\nsuccession can tire swimmers quickly.\n\n* ADDITIONAL DETAILS...Current related fatalities and rescues in\nthe past have occurred due to similar wave conditions at\nlocations listed bel",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Southern Schoolcraft"
+    },
+    {
+      "title": "Special Weather Statement issued May 23 at 5:25PM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T17:25:00+10:00",
+      "summary": "A tropical disturbance, known as JTWC's Invest 99W, is currently\ncentered near 8N145E west of Satawal. This system remains\ndisorganized with little change in organization since yesterday. The\nchance of this system developing into a significant tropical cyclone\nis rated as sub-low by Joint Typhoon Warning Center (JTWC). Current\nestimations has the system passing near Fais and Ulithi before moving\nnorthward into the Philippine Sea. This system is expected to bring\nnumerous to widespread showers wi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Koror Palau Coastal Waters; Yap Coastal Waters; Chuuk Coastal Waters"
+    },
+    {
+      "title": "Special Weather Statement issued May 23 at 2:16AM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T02:16:00-05:00",
+      "summary": "Areas of patchy dense fog reducing visibility to a half a mile or\nless is expected through mid-morning. Please use caution and allow\nfor extra time if you are travelling early this morning.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "De Kalb; Daviess; Grundy; Clinton; Caldwell; Livingston; Linn; Clay; Ray; Carroll; Chariton; Jackson; Lafayette; Saline; Howard; Cass; Johnson; Pettis; Cooper; Bates; Henry"
+    },
+    {
+      "title": "Special Weather Statement issued May 23 at 1:03AM MDT by NWS Rapid City SD",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T01:03:00-06:00",
+      "summary": "Patchy dense fog can be expected this morning, especially near the\nNorth Dakota border. Motorists should expect rapidly changing\nvisibility, down to near zero at times. Remember to use your low\nbeam headlights in fog, slow down, and provide plenty of braking\ndistance between yourself and any vehicles in front of you.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Harding; Northern Perkins; Southern Perkins"
+    },
+    {
+      "title": "Beach Hazards Statement issued May 23 at 2:38AM EDT until May 23 at 8:00PM EDT by NWS Gray ME",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T02:38:00-04:00",
+      "summary": "* WHAT...Warm air temperatures in the 60s may cause people to\nunderestimate the dangers of the cold water temperatures in the\nupper 40s to low 50s.\n\n* WHERE...In Maine, Coastal York, Coastal Cumberland, Sagadahoc,\nLincoln, Knox and Coastal Waldo Counties. In New Hampshire,\nCoastal Rockingham County.\n\n* WHEN...From 8 AM EDT this morning through this evening.\n\n* IMPACTS...The cold water temperatures can quickly cause\nhypothermia to anyone immersed in the water. Sudden immersion\ninto water at these",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal York; Coastal Cumberland; Sagadahoc; Lincoln; Knox; Coastal Waldo; Coastal Rockingham"
+    },
+    {
+      "title": "Special Weather Statement issued May 23 at 2:33AM EDT by NWS Burlington VT",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T02:33:00-04:00",
+      "summary": "* The warm air temperatures today in the upper 60s to lower 70s may\ncause people to underestimate the dangers of the cold water\ntemperatures. Lake and river temperatures are only in the upper\n40s to mid 50s.\n\n* The cold water temperatures can quickly cause hypothermia to anyone\nimmersed in the water. According to the US Coast Guard, when the\nwater temperatures are below 60 degrees, the average submerged\nperson could lose dexterity within minutes and be unable to\naccomplish simple tasks. Anyone o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northern St. Lawrence; Northern Franklin; Eastern Clinton; Southeastern St. Lawrence; Southern Franklin; Western Clinton; Western Essex; Eastern Essex; Southwestern St. Lawrence; Grand Isle; Western Franklin; Orleans; Essex; Western Chittenden; Lamoille; Caledonia; Washington; Western Addison; Orange; Western Rutland; Eastern Franklin; Eastern Chittenden; Eastern Addison; Eastern Rutland; Western Windsor; Eastern Windsor"
+    },
+    {
+      "title": "High Surf Advisory issued May 23 at 2:29AM EDT until May 24 at 9:00PM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T02:29:00-04:00",
+      "summary": "* WHAT...For the High Rip Current Risk, dangerous rip currents\nexpected. For the High Surf Advisory, large breaking waves of\n6 to 10 feet expected in the surf zone.\n\n* WHERE...Kings (Brooklyn), Southwest Suffolk, Southeast\nSuffolk, Southern Queens and Southern Nassau Counties.\n\n* WHEN...For the High Rip Current Risk, from 6 AM EDT this\nmorning through Sunday evening. For the High Surf Advisory,\nfrom 6 AM to 9 PM EDT Sunday.\n\n* IMPACTS...Dangerous swimming and surfing conditions and\nlocalized bea",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kings (Brooklyn); Southwest Suffolk; Southeast Suffolk; Southern Queens; Southern Nassau"
+    },
+    {
+      "title": "Special Weather Statement issued May 23 at 2:28AM EDT by NWS Gray ME",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T02:28:00-04:00",
+      "summary": "* Air temperatures in the lower 60s to lower 70s this weekend (50s\non Sunday) may cause people to underestimate the dangers of the\ncold water temperatures which are currently only in the mid 50s\nacross Sebago Lake and Lake Winnipesaukee, and in the mid 50s in\nthe regions smaller lakes and rivers.\n\n* The cold water temperatures can quickly cause hypothermia to\nanyone immersed in the water. When the water temperature is below\n60 degrees, the average submerged person could loose dexterity\nwithin mi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northern Oxford; Northern Franklin; Central Somerset; Southern Oxford; Southern Franklin; Southern Somerset; Interior York; Central Interior Cumberland; Androscoggin; Kennebec; Interior Waldo; Coastal York; Coastal Cumberland; Sagadahoc; Lincoln; Knox; Coastal Waldo; Interior Cumberland Highlands; Northern Coos; Southern Coos; Northern Grafton; Northern Carroll; Southern Grafton; Southern Carroll; Sullivan; Merrimack; Belknap; Strafford; Cheshire; Eastern Hillsborough; Interior Rockingham; Coastal Rockingham; Western And Central Hillsborough"
+    },
+    {
+      "title": "Small Craft Advisory issued May 23 at 2:23AM EDT until May 24 at 10:00PM EDT by NWS Newport/Morehead City NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T02:23:00-04:00",
+      "summary": "* WHAT...Seas 4 to 6 ft.\n\n* WHERE...The coastal waters from Duck to Oregon Inlet.\n\n* WHEN...Until 10 PM EDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "S of Currituck Beach Light NC to Oregon Inlet NC out to 20 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 23 at 2:23AM EDT until May 25 at 6:00AM EDT by NWS Newport/Morehead City NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T02:23:00-04:00",
+      "summary": "* WHAT...Seas 4 to 7 ft expected.\n\n* WHERE...The coastal waters from Cape Hatteras to Ocracoke\nInlet.\n\n* WHEN...From noon today to 6 AM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "S of Cape Hatteras NC to Ocracoke Inlet NC out to 20 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 23 at 2:23AM EDT until May 25 at 6:00AM EDT by NWS Newport/Morehead City NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-23T02:23:00-04:00",
+      "summary": "* WHAT...Seas 4 to 7 ft.\n\n* WHERE...The coastal waters from Oregon Inlet to Cape Hatteras.\n\n* WHEN...Until 6 AM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "S of Oregon Inlet NC to Cape Hatteras NC out to 20 NM"
+    },
+    {
+      "title": "Flood Warning issued May 22 at 10:06PM AKDT until May 24 at 1:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T22:06:00-08:00",
+      "summary": "* WHAT...Flooding caused by an ice jam is expected.\n\n* WHERE...Pilot Station.\n\n* WHEN...Until 100 AM AKDT Sunday.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is expected or occurring.\n\n* ADDITIONAL DETAILS...\n- At 530 PM AKDT Friday, The River Watch Team estimated the ice\njam is located several miles downstream of Marshall and is\ncausing water to back up into upstream communities. The ice\njam is backing up about 40 miles of chunk ice and has a\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Lower Yukon River"
+    },
+    {
+      "title": "Flood Warning issued May 22 at 10:06PM AKDT until May 24 at 1:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T22:06:00-08:00",
+      "summary": "* WHAT...Flooding caused by an ice jam is expected.\n\n* WHERE...Mountain Village.\n\n* WHEN...Until 100 AM AKDT Sunday.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is expected or occurring.\n\n* ADDITIONAL DETAILS...\n- At 530 PM AKDT Friday, The River Watch Team estimated the ice\njam is located several miles downstream of Marshall and is\ncausing water to back up into upstream communities. The ice\njam is backing up about 40 miles of chunk ice and has",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Yukon Delta Coast"
+    }
+  ]
+}

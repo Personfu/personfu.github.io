@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-04-22T11:40:48.553636Z",
+  "items": [
+    {
+      "title": "Special Weather Statement issued April 22 at 7:33AM EDT by NWS Wilmington OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T07:33:00-04:00",
+      "summary": "At 733 AM EDT, a strong thunderstorm was located over Richmond,\nmoving east at 35 mph.\n\nHAZARD...Winds gusts up to 35 mph, pea size hail, and frequent\ncloud-to-ground lightning.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects. Hail may cause minor damage to\nvegetation. Lightning can cause serious injury or death.\n\nLocations impacted include...\nRichmond, Eaton, Centerville, Camden, Spring Grove, Boston, Richmond\nMunicipal Airport, Okl",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Wayne; Preble"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 22 at 6:03AM CDT until April 22 at 9:00AM CDT by NWS Houston/Galveston TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T06:03:00-05:00",
+      "summary": "* WHAT...Visibility one-quarter mile or less in dense fog.\n\n* WHERE...Austin, Fort Bend, and Washington Counties.\n\n* WHEN...Until 9 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Washington; Austin; Fort Bend"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 22 at 6:02AM CDT until April 22 at 10:00AM CDT by NWS Austin/San Antonio TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T06:02:00-05:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...A portion of south central Texas.\n\n* WHEN...Until 10 AM CDT this morning.\n\n* IMPACTS...Hazardous driving conditions due to low visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Llano; Burnet; Williamson; Val Verde; Edwards; Real; Kerr; Bandera; Gillespie; Kendall; Blanco; Hays; Travis; Bastrop; Lee; Kinney; Uvalde; Medina; Bexar; Comal; Guadalupe; Caldwell; Fayette; Frio; Atascosa; Wilson; Karnes; Gonzales; De Witt; Lavaca"
+    },
+    {
+      "title": "Small Craft Advisory issued April 22 at 3:00AM AKDT until April 23 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T03:00:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...NW wind 20 kt. Seas 9 ft.\n.TONIGHT...NW wind 20 kt. Seas 8 ft.\n.THU...NW wind 20 kt. Seas 7 ft.\n.THU NIGHT...NW wind 20 kt. Seas 7 ft.\n.FRI...NW wind 20 kt. Seas 8 ft.\n.SAT...NW wind 25 kt. Seas 9 ft.\n.SUN...NW wind 25 kt. Seas 7 ft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 22 at 6:04AM EDT until April 22 at 6:00PM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T06:04:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, south winds 10 to 15\nknots gusts 20 knots. For the second Small Craft Advisory, south\nwinds 10 to 15 knots gusts 20 knots.\n\n* WHERE...Patapsco River including Baltimore Harbor.\n\n* WHEN...For the first Small Craft Advisory, until 8 AM EDT this\nmorning. For the second Small Craft Advisory, from noon today\nto 6 PM EDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Patapsco River including Baltimore Harbor"
+    },
+    {
+      "title": "Special Weather Statement issued April 22 at 4:59AM CDT by NWS Austin/San Antonio TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T04:59:00-05:00",
+      "summary": "Areas of fog have developed across South-Central Texas this\nmorning. A few spots may have dense fog with visibility down to\n1/4 mile, but most places are one mile or better. Fog will linger\nuntil mid-morning. Leave extra space when driving in fog.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Llano; Burnet; Williamson; Val Verde; Edwards; Real; Kerr; Bandera; Gillespie; Kendall; Blanco; Hays; Travis; Bastrop; Lee; Kinney; Uvalde; Medina; Bexar; Comal; Guadalupe; Caldwell; Fayette; Frio; Atascosa; Wilson; Karnes; Gonzales; De Witt; Lavaca"
+    },
+    {
+      "title": "Small Craft Advisory issued April 22 at 2:48AM PDT until April 24 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:48:00-07:00",
+      "summary": "* WHAT...Northwest winds 15 to 20 kt expected.\n\n* WHERE...Waters from Pigeon Point to Point Pinos 10-60 NM and\nWaters from Point Pinos to Point Piedras Blancas 10-60 NM.\n\n* WHEN...From 3 PM Thursday to 3 AM PDT Friday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Pigeon Point to Point Pinos 10-60 NM; Waters from Point Pinos to Point Piedras Blancas 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 22 at 2:48AM PDT until April 23 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:48:00-07:00",
+      "summary": "* WHAT...Northwest winds 10 to 20 kt expected.\n\n* WHERE...Coastal Waters from Point Arena to Point Reyes\nCalifornia out to 10 NM, Coastal Waters from Point Reyes to\nPigeon Point California out to 10 NM, Coastal Waters from\nPigeon Point to Point Pinos California out to 10 NM and\nCoastal Waters from Point Pinos to Point Piedras Blancas\nCalifornia out to 10 NM.\n\n* WHEN...From 3 PM to 9 PM PDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Arena to Point Reyes California out to 10 nm; Coastal Waters from Point Reyes to Pigeon Point California out to 10 nm; Coastal Waters from Pigeon Point to Point Pinos California out to 10 nm; Coastal Waters from Point Pinos to Point Piedras Blancas California out to 10 nm"
+    },
+    {
+      "title": "Special Weather Statement issued April 22 at 5:02AM EDT by NWS Newport/Morehead City NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T05:02:00-04:00",
+      "summary": "The combination of dry fuels, gusty southwest to west winds, and low\nrelative humidity of about 20-30% this afternoon into the evening\nwill lead to an increased risk for the rapid spread of wildfires.\n\nMost dry grasses, dead leaves, and other tree litter could easily\nignite and spread fire quickly.\n\nA statewide burn ban issued by the North Carolina Forest Service is\ncurrently in place. Open burning of any kind is illegal.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Martin; Pitt; Washington; Tyrrell; Mainland Dare; Greene; Beaufort; Mainland Hyde; Duplin; Lenoir; Jones; Pamlico; Northern Craven; Southern Craven; West Carteret; East Carteret; Inland Onslow; Coastal Onslow; Northern Outer Banks; Ocracoke Island; Hatteras Island"
+    },
+    {
+      "title": "Fire Weather Watch issued April 22 at 3:45AM CDT until April 24 at 1:00AM CDT by NWS Midland/Odessa TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T03:45:00-05:00",
+      "summary": "...FIRE WEATHER WATCH IN EFFECT FROM THURSDAY MORNING THROUGH\nLATE THURSDAY NIGHT FOR 20-FT WINDS OF 20 MPH OR MORE, RELATIVE\nHUMIDITY OF 15% OR LESS, AND HIGH TO VERY HIGH FIRE DANGER FOR\nSOUTHEAST NEW MEXICO, MOST OF WEST TEXAS TO THE SOUTH, AND GAINES\nCOUNTY...\n\n* WINDS...West 20 to 30 mph with gusts up to 40 mph.\n\n* RELATIVE HUMIDITY...As low as 5 percent.\n\n* RFTI...6-8 or critical to extreme.\n\n* IMPACTS...Any fires that develop will likely spread rapidly.\nOutdoor burning is not recommended.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Gaines; Loving; Reeves County Plains; Chinati Mountains; Marfa Plateau; Davis Mountains; Davis Mountains Foothills; Presidio Valley"
+    },
+    {
+      "title": "Fire Weather Watch issued April 22 at 3:45AM CDT until April 24 at 1:00AM CDT by NWS Midland/Odessa TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T03:45:00-05:00",
+      "summary": "...FIRE WEATHER WATCH IN EFFECT FROM THURSDAY MORNING THROUGH\nLATE THURSDAY NIGHT FOR 20-FT WINDS OF 20 MPH OR MORE, RELATIVE\nHUMIDITY OF 15% OR LESS, AND HIGH TO VERY HIGH FIRE DANGER FOR\nSOUTHEAST NEW MEXICO, MOST OF WEST TEXAS TO THE SOUTH, AND GAINES\nCOUNTY...\n\n* WINDS...Southwest 25 to 35 mph with gusts up to 60 mph.\n\n* RELATIVE HUMIDITY...As low as 5 percent.\n\n* RFTI...7-8 or extreme.\n\n* IMPACTS...Any fires that develop will likely spread rapidly.\nOutdoor burning is not recommended.\n\n* SEV",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Sacramento Foothills and Guadalupe Mountains; Chaves County Plains; Eddy Plains; Lea; Guadalupe and Delaware Mountains; Van Horn and Highway 54 Corridor; Eastern Culberson County"
+    },
+    {
+      "title": "Special Weather Statement issued April 22 at 3:16AM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T03:16:00-05:00",
+      "summary": "Dry conditions and breezy winds will lead to near critical fire\nweather conditions today. South to southeast winds of 10 to 15\nmph with gusts of 20 to 25 mph are forecast for this afternoon and\nearly evening. Minimum relative humidity values of 15 to 25\npercent are also expected. Together, these conditions could lead\nto the rapid spread of fires. Check burning restrictions and fire\ndanger before burning.\n\nFor more information on burning restrictions for Minnesota, see\nwww.dnr.state.mn.us/forestr",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Koochiching; North St. Louis; Northern Cook/Northern Lake; North Itasca; Central St. Louis; North Cass; South Itasca; South Cass; Crow Wing; Northern Aitkin; South Aitkin; Carlton/South St. Louis; Pine"
+    },
+    {
+      "title": "Red Flag Warning issued April 22 at 3:08AM CDT until April 22 at 8:00PM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T03:08:00-05:00",
+      "summary": "The National Weather Service in Duluth has issued a Red Flag\nWarning for wind and low relative humidity, which is in effect\nfrom noon today to 8 PM CDT this evening. The Fire Weather Watch\nis no longer in effect.\n\n* AFFECTED AREA...In Minnesota, North Itasca, North Cass, South\nItasca, South Cass, Crow Wing, Northern Aitkin and South\nAitkin.\n\n* WINDS...Southeast 10 to 15 mph with gusts up to 30 mph.\n\n* RELATIVE HUMIDITY...As low as 20 percent.\n\n* IMPACTS...Any fires that ignite could spread rapid",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "North Itasca; North Cass; South Itasca; South Cass; Crow Wing; Northern Aitkin; South Aitkin"
+    },
+    {
+      "title": "Red Flag Warning issued April 22 at 2:01AM MDT until April 22 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:01:00-06:00",
+      "summary": "...RED FLAG WARNING TODAY FROM NOON TO 8 PM MDT FOR THE CENTRAL\nHIGHLANDS, EAST CENTRAL PLAINS, AND FROM THE UPPER RIO GRANDE\nVALLEY EASTWARD DUE TO STRONG WIND AND LOW HUMIDITY...\n\n...FIRE WEATHER WATCH THURSDAY FROM 9 AM TO 8 PM MDT ALONG AND\nEAST OF THE CENTRAL MOUNTAIN CHAIN DUE TO STRONG WIND AND LOW\nHUMIDITY...\n\n.An active storm track over the northern and central Rockies will\nsteer the jetstream over New Mexico today and moreso Thursday,\nwhile a potent surface trough persists in the lee o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "East Central Plains"
+    },
+    {
+      "title": "Red Flag Warning issued April 22 at 2:01AM MDT until April 22 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:01:00-06:00",
+      "summary": "...RED FLAG WARNING TODAY FROM NOON TO 8 PM MDT FOR THE CENTRAL\nHIGHLANDS, EAST CENTRAL PLAINS, AND FROM THE UPPER RIO GRANDE\nVALLEY EASTWARD DUE TO STRONG WIND AND LOW HUMIDITY...\n\n...FIRE WEATHER WATCH THURSDAY FROM 9 AM TO 8 PM MDT ALONG AND\nEAST OF THE CENTRAL MOUNTAIN CHAIN DUE TO STRONG WIND AND LOW\nHUMIDITY...\n\n.An active storm track over the northern and central Rockies will\nsteer the jetstream over New Mexico today and moreso Thursday,\nwhile a potent surface trough persists in the lee o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Sangre de Cristo Mountains"
+    },
+    {
+      "title": "Red Flag Warning issued April 22 at 2:01AM MDT until April 22 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:01:00-06:00",
+      "summary": "...RED FLAG WARNING TODAY FROM NOON TO 8 PM MDT FOR THE CENTRAL\nHIGHLANDS, EAST CENTRAL PLAINS, AND FROM THE UPPER RIO GRANDE\nVALLEY EASTWARD DUE TO STRONG WIND AND LOW HUMIDITY...\n\n...FIRE WEATHER WATCH THURSDAY FROM 9 AM TO 8 PM MDT ALONG AND\nEAST OF THE CENTRAL MOUNTAIN CHAIN DUE TO STRONG WIND AND LOW\nHUMIDITY...\n\n.An active storm track over the northern and central Rockies will\nsteer the jetstream over New Mexico today and moreso Thursday,\nwhile a potent surface trough persists in the lee o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "East Central Plains"
+    },
+    {
+      "title": "Red Flag Warning issued April 22 at 2:01AM MDT until April 22 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:01:00-06:00",
+      "summary": "...RED FLAG WARNING TODAY FROM NOON TO 8 PM MDT FOR THE CENTRAL\nHIGHLANDS, EAST CENTRAL PLAINS, AND FROM THE UPPER RIO GRANDE\nVALLEY EASTWARD DUE TO STRONG WIND AND LOW HUMIDITY...\n\n...FIRE WEATHER WATCH THURSDAY FROM 9 AM TO 8 PM MDT ALONG AND\nEAST OF THE CENTRAL MOUNTAIN CHAIN DUE TO STRONG WIND AND LOW\nHUMIDITY...\n\n.An active storm track over the northern and central Rockies will\nsteer the jetstream over New Mexico today and moreso Thursday,\nwhile a potent surface trough persists in the lee o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Sangre de Cristo Mountains"
+    },
+    {
+      "title": "Fire Weather Watch issued April 22 at 2:01AM MDT until April 23 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:01:00-06:00",
+      "summary": "...RED FLAG WARNING TODAY FROM NOON TO 8 PM MDT FOR THE CENTRAL\nHIGHLANDS, EAST CENTRAL PLAINS, AND FROM THE UPPER RIO GRANDE\nVALLEY EASTWARD DUE TO STRONG WIND AND LOW HUMIDITY...\n\n...FIRE WEATHER WATCH THURSDAY FROM 9 AM TO 8 PM MDT ALONG AND\nEAST OF THE CENTRAL MOUNTAIN CHAIN DUE TO STRONG WIND AND LOW\nHUMIDITY...\n\n.An active storm track over the northern and central Rockies will\nsteer the jetstream over New Mexico today and moreso Thursday,\nwhile a potent surface trough persists in the lee o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Sandia and Manzano Mountains"
+    },
+    {
+      "title": "Fire Weather Watch issued April 22 at 2:01AM MDT until April 23 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:01:00-06:00",
+      "summary": "...RED FLAG WARNING TODAY FROM NOON TO 8 PM MDT FOR THE CENTRAL\nHIGHLANDS, EAST CENTRAL PLAINS, AND FROM THE UPPER RIO GRANDE\nVALLEY EASTWARD DUE TO STRONG WIND AND LOW HUMIDITY...\n\n...FIRE WEATHER WATCH THURSDAY FROM 9 AM TO 8 PM MDT ALONG AND\nEAST OF THE CENTRAL MOUNTAIN CHAIN DUE TO STRONG WIND AND LOW\nHUMIDITY...\n\n.An active storm track over the northern and central Rockies will\nsteer the jetstream over New Mexico today and moreso Thursday,\nwhile a potent surface trough persists in the lee o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Upper Rio Grande Valley and Lower Chama River Valley"
+    },
+    {
+      "title": "Fire Weather Watch issued April 22 at 2:01AM MDT until April 23 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:01:00-06:00",
+      "summary": "...RED FLAG WARNING TODAY FROM NOON TO 8 PM MDT FOR THE CENTRAL\nHIGHLANDS, EAST CENTRAL PLAINS, AND FROM THE UPPER RIO GRANDE\nVALLEY EASTWARD DUE TO STRONG WIND AND LOW HUMIDITY...\n\n...FIRE WEATHER WATCH THURSDAY FROM 9 AM TO 8 PM MDT ALONG AND\nEAST OF THE CENTRAL MOUNTAIN CHAIN DUE TO STRONG WIND AND LOW\nHUMIDITY...\n\n.An active storm track over the northern and central Rockies will\nsteer the jetstream over New Mexico today and moreso Thursday,\nwhile a potent surface trough persists in the lee o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Sangre de Cristo Mountains"
+    },
+    {
+      "title": "Fire Weather Watch issued April 22 at 2:01AM MDT until April 23 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:01:00-06:00",
+      "summary": "...RED FLAG WARNING TODAY FROM NOON TO 8 PM MDT FOR THE CENTRAL\nHIGHLANDS, EAST CENTRAL PLAINS, AND FROM THE UPPER RIO GRANDE\nVALLEY EASTWARD DUE TO STRONG WIND AND LOW HUMIDITY...\n\n...FIRE WEATHER WATCH THURSDAY FROM 9 AM TO 8 PM MDT ALONG AND\nEAST OF THE CENTRAL MOUNTAIN CHAIN DUE TO STRONG WIND AND LOW\nHUMIDITY...\n\n.An active storm track over the northern and central Rockies will\nsteer the jetstream over New Mexico today and moreso Thursday,\nwhile a potent surface trough persists in the lee o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Sangre de Cristo Mountains"
+    },
+    {
+      "title": "Fire Weather Watch issued April 22 at 2:01AM MDT until April 23 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:01:00-06:00",
+      "summary": "...RED FLAG WARNING TODAY FROM NOON TO 8 PM MDT FOR THE CENTRAL\nHIGHLANDS, EAST CENTRAL PLAINS, AND FROM THE UPPER RIO GRANDE\nVALLEY EASTWARD DUE TO STRONG WIND AND LOW HUMIDITY...\n\n...FIRE WEATHER WATCH THURSDAY FROM 9 AM TO 8 PM MDT ALONG AND\nEAST OF THE CENTRAL MOUNTAIN CHAIN DUE TO STRONG WIND AND LOW\nHUMIDITY...\n\n.An active storm track over the northern and central Rockies will\nsteer the jetstream over New Mexico today and moreso Thursday,\nwhile a potent surface trough persists in the lee o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Sandia and Manzano Mountains"
+    },
+    {
+      "title": "Fire Weather Watch issued April 22 at 2:01AM MDT until April 23 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:01:00-06:00",
+      "summary": "...RED FLAG WARNING TODAY FROM NOON TO 8 PM MDT FOR THE CENTRAL\nHIGHLANDS, EAST CENTRAL PLAINS, AND FROM THE UPPER RIO GRANDE\nVALLEY EASTWARD DUE TO STRONG WIND AND LOW HUMIDITY...\n\n...FIRE WEATHER WATCH THURSDAY FROM 9 AM TO 8 PM MDT ALONG AND\nEAST OF THE CENTRAL MOUNTAIN CHAIN DUE TO STRONG WIND AND LOW\nHUMIDITY...\n\n.An active storm track over the northern and central Rockies will\nsteer the jetstream over New Mexico today and moreso Thursday,\nwhile a potent surface trough persists in the lee o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Upper Rio Grande Valley and Lower Chama River Valley"
+    },
+    {
+      "title": "Special Weather Statement issued April 22 at 2:41AM CDT by NWS Grand Forks ND",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:41:00-05:00",
+      "summary": "SOUTHEAST WINDS INCREASE TO 15 TO 25 MPH WITH GUSTS TO 30 MPH\nTHIS AFTERNOON. THE WINDS COMBINED WITH RELATIVE HUMIDITY VALUES\nOF AROUND 30 PERCENT WILL CREATE NEAR CRITICAL FIRE WEATHER\nCONDITIONS OVER NORTHWEST MINNESOTA FROM NOON TO 8 PM TODAY. A RED\nFLAG WARNING FOR CRITICAL FIRE WEATHER CONDITIONS IS IN EFFECT FOR\nAREAS FROM BEMIDJI TO FERGUS FALLS AND SOUTH WHERE HUMIDITY VALUES\nWILL BE LOWER.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "South Clearwater"
+    },
+    {
+      "title": "Special Weather Statement issued April 22 at 3:32AM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T03:32:00-04:00",
+      "summary": "The combination of low relative humidity values in the 20 to 30\npercent range, dry fuels, and gusty southwest winds will result\nin an increased risk for the rapid spread of wildfires across much\nof southern and southeast Virginia through late this afternoon.\n\nResidents are urged to exercise caution handling any potential\nignition source, including machinery, cigarettes, and matches. Be\nsure to properly discard all smoking materials. Any dry grasses\nand tree litter that ignite will have the poten",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Prince Edward; Mecklenburg; Lunenburg; Nottoway; Brunswick; Dinwiddie; Prince George; Charles City; Greensville; Sussex; Surry; James City; Southampton; Chesapeake; Virginia Beach; York; Newport News; Hampton/Poquoson; Isle of Wight; Suffolk; Norfolk; Portsmouth"
+    },
+    {
+      "title": "Special Weather Statement issued April 22 at 3:32AM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T03:32:00-04:00",
+      "summary": "The combination of low relative humidity values in the 20 to 30\npercent range, dry fuels, and gusty southwest winds will result\nin an increased risk for the rapid spread of wildfires across much\nof northeast North Carolina during the day today.\n\nResidents are urged to exercise caution handling any potential\nignition source, including machinery, cigarettes, and matches. Be\nsure to properly discard all smoking materials. Any dry grasses\nand tree litter that ignite will have the potential to spread",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northampton; Hertford; Gates; Pasquotank; Camden; Western Currituck; Bertie; Chowan; Perquimans; Eastern Currituck"
+    },
+    {
+      "title": "Coastal Flood Advisory issued April 22 at 2:31AM CDT until April 22 at 7:00PM CDT by NWS Corpus Christi TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:31:00-05:00",
+      "summary": "* WHAT...Minor coastal flooding expected.\n\n* WHERE...Aransas Islands, Kleberg Islands, Nueces Islands and\nCalhoun Islands Counties.\n\n* WHEN...From 10 AM this morning to 7 PM CDT this evening.\n\n* IMPACTS...Flooding of lots, parks, and roads with only isolated\nroad closures expected.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Aransas Islands; Kleberg Islands; Nueces Islands; Calhoun Islands"
+    },
+    {
+      "title": "High Wind Warning issued April 22 at 1:30AM MDT until April 23 at 3:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T01:30:00-06:00",
+      "summary": "* WHAT...West winds 30 to 40 mph with gusts up to 65 mph expected.\n\n* WHERE...Converse County Lower Elevations.\n\n* WHEN...From noon today to 3 PM MDT Thursday.\n\n* IMPACTS...Mainly to transportation. Strong cross winds will be\nhazardous to light weight or high profile vehicles, including\ncampers and tractor trailers.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Converse County Lower Elevations"
+    },
+    {
+      "title": "High Wind Warning issued April 22 at 1:30AM MDT until April 23 at 3:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T01:30:00-06:00",
+      "summary": "* WHAT...Southwest winds 30 to 40 mph with gusts up to 60 mph\nexpected.\n\n* WHERE...Central Carbon County, Ferris/Seminoe/Shirley Mountains,\nSouthwest Carbon County, and Upper North Platte River Basin.\n\n* WHEN...From 9 AM this morning to 3 PM MDT Thursday.\n\n* IMPACTS...Mainly to transportation. Strong cross winds will be\nhazardous to light weight or high profile vehicles, including\ncampers and tractor trailers.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Ferris/Seminoe/Shirley Mountains; Central Carbon County; Southwest Carbon County; Upper North Platte River Basin"
+    },
+    {
+      "title": "High Wind Warning issued April 22 at 1:30AM MDT until April 23 at 6:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T01:30:00-06:00",
+      "summary": "* WHAT...West winds 35 to 45 mph with gusts up to 70 mph expected.\n\n* WHERE...East Laramie County, East Platte County, Goshen County,\nand Laramie Valley.\n\n* WHEN...From 6 PM this evening to 6 PM MDT Thursday.\n\n* IMPACTS...Mainly to transportation. Strong cross winds will be\nhazardous to light weight or high profile vehicles, including\ncampers and tractor trailers.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "East Platte County; Goshen County; Laramie Valley; East Laramie County"
+    },
+    {
+      "title": "High Wind Warning issued April 22 at 1:30AM MDT until April 23 at 6:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T01:30:00-06:00",
+      "summary": "* WHAT...West winds 35 to 50 mph with gusts up to 80 mph expected.\n\n* WHERE...South Laramie Range and Foothills including the Interstate\n80 Summit between Cheyenne and Laramie.\n\n* WHEN...From 3 PM this afternoon to 6 PM MDT Thursday.\n\n* IMPACTS...Mainly to transportation. Strong cross winds will be\nhazardous to light weight or high profile vehicles, including\ncampers and tractor trailers.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "South Laramie Range; South Laramie Range Foothills"
+    },
+    {
+      "title": "High Wind Warning issued April 22 at 1:30AM MDT until April 23 at 6:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T01:30:00-06:00",
+      "summary": "* WHAT...West winds 35 to 45 mph with gusts up to 70 mph expected.\n\n* WHERE...North Snowy Range Foothills including Arlington and Elk\nMountain along Interstate 80.\n\n* WHEN...From 9 AM this morning to 6 PM MDT Thursday.\n\n* IMPACTS...Mainly to transportation. Strong cross winds will be\nhazardous to light weight or high profile vehicles, including\ncampers and tractor trailers.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "North Snowy Range Foothills"
+    },
+    {
+      "title": "High Wind Warning issued April 22 at 1:30AM MDT until April 23 at 6:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T01:30:00-06:00",
+      "summary": "* WHAT...West winds 35 to 55 mph with gusts up to 80 mph expected.\n\n* WHERE...Bordeaux area along Interstate 25 between Chugwater and\nWheatland.\n\n* WHEN...From 3 PM this afternoon to 6 PM MDT Thursday.\n\n* IMPACTS...Mainly to transportation. Strong cross winds will be\nhazardous to light weight or high profile vehicles, including\ncampers and tractor trailers.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Central Laramie Range and Southwest Platte County"
+    },
+    {
+      "title": "High Wind Warning issued April 22 at 1:30AM MDT until April 23 at 6:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T01:30:00-06:00",
+      "summary": "* WHAT...West winds 30 to 40 mph with gusts up to 65 mph expected.\n\n* WHERE...Central Laramie County.\n\n* WHEN...From 3 PM this afternoon to 6 PM MDT Thursday.\n\n* IMPACTS...Mainly to transportation. Strong cross winds will be\nhazardous to light weight or high profile vehicles, including\ncampers and tractor trailers.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Central Laramie County"
+    },
+    {
+      "title": "Special Weather Statement issued April 22 at 2:28AM CDT by NWS Grand Forks ND",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:28:00-05:00",
+      "summary": "SOUTHEAST WINDS INCREASE TO 15 TO 25 MPH WITH GUSTS TO 30 MPH\nTHIS AFTERNOON. THE WINDS COMBINED WITH RELATIVE HUMIDITY VALUES\nOF AROUND 30 PERCENT WILL CREATE NEAR CRITICAL FIRE WEATHER\nCONDITIONS OVER NORTHWEST MINNESOTA FROM NOON TO 8 PM TODAY. A RED\nFLAG WARNING FOR CRITICAL FIRE WEATHER CONDITIONS IS IN EFFECT FOR\nAREAS FROM BEMIDJI TO FERGUS FALLS AND SOUTH WHERE HUMIDITY VALUES\nWILL BE LOWER.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "West Polk; Norman; Clay; Kittson; Roseau; Lake Of The Woods; West Marshall; East Marshall; North Beltrami; Pennington; Red Lake; East Polk; North Clearwater; Mahnomen; West Becker"
+    },
+    {
+      "title": "Red Flag Warning issued April 22 at 1:27AM MDT until April 22 at 8:00PM MDT by NWS Riverton WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T01:27:00-06:00",
+      "summary": "The National Weather Service in Riverton has issued a Red Flag\nWarning, which is in effect from 9 AM this morning to 8 PM MDT\nthis evening. the Fire Weather Watch is no longer in effect.\n\n* AFFECTED AREA:\nIn Central WY Fire Zones...280...283...285...289...300.\nIn North Central WY Fire Zones...275...276...281...282...287.\n\n* COUNTIES AFFECTED:\nIn Central WY...Fremont...Natrona.\nIn North Central WY...Big Horn...Hot Springs...Johnson...Park\nWashakie.\nIn Southwest WY...Sweetwater.\n\n* IMPACTS: Low Hu",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "North Bighorn Basin/Worland BLM; Cody Foothills; Natrona County/Casper BLM; Johnson County/Casper BLM; South Bighorn Basin/Worland BLM; Upper Wind River Basin/Wind River Basin; South Bighorn Mountains; Owl Creek Mountains; Granite/Green/Ferris/Rattlesnake Mountains; Casper Mountain"
+    },
+    {
+      "title": "Red Flag Warning issued April 22 at 2:23AM CDT until April 22 at 8:00PM CDT by NWS Grand Forks ND",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:23:00-05:00",
+      "summary": "The National Weather Service in Grand Forks has issued a Red Flag\nWarning for wind and low relative humidity, which is in effect\nfrom noon today to 8 PM CDT this evening. The Fire Weather Watch\nis no longer in effect.\n\n* AFFECTED AREA...In Minnesota, South Beltrami, Hubbard, East\nBecker, Wilkin, West Otter Tail, East Otter Tail, Wadena and\nGrant. In North Dakota, Ransom, Sargent and Richland.\n\n* WINDS...Southeast 15 to 25 mph with gusts up to 35 mph. Highest\nwinds in southeast North Dakota and t",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "South Beltrami; Hubbard; East Becker; Wilkin; West Otter Tail; East Otter Tail; Wadena; Grant; Ransom; Sargent; Richland"
+    },
+    {
+      "title": "Special Weather Statement issued April 22 at 3:15AM EDT by NWS Raleigh NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T03:15:00-04:00",
+      "summary": "A combination of very dry air, with minimum relative humidity of\n15 to 25 percent, and west southwesterly winds that will gust up\nto 30 mph, will increase the risk of wildfires and fire spread\ntoday.\n\nDry grasses, dead leaves, and other tree litter could easily\nignite and spread fire quickly. Residents and visitors are urged\nto properly dispose of cigarette butts, matches, and any other\nflammable items in appropriate containers. Additionally, exercise\ncaution if operating any equipment that coul",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Person; Granville; Vance; Warren; Halifax; Forsyth; Guilford; Alamance; Orange; Durham; Franklin; Nash; Edgecombe; Davidson; Randolph; Chatham; Wake; Johnston; Wilson; Stanly; Montgomery; Moore; Lee; Harnett; Wayne; Anson; Richmond; Scotland; Hoke; Cumberland; Sampson"
+    },
+    {
+      "title": "Special Weather Statement issued April 22 at 3:13AM EDT by NWS Blacksburg VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T03:13:00-04:00",
+      "summary": "The combination of low relative humidity in the 20 to 25 percent\nrange, ongoing drought conditions, and gusty winds will continue\nto dry out fuels. This will result in an increased risk for the\nrapid spread of wildfires today.\n\nAny dry grass, dead leaves, and other tree litter could easily\nignite and spread fire quickly. Residents and visitors are urged\nto properly dispose of cigarette butts, matches, and any other\nflammable items in appropriate containers. Additionally, exercise\ncaution if oper",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Tazewell; Smyth; Bland; Wythe; Pulaski; Montgomery; Grayson; Carroll; Floyd; Roanoke; Patrick; Franklin; Bedford; Henry; Pittsylvania; Campbell; Appomattox; Halifax; Charlotte"
+    },
+    {
+      "title": "Special Weather Statement issued April 22 at 3:13AM EDT by NWS Blacksburg VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T03:13:00-04:00",
+      "summary": "The combination of low relative humidity in the 20 to 25 percent\nrange, ongoing drought conditions, and gusty winds will continue\nto dry out fuels. This will result in an increased risk for the\nrapid spread of wildfires today.\n\nAny dry grass, dead leaves, and other tree litter could easily\nignite and spread fire quickly. Residents and visitors are urged\nto properly dispose of cigarette butts, matches, and any other\nflammable items in appropriate containers. Additionally, exercise\ncaution if oper",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Ashe; Alleghany; Surry; Stokes; Rockingham; Caswell; Watauga; Wilkes; Yadkin"
+    },
+    {
+      "title": "Winter Weather Advisory issued April 22 at 1:13AM MDT until April 23 at 11:00PM MDT by NWS Riverton WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T01:13:00-06:00",
+      "summary": "* WHAT...Snow expected. Total snow accumulations between 6 and 12\ninches for elevations 9,000 feet and above. Winds gusting between\n50 and 70 mph, especially across the eastern portions of the\nAbsaroka Mountains.\n\n* WHERE...Absaroka Mountains.\n\n* WHEN...From noon today to 11 PM MDT Thursday.\n\n* IMPACTS...Travel could be very difficult, especially in the\nbackcountry.\n\n* ADDITIONAL DETAILS...Total snow accumulations of 1 to 4 inches\nalong US 14/60/20 west of Cody and across Chief Joseph Pass.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Absaroka Mountains"
+    },
+    {
+      "title": "Special Weather Statement issued April 22 at 2:12AM CDT by NWS Twin Cities/Chanhassen MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:12:00-05:00",
+      "summary": "Wednesday afternoon high temperatures in the mid 70s to lower 80s,\nrelative humidity values dropping to around 30 percent, and\nbreezy southeasterly winds of 10 to 20 mph and with gusts between\n25 to 30 mph will support near critical fire weather conditions\nacross east central Minnesota this afternoon. Check burning\nrestrictions and fire danger levels and consult with fire\nofficials before burning.\n\nFor more information on burning restrictions for Minnesota, see\nwww.dnr.state.mn.us/forestry/fire/",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kanabec; Isanti; Chisago; Hennepin; Anoka; Ramsey; Washington; Dakota; Goodhue"
+    },
+    {
+      "title": "Red Flag Warning issued April 22 at 1:54AM CDT until April 22 at 8:00PM CDT by NWS Twin Cities/Chanhassen MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T01:54:00-05:00",
+      "summary": "...CRITICAL FIRE WEATHER CONDITIONS EXPECTED THIS AFTERNOON INTO THE\nEVENING...\n\n.Temperatures rising into the 80s today along with relative humidity\nvalues dropping under 30 percent, strong southeast winds of 15 to 25\nmph with gusts to 35 mph and exceptionally dry fuels will produce\nhazardous fire weather conditions. Humidity values will be lowest in\nthe middle to late afternoon hours, which will also coincide with the\npeak wind speeds. Burning is discouraged today as any fires that\ndevelop can",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Douglas; Todd; Morrison; Mille Lacs; Stearns; Benton; Sherburne; Wright; Carver; Scott; Le Sueur; Rice; Waseca; Steele; Freeborn"
+    },
+    {
+      "title": "Fire Weather Watch issued April 22 at 1:50AM CDT until April 23 at 9:00PM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T01:50:00-05:00",
+      "summary": "The National Weather Service in Norman has issued a Fire Weather\nWatch for hot, dry and windy conditions which is in effect from\nThursday afternoon through Thursday evening.\n\n* WINDS...Southwest 15 to 25 mph with gusts up to 35 mph.\n\n* RELATIVE HUMIDITY...As low as 8 percent.\n\n* TEMPERATURES...Up to 93.\n\n* IMPACTS...Any fires that develop will likely spread rapidly.\nOutdoor burning is not recommended.\n\n* SEVERITY...\n\nFUELS (ERC)...70th to 89th percentile...4 (out of 5).\n\nWEATHER...Critical...3 (",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Harper; Woods; Ellis; Woodward; Roger Mills; Beckham; Harmon; Greer"
+    },
+    {
+      "title": "Small Craft Advisory issued April 22 at 2:33AM EDT until April 22 at 4:00PM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:33:00-04:00",
+      "summary": "* WHAT...Southwest winds around 15 to 20 kt with gusts up to 25\nkt and waves 1 to 2 ft expected.\n\n* WHERE...Currituck Sound.\n\n* WHEN...From 10 AM this morning to 4 PM EDT this afternoon.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Currituck Sound"
+    },
+    {
+      "title": "Special Weather Statement issued April 22 at 2:24AM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:24:00-04:00",
+      "summary": "A very dry airmass will persist over inland areas of Northeast FL\nand Southeast GA today with critically low relative humidity values\nbelow 30 percent along and just south of I-10 and below 25 percent\nwest of US highway 301 in Southeast GA for 4 or more hours this\nafternoon. Light southeast winds of 4-8 mph over inland Southeast\nGA and 8-12 mph over inland Northeast FL along with dry fuels will\nsupport elevated fire danger conditions.\n\nPractice Wildfire safety and avoid activities with open flam",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Suwannee; Baker; Union; Gilchrist; Eastern Hamilton; Western Hamilton; Northern Columbia; Southeastern Columbia; Southwestern Columbia; Coffee; Jeff Davis; Bacon; Appling; Wayne; Atkinson; Pierce; Brantley; Echols; Clinch; Northern Ware; Northeastern Charlton; Southern Ware; Western Charlton"
+    },
+    {
+      "title": "Red Flag Warning issued April 22 at 12:20AM MDT until April 23 at 9:00PM MDT by NWS Pueblo CO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T00:20:00-06:00",
+      "summary": "...RED FLAG WARNING REMAINS IN EFFECT FROM 10 AM THIS MORNING TO\nMIDNIGHT MDT TONIGHT FOR FIRE WEATHER ZONES 221, 222, 224, 225,\n226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, AND 237...\n...RED FLAG WARNING IN EFFECT FROM 11 AM TO 9 PM MDT THURSDAY FOR\nFOR FIRE WEATHER ZONES 221, 222, 224, 225, 226, 227, 228, 229,\n230, 231, 232, 233, 234, 235, 236, AND 237...\n\nThe National Weather Service in Pueblo has issued a Red Flag\nWarning for gusty winds and low relative humidity, which is in\neffec",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Teller County/Rampart Range Including Pikes Peak and Florissant Fossil Beds National Monument; Fremont County Including Canon City/Howard/Texas Creek; San Luis Valley Including Alamosa/Del Norte/Fort Garland/Saguache; Southern Front Range Including Sangre De Cristo Mountains/Wet Mountains/La Veta Pass; Northern El Paso County Including Monument and Black Forest; Southern El Paso County Including Fort Carson and Colorado Springs; Pueblo County Including Pueblo; Huerfano County Including Walsenburg; Western Las Animas County Including Trinidad and Thatcher; Crowley County Including Ordway; Otero County Including La Junta and Western Comanche Grasslands; Eastern Las Animas County Including Pinon Canyon; Kiowa County Including Eads; Bent County Including Las Animas; Prowers County Including Lamar; Baca County Including Springfield and Eastern Comanche Grasslands"
+    },
+    {
+      "title": "Red Flag Warning issued April 22 at 1:17AM CDT until April 22 at 8:00PM CDT by NWS Aberdeen SD",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T01:17:00-05:00",
+      "summary": "The National Weather Service in Aberdeen has issued a Red Flag\nWarning for wind and low relative humidity, which is in effect\nfrom 11 AM CDT /10 AM MDT/ this morning to 8 PM CDT /7 PM MDT/\nthis evening. The Fire Weather Watch is no longer in effect.\n\n* AFFECTED AREA...In South Dakota, Corson, Campbell, McPherson,\nBrown, Walworth and Edmunds.\n\n* WINDS...South 15 to 25 mph with gusts up to 40 mph.\n\n* RELATIVE HUMIDITY...As low as 18 percent.\n\n* IMPACTS...Any fires that ignite will spread rapidly a",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Corson; Campbell; McPherson; Brown; Walworth; Edmunds"
+    },
+    {
+      "title": "Red Flag Warning issued April 22 at 1:17AM CDT until April 22 at 8:00PM CDT by NWS Aberdeen SD",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T01:17:00-05:00",
+      "summary": "The National Weather Service in Aberdeen has issued a Red Flag\nWarning for wind and low relative humidity, which is in effect\nfrom noon today to 8 PM CDT this evening. The Fire Weather Watch\nis no longer in effect.\n\n* AFFECTED AREA...In Minnesota, Traverse. In South Dakota,\nMarshall, Roberts and Day.\n\n* WINDS...South 20 to 25 mph with gusts up to 35 mph.\n\n* RELATIVE HUMIDITY...As low as 25 percent.\n\n* IMPACTS...Any fires that ignite will spread rapidly and become\ndifficult to control or suppress",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Traverse; Marshall; Roberts; Day"
+    },
+    {
+      "title": "Special Weather Statement issued April 22 at 2:13AM EDT by NWS Greenville-Spartanburg SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-22T02:13:00-04:00",
+      "summary": "Relative humidity is forecast to fall into the 20 to 25 percent\nrange across much of western North Carolina this afternoon. Winds\nare expected to be somewhat elevated in the afternoon, with gusts\nbetween 15 and 20 mph. The low humidity combined with gusty winds\nand very dry vegetation will result in an elevated threat for the\nrapid spread of wildfires across the area.\n\nA statewide burn ban has been issued by the North Carolina Forest\nService. Outdoor burning is prohibited.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Avery; Alexander; Iredell; Davie; Madison; Yancey; Mitchell; Swain; Haywood; Buncombe; Catawba; Rowan; Graham; Northern Jackson; Macon; Southern Jackson; Transylvania; Henderson; Cleveland; Lincoln; Gaston; Mecklenburg; Cabarrus; Union; Caldwell Mountains; Greater Caldwell; Burke Mountains; Greater Burke; McDowell Mountains; Eastern McDowell; Rutherford Mountains; Greater Rutherford; Polk Mountains; Eastern Polk"
+    }
+  ]
+}

@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-04-05T11:27:49.285151Z",
+  "items": [
+    {
+      "title": "Flood Warning issued April 5 at 7:15AM EDT until April 6 at 9:45AM EDT by NWS Buffalo NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T07:15:00-04:00",
+      "summary": "* WHAT...Small stream flooding along Irondequoit Creek caused by\nheavy rainfall is expected.\n\n* WHERE...A portion of western New York, including the following\ncounty, Monroe.\n\n* WHEN...Until 945 AM EDT Monday.\n\n* IMPACTS...Water levels will continue to rise along Irondequoit\nCreek this morning following heavy rainfall last night. Water\nlevels will remain high through at least Monday morning. Extensive\nflooding is likely in Ellison Park, and water may approach Blossom\nRoad where is passes through",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Monroe, NY"
+    },
+    {
+      "title": "Small Craft Advisory issued April 5 at 6:01AM CDT until April 6 at 10:00AM CDT by NWS Mobile AL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T06:01:00-05:00",
+      "summary": "* WHAT...North winds around 20 kt with gusts up to 25 kt and seas\nup to 3 ft expected.\n\n* WHERE...Northern Mobile Bay, Southern Mobile Bay and\nMississippi Sound.\n\n* WHEN...From 7 PM this evening to 10 AM CDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "North Mobile Bay; South Mobile Bay; Mississippi Sound"
+    },
+    {
+      "title": "Small Craft Advisory issued April 5 at 6:01AM CDT until April 6 at 1:00PM CDT by NWS Mobile AL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T06:01:00-05:00",
+      "summary": "* WHAT...North winds around 20 kt with gusts up to 25 kt and seas\n2 to 4 ft expected.\n\n* WHERE...Coastal waters from Pensacola FL to Pascagoula MS out\n20 NM and Coastal waters from Okaloosa Walton County Line FL\nto Pensacola FL out 20 NM.\n\n* WHEN...From 7 PM this evening to 1 PM CDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Pensacola FL to Pascagoula MS out 20 NM; Coastal waters from Okaloosa-Walton County Line to Pensacola FL out 20 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 5 at 6:01AM CDT until April 6 at 4:00PM CDT by NWS Mobile AL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T06:01:00-05:00",
+      "summary": "* WHAT...Northeast winds 20 to 25 kt with gusts up to 30 kt and\nseas 3 to 6 ft expected.\n\n* WHERE...Waters from Pensacola FL to Pascagoula MS from 20 to\n60 NM and Waters from Okaloosa Walton County Line FL to\nPensacola FL from 20 to 60 NM.\n\n* WHEN...From 7 PM this evening to 4 PM CDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Pensacola FL to Pascagoula MS from 20 to 60 NM; Waters from Okaloosa-Walton County Line to Pensacola FL from 20 to 60 NM"
+    },
+    {
+      "title": "Special Weather Statement issued April 5 at 6:44AM EDT by NWS Mount Holly NJ",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T06:44:00-04:00",
+      "summary": "Areas of fog, locally dense, have reduced visibilities to one\nmile or less at times. Motorists should use caution while\ntraveling this morning by slowing down, leaving extra space\nbetween you and the vehicle in front of you, using your low beam\nheadlights, and staying alert for sudden changes in visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "New Castle; Sussex; Warren; Morris; Hunterdon; Somerset; Middlesex; Western Monmouth; Eastern Monmouth; Mercer; Salem; Gloucester; Camden; Northwestern Burlington; Ocean; Southeastern Burlington; Carbon; Monroe; Berks; Lehigh; Northampton; Delaware; Philadelphia; Western Chester; Eastern Chester; Western Montgomery; Eastern Montgomery; Upper Bucks; Lower Bucks"
+    },
+    {
+      "title": "The Rip Current Statement has been cancelled.",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T05:08:00-05:00",
+      "summary": "The Rip Current Statement has been cancelled and is no longer in effect.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Matagorda Islands; Brazoria Islands; Galveston Island; Bolivar Peninsula"
+    },
+    {
+      "title": "Small Craft Advisory issued April 5 at 2:23AM PDT until April 7 at 5:00AM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T02:23:00-07:00",
+      "summary": "* WHAT...West winds 20 to 30 kt.\n\n* WHERE...West Entrance U. S. Waters Strait Of Juan De Fuca,\nCentral U. S. Waters Strait Of Juan De Fuca and East Entrance\nU. S. Waters Strait Of Juan De Fuca.\n\n* WHEN...From 5 PM Monday to 5 AM PDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "West Entrance U.S. Waters Strait Of Juan De Fuca; Central U.S. Waters Strait Of Juan De Fuca; East Entrance U.S. Waters Strait Of Juan De Fuca"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 5 at 5:20AM EDT until April 5 at 10:00AM EDT by NWS Mount Holly NJ",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T05:20:00-04:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to 1/4 to 1/2 NM. For the Small Craft Advisory,\nsouthwest winds 10 to 20 kt with gusts up to 30 kt and seas 4\nto 7 ft.\n\n* WHERE...Coastal waters from Sandy Hook to Manasquan Inlet NJ\nout 20 nm.\n\n* WHEN...For the Dense Fog Advisory, until 10 AM EDT this\nmorning. For the Small Craft Advisory, until 6 AM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft. Low\nvisibility will make navigation difficult.\n\n* ADDITIO",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Sandy Hook to Manasquan Inlet NJ out 20 nm"
+    },
+    {
+      "title": "Special Weather Statement issued April 5 at 5:11AM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T05:11:00-04:00",
+      "summary": "Areas of fog have developed over the coastal areas early this\nmorning with visibilities generally under 1 mile. Fog may become\nlocally dense with visibilities approaching or becoming less than\none quarter mile at times. Extra caution should be used if\ntraveling and utilize your low beam headlights.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Southern Fairfield; Southern New Haven; Southern Middlesex; Southern New London; Hudson; Eastern Bergen; Eastern Essex; Eastern Union; Southern Westchester; New York (Manhattan); Bronx; Richmond (Staten Is.); Kings (Brooklyn); Northwest Suffolk; Northeast Suffolk; Southwest Suffolk; Southeast Suffolk; Northern Queens; Northern Nassau; Southern Queens; Southern Nassau"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 5 at 5:08AM EDT until April 5 at 10:00AM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T05:08:00-04:00",
+      "summary": "* WHAT...Visibility of one-quarter mile or less in dense fog.\n\n* WHERE...Portions of southeast Alabama, Big Bend and Panhandle\nFlorida, and southwest Georgia.\n\n* WHEN...Until 10 AM EDT /9 AM CDT/ this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coffee; Dale; Henry; Geneva; Houston; North Walton; Central Walton; Holmes; Washington; Jackson; Inland Bay; Calhoun; South Walton; Coastal Bay; Quitman; Clay; Randolph; Calhoun; Terrell; Early; Miller; Baker; Seminole"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 5 at 5:03AM EDT until April 5 at 12:00PM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T05:03:00-04:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to 1 NM or less. For the Small Craft Advisory,\nsouthwest winds 20 to 30 kt and seas 7 to 10 feet.\n\n* WHERE...Sandy Hook NJ to Montauk Point NY out 20 nm.\n\n* WHEN...For the Dense Fog Advisory, until noon EDT today. For\nthe Small Craft Advisory, until 6 AM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft. Low\nvisibility will make navigation difficult.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Moriches Inlet NY to Montauk Point NY out 20 nm; Fire Island Inlet NY to Moriches Inlet NY out 20 nm; Sandy Hook NJ to Fire Island Inlet NY out 20 nm"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 5 at 5:03AM EDT until April 5 at 12:00PM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T05:03:00-04:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to 1 NM or less. For the Small Craft Advisory,\nsouthwest winds 10 to 20 kt with gusts up to 30 kt and seas 2 to\n4 feet expected.\n\n* WHERE...Long Island Sound east of Port Jefferson and New\nHaven, Peconic and Gardiners Bays, and South Shore Bays from\nJones Inlet through Shinnecock Bay.\n\n* WHEN...For the Dense Fog Advisory, until noon EDT today. For\nthe Small Craft Advisory, until 5 PM EDT this afternoon.\n\n* IMPACTS...Conditions",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Long Island Sound East of New Haven CT/Port Jefferson NY to the Mouth of the Connecticut River; Long Island Sound East of the Mouth of the Connecticut River; Peconic and Gardiners Bays; South Shore Bays from Jones Inlet through Shinnecock Bay"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 5 at 5:03AM EDT until April 5 at 12:00PM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T05:03:00-04:00",
+      "summary": "* WHAT...Dense fog will reduce visibility to 1 NM or less.\n\n* WHERE...Long Island Sound west of Port Jefferson and New\nHaven, and New York Harbor.\n\n* WHEN...Until noon EDT today.\n\n* IMPACTS...Low visibility will make navigation difficult.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Long Island Sound West of New Haven CT/Port Jefferson NY; New York Harbor"
+    },
+    {
+      "title": "Small Craft Advisory issued April 5 at 4:32AM EDT until April 5 at 8:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T04:32:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, northwest winds 20 to 25 kt with\ngusts up to 35 kt and waves 5 to 8 ft occurring. For the Small\nCraft Advisory, northwest winds 15 to 25 kt with gusts up to\n30 kt and waves 5 to 8 ft expected.\n\n* WHERE...Huron Islands to Marquette MI.\n\n* WHEN...For the Gale Warning, until 10 AM EDT this morning. For\nthe Small Craft Advisory, from 10 AM this morning to 8 PM EDT\nthis evening.\n\n* IMPACTS...Strong winds will cause hazardous waves which could\ncapsize or damage vessels a",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Huron Islands to Marquette MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 5 at 4:32AM EDT until April 6 at 2:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T04:32:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, northwest winds around 25 kt with\ngusts up to 35 kt and waves 7 to 12 ft occurring. For the\nSmall Craft Advisory, northwest winds 15 to 25 kt with gusts\nup to 30 kt and waves 7 to 12 ft expected.\n\n* WHERE...Munising to Grand Marais MI.\n\n* WHEN...For the Gale Warning, until 10 AM EDT this morning. For\nthe Small Craft Advisory, from 10 AM this morning to 2 AM EDT\nMonday.\n\n* IMPACTS...Strong winds will cause hazardous waves which could\ncapsize or damage vessels and re",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Munising to Grand Marais MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 5 at 4:32AM EDT until April 5 at 7:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T04:32:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, northwest winds 20 to 25 kt with\ngusts up to 35 kt and waves 7 to 10 ft occurring. For the\nSmall Craft Advisory, northwest winds 15 to 25 kt with gusts\nup to 30 kt and waves 7 to 10 ft expected.\n\n* WHERE...Eagle River to Manitou Island MI and Manitou Island to\nPoint Isabelle MI.\n\n* WHEN...For the Gale Warning, until 8 AM EDT this morning. For\nthe Small Craft Advisory, from 8 AM this morning to 7 PM EDT\nthis evening.\n\n* IMPACTS...Strong winds will cause hazardous wa",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Eagle River to Manitou Island MI; Manitou Island to Point Isabelle MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 5 at 4:32AM EDT until April 6 at 12:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T04:32:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, northwest winds 20 to 25 kt with\ngusts up to 35 kt and waves 7 to 12 ft occurring. For the\nSmall Craft Advisory, northwest winds 15 to 25 kt with gusts\nup to 30 kt and waves 7 to 12 ft expected.\n\n* WHERE...Marquette to Munising MI.\n\n* WHEN...For the Gale Warning, until 10 AM EDT this morning. For\nthe Small Craft Advisory, from 10 AM this morning to midnight\nEDT tonight.\n\n* IMPACTS...Strong winds will cause hazardous waves which could\ncapsize or damage vessels and r",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marquette to Munising MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 5 at 4:32AM EDT until April 6 at 3:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T04:32:00-04:00",
+      "summary": "* WHAT...Northwest winds 15 to 25 kt with gusts up to 30 kt and\nwaves 6 to 11 ft occurring.\n\n* WHERE...Grand Marais to Whitefish Point MI.\n\n* WHEN...Until 3 AM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Grand Marais to Whitefish Point MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 5 at 3:47AM EDT until April 5 at 10:00PM EDT by NWS Cleveland OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T03:47:00-04:00",
+      "summary": "* WHAT...West winds 20 to 25 knots and waves 2 to 5 feet\nexpected.\n\n* WHERE...The nearshore waters of Lake Erie from Maumee Bay to\nVermilion OH.\n\n* WHEN...Until 10 PM EDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Maumee Bay to Reno Beach OH; Reno Beach to The Islands OH; The Islands to Vermilion OH"
+    },
+    {
+      "title": "Beach Hazards Statement issued April 5 at 3:35AM EDT until April 5 at 8:00PM EDT by NWS Wilmington NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T03:35:00-04:00",
+      "summary": "* WHAT...Strong south to north longshore current. There is also a\nModerate Risk of rip currents expected.\n\n* WHERE...In North Carolina, Coastal Pender and Coastal New\nHanover Counties. In South Carolina, Coastal Georgetown County.\n\n* WHEN...Through this evening.\n\n* IMPACTS...Longshore currents can sweep swimmers and surfers into\nrip currents, piers, jetties, and other hazardous areas. It may\nsweep swimmers off their feet, making it difficult to return to\nshore.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Pender; Coastal New Hanover; Coastal Georgetown"
+    },
+    {
+      "title": "Small Craft Advisory issued April 5 at 3:00AM EDT until April 5 at 10:00PM EDT by NWS Detroit/Pontiac MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T03:00:00-04:00",
+      "summary": "* WHAT...Expect sustained winds up to 19 knots from the west\nwith gusts up to 27 knots. The largest significant waves will\nbe 2 feet with a potential maximum wave height of 3 feet.\n\n* WHERE...In Lake St Clair, Lake St Clair. In Lake Erie,\nMichigan Waters of Lake Erie from Detroit River to North Cape\nMI.\n\n* WHEN...The maximum winds are expected around 2 PM EDT Sunday\nwith the largest waves expected around 6 AM EDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Lake St. Clair Open Lake (U.S. Portion); Michigan Waters of Lake Erie from Detroit River to North Cape MI"
+    },
+    {
+      "title": "Fire Weather Watch issued April 5 at 12:57AM MDT until April 6 at 8:00PM MDT by NWS Pueblo CO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T00:57:00-06:00",
+      "summary": "The National Weather Service in Pueblo has issued a Fire Weather\nWatch for gusty winds and low relative humidity, which is in\neffect from Monday morning through Monday evening.\n\n* AFFECTED AREA...Fire Weather Zone 237.\n\n* WINDS...South 15 to 25 mph with gusts up to 35 mph.\n\n* RELATIVE HUMIDITY...As low as 12 percent.\n\n* IMPACTS...Fires will catch and spread quickly. Exercise\nextreme caution with any outdoor burning.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Baca County Including Springfield and Eastern Comanche Grasslands"
+    },
+    {
+      "title": "Small Craft Advisory issued April 5 at 2:24AM EDT until April 8 at 8:00AM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T02:24:00-04:00",
+      "summary": "* WHAT...Northeast winds 20 to 30 kt with gusts up to 35 kt and\nseas 8 to 13 ft expected.\n\n* WHERE...Northeast Florida coastal waters from St Augustine to\nFlagler Beach out to 60 NM.\n\n* WHEN...From 2 PM Monday to 8 AM EDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from St. Augustine to Flagler Beach FL out 20 NM; Waters from St. Augustine to Flagler Beach FL from 20 to 60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 5 at 2:24AM EDT until April 8 at 8:00AM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T02:24:00-04:00",
+      "summary": "* WHAT...Northeast winds 20 to 30 kt with gusts up to 35 kt and\nseas 7 to 12 ft expected.\n\n* WHERE...All Southeast Georgia coastal waters from Altamaha\nSound GA to Fernandina Beach FL out to 60 NM and Coastal\nwaters from Fernandina Beach FL to St Augustine FL out to 60\nNM.\n\n* WHEN...From 8 AM Monday to 8 AM EDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Altamaha Sound to Fernandina Beach FL out 20 NM; Coastal waters from Fernandina Beach to St. Augustine FL out 20 NM; Waters from Altamaha Sound GA to Fernandina Beach FL from 20 to 60 NM; Waters from Fernandina Beach to St. Augustine FL from 20 to 60 NM"
+    },
+    {
+      "title": "High Wind Watch issued April 5 at 12:03AM MDT until April 7 at 9:00PM MDT by NWS Great Falls MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T00:03:00-06:00",
+      "summary": "* WHAT...West winds 30 to 40 mph with gusts up to 75 mph possible,\nstrongest along and west of I15\n\n* WHERE...Eastern Toole and Liberty Counties, Eastern Pondera and\nEastern Teton Counties, Western and Central Chouteau County,\nLittle Belt and Highwood Mountains, and Big Belt, Bridger and\nCastle Mountains.\n\n* WHEN...From Tuesday morning through Tuesday evening.\n\n* IMPACTS...High winds may move loose debris, damage property and\ncause power outages. Travel could be difficult to dangerous,\nespeciall",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Eastern Toole and Liberty; Eastern Pondera and Eastern Teton; Western and Central Chouteau County; Little Belt and Highwood Mountains; Big Belt, Bridger and Castle Mountains"
+    },
+    {
+      "title": "High Wind Watch issued April 5 at 12:03AM MDT until April 7 at 9:00PM MDT by NWS Great Falls MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T00:03:00-06:00",
+      "summary": "* WHAT...Southerly winds 30 to 40 mph with gusts up to 60 mph\npossible.\n\n* WHERE...Madison River Valley.\n\n* WHEN...From Tuesday morning through Tuesday evening.\n\n* IMPACTS...High winds may move loose debris, damage property and\ncause power outages. Travel could be difficult, especially for\nhigh profile vehicles.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Madison River Valley"
+    },
+    {
+      "title": "High Wind Watch issued April 5 at 12:03AM MDT until April 8 at 6:00AM MDT by NWS Great Falls MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T00:03:00-06:00",
+      "summary": "* WHAT...West to northwest winds 30 to 40 mph with gusts up to 60\nmph possible.\n\n* WHERE...Snowy and Judith Mountains, Bears Paw Mountains and\nSouthern Blaine, and Fergus County below 4500ft.\n\n* WHEN...From Tuesday afternoon through late Tuesday night.\n\n* IMPACTS...High winds may move loose debris, damage property and\ncause isolated power outages. Travel could be difficult,\nespecially for high profile vehicles.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Bears Paw Mountains and Southern Blaine; Fergus County below 4500ft; Snowy and Judith Mountains"
+    },
+    {
+      "title": "High Wind Watch issued April 5 at 12:03AM MDT until April 7 at 9:00PM MDT by NWS Great Falls MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-05T00:03:00-06:00",
+      "summary": "* WHAT...Southwest west winds 30 to 40 mph with gusts up to 65 mph\npossible.\n\n* WHERE...Beaverhead and Western Madison below 6000ft and Northwest\nBeaverhead County.\n\n* WHEN...From Tuesday morning through Tuesday evening.\n\n* IMPACTS...High winds may move loose debris, damage property and\ncause power outages. Travel could be difficult, especially for\nhigh profile vehicles.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Northwest Beaverhead County; Beaverhead and Western Madison below 6000ft"
+    },
+    {
+      "title": "Fire Weather Watch issued April 4 at 11:19PM CDT until April 6 at 7:00PM CDT by NWS Amarillo TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T23:19:00-05:00",
+      "summary": "The National Weather Service in Amarillo has issued a Fire\nWeather Watch for critical fire weather conditions, which is in\neffect from Monday afternoon through Monday evening.\n\n* WINDS...Southwest 20 to 25 mph with gusts up to 35 mph.\n\n* RELATIVE HUMIDITY...As low as 10 percent.\n\n* TEMPERATURES...Highs in the 70's.\n\n* IMPACTS...Any fires that develop will have the potential to\nspread rapidly. Outdoor burning is not recommended.\n\n* SEVERITY...\n\nFUELS (ERC)...70th-89th percentile...4 (out of 5).\n\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Cimarron; Texas; Dallam; Sherman; Hartley"
+    },
+    {
+      "title": "Small Craft Advisory issued April 4 at 9:06PM PDT until April 8 at 3:00AM PDT by NWS Los Angeles/Oxnard CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T21:06:00-07:00",
+      "summary": "* WHAT...Hazardous sea conditions.\n\n* WHERE...Point Piedras Blancas to Point Sal from 10 to 60 NM.\n\n* WHEN...From 3 PM Monday to 3 AM PDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.\n\n* ADDITIONAL DETAILS...See the Coastal Waters Forecast (CWFLOX)\nfor more.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Point Piedras Blancas to Point Sal from 10 to 60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 4 at 9:06PM PDT until April 7 at 3:00AM PDT by NWS Los Angeles/Oxnard CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T21:06:00-07:00",
+      "summary": "* WHAT...Hazardous sea conditions.\n\n* WHERE...Point Piedras Blancas to Point Sal westward out to 10\nNM.\n\n* WHEN...From 3 PM Monday to 3 AM PDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.\n\n* ADDITIONAL DETAILS...See the Coastal Waters Forecast (CWFLOX)\nfor more.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Point Piedras Blancas to Point Sal westward out to 10 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 4 at 9:06PM PDT until April 8 at 3:00AM PDT by NWS Los Angeles/Oxnard CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T21:06:00-07:00",
+      "summary": "* WHAT...Hazardous sea conditions.\n\n* WHERE...Waters from Pt. Sal to Santa Cruz Island CA and\nwestward 60 nm including San Miguel and Santa Rosa Islands and\nOuter waters from Santa Cruz Island to San Clemente Island to\n60 NM offshore including San Nicolas and Santa Barbara Islands.\n\n* WHEN...From 3 AM Monday to 3 AM PDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.\n\n* ADDITIONAL DETAILS...See the Coastal Waters Forecast (CWFLOX)\nfor more.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Pt. Sal to Santa Cruz Island CA and westward 60 nm including San Miguel and Santa Rosa Islands; Outer waters from Santa Cruz Island to San Clemente Island to 60 NM offshore including San Nicolas and Santa Barbara Islands"
+    },
+    {
+      "title": "Small Craft Advisory issued April 4 at 9:06PM PDT until April 8 at 3:00AM PDT by NWS Los Angeles/Oxnard CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T21:06:00-07:00",
+      "summary": "* WHAT...Hazardous sea conditions.\n\n* WHERE...East Santa Barbara Channel from Pt. Conception to Pt.\nMugu CA including Santa Cruz Island.\n\n* WHEN...From 3 PM Monday to 3 AM PDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.\n\n* ADDITIONAL DETAILS...See the Coastal Waters Forecast (CWFLOX)\nfor more.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "East Santa Barbara Channel from Pt. Conception to Pt. Mugu CA including Santa Cruz Island"
+    },
+    {
+      "title": "Flood Warning issued April 4 at 11:56PM EDT until April 5 at 12:00PM EDT by NWS Indianapolis IN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T23:56:00-04:00",
+      "summary": "...The National Weather Service in Indianapolis IN has issued a\nFlood Warning for the following rivers in Indiana...\n\nWildcat Creek near Lafayette.\n\n.Multiple rounds of rainfall have brought lowland flooding to the\nWabash River basin and some tributaries. The Wildcat Creek at\nLafayette has gone above flood, though it should only be there\nbriefly overnight into Sunday morning.\n\n* WHAT...Minor flooding is occurring and minor flooding is forecast.\n\n* WHERE...Wildcat Creek near Lafayette.\n\n* WHEN...",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Tippecanoe, IN"
+    },
+    {
+      "title": "Flood Warning issued April 4 at 10:28PM EDT until April 6 at 2:00PM EDT by NWS Grand Rapids MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T22:28:00-04:00",
+      "summary": "...The National Weather Service in Grand Rapids MI has issued a\nFlood Warning for the following rivers in Michigan...\n\nGrand River at Ionia affecting Ionia County.\n\nChippewa River below Mt. Pleasant affecting Isabella County.\n\nPine River at Alma affecting Gratiot County.\n\n...Forecast flooding changed from Moderate to Major severity and\nincreased in duration for the following rivers in Michigan...\n\nGrand River near Comstock Park affecting Kent County.\n\n.Rainfall of 1 to 3 inches has fallen in the",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Gratiot, MI"
+    },
+    {
+      "title": "Flood Warning issued April 4 at 10:28PM EDT until April 9 at 5:00AM EDT by NWS Grand Rapids MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T22:28:00-04:00",
+      "summary": "...The National Weather Service in Grand Rapids MI has issued a\nFlood Warning for the following rivers in Michigan...\n\nGrand River at Ionia affecting Ionia County.\n\nChippewa River below Mt. Pleasant affecting Isabella County.\n\nPine River at Alma affecting Gratiot County.\n\n...Forecast flooding changed from Moderate to Major severity and\nincreased in duration for the following rivers in Michigan...\n\nGrand River near Comstock Park affecting Kent County.\n\n.Rainfall of 1 to 3 inches has fallen in the",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Ionia, MI"
+    },
+    {
+      "title": "Flood Watch issued April 4 at 10:28PM EDT until April 10 at 4:00PM EDT by NWS Grand Rapids MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T22:28:00-04:00",
+      "summary": "...The National Weather Service in Grand Rapids MI has issued a\nFlood Watch for the following rivers in Michigan...\n\nGrand River at Lowell affecting Kent County.\n\n...The Flood Watch is extended for the following rivers in\nMichigan...\n\nGrand River at Ada affecting Kent County.\n\nGrand River at Robinson Township affecting Ottawa County.\n\nGrand River at Grand Rapids affecting Kent County.\n\n...The Flood Watch is replaced by a River Flood Warning for the\nfollowing rivers in Michigan...\n\nGrand River at",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Kent"
+    },
+    {
+      "title": "Flood Warning issued April 4 at 10:28PM EDT until April 6 at 5:00AM EDT by NWS Grand Rapids MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T22:28:00-04:00",
+      "summary": "...The National Weather Service in Grand Rapids MI has issued a\nFlood Warning for the following rivers in Michigan...\n\nGrand River at Ionia affecting Ionia County.\n\nChippewa River below Mt. Pleasant affecting Isabella County.\n\nPine River at Alma affecting Gratiot County.\n\n...Forecast flooding changed from Moderate to Major severity and\nincreased in duration for the following rivers in Michigan...\n\nGrand River near Comstock Park affecting Kent County.\n\n.Rainfall of 1 to 3 inches has fallen in the",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Isabella, MI"
+    },
+    {
+      "title": "Flood Warning issued April 4 at 10:26PM EDT until April 7 at 6:49PM EDT by NWS Detroit/Pontiac MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T22:26:00-04:00",
+      "summary": "...The National Weather Service in Detroit/Pontiac MI has issued a\nFlood Warning for the following rivers in Michigan...\n\nNorth Branch Clinton Near Mt Clemens affecting Macomb County.\n\nFor the N.br. Clinton River...including Mt Clemens...Moderate\nflooding is forecast.\n\n* WHAT...Moderate flooding is forecast.\n\n* WHERE...North Branch Clinton near Mt Clemens.\n\n* WHEN...From late Sunday night to Tuesday evening.\n\n* ADDITIONAL DETAILS...\n- At 10:00 PM EDT Saturday the stage was 9.7 feet.\n- Forecast..",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Macomb, MI"
+    },
+    {
+      "title": "Flood Warning issued April 4 at 9:02PM CDT until April 5 at 9:03AM CDT by NWS Fort Worth TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T21:02:00-05:00",
+      "summary": "...The National Weather Service in Fort Worth TX has issued a Flood\nWarning for the following rivers in Texas...\n\nSister Grove Creek Near Blue Ridge affecting Collin County.\n\n* WHAT...Minor flooding is occurring.\n\n* WHERE...Sister Grove Creek near Blue Ridge.\n\n* WHEN...From this evening to late tomorrow morning.\n\n* IMPACTS...At 24.0 feet, Minor out of bank flooding along the creek\nis expected. Rural roads, along with farm and ranch land near the\ncreek, will begin to flood.\n\n* ADDITIONAL DETAILS.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Collin, TX"
+    },
+    {
+      "title": "Flood Warning issued April 4 at 8:54PM CDT until April 5 at 9:46PM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T20:54:00-05:00",
+      "summary": "...The National Weather Service in Tulsa OK has issued a Flood\nWarning for the following rivers in Oklahoma...\n\nPoteau River near Panama affecting Le Flore County.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Poteau River near Panama.\n\n* WHEN...Until late tomorrow evening.\n\n* IMPACTS...At 31.0 feet, minor agricultural flooding occurs.\nWilliams Road east of Panama is flooded.\n\n* ADDITIONAL DETAILS...\n- At 8:30 PM CDT Saturday the stage was 27.2 feet.\n- Forecast...The river is expected to rise",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Le Flore, OK"
+    },
+    {
+      "title": "Flood Warning issued April 4 at 8:52PM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T20:52:00-05:00",
+      "summary": "...The National Weather Service in Green Bay has issued a Flood\nWarning for the following rivers in Wisconsin...\n\nKewaunee River near Kewaunee affecting Kewaunee County.\n\n* WHAT...Minor flooding is occurring.\n\n* WHERE...Kewaunee River near Kewaunee.\n\n* WHEN...From this evening until further notice.\n\n* IMPACTS...At 14.0 feet, Water approaches Ransom Moore Lane near\nhighway FF. Streamflow upstream may become faster due to increasing\nelevation as well as localized flooding.\n\n* ADDITIONAL DETAILS...",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Kewaunee, WI"
+    },
+    {
+      "title": "Flood Warning issued April 4 at 8:48PM CDT by NWS Quad Cities IA IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T20:48:00-05:00",
+      "summary": "...The National Weather Service in Quad Cities IA IL has issued a\nFlood Warning for the following rivers in Iowa...\n\nIowa River at Marengo affecting Iowa and Benton Counties.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Iowa River at Marengo.\n\n* WHEN...From Monday afternoon until further notice.\n\n* IMPACTS...At 16.0 feet, Water affects agricultural land along the\nriver. Water is several feet deep in places.\n\n* ADDITIONAL DETAILS...\n- At 8:00 PM CDT Saturday the stage was 12.8 feet and rising",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Benton, IA; Iowa, IA"
+    },
+    {
+      "title": "Flood Advisory issued April 4 at 8:41PM CDT until April 6 at 7:00PM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T20:41:00-05:00",
+      "summary": "...The National Weather Service in Norman has issued a Flood\nAdvisory for the following rivers in Oklahoma...\n\nClear Boggy Creek near Caney affecting Atoka County.\n\n* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...Clear Boggy Creek near Caney.\n\n* WHEN...From this evening to Monday evening.\n\n* IMPACTS...At 25.0 feet, The creek remains mostly within its banks\nin western Atoka County and the northeastern edge of Bryan County.\nSome high stages on small feeder streams result in ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Atoka, OK"
+    },
+    {
+      "title": "Flood Warning issued April 4 at 7:26PM CDT until April 8 at 11:00AM CDT by NWS St Louis MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T19:26:00-05:00",
+      "summary": "...The National Weather Service in St Louis has issued a Flood\nWarning for the following rivers in Illinois...\n\nKaskaskia River at Vandalia.\n\nRiver forecasts are based on observed precipitation and forecast\nprecipitation for the next 24 hours.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Kaskaskia River at Vandalia.\n\n* WHEN...From Sunday afternoon to Wednesday morning.\n\n* IMPACTS...At 23.0 feet, Agricultural levee begins to be slightly\novertopped.  No residences are affected at this level.\n\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Fayette, IL"
+    },
+    {
+      "title": "Fire Weather Watch issued April 4 at 7:13PM CDT until April 6 at 9:00PM CDT by NWS Dodge City KS",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T19:13:00-05:00",
+      "summary": "The National Weather Service in Dodge City has issued a Fire\nWeather Watch for wind and low relative humidity, which is in\neffect from Monday afternoon through Monday evening.\n\n* AFFECTED AREA...Fire Weather Zone 061 Hamilton, Fire Weather\nZone 062 Kearny, Fire Weather Zone 063 Finney, Fire Weather\nZone 074 Stanton, Fire Weather Zone 075 Grant, Fire Weather\nZone 076 Haskell, Fire Weather Zone 084 Morton, Fire Weather\nZone 085 Stevens and Fire Weather Zone 086 Seward.\n\n* TIMING...From Monday afte",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Hamilton; Kearny; Finney; Stanton; Grant; Haskell; Morton; Stevens; Seward"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 4 at 3:48PM AKDT until April 5 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T15:48:00-08:00",
+      "summary": "Arctic Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...E winds 25 kt becoming W. Blowing snow.\n.SUN...W winds 10 kt.\n.SUN NIGHT...W winds 5 kt.\n.MON...NE winds 5 kt.\n.MON NIGHT...E winds 5 kt.\n.TUE...E winds 5 kt.\n.TUE NIGHT...E winds 5 kt. Seas calm.\n.WED...E winds 10 kt. Seas 2 ft.\n.THU...E winds 15 kt. Seas 3 ft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Flaxman Island to Demarcation Point out to 15 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 4 at 3:48PM AKDT until April 5 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T15:48:00-08:00",
+      "summary": "Arctic Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...E winds 30 kt. Blowing snow.\n.SUN...W winds 15 kt.\n.SUN NIGHT...W winds 5 kt.\n.MON...W winds 5 kt.\n.MON NIGHT...E winds 5 kt.\n.TUE...E winds 5 kt.\n.TUE NIGHT...E winds 5 kt. Seas calm.\n.WED...E winds 5 kt. Seas calm.\n.THU...E winds 10 kt. Seas 2 ft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Flaxman Island to Demarcation Point from 15 to 75 NM"
+    },
+    {
+      "title": "Special Weather Statement issued April 4 at 1:47PM HST by NWS Honolulu HI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T13:47:00-10:00",
+      "summary": "WHAT...An episodic fountaining eruption is expected within\nthe Kilauea summit caldera. The Hawaiian Volcano Observatory has\nindicated a potential eruption window between Monday April 6th\nand Tuesday April 14th. Fountaining episodes typically last less\nthan 12 hours but ash can remain in the air longer depending on\nwind and weather.\n\nIMPACTS...If an eruption occurs, varying levels of ash, Pele's\nhair, and other lightweight tephra may fall downwind of the\neruption. Smaller particles can travel far",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kona; Kohala; Big Island Interior; Big Island Summit; Big Island South; Big Island Southeast; Big Island East; Big Island North"
+    },
+    {
+      "title": "Small Craft Advisory issued April 4 at 3:16PM AKDT until April 5 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-04T15:16:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TONIGHT...SE wind 30 kt. Seas 8 ft. Rain.\n.SUN...S wind 25 kt. Seas 7 ft. Rain.\n.SUN NIGHT...SW wind 15 kt. Seas 5 ft.\n.MON AND MON NIGHT...SW wind 15 kt. Seas 6 ft.\n.TUE...NW wind 20 kt. Seas 6 f",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Seguam to Adak Bering Side from 15 to 85 NM"
+    }
+  ]
+}

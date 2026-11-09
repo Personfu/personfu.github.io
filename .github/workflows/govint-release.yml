@@ -1,0 +1,62 @@
+name: Verify GovINT original Pages URL
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'GovINT/**'
+      - 'scripts/verify-govint-release.cjs'
+      - '.github/workflows/govint-release.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: govint-release-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Read the existing GitHub Pages source without changing settings
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: gh api "repos/$GH_REPO/pages" --jq '{html_url,status,build_type,source}'
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24.22.1'
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run build
+      - name: Verify original-site release files and local references
+        run: node scripts/verify-govint-release.cjs --local
+      - name: Ensure the existing CyberWorld export is unchanged
+        run: git diff --exit-code -- play-cyberworld CyberWorld
+
+  verify_live:
+    if: github.event.action == 'closed' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24.22.1'
+      - name: Wait for the exact release on the original public URL
+        run: node scripts/verify-govint-release.cjs --live

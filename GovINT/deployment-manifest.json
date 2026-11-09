@@ -1,0 +1,4455 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "404.html",
+      "bytes": 1168,
+      "sha256": "e25b4ded1e6a198dd22c73707a134bb3412481063ba01724a89fcaf6c6dd1d34"
+    },
+    {
+      "path": "anomalies.html",
+      "bytes": 1833,
+      "sha256": "02c11d92e7ab6f595e4171c10c60a6a1ca37d72fd985eae3b1afd3250063e82b"
+    },
+    {
+      "path": "archive.html",
+      "bytes": 1825,
+      "sha256": "6b8935bca650edf8080c13ce1de7fe0b00db02a49466f192d69136753a273a27"
+    },
+    {
+      "path": "arizona.html",
+      "bytes": 1824,
+      "sha256": "76c7840f26572ffd87c0e0069a1ad6ce1e8c1d8c94fbc260d1f455a41eff8def"
+    },
+    {
+      "path": "assets/css/casefiles.css",
+      "bytes": 30270,
+      "sha256": "b6c08085019215c1df0ee29c75c73386a43113350bf17c8c284669f10172029e"
+    },
+    {
+      "path": "assets/css/connections.css",
+      "bytes": 21829,
+      "sha256": "503cf700532ce3b957099b510069c1d1315353e58d797b5241e690e3f98dc339"
+    },
+    {
+      "path": "assets/css/console.css",
+      "bytes": 37336,
+      "sha256": "4f4d7579c3a7bd718bdcf33d9d0398e72885410993950769546fb6fcba11d92d"
+    },
+    {
+      "path": "assets/css/field-system.css",
+      "bytes": 58068,
+      "sha256": "6c2a65d92e1bb58f3bf2449ffdc4c770d1ac050caa33cc9ea5edd0952ba20e1c"
+    },
+    {
+      "path": "assets/css/fllc-govint.css",
+      "bytes": 25912,
+      "sha256": "e968f29b3dd1fd1c92ab9b5e35caf239546b56eb661f01a014bb2a2ac474f303"
+    },
+    {
+      "path": "assets/css/legacy-context.css",
+      "bytes": 475,
+      "sha256": "bf83f021134af515ef34995a25019703c291dbab90533196fa16ce9fe0005aba"
+    },
+    {
+      "path": "assets/data/casefiles.js",
+      "bytes": 56216,
+      "sha256": "1c49b69f3c36cd121d4da4c967719eaedde3cfcb9a907c8a7c744106e920dc4e"
+    },
+    {
+      "path": "assets/data/catalog.js",
+      "bytes": 611244,
+      "sha256": "bc586e2ba3f79d7c946a9d810eaf10c5cff775db74f028442a752ae5f23b8c50"
+    },
+    {
+      "path": "assets/data/land-points.js",
+      "bytes": 31705,
+      "sha256": "e4e15e4aa6daf5f36d57d2afe89e9d0f4ac10bd6a2b99dab6393c5bf79f95a85"
+    },
+    {
+      "path": "assets/data/states.js",
+      "bytes": 57850,
+      "sha256": "d8bb7130653d89cdf3a14d31487e0964366d50197b43840d79d920c73f945986"
+    },
+    {
+      "path": "assets/data/world.js",
+      "bytes": 230339,
+      "sha256": "cc2fca599e011cc604ef50d53e10c170a00a311e058e2e902165eb878f368b63"
+    },
+    {
+      "path": "assets/favicon.svg",
+      "bytes": 294,
+      "sha256": "0e4287a8cb024b97358926097de788bfb6a5250ba4700ab79684dcf95f53d8b6"
+    },
+    {
+      "path": "assets/fonts/BarlowCondensed-SemiBold.ttf",
+      "bytes": 109428,
+      "sha256": "7b619d14bc2327509a9ef32b0890f709626f7ecc9ff61191c2a4314c5499d2d9"
+    },
+    {
+      "path": "assets/fonts/IBMPlexMono-Regular.ttf",
+      "bytes": 135580,
+      "sha256": "6a3412f058c7d8dfd9170c41e85ade48e5156ecb89356110ca57a0a27734af46"
+    },
+    {
+      "path": "assets/fonts/Manrope-Variable.ttf",
+      "bytes": 164700,
+      "sha256": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6"
+    },
+    {
+      "path": "assets/fonts/OFL-BarlowCondensed.txt",
+      "bytes": 4377,
+      "sha256": "186d750eb496a4c17a76385f82be6aea2ac1cf2de074a811d63786cf374ea73f"
+    },
+    {
+      "path": "assets/fonts/OFL-IBMPlexMono.txt",
+      "bytes": 4456,
+      "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+    },
+    {
+      "path": "assets/fonts/OFL-Manrope.txt",
+      "bytes": 4387,
+      "sha256": "58172e0c0fac2cda8a37b348164bb55e44b0e69051e557e92b1d3f6910141f7b"
+    },
+    {
+      "path": "assets/js/app.js",
+      "bytes": 1049,
+      "sha256": "5bc9dda4467c3b88e4cff06dcc9dcfbde69b39ab23200df3cfca9818ae1c3aa7"
+    },
+    {
+      "path": "assets/js/casefiles-ui.js",
+      "bytes": 21360,
+      "sha256": "89cf52d05382aec999c064379386393a0c6016ca5358369127669cecbe2e8861"
+    },
+    {
+      "path": "assets/js/charts.js",
+      "bytes": 3266,
+      "sha256": "fc84559218251de60444eff6c1a966610a22f35f40913ddd2533ed3e392b66fa"
+    },
+    {
+      "path": "assets/js/connections.js",
+      "bytes": 28111,
+      "sha256": "8b8dfc2c72e2e9307504c26f9c92ad3d34afa7d975c6a5731d5b140a8e188c40"
+    },
+    {
+      "path": "assets/js/console.js",
+      "bytes": 98518,
+      "sha256": "0b32741bae5ada74e5e4daa227906c80615e478fba8468151a6c5e29ec60daec"
+    },
+    {
+      "path": "assets/js/feed-loader.js",
+      "bytes": 6690,
+      "sha256": "68c72c659aa6e42eb79b112cbbd20510fe4d3a4f56d09109090f4f702e1766e8"
+    },
+    {
+      "path": "assets/js/globe.js",
+      "bytes": 6407,
+      "sha256": "993b9336615d59cd46b0646c1c5430f8fb6d82bfcaf3e4c9a63723909e42a0b0"
+    },
+    {
+      "path": "assets/js/maps.js",
+      "bytes": 1719,
+      "sha256": "c04f582bdfe5eefe40076534f35d0a73e97517e3d8ad7d86954153c2ced11d0d"
+    },
+    {
+      "path": "assets/js/mission-control.js",
+      "bytes": 6803,
+      "sha256": "3c8c6e755bc8ad0174458005326f86fbf9592d836a518221411ae85477ca4aab"
+    },
+    {
+      "path": "assets/js/paywall.js",
+      "bytes": 94,
+      "sha256": "75d99ce56f7ef99bb0ab9fe2eaf5123ca568509cf6beccecaea21dd199edda30"
+    },
+    {
+      "path": "assets/kml/narco_route.kml",
+      "bytes": 229,
+      "sha256": "db9598d680f7c5989c5182658908fcb67239037e8628352170e585ce8a9ca686"
+    },
+    {
+      "path": "aviation.html",
+      "bytes": 1829,
+      "sha256": "703b345b7eeda28d6d0f8a014c9b05be02e3351492aa7377ec321dc09e8caad0"
+    },
+    {
+      "path": "borders.html",
+      "bytes": 1820,
+      "sha256": "53e11e5bfbdba5dcf82936ff6753528c915e981e26276a812610e978c69c9790"
+    },
+    {
+      "path": "cameras.html",
+      "bytes": 1832,
+      "sha256": "d358c2b860f9bbf58eb313a6cb864e353204e25a081aa1cabf89bbcac81eb35b"
+    },
+    {
+      "path": "casefiles.html",
+      "bytes": 1836,
+      "sha256": "b9497afe4675561b237bac9a5069777657896a1d09072f4260159af3e94a139d"
+    },
+    {
+      "path": "connections.html",
+      "bytes": 1835,
+      "sha256": "6c99c2f7355f65222584bd5668bb628d043c058bc1a42e3a630fcafbe7373264"
+    },
+    {
+      "path": "content/arizona-cyber.html",
+      "bytes": 25032,
+      "sha256": "e6ffb31776722b094fcb9e08843bd4bab909b1614fe1ffc22f2e2918797e468d"
+    },
+    {
+      "path": "content/az-border-history.html",
+      "bytes": 23369,
+      "sha256": "0028bdd9f2eed539411c4eef28f8cfa6d3c6cb1da66d5137ef01f3d5082d0dda"
+    },
+    {
+      "path": "content/az-cold-war.html",
+      "bytes": 28808,
+      "sha256": "8090a15a3d5330624bfc5db1ebf704ba8ed955641f8bde3d09a8988e63bb373a"
+    },
+    {
+      "path": "content/az-corruption.html",
+      "bytes": 17317,
+      "sha256": "de75311e23a5d5054536ec47b6848e38ed59a232c29ee1de19afa8697ae888f6"
+    },
+    {
+      "path": "content/az-election-security.html",
+      "bytes": 26217,
+      "sha256": "8a6cc53bf837730e30e04982f4931892f6d14eb60e120911e0771a8308d9f75e"
+    },
+    {
+      "path": "content/az-history.html",
+      "bytes": 33660,
+      "sha256": "3ba217bfcb1ac58c15abe8d0e5e9e155986fa1b91376793ea069149808cc1249"
+    },
+    {
+      "path": "content/az-ics-scada.html",
+      "bytes": 23936,
+      "sha256": "2ac055f5a93812ba004512d2cf73391a6d97a06d42a89e47b3f91edb3b76cc23"
+    },
+    {
+      "path": "content/az-mining.html",
+      "bytes": 25555,
+      "sha256": "cc5955b2353676da43719ee7128e7432b9f5e60bf13887cd4e67c311bfe9b411"
+    },
+    {
+      "path": "content/az-nuclear.html",
+      "bytes": 24377,
+      "sha256": "53e14a76194befeccc559295b60dd2cc9fac17127e2cee69998e516a6f7fa887"
+    },
+    {
+      "path": "content/barry-goldwater-range.html",
+      "bytes": 18589,
+      "sha256": "72e63ac5b15cedb5bcc435977f0d99aa7962ed308bd74524a1c24e661e7686c7"
+    },
+    {
+      "path": "content/border-tech.html",
+      "bytes": 23962,
+      "sha256": "8f6716b898c8c45c4f26cf56cffbd4558ecba3d1a1903cf9520717180af3667a"
+    },
+    {
+      "path": "content/davis-monthan.html",
+      "bytes": 21204,
+      "sha256": "867da2a3e1f4b3c2eaa49eb3006d846df5c32dee62fce469a1878a6833479763"
+    },
+    {
+      "path": "content/fort-huachuca.html",
+      "bytes": 27393,
+      "sha256": "814d5b7736b3b6fb2a4ee93d054e183fc0f1199662df79999daa26cf7a86ecb8"
+    },
+    {
+      "path": "content/kingman-crash.html",
+      "bytes": 20482,
+      "sha256": "8161dddc1288cdcd50640a788735a6ab00f258d4651d854e4c0a8be263d05685"
+    },
+    {
+      "path": "content/palo-verde.html",
+      "bytes": 26925,
+      "sha256": "217840bd6b360ebcc52d3e093780d35032f8323d4b60b65cdf7349a6ffb22616"
+    },
+    {
+      "path": "content/phoenix-lights.html",
+      "bytes": 10125,
+      "sha256": "75af741fa665170698561678c41bba5df552d5bda55c8fed240740d1da7bb157"
+    },
+    {
+      "path": "content/russia-osint.html",
+      "bytes": 8964,
+      "sha256": "fe0f4dc8ec05b4d89cbc85ffdfd0b0543e3538348969267392d89a849dea1aa0"
+    },
+    {
+      "path": "content/travis-walton.html",
+      "bytes": 18173,
+      "sha256": "35d3566b4a079c3b3fa67b29a674bbeae0f7f4eb3161802bcba91bd63d8324e5"
+    },
+    {
+      "path": "content/tribal-governance.html",
+      "bytes": 26244,
+      "sha256": "4a8af7b3753680b97edaed247a231266ff449d7e50d828f3c7fc649d0c6ca015"
+    },
+    {
+      "path": "content/uap-congressional.html",
+      "bytes": 27428,
+      "sha256": "e8ae8396ae51ea2762c8c0e4b25252ae27c5887800cc8d7853a67abc083bfb53"
+    },
+    {
+      "path": "content/water-politics.html",
+      "bytes": 25466,
+      "sha256": "dde26c57f8647323fb1311534b9d957831be4159b14698da62e0f65c7e32bcdf"
+    },
+    {
+      "path": "cyber.html",
+      "bytes": 1822,
+      "sha256": "06a5a4fd28f7bb8a318a1bfa3db3513d64e21ece38b2faa656c4a31f69318bba"
+    },
+    {
+      "path": "data/archive/2026-03-24/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "03eee327607e4cdbc8f592204ab153a8d5e68e73137f005265b330e3871134db"
+    },
+    {
+      "path": "data/archive/2026-03-24/cisa_advisories.json",
+      "bytes": 28836,
+      "sha256": "ed807c62ecd64124aa03b19b94749cc088c3a46072ed037b3855b8dabcc9e372"
+    },
+    {
+      "path": "data/archive/2026-03-24/cisa_kev.json",
+      "bytes": 25345,
+      "sha256": "ba4dc2077bab4391cbd02181e8370380dcda31ffcc916c3fc5beac24add432ef"
+    },
+    {
+      "path": "data/archive/2026-03-24/dhs_news.json",
+      "bytes": 8324,
+      "sha256": "d1e5a599684a25f837c9467e7c420c68ae7f95d4bcb7eab164512149d88d890c"
+    },
+    {
+      "path": "data/archive/2026-03-24/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "8400d55513c3052bd840d79dc24ea30f3fdfee15ba8fc210471ca4275c580de2"
+    },
+    {
+      "path": "data/archive/2026-03-24/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "31008e64a9a487a0c853a5f29b5b18eaf7355a8fef100b1415e506df9e430e71"
+    },
+    {
+      "path": "data/archive/2026-03-24/gov_domains_summary.json",
+      "bytes": 18721,
+      "sha256": "465d757468414d3cc17436cbc7d227d91b36b0d5aee24f0d0b84ac5b9ba736d9"
+    },
+    {
+      "path": "data/archive/2026-03-24/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "3590b3ef7d4b867cc190521b89053a03fe614824b3ef6e0633cbc7da868755c5"
+    },
+    {
+      "path": "data/archive/2026-03-24/public_cameras.json",
+      "bytes": 3836,
+      "sha256": "2e8ce8bf9adba316936c7072c455d1b1c73b856a2d8ec83076b261eec55ee967"
+    },
+    {
+      "path": "data/archive/2026-03-24/weather_alerts.json",
+      "bytes": 45998,
+      "sha256": "db1a58c893f1e5ccabd4cdbe000a26b8118a5e60d54864b1f4b0a5b103e08e4b"
+    },
+    {
+      "path": "data/archive/2026-03-25/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "df3c82be58c5219b898cf1b751f8174f774e26fa57f7d3462f7afe5119b7d5e1"
+    },
+    {
+      "path": "data/archive/2026-03-25/cisa_advisories.json",
+      "bytes": 28791,
+      "sha256": "57db9f50e373412507134d3e5ca588277877fc158e4e5de59b2694eaa961c5d9"
+    },
+    {
+      "path": "data/archive/2026-03-25/cisa_kev.json",
+      "bytes": 25345,
+      "sha256": "d79bc69185e6e97656e2aadbf112f2936a3dc222f19d230a21178f735577eb50"
+    },
+    {
+      "path": "data/archive/2026-03-25/dhs_news.json",
+      "bytes": 8324,
+      "sha256": "3af3f07fef8caa3e6884f6d5661ff6f93ecbcdb4d3bcb9cec4724585f2fbdaf8"
+    },
+    {
+      "path": "data/archive/2026-03-25/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "f1cb178118ccdc98ebbef4220a41344d9f3206669210efdd4d6536cc8d152d1b"
+    },
+    {
+      "path": "data/archive/2026-03-25/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "335c77cba72cb3b7f6b73a6f00e328222328cedcd6f2407e018991e5562b73ed"
+    },
+    {
+      "path": "data/archive/2026-03-25/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "f420227677b7bbd69705509c018508540ccafdc1298b24473da56c950e5be41b"
+    },
+    {
+      "path": "data/archive/2026-03-25/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "20a48eb1ae54ef9d24aac2fb72da057ccad68178181fc722df326fb6cb2bc727"
+    },
+    {
+      "path": "data/archive/2026-03-25/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-03-25/weather_alerts.json",
+      "bytes": 43405,
+      "sha256": "c61cbc4de3a52fc9fccdcb63c824f60013301074162ba3b8a9965bfc9250cc3f"
+    },
+    {
+      "path": "data/archive/2026-03-26/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "2c51cc3caf7915eea20e871205d7dec35a6ddcc87e85bd05ade2341a6652f404"
+    },
+    {
+      "path": "data/archive/2026-03-26/cisa_advisories.json",
+      "bytes": 28840,
+      "sha256": "3a8bd11e9278101a96fc69e7aa831da8843badc1b27f5c25670f2b97b077779d"
+    },
+    {
+      "path": "data/archive/2026-03-26/cisa_kev.json",
+      "bytes": 25219,
+      "sha256": "34df67838a412506d69c70b463efbffaa22fdacb68718edd2d29693fbc2f607e"
+    },
+    {
+      "path": "data/archive/2026-03-26/dhs_news.json",
+      "bytes": 8320,
+      "sha256": "a6028bf32275ba2902ead91fbfee2d0d058673643819abff4020e5bf69424aff"
+    },
+    {
+      "path": "data/archive/2026-03-26/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "9a11cda69523b213cfd0cd1b52ab4dd106ca089171da64e8fe22b0e942cbf7b8"
+    },
+    {
+      "path": "data/archive/2026-03-26/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "216a6425bb7a6040fc97a79cdf371be008d71a5a1856621b24e0c5f28f8e8db1"
+    },
+    {
+      "path": "data/archive/2026-03-26/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "73e0955692b3decd1d18fce11cfbd0f90a74041ff9ac9e7e76ceabdc38d1b7a1"
+    },
+    {
+      "path": "data/archive/2026-03-26/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "ad3ddab20d0e2c691bd03d4b721b75634c50dc9cc1fa350a53286665bf22f4a6"
+    },
+    {
+      "path": "data/archive/2026-03-26/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-03-26/weather_alerts.json",
+      "bytes": 42885,
+      "sha256": "1d7f0ad14cf24cdb136b5ee4fa329876eddc66ae3fb43c1bf9eab3d12f1cd4d1"
+    },
+    {
+      "path": "data/archive/2026-03-27/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "bb8ba1d7f6736514acab9e7848f25d1050719cb062b73375a677836398a6ef65"
+    },
+    {
+      "path": "data/archive/2026-03-27/cisa_advisories.json",
+      "bytes": 29000,
+      "sha256": "c1406642c054a6b81add648f4e7eb6870d5d49de38187c461c7226f9707d3430"
+    },
+    {
+      "path": "data/archive/2026-03-27/cisa_kev.json",
+      "bytes": 25287,
+      "sha256": "c49390815f1db177a18d4947abade0e2b13177fb85470c816a6c3344cc7b425b"
+    },
+    {
+      "path": "data/archive/2026-03-27/dhs_news.json",
+      "bytes": 8320,
+      "sha256": "4e6aed28d052c53b7518b1318545633c963bb909e4883e745649344ef404ce94"
+    },
+    {
+      "path": "data/archive/2026-03-27/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "df103e116ef38dc7c414523598547ba1b1dc8119b7c3be54ebf12b7f886c8afc"
+    },
+    {
+      "path": "data/archive/2026-03-27/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "6f1ba5813fef0343e7b300215fc7bc8cda7d457fd0426e3374fc463cb07b6424"
+    },
+    {
+      "path": "data/archive/2026-03-27/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "65b31df2e00825a5a4d846dea994c05fa5bce1458dfd49f0dff1fef48f600900"
+    },
+    {
+      "path": "data/archive/2026-03-27/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "110ea60c719a187cef0bf7a09191bc06e1ce20e867598f57d27722619448670b"
+    },
+    {
+      "path": "data/archive/2026-03-27/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-03-27/weather_alerts.json",
+      "bytes": 46601,
+      "sha256": "125d61b8e5b7159c651cfbf39e3aa9e0ecb8403ba08355183eebcb47c453427c"
+    },
+    {
+      "path": "data/archive/2026-03-28/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "7e164ba9a971fe4ef43115d90d97ea14f2f2dbe87df89128b97bbddf759f50b4"
+    },
+    {
+      "path": "data/archive/2026-03-28/cisa_advisories.json",
+      "bytes": 29049,
+      "sha256": "ca9279f2654ae762fd241ae79d49ee9f3a628f3754eccccca4fdd4c899acddf3"
+    },
+    {
+      "path": "data/archive/2026-03-28/cisa_kev.json",
+      "bytes": 25054,
+      "sha256": "d10e5f03a13937dfbd9bdc99ce3ffe4e5047fa6e5b1af9276435eddeabf94b23"
+    },
+    {
+      "path": "data/archive/2026-03-28/dhs_news.json",
+      "bytes": 8320,
+      "sha256": "a3fe5efd87b7fd403c80c177f2e507449347dc458abb189fde8507345a1d5159"
+    },
+    {
+      "path": "data/archive/2026-03-28/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "bba9baf02fe98eb8d92f31e6a7ed83896fb4fa2295300e4280630af4bd6511f5"
+    },
+    {
+      "path": "data/archive/2026-03-28/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "955d4426ad35b31e144929bf790d87a94ff929600b9e7d3fe5731d0fe08417a0"
+    },
+    {
+      "path": "data/archive/2026-03-28/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "d799e0522b48167ae9a60c5a0fae62675eb0c02acaed39e39ae33fcb5dcf1afd"
+    },
+    {
+      "path": "data/archive/2026-03-28/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "41aba2daf7d27d5ac805a894202424485e837719ff19be65bf927fbdd0a508e9"
+    },
+    {
+      "path": "data/archive/2026-03-28/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-03-28/weather_alerts.json",
+      "bytes": 48046,
+      "sha256": "762338ab3f4ccb375077ae1e14749944b4b9c2dff49501be4cc359fa60f9e8b2"
+    },
+    {
+      "path": "data/archive/2026-03-29/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "f169e5107638360425849763b16a37a93259add2e46048af25f18f718def0d7e"
+    },
+    {
+      "path": "data/archive/2026-03-29/cisa_advisories.json",
+      "bytes": 29049,
+      "sha256": "298ea71d31c4e97add152809fbd0d6045f7278b8b0eab46f2ba0dee2a3430a30"
+    },
+    {
+      "path": "data/archive/2026-03-29/cisa_kev.json",
+      "bytes": 25054,
+      "sha256": "12f752fbe88cb244ad9b67f3224dff285030b910e827f2d13415362aa781a542"
+    },
+    {
+      "path": "data/archive/2026-03-29/dhs_news.json",
+      "bytes": 8320,
+      "sha256": "7d95267c66dc02ebf593c2c4f27007e27d030b588466a7427461f6cf55bf9518"
+    },
+    {
+      "path": "data/archive/2026-03-29/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "dc689868753c472b45de525f0321c3a3ee6f2049dab285ea14acbd33fd7a93b5"
+    },
+    {
+      "path": "data/archive/2026-03-29/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "52ee239c0f4e84f8fc98a39e3684ff259fa3a826a31f1f0c3d84575926bba84b"
+    },
+    {
+      "path": "data/archive/2026-03-29/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "04dd21b6b2cfff7fd11150401ad196de03a20d4560696cb432789b6343696796"
+    },
+    {
+      "path": "data/archive/2026-03-29/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "5eb24653afe43eb28a5c4e3be811fd849d6edf441bc184e4948aaff4e703f4ab"
+    },
+    {
+      "path": "data/archive/2026-03-29/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-03-29/weather_alerts.json",
+      "bytes": 50696,
+      "sha256": "3d6514a6a506fc548f6fe2dbe02fc3752f42412d6ca3a0054b906777b0666862"
+    },
+    {
+      "path": "data/archive/2026-03-30/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "31c85b8c9084e83484c21a4c9d660d347ce2981b86563d4ea13a998060dc937a"
+    },
+    {
+      "path": "data/archive/2026-03-30/cisa_advisories.json",
+      "bytes": 29049,
+      "sha256": "05aa290c9918b6bdcbe996a5aba5dca83a06aa186cc3099493c504e165ecbce2"
+    },
+    {
+      "path": "data/archive/2026-03-30/cisa_kev.json",
+      "bytes": 25054,
+      "sha256": "2610ab7b4d32b56c390637b92d6485bf4dbb911336cded9e328ffe1bcda4295d"
+    },
+    {
+      "path": "data/archive/2026-03-30/dhs_news.json",
+      "bytes": 8320,
+      "sha256": "df093f8b3783c6daf974623d99e003810fca0616f2762d97a555d78a62150076"
+    },
+    {
+      "path": "data/archive/2026-03-30/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "da1af543d6218fd8c9e73895280fcb3a8d67ddd9915234ac8f8c9b2ad5fabfdf"
+    },
+    {
+      "path": "data/archive/2026-03-30/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "e2c70a0561a0f8d185212ccada98c03be9821d6f649991bfedb9c10ce76f3a9e"
+    },
+    {
+      "path": "data/archive/2026-03-30/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "8aa622a1f07ba85819a41fce9c999ad6a66821d91b7e9f5699ac20bd1aaa955d"
+    },
+    {
+      "path": "data/archive/2026-03-30/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "8858534fe8dd20a0895461cc3a433dd7c2961372dc982c269fae38b4526f5b20"
+    },
+    {
+      "path": "data/archive/2026-03-30/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-03-30/weather_alerts.json",
+      "bytes": 45581,
+      "sha256": "8846b1e9d2b0c981ce9e28f70fc8ba90434092d206d66edab19884939ea87304"
+    },
+    {
+      "path": "data/archive/2026-03-31/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "96c2c3b7d4eac0ead5925a6b5ac2f26262f2cd92ce11cc797d30a553fa669998"
+    },
+    {
+      "path": "data/archive/2026-03-31/cisa_advisories.json",
+      "bytes": 29042,
+      "sha256": "524df45b6f518e2f119244fc1d8bec2dfa9e3d39b0e016c0b3e5e364562e573f"
+    },
+    {
+      "path": "data/archive/2026-03-31/cisa_kev.json",
+      "bytes": 25059,
+      "sha256": "a0fb682977011135958ebc0d6a923db3b5b7767c226ae3cb3b5a1b8ee60ddb6a"
+    },
+    {
+      "path": "data/archive/2026-03-31/dhs_news.json",
+      "bytes": 8320,
+      "sha256": "2b4caa6859fd4ad849492e1a6535fd99bb2808a91b3c701b9464c781dbcf5666"
+    },
+    {
+      "path": "data/archive/2026-03-31/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "eb887a024312c35f078866cb2ed0bdb842abc14f86befb66ada3b6fa9d35be65"
+    },
+    {
+      "path": "data/archive/2026-03-31/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "e6f02314e30b6fb56ae5c4d75059535a45a55707122a9479738d0ff8e9eb1f0c"
+    },
+    {
+      "path": "data/archive/2026-03-31/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "a51fe9d9d56eba04e5fca5eaccb9b11259a33833134da176feaaa297d62f9f78"
+    },
+    {
+      "path": "data/archive/2026-03-31/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "d897e58b2d41b69271ab81b0b77d63c92eeec4679bda85febb0c77b4e83cf41e"
+    },
+    {
+      "path": "data/archive/2026-03-31/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-03-31/weather_alerts.json",
+      "bytes": 45085,
+      "sha256": "72de999f0d2b369407d41633cc301aa5d1d1453972a7ca4e8662b309e8c32ce7"
+    },
+    {
+      "path": "data/archive/2026-04-01/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "6bf079e646ec0a1c023c7dce5250b24c05440cc29b5427e4f5d29f2e8c0770d7"
+    },
+    {
+      "path": "data/archive/2026-04-01/cisa_advisories.json",
+      "bytes": 28936,
+      "sha256": "84f74c7750d275a0f7174cd62d60cfdd68be851cf2fb2e98c5a19cb3035ef328"
+    },
+    {
+      "path": "data/archive/2026-04-01/cisa_kev.json",
+      "bytes": 25059,
+      "sha256": "465a797a78b2848e2c40e6ee7e9030f632afe9c013a724b31cd8838904d2a7c9"
+    },
+    {
+      "path": "data/archive/2026-04-01/dhs_news.json",
+      "bytes": 8320,
+      "sha256": "b2b9eb17e86edbd78f9b5448f0f77e6b5a907b37955f52b1027a757380d64ec5"
+    },
+    {
+      "path": "data/archive/2026-04-01/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "e680e339d525aef0ee75bb921ee90b95b54aa29465ad77dc56dd81529558ad82"
+    },
+    {
+      "path": "data/archive/2026-04-01/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "92ba78b0ce019b4f55dc0ed7a427e46961f445fb819ebaff5d94b888fc2406e0"
+    },
+    {
+      "path": "data/archive/2026-04-01/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "bfeba4bae4cf09e5637883f2c5b66ce5370c93fa19ffbc1ba7060516e941894a"
+    },
+    {
+      "path": "data/archive/2026-04-01/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "314f08ec2ce0f6549a8b1f911d7c132014b5aba6c24044c2f7d6562e064deb67"
+    },
+    {
+      "path": "data/archive/2026-04-01/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-01/weather_alerts.json",
+      "bytes": 45515,
+      "sha256": "95e57b7480f7f4ca56e75d7db8c7fb8c1e27c472bb5e94e807c909513f79168b"
+    },
+    {
+      "path": "data/archive/2026-04-02/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "fe715160ad3a153c159996b9ed69883310db8c908be51f4371b8cf661b1ba9c5"
+    },
+    {
+      "path": "data/archive/2026-04-02/cisa_advisories.json",
+      "bytes": 29001,
+      "sha256": "c6eab26d509d830def881fed90a1dd7b69e6824d9c590009d152a9bdb1c66218"
+    },
+    {
+      "path": "data/archive/2026-04-02/cisa_kev.json",
+      "bytes": 25046,
+      "sha256": "f7a91cf617d31be8a17adea3cd76e102abb3164c8b075654693bc691c92adc50"
+    },
+    {
+      "path": "data/archive/2026-04-02/dhs_news.json",
+      "bytes": 8320,
+      "sha256": "2415f0d5d51d45d87d8425fce53c620959144d7034d3a6959265acdf902ad600"
+    },
+    {
+      "path": "data/archive/2026-04-02/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "0eb77b588533c403e9a7ccfcdcf95292f978731da33ded462f053965f913268a"
+    },
+    {
+      "path": "data/archive/2026-04-02/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "08a88240bb7d7e55ebbb8c4a9e8dc989c9b3c28b2cade8f6d6cbfbe686326fc6"
+    },
+    {
+      "path": "data/archive/2026-04-02/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "3661a580f80cd80cb2a6d716734bd431f5fd01d27b8cbb2a1b3c016b1a6cd8d8"
+    },
+    {
+      "path": "data/archive/2026-04-02/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "81b2b0a3faf10c53a78852ff69d49051785d16c24218252e7c93f55801eaedbf"
+    },
+    {
+      "path": "data/archive/2026-04-02/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-02/weather_alerts.json",
+      "bytes": 44888,
+      "sha256": "af2e6872cc01ec3b0b54d6e697574e55fe2683586a5f82edaf258b5fb0dd6c07"
+    },
+    {
+      "path": "data/archive/2026-04-03/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "f65370365a7d20b778263fac756c6c51abf81af10a0fe6a7afc7f2e0f5c3a2ec"
+    },
+    {
+      "path": "data/archive/2026-04-03/cisa_advisories.json",
+      "bytes": 28877,
+      "sha256": "cd816423b88ca21bc9f3365b33b51e540a3a48765ec7eac4c4b561359cd0e3b0"
+    },
+    {
+      "path": "data/archive/2026-04-03/cisa_kev.json",
+      "bytes": 25027,
+      "sha256": "4fd35f4375226b84dfe2acbb79ba407658cf27e9f1ed7c2aa8e2c00adbf115ee"
+    },
+    {
+      "path": "data/archive/2026-04-03/dhs_news.json",
+      "bytes": 8320,
+      "sha256": "1979a5b701347be3d42cc1e0440a7ad67194feb46ea0d6da20c4cc22da733365"
+    },
+    {
+      "path": "data/archive/2026-04-03/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "7b1622a895428f8c997f5899744ac1da0d196783a23ad514674a3066c4591640"
+    },
+    {
+      "path": "data/archive/2026-04-03/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "ee5bd2edc73e05bbea5ea8be34f67a62b217616bf8b1a307f2bb13931245215a"
+    },
+    {
+      "path": "data/archive/2026-04-03/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "d559b36392cfc8e966ed5752b91deaeaa2e6d321d6f887341a582d7fe41e9067"
+    },
+    {
+      "path": "data/archive/2026-04-03/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "b350934e17c349602fcd5f8f6ee8bb30f991b78131fb6296e45f1fb65c4c188a"
+    },
+    {
+      "path": "data/archive/2026-04-03/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-03/weather_alerts.json",
+      "bytes": 44160,
+      "sha256": "69c79c366f4f2757a8c58e1c990713ad1e352f691f17a82f0434baee454b5662"
+    },
+    {
+      "path": "data/archive/2026-04-04/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "7bf1097d32213028a528366e9b5278253ffa3347510e0d4f8754df111cf137e7"
+    },
+    {
+      "path": "data/archive/2026-04-04/cisa_advisories.json",
+      "bytes": 28877,
+      "sha256": "960b0af6b8d871e693058208c5780b6bdf9ea389f8a171f01b6af3b487242f78"
+    },
+    {
+      "path": "data/archive/2026-04-04/cisa_kev.json",
+      "bytes": 25027,
+      "sha256": "4b3e90056537b31a17dfe1249b21d32987316ecd80a2dd635a3fba2bfbf106a0"
+    },
+    {
+      "path": "data/archive/2026-04-04/dhs_news.json",
+      "bytes": 8288,
+      "sha256": "b94746868aee222a5e85bf5054cf77f5cc6f182cc23a51670d764e35badf3056"
+    },
+    {
+      "path": "data/archive/2026-04-04/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "2305e29daf5053c665ba176692ec4e04a3be1d3a7505e08263df1b827059a2c0"
+    },
+    {
+      "path": "data/archive/2026-04-04/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "b8f5cf3942f530dd016df7f6b5e34b7619c306faaa43aa6d1f4287c4488ffac5"
+    },
+    {
+      "path": "data/archive/2026-04-04/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "39e53e04f683fdf32578577c65feb53f41ff8378e09d87df50a904b12e1bf142"
+    },
+    {
+      "path": "data/archive/2026-04-04/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "540ff042d8f5f4d711c6899e07ec851da9ca268d9d7e3701235236e4eb8239b1"
+    },
+    {
+      "path": "data/archive/2026-04-04/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-04/weather_alerts.json",
+      "bytes": 44200,
+      "sha256": "d09f2f9248777634eca904e4b25eb4b196cabe18d31419ce503551973bdba194"
+    },
+    {
+      "path": "data/archive/2026-04-05/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "9b4a049fca30c483df2dda4490672f00cb19eab389a36a0ff955c1941819d145"
+    },
+    {
+      "path": "data/archive/2026-04-05/cisa_advisories.json",
+      "bytes": 28877,
+      "sha256": "e3feb26044bba2e34da41aa2a9e431efb355f255877bdb36529475465c59bda7"
+    },
+    {
+      "path": "data/archive/2026-04-05/cisa_kev.json",
+      "bytes": 25027,
+      "sha256": "98431949f8e2f9cd173c3630906f419e96d15c5328d07607a1efb7afbdd62a74"
+    },
+    {
+      "path": "data/archive/2026-04-05/dhs_news.json",
+      "bytes": 8468,
+      "sha256": "fc0547af80b4badd97dc2fbec932af315bec751f999c9e6ec97ce620e3ebde5b"
+    },
+    {
+      "path": "data/archive/2026-04-05/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "5b69ec3a50ddced396771fcd374d6ae7ba86b19e5229b55238fa4600dac57510"
+    },
+    {
+      "path": "data/archive/2026-04-05/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "86c844b82c998bec16fbf4ff8e7f1a39064a73772583abb4d8bcb50d0fea750d"
+    },
+    {
+      "path": "data/archive/2026-04-05/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "9660a2695e13e9173d8a6425588bb76c33100b07af406626c603b9204e624c31"
+    },
+    {
+      "path": "data/archive/2026-04-05/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "dc983f1fb10b3646c66c56f5815338cf22995b126681a6c51c6fa23f4f68dc8e"
+    },
+    {
+      "path": "data/archive/2026-04-05/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-05/weather_alerts.json",
+      "bytes": 44080,
+      "sha256": "ff37eef3c1ba0e3847411af62689326806a84cbae6f3416c7d691a27b50cd14f"
+    },
+    {
+      "path": "data/archive/2026-04-06/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "2cf7fd70c126c6d9c99b23a3239999871ae2e5a58d2091d08ca2dd31ef6b254c"
+    },
+    {
+      "path": "data/archive/2026-04-06/cisa_advisories.json",
+      "bytes": 28877,
+      "sha256": "77307a443ed73f3879a12e117ee24024cdb72b1583c5428ecfdb53ac6cd75de5"
+    },
+    {
+      "path": "data/archive/2026-04-06/cisa_kev.json",
+      "bytes": 25027,
+      "sha256": "258ca86823d1e20d509f447b1173d3ee188c2357e82df5fbe84c42b91ff7eae7"
+    },
+    {
+      "path": "data/archive/2026-04-06/dhs_news.json",
+      "bytes": 8468,
+      "sha256": "d8b3e3c045336b9cc025ff6a9a85fed1e095b6dcee6b2837fce91f6c38276eaf"
+    },
+    {
+      "path": "data/archive/2026-04-06/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "38205948049b2956f67d6a142a227e8f4a018ec3ab5c19578b3618cee3efc522"
+    },
+    {
+      "path": "data/archive/2026-04-06/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "db77d994c21872c7f4e75354822d0054aa00e963d8e8c031414b99f4c3a788b9"
+    },
+    {
+      "path": "data/archive/2026-04-06/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "8cb5bc2c0d57e6364651415bc0db314992192d8cceb83b9c2c6abd52f84b4343"
+    },
+    {
+      "path": "data/archive/2026-04-06/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "98dd2240729e9366c118e5c2607deab16a5e1be5948f656e738e5514aeab66f7"
+    },
+    {
+      "path": "data/archive/2026-04-06/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-06/weather_alerts.json",
+      "bytes": 46486,
+      "sha256": "c3f4eb05be375f95b493e0a4bbeff2a1e9eee2baeee077bb376e325cadbb78a5"
+    },
+    {
+      "path": "data/archive/2026-04-07/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "13f48c012c6da7a5e814655a303fc7cc6f7bd379b7492dfd33f5a6660f7ba4ec"
+    },
+    {
+      "path": "data/archive/2026-04-07/cisa_advisories.json",
+      "bytes": 28814,
+      "sha256": "66ce5075ebcdf42bb05545f001e168e4ac836f06646801b3c6b7949a589f6293"
+    },
+    {
+      "path": "data/archive/2026-04-07/cisa_kev.json",
+      "bytes": 25046,
+      "sha256": "57693b152b00a562933289f31c08c96d99878f6b32394585e6001d83bf0d6d88"
+    },
+    {
+      "path": "data/archive/2026-04-07/dhs_news.json",
+      "bytes": 8468,
+      "sha256": "938ad396b2c141a8248c9f5ca8949139dcf8bff1df92fab789e9ace379b3a5e3"
+    },
+    {
+      "path": "data/archive/2026-04-07/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "7654daf2b025485b077eb9c0cf3bef3290d29b0673d2cdf17f31bef6a882e9a0"
+    },
+    {
+      "path": "data/archive/2026-04-07/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "91c10c09aa6874079047de63825d7acfe0ad0328bdec0b47e629ef2d56c2fd90"
+    },
+    {
+      "path": "data/archive/2026-04-07/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "dca6b4fb28d3cabee3e2ec31a86ee774de8d2bd6aff9e507ea8ab90fc40c3de2"
+    },
+    {
+      "path": "data/archive/2026-04-07/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "3742aa55030d30192d834fe460db75abd6bea30b1a16c4d3dabf426bd9a92762"
+    },
+    {
+      "path": "data/archive/2026-04-07/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-07/weather_alerts.json",
+      "bytes": 46128,
+      "sha256": "dd1741c5765f55e573377a3a39933a3672e86c8a18a026fbdf8f74a9dce4c706"
+    },
+    {
+      "path": "data/archive/2026-04-08/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "3508a873f364c1aaff996cac6fcf7f02c6eb64e8456a3ca1ff23aba7f24d40d6"
+    },
+    {
+      "path": "data/archive/2026-04-08/cisa_advisories.json",
+      "bytes": 28871,
+      "sha256": "818cbd009f5b5bf9080bffe0e9329e55e4455eabe35c7429c4b10d6b68432dee"
+    },
+    {
+      "path": "data/archive/2026-04-08/cisa_kev.json",
+      "bytes": 25046,
+      "sha256": "19f4df7ccd80b1cee2b0a192642cd95450b2cca2321b054e16ff670e48acd8bb"
+    },
+    {
+      "path": "data/archive/2026-04-08/dhs_news.json",
+      "bytes": 8468,
+      "sha256": "adbd5384f69a6d4858df7819d6f3a3e7ff958ec5d0f0df9e89e9288eb4e74c83"
+    },
+    {
+      "path": "data/archive/2026-04-08/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "81a4af771bb8fc7184cf8c344224627684818be4a5a2ee3b7b6cbfd7bbe33e8a"
+    },
+    {
+      "path": "data/archive/2026-04-08/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "9151974ddac8d9bffaf09bee95d0a8bcb957ebc05b855fbe5b4281c0602fb3c3"
+    },
+    {
+      "path": "data/archive/2026-04-08/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "b98b556358a07a1f7f8537e98bb689dc1bda49b99e2eeeed722c4de9d06f9b5b"
+    },
+    {
+      "path": "data/archive/2026-04-08/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "9a05efd788b24b6b43335b155dd2d5643c03647f0bb6a85f648cfc8e59776479"
+    },
+    {
+      "path": "data/archive/2026-04-08/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-08/weather_alerts.json",
+      "bytes": 46246,
+      "sha256": "5aea5dea1b52d83267149c2ed5d76954fc6c1614f24a6fb25d0b51e5ac59986b"
+    },
+    {
+      "path": "data/archive/2026-04-09/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "2bcb60bf5e01cb40c99e3af62c49fc095b027e281f0406fa23b835aefa4998dd"
+    },
+    {
+      "path": "data/archive/2026-04-09/cisa_advisories.json",
+      "bytes": 28873,
+      "sha256": "bb0c9e66e28979a28354cff9a842aaa2a0dee1b7b179ec7b6d771266cc2ed4a3"
+    },
+    {
+      "path": "data/archive/2026-04-09/cisa_kev.json",
+      "bytes": 25074,
+      "sha256": "9db0124659afaab5cda158cc32e4878adad37345d3fc655a4f3f68ca5f15ef55"
+    },
+    {
+      "path": "data/archive/2026-04-09/dhs_news.json",
+      "bytes": 8468,
+      "sha256": "94dc4211b3d8d6411099bc629b5d0aaaff8bfef00142bd1e3055319e19006b43"
+    },
+    {
+      "path": "data/archive/2026-04-09/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "b65685ddc3c641f4126173ab281a30b7f963b12c4d68dc4fc518caa0b2680dc5"
+    },
+    {
+      "path": "data/archive/2026-04-09/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "845fc598b615f09d7dcdd6793db9c134593ecdab3de6d328e2519087c16d4f75"
+    },
+    {
+      "path": "data/archive/2026-04-09/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "81ed52363faef43962b05bc5c44cc429eb5121912434328b0c8899a55817c23c"
+    },
+    {
+      "path": "data/archive/2026-04-09/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "1e20e19043626e58233c1d1a545816e9547e3e28eb63314dd06ff8fb1278ea81"
+    },
+    {
+      "path": "data/archive/2026-04-09/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-09/weather_alerts.json",
+      "bytes": 46658,
+      "sha256": "e1326750345b0225d27fd13b97ff9fabe4ab0b95896feb5c51d37942d5d4ffe2"
+    },
+    {
+      "path": "data/archive/2026-04-10/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "131f6c73454531d533c052b2b43c37c1cc16dd6b8c7adb89825006e838b5d9a8"
+    },
+    {
+      "path": "data/archive/2026-04-10/cisa_advisories.json",
+      "bytes": 28848,
+      "sha256": "c71f860f41ec71371c14240c86636131cbc3d0cfe8ae7c2b95e2a4902e2f4cc8"
+    },
+    {
+      "path": "data/archive/2026-04-10/cisa_kev.json",
+      "bytes": 25074,
+      "sha256": "f8c3427d766656f54dcd78041db091e615e7c61714bc3ad7f2600c8d2df474f7"
+    },
+    {
+      "path": "data/archive/2026-04-10/dhs_news.json",
+      "bytes": 8468,
+      "sha256": "3d6821bcc9cb8e0e087c834d9f871cb4f1cd0504a7a37719fe11961443a5cc86"
+    },
+    {
+      "path": "data/archive/2026-04-10/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "ee69e789e0b9b4666a3bdb4ad1aa1895b7511bce8fa33ab91ca9c0bfb0715be4"
+    },
+    {
+      "path": "data/archive/2026-04-10/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "d28dbdfd1c7982c6a6c306f818a9f28eb090bc1c73b24f8c143b6f02131a0dcc"
+    },
+    {
+      "path": "data/archive/2026-04-10/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "9222d8fd19cf0783e835378bf64c5f96eb82061b9193553dc5b6c83917a69efc"
+    },
+    {
+      "path": "data/archive/2026-04-10/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "463d1d84ad5edfebd76ba9d5490fe080c1eb8040b0313233f9b8dd5d39e217e8"
+    },
+    {
+      "path": "data/archive/2026-04-10/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-10/weather_alerts.json",
+      "bytes": 43247,
+      "sha256": "2195d8bb74d969ae417f2678e30c5bfac24fa21fa15c0add5c7ef6ecc79f2004"
+    },
+    {
+      "path": "data/archive/2026-04-11/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "6c2fd76c080c9cf67500ff9d27bfbcd33285bc53e3be45178c17aaea3b56b1e9"
+    },
+    {
+      "path": "data/archive/2026-04-11/cisa_advisories.json",
+      "bytes": 28848,
+      "sha256": "63d741460d36b9e465439c27bf169b5c85ea66491f67b4224c6083653e0c3618"
+    },
+    {
+      "path": "data/archive/2026-04-11/cisa_kev.json",
+      "bytes": 25074,
+      "sha256": "ee3c882f93ad3cf4081d0ccc620152bf4cc94968ed38badcd4a64778903ac200"
+    },
+    {
+      "path": "data/archive/2026-04-11/dhs_news.json",
+      "bytes": 8479,
+      "sha256": "d975513b238c41bc930cd1409d34b1ba453b1d38de297051c5fde98b2dfc82b3"
+    },
+    {
+      "path": "data/archive/2026-04-11/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "9721362a5c05eca1d40d51f256f9449f6b9cb4d75eaa913efcd5cc6c17783326"
+    },
+    {
+      "path": "data/archive/2026-04-11/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "e3ce689e43d5f85957b8383e9b17a422ee4aaaf00e9d803d9866b85eba6e517d"
+    },
+    {
+      "path": "data/archive/2026-04-11/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "93cf8f4e02a293da246375bc642581d3f396910f091e209b23eed718afc09e6d"
+    },
+    {
+      "path": "data/archive/2026-04-11/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "96675bd975f9c8ad7adc66dab5f759292455acf946c714572362d70598197fc2"
+    },
+    {
+      "path": "data/archive/2026-04-11/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-11/weather_alerts.json",
+      "bytes": 48653,
+      "sha256": "675a14cf32fb001a8886fccbd2c2a4f4b52168a3e2301cd3ea27d958f21a0007"
+    },
+    {
+      "path": "data/archive/2026-04-12/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "86648923e84e2ecfb1d80212a18afc6dc9cbda43ba821437bb7a307422ac1d27"
+    },
+    {
+      "path": "data/archive/2026-04-12/cisa_advisories.json",
+      "bytes": 28848,
+      "sha256": "0b57e95ff4f41d5e868f768a8e688c87c06f509c8436e630acdc1d09b52962f2"
+    },
+    {
+      "path": "data/archive/2026-04-12/cisa_kev.json",
+      "bytes": 25074,
+      "sha256": "4ef022d6dc1cc3271094873a85fe024f2220a29b3ab2ffce58509093aebe5f8d"
+    },
+    {
+      "path": "data/archive/2026-04-12/dhs_news.json",
+      "bytes": 8479,
+      "sha256": "e1f7a11bf8ff376e835d158aa592ac258c84063e55d65b7d2b539b9b5e844e6d"
+    },
+    {
+      "path": "data/archive/2026-04-12/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "ce2842f944c83aa224a41307836386647fe0276a41d66f508f972e050cfc5590"
+    },
+    {
+      "path": "data/archive/2026-04-12/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "84d107e79915cb54ce0f9d3c062ce0420decbf7241ac62f56de990e90e59f582"
+    },
+    {
+      "path": "data/archive/2026-04-12/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "1087dcbaf48c51c0b1eb6fb152367d1c01067fdfa73431bd7b3cdca9d195891e"
+    },
+    {
+      "path": "data/archive/2026-04-12/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "146ecba07ad9b9d93e94f1f1e2246eb1e9217478ef8be85e7411864d2e25b7a7"
+    },
+    {
+      "path": "data/archive/2026-04-12/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-12/weather_alerts.json",
+      "bytes": 45848,
+      "sha256": "03eb2cdd21939156cd9057f8e81678d156aedcb2ef7ddded6b52e17ae3a015bb"
+    },
+    {
+      "path": "data/archive/2026-04-13/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "1df3ac79e7e45f454c3c74ca25706be65080e51e39588afc4188558e0ec34bfe"
+    },
+    {
+      "path": "data/archive/2026-04-13/cisa_advisories.json",
+      "bytes": 28848,
+      "sha256": "91688955d5a1bd1c273b8d4c7357d9074845453035397f4484e0d305bd869e78"
+    },
+    {
+      "path": "data/archive/2026-04-13/cisa_kev.json",
+      "bytes": 25074,
+      "sha256": "908c187609ea85af72580e050b253d5d601a9aa4ae6fef6c564fd3cbec5f6e33"
+    },
+    {
+      "path": "data/archive/2026-04-13/dhs_news.json",
+      "bytes": 8468,
+      "sha256": "48146f543715ad2126299726aefec32ec9e4d7a65c237d58d80351c4ec1b2bfc"
+    },
+    {
+      "path": "data/archive/2026-04-13/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "6c8385452c5dda92c96da35fc0e96e59f594c1570ddef396c515c4c582ba52a9"
+    },
+    {
+      "path": "data/archive/2026-04-13/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "c6982dc7e5aaba1d0f4a3daafc8e1802339b712a189cb4d17c5f6c11db391e49"
+    },
+    {
+      "path": "data/archive/2026-04-13/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "ad55f5257c80588c25587e7beeb5c07c382dfb487192afbd49b0203a8ae1896f"
+    },
+    {
+      "path": "data/archive/2026-04-13/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "dc8f6c4ed8c9d107e08be56151819b9390151c3d0fd9f535ccb7c31aa7a50f65"
+    },
+    {
+      "path": "data/archive/2026-04-13/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-13/weather_alerts.json",
+      "bytes": 46168,
+      "sha256": "e32cdb2246b386e60696688021bffccd291ca398073962ce5cac099c15a39cd2"
+    },
+    {
+      "path": "data/archive/2026-04-14/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "715195d21f92a2943e37551f0ab20722f37e9917152bb62bba8722392eb44c62"
+    },
+    {
+      "path": "data/archive/2026-04-14/cisa_advisories.json",
+      "bytes": 28916,
+      "sha256": "601fa38c6af1a2d779724a101e0dc4c72d36071d23b55092d05f9cf1c8856962"
+    },
+    {
+      "path": "data/archive/2026-04-14/cisa_kev.json",
+      "bytes": 24546,
+      "sha256": "6a3dd0339de2d973e1074b0e53158f85b50ac2b50d52de0d5b47e9adf5d03cef"
+    },
+    {
+      "path": "data/archive/2026-04-14/dhs_news.json",
+      "bytes": 8479,
+      "sha256": "08351f401293f3fd333c0b7dcfb5745dfba8dcb922ec9e430d8d6d7bb9049dff"
+    },
+    {
+      "path": "data/archive/2026-04-14/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "a295417ee3c5fc18f37a877ffca2862727f79be439759e571061a99e976076cd"
+    },
+    {
+      "path": "data/archive/2026-04-14/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "4a74cccf3346e44cdd82a14e5f51439209f4c55da9e7dfd564fd2a450b831629"
+    },
+    {
+      "path": "data/archive/2026-04-14/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "5526329e1f9db3b2379bc638d4eb8c89cbcb4440ff5015a23693325dceaf33f0"
+    },
+    {
+      "path": "data/archive/2026-04-14/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "d498be41ec1a41d61f42886e3d22cbb248dbf917adee2171615888637320fdd8"
+    },
+    {
+      "path": "data/archive/2026-04-14/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-14/weather_alerts.json",
+      "bytes": 43073,
+      "sha256": "c1f8a77f9ec4243ec56d891f39a11a6a5ed5ad0e3ac4e4be2fc927c4eac54fc9"
+    },
+    {
+      "path": "data/archive/2026-04-15/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "6426bcae1958f5a40ac553141ad0e541c17fb536242d532565abc4d36ef92f10"
+    },
+    {
+      "path": "data/archive/2026-04-15/cisa_advisories.json",
+      "bytes": 29004,
+      "sha256": "205a3701246e6b1ad22f649943f85a40fd796d602fecd3d7dd9fdbc29dfa364a"
+    },
+    {
+      "path": "data/archive/2026-04-15/cisa_kev.json",
+      "bytes": 24192,
+      "sha256": "3505c766412fd3c27aaaf01f07500bf0ec14aa986fd2ccc04a6be8785bad80f4"
+    },
+    {
+      "path": "data/archive/2026-04-15/dhs_news.json",
+      "bytes": 8479,
+      "sha256": "41ec31d2721cc4172c69cb50ee35ad69ba366de7910835d0ee2eb3b8edf2e9d7"
+    },
+    {
+      "path": "data/archive/2026-04-15/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "71d7cb086e2fa5f4da2c7d675b0122f92d1d0fa4549cf68b3266f0e74a59914c"
+    },
+    {
+      "path": "data/archive/2026-04-15/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "e364a14ad7a182ad4189688feceada52017dd32da05e43e0f351b5014be455fd"
+    },
+    {
+      "path": "data/archive/2026-04-15/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "145d807ef0dccdc58c7cbd80c54b07cad96ee4ccd327f1d80605932e641af880"
+    },
+    {
+      "path": "data/archive/2026-04-15/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "a84f916c16e74c6d8c40c3e4cc76a4ba2c92d6ef30d96ee6dd084a786238e4f6"
+    },
+    {
+      "path": "data/archive/2026-04-15/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-15/weather_alerts.json",
+      "bytes": 45249,
+      "sha256": "d0ac039b25089b12c5bbccf80a1132dadbbaf7ab5e90c200b27b805b7b9ef458"
+    },
+    {
+      "path": "data/archive/2026-04-16/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "9da9637211615ff5f10648fcd96e15fbacae42c5c9c379ec12c2444a0f58a6ee"
+    },
+    {
+      "path": "data/archive/2026-04-16/cisa_advisories.json",
+      "bytes": 29004,
+      "sha256": "8411c2b79aa21ba73df0a13c645f9b506bc0ee29a4f4deec43d7d56887eb3788"
+    },
+    {
+      "path": "data/archive/2026-04-16/cisa_kev.json",
+      "bytes": 24192,
+      "sha256": "4037e4d0543401761abc0a528bdc6a651a2d147e00e8a2c6e7d168dd591d0bb7"
+    },
+    {
+      "path": "data/archive/2026-04-16/dhs_news.json",
+      "bytes": 8479,
+      "sha256": "cdbe075e8b512ca1751d7411ee13dc18509a8976ec411d31fcd0389a640a492a"
+    },
+    {
+      "path": "data/archive/2026-04-16/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "7db6d26c6f35667a581ad2e0b3d201075339e0495417d4014ef5f8cb473ad2d9"
+    },
+    {
+      "path": "data/archive/2026-04-16/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "8648a465c8a97ba837460fb5ca54f9710553f21e5dfe1b80578c922b71e2a2c9"
+    },
+    {
+      "path": "data/archive/2026-04-16/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "5a5b482f28c266b287b1c0504f2d63acdf092b490a5ead48b997849d0f902b0b"
+    },
+    {
+      "path": "data/archive/2026-04-16/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "99c7ffb08352834e3f3cca1ef6b3bcc0b61e7b23853e8f00a0b88edc7d7bbecd"
+    },
+    {
+      "path": "data/archive/2026-04-16/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-16/weather_alerts.json",
+      "bytes": 45575,
+      "sha256": "56ad53fe8d9a1688c7c84e063055fd23a3f3e440752ef912654eafc975097e17"
+    },
+    {
+      "path": "data/archive/2026-04-17/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "9ba6c57387c13ab29b2662a6f3d1ad99b3622c0f2439718bb0795db51b801361"
+    },
+    {
+      "path": "data/archive/2026-04-17/cisa_advisories.json",
+      "bytes": 28887,
+      "sha256": "31260d37dfbc3bcaefe7796b8802d777e4b56c9c7017d639687696e6efdcfd1d"
+    },
+    {
+      "path": "data/archive/2026-04-17/cisa_kev.json",
+      "bytes": 23985,
+      "sha256": "8e800872430b33d886c4ebe95846397ac51a3ee04dea7070943deb5fb13631d8"
+    },
+    {
+      "path": "data/archive/2026-04-17/dhs_news.json",
+      "bytes": 8478,
+      "sha256": "04086a247baf867de0ad355ba9cf9ee3b337a0a520a1c529e18707d780993090"
+    },
+    {
+      "path": "data/archive/2026-04-17/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "1b5c74102981a940d4e846f0d8d2063ea19e685876b1e15889937f9cbd4fa321"
+    },
+    {
+      "path": "data/archive/2026-04-17/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "005aabace20bc076574a924c33553efb342fa5162a4a0f77ea32ce63bc6a196a"
+    },
+    {
+      "path": "data/archive/2026-04-17/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "1df40455fc2aa06069b1674f205f384ecb16d1bd8343a77a1c75e53a9d5f36db"
+    },
+    {
+      "path": "data/archive/2026-04-17/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "0c10bead92a19fe2831e661e7d01506f9a1ed039b1fc4797f1728422373e9d3b"
+    },
+    {
+      "path": "data/archive/2026-04-17/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-17/weather_alerts.json",
+      "bytes": 46606,
+      "sha256": "7f48046e448745000c874115dda775cec1d02ead47ac70db5e595272b5b59177"
+    },
+    {
+      "path": "data/archive/2026-04-18/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "2f619ab453fbe3b9bd86235aa2a74ee1810357a126468e03a4ee23d81ac38636"
+    },
+    {
+      "path": "data/archive/2026-04-18/cisa_advisories.json",
+      "bytes": 28887,
+      "sha256": "d6f9699ee869f8488d831800dddb50e56ee74d83b0e07f01ebf315d9978ae1b6"
+    },
+    {
+      "path": "data/archive/2026-04-18/cisa_kev.json",
+      "bytes": 23985,
+      "sha256": "237704706d1c8fe387eb61ff0188e2a84b797cf4fa0afa2fa4801f47692f723f"
+    },
+    {
+      "path": "data/archive/2026-04-18/dhs_news.json",
+      "bytes": 8478,
+      "sha256": "f42ecc65c974cef0849a35fb897f22e4759a241dd597b2d50f3faa7c64110f63"
+    },
+    {
+      "path": "data/archive/2026-04-18/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "6049ae9e925225ae91eba3e0f71c8ac65a1195fca88af7f3062ce01355980d7c"
+    },
+    {
+      "path": "data/archive/2026-04-18/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "893ba25c001ca1dd24c1a8c6a6414c5589db8f3a1f92888815878c92a6c90617"
+    },
+    {
+      "path": "data/archive/2026-04-18/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "996240b4926bdec94995bb4a13066c8d607b39777a8a2c38cebfb73e39b48330"
+    },
+    {
+      "path": "data/archive/2026-04-18/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "a0eb3955cec94e27d664884e937bb52e013ad5d31934fc52b7a552a77159a857"
+    },
+    {
+      "path": "data/archive/2026-04-18/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-18/weather_alerts.json",
+      "bytes": 45209,
+      "sha256": "9dea547a36ed7177e5aa09b84f25a61de4c1f30e4925cb2cda6d8b7a48511f4c"
+    },
+    {
+      "path": "data/archive/2026-04-19/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "bcadb2077352e38e12c8600cf579b13350b8c63b00af3217c18d45b724e0d993"
+    },
+    {
+      "path": "data/archive/2026-04-19/cisa_advisories.json",
+      "bytes": 28887,
+      "sha256": "7e999414dde18badf926a2cfcd6096955588566a73b08b6afdeb9d8ff110438f"
+    },
+    {
+      "path": "data/archive/2026-04-19/cisa_kev.json",
+      "bytes": 23985,
+      "sha256": "23a9b8f14df16059b2972e2e4c60e891878d2313991a3a60b0cfaf942c45ee47"
+    },
+    {
+      "path": "data/archive/2026-04-19/dhs_news.json",
+      "bytes": 8478,
+      "sha256": "60ac2893a6be41a12e6288fb3ddd4f89bcca17d00857c84b91001157336cf871"
+    },
+    {
+      "path": "data/archive/2026-04-19/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "905b6d140164c7514e5fa29b7800729631b96f631351f2b87766ee91fae74fd3"
+    },
+    {
+      "path": "data/archive/2026-04-19/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "77eb9969b6636423f1eae5fd5c3142b4c5f708902ac41220518893deb486a3fc"
+    },
+    {
+      "path": "data/archive/2026-04-19/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "c89ff6c15e2d2faec6cbcc7112e18583c4d196a0351e6b9f5d0ed2ae7b489d1c"
+    },
+    {
+      "path": "data/archive/2026-04-19/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "5e8e298227bc01743f158298889e1b48175e2c6b37d94525b9c3fb53edc223a6"
+    },
+    {
+      "path": "data/archive/2026-04-19/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-19/weather_alerts.json",
+      "bytes": 44696,
+      "sha256": "82c12664797a67ddc569af59e58abfce60e0d5de5d01f6b25dd4675d50c6f7a6"
+    },
+    {
+      "path": "data/archive/2026-04-20/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "c1793b91f03358b08045695f5ed1f7ac9d382462331466a084c7283dee118d4c"
+    },
+    {
+      "path": "data/archive/2026-04-20/cisa_advisories.json",
+      "bytes": 28887,
+      "sha256": "c474c34d98e7a61789e00670496ef44833b6cb3543fc921070ebce888b404bcd"
+    },
+    {
+      "path": "data/archive/2026-04-20/cisa_kev.json",
+      "bytes": 23985,
+      "sha256": "dcc7f138fbb8c053d6a51925241d2435d5331572dbfb2b188fb88f2a0bf16182"
+    },
+    {
+      "path": "data/archive/2026-04-20/dhs_news.json",
+      "bytes": 8478,
+      "sha256": "6a3694af765dbc4030bdc1728a5de380e79f8672dd230be4dae9caa20926a011"
+    },
+    {
+      "path": "data/archive/2026-04-20/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "42068b18f0db448310e5dc9138f6c5a22a78af3a64c84702c5806d6cc930a0e5"
+    },
+    {
+      "path": "data/archive/2026-04-20/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "bc557663ae5a434bd0fbb265995e41dfcb19c4423786b957419972abf56941ef"
+    },
+    {
+      "path": "data/archive/2026-04-20/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "907a5c652fe2a2b8a91d8592c96fc659e4b4568bdc7bf68318ae9a2699f30580"
+    },
+    {
+      "path": "data/archive/2026-04-20/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "91d26dee6d4e73ee05965b3939d2b24c09f3eb3387d9488bc9121707a0edec88"
+    },
+    {
+      "path": "data/archive/2026-04-20/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-20/weather_alerts.json",
+      "bytes": 46609,
+      "sha256": "ef013fd143193001a1053c3873f710502ebd844e23316bdc630fc75831e72ca7"
+    },
+    {
+      "path": "data/archive/2026-04-21/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "f4b934706b3b38ecd60e3a4a83a1058d0c9c07ba01e92dbddca5d74ef05eaaed"
+    },
+    {
+      "path": "data/archive/2026-04-21/cisa_advisories.json",
+      "bytes": 29048,
+      "sha256": "2b9142da4e583b40b82eaa51de85a0030ca82b02f8f400a3c9aa94b82ff5e3da"
+    },
+    {
+      "path": "data/archive/2026-04-21/cisa_kev.json",
+      "bytes": 24014,
+      "sha256": "b15a656e29ca256a5c615857d4bc838ebcbfdc10a19047d4b855e1760537ef01"
+    },
+    {
+      "path": "data/archive/2026-04-21/dhs_news.json",
+      "bytes": 8478,
+      "sha256": "08bf96c0d5b528bcef26eaf5e7931e7b3d8627ceb3fc83741b45617d5bef0770"
+    },
+    {
+      "path": "data/archive/2026-04-21/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "3448d5946504f7b889a14e01c33106884cd2da08ee777f508c19968801605d76"
+    },
+    {
+      "path": "data/archive/2026-04-21/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "ced1fe3a9eff4fb7dc1a783a38b12d9da8d2c237c1f774e99e4e863bcb15bcac"
+    },
+    {
+      "path": "data/archive/2026-04-21/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "307be387a54d2c0301d77adac9f2a0188e0a1cd0a79988673936d22e0718c68f"
+    },
+    {
+      "path": "data/archive/2026-04-21/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "b03824b616c146e9dd457e226bb87df64f9fe16b0f4e7bc3c2342433cccc73e2"
+    },
+    {
+      "path": "data/archive/2026-04-21/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-21/weather_alerts.json",
+      "bytes": 46878,
+      "sha256": "a579514b2f833ac5d5d8cd900c5b5b232a485f813f9fa5349d955e4ad039cf8c"
+    },
+    {
+      "path": "data/archive/2026-04-22/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "79d396717186c578db51fc8c63707a0d1f1e14524bba99f37a9fb6ac9ea57a98"
+    },
+    {
+      "path": "data/archive/2026-04-22/cisa_advisories.json",
+      "bytes": 28640,
+      "sha256": "4a8adc01c3dfc0ce73f1d43754fc31835b07e58673aa6ae1ae2517fe5efdfaa8"
+    },
+    {
+      "path": "data/archive/2026-04-22/cisa_kev.json",
+      "bytes": 24080,
+      "sha256": "e27d42fb0fd94b16b36136dd36bed82d7aabb020cb93f4c1915f1c21dc9788c0"
+    },
+    {
+      "path": "data/archive/2026-04-22/dhs_news.json",
+      "bytes": 8478,
+      "sha256": "8fea3109e07b9165d259a2e75501330de0070486ae19f9b400b5862ce996da9a"
+    },
+    {
+      "path": "data/archive/2026-04-22/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "3d7ce45488494eb9d834aad151ca5f13643552b0610c01f791db2b02f84dc5e4"
+    },
+    {
+      "path": "data/archive/2026-04-22/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "0aaac371fefef19d5b5f75852c19813a57e9c1a299b05cb03717a31b612751ec"
+    },
+    {
+      "path": "data/archive/2026-04-22/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "bdec0e50b1d94d32ae4cdc7799cc4174e3fa515de806c93e157439a142c39ea4"
+    },
+    {
+      "path": "data/archive/2026-04-22/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "7babfad0b90d16cc1efd294416c3638a12d9a6cdfbd63bcb7da5e619bd2a444b"
+    },
+    {
+      "path": "data/archive/2026-04-22/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-22/weather_alerts.json",
+      "bytes": 47224,
+      "sha256": "2b6d695fb7fce787b4446b5bd6b718e0adf3d8cb2ea4aac5e1f3aedb6607a621"
+    },
+    {
+      "path": "data/archive/2026-04-23/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "656dace63a1b0840419f8dbbcd2a376a1650d6221905b4e969ab7cb901fab627"
+    },
+    {
+      "path": "data/archive/2026-04-23/cisa_advisories.json",
+      "bytes": 28776,
+      "sha256": "b220c06c0b47d498b1c6efde0782395f203459731abdb4c8190e57dd97a61127"
+    },
+    {
+      "path": "data/archive/2026-04-23/cisa_kev.json",
+      "bytes": 23713,
+      "sha256": "87106ba4756c7c3a81e811f7a32c1e25e5f897f21eaeb5252f8058e1dc3b1690"
+    },
+    {
+      "path": "data/archive/2026-04-23/dhs_news.json",
+      "bytes": 8573,
+      "sha256": "59ee184eff64c89c72f6d9e6a451baee79b5789453cc364407e42a65b1dea9f6"
+    },
+    {
+      "path": "data/archive/2026-04-23/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "2d6d1932408b753ffa31486fae80c9634963b868b239ee967a3680ff2f9aa077"
+    },
+    {
+      "path": "data/archive/2026-04-23/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "52293b4ee991309065a79870ddcc9fec0e874f62302388bbfd287b8493f5748a"
+    },
+    {
+      "path": "data/archive/2026-04-23/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "240e3f202e4370dc90f4c5a1a70d075677ca5de21f673e291a43e51614b3b947"
+    },
+    {
+      "path": "data/archive/2026-04-23/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "efd0a724defd0b47a8eada0ba7c21375e7ff956dd05ac78129406572fe0f591e"
+    },
+    {
+      "path": "data/archive/2026-04-23/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-23/weather_alerts.json",
+      "bytes": 43565,
+      "sha256": "b34ed2a7311478270e061a55cbe711deb042fbd30bf7f0c4a936785986ab2c1f"
+    },
+    {
+      "path": "data/archive/2026-04-24/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "6078aada0845ea383dee07c70810e592e8a55125e916213faf4ad4f8cad5d357"
+    },
+    {
+      "path": "data/archive/2026-04-24/cisa_advisories.json",
+      "bytes": 28668,
+      "sha256": "044ba48e776e10b23b305918cb80bc176adeae47e9d77767625c35ddfecee9f9"
+    },
+    {
+      "path": "data/archive/2026-04-24/cisa_kev.json",
+      "bytes": 23583,
+      "sha256": "f1f083a9e08ce233c2624886df94838bfaa38be2d7cf62e2aaf396bad2ded858"
+    },
+    {
+      "path": "data/archive/2026-04-24/dhs_news.json",
+      "bytes": 8573,
+      "sha256": "e7c1923b7c54417dbd6e17229eabc9d8e9b26a47f673389d9e1ad76c203c07fb"
+    },
+    {
+      "path": "data/archive/2026-04-24/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "ea8f7005c75d605d4dd5de3aee53a09c96b584729597a175ac8ba7020acac459"
+    },
+    {
+      "path": "data/archive/2026-04-24/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "2d8317f49e90cf9f53bf6b1af6194f88a92b4d167ef160ef195b520d5dd3eed8"
+    },
+    {
+      "path": "data/archive/2026-04-24/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "eb56c46eb298e1e09e48ee4501a17ae430b9867ee19348f0967ad16f88a9624b"
+    },
+    {
+      "path": "data/archive/2026-04-24/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "987c9a09b4c8c9b9f432fec271454143ac98ea11b1403a05da196dd65ec25bd1"
+    },
+    {
+      "path": "data/archive/2026-04-24/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-24/weather_alerts.json",
+      "bytes": 46793,
+      "sha256": "2f07d44c9860f64e549c4c8f0a9cb257e8318b292ec18312aa4c38e1a85a4f34"
+    },
+    {
+      "path": "data/archive/2026-04-25/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "711fb925ef7b5afbd5a9d7b5696d48daa840d6f7a950af36a9f7aa12cd86eb7f"
+    },
+    {
+      "path": "data/archive/2026-04-25/cisa_advisories.json",
+      "bytes": 28668,
+      "sha256": "f7cd8fc5a13b618708ec678e7ad318ef84ca0dd2aafa42f45feab7af62696eb4"
+    },
+    {
+      "path": "data/archive/2026-04-25/cisa_kev.json",
+      "bytes": 23834,
+      "sha256": "6e91a28140b1b1005c550199a5a206487944e8e171fa9b0bcefcc86f0ebd45de"
+    },
+    {
+      "path": "data/archive/2026-04-25/dhs_news.json",
+      "bytes": 8771,
+      "sha256": "f132b6fde87cc40d2f3ded25f11319491f6bcf448a83140205477a1f282447a8"
+    },
+    {
+      "path": "data/archive/2026-04-25/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "8cc359a4d77cf90024c83e877c3392ee19a2c176ca0b1a27b664066f759451be"
+    },
+    {
+      "path": "data/archive/2026-04-25/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "e800fb48a1d48fd1e11d1eeb6b7535cc6a0ad28041087d5f4e702c3d4605551a"
+    },
+    {
+      "path": "data/archive/2026-04-25/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "d4829814b832a7c414598eb5e3390605c169428a5a2c15c202a4374b0d021a5b"
+    },
+    {
+      "path": "data/archive/2026-04-25/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "4c16f570a351e717a75ef85c215a6cb725e1fa51347db5147b68795805ee5300"
+    },
+    {
+      "path": "data/archive/2026-04-25/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-25/weather_alerts.json",
+      "bytes": 47094,
+      "sha256": "1fe4c7853c74821577a65f124c61e71fee1bfbd3fe9b7c518251a2d22b1ff396"
+    },
+    {
+      "path": "data/archive/2026-04-26/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "86d840e35c30c3e27af80dc2777bd45b83a6f0f936cc31418c9caaca4fdd88ad"
+    },
+    {
+      "path": "data/archive/2026-04-26/cisa_advisories.json",
+      "bytes": 28668,
+      "sha256": "ac311c8a95a19999d3421786d76a08f3ec21c486b92dfecb11b9afadc266cf9f"
+    },
+    {
+      "path": "data/archive/2026-04-26/cisa_kev.json",
+      "bytes": 23834,
+      "sha256": "a85a250c22193f6a22b12e21a450d0c3e81ad52444ff824ba72141a1a7c4cb1d"
+    },
+    {
+      "path": "data/archive/2026-04-26/dhs_news.json",
+      "bytes": 8771,
+      "sha256": "e8a2fa2c5bab9367319f1868425c5722525a46237142ab0b283ec86d7d7e6377"
+    },
+    {
+      "path": "data/archive/2026-04-26/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "07bc6e5a4ba48fefd72f296d135b14e0542a8cc18122a898af5878b553e330f8"
+    },
+    {
+      "path": "data/archive/2026-04-26/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "30b8277bd9f2c3412e09a2af0d2ba23425365502a7f4d297c29e757b4814e56e"
+    },
+    {
+      "path": "data/archive/2026-04-26/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "bba11e4d522d4e75199a8d3248808ea1d66795938174a2c0b0ff4ec2a2ef7a69"
+    },
+    {
+      "path": "data/archive/2026-04-26/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "1795e99c68b8d32bf15f4f3785cc78378f646ba4a5b00c8d02e7a21fc497e142"
+    },
+    {
+      "path": "data/archive/2026-04-26/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-26/weather_alerts.json",
+      "bytes": 46002,
+      "sha256": "6fd5a8b0e5e513e737eae35789f632636330cec020298380a92e16b2c3e5cba8"
+    },
+    {
+      "path": "data/archive/2026-04-27/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "f66067b3874d372819fb770e24be3ada6fd7b120b1291384273f6e3cf9675f7e"
+    },
+    {
+      "path": "data/archive/2026-04-27/cisa_advisories.json",
+      "bytes": 28668,
+      "sha256": "d67ebcfa69795f908cea95bf4d5867abef7b432e7412472d4bf54a896c49811e"
+    },
+    {
+      "path": "data/archive/2026-04-27/cisa_kev.json",
+      "bytes": 23834,
+      "sha256": "907d999a9f2a69c2bc0ec5b6a2b1f945da666c4a41f11e61557ee77430845f89"
+    },
+    {
+      "path": "data/archive/2026-04-27/dhs_news.json",
+      "bytes": 8771,
+      "sha256": "5f764a5dede65180867bfdabc68cb6600f35f12f89c5e64969f98e150c96fd3a"
+    },
+    {
+      "path": "data/archive/2026-04-27/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "aaeb1860edda2f1fc7cfd651dd304225114b7226de06fb35150ba95fbf427895"
+    },
+    {
+      "path": "data/archive/2026-04-27/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "8b7b5a4245395351b07a0746ca1a46685c072163c0395d6e91fcd22b6deca2da"
+    },
+    {
+      "path": "data/archive/2026-04-27/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "48b277eef021f47b1d19dc65d6cb883feb12d0653fb89921c0492140c2cdeb42"
+    },
+    {
+      "path": "data/archive/2026-04-27/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "fd469a8f43938e9ea53660a96f214b4aca711f31b756652d79452fd34bcbaa6c"
+    },
+    {
+      "path": "data/archive/2026-04-27/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-27/weather_alerts.json",
+      "bytes": 46151,
+      "sha256": "8815046f4d9f0074523df543e53ea8c3e37385e747ec5443d601782af2e3fc72"
+    },
+    {
+      "path": "data/archive/2026-04-28/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "3253c6027cc84b43a47c56a29f01cdd4b726e652420563e02bf93aedff68bd1d"
+    },
+    {
+      "path": "data/archive/2026-04-28/cisa_advisories.json",
+      "bytes": 28668,
+      "sha256": "59a9b0967f8bdcb39a5cd28bfa313179bcb95d4771a4fec002b21f9637f1005b"
+    },
+    {
+      "path": "data/archive/2026-04-28/cisa_kev.json",
+      "bytes": 23834,
+      "sha256": "3cf25a41e998e738aefce6f9b1c7c8b842ea6d7136afc01602191d13540da863"
+    },
+    {
+      "path": "data/archive/2026-04-28/dhs_news.json",
+      "bytes": 8776,
+      "sha256": "6408f42c194707884ec99bcd583d6db8959e0f2fdd524ddf3ba8b9b64d018813"
+    },
+    {
+      "path": "data/archive/2026-04-28/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "1f88d8436ac431ead54c9d38969dc4045856abe096782b0546f09f81f70b4b05"
+    },
+    {
+      "path": "data/archive/2026-04-28/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "b04d264e426a21ec90d446647a34cbec3f99ea57ab6bf2f9f1d45786ea20abeb"
+    },
+    {
+      "path": "data/archive/2026-04-28/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "579278db22a329a40305048b7647cc6316ce8733f4391410b38d76f3283ef92c"
+    },
+    {
+      "path": "data/archive/2026-04-28/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "c0b0e0d0febd48efc37d2f414be9eaed4469702697b97b8292ed64a122c9ec4f"
+    },
+    {
+      "path": "data/archive/2026-04-28/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-28/weather_alerts.json",
+      "bytes": 46084,
+      "sha256": "ef9a4f169a29763fc2f168847ef3dea320ae9b2f263ff2bffc9dd7faaf00ac46"
+    },
+    {
+      "path": "data/archive/2026-04-29/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "cdea9f95d2867fb192847362b0a6d54d45e223870c41fc0628ebcd2f8aece3be"
+    },
+    {
+      "path": "data/archive/2026-04-29/cisa_advisories.json",
+      "bytes": 28724,
+      "sha256": "458a93063612387be535b5d81912566a6b6a0e84c345c3aaf9f0afa18c5836f1"
+    },
+    {
+      "path": "data/archive/2026-04-29/cisa_kev.json",
+      "bytes": 23495,
+      "sha256": "b2318b25959bc669053ff1d6f046dc7a6742cf9511d6645a550be1cd2d7929b1"
+    },
+    {
+      "path": "data/archive/2026-04-29/dhs_news.json",
+      "bytes": 8776,
+      "sha256": "00215b90ff3cbddc76b7fc5c5203571d98e47bad594215c37e849b6e3a2040af"
+    },
+    {
+      "path": "data/archive/2026-04-29/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "d96529e83c20ce50cf88ea6dc3afb4cf9187c4fca5ec8284f35ce84233938433"
+    },
+    {
+      "path": "data/archive/2026-04-29/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "a86229bb915a9e8e7097ed778a7d198cd846bd87de84c75c5ac235ff2470e486"
+    },
+    {
+      "path": "data/archive/2026-04-29/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "168edfa6b6bdb06e935d8d4d43dfd465abc40dbb9aaea376f1af66c1ee7fbc49"
+    },
+    {
+      "path": "data/archive/2026-04-29/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "4e679b779c5d2c36a2850c82eb75ba520a536051184fc8b01f70e48ed2019b4b"
+    },
+    {
+      "path": "data/archive/2026-04-29/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-29/weather_alerts.json",
+      "bytes": 46146,
+      "sha256": "6b93b0b52ec5ef9c57fc83196b1bdc63c6ad1441b86912bbefaf3e4372eaf815"
+    },
+    {
+      "path": "data/archive/2026-04-30/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "973713fc09ebf8bc20b8aa8ef68b38f7849baca362209c15a7387208215cc128"
+    },
+    {
+      "path": "data/archive/2026-04-30/cisa_advisories.json",
+      "bytes": 28765,
+      "sha256": "fca17e1fa84b23cac1bde9c3ce1de7ad7810cbc9df3bcbc651458933b7d7493c"
+    },
+    {
+      "path": "data/archive/2026-04-30/cisa_kev.json",
+      "bytes": 23495,
+      "sha256": "db892b533a369a78c3b4f3f562b4d5ab16627bf937c51cdd5cf31634bedd33ef"
+    },
+    {
+      "path": "data/archive/2026-04-30/dhs_news.json",
+      "bytes": 8776,
+      "sha256": "e7ce2ab8e0501e6cc19b70fe4244a3dc0e7bb9aafc654cead2ff3454986d3361"
+    },
+    {
+      "path": "data/archive/2026-04-30/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "dfc7b1706ab930db64ad0c977e26b50d4fcd750aa93dce7031ec72ad1c1f2c3c"
+    },
+    {
+      "path": "data/archive/2026-04-30/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "166a062e03bb8499955d4ff011e2e3e9c311ca6a8671967f058d710846babe47"
+    },
+    {
+      "path": "data/archive/2026-04-30/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "654e13a848aa3ef74120704c20d488d982ba47fcf9678d58f7f8e84da7129b3a"
+    },
+    {
+      "path": "data/archive/2026-04-30/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "fe295639035baa61e2d3a79457c54dc5987c63cbf04184f79ccfe698333015c8"
+    },
+    {
+      "path": "data/archive/2026-04-30/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-04-30/weather_alerts.json",
+      "bytes": 44139,
+      "sha256": "0ce7a8f62d02517e7d856d06a736694b53b63dd1748e511fcf4be9f6aa280359"
+    },
+    {
+      "path": "data/archive/2026-05-01/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "be98ccad4240dfd384b6945a80614beba52beee810567ddb1e383bdd7c9cd7e5"
+    },
+    {
+      "path": "data/archive/2026-05-01/cisa_advisories.json",
+      "bytes": 28567,
+      "sha256": "ddd9e82f3c644820ca7eb736a695d6eb9ec720207f53d7a10120ddee5b31dd32"
+    },
+    {
+      "path": "data/archive/2026-05-01/cisa_kev.json",
+      "bytes": 23555,
+      "sha256": "7fdd364bbe6eba696ca780ea2ef7cc4171c9349af3c880ee55d92e9a95615341"
+    },
+    {
+      "path": "data/archive/2026-05-01/dhs_news.json",
+      "bytes": 8652,
+      "sha256": "57b526f29dc2d089207daf9c9bb671eb4b296a18c2202fd1b0dce3ab6b1f15c3"
+    },
+    {
+      "path": "data/archive/2026-05-01/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "cb13511f5bdbcaad14547b12367c75a407ee0f9aab86212a44c07128d2bafd43"
+    },
+    {
+      "path": "data/archive/2026-05-01/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "b0779946ac93d81a4d14df50892179bc11ee8c80de4497487a3a325a5e6083aa"
+    },
+    {
+      "path": "data/archive/2026-05-01/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "7ec8c9a700022829241bd689d3cd65756f9a7d7635016ecc68251ce1e68399d7"
+    },
+    {
+      "path": "data/archive/2026-05-01/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "cefb8551970b60c10418fdc281d9e60fa73c04ae3e1d1b2f1ed2a269365cfc93"
+    },
+    {
+      "path": "data/archive/2026-05-01/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-01/weather_alerts.json",
+      "bytes": 45745,
+      "sha256": "28805421ba2fd1ef72a8a82160836c651446079944cbd83e032f0761df052a64"
+    },
+    {
+      "path": "data/archive/2026-05-02/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "1e0a9799ad28cb3047cbe17797b39d90474fe622ead2a16d1b8248ce8bf438a5"
+    },
+    {
+      "path": "data/archive/2026-05-02/cisa_advisories.json",
+      "bytes": 28639,
+      "sha256": "0bb00fa54ac6eed14cbb2f7b70fb93ad45cd3d5084302ae9a2ca8471e8f2f92c"
+    },
+    {
+      "path": "data/archive/2026-05-02/cisa_kev.json",
+      "bytes": 23460,
+      "sha256": "f63d82422fc0caf37ddd7c567f31d7a1ab1b8dac8c1e9bc632f47caf4b3a75dc"
+    },
+    {
+      "path": "data/archive/2026-05-02/dhs_news.json",
+      "bytes": 8652,
+      "sha256": "06dbbbd68e27c5797502a9007ddc933377fea10ea2f75150666c6691fd25dbca"
+    },
+    {
+      "path": "data/archive/2026-05-02/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "30b790d08721d502ff5f2a583ed279c7c0598c75565796bc28403faa3ff1815e"
+    },
+    {
+      "path": "data/archive/2026-05-02/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "1837259e01d615f9afff66139ecbc7bf53d1959a27c63a6e9c2c35a894b90de0"
+    },
+    {
+      "path": "data/archive/2026-05-02/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "8dbe2dacc6975b866cd14a955173f9a05d2b0ff846d2c2b8b6330da1a1837d0b"
+    },
+    {
+      "path": "data/archive/2026-05-02/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "34e032eb2e5c509ac8e087ddcf773aa6cb2f8b896516b22c510f5be95cea8e6a"
+    },
+    {
+      "path": "data/archive/2026-05-02/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-02/weather_alerts.json",
+      "bytes": 44990,
+      "sha256": "70bda5e530c22d8956a299f1a520a4b727313b885efe33b9fe83bf04c82f10b9"
+    },
+    {
+      "path": "data/archive/2026-05-03/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "2e2f655d3a6c12b5e5d4ad00aed5cdbeee19dd031cc6d450e5dcdfad514354c0"
+    },
+    {
+      "path": "data/archive/2026-05-03/cisa_advisories.json",
+      "bytes": 28639,
+      "sha256": "1e9776b63bf17703d2dd721c0b04e8d9caf170a7bf5c589a7f724a2030840a51"
+    },
+    {
+      "path": "data/archive/2026-05-03/cisa_kev.json",
+      "bytes": 23460,
+      "sha256": "025a0139d95f4a52bb662367e8992d5ac1f6ba76d37b81620ff511faa6072e5d"
+    },
+    {
+      "path": "data/archive/2026-05-03/dhs_news.json",
+      "bytes": 8687,
+      "sha256": "c2cda2347787048ab05ea427bfd29b1681f9e2e0b2573afea9b6d0f536536cd1"
+    },
+    {
+      "path": "data/archive/2026-05-03/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "4038964ab869b510f57bd6526a14778291ed13bea8d3a1478acab8025f24358d"
+    },
+    {
+      "path": "data/archive/2026-05-03/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "ef238581fe371301b3d342cc9f866e1c4c63275e47dd4ec8ecef99d58dcc4072"
+    },
+    {
+      "path": "data/archive/2026-05-03/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "4f713e803c2146e9b0e7abf3bbec0b9119c426ca48788fa3eeb02ec5d3283f03"
+    },
+    {
+      "path": "data/archive/2026-05-03/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "4282f96317a545de613820ddc103d2d571b06b12e5024d6b9581b62814897097"
+    },
+    {
+      "path": "data/archive/2026-05-03/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-03/weather_alerts.json",
+      "bytes": 45170,
+      "sha256": "a98edc9b8c486ee57b2eb08de55d49578f0c002316874a64da83b45eab31b9f5"
+    },
+    {
+      "path": "data/archive/2026-05-04/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "47bbab2ff98e5090c335023cbaebd53aa234a9c8b6df441a437b37c396e717cc"
+    },
+    {
+      "path": "data/archive/2026-05-04/cisa_advisories.json",
+      "bytes": 28639,
+      "sha256": "84af449a5e3a9fd58f4e2ebff54285fb3b2cbad9199fea7bb507c025cfe7d502"
+    },
+    {
+      "path": "data/archive/2026-05-04/cisa_kev.json",
+      "bytes": 23460,
+      "sha256": "b119b73e64dd5314b8ee184e71c90bfd5e44f33d643bf5c0a393f231cf47092c"
+    },
+    {
+      "path": "data/archive/2026-05-04/dhs_news.json",
+      "bytes": 8725,
+      "sha256": "3417890b26ca71b09651ad90662394a7f07051f011f6f19f448c71a93287b90a"
+    },
+    {
+      "path": "data/archive/2026-05-04/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "3d22d6b7197b34dbb847611af95692aad9e43bb4830c05e6d9759dc19aa51aa7"
+    },
+    {
+      "path": "data/archive/2026-05-04/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "5a2f9f1f6c0001dd7182fafa7f312685da6bde15f8c4cc92685d12de7c1421ab"
+    },
+    {
+      "path": "data/archive/2026-05-04/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "9fd180d2c63fe019c5bd8dc1e033cdc7383db80bc5a80d8373781f048cb013e8"
+    },
+    {
+      "path": "data/archive/2026-05-04/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "aa6d2d7207dd3fb8178f926e331043b5ec696035f11dd2dd26bae98feedf9378"
+    },
+    {
+      "path": "data/archive/2026-05-04/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-04/weather_alerts.json",
+      "bytes": 64,
+      "sha256": "2a26b13665a1eac1540e7e40da427abeed2d9712dee0e5dd858ed5c1ea777b3d"
+    },
+    {
+      "path": "data/archive/2026-05-05/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "81fa953688d30e207701ca12b6b478c14fedac5c8d926bea615025900ad13c26"
+    },
+    {
+      "path": "data/archive/2026-05-05/cisa_advisories.json",
+      "bytes": 28639,
+      "sha256": "ed40f4e127fb08ebb2ca0b1c01deb940b0a283e7c1333605e042717fcbce513d"
+    },
+    {
+      "path": "data/archive/2026-05-05/cisa_kev.json",
+      "bytes": 23460,
+      "sha256": "942f8f99b7b1e5b620e345d0d0cbe1cf3875e4fa68ca91fd485182f2db1a6353"
+    },
+    {
+      "path": "data/archive/2026-05-05/dhs_news.json",
+      "bytes": 8725,
+      "sha256": "b84452a7ad5c5af2e7ca83e89c44ea9b9ce44bbce2b7fe993911cc7834173cc8"
+    },
+    {
+      "path": "data/archive/2026-05-05/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "a4db68186952e93242565adea7bdab10550748fbc97f21e65aabc6dd7db14d61"
+    },
+    {
+      "path": "data/archive/2026-05-05/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "26a85b388b731b8a9a16f663e8aafdabb851b26f5a784784f74b466a9a1915d1"
+    },
+    {
+      "path": "data/archive/2026-05-05/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "f7c82a7bdab115f63e0725d5003591c053b65d309836ef5012ce512336aa7bed"
+    },
+    {
+      "path": "data/archive/2026-05-05/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "9bb9a99e07d04a796fa098baeec66e787922130b9d0f047a47b1e27d30bfb336"
+    },
+    {
+      "path": "data/archive/2026-05-05/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-05/weather_alerts.json",
+      "bytes": 46037,
+      "sha256": "d7deda66db95a55b0757eebbd3e51bca5d7156ce8fc5fc8b09a4091c835d72f3"
+    },
+    {
+      "path": "data/archive/2026-05-06/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "8ae8e59fb9c2a1ad9cd3f03b4c3cbac1f22d9a25c3d21230e73337072cfd8950"
+    },
+    {
+      "path": "data/archive/2026-05-06/cisa_advisories.json",
+      "bytes": 28591,
+      "sha256": "4dbbd5562b33dd47aef78e0ca3a52bbbb6b2959596dce8b12c10ec4fab90f9b0"
+    },
+    {
+      "path": "data/archive/2026-05-06/cisa_kev.json",
+      "bytes": 23482,
+      "sha256": "5995e193e1763250784543632e0d269479a6a153cbf188c5ae1071730e430ddf"
+    },
+    {
+      "path": "data/archive/2026-05-06/dhs_news.json",
+      "bytes": 8725,
+      "sha256": "a41a866b15a4a7d64edeb6521dd32c13b59a5a3f2887ded2ab65c1fd67aeb52c"
+    },
+    {
+      "path": "data/archive/2026-05-06/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "dba15ea45f7234c82a72d001a13302f67844581e0cca47ffcfff37738c5a52f6"
+    },
+    {
+      "path": "data/archive/2026-05-06/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "e1ac799c81f5b17be790dae2978e3cad71c62dde19d9e326c1f5bcc028086edd"
+    },
+    {
+      "path": "data/archive/2026-05-06/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "90551e04e94a689b40d19c7427f0d280de5f3f68b3865deac86427907dc69165"
+    },
+    {
+      "path": "data/archive/2026-05-06/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "a0b2af73e2665c1581d89f8649db281fd06989932563e06e31ecbbc6de2f7c2a"
+    },
+    {
+      "path": "data/archive/2026-05-06/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-06/weather_alerts.json",
+      "bytes": 43897,
+      "sha256": "e72a5fab838c6191cc49379fa021b02dc9c617b849c283abc82c384b9e0abf9f"
+    },
+    {
+      "path": "data/archive/2026-05-07/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "52e9bb3154dc170dddcd12583a0b2d890789d20a93f59225daf9f1e2ebdc9d9c"
+    },
+    {
+      "path": "data/archive/2026-05-07/cisa_advisories.json",
+      "bytes": 28674,
+      "sha256": "1b48595f9253e194ee476e6fa69f68476346862094506cf4f5f3326cb1665b9b"
+    },
+    {
+      "path": "data/archive/2026-05-07/cisa_kev.json",
+      "bytes": 23626,
+      "sha256": "00528e18152f91811317c141bafddf6ccadc3a431eca378531e816bb4ea9edee"
+    },
+    {
+      "path": "data/archive/2026-05-07/dhs_news.json",
+      "bytes": 8759,
+      "sha256": "3a9a1bdaceb6ce15ce2e3aa64aecd10b0733aefbbffb2903c0d2384604dee35e"
+    },
+    {
+      "path": "data/archive/2026-05-07/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "c37d5b227a15ef918430cdd31e7f50a092c770e38c6dfb4b9ec9568455675743"
+    },
+    {
+      "path": "data/archive/2026-05-07/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "eb8a757c137ccc8db886246214cd1c7d575c156a819f10309a0c67f9f4923aa9"
+    },
+    {
+      "path": "data/archive/2026-05-07/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "93763684579eb743676a57c8aad1f7dbcf83db4da69a385b13c7abbdec738507"
+    },
+    {
+      "path": "data/archive/2026-05-07/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "2ebc3ada3c6ac5c3482b9fd02cd67b1fe4bccd2bf957a024b102b137f7b8bef8"
+    },
+    {
+      "path": "data/archive/2026-05-07/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-07/weather_alerts.json",
+      "bytes": 46141,
+      "sha256": "3230deb5cdf7c263158ce109f403eb059c06aa37c20e4e4978dde8f1db8ddc2a"
+    },
+    {
+      "path": "data/archive/2026-05-08/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "1a5b8fd59e453052782b171e6c50bf7790bc6a76851d020a31e3cd441678ae26"
+    },
+    {
+      "path": "data/archive/2026-05-08/cisa_advisories.json",
+      "bytes": 28678,
+      "sha256": "a42a7b62697fd32d176646a2dc35c2e167e6c0ec3cf6591bc5a78ef9fafd3645"
+    },
+    {
+      "path": "data/archive/2026-05-08/cisa_kev.json",
+      "bytes": 23547,
+      "sha256": "43e6585ecafe5625b690c0968f5a8ba22815e0a24b1a2dc4be4d961816b21f8d"
+    },
+    {
+      "path": "data/archive/2026-05-08/dhs_news.json",
+      "bytes": 8725,
+      "sha256": "f176dea72e15a3b999407003ce7c19deef3a9834ca461f5b150bf689c565dd42"
+    },
+    {
+      "path": "data/archive/2026-05-08/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "457e6035635e04399b7e34dc269b8b984e6da61b83d12551e28db82494eb3abe"
+    },
+    {
+      "path": "data/archive/2026-05-08/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "4e2f64c872d0870b0a43c64207dd4a492cbd437bdadb4e4d7d228c9e0522f563"
+    },
+    {
+      "path": "data/archive/2026-05-08/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "d6f72d066a45c2e0431c4b8161cb24182e05562faf2a113e3c189d6e6670dde7"
+    },
+    {
+      "path": "data/archive/2026-05-08/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "5fdec24a832f4546229872d6a0a8a621d372d6f03f044a51768bada919d7bc0f"
+    },
+    {
+      "path": "data/archive/2026-05-08/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-08/weather_alerts.json",
+      "bytes": 44297,
+      "sha256": "002ffc641f6ce6635cd64218e097c9cd3472348f5c7cda366aa720207829dc70"
+    },
+    {
+      "path": "data/archive/2026-05-09/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "2c61b468b77506bd0433bfb7e68e9885ce3cb01db7df882a50a036cb88656374"
+    },
+    {
+      "path": "data/archive/2026-05-09/cisa_advisories.json",
+      "bytes": 28734,
+      "sha256": "1b5496d4ec09c3197fc99fa4ae344aa3cb8e6412f4064d12fcca3fa7a0a75927"
+    },
+    {
+      "path": "data/archive/2026-05-09/cisa_kev.json",
+      "bytes": 23607,
+      "sha256": "23bee29c23932d838bd6f206764b6c13ee0dd0f342049dd9ef6591d65ed282d1"
+    },
+    {
+      "path": "data/archive/2026-05-09/dhs_news.json",
+      "bytes": 8660,
+      "sha256": "85fcc0568a9a3807210c166cb724d5892115bcf7f67eca34fca150f9d4d76cb7"
+    },
+    {
+      "path": "data/archive/2026-05-09/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "a714abf1b16129d482c0cc350855617d7e3c5602ca051ee108d79d5c730a45df"
+    },
+    {
+      "path": "data/archive/2026-05-09/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "b68cee82b0fa81d767285dcabf14ff4e6602923ca7fee0ddbcb36166169435be"
+    },
+    {
+      "path": "data/archive/2026-05-09/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "f4c40c3bf17eb4f30e70c81f6e7dae0a21e6848a84846b4498b211da25db7a74"
+    },
+    {
+      "path": "data/archive/2026-05-09/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "252278672f86e3aa2bc71e733dadced40d81f8cb686d741ec5b2cf47c81ee2c4"
+    },
+    {
+      "path": "data/archive/2026-05-09/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-09/weather_alerts.json",
+      "bytes": 45235,
+      "sha256": "595983e880317730ef110f3c95b7aa5269a99d0a76551a2fa0d8e33dacba172b"
+    },
+    {
+      "path": "data/archive/2026-05-10/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "68b413cf7e06b0a42469fbf97a56511ab200127cb00c384486d4f1be4f4a0c99"
+    },
+    {
+      "path": "data/archive/2026-05-10/cisa_advisories.json",
+      "bytes": 28734,
+      "sha256": "4bd78c8b45ce01d018fb886f7a31ab6ced17895a10c708aa6d731971f37c2d8b"
+    },
+    {
+      "path": "data/archive/2026-05-10/cisa_kev.json",
+      "bytes": 23607,
+      "sha256": "5af5a777c1ea6432416d2902c8c93d08bb87b89e24185074284518b4228b160d"
+    },
+    {
+      "path": "data/archive/2026-05-10/dhs_news.json",
+      "bytes": 8673,
+      "sha256": "30b1e7bc9b8ecfbb32926af1e125b987fad969a836eb355bb986c453b41a28ec"
+    },
+    {
+      "path": "data/archive/2026-05-10/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "7ba8f8b8fc9ffcdc74f05a439bf94cb32913dabb481cb7155ff44914aa975bc0"
+    },
+    {
+      "path": "data/archive/2026-05-10/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "9475a01fc81390614568fa27764c8e6d46a212d0aff7e4b96ee63e6fdc7bc5c7"
+    },
+    {
+      "path": "data/archive/2026-05-10/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "618f3f54dba9eda04ffc0be8e8204b1d8760eadb199af44b49f3973160a1802f"
+    },
+    {
+      "path": "data/archive/2026-05-10/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "9c90284ef6a7273e8533fb90bda17ec8cbb38eb33f30743bb891d4687d97ac1c"
+    },
+    {
+      "path": "data/archive/2026-05-10/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-10/weather_alerts.json",
+      "bytes": 44236,
+      "sha256": "3f03df4a952b8790df16315841d0105e5eae28e58806ee8117b81e25dfc1e809"
+    },
+    {
+      "path": "data/archive/2026-05-11/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "5280041db20427c52be1d2f352bde6c3d4bd412ab902a9da3a8fb922148026ad"
+    },
+    {
+      "path": "data/archive/2026-05-11/cisa_advisories.json",
+      "bytes": 28734,
+      "sha256": "2629c8a895fa56c59fa84ef0e8a830228b4107efc34f19413df9509b92407b36"
+    },
+    {
+      "path": "data/archive/2026-05-11/cisa_kev.json",
+      "bytes": 23607,
+      "sha256": "e88c5bebf73db3dd471bb93113ad8fe2f04f10ac3e1343b4815dc123898a9f4f"
+    },
+    {
+      "path": "data/archive/2026-05-11/dhs_news.json",
+      "bytes": 8673,
+      "sha256": "a43528de653049c53b618bf1be80aa8816078248fb198f15f313ad17411d971b"
+    },
+    {
+      "path": "data/archive/2026-05-11/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "3350dba0730c61646e40b2d543440c80bedc0477690b3d494d8f331f86c575c7"
+    },
+    {
+      "path": "data/archive/2026-05-11/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "8daa3ef8458d1ce44f6399a0a982d60a4a5da835e08cf8adce50f68c55eb30ad"
+    },
+    {
+      "path": "data/archive/2026-05-11/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "428abc2720d5891e05d774e1bc378bef1b3e2f8c76d6dfe1458069e3821dcf77"
+    },
+    {
+      "path": "data/archive/2026-05-11/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "815ef7f24ff138bb49e5564e5e6a12bc5bdd1644bedc8fff43dccc7707adbec7"
+    },
+    {
+      "path": "data/archive/2026-05-11/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-11/weather_alerts.json",
+      "bytes": 44598,
+      "sha256": "659bf489d8bf5e8f448144a4648dee35c76d30bd7322c7fcad398613c106fb75"
+    },
+    {
+      "path": "data/archive/2026-05-12/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "57c97de65a47f64f7e8a7974d96cca36aecdeeb14a359bdbdef81b0a054172e2"
+    },
+    {
+      "path": "data/archive/2026-05-12/cisa_advisories.json",
+      "bytes": 28734,
+      "sha256": "9841daae87333bc2d8602294fbb8d0816ec3eefbe138312aef1620b7dbae17b9"
+    },
+    {
+      "path": "data/archive/2026-05-12/cisa_kev.json",
+      "bytes": 23607,
+      "sha256": "e95160cf227608c6e1f202e5722c7407f09076c8d262e37a718efa23cad3a5c9"
+    },
+    {
+      "path": "data/archive/2026-05-12/dhs_news.json",
+      "bytes": 8673,
+      "sha256": "6628a45348390ee2be1205b393777aa718c2f610ac55ba2c83fe2c9484466c33"
+    },
+    {
+      "path": "data/archive/2026-05-12/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "459f3f7927eaf5daac4356fc086cd68ecf3040fd1fdb54ccef133eccb35f4951"
+    },
+    {
+      "path": "data/archive/2026-05-12/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "5668e09e90ccde0a6d971164ee1e11ff8591eb37082831e64273820950f04077"
+    },
+    {
+      "path": "data/archive/2026-05-12/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "e37fe3301a7e89d4133b3801eab0503de5897857d02b219763c0988a01eab272"
+    },
+    {
+      "path": "data/archive/2026-05-12/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "9d9fbb2d3aaa28dd9e8b39e9c9dc62bc987236738643f37fa491ba39c546f092"
+    },
+    {
+      "path": "data/archive/2026-05-12/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-12/weather_alerts.json",
+      "bytes": 43093,
+      "sha256": "e9bb5e08a35ac6dad56b3e1af3aecb438cbc582567329203fc2919fde7291a3c"
+    },
+    {
+      "path": "data/archive/2026-05-13/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "b26b863b11d798f663639d7e7271059c73116cc9fe395c57d2d8e0741c66880b"
+    },
+    {
+      "path": "data/archive/2026-05-13/cisa_advisories.json",
+      "bytes": 28775,
+      "sha256": "70bb1a9d9674e071be159ebe8a114a0b2544d79f213feb78c85268805aacdfea"
+    },
+    {
+      "path": "data/archive/2026-05-13/cisa_kev.json",
+      "bytes": 23607,
+      "sha256": "c062fb785a8127a68cff1fd34cf524cbfa35be94c0a5580fc74b18a3446eb65a"
+    },
+    {
+      "path": "data/archive/2026-05-13/dhs_news.json",
+      "bytes": 8620,
+      "sha256": "7d4fe7e0bf1cbc7d3db9d6bfa2be62b7bfad05e89aca1dba7fed58dfb6e059a8"
+    },
+    {
+      "path": "data/archive/2026-05-13/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "54255f3768ebdd558af5a16f678622b218ffaf3e2fe7a0ea6acf93ccda994c33"
+    },
+    {
+      "path": "data/archive/2026-05-13/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "4df149ebdc507f23bcb50ac527efc334455f06209774c5f3033dda7fd0b9a232"
+    },
+    {
+      "path": "data/archive/2026-05-13/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "6e4745af4d4b085f632f5d88aaf4d2504c634180b9b5ceb9c76134fe464b652f"
+    },
+    {
+      "path": "data/archive/2026-05-13/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "135d60c6dae0df4d10e230f0fdf4f7f8e608ba43dfb6f21dda32149bc1a4359e"
+    },
+    {
+      "path": "data/archive/2026-05-13/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-13/weather_alerts.json",
+      "bytes": 45386,
+      "sha256": "c15ed4d9be737d049698380e0034d53e73fd306835a7290923a33fa4110d8f9f"
+    },
+    {
+      "path": "data/archive/2026-05-14/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "ffcef3ad75fa06ad17b77e3656497a838d5e826b36e6ef43d482f399a66a462b"
+    },
+    {
+      "path": "data/archive/2026-05-14/cisa_advisories.json",
+      "bytes": 28775,
+      "sha256": "ff6f0de022d3a7cd21fdbaf2c066b9db0b966087e1a6991d05b8e901acafda6a"
+    },
+    {
+      "path": "data/archive/2026-05-14/cisa_kev.json",
+      "bytes": 23607,
+      "sha256": "7155bd51ce02949e121d5fcc9b877d12dddfce4236c6af5943eb9b7425eb4036"
+    },
+    {
+      "path": "data/archive/2026-05-14/dhs_news.json",
+      "bytes": 8672,
+      "sha256": "9830cf0abbef1771df2b6c719a80481bb9acc0ad1e693b3b7524a7a8dd79307c"
+    },
+    {
+      "path": "data/archive/2026-05-14/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "ac2b71c2cb5926d86f3d85981d52bafa1e6415e03c7946b0101869837248f064"
+    },
+    {
+      "path": "data/archive/2026-05-14/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "889bd0718eba98eb5801a3cc39dec0d91bb5b76cce6c9027c0c4ffec8496e730"
+    },
+    {
+      "path": "data/archive/2026-05-14/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "cd29dad9b47bcb9f60ac6c9b2150d24aca9acac56c6614299c61a1c4e5a1f779"
+    },
+    {
+      "path": "data/archive/2026-05-14/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "64efc4db269f4b7412187199187ae6b1d74ed93e44cf305d3b9db8658c5861ba"
+    },
+    {
+      "path": "data/archive/2026-05-14/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-14/weather_alerts.json",
+      "bytes": 45181,
+      "sha256": "01d70a04e9f3f32397dcb42c9ba59c4092f43b5101dec0a016d61aba857f1d38"
+    },
+    {
+      "path": "data/archive/2026-05-15/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "3f6b5dfce1a779a8baf80f8ec05b22c65b4da1cf75d3213fd880bf67569918fb"
+    },
+    {
+      "path": "data/archive/2026-05-15/cisa_advisories.json",
+      "bytes": 28317,
+      "sha256": "94ad9ff083b79f2be8471970ab91fc4cd6785772c4f574f84da7608995017805"
+    },
+    {
+      "path": "data/archive/2026-05-15/cisa_kev.json",
+      "bytes": 23649,
+      "sha256": "485da22a4d14456f8f37475df3df0091ba632595d80a4635f977ce13392e7fd4"
+    },
+    {
+      "path": "data/archive/2026-05-15/dhs_news.json",
+      "bytes": 8672,
+      "sha256": "359d4ac4eb5e1adb06596be73081446cbc196be6f9d7aa409425423e4255698a"
+    },
+    {
+      "path": "data/archive/2026-05-15/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "0a6c6dea40d15b1656d4a1982162aca444c7feaf97836d96228a69052de6c67c"
+    },
+    {
+      "path": "data/archive/2026-05-15/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "f72836947f9cde3bde738f4b2be23951e682df46ecdace92b36cd1e0fe1efd1b"
+    },
+    {
+      "path": "data/archive/2026-05-15/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "eb3b5bbb9a26652475342c97a0b9e295e45d2747688cdafce53c6315ad2fea6b"
+    },
+    {
+      "path": "data/archive/2026-05-15/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "07e5bca97dc155e3e32e1ded026b412f550fe93a4882a98d966e29092c6ac60e"
+    },
+    {
+      "path": "data/archive/2026-05-15/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-15/weather_alerts.json",
+      "bytes": 45736,
+      "sha256": "9253be4fbad5f19a3b77239e7533ee00130bcbabc5cbbe8f4da5ad0f3d95c08e"
+    },
+    {
+      "path": "data/archive/2026-05-16/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "74eb0ab9906ca785ecefe5c218f16bc3f7af67b26863e36bf62254517ca23bb6"
+    },
+    {
+      "path": "data/archive/2026-05-16/cisa_advisories.json",
+      "bytes": 28387,
+      "sha256": "a870e67df91c384c0de32f5c52da90f75e16bf725b380919095de5ae7ca53f78"
+    },
+    {
+      "path": "data/archive/2026-05-16/cisa_kev.json",
+      "bytes": 23513,
+      "sha256": "14014d2334a8a485d1c273a157c4f793116995b6ad16f821d049e8b0e496ca4e"
+    },
+    {
+      "path": "data/archive/2026-05-16/dhs_news.json",
+      "bytes": 8672,
+      "sha256": "da2900e3c4bf263ee71048638da73817436cba6dcdcf05f8ead848c91366ac8b"
+    },
+    {
+      "path": "data/archive/2026-05-16/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "414ce8643f1481d91884dfb4ca3991512f1634c978416570549bcff1a0d5d6bd"
+    },
+    {
+      "path": "data/archive/2026-05-16/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "6b4ba033811b857eabdf24318fbf0d6869fad0ef557b28709a3643d7f4b6c83d"
+    },
+    {
+      "path": "data/archive/2026-05-16/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "0b5a2cfbfa4918cced1975c7f407072e936b0c6ac332d3ad81b8934008a5499b"
+    },
+    {
+      "path": "data/archive/2026-05-16/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "a95419fda8b3a520431a5fabbef528557a666cee951f7c2be4016840090f1db2"
+    },
+    {
+      "path": "data/archive/2026-05-16/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-16/weather_alerts.json",
+      "bytes": 44793,
+      "sha256": "ed5f52dff1372dcda9fb7623a0d0825bfc227629b6bce60ea9d1e2b79804b933"
+    },
+    {
+      "path": "data/archive/2026-05-17/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "6a4bbd10fcf3e968970fa02d0c8e3ae93086db5a0e039cc4e71864347d559d45"
+    },
+    {
+      "path": "data/archive/2026-05-17/cisa_advisories.json",
+      "bytes": 28387,
+      "sha256": "362910b026c6cd6fdf62a49c625f6fae21186a25badac78501ed1142a7f398c1"
+    },
+    {
+      "path": "data/archive/2026-05-17/cisa_kev.json",
+      "bytes": 23513,
+      "sha256": "ced53cf5e3c23db9c127e0291f42107381cc86059e12b6a7b902ab812c0fab1d"
+    },
+    {
+      "path": "data/archive/2026-05-17/dhs_news.json",
+      "bytes": 8672,
+      "sha256": "61a115e935b30cf9f0371b5e0418895f6ff039aaf4747763a789512334d9b962"
+    },
+    {
+      "path": "data/archive/2026-05-17/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "bdc1adfbf737d65212a58cdda0220e4e22907f78de451626569c1df5fb6ec66b"
+    },
+    {
+      "path": "data/archive/2026-05-17/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "f605d3245b77e285a628a411725f38298a66234a640c6b884d29172ef7da353a"
+    },
+    {
+      "path": "data/archive/2026-05-17/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "2a68a1d3d8d46bc08b3ce270c2b1c71f3c81712ec2945b77989edd6ddb3ac08e"
+    },
+    {
+      "path": "data/archive/2026-05-17/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "3f2c1fbbad5baedf86e848152ab8b0660b5b65e979823a8513c49da5cb038a70"
+    },
+    {
+      "path": "data/archive/2026-05-17/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-17/weather_alerts.json",
+      "bytes": 43849,
+      "sha256": "0cd72942693a5563e19736d258bebee35598b854ee7d3b567420772a0c775d14"
+    },
+    {
+      "path": "data/archive/2026-05-18/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "2cdb038c45f9a64306f01f8e451f889e7688b565bee2bc2c44d26391235662b4"
+    },
+    {
+      "path": "data/archive/2026-05-18/cisa_advisories.json",
+      "bytes": 28387,
+      "sha256": "9994acfcc03a84ddb63bc2dd9bc5fc987d8dd5c9e13aeff4bc1282c424ddc776"
+    },
+    {
+      "path": "data/archive/2026-05-18/cisa_kev.json",
+      "bytes": 23513,
+      "sha256": "b8c6bd2db3a719829fa39e7a2839e4f1581adc9d8416f4404d7c54c90e50428e"
+    },
+    {
+      "path": "data/archive/2026-05-18/dhs_news.json",
+      "bytes": 8656,
+      "sha256": "2c3c549d1d8c60dd2be46a303d0ce09f2b49e1e013497aa1436ac5c2fcc90a00"
+    },
+    {
+      "path": "data/archive/2026-05-18/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "25fd2a70500ecf3e14888ae116cc16d0760fc2457590a54f70d10e47f800660f"
+    },
+    {
+      "path": "data/archive/2026-05-18/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "d027340acf17c61371ef4493fd680df74cd426e8a91d0fe0df50593a370f534e"
+    },
+    {
+      "path": "data/archive/2026-05-18/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "98d57e1b376e741442b0e585283d1c6f7a1859b351f65b730f4771922c95fb2b"
+    },
+    {
+      "path": "data/archive/2026-05-18/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "d719496643bc671d0fc5260c0f0accf90f9c821728cf90e0c07e5b312f8cbd4a"
+    },
+    {
+      "path": "data/archive/2026-05-18/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-18/weather_alerts.json",
+      "bytes": 45155,
+      "sha256": "e7e127929a7c0420a2fc30ea384a45c479df9b859dd8d821eeb5d55abfb20966"
+    },
+    {
+      "path": "data/archive/2026-05-19/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "7604993a8351dcaf290a9f83ffa57262d8344b342ca98d0d566acd2d4c53020a"
+    },
+    {
+      "path": "data/archive/2026-05-19/cisa_advisories.json",
+      "bytes": 28387,
+      "sha256": "6aa9ad21a775df98d2612648450a977a6fcbf3c743d7d93e1f9ba2402d3524ec"
+    },
+    {
+      "path": "data/archive/2026-05-19/cisa_kev.json",
+      "bytes": 23513,
+      "sha256": "46c59e4293aa0011c671f7b4eb2cfe12c60fc3b9fa4d9cd600199fd58dd6545b"
+    },
+    {
+      "path": "data/archive/2026-05-19/dhs_news.json",
+      "bytes": 8656,
+      "sha256": "66b6da7d832580f2f5e9a564a9b92590414d0e2c46e09695a4b8635db89a6ba1"
+    },
+    {
+      "path": "data/archive/2026-05-19/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "c4a14edeb2569c2d5e585a997da3025e95bab12f144f8fc436254bd7334d6603"
+    },
+    {
+      "path": "data/archive/2026-05-19/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "d897573617ed0f2cd1bff8f96afba3da4923b9c473e8f57ae7d28ce035917fec"
+    },
+    {
+      "path": "data/archive/2026-05-19/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "1b952f50b0604bff97a32eb147cac74dda04ccaa4ede44feabc95a1ff076dea1"
+    },
+    {
+      "path": "data/archive/2026-05-19/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "e6b7e26f6e562f91a73636b3a35b2b52e7c8ffc9ebdf288ed268ddf9ec85f8b0"
+    },
+    {
+      "path": "data/archive/2026-05-19/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-19/weather_alerts.json",
+      "bytes": 46017,
+      "sha256": "f5e810bc52be3d6b6b45e3c4c45a238d887f812a97a71a16d14b5f3aa2bbb740"
+    },
+    {
+      "path": "data/archive/2026-05-20/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "1d83845b72e5118942c7868ecaaaffb5f4d0172686e4887ad18ac5c529f1d12c"
+    },
+    {
+      "path": "data/archive/2026-05-20/cisa_advisories.json",
+      "bytes": 28112,
+      "sha256": "2f2472528e86faee16f2b1d6ec438a9e3998c34656d7d8b85d24e2a9877fb85b"
+    },
+    {
+      "path": "data/archive/2026-05-20/cisa_kev.json",
+      "bytes": 23513,
+      "sha256": "cfd41504db06137001176e65923edf158490247eaa48a468ccf5f6a06adacdb2"
+    },
+    {
+      "path": "data/archive/2026-05-20/dhs_news.json",
+      "bytes": 8276,
+      "sha256": "69c8bb74406ea43a3272d59a0f3cfdbc03f81c1441e7f67de44b55aa543684f7"
+    },
+    {
+      "path": "data/archive/2026-05-20/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "52d58731353d5ff88630f92b2d3b5562a9942983e98694527063740d737b72c5"
+    },
+    {
+      "path": "data/archive/2026-05-20/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "6975fc19dfdfd88b50583fcc9fe8151cd3820bc70c4947534028e382d4ebe256"
+    },
+    {
+      "path": "data/archive/2026-05-20/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "e3e0662072bcabc0e16a7451b53e955c5797e67cab28100ff80e8f425af7d750"
+    },
+    {
+      "path": "data/archive/2026-05-20/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "aa53fa0a855d78719c9234195e414b1796ba38a5238ef73f388c56961b8b5585"
+    },
+    {
+      "path": "data/archive/2026-05-20/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-20/weather_alerts.json",
+      "bytes": 46263,
+      "sha256": "b93444b04b2b31641c12bbd2244f0ad72ab2b9a3dfa9710131758be504145249"
+    },
+    {
+      "path": "data/archive/2026-05-21/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "85637593a250e9aa4bda0b9e379dc565f1fbc9f8a9d9568cbff0f1fea885791b"
+    },
+    {
+      "path": "data/archive/2026-05-21/cisa_advisories.json",
+      "bytes": 28226,
+      "sha256": "c9b3013bfd402ea55ee9d2f23eee170922569601fab46d6a4309729cd346c923"
+    },
+    {
+      "path": "data/archive/2026-05-21/cisa_kev.json",
+      "bytes": 23501,
+      "sha256": "6bda72a1d30d1cf8582c1983ea5599e54710708cd726522cb052f3dd4a8de4b6"
+    },
+    {
+      "path": "data/archive/2026-05-21/dhs_news.json",
+      "bytes": 8276,
+      "sha256": "36b7b06f029d6050ca1a21c1ac70b61907a163505f0cc72314c32fb1d0027157"
+    },
+    {
+      "path": "data/archive/2026-05-21/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "cc210f1a288567b64683a0d5985a540b14e81bbc122c74dbef87eac2a6ffd734"
+    },
+    {
+      "path": "data/archive/2026-05-21/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "0724ef1fe0d018196a8267fd98fe0674c9b0f5f2cba9b7f9b8f4ee9a70e5e0bd"
+    },
+    {
+      "path": "data/archive/2026-05-21/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "c0c92fbc2dd5256ab368528fe1933907323904a4abfaa91d845aa53707f2247b"
+    },
+    {
+      "path": "data/archive/2026-05-21/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "fcbaf12cd226a3444e099da852829eea410f1f4e59b989e44a853a32cafd71a4"
+    },
+    {
+      "path": "data/archive/2026-05-21/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-21/weather_alerts.json",
+      "bytes": 45227,
+      "sha256": "9912e02d905f9f22f6eb9c0c86ebb26da32e68a0e19cfe6767e58d2064f35702"
+    },
+    {
+      "path": "data/archive/2026-05-22/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "b080f1f2c24b7e763eedaaaa985afb1a306fe8d597eaf11a28ca59f59e3758e3"
+    },
+    {
+      "path": "data/archive/2026-05-22/cisa_advisories.json",
+      "bytes": 28128,
+      "sha256": "f4755a554ebf1edeefa2e7e63317aed25871a9f916c08822a5df3ace4d8ed717"
+    },
+    {
+      "path": "data/archive/2026-05-22/cisa_kev.json",
+      "bytes": 23937,
+      "sha256": "10a44d043ef4d0fb33e4958997b817debc481d1868a50aaebad498832c84c0d0"
+    },
+    {
+      "path": "data/archive/2026-05-22/dhs_news.json",
+      "bytes": 8312,
+      "sha256": "903d7914ae8e403c444ad5226d353690dba9d83bfe9f168b3d31ec745894bb63"
+    },
+    {
+      "path": "data/archive/2026-05-22/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "5fb098bbc88f912a852958be77860a6c3778738e2da6f85f4249afa80676bb91"
+    },
+    {
+      "path": "data/archive/2026-05-22/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "112b6edda44f139f5a32e24e02f885a3f08b6fc7872ec4c260fd6acf797cf07b"
+    },
+    {
+      "path": "data/archive/2026-05-22/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "4116857d7ea35abd6f66ecbe761598fd6e4b19c523a4d4c00c627be22744753b"
+    },
+    {
+      "path": "data/archive/2026-05-22/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "c8bef9d3912cb7b0d905596bd55e0c62602ce7604d1742aa972c839f1ed936a4"
+    },
+    {
+      "path": "data/archive/2026-05-22/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-22/weather_alerts.json",
+      "bytes": 43038,
+      "sha256": "5b21f94d4d23a39b3306063681c47107c11c3c60af191ad24d7f4825a085d648"
+    },
+    {
+      "path": "data/archive/2026-05-23/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "d7a7052e7b6f05d06de75ab00a4d44a0c46d8bc205c07d435e18913b6a525381"
+    },
+    {
+      "path": "data/archive/2026-05-23/cisa_advisories.json",
+      "bytes": 28199,
+      "sha256": "8da20c5d813139eb1b2e027e2bcb6867862a59ecf2c46f5ba79ceb72078153db"
+    },
+    {
+      "path": "data/archive/2026-05-23/cisa_kev.json",
+      "bytes": 23997,
+      "sha256": "ac44ac86b0defb4313fecbb68ca65e3621738f802a993fc8f8ae62ca1e1d4c03"
+    },
+    {
+      "path": "data/archive/2026-05-23/dhs_news.json",
+      "bytes": 8312,
+      "sha256": "bcd803a7635b8c8ebaec3fcff3c02b8e8e7fc27769069e6fbafc6e72ad9aa333"
+    },
+    {
+      "path": "data/archive/2026-05-23/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "ffabdd785b0ddbd16611563757ec2a17f0fce9dba9a643008e4b42f66037b127"
+    },
+    {
+      "path": "data/archive/2026-05-23/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "e062899a597788b119a3861ece81d56b90ca14b13d0c4aac5022ceb90bbb7bba"
+    },
+    {
+      "path": "data/archive/2026-05-23/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "ce8604d37763122d79dfc21e5d20c02e8605eb4fdeca02dba5e129cd3e7e16b7"
+    },
+    {
+      "path": "data/archive/2026-05-23/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "ff8ff7206dd68fd67afb8a86e05cb538fb7000575dcdf42b29411332bff2bb6b"
+    },
+    {
+      "path": "data/archive/2026-05-23/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-23/weather_alerts.json",
+      "bytes": 43677,
+      "sha256": "d8530987fdff810da42b699e5964d4e68b2a7dfc201c424a0f200db329668dc2"
+    },
+    {
+      "path": "data/archive/2026-05-24/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "df24dacbb6ca20224d48db7125d33a19ef923aa48cde825ce08b7e3b2351091e"
+    },
+    {
+      "path": "data/archive/2026-05-24/cisa_advisories.json",
+      "bytes": 28199,
+      "sha256": "fe8fb007d1bd82b763f3975e5675b141dfbd1add64e39b0a3745143426b6fdf6"
+    },
+    {
+      "path": "data/archive/2026-05-24/cisa_kev.json",
+      "bytes": 23997,
+      "sha256": "e118f4ddc10121a328be5a387363edcbb211ffe6cd8afc43dcd9e9eeac7eacd3"
+    },
+    {
+      "path": "data/archive/2026-05-24/dhs_news.json",
+      "bytes": 8312,
+      "sha256": "fc855f4febe21a6a7150f8a1f39d44390201701fc478fd8ce8284ec11604b50a"
+    },
+    {
+      "path": "data/archive/2026-05-24/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "febe876237858aa447e473eabf19bb540e929f9c8997a39c0ae69c848d07ff6e"
+    },
+    {
+      "path": "data/archive/2026-05-24/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "2c9755ed6470c21225cb00253ad3f64a28bdd885af9fa88367165ed8a8516418"
+    },
+    {
+      "path": "data/archive/2026-05-24/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "ba56934843336632e87ded8e98c4531f95b543ed057cc0059b20427b9b4fe7c0"
+    },
+    {
+      "path": "data/archive/2026-05-24/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "f9b19ea2c1009b10ae0afc826ed3e6f49083a3c8485be3329d0b801cb1f4774a"
+    },
+    {
+      "path": "data/archive/2026-05-24/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-24/weather_alerts.json",
+      "bytes": 46049,
+      "sha256": "ed75c51ba89f0008ac2c6025ed24e0805af644f587e846c1166529156aae00d9"
+    },
+    {
+      "path": "data/archive/2026-05-25/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "699f6bb17bf8ba2c297654a98230baa1eb548e9683f442250b17eb625b67b8ee"
+    },
+    {
+      "path": "data/archive/2026-05-25/cisa_advisories.json",
+      "bytes": 28199,
+      "sha256": "fd3c70868b2575f075bea0805545657750cc9309c19e6e2b0d1f4d3dfc1066a6"
+    },
+    {
+      "path": "data/archive/2026-05-25/cisa_kev.json",
+      "bytes": 23997,
+      "sha256": "2af6b2928e662cbe27fb7b802b0dc56f29cc7a597402927edf12ee803f58f9f7"
+    },
+    {
+      "path": "data/archive/2026-05-25/dhs_news.json",
+      "bytes": 8312,
+      "sha256": "0d4ca0efaef1c47dc1b367dd11458d39572a2321d19f324ca7a4d754d27c2547"
+    },
+    {
+      "path": "data/archive/2026-05-25/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "cc7b7719a4976fd7a3ce9dd341cc96c03d80403168c6a62db6d6cebbe4d0e2db"
+    },
+    {
+      "path": "data/archive/2026-05-25/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "3bc123676b75eabf6a0971b14efd7a4f1de9b7bc8a4b0acb90983c7609709fff"
+    },
+    {
+      "path": "data/archive/2026-05-25/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "74bb699e4a099c626764455e0f24509b46f65cae5efef039dd105098de124d2d"
+    },
+    {
+      "path": "data/archive/2026-05-25/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "f10ff89297d4d7148246f596d09c7890e3044af8d865da108069879f1ccad313"
+    },
+    {
+      "path": "data/archive/2026-05-25/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-25/weather_alerts.json",
+      "bytes": 46426,
+      "sha256": "e1cb0766b5653b75ad19a40b7ea590d62bca1e8fba126ad60dbfe72aea736731"
+    },
+    {
+      "path": "data/archive/2026-05-27/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "21d99ec89f7d6e56eb086f026e7b4c44f162be0c2fa9bccdbb4cec5057f8b1ad"
+    },
+    {
+      "path": "data/archive/2026-05-27/cisa_advisories.json",
+      "bytes": 28315,
+      "sha256": "f946526d02a672e399039ef6f166d9935b2b455dd05acf9a27ee19ae46da47fe"
+    },
+    {
+      "path": "data/archive/2026-05-27/cisa_kev.json",
+      "bytes": 23949,
+      "sha256": "ec3916b66c0de08d4bf252ca745fb8022e41e8f7c3e8b5c6b55140a7bc41e4e3"
+    },
+    {
+      "path": "data/archive/2026-05-27/dhs_news.json",
+      "bytes": 8312,
+      "sha256": "4209432a25436822fe6aa24d5775137f6100018e0c15265a7c0c5fa97fceca79"
+    },
+    {
+      "path": "data/archive/2026-05-27/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "18e2653c17cead6dacbb7fc5c2d7041969c1fd9b5ec13a8b04589b0d5613484f"
+    },
+    {
+      "path": "data/archive/2026-05-27/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "37e5781e49149a43de049bc30baece6e7585bb128915b00c38bd377829e68bb6"
+    },
+    {
+      "path": "data/archive/2026-05-27/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "815433baf505130c9277034c927a7cc24001780dc56004196994678497c93158"
+    },
+    {
+      "path": "data/archive/2026-05-27/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "86aa276ba4105e95dda3070717e47216178480689a972111c2d2cc695587f245"
+    },
+    {
+      "path": "data/archive/2026-05-27/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-27/weather_alerts.json",
+      "bytes": 45995,
+      "sha256": "dfacb8807708f58e7ca9a1c36280eefd46736900247bb4c52dfd8c1d274fc8d3"
+    },
+    {
+      "path": "data/archive/2026-05-28/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "dcfe5a1bd6a23efa5f290f8eff72f6b9238016f07a7fd7b92f79ce62bbd31dbc"
+    },
+    {
+      "path": "data/archive/2026-05-28/cisa_advisories.json",
+      "bytes": 28388,
+      "sha256": "b09b4967a90b76f668e7ad494f98af38d8a0f0e413152f7238d2912141c1c1a9"
+    },
+    {
+      "path": "data/archive/2026-05-28/cisa_kev.json",
+      "bytes": 23871,
+      "sha256": "a690f2708ea4bccf0e54d60bf142d742415af006399a80ae0847027ecb11558c"
+    },
+    {
+      "path": "data/archive/2026-05-28/dhs_news.json",
+      "bytes": 8312,
+      "sha256": "d4a1cdf0e43768c590711a2e834bc9a9e0ece506873199e0e4d6d2aa4009dff3"
+    },
+    {
+      "path": "data/archive/2026-05-28/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "ea68532614c441e32723d358b694c91939e6ebd58c937b46289668d1751cb352"
+    },
+    {
+      "path": "data/archive/2026-05-28/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "fe9c5f8a70afe548e39e2411d3935fbc78149ab0c37c7d04c3a74db30fb966df"
+    },
+    {
+      "path": "data/archive/2026-05-28/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "649286309249ba8e12a0e973c67b6cf7238d92874f16e9adfe6816dd662fc4ec"
+    },
+    {
+      "path": "data/archive/2026-05-28/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "7f5543d9acbb68567a3b10cc06de869c557c2a69c818e1ede1bf0a093c1317ff"
+    },
+    {
+      "path": "data/archive/2026-05-28/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-28/weather_alerts.json",
+      "bytes": 42934,
+      "sha256": "4a74417e20ccee6ec5a9d1b6349201deaa5da7a38939ecf3e265ba395b20cdec"
+    },
+    {
+      "path": "data/archive/2026-05-29/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "aeb31f8b2091c4a006c69206534d6cc8594d9e753997d1d1141a757cb9d5680e"
+    },
+    {
+      "path": "data/archive/2026-05-29/cisa_advisories.json",
+      "bytes": 28627,
+      "sha256": "035977fb71e0f345f5ea0d4d707de7aac1893194c8afdc138ab9e23ed89e38a6"
+    },
+    {
+      "path": "data/archive/2026-05-29/cisa_kev.json",
+      "bytes": 23915,
+      "sha256": "713584c4debf7a9eb38ed07080e957183f538e31f05c68f826fd282be5980ef9"
+    },
+    {
+      "path": "data/archive/2026-05-29/dhs_news.json",
+      "bytes": 8312,
+      "sha256": "4b038ce6620770025b2fa8f2c7bc32faa56465d082345d7aabd51566497d7cca"
+    },
+    {
+      "path": "data/archive/2026-05-29/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "726fb395c813baba16378eb6c513015d95522e36d56f78450f481cbb88f73da3"
+    },
+    {
+      "path": "data/archive/2026-05-29/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "66a4c292540a136164bdd90da700cf5119c86ffee8edf1df87cc8d906442755c"
+    },
+    {
+      "path": "data/archive/2026-05-29/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "431c72e964d03a16c3fcc4d8514a475226a4620206d89f6f50d9959ddfa00c8c"
+    },
+    {
+      "path": "data/archive/2026-05-29/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "881c3a23032bc929ccf2fcd04bf26de6c5e502cfb970e65fc6d90f4ccea68b7a"
+    },
+    {
+      "path": "data/archive/2026-05-29/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-29/weather_alerts.json",
+      "bytes": 44265,
+      "sha256": "392e7c2d61644af5f8eecc3d9a37b5f83454f71d0826f64bc22f296532f7e46d"
+    },
+    {
+      "path": "data/archive/2026-05-30/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "36047668423f9f66578ec94b2403c20c997db56cb9f99694f7ae6804cdcc6e49"
+    },
+    {
+      "path": "data/archive/2026-05-30/cisa_advisories.json",
+      "bytes": 28695,
+      "sha256": "5d47c428941f488bcb390d1f61a61c7044b0234c5808213bdc6bc9ebf0fa5a8a"
+    },
+    {
+      "path": "data/archive/2026-05-30/cisa_kev.json",
+      "bytes": 23764,
+      "sha256": "f3b5fc5cb250507949377f324b3c7cb799802741a73da7d0f2780edb9a7aa02b"
+    },
+    {
+      "path": "data/archive/2026-05-30/dhs_news.json",
+      "bytes": 8312,
+      "sha256": "59c99d0f0e5a9592930a29b5e9cd7b6e03f1a927653bd7a383b8c0bb42672464"
+    },
+    {
+      "path": "data/archive/2026-05-30/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "391165b7e77825455a4ad84a0b2212549169d976bf111f19bbbf6e6b71ec052e"
+    },
+    {
+      "path": "data/archive/2026-05-30/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "0380176f40e3957b0821335f88ac13651816921722765c19d85773513238d637"
+    },
+    {
+      "path": "data/archive/2026-05-30/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "0f54801993baa74b7ca1681c6aff271e4278f368ae5f32650eed48a78b681a51"
+    },
+    {
+      "path": "data/archive/2026-05-30/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "810a62d8089d269650ebbf24978ebe3a98a485df152223e4b319fd3557c98300"
+    },
+    {
+      "path": "data/archive/2026-05-30/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-30/weather_alerts.json",
+      "bytes": 44821,
+      "sha256": "08c15f821fb8d3351bb850876f977bcfebb7e52d795796ff192db6ffa2d3da28"
+    },
+    {
+      "path": "data/archive/2026-05-31/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "e48b3f726d30f06fb571e01f5d13514b34a6a831553fb33e7a1cbec674bf9b41"
+    },
+    {
+      "path": "data/archive/2026-05-31/cisa_advisories.json",
+      "bytes": 28695,
+      "sha256": "38f25ba2f2e3451634ff02b82a07e90a6a448748bc1b1bc43eaa592d5d59c459"
+    },
+    {
+      "path": "data/archive/2026-05-31/cisa_kev.json",
+      "bytes": 23764,
+      "sha256": "cd8f37ed432c1723a534ea0c7b5e9ea0df5d0644f32ad4f74d447be590904ff6"
+    },
+    {
+      "path": "data/archive/2026-05-31/dhs_news.json",
+      "bytes": 8312,
+      "sha256": "03807019868798b71098f6b05d86a71b6c202d2d45dac6dd71bfe155670774f8"
+    },
+    {
+      "path": "data/archive/2026-05-31/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "a52fc2d6784157b29d0482799ec4cb5c31a586e66089fd3c055ab287506fede8"
+    },
+    {
+      "path": "data/archive/2026-05-31/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "e914dd72f2945aca20a990651fb9d4ea55765f0b4367660e7cce439f1d16a874"
+    },
+    {
+      "path": "data/archive/2026-05-31/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "7e82e1d9fbb5b63a6caceaa58be25426558241b32be2ce28b082098f49e2d1ca"
+    },
+    {
+      "path": "data/archive/2026-05-31/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "fd3f786bf217a7e7aecf42317aabc19e38bebf31926a20a11f540c9d876a3bae"
+    },
+    {
+      "path": "data/archive/2026-05-31/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-05-31/weather_alerts.json",
+      "bytes": 44457,
+      "sha256": "62915d8fae004aebf6b360de8af62742ccd7b95eae6efaefa179f4217b3f0ad3"
+    },
+    {
+      "path": "data/archive/2026-06-01/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "d9b3fa9bbc691c4c476352f85832a36b93676c526cc341af7f49760b8ac843f9"
+    },
+    {
+      "path": "data/archive/2026-06-01/cisa_advisories.json",
+      "bytes": 28695,
+      "sha256": "0c7f8579be52f8e4be4f014740a9911ede165975d6244bebd85890501be6d482"
+    },
+    {
+      "path": "data/archive/2026-06-01/cisa_kev.json",
+      "bytes": 23764,
+      "sha256": "022991869d318a59dc1685a80e03ad2eb7c788da1357a97dd18c2d38d43b32aa"
+    },
+    {
+      "path": "data/archive/2026-06-01/dhs_news.json",
+      "bytes": 8283,
+      "sha256": "4ca8bbc5a508f0d0cd40b8460ef5a4ef2651ffb904fc4d75648f471baab405b8"
+    },
+    {
+      "path": "data/archive/2026-06-01/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "7dded2db46fed49ffa526e4b53da968329790e521cf8edc277be1d2375f1205d"
+    },
+    {
+      "path": "data/archive/2026-06-01/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "5b3f2006c09b11851563f4ec5fb09e9f7993dc0a4b0ec3f706191fdbfdbb59c3"
+    },
+    {
+      "path": "data/archive/2026-06-01/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "4bf769e15038fb10cfcca6a6318470ce1bc6b935eba11d7d8fa3b03a2f583ed4"
+    },
+    {
+      "path": "data/archive/2026-06-01/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "2f3898edf2cf2267c96dd1efad14d17a4b1464cce87e70cda725359d6cebcb29"
+    },
+    {
+      "path": "data/archive/2026-06-01/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-06-01/weather_alerts.json",
+      "bytes": 44665,
+      "sha256": "a8c1355ca0ae51cea263ed73ce438f2e1190790422b9635541e0e59529e3e09a"
+    },
+    {
+      "path": "data/archive/2026-06-02/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "4c7210265bbef96a03adfb77f0cd9bac1126bb14f467de11bfa78f2a86adb530"
+    },
+    {
+      "path": "data/archive/2026-06-02/cisa_advisories.json",
+      "bytes": 28780,
+      "sha256": "dd3c1922a36285ba832dd1ec05ba7e810da131b0a790ba97dcd879ffa7cf0a9a"
+    },
+    {
+      "path": "data/archive/2026-06-02/cisa_kev.json",
+      "bytes": 23909,
+      "sha256": "dc5b329349a826538afb7dc1f1da5ebe5d35527a76268e0036e0e6467ed8ee93"
+    },
+    {
+      "path": "data/archive/2026-06-02/dhs_news.json",
+      "bytes": 8283,
+      "sha256": "cc7fd489fc29626325946eb3965f963c575ad4a89078ad6a8c4ae27c67f74d9a"
+    },
+    {
+      "path": "data/archive/2026-06-02/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "6d0ae63149e2deba7360cc9b9fb1c76e1447f520a398990e6b077477633fe62d"
+    },
+    {
+      "path": "data/archive/2026-06-02/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "cbe3e9beb5c670840f407fd0734e2220dfde74c718c9311863f69e6645322a9d"
+    },
+    {
+      "path": "data/archive/2026-06-02/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "4e80bbb6fbc252e80e9f285d834186b78dbec75b43c612cabda92261a4b1d683"
+    },
+    {
+      "path": "data/archive/2026-06-02/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "48556a1208382c5b9e876e2ed42edd9c679c9d39a08bd70a271a13412015a7bf"
+    },
+    {
+      "path": "data/archive/2026-06-02/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-06-02/weather_alerts.json",
+      "bytes": 46003,
+      "sha256": "7a622c0b65f4680a9ae60fc749e2ea551d4ec05955516e61aea4a952e8bf25f3"
+    },
+    {
+      "path": "data/archive/2026-06-03/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "72dccf112ef869ee9e4b6e6fa264b3f7fef97477b1d54b231b8c486e1aa13387"
+    },
+    {
+      "path": "data/archive/2026-06-03/cisa_advisories.json",
+      "bytes": 28748,
+      "sha256": "a168777a45fa74450bbdb35d5d6041b471487a92c83bf14853567ded95f10993"
+    },
+    {
+      "path": "data/archive/2026-06-03/cisa_kev.json",
+      "bytes": 23900,
+      "sha256": "a67994657e69fa0910e514442ed1b9b299db9a73682d855fd1ca1b329aea2dd1"
+    },
+    {
+      "path": "data/archive/2026-06-03/dhs_news.json",
+      "bytes": 8283,
+      "sha256": "41062e13bb7922582d3fdfea5aba9c86639d2e205c02ae8a7b0e0757f88e328c"
+    },
+    {
+      "path": "data/archive/2026-06-03/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "05bd99724648fbb9418d66e5f300f7600b4e8a1cbe8f7cf4e7370e6e85291d4f"
+    },
+    {
+      "path": "data/archive/2026-06-03/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "94b54b6115af3dbb23b1a0126815add73851182e13c8951322e881bb90296d11"
+    },
+    {
+      "path": "data/archive/2026-06-03/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "abb8e0596e7d103e2f4149f9ac56ba2db2a4b71b684e2eae05a9a3c51357a549"
+    },
+    {
+      "path": "data/archive/2026-06-03/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "cbb6b8ee56a8d68b6d1fe41ed08b2a702587ab2af0346e5d4eb8633daeb05a29"
+    },
+    {
+      "path": "data/archive/2026-06-03/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-06-03/weather_alerts.json",
+      "bytes": 45468,
+      "sha256": "60f7eb0e258249d161124a756a5df5bb67d40e0b72d9dc1bd52ba8c7943f5914"
+    },
+    {
+      "path": "data/archive/2026-06-04/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "08a023319eed2f623b4db2df0012abfabcd8098051655c08a19504b278244271"
+    },
+    {
+      "path": "data/archive/2026-06-04/cisa_advisories.json",
+      "bytes": 28818,
+      "sha256": "0cf9d0c79633a87b8f8fc57c02e7e3725dcc961dc3175d0a26feb8ca00063490"
+    },
+    {
+      "path": "data/archive/2026-06-04/cisa_kev.json",
+      "bytes": 23967,
+      "sha256": "d6d473db073a91228214ae884cfcb002c34d157b801977eba40b83c9c9fe4a56"
+    },
+    {
+      "path": "data/archive/2026-06-04/dhs_news.json",
+      "bytes": 8283,
+      "sha256": "cba3505aef831748181ea0b5e64df448db1d3cdf8cd00351d01dd367e3b9ddc8"
+    },
+    {
+      "path": "data/archive/2026-06-04/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "5ee17cfd9da0becd922025c66cbb1fe96efcf049f6bb7f7bf5ec2a6b15f6c95d"
+    },
+    {
+      "path": "data/archive/2026-06-04/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "a5ba19917c687761b5f557631b4914d8d3c06a60104889c9045483a0f49b13c6"
+    },
+    {
+      "path": "data/archive/2026-06-04/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "1855069bbdafe90306f6626c81f7d802c6172db86a7d5332d88f484ca5dae42d"
+    },
+    {
+      "path": "data/archive/2026-06-04/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "f4c9892aef46b9c93a1ccc3cc150559e9e5dc133d6d0fca6277c81331de95c99"
+    },
+    {
+      "path": "data/archive/2026-06-04/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-06-04/weather_alerts.json",
+      "bytes": 44782,
+      "sha256": "648d413666bd8dc884ff51f5b1f162f055954beeac35ea22c507fc6485a1a9ae"
+    },
+    {
+      "path": "data/archive/2026-06-05/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "f45037007e679d9bda72183ab8d5d0947117777088ebedef154071ab56a4523a"
+    },
+    {
+      "path": "data/archive/2026-06-05/cisa_advisories.json",
+      "bytes": 28762,
+      "sha256": "3cb3d567348b2090b1e1a5106dc0fab944cd27ff9bf33491628c00f22c844f6a"
+    },
+    {
+      "path": "data/archive/2026-06-05/cisa_kev.json",
+      "bytes": 23967,
+      "sha256": "880717f585b1c6bae9e1e5e48ccfc8df92300365fc8a14c3eedc70f3706f4535"
+    },
+    {
+      "path": "data/archive/2026-06-05/dhs_news.json",
+      "bytes": 8283,
+      "sha256": "5fba26aef9ce90e949274f1664ce73aa1e41c246bacdd03bf2ce273e9f2914b3"
+    },
+    {
+      "path": "data/archive/2026-06-05/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "a69c6df9598fa3700bf6c8fad5c32fdb798fef137eb02dcabd5d609dba153b98"
+    },
+    {
+      "path": "data/archive/2026-06-05/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "94512b56c4be9c5bd924a5b1231fe18107d92f0869d8d9ffd5df38ea421915a4"
+    },
+    {
+      "path": "data/archive/2026-06-05/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "e59b0511b83304ab5fa3a751723aa1ecb54f581600e4d9e4445d7a387aab3812"
+    },
+    {
+      "path": "data/archive/2026-06-05/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "de7e8f36812f8c1bf0a9e4d43b7cf2c8f80e311c0e1207c40f8e2cf8eb4e0604"
+    },
+    {
+      "path": "data/archive/2026-06-05/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-06-05/weather_alerts.json",
+      "bytes": 43549,
+      "sha256": "bf76bd41d3ccf38f453d2f5269f30a4bbbe71f59d956de970ded388b11f8e1a6"
+    },
+    {
+      "path": "data/archive/2026-06-06/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "17b82860b28854f8950b6ef5ba6386d0c710f4679d1a4d56670f6dbf6a88325f"
+    },
+    {
+      "path": "data/archive/2026-06-06/cisa_advisories.json",
+      "bytes": 28762,
+      "sha256": "3d76b7849710822e3337d3697427088b19ee439b0100fd7bed3d184a8645ac8f"
+    },
+    {
+      "path": "data/archive/2026-06-06/cisa_kev.json",
+      "bytes": 24105,
+      "sha256": "4fed66311ba865152ce3ab563f01aebc7d06bd148dfc0e348a5c30475176f4e9"
+    },
+    {
+      "path": "data/archive/2026-06-06/dhs_news.json",
+      "bytes": 8283,
+      "sha256": "2ccffe9f3d5594e5f6c58c05fd10a74033511ba36d10407684e2296067ba91ef"
+    },
+    {
+      "path": "data/archive/2026-06-06/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "b8871a28c86278ef89c46a67fa7629efcde02703064a8bce826d1dc2abeb5426"
+    },
+    {
+      "path": "data/archive/2026-06-06/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "eaa7ee628ffa91aafbf36e8a766a61f94a99703202a9f9911a3e038d063fed48"
+    },
+    {
+      "path": "data/archive/2026-06-06/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "51719dd3e58c801720117152e37dcfd7530bf56e94780875a8ee6742978a8027"
+    },
+    {
+      "path": "data/archive/2026-06-06/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "9196a017d46e046940eeeca01b14d25d2534273a204b82e945d85569091460c2"
+    },
+    {
+      "path": "data/archive/2026-06-06/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-06-06/weather_alerts.json",
+      "bytes": 43340,
+      "sha256": "5a7e5ee63065d5033ffcc84e7c69f367f459459cd321e2e0a94572e804b6efd5"
+    },
+    {
+      "path": "data/archive/2026-06-07/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "a5e6467b4ef10f63d73cc555dd06ce3a3d0c5a555e23401af9f6d31051eafb11"
+    },
+    {
+      "path": "data/archive/2026-06-07/cisa_advisories.json",
+      "bytes": 28762,
+      "sha256": "91bafc81663374a08b3437e58035fe73998cfe52eb78413295ddd5b8c0a49117"
+    },
+    {
+      "path": "data/archive/2026-06-07/cisa_kev.json",
+      "bytes": 24105,
+      "sha256": "3496437f255690ef940af0362a3be41e1ec057e563f3c33d5e050a6b2991c4ba"
+    },
+    {
+      "path": "data/archive/2026-06-07/dhs_news.json",
+      "bytes": 8283,
+      "sha256": "3f760bb33ff5362ca9648dd72f6368ad1ca628a281b8494ebfb8f581f958c671"
+    },
+    {
+      "path": "data/archive/2026-06-07/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "e598bf9091b4d85465d334e8ca1a1c2290dfdcbf53ed8b8cf8eaf8dcb73fba22"
+    },
+    {
+      "path": "data/archive/2026-06-07/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "eb70cd73996daa17886677b932537b6b1459878b40d3faff1508ae60c86e18cd"
+    },
+    {
+      "path": "data/archive/2026-06-07/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "9f7d3551ddcab3a61043f8ef8f49b2d789b9f9e0300d2e917bb315cf4e9ac881"
+    },
+    {
+      "path": "data/archive/2026-06-07/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "e6352679ae2e1ccb62365b4c8eb8fd36d3da6617c1a8c78cc046d20e90766765"
+    },
+    {
+      "path": "data/archive/2026-06-07/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-06-07/weather_alerts.json",
+      "bytes": 43730,
+      "sha256": "f26904d5972e120d9a36973379a1681a3bea3919a31f7ca031b6cbc4746aed92"
+    },
+    {
+      "path": "data/archive/2026-06-08/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "350fd671e1bfba5956adf2e3667c8d5bac1037daea43b81e98c93f3b343f8a96"
+    },
+    {
+      "path": "data/archive/2026-06-08/cisa_advisories.json",
+      "bytes": 28762,
+      "sha256": "c90cab1df2595d4269932b507d332977e249dae80fc49a97f43f97b7800ed637"
+    },
+    {
+      "path": "data/archive/2026-06-08/cisa_kev.json",
+      "bytes": 24105,
+      "sha256": "1c27705d00729976309b40a54156a91e4d2c91b042b40f6630f5f36e17cbea83"
+    },
+    {
+      "path": "data/archive/2026-06-08/dhs_news.json",
+      "bytes": 8283,
+      "sha256": "f8d95ce0474fa9cdf5d3d61d992e8208cec8bef58114a4e0a57c43926251e841"
+    },
+    {
+      "path": "data/archive/2026-06-08/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "2df72d673c269012facfe9f3d1368e21b9d117d46986ab0b57ff4d24bf89db91"
+    },
+    {
+      "path": "data/archive/2026-06-08/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "2ef736236019deebdaa468e96cb5855676637e032775786826abfba31848d578"
+    },
+    {
+      "path": "data/archive/2026-06-08/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "f6cfa8692569f0fdc2600b2f50917f74f6ba6b97598b578d717c621711d6ffc7"
+    },
+    {
+      "path": "data/archive/2026-06-08/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "8f13fe96378a77d92c0d75564692f0a3f41901ad450291ffeb01bd6fb10c1bbd"
+    },
+    {
+      "path": "data/archive/2026-06-08/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-06-08/weather_alerts.json",
+      "bytes": 44558,
+      "sha256": "6aa2593c25830e1e7dc0cde7bbf1afeb8a89a37052951bd9e2997628211289e6"
+    },
+    {
+      "path": "data/archive/2026-06-09/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "6aba0687238618117a7848c4d80eb62aa9f7c06d40c5e4caedbf4b48c0007edb"
+    },
+    {
+      "path": "data/archive/2026-06-09/cisa_advisories.json",
+      "bytes": 28831,
+      "sha256": "c221e485b2754976bffac0b1257e60dd17202f5d1fcdc54bc2847ac88255c9d0"
+    },
+    {
+      "path": "data/archive/2026-06-09/cisa_kev.json",
+      "bytes": 24243,
+      "sha256": "25fe802d631633f9ac27ec00299533a6966f964e91dac5b2a0db1dd8999d4b6b"
+    },
+    {
+      "path": "data/archive/2026-06-09/dhs_news.json",
+      "bytes": 8283,
+      "sha256": "468cbb301917edc4b32ef783482d3c84024f087c69a2a77081bcbaa29518bb16"
+    },
+    {
+      "path": "data/archive/2026-06-09/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "4895b74a04b12a8143bfdb160d45580167a0372bc705f42d608b8251e3197c8c"
+    },
+    {
+      "path": "data/archive/2026-06-09/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "aaef0b34d99e59cf30dbca5226c16e991d8334ac497a2c4951bafaef5d5b8416"
+    },
+    {
+      "path": "data/archive/2026-06-09/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "e9cd0f2c3b98ef08329e18e3e99fffa14b8f67f8688143e544af40c95d14b18e"
+    },
+    {
+      "path": "data/archive/2026-06-09/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "57ce6323dde9dc13820afd96dd3ee690ae817822649e8ee6fa8335264d687ce4"
+    },
+    {
+      "path": "data/archive/2026-06-09/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-06-09/weather_alerts.json",
+      "bytes": 43593,
+      "sha256": "6ecab34fa1380e3438dd045c24af553d2067632b489393d824acc934972bbbea"
+    },
+    {
+      "path": "data/archive/2026-06-10/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "6744c8f38f7f4994831b9ef7159e58c70c8910322ec2e84b207abd219282ebdd"
+    },
+    {
+      "path": "data/archive/2026-06-10/cisa_advisories.json",
+      "bytes": 28776,
+      "sha256": "ab64359341a875a4d7e7d15de054ee96e00432b4a9bffc1fe5c2accc0cefec3b"
+    },
+    {
+      "path": "data/archive/2026-06-10/cisa_kev.json",
+      "bytes": 24718,
+      "sha256": "f3c11dde0508ea028e1d094919afc757ece4dc321663d1dbb31b6ab80937682f"
+    },
+    {
+      "path": "data/archive/2026-06-10/dhs_news.json",
+      "bytes": 8283,
+      "sha256": "50cd1ad57b193f81cf87f3b015553fd92b059fa2b04f436df15e25af92559b27"
+    },
+    {
+      "path": "data/archive/2026-06-10/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "07cfe36369866a38fd66466b66b368d5429d91d5825ea1adbf18bab270754c5f"
+    },
+    {
+      "path": "data/archive/2026-06-10/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "d23643d419e4eb7e73bcb8c26041a0707721464ab5e40e595be7d3e6bafc738f"
+    },
+    {
+      "path": "data/archive/2026-06-10/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "fbf40f7a7c7b2ef76c6311f7919cba585d59334e6c51604ad61e310e6db3793e"
+    },
+    {
+      "path": "data/archive/2026-06-10/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "121fd53ee6668ed94385cad1d298701f912781bd136561c63e1eec9064b26ca4"
+    },
+    {
+      "path": "data/archive/2026-06-10/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/archive/2026-06-10/weather_alerts.json",
+      "bytes": 45805,
+      "sha256": "604f6a5fcc48f315fbe9ea624031072491c4bfa14aa06dcc829794625500a060"
+    },
+    {
+      "path": "data/casefiles.json",
+      "bytes": 65948,
+      "sha256": "d5b79628491127958d057ec055d82147b9cf5924d1c2a8279bc611d8ee8c4f26"
+    },
+    {
+      "path": "data/latest/aviation_alerts.json",
+      "bytes": 64,
+      "sha256": "6744c8f38f7f4994831b9ef7159e58c70c8910322ec2e84b207abd219282ebdd"
+    },
+    {
+      "path": "data/latest/cisa_advisories.json",
+      "bytes": 28776,
+      "sha256": "ab64359341a875a4d7e7d15de054ee96e00432b4a9bffc1fe5c2accc0cefec3b"
+    },
+    {
+      "path": "data/latest/cisa_kev.json",
+      "bytes": 24718,
+      "sha256": "f3c11dde0508ea028e1d094919afc757ece4dc321663d1dbb31b6ab80937682f"
+    },
+    {
+      "path": "data/latest/dhs_news.json",
+      "bytes": 8283,
+      "sha256": "50cd1ad57b193f81cf87f3b015553fd92b059fa2b04f436df15e25af92559b27"
+    },
+    {
+      "path": "data/latest/doj_cyber.json",
+      "bytes": 64,
+      "sha256": "07cfe36369866a38fd66466b66b368d5429d91d5825ea1adbf18bab270754c5f"
+    },
+    {
+      "path": "data/latest/fbi_cyber.json",
+      "bytes": 64,
+      "sha256": "d23643d419e4eb7e73bcb8c26041a0707721464ab5e40e595be7d3e6bafc738f"
+    },
+    {
+      "path": "data/latest/global_designations.json",
+      "bytes": 223952,
+      "sha256": "b2ef74e6fdac4fb4a1ab0d7a7166bdfe299378ffe94ed38975ab82f4d917258f"
+    },
+    {
+      "path": "data/latest/gov_domains_summary.json",
+      "bytes": 179,
+      "sha256": "fbf40f7a7c7b2ef76c6311f7919cba585d59334e6c51604ad61e310e6db3793e"
+    },
+    {
+      "path": "data/latest/infrastructure_alerts.json",
+      "bytes": 64,
+      "sha256": "121fd53ee6668ed94385cad1d298701f912781bd136561c63e1eec9064b26ca4"
+    },
+    {
+      "path": "data/latest/public_cameras.json",
+      "bytes": 15442,
+      "sha256": "02faa3602369e8bd401509f84bcb5af719f60e37cc6ecf676c97f37be88b1ee0"
+    },
+    {
+      "path": "data/latest/russia_apt.json",
+      "bytes": 2873,
+      "sha256": "fa18b81f45608cac352ad457156885945c50f6962667aca0cdbed097c416b2e9"
+    },
+    {
+      "path": "data/latest/russia_news.json",
+      "bytes": 64,
+      "sha256": "0b0ef147219971a1c5100dfb1c5cbe4e029450af15ae23451c48b7173a14cb09"
+    },
+    {
+      "path": "data/latest/russia_sanctions.json",
+      "bytes": 200891,
+      "sha256": "4ee6a272ad259b9c57b5cfddd5049bb45aad498829aaf1a9c69fe5f89ebcf805"
+    },
+    {
+      "path": "data/latest/russia_sensors.json",
+      "bytes": 64,
+      "sha256": "0b0ef147219971a1c5100dfb1c5cbe4e029450af15ae23451c48b7173a14cb09"
+    },
+    {
+      "path": "data/latest/weather_alerts.json",
+      "bytes": 45805,
+      "sha256": "604f6a5fcc48f315fbe9ea624031072491c4bfa14aa06dcc829794625500a060"
+    },
+    {
+      "path": "data/reports/daily_brief.json",
+      "bytes": 2224,
+      "sha256": "689c71e6d1af0fc7e42d3c94dd9d02f5f70e743622957d9b789802e300b90aa9"
+    },
+    {
+      "path": "data/source-catalog.json",
+      "bytes": 439389,
+      "sha256": "6506eb6165ce24ab2931320fdb9b64907d499961d46672135ecf8b1939ea8a16"
+    },
+    {
+      "path": "data/wiki/agencies.json",
+      "bytes": 4146,
+      "sha256": "a51fa4b07af3b1863c6a7a3714408c23e17eb10454c4142b2ab760169b7da34b"
+    },
+    {
+      "path": "data/wiki/documents.json",
+      "bytes": 40227,
+      "sha256": "30f8bf5f3fa724193d23bd40a0240bd8b8d2108aafedb8554462c21d5bd21787"
+    },
+    {
+      "path": "data/wiki/featured-rabbit-holes.json",
+      "bytes": 3668,
+      "sha256": "75098d91a7a0ca436f48de5d3cad529f4dd459bcbefaf3e2be291c936bba7fd2"
+    },
+    {
+      "path": "data/wiki/global-threats.json",
+      "bytes": 8398,
+      "sha256": "d2b184af57e60bf91b0c1af85af593b09c9d9ac7fc07b2c32642697191b0dc56"
+    },
+    {
+      "path": "data/wiki/places.json",
+      "bytes": 5069,
+      "sha256": "b7ad8bff1e67e743c0fe24404b32be6b8a93eb902550fefe2850c9ac1167acec"
+    },
+    {
+      "path": "data/wiki/reliability-scale.json",
+      "bytes": 2111,
+      "sha256": "38aa548923f2b5b87e080ec9617643a0529a32460692ef7a0b270634a32e5c2b"
+    },
+    {
+      "path": "data/wiki/russia.json",
+      "bytes": 39714,
+      "sha256": "7894739f288d0e64771edcf69954fcf34e686236fb6bed4dce9dedc9956b073b"
+    },
+    {
+      "path": "data/wiki/timelines.json",
+      "bytes": 42379,
+      "sha256": "7121f609a3d0e919ba25852266255a2ca789574a81a9560e686f8f10f206aa46"
+    },
+    {
+      "path": "data/wiki/topics.json",
+      "bytes": 2540,
+      "sha256": "ae3f981f2d3674dec5431a1e743288b061cc18d8b14b895feef1980e82de0034"
+    },
+    {
+      "path": "defense.html",
+      "bytes": 1822,
+      "sha256": "28d443bbf4a0c303a18880a2f0d6ff0224dd78f2a7eaa8c51d85c4a1ab434b32"
+    },
+    {
+      "path": "desks.html",
+      "bytes": 1819,
+      "sha256": "f46a1049ff0bac89155535863876fa5372cc44a38f27c6e57edeb7ba0344a70d"
+    },
+    {
+      "path": "docs/map-data.md",
+      "bytes": 2138,
+      "sha256": "b742d6f34cf461c19a73795952acdd30b14df31940713ad9e4175a210fb3350c"
+    },
+    {
+      "path": "documents.html",
+      "bytes": 1825,
+      "sha256": "ee2780149eb26717459ffb86625d8e72d7862a7226ee02145a3a80bf19ec1d75"
+    },
+    {
+      "path": "domains.html",
+      "bytes": 1831,
+      "sha256": "6065989655b0a79e1cb27e73641c72989d78a3af01bd11cb4bb8eccff574735c"
+    },
+    {
+      "path": "dossiers.html",
+      "bytes": 1828,
+      "sha256": "fa75cd683b3f0d3fab43e6be53fc89e277ce8eff8c1e5ef3663cc6abcb9e89de"
+    },
+    {
+      "path": "feeds.html",
+      "bytes": 1819,
+      "sha256": "a84898b3ad26c47e07137f3e23f10da8687ea04e33a304ae219a455411379e8b"
+    },
+    {
+      "path": "government.html",
+      "bytes": 1827,
+      "sha256": "e3800352c0f56cef64d2b1237c0923a875ced3c3a0aeb7cb35eeecd6fdcb1350"
+    },
+    {
+      "path": "govint/index.html",
+      "bytes": 867,
+      "sha256": "7637db399c80d5ae28e9d5f277dfa536f5c13d572e82bf8eabd1762d9f80df94"
+    },
+    {
+      "path": "index.html",
+      "bytes": 1823,
+      "sha256": "1a99aa16f0fc83855485bd92d1cc452fc1487b337578bcca77cdee36898ea19e"
+    },
+    {
+      "path": "infrastructure.html",
+      "bytes": 1836,
+      "sha256": "67008fb693fa2fa525d406a3fc3bbba2d9dd6dc1e1d0e37b181d966b305718e4"
+    },
+    {
+      "path": "investigations.html",
+      "bytes": 1832,
+      "sha256": "ab1da33c892834687dbfd566cb3872094607de498f9fc1c6e067c33656e4e777"
+    },
+    {
+      "path": "maps.html",
+      "bytes": 1816,
+      "sha256": "fe52997518d9b86e9bcb1b741d43c6eae82eccecab60025b9fd7d678d7ed529c"
+    },
+    {
+      "path": "methodology.html",
+      "bytes": 1828,
+      "sha256": "df5775e68b9a611bef1b596c246a73ff00f8c5fba7dc7281db0cbd8ff8c9a29c"
+    },
+    {
+      "path": "narco_routes.html",
+      "bytes": 1833,
+      "sha256": "906fbf012d93d1587fe51710107a0c630f943d6c1952d099f068fa489fb74dfd"
+    },
+    {
+      "path": "release.json",
+      "bytes": 1033,
+      "sha256": "1aa6230bf829db43f1eaae0669e75a26ba99c8edbb6826c1d626bc22656ae420"
+    },
+    {
+      "path": "reports.html",
+      "bytes": 1822,
+      "sha256": "5ffc054ccbd99110e111ae8f0fbd876a38a5b24bc03e8c567465e836bc344c98"
+    },
+    {
+      "path": "russia-history.html",
+      "bytes": 1840,
+      "sha256": "a9d70de2063e2bbaf723b4826f028e971efac4f90cc9cb84d01c2b9f7d7dc410"
+    },
+    {
+      "path": "russia-networks.html",
+      "bytes": 1839,
+      "sha256": "6e68b74b034fe3871ce65c6d9f84e0c1275fd4733350cf27184f61e0e8bff993"
+    },
+    {
+      "path": "russia.html",
+      "bytes": 1823,
+      "sha256": "0f358d6713a8053f7e0730c909ed8e91f8024c485e50e8371326ffbc5dd7ce7b"
+    },
+    {
+      "path": "sources.html",
+      "bytes": 1825,
+      "sha256": "77d9139696402bc374121f4dd8813767669de9b2ef10b27b35e71d1d83773c68"
+    },
+    {
+      "path": "threats.html",
+      "bytes": 1820,
+      "sha256": "570141c448f0631d3ea4cf9f686fe11631654eff0744ca78af563121768d40ff"
+    },
+    {
+      "path": "timelines.html",
+      "bytes": 1827,
+      "sha256": "2a029bf48a62e328c8f8ed8b3fcbb228869ed08d0527ebce419c4044105a0b28"
+    }
+  ]
+}

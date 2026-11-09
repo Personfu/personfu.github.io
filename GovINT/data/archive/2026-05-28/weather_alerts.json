@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-05-28T12:27:28.035498Z",
+  "items": [
+    {
+      "title": "Marine Weather Statement issued May 28 at 8:23AM EDT by NWS Miami FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T08:23:00-04:00",
+      "summary": "The areas affected include...\nCoastal waters from Jupiter Inlet to Deerfield Beach FL out 20\nNM...\n\nAt 821 AM EDT, Doppler radar indicated strong showers and a few\nthunderstorms, capable of producing winds to around 30 knots. These\nthunderstorms were located along a line extending from 8 nm east of\nHobe Sound Beach to Palm Beach. The thunderstorms were slowly\nmoving north northeast.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Jupiter Inlet to Deerfield Beach FL out 20 NM"
+    },
+    {
+      "title": "Marine Weather Statement issued May 28 at 8:12AM EDT by NWS Miami FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T08:12:00-04:00",
+      "summary": "The areas affected include...\nCentral Biscayne Bay...\n\nAt 811 AM EDT, Doppler radar indicated a strong shower, capable of\nproducing winds to around 30 knots. This shower was located over\nCard Sound, moving north at 10 knots.\n\nLocations impacted include...\nConvoy Point, Turkey Point, and Card Sound.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Biscayne Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 8:05AM EDT until May 29 at 12:00AM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T08:05:00-04:00",
+      "summary": "* WHAT...North winds 10 to 15 kt with gusts up to 20 kt expected.\n\n* WHERE...Chester River to Queenstown MD and Eastern Bay.\n\n* WHEN...From 10 AM this morning to midnight EDT tonight.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chester River to Queenstown MD; Eastern Bay"
+    },
+    {
+      "title": "Flood Advisory issued May 28 at 7:56AM EDT until May 28 at 10:00AM EDT by NWS Miami FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T07:56:00-04:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of southeast Florida, including the following\ncounty, Miami-Dade.\n\n* WHEN...Until 1000 AM EDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\nWater over roadways.\n\n* ADDITIONAL DETAILS...\n- At 756 AM EDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Between 2 and 3 inches of rain\nhave fallen.\n- Additional rain",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Miami-Dade, FL"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 15 kt. Seas 5 ft.\n.TONIGHT...W wind 20 kt. Seas 8 ft. Rain.\n.FRI...W wind 20 kt. Seas 9 ft.\n.FRI NIGHT...Variable wind 10 kt. Seas 8 ft.\n.SAT...NE wind 20 kt. Seas 7 ft.\n.SUN...NE w",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Unalga Pass to Nikolski Pacific Side from 15 to 85 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 28 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NW wind 15 kt. Seas 8 ft.\n.TONIGHT...NW wind 15 kt. Seas 7 ft.\n.FRI...Variable wind 10 kt. Seas 5 ft.\n.FRI NIGHT...Variable wind 10 kt. Seas 4 ft.\n.SAT...E wind 20 kt. Seas 5 ft.\n.SUN...NE",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Sitkinak to Castle Cape from 15 to 100 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SW wind 25 kt. Seas 12 ft.\n.TONIGHT...W wind 25 kt. Seas 12 ft.\n.FRI...NW wind 15 kt. Seas 8 ft.\n.FRI NIGHT...E wind 20 kt. Seas 6 ft.\n.SAT THROUGH MON...SE wind 25 kt. Seas 9 ft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kiska to Attu Pacific Side"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 25 kt. Seas 9 ft. Rain.\n.TONIGHT...W wind 25 kt. Seas 11 ft. Rain.\n.FRI...W wind 20 kt. Seas 9 ft.\n.FRI NIGHT...N wind 15 kt. Seas 7 ft.\n.SAT...NE wind 20 kt. Seas 8 ft.\n.SUN...E wi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Seguam to Adak Bering Side from 15 to 85 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 25 kt. Seas 10 ft.\n.TONIGHT...W wind 25 kt. Seas 11 ft.\n.FRI...W wind 20 kt. Seas 9 ft.\n.FRI NIGHT...N wind 15 kt. Seas 7 ft.\n.SAT...E wind 20 kt. Seas 7 ft.\n.SUN THROUGH MON...E wi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Adak to Kiska Pacific Side"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 20 kt. Seas 7 ft.\n.TONIGHT...W wind 25 kt. Seas 8 ft.\n.FRI...W wind 20 kt. Seas 8 ft.\n.FRI NIGHT...N wind 15 kt. Seas 7 ft.\n.SAT...NE wind 20 kt. Seas 8 ft.\n.SUN...E wind 15 kt. Sea",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Seguam to Adak Bering Side out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NW wind 20 kt. Seas 8 ft.\n.TONIGHT...W wind 15 kt. Seas 6 ft.\n.FRI...S wind 15 kt. Seas 8 ft. Rain.\n.FRI NIGHT...Variable wind 10 kt. Seas 7 ft.\n.SAT...NE wind 20 kt. Seas 7 ft.\n.SUN...NE ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Tolstoi to Unalga Pass from 15 to 100 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SW wind 20 kt. Seas 6 ft. Rain.\n.TONIGHT...W wind 20 kt. Seas 9 ft. Rain.\n.FRI...W wind 20 kt. Seas 9 ft. Rain.\n.FRI NIGHT...N wind 15 kt. Seas 8 ft.\n.SAT...NE wind 20 kt. Seas 9 ft.\n.SUN.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Nikolski to Seguam Bering Side from 15 to 85 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 25 kt. Seas 10 ft.\n.TONIGHT...W wind 25 kt. Seas 10 ft.\n.FRI...W wind 25 kt. Seas 10 ft.\n.FRI NIGHT...NW wind 15 kt. Seas 7 ft.\n.SAT...NE wind 20 kt. Seas 7 ft.\n.SUN...E wind 15 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Seguam to Adak Pacific Side from 15 to 75 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 25 kt. Seas 9 ft.\n.TONIGHT...W wind 25 kt. Seas 10 ft.\n.FRI...W wind 25 kt. Seas 10 ft.\n.FRI NIGHT...NW wind 15 kt. Seas 8 ft.\n.SAT...N wind 20 kt. Seas 7 ft.\n.SUN...NE wind 15 kt. ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Nikolski to Seguam Pacific Side from 15 to 75 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 25 kt. Seas 11 ft.\n.TONIGHT...W wind 25 kt. Seas 11 ft.\n.FRI...W wind 20 kt. Seas 8 ft.\n.FRI NIGHT...N wind 15 kt. Seas 5 ft.\n.SAT...E wind 20 kt. Seas 8 ft.\n.SUN...SE wind 25 kt. S",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Adak to Kiska Bering Side"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 25 kt. Seas 9 ft.\n.TONIGHT...W wind 25 kt. Seas 9 ft.\n.FRI...W wind 25 kt diminishing to 15 kt in the afternoon. Seas\n9 ft.\n.FRI NIGHT...N wind 15 kt. Seas 5 ft.\n.SAT...NE wind 20 k",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Seguam to Adak Pacific Side out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 20 kt. Seas 6 ft. Rain.\n.TONIGHT...W wind 20 kt. Seas 9 ft. Rain.\n.FRI...W wind 20 kt. Seas 9 ft. Rain.\n.FRI NIGHT...N wind 15 kt. Seas 7 ft.\n.SAT...NE wind 20 kt. Seas 9 ft.\n.SUN..",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Nikolski to Seguam Bering Side out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SW wind 20 kt. Seas 7 ft. Rain.\n.TONIGHT...W wind 25 kt. Seas 10 ft.\n.FRI...W wind 20 kt. Seas 9 ft.\n.FRI NIGHT...NW wind 15 kt. Seas 7 ft.\n.SAT...NE wind 20 kt. Seas 7 ft.\n.SUN...NE wind ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Nikolski to Seguam Pacfic Side out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 29 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SW wind 25 kt. Seas 11 ft.\n.TONIGHT...W wind 25 kt. Seas 10 ft.\n.FRI...NW wind 15 kt. Seas 7 ft.\n.FRI NIGHT...E wind 15 kt. Seas 5 ft.\n.SAT THROUGH MON...SE wind 25 kt. Seas 9 ft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kiska to Attu Bering Side"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 28 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NW wind 20 kt. Seas 9 ft.\n.TONIGHT...NW wind 15 kt. Seas 7 ft.\n.FRI...Variable wind 10 kt. Seas 5 ft.\n.FRI NIGHT...SE wind 15 kt. Seas 5 ft.\n.SAT...NE wind 20 kt. Seas 6 ft.\n.SUN...NE wind",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Castle Cape to Cape Tolstoi from 15 to 100 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:49AM AKDT until May 28 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:49:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NW wind 20 kt. Seas 8 ft.\n.TONIGHT...W wind 15 kt. Seas 6 ft.\n.FRI...S wind 15 kt. Seas 8 ft. Rain.\n.FRI NIGHT...Variable wind 10 kt. Seas 7 ft.\n.SAT...NE wind 20 kt. Seas 7 ft.\n.SUN...NE ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Tolstoi to Unalga Pass from 15 to 100 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued May 28 at 3:46AM AKDT until May 29 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:46:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TODAY...N winds 25 kt. Fog.\n.TONIGHT...N winds 25 kt. Fog.\n.FRI...N winds 20 kt. Fog.\n.FRI NIGHT...N winds 15 kt.\n.SAT...NW winds 10 kt.\n.SAT NIGHT...W winds 10 kt.\n.SUN...S winds 15 kt.\n.MON...S winds 15 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Wales to Cape Thompson greater than 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:46AM AKDT until May 29 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:46:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TODAY...N winds 25 kt. Seas 3 ft. Fog.\n.TONIGHT...N winds 25 kt. Seas 4 ft. Fog.\n.FRI...N winds 15 kt. Seas 3 ft. Fog.\n.FRI NIGHT...N winds 15 kt. Seas 3 ft.\n.SAT...N winds 10 kt. Seas 2 ft.\n.SAT NIGHT...W winds 5 kt. Seas 2 ft.\n.SUN...S winds 10 kt. Seas 2 ft.\n.MON...S winds",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Krusenstern to Cape Thompson out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 3:45AM AKDT until May 29 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:45:00-08:00",
+      "summary": "Arctic Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TODAY...NE winds 25 kt. Seas 5 ft subsiding.\n.TONIGHT...NE winds 25 kt. Seas 5 ft. Light freezing spray.\n.FRI...NE winds 20 kt. Seas 5 ft. Light freezing spray.\n.FRI NIGHT...NE winds 20 kt. Seas 5 ft.\n.SAT...N winds 10 kt. Seas 3 ft.\n.SAT NIGHT...W winds 10 kt. Seas 2 ft.\n.SUN...S ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Thompson to Cape Beaufort out to 15 NM"
+    },
+    {
+      "title": "Special Weather Statement issued May 28 at 6:30AM CDT by NWS Austin/San Antonio TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T06:30:00-05:00",
+      "summary": "Patchy dense fog has developed over the Hill Country extending\ninto portions of the I-35 corridor and Coastal Plains producing\nlocal visibility of 1/4 mile or less. Motorists are advised to use\ncaution, utilize low beam headlights, and allow extra space\nbetween vehicles.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Llano; Burnet; Williamson; Kerr; Bandera; Gillespie; Kendall; Blanco; Hays; Travis; Bastrop; Lee; Medina; Bexar; Comal; Fayette"
+    },
+    {
+      "title": "Special Marine Warning issued May 28 at 7:28AM EDT until May 28 at 8:30AM EDT by NWS Tampa Bay Ruskin FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T07:28:00-04:00",
+      "summary": "SMWTBW\n\nThe National Weather Service in Ruskin has issued a\n\n* Special Marine Warning for...\nCharlotte Harbor and Pine Island Sound...\nCoastal waters from Bonita Beach to Englewood FL out 20 NM...\nCoastal waters from Englewood to Tarpon Springs FL out 20 NM...\nWaters from Bonita Beach to Englewood FL out 20 to 60 NM...\n\n* Until 830 AM EDT.\n\n* At 728 AM EDT, a severe thunderstorm capable of producing\nwaterspouts was located near Gasparilla Island, moving north at 20\nknots.\n\nHAZARD...Waterspouts a",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Charlotte Harbor and Pine Island Sound; Coastal waters from Englewood to Tarpon Springs FL out 20 NM; Coastal waters from Bonita Beach to Englewood FL out 20 NM; Waters from Bonita Beach to Englewood FL out 20 to 60 NM"
+    },
+    {
+      "title": "Flash Flood Warning issued May 28 at 7:27AM EDT until May 28 at 11:30AM EDT by NWS Morristown TN",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T07:27:00-04:00",
+      "summary": "FFWMRX\n\nThe National Weather Service in Morristown has issued a\n\n* Flash Flood Warning for...\nNortheastern Cocke County in east Tennessee...\nSouthwestern Greene County in east Tennessee...\n\n* Until 1130 AM EDT.\n\n* At 727 AM EDT, Local law enforcement reported thunderstorms\nproducing heavy rain across the warned area have lead to several\nroads with flash flooding occurring. Between 2 and 4 inches of\nrain have fallen. Additional rainfall amounts up to 1 inch are\npossible in the warned area. Flash ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Cocke, TN; Greene, TN"
+    },
+    {
+      "title": "Flood Advisory issued May 28 at 6:35AM EDT until May 28 at 8:30AM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T06:35:00-04:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of south central Georgia, including the\nfollowing county, Lowndes.\n\n* WHEN...Until 830 AM EDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\n\n* ADDITIONAL DETAILS...\n- At 635 AM EDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Between 1.5 and 2.5 inches of\nrain have fallen.\n- Additional rainfall amounts up t",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Lowndes, GA"
+    },
+    {
+      "title": "Special Weather Statement issued May 28 at 6:17AM EDT by NWS Charleston WV",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T06:17:00-04:00",
+      "summary": "Fog has developed across portions of the region this morning. Fog\ncould be dense in some locations, with visibility a quarter of a\nmile or less. Use caution if traveling, and be alert for rapidly\nchanging visibility over a short distance. Use low beam headlights\nand allow for greater distances between vehicles.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Greenup; Carter; Boyd; Lawrence; Jackson; Vinton; Meigs; Gallia; Lawrence; Wayne; Cabell; Mason; Jackson; Wood; Pleasants; Tyler; Lincoln; Putnam; Kanawha; Roane; Wirt; Calhoun; Ritchie; Doddridge; Mingo; Logan; Boone; Clay; Braxton; Gilmer; Lewis; Harrison; Taylor; Upshur; Barbour; Northwest Fayette; Northwest Nicholas; Northwest Webster; Northwest Randolph"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 2:11AM AKDT until May 28 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T02:11:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 15 kt. Seas 8 ft.\n.TONIGHT...E wind 15 kt. Seas 7 ft.\n.FRI...E wind 15 kt. Seas 5 ft.\n.FRI NIGHT...E wind 15 kt. Seas 5 ft.\n.SAT...E wind 15 kt. Seas 4 ft.\n.SUN THROUGH MON...E wind 20 kt. S",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Suckling to Cape Cleare from 15 to 75 NM"
+    },
+    {
+      "title": "Special Weather Statement issued May 28 at 6:00AM EDT by NWS Wilmington OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T06:00:00-04:00",
+      "summary": "Some patchy dense fog is occurring this morning, especially in\nlower terrain areas. Fog will dissipate between 8am and 10am.\n\nFor those traveling, utilize low-beam headlights, leave extra\ndistance between cars and use extra caution when driving.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Switzerland; Carroll; Gallatin; Owen; Grant"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 2:44AM PDT until May 30 at 9:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T02:44:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, east winds 5 to 15\nkt and seas 8 to 11 ft. For the second Small Craft Advisory,\nnorthwest winds 15 to 25 kt with gusts up to 30 kt and seas 8\nto 10 ft expected.\n\n* WHERE...Waters from Point Reyes to Pigeon Point 10-60 NM.\n\n* WHEN...For the first Small Craft Advisory, until 3 PM PDT this\nafternoon. For the second Small Craft Advisory, from 9 PM\nFriday to 9 AM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Reyes to Pigeon Point 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 2:44AM PDT until May 30 at 9:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T02:44:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northeast winds 10\nto 20 kt and seas 9 to 12 ft. For the second Small Craft\nAdvisory, northwest winds 20 to 25 kt with gusts up to 30 kt\nand seas 8 to 11 ft expected.\n\n* WHERE...Waters from Point Arena to Point Reyes 10-60 NM.\n\n* WHEN...For the first Small Craft Advisory, until 3 PM PDT this\nafternoon. For the second Small Craft Advisory, from 3 PM\nFriday to 9 AM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Arena to Point Reyes 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 2:44AM PDT until May 30 at 9:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T02:44:00-07:00",
+      "summary": "* WHAT...Northwest winds 15 to 20 kt expected.\n\n* WHERE...Coastal Waters from Point Arena to Point Reyes\nCalifornia out to 10 NM.\n\n* WHEN...From 3 PM Friday to 9 AM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Arena to Point Reyes California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 2:44AM PDT until May 30 at 9:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T02:44:00-07:00",
+      "summary": "* WHAT...Northwest winds 10 to 20 kt with gusts up to 30 kt\nexpected.\n\n* WHERE...Coastal Waters from Point Pinos to Point Piedras\nBlancas California out to 10 NM.\n\n* WHEN...From 9 PM Friday to 9 AM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Pinos to Point Piedras Blancas California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 2:44AM PDT until May 30 at 9:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T02:44:00-07:00",
+      "summary": "* WHAT...Northwest winds around 20 kt expected.\n\n* WHERE...Waters from Point Pinos to Point Piedras Blancas 10-\n60 NM.\n\n* WHEN...From 9 PM Friday to 9 AM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Pinos to Point Piedras Blancas 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 2:44AM PDT until May 30 at 9:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T02:44:00-07:00",
+      "summary": "* WHAT...Northwest winds 15 to 25 kt with gusts up to 30 kt\nexpected.\n\n* WHERE...Waters from Pigeon Point to Point Pinos 10-60 NM.\n\n* WHEN...From 9 PM Friday to 9 AM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Pigeon Point to Point Pinos 10-60 NM"
+    },
+    {
+      "title": "Dense Fog Advisory issued May 28 at 4:41AM CDT until May 28 at 11:00AM CDT by NWS Amarillo TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T04:41:00-05:00",
+      "summary": "* WHAT...Visibility a quarter mile or less in dense fog.\n\n* WHERE...A portion of the Panhandle of Texas.\n\n* WHEN...Until 11 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Hutchinson; Roberts; Hemphill; Oldham; Potter; Carson; Gray; Wheeler; Deaf Smith; Randall; Armstrong; Donley; Collingsworth; Palo Duro Canyon"
+    },
+    {
+      "title": "Special Weather Statement issued May 28 at 5:23AM EDT by NWS Louisville KY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T05:23:00-04:00",
+      "summary": "Saturated ground from recent rains and ample low-level moisture\nhave supported the development of patchy fog across portions of\nsouthern Indiana and central Kentucky. Motorists should be\nprepared for sudden changes in visibility to one-half mile or less\nby reducing speed, increasing following distance, and turning off\nhigh beam headlights. Fog should dissipate by mid-morning.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Orange; Dubois; Crawford; Harrison; Floyd; Bullitt; Jefferson; Spencer; Nelson; Washington; Mercer; Boyle; Garrard; Madison"
+    },
+    {
+      "title": "Special Weather Statement issued May 28 at 3:26AM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:26:00-05:00",
+      "summary": "Dry conditions with relative humidity values between 20 and 25\npercent are forecast this afternoon and early evening for portions\nareas of northeast Minnesota north of a line from near\nInternational Falls to Bigfork to near Ely to Gunflint Lake. East\nwinds of 5 to 10 mph with gusts up to 15 mph are forecast.\nTogether, these conditions may cause fires to spread.\n\nCheck burning restrictions and fire danger before burning.\n\nFor more information on burning restrictions for Minnesota, see\nwww.dnr.sta",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Koochiching; North St. Louis; Northern Cook/Northern Lake"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 1:02AM PDT until May 29 at 3:00PM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T01:02:00-07:00",
+      "summary": "* WHAT...Combined seas 8 or 9 ft building to 10 to 13 ft this\nafternoon. Bar conditions moderate becoming rough. Maximum ebb\ncurrents will occur around 315 AM Thursday, 330 PM Thursday, and\n400 AM Friday. The Friday morning ebb will be strong.\n\n* WHERE...Grays Harbor Bar.\n\n* WHEN...From 10 AM this morning to 3 PM PDT Friday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Grays Harbor Bar"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 1:02AM PDT until May 29 at 5:00PM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T01:02:00-07:00",
+      "summary": "* WHAT...West winds 20 to 30 kt and seas 7 to 11 ft.\n\n* WHERE...West Entrance U. S. Waters Strait Of Juan De Fuca.\n\n* WHEN...From 1 PM this afternoon to 5 PM PDT Friday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "West Entrance U.S. Waters Strait Of Juan De Fuca"
+    },
+    {
+      "title": "Gale Warning issued May 28 at 1:02AM PDT until May 29 at 11:00PM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T01:02:00-07:00",
+      "summary": "* WHAT...West winds 25 to 40 kt and seas 6 to 10 ft.\n\n* WHERE...Central U. S. Waters Strait Of Juan De Fuca and East\nEntrance U. S. Waters Strait Of Juan De Fuca.\n\n* WHEN...From 4 PM this afternoon to 11 PM PDT Friday.\n\n* IMPACTS...Strong winds will cause hazardous seas which could\ncapsize or damage vessels and reduce visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Central U.S. Waters Strait Of Juan De Fuca; East Entrance U.S. Waters Strait Of Juan De Fuca"
+    },
+    {
+      "title": "Small Craft Advisory issued May 28 at 1:02AM PDT until May 29 at 2:00AM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T01:02:00-07:00",
+      "summary": "* WHAT...Northwest winds 15 to 25 kt.\n\n* WHERE...Admiralty Inlet.\n\n* WHEN...From 5 PM this afternoon to 2 AM PDT Friday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Admiralty Inlet"
+    },
+    {
+      "title": "Special Weather Statement issued May 28 at 3:42AM EDT by NWS Jackson KY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:42:00-04:00",
+      "summary": "Much drier air moving in atop lingering moist air at the ground is\nresulting in the formation of areas of dense fog. Visibility will\nbe reduced to a quarter mile or less in some locations at times\nearly this morning.\n\nBe prepared for sudden changes in visibility if you will be\ndriving early this morning. If you encounter dense fog, slow\ndown, use your low beam headlights, and leave plenty of distance\nahead of you.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Fleming; Montgomery; Bath; Rowan; Powell; Menifee; Elliott; Morgan; Johnson; Wolfe; Magoffin; Martin"
+    },
+    {
+      "title": "Dense Fog Advisory issued May 28 at 3:37AM EDT until May 28 at 9:00AM EDT by NWS Indianapolis IN",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:37:00-04:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...Portions of central, east central, south central,\nsoutheast, southwest, and west central Indiana.\n\n* WHEN...Until 9 AM EDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.\n\n* ADDITIONAL DETAILS...The greatest reductions in visibilities are\nexpected in more rural areas.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Vermillion; Parke; Putnam; Hendricks; Marion; Hancock; Henry; Vigo; Clay; Owen; Morgan; Johnson; Shelby; Rush; Sullivan; Greene; Monroe; Brown; Bartholomew; Decatur; Knox; Daviess; Martin; Lawrence; Jackson; Jennings"
+    },
+    {
+      "title": "Special Weather Statement issued May 28 at 3:35AM EDT by NWS Louisville KY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:35:00-04:00",
+      "summary": "Saturated ground from recent rains and ample low-level moisture\nhave supported the development of patchy fog across portions of\nsouthern Indiana and northern Kentucky. Motorists should be\nprepared for sudden changes in visibility to one-half mile or less\nby reducing speed, increasing following distance, and turning off\nhigh beam headlights. Fog should dissipate within a few hours of\nsunrise later this morning.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Washington; Scott; Jefferson; Clark; Oldham; Trimble; Henry; Shelby; Franklin; Scott; Harrison; Anderson; Woodford; Fayette; Bourbon; Nicholas; Jessamine; Clark"
+    },
+    {
+      "title": "Beach Hazards Statement issued May 28 at 12:30AM PDT until May 28 at 11:00PM PDT by NWS Eureka CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T00:30:00-07:00",
+      "summary": "* WHAT...Increased threat of sneaker waves expected.\n\n* WHERE...Coastal Del Norte, Northern Coastal Humboldt,\nSouthwestern Humboldt and Coastal Mendocino Counties.\n\n* WHEN...Through this evening. .\n\n* IMPACTS...Large, unexpected waves can sweep across the beach\nwithout warning, sweeping people into the sea from rocks,\njetties, and beaches. These sneaker waves can also move large\nobjects such as logs, crushing anyone caught underneath.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Del Norte; Northern Coastal Humboldt; Southwestern Humboldt; Coastal Mendocino"
+    },
+    {
+      "title": "Special Weather Statement issued May 28 at 3:25AM EDT by NWS Peachtree City GA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T03:25:00-04:00",
+      "summary": "Patchy dense fog will restrict visibilities to as low as a half\nto quarter of a mile across parts of north Georgia this morning.\nThe fog should lift by around 9 AM.\n\nIf driving this morning, slow down, use low-beam headlights and\nleave extra distance between you and the vehicle in front of you.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Murray; Fannin; Gilmer; Union; Towns; Gordon; Pickens; Dawson; Lumpkin; White; Bartow; Cherokee; Forsyth; Hall"
+    },
+    {
+      "title": "Dense Fog Advisory issued May 28 at 2:15AM CDT until May 28 at 8:00AM CDT by NWS Lincoln IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-28T02:15:00-05:00",
+      "summary": "* WHAT...Visibility reduced to one quarter of a mile at times.\n\n* WHERE...Along and south of a Paris to Shelbyville line.\n\n* WHEN...Until 8 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.\n\n* ADDITIONAL DETAILS...Be prepared for rapidly changing visibility\nand plan on extra time to arrive at your destination for the\nmorning commute.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coles; Edgar; Shelby; Cumberland; Clark; Effingham; Jasper; Crawford; Clay; Richland; Lawrence"
+    }
+  ]
+}

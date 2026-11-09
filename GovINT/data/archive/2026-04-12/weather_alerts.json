@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-04-12T11:28:41.829941Z",
+  "items": [
+    {
+      "title": "Special Weather Statement issued April 12 at 6:00AM CDT by NWS Austin/San Antonio TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T06:00:00-05:00",
+      "summary": "At 600 AM CDT, Doppler radar was tracking a strong thunderstorm over\nDel Rio, moving east at 25 mph.\n\nHAZARD...Winds in excess of 40 mph and penny size hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects. Minor damage to outdoor objects is\npossible.\n\nLocations impacted include...\nDel Rio, Val Verde Park, Standart, Cienegas Terrace, Amanda, Laughlin\nAFB, Escondido Estates, and Lake Ridge Ranch.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Val Verde; Kinney"
+    },
+    {
+      "title": "Flood Advisory issued April 12 at 5:38AM CDT until April 12 at 7:30AM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T05:38:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of southwest Oklahoma, including the following\ncounty, Comanche.\n\n* WHEN...Until 730 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\n\n* ADDITIONAL DETAILS...\n- At 537 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Between 1 and 2 inches of rain\nhave fallen.\n- Additional rainfall amounts of 0.2 to ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Comanche, OK"
+    },
+    {
+      "title": "Special Weather Statement issued April 12 at 5:37AM CDT by NWS Austin/San Antonio TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T05:37:00-05:00",
+      "summary": "At 537 AM CDT, Doppler radar was tracking a strong thunderstorm near\nCastell, or 12 miles west of Llano, moving northeast at 35 mph.\n\nHAZARD...Winds in excess of 40 mph and half inch hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects. Minor damage to outdoor objects is\npossible.\n\nLocations impacted include...\nLlano, Buchanan Dam, Buchanan Lake Village, Baby Head, Lone Grove,\nStolz, Bluffton, Valley Spring, Tow, and Colorado Bend S",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Llano; Burnet"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 12 at 5:02AM CDT until April 12 at 10:00AM CDT by NWS Grand Forks ND",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T05:02:00-05:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...Portions of northwest and west central Minnesota and\nnortheast and southeast North Dakota.\n\n* WHEN...Until 10 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "West Polk; Norman; Clay; Kittson; West Marshall; East Marshall; Pennington; Red Lake; East Polk; North Clearwater; Mahnomen; South Clearwater; West Becker; East Becker; West Otter Tail; East Otter Tail; Grant; Pembina; Eastern Walsh County; Grand Forks; Steele; Traill; Cass"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:21AM PDT until April 12 at 3:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:21:00-07:00",
+      "summary": "* WHAT...West winds 10 to 20 kt and seas 9 to 13 ft.\n\n* WHERE...Waters from Point Arena to Point Reyes 10-60 NM.\n\n* WHEN...Until 3 PM PDT this afternoon.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Arena to Point Reyes 10-60 NM"
+    },
+    {
+      "title": "Special Weather Statement issued April 12 at 5:07AM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T05:07:00-04:00",
+      "summary": "Locally dense fog is expected across coastal Southeast Georgia and\ncoastal Northeast Florida early this morning. Visibilities of 1/2\nmile or less can be expected along the I-95 and US-17 corridors\nthrough sunrise, and as far inland as the US-301 highway corridor.\nVisibilities will begin to improve between 8am and 9am this\nmorning.\n\nFog could also be increasingly dense near areas of smoke produced\nby wildfires. Use caution while driving this morning, leaving\nplenty of room between you and the veh",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Baker; Inland Nassau; Union; Bradford; Inland Flagler; Coastal Nassau; Coastal Duval; Eastern Clay; Eastern Alachua; Eastern Putnam; Coastal Flagler; Eastern Marion; Trout River; Western Clay; Northeast Coastal St. Johns; Western Putnam; Central Marion; South Central Duval; Southeast Coastal St. Johns; Western Duval; Northern Inland St. Johns; Southern Inland St. Johns; Western St. Johns; Wayne; Pierce; Brantley; Inland Glynn; Coastal Glynn; Inland Camden; Coastal Camden; Northeastern Charlton; Southern Ware; Western Charlton"
+    },
+    {
+      "title": "Gale Warning issued April 12 at 3:58AM CDT until April 12 at 9:00PM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T03:58:00-05:00",
+      "summary": "* WHAT...For the Small Craft Advisories, south to southwest winds\nto 30 kt and significant waves to 5 ft expected. For the Gale\nWarning, southwest winds to 35 kt and significant waves to 6 ft\nexpected.\n\n* WHERE...Illinois and Indiana nearshore from Winthrop Harbor IL\nto Michigan City IN.\n\n* WHEN...For the first Small Craft Advisory, from 7 AM this\nmorning to noon CDT today. For the Gale Warning, from noon\ntoday to 9 PM CDT this evening. For the second Small Craft\nAdvisory, from 9 PM this evening",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Winthrop Harbor to Wilmette Harbor IL; Wilmette Harbor to Northerly Island IL; Northerly Island to Calumet Harbor IL; Calumet Harbor IL to Gary IN; Gary to Burns Harbor IN; Burns Harbor to Michigan City IN"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 3:58AM CDT until April 13 at 4:00AM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T03:58:00-05:00",
+      "summary": "* WHAT...For the Small Craft Advisories, south to southwest winds\nto 30 kt and significant waves to 5 ft expected. For the Gale\nWarning, southwest winds to 35 kt and significant waves to 6 ft\nexpected.\n\n* WHERE...Illinois and Indiana nearshore from Winthrop Harbor IL\nto Michigan City IN.\n\n* WHEN...For the first Small Craft Advisory, from 7 AM this\nmorning to noon CDT today. For the Gale Warning, from noon\ntoday to 9 PM CDT this evening. For the second Small Craft\nAdvisory, from 9 PM this evening",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Winthrop Harbor to Wilmette Harbor IL; Wilmette Harbor to Northerly Island IL; Northerly Island to Calumet Harbor IL; Calumet Harbor IL to Gary IN; Gary to Burns Harbor IN; Burns Harbor to Michigan City IN"
+    },
+    {
+      "title": "Special Weather Statement issued April 12 at 4:55AM EDT by NWS State College PA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T04:55:00-04:00",
+      "summary": "The combination of drying fine fuels and leaf litter, low\nrelative humidity of around 35 percent and a southerly wind\ngusting between 20 and 25 mph during the late morning and\nafternoon hours, will create an elevated risk of wildfire spread\nacross the southern half of Pennsylvania today.\n\nResidents are urged to exercise caution if handling any potential\nignition sources, such as machinery, cigarettes, or matches. If\ndry grasses and tree litter begin to burn, the fire will have the\npotential to s",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cambria; Blair; Huntingdon; Mifflin; Juniata; Somerset; Bedford; Fulton; Franklin; Perry; Dauphin; Schuylkill; Lebanon; Cumberland; Adams; York; Lancaster"
+    },
+    {
+      "title": "Flood Advisory issued April 12 at 1:38AM PDT until April 12 at 10:00AM PDT by NWS Elko NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T01:38:00-07:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northeast Nevada, including the following\ncounty, Elko, including the former Jakes Fire burn scar near Midas.\n\n* WHEN...Until 1000 AM PDT Sunday.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas,\nincluding the former Jakes Fire burn scar near Midas.\n\n* ADDITIONAL DETAILS...\n- At 138 AM PDT, Doppler radar indicated light to moderate\nrain. This area has received rainfall over the last two days\nand t",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Elko, NV"
+    },
+    {
+      "title": "Wind Advisory issued April 12 at 1:27AM PDT until April 12 at 5:00PM PDT by NWS Elko NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T01:27:00-07:00",
+      "summary": "* WHAT...South winds 20 to 30 mph with gusts around 45-55 mph\nexpected east of US-93 with the strongest gusts at high passes and\nsummits.\n\n* WHERE...White Pine County County.\n\n* WHEN...From 7 AM this morning to 5 PM PDT this afternoon.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "White Pine County"
+    },
+    {
+      "title": "Special Weather Statement issued April 12 at 4:14AM EDT by NWS Louisville KY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T04:14:00-04:00",
+      "summary": "A combination of well-above average temperatures, low relative humidity,\nbreezy winds, and worsening drought conditions will result in\nelevated fire weather conditions for this afternoon. Winds will be\nout of the southwest this afternoon, gusting up to 20 to 25 mph,\nand relative humidity values will drop to around 25 to 30% across\nthe area. Conditions will improve after sunset as winds slowly\ndecrease and relative humidity values increase.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Orange; Washington; Scott; Jefferson; Dubois; Crawford; Perry; Harrison; Floyd; Clark; Hancock; Breckinridge; Meade; Ohio; Grayson; Hardin; Bullitt; Jefferson; Oldham; Trimble; Henry; Shelby; Franklin; Scott; Harrison; Spencer; Anderson; Woodford; Fayette; Bourbon; Nicholas; Nelson; Washington; Mercer; Jessamine; Clark; Larue; Marion; Boyle; Garrard; Madison; Butler; Edmonson; Hart; Green; Taylor; Casey; Lincoln; Logan; Warren; Simpson; Allen; Barren; Monroe; Metcalfe; Adair; Russell; Cumberland; Clinton"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 3:52AM EDT until April 13 at 8:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T03:52:00-04:00",
+      "summary": "* WHAT...South winds 15 to 25 kt with gusts up to 30 kt and\nwaves 6 to 9 ft expected.\n\n* WHERE...Seul Choix Point to Point Detour MI and 5NM East of a\nline from Fairport MI to Rock Island Passage.\n\n* WHEN...Until 8 AM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Seul Choix Point to Point Detour MI; 5NM East of a line from Fairport MI to Rock Island Passage"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 3:52AM EDT until April 13 at 4:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T03:52:00-04:00",
+      "summary": "* WHAT...South winds 10 to 20 kt with gusts up to 30 kt and\nwaves 1 to 3 ft expected.\n\n* WHERE...Munising to Grand Marais MI and Grand Marais to\nWhitefish Point MI.\n\n* WHEN...Until 4 AM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Munising to Grand Marais MI; Grand Marais to Whitefish Point MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 3:52AM EDT until April 13 at 2:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T03:52:00-04:00",
+      "summary": "* WHAT...South winds 15 to 20 kt with gusts up to 25 kt and\nwaves 1 to 3 ft occurring.\n\n* WHERE...Huron Islands to Marquette MI and Marquette to\nMunising MI.\n\n* WHEN...Until 2 AM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Huron Islands to Marquette MI; Marquette to Munising MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 3:52AM EDT until April 13 at 12:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T03:52:00-04:00",
+      "summary": "* WHAT...South winds 15 to 25 kt with gusts up to 30 kt and\nwaves 3 to 6 ft occurring.\n\n* WHERE...Eagle River to Manitou Island MI and Manitou Island to\nPoint Isabelle MI.\n\n* WHEN...Until midnight EDT tonight.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Eagle River to Manitou Island MI; Manitou Island to Point Isabelle MI"
+    },
+    {
+      "title": "Red Flag Warning issued April 12 at 2:52AM CDT until April 12 at 7:00PM CDT by NWS Omaha/Valley NE",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:52:00-05:00",
+      "summary": "The National Weather Service in Omaha/Valley has issued a Red\nFlag Warning for wind and low relative humidity, which is in\neffect from noon today to 7 PM CDT this evening.\n\n* AFFECTED AREA...Knox, Cedar, Antelope, Pierce, and Wayne\nCounties.\n\n* TIMING...From noon today to 7 PM CDT this evening.\n\n* WINDS...West 15 to 20 mph with gusts up to 35 mph.\n\n* RELATIVE HUMIDITY...As low as 15 percent.\n\n* IMPACTS...Any fires that develop will likely spread rapidly.\nOutdoor burning is not recommended.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Knox; Cedar; Antelope; Pierce; Wayne"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 3:52AM EDT until April 12 at 11:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T03:52:00-04:00",
+      "summary": "* WHAT...Southeast winds 10 to 20 kt with gusts up to 25 kt and\nwaves 2 to 5 ft expected.\n\n* WHERE...Point Isabelle to Lower Entrance of Portage Canal MI.\n\n* WHEN...Until 11 AM EDT this morning.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Point Isabelle to Lower Entrance of Portage Canal MI"
+    },
+    {
+      "title": "Red Flag Warning issued April 12 at 2:51AM CDT until April 12 at 7:00PM CDT by NWS Sioux Falls SD",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:51:00-05:00",
+      "summary": "The National Weather Service in Sioux Falls has issued a Red Flag\nWarning for wind and low relative humidity, which is in effect\nfrom noon today to 7 PM CDT this evening.\n\n* AFFECTED AREA...In Nebraska, Dixon. In South Dakota, McCook,\nMinnehaha, Turner, Lincoln, Clay and Union.\n\n* WINDS...West 15 to 25 mph with gusts up to 35 mph.\n\n* RELATIVE HUMIDITY...As low as 18 percent.\n\n* IMPACTS...Any fire that develops will catch and spread\nquickly. Outdoor burning is not recommended.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Dixon; McCook; Minnehaha; Turner; Lincoln; Clay; Union"
+    },
+    {
+      "title": "Winter Weather Advisory issued April 12 at 12:45AM PDT until April 12 at 11:00PM PDT by NWS Eureka CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T00:45:00-07:00",
+      "summary": "* WHAT...Snow. Additional snow accumulations between 4 and 6 inches.\n\n* WHERE...Northern Trinity above 5000 feet.\n\n* WHEN...Until 11 PM PDT this evening.\n\n* IMPACTS...Travel could be difficult over Highway 3 at Scott\nMountain Pass.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northern Trinity"
+    },
+    {
+      "title": "Fire Weather Watch issued April 12 at 2:34AM CDT until April 13 at 9:00PM CDT by NWS Wichita KS",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:34:00-05:00",
+      "summary": "...EXTREME GRASSLAND FIRE DANGER ON MONDAY AFTERNOON...\n\n.Southwest winds may gust over 30 mph at times as relative\nhumidity falls into the teens behind a dryline on Monday afternoon.\n\nThe National Weather Service in Wichita has issued a Fire Weather\nWatch for extreme grassland fire danger, which is in effect from\nMonday afternoon through Monday evening.\n\n* Extreme Grassland Fire Danger...\n\n* Winds...Southwest 15 to 25 mph with gusts up to 35 mph.\n\n* Relative Humidity...As low as 14 percent.\n\n* ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Russell; Lincoln; Barton; Ellsworth; Rice; Reno; Kingman; Harper"
+    },
+    {
+      "title": "Special Weather Statement issued April 12 at 3:24AM EDT by NWS Jackson KY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T03:24:00-04:00",
+      "summary": "Low humidity, sunny to mostly sunny skies, unseasonably warm\ntemperatures, very dry fuels, and breezy conditions will combine\nto result in Elevated Fire Danger this afternoon into early\nevening. Winds will diminish and humidities will gradually\nrecover after sunset.\n\nRemember that Kentucky regulations make it illegal to burn between\nthe hours of 6 AM and 6 PM within 150 feet of a woodland or\nbrushland during the Spring Forest Fire Season that runs until\nApril 30th.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Fleming; Montgomery; Bath; Rowan; Estill; Powell; Menifee; Rockcastle; Jackson; Pulaski; Laurel; Wayne; McCreary; Whitley; Knox; Bell; Harlan; Elliott; Morgan; Johnson; Wolfe; Magoffin; Floyd; Lee; Breathitt; Knott; Owsley; Perry; Clay; Leslie; Letcher; Martin; Pike"
+    },
+    {
+      "title": "High Surf Advisory issued April 12 at 4:57PM ChST until April 14 at 5:00AM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T16:57:00+10:00",
+      "summary": "* WHAT...For the High Surf Warning, dangerously large breaking\nwaves of 12 to 15 feet. For the Coastal Flood Advisory, minor\ncoastal inundation up to 2 feet. For the High Surf Advisory,\nlarge breaking waves of 7 to 9 feet.\n\n* WHERE...For the High Surf Warning, south, west, and north facing\nreefs. For the Coastal Flood Advisory, southern, western, and\nnorthern shorelines. For the High Surf Advisory, west and north\nfacing reefs of Chuuk.\n\n* WHEN...For the High Surf Warning and the Coastal Flood\nAd",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chuuk Lagoon"
+    },
+    {
+      "title": "Coastal Flood Advisory issued April 12 at 4:57PM ChST until April 13 at 5:00PM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T16:57:00+10:00",
+      "summary": "* WHAT...For the High Surf Warning, dangerously large breaking\nwaves of 12 to 15 feet. For the Coastal Flood Advisory, minor\ncoastal inundation up to 2 feet. For the High Surf Advisory,\nlarge breaking waves of 7 to 9 feet.\n\n* WHERE...For the High Surf Warning, south, west, and north facing\nreefs. For the Coastal Flood Advisory, southern, western, and\nnorthern shorelines. For the High Surf Advisory, west and north\nfacing reefs of Chuuk.\n\n* WHEN...For the High Surf Warning and the Coastal Flood\nAd",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chuuk Lagoon"
+    },
+    {
+      "title": "The High Surf Advisory has been cancelled.",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T16:57:00+10:00",
+      "summary": "The High Surf Advisory has been cancelled and is no longer in effect.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chuuk Lagoon"
+    },
+    {
+      "title": "High Surf Warning issued April 12 at 4:57PM ChST until April 13 at 5:00PM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T16:57:00+10:00",
+      "summary": "* WHAT...For the High Surf Warning, dangerously large breaking\nwaves of 12 to 15 feet. For the Coastal Flood Advisory, minor\ncoastal inundation up to 2 feet. For the High Surf Advisory,\nlarge breaking waves of 7 to 9 feet.\n\n* WHERE...For the High Surf Warning, south, west, and north facing\nreefs. For the Coastal Flood Advisory, southern, western, and\nnorthern shorelines. For the High Surf Advisory, west and north\nfacing reefs of Chuuk.\n\n* WHEN...For the High Surf Warning and the Coastal Flood\nAd",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Chuuk Lagoon"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:54AM EDT until April 14 at 2:00AM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:54:00-04:00",
+      "summary": "* WHAT...SW winds 15 to 20 kt with gusts up to 25 kt and seas 4\nto 6 ft expected.\n\n* WHERE...Sandy Hook NJ to Fire Island Inlet NY out 20 nm.\n\n* WHEN...From 8 AM Monday to 2 AM EDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Sandy Hook NJ to Fire Island Inlet NY out 20 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:54AM EDT until April 14 at 6:00AM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:54:00-04:00",
+      "summary": "* WHAT...SW winds 15 to 20 kt with gusts up to 25 kt and seas 4\nto 7 ft expected.\n\n* WHERE...Fire Island Inlet NY to Montauk Point NY out 20 nm.\n\n* WHEN...From 8 AM Monday to 6 AM EDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Moriches Inlet NY to Montauk Point NY out 20 nm; Fire Island Inlet NY to Moriches Inlet NY out 20 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:35AM EDT until April 13 at 6:00PM EDT by NWS Mount Holly NJ",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:35:00-04:00",
+      "summary": "* WHAT...South winds 15 to 20 kt with gusts up to 25 kt and seas\n3 to 5 ft expected.\n\n* WHERE...Coastal waters from Cape Henlopen to Fenwick Island DE\nout 20 nm.\n\n* WHEN...From 4 AM to 6 PM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Cape Henlopen to Fenwick Island DE out 20 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:35AM EDT until April 14 at 1:00AM EDT by NWS Mount Holly NJ",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:35:00-04:00",
+      "summary": "* WHAT...Southwest winds 10 to 20 kt with gusts up to 25 kt and\nseas 3 to 6 ft expected.\n\n* WHERE...Coastal waters from Manasquan Inlet NJ to Cape Henlopen\nDE out 20 nm.\n\n* WHEN...From 4 AM Monday to 1 AM EDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Manasquan Inlet to Little Egg Inlet NJ out 20 nm; Coastal waters from Little Egg Inlet to Great Egg Inlet NJ out 20 nm; Coastal waters from Great Egg Inlet to Cape May NJ out 20 nm; Coastal waters from Cape May NJ to Cape Henlopen DE out 20 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:35AM EDT until April 14 at 1:00AM EDT by NWS Mount Holly NJ",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:35:00-04:00",
+      "summary": "* WHAT...Southwest winds 10 to 20 kt and seas 3 to 6 ft expected.\n\n* WHERE...Coastal waters from Sandy Hook to Manasquan Inlet NJ\nout 20 nm.\n\n* WHEN...From 9 AM Monday to 1 AM EDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Sandy Hook to Manasquan Inlet NJ out 20 nm"
+    },
+    {
+      "title": "Flood Watch issued April 12 at 2:22AM EDT until April 15 at 8:00AM EDT by NWS Gaylord MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:22:00-04:00",
+      "summary": "Rain will continue overspreading eastern upper and far northern\nlower Michigan through the morning. Rainfall will continue through\nearly tonight. Some of this rain may be heavy at times, especially\nduring any thunderstorms. Shower and thunderstorm activity should\ntaper into Monday. More showers and storms return later Monday\nnight, lasting through Tuesday night, with heavy rainfall once again\npossible.\n\n* WHAT...Flooding caused by rain and snowmelt will be possible.\n\n* WHERE...Portions of Easter",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Emmet; Cheboygan; Presque Isle; Western Chippewa; Central Chippewa; Southeast Chippewa; Western Mackinac; Eastern Mackinac"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:15AM EDT until April 12 at 7:00PM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:15:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 10 to\n15 kt with gusts up to 20 kt expected. For the second Small\nCraft Advisory, southwest winds 15 kt with gusts up to 25 kt\nexpected.\n\n* WHERE...Tidal Potomac from Key Bridge to Indian Head MD,\nPatapsco River including Baltimore Harbor and Patuxent River\nto Broomes Island MD.\n\n* WHEN...For the first Small Craft Advisory, from noon today to\n7 PM EDT this evening. For the second Small Craft Advisory,\nfrom 8 AM to 6 PM EDT Monday.\n\n* I",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Tidal Potomac from Key Bridge to Indian Head MD; Patapsco River including Baltimore Harbor; Patuxent River to Broomes Island MD"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:15AM EDT until April 13 at 6:00PM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:15:00-04:00",
+      "summary": "* WHAT...South winds 15 to 20 kt with gusts up to 25 kt expected.\n\n* WHERE...Tidal Potomac River from Indian Head MD to Smith Point\nVA, Chesapeake Bay main channel north of Smith Point VA,\nChester River to Queenstown MD, Eastern Bay, Choptank River to\nCambridge MD and the Little Choptank River, and Tangier Sound\nand the inland waters surrounding Bloodsworth Island.\n\n* WHEN...From noon today to 6 PM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chesapeake Bay north of Pooles Island MD; Chesapeake Bay from Pooles Island to Sandy Point MD; Chesapeake Bay from Sandy Point to North Beach MD; Chesapeake Bay from North Beach to Drum Point MD; Chesapeake Bay from Drum Point MD to Smith Point VA; Tidal Potomac from Indian Head to Cobb Island MD; Tidal Potomac from Cobb Island MD to Smith Point VA; Chester River to Queenstown MD; Eastern Bay; Choptank River to Cambridge MD and the Little Choptank River; Tangier Sound and the inland waters surrounding Bloodsworth Island"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:15AM EDT until April 13 at 6:00PM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:15:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 10 to\n15 kt with gusts up to 20 kt expected. For the second Small\nCraft Advisory, southwest winds 15 kt with gusts up to 25 kt\nexpected.\n\n* WHERE...Tidal Potomac from Key Bridge to Indian Head MD,\nPatapsco River including Baltimore Harbor and Patuxent River\nto Broomes Island MD.\n\n* WHEN...For the first Small Craft Advisory, from noon today to\n7 PM EDT this evening. For the second Small Craft Advisory,\nfrom 8 AM to 6 PM EDT Monday.\n\n* I",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Tidal Potomac from Key Bridge to Indian Head MD; Patapsco River including Baltimore Harbor; Patuxent River to Broomes Island MD"
+    },
+    {
+      "title": "Red Flag Warning issued April 12 at 12:12AM MDT until April 13 at 9:00PM MDT by NWS Pueblo CO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T00:12:00-06:00",
+      "summary": "...RED FLAG WARNING IN EFFECT FROM 11 AM TO 9 PM MDT MONDAY FOR\nFIRE WEATHER ZONES 220, 221, 222, 224, 226, 227, 228, 229, 230,\n231, 232, 233, 234, 235, 236, AND 237...\n\nThe National Weather Service in Pueblo has issued a new Red Flag\nWarning for gusty winds and low relative humidity, which is in\neffect from 11 AM to 9 PM MDT Monday. The Fire Weather Watch is no\nlonger in effect.\n\n* AFFECTED AREA...Fire Weather Zones 220, 221, 222, 224, 226,\n227, 228, 229, 230, 231, 232, 233, 234, 235, 236 and 2",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Upper Arkansas River Valley Including Lake County and Chaffee County; Teller County/Rampart Range Including Pikes Peak and Florissant Fossil Beds National Monument; Fremont County Including Canon City/Howard/Texas Creek; San Luis Valley Including Alamosa/Del Norte/Fort Garland/Saguache; Northern El Paso County Including Monument and Black Forest; Southern El Paso County Including Fort Carson and Colorado Springs; Pueblo County Including Pueblo; Huerfano County Including Walsenburg; Western Las Animas County Including Trinidad and Thatcher; Crowley County Including Ordway; Otero County Including La Junta and Western Comanche Grasslands; Eastern Las Animas County Including Pinon Canyon; Kiowa County Including Eads; Bent County Including Las Animas; Prowers County Including Lamar; Baca County Including Springfield and Eastern Comanche Grasslands"
+    },
+    {
+      "title": "Gale Watch issued April 12 at 2:08AM EDT until April 13 at 6:00PM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:08:00-04:00",
+      "summary": "* WHAT...Southwest winds 15 to 25 kt with gusts up to 35 kt and\nseas 3 to 5 feet possible.\n\n* WHERE...Cape Cod Bay, Nantucket Sound, Vineyard Sound and\nBuzzards Bay.\n\n* WHEN...From Monday morning through Monday afternoon.\n\n* IMPACTS...Strong winds can cause hazardous seas which could\ncapsize or damage vessels and reduce visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Cod Bay; Nantucket Sound; Vineyard Sound; Buzzards Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:08AM EDT until April 14 at 8:00AM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:08:00-04:00",
+      "summary": "* WHAT...Southwest winds 15 to 25 kt with gusts up to 30 kt and\nseas 6 to 9 feet expected.\n\n* WHERE...In Massachusetts coastal waters, Coastal waters from\nProvincetown MA to Chatham MA to Nantucket MA out 20 nm and\nCoastal Waters extending out to 25 nm South of Marthas\nVineyard and Nantucket. In Rhode Island coastal waters,\nCoastal Waters from Montauk NY to Marthas Vineyard extending\nout to 20 nm South of Block Island.\n\n* WHEN...From 2 AM Monday to 8 AM EDT Tuesday.\n\n* IMPACTS...Conditions will ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Provincetown MA to Chatham MA to Nantucket MA out 20 nm; Coastal Waters extending out to 25 nm South of Marthas Vineyard and Nantucket; Coastal Waters from Montauk NY to Marthas Vineyard extending out to 20 nm South of Block Island"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:08AM EDT until April 13 at 8:00PM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:08:00-04:00",
+      "summary": "* WHAT...Southwest winds 10 to 15 kt with gusts up to 30 kt and\nwaves 2 to 4 feet expected.\n\n* WHERE...In Massachusetts coastal waters, Boston Harbor. In\nRhode Island coastal waters, Narragansett Bay.\n\n* WHEN...From 2 AM to 8 PM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Boston Harbor; Narragansett Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:08AM EDT until April 14 at 5:00AM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:08:00-04:00",
+      "summary": "* WHAT...Southwest winds 10 to 20 kt with gusts up to 30 kt and\nseas 4 to 7 feet expected.\n\n* WHERE...Rhode Island Sound and Block Island Sound.\n\n* WHEN...From 2 AM Monday to 5 AM EDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Rhode Island Sound; Block Island Sound"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:08AM EDT until April 14 at 2:00AM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:08:00-04:00",
+      "summary": "* WHAT...Southwest winds 15 to 25 kt with gusts up to 30 kt and\nseas 4 to 6 feet expected.\n\n* WHERE...Coastal waters east of Ipswich Bay and the Stellwagen\nBank National Marine Sanctuary and Massachusetts Bay and\nIpswich Bay.\n\n* WHEN...From 10 PM this evening to 2 AM EDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters east of Ipswich Bay and the Stellwagen Bank National Marine Sanctuary; Massachusetts Bay and Ipswich Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:00AM EDT until April 14 at 8:00AM EDT by NWS Gray ME",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:00:00-04:00",
+      "summary": "* WHAT...Southwest winds 15 to 25 kt with gusts up to 35 kt and\nseas 6 to 9 ft expected.\n\n* WHERE...Coastal Waters from Stonington, ME to Port Clyde, ME\nout 25 NM, Coastal Waters from Port Clyde, ME to Cape\nElizabeth, ME out 25 NM and Coastal Waters from Cape\nElizabeth, ME to Merrimack River, MA out 25 NM.\n\n* WHEN...From 10 PM this evening to 8 AM EDT Tuesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Stonington, ME to Port Clyde, ME out 25 NM; Coastal Waters from Port Clyde, ME to Cape Elizabeth, ME out 25 NM; Coastal Waters from Cape Elizabeth, ME to Merrimack River, MA out 25 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 12 at 2:00AM EDT until April 13 at 8:00PM EDT by NWS Gray ME",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T02:00:00-04:00",
+      "summary": "* WHAT...Southwest winds 10 to 20 kt with gusts up to 30 kt and\nseas 2 to 5 ft expected.\n\n* WHERE...Penobscot Bay and Casco Bay.\n\n* WHEN...From 10 PM this evening to 8 PM EDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Penobscot Bay; Casco Bay"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 12 at 12:53AM CDT until April 12 at 10:00AM CDT by NWS Bismarck ND",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T00:53:00-05:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...Bottineau, McHenry, Renville, Ward, and McLean Counties.\n\n* WHEN...Until 10 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Renville; Bottineau; Ward; McHenry; McLean"
+    },
+    {
+      "title": "Special Weather Statement issued April 12 at 1:51AM EDT by NWS Greenville-Spartanburg SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T01:51:00-04:00",
+      "summary": "Relative humidity values are expected to fall below 30 percent\nagain this afternoon as winds pick up from the south. Given the\ndry vegetation, outdoor fires will be able to spread quickly once\nstarted.\n\nPlease refer to your local burn permitting authorities on whether\nyou can burn today. If you do burn, use extreme caution as fires\ncan quickly get out of hand under these conditions.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Rabun; Habersham; Stephens; Franklin; Hart; Elbert"
+    },
+    {
+      "title": "Special Weather Statement issued April 12 at 12:21AM CDT by NWS Paducah KY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-12T00:21:00-05:00",
+      "summary": "Elevated conditions for wildfires are expected this afternoon,\nmainly between 12 PM and 7 PM CDT. Relative humidity values will\nfall to 25 to 35% this afternoon, and winds will be breezy from\nthe south, sustained at 10 to 15 mph with gusts of 25 to 30 mph\nforecast. Vegetation is dry due to ongoing moderate to severe\ndrought conditions over much of the region.\n\nOutdoor burning and activities that involve open sparks or flames\nare discouraged. Please report all wildfires to local law\nenforcement a",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Jefferson; Wayne; Edwards; Wabash; Perry; Franklin; Hamilton; White; Jackson; Williamson; Saline; Gallatin; Union; Johnson; Pope; Hardin; Alexander; Pulaski; Massac; Gibson; Pike; Posey; Vanderburgh; Warrick; Spencer; Fulton; Hickman; Carlisle; Ballard; McCracken; Graves; Livingston; Marshall; Calloway; Crittenden; Lyon; Trigg; Caldwell; Union; Webster; Hopkins; Christian; Henderson; Daviess; McLean; Muhlenberg; Todd; Perry; Bollinger; Cape Girardeau; Wayne; Carter; Ripley; Butler; Stoddard; Scott; Mississippi; New Madrid"
+    },
+    {
+      "title": "Red Flag Warning issued April 11 at 11:13PM MDT until April 12 at 8:00PM MDT by NWS Denver CO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-11T23:13:00-06:00",
+      "summary": "...FIRE WEATHER WATCH IN EFFECT FROM MONDAY MORNING THROUGH\nMONDAY EVENING FOR WIND AND LOW RELATIVE HUMIDITY FOR SOUTH PARK,\nTHE SOUTHERN FRONT RANGE FOOTHILLS, PALMER DIVIDE INTO EAST\nCENTRAL COLORADO, AND EASTERN LARIMER AND NORTHERN WELD\nCOUNTIES...\n\nThe National Weather Service in Denver has issued a Red Flag\nWarning for wind and low relative humidity, which is in effect\nfrom noon to 8 PM MDT Sunday. A Fire Weather Watch has also been\nissued from late Monday morning through Monday evening.\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Central and Southeast Park County; Jefferson and West Douglas Counties Above  6000 Feet/Gilpin/Clear Creek/Northeast Park Counties Below 9000 Feet; Larimer County Below 6000 Feet/Northwest Weld County; Elbert/Central and East Douglas Counties Above 6000 Feet; North and Northeast Elbert County Below 6000 Feet/North Lincoln County; Southeast Elbert County Below 6000 Feet/South Lincoln County"
+    },
+    {
+      "title": "Fire Weather Watch issued April 11 at 11:13PM MDT until April 13 at 8:00PM MDT by NWS Denver CO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-11T23:13:00-06:00",
+      "summary": "The National Weather Service in Denver has issued a Fire Weather\nWatch for wind and low relative humidity, which is in effect from\nlate Monday morning through Monday evening.\n\n* AFFECTED AREA...Fire Weather Zone 242.\n\n* TIMING...From late Monday morning through Monday evening.\n\n* WINDS...West 10 to 20 mph with gusts up to 30 mph.\n\n* RELATIVE HUMIDITY...As low as 10 percent.\n\n* IMPACTS...Conditions will be favorable for rapid fire spread.\nAvoid outdoor burning and any activity that may produce a\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Northeast Weld County"
+    },
+    {
+      "title": "Fire Weather Watch issued April 11 at 11:13PM MDT until April 13 at 8:00PM MDT by NWS Denver CO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-11T23:13:00-06:00",
+      "summary": "...FIRE WEATHER WATCH IN EFFECT FROM MONDAY MORNING THROUGH\nMONDAY EVENING FOR WIND AND LOW RELATIVE HUMIDITY FOR SOUTH PARK,\nTHE SOUTHERN FRONT RANGE FOOTHILLS, PALMER DIVIDE INTO EAST\nCENTRAL COLORADO, AND EASTERN LARIMER AND NORTHERN WELD\nCOUNTIES...\n\nThe National Weather Service in Denver has issued a Red Flag\nWarning for wind and low relative humidity, which is in effect\nfrom noon to 8 PM MDT Sunday. A Fire Weather Watch has also been\nissued from late Monday morning through Monday evening.\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Central and Southeast Park County; Jefferson and West Douglas Counties Above  6000 Feet/Gilpin/Clear Creek/Northeast Park Counties Below 9000 Feet; Larimer County Below 6000 Feet/Northwest Weld County; Elbert/Central and East Douglas Counties Above 6000 Feet; North and Northeast Elbert County Below 6000 Feet/North Lincoln County; Southeast Elbert County Below 6000 Feet/South Lincoln County"
+    },
+    {
+      "title": "Fire Weather Watch issued April 11 at 11:13PM MDT until April 13 at 8:00PM MDT by NWS Denver CO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-11T23:13:00-06:00",
+      "summary": "...FIRE WEATHER WATCH IN EFFECT FROM MONDAY MORNING THROUGH\nMONDAY EVENING FOR WIND AND LOW RELATIVE HUMIDITY FOR WASHINGTON\nCOUNTY...\n\nThe National Weather Service in Denver has issued a Red Flag\nWarning for wind and low relative humidity, which is in effect\nfrom noon to 8 PM MDT Sunday. A Fire Weather Watch has also been\nissued. This Fire Weather Watch for wind and low relative\nhumidity is in effect from late Monday morning through Monday\nevening.\n\n* AFFECTED AREA...Fire Weather Zone 249.\n\n* T",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Washington County"
+    }
+  ]
+}

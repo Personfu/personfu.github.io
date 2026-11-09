@@ -1,0 +1,162 @@
+[
+  {
+    "camera_name": "AZ 511 \u2014 Phoenix Metro",
+    "agency": "Arizona DOT",
+    "state": "AZ",
+    "page_url": "https://www.az511.gov/map/Cctv",
+    "lat": 33.4484,
+    "lon": -112.074
+  },
+  {
+    "camera_name": "AZ 511 \u2014 Tucson",
+    "agency": "Arizona DOT",
+    "state": "AZ",
+    "page_url": "https://www.az511.gov/map/Cctv",
+    "lat": 32.2226,
+    "lon": -110.9747
+  },
+  {
+    "camera_name": "AZ 511 \u2014 I-10 West",
+    "agency": "Arizona DOT",
+    "state": "AZ",
+    "page_url": "https://www.az511.gov/map/Cctv",
+    "lat": 33.0,
+    "lon": -113.0
+  },
+  {
+    "camera_name": "AZ 511 \u2014 I-17 North",
+    "agency": "Arizona DOT",
+    "state": "AZ",
+    "page_url": "https://www.az511.gov/map/Cctv",
+    "lat": 34.5,
+    "lon": -112.0
+  },
+  {
+    "camera_name": "AZ 511 \u2014 Flagstaff",
+    "agency": "Arizona DOT",
+    "state": "AZ",
+    "page_url": "https://www.az511.gov/map/Cctv",
+    "lat": 35.1983,
+    "lon": -111.6513
+  },
+  {
+    "camera_name": "Caltrans QuickMap \u2014 LA Metro",
+    "agency": "California DOT",
+    "state": "CA",
+    "page_url": "https://quickmap.dot.ca.gov/",
+    "lat": 34.0522,
+    "lon": -118.2437
+  },
+  {
+    "camera_name": "Caltrans QuickMap \u2014 Bay Area",
+    "agency": "California DOT",
+    "state": "CA",
+    "page_url": "https://quickmap.dot.ca.gov/",
+    "lat": 37.7749,
+    "lon": -122.4194
+  },
+  {
+    "camera_name": "Caltrans QuickMap \u2014 San Diego",
+    "agency": "California DOT",
+    "state": "CA",
+    "page_url": "https://quickmap.dot.ca.gov/",
+    "lat": 32.7157,
+    "lon": -117.1611
+  },
+  {
+    "camera_name": "TxDOT \u2014 Dallas/Fort Worth",
+    "agency": "Texas DOT",
+    "state": "TX",
+    "page_url": "https://its.txdot.gov/",
+    "lat": 32.7767,
+    "lon": -96.797
+  },
+  {
+    "camera_name": "TxDOT \u2014 Houston",
+    "agency": "Texas DOT",
+    "state": "TX",
+    "page_url": "https://its.txdot.gov/",
+    "lat": 29.7604,
+    "lon": -95.3698
+  },
+  {
+    "camera_name": "TxDOT \u2014 Austin",
+    "agency": "Texas DOT",
+    "state": "TX",
+    "page_url": "https://its.txdot.gov/",
+    "lat": 30.2672,
+    "lon": -97.7431
+  },
+  {
+    "camera_name": "FL 511 \u2014 Miami",
+    "agency": "Florida DOT",
+    "state": "FL",
+    "page_url": "https://fl511.com/map",
+    "lat": 25.7617,
+    "lon": -80.1918
+  },
+  {
+    "camera_name": "FL 511 \u2014 Orlando",
+    "agency": "Florida DOT",
+    "state": "FL",
+    "page_url": "https://fl511.com/map",
+    "lat": 28.5383,
+    "lon": -81.3792
+  },
+  {
+    "camera_name": "FL 511 \u2014 Tampa",
+    "agency": "Florida DOT",
+    "state": "FL",
+    "page_url": "https://fl511.com/map",
+    "lat": 27.9506,
+    "lon": -82.4572
+  },
+  {
+    "camera_name": "NY 511 \u2014 New York City",
+    "agency": "New York DOT",
+    "state": "NY",
+    "page_url": "https://www.511ny.org/map",
+    "lat": 40.7128,
+    "lon": -74.006
+  },
+  {
+    "camera_name": "NY 511 \u2014 Albany",
+    "agency": "New York DOT",
+    "state": "NY",
+    "page_url": "https://www.511ny.org/map",
+    "lat": 42.6526,
+    "lon": -73.7562
+  },
+  {
+    "camera_name": "VDOT \u2014 Northern Virginia",
+    "agency": "Virginia DOT",
+    "state": "VA",
+    "page_url": "https://www.511virginia.org/",
+    "lat": 38.8816,
+    "lon": -77.091
+  },
+  {
+    "camera_name": "CDOT \u2014 Denver Metro",
+    "agency": "Colorado DOT",
+    "state": "CO",
+    "page_url": "https://www.cotrip.org/",
+    "lat": 39.7392,
+    "lon": -104.9903
+  },
+  {
+    "camera_name": "CDOT \u2014 I-70 Mountain Corridor",
+    "agency": "Colorado DOT",
+    "state": "CO",
+    "page_url": "https://www.cotrip.org/",
+    "lat": 39.6,
+    "lon": -106.0
+  },
+  {
+    "camera_name": "WSDOT \u2014 Seattle Metro",
+    "agency": "Washington DOT",
+    "state": "WA",
+    "page_url": "https://wsdot.com/travel/real-time/cameras",
+    "lat": 47.6062,
+    "lon": -122.3321
+  }
+]

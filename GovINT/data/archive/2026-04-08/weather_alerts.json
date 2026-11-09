@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-04-08T11:37:00.865087Z",
+  "items": [
+    {
+      "title": "Flood Advisory issued April 8 at 1:31AM HST until April 8 at 4:30AM HST by NWS Honolulu HI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:31:00-10:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall.\n\n* WHERE...The island of Maui in Maui County.\n\n* WHEN...Until 430 AM HST.\n\n* IMPACTS...Minor flooding on roads, poor drainage areas, and in\nstreams.\n\n* ADDITIONAL DETAILS...\n- At 126 AM HST, radar indicated heavy rain over east Maui.\nRain was falling at a rate of 1 to 3 inches per hour with the\nheaviest rain upslope of Hana, Hamoa and Kipahulu. Additional\nheavy showers are expected to continue through the morning\nhours.\n- Some locations that will e",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Maui, HI"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 6:17AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T06:17:00-05:00",
+      "summary": "A light wintry mix will change over to rain then end this\nmorning. Little or no ice accumulation is expected, but locally\nslippery spots may occur on elevated surfaces, bridges and\noverpasses.\n\nMorning commuters should be prepared for a few slippery spots, but\nconditions will quickly improve by mid-morning as temperatures\nwarm well above freezing.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Door; Wood; Portage; Waupaca; Outagamie; Brown; Kewaunee; Waushara; Winnebago; Calumet; Manitowoc; Southern Marinette County; Southern Oconto County"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 6:17AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T06:17:00-05:00",
+      "summary": "A light wintry mix of snow, sleet, and freezing rain will\ngradually change over to rain, then end this morning. A light\naccumulation of snow and sleet, and a glaze of ice will be\npossible, leading to icy spots on secondary roads, bridges and\noverpasses.\n\nMorning commuters should be prepared for icy spots on area\nroads, but conditions should quickly improve by mid-morning as\ntemperatures warm above freezing.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Vilas; Oneida; Forest; Florence; Northern Marinette County; Lincoln; Langlade; Menominee; Northern Oconto County; Marathon; Shawano"
+    },
+    {
+      "title": "The Small Craft Advisory has been cancelled.",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T06:33:00-04:00",
+      "summary": "The Small Craft Advisory has been cancelled and is no longer in effect.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Casco Bay; Coastal Waters from Cape Elizabeth, ME to Merrimack River, MA out 25 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 6:33AM EDT until April 8 at 9:00AM EDT by NWS Gray ME",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T06:33:00-04:00",
+      "summary": "* WHAT...North winds 10 to 20 kt with gusts up to 25 kt and seas\n2 to 4 ft.\n\n* WHERE...Coastal Waters from Stonington, ME to Port Clyde, ME\nout 25 NM, Penobscot Bay and Coastal Waters from Port Clyde,\nME to Cape Elizabeth, ME out 25 NM.\n\n* WHEN...Until 9 AM EDT this morning.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Stonington, ME to Port Clyde, ME out 25 NM; Penobscot Bay; Coastal Waters from Port Clyde, ME to Cape Elizabeth, ME out 25 NM"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 5:17AM CDT by NWS Grand Forks ND",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T05:17:00-05:00",
+      "summary": "A band of precipitation is moving east into the Red River valley\nand will continue to move east thru northwest Minnesota and move\nout mid morning. Temperatures within this band of precipitation\ncool enough so that rain changes to wet snow. Some accumulations\nwill occur north of Highway 2. The snow will melt after daybreak.\nBut some areas north of Highway 2 will see a slushy accumulation\non area roads so use caution.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "West Polk; Norman; Kittson; Roseau; Lake Of The Woods; West Marshall; East Marshall; North Beltrami; Pennington; Red Lake; East Polk; North Clearwater; South Beltrami; Mahnomen; South Clearwater; Pembina; Eastern Walsh County; Nelson; Grand Forks; Griggs; Steele; Traill; Western Walsh County"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 5:08AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T05:08:00-05:00",
+      "summary": "A light wintry mix of snow, sleet, and freezing rain will\ngradually change over to rain, then end this morning. A thin\ncoating of snow or sleet is expected before the mix changes to\nrain. A light glaze of ice will also be possible in parts of\ncentral, north central and far northeast Wisconsin, generally\nnorthwest of the Fox Valley.\n\nAs road temperatures remain warm, it is likely that icing will be\nconfined to elevated surfaces, such as bridges and overpasses.\n\nMorning commuters should be prepare",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Vilas; Oneida; Forest; Florence; Northern Marinette County; Lincoln; Langlade; Menominee; Northern Oconto County; Door; Marathon; Shawano; Wood; Portage; Waupaca; Outagamie; Brown; Kewaunee; Waushara; Winnebago; Calumet; Manitowoc; Southern Marinette County; Southern Oconto County"
+    },
+    {
+      "title": "Frost Advisory issued April 8 at 2:53AM PDT until April 8 at 9:00AM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T02:53:00-07:00",
+      "summary": "* WHAT...Temperatures as low as 32 to 36 will result in frost\nformation.\n\n* WHERE...Eastern Strait of Juan de Fuca, Foothills and Valleys of\nthe North Cascades, Foothills of the Western and Southern Olympic\nPeninsula, Lake Crescent Area Including US 101, Lowlands of\nWestern Whatcom County, Foothills and Valleys of Central King\nCounty, Foothills and Valleys of Pierce and Southern King\nCounties, and Foothills and Valleys of Snohomish and Northern King\nCounties.\n\n* WHEN...Until 9 AM PDT this mornin",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Foothills and Valleys of the North Cascades; Foothills and Valleys of Snohomish and Northern King Counties; Foothills and Valleys of Central King County; Foothills and Valleys of Pierce and Southern King Counties; Lowlands of Western Whatcom County; Eastern Strait of Juan de Fuca; Lake Crescent Area Including US 101; Foothills of the Western and Southern Olympic Peninsula"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 7:36PM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T19:36:00+10:00",
+      "summary": "Corrected typos\n\nA tropical disturbance, known as JTWC's Invest 90W, is centered near\n9N154E northeast of Weno, Chuuk. This system is slowly consolidating\nas it continues to move to the northwest, likely to move north of\nChuuk as stronger southwesterlies develop overhead. The chance of\nthis system developing into a significant tropical cyclone during its\nclosest approach near Chuuk remains low. However, the proximity of\nthis system is expected to bring heavier showers, strong winds and\npossibly ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Chuuk Lagoon"
+    },
+    {
+      "title": "High Surf Advisory issued April 8 at 5:15AM EDT until April 8 at 4:00PM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T05:15:00-04:00",
+      "summary": "* WHAT...Large breaking waves of 7 to 9 feet in the surf zone.\n\n* WHERE...In North Carolina, Eastern Currituck County. In\nVirginia, Virginia Beach.\n\n* WHEN...Until 4 PM EDT this afternoon.\n\n* IMPACTS...Dangerous swimming and surfing conditions and\nlocalized beach erosion.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Eastern Currituck; Virginia Beach"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 4:59AM EDT until April 9 at 8:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T04:59:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, south winds 15 to 25\nkt with gusts up to 30 kt and waves 1 to 4 ft expected. For the\nsecond Small Craft Advisory, west winds 10 to 20 kt with gusts\nup to 25 kt and waves 3 to 6 ft expected.\n\n* WHERE...Grand Marais to Whitefish Point MI.\n\n* WHEN...For the first Small Craft Advisory, from 8 AM this\nmorning to 2 AM EDT Thursday. For the second Small Craft\nAdvisory, from 8 AM to 8 PM EDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Grand Marais to Whitefish Point MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 4:59AM EDT until April 9 at 8:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T04:59:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 15 to\n20 kt with gusts up to 25 kt and waves 1 to 2 ft expected. For\nthe second Small Craft Advisory, west winds 15 to 25 kt with\ngusts up to 30 kt and waves 6 to 9 ft expected.\n\n* WHERE...Ontonagon to Upper Entrance of Portage Canal MI and\nUpper Entrance of Portage Canal to Eagle River MI.\n\n* WHEN...For the first Small Craft Advisory, until 4 PM EDT this\nafternoon. For the second Small Craft Advisory, from midnight\ntonight to 8 PM EDT",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Ontonagon to Upper Entrance of Portage Canal MI; Upper Entrance of Portage Canal to Eagle River MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 4:59AM EDT until April 9 at 8:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T04:59:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, south winds 15 to 25\nkt with gusts up to 30 kt and waves 1 to 3 ft occurring. For the\nGale Warning, south winds 20 to 25 kt with gusts up to 35 kt and\nwaves 2 to 4 ft expected. For the second Small Craft Advisory,\nsouthwest winds 15 to 25 kt with gusts up to 30 kt and waves 2\nto 5 ft expected.\n\n* WHERE...Marquette to Munising MI and Munising to Grand Marais\nMI.\n\n* WHEN...For the first Small Craft Advisory, until 11 AM EDT\nthis morning. For the Gale Wa",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marquette to Munising MI; Munising to Grand Marais MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 4:59AM EDT until April 9 at 6:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T04:59:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 15 to\n20 kt with gusts up to 25 kt and waves 1 to 4 ft expected. For\nthe second Small Craft Advisory, west winds 10 to 20 kt with\ngusts up to 30 kt and waves 1 to 4 ft expected.\n\n* WHERE...Point Isabelle to Lower Entrance of Portage Canal MI\nand Lower Entrance of Portage Canal To Huron Islands MI\nIncluding Keweenaw and Huron Bays.\n\n* WHEN...For the first Small Craft Advisory, from 8 AM this\nmorning to 8 PM EDT this evening. For the sec",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Point Isabelle to Lower Entrance of Portage Canal MI; Portage Lake to Huron Island MI to Lower Entrance of Portage Canal To Huron Islands MI Including Keweenaw and Huron Bays"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 4:59AM EDT until April 9 at 5:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T04:59:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, south winds 15 to 20\nkt with gusts up to 30 kt and waves 2 to 5 ft occurring. For the\nsecond Small Craft Advisory, west winds 15 to 20 kt with gusts\nup to 30 kt and waves 1 to 4 ft expected.\n\n* WHERE...Huron Islands to Marquette MI.\n\n* WHEN...For the first Small Craft Advisory, until 11 PM EDT\nthis evening. For the second Small Craft Advisory, from 5 AM\nto 5 PM EDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Huron Islands to Marquette MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 4:59AM EDT until April 9 at 4:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T04:59:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, south winds 15 to 20\nkt with gusts up to 30 kt and waves around 1 foot expected. For\nthe second Small Craft Advisory, west winds 15 to 20 kt with\ngusts up to 30 kt and waves 2 to 5 ft expected.\n\n* WHERE...Black River to Ontonagon MI.\n\n* WHEN...For the first Small Craft Advisory, until 4 PM EDT /3\nPM CDT/ this afternoon. For the second Small Craft Advisory,\nfrom 2 AM EDT /1 AM CDT/ to 4 PM EDT /3 PM CDT/ Thursday.\n\n* IMPACTS...Conditions will be hazard",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Black River To Ontonagon MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 4:59AM EDT until April 9 at 11:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T04:59:00-04:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, south winds 15 to 20\nkt with gusts up to 30 kt and waves 1 to 2 ft occurring. For the\nsecond Small Craft Advisory, west winds 15 to 20 kt with gusts\nup to 25 kt and waves 2 to 4 ft expected.\n\n* WHERE...Saxon Harbor WI to Black River MI.\n\n* WHEN...For the first Small Craft Advisory, until 4 PM EDT /3\nPM CDT/ this afternoon. For the second Small Craft Advisory,\nfrom 2 AM EDT /1 AM CDT/ to 11 AM EDT /10 AM CDT/ Thursday.\n\n* IMPACTS...Conditions will be h",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Saxon Harbor WI to Black River MI"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 6:50PM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T18:50:00+10:00",
+      "summary": "A tropical disturbance, known as JTWC's Invest 90W, is centered near\n9N154E northeast of Weno, Chuuk. This system is slowly consolidating\nas it continues to move to the northwest, likely to move north of\nChuuk as stronger southwesterlies develop overhead. JTWC rates this\nfeature as a medium meaning tropical cyclone development is likely,\nbut is expected to occur beyond 24 hours. For this reason, the\nchance of this system developing into a significant tropical cyclone\nduring its closest approach ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Chuuk Lagoon; Yap"
+    },
+    {
+      "title": "Coastal Flood Statement issued April 8 at 4:21AM EDT until April 9 at 5:00AM EDT by NWS Key West FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T04:21:00-04:00",
+      "summary": "* WHAT...Minor saltwater flooding.\n\n* WHERE...Upper and Middle Florida Keys.\n\n* WHEN...Through late tonight.\n\n* IMPACTS...Minor saltwater flooding of low elevation streets\nand lots is likely. Some storm drains will overflow, and some\nseawalls and docks will be overtopped. Boaters can expect less\nclearance under fixed bridges. Motorists should remember that\npersistent puddles around the times of high tide are almost\ncertain to contain a mix of saltwater.\n\n* ADDITIONAL DETAILS...Strong to gale for",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Monroe Upper Keys; Monroe Middle Keys"
+    },
+    {
+      "title": "High Surf Advisory issued April 8 at 4:21AM EDT until April 9 at 11:00AM EDT by NWS Newport/Morehead City NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T04:21:00-04:00",
+      "summary": "* WHAT...For the Beach Hazards Statement, dangerous rip currents\nand large breaking waves expected near the shore. For the High\nSurf Advisory, large breaking waves of 6 to 8 feet expected in\nthe surf zone.\n\n* WHERE...Northern Outer Banks beaches.\n\n* WHEN...For the Beach Hazards Statement, from 8 AM EDT this\nmorning through this evening. For the High Surf Advisory, from\nnoon today to 11 AM EDT Thursday.\n\n* IMPACTS...Dangerous swimming and surfing conditions and\nlocalized beach erosion. Rip curren",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Northern Outer Banks"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 4:03AM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T04:03:00-04:00",
+      "summary": "Despite relatively light winds today averaging 5 to 10 mph, it\nwill become quite dry with afternoon relative humidities dropping\nto 15 to 25 percent away from the south coast. When combined with\nthe lack of recent significant rainfall and exposed fine fuels and\nleaf litter, elevated fire weather potential will exist on\nWednesday.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northwest Providence; Southeast Providence; Western Kent; Eastern Kent; Bristol; Washington; Newport; Block Island"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 2:36AM CDT until April 9 at 7:00PM CDT by NWS Lake Charles LA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T02:36:00-05:00",
+      "summary": "* WHAT...East winds around 20 kt.\n\n* WHERE...Coastal waters from Intracoastal City to Cameron LA\nout 20 NM.\n\n* WHEN...From 1 PM this afternoon to 7 PM CDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Intracoastal City to Cameron LA out 20 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 3:23AM EDT until April 9 at 4:00PM EDT by NWS Detroit/Pontiac MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T03:23:00-04:00",
+      "summary": "* WHAT...Expect sustained winds up to 27 knots from the south\nwith gusts up to 32 knots. The largest significant waves will\nbe 5 feet with a potential maximum wave height of 7 feet.\n\n* WHERE...Outer Saginaw Bay SW of Alabaster to Port Austin MI to\nInner Saginaw Bay and Inner Saginaw Bay SW of Point Au Gres to\nBay Port MI.\n\n* WHEN...The maximum winds are expected around 12 AM EDT\nThursday with the largest waves expected around 2 AM EDT\nThursday.\n\n* IMPACTS...Conditions will be hazardous to small ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Outer Saginaw Bay SW of Alabaster to Port Austin MI to Inner Saginaw Bay; Inner Saginaw Bay SW of Point Au Gres to Bay Port MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 3:23AM EDT until April 9 at 4:00PM EDT by NWS Detroit/Pontiac MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T03:23:00-04:00",
+      "summary": "* WHAT...Expect sustained winds up to 21 knots from the south\nwith gusts up to 30 knots. The largest significant waves will\nbe 5 feet with a potential maximum wave height of 7 feet.\n\n* WHERE...Port Austin to Harbor Beach MI, Harbor Beach to Port\nSanilac MI and Port Sanilac to Port Huron MI.\n\n* WHEN...The maximum winds are expected around 1 AM EDT Thursday\nwith the largest waves expected around 1 AM EDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Port Austin to Harbor Beach MI; Harbor Beach to Port Sanilac MI; Port Sanilac to Port Huron MI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 5:11PM ChST until April 9 at 5:00AM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T17:11:00+10:00",
+      "summary": "* WHAT...West winds 10 to 20 kt with frequent gusts up to 25 kt and seas\n7 to 10 feet.\n\n* WHERE...Chuuk Coastal Waters.\n\n* WHEN...Until 5 AM ChST Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.\n\n* ADDITIONAL DETAILS...As Invest 90W continues to develop tonight,\nthe wind field is anticipated to expand over Chuuk's coastal waters.\nOver the next day or so may taper down to below thresholds as 90W\ncontinues its northwesterly trek. However, seas and winds may rise\nabove these thre",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chuuk Coastal Waters"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 3:04AM EDT until April 9 at 5:00AM EDT by NWS Gaylord MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T03:04:00-04:00",
+      "summary": "* WHAT...Highest gusts up to 30 kts from the south and highest\nwaves around 9 feet expected.\n\n* WHERE...Straits of Mackinac within 5 nm of Mackinac Bridge\nincluding Mackinac Island, St Ignace to False Detour Channel,\n5NM East of Mackinac Bridge to Presque Isle Light MI including\nBois Blanc Island, Presque Isle Light to Sturgeon Pt MI\nIncluding Thunder Bay National Marine Sanctuary and Sturgeon\nPt to Alabaster MI.\n\n* WHEN...From 11 AM this morning to 5 AM EDT Thursday.\n\n* IMPACTS...Conditions wil",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Straits of Mackinac within 5 nm of Mackinac Bridge including Mackinac Island; St Ignace to False Detour Channel; 5NM East of Mackinac Bridge to Presque Isle Light MI including Bois Blanc Island; Presque Isle Light to Sturgeon Pt MI Including Thunder Bay National Marine Sanctuary; Sturgeon Pt to Alabaster MI"
+    },
+    {
+      "title": "Wind Advisory issued April 8 at 1:56AM CDT until April 8 at 4:00PM CDT by NWS Des Moines IA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:56:00-05:00",
+      "summary": "* WHAT...Southwest winds 25 to around 30 mph with gusts up to around\n45 mph expected.\n\n* WHERE...Portions of central, north central, and northeast Iowa,\nincluding parts of I-35 and highways 20 and 30.\n\n* WHEN...From 10 AM this morning to 4 PM CDT this afternoon.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kossuth; Winnebago; Worth; Hancock; Cerro Gordo; Humboldt; Wright; Franklin; Butler; Bremer; Webster; Hamilton; Hardin; Grundy; Black Hawk; Boone; Story; Marshall"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 2:48AM EDT by NWS Greenville-Spartanburg SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T02:48:00-04:00",
+      "summary": "A dry air mass will move into the region today with the relative\nhumidity dropping to around 25 percent for several hours this\nafternoon across northeast Georgia. The low humidity combined with\noccasional wind gusts of 20 to 25 mph will make outdoor burning\ndangerous this afternoon.\n\nPlease refer to your local burn permitting authorities on whether\nyou can burn today. If you do burn, use extreme caution since\nfires can quickly get out of hand under these conditions.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Rabun; Habersham; Stephens; Franklin; Hart; Elbert"
+    },
+    {
+      "title": "Wind Advisory issued April 8 at 1:35AM CDT until April 8 at 4:00PM CDT by NWS La Crosse WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:35:00-05:00",
+      "summary": "* WHAT...Southwest winds 20 to 30 mph with gusts up to 45 mph\nexpected.\n\n* WHERE...In Iowa, Floyd, Mitchell, Chickasaw, Fayette, Howard, and\nWinneshiek Counties. In Minnesota, Dodge, Fillmore, Mower, and\nOlmsted Counties.\n\n* WHEN...From 10 AM this morning to 4 PM CDT this afternoon.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Mitchell; Howard; Winneshiek; Floyd; Chickasaw; Fayette; Dodge; Olmsted; Mower; Fillmore"
+    },
+    {
+      "title": "Wind Advisory issued April 8 at 1:33AM CDT until April 8 at 4:00PM CDT by NWS Twin Cities/Chanhassen MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:33:00-05:00",
+      "summary": "* WHAT...Southwest winds 15 to 25 mph with gusts up to 45 mph\nexpected.\n\n* WHERE...Faribault, Freeborn, Martin, Steele, and Waseca Counties.\n\n* WHEN...From 10 AM this morning to 4 PM CDT this afternoon.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Waseca; Steele; Martin; Faribault; Freeborn"
+    },
+    {
+      "title": "High Wind Warning issued April 8 at 12:33AM MDT until April 8 at 12:00PM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T00:33:00-06:00",
+      "summary": "* WHAT...West winds 25 to 35 mph with gusts up to 60 mph expected.\n\n* WHERE...South Laramie Range and Foothills including the Interstate\n80 Summit between Cheyenne and Laramie.\n\n* WHEN...Until noon MDT today.\n\n* IMPACTS...Mainly to transportation. Strong cross winds will be\nhazardous to light weight or high profile vehicles, including\ncampers and tractor trailers.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "South Laramie Range; South Laramie Range Foothills"
+    },
+    {
+      "title": "Lake Wind Advisory issued April 8 at 2:21AM EDT until April 8 at 12:00PM EDT by NWS Columbia SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T02:21:00-04:00",
+      "summary": "* WHAT...Northeast winds 10 to 20 mph with gusts up to 30 mph\nexpected.\n\n* WHERE...Lake Marion\n\n* WHEN...Until noon EDT today.\n\n* IMPACTS...Strong winds and rough waves on Lake Marion will create\nhazardous conditions for small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Sumter; Calhoun; Clarendon; Southeastern Orangeburg"
+    },
+    {
+      "title": "Red Flag Warning issued April 8 at 2:20AM EDT until April 8 at 8:00PM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T02:20:00-04:00",
+      "summary": "...CRITICAL FIRE WEATHER CONDITIONS POSSIBLE ACROSS INLAND\nPORTIONS OF SOUTHEAST GA THIS AFTERNOON...\n\n* AFFECTED AREA...In Georgia, Coffee, Jeff Davis, Bacon and\nAppling.\n\n* TIMING...2 PM to 8 PM\n\n* WINDS...Northeast 10 to 15 mph with gusts up to 30 mph.\n\n* RELATIVE HUMIDITY...As low as 26 percent.\n\n* TEMPERATURES...Up to 72.\n\n* IMPACTS...Existing or newly ignited wildfires may exhibit\nerratic fire behavior, spread rapidly and become difficult to\ncontain or suppress.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Coffee; Jeff Davis; Bacon; Appling"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 2:18AM EDT by NWS Charleston SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T02:18:00-04:00",
+      "summary": "Northeast winds today will gust around 20 to 25 mph with RH values\ndropping to 20 to 30%. This combination along with extremely dry\nfuels will result in an elevated risk for wildfires.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Jenkins; Screven; Candler; Bulloch; Effingham; Tattnall; Evans; Inland Bryan; Inland Chatham; Long; Inland Liberty; Allendale; Hampton; Inland Colleton; Dorchester; Inland Berkeley; Inland Jasper; Coastal Colleton; Charleston; Tidal Berkeley"
+    },
+    {
+      "title": "Wind Advisory issued April 8 at 2:17AM EDT until April 9 at 12:00AM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T02:17:00-04:00",
+      "summary": "* WHAT...Northeast winds 20 to 25 mph with gusts around 40 mph\nexpected.\n\n* WHERE...In Florida, Eastern Clay, Eastern Putnam, Inland Nassau,\nTrout River, and Western Duval Counties. In Georgia, Coastal\nCamden and Coastal Glynn Counties.\n\n* WHEN...From 9 AM this morning to midnight EDT tonight.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Inland Nassau; Eastern Clay; Eastern Putnam; Trout River; Western Duval; Coastal Glynn; Coastal Camden"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 2:13AM EDT until April 8 at 8:00AM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T02:13:00-04:00",
+      "summary": "* WHAT...Northeast winds 10 to 15 kt with gusts up to 20 kt.\n\n* WHERE...Tidal Potomac from Key Bridge to Indian Head MD.\n\n* WHEN...Until 8 AM EDT this morning.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Tidal Potomac from Key Bridge to Indian Head MD"
+    },
+    {
+      "title": "Lake Wind Advisory issued April 8 at 2:11AM EDT until April 8 at 12:00PM EDT by NWS Charleston SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T02:11:00-04:00",
+      "summary": "* WHAT...Northeast winds 15 to 20 knots with gusts up to 30 knots and\nwaves 1 to 2 feet on Lake Moultrie.\n\n* WHERE...Lake Moultrie.\n\n* WHEN...Until noon EDT today.\n\n* IMPACTS...Strong winds and rough waves on Lake Moultrie will create\nhazardous conditions for small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Inland Berkeley"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 1:03AM CDT until April 9 at 1:00PM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:03:00-05:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 10\nto 15 kt with gusts up to 25 kt and waves 2 to 5 ft. For the\nsecond Small Craft Advisory, west winds 10 to 20 kt with gusts\nup to 25 kt and waves 1 to 4 ft expected.\n\n* WHERE...Grand Portage to Grand Marais MN.\n\n* WHEN...For the first Small Craft Advisory, until 4 PM CDT this\nafternoon. For the second Small Craft Advisory, from 1 AM to 1\nPM CDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Grand Portage to Grand Marais MN"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 1:03AM CDT until April 9 at 1:00PM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:03:00-05:00",
+      "summary": "* WHAT...West winds 15 to 20 kt with gusts up to 25 kt and waves\n2 to 5 ft expected.\n\n* WHERE...Port Wing to Sand Island WI, Sand Island to Bayfield\nWI and Outer Apostle Islands Beyond 5 NM from Mainland.\n\n* WHEN...From 11 PM this evening to 1 PM CDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Port Wing to Sand Island WI; Sand Island to Bayfield WI; Outer Apostle Islands Beyond 5 NM from Mainland"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 1:03AM CDT until April 9 at 10:00AM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:03:00-05:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, south winds with\ngusts up to 25 kt. waves 1 to 2 ft. For the second Small Craft\nAdvisory, west winds 15 to 20 kt with gusts up to 25 kt and\nwaves 1 to 2 ft expected.\n\n* WHERE...Oak Point to Saxon Harbor WI.\n\n* WHEN...For the first Small Craft Advisory, until 4 PM CDT this\nafternoon. For the second Small Craft Advisory, from 1 AM to\n10 AM CDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Oak Point to Saxon Harbor WI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 1:03AM CDT until April 9 at 10:00AM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:03:00-05:00",
+      "summary": "* WHAT...West winds 10 to 20 kt with gusts up to 25 kt and waves\n1 to 3 ft expected.\n\n* WHERE...Grand Marais to Taconite Harbor MN, Taconite Harbor to\nSilver Bay Harbor MN, Silver Bay Harbor to Two Harbors MN, Two\nHarbors to Duluth MN and Duluth MN to Port Wing WI.\n\n* WHEN...From 1 AM to 10 AM CDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Grand Marais to Taconite Harbor MN; Taconite Harbor to Silver Bay Harbor MN; Silver Bay Harbor to Two Harbors MN; Two Harbors to Duluth MN; Duluth MN to Port Wing WI"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 1:03AM CDT until April 9 at 10:00AM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:03:00-05:00",
+      "summary": "* WHAT...West winds 10 to 15 kt with gusts up to 25 kt expected.\n\n* WHERE...Chequamegon Bay-Bayfield to Oak Point WI.\n\n* WHEN...From 1 AM to 10 AM CDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chequamegon Bay-Bayfield to Oak Point WI"
+    },
+    {
+      "title": "Special Weather Statement issued April 8 at 1:51AM EDT by NWS Peachtree City GA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:51:00-04:00",
+      "summary": "Relative Humidities of around 25 percent or less can be expected\nfor 4 or more hours this afternoon into the evening. Sustained\neast-northeast winds of 8 to 15 MPH can be expected along with\nwind gusts up to 20 MPH.\n\nWith dry fuels, high fire danger conditions can be expected.\n\nPlease refer to your local burn permitting authorities\nwhether you may burn outdoors.  If you do burn outside,\nuse extreme caution.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Dade; Walker; Catoosa; Whitfield; Murray; Fannin; Gilmer; Union; Towns; Chattooga; Gordon; Pickens; Dawson; Lumpkin; White; Floyd; Bartow; Cherokee; Forsyth; Hall; Banks; Jackson; Madison; Polk; Paulding; Cobb; North Fulton; Gwinnett; Barrow; Clarke; Oconee; Oglethorpe; Wilkes; Haralson; Carroll; Douglas; South Fulton; DeKalb; Rockdale; Walton; Newton; Morgan; Greene; Taliaferro; Heard; Coweta; Fayette; Clayton; Spalding; Henry; Butts; Jasper; Putnam; Hancock; Troup; Meriwether; Pike; Upson; Lamar; Monroe; Jones; Baldwin; Harris; Talbot; Taylor; Crawford; Bibb; Muscogee; Chattahoochee; Marion; Schley; Macon; Peach; Stewart; Webster; Sumter"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 1:49AM EDT until April 10 at 8:00PM EDT by NWS Melbourne FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:49:00-04:00",
+      "summary": "* WHAT...For the Gale Warning, northeast winds 25 to 35 knots\nwith gusts up to 40 knots and seas 12 to 17 feet. For the\nSmall Craft Advisory, northeast winds 20 to 30 knots with\ngusts up to 35 knots and seas 10 to 15 feet expected.\n\n* WHERE...Flagler Beach to Jupiter Inlet out 60 nautical miles.\n\n* WHEN...For the Gale Warning, until 2 AM EDT Thursday. For the\nSmall Craft Advisory, from 2 AM Thursday to 8 PM EDT Friday.\n\n* IMPACTS...Strong winds will cause hazardous seas which could\ncapsize or da",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Flagler Beach to Volusia-Brevard County Line 0-20 nm; Volusia-Brevard County Line to Sebastian Inlet 0-20 nm; Sebastian Inlet to Jupiter Inlet 0-20 nm; Flagler Beach to Volusia-Brevard County Line 20-60 nm; Volusia-Brevard County Line to Sebastian Inlet 20-60 nm; Sebastian Inlet to Jupiter Inlet 20-60 nm"
+    },
+    {
+      "title": "Red Flag Warning issued April 8 at 1:43AM EDT until April 8 at 8:00PM EDT by NWS Peachtree City GA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:43:00-04:00",
+      "summary": "Default overview section\n\nThe National Weather Service in Peachtree City has issued a Red\nFlag Warning for low relative humidity and gusty winds, which is\nin effect from noon today to 8 PM EDT this evening. The Fire\nWeather Watch is no longer in effect.\n\n* Affected Area...Central Georgia including the following:\nCrisp, Wilcox, Dodge, Telfair, Wheeler, Montgomery, Toombs,\nEmanuel, Treutlen, Laurens, Pulaski, Dooly, Houston, Bleckley,\nJohnson, Jefferson, Twigs, Wilkinson, Washington, Glascock,\nand",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Warren; Washington; Glascock; Jefferson; Twiggs; Wilkinson; Johnson; Emanuel; Houston; Bleckley; Laurens; Treutlen; Dooly; Crisp; Pulaski; Wilcox; Dodge; Telfair; Wheeler; Montgomery; Toombs"
+    },
+    {
+      "title": "High Surf Advisory issued April 7 at 7:40PM HST until April 9 at 6:00AM HST by NWS Honolulu HI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-07T19:40:00-10:00",
+      "summary": "...HIGH SURF ADVISORY FOR SOUTH FACING SHORES OF ALL HAWAIIAN\nISLANDS...\n\n.Surf along south facing shores will steadily rise tonight and\npeak on Wednesday above advisory thresholds.\n\n* WHAT...Large breaking waves of 7 to 10 feet with occasional\nhigher sets to 12 feet.\n\n* WHERE...South facing shores of Niihau, Kauai, Oahu, Molokai,\nMaui, Lanai, Kahoolawe, and the Big Island.\n\n* WHEN...Until 6 AM HST Thursday.\n\n* IMPACTS...Moderate. Strong breaking waves and strong currents\nwill make swimming dang",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Niihau; Kauai Southwest; Waianae Coast; Kahoolawe; Maui Leeward West; Kona; Kauai South; East Honolulu; Honolulu Metro; Ewa Plain; Molokai West; Molokai Leeward South; Lanai Leeward; Lanai South; Maui Central Valley South; South Maui/Upcountry; South Haleakala; Big Island South; Big Island Southeast"
+    },
+    {
+      "title": "Red Flag Warning issued April 8 at 1:34AM EDT until April 8 at 8:00PM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:34:00-04:00",
+      "summary": "The National Weather Service in Tallahassee has issued a Red Flag\nWarning, which is in effect from noon today to 8 PM EDT this\nevening.\n\n* AFFECTED AREA...Georgia fire weather zones 125, 126, 127, 128,\n129, 130, and 131.\n\n* WIND...Northeast to east 15 to 20 mph, with gusts 25 to 35 mph.\n\n* HUMIDITY...As low as 25 percent.\n\n* IMPACTS...Any fires that develop will likely spread rapidly.\nOutdoor burning is not recommended.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Dougherty; Lee; Worth; Turner; Tift; Ben Hill; Irwin"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 1:27AM EDT until April 8 at 10:00AM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:27:00-04:00",
+      "summary": "* WHAT...For the Small Craft Advisory, northeast winds 20 to 25 kt\nwith gusts near 30 kt and seas 5 to 8 ft. For the Gale Warning,\nnortheast winds 25 to 30 kt with gusts up to 40 kt and seas 6\nto 11 ft expected.\n\n* WHERE...Offshore Gulf waters from the Walton-Okaloosa County\nline to the Ochlockonee River from 20 to 60 nautical miles\nout, Nearshore Gulf waters from the Ochlockonee River to the\nSuwannee River out 20 nautical miles, Coastal waters from\nMexico Beach to Apalachicola FL out 20 NM, and",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Apalachee Bay or Coastal Waters From Keaton Beach to Ochlockonee River Fl out to 20 Nm; Coastal Waters from Mexico Beach to Apalachicola out 20 NM; Coastal Waters From  Ochlockonee River to Apalachicola FL out to 20 Nm; Coastal waters from  Suwannee River to Keaton Beach out 20 NM; Waters from Okaloosa-Walton County Line to Mexico Beach from 20 to 60 NM; Waters from Mexico Beach to Apalachicola FL from 20 to 60 NM; Waters from Suwannee River to Apalachicola FL from 20 to 60 NM"
+    },
+    {
+      "title": "Gale Warning issued April 8 at 1:27AM EDT until April 9 at 8:00AM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:27:00-04:00",
+      "summary": "* WHAT...For the Small Craft Advisory, northeast winds 20 to 25 kt\nwith gusts near 30 kt and seas 5 to 8 ft. For the Gale Warning,\nnortheast winds 25 to 30 kt with gusts up to 40 kt and seas 6\nto 11 ft expected.\n\n* WHERE...Offshore Gulf waters from the Walton-Okaloosa County\nline to the Ochlockonee River from 20 to 60 nautical miles\nout, Nearshore Gulf waters from the Ochlockonee River to the\nSuwannee River out 20 nautical miles, Coastal waters from\nMexico Beach to Apalachicola FL out 20 NM, and",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Apalachee Bay or Coastal Waters From Keaton Beach to Ochlockonee River Fl out to 20 Nm; Coastal Waters from Mexico Beach to Apalachicola out 20 NM; Coastal Waters From  Ochlockonee River to Apalachicola FL out to 20 Nm; Coastal waters from  Suwannee River to Keaton Beach out 20 NM; Waters from Okaloosa-Walton County Line to Mexico Beach from 20 to 60 NM; Waters from Mexico Beach to Apalachicola FL from 20 to 60 NM; Waters from Suwannee River to Apalachicola FL from 20 to 60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 8 at 1:27AM EDT until April 9 at 1:00PM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-08T01:27:00-04:00",
+      "summary": "* WHAT...Northeast winds 20 to 25 kt with gusts 30 to 35 kt.\n\n* WHERE...Coastal waters from Mexico Beach to Okaloosa Walton\nCounty Line FL out 20 NM.\n\n* WHEN...Until noon CDT Thursday.\n\n* IMPACTS...A Small Craft Advisory means that wind speeds of 20\nto 33 knots, or seas of 7 feet or greater, are expected to\nproduce hazardous conditions for small craft. These hazardous\nconditions may result in poor vessel handling and steering\nresponse, broaching, overturned dinghies and kayaks, slips and\nfalls o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Okaloosa-Walton County Line to Mexico Beach out 20 NM"
+    }
+  ]
+}
