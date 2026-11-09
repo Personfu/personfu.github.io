@@ -1,0 +1,118 @@
+{
+  "rabbit_holes": [
+    {
+      "connections": [
+        "davis-monthan",
+        "barry-goldwater",
+        "luke-afb",
+        "faa"
+      ],
+      "featured": true,
+      "id": "phoenix-lights",
+      "page": "content/phoenix-lights.html",
+      "reliability": "witness",
+      "summary": "Mass UFO sighting over Arizona witnessed by thousands, from Prescott to Tucson. Governor Fife Symington initially mocked it, then admitted years later he saw something inexplicable.",
+      "title": "The Phoenix Lights — What Really Happened on March 13, 1997?",
+      "topics": [
+        "anomaly",
+        "ufo",
+        "defense"
+      ]
+    },
+    {
+      "connections": [
+        "nsa",
+        "army",
+        "tucson-sector",
+        "san-xavier"
+      ],
+      "featured": true,
+      "id": "fort-huachuca",
+      "page": "content/fort-huachuca.html",
+      "reliability": "verified",
+      "summary": "From Apache Wars frontier post to the nerve center of Army intelligence. NETCOM, SIGINT, cyber warfare, and drone operations all trace back to this remote southern Arizona base.",
+      "title": "Fort Huachuca — America's Intelligence Factory in the Desert",
+      "topics": [
+        "defense",
+        "classified",
+        "cyber",
+        "history"
+      ]
+    },
+    {
+      "connections": [
+        "usaf",
+        "barry-goldwater",
+        "luke-afb"
+      ],
+      "featured": true,
+      "id": "davis-monthan",
+      "page": "content/davis-monthan.html",
+      "reliability": "verified",
+      "summary": "The world's largest aircraft storage and regeneration facility. AMARG holds everything from B-52s to classified drones. Why Arizona's dry air preserves military history.",
+      "title": "Davis-Monthan & The Boneyard — 4,400 Aircraft in the Desert Sun",
+      "topics": [
+        "defense",
+        "aviation",
+        "history"
+      ]
+    },
+    {
+      "connections": [
+        "cap-canal",
+        "glen-canyon",
+        "doi"
+      ],
+      "featured": true,
+      "id": "water-politics",
+      "page": "content/water-politics.html",
+      "reliability": "verified",
+      "summary": "The Central Arizona Project, Lake Powell's decline, tribal water rights, and the political battle that will define the state's future. Follow the water.",
+      "title": "Arizona Water Wars — Who Controls the Colorado River?",
+      "topics": [
+        "water",
+        "infra",
+        "tribal",
+        "policy"
+      ]
+    },
+    {
+      "connections": [
+        "cbp",
+        "dhs",
+        "tucson-sector",
+        "yuma-sector"
+      ],
+      "featured": true,
+      "id": "border-tech",
+      "page": "content/border-tech.html",
+      "reliability": "archived",
+      "summary": "Autonomous towers, ground sensors, drone patrols, AI-powered cameras. The AZ border is the testing ground for the most advanced surveillance infrastructure in the western hemisphere.",
+      "title": "The Border Technology Corridor — Surveillance, AI, and the Wall",
+      "topics": [
+        "border",
+        "cyber",
+        "defense"
+      ]
+    },
+    {
+      "connections": [
+        "cisa",
+        "fbi",
+        "fort-huachuca",
+        "palo-verde"
+      ],
+      "featured": true,
+      "id": "arizona-cyber",
+      "page": "content/arizona-cyber.html",
+      "reliability": "verified",
+      "summary": "State government breaches, election infrastructure debates, critical infrastructure targeting, and the growing cyber workforce centered around Fort Huachuca and ASU.",
+      "title": "Arizona's Cyber Landscape — From Election Security to Ransomware",
+      "topics": [
+        "cyber",
+        "infra",
+        "policy"
+      ]
+    }
+  ]
+}

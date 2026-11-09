@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-06-05T12:19:16.292322Z",
+  "items": [
+    {
+      "title": "Hydrologic Outlook issued June 5 at 7:17AM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T07:17:00-05:00",
+      "summary": "ESFEAX\n\nMissouri River At Miami\n\nThis hydrologic outlook is based on the forecast rainfall for the\nnext 24 hours and estimated runoff from earlier rainfall. Crests may\nvary if actual rainfall or runoff is greater or less than\nanticipated.\n\nLocation: Missouri River At Miami\nFlood stage: 18.0 feet\nMaximum Forecast Stage: 19.4 feet at 7 AM Monday Jun 08\n\n\nFld   Obs             Forecasts\nLocation        Stg   Stg   Day/Time  Fri   Sat   Sat\n1pm   1am   1pm\nMissouri River\nMiami           18.0  MSG   ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Unknown",
+      "area": "Carroll, MO; Chariton, MO; Saline, MO"
+    },
+    {
+      "title": "Flood Warning issued June 5 at 6:58AM CDT by NWS Sioux Falls SD",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T06:58:00-05:00",
+      "summary": "...The National Weather Service in Sioux Falls SD has issued a Flood\nWarning for the following rivers in South Dakota...\n\nBig Sioux River near Bruce affecting Brookings County.\n\n* WHAT...Minor flooding is occurring.\n\n* WHERE...Big Sioux River near Bruce.\n\n* WHEN...From this morning until further notice.\n\n* IMPACTS...At 8.0 feet, The lower banks on the left side of the\nriver overflow.\n\n* ADDITIONAL DETAILS...\n- At 6:45 AM CDT Friday the stage was 8.0 feet.\n- Recent Activity...The maximum river st",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Brookings, SD"
+    },
+    {
+      "title": "Hydrologic Outlook issued June 5 at 6:58AM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T06:58:00-05:00",
+      "summary": "ESFEAX\n\nPlatte River near Platte City\n\nThis hydrologic outlook is based on the forecast rainfall for the\nnext 24 hours and estimated runoff from earlier rainfall. Crests may\nvary if actual rainfall or runoff is greater or less than\nanticipated.\n\nLocation: Platte River near Platte City\nFlood stage: 20.0 feet\nLatest stage: 4.0 feet at 6 AM Friday\nMaximum Forecast Stage: 20.5 feet at 7 AM Monday Jun 08\n\n\nFld   Obs             Forecasts\nLocation        Stg   Stg   Day/Time  Fri   Sat   Sun\n7am   7am",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Unknown",
+      "area": "Platte, MO"
+    },
+    {
+      "title": "Flood Warning issued June 5 at 6:51AM CDT until June 7 at 7:00PM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T06:51:00-05:00",
+      "summary": "...The National Weather Service in Kansas City/Pleasant Hill has\nissued a Flood Warning for the following rivers in Missouri...\n\nGrand River near Gallatin affecting Livingston and Daviess\nCounties.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Grand River near Gallatin.\n\n* WHEN...From this evening to Sunday evening.\n\n* IMPACTS...At 26.0 feet, Low-lying woodlands and farmland along the\nriver flood.\n\n* ADDITIONAL DETAILS...\n- At 5:45 AM CDT Friday the stage was 5.8 feet.\n- Forecast...The river ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Daviess, MO; Livingston, MO"
+    },
+    {
+      "title": "Flood Warning issued June 5 at 6:51AM CDT until June 9 at 2:00AM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T06:51:00-05:00",
+      "summary": "...The National Weather Service in Kansas City/Pleasant Hill has\nissued a Flood Warning for the following rivers in Missouri...\n\nGrand River near Sumner affecting Carroll, Linn, Chariton and\nLivingston Counties.\n\n* WHAT...Moderate flooding is forecast.\n\n* WHERE...Grand River near Sumner.\n\n* WHEN...From Saturday evening to late Monday night.\n\n* IMPACTS...At 23.0 feet, Bottomland 1 to 2 miles south of the gage\nbegins to flood. At 26.0 feet, Rural land adjacent to the river is\nflooded. At 28.0 feet",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Carroll, MO; Chariton, MO; Linn, MO; Livingston, MO"
+    },
+    {
+      "title": "Flood Warning issued June 5 at 6:49AM CDT until June 7 at 10:00AM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T06:49:00-05:00",
+      "summary": "...The National Weather Service in Kansas City/Pleasant Hill has\nissued a Flood Warning for the following rivers in Missouri...\n\nGrand River near Pattonsburg affecting Gentry and Daviess Counties.\n\n* WHAT...Moderate flooding is forecast.\n\n* WHERE...Grand River near Pattonsburg.\n\n* WHEN...Until Sunday morning.\n\n* IMPACTS...At 25.0 feet, Low-lying farmland begins to flood. At 30.0\nfeet, Nearly all agricultural land and secondary roads in the Grand\nRiver floodplain flood. At 32.0 feet, U.S. Highway",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Daviess, MO; Gentry, MO"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 3:43AM AKDT until June 6 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:43:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 20 kt. Seas 5 ft.\n.TONIGHT...S wind 20 kt. Seas 5 ft.\n.SAT...SE wind 25 kt. Seas 5 ft.\n.SAT NIGHT...SE wind 20 kt. Seas 5 ft.\n.SUN THROUGH MON...Variable wind 10 kt. Seas 3 ft.\n.TUE...Variab",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "West of Barren Islands Including Kamishak Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 3:43AM AKDT until June 6 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:43:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...W wind 15 kt. Seas 4 ft.\n.TONIGHT...Variable wind 10 kt becoming E 20 kt after midnight.\nSeas 3 ft.\n.SAT...E wind 25 kt. Seas 6 ft.\n.SAT NIGHT...E wind 25 kt. Seas 5 ft.\n.SUN...E wind 15 kt. Seas 4",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Barren Islands East"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 3:33AM AKDT until June 7 at 10:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:33:00-08:00",
+      "summary": "* WHAT...Southeast winds 15 to 25 kt and seas 6 to 9 ft expected.\n\n* WHERE...Dixon Entrance to Cape Decision from 15 to 90 NM, Cape\nDecision to Cape Edgecumbe from 15 to 80 NM and Cape Edgecumbe\nto Cape Spencer from 15 to 80 NM.\n\n* WHEN...From 7 AM to 10 PM AKDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision from 15 to 90 NM; Cape Decision to Cape Edgecumbe from 15 to 80 NM; Cape Edgecumbe to Cape Spencer from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 3:33AM AKDT until June 5 at 7:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:33:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, south winds 15 to\n25 kt with gusts up to 35 kt expected. For the second Small\nCraft Advisory, south winds 15 to 25 kt with gusts up to 35 kt\nexpected.\n\n* WHERE...Northern Lynn Canal.\n\n* WHEN...For the first Small Craft Advisory, from 1 PM this\nafternoon to 7 PM AKDT this evening. For the second Small\nCraft Advisory, from 1 PM to 7 PM AKDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Northern Lynn Canal"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 3:33AM AKDT until June 8 at 4:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:33:00-08:00",
+      "summary": "* WHAT...Southeast winds 20 to 30 kt with gusts up to 40 kt and\nseas 6 to 8 ft expected.\n\n* WHERE...Clarence Strait and Dixon Entrance to Cape Decision\nout to 15 NM.\n\n* WHEN...From 7 AM Sunday to 4 AM AKDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Clarence Strait; Dixon Entrance to Cape Decision out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 3:33AM AKDT until June 6 at 7:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:33:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, south winds 15 to\n25 kt with gusts up to 35 kt expected. For the second Small\nCraft Advisory, south winds 15 to 25 kt with gusts up to 35 kt\nexpected.\n\n* WHERE...Northern Lynn Canal.\n\n* WHEN...For the first Small Craft Advisory, from 1 PM this\nafternoon to 7 PM AKDT this evening. For the second Small\nCraft Advisory, from 1 PM to 7 PM AKDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Northern Lynn Canal"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 3:33AM AKDT until June 7 at 4:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:33:00-08:00",
+      "summary": "* WHAT...Seas 6 to 8 ft expected.\n\n* WHERE...Cape Decision to Cape Edgecumbe out to 15 NM.\n\n* WHEN...From 7 AM to 4 PM AKDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Decision to Cape Edgecumbe out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 3:33AM AKDT until June 7 at 1:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:33:00-08:00",
+      "summary": "* WHAT...Southeast winds 15 to 25 kt and seas 6 to 8 ft expected.\n\n* WHERE...Cape Spencer to Cape Fairweather from 15 to 85 NM and\nCape Fairweather to Icy Cape from 15 to 80 NM.\n\n* WHEN...From 7 AM to 1 PM AKDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Spencer to Cape Fairweather from 15 to 85 NM; Cape Fairweather to Icy Cape from 15 to 80 NM"
+    },
+    {
+      "title": "Flood Warning issued June 5 at 6:28AM CDT until June 5 at 9:30AM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T06:28:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...Northeastern Andrew County in northwestern Missouri...\nNorthwestern DeKalb County in northwestern Missouri...\nSouthwestern Gentry County in northwestern Missouri...\nSoutheastern Nodaway County in northwestern Missouri...\n\n* WHEN...Until 930 AM CDT.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is imminent or occurring.\n\n* ADDITIONAL DETAILS...\n- At 628 AM CDT, Doppler radar in",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Andrew, MO; DeKalb, MO; Gentry, MO; Nodaway, MO"
+    },
+    {
+      "title": "Flash Flood Warning issued June 5 at 6:22AM CDT until June 5 at 8:15AM CDT by NWS Austin/San Antonio TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T06:22:00-05:00",
+      "summary": "FFWEWX\n\nThe National Weather Service in Austin/San Antonio has issued a\n\n* Flash Flood Warning for...\nCentral Bexar County in south central Texas...\n\n* Until 815 AM CDT.\n\n* At 622 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 1 and 2 inches of rain\nhave fallen. Additional rainfall amounts up to 1 inch are possible\nin the warned area. Flash flooding is ongoing or expected to begin\nshortly.\n\nHAZARD...Life threatening flash flooding. Thunderstorm",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Bexar, TX"
+    },
+    {
+      "title": "Flood Advisory issued June 5 at 5:49AM CDT until June 5 at 7:45AM CDT by NWS Austin/San Antonio TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T05:49:00-05:00",
+      "summary": "* WHAT...Urban and small stream flooding caused by excessive\nrainfall is expected.\n\n* WHERE...A portion of south central Texas, including the following\ncounty, Bexar.\n\n* WHEN...Until 745 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\nWater over roadways. Overflowing poor drainage areas.\n\n* ADDITIONAL DETAILS...\n- At 549 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. This will cause urban and small stream\nflooding. Up to 1 inch of rain has fallen.\n- Ad",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Bexar, TX"
+    },
+    {
+      "title": "Flood Warning issued June 5 at 5:24AM CDT until June 5 at 9:15AM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T05:24:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...Doniphan County in northeastern Kansas...\nWestern Andrew County in northwestern Missouri...\nNorth Central Buchanan County in northwestern Missouri...\nSoutheastern Holt County in northwestern Missouri...\n\n* WHEN...Until 915 AM CDT.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is imminent or occurring.\n\n* ADDITIONAL DETAILS...\n- At 524 AM CDT, Doppler radar indicated heavy rain",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Doniphan, KS; Andrew, MO; Buchanan, MO; Holt, MO"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 2:00AM AKDT until June 6 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:00:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...N wind 20 kt. Seas 5 ft.\n.TONIGHT...NW wind 25 kt. Seas 5 ft.\n.SAT...N wind 20 kt. Seas 5 ft.\n.SAT NIGHT...NW wind 20 kt. Seas 4 ft.\n.SUN...NW wind 15 kt. Seas 3 ft.\n.MON THROUGH TUE...NW ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kuskokwim Delta from 15 to 80 NM"
+    },
+    {
+      "title": "Gale Warning issued June 5 at 2:41AM PDT until June 6 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:41:00-07:00",
+      "summary": "* WHAT...For the Small Craft Advisory, northwest winds 15 to 25\nkt with gusts up to 30 kt and seas 7 to 12 ft. For the Gale\nWarning, northwest winds 20 to 25 kt with gusts up to 35 kt\nand seas 8 to 10 ft expected.\n\n* WHERE...Coastal Waters from Pigeon Point to Point Pinos\nCalifornia out to 10 NM.\n\n* WHEN...For the Small Craft Advisory, until 3 PM PDT Saturday.\nFor the Gale Warning, from 3 PM to 9 PM PDT Saturday.\n\n* IMPACTS...Strong winds will cause hazardous seas which could\ncapsize or damage v",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Waters from Pigeon Point to Point Pinos California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 2:41AM PDT until June 5 at 3:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:41:00-07:00",
+      "summary": "* WHAT...For the Small Craft Advisory, northwest winds 15 to 25\nkt with gusts up to 30 kt and seas 10 to 12 ft expected. For\nthe Gale Warning, northwest winds 20 to 30 kt with gusts up to\n35 kt and seas 9 to 13 ft expected.\n\n* WHERE...Waters from Point Pinos to Point Piedras Blancas 10-\n60 NM.\n\n* WHEN...For the Small Craft Advisory, until 3 PM PDT this\nafternoon. For the Gale Warning, from 3 PM this afternoon to 3\nAM PDT Sunday.\n\n* IMPACTS...Strong winds will cause hazardous seas which could\ncap",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Pinos to Point Piedras Blancas 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 2:41AM PDT until June 7 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:41:00-07:00",
+      "summary": "* WHAT...Northwest winds 15 to 25 kt with gusts up to 30 kt\nexpected.\n\n* WHERE...Monterey Bay.\n\n* WHEN...From 3 PM this afternoon to 3 AM PDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Monterey Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 2:41AM PDT until June 7 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:41:00-07:00",
+      "summary": "* WHAT...West winds 15 to 25 kt with gusts up to 30 kt and rough\nwaters expected.\n\n* WHERE...San Francisco Bay South of the Bay Bridge.\n\n* WHEN...From 3 PM this afternoon to 3 AM PDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "San Francisco Bay South of the Bay Bridge"
+    },
+    {
+      "title": "Gale Warning issued June 5 at 2:41AM PDT until June 7 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:41:00-07:00",
+      "summary": "* WHAT...For the Small Craft Advisory, northwest winds 15 to 25 kt\nwith gusts up to 30 kt and seas 8 to 10 ft. For the Gale\nWarning, northwest winds 20 to 30 kt with gusts up to 40 kt and\nseas 8 to 13 ft expected.\n\n* WHERE...Coastal Waters from Point Reyes to Pigeon Point\nCalifornia out to 10 NM.\n\n* WHEN...For the Small Craft Advisory, until 3 PM PDT this\nafternoon. For the Gale Warning, from 3 PM this afternoon to 3\nAM PDT Sunday.\n\n* IMPACTS...Strong winds will cause hazardous seas which could\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Waters from Point Reyes to Pigeon Point California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 2:41AM PDT until June 6 at 3:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:41:00-07:00",
+      "summary": "* WHAT...For the Small Craft Advisory, northwest winds 15 to 25 kt\nwith gusts up to 30 kt and seas 8 to 10 ft expected. For the\nGale Warning, northwest winds 20 to 30 kt with gusts up to 40 kt\nand seas 8 to 10 ft expected.\n\n* WHERE...Coastal Waters from Point Pinos to Point Piedras\nBlancas California out to 10 NM.\n\n* WHEN...For the Small Craft Advisory, until 3 PM PDT Saturday.\nFor the Gale Warning, from 3 PM Saturday to 3 AM PDT Sunday.\n\n* IMPACTS...Strong winds will cause hazardous seas which ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Pinos to Point Piedras Blancas California out to 10 nm"
+    },
+    {
+      "title": "Gale Warning issued June 5 at 2:41AM PDT until June 7 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:41:00-07:00",
+      "summary": "* WHAT...For the Small Craft Advisory, northwest winds 15 to 25\nkt with gusts up to 30 kt and seas 10 to 12 ft expected. For\nthe Gale Warning, northwest winds 20 to 30 kt with gusts up to\n35 kt and seas 9 to 13 ft expected.\n\n* WHERE...Waters from Point Pinos to Point Piedras Blancas 10-\n60 NM.\n\n* WHEN...For the Small Craft Advisory, until 3 PM PDT this\nafternoon. For the Gale Warning, from 3 PM this afternoon to 3\nAM PDT Sunday.\n\n* IMPACTS...Strong winds will cause hazardous seas which could\ncap",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Waters from Point Pinos to Point Piedras Blancas 10-60 NM"
+    },
+    {
+      "title": "Gale Warning issued June 5 at 2:41AM PDT until June 7 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:41:00-07:00",
+      "summary": "* WHAT...For the Small Craft Advisory, northwest winds 15 to 25 kt\nwith gusts up to 30 kt and seas 8 to 10 ft expected. For the\nGale Warning, northwest winds 20 to 30 kt with gusts up to 40 kt\nand seas 8 to 10 ft expected.\n\n* WHERE...Coastal Waters from Point Pinos to Point Piedras\nBlancas California out to 10 NM.\n\n* WHEN...For the Small Craft Advisory, until 3 PM PDT Saturday.\nFor the Gale Warning, from 3 PM Saturday to 3 AM PDT Sunday.\n\n* IMPACTS...Strong winds will cause hazardous seas which ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Waters from Point Pinos to Point Piedras Blancas California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 5 at 2:41AM PDT until June 7 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:41:00-07:00",
+      "summary": "* WHAT...Southwest winds 10 to 20 kt and a moderate chop\nexpected.\n\n* WHERE...San Pablo Bay, Suisun Bay, the West Delta and the San\nFrancisco Bay north of the Bay Bridge.\n\n* WHEN...From 3 PM this afternoon to 3 AM PDT Sunday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "San Pablo Bay, Suisun Bay, the West Delta and  the San Francisco Bay north of the Bay Bridge"
+    },
+    {
+      "title": "Coastal Flood Advisory issued June 5 at 4:34AM CDT until June 5 at 10:00PM CDT by NWS New Orleans LA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T04:34:00-05:00",
+      "summary": "* WHAT...Minor coastal flooding.\n\n* WHERE...St. John The Baptist, Western Orleans, Southwestern\nSt. Tammany, Lower Tangipahoa, Southern Livingston, Upper\nJefferson and Upper St. Charles Parishes.\n\n* WHEN...Until 10 PM CDT this evening.\n\n* IMPACTS...Flooding of lots, parks, and roads with only\nisolated road closures expected during high tide cycles.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "St. John The Baptist; Western Orleans; Southwestern St. Tammany; Lower Tangipahoa; Southern Livingston; Upper Jefferson; Upper St. Charles"
+    },
+    {
+      "title": "Flood Warning issued June 5 at 4:26AM CDT until June 5 at 9:00AM CDT by NWS Topeka KS",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T04:26:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northeast Kansas, including the following\ncounty, Nemaha.\n\n* WHEN...Until 900 AM CDT.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is imminent or occurring.\n\n* ADDITIONAL DETAILS...\n- At 425 AM CDT, Doppler radar and automated rain gauges\nindicated heavy rain due to thunderstorms. Flooding is\nongoing or expected to begin shortly in the warned area.\nBetween 4 and ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Nemaha, KS"
+    },
+    {
+      "title": "Flood Warning issued June 5 at 3:59AM CDT until June 5 at 9:00AM CDT by NWS Topeka KS",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:59:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northeast Kansas, including the following\ncounty, Brown.\n\n* WHEN...Until 900 AM CDT.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is imminent or occurring.\n\n* ADDITIONAL DETAILS...\n- At 358 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Flooding is ongoing or expected to begin\nshortly in the warned area. Between 2 and 6.5 inches of rain\nhave fal",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Brown, KS"
+    },
+    {
+      "title": "Flood Warning issued June 5 at 3:59AM CDT until June 5 at 9:00AM CDT by NWS Topeka KS",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:59:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northeast Kansas, including the following\ncounty, Brown.\n\n* WHEN...Until 900 AM CDT.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is imminent or occurring.\n\n* ADDITIONAL DETAILS...\n- At 358 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Flooding is ongoing or expected to begin\nshortly in the warned area. Between 2 and 6.5 inches of rain\nhave fal",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Brown, KS"
+    },
+    {
+      "title": "Flood Warning issued June 5 at 3:56AM CDT until June 5 at 9:00AM CDT by NWS Topeka KS",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:56:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northeast Kansas, including the following\ncounties, Brown and Nemaha.\n\n* WHEN...Until 900 AM CDT.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is imminent or occurring.\n\n* ADDITIONAL DETAILS...\n- At 356 AM CDT, Doppler radar and automated rain gauges\nindicated heavy rain due to thunderstorms. Flooding is\nongoing or expected to begin shortly in the warned area.\nBe",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Brown, KS; Nemaha, KS"
+    },
+    {
+      "title": "Fire Weather Watch issued June 5 at 2:54AM MDT until June 6 at 8:00PM MDT by NWS Riverton WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:54:00-06:00",
+      "summary": "The National Weather Service in Riverton has issued a Fire Weather\nWatch, which is in effect from Saturday morning through Saturday\nevening.\n\n* IMPACTS: Low Humidities and Strong Gusty Winds could cause\nerratic fire behavior.\n\n* AFFECTED AREA:\nIn Central WY...Fire Weather Zone 280.\n\n* COUNTIES AFFECTED:\nIn Central WY...Natrona.\n\n* WIND: Southwest 15 to 25 mph with gusts up to 40 mph.\n\n* HUMIDITY: As low as 7 percent.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Natrona County/Casper BLM"
+    },
+    {
+      "title": "Lake Wind Advisory issued June 5 at 1:18AM PDT until June 6 at 11:00PM PDT by NWS Reno NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T01:18:00-07:00",
+      "summary": "* WHAT...Southwest to west winds 20 to 30 mph with gusts up to 45\nmph for Washoe Lake.\n\n* WHERE...Greater Reno-Carson City-Minden Area.\n\n* WHEN...From 8 AM to 11 PM PDT Saturday.\n\n* IMPACTS...Small boats, kayaks and paddle boards will be prone to\ncapsizing and should remain off lake waters until conditions\nimprove.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Greater Reno-Carson City-Minden Area"
+    },
+    {
+      "title": "Lake Wind Advisory issued June 5 at 1:18AM PDT until June 6 at 11:00PM PDT by NWS Reno NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T01:18:00-07:00",
+      "summary": "* WHAT...Southwest winds 15 to 25 mph with gusts up to 40 mph for\nTopaz Lake, Bridgeport Reservoir, Mono Lake, and Crowley Lake.\n\n* WHERE...Mono County.\n\n* WHEN...From 11 AM to 11 PM PDT Saturday.\n\n* IMPACTS...Small boats, kayaks and paddle boards will be prone to\ncapsizing and should remain off lake waters until conditions\nimprove.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Mono"
+    },
+    {
+      "title": "Lake Wind Advisory issued June 5 at 1:18AM PDT until June 6 at 11:00PM PDT by NWS Reno NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T01:18:00-07:00",
+      "summary": "* WHAT...West winds 15 to 25 mph with gusts up to 40 mph for Walker\nLake.\n\n* WHERE...Mineral and Southern Lyon Counties.\n\n* WHEN...From 11 AM to 11 PM PDT Saturday.\n\n* IMPACTS...Small boats, kayaks and paddle boards will be prone to\ncapsizing and should remain off lake waters until conditions\nimprove.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Mineral and Southern Lyon Counties"
+    },
+    {
+      "title": "Lake Wind Advisory issued June 5 at 1:18AM PDT until June 6 at 11:00PM PDT by NWS Reno NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T01:18:00-07:00",
+      "summary": "* WHAT...West winds 15 to 25 mph with gusts up to 40 mph for Pyramid\nLake, Lahontan, and Rye Patch reservoirs. Waves 2 to 4 feet on\nPyramid Lake.\n\n* WHERE...Western Nevada Basin and Range including Pyramid Lake.\n\n* WHEN...From 11 AM to 11 PM PDT Saturday.\n\n* IMPACTS...Small boats, kayaks and paddle boards will be prone to\ncapsizing and should remain off lake waters until conditions\nimprove.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Western Nevada Basin and Range including Pyramid Lake"
+    },
+    {
+      "title": "Beach Hazards Statement issued June 5 at 4:01AM EDT until June 5 at 11:00PM EDT by NWS Grand Rapids MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T04:01:00-04:00",
+      "summary": "* WHAT...High wave action, strong currents, and dangerous\nswimming conditions expected. Piers may be heavily swamped by\nwaves.\n\n* WHERE...Mason, Oceana, Muskegon and Ottawa counties.\n\n* WHEN...From 8 AM EDT this morning through this evening.\n\n* IMPACTS...Strong currents can pull swimmers into deeper water\nand high waves can sweep people off piers.\n\n* ADDITIONAL DETAILS...Southerly winds will increase on Friday\nto 15 to 25 mph which will push waves into the 3 to 5 foot\nrange. South sides of south",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Mason; Oceana; Muskegon; Ottawa"
+    },
+    {
+      "title": "Flood Advisory issued June 5 at 2:50AM CDT until June 5 at 8:45AM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:50:00-05:00",
+      "summary": "* WHAT...Small stream flooding caused by excessive rainfall is\nexpected.\n\n* WHERE...Western Atchison County in northeastern Kansas...\n\n* WHEN...Until 845 AM CDT.\n\n* IMPACTS...Flooding possible in low-lying and poor drainage areas.\nWater over roadways.\n\n* ADDITIONAL DETAILS...\n- At 248 AM CDT, Doppler radar and automated rain gauges indicated\nheavy rain due to thunderstorms. Upstream rain gauges measured\nnearly 8 inches of rainfall which is expected to runoff into\nupstream creeks. This will cause",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Atchison, KS"
+    },
+    {
+      "title": "Air Quality Alert issued June 5 at 3:42AM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:42:00-04:00",
+      "summary": "The Connecticut Department of Energy and Environmental Protection\nhas issued an Air Quality Action Day for the following counties:\n\nSouthern Fairfield, Southern New Haven, Southern Middlesex, Southern\nNew London.\n\nfrom 11 AM to 11 PM EDT Friday.\n\nAn Air Quality Action Day means that Ground Level Ozone within the\nregion may approach or exceed unhealthy standards. For additional\ninformation, please visit the Connecticut Department of Energy and\nEnvironmental Protection Web site at http://www.ct.go",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Unknown",
+      "area": "Southern Fairfield; Southern New Haven; Southern Middlesex; Southern New London"
+    },
+    {
+      "title": "Air Quality Alert issued June 5 at 3:42AM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:42:00-04:00",
+      "summary": "The New York State Department of Environmental Conservation has\nissued an Air Quality Health Advisory for the following counties:\n\nNew York, Bronx, Kings, Queens, Richmond, Nassau, Suffolk,\nWestchester, Rockland.\n\nfrom 11 AM to 11 PM EDT Friday.\n\nAir quality levels in outdoor air are predicted to be greater than\nan Air Quality Index value of 100 for the pollutant of Ground Level\nOzone. The Air Quality Index, or AQI, was created as an easy way to\ncorrelate levels of different pollutants to one sc",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Unknown",
+      "area": "Rockland; Northern Westchester; Southern Westchester; New York (Manhattan); Bronx; Richmond (Staten Is.); Kings (Brooklyn); Northwest Suffolk; Northeast Suffolk; Southwest Suffolk; Southeast Suffolk; Northern Queens; Northern Nassau; Southern Queens; Southern Nassau"
+    },
+    {
+      "title": "Air Quality Alert issued June 5 at 3:42AM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:42:00-04:00",
+      "summary": "The New Jersey Department of Environmental Protection has issued an\nAir Quality Action Day for the following counties:\n\nBergen, Eastern Passaic, Hudson, Essex, Union.\n\nfrom 11 AM to 11 PM EDT Friday.\n\nAn Air Quality Action Day means that Ground Level Ozone within the\nregion may approach or exceed unhealthy standards.\n\nFor additional information, please visit the New Jersey Department\nof Environmental Protection Web site at https://dep.nj.gov/airmon",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Unknown",
+      "area": "Eastern Passaic; Hudson; Western Bergen; Eastern Bergen; Western Essex; Eastern Essex; Western Union; Eastern Union"
+    },
+    {
+      "title": "Small Craft Advisory issued June 4 at 11:35PM AKDT until June 5 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-04T23:40:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TONIGHT...E wind 10 kt becoming NE late. Seas 8 ft.\n.FRI...NW wind 10 kt. Seas 6 ft.\n.FRI NIGHT...W wind 15 kt. Seas 6 ft.\n.SAT...SW wind 15 kt. Seas 6 ft.\n.SAT NIGHT...S wind 20 kt. Seas 7 ft.\n.SUN...SE wind 25 kt. Seas 9 ft.\n.MON...E wind 15",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision from 15 to 90 NM"
+    },
+    {
+      "title": "Flood Warning issued June 5 at 2:14AM CDT until June 5 at 9:00AM CDT by NWS Topeka KS",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:14:00-05:00",
+      "summary": "Rainfall has ended but flooding still may be occurring or may\ncontinue into late Friday morning. A wide area of heavy rainfall\nlead to 2 and 5 inches of rainfall that has led to areal flooding.\n\n* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northeast Kansas, including the following\ncounty, Jackson.\n\n* WHEN...Until 900 AM CDT Friday.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is imminent or occurring.\n\n* AD",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Jackson, KS"
+    },
+    {
+      "title": "Rip Current Statement issued June 5 at 3:13AM EDT until June 7 at 4:00AM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:13:00-04:00",
+      "summary": "* WHAT...Dangerous rip currents.\n\n* WHERE...State Park and south-facing Gulf County Beaches.\n\n* WHEN...Through late Saturday night.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Gulf"
+    },
+    {
+      "title": "Rip Current Statement issued June 5 at 2:12AM CDT until June 6 at 7:00PM CDT by NWS Corpus Christi TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:12:00-05:00",
+      "summary": "* WHAT...Dangerous rip currents expected.\n\n* WHERE...Aransas Islands, Kleberg Islands, Nueces Islands and\nCalhoun Islands Counties.\n\n* WHEN...From Saturday morning through Saturday evening.\n\n* IMPACTS...Rip currents can sweep even the most experienced\nswimmers away from shore into deeper water. These rip currents\ncan become life-threatening to anyone entering the surf.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Aransas Islands; Kleberg Islands; Nueces Islands; Calhoun Islands"
+    },
+    {
+      "title": "Air Quality Alert issued June 5 at 3:11AM EDT by NWS Raleigh NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T03:11:00-04:00",
+      "summary": "The Forsyth County Office of Environmental Assistance and Protection\nin Winston Salem NC has issued a Code Orange Air Quality Action Day\nfor Ground Level Ozone, until midnight EDT tonight.\n\nAn Air Quality Action Day means that Ground Level Ozone\nconcentrations within the region may approach or exceed unhealthy\nstandards. For additional information, please visit the Forsyth\nCounty Office of Environmental Assistance and Protection at\nwww.forsyth.cc/EAP/dailyforecast.aspx",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Unknown",
+      "area": "Forsyth; Guilford; Alamance; Davidson; Randolph"
+    },
+    {
+      "title": "Flash Flood Warning issued June 5 at 1:55AM CDT until June 5 at 8:00AM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T01:55:00-05:00",
+      "summary": "FFWEAX\n\nThe National Weather Service in Pleasant Hill has issued a\n\n* Flash Flood Warning for...\nNorthern Daviess County in north central Missouri...\nSouthern Harrison County in north central Missouri...\nNortheastern Gentry County in northwestern Missouri...\n\n* Until 800 AM CDT Friday.\n\n* At 155 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 1 and 2 inches of rain\nhave fallen. Flash flooding is already occurring. MoDOT has closed\nMO 85 south of",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Daviess, MO; Gentry, MO; Harrison, MO"
+    },
+    {
+      "title": "Special Weather Statement issued June 5 at 2:43AM EDT by NWS Caribou ME",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-05T02:43:00-04:00",
+      "summary": "* The warm air temperatures this weekend in the upper 70s north and\nmiddle 80s over Downeast may cause people to underestimate the\ndangers of the cold water temperatures which are currently only in\nthe upper 50s on the lakes and in the mid 60s on the rivers.\n\n* The cold water temperatures can quickly cause hypothermia to\nanyone immersed in the water. According to the Maine Warden\nService, when the water temperature is below 60 degrees, the\naverage submerged person could lose dexterity within min",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northwest Aroostook; Northeast Aroostook; Northern Somerset; Northern Piscataquis; Northern Penobscot; Southeast Aroostook; Central Piscataquis; Central Penobscot; Southern Penobscot; Interior Hancock; Central Washington; Coastal Hancock; Coastal Washington; Southern Piscataquis; Northern Washington"
+    }
+  ]
+}

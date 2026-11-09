@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-04-30T11:52:04.743306Z",
+  "items": [
+    {
+      "title": "Dense Fog Advisory issued April 30 at 6:47AM CDT until April 30 at 9:00AM CDT by NWS Milwaukee/Sullivan WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T06:47:00-05:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, visibility less than one mile\nin dense fog. For the Frost Advisory, temperatures as low as 34\nwill result in frost formation.\n\n* WHERE...Jefferson, Washington, and Waukesha Counties.\n\n* WHEN...For the Dense Fog Advisory, until 9 AM CDT this morning.\nFor the Frost Advisory, until 8 AM CDT this morning.\n\n* IMPACTS...Frost could harm sensitive outdoor vegetation. Sensitive\noutdoor plants may be killed if left uncovered. Low visibility\ncould make driving conditio",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Washington; Jefferson; Waukesha"
+    },
+    {
+      "title": "Dense Fog Advisory issued April 30 at 6:47AM CDT until April 30 at 9:00AM CDT by NWS Milwaukee/Sullivan WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T06:47:00-05:00",
+      "summary": "* WHAT...Visibility as low as 1/4 mile due to fog in low-lying and\nwetland areas.\n\n* WHERE...Kenosha, Racine, and Walworth Counties.\n\n* WHEN...Until 9 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Walworth; Racine; Kenosha"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...Variable wind less than 10 kt becoming NE 10 kt in\nthe afternoon. Seas 2 ft. Rain.\n.TONIGHT...E wind 20 kt. Seas 4 ft.\n.FRI...NE wind 20 kt increasing to 30 kt in the afternoon.\nSeas 6 ft. Rain.\n.F",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cook Inlet North Kalgin Island"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 30 kt. Seas 10 ft. Rain.\n.TONIGHT...SE wind 25 kt. Seas 7 ft. Rain.\n.FRI...S wind 25 kt. Seas 7 ft subsiding to 3 ft in the\nafternoon. Rain.\n.FRI NIGHT...S wind 15 kt. Seas 2 ft.\n.SAT...S w",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chiniak Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 25 kt. Seas 5 ft. Rain.\n.TONIGHT...SE wind 25 kt. Seas 5 ft. Rain.\n.FRI...SE wind 25 kt. Seas 5 ft. Rain.\n.FRI NIGHT...S wind 20 kt. Seas 5 ft.\n.SAT...SE wind 15 kt. Seas 4 ft.\n.SUN...NE wi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Shelikof Strait"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 30 kt. Seas 8 ft. Rain.\n.TONIGHT...SE wind 30 kt. Seas 11 ft. Rain.\n.FRI...SE wind 25 kt. Seas 10 ft. Rain.\n.FRI NIGHT...S wind 20 kt. Seas 9 ft.\n.SAT...SE wind 15 kt. Seas 8 ft.\n.SUN...Var",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Barren Islands East"
+    },
+    {
+      "title": "Gale Warning issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 20 kt. Seas 6 ft.\n.TONIGHT...SE wind 30 kt. Seas 10 ft. Rain.\n.FRI...SE wind 35 kt. Seas 14 ft. Rain.\n.FRI NIGHT...S wind 30 kt. Seas 14 ft.\n.SAT THROUGH MON...SE wind 15 kt. Seas 10 ft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Suckling to Cape Cleare from 15 to 75 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 20 kt. Seas 5 ft. Rain and snow.\n.TONIGHT...NE wind 25 kt. Seas 6 ft. Rain.\n.FRI...NE wind 20 kt increasing to 30 kt in the afternoon.\nSeas 6 ft. Rain.\n.FRI NIGHT...SE wind 15 kt. Seas 3 ft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cook Inlet Kalgin Island to Point Bede"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 25 kt. Seas 10 ft. Rain.\n.TONIGHT...SE wind 25 kt. Seas 9 ft. Rain.\n.FRI...SE wind 20 kt. Seas 7 ft subsiding to 3 ft in the\nafternoon. Rain.\n.FRI NIGHT...S wind 15 kt. Seas 2 ft.\n.SAT...SE",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marmot Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 20 kt. Gusts to 35 kt. Seas 3 ft. Rain.\n.TONIGHT...E wind 25 kt with gusts to 35 kt diminishing to 15 kt\nafter midnight. Seas 4 ft subsiding to 2 ft after midnight. Rain.\n.FRI...E wind 20 k",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kachemak Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 30 kt. Seas 14 ft. Rain.\n.TONIGHT...S wind 30 kt. Seas 14 ft. Rain.\n.FRI...S wind 30 kt. Seas 14 ft. Rain.\n.FRI NIGHT...SW wind 20 kt. Seas 12 ft.\n.SAT...S wind 15 kt. Seas 10 ft.\n.SUN...Va",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marmot Island To Sitkinak from 15 to 85 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 25 kt. Seas 7 ft. Rain.\n.TONIGHT...E wind 30 kt. Seas 12 ft. Rain.\n.FRI...SE wind 30 kt. Seas 12 ft. Rain.\n.FRI NIGHT...SE wind 15 kt. Seas 11 ft.\n.SAT...Variable wind 10 kt. Seas 10 ft.\n.S",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Cleare to Gore Point out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 10 kt increasing to 15 kt in the afternoon.\nSeas 2 ft. Rain showers with snow showers.\n.TONIGHT...E wind 20 kt. Gusts to 30 kt after midnight.\nSeas 3 ft. Rain showers.\n.FRI...E wind 25 kt. S",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Passage Canal"
+    },
+    {
+      "title": "Gale Warning issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 10 kt increasing to 15 kt in the afternoon.\nSeas 2 ft.\n.TONIGHT...SE wind 15 kt becoming E 25 kt after midnight.\nSeas 3 ft building to 6 ft after midnight.\n.FRI...E wind 35 kt. Seas 9 ft. R",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Central and Eastern Prince William Sound"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 30 kt. Seas 13 ft. Rain.\n.TONIGHT...SE wind 25 kt. Seas 13 ft. Rain.\n.FRI...S wind 25 kt. Seas 12 ft.\n.FRI NIGHT...SW wind 20 kt. Seas 10 ft.\n.SAT...SE wind 15 kt. Seas 9 ft.\n.SUN...Variabl",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marmot Island to Sitkinak out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...Variable wind less than 10 kt becoming SE 15 kt in\nthe afternoon. Seas 2 ft.\n.TONIGHT...E wind 25 kt. Seas 4 ft. Rain.\n.FRI...E wind 30 kt. Seas 7 ft. Rain.\n.FRI NIGHT...SE wind 25 kt. Seas 4 ft.\n.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Southwest Prince William Sound"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 30 kt. Seas 7 ft building to 11 ft in the\nafternoon. Rain.\n.TONIGHT...SE wind 30 kt. Seas 13 ft. Rain.\n.FRI...SE wind 30 kt. Seas 13 ft. Rain.\n.FRI NIGHT...S wind 20 kt. Seas 12 ft.\n.SAT...",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Gore Point to Marmot Island from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 10 kt increasing to 15 kt in the afternoon.\nSeas 3 ft.\n.TONIGHT...E wind 25 kt. Seas 3 ft building to 6 ft after\nmidnight. Rain showers.\n.FRI...E wind 30 kt. Seas 7 ft. Rain and snow.\n.FRI N",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Northwest Prince William Sound"
+    },
+    {
+      "title": "Gale Warning issued April 30 at 3:47AM AKDT until May 1 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 35 kt. Seas 10 ft. Rain.\n.TONIGHT...E wind 35 kt. Seas 10 ft. Rain.\n.FRI...E wind 30 kt. Seas 8 ft. Rain.\n.FRI NIGHT...SE wind 20 kt. Seas 5 ft.\n.SAT...SE wind 15 kt. Seas 4 ft.\n.SUN...Vari",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "West of Barren Islands Including Kamishak Bay"
+    },
+    {
+      "title": "Gale Warning issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...Variable wind 10 kt. Seas 5 ft.\n.TONIGHT...SE wind 20 kt increasing to 30 kt after midnight.\nSeas 7 ft.\n.FRI...E wind 40 kt. Seas 12 ft. Rain.\n.FRI NIGHT...SE wind 40 kt. Seas 14 ft.\n.SAT...SE wind",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Suckling to Gravel Point out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...Variable wind less than 10 kt becoming SW 10 kt in\nthe afternoon. Seas 2 ft.\n.TONIGHT...NE wind 10 kt. Seas 2 ft. Rain showers and snow\nshowers.\n.FRI...NE wind 25 kt. Seas 5 ft. Rain and snow.\n.FRI",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Valdez Arm"
+    },
+    {
+      "title": "Gale Warning issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 15 kt. Seas 5 ft.\n.TONIGHT...SE wind 30 kt. Seas 9 ft. Rain.\n.FRI...SE wind 40 kt. Seas 13 ft. Rain.\n.FRI NIGHT...SE wind 30 kt. Seas 14 ft.\n.SAT...SE wind 20 kt. Seas 11 ft.\n.SUN THROUGH M",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Gravel Point to Cape Cleare out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 3:47AM AKDT until May 1 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:47:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 25 kt. Seas 8 ft. Rain.\n.TONIGHT...SE wind 30 kt. Seas 13 ft. Rain.\n.FRI...SE wind 30 kt. Seas 14 ft. Rain.\n.FRI NIGHT...S wind 20 kt. Seas 12 ft.\n.SAT...S wind 15 kt. Seas 10 ft.\n.SUN...Va",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Cleare to Gore Point from 15 to 75 NM"
+    },
+    {
+      "title": "Special Weather Statement issued April 30 at 7:47AM EDT by NWS Wilmington NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T07:47:00-04:00",
+      "summary": "At 747 AM EDT, Doppler radar was tracking strong thunderstorms along\na line extending from Eadytown to near Wando. Movement was east at 40\nmph.\n\nHAZARD...Wind gusts of 50 to 55 mph.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects.\n\nLocations impacted include...\nGeorgetown, DeBordieu Colony, Kingstree, Pawleys Island, Yawkey South\nIsland, Winyah Bay Entrance, Andrews, North Santee, Rhems, Oatland,\nNesmith, Indiantown, Sampit, Earle, M",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Florence; Williamsburg; Inland Georgetown; Coastal Georgetown"
+    },
+    {
+      "title": "Brisk Wind Advisory issued April 30 at 3:46AM AKDT until May 1 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T03:46:00-08:00",
+      "summary": "Northwestern Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TODAY...E winds 20 kt.\n.TONIGHT...E winds 25 kt. Rain and snow.\n.FRI...E winds 20 kt. Rain and snow.\n.FRI NIGHT...SE winds 15 kt. Rain.\n.SAT...W winds 15 kt. Rain with snow.\n.SAT NIGHT...W winds 20 kt. Rain and snow.\n.SUN...SW winds 15 kt.\n.MON...NW winds 10 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Motherwood Point to Cape Krusenstern out to 10 NM"
+    },
+    {
+      "title": "Special Weather Statement issued April 30 at 7:41AM EDT by NWS Charleston SC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T07:41:00-04:00",
+      "summary": "At 741 AM EDT, Doppler radar was tracking a strong thunderstorm near\nSouthern Lake Moultrie, moving northeast at 40 mph.\n\nHAZARD...Wind gusts of 50 to 55 mph.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects.\n\nLocations impacted include...\nMoncks Corner, Saint Stephen, Bonneau, Jamestown, Bonneau Beach,\nNorthern Lake Moultrie, Southern Lake Moultrie, Pinopolis, Cross\nand Eadytown.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Inland Berkeley"
+    },
+    {
+      "title": "Marine Weather Statement issued April 30 at 7:26AM EDT by NWS Wilmington NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T07:26:00-04:00",
+      "summary": "A Marine Weather Statement has been issued for the following areas...\nWaters from Surf City NC to Little River Inlet SC from 20 to 60\nNM...\n\nAt 725 AM EDT, Doppler radar indicated a strong thunderstorm,\ncapable of producing winds up to 30 knots. This thunderstorm was\nlocated 29 nm east of Wreck 33, moving east at 20 knots. Additional\nstorms will likely build southward along a cold front over the next\nhour or so.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Surf City NC to Little River Inlet SC from 20 to 60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 2:15AM AKDT until May 1 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T02:15:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...W wind 25 kt diminishing to 15 kt. Seas 7 ft.\n.TONIGHT...W wind 15 kt becoming E 25 kt late. Seas 6 ft.\n.FRI...E wind 30 kt increasing to gale to 45 kt in the\nafternoon. Seas 11 ft building to 16 ft in the afternoon. Rain.\n.FRI NIGHT..",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Icy Cape to Cape Suckling out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 2:15AM AKDT until May 1 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T02:15:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...W wind 25 kt diminishing to 20 kt. Seas 8 ft subsiding to\n7 ft.\n.TONIGHT...SE wind 20 kt increasing to 25 kt late. Seas building\nto 9 ft.\n.FRI...SE gale to 35 kt. Seas 14 ft. Rain.\n.FRI NIGHT...E gale to 45 kt. Seas 18 ft. Rain.\n.SAT..",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Icy Cape to Cape Suckling from 15 to 80 NM"
+    },
+    {
+      "title": "Coastal Flood Advisory issued April 30 at 6:12AM EDT until April 30 at 10:00AM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T06:12:00-04:00",
+      "summary": "* WHAT...Up to one foot of inundation above ground level in low\nlying areas due to tidal flooding.\n\n* WHERE...Shoreline in the City of Alexandria and Arlington\nCounty.\n\n* WHEN...Until 10 AM EDT this morning, especially around the\ntime of high tide.\n\n* IMPACTS...Water is expected to approach the curb near the\nintersection of King Street and Strand Street in Alexandria.\n\n* ADDITIONAL DETAILS...Tides between one half foot and one foot\nabove normal. The next high tide at Alexandria is at 8:18 AM.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Arlington/Falls Church/Alexandria"
+    },
+    {
+      "title": "Flood Warning issued April 30 at 5:08AM CDT until May 2 at 6:00AM CDT by NWS St Louis MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T05:08:00-05:00",
+      "summary": "...The National Weather Service in St Louis has issued a Flood\nWarning for the following rivers in Missouri...\n\nMissouri River at St. Charles.\n\nRiver forecasts are based on observed precipitation and forecast\nprecipitation for the next 24 hours.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Missouri River at St. Charles.\n\n* WHEN...Until Saturday morning.\n\n* IMPACTS...At 25.0 feet, Downstream near this stage, Missouri Route\nH at Island Road and agricultural bottomland may begin flooding,\ndepen",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "St. Charles, MO; St. Louis, MO"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 2:35AM PDT until April 30 at 9:00PM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T02:35:00-07:00",
+      "summary": "* WHAT...Northwest winds 15 to 25 kt expected.\n\n* WHERE...Coastal Waters from Pigeon Point to Point Pinos\nCalifornia out to 10 NM.\n\n* WHEN...From 3 PM this afternoon to 9 PM PDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Pigeon Point to Point Pinos California out to 10 nm"
+    },
+    {
+      "title": "Special Weather Statement issued April 30 at 4:16AM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T04:16:00-05:00",
+      "summary": "Patchy dense fog with localized visibility below one half of a\nmile will continue this morning, especially along and east of\nInterstate 57. The fog will be thickest in open areas, such as\nfarm fields, river valleys, and ditches.\n\nIf traveling this morning, use low beam headlights and increase\nfollowing distances.\n\nIf conditions continue to worsen across a widespread basis, a\nDense Fog Advisory may be issued. Fog is expected to erode rapidly\nbetween 7 and 9 AM this morning.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kankakee; Iroquois; Ford; Southern Cook; Northern Will; Southern Will; Eastern Will; Lake; Porter; Newton; Jasper; Benton"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 5:13AM EDT until April 30 at 7:00PM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T05:13:00-04:00",
+      "summary": "* WHAT...Northwest winds 10 to 20 kt with gusts up to 25 kt.\n\n* WHERE...Tidal Potomac River from Key Bridge to Smith Point VA,\nand Chesapeake Bay and adjoining estuaries north of Smith\nPoint VA.\n\n* WHEN...Until 7 PM EDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chesapeake Bay north of Pooles Island MD; Chesapeake Bay from Pooles Island to Sandy Point MD; Chesapeake Bay from Sandy Point to North Beach MD; Chesapeake Bay from North Beach to Drum Point MD; Chesapeake Bay from Drum Point MD to Smith Point VA; Tidal Potomac from Key Bridge to Indian Head MD; Tidal Potomac from Indian Head to Cobb Island MD; Tidal Potomac from Cobb Island MD to Smith Point VA; Patapsco River including Baltimore Harbor; Chester River to Queenstown MD; Eastern Bay; Choptank River to Cambridge MD and the Little Choptank River; Patuxent River to Broomes Island MD; Tangier Sound and the inland waters surrounding Bloodsworth Island"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 2:09AM PDT until May 1 at 5:00AM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T02:09:00-07:00",
+      "summary": "* WHAT...West winds 15 to 25 kt.\n\n* WHERE...Central U. S. Waters Strait Of Juan De Fuca and East\nEntrance U. S. Waters Strait Of Juan De Fuca.\n\n* WHEN...From 5 PM this afternoon to 5 AM PDT Friday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Central U.S. Waters Strait Of Juan De Fuca; East Entrance U.S. Waters Strait Of Juan De Fuca"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 4:23AM EDT until May 1 at 2:00AM EDT by NWS Buffalo NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T04:23:00-04:00",
+      "summary": "* WHAT...West winds 10 to 15 knots and waves 3 to 5 feet\nexpected.\n\n* WHERE...The nearshore waters of Lake Ontario from Mexico Bay\nto the Saint Lawrence River.\n\n* WHEN...From 2 PM this afternoon to 2 AM EDT Friday.\n\n* IMPACTS...Winds and/or waves will cause hazardous conditions\nthat could capsize or damage small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Mexico Bay NY to the St. Lawrence River"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 4:23AM EDT until May 1 at 2:00AM EDT by NWS Buffalo NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T04:23:00-04:00",
+      "summary": "* WHAT...West winds 15 to 20 knots and waves 3 to 5 feet expected.\n\n* WHERE...The nearshore waters of Lake Ontario from Hamlin Beach\nto Mexico Bay.\n\n* WHEN...From noon today to 2 AM EDT Friday.\n\n* IMPACTS...Winds and/or waves will cause hazardous conditions\nthat could capsize or damage small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Hamlin Beach to Sodus Bay NY; Sodus Bay to Mexico Bay NY"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 1:13AM PDT until May 1 at 8:00AM PDT by NWS Portland OR",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T01:13:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, rough bar conditions\nexpected due to a strong ebb current of 5.68 kt at 431 AM\nThursday. Seas 6 to 7 ft. For the second Small Craft Advisory,\nrough bar conditions expected due to a strong ebb current of\n5.84 kt at 507 AM Friday. Seas 7 ft.\n\n* WHERE...In the Main Channel of the Columbia River Bar.\n\n* WHEN...Small Craft Advisory, until 7 AM PDT this morning.\nSmall Craft Advisory, from 3 AM to 8 AM PDT Friday.\n\n* IMPACTS...Conditions will be hazardous to",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Columbia River Bar"
+    },
+    {
+      "title": "Small Craft Advisory issued April 30 at 12:53AM PDT until April 30 at 9:00PM PDT by NWS Los Angeles/Oxnard CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T00:53:00-07:00",
+      "summary": "* WHAT...Hazardous sea conditions.\n\n* WHERE...Point Piedras Blancas to Point Sal westward out to 10\nNM.\n\n* WHEN...From 3 PM this afternoon to 9 PM PDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.\n\n* ADDITIONAL DETAILS...See the Coastal Waters Forecast (CWFLOX)\nfor more.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Point Piedras Blancas to Point Sal westward out to 10 NM"
+    },
+    {
+      "title": "Freeze Warning issued April 30 at 1:33AM MDT until May 1 at 9:00AM MDT by NWS Salt Lake City UT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T01:33:00-06:00",
+      "summary": "* WHAT...Sub-freezing temperatures as low as 28 expected.\n\n* WHERE...Eastern Juab/Millard Counties, Sanpete Valley, Sevier\nValley, Cache Valley/Utah Portion, and Southwest Utah.\n\n* WHEN...For the first Freeze Warning, until 9 AM MDT this morning.\nFor the second Freeze Warning, from 8 PM this evening to 9 AM MDT\nFriday.\n\n* IMPACTS...Frost and freeze conditions could kill crops, other\nsensitive vegetation and possibly damage unprotected outdoor\nplumbing.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cache Valley/Utah Portion; Eastern Juab/Millard Counties; Sanpete Valley; Sevier Valley; Southwest Utah"
+    },
+    {
+      "title": "Special Weather Statement issued April 30 at 1:33AM MDT by NWS Cheyenne WY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T01:33:00-06:00",
+      "summary": "Snow shower activity is leading to visibility as low as one\nquarter mile along Interstate 80 between Laramie and Rawlins.\nPrimary impacts are located between mile markers 250 and 290. In\naddition, slushy, icy, or slick spots will occur through early\nThursday morning.\n\nTravelers in the area are urged to use caution and allow for extra\ntime to reach your destination.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "North Snowy Range Foothills"
+    },
+    {
+      "title": "Freeze Warning issued April 30 at 1:33AM MDT until April 30 at 9:00AM MDT by NWS Salt Lake City UT",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T01:33:00-06:00",
+      "summary": "* WHAT...Sub-freezing temperatures as low as 28 expected.\n\n* WHERE...Eastern Juab/Millard Counties, Sanpete Valley, Sevier\nValley, Cache Valley/Utah Portion, and Southwest Utah.\n\n* WHEN...For the first Freeze Warning, until 9 AM MDT this morning.\nFor the second Freeze Warning, from 8 PM this evening to 9 AM MDT\nFriday.\n\n* IMPACTS...Frost and freeze conditions could kill crops, other\nsensitive vegetation and possibly damage unprotected outdoor\nplumbing.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cache Valley/Utah Portion; Eastern Juab/Millard Counties; Sanpete Valley; Sevier Valley; Southwest Utah"
+    },
+    {
+      "title": "Frost Advisory issued April 30 at 1:50AM CDT until April 30 at 8:00AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T01:50:00-05:00",
+      "summary": "* WHAT...Temperatures as low as 32 to 36 will result in areas of\nfrost.\n\n* WHERE...Calumet and Brown Counties.\n\n* WHEN...Until 8 AM CDT this morning.\n\n* IMPACTS...Frost could harm sensitive outdoor vegetation. Sensitive\noutdoor plants may be killed if left uncovered.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Brown; Calumet"
+    },
+    {
+      "title": "Freeze Warning issued April 30 at 2:19AM EDT until May 1 at 8:00AM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T02:19:00-04:00",
+      "summary": "* WHAT...Sub-freezing temperatures as low as 32 expected.\n\n* WHERE...In Virginia, Western Highland County. In West Virginia,\nWestern Grant and Western Pendleton Counties.\n\n* WHEN...From midnight tonight to 8 AM EDT Friday.\n\n* IMPACTS...Frost and freeze conditions could kill crops, other\nsensitive vegetation and possibly damage unprotected outdoor\nplumbing.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Western Highland; Western Grant; Western Pendleton"
+    },
+    {
+      "title": "Frost Advisory issued April 30 at 2:19AM EDT until May 1 at 8:00AM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T02:19:00-04:00",
+      "summary": "* WHAT...Temperatures as low as 34 will result in frost formation.\n\n* WHERE...In Maryland, Eastern Garrett, Extreme Western Allegany,\nand Western Garrett Counties. In Virginia, Eastern Highland\nCounty. In West Virginia, Eastern Grant, Eastern Pendleton, and\nWestern Mineral Counties.\n\n* WHEN...From midnight tonight to 8 AM EDT Friday.\n\n* IMPACTS...Frost could harm sensitive outdoor vegetation. Sensitive\noutdoor plants may be killed if left uncovered.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Extreme Western Allegany; Western Garrett; Eastern Garrett; Eastern Highland; Eastern Grant; Western Mineral; Eastern Pendleton"
+    },
+    {
+      "title": "Frost Advisory issued April 30 at 2:11AM EDT until May 1 at 9:00AM EDT by NWS Blacksburg VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T02:11:00-04:00",
+      "summary": "* WHAT...Temperatures as low as 32 will result in frost formation.\n\n* WHERE...In Virginia, Alleghany VA and Bath Counties. In West\nVirginia, Eastern Greenbrier, Monroe, Summers, and Western\nGreenbrier Counties.\n\n* WHEN...From midnight tonight to 9 AM EDT Friday.\n\n* IMPACTS...Frost could harm sensitive outdoor vegetation. Sensitive\noutdoor plants may be killed if left uncovered.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Alleghany; Bath; Summers; Monroe; Eastern Greenbrier; Western Greenbrier"
+    },
+    {
+      "title": "Frost Advisory issued April 30 at 1:42AM EDT until May 1 at 8:00AM EDT by NWS State College PA",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T01:42:00-04:00",
+      "summary": "* WHAT...Temperatures in the low to mid 30s will result in areas of\nfrost.\n\n* WHERE...Cambria, Cameron, Clearfield, Elk, McKean, Potter,\nSomerset, and Warren Counties.\n\n* WHEN...From midnight tonight to 8 AM EDT Friday.\n\n* IMPACTS...Frost could harm sensitive outdoor vegetation. Sensitive\noutdoor plants may be killed if left uncovered.\n\n* ADDITIONAL DETAILS...Clouds and a light west northwest wind could\nlimit frost coverage to some extent.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Warren; McKean; Potter; Elk; Cameron; Clearfield; Cambria; Somerset"
+    },
+    {
+      "title": "Frost Advisory issued April 30 at 1:32AM EDT until May 1 at 9:00AM EDT by NWS Buffalo NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T01:32:00-04:00",
+      "summary": "* WHAT...Temperatures in the lower to mid 30s will result in frost\nformation.\n\n* WHERE...Erie, Niagara, Orleans, Monroe, Wayne, Genesee, Wyoming,\nLivingston, Ontario, and Chautauqua Counties.\n\n* WHEN...From midnight tonight to 9 AM EDT Friday.\n\n* IMPACTS...Frost could kill sensitive outdoor vegetation if left\nunprotected.\n\n* ADDITIONAL DETAILS...The coldest temperatures and greater risk of\nfrost will be inland away from the lakeshores.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Niagara; Orleans; Monroe; Wayne; Northern Erie; Genesee; Wyoming; Livingston; Ontario; Chautauqua; Southern Erie"
+    },
+    {
+      "title": "Wind Advisory issued April 29 at 11:29PM MDT until May 1 at 6:00AM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-29T23:29:00-06:00",
+      "summary": "* WHAT...East winds 25 to 35 mph with gusts up to 50 mph expected.\n\n* WHERE...Middle Rio Grande Valley including the Albuquerque Metro\nArea.\n\n* WHEN...From 8 PM Thursday to 6 AM MDT Friday.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs may be blown down. Expect strong crosswinds on area roadways.\n\n* ADDITIONAL DETAILS...Areas of blowing dust will develop near open\nfields and other dust prone locations.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Middle Rio Grande Valley/Albuquerque Metro Area"
+    },
+    {
+      "title": "Frost Advisory issued April 30 at 1:18AM EDT until May 1 at 9:00AM EDT by NWS Cleveland OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-04-30T01:18:00-04:00",
+      "summary": "* WHAT...Temperatures in the low to mid 30s will result in frost\nformation.\n\n* WHERE...Crawford and Southern Erie Counties.\n\n* WHEN...From 11 PM this evening to 9 AM EDT Friday.\n\n* IMPACTS...Frost could harm sensitive outdoor vegetation. Sensitive\noutdoor plants may be killed if left uncovered.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Southern Erie; Crawford"
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "agencies": [
+    {
+      "az_relevance": "Arizona critical infrastructure protection, election security",
+      "full_name": "Cybersecurity & Infrastructure Security Agency",
+      "id": "cisa",
+      "name": "CISA",
+      "parent": "DHS",
+      "topics": [
+        "cyber",
+        "infra"
+      ]
+    },
+    {
+      "az_relevance": "Phoenix Field Office, border crime, domestic terrorism",
+      "full_name": "Federal Bureau of Investigation",
+      "id": "fbi",
+      "name": "FBI",
+      "parent": "DOJ",
+      "topics": [
+        "cyber",
+        "law",
+        "border"
+      ]
+    },
+    {
+      "az_relevance": "Federal prosecutions, public corruption cases, border enforcement",
+      "full_name": "Department of Justice",
+      "id": "doj",
+      "name": "DOJ",
+      "parent": null,
+      "topics": [
+        "law",
+        "corruption",
+        "cyber"
+      ]
+    },
+    {
+      "az_relevance": "Border security operations, CBP, ICE operations in AZ",
+      "full_name": "Department of Homeland Security",
+      "id": "dhs",
+      "name": "DHS",
+      "parent": null,
+      "topics": [
+        "border",
+        "cyber",
+        "infra"
+      ]
+    },
+    {
+      "az_relevance": "Tucson & Yuma sectors — highest arrest corridors in the US",
+      "full_name": "Customs & Border Protection",
+      "id": "cbp",
+      "name": "CBP",
+      "parent": "DHS",
+      "topics": [
+        "border",
+        "safety"
+      ]
+    },
+    {
+      "az_relevance": "Luke AFB, Davis-Monthan AFB, Fort Huachuca, Yuma Proving Ground",
+      "full_name": "Department of Defense",
+      "id": "dod",
+      "name": "DoD",
+      "parent": null,
+      "topics": [
+        "defense",
+        "classified"
+      ]
+    },
+    {
+      "az_relevance": "Luke AFB (F-35 training), Davis-Monthan (A-10, AMARG boneyard)",
+      "full_name": "United States Air Force",
+      "id": "usaf",
+      "name": "USAF",
+      "parent": "DoD",
+      "topics": [
+        "defense",
+        "aviation"
+      ]
+    },
+    {
+      "az_relevance": "Fort Huachuca — Army Intelligence Center, NETCOM HQ",
+      "full_name": "United States Army",
+      "id": "army",
+      "name": "US Army",
+      "parent": "DoD",
+      "topics": [
+        "defense"
+      ]
+    },
+    {
+      "az_relevance": "SIGINT operations, Fort Huachuca intelligence connection",
+      "full_name": "National Security Agency",
+      "id": "nsa",
+      "name": "NSA",
+      "parent": "DoD",
+      "topics": [
+        "cyber",
+        "classified"
+      ]
+    },
+    {
+      "az_relevance": "Declassified AZ references, Cold War programs, UAP reports",
+      "full_name": "Central Intelligence Agency",
+      "id": "cia",
+      "name": "CIA",
+      "parent": null,
+      "topics": [
+        "classified",
+        "history"
+      ]
+    },
+    {
+      "az_relevance": "Phoenix Sky Harbor, restricted airspace over military ranges",
+      "full_name": "Federal Aviation Administration",
+      "id": "faa",
+      "name": "FAA",
+      "parent": "DOT",
+      "topics": [
+        "aviation"
+      ]
+    },
+    {
+      "az_relevance": "Phoenix NWS office, monsoon tracking, heat advisories",
+      "full_name": "National Oceanic & Atmospheric Administration",
+      "id": "noaa",
+      "name": "NOAA",
+      "parent": "DOC",
+      "topics": [
+        "weather"
+      ]
+    },
+    {
+      "az_relevance": "Bureau of Reclamation (Hoover Dam, CAP), BLM lands, tribal trust",
+      "full_name": "Department of the Interior",
+      "id": "doi",
+      "name": "DOI",
+      "parent": null,
+      "topics": [
+        "water",
+        "tribal",
+        "energy"
+      ]
+    },
+    {
+      "az_relevance": "Superfund sites, water quality enforcement, mine tailings",
+      "full_name": "Environmental Protection Agency",
+      "id": "epa",
+      "name": "EPA",
+      "parent": null,
+      "topics": [
+        "water",
+        "infra"
+      ]
+    },
+    {
+      "az_relevance": "Detention facilities, enforcement operations in AZ",
+      "full_name": "Immigration & Customs Enforcement",
+      "id": "ice",
+      "name": "ICE",
+      "parent": "DHS",
+      "topics": [
+        "border",
+        "law"
+      ]
+    }
+  ]
+}

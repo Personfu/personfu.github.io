@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-05-16T11:35:50.847707Z",
+  "items": [
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:32AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:32:00-08:00",
+      "summary": "Coastal Waters Forecast for Yakutat Bay\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds. Seas 4 ft.\n.TONIGHT...SE wind 10 kt becoming E 25 kt late. Seas 5 ft.\n.SUN...E wind 25 kt. Seas 10 ft. Rain.\n.SUN NIGHT...E wind 20 kt. Seas 11 ft. S swell. Rain showers.\n.MON...S wind 15 kt. Seas 8 ft.\n.TUE...E wind 20 kt. Seas 6 ft.\n.WED...E wind 20 kt. Seas 7 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Yakutat Bay"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:32AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:32:00-08:00",
+      "summary": "Offshore waters forecast for Gulf of Alaska east of 144W\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Winds light increasing to SE 20 kt. Seas 6 ft or less\nthen 6 ft in the afternoon.\n.TONIGHT...SE wind 25 kt increasing to 35 kt. Seas 8 ft building\nto 13 ft late. Rain late.\n.SUN...SE wind 35 kt becoming SW 15 kt in the afternoon. Seas 15\nft. Rain in the morni",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Gulf of Alaska North of 57 Degrees North and East of 144 W"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 16 at 10:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 20 to\n25 kt expected. For the Gale Warning, southeast winds 35 to 45 and\nseas 18 to 23 ft expected. For the second Small Craft Advisory,\nsouthwest winds 20 to 30 kt and seas 11 to 16 ft expected.\n\n* WHERE...Icy Cape to Cape Suckling from 15 to 80 NM.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM to 10 PM\nAKDT this evening. For the Gale Warning, from 10 PM this\nevening to 7 PM AKDT Sunday. For the second Small Craft\nAdvisory, ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Icy Cape to Cape Suckling from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 18 at 4:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...South winds 15 to 25 kt and seas 10 to 15 ft expected.\n\n* WHERE...Yakutat Bay and Dixon Entrance to Cape Decision from\n15 to 90 NM.\n\n* WHEN...From 4 AM Sunday to 4 AM AKDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Yakutat Bay; Dixon Entrance to Cape Decision from 15 to 90 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 18 at 4:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 20 to\n30 kt expected. For the Gale Warning, east winds 30 to 40 kt and\nseas 10 to 15 ft expected. For the second Small Craft Advisory,\neast winds 25 to 30 kt with gusts up to 40 kt and seas 11 to 16\nft expected.\n\n* WHERE...Cape Spencer to Cape Fairweather out to 15 NM.\n\n* WHEN...For the first Small Craft Advisory, from 1 AM to 7 AM\nAKDT Sunday. For the Gale Warning, from 7 AM to 4 PM AKDT\nSunday. For the second Small Craft Advisory, fr",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Spencer to Cape Fairweather out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 18 at 4:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 15 to\n25 kt expected. For the Gale Warning, east winds 35 to 45 kt\nwith gusts up to 55 kt and seas 18 to 23 ft expected. For the\nsecond Small Craft Advisory, seas 9 to 14 ft expected.\n\n* WHERE...Icy Cape to Cape Suckling out to 15 NM.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM to 10 PM\nAKDT this evening. For the Gale Warning, from 10 PM this\nevening to 10 PM AKDT Sunday. For the second Small Craft\nAdvisory, from 10 PM Sund",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Icy Cape to Cape Suckling out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 18 at 4:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...Southeast winds 20 to 30 kt and seas 11 to 16 ft\nexpected.\n\n* WHERE...Cross Sound, Dixon Entrance to Cape Decision out to 15\nNM, Cape Decision to Cape Edgecumbe out to 15 NM and Cape\nEdgecumbe to Cape Spencer out to 15 NM.\n\n* WHEN...From 7 AM Sunday to 4 AM AKDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cross Sound; Dixon Entrance to Cape Decision out to 15 NM; Cape Decision to Cape Edgecumbe out to 15 NM; Cape Edgecumbe to Cape Spencer out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 18 at 4:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...Southeast winds 15 to 25 kt and seas 7 to 10 ft\nexpected.\n\n* WHERE...Clarence Strait.\n\n* WHEN...From 7 PM Sunday to 4 AM AKDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Clarence Strait"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 18 at 4:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 15\nto 25 kt expected. For the Gale Warning, east winds 35 to 45\nkt and seas 11 to 16 ft expected. For the second Small Craft\nAdvisory, southeast winds 25 to 30 kt and seas 11 to 16 ft\nexpected.\n\n* WHERE...Cape Fairweather to Icy Cape out to 15 NM.\n\n* WHEN...For the first Small Craft Advisory, from 10 PM this\nevening to 1 AM AKDT Sunday. For the Gale Warning, from 1 AM\nto 4 PM AKDT Sunday. For the second Small Craft Advisory, from\n4 PM ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Fairweather to Icy Cape out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 18 at 4:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 15 to\n25 kt expected. For the Gale Warning, southeast winds 30 to 40\nkt and seas 14 to 19 ft expected. For the second Small Craft\nAdvisory, south winds 25 to 30 kt with gusts up to 40 kt and\nseas 13 to 18 ft expected.\n\n* WHERE...Cape Fairweather to Icy Cape from 15 to 80 NM.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM this\nevening to 1 AM AKDT Sunday. For the Gale Warning, from 1 AM\nto 4 PM AKDT Sunday. For the second Small",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Fairweather to Icy Cape from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds becoming SW 10 kt in the afternoon. Seas\n5 ft.\n.TONIGHT...Light winds becoming E 15 kt late. Seas 4 ft.\n.SUN...E wind 25 kt. Seas 8 ft. Rain.\n.SUN NIGHT...E wind 20 kt. Seas 9 ft. SW swell. Rain.\n.MON...SW wind 15 kt. Seas 8 ft.\n.TUE...SE win",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cross Sound"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...W wind 10 kt early in the morning becoming light. Seas\n6 ft. W swell early in the morning.\n.TONIGHT...S wind 15 kt becoming SE 25 kt late. Seas 7 ft.\n.SUN...SE wind 25 kt. Seas 13 ft. Rain.\n.SUN NIGHT...W wind 25 kt. Seas 12 ft. W swel",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision from 15 to 90 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds. Seas 5 ft.\n.TONIGHT...SE wind 15 kt. Seas 6 ft.\n.SUN...SE wind 25 kt. Seas 11 ft building to 15 ft in the\nafternoon. Rain.\n.SUN NIGHT...SE wind 25 kt. Seas 14 ft. Rain.\n.MON...W wind 10 kt. Seas 10 ft.\n.TUE...S wind 15 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Edgecumbe to Cape Spencer out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:31AM AKDT until May 17 at 10:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 15 to\n25 kt expected. For the Gale Warning, east winds 35 to 45 kt\nwith gusts up to 55 kt and seas 18 to 23 ft expected. For the\nsecond Small Craft Advisory, seas 9 to 14 ft expected.\n\n* WHERE...Icy Cape to Cape Suckling out to 15 NM.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM to 10 PM\nAKDT this evening. For the Gale Warning, from 10 PM this\nevening to 10 PM AKDT Sunday. For the second Small Craft\nAdvisory, from 10 PM Sund",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Icy Cape to Cape Suckling out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds becoming S 10 kt in the afternoon. Seas\n6 ft.\n.TONIGHT...SE wind increasing to 25 kt. Seas 6 ft building to 10\nft late. Rain late.\n.SUN...SE wind 30 kt. Seas 17 ft. Rain.\n.SUN NIGHT...W wind 25 kt. Seas 15 ft.\n.MON...W wind",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Edgecumbe to Cape Spencer from 15 to 80 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:31AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds becoming SE 15 kt. Seas 5 ft.\n.TONIGHT...SE wind 30 kt becoming E 40 kt late. Seas 8 ft\nbuilding to 17 ft late. Rain late.\n.SUN...E gale to 45 kt decreasing to 30 kt. Seas 22 ft. Rain in\nthe morning.\n.SUN NIGHT...SW wind 25",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Icy Cape to Cape Suckling from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 16 at 10:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 15 to\n25 kt expected. For the Gale Warning, east winds 35 to 45 kt\nwith gusts up to 55 kt and seas 18 to 23 ft expected. For the\nsecond Small Craft Advisory, seas 9 to 14 ft expected.\n\n* WHERE...Icy Cape to Cape Suckling out to 15 NM.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM to 10 PM\nAKDT this evening. For the Gale Warning, from 10 PM this\nevening to 10 PM AKDT Sunday. For the second Small Craft\nAdvisory, from 10 PM Sund",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Icy Cape to Cape Suckling out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 18 at 4:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...South winds 20 to 30 kt and seas 13 to 18 ft expected.\n\n* WHERE...Cape Decision to Cape Edgecumbe from 15 to 80 NM.\n\n* WHEN...From 1 AM Sunday to 4 AM AKDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Decision to Cape Edgecumbe from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 17 at 1:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 15\nto 25 kt expected. For the Gale Warning, east winds 35 to 45\nkt and seas 11 to 16 ft expected. For the second Small Craft\nAdvisory, southeast winds 25 to 30 kt and seas 11 to 16 ft\nexpected.\n\n* WHERE...Cape Fairweather to Icy Cape out to 15 NM.\n\n* WHEN...For the first Small Craft Advisory, from 10 PM this\nevening to 1 AM AKDT Sunday. For the Gale Warning, from 1 AM\nto 4 PM AKDT Sunday. For the second Small Craft Advisory, from\n4 PM ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Fairweather to Icy Cape out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 17 at 1:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 15 to\n25 kt expected. For the Gale Warning, southeast winds 30 to 40\nkt and seas 14 to 19 ft expected. For the second Small Craft\nAdvisory, south winds 25 to 30 kt with gusts up to 40 kt and\nseas 13 to 18 ft expected.\n\n* WHERE...Cape Fairweather to Icy Cape from 15 to 80 NM.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM this\nevening to 1 AM AKDT Sunday. For the Gale Warning, from 1 AM\nto 4 PM AKDT Sunday. For the second Small",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Fairweather to Icy Cape from 15 to 80 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:31AM AKDT until May 17 at 7:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 20 to\n30 kt and seas 6 to 9 ft expected. For the Gale Warning,\nsoutheast winds 30 to 40 and seas 14 to 19 ft expected. For the\nsecond Small Craft Advisory, southwest winds 25 to 30 kt and\nseas 12 to 17 ft expected.\n\n* WHERE...Cape Spencer to Cape Fairweather from 15 to 85 NM.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM this\nevening to 4 AM AKDT Sunday. For the Gale Warning, from 4 AM\nto 7 PM AKDT Sunday. For the second Smal",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Spencer to Cape Fairweather from 15 to 85 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:31AM AKDT until May 17 at 7:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 20 to\n25 kt expected. For the Gale Warning, southeast winds 35 to 45 and\nseas 18 to 23 ft expected. For the second Small Craft Advisory,\nsouthwest winds 20 to 30 kt and seas 11 to 16 ft expected.\n\n* WHERE...Icy Cape to Cape Suckling from 15 to 80 NM.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM to 10 PM\nAKDT this evening. For the Gale Warning, from 10 PM this\nevening to 7 PM AKDT Sunday. For the second Small Craft\nAdvisory, ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Icy Cape to Cape Suckling from 15 to 80 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:31AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds. Seas 5 ft.\n.TONIGHT...SE wind 15 kt increasing to 30 kt late. Seas 6 ft.\n.SUN...E gale to 40 kt. Seas 11 ft building to 16 ft in the\nafternoon. Rain.\n.SUN NIGHT...E gale to 35 kt. Seas 15 ft. Rain.\n.MON...W wind 10 kt. Sea",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Spencer to Cape Fairweather out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...SW wind 10 kt. Seas 6 ft.\n.TONIGHT...SE wind 20 kt increasing to 25 kt late. Seas 7 ft.\n.SUN...SE wind 30 kt. Seas 16 ft. Rain.\n.SUN NIGHT...W wind 25 kt. Seas 14 ft.\n.MON...W wind 15 kt. Seas 10 ft.\n.TUE...S wind 20 kt. Seas 8 ft.\n.WE",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Decision to Cape Edgecumbe from 15 to 80 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:31AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds becoming S 10 kt in the afternoon. Seas\n5 ft.\n.TONIGHT...SE wind 25 kt increasing to 35 kt late. Seas 9 ft.\n.SUN...SE gale to 35 kt. Seas 15 ft building to 19 ft in the\nafternoon. Rain.\n.SUN NIGHT...W wind 30 kt. Seas 16 ft",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Spencer to Cape Fairweather from 15 to 85 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:31AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds becoming SE 15 kt. Seas 5 ft.\n.TONIGHT...SE wind 25 kt increasing to 35 kt late. Seas 7 ft\nbuilding to 13 ft late. Rain late.\n.SUN...SE gale to 40 kt. Seas 18 ft. Rain.\n.SUN NIGHT...SW wind 30 kt. Seas 17 ft.\n.MON...S wind ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Fairweather to Icy Cape from 15 to 80 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:31AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds becoming S 10 kt in the afternoon. Seas\n4 ft.\n.TONIGHT...SE wind 25 kt becoming E 35 kt late. Seas 8 ft.\n.SUN...E gale to 35 kt. Seas 15 ft. Rain.\n.SUN NIGHT...SE wind 30 kt. Seas 15 ft. Rain.\n.MON...SW wind 20 kt. Seas 9 f",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Fairweather to Icy Cape out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...W wind 10 kt. Seas 6 ft.\n.TONIGHT...SE wind 15 kt. Seas 6 ft.\n.SUN...SE wind 25 kt. Seas 11 ft building to 15 ft in the\nafternoon. Rain.\n.SUN NIGHT...SE wind 25 kt. Seas 14 ft. Rain.\n.MON...W wind 15 kt. Seas 10 ft.\n.TUE...S wind 15 kt",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Decision to Cape Edgecumbe out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:31AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds becoming SE 20 kt. Seas 4 ft.\n.TONIGHT...E wind 30 kt increasing to 45 kt late. Seas 7 ft\nbuilding to 14 ft late.\n.SUN...E gale to 45 kt. Seas 22 ft. Rain.\n.SUN NIGHT...E gale to 35 kt. Seas 17 ft. Rain.\n.MON...SE wind 25 k",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Icy Cape to Cape Suckling out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 17 at 5:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...W wind 10 kt. Seas 6 ft. W swell early in the morning.\n.TONIGHT...SE wind 10 kt increasing to 20 kt. Seas 5 ft.\n.SUN...SE wind 25 kt. Seas 7 ft building to 12 ft. Rain in the\nafternoon.\n.SUN NIGHT...SE wind 25 kt. Seas 12 ft. Rain.\n.MO",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 18 at 4:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 20 to\n25 kt expected. For the Gale Warning, southeast winds 35 to 45 and\nseas 18 to 23 ft expected. For the second Small Craft Advisory,\nsouthwest winds 20 to 30 kt and seas 11 to 16 ft expected.\n\n* WHERE...Icy Cape to Cape Suckling from 15 to 80 NM.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM to 10 PM\nAKDT this evening. For the Gale Warning, from 10 PM this\nevening to 7 PM AKDT Sunday. For the second Small Craft\nAdvisory, ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Icy Cape to Cape Suckling from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 17 at 4:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 20 to\n30 kt and seas 6 to 9 ft expected. For the Gale Warning,\nsoutheast winds 30 to 40 and seas 14 to 19 ft expected. For the\nsecond Small Craft Advisory, southwest winds 25 to 30 kt and\nseas 12 to 17 ft expected.\n\n* WHERE...Cape Spencer to Cape Fairweather from 15 to 85 NM.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM this\nevening to 4 AM AKDT Sunday. For the Gale Warning, from 4 AM\nto 7 PM AKDT Sunday. For the second Smal",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Spencer to Cape Fairweather from 15 to 85 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 17 at 7:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 20 to\n30 kt expected. For the Gale Warning, east winds 30 to 40 kt and\nseas 10 to 15 ft expected. For the second Small Craft Advisory,\neast winds 25 to 30 kt with gusts up to 40 kt and seas 11 to 16\nft expected.\n\n* WHERE...Cape Spencer to Cape Fairweather out to 15 NM.\n\n* WHEN...For the first Small Craft Advisory, from 1 AM to 7 AM\nAKDT Sunday. For the Gale Warning, from 7 AM to 4 PM AKDT\nSunday. For the second Small Craft Advisory, fr",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Spencer to Cape Fairweather out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:31AM AKDT until May 17 at 4:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 15 to\n25 kt expected. For the Gale Warning, southeast winds 30 to 40\nkt and seas 14 to 19 ft expected. For the second Small Craft\nAdvisory, south winds 25 to 30 kt with gusts up to 40 kt and\nseas 13 to 18 ft expected.\n\n* WHERE...Cape Fairweather to Icy Cape from 15 to 80 NM.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM this\nevening to 1 AM AKDT Sunday. For the Gale Warning, from 1 AM\nto 4 PM AKDT Sunday. For the second Small",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Fairweather to Icy Cape from 15 to 80 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:31AM AKDT until May 17 at 4:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 20 to\n30 kt expected. For the Gale Warning, east winds 30 to 40 kt and\nseas 10 to 15 ft expected. For the second Small Craft Advisory,\neast winds 25 to 30 kt with gusts up to 40 kt and seas 11 to 16\nft expected.\n\n* WHERE...Cape Spencer to Cape Fairweather out to 15 NM.\n\n* WHEN...For the first Small Craft Advisory, from 1 AM to 7 AM\nAKDT Sunday. For the Gale Warning, from 7 AM to 4 PM AKDT\nSunday. For the second Small Craft Advisory, fr",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Spencer to Cape Fairweather out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:31AM AKDT until May 17 at 4:00PM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 15\nto 25 kt expected. For the Gale Warning, east winds 35 to 45\nkt and seas 11 to 16 ft expected. For the second Small Craft\nAdvisory, southeast winds 25 to 30 kt and seas 11 to 16 ft\nexpected.\n\n* WHERE...Cape Fairweather to Icy Cape out to 15 NM.\n\n* WHEN...For the first Small Craft Advisory, from 10 PM this\nevening to 1 AM AKDT Sunday. For the Gale Warning, from 1 AM\nto 4 PM AKDT Sunday. For the second Small Craft Advisory, from\n4 PM ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Fairweather to Icy Cape out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 18 at 4:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...South winds 25 to 30 kt with gusts up to 40 kt and seas\n13 to 18 ft expected.\n\n* WHERE...Cape Edgecumbe to Cape Spencer from 15 to 80 NM.\n\n* WHEN...From 10 PM this evening to 4 AM AKDT Monday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Edgecumbe to Cape Spencer from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 18 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "Southeast Alaska Inside Waters from Dixon Entrance to Skagway\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...Light winds becoming NW 10 kt in the morning, then\nbecoming SW in the afternoon. Seas 2 ft or less, except 4 ft near\nocean entrances.\n.TONIGHT...SW wind 10 kt. Seas 2 ft or less, except 4 ft near\nocean entrances.\n.SUN...SE wind 20 kt. Seas 4 ft. Rain in ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Clarence Strait"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:31AM AKDT until May 18 at 4:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:31:00-08:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, southeast winds 20 to\n30 kt and seas 6 to 9 ft expected. For the Gale Warning,\nsoutheast winds 30 to 40 and seas 14 to 19 ft expected. For the\nsecond Small Craft Advisory, southwest winds 25 to 30 kt and\nseas 12 to 17 ft expected.\n\n* WHERE...Cape Spencer to Cape Fairweather from 15 to 85 NM.\n\n* WHEN...For the first Small Craft Advisory, from 7 PM this\nevening to 4 AM AKDT Sunday. For the Gale Warning, from 4 AM\nto 7 PM AKDT Sunday. For the second Smal",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Spencer to Cape Fairweather from 15 to 85 NM"
+    },
+    {
+      "title": "Special Weather Statement issued May 16 at 7:30AM EDT by NWS Detroit/Pontiac MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T07:30:00-04:00",
+      "summary": "At 729 AM EDT, Doppler radar was tracking a strong thunderstorm near\nPontiac, moving east at 45 mph.\n\nHAZARD...Half inch hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Minor damage to outdoor objects is possible.\n\nThis strong thunderstorm will be near...\nTroy, Sterling Heights, and Birmingham around 735 AM EDT.\nClinton Township around 745 AM EDT.\nMount Clemens around 750 AM EDT.\n\nOther locations impacted by this storm include Franklin, Keego\nHarbor, Roseville, Utica, Lathrup Village, Bingham Farms, ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Oakland; Macomb"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:27AM AKDT until May 17 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:27:00-08:00",
+      "summary": "Offshore waters forecast for the Gulf of Alaska West of 144W\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 15 to 30 kt. Seas 7 to 12 ft. Rain.\n.TONIGHT...S wind 20 to 35 kt. Seas 10 to 14 ft. Rain.\n.SUN...SW wind 15 to 25 kt. Seas 14 ft.\n.SUN NIGHT...SW wind 20 kt. Seas 10 to 13 ft.\n.MON THROUGH WED...SW wind 15 to 25 kt. Seas 8 to 12 ft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Gulf of Alaska Offshore South of 57N North of 55N and West of 144W"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:27AM AKDT until May 17 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:27:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 35 kt. Seas 7 ft building to 11 ft in the\nafternoon. Rain.\n.TONIGHT...E wind 40 kt. Seas 15 ft. Rain.\n.SUN...SW wind 20 kt. Seas 12 ft.\n.SUN NIGHT...SW wind 20 kt. Seas 11 ft.\n.MON THROUGH T",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Gore Point to Marmot Island from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:27AM AKDT until May 17 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:27:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 30 kt. Seas 11 ft. Rain.\n.TONIGHT...SE wind 30 kt becoming S 15 kt after midnight. Seas 10\nft subsiding to 2 ft after midnight. Rain.\n.SUN...S wind 15 kt. Seas 2 ft.\n.SUN NIGHT...S wind 15 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chiniak Bay"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:27AM AKDT until May 17 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:27:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 40 kt. Seas 12 ft. Rain.\n.TONIGHT...E wind 45 kt. Seas 13 ft. Rain.\n.SUN...SE wind 30 kt diminishing to 20 kt in the afternoon. Seas\n7 ft. Rain.\n.SUN NIGHT...SE wind 15 kt. Seas 4 ft.\n.MON..",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "West of Barren Islands Including Kamishak Bay"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:27AM AKDT until May 17 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:27:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 35 kt. Seas 12 ft. Rain.\n.TONIGHT...SW wind 20 kt. N of Dangerous Cape, SE wind 35 kt\nbecoming S 25 kt after midnight. Seas 12 ft. Rain.\n.SUN...SW wind 25 kt. Seas 10 ft.\n.SUN NIGHT...S win",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Marmot Island to Sitkinak out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:27AM AKDT until May 17 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:27:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 30 kt. Seas 6 ft.\n.TONIGHT...E wind 45 kt. Seas 14 ft. Rain.\n.SUN...SE wind 30 kt in the morning becoming variable 10 kt. Seas\n13 ft. Rain.\n.SUN NIGHT...Variable wind 10 kt. Seas 8 ft.\n.MON ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Cleare to Gore Point out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:27AM AKDT until May 17 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:27:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 25 kt. Seas 4 ft.\n.TONIGHT...E wind 35 kt. Seas 6 ft. Rain.\n.SUN...SE wind 15 kt in the morning becoming variable less than\n10 kt. Seas 2 ft. Rain.\n.SUN NIGHT...Variable wind less than 10 kt",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kachemak Bay"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:27AM AKDT until May 17 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:27:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 35 kt. Seas 9 ft. Rain.\n.TONIGHT...E wind 35 kt becoming SE 25 kt after midnight. Seas 8\nft subsiding to 5 ft after midnight. Rain.\n.SUN...SW wind 20 kt. Seas 5 ft.\n.SUN NIGHT...S wind 20 kt",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Shelikof Strait"
+    },
+    {
+      "title": "Gale Warning issued May 16 at 3:27AM AKDT until May 17 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:27:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 20 kt increasing to 30 kt in the afternoon. Seas\n7 ft.\n.TONIGHT...E wind 45 kt. Seas 15 ft. Rain.\n.SUN...S wind 20 kt. Seas 14 ft. Rain.\n.SUN NIGHT...S wind 15 kt. Seas 10 ft.\n.MON THROUGH T",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Cape Cleare to Gore Point from 15 to 75 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 16 at 3:27AM AKDT until May 17 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-16T03:27:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 30 kt. Seas 12 ft. Rain.\n.TONIGHT...E wind 30 kt becoming S 15 kt after midnight. Seas 12\nft subsiding to 3 ft after midnight. Rain.\n.SUN...S wind 15 kt diminishing to 10 kt in the afternoon",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marmot Bay"
+    }
+  ]
+}

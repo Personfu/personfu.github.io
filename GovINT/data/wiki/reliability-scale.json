@@ -1,0 +1,74 @@
+{
+  "scale": [
+    {
+      "class": "rel-verified",
+      "description": "Confirmed by official government records, court filings, or verified public databases.",
+      "id": "verified",
+      "label": "Verified Public Record",
+      "weight": 10
+    },
+    {
+      "class": "rel-official",
+      "description": "Published by a government agency in an official capacity.",
+      "id": "official",
+      "label": "Official Statement",
+      "weight": 9
+    },
+    {
+      "class": "rel-archived",
+      "description": "Preserved journalism or public records from a credible outlet.",
+      "id": "archived",
+      "label": "Archived Reporting",
+      "weight": 8
+    },
+    {
+      "class": "rel-declassified",
+      "description": "Appears in a declassified government document via FOIA or mandatory review.",
+      "id": "declassified",
+      "label": "Declassified Mention",
+      "weight": 7
+    },
+    {
+      "class": "rel-witness",
+      "description": "First-person testimony from a named or credible witness.",
+      "id": "witness",
+      "label": "Witness Account",
+      "weight": 5
+    },
+    {
+      "class": "rel-media",
+      "description": "Reported by media but not independently verified by this wiki.",
+      "id": "media",
+      "label": "Media Claim",
+      "weight": 4
+    },
+    {
+      "class": "rel-folklore",
+      "description": "Community tradition, legend, or oral account without documentation.",
+      "id": "folklore",
+      "label": "Folklore / Oral History",
+      "weight": 3
+    },
+    {
+      "class": "rel-disputed",
+      "description": "Conflicting evidence or credible counter-claims exist.",
+      "id": "disputed",
+      "label": "Disputed",
+      "weight": 2
+    },
+    {
+      "class": "rel-hoax",
+      "description": "Demonstrated to be false, fabricated, or a deliberate hoax.",
+      "id": "hoax",
+      "label": "Hoax / Debunked",
+      "weight": 1
+    },
+    {
+      "class": "rel-unresolved",
+      "description": "Insufficient evidence to confirm or deny. Open question.",
+      "id": "unresolved",
+      "label": "Unresolved",
+      "weight": 0
+    }
+  ]
+}

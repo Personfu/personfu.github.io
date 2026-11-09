@@ -1,0 +1,508 @@
+{
+  "fetched_at": "2026-03-24T08:00:34.225798Z",
+  "items": [
+    {
+      "title": "CVE-2025-32432 \u2014 Craft CMS Craft CMS",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-32432",
+      "published": "2026-03-20",
+      "summary": "Craft CMS contains a code injection vulnerability that allows a remote attacker to execute arbitrary code.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-54068 \u2014 Laravel Livewire",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-54068",
+      "published": "2026-03-20",
+      "summary": "Laravel Livewire contain a code injection vulnerability that could allow unauthenticated attackers to achieve remote command execution in specific scenarios.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-43510 \u2014 Apple Multiple Products",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-43510",
+      "published": "2026-03-20",
+      "summary": "Apple watchOS, iOS, iPadOS, macOS, visionOS, and tvOS contain an improper locking vulnerability that could allow a malicious application to cause unexpected changes in memory shared between processes.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-43520 \u2014 Apple Multiple Products",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-43520",
+      "published": "2026-03-20",
+      "summary": "Apple watchOS, iOS, iPadOS, macOS, visionOS, tvOS, and iPadOS contain a classic buffer overflow vulnerability which could allow a malicious application to cause unexpected system termination or write kernel memory.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-31277 \u2014 Apple Multiple Products",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-31277",
+      "published": "2026-03-20",
+      "summary": "Apple Safari, iOS, watchOS, visionOS, iPadOS, macOS, and tvOS contain a buffer overflow vulnerability that could allow the processing of maliciously crafted web content which may lead to memory corruption.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-20131 \u2014 Cisco Secure Firewall Management Center (FMC)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-20131",
+      "published": "2026-03-19",
+      "summary": "Cisco Secure Firewall Management Center (FMC) Software and Cisco Security Cloud Control (SCC) Firewall Management contain a deserialization of untrusted data vulnerability in the web-based management interface that could allow an unauthenticated, remote attacker to execute arbitrary Java code as root on an affected device.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity",
+        "ransomware"
+      ]
+    },
+    {
+      "title": "CVE-2025-66376 \u2014 Synacor Zimbra Collaboration Suite (ZCS)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-66376",
+      "published": "2026-03-18",
+      "summary": "Synacor Zimbra Collaboration Suite (ZCS) contains a cross-site scripting vulnerability in the Classic UI where attackers could abuse Cascading Style Sheets (CSS) @import directives in email HTML.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-20963 \u2014 Microsoft SharePoint",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-20963",
+      "published": "2026-03-18",
+      "summary": "Microsoft SharePoint contains a deserialization of untrusted data vulnerability that allows an unauthorized attacker to execute code over a network.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-47813 \u2014 Wing FTP Server Wing FTP Server",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-47813",
+      "published": "2026-03-16",
+      "summary": "Wing FTP Server contains a generation of error message containing sensitive information vulnerability when using a long value in the UID cookie.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-3910 \u2014 Google Chromium V8",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-3910",
+      "published": "2026-03-13",
+      "summary": "Google Chromium V8 contains an improper restriction of operations within the bounds of a memory buffer vulnerability that could allow a remote attacker to execute arbitrary code inside a sandbox via a crafted HTML page. This vulnerability could affect multiple web browsers that utilize Chromium, including, but not limited to, Google Chrome, Microsoft Edge, and Opera.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-3909 \u2014 Google Skia",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-3909",
+      "published": "2026-03-13",
+      "summary": "Google Skia contains an out-of-bounds write vulnerability that could allow a remote attacker to perform out of bounds memory access via a crafted HTML page. This vulnerability affects Google Chrome and ChromeOS, Android, Flutter, and possibly other products.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-68613 \u2014 n8n n8n",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-68613",
+      "published": "2026-03-11",
+      "summary": "n8n contains an improper control of dynamically managed code resources vulnerability in its workflow expression evaluation system that allows for remote code execution.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2021-22054 \u2014 Omnissa Workspace One UEM",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-22054",
+      "published": "2026-03-09",
+      "summary": "Omnissa Workspace One UEM formerly known as VMware Workspace One UEM contains a server-side request forgery (SSRF) vulnerability that could allow a malicious actor with network access to UEM to send their requests without authentication and to gain access to sensitive information.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-26399 \u2014 SolarWinds Web Help Desk",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-26399",
+      "published": "2026-03-09",
+      "summary": "SolarWinds Web Help Desk contain a deserialization of untrusted data vulnerability in AjaxProxy that could allow an attacker to run commands on the host machine.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-1603 \u2014 Ivanti  Endpoint Manager (EPM)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-1603",
+      "published": "2026-03-09",
+      "summary": "Ivanti Endpoint Manager (EPM) contains an authentication bypass using an alternate path or channel vulnerability that could allow a remote unauthenticated attacker to leak specific stored credential data.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2017-7921 \u2014 Hikvision Multiple Products",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2017-7921",
+      "published": "2026-03-05",
+      "summary": "Multiple Hikvision products contain an improper authentication vulnerability that could allow a malicious user to escalate privileges on the system and gain access to sensitive information.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2021-22681 \u2014 Rockwell Multiple Products",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-22681",
+      "published": "2026-03-05",
+      "summary": "Multiple Rockwell products contain an insufficient protected credentials vulnerability. Studio 5000 Logix Designer software may allow a key to be discovered. This key is used to verify Logix controllers are communicating with Rockwell Automation design software. If successfully exploited, this vulnerability could allow an unauthorized application to connect with Logix controllers. To leverage this vulnerability, an unauthorized user would require network access to the controller.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2023-43000 \u2014 Apple Multiple Products",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-43000",
+      "published": "2026-03-05",
+      "summary": "Apple macOS, iOS, iPadOS, and Safari 16.6 contain a use-after-free vulnerability due to the processing of maliciously crafted web content that may lead to memory corruption.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2021-30952 \u2014 Apple Multiple Products",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-30952",
+      "published": "2026-03-05",
+      "summary": "Apple tvOS, macOS, Safari, iPadOS and watchOS contain an integer overflow or wraparound vulnerability due to the processing of maliciously crafted web content that may lead to arbitrary code execution.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2023-41974 \u2014 Apple iOS and iPadOS",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2023-41974",
+      "published": "2026-03-05",
+      "summary": "Apple iOS and iPadOS contain a use-after-free vulnerability. An app may be able to execute arbitrary code with kernel privileges.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-22719 \u2014 Broadcom VMware Aria Operations",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-22719",
+      "published": "2026-03-03",
+      "summary": "Broadcom VMware Aria Operations formerly known as vRealize Operations (vROps) contains a command injection vulnerability that allows an unauthenticated attacker to execute arbitrary commands, potentially leading to remote code execution during support\u2011assisted product migration.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-21385 \u2014 Qualcomm Multiple Chipsets",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21385",
+      "published": "2026-03-03",
+      "summary": "Multiple Qualcomm chipsets contain a memory corruption vulnerability while using alignments for memory allocation. ",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2022-20775 \u2014 Cisco SD-WAN",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2022-20775",
+      "published": "2026-02-25",
+      "summary": "Cisco SD-WAN CLI contains a path traversal vulnerability that could allow an authenticated local attacker to gain elevated privileges via improper access controls on commands within the application CLI. A successful exploit could allow the attacker to execute arbitrary commands as the root user.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-20127 \u2014 Cisco Catalyst SD-WAN Controller and Manager",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-20127",
+      "published": "2026-02-25",
+      "summary": "Cisco Catalyst SD-WAN Controller, formerly SD-WAN vSmart, and Cisco Catalyst SD-WAN Manager, formerly SD-WAN vManage, contain an authentication bypass vulnerability could allow an unauthenticated, remote attacker to bypass authentication and obtain administrative privileges on an affected system. This vulnerability exists because the peering authentication mechanism in an affected system is not working properly. An attacker could exploit this vulnerability by sending crafted requests to an affec",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-25108 \u2014 Soliton Systems K.K FileZen",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-25108",
+      "published": "2026-02-24",
+      "summary": "Soliton Systems K.K FileZen contains an OS command injection vulnerability when an user logs-in to the affected product and sends a specially crafted HTTP request.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-49113 \u2014 Roundcube Webmail",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-49113",
+      "published": "2026-02-20",
+      "summary": "RoundCube Webmail contains a deserialization of untrusted data vulnerability that allows remote code execution by authenticated users because the _from parameter in a URL is not validated in program/actions/settings/upload.php.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-68461 \u2014 Roundcube Webmail",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-68461",
+      "published": "2026-02-20",
+      "summary": "RoundCube Webmail contains a cross-site scripting vulnerability via the animate tag in an SVG document.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2021-22175 \u2014 GitLab GitLab",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-22175",
+      "published": "2026-02-18",
+      "summary": "GitLab contains a server-side request forgery (SSRF) vulnerability when requests to the internal network for webhooks are enabled.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-22769 \u2014 Dell RecoverPoint for Virtual Machines (RP4VMs)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-22769",
+      "published": "2026-02-18",
+      "summary": "Dell RecoverPoint for Virtual Machines (RP4VMs) contains an use of hard-coded credentials vulnerability that could allow an unauthenticated remote attacker to gain unauthorized access to the underlying operating system and root-level persistence.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2020-7796 \u2014 Synacor Zimbra Collaboration Suite",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-7796",
+      "published": "2026-02-17",
+      "summary": "Synacor Zimbra Collaboration Suite (ZCS) contains a server-side request forgery vulnerability if WebEx zimlet installed and zimlet JSP is enabled.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2024-7694 \u2014 TeamT5 ThreatSonar Anti-Ransomware",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-7694",
+      "published": "2026-02-17",
+      "summary": "TeamT5 ThreatSonar Anti-Ransomware contains an unrestricted upload of file with dangerous type vulnerability. ThreatSonar Anti-Ransomware does not properly validate the content of uploaded files. Remote attackers with administrator privileges on the product platform can upload malicious files, which can be used to execute arbitrary system commands on the server.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2008-0015 \u2014 Microsoft Windows",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2008-0015",
+      "published": "2026-02-17",
+      "summary": "Microsoft Windows Video ActiveX Control contains a remote code execution vulnerability. An attacker could exploit the vulnerability by constructing a specially crafted Web page. When a user views the Web page, the vulnerability could allow remote code execution. An attacker who successfully exploited this vulnerability could gain the same user rights as the logged-on user.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-2441 \u2014 Google Chromium",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-2441",
+      "published": "2026-02-17",
+      "summary": "Google Chromium CSS contains a use-after-free vulnerability that could allow a remote attacker to potentially exploit heap corruption via a crafted HTML page. This vulnerability could affect multiple web browsers that utilize Chromium, including, but not limited to, Google Chrome, Microsoft Edge, and Opera.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-1731 \u2014 BeyondTrust Remote Support (RS) and Privileged Remote Access (PRA)",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-1731",
+      "published": "2026-02-13",
+      "summary": "BeyondTrust Remote Support (RS) and Privileged Remote Access (PRA)contain an OS command injection vulnerability. Successful exploitation could allow an unauthenticated remote attacker to execute operating system commands in the context of the site user. Successful exploitation requires no authentication or user interaction and may lead to system compromise, including unauthorized access, data exfiltration, and service disruption.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity",
+        "ransomware"
+      ]
+    },
+    {
+      "title": "CVE-2026-20700 \u2014 Apple Multiple Products",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-20700",
+      "published": "2026-02-12",
+      "summary": "Apple iOS, macOS, tvOS, watchOS, and visionOS contain an improper restriction of operations within the bounds of a memory buffer vulnerability that could allow an attacker with memory write the capability to execute arbitrary code.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2024-43468 \u2014 Microsoft Configuration Manager",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-43468",
+      "published": "2026-02-12",
+      "summary": "Microsoft Configuration Manager contains an SQL injection vulnerability. An unauthenticated attacker could exploit this vulnerability by sending specially crafted requests to the target environment which are processed in an unsafe manner enabling the attacker to execute commands on the server and/or underlying database.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-15556 \u2014 Notepad++ Notepad++",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-15556",
+      "published": "2026-02-12",
+      "summary": "Notepad++ when using the WinGUp updater, contains a download of code without integrity check vulnerability that could allow an attacker to intercept or redirect update traffic to download and execute an attacker-controlled installer. This could lead to arbitrary code execution with the privileges of the user.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-40536 \u2014 SolarWinds Web Help Desk",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-40536",
+      "published": "2026-02-12",
+      "summary": "SolarWinds Web Help Desk contains a security control bypass vulnerability that could allow an unauthenticated attacker to gain access to certain restricted functionality.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-21513 \u2014 Microsoft Windows",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21513",
+      "published": "2026-02-10",
+      "summary": "Microsoft MSHTML Framework contains a protection mechanism failure vulnerability that could allow an unauthorized attacker to bypass a security feature over a network.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-21525 \u2014 Microsoft Windows",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21525",
+      "published": "2026-02-10",
+      "summary": "Microsoft Windows Remote Access Connection Manager contains a NULL pointer dereference that could allow an unauthorized attacker to deny service locally.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-21510 \u2014 Microsoft Windows",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21510",
+      "published": "2026-02-10",
+      "summary": "Microsoft Windows Shell contains a protection mechanism failure vulnerability that could allow an unauthorized attacker to bypass a security feature over a network. ",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-21533 \u2014 Microsoft Windows",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21533",
+      "published": "2026-02-10",
+      "summary": "Microsoft Windows Remote Desktop Services contains an improper privilege management vulnerability that could allow an authorized attacker to elevate privileges locally.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-21519 \u2014 Microsoft Windows",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21519",
+      "published": "2026-02-10",
+      "summary": "Microsoft Desktop Windows Manager contains a type confusion vulnerability that could allow an authorized attacker to elevate privileges locally.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-21514 \u2014 Microsoft Office",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-21514",
+      "published": "2026-02-10",
+      "summary": "Microsoft Office Word contains a reliance on untrusted inputs in a security decision vulnerability that could allow an authorized attacker to elevate privileges locally.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-11953 \u2014 React Native Community CLI",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-11953",
+      "published": "2026-02-05",
+      "summary": "React Native Community CLI contains an OS command injection vulnerability which could allow unauthenticated network attackers to send POST requests to the Metro Development Server and run arbitrary executables via a vulnerable endpoint exposed by the server. On Windows, attackers can also execute arbitrary shell commands with fully controlled arguments.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2026-24423 \u2014 SmarterTools SmarterMail",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-24423",
+      "published": "2026-02-05",
+      "summary": "SmarterTools SmarterMail contains a missing authentication for critical function vulnerability in the ConnectToHub API method. This could allow the attacker to point the SmarterMail instance to a malicious HTTP server which serves the malicious OS command and could lead to command execution. ",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity",
+        "ransomware"
+      ]
+    },
+    {
+      "title": "CVE-2021-39935 \u2014 GitLab Community and Enterprise Editions",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2021-39935",
+      "published": "2026-02-03",
+      "summary": "GitLab Community and Enterprise Editions contain a server-side request forgery vulnerability which could allow unauthorized external users to perform Server Side Requests via the CI Lint API. ",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-64328 \u2014 Sangoma FreePBX ",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-64328",
+      "published": "2026-02-03",
+      "summary": "Sangoma FreePBX Endpoint Manager contains an OS command injection vulnerability that could allow for a post-authentication command injection by an authenticated known user via the testconnection -> check_ssh_connect() function. An attacker can leverage this vulnerability to potentially obtain remote access to the system as an asterisk user. ",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2019-19006 \u2014 Sangoma FreePBX",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2019-19006",
+      "published": "2026-02-03",
+      "summary": "Sangoma FreePBX contains an improper authentication vulnerability that potentially allows unauthorized users to bypass password authentication and access services provided by the FreePBX admin.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CVE-2025-40551 \u2014 SolarWinds Web Help Desk",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-40551",
+      "published": "2026-02-03",
+      "summary": "SolarWinds Web Help Desk contains a deserialization of untrusted data vulnerability that could lead to remote code execution, which would allow an attacker to run commands on the host machine. This could be exploited without authentication.",
+      "source": "CISA-KEV",
+      "tags": [
+        "cybersecurity"
+      ]
+    }
+  ]
+}

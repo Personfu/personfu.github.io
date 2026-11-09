@@ -1,0 +1,70 @@
+{
+  "date": "2026-06-10",
+  "fetched_at": "2026-06-10T12:26:30.540742Z",
+  "total_items": 150,
+  "summary": "GOVINT collected 150 items from 4 sources on 2026-06-10.",
+  "source_counts": {
+    "NWS": 50,
+    "CISA-KEV": 50,
+    "CISA": 40,
+    "DHS": 10
+  },
+  "category_counts": {
+    "cybersecurity": 100,
+    "public-safety": 60,
+    "weather": 50,
+    "ransomware": 9
+  },
+  "notable": [
+    {
+      "title": "Flood Advisory issued June 10 at 8:25AM EDT until June 10 at 10:15AM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "source": "NWS"
+    },
+    {
+      "title": "Special Weather Statement issued June 10 at 8:23AM EDT by NWS Charleston WV",
+      "url": "http://www.weather.gov",
+      "source": "NWS"
+    },
+    {
+      "title": "Severe Thunderstorm Warning issued June 10 at 7:18AM CDT until June 10 at 8:15AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "source": "NWS"
+    },
+    {
+      "title": "Special Marine Warning issued June 10 at 8:17AM EDT until June 10 at 9:00AM EDT by NWS Key West FL",
+      "url": "http://www.weather.gov",
+      "source": "NWS"
+    },
+    {
+      "title": "Special Weather Statement issued June 10 at 8:13AM EDT by NWS Charleston WV",
+      "url": "http://www.weather.gov",
+      "source": "NWS"
+    },
+    {
+      "title": "Severe Thunderstorm Warning issued June 10 at 7:08AM CDT until June 10 at 7:30AM CDT by NWS La Crosse WI",
+      "url": "http://www.weather.gov",
+      "source": "NWS"
+    },
+    {
+      "title": "Special Weather Statement issued June 10 at 8:04AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "source": "NWS"
+    },
+    {
+      "title": "Special Weather Statement issued June 10 at 7:55AM EDT by NWS Charleston WV",
+      "url": "http://www.weather.gov",
+      "source": "NWS"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 3:48AM AKDT until June 11 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "source": "NWS"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 3:48AM AKDT until June 11 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "source": "NWS"
+    }
+  ]
+}

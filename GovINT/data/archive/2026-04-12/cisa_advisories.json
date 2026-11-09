@@ -1,0 +1,405 @@
+{
+  "fetched_at": "2026-04-12T11:28:37.587633Z",
+  "items": [
+    {
+      "title": "Contemporary Controls BASC 20T",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-099-01",
+      "published": "Thu, 09 Apr 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-099-01.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of this vulnerability could allow an attacker to enumerate the functionality of each component associated with the PLC, reconfigure, rename, delete, perform file transfers, and make remote procedure calls.</strong></p>\n<p>The following versions of Contemporary Controls BASC 20T are affected:</p>\n<ul>\n<li>BASC",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "GPL Odorizers GPL750",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-099-02",
+      "published": "Thu, 09 Apr 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-099-02.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of this vulnerability could allow a low privileged remote attacker to manipulate register values, which would result in too much or too little odorant being injected into a gas line.</strong></p>\n<p>The following versions of GPL Odorizers GPL750 are affected:</p>\n<ul>\n<li>GPL750 (XL4) &gt;=v1.0|</li>\n<li>GPL7",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/04/08/cisa-adds-one-known-exploited-vulnerability-catalog",
+      "published": "Wed, 08 Apr 26 12:00:00 +0000",
+      "summary": "<p>CISA has added one new vulnerability to its <a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\" title=\"Known Exploited Vulnerabilities Catalog\">Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.</p>\n<ul>\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2026-1340\" target=\"_blank\">CVE-2026-1340</a> Ivanti Endpoint Manager Mobile (EPMM) Code Injection Vulnerability</li>\n</ul>\n<p>This type of vulnerability is a frequent attack vector f",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Mitsubishi Electric GENESIS64 and ICONICS Suite products",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-097-01",
+      "published": "Tue, 07 Apr 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-097-01.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of these vulnerabilities could allow a local attacker to disclose SQL Server credentials used by the affected products and use them to disclose, tamper with, or destroy data, or to cause a denial-of-service (DoS) condition on the system.</strong></p>\n<p>The following versions of Mitsubishi Electric GENESIS64 ",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Iranian-Affiliated Cyber Actors Exploit Programmable Logic Controllers Across US Critical Infrastructure",
+      "url": "https://www.cisa.gov/news-events/cybersecurity-advisories/aa26-097a",
+      "published": "Tue, 07 Apr 26 12:00:00 +0000",
+      "summary": "<h2><strong>Advisory at a Glance</strong></h2>\n<table>\n<tbody>\n<tr>\n<th>Title</th>\n<td>Iranian-Affiliated Cyber Actors Exploit Programmable Logic Controllers Across US Critical Infrastructure</td>\n</tr>\n<tr>\n<th>Original Publication</th>\n<td>April 7, 2026</td>\n</tr>\n<tr>\n<th>Executive Summary</th>\n<td>\n<p>Iran-affiliated advanced persistent threat (APT) actors are conducting exploitation activity targeting internet-facing operational technology (OT) devices, including programmable logic controll",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/04/06/cisa-adds-one-known-exploited-vulnerability-catalog",
+      "published": "Mon, 06 Apr 26 12:00:00 +0000",
+      "summary": "<p>CISA has added one new vulnerability to its <a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\" title=\"Known Exploited Vulnerabilities Catalog\">Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.</p>\n<ul>\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2026-35616\" target=\"_blank\">CVE-2026-35616</a> - Fortinet FortiClient EMS Improper Access Control Vulnerability</li>\n</ul>\n<p>This type of vulnerability is a frequent attack vector f",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Yokogawa CENTUM VP",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-092-02",
+      "published": "Thu, 02 Apr 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-092-02.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of this vulnerability could allow an attacker to login as the PROG user and modify permissions.</strong></p>\n<p>The following versions of Yokogawa CENTUM VP are affected:</p>\n<ul>\n<li>CENTUM VP &gt;=R5.01.00|</li>\n<li>CENTUM VP &gt;=R6.01.00|</li>\n<li>CENTUM VP vR7.01.00 (CVE-2025-7741)</li>\n</ul>\n<div class=",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Hitachi Energy Ellipse",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-092-03",
+      "published": "Thu, 02 Apr 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-092-03.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Hitachi Energy is aware of a Jasper Report vulnerability that affects the Ellipse product versions mentioned in this document below. This vulnerability can be exploited to carry out remote code execution (RCE) attack on the product. Please refer to the Recommended Immediate Actions for information about the mitigation/remediation.</",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/04/02/cisa-adds-one-known-exploited-vulnerability-catalog",
+      "published": "Thu, 02 Apr 26 12:00:00 +0000",
+      "summary": "<p>CISA has added&nbsp;one&nbsp;new&nbsp;vulnerability&nbsp;to its&nbsp;<a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\">Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.&nbsp;</p>\n<ul>\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2026-3502\" target=\"_blank\">CVE-2026-3502</a>&nbsp;TrueConf&nbsp;Client Download of Code Without Integrity Check Vulnerability&nbsp;</li>\n</ul>\n<p>This type of vulnerability is a frequent attack vecto",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens SICAM 8 Products",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-092-01",
+      "published": "Thu, 02 Apr 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-092-01.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Multiple SICAM 8 products are affected by multiple vulnerabilities that could lead to denial of service, namely: - SICAM A8000 Device firmware - CPCI85 for CP-8031/CP-8050 - SICORE for CP-8010/CP-8012 - RTUM85 for CP-8010/CP-8012 - SICAM EGS Device firmware - CPCI85 - SICAM S8000 - SICORE - RTUM85 Siemens has released new versions f",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/04/01/cisa-adds-one-known-exploited-vulnerability-catalog",
+      "published": "Wed, 01 Apr 26 12:00:00 +0000",
+      "summary": "<p>CISA has added one new vulnerability to its<a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\" title=\"Known Exploited Vulnerabilities Catalog\"> Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.</p>\n<ul>\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2026-5281\" target=\"_blank\">CVE-2026-5281</a> Google Dawn Use-After-Free Vulnerability</li>\n</ul>\n<p>This type of vulnerability is a frequent attack vector for malicious cyber actors ",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Anritsu Remote Spectrum Monitor",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-090-01",
+      "published": "Tue, 31 Mar 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-090-01.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of this vulnerability could allow attackers with network access to alter operational settings, obtain sensitive signal data, or disrupt device availability.</strong></p>\n<p>The following versions of Anritsu Remote Spectrum Monitor are affected:</p>\n<ul>\n<li>Remote Spectrum Monitor MS27100A vers:all/* (CVE-202",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "PX4 Autopilot",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-090-02",
+      "published": "Tue, 31 Mar 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-090-02.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of this vulnerability could allow an attacker with access to the MAVLink interface to execute arbitrary shell commands without cryptographic authentication.</strong></p>\n<p>The following versions of PX4 Autopilot are affected:</p>\n<ul>\n<li>Autopilot v1.16.0_SITL_latest_stable (CVE-2026-1579)</li>\n</ul>\n<div c",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/03/30/cisa-adds-one-known-exploited-vulnerability-catalog",
+      "published": "Mon, 30 Mar 26 12:00:00 +0000",
+      "summary": "<p>CISA has added one new vulnerability to its <a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\" title=\"Known Exploited Vulnerabilities Catalog\">Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.</p>\n<ul>\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2026-3055\" target=\"_blank\">CVE-2026-3055</a> Citrix NetScaler Out-of-Bounds Read Vulnerability</li>\n</ul>\n<p>This type of vulnerability is a frequent attack vector for malicious cybe",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/03/27/cisa-adds-one-known-exploited-vulnerability-catalog",
+      "published": "Fri, 27 Mar 26 12:00:00 +0000",
+      "summary": "<p>CISA has added one new vulnerability to its <a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\" title=\"Known Exploited Vulnerabilities Catalog\">Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.</p>\n<ul>\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2025-53521\" target=\"_blank\">CVE-2025-53521</a> F5 BIG-IP Remote Code Execution Vulnerability</li>\n</ul>\n<p>This type of vulnerability is a frequent attack vector for malicious cyber ",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/03/26/cisa-adds-one-known-exploited-vulnerability-catalog",
+      "published": "Thu, 26 Mar 26 12:00:00 +0000",
+      "summary": "<p>CISA has added one new vulnerability to its <a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\" title=\"Known Exploited Vulnerabilities Catalog\">Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.</p>\n<ul>\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2026-33634\" target=\"_blank\">CVE-2026-33634</a> Aqua Security Trivy Embedded Malicious Code Vulnerability</li>\n</ul>\n<p>This type of vulnerability is a frequent attack vector for mali",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "PTC Windchill Product Lifecycle Management",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-085-03",
+      "published": "Thu, 26 Mar 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-085-03.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of this vulnerability could allow an attacker to achieve remote code execution.</strong></p>\n<p>The following versions of PTC Windchill Product Lifecycle Management are affected:</p>\n<ul>\n<li>Windchill PDMLink 11.0_M030 (CVE-2026-4681)</li>\n<li>Windchill PDMLink 11.1_M020 (CVE-2026-4681)</li>\n<li>Windchill PD",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "WAGO GmbH & Co. KG Industrial Managed Switches",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-085-01",
+      "published": "Thu, 26 Mar 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-085-01.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>An unauthenticated remote attacker can exploit a hidden function in the CLI prompt to escape the restricted interface, leading to full compromise of the device.</strong></p>\n<p>The following versions of WAGO GmbH &amp; Co. KG Industrial Managed Switches are affected:</p>\n<ul>\n<li>WAGO Firmware versions prior to V1.2.1.S0 WAGO_Hardwa",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "OpenCode Systems OC Messaging and USSD Gateway",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-085-02",
+      "published": "Thu, 26 Mar 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-085-02.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of this vulnerability could allow an authenticated low-privileged user to gain access to SMS messages outside of their authorized tenant scope via a crafted company or tenant identifier parameter.</strong></p>\n<p>The following versions of OpenCode Systems OC Messaging and USSD Gateway are affected:</p>\n<ul>\n<",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/03/25/cisa-adds-one-known-exploited-vulnerability-catalog",
+      "published": "Wed, 25 Mar 26 12:00:00 +0000",
+      "summary": "<p>CISA has added one new vulnerability to its <a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\" title=\"Known Exploited Vulnerabilities Catalog\">Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.</p>\n<ul>\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2026-33017\" target=\"_blank\">CVE-2026-33017</a> Langflow Code Injection Vulnerability</li>\n</ul>\n<p>This type of vulnerability is a frequent attack vector for malicious cyber actors a",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Schneider Electric EcoStruxure Foxboro DCS",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-083-02",
+      "published": "Tue, 24 Mar 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-083-02.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Schneider Electric is aware of a vulnerability in its EcoStruxure Foxboro DCS Control Software on Foxboro DCS workstations and servers. Control Core Services and all runtime software, like FCPs, FDCs, and FBMs, are not affected. The EcoStruxure Foxboro DCS ([https://www.se.com/ww/en/product-range/63680-ecostruxure-foxboro-dcs/](http",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Schneider Electric Plant iT/Brewmaxx",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-083-03",
+      "published": "Tue, 24 Mar 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-083-03.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of these vulnerabilities could risk privilege escalation, which could result in remote code execution.</strong></p>\n<p>The following versions of Schneider Electric Plant iT/Brewmaxx are affected:</p>\n<ul>\n<li>Plant iT/Brewmaxx 9.60_and_above (CVE-2025-49844, CVE-2025-46817, CVE-2025-46818, CVE-2025-46819)</li",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Pharos Controls Mosaic Show Controller",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-083-01",
+      "published": "Tue, 24 Mar 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-083-01.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of this vulnerability could allow an unauthenticated attacker to execute arbitrary commands with root privileges.</strong></p>\n<p>The following versions of Pharos Controls Mosaic Show Controller are affected:</p>\n<ul>\n<li>Mosaic Show Controller Firmware 2.15.3 (CVE-2026-2417)</li>\n</ul>\n<div class=\"csaf-table",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Grassroots DICOM (GDCM)",
+      "url": "https://www.cisa.gov/news-events/ics-medical-advisories/icsma-26-083-01",
+      "published": "Tue, 24 Mar 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsma-26-083-01.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of this vulnerability could allow an attacker to send a specially crafted file, and when parsed, could result in a denial-of-service condition.</strong></p>\n<p>The following versions of Grassroots DICOM (GDCM) are affected:</p>\n<ul>\n<li>Grassroots DICOM (GDCM) 3.2.2 (CVE-2026-3650)</li>\n</ul>\n<div class=\"csa",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Russian Intelligence Services Target Commercial Messaging Application Accounts",
+      "url": "https://www.cisa.gov/resources-tools/resources/russian-intelligence-services-target-commercial-messaging-application-accounts",
+      "published": "Fri, 20 Mar 26 12:00:00 +0000",
+      "summary": "<p>CISA and the Federal Bureau of Investigation released a <a href=\"https://www.ic3.gov/PSA/2026/PSA260320\" target=\"_blank\">Public Service Announcement (PSA)</a> warning about ongoing phishing campaigns by cyber actors associated with the Russian Intelligence Services targeting commercial messaging applications (CMAs). These campaigns aim to bypass encryption to compromise to individual user accounts with targets including current and former U.S. government officials, military personnel, politic",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Adds Five Known Exploited Vulnerabilities to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/03/20/cisa-adds-five-known-exploited-vulnerabilities-catalog",
+      "published": "Fri, 20 Mar 26 12:00:00 +0000",
+      "summary": "<p>CISA has added five new vulnerabilities to its <a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\" title=\"Known Exploited Vulnerabilities Catalog\">Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.</p>\n<ul>\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2025-31277\" target=\"_blank\">CVE-2025-31277</a> Apple Multiple Products Buffer Overflow Vulnerability</li>\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2025-32432\" target=\"_bl",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Schneider Electric EcoStruxure Automation Expert",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-078-03",
+      "published": "Thu, 19 Mar 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-078-03.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Schneider Electric is aware of a vulnerability in its EcoStruxure\u2122 Automation Expert product. The EcoStruxure\u2122 Automation Expert product is plant automation software designed for digital control systems in discrete, hybrid and continuous industrial processes. A totally integrated automation solution designed to enhance your flexibil",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Mitsubishi Electric CNC Series",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-078-05",
+      "published": "Thu, 19 Mar 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-078-05.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of this vulnerability could allow a remote attacker to cause an out-of-bounds read, resulting in a denial-of-service condition in the affected products.</strong></p>\n<p>The following versions of Mitsubishi Electric CNC Series are affected:</p>\n<ul>\n<li>M800VW (BND-2051W000) &lt;=BB</li>\n<li>M800VS (BND-2052W0",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CTEK Chargeportal",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-078-06",
+      "published": "Thu, 19 Mar 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-078-06.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of these vulnerabilities could enable attackers to gain unauthorized administrative control over vulnerable charging stations or disrupt charging services through denial-of-service attacks.</strong></p>\n<p>The following versions of CTEK Chargeportal are affected:</p>\n<ul>\n<li>Chargeportal vers:all/*</li>\n</ul",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Schneider Electric EcoStruxure PME and EPO",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-078-04",
+      "published": "Thu, 19 Mar 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-078-04.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Schneider Electric is aware of a vulnerability in its EcoStruxure Power Monitoring Expert (PME) and EcoStruxure Power Operation (EPO) products. EcoStruxure Power Monitoring Expert (PME) is an on-premises software used to help power critical and energy-intensive facilities maximize uptime and operational efficiency. EcoStruxure Power",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Issues Updated RESURGE Malware Analysis Highlighting a Stealthy but Active Threat",
+      "url": "https://www.cisa.gov/news-events/news/cisa-issues-updated-resurge-malware-analysis-highlighting-stealthy-active-threat",
+      "published": "Thu, 26 Feb 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Immediate Action Required: CISA Issues Emergency Directive to Secure Cisco SD-WAN Systems",
+      "url": "https://www.cisa.gov/news-events/news/immediate-action-required-cisa-issues-emergency-directive-secure-cisco-sd-wan-systems",
+      "published": "Wed, 25 Feb 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Announces New Town Halls to Engage with Stakeholders on Cyber Incident Reporting for Critical Infrastructure",
+      "url": "https://www.cisa.gov/news-events/news/cisa-announces-new-town-halls-engage-stakeholders-cyber-incident-reporting-critical-infrastructure",
+      "published": "Fri, 13 Feb 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA\u2019s 2025 Year in Review: Driving Security and Resilience Across Critical Infrastructure",
+      "url": "https://www.cisa.gov/news-events/news/cisas-2025-year-review-driving-security-and-resilience-across-critical-infrastructure",
+      "published": "Wed, 11 Feb 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Releases Guide to Help Critical Infrastructure Users Adopt More Secure Communication",
+      "url": "https://www.cisa.gov/news-events/news/cisa-releases-guide-help-critical-infrastructure-users-adopt-more-secure-communication",
+      "published": "Tue, 10 Feb 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Orders Federal Agencies to Strengthen Edge Device Security Amid Rising Cyber Threats",
+      "url": "https://www.cisa.gov/news-events/news/cisa-orders-federal-agencies-strengthen-edge-device-security-amid-rising-cyber-threats",
+      "published": "Thu, 05 Feb 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Urges Critical Infrastructure Organizations to Take Action Against Insider Threats",
+      "url": "https://www.cisa.gov/news-events/news/cisa-urges-critical-infrastructure-organizations-take-action-against-insider-threats",
+      "published": "Wed, 28 Jan 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Releases Product Categories List to Propel Post-Quantum Cryptography Adoption Pursuant to President Trump\u2019s Executive Order 14306",
+      "url": "https://www.cisa.gov/news-events/news/cisa-releases-product-categories-list-propel-post-quantum-cryptography-adoption-pursuant-president",
+      "published": "Fri, 23 Jan 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA, UK NCSC, FBI Unveil Principles to Combat Cyber Risks in OT",
+      "url": "https://www.cisa.gov/news-events/news/cisa-uk-ncsc-fbi-unveil-principles-combat-cyber-risks-ot",
+      "published": "Wed, 14 Jan 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA\u202fRetires\u202fTen\u202fEmergency\u202fDirectives, Marking an Era in Federal Cybersecurity",
+      "url": "https://www.cisa.gov/news-events/news/cisa-retires-ten-emergency-directives-marking-era-federal-cybersecurity",
+      "published": "Thu, 08 Jan 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    }
+  ]
+}

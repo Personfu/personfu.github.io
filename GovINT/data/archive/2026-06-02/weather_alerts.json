@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-06-02T12:31:40.833184Z",
+  "items": [
+    {
+      "title": "Marine Weather Statement issued June 2 at 7:25AM CDT by NWS Houston/Galveston TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T07:25:00-05:00",
+      "summary": "A Marine Weather Statement has been issued for the following areas...\nCoastal waters from High Island to Freeport TX out 20 NM...\nGalveston Bay...\n\nAt 715 AM CDT, the public reported a waterspout 20 miles northeast\nof Crystal Beach. Scattered thunderstorms will impact Galveston Bay\nand the nearshore waters from Galveston to High Island out 20\nnautical miles through the morning. Isolated short-lived waterspouts\nwill be possible.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Galveston Bay; Coastal waters from High Island to Freeport TX out 20 NM"
+    },
+    {
+      "title": "Flood Advisory issued June 2 at 7:25AM CDT until June 2 at 10:30AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T07:25:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northeast Oklahoma, including the following\ncounties, Osage and Washington OK.\n\n* WHEN...Until 1030 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\nWater over roadways.\n\n* ADDITIONAL DETAILS...\n- At 725 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Between 1 and 2.5 inches of\nrain have fallen.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Osage, OK; Washington, OK"
+    },
+    {
+      "title": "Flood Advisory issued June 2 at 7:21AM CDT until June 2 at 10:30AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T07:21:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northeast Oklahoma, including the following\ncounty, Mayes.\n\n* WHEN...Until 1030 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\nWater over roadways.\n\n* ADDITIONAL DETAILS...\n- At 721 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Between 1 and 2.5 inches of\nrain have fallen.\n- Some locations th",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Mayes, OK"
+    },
+    {
+      "title": "Flood Advisory issued June 2 at 7:00AM CDT until June 2 at 10:00AM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T07:00:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northern Oklahoma, including the following\ncounty, Garfield.\n\n* WHEN...Until 1000 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\n\n* ADDITIONAL DETAILS...\n- At 700 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Between 1 and 2 inches of rain\nhave fallen over the last several hours.\n- Additional",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Garfield, OK"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:58AM AKDT until June 3 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 15 kt. Seas 10 ft.\n.TONIGHT...Variable wind 10 kt. Seas 9 ft.\n.WED...Variable wind 10 kt. Seas 7 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 6 ft.\n.THU THROUGH FRI...Variable wind 10 kt. Sea",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Gravel Point to Cape Cleare out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued June 2 at 3:58AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 35 kt. Seas 18 ft. Rain.\n.TONIGHT...NE wind 30 kt. Seas 13 ft.\n.WED...N wind 20 kt. Seas 9 ft.\n.WED NIGHT...N wind 15 kt. Seas 7 ft.\n.THU...SW wind 20 kt. Seas 5 ft.\n.FRI...SW wind 15 kt. S",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Marmot Island to Sitkinak out to 15 NM"
+    },
+    {
+      "title": "Gale Warning issued June 2 at 3:58AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 35 kt. Seas 18 ft. Rain.\n.TONIGHT...NE wind 30 kt diminishing to 20 kt after midnight. Seas\n13 ft.\n.WED...NE wind 20 kt. Seas 9 ft.\n.WED NIGHT...N wind 15 kt. Seas 7 ft.\n.THU...SW wind 20 kt",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Marmot Island To Sitkinak from 15 to 85 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:58AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...N wind 25 kt. Seas 5 ft.\n.TONIGHT...N wind 15 kt. Seas 5 ft.\n.WED...N wind 15 kt. Seas 3 ft.\n.WED NIGHT...Variable wind less than 10 kt. Seas 2 ft.\n.THU...Variable wind less than 10 kt. Seas 2 ft.\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cook Inlet Kalgin Island to Point Bede"
+    },
+    {
+      "title": "Gale Warning issued June 2 at 3:58AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 35 kt. Seas 14 ft subsiding to 10 ft in the\nafternoon.\n.TONIGHT...NE wind 20 kt. Seas 7 ft subsiding to 3 ft after\nmidnight.\n.WED...NW wind 15 kt becoming N 10 kt in the afternoon. Seas 3 f",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Marmot Bay"
+    },
+    {
+      "title": "Gale Warning issued June 2 at 3:58AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 35 kt. Seas 15 ft.\n.TONIGHT...NE wind 20 kt. Seas 11 ft.\n.WED...N wind 15 kt. Seas 8 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 6 ft.\n.THU...W wind 15 kt. Seas 4 ft.\n.FRI...Variable wind 10",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Barren Islands East"
+    },
+    {
+      "title": "Gale Warning issued June 2 at 3:58AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 35 kt. Seas 17 ft.\n.TONIGHT...NE wind 20 kt. Seas 12 ft.\n.WED...N wind 20 kt. Seas 10 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 7 ft.\n.THU...W wind 15 kt. Seas 5 ft.\n.FRI...Variable wind 1",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Gore Point to Marmot Island from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:58AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 30 kt. Seas 12 ft. Rain.\n.TONIGHT...NE wind 20 kt. Seas 7 ft subsiding to 3 ft after\nmidnight.\n.WED...N wind 15 kt. Seas 3 ft.\n.WED NIGHT...N wind 15 kt. Seas 3 ft.\n.THU...SW wind 10 kt. Se",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chiniak Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:58AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 30 kt. Seas 8 ft.\n.TONIGHT...N wind 15 kt. Seas 4 ft.\n.WED...NW wind 15 kt. Seas 3 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 2 ft.\n.THU...W wind 15 kt. Seas 3 ft.\n.FRI THROUGH SAT...SE win",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "West of Barren Islands Including Kamishak Bay"
+    },
+    {
+      "title": "Gale Warning issued June 2 at 3:58AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 45 kt diminishing to 35 kt by afternoon. Seas 12\nft subsiding to 9 ft in the afternoon.\n.TONIGHT...NE wind 30 kt. Seas 9 ft.\n.WED...N wind 20 kt. Seas 5 ft.\n.WED NIGHT...N wind 15 kt. Seas ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Shelikof Strait"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:58AM AKDT until June 3 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 30 kt. Seas 14 ft.\n.TONIGHT...NE wind 20 kt. Seas 11 ft.\n.WED...NE wind 20 kt. Seas 10 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 7 ft.\n.THU...S wind 15 kt. Seas 6 ft.\n.FRI...Variable wind ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Cleare to Gore Point from 15 to 75 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:58AM AKDT until June 3 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 25 kt. Seas 13 ft.\n.TONIGHT...NE wind 15 kt. Seas 11 ft.\n.WED...NE wind 15 kt. Seas 9 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 7 ft.\n.THU...Variable wind 10 kt. Seas 5 ft.\n.FRI...Variable",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Cleare to Gore Point out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:58AM AKDT until June 3 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 20 kt. Seas 12 ft.\n.TONIGHT...NE wind 15 kt. Seas 11 ft.\n.WED...NE wind 15 kt. Seas 9 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 7 ft.\n.THU...Variable wind 10 kt. Seas 6 ft.\n.FRI...Variable",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Suckling to Cape Cleare from 15 to 75 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:58AM AKDT until June 3 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:58:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...Variable wind 10 kt. Seas 9 ft.\n.TONIGHT...Variable wind 10 kt. Seas 8 ft.\n.WED...NE wind 15 kt. Seas 8 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 6 ft.\n.THU...Variable wind 10 kt. Seas 5 ft.\n.FRI.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Suckling to Gravel Point out to 15 NM"
+    },
+    {
+      "title": "Flood Warning issued June 2 at 6:33AM CDT until June 4 at 11:00PM CDT by NWS Corpus Christi TX",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T06:33:00-05:00",
+      "summary": "...The National Weather Service in Corpus Christi has issued a Flood\nWarning for the following rivers in Texas...\n\nNueces River Near Tilden affecting McMullen County.\n\nFor the Nueces River...including Tilden...Minor flooding is forecast.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Nueces River near Tilden.\n\n* WHEN...Until Thursday evening.\n\n* IMPACTS...Impact...At 15.0 feet, Much of the flood plain below\ncotulla to below tilden is cut off, as sloughs and peripheral\nchannels fill. Hunting ca",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "McMullen, TX"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 3 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 30 kt. Seas 6 ft.\n.TONIGHT...NE wind 25 kt. Seas 4 ft subsiding to 2 ft after midnight.\n.WED...N wind 10 kt. Seas 2 ft.\n.WED NIGHT...W wind 10 kt. Seas 3 ft.\n.THU THROUGH FRI...SW ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Bristol Bay from Port Heiden to Cape Chichagof out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 3 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 30 kt. Seas 9 ft. Rain.\n.TONIGHT...NE wind 25 kt. Seas 7 ft.\n.WED...N wind 15 kt. Seas 3 ft.\n.WED NIGHT...NW wind 15 kt. Seas 3 ft.\n.THU THROUGH FRI...W wind 15 kt. Seas 4 ft.\n.SAT",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Port Heiden to Nelson Lagoon from 15 to 60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 3 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 20 kt. Seas 11 ft.\n.TONIGHT...NE wind 20 kt. Seas 10 ft.\n.WED...Variable wind 10 kt. Seas 7 ft.\n.WED NIGHT...NW wind 15 kt. Seas 6 ft.\n.THU...W wind 15 kt. Seas 5 ft.\n.FRI...Variab",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Tolstoi to Unalga Pass from 15 to 100 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 3 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 25 kt. Seas 9 ft. Rain.\n.TONIGHT...NE wind 25 kt. Seas 8 ft.\n.WED...NE wind 15 kt. Seas 6 ft.\n.WED NIGHT...NW wind 15 kt. Seas 4 ft.\n.THU THROUGH SAT...Variable wind 10 kt. Seas 3 ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Nelson Lagoon to Unalga Pass from 15 to 70 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 3 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 25 kt. Seas 9 ft.\n.TONIGHT...E wind 20 kt. Seas 8 ft.\n.WED...E wind 20 kt. Seas 7 ft.\n.WED NIGHT...NE wind 20 kt. Seas 7 ft.\n.THU THROUGH FRI...NE wind 15 kt. Seas 6 ft.\n.SAT...N wi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kiska to Attu Pacific Side"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 30 kt. Seas 7 ft.\n.TONIGHT...NE wind 20 kt. Seas 5 ft subsiding to 2 ft after midnight.\n.WED...N wind 10 kt. Seas 2 ft.\n.WED NIGHT...NW wind 10 kt. Seas 2 ft.\n.THU THROUGH FRI...SW",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Bristol Bay greater than 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 3 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...N wind 25 kt. Seas 8 ft.\n.TONIGHT...N wind 20 kt. Seas 8 ft.\n.WED...Variable wind 10 kt. Seas 7 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 6 ft.\n.THU THROUGH FRI...NE wind 15 kt. Seas 5 ft",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Seguam to Adak Pacific Side from 15 to 75 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...N wind 25 kt. Seas 8 ft.\n.TONIGHT...N wind 20 kt. Seas 7 ft.\n.WED...Variable wind 10 kt. Seas 5 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 3 ft.\n.THU...Variable wind 10 kt. Seas 3 ft.\n.FRI",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Unalga Pass to Nikolski Bering Side out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...N wind 25 kt. Seas 9 ft.\n.TONIGHT...N wind 20 kt. Seas 7 ft.\n.WED...N wind 15 kt. Seas 6 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 5 ft.\n.THU...Variable wind 10 kt. Seas 4 ft.\n.FRI...NE w",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Nikolski to Seguam Bering Side from 15 to 85 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...N wind 25 kt. Seas 8 ft.\n.TONIGHT...N wind 20 kt. Seas 7 ft.\n.WED...Variable wind 10 kt. Seas 6 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 5 ft.\n.THU...Variable wind 10 kt. Seas 4 ft.\n.FRI",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Nikolski to Seguam Bering Side out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...N wind 25 kt. Seas 8 ft.\n.TONIGHT...N wind 20 kt. Seas 6 ft.\n.WED...Variable wind 10 kt. Seas 6 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 6 ft.\n.THU...Variable wind 10 kt. Seas 5 ft.\n.FRI",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Nikolski to Seguam Pacfic Side out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...N wind 25 kt. Seas 9 ft.\n.TONIGHT...NE wind 20 kt. Seas 7 ft.\n.WED...N wind 15 kt. Seas 6 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 4 ft.\n.THU THROUGH FRI...Variable wind 10 kt. Seas 3 ft",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Unalga Pass to Nikolski Bering Side from 15 to 85 NM"
+    },
+    {
+      "title": "Gale Warning issued June 2 at 3:31AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 35 kt. Seas 12 ft. Rain.\n.TONIGHT...NE wind 30 kt diminishing to 20 kt after midnight.\nSeas 10 ft. Rain.\n.WED...NE wind 20 kt. Seas 6 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 4 f",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Sitkinak to Castle Cape out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...N wind 25 kt. Seas 6 ft. Patchy fog.\n.TONIGHT...NE wind 20 kt. Seas 6 ft.\n.WED...N wind 20 kt. Seas 5 ft.\n.WED NIGHT...N wind 15 kt. Seas 3 ft.\n.THU THROUGH FRI...Variable wind 10 kt. Seas",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Pribilof Islands Nearshore Waters"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 30 kt. Seas 7 ft.\n.TONIGHT...N wind 20 kt. Seas 5 ft.\n.WED...N wind 20 kt. Seas 4 ft.\n.WED NIGHT...NW wind 20 kt. Seas 4 ft.\n.THU THROUGH SAT...N wind 15 kt. Seas 4 ft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kuskokwim Delta from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 25 kt. Seas 7 ft. Rain.\n.TONIGHT...NE wind 20 kt. Seas 6 ft.\n.WED...Variable wind 10 kt. Seas 3 ft.\n.WED NIGHT...W wind 15 kt. Seas 3 ft.\n.THU THROUGH FRI...W wind 15 kt. Seas 3 ft",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Port Heiden to Nelson Lagoon out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 2 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 30 kt. Seas in ice free waters 4 ft.\n.TONIGHT...NE wind 20 kt. Seas in ice free waters 2 ft.\n.WED...N wind 10 kt. Seas in ice free waters 1 foot.\n.WED NIGHT...NW wind 10 kt. Seas i",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Bristol Bay from Cape Chichagof to Cape Pierce out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 3 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...E wind 30 kt. Seas 15 ft.\n.TONIGHT...NE wind 25 kt. Seas 13 ft. Rain.\n.WED...NE wind 15 kt. Seas 9 ft.\n.WED NIGHT...NW wind 15 kt. Seas 6 ft.\n.THU THROUGH FRI...SW wind 15 kt. Seas 5 ft.\n.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Sitkinak to Castle Cape from 15 to 100 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 3 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...N wind 20 kt. Seas 11 ft.\n.TONIGHT...N wind 15 kt. Seas 8 ft.\n.WED...Variable wind 10 kt. Seas 8 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 6 ft.\n.THU...Variable wind 10 kt. Seas 5 ft.\n.FR",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Unalga Pass to Nikolski Pacific Side from 15 to 85 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 3 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...N wind 25 kt. Seas 12 ft.\n.TONIGHT...N wind 15 kt. Seas 9 ft.\n.WED...Variable wind 10 kt. Seas 8 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 7 ft.\n.THU...Variable wind 10 kt. Seas 5 ft.\n.FR",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Nikolski to Seguam Pacific Side from 15 to 75 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 3 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 25 kt. Seas 12 ft. Rain.\n.TONIGHT...NE wind 25 kt. Seas 11 ft.\n.WED...N wind 15 kt. Seas 8 ft.\n.WED NIGHT...Variable wind 10 kt. Seas 5 ft.\n.THU THROUGH FRI...Variable wind 10 kt. ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Castle Cape to Cape Tolstoi out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:31AM AKDT until June 3 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:31:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...NE wind 25 kt. Seas 13 ft.\n.TONIGHT...NE wind 20 kt. Seas 12 ft.\n.WED...N wind 15 kt. Seas 9 ft.\n.WED NIGHT...NW wind 15 kt. Seas 6 ft.\n.THU THROUGH FRI...SW wind 15 kt. Seas 5 ft.\n.SAT...",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Castle Cape to Cape Tolstoi from 15 to 100 NM"
+    },
+    {
+      "title": "Flood Advisory issued June 2 at 6:12AM CDT until June 2 at 9:15AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T06:12:00-05:00",
+      "summary": "* WHAT...Urban and small stream flooding caused by excessive\nrainfall is expected.\n\n* WHERE...A portion of northeast Oklahoma, including the following\ncounties, Rogers, Tulsa and Washington OK.\n\n* WHEN...Until 915 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\n\n* ADDITIONAL DETAILS...\n- At 610 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. This will cause urban and small stream\nflooding. Radar estimates of up to 1.5 inches of rain have\nfallen.\n- Addit",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Rogers, OK; Tulsa, OK; Washington, OK"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:00AM AKDT until June 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:00:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...N wind 10 kt. Seas 9 ft. S swell early in the morning.\n.TONIGHT...NE wind 15 kt. Seas 9 ft. S swell.\n.WED...NE wind 15 kt becoming SE in the afternoon. Seas\n7 ft. S swell.\n.WED NIGHT...SE wind 15 kt. Seas 7 ft. S swell.\n.THU...SE wind ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Fairweather to Icy Cape out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:00AM AKDT until June 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:00:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...E wind 15 kt becoming SE in the afternoon. Seas 8 ft. S\nswell.\n.TONIGHT...Light winds. Seas 8 ft. S swell.\n.WED...S wind 15 kt. Seas 7 ft. S swell. Rain in the\nafternoon.\n.WED NIGHT...S wind 15 kt. Seas 7 ft.\n.THU...SE wind 20 kt. Seas",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:00AM AKDT until June 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:00:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...E wind 15 kt. Seas 9 ft. S swell.\n.TONIGHT...SE wind 10 kt in the evening becoming light. Seas\n9 ft. S swell.\n.WED...S wind 15 kt. Seas 7 ft. S swell.\n.WED NIGHT...SE wind 15 kt. Seas 8 ft.\n.THU...SE wind 20 kt. Seas 9 ft.\n.FRI...NW wi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Decision to Cape Edgecumbe from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:00AM AKDT until June 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:00:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...NE wind 10 kt early in the morning becoming light. Seas\n9 ft. S swell.\n.TONIGHT...NE wind 15 kt. Seas 9 ft. S swell.\n.WED...E wind 10 kt. Seas 8 ft. S swell.\n.WED NIGHT...E wind 20 kt. Seas 6 ft. S swell.\n.THU...SE wind 15 kt. Seas 6 f",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Icy Cape to Cape Suckling out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:00AM AKDT until June 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:00:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...E wind 10 kt becoming SE in the afternoon. Seas 9 ft. SW\nswell.\n.TONIGHT...S wind 10 kt. Seas 8 ft. S swell.\n.WED...S wind 15 kt. Seas 7 ft. S swell. Rain in the morning.\n.WED NIGHT...S wind 20 kt. Seas 8 ft.\n.THU...SE wind 20 kt. Seas",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Dixon Entrance to Cape Decision from 15 to 90 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:00AM AKDT until June 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:00:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...E wind 15 kt. Seas 9 ft. S swell early in the morning.\n.TONIGHT...E wind 15 kt. Seas 9 ft. S swell.\n.WED...S wind 10 kt. Seas 7 ft. S swell.\n.WED NIGHT...S wind 15 kt. Seas 6 ft. S swell. Rain.\n.THU...SE wind 15 kt. Seas 7 ft.\n.FRI...W",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Edgecumbe to Cape Spencer out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:00AM AKDT until June 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:00:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...E wind 10 kt. Seas 10 ft. S swell.\n.TONIGHT...E wind 10 kt in the evening becoming light. Seas 9 ft.\nS swell.\n.WED...SE wind 10 kt. Seas 8 ft. S swell.\n.WED NIGHT...SE wind 15 kt. Seas 7 ft. S swell.\n.THU...E wind 15 kt. Seas 8 ft.\n.FR",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Edgecumbe to Cape Spencer from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 2 at 3:00AM AKDT until June 3 at 5:00AM AKDT by NWS Juneau AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-02T03:00:00-08:00",
+      "summary": "Southeast Alaska Coastal Waters from Dixon Entrance to\nCape Suckling out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Seas forecasts represent the average of the highest\none-third of the combined windwave and swell height.\n\n.TODAY...E wind 15 kt. Seas 9 ft. S swell early in the morning.\n.TONIGHT...E wind 10 kt in the evening becoming light. Seas 8 ft.\nS swell.\n.WED...S wind 15 kt. Seas 7 ft. S swell.\n.WED NIGHT...S wind 15 kt. Seas 7 ft. Rain.\n.THU...SE wind 15 kt",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Decision to Cape Edgecumbe out to 15 NM"
+    }
+  ]
+}

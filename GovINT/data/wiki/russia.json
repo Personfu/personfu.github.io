@@ -1,0 +1,1352 @@
+{
+  "meta": {
+    "title": "Russia / Eurasia OSINT Reference",
+    "purpose": "Open-source, public-data reference for situational awareness and research. No private data, no individual targeting.",
+    "generated_note": "Static curated dataset. Live feeds are written to data/latest/russia_*.json by the daily pipeline.",
+    "source_caveat": "Russian state (.ru) sources reflect official narratives and may omit or frame information politically. Cross-reference with independent reporting and primary records. Reliability labels follow data/wiki/reliability-scale.json."
+  },
+  "threat_actors": [
+    {
+      "name": "APT28",
+      "aliases": [
+        "Fancy Bear",
+        "Sofacy",
+        "STRONTIUM",
+        "Forest Blizzard",
+        "Pawn Storm"
+      ],
+      "attribution": "Russia — GRU 85th Main Special Service Center, Unit 26165",
+      "active_since": "2004",
+      "notable": "2016 DNC intrusion; credential harvesting via compromised Ubiquiti EdgeRouters; Outlook elevation-of-privilege exploitation (CVE-2023-23397).",
+      "mitre": "https://attack.mitre.org/groups/G0007/",
+      "reliability": "rel-official",
+      "source": "MITRE ATT&CK G0007; CISA/FBI/NSA joint advisories"
+    },
+    {
+      "name": "APT29",
+      "aliases": [
+        "Cozy Bear",
+        "NOBELIUM",
+        "Midnight Blizzard",
+        "The Dukes"
+      ],
+      "attribution": "Russia — Foreign Intelligence Service (SVR)",
+      "active_since": "2008",
+      "notable": "SolarWinds Orion supply-chain compromise (2020); sustained targeting of government, think-tank, and research networks; cloud/identity-focused TTPs.",
+      "mitre": "https://attack.mitre.org/groups/G0016/",
+      "reliability": "rel-official",
+      "source": "MITRE ATT&CK G0016; CISA advisories"
+    },
+    {
+      "name": "Sandworm",
+      "aliases": [
+        "Voodoo Bear",
+        "Seashell Blizzard",
+        "Telebots",
+        "Unit 74455"
+      ],
+      "attribution": "Russia — GRU Main Center for Special Technologies, Unit 74455",
+      "active_since": "2009",
+      "notable": "Ukraine power-grid attacks (2015/2016); NotPetya (2017); Olympic Destroyer; sustained operations against Ukrainian critical infrastructure.",
+      "mitre": "https://attack.mitre.org/groups/G0034/",
+      "reliability": "rel-official",
+      "source": "MITRE ATT&CK G0034; CISA/NCSC advisories"
+    },
+    {
+      "name": "Turla",
+      "aliases": [
+        "Snake",
+        "Venomous Bear",
+        "Waterbug",
+        "Secret Blizzard"
+      ],
+      "attribution": "Russia — FSB Center 16",
+      "active_since": "2004",
+      "notable": "Long-running espionage; Snake implant (disrupted by Operation MEDUSA, 2023); satellite C2 abuse.",
+      "mitre": "https://attack.mitre.org/groups/G0010/",
+      "reliability": "rel-official",
+      "source": "MITRE ATT&CK G0010; DOJ/CISA"
+    },
+    {
+      "name": "Gamaredon",
+      "aliases": [
+        "Primitive Bear",
+        "Armageddon",
+        "Aqua Blizzard"
+      ],
+      "attribution": "Russia — FSB (attributed by SSU of Ukraine)",
+      "active_since": "2013",
+      "notable": "High-volume spear-phishing against Ukrainian government and military entities.",
+      "mitre": "https://attack.mitre.org/groups/G0047/",
+      "reliability": "rel-official",
+      "source": "MITRE ATT&CK G0047"
+    },
+    {
+      "name": "Star Blizzard",
+      "aliases": [
+        "Callisto",
+        "SEABORGIUM",
+        "COLDRIVER"
+      ],
+      "attribution": "Russia — FSB Center 18",
+      "active_since": "2019",
+      "notable": "Credential-phishing of NGOs, academics, journalists, and government targets.",
+      "mitre": "https://attack.mitre.org/groups/G1033/",
+      "reliability": "rel-official",
+      "source": "CISA AA23-341A; MITRE ATT&CK"
+    }
+  ],
+  "cybercrime_trends": {
+    "note": "Independent analyst figures; treat as estimates, not audited statistics.",
+    "reliability": "rel-media",
+    "source": "Carnegie Russia Eurasia Center commentary; Russian data-protection firm reports; Roskomnadzor disclosures",
+    "data_breaches_reported": [
+      {
+        "year": 2022,
+        "private_firm_count": 311,
+        "roskomnadzor_logged": 150
+      },
+      {
+        "year": 2023,
+        "private_firm_count": 420,
+        "roskomnadzor_logged": 168
+      },
+      {
+        "year": 2024,
+        "private_firm_count": 592,
+        "roskomnadzor_logged": 135
+      }
+    ],
+    "telephone_scam_losses_rub_billions": [
+      {
+        "year": 2022,
+        "value": 120
+      },
+      {
+        "year": 2023,
+        "value": 250
+      },
+      {
+        "year": 2024,
+        "value": 295
+      }
+    ]
+  },
+  "organized_crime_markets": {
+    "reliability": "rel-archived",
+    "source": "Global Organized Crime Index (GI-TOC); UNODC",
+    "markets": [
+      "Human trafficking / forced labor (construction, agriculture, domestic)",
+      "Arms trafficking (to Europe, West Asia, Africa)",
+      "Counterfeit goods and parallel imports",
+      "Illicit timber and non-renewable resource crime",
+      "Extortion and smuggling networks"
+    ]
+  },
+  "population_hubs": [
+    {
+      "city": "Moscow",
+      "population": 13100000,
+      "lat": 55.7558,
+      "lon": 37.6173,
+      "note": "Federal capital; financial and government center"
+    },
+    {
+      "city": "Saint Petersburg",
+      "population": 5600000,
+      "lat": 59.9311,
+      "lon": 30.3609,
+      "note": "Major port and second city"
+    },
+    {
+      "city": "Novosibirsk",
+      "population": 1630000,
+      "lat": 55.0084,
+      "lon": 82.9357,
+      "note": "Largest Siberian city"
+    },
+    {
+      "city": "Yekaterinburg",
+      "population": 1540000,
+      "lat": 56.8389,
+      "lon": 60.6057,
+      "note": "Ural industrial hub"
+    },
+    {
+      "city": "Kazan",
+      "population": 1310000,
+      "lat": 55.7963,
+      "lon": 49.1088,
+      "note": "Capital of Tatarstan"
+    },
+    {
+      "city": "Nizhny Novgorod",
+      "population": 1230000,
+      "lat": 56.2965,
+      "lon": 43.9361
+    },
+    {
+      "city": "Chelyabinsk",
+      "population": 1180000,
+      "lat": 55.1644,
+      "lon": 61.4368
+    },
+    {
+      "city": "Samara",
+      "population": 1160000,
+      "lat": 53.1959,
+      "lon": 50.1002
+    },
+    {
+      "city": "Omsk",
+      "population": 1120000,
+      "lat": 54.9885,
+      "lon": 73.3242
+    },
+    {
+      "city": "Rostov-on-Don",
+      "population": 1140000,
+      "lat": 47.2357,
+      "lon": 39.7015
+    }
+  ],
+  "demographics": {
+    "population_2026_est": 143200000,
+    "urban_share_pct": 75,
+    "reliability": "rel-media",
+    "source": "Worldometer estimates"
+  },
+  "major_companies": [
+    {
+      "name": "Gazprom",
+      "sector": "Oil & gas",
+      "hq": "Saint Petersburg",
+      "lat": 59.9756,
+      "lon": 30.2086
+    },
+    {
+      "name": "Lukoil",
+      "sector": "Oil & gas",
+      "hq": "Moscow",
+      "lat": 55.737,
+      "lon": 37.6437
+    },
+    {
+      "name": "Rosneft",
+      "sector": "Oil & gas",
+      "hq": "Moscow",
+      "lat": 55.7415,
+      "lon": 37.571
+    },
+    {
+      "name": "Sberbank",
+      "sector": "Banking",
+      "hq": "Moscow",
+      "lat": 55.771,
+      "lon": 37.658
+    },
+    {
+      "name": "Russian Railways (RZD)",
+      "sector": "Rail logistics",
+      "hq": "Moscow",
+      "lat": 55.776,
+      "lon": 37.656
+    },
+    {
+      "name": "Rostec",
+      "sector": "Industrial/defense conglomerate",
+      "hq": "Moscow",
+      "lat": 55.752,
+      "lon": 37.601
+    },
+    {
+      "name": "VTB Bank",
+      "sector": "Banking",
+      "hq": "Moscow",
+      "lat": 55.7497,
+      "lon": 37.539
+    },
+    {
+      "name": "X5 Group",
+      "sector": "Retail",
+      "hq": "Moscow",
+      "lat": 55.729,
+      "lon": 37.648
+    },
+    {
+      "name": "Surgutneftegas",
+      "sector": "Oil & gas",
+      "hq": "Surgut",
+      "lat": 61.254,
+      "lon": 73.3962
+    },
+    {
+      "name": "Transneft",
+      "sector": "Pipeline transport",
+      "hq": "Moscow",
+      "lat": 55.727,
+      "lon": 37.63
+    }
+  ],
+  "official_sources": [
+    {
+      "category": "Executive & Legislature",
+      "title": "Kremlin.ru — President of Russia (EN)",
+      "url": "http://en.kremlin.ru/",
+      "note": "Presidential decrees and statements. State narrative.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Executive & Legislature",
+      "title": "Government.ru — Cabinet (EN)",
+      "url": "http://government.ru/en/",
+      "note": "Cabinet decisions and activity.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Executive & Legislature",
+      "title": "State Duma (duma.gov.ru)",
+      "url": "http://duma.gov.ru/en/",
+      "note": "Lower house — legislation and records.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Executive & Legislature",
+      "title": "Federation Council (council.gov.ru)",
+      "url": "http://council.gov.ru/en/",
+      "note": "Upper house of parliament.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Executive & Legislature",
+      "title": "pravo.gov.ru — Official Legal Publication",
+      "url": "http://pravo.gov.ru/",
+      "note": "Authoritative publication of laws and decrees.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Ministries",
+      "title": "MID — Ministry of Foreign Affairs",
+      "url": "https://mid.ru/en/",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Ministries",
+      "title": "Ministry of Defence (mil.ru)",
+      "url": "https://eng.mil.ru/",
+      "note": "State narrative.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Ministries",
+      "title": "MVD — Ministry of Internal Affairs",
+      "url": "https://мвд.рф/",
+      "note": "Crime statistics, law enforcement.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Ministries",
+      "title": "Ministry of Finance (minfin.gov.ru)",
+      "url": "https://minfin.gov.ru/en/",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Ministries",
+      "title": "Ministry of Economic Development",
+      "url": "https://www.economy.gov.ru/",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Ministries",
+      "title": "Ministry of Energy (minenergo.gov.ru)",
+      "url": "https://minenergo.gov.ru/en",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Ministries",
+      "title": "Ministry of Industry & Trade (minpromtorg)",
+      "url": "https://minpromtorg.gov.ru/",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Ministries",
+      "title": "Ministry of Transport (mintrans.gov.ru)",
+      "url": "https://mintrans.gov.ru/",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Ministries",
+      "title": "Ministry of Digital Development",
+      "url": "https://digital.gov.ru/en/",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Ministries",
+      "title": "Ministry of Agriculture (mcx.gov.ru)",
+      "url": "https://mcx.gov.ru/en/",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Ministries",
+      "title": "Ministry of Justice (minjust.gov.ru)",
+      "url": "https://minjust.gov.ru/en/",
+      "note": "Foreign-agent & NGO registries.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Ministries",
+      "title": "MChS — Emergencies Ministry",
+      "url": "https://www.mchs.gov.ru/",
+      "note": "Disaster and emergency bulletins.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Statistics & Open Data",
+      "title": "Rosstat — Federal Statistics Service",
+      "url": "https://rosstat.gov.ru/",
+      "note": "Economy, census, regional demographics.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Statistics & Open Data",
+      "title": "Fedstat (fedstat.ru) — Unified Statistics DB",
+      "url": "https://fedstat.ru/",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Statistics & Open Data",
+      "title": "data.gov.ru — National Open Data Portal",
+      "url": "https://data.gov.ru/",
+      "note": "Access intermittently restricted.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Statistics & Open Data",
+      "title": "data.mos.ru — Moscow Open Data",
+      "url": "https://data.mos.ru/",
+      "note": "Transit, cameras, municipal services.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Financial & Markets",
+      "title": "Central Bank of Russia (cbr.ru)",
+      "url": "https://www.cbr.ru/eng/",
+      "note": "Monetary, FX, banking-sector data.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Financial & Markets",
+      "title": "Moscow Exchange (moex.com)",
+      "url": "https://www.moex.com/en/",
+      "note": "Securities, commodities, FX trading data.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Financial & Markets",
+      "title": "FNS — Federal Tax Service (nalog.gov.ru)",
+      "url": "https://www.nalog.gov.ru/",
+      "note": "EGRUL/EGRIP company registry (egrul.nalog.ru).",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Financial & Markets",
+      "title": "Rosfinmonitoring (fedsfm.ru)",
+      "url": "https://www.fedsfm.ru/en",
+      "note": "Financial intelligence; extremist/terrorist lists.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Financial & Markets",
+      "title": "FAS — Federal Antimonopoly Service",
+      "url": "https://fas.gov.ru/",
+      "note": "Competition, mergers, market dominance.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Registries & Procurement",
+      "title": "Rosreestr (rosreestr.gov.ru)",
+      "url": "https://rosreestr.gov.ru/",
+      "note": "Cadastre & property/real-estate registry.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Registries & Procurement",
+      "title": "zakupki.gov.ru — Unified Procurement",
+      "url": "https://zakupki.gov.ru/",
+      "note": "State-contract tender system.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Registries & Procurement",
+      "title": "Rospatent (rospatent.gov.ru)",
+      "url": "https://rospatent.gov.ru/en",
+      "note": "Patents and trademarks.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Registries & Procurement",
+      "title": "Clearspending (clearspending.ru)",
+      "url": "https://clearspending.ru/",
+      "note": "Independent procurement-transparency project.",
+      "reliability": "rel-archived"
+    },
+    {
+      "category": "Transport & Infrastructure",
+      "title": "Rosavtodor — Federal Road Agency",
+      "url": "https://rosavtodor.gov.ru/",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Transport & Infrastructure",
+      "title": "Rosaviatsiya (favt.gov.ru)",
+      "url": "https://favt.gov.ru/",
+      "note": "Civil aviation authority.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Transport & Infrastructure",
+      "title": "Rosmorrechflot — Maritime & River",
+      "url": "https://morflot.gov.ru/",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Transport & Infrastructure",
+      "title": "Russian Railways (rzd.ru)",
+      "url": "https://eng.rzd.ru/",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Transport & Infrastructure",
+      "title": "GIBDD — Traffic Police",
+      "url": "https://гибдд.рф/",
+      "note": "Road-accident & enforcement statistics.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Energy & Strategic",
+      "title": "Rosatom (rosatom.ru)",
+      "url": "https://rosatom.ru/en/",
+      "note": "State nuclear corporation.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Energy & Strategic",
+      "title": "Roscosmos (roscosmos.ru)",
+      "url": "https://www.roscosmos.ru/",
+      "note": "State space corporation.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Oversight & Regulators",
+      "title": "Roskomnadzor (rkn.gov.ru)",
+      "url": "https://rkn.gov.ru/",
+      "note": "Comms regulator; data-breach disclosures.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Oversight & Regulators",
+      "title": "Rospotrebnadzor",
+      "url": "https://www.rospotrebnadzor.ru/en/",
+      "note": "Consumer & epidemiological oversight.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Oversight & Regulators",
+      "title": "Rostekhnadzor",
+      "url": "https://www.gosnadzor.ru/",
+      "note": "Industrial/environmental safety supervision.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Oversight & Regulators",
+      "title": "Roshydromet (meteorf.gov.ru)",
+      "url": "https://www.meteorf.gov.ru/",
+      "note": "Meteorology & environmental monitoring.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Cyber & Incident Response",
+      "title": "NCCC / GosSOPKA (safe-surf.ru)",
+      "url": "https://safe-surf.ru/",
+      "note": "National computer incident response center.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "Cyber & Incident Response",
+      "title": "MITRE ATT&CK — Threat Groups",
+      "url": "https://attack.mitre.org/groups/",
+      "note": "Threat-actor TTP knowledge base.",
+      "reliability": "rel-verified"
+    },
+    {
+      "category": "Cyber & Incident Response",
+      "title": "CISA Cybersecurity Advisories",
+      "url": "https://www.cisa.gov/cybersecurity-advisories",
+      "note": "US-gov technical advisories on Russian activity.",
+      "reliability": "rel-official"
+    },
+    {
+      "category": "State Media (labeled)",
+      "title": "TASS (EN)",
+      "url": "https://tass.com/",
+      "note": "State news agency — state narrative.",
+      "reliability": "rel-media"
+    },
+    {
+      "category": "State Media (labeled)",
+      "title": "RIA Novosti",
+      "url": "https://ria.ru/",
+      "note": "State news agency — state narrative.",
+      "reliability": "rel-media"
+    }
+  ],
+  "sanctions_sources": [
+    {
+      "title": "OFAC SDN Search (US Treasury)",
+      "url": "https://sanctionssearch.ofac.treas.gov/",
+      "note": "Authoritative US designations; basis of russia_sanctions.json.",
+      "reliability": "rel-official"
+    },
+    {
+      "title": "OFAC Russia-related Sanctions",
+      "url": "https://ofac.treasury.gov/sanctions-programs-and-country-information/russian-harmful-foreign-activities-sanctions",
+      "reliability": "rel-official"
+    },
+    {
+      "title": "EU Consolidated Sanctions List",
+      "url": "https://www.sanctionsmap.eu/",
+      "reliability": "rel-official"
+    },
+    {
+      "title": "UK OFSI Consolidated List",
+      "url": "https://www.gov.uk/government/publications/financial-sanctions-consolidated-list-of-targets",
+      "reliability": "rel-official"
+    },
+    {
+      "title": "Canada Sanctions (SEMA)",
+      "url": "https://www.international.gc.ca/world-monde/international_relations-relations_internationales/sanctions/consolidated-consolide.aspx",
+      "reliability": "rel-official"
+    },
+    {
+      "title": "OpenSanctions (aggregated, free API)",
+      "url": "https://www.opensanctions.org/",
+      "note": "Cross-references PEPs, sanctions, ownership.",
+      "reliability": "rel-archived"
+    },
+    {
+      "title": "OCCRP Aleph",
+      "url": "https://aleph.occrp.org/",
+      "note": "Investigative datasets, leaks, registries.",
+      "reliability": "rel-archived"
+    },
+    {
+      "title": "KSE Institute — Russia sanctions tracking",
+      "url": "https://kse.ua/russia-will-pay/",
+      "reliability": "rel-archived"
+    },
+    {
+      "title": "Yale CELI — Companies leaving/staying",
+      "url": "https://www.yalerussianbusinessretreat.com/",
+      "reliability": "rel-archived"
+    }
+  ],
+  "strategic_industries": [
+    {
+      "sector": "Oil & Gas",
+      "share_note": "~ backbone of federal budget revenue",
+      "companies": [
+        "Gazprom",
+        "Rosneft",
+        "Lukoil",
+        "Surgutneftegas",
+        "Novatek",
+        "Gazprom Neft",
+        "Transneft"
+      ],
+      "vitals": [
+        "crude oil",
+        "natural gas",
+        "LNG",
+        "refined products"
+      ]
+    },
+    {
+      "sector": "Metals & Mining",
+      "companies": [
+        "Nornickel",
+        "Rusal",
+        "Severstal",
+        "NLMK",
+        "Evraz",
+        "Polyus",
+        "Alrosa",
+        "VSMPO-AVISMA",
+        "Metalloinvest"
+      ],
+      "vitals": [
+        "palladium",
+        "nickel",
+        "aluminum",
+        "titanium",
+        "gold",
+        "diamonds",
+        "steel"
+      ]
+    },
+    {
+      "sector": "Nuclear",
+      "companies": [
+        "Rosatom",
+        "TVEL",
+        "Tenex"
+      ],
+      "vitals": [
+        "enriched uranium",
+        "reactor exports",
+        "isotopes"
+      ]
+    },
+    {
+      "sector": "Defense / Industrial",
+      "companies": [
+        "Rostec",
+        "Almaz-Antey",
+        "United Aircraft Corp",
+        "Uralvagonzavod",
+        "Kalashnikov Concern",
+        "United Shipbuilding Corp"
+      ],
+      "vitals": [
+        "armaments",
+        "aerospace",
+        "shipbuilding"
+      ]
+    },
+    {
+      "sector": "Agriculture & Fertilizer",
+      "companies": [
+        "PhosAgro",
+        "Uralkali",
+        "Acron",
+        "EuroChem",
+        "Rusagro"
+      ],
+      "vitals": [
+        "wheat",
+        "potash",
+        "nitrogen fertilizer",
+        "ammonia"
+      ]
+    },
+    {
+      "sector": "Finance",
+      "companies": [
+        "Sberbank",
+        "VTB",
+        "Gazprombank",
+        "Alfa-Bank",
+        "Moscow Exchange"
+      ],
+      "vitals": [
+        "payments",
+        "FX",
+        "sovereign debt"
+      ]
+    },
+    {
+      "sector": "Transport & Logistics",
+      "companies": [
+        "Russian Railways (RZD)",
+        "Sovcomflot",
+        "Aeroflot"
+      ],
+      "vitals": [
+        "rail freight",
+        "tanker shipping",
+        "air transport"
+      ]
+    },
+    {
+      "sector": "Tech & Telecom",
+      "companies": [
+        "Yandex",
+        "VK",
+        "Rostelecom",
+        "MTS"
+      ],
+      "vitals": [
+        "search",
+        "telecom",
+        "cloud"
+      ]
+    }
+  ],
+  "vitals_export_commodities": {
+    "note": "Critical commodities where Russia is a globally significant supplier — chokepoints that shape both leverage and sanctions exposure.",
+    "reliability": "rel-archived",
+    "source": "IEA, USGS, FAO, OEC trade data",
+    "items": [
+      "crude oil",
+      "natural gas / LNG",
+      "wheat",
+      "potash & nitrogen fertilizer",
+      "palladium",
+      "enriched uranium",
+      "nickel",
+      "titanium (aerospace)",
+      "aluminum",
+      "diamonds",
+      "gold",
+      "neon / noble gases"
+    ]
+  },
+  "evasion_typologies": {
+    "note": "Aggregate, jurisdiction-level sanctions-evasion PATTERNS (re-export and financial flow typologies) from official advisories. Not tied to any individual; for compliance/research awareness.",
+    "reliability": "rel-official",
+    "source": "FinCEN/BIS joint alerts, OFAC guidance, FATF, KSE Institute",
+    "hubs": [
+      {
+        "name": "UAE (Dubai)",
+        "lat": 25.2,
+        "lon": 55.27,
+        "mechanism": "Dual-use goods re-export; trade-based laundering; gold; corporate domicile"
+      },
+      {
+        "name": "Türkiye",
+        "lat": 39.93,
+        "lon": 32.86,
+        "mechanism": "Parallel imports; electronics & machinery transshipment; banking channel"
+      },
+      {
+        "name": "Kazakhstan",
+        "lat": 51.13,
+        "lon": 71.43,
+        "mechanism": "EAEU re-export of restricted goods; customs arbitrage"
+      },
+      {
+        "name": "Kyrgyzstan",
+        "lat": 42.87,
+        "lon": 74.59,
+        "mechanism": "EAEU transshipment; rapid export-growth anomalies"
+      },
+      {
+        "name": "Armenia",
+        "lat": 40.18,
+        "lon": 44.51,
+        "mechanism": "Electronics re-export; payment intermediation"
+      },
+      {
+        "name": "Georgia",
+        "lat": 41.72,
+        "lon": 44.78,
+        "mechanism": "Goods transit; corporate registration"
+      },
+      {
+        "name": "Hong Kong",
+        "lat": 22.32,
+        "lon": 114.17,
+        "mechanism": "Shell companies; semiconductor/component procurement"
+      },
+      {
+        "name": "China (mainland)",
+        "lat": 39.9,
+        "lon": 116.4,
+        "mechanism": "Dual-use components; CNY settlement; machine tools"
+      },
+      {
+        "name": "Serbia",
+        "lat": 44.79,
+        "lon": 20.45,
+        "mechanism": "Goods transit into/through Europe"
+      }
+    ],
+    "shadow_fleet": {
+      "mechanism": "Aging tankers move price-capped crude via flag-hopping (Gabon, Panama, Cook Islands, Palau), AIS gaps/spoofing, and ship-to-ship transfers (off Greece, Malaysia, Ceuta).",
+      "monitor": "Public AIS anomaly detection in Baltic, Black, Barents, and Mediterranean corridors.",
+      "reliability": "rel-archived"
+    },
+    "financial": {
+      "mechanism": "Shell companies in permissive jurisdictions, crypto/stablecoin rails, gold, mirror trades, and CNY/AED settlement to bypass SWIFT restrictions.",
+      "reliability": "rel-official",
+      "source": "FinCEN advisories; OFAC"
+    }
+  },
+  "ownership_mapping": {
+    "note": "Map oligarch/whale-company relationships from PUBLIC sanctions designations and beneficial-ownership records (OFAC SDN, EU/UK lists, OpenSanctions, OCCRP). russia_sanctions.json provides the live designation feed. This tracks corporate control and asset flows, NOT physical movements of individuals.",
+    "reliability": "rel-official",
+    "method": [
+      "Start from a sanctions designation (OFAC SDN / EU / UK).",
+      "Pull linked entities and 'owned/controlled by' relationships from OpenSanctions / OCCRP Aleph.",
+      "Cross-reference corporate registries (EGRUL, Rosreestr) and procurement (zakupki) for control and contracts.",
+      "Trace asset domiciles through the evasion-hub jurisdictions above."
+    ]
+  },
+  "infrastructure": {
+    "reliability": "rel-media",
+    "source": "TAdviser; Russian Ministry of Transport releases",
+    "road_cameras_2025": {
+      "total_complexes": 32500,
+      "stationary": 28800,
+      "mobile": 2600,
+      "fines_issued_millions": 232,
+      "outdated_pct": 30
+    },
+    "road_program_2026_budget_rub_billion": 773.2,
+    "roads_built_repaired_2025_km": 28000,
+    "notes": [
+      "Open-data rollback: ~600 datasets removed from federal sites after 2023 drone attacks (infrastructure, power, road networks classified critical/sensitive).",
+      "Shadow-fleet monitoring relies on public AIS anomaly detection (signal gaps, flag-hopping) in Baltic, Black, and Barents Sea corridors."
+    ]
+  },
+  "sensor_networks": [
+    {
+      "name": "Sensor.Community",
+      "url": "https://sensor.community/",
+      "note": "Global crowdsourced PM2.5/PM10 air-quality sensors incl. Russian nodes. Open API.",
+      "reliability": "rel-archived"
+    },
+    {
+      "name": "Airalab / Robonomics",
+      "url": "https://sensors.robonomics.network/",
+      "note": "Decentralized air-quality mesh (IPFS-based) across Russian cities.",
+      "reliability": "rel-archived"
+    },
+    {
+      "name": "OpenAQ",
+      "url": "https://openaq.org/",
+      "note": "Aggregated open air-quality measurements with public API.",
+      "reliability": "rel-archived"
+    }
+  ],
+  "search_trends": {
+    "note": "Yandex dominates Russian search (~70%); Google ~27%. Trending queries can proxy public interest in events.",
+    "reliability": "rel-media",
+    "sources": [
+      {
+        "title": "Yandex",
+        "url": "https://yandex.ru/"
+      },
+      {
+        "title": "Google Trends (RU)",
+        "url": "https://trends.google.com/trends/?geo=RU"
+      }
+    ]
+  },
+  "historical_timeline": {
+    "note": "Public historical record, USSR/Russia, Cold War to present, incl. international conflicts. Educational summary; reliability reflects documentation level.",
+    "reliability": "rel-archived",
+    "events": [
+      {
+        "year": 1949,
+        "title": "First Soviet nuclear test (RDS-1)",
+        "tag": "nuclear"
+      },
+      {
+        "year": 1955,
+        "title": "Warsaw Pact founded",
+        "tag": "alliance"
+      },
+      {
+        "year": 1956,
+        "title": "Soviet intervention in Hungary",
+        "tag": "conflict"
+      },
+      {
+        "year": 1957,
+        "title": "Sputnik 1 — start of the space race",
+        "tag": "space"
+      },
+      {
+        "year": 1961,
+        "title": "Berlin Wall erected; Vostok 1 (Gagarin)",
+        "tag": "coldwar"
+      },
+      {
+        "year": 1962,
+        "title": "Cuban Missile Crisis",
+        "tag": "coldwar"
+      },
+      {
+        "year": 1968,
+        "title": "Warsaw Pact invasion of Czechoslovakia (Prague Spring)",
+        "tag": "conflict"
+      },
+      {
+        "year": 1979,
+        "title": "Soviet invasion of Afghanistan",
+        "tag": "conflict"
+      },
+      {
+        "year": 1983,
+        "title": "KAL 007 shootdown; Able Archer scare",
+        "tag": "coldwar"
+      },
+      {
+        "year": 1986,
+        "title": "Chernobyl nuclear disaster",
+        "tag": "disaster"
+      },
+      {
+        "year": 1989,
+        "title": "Soviet withdrawal from Afghanistan; Berlin Wall falls",
+        "tag": "coldwar"
+      },
+      {
+        "year": 1991,
+        "title": "Dissolution of the USSR",
+        "tag": "statehood"
+      },
+      {
+        "year": 1994,
+        "title": "First Chechen War begins",
+        "tag": "conflict"
+      },
+      {
+        "year": 1999,
+        "title": "Second Chechen War; Putin becomes PM",
+        "tag": "conflict"
+      },
+      {
+        "year": 2008,
+        "title": "Russo-Georgian War",
+        "tag": "conflict"
+      },
+      {
+        "year": 2014,
+        "title": "Annexation of Crimea; war in Donbas begins",
+        "tag": "conflict"
+      },
+      {
+        "year": 2015,
+        "title": "Military intervention in Syria",
+        "tag": "conflict"
+      },
+      {
+        "year": 2018,
+        "title": "Skripal poisoning (Salisbury, UK)",
+        "tag": "incident"
+      },
+      {
+        "year": 2020,
+        "title": "Navalny poisoning",
+        "tag": "incident"
+      },
+      {
+        "year": 2022,
+        "title": "Full-scale invasion of Ukraine; mass sanctions",
+        "tag": "conflict"
+      },
+      {
+        "year": 2023,
+        "title": "Wagner Group mutiny",
+        "tag": "internal"
+      },
+      {
+        "year": 2024,
+        "title": "Continued Ukraine war; expanded sanctions regimes",
+        "tag": "conflict"
+      }
+    ]
+  },
+  "metro_systems": {
+    "note": "Public urban rail/metro systems — civic transport infrastructure (publicly mapped).",
+    "reliability": "rel-archived",
+    "cities": [
+      {
+        "city": "Moscow",
+        "system": "Moscow Metro",
+        "opened": 1935,
+        "lines": 14
+      },
+      {
+        "city": "Saint Petersburg",
+        "system": "Petersburg Metro",
+        "opened": 1955,
+        "lines": 5
+      },
+      {
+        "city": "Nizhny Novgorod",
+        "system": "Nizhny Novgorod Metro",
+        "opened": 1985,
+        "lines": 2
+      },
+      {
+        "city": "Novosibirsk",
+        "system": "Novosibirsk Metro",
+        "opened": 1986,
+        "lines": 2
+      },
+      {
+        "city": "Samara",
+        "system": "Samara Metro",
+        "opened": 1987,
+        "lines": 1
+      },
+      {
+        "city": "Yekaterinburg",
+        "system": "Yekaterinburg Metro",
+        "opened": 1991,
+        "lines": 1
+      },
+      {
+        "city": "Kazan",
+        "system": "Kazan Metro",
+        "opened": 2005,
+        "lines": 1
+      }
+    ]
+  },
+  "manufacturing_hubs": {
+    "note": "City/region-level industrial centers (aggregate economic geography, publicly documented). No facility-precision coordinates.",
+    "reliability": "rel-archived",
+    "hubs": [
+      {
+        "region": "Moscow region",
+        "focus": "Diversified — machinery, electronics, food, finance"
+      },
+      {
+        "region": "Saint Petersburg",
+        "focus": "Shipbuilding, automotive assembly, machinery"
+      },
+      {
+        "region": "Ural (Yekaterinburg / Chelyabinsk / Magnitogorsk)",
+        "focus": "Metallurgy, heavy industry, steel"
+      },
+      {
+        "region": "Samara / Togliatti",
+        "focus": "Automotive (AvtoVAZ), aerospace, petrochemicals"
+      },
+      {
+        "region": "Naberezhnye Chelny (Tatarstan)",
+        "focus": "Heavy trucks (KamAZ)"
+      },
+      {
+        "region": "Nizhny Novgorod",
+        "focus": "Automotive (GAZ), machinery"
+      },
+      {
+        "region": "Tatarstan (Kazan)",
+        "focus": "Aviation, petrochemicals"
+      },
+      {
+        "region": "Norilsk",
+        "focus": "Nonferrous metals (nickel, palladium)"
+      }
+    ]
+  },
+  "federal_districts": {
+    "note": "Eight federal districts (федеральные округа) — top-level administrative grouping.",
+    "reliability": "rel-official",
+    "source": "Government of Russia",
+    "districts": [
+      {
+        "name": "Central",
+        "center": "Moscow",
+        "lat": 55.7558,
+        "lon": 37.6173
+      },
+      {
+        "name": "Northwestern",
+        "center": "Saint Petersburg",
+        "lat": 59.9311,
+        "lon": 30.3609
+      },
+      {
+        "name": "Southern",
+        "center": "Rostov-on-Don",
+        "lat": 47.2357,
+        "lon": 39.7015
+      },
+      {
+        "name": "North Caucasian",
+        "center": "Pyatigorsk",
+        "lat": 44.0486,
+        "lon": 43.0594
+      },
+      {
+        "name": "Volga",
+        "center": "Nizhny Novgorod",
+        "lat": 56.2965,
+        "lon": 43.9361
+      },
+      {
+        "name": "Ural",
+        "center": "Yekaterinburg",
+        "lat": 56.8389,
+        "lon": 60.6057
+      },
+      {
+        "name": "Siberian",
+        "center": "Novosibirsk",
+        "lat": 55.0084,
+        "lon": 82.9357
+      },
+      {
+        "name": "Far Eastern",
+        "center": "Vladivostok",
+        "lat": 43.1198,
+        "lon": 131.8869
+      }
+    ]
+  },
+  "economy": {
+    "note": "Aggregate macro indicators (open estimates; figures vary by source and year).",
+    "reliability": "rel-archived",
+    "source": "World Bank, IMF, CBR, OEC, BP/IEA",
+    "currency": "Russian ruble (RUB)",
+    "gdp_nominal_usd_trillion_approx": 2.0,
+    "gdp_ppp_rank_approx": "Top 5 globally (PPP)",
+    "key_exports": [
+      "crude oil & products",
+      "natural gas",
+      "metals",
+      "grain",
+      "fertilizer",
+      "arms"
+    ],
+    "major_trade_partners_post_2022": [
+      "China",
+      "India",
+      "Türkiye",
+      "EU (reduced)",
+      "Central Asia"
+    ],
+    "energy_role": "Among the world's largest producers/exporters of oil and natural gas; leading wheat and fertilizer exporter."
+  },
+  "arms_control": {
+    "note": "AGGREGATE, treaty-level transparency data from open arms-control scholarship. Estimates only; NO facility locations, basing, or targeting information.",
+    "reliability": "rel-archived",
+    "new_start": {
+      "deployed_strategic_warheads_limit": 1550,
+      "deployed_delivery_vehicles_limit": 700,
+      "launchers_limit": 800,
+      "status": "Signed 2010; extended 2021 to Feb 2026. Russia announced suspension of participation in Feb 2023."
+    },
+    "estimated_total_stockpile_warheads_range": "≈5,400–5,900 (open estimates; FAS/Bulletin/SIPRI vary)",
+    "triad_categories": [
+      "land-based ICBMs",
+      "submarine-launched ballistic missiles (SLBM)",
+      "strategic bombers"
+    ],
+    "transparency_sources": [
+      {
+        "title": "FAS — Nuclear Notebook (Russian forces)",
+        "url": "https://fas.org/publication/nuclear-notebook/",
+        "reliability": "rel-archived"
+      },
+      {
+        "title": "Bulletin of the Atomic Scientists",
+        "url": "https://thebulletin.org/",
+        "reliability": "rel-archived"
+      },
+      {
+        "title": "SIPRI — Nuclear Forces",
+        "url": "https://www.sipri.org/yearbook/2024/10",
+        "reliability": "rel-archived"
+      },
+      {
+        "title": "Arms Control Association",
+        "url": "https://www.armscontrol.org/",
+        "reliability": "rel-archived"
+      },
+      {
+        "title": "Russianforces.org (Pavel Podvig)",
+        "url": "http://russianforces.org/",
+        "reliability": "rel-archived"
+      },
+      {
+        "title": "New START Treaty text (US State Dept)",
+        "url": "https://www.state.gov/new-start/",
+        "reliability": "rel-official"
+      }
+    ]
+  },
+  "cold_war_heritage": {
+    "note": "Decommissioned Cold War sites that are now public museums / heritage attractions (publicly mapped tourist sites). Not active facilities.",
+    "reliability": "rel-archived",
+    "sites": [
+      {
+        "name": "Bunker-42 (Tagansky) Cold War Museum",
+        "city": "Moscow",
+        "lat": 55.7406,
+        "lon": 37.6506,
+        "note": "Former command bunker, now a museum."
+      },
+      {
+        "name": "Balaklava Submarine Base (Object 825GTS) Museum",
+        "city": "Balaklava",
+        "lat": 44.5006,
+        "lon": 33.5969,
+        "note": "Decommissioned sub base, now a naval museum."
+      },
+      {
+        "name": "Plokštinė Missile Base — Cold War Museum",
+        "city": "Žemaitija NP (Lithuania)",
+        "lat": 55.9536,
+        "lon": 21.8869,
+        "note": "Former Soviet missile site, now a museum."
+      },
+      {
+        "name": "Stalin's Bunker",
+        "city": "Samara",
+        "lat": 53.1959,
+        "lon": 50.1002,
+        "note": "WWII-era command bunker museum."
+      },
+      {
+        "name": "Museum of the Cold War (Karosta)",
+        "city": "Liepāja (Latvia)",
+        "lat": 56.54,
+        "lon": 21.01,
+        "note": "Former Soviet naval district, heritage site."
+      }
+    ]
+  },
+  "energy_production": {
+    "note": "Approximate open estimates of Russia's role in global commodity supply. Figures vary by year/source; use as orders of magnitude.",
+    "reliability": "rel-archived",
+    "source": "IEA, BP Statistical Review, USGS, FAO, OEC",
+    "commodities": [
+      {
+        "commodity": "Crude oil",
+        "scale": "~10.5 million bbl/day produced",
+        "global_role": "Top-3 producer; major exporter"
+      },
+      {
+        "commodity": "Natural gas",
+        "scale": "~600+ bcm/year produced",
+        "global_role": "Top-2 producer; historically Europe's largest supplier"
+      },
+      {
+        "commodity": "Wheat",
+        "scale": "~45–50 Mt/year exported",
+        "global_role": "World's largest wheat exporter"
+      },
+      {
+        "commodity": "Fertilizer (potash & nitrogen)",
+        "scale": "Leading exporter",
+        "global_role": "Top global supplier; key to food security"
+      },
+      {
+        "commodity": "Palladium",
+        "scale": "~40% of global mine supply",
+        "global_role": "Dominant supplier (Nornickel)"
+      },
+      {
+        "commodity": "Enriched uranium",
+        "scale": "~35–45% of global enrichment capacity",
+        "global_role": "Largest enrichment provider (Rosatom/Tenex)"
+      },
+      {
+        "commodity": "Nickel",
+        "scale": "Significant share of Class-1 nickel",
+        "global_role": "Major supplier (Nornickel)"
+      },
+      {
+        "commodity": "Aluminum",
+        "scale": "~5–6% of global output",
+        "global_role": "Major supplier (Rusal)"
+      }
+    ]
+  }
+}

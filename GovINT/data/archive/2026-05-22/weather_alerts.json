@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-05-22T12:07:02.339670Z",
+  "items": [
+    {
+      "title": "Brisk Wind Advisory issued May 22 at 3:45AM AKDT until May 23 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T03:45:00-08:00",
+      "summary": "Arctic Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TODAY...E winds 25 kt.\n.TONIGHT...E winds 25 kt.\n.SAT...E winds 20 kt.\n.SAT NIGHT...E winds 15 kt.\n.SUN...E winds 15 kt.\n.SUN NIGHT...E winds 10 kt.\n.MON...E winds 25 kt.\n.TUE...E winds 30 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Flaxman Island to Demarcation Point out to 15 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued May 22 at 3:45AM AKDT until May 23 at 5:00AM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T03:45:00-08:00",
+      "summary": "Arctic Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TODAY...E winds 25 kt.\n.TONIGHT...E winds 25 kt.\n.SAT...E winds 20 kt.\n.SAT NIGHT...E winds 10 kt.\n.SUN...E winds 10 kt.\n.SUN NIGHT...NE winds 5 kt.\n.MON...E winds 20 kt.\n.TUE...E winds 25 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Flaxman Island to Demarcation Point from 15 to 75 NM"
+    },
+    {
+      "title": "Special Weather Statement issued May 22 at 6:20AM CDT by NWS Jackson MS",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T06:20:00-05:00",
+      "summary": "At 620 AM CDT, Doppler radar was tracking strong thunderstorms along\na line extending from near Garlandville to near Moss. Movement was\neast at 35 mph.\n\nHAZARD...Wind gusts up to 40 mph and pea size hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects. Minor hail damage to vegetation is\npossible.\n\nStrong thunderstorms will be near...\nPaulding, Vernon, and Rose Hill around 625 AM CDT.\nHeidelberg around 630 AM CDT.\nStafford Springs an",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Jasper; Clarke"
+    },
+    {
+      "title": "Flash Flood Warning issued May 22 at 6:16AM CDT until May 22 at 9:30AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T06:16:00-05:00",
+      "summary": "FFWTSA\n\nThe National Weather Service in Tulsa has issued a\n\n* Flash Flood Warning for...\nLatimer County in southeastern Oklahoma...\n\n* Until 930 AM CDT.\n\n* At 616 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 1 and 4 inches of rain\nhave fallen. Flash flooding is ongoing or expected to begin\nshortly.\n\nHAZARD...Flash flooding caused by thunderstorms.\n\nSOURCE...Radar.\n\nIMPACT...Flash flooding of small creeks and streams, urban\nareas, highways, st",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Latimer, OK"
+    },
+    {
+      "title": "Special Weather Statement issued May 22 at 5:35AM CDT by NWS Grand Forks ND",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T05:35:00-05:00",
+      "summary": "Relative humidity values are expected to fall into the 25-30\npercent range, along with southeast winds of 15 to 20 mph. Given\nthe extremely dry fuels, near critical fire weather conditions are\nexpected late this morning through mid afternoon. Any fire that\ndoes develop has the potential to quickly spread.\n\nFor more information on burning restrictions for Minnesota, see\nwww.dnr.state.mn.us/forestry/fire/firerating_restrictions.html",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Roseau; Lake Of The Woods; East Marshall; North Beltrami"
+    },
+    {
+      "title": "Frost Advisory issued May 22 at 6:34AM EDT until May 23 at 7:00AM EDT by NWS Caribou ME",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T06:34:00-04:00",
+      "summary": "* WHAT...Temperatures in the low to mid 30s will result in frost\nformation.\n\n* WHERE...Central Piscataquis, Northern Penobscot, Southeast\nAroostook, and Northeast Aroostook Counties.\n\n* WHEN...From midnight tonight to 7 AM EDT Saturday.\n\n* IMPACTS...Frost could harm sensitive outdoor vegetation. Sensitive\noutdoor plants may be killed if left uncovered.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Northeast Aroostook; Northern Penobscot; Southeast Aroostook; Central Piscataquis"
+    },
+    {
+      "title": "Flood Advisory issued May 22 at 5:18AM CDT until May 22 at 8:00AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T05:18:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of southeast Oklahoma, including the following\ncounty, Latimer.\n\n* WHEN...Until 800 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\n\n* ADDITIONAL DETAILS...\n- At 518 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Between 1 and 2 inches of rain\nhave fallen.\n- Some locations that will experience flo",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Latimer, OK"
+    },
+    {
+      "title": "Small Craft Advisory issued May 22 at 5:58AM EDT until May 22 at 7:00PM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T05:58:00-04:00",
+      "summary": "* WHAT...North winds 10 kt and seas 4 to 5 ft.\n\n* WHERE...Coastal waters from NC VA border to Currituck Beach\nLight NC out 20 NM.\n\n* WHEN...Until 7 PM EDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from NC VA border to Currituck Beach Light NC out 20 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 22 at 2:56AM PDT until May 23 at 3:00AM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T02:56:00-07:00",
+      "summary": "* WHAT...West winds 10 to 20 kt with frequent gusts to 25 kt.\n\n* WHERE...Central U. S. Waters Strait Of Juan De Fuca and East\nEntrance U. S. Waters Strait Of Juan De Fuca.\n\n* WHEN...From 7 PM this evening to 3 AM PDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Central U.S. Waters Strait Of Juan De Fuca; East Entrance U.S. Waters Strait Of Juan De Fuca"
+    },
+    {
+      "title": "Flash Flood Warning issued May 22 at 4:25AM CDT until May 22 at 8:00AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T04:25:00-05:00",
+      "summary": "FFWTSA\n\nThe National Weather Service in Tulsa has issued a\n\n* Flash Flood Warning for...\nWestern Rogers County in northeastern Oklahoma...\nTulsa County in northeastern Oklahoma...\nSouthern Washington County in northeastern Oklahoma...\n\n* Until 800 AM CDT.\n\n* At 425 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 1 and 4 inches of rain\nhave fallen. Flash flooding is ongoing or expected to begin\nshortly.\n\nHAZARD...Flash flooding caused by thunders",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Rogers, OK; Tulsa, OK; Washington, OK"
+    },
+    {
+      "title": "Special Weather Statement issued May 22 at 5:00AM EDT by NWS Charleston WV",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T05:00:00-04:00",
+      "summary": "Areas of fog will continue across portions of the area this\nmorning, especially across the higher elevations. Fog could be\ndense in some locations, with visibility a quarter of a mile or\nless. Use caution if traveling, and be alert for rapidly changing\nvisibility over a short distance. Use low beam headlights and\nallow for greater distances between vehicles.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Southeast Raleigh; Southeast Fayette; Southeast Nicholas; Southeast Webster; Northwest Pocahontas; Southeast Pocahontas; Southeast Randolph"
+    },
+    {
+      "title": "Flash Flood Warning issued May 22 at 3:39AM CDT until May 22 at 7:30AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T03:39:00-05:00",
+      "summary": "FFWTSA\n\nThe National Weather Service in Tulsa has issued a\n\n* Flash Flood Warning for...\nNortheastern Latimer County in southeastern Oklahoma...\n\n* Until 730 AM CDT.\n\n* At 339 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 2 and 4 inches of rain\nhave fallen. Flash flooding is ongoing or expected to begin\nshortly.\n\nHAZARD...Flash flooding caused by thunderstorms.\n\nSOURCE...Radar.\n\nIMPACT...Flash flooding of small creeks and streams, urban\nareas,",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Latimer, OK"
+    },
+    {
+      "title": "Beach Hazards Statement issued May 22 at 4:11AM EDT until May 22 at 10:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T04:11:00-04:00",
+      "summary": "* WHAT...Dangerous swimming conditions are expected due to high\nwave action and strong rip currents.\n\n* WHERE...Southern Schoolcraft County.\n\n* WHEN...From 4 PM EDT this afternoon through this evening.\n\n* IMPACTS...High wave action and dangerous currents will lead to\nlife threatening swimming conditions. Waves in rapid\nsuccession can tire swimmers quickly.\n\n* ADDITIONAL DETAILS...Current related fatalities and rescues in\nthe past have occurred due to similar wave conditions at\nlocations listed b",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Southern Schoolcraft"
+    },
+    {
+      "title": "Beach Hazards Statement issued May 22 at 4:06AM EDT until May 22 at 8:00PM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T04:06:00-04:00",
+      "summary": "* WHAT...Breaking waves of 3 to 5 ft will result in rough surf\nconditions and a high risk of rip currents.\n\n* WHERE...Virginia Beach.\n\n* WHEN...From 8 AM EDT this morning through this evening.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Virginia Beach"
+    },
+    {
+      "title": "Beach Hazards Statement issued May 22 at 4:02AM EDT until May 23 at 4:00PM EDT by NWS Detroit/Pontiac MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T04:02:00-04:00",
+      "summary": "* WHAT...High swim risk from high wave action and strong\ncurrents. Dangerous swimming conditions are expected\n\n* WHERE...Bay County.\n\n* WHEN...From 10 AM EDT this morning through Saturday afternoon.\n\n* IMPACTS...Strong currents can pull swimmers into deep water and\nprevent return to shore.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Bay"
+    },
+    {
+      "title": "Beach Hazards Statement issued May 22 at 4:02AM EDT until May 23 at 10:00AM EDT by NWS Detroit/Pontiac MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T04:02:00-04:00",
+      "summary": "* WHAT...High swim risk from high wave action and strong\ncurrents. Dangerous swimming conditions are expected.\n\n* WHERE...Monroe County.\n\n* WHEN...Through Saturday morning.\n\n* IMPACTS...Strong currents can pull swimmers into deep water and\nprevent return to shore.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Monroe"
+    },
+    {
+      "title": "Rip Current Statement issued May 22 at 3:53AM EDT until May 22 at 8:00PM EDT by NWS Miami FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T03:53:00-04:00",
+      "summary": "* WHAT...Dangerous rip currents.\n\n* WHERE...Coastal Palm Beach County.\n\n* WHEN...Through this evening.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Palm Beach County"
+    },
+    {
+      "title": "Rip Current Statement issued May 22 at 3:53AM EDT until May 22 at 8:00PM EDT by NWS Miami FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T03:53:00-04:00",
+      "summary": "* WHAT...Dangerous rip currents.\n\n* WHERE...Coastal Broward County and Coastal Miami Dade County.\n\n* WHEN...Through this evening.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Broward County; Coastal Miami Dade County"
+    },
+    {
+      "title": "Rip Current Statement issued May 22 at 3:49AM EDT until May 23 at 2:00AM EDT by NWS Tallahassee FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T03:49:00-04:00",
+      "summary": "* WHAT...Dangerous rip currents expected.\n\n* WHERE...Walton, Bay, Gulf, and Franklin County Beaches.\n\n* WHEN...From 9 AM EDT /8 AM CDT/ this morning through late\ntonight.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "South Walton; Coastal Bay; Coastal Gulf; Coastal Franklin"
+    },
+    {
+      "title": "Special Weather Statement issued May 22 at 3:49AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T03:49:00-04:00",
+      "summary": "Gusty southeast winds as high as 20 to locally 25 mph, combined\nwith dry conditions will lead to elevated wildfire potential this\nafternoon across most of Upper Michigan away from the shorelines\nof the Great Lakes.\n\nAvoid outdoor burning today. Immediately report any wildfires\nto local emergency services by calling 911.\n\nBurn restrictions remain in effect. For complete details, visit\nwww.dnr.state.mi.us/burnpermits, or by calling 866-922-2876.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Ontonagon; Houghton; Baraga; Marquette; Alger; Luce; Gogebic; Iron; Dickinson; Menominee; Delta; Southern Schoolcraft; Southern Houghton; Northern Schoolcraft; Western Chippewa; Central Chippewa; Southeast Chippewa; Western Mackinac; Eastern Mackinac; Mackinac Island/Bois Blanc Island"
+    },
+    {
+      "title": "Flood Watch issued May 22 at 3:00AM EDT until May 23 at 8:00AM EDT by NWS Louisville KY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T03:00:00-04:00",
+      "summary": "* WHAT...Flash flooding caused by excessive rainfall is possible.\n\n* WHERE...Portions of Indiana, including the following area,\nJefferson IN and Kentucky, including the following areas, Bourbon,\nClark KY, Fayette, Franklin, Harrison KY, Henry, Nicholas, Scott\nKY and Trimble.\n\n* WHEN...From 8 AM EDT this morning through Saturday morning.\n\n* IMPACTS...Excessive runoff may result in flooding of rivers,\ncreeks, streams, and other low-lying and flood-prone locations.\nCreeks and streams may rise out o",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Jefferson; Trimble; Henry; Franklin; Scott; Harrison; Fayette; Bourbon; Nicholas; Clark"
+    },
+    {
+      "title": "Flood Watch issued May 22 at 3:00AM EDT until May 23 at 8:00AM EDT by NWS Jackson KY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T03:00:00-04:00",
+      "summary": "* WHAT...Flash flooding caused by excessive rainfall is possible.\n\n* WHERE...A portion of east central Kentucky, including the\nfollowing counties, Bath, Elliott, Fleming, Montgomery and Rowan.\n\n* WHEN...From 8 AM EDT this morning through Saturday morning.\n\n* IMPACTS...Excessive runoff may result in flooding of rivers,\ncreeks, streams, and other low-lying and flood-prone locations.\n\n* ADDITIONAL DETAILS...\n- Rounds of showers and thunderstorms are likely today and\ntonight with many locations, gen",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Fleming; Montgomery; Bath; Rowan; Elliott"
+    },
+    {
+      "title": "Small Craft Advisory issued May 22 at 2:49AM EDT until May 23 at 6:00PM EDT by NWS Upton NY",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T02:49:00-04:00",
+      "summary": "* WHAT...East winds 10 to 20 kt with gusts up to 25 kt this\nmorning into afternoon with seas 4 to 5 feet expected. East\nwinds increasing to 20 to 25 kt with gusts to 30 kt Saturday.\nSeas building to 7 to 10 ft.\n\n* WHERE...Sandy Hook NJ to Moriches Inlet NY out 20 nm.\n\n* WHEN...From 8 AM this morning to 6 PM EDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.\n\n* ADDITIONAL DETAILS...Gale conditions possible Saturday night\ninto Sunday.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Fire Island Inlet NY to Moriches Inlet NY out 20 NM; Sandy Hook NJ to Fire Island Inlet NY out 20 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 22 at 2:25AM EDT until May 23 at 6:00PM EDT by NWS Mount Holly NJ",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T02:25:00-04:00",
+      "summary": "* WHAT...East winds 15 to 25 kt with gusts up to 30 kt and seas\n4 to 7 ft expected.\n\n* WHERE...Coastal waters from Sandy Hook to Manasquan Inlet NJ\nout 20 NM.\n\n* WHEN...From 8 AM this morning to 6 PM EDT Saturday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Sandy Hook to Manasquan Inlet NJ out 20 NM"
+    },
+    {
+      "title": "Flood Watch issued May 22 at 2:21AM EDT until May 23 at 5:00AM EDT by NWS Wilmington OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T02:21:00-04:00",
+      "summary": "* WHAT...Flash flooding caused by excessive rainfall is possible.\n\n* WHERE...The following counties, in southeast Indiana, Ohio and\nSwitzerland, the following counties, in Kentucky, Boone, Bracken,\nCampbell, Carroll, Gallatin, Grant, Kenton, Lewis, Mason, Owen,\nPendleton and Robertson, and the following counties, in Ohio,\nAdams, Brown, Clermont, Highland, Hocking, Pike, Ross and Scioto.\n\n* WHEN...From noon EDT today through late tonight.\n\n* IMPACTS...Excessive runoff may result in flooding of ri",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Ohio; Switzerland; Carroll; Gallatin; Boone; Kenton; Campbell; Owen; Grant; Pendleton; Bracken; Robertson; Mason; Lewis; Ross; Hocking; Clermont; Brown; Highland; Adams; Pike; Scioto"
+    },
+    {
+      "title": "Flood Watch issued May 22 at 2:20AM EDT until May 23 at 8:00AM EDT by NWS Charleston WV",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T02:20:00-04:00",
+      "summary": "* WHAT...Flash flooding caused by excessive rainfall is possible.\n\n* WHERE...Portions of northeast Kentucky, including the following\ncounties, Boyd, Carter, Greenup and Lawrence, southeast Ohio,\nincluding the following counties, Athens, Gallia, Jackson OH,\nLawrence OH, Meigs, Vinton and Washington, and West Virginia,\nincluding the following counties, Cabell, Jackson WV, Mason,\nPleasants, Ritchie, Tyler, Wayne, Wirt and Wood.\n\n* WHEN...From 8 AM EDT this morning through Saturday morning.\n\n* IMPAC",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Greenup; Carter; Boyd; Lawrence; Athens; Washington; Jackson; Vinton; Meigs; Gallia; Lawrence; Wayne; Cabell; Mason; Jackson; Wood; Pleasants; Tyler; Wirt; Ritchie"
+    },
+    {
+      "title": "Rip Current Statement issued May 22 at 2:20AM EDT until May 24 at 3:00AM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T02:20:00-04:00",
+      "summary": "* WHAT...Dangerous rip currents expected.\n\n* WHERE...Southeast Georgia Beaches.\n\n* WHEN...From Saturday morning through late Saturday night.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Glynn; Coastal Camden"
+    },
+    {
+      "title": "Rip Current Statement issued May 22 at 2:20AM EDT until May 24 at 3:00AM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T02:20:00-04:00",
+      "summary": "* WHAT...Dangerous rip currents expected.\n\n* WHERE...Northeast Florida Beaches.\n\n* WHEN...From 11 AM EDT this morning through late Saturday night.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal Nassau; Coastal Duval; Coastal Flagler; Northeast Coastal St. Johns; Southeast Coastal St. Johns"
+    },
+    {
+      "title": "Special Weather Statement issued May 22 at 4:08PM ChST by NWS Tiyan GU",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T16:08:00+10:00",
+      "summary": "A tropical disturbance, known as JTWC's Invest 99W, is currently\ncentered near 7N147E west of Weno, Chuuk. This system is starting to\ndevelop and is expected to move to the west-northwest as it moves\nthrough the outer islands of Yap State. The chance of this system\ndeveloping into a significant tropical cyclone is rated as sub-low by\nJoint Typhoon Warning Center (JTWC). Current estimations has the\nsystem passing by or over Fais and Ulithi before moving northward\ninto the Philippine Sea. This sys",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Yap; Melekeok; Airai; Koror; Peleliu; Angaur"
+    },
+    {
+      "title": "Wind Advisory issued May 21 at 11:57PM MDT until May 22 at 3:00PM MDT by NWS Rapid City SD",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T23:57:00-06:00",
+      "summary": "* WHAT...Northwest winds 25 to 35 mph with gusts up to 50 mph\nexpected.\n\n* WHERE...Northern Meade Co Plains, Southern Meade Co Plains, Custer\nCo Plains, Northern Oglala Lakota, and Pennington Co Plains.\n\n* WHEN...From 7 AM to 3 PM MDT Friday.\n\n* IMPACTS...Sudden wind gusts can cause drivers to lose control,\nespecially in lightweight or high profile vehicles. Strong winds\ncan cause blowing dust, reduced visibility, and flying debris.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northern Meade Co Plains; Custer Co Plains; Pennington Co Plains; Northern Oglala Lakota; Southern Meade Co Plains"
+    },
+    {
+      "title": "Hydrologic Outlook issued May 21 at 9:27PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T21:27:00-08:00",
+      "summary": "ESFAFG\n\n...Locations Impacted...\nYukon Delta\n\nAs of Thursday evening, an Ice Jam near Russian Mission continues to\nback up water from Russian Mission to Anvik. When the ice jam\neventually releases this water will flow towards the Yukon Delta.\nMost large Yukon River ice jams during recent years decay, erode and\nfail within a few days. The current jam at Russian Mission has been\nin place for over 4 days. Water levels are expected to quickly rise\nas the backwater makes its way downriver impacting c",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Unknown",
+      "area": "Yukon Delta Coast"
+    },
+    {
+      "title": "Special Weather Statement issued May 22 at 12:04AM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-22T00:04:00-05:00",
+      "summary": "Dry conditions and breezy winds will lead to near critical fire\nweather conditions today. Southeast to east-southeast winds of\n10 to 15 mph with gusts of 20 to 25 mph are forecast for this\nafternoon into early evening. Minimum relative humidity values of\n20 to 30 percent are also expected. Together, these conditions\ncould lead to the rapid spread of fires. Check burning\nrestrictions and fire danger before burning.\n\nFor more information on burning restrictions for Minnesota, see\nwww.dnr.state.mn.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Koochiching; North St. Louis; Northern Cook/Northern Lake"
+    },
+    {
+      "title": "Beach Hazards Statement issued May 21 at 11:59PM CDT until May 22 at 10:00PM CDT by NWS Duluth MN",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T23:59:00-05:00",
+      "summary": "* WHAT...Dangerous swimming conditions are expected along the\nLake Superior shoreline due to high wave action and strong rip\ncurrents.\n\n* WHERE...Minnesota Park Point and Wisconsin Point Beaches.\n\n* WHEN...From 11 AM CDT Friday through Friday evening.\n\n* IMPACTS...High wave action can make swimming difficult on days\nsuch as this. Incoming waves in rapid succession can tire even\nan experienced swimmer quickly. Rip currents can move you away\nfrom land. To avoid being swept away, swim parallel to t",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Carlton/South St. Louis; Douglas"
+    },
+    {
+      "title": "Red Flag Warning issued May 21 at 9:56PM MDT until May 22 at 8:00PM MDT by NWS Grand Junction CO",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T21:56:00-06:00",
+      "summary": "The National Weather Service in Grand Junction has issued a Red\nFlag Warning for gusty winds, low relative humidity and dry\nfuels, which is in effect from noon to 8 PM MDT Friday.\n\n* AFFECTED AREA...In Colorado, Fire Weather Zone 207 Southwest\nColorado Lower Forecast Area.\n\n* TIMING...From noon to 8 PM MDT Friday.\n\n* WINDS...Northwest 10 to 20 mph with gusts up to 35 mph.\n\n* RELATIVE HUMIDITY...12 to 17 percent.\n\n* IMPACTS...Any fire that develops will catch and spread\nquickly. Outdoor burning i",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Southwest Colorado Lower Forecast Area"
+    },
+    {
+      "title": "Flood Warning issued May 21 at 7:45PM CDT by NWS Jackson MS",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T19:45:00-05:00",
+      "summary": "...The National Weather Service in Jackson MS has issued a Flood\nWarning for the following rivers in Mississippi...\n\nBig Black River At West affecting Holmes and Attala Counties.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Big Black River at West.\n\n* WHEN...From Friday afternoon until further notice.\n\n* IMPACTS...At 19.0 feet, Thousands of acres of agricultural land\nare under water.\n\n* ADDITIONAL DETAILS...\n- At 6:45 PM CDT Thursday the stage was 12.1 feet.\n- Forecast...The river is expecte",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Attala, MS; Holmes, MS"
+    },
+    {
+      "title": "Brisk Wind Advisory issued May 21 at 3:48PM AKDT until May 22 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Arctic Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...E winds 25 kt.\n.FRI...E winds 25 kt.\n.FRI NIGHT...E winds 20 kt.\n.SAT...E winds 20 kt.\n.SAT NIGHT...E winds 15 kt.\n.SUN...E winds 10 kt.\n.SUN NIGHT...E winds 10 kt.\n.MON...E winds 30 kt.\n.TUE...E winds 35 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Halkett to Flaxman Island out to 15 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued May 21 at 3:48PM AKDT until May 22 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Arctic Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...E winds 25 kt.\n.FRI...E winds 25 kt.\n.FRI NIGHT...E winds 15 kt.\n.SAT...E winds 15 kt.\n.SAT NIGHT...E winds 10 kt.\n.SUN...E winds 10 kt.\n.SUN NIGHT...NE winds 5 kt.\n.MON...E winds 20 kt.\n.TUE...E winds 25 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Flaxman Island to Demarcation Point from 15 to 75 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued May 21 at 3:48PM AKDT until May 22 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Arctic Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...E winds 25 kt.\n.FRI...E winds 25 kt.\n.FRI NIGHT...E winds 20 kt.\n.SAT...E winds 15 kt.\n.SAT NIGHT...E winds 15 kt.\n.SUN...E winds 10 kt.\n.SUN NIGHT...E winds 10 kt.\n.MON...E winds 25 kt.\n.TUE...E winds 30 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Halkett to Flaxman Island from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 21 at 3:48PM AKDT until May 22 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Arctic Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...E winds 25 kt. Seas 4 ft. Light freezing spray.\n.FRI...E winds 25 kt. Seas 4 ft. Light freezing spray.\n.FRI NIGHT...E winds 20 kt. Seas 4 ft. Light freezing spray.\n.SAT...NE winds 15 kt. Seas 3 ft. Light freezing spray.\n.SAT NIGHT...NE winds 15 kt. Seas 3 ft. Light freezi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Beaufort to Point Franklin out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 21 at 3:48PM AKDT until May 22 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TONIGHT...SW wind 20 kt. Seas 8 ft. Rain showers.\n.FRI...S wind 15 kt. Seas 8 ft. Rain showers.\n.FRI NIGHT...S wind 15 kt. Seas 7 ft.\n.SAT AND SAT NIGHT...Variable wind 10 kt. Seas 6 ft.\n.SUN...W wind 20 k",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Cleare to Gore Point from 15 to 75 NM"
+    },
+    {
+      "title": "Brisk Wind Advisory issued May 21 at 3:48PM AKDT until May 22 at 5:00PM AKDT by NWS Fairbanks AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Arctic Alaska Coastal Waters out 100 NM\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent the average of the highest one-\nthird of the combined wind-wave and swell height.\n\n.TONIGHT...E winds 25 kt.\n.FRI...E winds 25 kt.\n.FRI NIGHT...E winds 20 kt.\n.SAT...E winds 15 kt.\n.SAT NIGHT...E winds 15 kt.\n.SUN...E winds 10 kt.\n.SUN NIGHT...E winds 10 kt.\n.MON...E winds 25 kt.\n.TUE...E winds 30 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Flaxman Island to Demarcation Point out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 21 at 3:48PM AKDT until May 22 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TONIGHT...SW wind 25 kt. Seas 10 ft. Rain showers.\n.FRI...SW wind 25 kt. Seas 9 ft.\n.FRI NIGHT...SW wind 20 kt. Seas 7 ft.\n.SAT...Variable wind 10 kt. Seas 6 ft.\n.SAT NIGHT...Variable wind 10 kt. Seas 3 ft",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marmot Island to Sitkinak out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 21 at 3:48PM AKDT until May 22 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TONIGHT...S wind 15 kt. Seas 8 ft. Widespread rain showers.\n.FRI...S wind 15 kt. Seas 7 ft. Widespread rain showers.\n.FRI NIGHT...Variable wind 10 kt. Seas 6 ft. Rain showers.\n.SAT AND SAT NIGHT...Variable",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Cleare to Gore Point out to 15 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 21 at 3:48PM AKDT until May 22 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TONIGHT...S wind 25 kt. Seas 3 ft.\n.FRI...SW wind 20 kt. Seas 3 ft. Rain showers.\n.FRI NIGHT...SW wind 15 kt in the evening becoming variable less\nthan 10 kt. Seas 2 ft.\n.SAT...W wind 10 kt. Seas 3 ft.\n.SA",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chiniak Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued May 21 at 3:48PM AKDT until May 22 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TONIGHT...S wind 25 kt. Seas 8 ft.\n.FRI...S wind 20 kt. Seas 6 ft.\n.FRI NIGHT...Variable wind 10 kt. Seas 5 ft.\n.SAT...Variable wind 10 kt. Seas 4 ft.\n.SAT NIGHT...E wind 15 kt. Seas 3 ft.\n.SUN...W wind 15",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Barren Islands East"
+    },
+    {
+      "title": "Small Craft Advisory issued May 21 at 3:48PM AKDT until May 22 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TONIGHT...S wind 25 kt. Seas 9 ft.\n.FRI...SW wind 20 kt. Seas 7 ft.\n.FRI NIGHT...SW wind 20 kt. Seas 6 ft subsiding to 3 ft after\nmidnight.\n.SAT...W wind 15 kt. Seas 3 ft.\n.SAT NIGHT...NE wind 15 kt. Seas ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Shelikof Strait"
+    },
+    {
+      "title": "Small Craft Advisory issued May 21 at 3:48PM AKDT until May 23 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TONIGHT...SW wind 25 kt. Seas 13 ft.\n.FRI...SW wind 25 kt. Seas 13 ft.\n.FRI NIGHT...SW wind 20 kt. Seas 11 ft.\n.SAT...SW wind 15 kt. Seas 9 ft.\n.SAT NIGHT...E wind 15 kt. Seas 6 ft.\n.SUN...W wind 20 kt. Se",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marmot Island To Sitkinak from 15 to 85 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 21 at 3:48PM AKDT until May 23 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TONIGHT...S wind 20 kt. Seas 8 ft.\n.FRI...S wind 15 kt. Seas 8 ft. Rain showers.\n.FRI NIGHT...Variable wind 10 kt. Seas 8 ft.\n.SAT...Variable wind 10 kt. Seas 7 ft.\n.SAT NIGHT...Variable wind 10 kt. Seas 6",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cape Suckling to Cape Cleare from 15 to 75 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 21 at 3:48PM AKDT until May 23 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TONIGHT...S wind 25 kt. Seas 9 ft.\n.FRI...SW wind 20 kt. Seas 9 ft.\n.FRI NIGHT...SW wind 15 kt. Seas 8 ft.\n.SAT AND SAT NIGHT...Variable wind 10 kt. Seas 6 ft.\n.SUN...W wind 20 kt. Seas 5 ft.\n.MON...S wind",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Gore Point to Marmot Island from 15 to 80 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued May 21 at 3:48PM AKDT until May 22 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-05-21T15:48:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TONIGHT...S wind 25 kt. Seas 8 ft.\n.FRI...S wind 20 kt. Seas 7 ft.\n.FRI NIGHT...SE wind 15 kt. Seas 4 ft.\n.SAT...NE wind 15 kt. Seas 2 ft.\n.SAT NIGHT...Variable wind 10 kt. Seas 3 ft.\n.SUN...SW wind 15 kt.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "West of Barren Islands Including Kamishak Bay"
+    }
+  ]
+}

@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-06-10T12:26:30.297299Z",
+  "items": [
+    {
+      "title": "Flood Advisory issued June 10 at 8:25AM EDT until June 10 at 10:15AM EDT by NWS Jacksonville FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T08:25:00-04:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected due to\npersistent heavy showers and developing thunderstorms.\n\n* WHERE...A portion of southeast Georgia, including the following\ncounty, Glynn.\n\n* WHEN...Until 1015 AM EDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\n\n* ADDITIONAL DETAILS...\n- At 823 AM EDT, Doppler radar indicated heavy rain. Minor\nflooding is ongoing or expected to begin shortly in the\nadvisory area. Between 1 and 2.5 inches of rain have fallen.\n-",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Glynn, GA"
+    },
+    {
+      "title": "Special Weather Statement issued June 10 at 8:23AM EDT by NWS Charleston WV",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T08:23:00-04:00",
+      "summary": "At 820 AM EDT, Doppler radar was tracking a cluster of strong\nthunderstorms producing heavy rain along a line extending from near\nCamp Dix to Chapmanville. Movement was southeast at 30 mph.\n\nHAZARD...A quick 1 to 2 inches of rain.\n\nSOURCE...Radar indicated.\n\nIMPACT...Flooding of poor drainage and low-lying areas along with\nreduced visibility. The morning commute will be impacted.\n\nLocations impacted include...\nGrayson, Madison, Louisa, Logan, Olive Hill, Wayne, Beech Fork State\nPark, Rush, Yates",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Greenup; Carter; Boyd; Lawrence; Wayne; Cabell; Lincoln; Mingo; Logan; Boone"
+    },
+    {
+      "title": "Severe Thunderstorm Warning issued June 10 at 7:18AM CDT until June 10 at 8:15AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T07:18:00-05:00",
+      "summary": "SVRGRB\n\nThe National Weather Service in Green Bay has issued a\n\n* Severe Thunderstorm Warning for...\nMarathon County in central Wisconsin...\nSouthern Lincoln County in north central Wisconsin...\n\n* Until 815 AM CDT.\n\n* At 718 AM CDT, severe thunderstorms were located along a line from\nnear New Wood Wildlife Area to near Marshfield, or along a line\nfrom 27 miles northwest of Wausau to 23 miles northwest of\nWisconsin Rapids, moving east at 45 mph.\n\nHAZARD...60 mph wind gusts and quarter size hail.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Lincoln, WI; Marathon, WI"
+    },
+    {
+      "title": "Special Marine Warning issued June 10 at 8:17AM EDT until June 10 at 9:00AM EDT by NWS Key West FL",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T08:17:00-04:00",
+      "summary": "SMWKEY\n\nThe National Weather Service in Key West has issued a\n\n* Special Marine Warning for...\nHawk Channel and Straits of Florida from Ocean Reef to Craig Key\nout 60 nm...\nFlorida Bay including Barnes Sound, Blackwater Sound, and\nButtonwood Sound...\n\n* Until 900 AM EDT.\n\n* At 817 AM EDT, a strong thunderstorm was located 7 nm east of\nIslamorada Hump, moving northwest at 20 knots.\n\nHAZARD...Wind gusts 34 knots or greater.\n\nSOURCE...National Weather Service Meteorologist.\n\nIMPACT...Expect wind gu",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Florida Bay including Barnes Sound, Blackwater Sound, and Buttonwood Sound; Hawk Channel from Ocean Reef to Craig Key out to the reef; Straits of Florida from Ocean Reef to Craig Key out 20 NM; Straits of Florida from Ocean Reef to Craig Key 20 to 60 NM out"
+    },
+    {
+      "title": "Special Weather Statement issued June 10 at 8:13AM EDT by NWS Charleston WV",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T08:13:00-04:00",
+      "summary": "At 809 AM EDT, Doppler radar was tracking a cluster of strong\nthunderstorms procuding heavy rain along a line extending from\nsouthwest of Gallipolis to Nitro. Movement was southeast at 30 mph.\n\nHAZARD...A quick 1 to 2 inches of rain.\n\nSOURCE...Radar indicated.\n\nIMPACT...Flooding of poor drainage and low-lying areas along with\nreduced visibility. The morning commute will be impacted.\n\nLocations impacted include...\nCharleston, Clay, South Charleston, Dunbar, Sissonville, Montgomery,\nChesapeake, Ma",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Jackson; Kanawha; Roane; Clay; Northwest Fayette; Northwest Nicholas"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 7:10AM CDT until June 10 at 9:00PM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T07:10:00-05:00",
+      "summary": "* WHAT...Southwest winds to 25 kt expected.\n\n* WHERE...Calumet Harbor IL to Michigan City IN.\n\n* WHEN...From 2 PM this afternoon to 9 PM CDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Calumet Harbor IL to Gary IN; Gary to Burns Harbor IN; Burns Harbor to Michigan City IN"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 7:10AM CDT until June 10 at 9:00PM CDT by NWS Chicago IL",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T07:10:00-05:00",
+      "summary": "* WHAT...Southwest winds to 25 kt expected.\n\n* WHERE...Winthrop Harbor to Calumet Harbor IL.\n\n* WHEN...From 2 PM this afternoon to 9 PM CDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Winthrop Harbor to Wilmette Harbor IL; Wilmette Harbor to Northerly Island IL; Northerly Island to Calumet Harbor IL"
+    },
+    {
+      "title": "Severe Thunderstorm Warning issued June 10 at 7:08AM CDT until June 10 at 7:30AM CDT by NWS La Crosse WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T07:08:00-05:00",
+      "summary": "SVRARX\n\nThe National Weather Service in La Crosse has issued a\n\n* Severe Thunderstorm Warning for...\nEastern Taylor County in north central Wisconsin...\n\n* Until 730 AM CDT.\n\n* At 708 AM CDT, a severe thunderstorm was located 10 miles east of\nMedford, moving northeast at 45 mph.\n\nHAZARD...60 mph wind gusts and penny size hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Expect damage to roofs, siding, and trees.\n\n* This severe thunderstorm will remain over mainly rural areas of\neastern Taylor County, i",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Taylor, WI"
+    },
+    {
+      "title": "Special Weather Statement issued June 10 at 8:04AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T08:04:00-04:00",
+      "summary": "At 804 AM EDT/704 AM CDT/, Doppler radar was tracking a strong\nthunderstorm 7 miles north of Marenisco, or 19 miles east of\nIronwood, moving northeast at 30 mph.\n\nHAZARD...Wind gusts up to 50 mph and penny size hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects. Minor hail damage to vegetation is\npossible.\n\nLocations impacted include...\nBergland, Northern Lake Gogebic, Norwich, Lake Gogebic State Park,\nEwen, Merriweather, and Vict",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Ontonagon; Gogebic"
+    },
+    {
+      "title": "Special Weather Statement issued June 10 at 7:55AM EDT by NWS Charleston WV",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T07:55:00-04:00",
+      "summary": "At 751 AM EDT, Doppler radar was tracking strong thunderstorms along\na line extending from near South Webster to near Hurricane. Movement\nwas southeast at 25 mph.\n\nHAZARD...A quick 1 to 2 inches of rain.\n\nSOURCE...Radar indicated.\n\nIMPACT...Flooding of poor drainage and low-lying areas along with\nreduced visibility.\n\nLocations impacted include...\nNitro, Gallipolis, Winfield, Jefferson, South Charleston, St. Albans,\nDunbar, Hurricane, Sissonville, Milton, Eleanor, Buffalo, Poca,\nCulloden, Institu",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Gallia; Lawrence; Cabell; Mason; Jackson; Putnam; Kanawha"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 3:48AM AKDT until June 11 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T03:48:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 25 kt. Seas 5 ft. Areas of dense fog.\n.TONIGHT...SE wind 30 kt. Seas 10 ft. Rain.\n.THU...SE wind 30 kt. Seas 13 ft. Rain.\n.THU NIGHT...SE wind 30 kt. Seas 13 ft.\n.FRI...E wind 30 k",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Kiska to Attu Bering Side"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 3:48AM AKDT until June 11 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T03:48:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 15 kt. Seas 3 ft. Areas of dense fog.\n.TONIGHT...SE wind 25 kt. Seas 6 ft. Areas of dense fog.\n.THU...SE wind 30 kt. Seas 11 ft. Areas of dense fog.\n.THU NIGHT...SE wind 30 kt. Sea",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Adak to Kiska Pacific Side"
+    },
+    {
+      "title": "Gale Warning issued June 10 at 3:48AM AKDT until June 11 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T03:48:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...SE wind 30 kt. Seas 8 ft. Areas of dense fog.\n.TONIGHT...SE wind 35 kt. Seas 15 ft. Rain.\n.THU...SE wind 35 kt. Seas 15 ft. Rain.\n.THU NIGHT...SE wind 30 kt. Seas 14 ft.\n.FRI...E wind 30 k",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Kiska to Attu Pacific Side"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 3:48AM AKDT until June 11 at 5:00PM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T03:48:00-08:00",
+      "summary": "Coastal Waters Forecast for Southwest Alaska+Bristol Bay+The\nAlaska Peninsula Waters and the Aleutian Islands up to 100 nm out.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 15 kt. Seas 3 ft. Areas of dense fog.\n.TONIGHT...SE wind 25 kt. Seas 5 ft. Areas of dense fog.\n.THU...SE wind 25 kt. Seas 8 ft. Areas of dense fog.\n.THU NIGHT...SE wind 25 kt. Seas ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Adak to Kiska Bering Side"
+    },
+    {
+      "title": "Special Weather Statement issued June 10 at 6:40AM CDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T06:40:00-05:00",
+      "summary": "At 640 AM CDT, Doppler radar was tracking a strong thunderstorm 8\nmiles southeast of Ironwood, moving northeast at 35 mph.\n\nHAZARD...Wind gusts up to 50 mph and penny size hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects. Minor hail damage to vegetation is\npossible.\n\nLocations impacted include...\nBessemer, Wakefield, Marenisco, Thomaston, Van Buskirk, Lake Gogebic\nState Park, and Chaney Lake.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Gogebic"
+    },
+    {
+      "title": "Marine Weather Statement issued June 10 at 7:11AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T07:11:00-04:00",
+      "summary": "A Marine Weather Statement has been issued for the following areas...\nBlack River To Ontonagon MI...\nLake Superior from Saxon Harbor WI to Upper Entrance to Portage\nCanal MI 5NM off shore to the US/Canadian border including Isle\nRoyale National Park...\nOntonagon to Upper Entrance of Portage Canal MI...\nSaxon Harbor WI to Black River MI...\n\nAt 710 AM EDT, the public reported strong thunderstorms, producing\nwinds to around 30 knots. These thunderstorms were located along a\nline extending from 6 nm",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Saxon Harbor WI to Black River MI; Black River To Ontonagon MI; Ontonagon to Upper Entrance of Portage Canal MI; Lake Superior from Saxon Harbor WI to Upper Entrance to Portage Canal MI 5NM off shore to the US/Canadian border including Isle Royale National Park"
+    },
+    {
+      "title": "Special Weather Statement issued June 10 at 6:51AM EDT by NWS Wilmington OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T06:51:00-04:00",
+      "summary": "The combination of temperatures in the upper 80s to around 90 and\nhigh humidity will result in the heat index reaching 95 to 100\ntoday and then again on Thursday.\n\nWith these being the first hot days of the year, it may take some\ntime to get acclimated to these conditions. So be extra cautious\nand take precautions to deal with the heat. If planning to be\noutdoors for extended periods drink plenty of water, where light\nand loose clothing, and take frequent breaks.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Wayne; Fayette; Union; Franklin; Ripley; Dearborn; Ohio; Switzerland; Carroll; Gallatin; Boone; Kenton; Campbell; Owen; Grant; Pendleton; Bracken; Robertson; Mason; Lewis; Darke; Shelby; Logan; Union; Delaware; Miami; Champaign; Clark; Madison; Franklin; Licking; Preble; Montgomery; Greene; Fayette; Pickaway; Fairfield; Butler; Warren; Clinton; Ross; Hocking; Hamilton; Clermont; Brown; Highland; Adams; Pike; Scioto"
+    },
+    {
+      "title": "Special Weather Statement issued June 10 at 6:47AM EDT by NWS Indianapolis IN",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T06:47:00-04:00",
+      "summary": "Early season heat is upon us, with forecasted high temperatures\nfor today and Thursday near 90 degrees. Dew points into the 70s\nwill bring heat indices to between 95 to 104 degree range during\npeak heating both days.\n\nUse the following safety tips for facing the heat safely:\n\n* Stay hydrated, avoiding alcohol and drinks with heavy\ncaffeine or sugar.\n* Dress in loose fitting clothing, light in color.\n* Take advantage of shade and air conditioning when possible.\n* Take frequent breaks when working",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Carroll; Warren; Tippecanoe; Clinton; Howard; Fountain; Montgomery; Boone; Tipton; Hamilton; Madison; Delaware; Randolph; Vermillion; Parke; Putnam; Hendricks; Marion; Hancock; Henry; Vigo; Clay; Owen; Morgan; Johnson; Shelby; Rush; Sullivan; Greene; Monroe; Brown; Bartholomew; Decatur; Knox; Daviess; Martin; Lawrence; Jackson; Jennings"
+    },
+    {
+      "title": "Dense Fog Advisory issued June 10 at 5:43AM CDT until June 10 at 10:00AM CDT by NWS Green Bay WI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T05:43:00-05:00",
+      "summary": "* WHAT...Visibility one quarter to one quarter mile in dense fog.\n\n* WHERE...Langlade, Florence, Forest, Menominee, and Shawano\nCounties.\n\n* WHEN...Until 10 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Forest; Florence; Langlade; Menominee; Shawano"
+    },
+    {
+      "title": "Heat Advisory issued June 10 at 5:35AM CDT until June 10 at 7:00PM CDT by NWS Norman OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T05:35:00-05:00",
+      "summary": "* WHAT...Heat index values up to 105 expected.\n\n* WHERE...Logan and Payne Counties.\n\n* WHEN...From 1 PM this afternoon to 7 PM CDT this evening.\n\n* IMPACTS...Hot temperatures and high humidity may cause heat\nillnesses.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Logan; Payne"
+    },
+    {
+      "title": "Flood Warning issued June 10 at 6:07AM EDT until June 12 at 2:40PM EDT by NWS Indianapolis IN",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T06:07:00-04:00",
+      "summary": "...The National Weather Service in Indianapolis IN has issued a\nFlood Warning for the following rivers in Indiana...\n\nWabash River at Montezuma.\n\n.Heavy rainfall totaling locally 6 to 8 inches since Saturday has\nlead to minor flooding on the Wabash river at Montezuma.  Flooding\nis expected to crest at Montezuma early Thursday...and continue into\nThursday night.\n\n* WHAT...Minor flooding is occurring and minor flooding is forecast.\n\n* WHERE...Wabash River at Montezuma.\n\n* WHEN...From this morning ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Parke, IN; Vermillion, IN; Vigo, IN"
+    },
+    {
+      "title": "Heat Advisory issued June 10 at 3:01AM PDT until June 13 at 11:00PM PDT by NWS Hanford CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T03:01:00-07:00",
+      "summary": "* WHAT...High temperatures up to 105 expected.\n\n* WHERE...A portion of central California.\n\n* WHEN...From 11 AM Thursday to 11 PM PDT Saturday.\n\n* IMPACTS...Hot temperatures may cause heat illnesses.\n\n* ADDITIONAL DETAILS...-Moderate Heat Risk",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "West Side Mountains north of 198; Los Banos - Dos Palos; Merced - Madera - Mendota; Planada - Le Grand - Snelling; Coalinga - Avenal; West Side of Fresno and Kings Counties; Caruthers - San Joaquin - Selma; Fresno-Clovis; West Side Mountains South of 198; Buttonwillow - Lost Hills - I5; Delano-Wasco-Shafter; Hanford - Corcoran - Lemoore; Visalia - Porterville - Reedley; Buena Vista; Bakersfield; Southeast San Joaquin Valley; South End San Joaquin Valley; Mariposa Madera Foothills; Mariposa-Madera Lower Sierra; Fresno-Tulare Foothills; Fresno-Tulare Lower Sierra; South End Sierra Foothills; Kern River Valley"
+    },
+    {
+      "title": "Flood Warning issued June 10 at 4:56AM CDT until June 10 at 1:40PM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T04:56:00-05:00",
+      "summary": "...The National Weather Service in Springfield MO has issued a Flood\nWarning for the following rivers in Kansas...\n\nLittle Osage River at Fulton affecting Bourbon County.\n\nFor the Little Osage River...including Fulton, Horton...Minor\nflooding is forecast.\n\nAdditional information is available at www.weather.gov.\n\nThe next statement will be issued this afternoon at 145 PM CDT.\n\n* WHAT...Minor flooding is occurring and minor flooding is forecast.\n\n* WHERE...Little Osage River at Fulton.\n\n* WHEN...F",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Bourbon, KS"
+    },
+    {
+      "title": "Marine Weather Statement issued June 10 at 5:53AM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T05:53:00-04:00",
+      "summary": "South to southwest winds remain gusty over the next couple of\nhours with occasional gusts up to 20 knots.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chesapeake Bay from Smith Point to Windmill Point VA; Chesapeake Bay from Windmill Point to New Point Comfort VA; Chesapeake Bay from New Point Comfort to Little Creek VA; Chesapeake Bay from Little Creek VA to Cape Henry VA including the Chesapeake Bay Bridge Tunnel"
+    },
+    {
+      "title": "Flood Advisory issued June 10 at 4:41AM CDT until June 11 at 1:00AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T04:41:00-05:00",
+      "summary": "...The National Weather Service in Tulsa has issued a Flood Advisory\nfor the following rivers in Oklahoma...\n\nIllinois River near Tahlequah affecting Cherokee County.\n\n* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...Illinois River near Tahlequah.\n\n* WHEN...From early this morning to just after midnight tonight.\n\n* IMPACTS...At 9.0 feet, no flooding occurs but all recreational\nfloating along the Illinois River ceases at and above 9.5 feet.\nAt 11.0 feet, minor flooding occur",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cherokee, OK"
+    },
+    {
+      "title": "Flood Warning issued June 10 at 4:32AM CDT until June 12 at 7:00PM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T04:32:00-05:00",
+      "summary": "...The National Weather Service in Kansas City/Pleasant Hill has\nissued a Flood Warning for the following rivers in Missouri...\n\nMissouri River at Napoleon affecting Ray, Lafayette and Jackson\nCounties.\n\nMissouri River at Waverly affecting Carroll, Saline and Lafayette\nCounties.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Missouri River at Waverly.\n\n* WHEN...From this evening to Friday evening.\n\n* ADDITIONAL DETAILS...\n- At 4:00 AM CDT Wednesday the stage was 18.9 feet.\n- Forecast...The riv",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Carroll, MO; Lafayette, MO; Saline, MO"
+    },
+    {
+      "title": "Flood Warning issued June 10 at 4:32AM CDT until June 12 at 3:00AM CDT by NWS Kansas City/Pleasant Hill MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T04:32:00-05:00",
+      "summary": "...The National Weather Service in Kansas City/Pleasant Hill has\nissued a Flood Warning for the following rivers in Missouri...\n\nMissouri River at Napoleon affecting Ray, Lafayette and Jackson\nCounties.\n\nMissouri River at Waverly affecting Carroll, Saline and Lafayette\nCounties.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Missouri River at Napoleon.\n\n* WHEN...From this afternoon to late Thursday night.\n\n* IMPACTS...At 17.0 feet, Low-lying areas unprotected by levees begin\nto flood.\n\n* ADDIT",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Jackson, MO; Lafayette, MO; Ray, MO"
+    },
+    {
+      "title": "Special Weather Statement issued June 10 at 3:26AM MDT by NWS Great Falls MT",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T03:26:00-06:00",
+      "summary": "Periods of wet snow will impact the East Glacier Park region\nabove 5,000 feet today as a cold weather system moves through the\narea. Accumulating snow is most likely at elevations above 6000\nfeet, where 2 to 4 inches of snow is expected with isolated higher\namounts over the peaks. The best chances for wet snow with little\nor no accumulation at elevations below 6000 feet is this morning.\n\nThose heading into the backcountry and higher elevations should\nprepare for winter-like conditions. An elevat",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "East Glacier Park Region"
+    },
+    {
+      "title": "Flood Warning issued June 10 at 4:56AM EDT until June 10 at 9:00AM EDT by NWS Indianapolis IN",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T04:56:00-04:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...Northeastern Bartholomew County in central Indiana...\nDecatur County in central Indiana...\nSoutheastern Shelby County in central Indiana...\n\n* WHEN...Until 900 AM EDT.\n\n* IMPACTS...Flooding of rivers, creeks, streams, and other low-lying\nand flood-prone locations is imminent or occurring.\n\n* ADDITIONAL DETAILS...\n- At 456 AM EDT, local law enforcement reported heavy rain in\nthe warned area due to thunderstorms. Flooding is al",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Bartholomew, IN; Decatur, IN; Shelby, IN"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 4:54AM EDT until June 11 at 11:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T04:54:00-04:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to less than one nautical mile. For the Small Craft\nAdvisory, southwest winds 10 to 20 kt with gusts up to 25 kt\nand waves 1 to 4 ft expected.\n\n* WHERE...Ontonagon to Upper Entrance of Portage Canal MI.\n\n* WHEN...For the Dense Fog Advisory, until 11 AM EDT this\nmorning. For the Small Craft Advisory, from midnight tonight\nto 11 AM EDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft. Low\nvisibility will make n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Ontonagon to Upper Entrance of Portage Canal MI"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 4:54AM EDT until June 11 at 12:00PM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T04:54:00-04:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to less than one nautical mile. For the Small Craft\nAdvisory, southwest winds 15 to 20 kt with gusts up to 30 kt\nand waves 2 to 5 ft expected.\n\n* WHERE...Upper Entrance of Portage Canal to Eagle River MI.\n\n* WHEN...For the Dense Fog Advisory, until 11 AM EDT this\nmorning. For the Small Craft Advisory, from 2 AM to noon EDT\nThursday.\n\n* IMPACTS...Conditions will be hazardous to small craft. Low\nvisibility will make navigation d",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Upper Entrance of Portage Canal to Eagle River MI"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 4:54AM EDT until June 11 at 7:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T04:54:00-04:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to less than one nautical mile. For the Small Craft\nAdvisory, south to southwest winds 10 to 15 kt with gusts up to\n25 kt and waves 1 to 3 ft expected.\n\n* WHERE...Lower Entrance of Portage Canal To Huron Islands MI\nIncluding Keweenaw and Huron Bays.\n\n* WHEN...For the Dense Fog Advisory, until 11 AM EDT this\nmorning. For the Small Craft Advisory, from 7 PM this evening\nto 7 AM EDT Thursday.\n\n* IMPACTS...Conditions will be hazar",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Portage Lake to Huron Island MI to Lower Entrance of Portage Canal To Huron Islands MI Including Keweenaw and Huron Bays"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 4:54AM EDT until June 11 at 5:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T04:54:00-04:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to less than one nautical mile. For the Small Craft\nAdvisory, southwest winds 15 to 20 kt with gusts up to 25 kt\nand waves 1 to 3 ft expected.\n\n* WHERE...Black River to Ontonagon MI.\n\n* WHEN...For the Dense Fog Advisory, until 11 AM EDT /10 AM CDT/\nthis morning. For the Small Craft Advisory, from midnight EDT\n/11 PM CDT/ tonight to 5 AM EDT /4 AM CDT/ Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft. Low\nvisi",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Black River To Ontonagon MI"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 4:54AM EDT until June 11 at 2:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T04:54:00-04:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to less than one nautical mile. For the Small Craft\nAdvisory, south winds 15 to 20 kt with gusts up to 25 kt and\nwaves 1 to 2 ft expected.\n\n* WHERE...Marquette to Munising MI.\n\n* WHEN...For the Dense Fog Advisory, until 11 AM EDT this\nmorning. For the Small Craft Advisory, from 8 PM this evening\nto 2 AM EDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft. Low\nvisibility will make navigation difficult.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Marquette to Munising MI"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 4:54AM EDT until June 11 at 3:00AM EDT by NWS Marquette MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T04:54:00-04:00",
+      "summary": "* WHAT...For the Dense Fog Advisory, dense fog will reduce\nvisibility to less than one nautical mile. For the Small Craft\nAdvisory, south winds 15 to 20 kt with gusts up to 25 kt and\nwaves 1 to 2 ft expected.\n\n* WHERE...Munising to Grand Marais MI.\n\n* WHEN...For the Dense Fog Advisory, until 11 AM EDT this\nmorning. For the Small Craft Advisory, from 10 PM this evening\nto 3 AM EDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft. Low\nvisibility will make navigation difficult.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Munising to Grand Marais MI"
+    },
+    {
+      "title": "Gale Warning issued June 10 at 1:39AM PDT until June 13 at 11:00PM PDT by NWS Medford OR",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T01:39:00-07:00",
+      "summary": "* WHAT...For the Small Craft Advisory, north winds 20 to 25 kt\nwith gusts up to 35 kt and seas 6 to 9 ft at 7 seconds expected.\nFor the Hazardous Seas Warning, very steep and hazardous seas 7\nto 10 ft at 7 seconds expected. For the Gale Warning, north\nwinds 25 to 35 kt with gusts to 45 kt and seas 10 to 12 ft at 7\nto 8 seconds expected.\n\n* WHERE...Very steep seas develop south of Gold Beach and beyond\n3NM from shore this afternoon and evening. Elsewhere, expect\nconditions hazardous to small craf",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Coastal waters from Cape Blanco OR to Pt. St. George CA out 10 nm; Waters from Cape Blanco OR to Pt. St. George CA from 10 to 60 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 1:39AM PDT until June 13 at 11:00PM PDT by NWS Medford OR",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T01:39:00-07:00",
+      "summary": "* WHAT...North winds 15 to 25 kt with gusts up to 30 kt and seas 6\nto 9 ft at 7 seconds expected.\n\n* WHERE...South of Cape Arago initially, but impacting all areas\nThursday afternoon and evening. Winds and seas ease somewhat\nduring the overnights, but peak again during the afternoons and\nevenings through Saturday.\n\n* WHEN...From 11 PM this evening to 11 PM PDT Saturday.\n\n* IMPACTS...Gusty winds and/or steep seas could capsize or\ndamage smaller vessels.\n\n* View the hazard area in detail at https:",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Florence to Cape Blanco OR out 10 nm; Waters from Florence to Cape Blanco OR from 10 to 60 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 3:52AM EDT until June 11 at 12:00AM EDT by NWS Mount Holly NJ",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T03:52:00-04:00",
+      "summary": "* WHAT...South winds 15 to 20 kt with gusts up to 25 kt and seas\n3 to 5 ft expected.\n\n* WHERE...Portions of Atlantic coastal waters.\n\n* WHEN...From 2 PM this afternoon to midnight EDT tonight.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal waters from Sandy Hook to Manasquan Inlet NJ out 20 NM; Coastal waters from Manasquan Inlet to Little Egg Inlet NJ out 20 NM; Coastal waters from Little Egg Inlet to Great Egg Inlet NJ out 20 NM; Coastal waters from Great Egg Inlet to Cape May NJ out 20 NM; Coastal waters from Cape May NJ to Cape Henlopen DE out 20 NM; Coastal waters from Cape Henlopen to Fenwick Island DE out 20 NM"
+    },
+    {
+      "title": "Flood Warning issued June 10 at 3:26AM EDT until June 10 at 9:43PM EDT by NWS Indianapolis IN",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T03:26:00-04:00",
+      "summary": "...The National Weather Service in Indianapolis IN has issued a\nFlood Warning for the following rivers in Indiana...\n\nTippecanoe River near Delphi.\n\n.Recent heavy rainfall, totaling up to 4 inches since Saturday...has\nled to minor flooding on Tippecanoe River near Delphi.  Flooding is\nexpected to end later today.\n\n* WHAT...Minor flooding is occurring and minor flooding is forecast.\n\n* WHERE...Tippecanoe River near Delphi.\n\n* WHEN...From early this morning to late this evening.\n\n* IMPACTS...At 8.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Carroll, IN; Tippecanoe, IN; White, IN"
+    },
+    {
+      "title": "Dense Fog Advisory issued June 10 at 3:22AM EDT until June 10 at 11:00AM EDT by NWS Gaylord MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T03:22:00-04:00",
+      "summary": "* WHAT...Dense fog will reduce visibility to one quarter\nnautical mile or less.\n\n* WHERE...The near shores of Lake Huron, Lake Michigan, the\nStraits, and Whitefish Bay.\n\n* WHEN...Until 11 AM EDT this morning.\n\n* IMPACTS...Low visibility will make navigation difficult.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Straits of Mackinac within 5 nm of Mackinac Bridge including Mackinac Island; St Ignace to False Detour Channel; 5NM East of Mackinac Bridge to Presque Isle Light MI including Bois Blanc Island; Presque Isle Light to Sturgeon Pt MI Including Thunder Bay National Marine Sanctuary; Sturgeon Pt to Alabaster MI; Grand Traverse Bay south of a line Grand Traverse Light to Norwood MI; Seul Choix Point to 5NM West of Mackinac Bridge; Norwood MI to 5NM West of Mackinac Bridge including Little Traverse Bay; Sleeping Bear Point to Grand Traverse Light MI; Point Betsie to Sleeping Bear Point MI; Manistee to Point Betsie MI; Whitefish Bay (U.S. Portion)/Whitefish Point to Point Iroquois MI"
+    },
+    {
+      "title": "Heat Advisory issued June 10 at 3:11AM EDT until June 10 at 8:00PM EDT by NWS Northern Indiana",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T03:11:00-04:00",
+      "summary": "* WHAT...Heat index values around 100 expected.\n\n* WHERE...Portions of northern Indiana and southwest Michigan.\n\n* WHEN...From noon EDT /11 AM CDT/ today to 8 PM EDT /7 PM CDT/ this\nevening.\n\n* IMPACTS...Hot temperatures and high humidity may cause heat\nillnesses.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Elkhart; Starke; Pulaski; Marshall; White; Northern La Porte; Eastern St. Joseph; Southern La Porte; Western St. Joseph; Cass; St. Joseph; Branch; Northern Berrien; Southern Berrien"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 3:09AM EDT until June 10 at 8:00PM EDT by NWS Baltimore MD/Washington DC",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T03:09:00-04:00",
+      "summary": "* WHAT...Southwest winds around 10 kt with gusts up to 20 kt.\n\n* WHERE...Tidal Potomac River from Key Bridge to Cobb Island MD,\nChesapeake Bay north of Pooles Island MD, Patapsco River\nincluding Baltimore Harbor, and Patuxent River to Broomes\nIsland MD.\n\n* WHEN...Until 8 PM EDT this evening.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Chesapeake Bay north of Pooles Island MD; Tidal Potomac from Key Bridge to Indian Head MD; Tidal Potomac from Indian Head to Cobb Island MD; Patapsco River including Baltimore Harbor; Patuxent River to Broomes Island MD"
+    },
+    {
+      "title": "Dense Fog Advisory issued June 10 at 3:07AM EDT until June 10 at 11:00AM EDT by NWS Grand Rapids MI",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T03:07:00-04:00",
+      "summary": "* WHAT...Visibility one quarter mile or less in dense fog.\n\n* WHERE...Ottawa, Lake, Mason, Muskegon, Newaygo, and Oceana\nCounties.\n\n* WHEN...Until 11 AM EDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Mason; Lake; Oceana; Newaygo; Muskegon; Ottawa"
+    },
+    {
+      "title": "Wind Advisory issued June 10 at 12:58AM MDT until June 10 at 9:00PM MDT by NWS Boise ID",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T00:58:00-06:00",
+      "summary": "* WHAT...West/northwest winds 25 to 35 mph with gusts to 55 mph\nexpected.\n\n* WHERE...Portions of south central and southwest Idaho.\n\n* WHEN...From noon today to 9 PM MDT this evening.\n\n* IMPACTS...Gusty winds will blow around unsecured objects. Tree\nlimbs could be blown down and a few power outages may result.\n\n* ADDITIONAL DETAILS...Visibility locally reduced to 1-2 miles due\nto blowing dust.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Upper Treasure Valley; Southwest Highlands; Western Magic Valley; Camas Prairie; Southern Twin  Falls County"
+    },
+    {
+      "title": "Red Flag Warning issued June 10 at 12:43AM MDT until June 10 at 8:00PM MDT by NWS Goodland KS",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T00:43:00-06:00",
+      "summary": "...CRITICAL FIRE WEATHER CONDITIONS FOR EASTERN COLORADO...\n\nThe National Weather Service in Goodland has issued a Red Flag\nWarning for wind and low relative humidity, which is in effect\nfrom noon today to 8 PM MDT this evening. The Fire Weather Watch\nis no longer in effect.\n\n* AFFECTED AREA...Fire Weather Zones 253 Kit Carson and 254\nCheyenne CO.\n\n* TIMING...From noon today to 8 PM MDT this evening.\n\n* WINDS...South 10 to 20 mph with gusts up to 30 mph.\n\n* RELATIVE HUMIDITY...Around 12 percent.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Kit Carson County; Cheyenne"
+    },
+    {
+      "title": "Special Weather Statement issued June 10 at 1:37AM CDT by NWS Paducah KY",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T01:37:00-05:00",
+      "summary": "Today is expected to be the second of three days with high\ntemperatures stretching into the low to mid 90s with oppressive\nhumidity values. Heat index values of 100 to 105 are forecast area\nwide. With this being the first strong heat wave of the season be\nparticularly alert to heat related illness potential and take the\nnecessary action to protect yourself.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Jefferson; Wayne; Edwards; Wabash; Perry; Franklin; Hamilton; White; Jackson; Williamson; Saline; Gallatin; Union; Johnson; Pope; Hardin; Alexander; Pulaski; Massac; Gibson; Pike; Posey; Vanderburgh; Warrick; Spencer; Fulton; Hickman; Carlisle; Ballard; McCracken; Graves; Livingston; Marshall; Calloway; Crittenden; Lyon; Trigg; Caldwell; Union; Webster; Hopkins; Christian; Henderson; Daviess; McLean; Muhlenberg; Todd; Perry; Bollinger; Cape Girardeau; Wayne; Carter; Ripley; Butler; Stoddard; Scott; Mississippi; New Madrid"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 2:27AM EDT until June 11 at 8:00AM EDT by NWS Newport/Morehead City NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T02:27:00-04:00",
+      "summary": "* WHAT...Southwest winds 15 to 25 kt with gusts up to 30 kt\nexpected.\n\n* WHERE...The coastal waters from Duck to Oregon Inlet.\n\n* WHEN...From 3 PM this afternoon to 8 AM EDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "S of Currituck Beach Light NC to Oregon Inlet NC out to 20 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 2:27AM EDT until June 11 at 9:00AM EDT by NWS Newport/Morehead City NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T02:27:00-04:00",
+      "summary": "* WHAT...Southwest winds 15 to 20 kt with gusts up to 30 kt and\nchoppy waters expected.\n\n* WHERE...Pamlico Sound.\n\n* WHEN...From 3 PM this afternoon to 9 AM EDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Pamlico Sound"
+    },
+    {
+      "title": "Small Craft Advisory issued June 10 at 2:27AM EDT until June 11 at 6:00PM EDT by NWS Newport/Morehead City NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T02:27:00-04:00",
+      "summary": "* WHAT...Southwest winds 15 to 20 kt with gusts up to 30 kt\nexpected.\n\n* WHERE...The coastal waters from Oregon Inlet to Ocracoke Inlet.\n\n* WHEN...From 6 PM this evening to 6 PM EDT Thursday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "S of Oregon Inlet NC to Cape Hatteras NC out to 20 NM; S of Cape Hatteras NC to Ocracoke Inlet NC out to 20 NM"
+    },
+    {
+      "title": "Heat Advisory issued June 10 at 2:26AM EDT until June 10 at 8:00PM EDT by NWS Cleveland OH",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-10T02:26:00-04:00",
+      "summary": "* WHAT...Peak heat index values of around 100 degrees expected.\n\n* WHERE...Portions of north central, northeast, and northwest Ohio.\n\n* WHEN...From noon today to 8 PM EDT this evening.\n\n* IMPACTS...Hot temperatures and high humidity may cause heat\nillnesses.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lorain; Cuyahoga; Huron; Medina; Wyandot; Crawford; Richland; Ashland; Marion; Morrow; Knox"
+    }
+  ]
+}

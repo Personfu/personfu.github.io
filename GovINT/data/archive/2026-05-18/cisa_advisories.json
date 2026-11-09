@@ -1,0 +1,405 @@
+{
+  "fetched_at": "2026-05-18T12:27:47.885695Z",
+  "items": [
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/05/15/cisa-adds-one-known-exploited-vulnerability-catalog",
+      "published": "Fri, 15 May 26 12:00:00 +0000",
+      "summary": "<p>CISA has added one new vulnerability to its <a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\" title=\"Known Exploited Vulnerabilities Catalog\">Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.</p>\n<ul>\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2026-42897\" target=\"_blank\">CVE-2026-42897</a> Microsoft Exchange Server Cross-Site Scripting Vulnerability</li>\n</ul>\n<p>This type of vulnerability is a frequent attack vector for m",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens Siemens ROS#",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-08",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-08.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>ROS# contains a ROS service file_server, that before version 2.2.2 contains a path traversal vulnerability which could allow an attacker to access, i.e. read and write, arbitrary files, which are accessible with the user rights of the user that runs the service, on the system that hosts service. Siemens has released a new version fo",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens gWAP",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-01",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-01.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Siemens gPROMS Web Applications Publisher (gWAP) is affected by a remote code execution vulnerability introduced through a third-party component, namely the Axios HTTP client library. The vulnerability stems from a specific \"Gadget\" attack chain that allows prototype pollution in other third-party libraries, potentially allowing an ",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens SIMATIC",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-10",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-10.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>SIMATIC CN 4100 contains multiple vulnerabilities which could potentially lead to a compromise in availability, integrity and confidentiality. Siemens has released a new version for SIMATIC CN 4100 and recommends to update to the latest version.</strong></p>\n<p>The following versions of Siemens SIMATIC are affected:</p>\n<ul>\n<li>SIM",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens Ruggedcom Rox",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-12",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-12.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Ruggedcom Rox contains an input validation vulnerability in the Scheduler functionality that could allow an authenticated remote attacker to execute arbitrary commands with root privileges on the underlying operating system. Siemens has released new versions for the affected products and recommends to update to the latest versions.<",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens Ruggedcom Rox",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-16",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-16.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Ruggedcom Rox before v2.17.1 contain multiple third-party vulnerabilities. Siemens has released new versions for the affected products and recommends to update to the latest versions.</strong></p>\n<p>The following versions of Siemens Ruggedcom Rox are affected:</p>\n<ul>\n<li>RUGGEDCOM ROX MX5000 vers:intdot/&lt;2.17.1 (CVE-2019-13103",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens Simcenter Femap",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-05",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-05.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Simcenter Femap is affected by heap based buffer overflow vulnerability in Datakit library that could be triggered when the application reads files in IPT format. If a user is tricked to open a malicious file with the affected application, an attacker could leverage the vulnerability to perform remote code execution in the context o",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Universal Robots Polyscope 5",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-17",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-17.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of these vulnerabilities could allow an attacker to bypass authentication and execute code.</strong></p>\n<p>The following versions of Universal Robots Polyscope 5 are affected:</p>\n<ul>\n<li>Polyscope 5 &lt;5.25.1&nbsp;</li>\n</ul>\n<div class=\"csaf-table\">\n<table class=\"tablesaw tablesaw-stack\">\n<thead>\n<tr>\n<t",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens Ruggedcom Rox",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-11",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-11.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Ruggedcom Rox contains an input validation vulnerability in the feature key installation process that could allow an authenticated remote attacker to execute arbitrary commands with root privileges on the underlying operating system. Siemens has released new versions for the affected products and recommends to update to the latest v",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens Teamcenter",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-04",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-04.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Siemens Teamcenter is affected by multiple vulnerabilities which could potentially lead to a compromise in availability, integrity and confidentiality. Siemens has released new versions for the affected products and recommends to update to the latest versions.</strong></p>\n<p>The following versions of Siemens Teamcenter are affected",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens Solid Edge",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-03",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-03.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Solid Edge SE2026 before Update 5 is affected by two file parsing vulnerabilities that could be triggered when the application reads specially crafted files in PAR format. This could allow an attacker to crash the application or execute arbitrary code. Siemens has released a new version for Solid Edge SE2026 and recommends to update",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens SENTRON 7KT PAC1261 Data Manager",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-14",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-14.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>The web server in SENTRON 7KT PAC1261 Data Manager Before V2.1.0 contains a request smuggling vulnerability in the Go Project's net/http package that could allow an attacker to retrieve authorization tokens that can be used to gain administrative control over the device. Siemens has released a new version for SENTRON 7KT PAC1261 Dat",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens Opcenter RDnL",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-09",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-09.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Opcenter RDnL is affected by missing authentication in critical function in \u2018ActiveMQ Artemis\u2019. An unauthenticated attacker within the adjacent network could use the Core protocol to force a target broker to establish an outbound Core federation connection to an attacker-controlled rogue broker. This could potentially result in avai",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens Ruggedcom Rox",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-02",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-02.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Ruggedcom Rox contains an improper access control vulnerability that could allow an authenticated remote attacker to read arbitrary files with root privileges from the underlying operating system's filesystem. Siemens has released new versions for the affected products and recommends to update to the latest versions.</strong></p>\n<p",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens SIMATIC S7 PLC Web Server",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-15",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-15.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>SIMATIC S7 PLCs contain multiple vulnerabilities in the web server that could allow an attacker to perform cross-site scripting attacks. Siemens has released new versions for several affected products and recommends to update to the latest versions. Siemens is preparing further fix versions and recommends specific countermeasures fo",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/05/14/cisa-adds-one-known-exploited-vulnerability-catalog",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p>CISA has added&nbsp;one&nbsp;new vulnerability&nbsp;to its&nbsp;<a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\">Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.&nbsp;</p>\n<ul type=\"disc\">\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2026-20182\" target=\"_blank\">CVE-2026-20182</a>&nbsp;Cisco Catalyst SD-WAN Controller Authentication Bypass Vulnerability&nbsp;</li>\n</ul>\n<p>This&nbsp;type of vulnerability is a&nbsp;frequent ",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens SIMATIC",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-07",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-07.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>SIMATIC HMI Unified Comfort Panels before V21.0 are affected by a vulnerability that allows an unauthenticated attacker to access the web browser via the help link. This vulnerability allows an attacker to access the web browser through the Control Panel if it is not protected by the corresponding security mechanisms. This opens the",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens Industrial Devices",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-06",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-06.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Multiple industrial devices contain a vulnerability that could allow an attacker to cause a denial of service condition. Siemens has released new versions for several affected products and recommends to update to the latest versions. Siemens is preparing further fix versions and recommends specific countermeasures for products where",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Siemens SIPROTEC 5",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-134-13",
+      "published": "Thu, 14 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-134-13.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>The SIPROTEC 5 devices do not use sufficiently random numbers to generate session identifiers. This could facilitate a brute-force attack against a valid session identifier which could allow an unauthenticated remote attacker to hijack a valid user session. The affected session identifiers are only used in a subset of the endpoints ",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Fuji Electric Tellus",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-132-01",
+      "published": "Tue, 12 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-132-01.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of this vulnerability could allow an attacker to elevate privileges from user to system, which may then enable the attacker to cause a temporary denial of service, open files, or delete files.</strong></p>\n<p>The following versions of Fuji Electric Tellus are affected:</p>\n<ul>\n<li>Tellus 5.0.2</li>\n</ul>\n<di",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "ABB WebPro SNMP Card PowerValue Multiple Vulnerabilities",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-132-06",
+      "published": "Tue, 12 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-132-06.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>ABB became aware of multiple internally discovered vulnerabilities in the WebPro SNMP card PowerValue for the product versions listed as affected in the advisory. Depending upon the vulnerability, an attacker with access to local network who successfully exploited this vulnerability could have - Unauthorized access - Insufficient Se",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "ABB Automation Builder Gateway for Windows",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-132-04",
+      "published": "Tue, 12 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-132-04.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>ABB became aware of severe vulnerability in the products versions listed as affected in the advisory. The Windows gateway is accessible remotely by default. Unauthenticated attackers can therefore search for PLCs, but the user management of the PLCs prevents the actual access to the PLCs \u2013 unless it is disabled</strong></p>\n<p>The f",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Subnet Solutions PowerSYSTEM Center",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-132-02",
+      "published": "Tue, 12 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-132-02.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of these vulnerabilities could allow an authenticated attacker to expose sensitive information or cause a CRLF injection.</strong></p>\n<p>The following versions of Subnet Solutions PowerSYSTEM Center are affected:</p>\n<ul>\n<li>PowerSYSTEM Center 2020 &lt;=5.28.x (CVE-2026-35504)</li>\n<li>PowerSYSTEM Center 20",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "ABB AC500 V3 Multiple Vulnerabilities",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-132-03",
+      "published": "Tue, 12 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-132-03.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>ABB became aware of severe vulnerability in the products versions listed as affected in the advisory. An update is available that resolves these vulnerabilities. An attacker who successfully exploited these vulnerabilities could bypass the user management and read visualization files (CVE-2025-2595), read and write certificates and ",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "ABB AC500 V3 Stack Buffer Overflow in Cryptographic Message Syntax",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-132-05",
+      "published": "Tue, 12 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-132-05.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>ABB became aware of vulnerability in the products versions listed as affected in the advisory. An update is available that resolves publicly reported vulnerability. An attacker who successfully exploited these vulnerabilities could cause a crash, denial-of-service (DoS), or potentially remote code execution.</strong></p>\n<p>The foll",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Software Bill of Materials for AI - Minimum Elements",
+      "url": "https://www.cisa.gov/resources-tools/resources/software-bill-materials-ai-minimum-elements",
+      "published": "Tue, 12 May 26 12:00:00 +0000",
+      "summary": "<p>CISA and the Group of Seven (G7) international partners\u2014Germany, Canada, France, Italy, Japan, the United Kingdom, and the European Union\u2014have released joint guidance, <a href=\"https://bsi.bund.de/SharedDocs/Downloads/EN/BSI/KI/SBOM-for-AI_minimum-elements.html\" target=\"_blank\"><em>Software Bill of Materials for AI \u2013 Minimum Elements</em></a>, to help public and private sector stakeholders improve transparency in their artificial intelligence (AI) systems and supply chains.</p>\n<p>A&nbsp;<a h",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/05/08/cisa-adds-one-known-exploited-vulnerability-catalog",
+      "published": "Fri, 08 May 26 12:00:00 +0000",
+      "summary": "<p>CISA has added&nbsp;one&nbsp;new vulnerability&nbsp;to its&nbsp;<a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\">Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.</p>\n<ul type=\"disc\">\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2026-42208\" target=\"_blank\">CVE-2026-42208</a>&nbsp;BerriAI&nbsp;LiteLLM&nbsp;SQL Injection Vulnerability</li>\n</ul>\n<p>This&nbsp;type&nbsp;of vulnerability is a&nbsp;frequent attack vector&nbsp;for",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "MAXHUB Pivot Client Application",
+      "url": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-127-01",
+      "published": "Thu, 07 May 26 12:00:00 +0000",
+      "summary": "<p><a href=\"https://github.com/cisagov/CSAF/blob/develop/csaf_files/OT/white/2026/icsa-26-127-01.json\"><strong>View CSAF</strong></a></p>\n<h2>Summary</h2>\n<p><strong>Successful exploitation of this vulnerability may enable an attacker to access tenant email addresses and associated information in cleartext or cause a denial-of-service condition.</strong></p>\n<p>The following versions of MAXHUB Pivot client application are affected:</p>\n<ul>\n<li>MAXHUB Pivot client application</li>\n</ul>\n<div cla",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/05/07/cisa-adds-one-known-exploited-vulnerability-catalog",
+      "published": "Thu, 07 May 26 12:00:00 +0000",
+      "summary": "<p>CISA has added one new vulnerability to its&nbsp;<a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\">Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.</p>\n<ul type=\"disc\">\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2026-6973\" target=\"_blank\">CVE-2026-6973</a>&nbsp;Ivanti Endpoint Manager Mobile (EPMM) Improper Input Validation Vulnerability&nbsp;</li>\n</ul>\n<p>This type of vulnerability is a frequent attack vector for malici",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Adds One Known Exploited Vulnerability to Catalog",
+      "url": "https://www.cisa.gov/news-events/alerts/2026/05/06/cisa-adds-one-known-exploited-vulnerability-catalog",
+      "published": "Wed, 06 May 26 12:00:00 +0000",
+      "summary": "<p>CISA has added one new vulnerability to its&nbsp;<a href=\"https://www.cisa.gov/known-exploited-vulnerabilities-catalog\">Known Exploited Vulnerabilities (KEV) Catalog</a>, based on evidence of active exploitation.&nbsp;</p>\n<ul type=\"disc\">\n<li><a href=\"https://www.cve.org/CVERecord?id=CVE-2026-0300\" target=\"_blank\">CVE-2026-0300</a>&nbsp;Palo Alto Networks PAN-OS Out-of-bounds Write Vulnerability</li>\n</ul>\n<p>This type of vulnerability is a frequent attack vector for malicious cyber actors a",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Unveils New Initiative to Fortify America\u2019s Critical Infrastructure",
+      "url": "https://www.cisa.gov/news-events/news/cisa-unveils-new-initiative-fortify-americas-critical-infrastructure",
+      "published": "Tue, 05 May 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA, US and International Partners Release Guide to Secure Adoption of Agentic AI",
+      "url": "https://www.cisa.gov/news-events/news/cisa-us-and-international-partners-release-guide-secure-adoption-agentic-ai",
+      "published": "Fri, 01 May 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA\u202fand U.S. Government Partners Unveil Guide to Accelerate Zero Trust Adoption in Operational Technology",
+      "url": "https://www.cisa.gov/news-events/news/cisa-and-us-government-partners-unveil-guide-accelerate-zero-trust-adoption-operational-technology",
+      "published": "Wed, 29 Apr 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA, National Cyber Security Centre (NCSC) UK, and Global Partners Issue Advisory on Chinese Government-Linked Covert Cyber Networks",
+      "url": "https://www.cisa.gov/news-events/news/cisa-national-cyber-security-centre-ncsc-uk-and-global-partners-issue-advisory-chinese-government",
+      "published": "Thu, 23 Apr 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA\u202fWarns\u202fof FIRESTARTER Malware\u202fTargeting Cisco ASA\u202fincluding\u202fFirepower\u202fand Secure Firewall\u202fProducts",
+      "url": "https://www.cisa.gov/news-events/news/cisa-warns-firestarter-malware-targeting-cisco-asa-including-firepower-and-secure-firewall-products",
+      "published": "Thu, 23 Apr 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Issues Updated RESURGE Malware Analysis Highlighting a Stealthy but Active Threat",
+      "url": "https://www.cisa.gov/news-events/news/cisa-issues-updated-resurge-malware-analysis-highlighting-stealthy-active-threat",
+      "published": "Thu, 26 Feb 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "Immediate Action Required: CISA Issues Emergency Directive to Secure Cisco SD-WAN Systems",
+      "url": "https://www.cisa.gov/news-events/news/immediate-action-required-cisa-issues-emergency-directive-secure-cisco-sd-wan-systems",
+      "published": "Wed, 25 Feb 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Announces New Town Halls to Engage with Stakeholders on Cyber Incident Reporting for Critical Infrastructure",
+      "url": "https://www.cisa.gov/news-events/news/cisa-announces-new-town-halls-engage-stakeholders-cyber-incident-reporting-critical-infrastructure",
+      "published": "Fri, 13 Feb 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA\u2019s 2025 Year in Review: Driving Security and Resilience Across Critical Infrastructure",
+      "url": "https://www.cisa.gov/news-events/news/cisas-2025-year-review-driving-security-and-resilience-across-critical-infrastructure",
+      "published": "Wed, 11 Feb 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    },
+    {
+      "title": "CISA Releases Guide to Help Critical Infrastructure Users Adopt More Secure Communication",
+      "url": "https://www.cisa.gov/news-events/news/cisa-releases-guide-help-critical-infrastructure-users-adopt-more-secure-communication",
+      "published": "Tue, 10 Feb 26 12:00:00 +0000",
+      "summary": "",
+      "source": "CISA",
+      "tags": [
+        "cybersecurity"
+      ]
+    }
+  ]
+}

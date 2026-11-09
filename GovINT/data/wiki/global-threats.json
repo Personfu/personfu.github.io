@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "title": "Global Threat Tracker — Designations, Crime, Drugs & Conflict",
+    "purpose": "Open-source aggregation of OFFICIAL designations, published threat assessments, and academic conflict datasets for education and research.",
+    "scope_note": "Aggregate, structural, and analytical public data only. Does NOT track the physical location or movements of individuals, provide operational trafficking routes, or facilitate contact with any group. Live OFAC designations are written to data/latest/global_designations.json.",
+    "reliability_caveat": "Designations are official; assessments/datasets from NGOs and academia are labeled accordingly."
+  },
+
+  "foreign_terrorist_organizations": {
+    "note": "Selected U.S. State Department-designated Foreign Terrorist Organizations (FTOs). Not exhaustive — see official list.",
+    "reliability": "rel-official",
+    "source": "U.S. Department of State, Bureau of Counterterrorism",
+    "official_list_url": "https://www.state.gov/foreign-terrorist-organizations/",
+    "groups": [
+      {"name": "al-Qa'ida", "designated": 1999, "region": "Transnational"},
+      {"name": "ISIS / ISIL (Da'esh)", "designated": 2004, "region": "Transnational"},
+      {"name": "Hizballah", "designated": 1997, "region": "Lebanon / Middle East"},
+      {"name": "HAMAS", "designated": 1997, "region": "Gaza / Middle East"},
+      {"name": "Boko Haram (ISIS-WA)", "designated": 2013, "region": "West Africa"},
+      {"name": "al-Shabaab", "designated": 2008, "region": "East Africa"},
+      {"name": "Tehrik-e Taliban Pakistan (TTP)", "designated": 2010, "region": "Pakistan / Afghanistan"},
+      {"name": "Lashkar-e-Tayyiba", "designated": 2001, "region": "South Asia"},
+      {"name": "Kurdistan Workers' Party (PKK)", "designated": 1997, "region": "Turkey / Middle East"},
+      {"name": "Sinaloa Cartel", "designated": 2025, "region": "Mexico", "note": "Designated FTO/SDGT in 2025"},
+      {"name": "Cartel Jalisco Nueva Generación (CJNG)", "designated": 2025, "region": "Mexico", "note": "Designated FTO/SDGT in 2025"},
+      {"name": "Tren de Aragua", "designated": 2025, "region": "Venezuela / transnational", "note": "Designated FTO/SDGT in 2025"},
+      {"name": "Mara Salvatrucha (MS-13)", "designated": 2025, "region": "El Salvador / transnational", "note": "Designated FTO/SDGT in 2025"}
+    ]
+  },
+
+  "cartels_and_tcos": {
+    "note": "Analytical, country/region-level overview of major transnational criminal organizations. No member identities, no locations, no routes.",
+    "reliability": "rel-archived",
+    "source": "InSight Crime, GI-TOC, UNODC, DEA, OFAC",
+    "groups": [
+      {"name": "Sinaloa Cartel", "base": "Mexico", "activity": "Fentanyl, methamphetamine, cocaine trafficking", "status": "OFAC + FTO (2025)"},
+      {"name": "Cartel Jalisco Nueva Generación (CJNG)", "base": "Mexico", "activity": "Synthetic drugs, territorial expansion", "status": "OFAC + FTO (2025)"},
+      {"name": "Cártel del Noreste / Los Zetas successor", "base": "Mexico (NE)", "activity": "Trafficking, extortion", "status": "OFAC + FTO (2025)"},
+      {"name": "Gulf Cartel (CDG)", "base": "Mexico (NE)", "activity": "Trafficking, migrant smuggling", "status": "OFAC-linked"},
+      {"name": "La Nueva Familia Michoacana", "base": "Mexico", "activity": "Synthetic drugs", "status": "FTO (2025)"},
+      {"name": "Tren de Aragua", "base": "Venezuela / regional", "activity": "Human trafficking, extortion, drugs", "status": "OFAC + FTO (2025)"},
+      {"name": "MS-13 (Mara Salvatrucha)", "base": "El Salvador / transnational", "activity": "Extortion, violence, trafficking", "status": "OFAC + FTO (2025)"},
+      {"name": "Primeiro Comando da Capital (PCC)", "base": "Brazil", "activity": "Drug trafficking, prison networks", "status": "Regional TCO"},
+      {"name": "'Ndrangheta", "base": "Italy / global", "activity": "Cocaine import, money laundering", "status": "Global mafia network"},
+      {"name": "Yakuza", "base": "Japan", "activity": "Extortion, finance, trafficking", "status": "OFAC TCO"}
+    ]
+  },
+
+  "drug_threats": {
+    "note": "Key drug-threat trends from official assessments. Statistics are approximate and year-dependent.",
+    "reliability": "rel-official",
+    "source": "DEA National Drug Threat Assessment, UNODC World Drug Report, CDC",
+    "items": [
+      {"substance": "Fentanyl / synthetic opioids", "trend": "Leading driver of U.S. overdose deaths; precursors largely sourced abroad and pressed into counterfeit pills.", "lead_source_region": "Mexico (synthesis), China/India (precursors)"},
+      {"substance": "Methamphetamine", "trend": "High-purity, low-cost; mass-produced and trafficked north.", "lead_source_region": "Mexico"},
+      {"substance": "Cocaine", "trend": "Andean production at record highs per UNODC; diversifying trafficking routes.", "lead_source_region": "Colombia / Andean region"},
+      {"substance": "Heroin", "trend": "Declining share as fentanyl displaces it in many markets.", "lead_source_region": "Mexico / Southwest Asia"}
+    ]
+  },
+
+  "conflict_data_sources": {
+    "note": "Reputable open conflict-event and crisis datasets/trackers.",
+    "reliability": "rel-archived",
+    "sources": [
+      {"title": "ACLED — Armed Conflict Location & Event Data", "url": "https://acleddata.com/", "note": "Geocoded political-violence events; public API (key)."},
+      {"title": "UCDP — Uppsala Conflict Data Program", "url": "https://ucdp.uu.se/", "note": "Academic conflict dataset, public downloads."},
+      {"title": "CFR — Global Conflict Tracker", "url": "https://www.cfr.org/global-conflict-tracker", "note": "Curated status of major conflicts."},
+      {"title": "ReliefWeb (UN OCHA)", "url": "https://reliefweb.int/", "note": "Humanitarian situation reports & alerts."},
+      {"title": "International Crisis Group", "url": "https://www.crisisgroup.org/crisiswatch", "note": "Monthly CrisisWatch conflict tracker."},
+      {"title": "GTD — Global Terrorism Database (START)", "url": "https://www.start.umd.edu/gtd/", "note": "Academic terrorism-incident database."}
+    ]
+  },
+
+  "crime_intel_sources": {
+    "note": "Organized-crime and law-enforcement threat-assessment publishers.",
+    "reliability": "rel-archived",
+    "sources": [
+      {"title": "InSight Crime", "url": "https://insightcrime.org/", "note": "Organized crime in the Americas."},
+      {"title": "GI-TOC — Global Organized Crime Index", "url": "https://ocindex.net/", "note": "Country-level crime indices."},
+      {"title": "UNODC", "url": "https://www.unodc.org/", "note": "Drugs, crime, trafficking — UN data & reports."},
+      {"title": "Europol — SOCTA & threat assessments", "url": "https://www.europol.europa.eu/publications-events/main-reports", "reliability": "rel-official"},
+      {"title": "Interpol — Notices", "url": "https://www.interpol.int/How-we-work/Notices", "reliability": "rel-official"},
+      {"title": "FBI — Most Wanted & Reports", "url": "https://www.fbi.gov/wanted", "reliability": "rel-official"},
+      {"title": "DEA — National Drug Threat Assessment", "url": "https://www.dea.gov/data-and-statistics", "reliability": "rel-official"},
+      {"title": "OFAC — Counter Narcotics / Counterterrorism", "url": "https://ofac.treasury.gov/sanctions-programs-and-country-information", "reliability": "rel-official"}
+    ]
+  },
+
+  "mexico_public_resources": {
+    "note": "Public, official data sources for the U.S.–Mexico context (situational awareness, not interdiction guidance).",
+    "reliability": "rel-official",
+    "sources": [
+      {"title": "CBP — Border Wait Times", "url": "https://bwt.cbp.gov/", "note": "Live lane status & delays at land crossings (open feed)."},
+      {"title": "BTS — TransBorder Freight Data", "url": "https://www.bts.gov/transborder", "note": "Monthly cross-border freight flows by mode."},
+      {"title": "INEGI (Mexico statistics)", "url": "https://www.inegi.org.mx/", "note": "Mexican national statistics & census."},
+      {"title": "SESNSP — Public security statistics", "url": "https://www.gob.mx/sesnsp", "note": "Mexican crime/incidence data."},
+      {"title": "DEA Newsroom", "url": "https://www.dea.gov/press-releases", "reliability": "rel-official"},
+      {"title": "State Dept — Mexico Travel & Security", "url": "https://travel.state.gov/", "reliability": "rel-official"}
+    ]
+  }
+}

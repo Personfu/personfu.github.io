@@ -1,0 +1,655 @@
+{
+  "fetched_at": "2026-06-08T12:44:04.141889Z",
+  "items": [
+    {
+      "title": "Dense Fog Advisory issued June 8 at 7:43AM CDT until June 8 at 10:00AM CDT by NWS Hastings NE",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T07:43:00-05:00",
+      "summary": "* WHAT...Visibility as low as one quarter mile in dense fog.\n\n* WHERE...Portions of central, east central, and south central\nNebraska.\n\n* WHEN...Until 10 AM CDT this morning.\n\n* IMPACTS...Low visibility could make driving conditions hazardous.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Nance; Merrick; Polk; Hall; Hamilton; York; Adams; Clay; Fillmore; Webster; Nuckolls; Thayer"
+    },
+    {
+      "title": "Special Weather Statement issued June 8 at 7:41AM CDT by NWS North Platte NE",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T07:41:00-05:00",
+      "summary": "At 741 AM CDT, Doppler radar was tracking a strong thunderstorm 7\nmiles southwest of Maxwell, or 12 miles southeast of North Platte,\nmoving northeast at 20 mph.\n\nHAZARD...Wind gusts up to 40 mph and nickel size hail.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects. Minor hail damage to vegetation is\npossible.\n\nLocations impacted include...\nMaxwell, Keith, and Cottonwood Canyon State Wildlife Management Area.\n\nThis includes Interstate",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lincoln"
+    },
+    {
+      "title": "Severe Thunderstorm Warning issued June 8 at 7:39AM CDT until June 8 at 8:15AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T07:39:00-05:00",
+      "summary": "SVRTSA\n\nThe National Weather Service in Tulsa has issued a\n\n* Severe Thunderstorm Warning for...\nSouthwestern Benton County in northwestern Arkansas...\nSoutheastern Delaware County in northeastern Oklahoma...\nNorthwestern Adair County in northeastern Oklahoma...\nNortheastern Cherokee County in east central Oklahoma...\n\n* Until 815 AM CDT.\n\n* At 739 AM CDT, a severe thunderstorm was located over Kansas,\nmoving southeast at 30 mph.\n\nHAZARD...60 mph wind gusts and nickel size hail.\n\nSOURCE...Radar ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Benton, AR; Adair, OK; Cherokee, OK; Delaware, OK"
+    },
+    {
+      "title": "Special Weather Statement issued June 8 at 7:34AM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T07:34:00-05:00",
+      "summary": "At 734 AM CDT, Doppler radar was tracking a strong thunderstorm 11\nmiles southeast of Sparta, or 13 miles west of Ava, moving east at 30\nmph.\n\nHAZARD...Wind gusts up to 50 mph.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects.\n\nLocations impacted include...\nAva, Goodhope, Rome, Dogwood, and Squires.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Douglas"
+    },
+    {
+      "title": "Flood Advisory issued June 8 at 7:30AM CDT until June 8 at 10:30AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T07:30:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...Portions of northwest Arkansas, including the following\ncounties, Benton, Carroll, Madison and Washington and northeast\nOklahoma, including the following counties, Adair and Delaware.\n\n* WHEN...Until 1030 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\nPonding of water in urban or other areas is occurring or is\nimminent.\n\n* ADDITIONAL DETAILS...\n- At 729 AM CDT, Doppler radar indicated heavy rain due",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Benton, AR; Carroll, AR; Madison, AR; Washington, AR; Adair, OK; Delaware, OK"
+    },
+    {
+      "title": "Special Weather Statement issued June 8 at 7:24AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T07:24:00-05:00",
+      "summary": "At 724 AM CDT, Doppler radar indicated a strong thunderstorm over\nSpavinaw, moving southeast at 35 mph.\n\nHAZARD...Wind gusts up to 50 mph.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down small tree limbs and blow\naround unsecured objects.\n\nLocations in or near the path include...\nJay...                            Salina...\nLangley...                        Kansas...\nSpavinaw...                       Disney...\nOaks...                           Pensacola...\nHoot Owl...           ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Mayes; Delaware; Cherokee; Adair"
+    },
+    {
+      "title": "Special Weather Statement issued June 8 at 7:20AM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T07:20:00-05:00",
+      "summary": "At 720 AM CDT, Doppler radar was tracking a strong thunderstorm over\nRockaway Beach, or over Forsyth, moving east at 20 mph.\n\nHAZARD...Wind gusts up to 50 mph.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects.\n\nLocations impacted include...\nLake Taneycomo, Bull Shoals Lake, Hollister, Forsyth, Merriam Woods,\nKissee Mills, Rockaway Beach, Bull Creek, Taneyville, Kirbyville,\nBrownbranch, Powersite, Rueter, Bradleyville, Ozark Beach, Wal",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Taney"
+    },
+    {
+      "title": "Flash Flood Warning issued June 8 at 7:18AM CDT until June 8 at 1:15PM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T07:18:00-05:00",
+      "summary": "FFWSGF\n\nThe National Weather Service in Springfield has issued a\n\n* Flash Flood Warning for...\nNorthwestern Christian County in southwestern Missouri...\nSouthern Greene County in southwestern Missouri...\n\n* Until 115 PM CDT.\n\n* At 718 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 1 and 3 inches of rain\nhave fallen. Flash flooding is ongoing or expected to begin\nshortly.\n\nHAZARD...Flash flooding caused by thunderstorms.\n\nSOURCE...Radar.\n\nIMPACT",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Christian, MO; Greene, MO"
+    },
+    {
+      "title": "Special Weather Statement issued June 8 at 7:14AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T07:14:00-05:00",
+      "summary": "At 714 AM CDT, Doppler radar indicated strong thunderstorms along a\nline extending from near Colcord to 2 miles south of Highfill to 4\nmiles southwest of Garfield. Movement was southeast at 35 mph.\n\nHAZARD...Wind gusts up to 50 mph.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down small tree limbs and blow\naround unsecured objects.\n\nLocations in or near the path include...\nFayetteville...                   Springdale...\nRogers...                         Bentonville...\nBella Vist",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Benton; Washington; Madison; Delaware; Adair"
+    },
+    {
+      "title": "Flood Advisory issued June 8 at 7:05AM CDT until June 8 at 10:15AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T07:05:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northeast Oklahoma, including the following\ncounty, Craig.\n\n* WHEN...Until 1015 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\n\n* ADDITIONAL DETAILS...\n- At 705 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Between 1 and 2 inches of rain\nhave fallen.\n- Additional rainfall amounts up to 1 inch",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Craig, OK"
+    },
+    {
+      "title": "Flash Flood Warning issued June 8 at 7:04AM CDT until June 8 at 10:15AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T07:04:00-05:00",
+      "summary": "FFWTSA\n\nThe National Weather Service in Tulsa has issued a\n\n* Flash Flood Warning for...\nNorthern Delaware County in northeastern Oklahoma...\nSouthern Ottawa County in northeastern Oklahoma...\n\n* Until 1015 AM CDT.\n\n* At 704 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 1 and 3 inches of rain\nhave fallen. Additional rainfall amounts of 1 to 2 inches are\npossible in the warned area. Flash flooding is ongoing or expected\nto begin shortly.\n\nHAZAR",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Delaware, OK; Ottawa, OK"
+    },
+    {
+      "title": "Flash Flood Warning issued June 8 at 6:58AM CDT until June 8 at 1:00PM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T06:58:00-05:00",
+      "summary": "FFWSGF\n\nThe National Weather Service in Springfield has issued a\n\n* Flash Flood Warning for...\nCentral Barry County in southwestern Missouri...\nMcDonald County in southwestern Missouri...\n\n* Until 100 PM CDT Monday.\n\n* At 658 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 1 and 3 inches of rain\nhave fallen. Flash flooding is ongoing or expected to begin\nshortly.\n\nHAZARD...Flash flooding caused by thunderstorms.\n\nSOURCE...Radar.\n\nIMPACT...Flash ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Barry, MO; McDonald, MO"
+    },
+    {
+      "title": "Special Weather Statement issued June 8 at 6:50AM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T06:50:00-05:00",
+      "summary": "At 650 AM CDT, Doppler radar was tracking a strong thunderstorm over\nHighlandville, moving east at 20 mph.\n\nHAZARD...Wind gusts up to 50 mph.\n\nSOURCE...Radar indicated.\n\nIMPACT...Gusty winds could knock down tree limbs and blow around\nunsecured objects.\n\nLocations impacted include...\nOzark, Sparta, Highlandville, Christian Center, Oldfield, Garrison,\nChadwick, Selmore, and Keltner.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Christian"
+    },
+    {
+      "title": "Flash Flood Warning issued June 8 at 6:27AM CDT until June 8 at 12:30PM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T06:27:00-05:00",
+      "summary": "FFWSGF\n\nThe National Weather Service in Springfield has issued a\n\n* Flash Flood Warning for...\nNorthwestern Barry County in southwestern Missouri...\nSouthern Lawrence County in southwestern Missouri...\n\n* Until 1230 PM CDT Monday.\n\n* At 627 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 1 and 3 inches of rain\nhave fallen. Flash flooding is ongoing or expected to begin\nshortly.\n\nHAZARD...Flash flooding caused by thunderstorms.\n\nSOURCE...Radar.\n\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Barry, MO; Lawrence, MO"
+    },
+    {
+      "title": "Flash Flood Warning issued June 8 at 6:16AM CDT until June 8 at 9:30AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T06:16:00-05:00",
+      "summary": "FFWTSA\n\nThe National Weather Service in Tulsa has issued a\n\n* Flash Flood Warning for...\nNortheastern Ottawa County in northeastern Oklahoma...\n\n* Until 930 AM CDT.\n\n* At 616 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 3 and 5 inches of rain\nhave fallen. Additional rainfall amounts of 1 to 2 inches are\npossible in the warned area. Flash flooding is ongoing or expected\nto begin shortly.\n\nHAZARD...Life threatening flash flooding. Thunderstorms",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Ottawa, OK"
+    },
+    {
+      "title": "Special Weather Statement issued June 8 at 6:13AM CDT by NWS Hastings NE",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T06:13:00-05:00",
+      "summary": "Patchy dense fog will be possible for the morning commute, mainly\nfor areas east of Highway 181 and south of Highway 92 in south\ncentral Nebraska. Visibilities may fall to as low as one half\nmile, but rapid improvement should occur between 8AM and 9AM.\n\nPlease use caution if traveling this morning. Slow down and use\nlow beam headlights if you encounter any fog.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Merrick; Hamilton; York; Clay; Fillmore; Nuckolls; Thayer"
+    },
+    {
+      "title": "Flash Flood Warning issued June 8 at 5:57AM CDT until June 8 at 12:00PM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T05:57:00-05:00",
+      "summary": "FFWSGF\n\nThe National Weather Service in Springfield has issued a\n\n* Flash Flood Warning for...\nCherokee County in southeastern Kansas...\nSouthwestern Jasper County in southwestern Missouri...\nNewton County in southwestern Missouri...\n\n* Until noon CDT Monday.\n\n* At 557 AM CDT, Emergency management reported thunderstorms\nproducing heavy rain across the warned area. Between 4 and 7\ninches of rain have fallen. Additional rainfall amounts of 1 to 4\ninches are possible in the warned area. Flash flood",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Cherokee, KS; Jasper, MO; Newton, MO"
+    },
+    {
+      "title": "Flash Flood Warning issued June 8 at 5:32AM CDT until June 8 at 8:45AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T05:32:00-05:00",
+      "summary": "FFWTSA\n\nThe National Weather Service in Tulsa has issued a\n\n* Flash Flood Warning for...\nNorthern Ottawa County in northeastern Oklahoma...\n\n* Until 845 AM CDT.\n\n* At 532 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 1 and 3 inches of rain\nhave fallen. Additional rainfall amounts of 1 to 2 inches are\npossible in the warned area. Flash flooding is ongoing or expected\nto begin shortly.\n\nHAZARD...Flash flooding caused by thunderstorms.\n\nSOURCE...",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Ottawa, OK"
+    },
+    {
+      "title": "Flood Warning issued June 8 at 5:11AM CDT until June 11 at 3:00AM CDT by NWS St Louis MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T05:11:00-05:00",
+      "summary": "...The National Weather Service in St Louis has issued a Flood\nWarning for the following rivers in Missouri...\n\nMissouri River at Jefferson City.\n\nOsage River near Mari-Osa Campground.\n\n...Forecast flooding changed from Minor to Major severity and\nincreased in duration for the following rivers in Missouri...\n\nHinkson Creek at Columbia.\n\nRiver forecasts are based on observed precipitation and forecast\nprecipitation for the next 24 hours.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Osage Rive",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Cole, MO; Osage, MO"
+    },
+    {
+      "title": "Flood Warning issued June 8 at 5:11AM CDT until June 10 at 1:00PM CDT by NWS St Louis MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T05:11:00-05:00",
+      "summary": "...The National Weather Service in St Louis has issued a Flood\nWarning for the following rivers in Missouri...\n\nMissouri River at Jefferson City.\n\nOsage River near Mari-Osa Campground.\n\n...Forecast flooding changed from Minor to Major severity and\nincreased in duration for the following rivers in Missouri...\n\nHinkson Creek at Columbia.\n\nRiver forecasts are based on observed precipitation and forecast\nprecipitation for the next 24 hours.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Missouri R",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Boone, MO; Callaway, MO; Cole, MO; Moniteau, MO"
+    },
+    {
+      "title": "Red Flag Warning issued June 8 at 2:47AM PDT until June 8 at 11:00PM PDT by NWS Elko NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T02:47:00-07:00",
+      "summary": "* AFFECTED AREA...Fire weather zones 425, 426, 427, AND 470.\n\n* WIND...Sustained southwest winds near 20 mph, with gusts 35\nto 40 mph.\n\n* HUMIDITY...Minimum relative humidity values as low as 8\npercent.\n\n* HIGHEST THREAT...is located in zone 425.\n\n* IMPACTS...Any fires that develop will likely spread rapidly.\nOutdoor burning is not recommended.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "White Pine and Northeast Nye Counties; Northern Nye County - Mojave; Central Nevada - Toiyabe; Eastern Elko County"
+    },
+    {
+      "title": "Small Craft Advisory issued June 8 at 1:38AM AKDT until June 9 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T01:38:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind increasing to 20 kt. Seas 3 ft building to 5 ft in\nthe afternoon.\n.TONIGHT...S wind 25 kt. Seas 7 ft.\n.TUE...SW wind 15 kt becoming N 10 kt in the afternoon. Seas 3 ft.\nRain.\n.TUE NIGHT...Va",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cook Inlet Kalgin Island to Point Bede"
+    },
+    {
+      "title": "Small Craft Advisory issued June 8 at 1:38AM AKDT until June 9 at 5:00AM AKDT by NWS Anchorage AK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T01:38:00-08:00",
+      "summary": "Coastal Waters Forecast for the Northern Gulf of Alaska Coast\nup to 100 nm out including Kodiak Island and Cook Inlet.\n\nWind forecasts reflect the predominant speed and direction\nexpected. Sea forecasts represent an average of the highest\none-third of the combined wind wave and swell height.\n\n.TODAY...S wind 10 kt becoming SW 20 kt in the afternoon. Seas 2\nft building to 5 ft in the afternoon.\n.TONIGHT...S wind 25 kt. Seas 8 ft. Rain.\n.TUE...Variable wind less than 10 kt. Seas 2 ft. Rain.\n.TUE N",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Cook Inlet North Kalgin Island"
+    },
+    {
+      "title": "Flash Flood Warning issued June 8 at 4:36AM CDT until June 8 at 10:45AM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T04:36:00-05:00",
+      "summary": "FFWSGF\n\nThe National Weather Service in Springfield has issued a\n\n* Flash Flood Warning for...\nCherokee County in southeastern Kansas...\nJasper County in southwestern Missouri...\nNewton County in southwestern Missouri...\n\n* Until 1045 AM CDT Monday.\n\n* At 436 AM CDT, Doppler radar indicated thunderstorms producing\nheavy rain across the warned area. Between 1 and 3 inches of rain\nhave fallen. The expected rainfall rate is 2 to 4 inches in 1\nhour. Flash flooding is ongoing or expected to begin sho",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Cherokee, KS; Jasper, MO; Newton, MO"
+    },
+    {
+      "title": "Small Craft Advisory issued June 8 at 2:34AM PDT until June 10 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T02:34:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 15\nto 25 kt with gusts up to 35 kt. For the Gale Warning,\nnorthwest winds 15 to 25 kt with gusts up to 35 kt expected.\nFor the second Small Craft Advisory, northwest winds 15 to 25\nkt with gusts up to 35 kt expected.\n\n* WHERE...Coastal Waters from Point Pinos to Point Piedras\nBlancas California out to 10 NM.\n\n* WHEN...For the first Small Craft Advisory, until 1 PM PDT this\nafternoon. For the Gale Warning, from 1 PM this afternoon to 9\n",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Pinos to Point Piedras Blancas California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 8 at 2:34AM PDT until June 10 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T02:34:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 15\nto 25 kt with gusts up to 30 kt. For the second Small Craft\nAdvisory, northwest winds 15 to 25 kt with gusts up to 35 kt\nand seas 8 to 10 ft expected.\n\n* WHERE...Coastal Waters from Point Arena to Point Reyes\nCalifornia out to 10 NM.\n\n* WHEN...For the first Small Craft Advisory, until 3 PM PDT this\nafternoon. For the second Small Craft Advisory, from 9 AM\nTuesday to 3 AM PDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to sm",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Arena to Point Reyes California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 8 at 2:34AM PDT until June 10 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T02:34:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 15\nto 25 kt with gusts up to 30 kt and seas 8 to 10 ft. For the\nsecond Small Craft Advisory, northwest winds 20 to 30 kt with\ngusts up to 35 kt and seas 8 to 13 ft expected.\n\n* WHERE...Waters from Point Arena to Point Reyes 10-60 NM.\n\n* WHEN...For the first Small Craft Advisory, until 3 PM PDT this\nafternoon. For the second Small Craft Advisory, from 9 AM\nTuesday to 3 AM PDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Arena to Point Reyes 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 8 at 2:34AM PDT until June 10 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T02:34:00-07:00",
+      "summary": "* WHAT...Northwest winds 10 to 20 kt with gusts up to 30 kt\nexpected.\n\n* WHERE...Monterey Bay.\n\n* WHEN...From 9 AM Tuesday to 3 AM PDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Monterey Bay"
+    },
+    {
+      "title": "Small Craft Advisory issued June 8 at 2:34AM PDT until June 10 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T02:34:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 15\nto 25 kt with gusts up to 30 kt. For the second Small Craft\nAdvisory, northwest winds 15 to 25 kt with gusts up to 30 kt\nand seas 8 to 10 ft expected.\n\n* WHERE...Coastal Waters from Point Reyes to Pigeon Point\nCalifornia out to 10 NM.\n\n* WHEN...For the first Small Craft Advisory, until 3 PM PDT this\nafternoon. For the second Small Craft Advisory, from 9 AM\nTuesday to 3 AM PDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to s",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Point Reyes to Pigeon Point California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 8 at 2:34AM PDT until June 10 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T02:34:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 10\nto 20 kt with gusts up to 30 kt. For the second Small Craft\nAdvisory, northwest winds 15 to 25 kt with gusts up to 30 kt\nexpected.\n\n* WHERE...Coastal Waters from Pigeon Point to Point Pinos\nCalifornia out to 10 NM.\n\n* WHEN...For the first Small Craft Advisory, until 3 PM PDT this\nafternoon. For the second Small Craft Advisory, from 9 AM\nTuesday to 3 AM PDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Coastal Waters from Pigeon Point to Point Pinos California out to 10 nm"
+    },
+    {
+      "title": "Small Craft Advisory issued June 8 at 2:34AM PDT until June 10 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T02:34:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 15\nto 25 kt with gusts up to 30 kt and seas 8 to 10 ft. For the\nsecond Small Craft Advisory, northwest winds 20 to 30 kt with\ngusts up to 35 kt and seas 8 to 13 ft expected.\n\n* WHERE...Waters from Point Reyes to Pigeon Point 10-60 NM.\n\n* WHEN...For the first Small Craft Advisory, until 3 PM PDT this\nafternoon. For the second Small Craft Advisory, from 9 AM\nTuesday to 3 AM PDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to smal",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Reyes to Pigeon Point 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 8 at 2:34AM PDT until June 10 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T02:34:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 15\nto 25 kt with gusts up to 30 kt and seas 8 to 10 ft. For the\nsecond Small Craft Advisory, northwest winds 15 to 25 kt with\ngusts up to 30 kt and seas 7 to 12 ft expected.\n\n* WHERE...Waters from Pigeon Point to Point Pinos 10-60 NM.\n\n* WHEN...For the first Small Craft Advisory, until 3 PM PDT this\nafternoon. For the second Small Craft Advisory, from 9 AM\nTuesday to 3 AM PDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to smal",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Pigeon Point to Point Pinos 10-60 NM"
+    },
+    {
+      "title": "Small Craft Advisory issued June 8 at 2:34AM PDT until June 10 at 3:00AM PDT by NWS San Francisco CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T02:34:00-07:00",
+      "summary": "* WHAT...For the first Small Craft Advisory, northwest winds 15\nto 25 kt with gusts up to 30 kt. For the second Small Craft\nAdvisory, northwest winds 15 to 25 kt with gusts up to 30 kt\nand seas 7 to 12 ft expected.\n\n* WHERE...Waters from Point Pinos to Point Piedras Blancas 10-\n60 NM.\n\n* WHEN...For the first Small Craft Advisory, until 9 PM PDT this\nevening. For the second Small Craft Advisory, from 9 AM\nTuesday to 3 AM PDT Wednesday.\n\n* IMPACTS...Conditions will be hazardous to small craft.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Point Pinos to Point Piedras Blancas 10-60 NM"
+    },
+    {
+      "title": "Gale Watch issued June 8 at 2:06AM PDT until June 9 at 11:00PM PDT by NWS Seattle WA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T02:06:00-07:00",
+      "summary": "* WHAT...West winds 25 to 30 kt, with gusts up to 40 kt possible.\n\n* WHERE...Central U. S. Waters Strait Of Juan De Fuca and East\nEntrance U. S. Waters Strait Of Juan De Fuca.\n\n* WHEN...From Tuesday morning through Tuesday evening.\n\n* IMPACTS...Strong winds can cause hazardous seas which could\ncapsize or damage vessels and reduce visibility.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Central U.S. Waters Strait Of Juan De Fuca; East Entrance U.S. Waters Strait Of Juan De Fuca"
+    },
+    {
+      "title": "Flood Advisory issued June 8 at 3:56AM CDT until June 8 at 8:00AM CDT by NWS Tulsa OK",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T03:56:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is expected.\n\n* WHERE...A portion of northeast Oklahoma, including the following\ncounty, Ottawa.\n\n* WHEN...Until 800 AM CDT.\n\n* IMPACTS...Minor flooding in low-lying and poor drainage areas.\n\n* ADDITIONAL DETAILS...\n- At 356 AM CDT, Doppler radar indicated heavy rain due to\nthunderstorms. Minor flooding is ongoing or expected to begin\nshortly in the advisory area. Between 1 and 2 inches of rain\nhave fallen.\n- Some locations that will experience floo",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Ottawa, OK"
+    },
+    {
+      "title": "Flood Watch issued June 8 at 3:52AM CDT until June 8 at 10:00AM CDT by NWS Des Moines IA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T03:52:00-05:00",
+      "summary": "* WHAT...Flash flooding caused by excessive rainfall continues to be\npossible.\n\n* WHERE...A portion of south central Iowa, including the following\ncounty, Marion.\n\n* WHEN...Until 10 AM CDT this morning.\n\n* IMPACTS...Excessive runoff due to heavy rainfall may result in\nflooding of rivers, creeks, streams, and other low-lying and\nflood-prone locations. Creeks and streams may rise out of their\nbanks. Low-water crossings may be flooded.\n\n* ADDITIONAL DETAILS...\n- Heavy rainfall lifting north out of ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Marion"
+    },
+    {
+      "title": "Flood Warning issued June 8 at 3:49AM CDT until June 9 at 3:10AM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T03:49:00-05:00",
+      "summary": "...The National Weather Service in Springfield MO has issued a Flood\nWarning for the following rivers in Kansas...\n\nLittle Osage River at Fulton affecting Bourbon County.\n\nFor the Little Osage River...including Fulton, Horton...Minor\nflooding is forecast.\n\n* WHAT...Minor flooding is forecast.\n\n* WHERE...Little Osage River at Fulton.\n\n* WHEN...From this morning to late tonight.\n\n* IMPACTS...At 22.0 feet, Flood waters mainly affect farmland along\nthe Little Osage River Basin between the gage site ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Bourbon, KS"
+    },
+    {
+      "title": "Rip Current Statement issued June 8 at 4:46AM EDT until June 8 at 10:00PM EDT by NWS Boston/Norton MA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T04:46:00-04:00",
+      "summary": "* WHAT...Dangerous rip currents expected.\n\n* WHERE...Barnstable MA and Nantucket MA Counties.\n\n* WHEN...From 8 AM EDT this morning through this evening.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Barnstable; Nantucket"
+    },
+    {
+      "title": "Fire Weather Watch issued June 8 at 2:44AM MDT until June 10 at 8:00PM MDT by NWS Albuquerque NM",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T02:44:00-06:00",
+      "summary": "...RED FLAG WARNING REMAINS IN EFFECT FROM NOON TODAY TO 9 PM MDT\nTHIS EVENING DUE TO STRONG WINDS AND LOW RELATIVE HUMIDITY FOR THE\nWEST CENTRAL MOUNTAINS...\n\n...RED FLAG WARNING REMAINS IN EFFECT FROM NOON TO 9 PM MDT TUESDAY\nDUE TO STRONG WINDS AND LOW RELATIVE HUMIDITY FOR THE WEST CENTRAL\nMOUNTAINS AND THE NORTHWEST PLATEAU...\n\n...FIRE WEATHER WATCH IN EFFECT FROM WEDNESDAY AFTERNOON THROUGH\nWEDNESDAY EVENING DUE TO STRONG WINDS AND LOW RELATIVE HUMIDITY FOR\nTHE NORTHEAST HIGHLANDS...\n\n.Str",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Northeast Highlands"
+    },
+    {
+      "title": "Small Craft Advisory issued June 8 at 1:38AM PDT until June 8 at 8:00PM PDT by NWS Los Angeles/Oxnard CA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T01:38:00-07:00",
+      "summary": "* WHAT...For the Gale Warning, northwest winds 20 to 30 kt with\ngusts up to 35 kt and combined seas 8 to 10 ft when conditions\nare worst. For the Gale Watch, northwest winds 25 to 35 kt and\ncombined seas 10 to 12 ft possible when conditions are worst.\n\n* WHERE...Waters from Pt. Sal to Santa Cruz Island CA and\nwestward 60 nm including San Miguel and Santa Rosa Islands.\n\n* WHEN...For the Gale Warning, until 5 AM PDT early this\nmorning. For the Small Craft Advisory, from 5 AM early this\nmorning to ",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Minor",
+      "area": "Waters from Pt. Sal to Santa Cruz Island CA and westward 60 nm including San Miguel and Santa Rosa Islands"
+    },
+    {
+      "title": "Flash Flood Warning issued June 8 at 3:15AM CDT until June 8 at 9:15AM CDT by NWS Springfield MO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T03:15:00-05:00",
+      "summary": "FFWSGF\n\nThe National Weather Service in Springfield has issued a\n\n* Flash Flood Warning for...\nSouth Central Hickory County in central Missouri...\nBarton County in southwestern Missouri...\nSouthern Cedar County in southwestern Missouri...\nNorthern Dade County in southwestern Missouri...\nNorthwestern Jasper County in southwestern Missouri...\nPolk County in southwestern Missouri...\nSoutheastern Vernon County in west central Missouri...\n\n* Until 915 AM CDT.\n\n* At 315 AM CDT, Doppler radar indicated",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Barton, MO; Cedar, MO; Dade, MO; Hickory, MO; Jasper, MO; Polk, MO; Vernon, MO"
+    },
+    {
+      "title": "Flood Warning issued June 8 at 3:14AM CDT until June 8 at 10:00AM CDT by NWS Huntsville AL",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T03:14:00-05:00",
+      "summary": "* WHAT...Urban area and small stream flooding along Indian Creek\ncaused by excessive rainfall.\n\n* WHERE...A portion of north central Alabama, including the\nfollowing county, Madison.\n\n* WHEN...Until 1000 AM CDT Monday.\n\n* IMPACTS...It will take several hours for all the water from heavy\nrainfall yesterday to work through local drainage systems in urban\nareas.\n\n* ADDITIONAL DETAILS...\n- At 311 AM CDT, Gauge reports indicate that Indian Creek\nremains in minor flood stage due to heavy rainfall yest",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Madison, AL"
+    },
+    {
+      "title": "Beach Hazards Statement issued June 8 at 4:13AM EDT until June 8 at 8:00PM EDT by NWS Newport/Morehead City NC",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T04:13:00-04:00",
+      "summary": "* WHAT...Dangerous rip currents.\n\n* WHERE...The beaches north of Cape Hatteras.\n\n* WHEN...From 8 AM EDT this morning through this evening.\n\n* IMPACTS...Rip currents can sweep even the best swimmers away\nfrom shore into deeper water.\n\n* ADDITIONAL DETAILS...The most likely time for strong rip\ncurrents to occur is a couple hours either side of low tide,\nwhich will occur around 8:00 AM Monday.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Northern Outer Banks; Hatteras Island"
+    },
+    {
+      "title": "Flood Watch issued June 8 at 3:09AM CDT until June 8 at 8:00PM CDT by NWS Birmingham AL",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T03:09:00-05:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is possible.\n\n* WHERE...A portion of central Alabama, including the following\ncounties, Blount, Calhoun, Cherokee, Cleburne, Etowah, Jefferson,\nShelby, St. Clair and Talladega.\n\n* WHEN...From 7 AM CDT this morning through this evening.\n\n* IMPACTS...Excessive runoff may result in flooding of rivers,\ncreeks, streams, and other low-lying and flood-prone locations.\nFlooding may occur in poor drainage and urban areas.\n\n* ADDITIONAL DETAILS...\n- http://ww",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Blount; Etowah; Calhoun; Cherokee; Cleburne; Jefferson; Shelby; St. Clair; Talladega"
+    },
+    {
+      "title": "Flood Watch issued June 8 at 4:05AM EDT until June 8 at 9:00PM EDT by NWS Peachtree City GA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T04:05:00-04:00",
+      "summary": "* WHAT...Flooding caused by excessive rainfall is possible.\n\n* WHERE...Portions of north central, northwest, and west central\nGeorgia, including the following areas, in north central Georgia,\nCherokee, Clayton, Cobb, Dawson, DeKalb, Douglas, Fannin, Fayette,\nForsyth, Gilmer, Gwinnett, Henry, North Fulton, Pickens, Rockdale\nand South Fulton. In northwest Georgia, Bartow, Carroll, Catoosa,\nChattooga, Dade, Floyd, Gordon, Haralson, Murray, Paulding, Polk,\nWalker and Whitfield. In west central Georg",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Dade; Walker; Catoosa; Whitfield; Murray; Fannin; Gilmer; Chattooga; Gordon; Pickens; Dawson; Floyd; Bartow; Cherokee; Forsyth; Polk; Paulding; Cobb; North Fulton; Gwinnett; Haralson; Carroll; Douglas; South Fulton; DeKalb; Rockdale; Coweta; Fayette; Clayton; Henry"
+    },
+    {
+      "title": "Lake Wind Advisory issued June 8 at 12:41AM PDT until June 8 at 11:00PM PDT by NWS Reno NV",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T00:41:00-07:00",
+      "summary": "* WHAT...Southwest winds 10 to 15 mph with gusts up to 40 mph for\nStampede Reservoir, Lake Davis, Antelope Lake, and Eagle Lake.\n\n* WHERE...Lassen-Eastern Plumas-Eastern Sierra Counties.\n\n* WHEN...From 11 AM this morning to 11 PM PDT this evening.\n\n* IMPACTS...Small boats, kayaks and paddle boards will be prone to\ncapsizing and should remain off lake waters until conditions\nimprove.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Lassen-Eastern Plumas-Eastern Sierra Counties"
+    },
+    {
+      "title": "Beach Hazards Statement issued June 8 at 3:32AM EDT until June 8 at 8:00PM EDT by NWS Wakefield VA",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T03:32:00-04:00",
+      "summary": "* WHAT...High risk of rip currents expected.\n\n* WHERE...In North Carolina, Eastern Currituck County. In\nVirginia, Virginia Beach.\n\n* WHEN...From 8 AM EDT this morning through this evening.\n\n* IMPACTS...Dangerous swimming and surfing conditions. Breaking\nwaves of 3 to 5 ft can cause neck and back injuries.",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Moderate",
+      "area": "Eastern Currituck; Virginia Beach"
+    },
+    {
+      "title": "Fire Weather Watch issued June 8 at 1:08AM MDT until June 10 at 8:00PM MDT by NWS Pueblo CO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T01:08:00-06:00",
+      "summary": "The National Weather Service in Pueblo has issued a Fire Weather\nWatch for gusty winds and low relative humidity, which is in\neffect from Wednesday afternoon through Wednesday evening.\n\n* AFFECTED AREA...Fire Weather Zone 236.\n\n* TIMING...From Wednesday afternoon through Wednesday evening.\n\n* WINDS...East 10 to 15 mph with gusts up to 30 mph.\n\n* RELATIVE HUMIDITY...As low as 10 percent.\n\n* TEMPERATURES...Up to 100.\n\n* Lightning...\n\n* IMPACTS...Fires will catch and spread quickly. Exercise\nextrem",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Prowers County Including Lamar"
+    },
+    {
+      "title": "Fire Weather Watch issued June 8 at 1:08AM MDT until June 10 at 8:00PM MDT by NWS Pueblo CO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T01:08:00-06:00",
+      "summary": "...FIRE WEATHER WATCH REMAINS IN EFFECT FROM TUESDAY AFTERNOON\nTHROUGH TUESDAY EVENING FOR GUSTY WINDS AND LOW RELATIVE HUMIDITY\nFOR FIRE WEATHER ZONES 222, 228, AND 229...\n\n...FIRE WEATHER WATCH IN EFFECT FROM WEDNESDAY AFTERNOON THROUGH\nWEDNESDAY EVENING FOR GUSTY WINDS AND LOW RELATIVE HUMIDITYFOR\nFIRE WEATHER ZONES 222, 228, AND 229...\n\nThe National Weather Service in Pueblo has issued a Fire Weather\nWatch for gusty winds and low relative humidity, which is in\neffect from Wednesday afternoon",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Fremont County Including Canon City/Howard/Texas Creek; Pueblo County Including Pueblo; Huerfano County Including Walsenburg"
+    },
+    {
+      "title": "Fire Weather Watch issued June 8 at 1:08AM MDT until June 10 at 8:00PM MDT by NWS Pueblo CO",
+      "url": "http://www.weather.gov",
+      "published": "2026-06-08T01:08:00-06:00",
+      "summary": "...FIRE WEATHER WATCH IN EFFECT FROM WEDNESDAY AFTERNOON THROUGH\nWEDNESDAY EVENING FOR GUSTY WINDS AND LOW RELATIVE HUMIDITY FOR\nFIRE WEATHER ZONES 230, 231, AND 234...\n\nThe National Weather Service in Pueblo has issued a Fire Weather\nWatch for gusty winds and low relative humidity, which is in\neffect from Wednesday afternoon through Wednesday evening.\n\n* AFFECTED AREA...Fire Weather Zones 230, 231 and 234.\n\n* TIMING...For the first Fire Weather Watch, from Tuesday\nafternoon through Tuesday even",
+      "source": "NWS",
+      "tags": [
+        "weather",
+        "public-safety"
+      ],
+      "severity": "Severe",
+      "area": "Western Las Animas County Including Trinidad and Thatcher; Crowley County Including Ordway; Kiowa County Including Eads"
+    }
+  ]
+}

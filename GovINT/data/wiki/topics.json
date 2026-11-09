@@ -1,0 +1,124 @@
+{
+  "topics": [
+    {
+      "icon": "🛡️",
+      "id": "cyber",
+      "label": "Cybersecurity",
+      "tag_class": "tag-cyber"
+    },
+    {
+      "icon": "🛩️",
+      "id": "defense",
+      "label": "Defense & Aerospace",
+      "tag_class": "tag-defense"
+    },
+    {
+      "icon": "🚧",
+      "id": "border",
+      "label": "Border & Public Safety",
+      "tag_class": "tag-border"
+    },
+    {
+      "icon": "⚡",
+      "id": "infra",
+      "label": "Infrastructure",
+      "tag_class": "tag-infra"
+    },
+    {
+      "icon": "💧",
+      "id": "water",
+      "label": "Water Politics",
+      "tag_class": "tag-water"
+    },
+    {
+      "icon": "🏛️",
+      "id": "corruption",
+      "label": "Public Corruption",
+      "tag_class": "tag-corruption"
+    },
+    {
+      "icon": "👽",
+      "id": "anomaly",
+      "label": "Anomalies & UAP",
+      "tag_class": "tag-anomaly"
+    },
+    {
+      "icon": "🛸",
+      "id": "ufo",
+      "label": "UFO / Phoenix Lights",
+      "tag_class": "tag-ufo"
+    },
+    {
+      "icon": "📜",
+      "id": "history",
+      "label": "Declassified History",
+      "tag_class": "tag-history"
+    },
+    {
+      "icon": "🔒",
+      "id": "classified",
+      "label": "Classified Programs",
+      "tag_class": "tag-classified"
+    },
+    {
+      "icon": "✈️",
+      "id": "aviation",
+      "label": "Aviation",
+      "tag_class": "tag-aviation"
+    },
+    {
+      "icon": "🌡️",
+      "id": "weather",
+      "label": "Weather & Climate",
+      "tag_class": "tag-weather"
+    },
+    {
+      "icon": "🌐",
+      "id": "domains",
+      "label": ".gov Domains",
+      "tag_class": "tag-domains"
+    },
+    {
+      "icon": "🚛",
+      "id": "transport",
+      "label": "Transportation",
+      "tag_class": "tag-transport"
+    },
+    {
+      "icon": "⚖️",
+      "id": "law",
+      "label": "Law Enforcement",
+      "tag_class": "tag-law"
+    },
+    {
+      "icon": "📋",
+      "id": "policy",
+      "label": "Policy & Governance",
+      "tag_class": "tag-policy"
+    },
+    {
+      "icon": "🏜️",
+      "id": "tribal",
+      "label": "Tribal Lands",
+      "tag_class": "tag-tribal"
+    },
+    {
+      "icon": "⛏️",
+      "id": "energy",
+      "label": "Energy & Mining",
+      "tag_class": "tag-energy"
+    },
+    {
+      "icon": "🔬",
+      "id": "research",
+      "label": "Research & Analysis",
+      "tag_class": "tag-research"
+    },
+    {
+      "icon": "🚨",
+      "id": "safety",
+      "label": "Public Safety",
+      "tag_class": "tag-safety"
+    }
+  ]
+}

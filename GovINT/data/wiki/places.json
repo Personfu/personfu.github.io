@@ -1,0 +1,186 @@
+{
+  "places": [
+    {
+      "description": "US Army Intelligence Center & NETCOM headquarters. Origin of Army intelligence operations since 1877.",
+      "id": "fort-huachuca",
+      "lat": 31.5544,
+      "lon": -110.3445,
+      "name": "Fort Huachuca",
+      "topics": [
+        "defense",
+        "classified",
+        "cyber"
+      ],
+      "type": "military"
+    },
+    {
+      "description": "Home of the 355th Wing, A-10 operations, and AMARG — the world's largest aircraft boneyard (4,400+ airframes).",
+      "id": "davis-monthan",
+      "lat": 32.1665,
+      "lon": -110.883,
+      "name": "Davis-Monthan AFB",
+      "topics": [
+        "defense",
+        "aviation"
+      ],
+      "type": "military"
+    },
+    {
+      "description": "Largest fighter pilot training base in the western world. F-35A Lightning II training wing.",
+      "id": "luke-afb",
+      "lat": 33.5352,
+      "lon": -112.384,
+      "name": "Luke Air Force Base",
+      "topics": [
+        "defense",
+        "aviation"
+      ],
+      "type": "military"
+    },
+    {
+      "description": "US Army testing facility spanning 1,300+ square miles of desert. Weapons, munitions, and autonomous systems testing.",
+      "id": "yuma-proving",
+      "lat": 32.8393,
+      "lon": -114.3949,
+      "name": "Yuma Proving Ground",
+      "topics": [
+        "defense"
+      ],
+      "type": "military"
+    },
+    {
+      "description": "March 13, 1997 mass sighting corridor from Prescott to Tucson. Thousands of witnesses, two distinct events.",
+      "id": "phoenix-lights",
+      "lat": 33.4484,
+      "lon": -112.074,
+      "name": "Phoenix Lights Corridor",
+      "topics": [
+        "anomaly",
+        "ufo"
+      ],
+      "type": "anomaly"
+    },
+    {
+      "description": "Busiest border sector for migrant encounters. 262 miles of international boundary.",
+      "id": "tucson-sector",
+      "lat": 31.9505,
+      "lon": -111.505,
+      "name": "Tucson Border Sector",
+      "topics": [
+        "border",
+        "safety"
+      ],
+      "type": "border"
+    },
+    {
+      "description": "Critical border corridor. Saw 300%+ increase in encounters 2021-2023.",
+      "id": "yuma-sector",
+      "lat": 32.6927,
+      "lon": -114.6277,
+      "name": "Yuma Border Sector",
+      "topics": [
+        "border",
+        "safety"
+      ],
+      "type": "border"
+    },
+    {
+      "description": "Largest nuclear power plant in the US. Only nuclear plant not located near a natural body of water.",
+      "id": "palo-verde",
+      "lat": 33.3883,
+      "lon": -112.8614,
+      "name": "Palo Verde Nuclear Generating Station",
+      "topics": [
+        "infra",
+        "energy"
+      ],
+      "type": "infrastructure"
+    },
+    {
+      "description": "710-foot concrete arch dam on the Colorado River. Lake Powell — critical water storage for the Lower Basin.",
+      "id": "glen-canyon",
+      "lat": 36.9375,
+      "lon": -111.4855,
+      "name": "Glen Canyon Dam",
+      "topics": [
+        "water",
+        "infra",
+        "energy"
+      ],
+      "type": "infrastructure"
+    },
+    {
+      "description": "336-mile canal system delivering Colorado River water to Phoenix and Tucson. Lifeline for 80% of AZ population.",
+      "id": "cap-canal",
+      "lat": 33.4,
+      "lon": -112.0,
+      "name": "Central Arizona Project",
+      "topics": [
+        "water",
+        "infra"
+      ],
+      "type": "infrastructure"
+    },
+    {
+      "description": "Arizona's primary commercial airport. 44+ million passengers annually.",
+      "id": "sky-harbor",
+      "lat": 33.4373,
+      "lon": -112.0078,
+      "name": "Phoenix Sky Harbor",
+      "topics": [
+        "aviation",
+        "transport"
+      ],
+      "type": "aviation"
+    },
+    {
+      "description": "Alleged energy vortex sites. New Age significance intersecting with tribal sacred lands.",
+      "id": "sedona-vortex",
+      "lat": 34.8697,
+      "lon": -111.761,
+      "name": "Sedona Vortex Sites",
+      "topics": [
+        "anomaly",
+        "tribal"
+      ],
+      "type": "anomaly"
+    },
+    {
+      "description": "Lost Dutchman's Gold Mine legend. Apache sacred territory. Unexplained disappearances on record.",
+      "id": "superstition-mtn",
+      "lat": 33.4312,
+      "lon": -111.172,
+      "name": "Superstition Mountains",
+      "topics": [
+        "anomaly",
+        "history",
+        "tribal"
+      ],
+      "type": "anomaly"
+    },
+    {
+      "description": "2.7 million acre military range. Largest USAF air-to-ground gunnery range. Restricted airspace.",
+      "id": "barry-goldwater",
+      "lat": 32.5,
+      "lon": -113.5,
+      "name": "Barry M. Goldwater Range",
+      "topics": [
+        "defense",
+        "aviation"
+      ],
+      "type": "military"
+    },
+    {
+      "description": "Reported NSA signals intelligence facility near Fort Huachuca. Limited public information available.",
+      "id": "san-xavier",
+      "lat": 31.95,
+      "lon": -111.0,
+      "name": "NSA San Xavier Annex",
+      "topics": [
+        "classified",
+        "cyber"
+      ],
+      "type": "military"
+    }
+  ]
+}

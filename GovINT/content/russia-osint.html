@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Russia OSINT — Sources, Method &amp; Scope — PERSONFU // Public Intel Wiki</title>
+<link rel="stylesheet" href="../assets/css/fllc-govint.css">
+<link rel="stylesheet" href="../assets/css/legacy-context.css">
+</head>
+<body>
+<div class="legacy-context"><a href="../index.html">← GovINT research console</a><span>Legacy wiki background · check claims against the original records</span><a href="../dossiers.html">Explore research dossiers →</a></div>
+<header class="site-header">
+  <div class="site-brand">
+    <h1><span class="accent">PERSONFU</span><span class="sep">//</span>PUBLIC INTEL WIKI</h1>
+    <a href="https://www.fllc.net" class="fllc-badge" target="_blank" rel="noopener">FLLC.NET</a>
+  </div>
+  <div class="header-meta">
+    <span class="site-tagline">FLLC Intelligence Research &amp; Archive</span>
+    <span class="header-clock" id="header-clock"></span>
+  </div>
+</header>
+<nav class="nav-bar">
+  <a href="../index.html" class="nav-link">Dashboard</a>
+  <a href="../arizona.html" class="nav-link">Arizona Watch</a>
+  <a href="../cyber.html" class="nav-link">Cyber</a>
+  <a href="../russia.html" class="nav-link active">Russia Watch</a>
+  <a href="../government.html" class="nav-link">Government</a>
+  <a href="../defense.html" class="nav-link">Defense</a>
+  <a href="../borders.html" class="nav-link">Border &amp; Safety</a>
+  <a href="../infrastructure.html" class="nav-link">Infrastructure</a>
+  <a href="../archive.html" class="nav-link">Archive</a>
+  <a href="../anomalies.html" class="nav-link">Anomalies</a>
+  <a href="../timelines.html" class="nav-link">Timelines</a>
+  <a href="../maps.html" class="nav-link">Maps</a>
+  <a href="../reports.html" class="nav-link">Reports</a>
+  <a href="../documents.html" class="nav-link">Documents</a>
+  <a href="../methodology.html" class="nav-link">Methodology</a>
+</nav>
+<div class="page-wrap">
+  <div class="dossier-header">
+    <div class="flex-between flex-wrap gap-1">
+      <div>
+        <div class="dossier-title">Russia OSINT — Sources, Method &amp; Scope</div>
+        <div class="dossier-sub">How the Russia / Eurasia module is built, what it includes, and where the line is drawn</div>
+      </div>
+      <div>
+        <span class="rel-badge rel-official">METHODOLOGY</span>
+        <span class="stamp stamp-archive" style="margin-left:8px">DOSSIER</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="span-2 prose">
+
+      <h2>Purpose</h2>
+      <p>The Russia / Eurasia module extends GovINT's public-data approach beyond Arizona to open-source situational awareness for the Eurasian theatre. It aggregates <strong>publicly available, mostly official</strong> data into a browsable, cross-referenced research surface with reliability labels on every claim. It is an educational and research tool — not a news outlet, not an intelligence service, and not an operational targeting system.</p>
+
+      <h2>What it covers</h2>
+      <ul>
+        <li><strong>Cyber threat actors</strong> — Russian state-linked APT groups (APT28/29, Sandworm, Turla, Gamaredon, Star Blizzard) drawn from MITRE ATT&amp;CK and CISA/NSA advisories, plus Russia-relevant advisories filtered from live feeds.</li>
+        <li><strong>Official <code>.ru</code> sources</strong> — a directory of executive, legislative, ministry, statistics, financial, registry, transport, energy, regulatory, and cyber bodies.</li>
+        <li><strong>Sanctions &amp; ownership</strong> — live OFAC SDN designations (Russia/Ukraine programs), strategic industries and "whale companies", critical export commodities, and jurisdiction-level evasion typologies.</li>
+        <li><strong>Civilian &amp; economic context</strong> — population hubs, federal districts, macro economy, energy/commodity production, metro systems, and manufacturing geography.</li>
+        <li><strong>History</strong> — a Cold War-to-present timeline including international conflicts, and decommissioned Cold War heritage museums.</li>
+        <li><strong>Environment</strong> — crowdsourced air-quality sensor readings.</li>
+      </ul>
+
+      <h2>How data flows</h2>
+      <p>Collectors in <code>scripts/</code> run daily via GitHub Actions and write JSON into <code>data/latest/</code>:</p>
+      <ul>
+        <li><code>fetch_russia_cyber.py</code> &rarr; <code>russia_apt.json</code> — CISA/NSA advisories filtered for Russia relevance, merged with a curated MITRE actor set.</li>
+        <li><code>fetch_russia_news.py</code> &rarr; <code>russia_news.json</code> — mixed-reliability English RSS (state media labeled).</li>
+        <li><code>fetch_russia_sensors.py</code> &rarr; <code>russia_sensors.json</code> — keyless Sensor.Community air quality.</li>
+        <li><code>fetch_russia_sanctions.py</code> &rarr; <code>russia_sanctions.json</code> — official OFAC SDN designations; personal free-text remarks stripped.</li>
+      </ul>
+      <p>Curated reference data lives in <code>data/wiki/russia.json</code>; the dashboards are <code>russia.html</code>, <code>russia-networks.html</code>, and <code>russia-history.html</code>.</p>
+
+      <h2>Source reliability</h2>
+      <p>Every item carries a reliability label. Crucially, Russian state and state-media sources are labeled <span class="rel-badge rel-media">media claim</span> so they are never presented as verified fact — they reflect official narratives and must be cross-referenced against independent reporting and primary records. Official designations (OFAC, CISA) are <span class="rel-badge rel-official">official</span>; aggregated third-party datasets (OpenSanctions, OCCRP, FAS, SIPRI) are <span class="rel-badge rel-archived">archived</span>.</p>
+
+      <h2>Scope &amp; boundaries</h2>
+      <p>This module is deliberately limited to <strong>aggregate, structural, and historical</strong> public data. It does <strong>not</strong>, and will not:</p>
+      <ul>
+        <li>Geolocate active military or nuclear-weapons facilities, command bunkers, or storage sites.</li>
+        <li>Map military recruitment offices or other facilities as potential physical targets.</li>
+        <li>Track the real-time physical movements of named individuals (jets, yachts, residences, family).</li>
+      </ul>
+      <p>Those uses cross from open-source research into targeting, and they are out of scope regardless of intent. Where the underlying interest is legitimate — e.g., understanding nuclear posture — the module points to the open arms-control scholarship (FAS Nuclear Notebook, Bulletin of the Atomic Scientists, SIPRI, Pavel Podvig) that publishes treaty-level analysis responsibly, rather than reproducing facility-level detail.</p>
+
+      <h2>Legal &amp; ethical note</h2>
+      <p>All sources are publicly broadcast or officially published. Some providers (e.g., sanctions aggregators, sensor networks) have terms of service governing reuse; consult each provider before bulk redistribution. The goal is transparency and situational awareness for education and research — not law enforcement, not surveillance, not targeting.</p>
+
+    </div>
+
+    <div class="prose">
+      <div class="card">
+        <div class="card-head"><span class="dot blue"></span>Module Pages</div>
+        <div class="card-body" style="font-size:13px;line-height:1.9">
+          <a href="../russia.html">Russia Watch &rarr;</a><br>
+          <a href="../russia-networks.html">Sanctions &amp; Networks &rarr;</a><br>
+          <a href="../russia-history.html">History &amp; Context &rarr;</a><br>
+          <a href="../timelines.html">Timelines (Cold War) &rarr;</a>
+        </div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <div class="card-head"><span class="dot"></span>Key Source Families</div>
+        <div class="card-body" style="font-size:12px;line-height:1.8;color:var(--muted)">
+          OFAC / EU / UK sanctions · OpenSanctions · OCCRP Aleph · MITRE ATT&amp;CK · CISA/NSA · Rosstat · CBR · FAS / SIPRI / Podvig · Sensor.Community · World Bank / IMF / IEA / FAO
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="site-footer">
+  <div class="methodology">
+    <strong>METHODOLOGY:</strong> This wiki aggregates public-interest information from official and open sources for education and research.
+    Content is tagged with reliability labels. <a href="../methodology.html">Full Methodology &rarr;</a>
+  </div>
+  <div class="credits">Built by <strong>Personfu</strong> under the <strong>FLLC</strong> design system.</div>
+</footer>
+<div class="status-bar">
+  <span class="status-dot"></span>
+  <span>FLLC // PERSONFU</span>
+  <span>|</span>
+  <span id="status-update">Last update: &mdash;</span>
+  <span style="margin-left:auto">Educational &amp; Research Use Only</span>
+</div>
+<script src="../assets/js/app.js"></script>
+</body>
+</html>

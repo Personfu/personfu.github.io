@@ -1,0 +1,83 @@
+{
+  "fetched_at": "2026-06-16T08:30:01.183931Z",
+  "items": [
+    {
+      "title": "APT28 (Fancy Bear, Sofacy) — Russia — GRU 85th Main Special Service Center, Unit 26165",
+      "url": "https://attack.mitre.org/groups/G0007/",
+      "published": "",
+      "summary": "2016 DNC intrusion; credential harvesting via compromised Ubiquiti EdgeRouters; Outlook elevation-of-privilege exploitation (CVE-2023-23397).",
+      "source": "MITRE",
+      "tags": [
+        "cybersecurity",
+        "russia",
+        "apt"
+      ],
+      "reliability": "rel-official"
+    },
+    {
+      "title": "APT29 (Cozy Bear, NOBELIUM) — Russia — Foreign Intelligence Service (SVR)",
+      "url": "https://attack.mitre.org/groups/G0016/",
+      "published": "",
+      "summary": "SolarWinds Orion supply-chain compromise (2020); sustained targeting of government, think-tank, and research networks; cloud/identity-focused TTPs.",
+      "source": "MITRE",
+      "tags": [
+        "cybersecurity",
+        "russia",
+        "apt"
+      ],
+      "reliability": "rel-official"
+    },
+    {
+      "title": "Sandworm (Voodoo Bear, Seashell Blizzard) — Russia — GRU Main Center for Special Technologies, Unit 74455",
+      "url": "https://attack.mitre.org/groups/G0034/",
+      "published": "",
+      "summary": "Ukraine power-grid attacks (2015/2016); NotPetya (2017); Olympic Destroyer; sustained operations against Ukrainian critical infrastructure.",
+      "source": "MITRE",
+      "tags": [
+        "cybersecurity",
+        "russia",
+        "apt"
+      ],
+      "reliability": "rel-official"
+    },
+    {
+      "title": "Turla (Snake, Venomous Bear) — Russia — FSB Center 16",
+      "url": "https://attack.mitre.org/groups/G0010/",
+      "published": "",
+      "summary": "Long-running espionage; Snake implant (disrupted by Operation MEDUSA, 2023); satellite C2 abuse.",
+      "source": "MITRE",
+      "tags": [
+        "cybersecurity",
+        "russia",
+        "apt"
+      ],
+      "reliability": "rel-official"
+    },
+    {
+      "title": "Gamaredon (Primitive Bear, Armageddon) — Russia — FSB (attributed by SSU of Ukraine)",
+      "url": "https://attack.mitre.org/groups/G0047/",
+      "published": "",
+      "summary": "High-volume spear-phishing against Ukrainian government and military entities.",
+      "source": "MITRE",
+      "tags": [
+        "cybersecurity",
+        "russia",
+        "apt"
+      ],
+      "reliability": "rel-official"
+    },
+    {
+      "title": "Star Blizzard (Callisto, SEABORGIUM) — Russia — FSB Center 18",
+      "url": "https://attack.mitre.org/groups/G1033/",
+      "published": "",
+      "summary": "Credential-phishing of NGOs, academics, journalists, and government targets.",
+      "source": "MITRE",
+      "tags": [
+        "cybersecurity",
+        "russia",
+        "apt"
+      ],
+      "reliability": "rel-official"
+    }
+  ]
+}
