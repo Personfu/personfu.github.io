@@ -9,7 +9,7 @@ on:
       - 'scripts/verify-govint-release.cjs'
       - '.github/workflows/govint-release.yml'
   workflow_run:
-    workflows: ['pages build and deployment']
+    workflows: ['pages-build-deployment', 'pages build and deployment']
     types: [completed]
     branches: [main]
   workflow_dispatch: {}
